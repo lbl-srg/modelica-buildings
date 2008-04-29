@@ -1,5 +1,5 @@
 model CoolingTowerVariableSpeed "Cooling tower with variable speed" 
-  extends Fluids.Interfaces.PartialFourPortTransformer;
+  extends Buildings.Fluids.Interfaces.PartialStaticFourPortHeatMassTransfer;
   extends Buildings.BaseClasses.BaseIcon;
 /*  Modelica.Blocks.Interfaces.RealInput TDb(redeclare type SignalType = 
         Modelica.SIunits.Temperature) "inlet air drybulb temperature" 
@@ -35,20 +35,11 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
 ; !- Name of Water Storage Tank for Supply
  
 */
- Modelica.SIunits.HeatFlowRate Q_flow 
-    "Heat transfered from medium 1 to medium 2";
   
 equation 
 //  TDb - medium_a.T = 0.5 * (medium_b.T - medium_a.T);
-  Q_flow = 1*((medium_a1.T+medium_b1.T)-(medium_a2.T+medium_b2.T))/2; // for testing only
-  port_a1.H_flow + port_b1.H_flow = Q_flow;
-  port_a1.m_flow + port_b1.m_flow = 0;
-  port_a1.mXi_flow + port_b1.mXi_flow = zeros(Medium_1.nXi);
-  port_a1.p = port_b1.p;
-  
-  port_a2.H_flow + port_b2.H_flow = -Q_flow;
-  port_a2.m_flow + port_b2.m_flow = 0;
-  port_a2.mXi_flow + port_b2.mXi_flow = zeros(Medium_2.nXi);
-  port_a2.p = port_b2.p;
-  
+  Q_flow_1 = 1E-3*((medium_a1.T+medium_b1.T)-(medium_a2.T+medium_b2.T))/2; // for testing only
+  Q_flow_1 + Q_flow_2 = 0;
+  dp_1 = 0;
+  dp_2 = 0;
 end CoolingTowerVariableSpeed;

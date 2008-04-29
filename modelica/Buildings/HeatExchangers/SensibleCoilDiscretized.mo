@@ -1,6 +1,6 @@
 model SensibleCoilDiscretized 
   "Heat exchanger with discretization along the flow path" 
-  extends Fluids.Interfaces.PartialFourPortTransformer;
+  extends Fluids.Interfaces.PartialStaticFourPortInterface;
   extends Buildings.BaseClasses.BaseIcon;
   
   annotation (
@@ -30,6 +30,10 @@ First implementation.
 </li>
 </ul>
 </html>"), Icon(
+      Rectangle(extent=[-70,80; 70,-80], style(
+          pattern=0,
+          fillColor=10,
+          rgbfillColor={95,95,95})),
       Rectangle(extent=[36,80; 40,-80], style(
           pattern=0,
           fillColor=0,
@@ -305,10 +309,10 @@ equation
         60], style(color=69, rgbcolor={0,127,255}));
   connect(masFloSen_1.port_b, pipMan_a.port_a) annotation (points=[-42,60; -40,
         60; -40,28; -38,28], style(color=69, rgbcolor={0,127,255}));
-  connect(temSen_1.T, hAModel.T_1)        annotation (points=[-69,53.4; -69,50; 
+  connect(temSen_1.T, hAModel.T_1)        annotation (points=[-69,53.4; -69,50;
         -80,50; -80,87; -59,87],
                              style(color=74, rgbcolor={0,0,127}));
-  connect(masFloSen_1.m_flow, hAModel.m_flow_1)        annotation (points=[-48,53.4; 
+  connect(masFloSen_1.m_flow, hAModel.m_flow_1)        annotation (points=[-48,53.4;
         -48,48; -82,48; -82,91; -59,91], style(color=74, rgbcolor={0,0,127}));
   connect(port_a2, masFloSen_2.port_a) annotation (points=[100,-60; 82,-60],
       style(color=69, rgbcolor={0,127,255}));
@@ -316,14 +320,14 @@ equation
         -60], style(color=69, rgbcolor={0,127,255}));
   connect(temSen_2.port_b, ducMan_a.port_a) annotation (points=[44,-60; 40,-60;
         40,-16], style(color=69, rgbcolor={0,127,255}));
-  connect(temSen_2.T, hAModel.T_2)        annotation (points=[51,-66.6; 51,-78; 
+  connect(temSen_2.T, hAModel.T_2)        annotation (points=[51,-66.6; 51,-78;
         -84,-78; -84,81; -59,81],
                               style(color=74, rgbcolor={0,0,127}));
-  connect(masFloSen_2.m_flow, hAModel.m_flow_2)        annotation (points=[76,-66.6; 
+  connect(masFloSen_2.m_flow, hAModel.m_flow_2)        annotation (points=[76,-66.6;
         76,-82; -86,-82; -86,77; -59,77], style(color=74, rgbcolor={0,0,127}));
   connect(hAModel.hA_1, gai_1.u) 
     annotation (points=[-37,91; -15.2,91], style(color=3, rgbcolor={0,0,255}));
-  connect(hAModel.hA_2, gai_2.u)        annotation (points=[-37,77; -27.5,77; 
+  connect(hAModel.hA_2, gai_2.u)        annotation (points=[-37,77; -27.5,77;
         -27.5,67; -15.2,67],
                        style(color=3, rgbcolor={0,0,255}));
   for i in 1:nReg loop

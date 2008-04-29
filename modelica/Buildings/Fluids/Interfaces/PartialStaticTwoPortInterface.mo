@@ -19,8 +19,7 @@ partial model PartialStaticTwoPortInterface
                    p(start=Medium.p_default)) "Medium properties in port_b";
   Medium.MassFlowRate m_flow(start=0) 
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.VolumeFlowRate V_flow_a = port_a.m_flow/medium_a.d 
-    "Volume flow rate near port_a";
+  Modelica.SIunits.VolumeFlowRate V_flow_a "Volume flow rate at port_a";
   Modelica.SIunits.Pressure dp(start=0) 
     "Pressure difference between port_a and port_b";
   
@@ -29,22 +28,14 @@ partial model PartialStaticTwoPortInterface
     Diagram,
     Documentation(info="<html>
 <p>
-This component transports fluid between its two ports, without
-storing mass or energy. It is based on 
+This component defines the interface for models that 
+transports a fluid between its two ports. It is based on 
 <tt>Modelica_Fluid.Interfaces.PartialTwoPortTransport</tt> but does not 
 include the energy, mass and substance balance.
-Reversal and zero mass flow rate is taken
-care of, for details see definition of built-in operator semiLinear().
+</p>
 <p>
-When using this partial component, an equation for the momentum
-balance has to be added by specifying a relationship
-between the pressure drop <tt>dp</tt> and the mass flow rate <tt>m_flow</tt> and 
-the energy and mass balances, such as
-<pre>
-  port_a.H_flow + port_b.H_flow = 0;
-  port_a.m_flow + port_b.m_flow = 0;
-  port_a.mXi_flow + port_b.mXi_flow = zeros(Medium.nXi);
-</pre>
+The model is used by other models in this package that add heat transfer,
+mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -67,6 +58,9 @@ equation
   
   // Design direction of mass flow rate
   m_flow = port_a.m_flow;
+  
+  // Volume flow rate
+  V_flow_a = port_a.m_flow/medium_a.d;
   
   // Pressure difference between ports
   dp = port_a.p - port_b.p;
