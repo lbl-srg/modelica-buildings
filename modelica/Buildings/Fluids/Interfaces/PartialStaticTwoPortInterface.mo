@@ -3,6 +3,30 @@ partial model PartialStaticTwoPortInterface
   extends Buildings.Fluids.Interfaces.PartialSingleFluidParameters;
   import Modelica.Constants;
   
+  annotation (
+    Coordsys(grid=[1, 1], component=[20, 20]),
+    Diagram,
+    Documentation(info="<html>
+<p>
+This component defines the interface for models that 
+transports a fluid between its two ports. It is based on 
+<tt>Modelica_Fluid.Interfaces.PartialTwoPortTransport</tt> but does not 
+include the energy, mass and substance balance.
+</p>
+<p>
+The model is used by other models in this package that add heat transfer,
+mass transfer and pressure drop equations. See for example
+<tt>PartialStaticTwoPortHeatMassTransfer</tt>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 11, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
+  
   Modelica_Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = 
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else 
                 0)) 
@@ -22,30 +46,6 @@ partial model PartialStaticTwoPortInterface
   Modelica.SIunits.VolumeFlowRate V_flow_a "Volume flow rate at port_a";
   Modelica.SIunits.Pressure dp(start=0) 
     "Pressure difference between port_a and port_b";
-  
-  annotation (
-    Coordsys(grid=[1, 1], component=[20, 20]),
-    Diagram,
-    Documentation(info="<html>
-<p>
-This component defines the interface for models that 
-transports a fluid between its two ports. It is based on 
-<tt>Modelica_Fluid.Interfaces.PartialTwoPortTransport</tt> but does not 
-include the energy, mass and substance balance.
-</p>
-<p>
-The model is used by other models in this package that add heat transfer,
-mass transfer and pressure drop equations.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-March 11, 2008, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"),
-    Icon);
   
 equation 
   // Properties in the ports

@@ -331,10 +331,10 @@ equation
         -27.5,67; -15.2,67],
                        style(color=3, rgbcolor={0,0,255}));
   for i in 1:nReg loop
-    connect(gai_1.y, hexReg[i].Gc_1) annotation (points=[-1.4,91; 12,91; 12,30; 
+    connect(gai_1.y, hexReg[i].Gc_1) annotation (points=[-1.4,91; 12,91; 12,30;
           -4,30; -4,20],
                       style(color=74, rgbcolor={0,0,127}));
-    connect(gai_2.y, hexReg[i].Gc_2) annotation (points=[-1.4,67; 14,67; 14,-6; 
+    connect(gai_2.y, hexReg[i].Gc_2) annotation (points=[-1.4,67; 14,67; 14,-6;
           4,-6; 4,-5.55112e-16],
                                style(color=74, rgbcolor={0,0,127}));
   end for;
