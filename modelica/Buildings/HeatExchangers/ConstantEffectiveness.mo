@@ -23,12 +23,12 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
         string="u")),
 Documentation(info="<html>
 <p>
-Model for an heat exchanger with constant effectiveness.
+Model for a heat exchanger with constant effectiveness.
 </p>
 <p>
 This model transfers heat in the amount of 
 <pre>
-  Q = Q_max * eps
+  Q = Q_max * eps,
 </pre>
 where <tt>eps</tt> is a constant effectiveness and 
 <tt>Q_max</tt> is the maximum heat that can be transferred.

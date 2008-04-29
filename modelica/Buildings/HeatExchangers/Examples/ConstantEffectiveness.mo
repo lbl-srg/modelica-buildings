@@ -30,11 +30,11 @@ model ConstantEffectiveness
       annotation (extent=[-100,-4; -80,16]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_1(          redeclare 
       package Medium = Medium_1,
-    p=300000, 
+    p=300000,
     T=273.15 + 30)        annotation (extent=[84,2; 64,22],  rotation=0);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_1(
     redeclare package Medium = Medium_1,
-    p=300000 + 5000, 
+    p=300000 + 5000,
     T=273.15 + 50)        annotation (extent=[-60,40; -40,60]);
     Fluids.FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
@@ -45,12 +45,12 @@ model ConstantEffectiveness
     Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
     m0_flow=5,
-    redeclare package Medium = Medium_1, 
+    redeclare package Medium = Medium_1,
     dp0=500) annotation (extent=[34,2; 54,22]);
     Modelica.Blocks.Sources.Ramp PSin_1(
     duration=60,
     offset=300000,
-    startTime=240, 
+    startTime=240,
     height=10000) 
                  annotation (extent=[40,60; 60,80]);
   Buildings.HeatExchangers.ConstantEffectiveness hex(redeclare package Medium_1
@@ -99,8 +99,8 @@ equation
       style(color=74, rgbcolor={0,0,127}));
   connect(sou_1.port, hex.port_a1) annotation (points=[-40,50; -18,50; -18,12; 
         6,12], style(color=69, rgbcolor={0,127,255}));
-  connect(hex.port_b1, res_1.port_a) annotation (points=[26,12; 34,12],
-                style(color=69, rgbcolor={0,127,255}));
+  connect(hex.port_b1, res_1.port_a) annotation (points=[26,12; 30,12; 30,12; 
+        34,12], style(color=69, rgbcolor={0,127,255}));
   connect(res_2.port_a, hex.port_b2) annotation (points=[-2,6.10623e-16; 2,
         6.10623e-16; 2,5.55112e-16; 6,5.55112e-16], style(color=69, rgbcolor={0,
           127,255}));
