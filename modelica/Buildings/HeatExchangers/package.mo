@@ -1,2 +1,2 @@
-package HeatExchangers "Library to model heat exchangers"
+package HeatExchangers "Library with heat exchanger models"
 end HeatExchangers;

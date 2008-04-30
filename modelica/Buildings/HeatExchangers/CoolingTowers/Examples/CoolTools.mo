@@ -1,7 +1,7 @@
-model CoolingTowerVariableSpeed 
+model CoolTools 
   import Buildings;
-  annotation(Diagram, Commands(file="CoolingTowerVariableSpeed.mos" "run"));
- package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+  annotation(Diagram, Commands(file="CoolTools.mos" "run"));
+ package Medium_1 = Modelica.Media.Water.ConstantPropertyLiquidWater;
   
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(T=293.15, redeclare 
       package Medium = Medium) 
@@ -24,7 +24,7 @@ model CoolingTowerVariableSpeed
                  annotation (extent=[0,-92; 20,-72]);
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature" 
     annotation (extent=[-100,40; -80,60]);
-  Buildings.HeatExchangers.CoolingTowerVariableSpeed tow(redeclare package 
+  Buildings.HeatExchangers.CoolingTowers.CoolTools tow(redeclare package 
       Medium_1 = Medium, redeclare package Medium_2 = Medium) "Cooling tower" 
     annotation (extent=[20,-14; 40,6]);
     Modelica.Blocks.Sources.Constant POut(k=101325) 
@@ -144,4 +144,4 @@ equation
       fillColor=0,
       rgbfillColor={0,0,0},
       fillPattern=1));
-end CoolingTowerVariableSpeed;
+end CoolTools;

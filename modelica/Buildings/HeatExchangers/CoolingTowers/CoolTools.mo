@@ -1,4 +1,4 @@
-model CoolingTowerVariableSpeed "Cooling tower with variable speed" 
+model CoolTools "Cooling tower with variable speed" 
   extends Buildings.Fluids.Interfaces.PartialStaticFourPortHeatMassTransfer;
   extends Buildings.BaseClasses.BaseIcon;
 /*  Modelica.Blocks.Interfaces.RealInput TDb(redeclare type SignalType = 
@@ -42,4 +42,4 @@ equation
   Q_flow_1 + Q_flow_2 = 0;
   dp_1 = 0;
   dp_2 = 0;
-end CoolingTowerVariableSpeed;
+end CoolTools;
