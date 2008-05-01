@@ -58,7 +58,7 @@ First implementation.
   
   Medium_1.MassFlowRate mXi_flow_1[Medium_1.nXi] 
     "Mass flow rates of independent substances added to the medium 1";
-  Medium_2.MassFlowRate mXi_flow_2[Medium_1.nXi] 
+  Medium_2.MassFlowRate mXi_flow_2[Medium_2.nXi] 
     "Mass flow rates of independent substances added to the medium 2";
   
 equation 
