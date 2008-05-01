@@ -3,8 +3,7 @@ model SensibleHexElement
   annotation(Diagram, Commands(file="SensibleHexElement.mos" "run"),
     experimentSetupOutput);
 // package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
- package Medium = Modelica.Media.Air.SimpleAir (
-       T_min=Modelica.SIunits.Conversions.from_degC(-50));
+ package Medium = Modelica.Media.Air.MoistAir;
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(          redeclare 
       package Medium = Medium, T=288.15) 
                           annotation (extent=[-60,-30; -40,-10]);

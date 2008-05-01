@@ -60,18 +60,26 @@ First implementation.
     "Mass flow rates of independent substances added to the medium 1";
   Medium_2.MassFlowRate mXi_flow_2[Medium_2.nXi] 
     "Mass flow rates of independent substances added to the medium 2";
-  
 equation 
   /* Handle reverse and zero flow */
+  // enthalpy balance
   port_a1.H_flow   = if port_a1.m_flow >= 0 then (port_a1.m_flow * port_a1.h) else 
                          -port_b1.m_flow * port_b1.h - Q_flow_1;
-  port_a1.mXi_flow = if port_a1.m_flow >= 0 then (port_a1.m_flow * port_a1.Xi) else 
-                         -port_b1.m_flow * port_b1.Xi - mXi_flow_1;
   
   port_a2.H_flow   = if port_a2.m_flow >= 0 then (port_a2.m_flow * port_a2.h) else 
                          -port_b2.m_flow * port_b2.h - Q_flow_2;
-  port_a2.mXi_flow = if port_a2.m_flow >= 0 then (port_a2.m_flow * port_a2.Xi) else 
-                         -port_b2.m_flow * port_b2.Xi - mXi_flow_2;
+  
+  // species flow balance (taking into account the species influx
+  for i in 1:Medium_1.nXi loop
+     port_a1.mXi_flow[i] = if port_a1.m_flow >= 0 then 
+                               (port_a1.m_flow * port_a1.Xi[i]) else 
+                               -port_b1.m_flow * port_b1.Xi[i] - mXi_flow_1[i];
+  end for;
+  for i in 1:Medium_2.nXi loop
+     port_a2.mXi_flow[i] = if port_a2.m_flow >= 0 then 
+                               (port_a2.m_flow * port_a2.Xi[i]) else 
+                               -port_b2.m_flow * port_b2.Xi[i] - mXi_flow_2[i];
+  end for;
   
   /* Energy, mass and substance mass balance */
   0 = port_a1.H_flow + port_b1.H_flow     + Q_flow_1;
