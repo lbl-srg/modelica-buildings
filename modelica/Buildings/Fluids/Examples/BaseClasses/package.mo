@@ -1,3 +1,3 @@
-package BaseClasses "Base classes for system model"
+package BaseClasses "Base classes for example models"
   extends Modelica_Fluid.Icons.BaseClassLibrary;
 end BaseClasses;

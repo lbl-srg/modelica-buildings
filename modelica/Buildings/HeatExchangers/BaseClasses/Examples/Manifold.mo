@@ -146,8 +146,9 @@ equation
   connect(res_2.port_a,ducNoRes_2. port_a) 
     annotation (points=[122,-66; 116,-66],
                                        style(color=69, rgbcolor={0,127,255}));
-  connect(pipFixRes_1.port_b, hea1.port_a) annotation (points=[-10,34; -5.55112e-16,
-        34], style(color=69, rgbcolor={0,127,255}));
+  connect(pipFixRes_1.port_b, hea1.port_a) annotation (points=[-10,34; 
+        -5.55112e-16,34],
+             style(color=69, rgbcolor={0,127,255}));
   connect(hea1.port_b, mfr_1.port_a) 
     annotation (points=[20,34; 30,34], style(color=69, rgbcolor={0,127,255}));
   connect(mfr_1.port_b, hea2.port_a) 

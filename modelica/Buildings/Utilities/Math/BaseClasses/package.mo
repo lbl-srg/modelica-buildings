@@ -1,2 +1,3 @@
-package BaseClasses "Base classes for heat exchanger models"
+package BaseClasses "Base classes for mathematical functions"
+  extends Modelica_Fluid.Icons.BaseClassLibrary;
 end BaseClasses;
