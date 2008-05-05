@@ -43,13 +43,17 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
     "Air dry-bulb inlet temperature";
   Modelica.SIunits.Temperature TAirOut(start=273.15+30) 
     "Air dry-bulb outlet temperature";
+  Modelica.SIunits.Temperature TAirInWB(start=273.15+25) 
+    "Air wet-bulb inlet temperature";
+  
   Modelica.SIunits.Temperature TApp(min=-20, start=2) "Approach temperature";
 equation 
   TWatIn  = medium_a1.T;
   TWatOut = medium_b1.T;
   TAirIn  = medium_a2.T;
   TAirOut = medium_b2.T;
-  TApp    = TWatOut - TAirIn;
+  TAirInWB = TAirIn;   // FIX ME
+  TApp    = TWatOut - TAirInWB;
   Q_flow_1 = 1E-3*((medium_a1.T+medium_b1.T)-(medium_a2.T+medium_b2.T))/2; // for testing only
   Q_flow_1 + Q_flow_2 = 0;
   
@@ -60,25 +64,25 @@ equation
   dp_2 = 0;
   annotation (Icon(
       Rectangle(extent=[-100,-55; 101,-65], style(
-          pattern=0, 
-          fillColor=58, 
-          rgbfillColor={0,127,0})), 
+          pattern=0,
+          fillColor=58,
+          rgbfillColor={0,127,0})),
       Text(
-        extent=[-62,-38; -20,-74], 
-        string="air", 
+        extent=[-62,-38; -20,-74],
+        string="air",
         style(
-          color=7, 
-          rgbcolor={255,255,255}, 
-          fillColor=58, 
-          rgbfillColor={0,127,0}, 
-          fillPattern=1)), 
+          color=7,
+          rgbcolor={255,255,255},
+          fillColor=58,
+          rgbfillColor={0,127,0},
+          fillPattern=1)),
       Text(
-        extent=[-64,98; 0,26], 
+        extent=[-64,98; 0,26],
         style(
-          color=7, 
-          rgbcolor={255,255,255}, 
-          fillColor=58, 
-          rgbfillColor={0,127,0}, 
-          fillPattern=1), 
+          color=7,
+          rgbcolor={255,255,255},
+          fillColor=58,
+          rgbfillColor={0,127,0},
+          fillPattern=1),
         string="water")));
 end CoolTools;

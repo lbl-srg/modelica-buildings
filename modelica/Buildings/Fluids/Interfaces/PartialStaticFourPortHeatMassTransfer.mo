@@ -60,6 +60,9 @@ First implementation.
     "Mass flow rates of independent substances added to the medium 1";
   Medium_2.MassFlowRate mXi_flow_2[Medium_2.nXi] 
     "Mass flow rates of independent substances added to the medium 2";
+protected 
+  parameter Real one = 1 
+    "Dummy parameter to break semiLinear sequence (Dynasim support request #8991)";
 equation 
   /* Handle reverse and zero flow */
   // enthalpy balance
@@ -84,10 +87,10 @@ equation
   /* Energy, mass and substance mass balance */
   0 = port_a1.H_flow + port_b1.H_flow     + Q_flow_1;
   0 = port_a1.m_flow + port_b1.m_flow     + sum(mXi_flow_1);
-  zeros(Medium_1.nXi) = port_a1.mXi_flow + port_b1.mXi_flow + mXi_flow_1;
+  zeros(Medium_1.nXi) = port_a1.mXi_flow + one * port_b1.mXi_flow + mXi_flow_1;
   
   0 = port_a2.H_flow + port_b2.H_flow     + Q_flow_2;
   0 = port_a2.m_flow + port_b2.m_flow     + sum(mXi_flow_2);
-  zeros(Medium_2.nXi) = port_a2.mXi_flow + port_b2.mXi_flow + mXi_flow_2;
+  zeros(Medium_2.nXi) = port_a2.mXi_flow + one * port_b2.mXi_flow + mXi_flow_2;
   
 end PartialStaticFourPortHeatMassTransfer;
