@@ -1,2 +1,2 @@
-package "Library with cooling tower models"
+package CoolingTowers 
 end CoolingTowers;

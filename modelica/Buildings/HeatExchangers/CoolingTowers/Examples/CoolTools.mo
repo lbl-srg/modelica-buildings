@@ -91,7 +91,7 @@ equation
       fillColor=0,
       rgbfillColor={0,0,0},
       fillPattern=1));
-  connect(sou_1.port, tow.port_a1) annotation (points=[-40,50; -24,50; -24,2; 
+  connect(sou_1.port, tow.port_a1) annotation (points=[-40,50; -24,50; -24,2;
         20,2], style(
       color=69,
       rgbcolor={0,127,255},
@@ -115,7 +115,7 @@ equation
       fillColor=0,
       rgbfillColor={0,0,0},
       fillPattern=1));
-  connect(tow.port_b2, res_2.port_a) annotation (points=[20,-10; 12,-10; 12,-20; 
+  connect(tow.port_b2, res_2.port_a) annotation (points=[20,-10; 12,-10; 12,-20;
         5.55112e-16,-20], style(
       color=69,
       rgbcolor={0,127,255},
