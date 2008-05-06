@@ -4,6 +4,7 @@ package SimpleAirPTDecoupled
       T_min=Cv.from_degC(-50));
   import SI = Modelica.SIunits;
 
+
   annotation (Documentation(info="<HTML>
 <p>
 This is a medium interface that is identical to <tt>Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</tt>, except the 
@@ -29,6 +30,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
 
  redeclare model BaseProperties 
     extends BasePropertiesRecord;
@@ -57,6 +59,7 @@ First implementation.
     state.p = p;
  end BaseProperties;
 
+
  redeclare replaceable function setState_dTX 
   "Return thermodynamic state from d, T, and X or Xi" 
     extends Modelica.Icons.Function;
@@ -68,10 +71,12 @@ First implementation.
     state := ThermodynamicState(p=d/dStp*pStd,T=T);
  end setState_dTX;
 
+
  redeclare replaceable function extends density "return density of ideal gas" 
  algorithm 
     d := dStp*state.p/pStp;
  end density;
+
 
  redeclare replaceable function extends specificEntropy 
   "Return specific entropy" 
