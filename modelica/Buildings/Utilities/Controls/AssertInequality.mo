@@ -1,4 +1,4 @@
-block AssertInquality "Assert when condition is violated" 
+block AssertInequality "Assert when condition is violated" 
   extends BaseClasses.PartialInputCheck(message = "Inputs differ by more than threShold",
      threShold = 0);
   annotation (Icon(           Text(
@@ -28,4 +28,4 @@ equation
       + "  abs(u1-u2) = " + realString(abs(u1-u2)) + "\n"
       + "  threShold  = " + realString(threShold));
   end when;
-end AssertInquality;
+end AssertInequality;
