@@ -1,7 +1,8 @@
 package ConstantPropertyLiquidWater 
   extends Modelica.Media.Water.ConstantPropertyLiquidWater;
   import SI = Modelica.SIunits;
-  
+
+
   annotation (Documentation(info="<HTML>
 <p>
 This is a medium interface that is identical to <tt>Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</tt>, except the 
@@ -27,10 +28,11 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
+
+
  redeclare replaceable function extends density "return constant density" 
  algorithm 
     d := d_const;
  end density;
-  
+
 end ConstantPropertyLiquidWater;
