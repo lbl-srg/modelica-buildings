@@ -51,7 +51,7 @@ Icon( Rectangle(extent=[28,68; 72,52], style(
 equation 
   for i in 1:nPipPar loop
     for j in 1:nPipSeg loop
-     connect(port_a, fixRes[i, j].port_a) annotation (points=[-100,5.55112e-16;
+     connect(port_a, fixRes[i, j].port_a) annotation (points=[-100,5.55112e-16; 
             -50,5.55112e-16; -50,6.10623e-16; -5.55112e-16,6.10623e-16],
                                                                        style(
           color=69, rgbcolor={0,127,255}));

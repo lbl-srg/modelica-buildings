@@ -1,4 +1,4 @@
-model SensibleHexConstantUA 
+model SensibleHexHAInput 
   "Simple heat exchanger with convective heat transfer as input" 
   extends Fluids.Interfaces.PartialDynamicFourPortTransformer(final C=tau_m*UA0);
   extends Buildings.BaseClasses.BaseIcon;
@@ -6,11 +6,8 @@ model SensibleHexConstantUA
   annotation (
     Documentation(info="<html>
 <p>
-Simple model of a heat exchanger. The <tt>UA</tt> value is a constant
-(independent of the mass flow rates) and the driving force for the heat transfer
-is the linear temperature difference (not the logarithmic temperature difference).
-Therefore, this model is only applicable for situations with constant flow rate and 
-where the temperatures along the streamline do not intersect with the port temperatures.
+Simple heat exchanger with convective heat transfer as input. 
+The <tt>hA</tt> values are an input and energy storage in the metal and in the fluid is taken into account.
 </p>
 <p>
 </p>
@@ -42,4 +39,4 @@ equation
         -46,30], style(color=74, rgbcolor={0,0,127}));
   connect(Gc_2, con2.Gc) annotation (points=[-120,-30; -60,-30; -60,-2; -46,-2;
         -46,-10], style(color=74, rgbcolor={0,0,127}));
-end SensibleHexConstantUA;
+end SensibleHexHAInput;
