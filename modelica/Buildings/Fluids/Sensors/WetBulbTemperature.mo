@@ -1,4 +1,4 @@
-model WetBulbTemperature "Ideal temperature sensor" 
+model WetBulbTemperature "Ideal wet bulb temperature sensor" 
   import SI = Modelica.SIunits;
   extends Modelica_Fluid.Sensors.BaseClasses.PartialFlowSensor;
   Medium.BaseProperties medium;
@@ -28,14 +28,14 @@ annotation (
       Line(points=[-40, 60; -12, 60], style(color=0))),
     Icon(
       Ellipse(extent=[-20,-88; 20,-50], style(
-          color=0, 
-          rgbcolor={0,0,0}, 
-          thickness=2, 
-          fillColor=74, 
+          color=0,
+          rgbcolor={0,0,0},
+          thickness=2,
+          fillColor=74,
           rgbfillColor={0,0,127})),
       Rectangle(extent=[-12,50; 12,-58], style(
-          pattern=0, 
-          fillColor=74, 
+          pattern=0,
+          fillColor=74,
           rgbfillColor={0,0,127})),
       Line(points=[0,-70; 0,-100], style(rgbcolor={0,0,127})),
       Polygon(points=[-12,50; -12,90; -10,96; -6,98; 0,100; 6,98; 10,96; 12,
@@ -47,7 +47,7 @@ annotation (
       Line(points=[-40,70; -12,70],   style(color=0)),
       Text(
         extent=[120,-40; 0,-90],
-        string="T", 
+        string="T",
         style(pattern=0)),
       Text(extent=[-126,160; 138,98],   string="%name"),
       Line(points=[-100,0; -14,0], style(color=69, rgbcolor={0,128,255})),
@@ -63,21 +63,24 @@ revisions="<html>
 <ul>
 <li>
 May 5, 2008 by Michael Wetter:<br>
-First implementation based on temperature sensor of Modelica_Fluid.
+First implementation based on 
+<a href=\"Modelica://Modelica_Fluid.Sensors.Temperature\">Modelica_Fluid.Sensors.Temperature</a>.
 </li>
 </ul>
 </html>"));
-  Medium.BaseProperties stateWB "Medium state at wet bulb temperature";
+  Buildings.Utilities.Psychrometrics.WetBulbTemperature wetBulMod(
+               redeclare package Medium = Medium) 
+    "Model for wet bulb temperature";
+  
 equation 
   port_a.p = medium.p;
   h  = medium.h;
   Xi = medium.Xi;
   
-  // equation whose solution defines the wet bulb temperature  
-  stateWB.p = medium.p;
-  stateWB.phi = 1;
-  stateWB.h = h + (stateWB.X[Medium.Water] - medium.X[Medium.Water])
-         * Medium.enthalpyOfLiquid(medium.T);
+  // compute wet bulb temperature
+  wetBulMod.dryBul.h  = medium.h;
+  wetBulMod.dryBul.p  = medium.p;
+  wetBulMod.dryBul.Xi = medium.Xi;
+  TWB = wetBulMod.wetBul.T;
   
-  stateWB.h = Medium.h_pTX(stateWB.p, TWB, stateWB.X);
 end WetBulbTemperature;
