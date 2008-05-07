@@ -85,7 +85,7 @@ on the Buildings library
   class License "License" 
     
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Modelica License</h3>
+<h3><font color=\"#008000\" size=5>Modelica License</font></h3>
 <p>by Martin Otter -- last modified 2007-01-07 12:07 AM
 </p><p>
 Version 1.1 of June 30, 2000
@@ -115,10 +115,10 @@ You are under no obligation whatsoever to provide any bug fixes, patches, or upg
     
   end License;
   
-  class License "Copyright" 
+  class Copyright "Copyright" 
     
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Copyright</h3>
+<h3><font color=\"#008000\" size=5>Copyright</font></h3>
 <p>
 Copyright (c) 2008, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy).  All rights reserved.
 </p><p>
@@ -130,7 +130,7 @@ NOTICE.  This software was developed under partial funding from the U.S. Departm
 </html>
 "));
     
-  end License;
+  end Copyright;
   
 end UsersGuide;
 
