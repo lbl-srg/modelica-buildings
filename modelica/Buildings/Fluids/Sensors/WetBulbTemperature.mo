@@ -67,21 +67,17 @@ First implementation based on temperature sensor of Modelica_Fluid.
 </li>
 </ul>
 </html>"));
-  Modelica.SIunits.SpecificEnthalpy hLiq "Enthalpy of liquid medium";
-  
   Medium.BaseProperties stateWB "Medium state at wet bulb temperature";
 equation 
   port_a.p = medium.p;
   h  = medium.h;
   Xi = medium.Xi;
-  hLiq = Medium.enthalpyOfLiquid(medium.T);
   
   // equation whose solution defines the wet bulb temperature  
   stateWB.p = medium.p;
-//  stateWB.X[Medium.Water] = Medium.Xsaturation(medium.state);
   stateWB.phi = 1;
-  stateWB.h = h + (stateWB.X[Medium.Water] - medium.X[Medium.Water]) * hLiq;
+  stateWB.h = h + (stateWB.X[Medium.Water] - medium.X[Medium.Water])
+         * Medium.enthalpyOfLiquid(medium.T);
   
   stateWB.h = Medium.h_pTX(stateWB.p, TWB, stateWB.X);
-  //assert(TWB < medium.T, "Wet bulb temperature must be below dry bulb temperature.");
 end WetBulbTemperature;
