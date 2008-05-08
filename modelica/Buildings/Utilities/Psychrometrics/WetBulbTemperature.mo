@@ -67,9 +67,9 @@ equation
   dryBul.T = TDryBul;
   dryBul.Xi = X[1:Medium.nXi];
   wetBul.phi = 1;
+  wetBul.p = dryBul.p;
   wetBul.h = dryBul.h + (wetBul.X[Medium.Water] - dryBul.X[Medium.Water])
          * Medium.enthalpyOfLiquid(dryBul.T);
-  
-  wetBul.h = Medium.h_pTX(dryBul.p, wetBul.T, wetBul.X);
+//  wetBul.h = Medium.h_pTX(wetBul.p, wetBul.T, wetBul.X);
   TWetBul = wetBul.T;
 end WetBulbTemperature;

@@ -20,7 +20,7 @@ model CoolTools
     Modelica.Blocks.Sources.Ramp TAir(
     duration=1,
     height=10,
-    startTime=1, 
+    startTime=1,
     offset=273.15 + 25) "Air temperature" 
                  annotation (extent=[-34,-80; -14,-60]);
   Modelica.Blocks.Sources.Constant TWat(k=273.15 + 40) "Water temperature" 
@@ -28,7 +28,7 @@ model CoolTools
   Buildings.HeatExchangers.CoolingTowers.CoolTools tow(redeclare package 
       Medium_1 = Medium_W, redeclare package Medium_2 = Medium_A) 
     "Cooling tower" 
-    annotation (extent=[20,-14; 40,6]);
+    annotation (extent=[28,-14; 48,6]);
     Modelica.Blocks.Sources.Constant POut(k=101325) 
       annotation (extent=[-100,80; -80,100]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_1(T=283.15, redeclare 
@@ -42,10 +42,10 @@ model CoolTools
     Fluids.FixedResistances.FixedResistanceDpM res_2(
     m0_flow=5,
     dp0=10,
-    redeclare package Medium = Medium_A, 
-    from_dp=false, 
+    redeclare package Medium = Medium_A,
+    from_dp=false,
     linearized=true) 
-             annotation (extent=[2,-20; -18,0],   rotation=0);
+             annotation (extent=[0,-20; -20,0],   rotation=0);
     Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
     m0_flow=5,
@@ -93,7 +93,7 @@ equation
       fillColor=0,
       rgbfillColor={0,0,0},
       fillPattern=1));
-  connect(sou_1.port, tow.port_a1) annotation (points=[-38,20; 10,20; 10,2; 20,
+  connect(sou_1.port, tow.port_a1) annotation (points=[-38,20; 10,20; 10,2; 28,
         2],    style(
       color=69,
       rgbcolor={0,127,255},
@@ -118,7 +118,7 @@ equation
       fillColor=0,
       rgbfillColor={0,0,0},
       fillPattern=1));
-  connect(tow.port_b1, res_1.port_a) annotation (points=[40,2; 56,2; 56,20; 60,
+  connect(tow.port_b1, res_1.port_a) annotation (points=[48,2; 56,2; 56,20; 60,
         20], style(
       color=69,
       rgbcolor={0,127,255},
@@ -138,15 +138,15 @@ equation
         color=74, rgbcolor={0,0,127}));
   connect(XHum.y,feedback. u2) annotation (points=[-79,-90; -62,-90; -62,-58],
       style(color=74, rgbcolor={0,0,127}));
-  connect(XHum.y, sou_2.X_in[1]) annotation (points=[-79,-90; 22,-90; 22,-76; 
+  connect(XHum.y, sou_2.X_in[1]) annotation (points=[-79,-90; 22,-90; 22,-76;
         38,-76], style(color=74, rgbcolor={0,0,127}));
   connect(feedback.y, sou_2.X_in[2]) annotation (points=[-53,-50; -50,-50; -50,
         -92; 24,-92; 24,-78; 32,-78; 32,-76; 38,-76], style(color=74, rgbcolor=
           {0,0,127}));
-  connect(sin_2.port, res_2.port_b) annotation (points=[-40,-10; -18,-10], 
+  connect(tow.port_b2, res_2.port_a) annotation (points=[28,-10; 5.55112e-16,
+        -10], style(color=69, rgbcolor={0,127,255}));
+  connect(sou_2.port, tow.port_a2) annotation (points=[60,-70; 66,-70; 66,-10; 
+        48,-10], style(color=69, rgbcolor={0,127,255}));
+  connect(sin_2.port, res_2.port_b) annotation (points=[-40,-10; -20,-10], 
       style(color=69, rgbcolor={0,127,255}));
-  connect(res_2.port_a, tow.port_b2)
-    annotation (points=[2,-10; 20,-10], style(color=69, rgbcolor={0,127,255}));
-  connect(tow.port_a2, sou_2.port) annotation (points=[40,-10; 70,-10; 70,-70; 
-        60,-70], style(color=69, rgbcolor={0,127,255}));
 end CoolTools;

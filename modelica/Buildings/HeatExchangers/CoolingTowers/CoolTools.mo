@@ -81,8 +81,10 @@ equation
   TAirOut = medium_b2.T;
   
   // compute wet bulb temperature
+  // this does not converge. Try to use a simpler medium implementation,
+  // or to add a state
   wetBulMod.dryBul.h  = medium_a2.h;
-  wetBulMod.dryBul.p  = medium_a2.p;
+  wetBulMod.dryBul.p  = 101325;//medium_a2.p;
   wetBulMod.dryBul.Xi = medium_a2.Xi;
   TAirInWB = wetBulMod.TWetBul;
   
