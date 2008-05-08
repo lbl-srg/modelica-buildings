@@ -48,13 +48,15 @@ First implementation.
   Medium.BaseProperties dryBul "Medium state at dry bulb temperature";
   Medium.BaseProperties wetBul "Medium state at wet bulb temperature";
   Modelica.Blocks.Interfaces.RealSignal TDryBul(redeclare type SignalType = 
-        Modelica.SIunits.Temperature (start=293.15)) "Dry bulb temperature" 
+        Modelica.SIunits.Temperature (start=293.15, min=150, max=373)) 
+    "Dry bulb temperature" 
     annotation (extent=[-100,70; -80,90]);
   Modelica.Blocks.Interfaces.RealSignal p(redeclare type SignalType = 
-        Modelica.SIunits.Pressure (start=101325)) "Pressure" 
+        Modelica.SIunits.Pressure (start=101325, nominal=100000)) "Pressure" 
     annotation (extent=[-100,-10; -80,10]);
   Modelica.Blocks.Interfaces.RealSignal TWetBul(redeclare type SignalType = 
-        Modelica.SIunits.Temperature (start=283.15)) "Wet bulb temperature" 
+        Modelica.SIunits.Temperature (start=283.15, min=150, max=350)) 
+    "Wet bulb temperature" 
     annotation (extent=[80,-10; 100,10]);
   Modelica.Blocks.Interfaces.RealSignal X[Medium.nX](redeclare type SignalType 
       = 
