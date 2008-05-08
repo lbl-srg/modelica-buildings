@@ -26,8 +26,7 @@ annotation (
       Text(
         extent=[120,-40; 0,-90],
         string="T",
-        style(pattern=0)),
-      Text(extent=[-126,160; 138,98],   string="%name")),
+        style(pattern=0))),
     Documentation(info="<HTML>
 <p>
 Given a moist are medium model, this component computes the states 
@@ -48,10 +47,27 @@ First implementation.
 </html>"));
   Medium.BaseProperties dryBul "Medium state at dry bulb temperature";
   Medium.BaseProperties wetBul "Medium state at wet bulb temperature";
+  Modelica.Blocks.Interfaces.RealSignal TDryBul(redeclare type SignalType = 
+        Modelica.SIunits.Temperature (start=293.15)) "Dry bulb temperature" 
+    annotation (extent=[-100,70; -80,90]);
+  Modelica.Blocks.Interfaces.RealSignal p(redeclare type SignalType = 
+        Modelica.SIunits.Pressure (start=101325)) "Pressure" 
+    annotation (extent=[-100,-10; -80,10]);
+  Modelica.Blocks.Interfaces.RealSignal TWetBul(redeclare type SignalType = 
+        Modelica.SIunits.Temperature (start=283.15)) "Wet bulb temperature" 
+    annotation (extent=[80,-10; 100,10]);
+  Modelica.Blocks.Interfaces.RealSignal X[Medium.nX](redeclare type SignalType 
+      = 
+       Medium.MassFraction) "Species concentration at dry bulb temperature" 
+    annotation (extent=[-100,-90; -80,-70]);
 equation 
+  dryBul.p = p;
+  dryBul.T = TDryBul;
+  dryBul.Xi = X[1:Medium.nXi];
   wetBul.phi = 1;
   wetBul.h = dryBul.h + (wetBul.X[Medium.Water] - dryBul.X[Medium.Water])
          * Medium.enthalpyOfLiquid(dryBul.T);
   
   wetBul.h = Medium.h_pTX(dryBul.p, wetBul.T, wetBul.X);
+  TWetBul = wetBul.T;
 end WetBulbTemperature;
