@@ -25,9 +25,9 @@ First implementation.
            annotation (choicesAllMatching = true);
   
     Modelica.Blocks.Sources.Ramp p(
-    duration=1, 
+    duration=1,
     offset=101325, 
-    height=500)  annotation (extent=[40,60; 60,80]);
+    height=250)  annotation (extent=[40,60; 60,80]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[74,10;
         54,30]);
@@ -43,8 +43,8 @@ First implementation.
                  annotation (extent=[-100,40; -80,60]);
     Modelica.Blocks.Sources.Ramp XHum(
     duration=1, 
-    offset=0.0176, 
-    height=(0.0133 - 0.0176)) "Humidity concentration" 
+    height=(0.0133 - 0.0175), 
+    offset=0.0175) "Humidity concentration" 
                  annotation (extent=[-100,-60; -80,-40]);
   Modelica.Blocks.Sources.Constant const annotation (extent=[-100,-20; -80,0]);
   Modelica.Blocks.Math.Feedback feedback annotation (extent=[-68,-20; -48,0]);
@@ -57,13 +57,13 @@ equation
     annotation (points=[36,20; 54,20], style(color=69, rgbcolor={0,127,255}));
   connect(massFlowRate.port, senWetBul.port_a) 
     annotation (points=[-10,20; 16,20], style(color=69, rgbcolor={0,127,255}));
-  connect(TDB.y, massFlowRate.T_in) annotation (points=[-79,50; -60,50; -60,20; 
+  connect(TDB.y, massFlowRate.T_in) annotation (points=[-79,50; -60,50; -60,20;
         -32,20], style(color=74, rgbcolor={0,0,127}));
   connect(const.y, feedback.u1) annotation (points=[-79,-10; -66,-10], style(
         color=74, rgbcolor={0,0,127}));
   connect(XHum.y, feedback.u2) annotation (points=[-79,-50; -58,-50; -58,-18],
       style(color=74, rgbcolor={0,0,127}));
-  connect(XHum.y, massFlowRate.X_in[1]) annotation (points=[-79,-50; -40,-50; 
+  connect(XHum.y, massFlowRate.X_in[1]) annotation (points=[-79,-50; -40,-50;
         -40,13.9; -29.2,13.9], style(color=74, rgbcolor={0,0,127}));
   connect(feedback.y, massFlowRate.X_in[2]) annotation (points=[-49,-10; -44,
         -10; -44,13.9; -29.2,13.9], style(color=74, rgbcolor={0,0,127}));
