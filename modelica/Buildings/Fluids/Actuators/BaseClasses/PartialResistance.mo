@@ -40,8 +40,12 @@ parameter Modelica.SIunits.SpecificEnthalpy h0=Medium.h_default
 initial equation 
                  // this equation can be deleted, it here for debugging during library transition 
   assert(abs(eta0-Medium.dynamicViscosity(medium_a)) < 0.1*eta0, "Wrong parameter for eta.\n"
-    + "  Medium.dynamicViscosity(medium_a) = " + realString(Medium.dynamicViscosity(medium_a)) + "\n"
-    + "  eta0                              = " + realString(eta0));
+    + "  medium_a.T                              = " + realString(medium_a.T) + "\n"
+    + "  medium_a.p                              = " + realString(medium_a.p) + "\n"
+    + "  Medium.dynamicViscosity(medium_a)       = " + realString(Medium.dynamicViscosity(medium_a)) + "\n"
+    + "  eta0                                    = " + realString(eta0) + "\n"
+    + "  Medium.dynamicViscosity(medium_a)/ eta0 = " + realString(Medium.dynamicViscosity(medium_a)/eta0));
+  
 equation 
   1=k*k*kInv;
   dp_small = kInv * m_small_flow^2;
