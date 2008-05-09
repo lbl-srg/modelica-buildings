@@ -1,4 +1,4 @@
-package MoistAirASHRAE
+package MoistAirASHRAE 
   extends Modelica.Media.Interfaces.PartialCondensingGases(
      mediumName="Moist air ASHRAE",
      substanceNames={"water", "air"},
@@ -120,9 +120,13 @@ required from medium model \""     + mediumName + "\".");
   function sublimationPressureIce = 
       Modelica.Media.Air.MoistAir.sublimationPressureIce;
 
-  redeclare function saturationPressure 
-     extends Modelica.Media.Air.MoistAir.saturationPressure;
-  end saturationPressure;
+redeclare function extends saturationPressure 
+  "saturation curve valid for 223.16 <= T <= 373.16 (and slightly outside with less accuracy)" 
+  
+  annotation(Inline=false,smoothOrder=5);
+algorithm 
+  psat := Utilities.spliceFunction(saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
+end saturationPressure;
 
  redeclare function pressure 
     extends Modelica.Media.Air.MoistAir.pressure;
