@@ -3,7 +3,7 @@ model CoolTools
   annotation(Diagram, Commands(file="CoolTools.mos" "run"));
  package Medium_W = Modelica.Media.Water.ConstantPropertyLiquidWater;
  //package Medium_A = Modelica.Media.Water.ConstantPropertyLiquidWater;
- package Medium_A = Modelica.Media.Air.MoistAir;
+ package Medium_A = Buildings.Fluids.Media.MoistAir;
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(T=293.15, redeclare 
       package Medium = Medium_A) 
                           annotation (extent=[-60,-20; -40,0]);
@@ -145,8 +145,8 @@ equation
           {0,0,127}));
   connect(tow.port_b2, res_2.port_a) annotation (points=[28,-10; 5.55112e-16,
         -10], style(color=69, rgbcolor={0,127,255}));
-  connect(sou_2.port, tow.port_a2) annotation (points=[60,-70; 66,-70; 66,-10; 
+  connect(sou_2.port, tow.port_a2) annotation (points=[60,-70; 66,-70; 66,-10;
         48,-10], style(color=69, rgbcolor={0,127,255}));
-  connect(sin_2.port, res_2.port_b) annotation (points=[-40,-10; -20,-10], 
+  connect(sin_2.port, res_2.port_b) annotation (points=[-40,-10; -20,-10],
       style(color=69, rgbcolor={0,127,255}));
 end CoolTools;
