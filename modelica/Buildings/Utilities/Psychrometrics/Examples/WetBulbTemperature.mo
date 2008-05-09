@@ -19,7 +19,7 @@ First implementation.
 </ul>
 </html>"));
   
- package Medium = Buildings.Fluids.Media.MoistAir "Medium model" 
+ package Medium = Buildings.Fluids.Media.MoistAirASHRAE "Medium model" 
            annotation (choicesAllMatching = true);
   
     Modelica.Blocks.Sources.Ramp TDB(

@@ -1,4 +1,4 @@
-package MoistAir 
+package MoistAirASHRAE
   extends Modelica.Media.Interfaces.PartialCondensingGases(
      mediumName="Moist air ASHRAE",
      substanceNames={"water", "air"},
@@ -293,4 +293,4 @@ end Internal;
 algorithm 
   T := Internal.solve(h, 200, 6000, p, X[1:nXi], steam);
 end T_phX;
-end MoistAir;
+end MoistAirASHRAE;
