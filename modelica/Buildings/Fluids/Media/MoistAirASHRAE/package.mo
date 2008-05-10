@@ -168,17 +168,39 @@ end saturationPressure;
  end enthalpyOfCondensingGas;
 
 redeclare replaceable function extends enthalpyOfLiquid 
+annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid);
 algorithm 
   h := (T - 273.15)*4186;
 end enthalpyOfLiquid;
 
-replaceable function enthalpyOfSteam "enthalpy of steam per unit mass of steam" 
+replaceable function der_enthalpyOfLiquid
+  "temperature derivative of enthalpy of liquid per unit mass of steam" 
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
-  output SpecificEnthalpy h "dry air enthalpy";
+  input Temperature der_T "temperature derivative";
+  output SpecificEnthalpy der_h "derivative of liquid enthalpy";
+algorithm 
+  der_h := 4186;
+end der_enthalpyOfLiquid;
+
+replaceable function enthalpyOfSteam "enthalpy of steam per unit mass of steam" 
+  extends Modelica.Icons.Function;
+  annotation(smoothOrder=5, derivative=der_enthalpyOfSteam);
+  input Temperature T "temperature";
+  output SpecificEnthalpy h "steam enthalpy";
 algorithm 
   h := (T-273.15) * 1860 + 2501000;
 end enthalpyOfSteam;
+
+replaceable function der_enthalpyOfSteam
+  "enthalpy of steam per unit mass of steam" 
+  extends Modelica.Icons.Function;
+  input Temperature T "temperature";
+  input Temperature der_T "temperature derivative";
+  output SpecificEnthalpy der_h "derivative of steam enthalpy";
+algorithm 
+  der_h := 1860;
+end der_enthalpyOfSteam;
 
 redeclare replaceable function extends enthalpyOfGas 
 algorithm 
@@ -188,11 +210,21 @@ end enthalpyOfGas;
 
 replaceable function enthalpyOfDryAir 
   extends Modelica.Icons.Function;
+  annotation(smoothOrder=5, derivative=der_enthalpyOfDryAir);
   input Temperature T "temperature";
   output SpecificEnthalpy h "dry air enthalpy";
 algorithm 
   h := (T - 273.15)*1006;
 end enthalpyOfDryAir;
+
+replaceable function der_enthalpyOfDryAir
+  extends Modelica.Icons.Function;
+  input Temperature T "temperature";
+  input Temperature der_T "temperature derivative";
+  output SpecificEnthalpy der_h "derivative of dry air enthalpy";
+algorithm 
+  der_h := 1006;
+end der_enthalpyOfDryAir;
 
 redeclare replaceable function extends specificHeatCapacityCp 
   "Return specific heat capacity at constant pressure" 
@@ -217,6 +249,7 @@ algorithm
    Cv.to_degC(state.T));
 end thermalConductivity;
 
+
 function h_pTX 
   "Compute specific enthalpy from pressure, temperature and mass fraction" 
   extends Modelica.Icons.Function;
@@ -224,6 +257,7 @@ function h_pTX
   input SI.Temperature T "Temperature";
   input SI.MassFraction X[nX] "Mass fractions of moist air";
   output SI.SpecificEnthalpy h "Specific enthalpy at p, T, X";
+  annotation(Inline=false,smoothOrder=1);
 protected 
   SI.AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
   SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
@@ -236,14 +270,9 @@ algorithm
   X_liquid :=max(X[Water] - x_sat/(1 + x_sat), 0.0);
   X_steam  :=X[Water] - X_liquid;
   X_air    :=1 - X[Water];
-/*  h        := {SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5),
+  h        := {SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5),
                SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684)}*
     {X_steam, X_air} + enthalpyOfLiquid(T)*X_liquid;
-*/
-  h := enthalpyOfDryAir(T) * X_air
-       + enthalpyOfSteam(T) * X_steam
-       + enthalpyOfLiquid(T)*X_liquid;
-  
 end h_pTX;
 
 redeclare function extends specificEnthalpy "specific enthalpy" 
