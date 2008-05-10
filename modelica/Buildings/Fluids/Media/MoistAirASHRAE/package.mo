@@ -269,9 +269,12 @@ algorithm
   X_liquid :=max(X[Water] - x_sat/(1 + x_sat), 0.0);
   X_steam  :=X[Water] - X_liquid;
   X_air    :=1 - X[Water];
-  h        := {SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5),
-               SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684)}*
-    {X_steam, X_air} + enthalpyOfLiquid(T)*X_liquid;
+//  h        := {SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5),
+//               SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684)}*
+//    {X_steam, X_air} + enthalpyOfLiquid(T)*X_liquid;
+  
+  h := enthalpyOfDryAir(T) * X_air + enthalpyOfSteam(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
+//  h := SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684) * X_air + enthalpyOfSteam(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
 end h_pTX;
 
 redeclare function extends specificEnthalpy "specific enthalpy" 
