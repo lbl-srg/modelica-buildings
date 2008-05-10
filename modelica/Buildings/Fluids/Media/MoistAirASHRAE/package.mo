@@ -173,12 +173,12 @@ algorithm
   h := (T - 273.15)*4186;
 end enthalpyOfLiquid;
 
-replaceable function der_enthalpyOfLiquid
+replaceable function der_enthalpyOfLiquid 
   "temperature derivative of enthalpy of liquid per unit mass of steam" 
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
   input Temperature der_T "temperature derivative";
-  output SpecificEnthalpy der_h "derivative of liquid enthalpy";
+  output SpecificHeatCapacity der_h "derivative of liquid enthalpy";
 algorithm 
   der_h := 4186;
 end der_enthalpyOfLiquid;
@@ -192,12 +192,12 @@ algorithm
   h := (T-273.15) * 1860 + 2501000;
 end enthalpyOfSteam;
 
-replaceable function der_enthalpyOfSteam
+replaceable function der_enthalpyOfSteam 
   "enthalpy of steam per unit mass of steam" 
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
   input Temperature der_T "temperature derivative";
-  output SpecificEnthalpy der_h "derivative of steam enthalpy";
+  output SpecificHeatCapacity der_h "derivative of steam enthalpy";
 algorithm 
   der_h := 1860;
 end der_enthalpyOfSteam;
@@ -217,11 +217,11 @@ algorithm
   h := (T - 273.15)*1006;
 end enthalpyOfDryAir;
 
-replaceable function der_enthalpyOfDryAir
+replaceable function der_enthalpyOfDryAir 
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
   input Temperature der_T "temperature derivative";
-  output SpecificEnthalpy der_h "derivative of dry air enthalpy";
+  output SpecificHeatCapacity der_h "derivative of dry air enthalpy";
 algorithm 
   der_h := 1006;
 end der_enthalpyOfDryAir;
@@ -248,7 +248,6 @@ algorithm
   lambda := Polynomials_Temp.evaluate({(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},
    Cv.to_degC(state.T));
 end thermalConductivity;
-
 
 function h_pTX 
   "Compute specific enthalpy from pressure, temperature and mass fraction" 
