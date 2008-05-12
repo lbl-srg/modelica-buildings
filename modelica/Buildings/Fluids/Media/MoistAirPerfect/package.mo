@@ -1,6 +1,6 @@
-package MoistAirASHRAE 
+package MoistAirPerfect 
   extends Modelica.Media.Interfaces.PartialCondensingGases(
-     mediumName="Moist air ASHRAE",
+     mediumName="Moist air perfect gas",
      substanceNames={"water", "air"},
      final reducedX=true,
      final singleState=false,
@@ -11,8 +11,25 @@ package MoistAirASHRAE
   annotation (Documentation(info="<HTML>
 <p>
 This is a medium model that is similar to <tt>Modelica.Media.Air.MoistAir</tt> but 
-it has simplified property functions, mostly based on the ASHRAE Fundamentals Handbook.
+it has a constant specific heat capacity.
+</p><p>
+In particular, the medium is calorically perfect, meaning that 
+<ul>
+<li>
+it is in thermodynamic equilibrium
+</li><li>
+it is chemically not reacting
+</li><li>
+internal energy and enthalpy are functions of the temperature only
+</li>
+</ul>
+In addition, the gas is calorically perfect, i.e., the
+specific heat capacities at constant pressure
+and constant volume are both constant (Bower 1998).
 </p>
+<h3>References</h3>
+Bower, William B. A primer in fluid mechanics: Dynamics of flows in one
+space dimension. CRC Press. 1998.
 </HTML>", revisions="<html>
 <ul>
 <li>
@@ -328,4 +345,4 @@ end Internal;
 algorithm 
   T := Internal.solve(h, 200, 6000, p, X[1:nXi], steam);
 end T_phX;
-end MoistAirASHRAE;
+end MoistAirPerfect;
