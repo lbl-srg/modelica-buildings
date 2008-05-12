@@ -3,6 +3,10 @@ record DataRecord "Coefficient data record for properties of perfect gases"
   String name "Name of ideal gas";
   Modelica.SIunits.MolarMass MM "Molar mass";
   Modelica.SIunits.SpecificHeatCapacity R "Gas constant";
+  Modelica.SIunits.SpecificHeatCapacity cp 
+    "Specific heat capacity at constant pressure";
+  Modelica.SIunits.SpecificHeatCapacity cv = cp - R 
+    "Specific heat capacity at constant volume";
   annotation (Documentation(info="<HTML>
 <p>
 This data record contains the coefficients for perfect gases.

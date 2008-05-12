@@ -43,10 +43,10 @@ First implementation.
   constant Integer Air=2 
     "Index of air (in substanceNames, massFractions X, etc.)";
   constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
-  constant Modelica.Media.IdealGases.Common.DataRecord dryair=
-        Modelica.Media.IdealGases.Common.SingleGasesData.Air;
-  constant Modelica.Media.IdealGases.Common.DataRecord steam=
-        Modelica.Media.IdealGases.Common.SingleGasesData.H2O;
+  constant Buildings.Fluids.Media.PerfectGases.Common.DataRecord dryair=
+        Buildings.Fluids.Media.PerfectGases.Common.SingleGasData.Air;
+  constant Buildings.Fluids.Media.PerfectGases.Common.DataRecord steam=
+        Buildings.Fluids.Media.PerfectGases.Common.SingleGasData.H2O;
   import Modelica.Math;
   import SI = Modelica.SIunits;
   import Cv = Modelica.SIunits.Conversions;
@@ -206,7 +206,7 @@ replaceable function enthalpyOfSteam "enthalpy of steam per unit mass of steam"
   input Temperature T "temperature";
   output SpecificEnthalpy h "steam enthalpy";
 algorithm 
-  h := (T-273.15) * 1860 + enthalpyOfVaporization(T);
+  h := (T-273.15) * steam.cp + enthalpyOfVaporization(T);
 end enthalpyOfSteam;
   
 replaceable function der_enthalpyOfSteam 
@@ -216,7 +216,7 @@ replaceable function der_enthalpyOfSteam
   input Temperature der_T "temperature derivative";
   output SpecificHeatCapacity der_h "derivative of steam enthalpy";
 algorithm 
-  der_h := 1860;
+  der_h := steam.cp;
 end der_enthalpyOfSteam;
   
 redeclare replaceable function extends enthalpyOfGas 
@@ -232,7 +232,7 @@ replaceable function enthalpyOfDryAir
   input Temperature T "temperature";
   output SpecificEnthalpy h "dry air enthalpy";
 algorithm 
-  h := (T - 273.15)*1006;
+  h := (T - 273.15)*dryair.cp;
 end enthalpyOfDryAir;
   
 replaceable function der_enthalpyOfDryAir 
@@ -241,19 +241,19 @@ replaceable function der_enthalpyOfDryAir
   input Temperature der_T "temperature derivative";
   output SpecificHeatCapacity der_h "derivative of dry air enthalpy";
 algorithm 
-  der_h := 1006;
+  der_h := dryair.cp;
 end der_enthalpyOfDryAir;
   
 redeclare replaceable function extends specificHeatCapacityCp 
     "Return specific heat capacity at constant pressure" 
 algorithm 
-  cp := 1006*(1-state.X[Water]) + 1860*state.X[Water];
+  cp := dryair.cp*(1-state.X[Water]) +steam.cp*state.X[Water];
 end specificHeatCapacityCp;
   
 redeclare replaceable function extends specificHeatCapacityCv 
     "Return specific heat capacity at constant volume" 
 algorithm 
-  cv:= specificHeatCapacityCp(state) - gasConstant(state);
+  cv:= dryair.cv*(1-state.X[Water]) +steam.cv*state.X[Water];
 end specificHeatCapacityCv;
   
 redeclare function extends dynamicViscosity 

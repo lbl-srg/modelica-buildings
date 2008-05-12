@@ -1,1 +1,1 @@
-simulateModel("Buildings.Fluids.Media.PerfectGases.MoistAirDerivativeCheck", startTime=273.15, stopTime=373.15, method="dassl", resultFile="MoistAirDerivativeCheck");
+simulateModel("Buildings.Fluids.Media.PerfectGases.Examples.MoistAirDerivativeCheck", startTime=273.15, stopTime=373.15, method="dassl", resultFile="MoistAirDerivativeCheck");
