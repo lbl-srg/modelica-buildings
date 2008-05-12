@@ -18,12 +18,12 @@ First implementation.
 </html>"));
    package Medium = Buildings.Fluids.Media.PerfectGases.MoistAir;
   
-    Real hLiqSym;
-    Real hLiqCod;
-    Real hSteSym;
-    Real hSteCod;
-    Real hAirSym;
-    Real hAirCod;
+    Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
+    Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
+    Modelica.SIunits.SpecificEnthalpy hSteSym "Water vapor enthalpy";
+    Modelica.SIunits.SpecificEnthalpy hSteCod "Water vapor enthalpy";
+    Modelica.SIunits.SpecificEnthalpy hAirSym "Dry air enthalpy";
+    Modelica.SIunits.SpecificEnthalpy hAirCod "Dry air enthalpy";
   
 initial equation 
      hLiqSym = hLiqCod;
