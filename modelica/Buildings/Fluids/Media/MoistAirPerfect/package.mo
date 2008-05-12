@@ -28,8 +28,8 @@ specific heat capacities at constant pressure
 and constant volume are both constant (Bower 1998).
 </p>
 <h3>References</h3>
-Bower, William B. A primer in fluid mechanics: Dynamics of flows in one
-space dimension. CRC Press. 1998.
+Bower, William B. <i>A primer in fluid mechanics: Dynamics of flows in one
+space dimension</i>. CRC Press. 1998.
 </HTML>", revisions="<html>
 <ul>
 <li>
