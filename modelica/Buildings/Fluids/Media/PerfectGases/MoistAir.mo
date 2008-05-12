@@ -162,7 +162,7 @@ end saturationPressure;
  redeclare function extends enthalpyOfVaporization 
     "enthalpy of vaporization of water" 
  algorithm 
-  r0 := 2501.0145e3;
+  r0 := 2501014.5;
  end enthalpyOfVaporization;
   
   function HeatCapacityOfWater "specific heat capacity of water (liquid only)" 
@@ -174,17 +174,8 @@ end saturationPressure;
     cp_fl := 4186;
   end HeatCapacityOfWater;
   
- redeclare function extends enthalpyOfCondensingGas 
-    
-   annotation(Inline=false,smoothOrder=5);
- algorithm 
-   assert(1==2, "Not implemented yet!");
-   h := SingleGasNasa.h_Tlow(data=steam, T=T, refChoice=3, h_off=46479.819+2501014.5);
- end enthalpyOfCondensingGas;
-  
 redeclare replaceable function extends enthalpyOfLiquid 
-    
-annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid);
+  annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid);
 algorithm 
   h := (T - 273.15)*4186;
 end enthalpyOfLiquid;
@@ -199,29 +190,30 @@ algorithm
   der_h := 4186;
 end der_enthalpyOfLiquid;
   
-replaceable function enthalpyOfSteam "enthalpy of steam per unit mass of steam" 
+redeclare function enthalpyOfCondensingGas 
+    "enthalpy of steam per unit mass of steam" 
   extends Modelica.Icons.Function;
     
-  annotation(smoothOrder=5, derivative=der_enthalpyOfSteam);
+  annotation(smoothOrder=5, derivative=der_enthalpyOfCondensingGas);
   input Temperature T "temperature";
   output SpecificEnthalpy h "steam enthalpy";
 algorithm 
   h := (T-273.15) * steam.cp + enthalpyOfVaporization(T);
-end enthalpyOfSteam;
+end enthalpyOfCondensingGas;
   
-replaceable function der_enthalpyOfSteam 
-    "enthalpy of steam per unit mass of steam" 
+replaceable function der_enthalpyOfCondensingGas 
+    "derivative of enthalpy of steam per unit mass of steam" 
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
   input Temperature der_T "temperature derivative";
   output SpecificHeatCapacity der_h "derivative of steam enthalpy";
 algorithm 
   der_h := steam.cp;
-end der_enthalpyOfSteam;
+end der_enthalpyOfCondensingGas;
   
 redeclare replaceable function extends enthalpyOfGas 
 algorithm 
-  h := enthalpyOfSteam(T)*X[Water]
+  h := enthalpyOfCondensingGas(T)*X[Water]
        + enthalpyOfDryAir(T)*(1.0-X[Water]);
 end enthalpyOfGas;
   
@@ -292,7 +284,7 @@ algorithm
 //               SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684)}*
 //    {X_steam, X_air} + enthalpyOfLiquid(T)*X_liquid;
     
-  h := enthalpyOfDryAir(T) * X_air + enthalpyOfSteam(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
+  h := enthalpyOfDryAir(T) * X_air + enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
 //  h := enthalpyOfDryAir(T) * X_air + 
 //     SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5) * X_steam + enthalpyOfLiquid(T)*X_liquid;
 end h_pTX;
