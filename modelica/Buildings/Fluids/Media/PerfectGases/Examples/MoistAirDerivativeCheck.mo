@@ -1,4 +1,4 @@
-model MoistAirPerfectDerivativeCheck 
+model MoistAirDerivativeCheck 
     
    annotation(Diagram, Commands(file="MoistAirDerivativeCheck.mos" "run"));
     annotation (
@@ -42,4 +42,4 @@ First implementation.
     der(hAirCod)=der(hAirSym);
     assert(abs(hAirCod-hAirSym) < 1E-2, "Model has an error");
     
-end MoistAirPerfectDerivativeCheck;
+end MoistAirDerivativeCheck;
