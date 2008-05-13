@@ -81,15 +81,13 @@ equation
   TAirOut = medium_b2.T;
   
   // compute wet bulb temperature
-  // this does not converge. Try to use a simpler medium implementation,
-  // or to add a state
   wetBulMod.dryBul.h  = medium_a2.h;
-  wetBulMod.dryBul.p  = 101325;//medium_a2.p;
+  wetBulMod.dryBul.p  = medium_a2.p;
   wetBulMod.dryBul.Xi = medium_a2.Xi;
   TAirInWB = wetBulMod.TWetBul;
   
   TApp    = TWatOut - TAirInWB;
-  Q_flow_1 = 1E-8*((medium_a1.T+medium_b1.T)-(medium_a2.T+medium_b2.T))/2; // for testing only
+  Q_flow_1 = 1E-5*((medium_a1.T)-(medium_a2.T)); // for testing only
   Q_flow_1 + Q_flow_2 = 0;
   
   mXi_flow_1 = zeros(Medium_1.nXi); // no mass added or removed (sensible heat only)
