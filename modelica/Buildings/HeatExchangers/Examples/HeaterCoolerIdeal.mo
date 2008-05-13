@@ -30,7 +30,7 @@ First implementation.
 </ul>
 </html>"),
     Coordsys(extent=[-200,-300; 200,240]));
- package Medium = Fluids.Media.ConstantPropertyLiquidWater;
+ package Medium = Buildings.Media.ConstantPropertyLiquidWater;
   Buildings.HeatExchangers.HeaterCoolerIdeal hea1(redeclare package Medium = 
         Medium, Q0_flow=5000) "Heater and cooler" annotation (extent=[-54,92; -34,
         112]);

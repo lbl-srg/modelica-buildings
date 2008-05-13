@@ -2,8 +2,9 @@ model ConstantEffectiveness
   import Buildings;
   
   annotation(Diagram, Commands(file="ConstantEffectiveness.mos" "run"));
- package Medium_1 = Fluids.Media.ConstantPropertyLiquidWater;
- package Medium_2 = Buildings.Fluids.Media.MoistAir "Medium in the component" 
+ package Medium_1 = Buildings.Media.ConstantPropertyLiquidWater;
+ package Medium_2 = Buildings.Media.PerfectGases.MoistAir 
+    "Medium in the component" 
            annotation (choicesAllMatching = true);
   
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(          redeclare 

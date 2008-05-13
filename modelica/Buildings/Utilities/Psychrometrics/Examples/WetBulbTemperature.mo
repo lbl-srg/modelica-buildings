@@ -1,4 +1,5 @@
 model WetBulbTemperature 
+  
     annotation (Diagram, Commands(file=
             "WetBulbTemperature.mos" "run"),
     Documentation(info="<html>
@@ -19,7 +20,7 @@ First implementation.
 </ul>
 </html>"));
   
- package Medium = Buildings.Fluids.Media.MoistAirASHRAE "Medium model" 
+ package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" 
            annotation (choicesAllMatching = true);
   
     Modelica.Blocks.Sources.Ramp TDB(
@@ -29,7 +30,7 @@ First implementation.
                  annotation (extent=[-100,60; -80,80]);
   Modelica.Blocks.Sources.Constant const annotation (extent=[-100,-20; -80,0]);
   Modelica.Blocks.Math.Feedback feedback annotation (extent=[-68,-20; -48,0]);
-  Buildings.Utilities.Controls.AssertEquality assertEquality(startTime=0, 
+  Buildings.Utilities.Controls.AssertEquality assertEquality(startTime=0,
       threShold=0.05) 
     annotation (extent=[64,14; 84,34]);
   Modelica.Blocks.Sources.Constant TWBExp(k=273.15 + 25) 
@@ -40,8 +41,8 @@ First implementation.
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure" 
                                     annotation (extent=[-100,20; -80,40]);
     Modelica.Blocks.Sources.Ramp XHum(
-    duration=1, 
-    height=(0.0133 - 0.0175), 
+    duration=1,
+    height=(0.0133 - 0.0175),
     offset=0.0175) "Humidity concentration" 
                  annotation (extent=[-100,-60; -80,-40]);
 equation 

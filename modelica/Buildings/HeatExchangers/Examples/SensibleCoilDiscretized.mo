@@ -1,8 +1,8 @@
 model SensibleCoilDiscretized 
   
   annotation(Diagram, Commands(file="SensibleCoilDiscretized.mos" "run"));
- package Medium_1 = Fluids.Media.ConstantPropertyLiquidWater;
- package Medium_2 = Buildings.Fluids.Media.SimpleAirPTDecoupled 
+ package Medium_1 = Buildings.Media.ConstantPropertyLiquidWater;
+ package Medium_2 = Buildings.Media.SimpleAirPTDecoupled 
     "Medium in the component" 
            annotation (choicesAllMatching = true);
   
