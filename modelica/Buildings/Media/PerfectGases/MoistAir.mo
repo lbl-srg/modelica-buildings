@@ -289,10 +289,10 @@ algorithm
        Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
  +++++++++++++++++++++*/
     
-  hDryAir := enthalpyOfDryAir(T);
+  hDryAir := (T - 273.15)*dryair.cp;
   h := hDryAir * X_air +
-       ((T-273.15) * steam.cp + enthalpyOfVaporization(T)) * X_steam +
-       enthalpyOfLiquid(T)*X_liquid;
+       ((T-273.15) * steam.cp + 2501014.5) * X_steam +
+       (T - 273.15)*4186*X_liquid;
 end h_pTX;
   
 redeclare function extends specificEnthalpy "specific enthalpy" 
