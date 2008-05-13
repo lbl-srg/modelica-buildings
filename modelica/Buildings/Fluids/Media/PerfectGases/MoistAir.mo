@@ -47,10 +47,7 @@ First implementation.
         Buildings.Fluids.Media.PerfectGases.Common.SingleGasData.Air;
   constant Buildings.Fluids.Media.PerfectGases.Common.DataRecord steam=
         Buildings.Fluids.Media.PerfectGases.Common.SingleGasData.H2O;
-  import Modelica.Math;
   import SI = Modelica.SIunits;
-  import Cv = Modelica.SIunits.Conversions;
-  import Modelica.Constants;
   
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
@@ -107,7 +104,7 @@ required from medium model \""     + mediumName + "\".");
     
     // this x_steam is water load / dry air!!!!!!!!!!!
     x_sat    = k_mair*p_steam_sat/max(100*Modelica.Constants.eps,p - p_steam_sat);
-    x_water = Xi[Water]/max(X_air,100*Constants.eps);
+    x_water = Xi[Water]/max(X_air,100*Modelica.Constants.eps);
     phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
   
@@ -281,11 +278,6 @@ algorithm
   X_liquid :=max(X[Water] - x_sat/(1 + x_sat), 0.0);
   X_steam  :=X[Water] - X_liquid;
   X_air    :=1 - X[Water];
-//  h        := {SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5),
-//               SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684)}*
-//    {X_steam, X_air} + enthalpyOfLiquid(T)*X_liquid;
-    
-//  h := enthalpyOfDryAir(T) * X_air + enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
     
 /* THIS DOES NOT WORK --------------------------    
   h := enthalpyOfDryAir(T) * X_air + 
@@ -297,10 +289,9 @@ algorithm
        Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
  +++++++++++++++++++++*/
     
-  hDryAir := if (false) then (T - 273.15)*dryair.cp else 
-      enthalpyOfDryAir(T);
+  hDryAir := enthalpyOfDryAir(T);
   h := hDryAir * X_air +
-       Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam +
+       ((T-273.15) * steam.cp + enthalpyOfVaporization(T)) * X_steam +
        enthalpyOfLiquid(T)*X_liquid;
 end h_pTX;
   
