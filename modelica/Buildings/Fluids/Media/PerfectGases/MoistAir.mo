@@ -220,7 +220,6 @@ end enthalpyOfGas;
   
 replaceable function enthalpyOfDryAir 
   extends Modelica.Icons.Function;
-    
   annotation(smoothOrder=5, derivative=der_enthalpyOfDryAir);
   input Temperature T "temperature";
   output SpecificEnthalpy h "dry air enthalpy";
@@ -275,6 +274,7 @@ function h_pTX
   SI.MassFraction X_liquid "mass fraction of liquid water";
   SI.MassFraction X_steam "mass fraction of steam water";
   SI.MassFraction X_air "mass fraction of air";
+  SI.SpecificEnthalpy hDryAir "Enthalpy of dry air";
 algorithm 
   p_steam_sat :=saturationPressure(T);
   x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
@@ -285,9 +285,28 @@ algorithm
 //               SingleGasNasa.h_Tlow(data=dryair, T=T, refChoice=3, h_off=25104.684)}*
 //    {X_steam, X_air} + enthalpyOfLiquid(T)*X_liquid;
     
-  h := enthalpyOfDryAir(T) * X_air + enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
+//  h := enthalpyOfDryAir(T) * X_air + enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
+    
+/* THIS DOES NOT WORK --------------------------    
+  h := enthalpyOfDryAir(T) * X_air + 
+       Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
+--------------------------------- */
+    
+/* THIS WORKS!!!! +++++++++++++++++++++
+  h := (T - 273.15)*dryair.cp * X_air + 
+       Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
+ +++++++++++++++++++++*/
+    
+  hDryAir := if (false) then (T - 273.15)*dryair.cp else 
+      enthalpyOfDryAir(T);
+  h := hDryAir * X_air +
+       Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
+    
 //  h := enthalpyOfDryAir(T) * X_air + 
-//     SingleGasNasa.h_Tlow(data=steam,  T=T, refChoice=3, h_off=46479.819+2501014.5) * X_steam + enthalpyOfLiquid(T)*X_liquid;
+//       Modelica.Media.IdealGases.Common.SingleGasNasa.h_Tlow(
+//              data=Modelica.Media.IdealGases.Common.SingleGasesData.H20,  
+//              T=T, refChoice=3, h_off=46479.819+2501014.5) * X_steam + 
+//       enthalpyOfLiquid(T)*X_liquid;
 end h_pTX;
   
 redeclare function extends specificEnthalpy "specific enthalpy" 
