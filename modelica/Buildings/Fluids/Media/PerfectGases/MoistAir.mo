@@ -175,6 +175,7 @@ end saturationPressure;
   end HeatCapacityOfWater;
   
 redeclare replaceable function extends enthalpyOfLiquid 
+    
   annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid);
 algorithm 
   h := (T - 273.15)*4186;
@@ -320,11 +321,11 @@ function T_phX "Compute temperature from specific enthalpy and mass fraction"
   output Temperature T "temperature";
   protected 
 package Internal 
-      Solve h(data,T);
+      "Solve h(data,T) for T with given h (use only indirectly via temperature_phX)" 
   extends Modelica.Media.Common.OneNonLinearEquation;
   redeclare record extends f_nonlinear_Data 
         "Data to be passed to non-linear function" 
-    extends Modelica.Media.IdealGases.Common.DataRecord;
+    extends Buildings.Fluids.Media.PerfectGases.Common.DataRecord;
   end f_nonlinear_Data;
       
   redeclare function extends f_nonlinear 
@@ -338,7 +339,16 @@ package Internal
 end Internal;
     
 algorithm 
-  T := Internal.solve(h, 200, 6000, p, X[1:nXi], steam);
+ /* The function call below has been changed from 
+      Internal.solve(h, 200, 6000, p, X[1:nXi], steam);
+    to  
+      Internal.solve(h, 200, 6000, p, X, steam);
+    The reason is that when running the problem
+       Buildings.Fluids.Media.PerfectGases.Examples.MoistAirComparison
+    then an assertion is triggered because the vector X had the wrong
+    dimension. The above example verifies that T(h(T)) = 0.
+ */
+  T := Internal.solve(h, 200, 6000, p, X, steam);
 end T_phX;
   
   package Utilities "utility functions" 
