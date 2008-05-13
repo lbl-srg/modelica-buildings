@@ -300,13 +300,8 @@ algorithm
   hDryAir := if (false) then (T - 273.15)*dryair.cp else 
       enthalpyOfDryAir(T);
   h := hDryAir * X_air +
-       Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
-    
-//  h := enthalpyOfDryAir(T) * X_air + 
-//       Modelica.Media.IdealGases.Common.SingleGasNasa.h_Tlow(
-//              data=Modelica.Media.IdealGases.Common.SingleGasesData.H20,  
-//              T=T, refChoice=3, h_off=46479.819+2501014.5) * X_steam + 
-//       enthalpyOfLiquid(T)*X_liquid;
+       Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam +
+       enthalpyOfLiquid(T)*X_liquid;
 end h_pTX;
   
 redeclare function extends specificEnthalpy "specific enthalpy" 
