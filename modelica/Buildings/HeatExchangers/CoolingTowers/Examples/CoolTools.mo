@@ -3,7 +3,7 @@ model CoolTools
   annotation(Diagram, Commands(file="CoolTools.mos" "run"));
  package Medium_W = Modelica.Media.Water.ConstantPropertyLiquidWater;
  //package Medium_A = Modelica.Media.Water.ConstantPropertyLiquidWater;
- package Medium_A = Buildings.Fluids.Media.MoistAir;
+ package Medium_A = Buildings.Media.PerfectGases.MoistAir;
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(T=293.15, redeclare 
       package Medium = Medium_A) 
                           annotation (extent=[-60,-20; -40,0]);
