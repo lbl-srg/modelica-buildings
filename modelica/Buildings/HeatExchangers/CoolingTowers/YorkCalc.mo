@@ -1,4 +1,4 @@
-model CoolTools "Cooling tower with variable speed" 
+model YorkCalc "Cooling tower with variable speed" 
   extends Buildings.Fluids.Interfaces.PartialStaticFourPortHeatMassTransfer;
   extends Buildings.BaseClasses.BaseIcon;
   annotation (Icon(
@@ -98,4 +98,4 @@ equation
   dp_1 = 0;
   dp_2 = 0;
   
-end CoolTools;
+end YorkCalc;

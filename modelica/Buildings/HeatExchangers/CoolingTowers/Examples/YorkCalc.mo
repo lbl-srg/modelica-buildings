@@ -1,6 +1,6 @@
-model CoolTools 
+model YorkCalc 
   import Buildings;
-  annotation(Diagram, Commands(file="CoolTools.mos" "run"));
+  annotation(Diagram, Commands(file="YorkCalc.mos" "run"));
  package Medium_W = Modelica.Media.Water.ConstantPropertyLiquidWater;
  //package Medium_A = Modelica.Media.Water.ConstantPropertyLiquidWater;
  package Medium_A = Buildings.Media.PerfectGases.MoistAir;
@@ -25,7 +25,7 @@ model CoolTools
                  annotation (extent=[-34,-80; -14,-60]);
   Modelica.Blocks.Sources.Constant TWat(k=273.15 + 40) "Water temperature" 
     annotation (extent=[-100,40; -80,60]);
-  Buildings.HeatExchangers.CoolingTowers.CoolTools tow(redeclare package 
+  Buildings.HeatExchangers.CoolingTowers.YorkCalc tow( redeclare package 
       Medium_1 = Medium_W, redeclare package Medium_2 = Medium_A) 
     "Cooling tower" 
     annotation (extent=[28,-14; 48,6]);
@@ -149,4 +149,4 @@ equation
         48,-10], style(color=69, rgbcolor={0,127,255}));
   connect(sin_2.port, res_2.port_b) annotation (points=[-40,-10; -20,-10],
       style(color=69, rgbcolor={0,127,255}));
-end CoolTools;
+end YorkCalc;
