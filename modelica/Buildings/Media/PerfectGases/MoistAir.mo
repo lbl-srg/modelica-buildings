@@ -10,17 +10,19 @@ package MoistAir
   
   annotation (Documentation(info="<HTML>
 <p>
-This is a medium model that is similar to <tt>Modelica.Media.Air.MoistAir</tt> but 
+This is a medium model that is similar to 
+<a href=\"Modelica:Modelica.Media.Air.MoistAir\">
+Modelica.Media.Air.MoistAir</a> but 
 it has a constant specific heat capacity.
 </p><p>
-In particular, the medium is calorically perfect, meaning that 
+In particular, the medium is calorically perfect, i.e., 
 <ul>
 <li>
-it is in thermodynamic equilibrium
+it is in thermodynamic equilibrium,
 </li><li>
-it is chemically not reacting
+it is chemically not reacting, and
 </li><li>
-internal energy and enthalpy are functions of the temperature only
+internal energy and enthalpy are functions of the temperature only.
 </li>
 </ul>
 In addition, the gas is calorically perfect, i.e., the
