@@ -1,5 +1,4 @@
 model WetBulbTemperature 
-  import Buildings;
   
     annotation (Diagram, Commands(file=
             "WetBulbTemperature.mos" "run"),
@@ -21,7 +20,7 @@ First implementation.
 </ul>
 </html>"));
   
- package Medium = Buildings.Fluids.Media.MoistAirASHRAE "Medium model" 
+ package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" 
            annotation (choicesAllMatching = true);
   
     Modelica.Blocks.Sources.Ramp p(

@@ -16,7 +16,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-   package Medium = Buildings.Fluids.Media.PerfectGases.MoistAir;
+   package Medium = Buildings.Media.PerfectGases.MoistAir;
   
     Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";

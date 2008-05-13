@@ -43,10 +43,10 @@ First implementation.
   constant Integer Air=2 
     "Index of air (in substanceNames, massFractions X, etc.)";
   constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
-  constant Buildings.Fluids.Media.PerfectGases.Common.DataRecord dryair=
-        Buildings.Fluids.Media.PerfectGases.Common.SingleGasData.Air;
-  constant Buildings.Fluids.Media.PerfectGases.Common.DataRecord steam=
-        Buildings.Fluids.Media.PerfectGases.Common.SingleGasData.H2O;
+  constant Buildings.Media.PerfectGases.Common.DataRecord dryair=
+        Buildings.Media.PerfectGases.Common.SingleGasData.Air;
+  constant Buildings.Media.PerfectGases.Common.DataRecord steam=
+        Buildings.Media.PerfectGases.Common.SingleGasData.H2O;
   import SI = Modelica.SIunits;
   
   redeclare replaceable model extends BaseProperties(
@@ -330,7 +330,7 @@ package Internal
   extends Modelica.Media.Common.OneNonLinearEquation;
   redeclare record extends f_nonlinear_Data 
         "Data to be passed to non-linear function" 
-    extends Buildings.Fluids.Media.PerfectGases.Common.DataRecord;
+    extends Buildings.Media.PerfectGases.Common.DataRecord;
   end f_nonlinear_Data;
       
   redeclare function extends f_nonlinear 
@@ -349,7 +349,7 @@ algorithm
     to  
       Internal.solve(h, 200, 6000, p, X, steam);
     The reason is that when running the problem
-       Buildings.Fluids.Media.PerfectGases.Examples.MoistAirComparison
+       Buildings.Media.PerfectGases.Examples.MoistAirComparison
     then an assertion is triggered because the vector X had the wrong
     dimension. The above example verifies that T(h(T)) = 0.
  */

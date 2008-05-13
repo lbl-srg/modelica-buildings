@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluids.Media.PerfectGases.Examples.MoistAirComparison", method="dassl", resultFile="MoistAirComparison");
+simulateModel("Buildings.Media.PerfectGases.Examples.MoistAirComparison", method="dassl", resultFile="MoistAirComparison");
 createPlot(id = 1,
  position = {15, 10, 981, 661},
  x = "T_degC",

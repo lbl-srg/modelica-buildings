@@ -5,7 +5,7 @@ model MixingVolume
   
 // package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
 //    "Medium in the component";
- package Medium = Buildings.Fluids.Media.SimpleAirPTDecoupled 
+ package Medium = Buildings.Media.SimpleAirPTDecoupled 
     "Medium in the component";
   
     Modelica.Blocks.Sources.Ramp P(

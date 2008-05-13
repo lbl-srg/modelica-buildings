@@ -5,7 +5,7 @@ model MoistAirComparison
       Documentation(info="<html>
 <p>
 This example compares the perfect medium model
-<a href=\"Modelica://Buildings.Fluids.Media.PerfectGases.MoistAir\">Buildings.Fluids.Media.PerfectGases.MoistAir</a>
+<a href=\"Modelica://Buildings.Media.PerfectGases.MoistAir\">Buildings.Media.PerfectGases.MoistAir</a>
  with the ideal gas model
 from <a href=\"Modelica://Modelica.Media.Air.MoistAir\">Modelica.Media.Air.MoistAir</a>
 </p>
@@ -17,7 +17,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-   package PerfectMedium = Buildings.Fluids.Media.PerfectGases.MoistAir;
+   package PerfectMedium = Buildings.Media.PerfectGases.MoistAir;
    package IdealMedium =   Modelica.Media.Air.MoistAir;
   
     Modelica.SIunits.SpecificEnthalpy hLiqPer "Liquid phase enthalpy";

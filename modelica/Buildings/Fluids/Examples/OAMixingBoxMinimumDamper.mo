@@ -3,7 +3,7 @@ model OAMixingBoxMinimumDamper
   annotation (Diagram, Commands(file=
           "OAMixingBoxMinimumDamper.mos" "run"));
   
- package Medium = Buildings.Fluids.Media.SimpleAirPTDecoupled 
+ package Medium = Buildings.Media.SimpleAirPTDecoupled 
     "Medium in the component" 
          annotation (choicesAllMatching = true);
   

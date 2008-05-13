@@ -9,7 +9,7 @@ model MITScalable "System model for MIT building"
      T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
     "Medium in the component";
 */
- package Medium = Buildings.Fluids.Media.SimpleAirPTDecoupled;
+ package Medium = Buildings.Media.SimpleAirPTDecoupled;
   
   parameter Integer NSui = 1 "Number of suites";
   parameter Modelica.SIunits.MassFlowRate mOneSuite_flow = sui[1].m0Tot_flow 
