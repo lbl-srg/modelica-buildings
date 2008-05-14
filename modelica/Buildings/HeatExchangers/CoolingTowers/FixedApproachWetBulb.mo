@@ -10,8 +10,8 @@ model FixedApproachWetBulb
           rgbcolor={255,255,255},
           fillColor=58,
           rgbfillColor={0,127,0},
-          fillPattern=1),
-        string="dry-bulb")),
+          fillPattern=1), 
+        string="wet-bulb")),
                           Diagram,
     Documentation(info="<html>
 <p>
