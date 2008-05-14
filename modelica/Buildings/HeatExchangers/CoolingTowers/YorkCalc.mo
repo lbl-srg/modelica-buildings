@@ -24,13 +24,6 @@ model YorkCalc "Cooling tower with variable speed"
           rgbfillColor={0,127,0},
           fillPattern=1),
         string="water")), Diagram);
-/*  Modelica.Blocks.Interfaces.RealInput TDb(redeclare type SignalType = 
-        Modelica.SIunits.Temperature) "inlet air drybulb temperature" 
-    annotation (extent=[-140,60; -100,100]);
-  Modelica.Blocks.Interfaces.RealInput TWb(redeclare type SignalType = 
-        Modelica.SIunits.Temperature) "inlet air wetbulb temperature" 
-    annotation (extent=[-140,20; -100,60]);
-*/
  /*
 COOLING TOWER:VARIABLE SPEED,
 Big Tower1, !- Tower Name
