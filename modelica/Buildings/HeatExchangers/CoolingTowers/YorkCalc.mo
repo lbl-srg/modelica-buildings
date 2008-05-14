@@ -1,29 +1,17 @@
-model YorkCalc "Cooling tower with variable speed" 
-  extends Buildings.Fluids.Interfaces.PartialStaticFourPortHeatMassTransfer;
-  extends Buildings.BaseClasses.BaseIcon;
+model YorkCalc 
+  "Cooling tower with variable speed using the York calculation for the approach temperatureCooling tower with fixed approach temperature based on wet bulb temperature" 
+  extends 
+    Buildings.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticFourPortCoolingTower;
   annotation (Icon(
-      Rectangle(extent=[-100,-55; 101,-65], style(
-          pattern=0,
-          fillColor=58,
-          rgbfillColor={0,127,0})),
       Text(
-        extent=[-62,-38; -20,-74],
-        string="air",
-        style(
-          color=7,
-          rgbcolor={255,255,255},
-          fillColor=58,
-          rgbfillColor={0,127,0},
-          fillPattern=1)),
-      Text(
-        extent=[-64,98; 0,26],
+        extent=[-80,38; 42,-86],
         style(
           color=7,
           rgbcolor={255,255,255},
           fillColor=58,
           rgbfillColor={0,127,0},
           fillPattern=1),
-        string="water")), Diagram);
+        string="York")),  Diagram);
  /*
 COOLING TOWER:VARIABLE SPEED,
 Big Tower1, !- Tower Name
@@ -31,11 +19,11 @@ Condenser 1 Inlet Node, !- Water Inlet Node Name
 Condenser 1 Outlet Node, !- Water Outlet Node Name
 YorkCalc, !- Tower Model Type
 , !- Tower Model Coefficient Name
-25.5556, !- Design Inlet Air Wet-Bulb Temperature {C}
-3.8889, !- Design Approach Temperature {C}
-5.5556, !- Design Range Temperature {C}
-0.0015, !- Design Water Flow Rate {m3/s}
-1.6435, !- Design Air Flow Rate {m3/s}
+#25.5556, !- Design Inlet Air Wet-Bulb Temperature {C}
+#3.8889, !- Design Approach Temperature {C}
+#5.5556, !- Design Range Temperature {C}
+#0.0015, !- Design Water Flow Rate {m3/s}
+#1.6435, !- Design Air Flow Rate {m3/s}
 275, !- Design Fan Power {W}
 FanRatioCurve, !- Fan Power Ratio as a function of Air Flow Rate Ratio Curve Name
 0.2, !- Minimum Air Flow Rate Ratio
@@ -51,42 +39,56 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
 ; !- Name of Water Storage Tank for Supply
  
 */
-  Modelica.SIunits.Temperature TWatIn(start=273.15+35) 
-    "Water inlet temperature";
-  Modelica.SIunits.Temperature TWatOut(start=273.15+28) 
-    "Water outlet temperature";
-  Modelica.SIunits.Temperature TAirIn(start=273.15+25) 
-    "Air dry-bulb inlet temperature";
-  Modelica.SIunits.Temperature TAirOut(start=273.15+30) 
-    "Air dry-bulb outlet temperature";
+  
+  parameter Modelica.SIunits.Temperature TAirInWB0 = 25.55 
+    "Design inlet air wet bulb temperature" 
+      annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TApp0 = 3.89 
+    "Design apprach temperature" 
+      annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.Temperature TRan0 = 5.56 
+    "Design range temperature (water in - water out)" 
+      annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate mAir0_flow = 1.64*1.2 
+    "Design air flow rate" 
+      annotation (Dialog(group="Nominal condition"));
+  
+  Modelica.SIunits.MassFraction FRWat0 
+    "Ratio actual over design water mass flow ratio at nominal condition";
+  
+  Modelica.SIunits.Temperature TApp "Approach temperature";
   Modelica.SIunits.Temperature TAirInWB(start=273.15+20) 
     "Air wet-bulb inlet temperature";
+  Modelica.SIunits.CelsiusTemperature TAirInWB_degC 
+    "Air wet-bulb inlet temperature";
+  Modelica.SIunits.MassFraction FRWat 
+    "Ratio actual over design water mass flow ratio";
+  Modelica.SIunits.MassFraction FRAir 
+    "Ratio actual over design air mass flow ratio";
   
-  Modelica.SIunits.Temperature TApp(min=-20, start=2) "Approach temperature";
+protected 
   Utilities.Psychrometrics.WetBulbTemperature wetBulMod(redeclare package 
       Medium = Medium_2, p(start=101325)) 
     "Model to compute wet bulb temperature" 
     annotation (extent=[-56,50; -36,70]);
-equation 
-  TWatIn  = medium_a1.T;
-  TWatOut = medium_b1.T;
-  TAirIn  = medium_a2.T;
-  TAirOut = medium_b2.T;
   
+equation 
   // compute wet bulb temperature
   wetBulMod.dryBul.h  = medium_a2.h;
   wetBulMod.dryBul.p  = medium_a2.p;
   wetBulMod.dryBul.Xi = medium_a2.Xi;
   TAirInWB = wetBulMod.TWetBul;
+  TAirInWB_degC = Modelica.SIunits.Conversions.to_degC(TAirInWB);
+  TWatOut_degC = TApp + TAirInWB_degC;
   
-  TApp    = TWatOut - TAirInWB;
-  Q_flow_1 = 1E-5*((medium_a1.T)-(medium_a2.T)); // for testing only
-  Q_flow_1 + Q_flow_2 = 0;
+  FRWat = m_flow_1 / mWat0_flow;
+  FRAir = m_flow_2 / mAir0_flow;
   
-  mXi_flow_1 = zeros(Medium_1.nXi); // no mass added or removed (sensible heat only)
-  mXi_flow_2 = zeros(Medium_2.nXi); // no mass added or removed (sensible heat only)
+  TWatOut0 = TAirInWB0 + TApp0;
+  TWatIn0  = TAirInWB0 + TApp0 + TRan0;
+  TRan0 = TWatIn0 - TWatOut0;
+  TApp0 = yorkCalc(TAirInWB0, TRan0, FRWat0, FRAir=1); // this will be solve for FRWat0
   
-  dp_1 = 0;
-  dp_2 = 0;
+  TApp = 2; // FIX ME.
   
 end YorkCalc;
