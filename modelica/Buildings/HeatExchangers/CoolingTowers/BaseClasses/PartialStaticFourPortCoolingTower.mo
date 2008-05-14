@@ -24,23 +24,21 @@ model PartialStaticFourPortCoolingTower "Cooling tower with variable speed"
           rgbfillColor={0,127,0},
           fillPattern=1),
         string="water")), Diagram);
-  Modelica.SIunits.Temperature TWatIn(start=273.15+35) 
+  Modelica.SIunits.CelsiusTemperature TWatIn_degC(start=35) 
     "Water inlet temperature";
-  Modelica.SIunits.Temperature TWatOut(start=273.15+28) 
+  Modelica.SIunits.CelsiusTemperature TWatOut_degC(start=28) 
     "Water outlet temperature";
-  Modelica.SIunits.Temperature TAirIn(start=273.15+25) 
+  Modelica.SIunits.CelsiusTemperature TAirIn_degC(start=25) 
     "Air dry-bulb inlet temperature";
-  Modelica.SIunits.Temperature TAirOut(start=273.15+30) 
+  Modelica.SIunits.CelsiusTemperature TAirOut_degC(start=30) 
     "Air dry-bulb outlet temperature";
-  Modelica.SIunits.Temperature TApp(min=-20, start=2) "Approach temperature";
 equation 
-  TWatIn  = medium_a1.T;
-  TWatOut = medium_b1.T;
-  TAirIn  = medium_a2.T;
-  TAirOut = medium_b2.T;
+  TWatIn_degC  = medium_a1.T_degC;
+  TWatOut_degC = medium_b1.T_degC;
+  TAirIn_degC  = medium_a2.T_degC;
+  TAirOut_degC = medium_b2.T_degC;
   
-  Q_flow_1 = 1E-5*((medium_a1.T)-(medium_a2.T)); // for testing only
-  Q_flow_1 + Q_flow_2 = 0;
+  Q_flow_1 + Q_flow_2 = 0; // no heat losses other than to the air stream
   
   mXi_flow_1 = zeros(Medium_1.nXi); // no mass added or removed (sensible heat only)
   mXi_flow_2 = zeros(Medium_2.nXi); // no mass added or removed (sensible heat only)

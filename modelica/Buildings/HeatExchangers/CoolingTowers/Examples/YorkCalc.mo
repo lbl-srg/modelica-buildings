@@ -1,5 +1,4 @@
 model YorkCalc 
-  import Buildings;
   annotation(Diagram, Commands(file="YorkCalc.mos" "run"));
  package Medium_W = Modelica.Media.Water.ConstantPropertyLiquidWater;
  //package Medium_A = Modelica.Media.Water.ConstantPropertyLiquidWater;
