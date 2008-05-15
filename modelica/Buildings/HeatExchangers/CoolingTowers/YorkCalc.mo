@@ -4,7 +4,7 @@ model YorkCalc
     Buildings.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticFourPortCoolingTower;
   annotation (Icon(
       Text(
-        extent=[-80,38; 42,-86],
+        extent=[-70,34; 42,-86],
         style(
           color=7,
           rgbcolor={255,255,255},
@@ -40,7 +40,7 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
  
 */
   
-  parameter Modelica.SIunits.Temperature TAirInWB0 = 25.55 
+  parameter Modelica.SIunits.Temperature TAirInWB0 = 273.15+25.55 
     "Design inlet air wet bulb temperature" 
       annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature TApp0 = 3.89 
@@ -49,22 +49,32 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
   parameter Modelica.SIunits.Temperature TRan0 = 5.56 
     "Design range temperature (water in - water out)" 
       annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.0015*1000 
+    "Design air flow rate" 
+      annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate mAir0_flow = 1.64*1.2 
     "Design air flow rate" 
       annotation (Dialog(group="Nominal condition"));
   
-  Modelica.SIunits.MassFraction FRWat0 
+  Modelica.SIunits.MassFraction FRWat0(min=0, start=1) 
     "Ratio actual over design water mass flow ratio at nominal condition";
+  Modelica.SIunits.Temperature TWatIn0 
+    "Water inlet temperature at nominal condition";
+  Modelica.SIunits.Temperature TWatOut0 
+    "Water outlet temperature at nominal condition";
   
-  Modelica.SIunits.Temperature TApp "Approach temperature";
+  Modelica.SIunits.Temperature TApp(min=0, nominal=1) "Approach temperature";
   Modelica.SIunits.Temperature TAirInWB(start=273.15+20) 
     "Air wet-bulb inlet temperature";
   Modelica.SIunits.CelsiusTemperature TAirInWB_degC 
     "Air wet-bulb inlet temperature";
-  Modelica.SIunits.MassFraction FRWat 
-    "Ratio actual over design water mass flow ratio";
-  Modelica.SIunits.MassFraction FRAir 
-    "Ratio actual over design air mass flow ratio";
+//  Modelica.SIunits.MassFraction FRWat 
+//    "Ratio actual over design water mass flow ratio";
+ // Modelica.SIunits.MassFraction FRAir 
+ //   "Ratio actual over design air mass flow ratio";
+  
+  Modelica.SIunits.MassFlowRate mWatRef_flow(min=0, start=mWat0_flow) 
+    "Reference water flow rate";
   
 protected 
   Utilities.Psychrometrics.WetBulbTemperature wetBulMod(redeclare package 
@@ -81,13 +91,13 @@ equation
   TAirInWB_degC = Modelica.SIunits.Conversions.to_degC(TAirInWB);
   TWatOut_degC = TApp + TAirInWB_degC;
   
-  FRWat = m_flow_1 / mWat0_flow;
-  FRAir = m_flow_2 / mAir0_flow;
+  mWatRef_flow = mWat0_flow/FRWat0;
+//  FRAir = m_flow_2 / mAir0_flow;
   
   TWatOut0 = TAirInWB0 + TApp0;
-  TWatIn0  = TAirInWB0 + TApp0 + TRan0;
-  TRan0 = TWatIn0 - TWatOut0;
-  TApp0 = yorkCalc(TAirInWB0, TRan0, FRWat0, FRAir=1); // this will be solve for FRWat0
+  TRan0 = TWatIn0 - TWatOut0; // by definition of the range temp.
+  TApp0 = Correlations.yorkCalc(TRan=TRan0, TWB=TAirInWB0,
+                   FRWat=FRWat0, FRAir=1); // this will be solve for FRWat0
   
   TApp = 2; // FIX ME.
   
