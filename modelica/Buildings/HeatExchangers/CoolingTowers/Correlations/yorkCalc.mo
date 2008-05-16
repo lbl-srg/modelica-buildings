@@ -1,4 +1,20 @@
 function yorkCalc "Cooling tower performance correlation for YorkCalc model" 
+  annotation (
+    Documentation(info="<html>
+<p>
+Correlation for approach temperature for YorkCalc cooling tower model.
+See <a href=\"Modelica:Examples/YorkCalc.mo\">Examples/YorkCalc.mo</a> for the graph.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 14, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"),
+smoothOrder=5, derivative=BaseClasses.der_yorkCalc);
+
   
   input Modelica.SIunits.Temperature TRan 
     "Range temperature (water in - water out)" 

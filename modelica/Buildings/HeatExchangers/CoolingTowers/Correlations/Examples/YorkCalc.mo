@@ -1,6 +1,6 @@
 model YorkCalc "Example for yorkCalc correlation" 
   annotation(Diagram, Commands(file="YorkCalc.mos" "run"));
-    parameter Modelica.SIunits.Temperature TRan = 5.56 
+  parameter Modelica.SIunits.Temperature TRan = 5.56 
     "Range temperature (water in - water out)";
   parameter Modelica.SIunits.Temperature TAirInWB = 25.55 + 273.15 
     "Inlet air wet bulb temperature";
