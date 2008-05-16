@@ -46,7 +46,8 @@ First implementation.
 </ul>
 </html>"));
   Medium.BaseProperties dryBul "Medium state at dry bulb temperature";
-  Medium.BaseProperties wetBul "Medium state at wet bulb temperature";
+  Medium.BaseProperties wetBul(Xi(nominal=0.01*ones(Medium.nXi))) 
+    "Medium state at wet bulb temperature";
   Modelica.Blocks.Interfaces.RealSignal TDryBul(redeclare type SignalType = 
         Modelica.SIunits.Temperature (start=293.15, min=150, max=373)) 
     "Dry bulb temperature" 
@@ -70,6 +71,5 @@ equation
   wetBul.p = dryBul.p;
   wetBul.h = dryBul.h + (wetBul.X[Medium.Water] - dryBul.X[Medium.Water])
          * Medium.enthalpyOfLiquid(dryBul.T);
-//  wetBul.h = Medium.h_pTX(wetBul.p, wetBul.T, wetBul.X);
   TWetBul = wetBul.T;
 end WetBulbTemperature;

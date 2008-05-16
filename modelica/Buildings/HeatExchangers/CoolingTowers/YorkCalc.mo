@@ -57,14 +57,15 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
       annotation (Dialog(group="Nominal condition"));
   
   Modelica.SIunits.Temperature TApp(min=0, nominal=1) "Approach temperature";
+  Modelica.SIunits.Temperature TRan(nominal=1) "Range temperature";
   Modelica.SIunits.Temperature TAirInWB(start=273.15+20) 
     "Air wet-bulb inlet temperature";
   Modelica.SIunits.CelsiusTemperature TAirInWB_degC 
     "Air wet-bulb inlet temperature";
-//  Modelica.SIunits.MassFraction FRWat 
-//    "Ratio actual over design water mass flow ratio";
- // Modelica.SIunits.MassFraction FRAir 
- //   "Ratio actual over design air mass flow ratio";
+  Modelica.SIunits.MassFraction FRWat 
+    "Ratio actual over design water mass flow ratio";
+  Modelica.SIunits.MassFraction FRAir 
+    "Ratio actual over design air mass flow ratio";
   
 protected 
   parameter Modelica.SIunits.MassFraction FRWat0(min=0, start=1, fixed=false) 
@@ -86,7 +87,7 @@ initial equation
   TWatOut0 = TAirInWB0 + TApp0;
   TRan0 = TWatIn0 - TWatOut0; // by definition of the range temp.
   TApp0 = Correlations.yorkCalc(TRan=TRan0, TWB=TAirInWB0,
-                   FRWat=FRWat0, FRAir=1); // this will be solved for FRWat0
+                                FRWat=FRWat0, FRAir=1); // this will be solved for FRWat0
   
 equation 
   // compute wet bulb temperature
@@ -97,6 +98,14 @@ equation
   TAirInWB_degC = Modelica.SIunits.Conversions.to_degC(TAirInWB);
   TWatOut_degC = TApp + TAirInWB_degC;
   
-  TApp = 2; // FIX ME.
+  TRan = medium_a1.T - medium_b1.T;
+  FRWat = m_flow_1/mWatRef_flow;
+  FRAir = m_flow_2/mAir0_flow;
+  
+  // At small air flow temperature, the approach temperature may become so large
+  // that the water outlet temperature is higher than the water inlet temperature
+  TApp = min(TWatIn_degC - TAirInWB_degC,
+         Correlations.yorkCalc(TRan=TRan, TWB=TAirInWB,
+                                FRWat=FRWat, FRAir=FRAir));
   
 end YorkCalc;

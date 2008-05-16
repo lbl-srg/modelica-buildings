@@ -5,12 +5,19 @@ partial model PartialStaticFourPortCoolingTower
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(T=293.15, redeclare 
       package Medium = Medium_A) 
                           annotation (extent=[-60,-20; -40,0]);
+  
+  parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.0015*1000 
+    "Design air flow rate" 
+      annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate mAir0_flow = 1.64*1.2 
+    "Design air flow rate" 
+      annotation (Dialog(group="Nominal condition"));
+  
     Modelica.Blocks.Sources.Ramp PIn(
-    duration=1,
-    height=20, 
-    offset=101326) 
-                 annotation (extent=[0,-60; 20,-40]);
-  annotation (Diagram);
+    duration=1, 
+    startTime=1, 
+    offset=101340, 
+    height=-10)  annotation (extent=[0,-60; 20,-40]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_2(T=283.15, redeclare 
       package Medium = Medium_A) 
                           annotation (extent=[40,-80; 60,-60],
@@ -21,8 +28,8 @@ partial model PartialStaticFourPortCoolingTower
     startTime=1,
     offset=273.15 + 25) "Air temperature" 
                  annotation (extent=[-34,-80; -14,-60]);
-  Modelica.Blocks.Sources.Constant TWat(k=273.15 + 40) "Water temperature" 
-    annotation (extent=[-100,40; -80,60]);
+  Modelica.Blocks.Sources.Constant TWat(k=273.15 + 35) "Water temperature" 
+    annotation (extent=[-60,10; -40,30]);
   replaceable 
     Buildings.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticFourPortCoolingTower
     tow(   redeclare package Medium_1 = Medium_W,
@@ -37,19 +44,19 @@ partial model PartialStaticFourPortCoolingTower
     T=293.15,
     p=101335,
     redeclare package Medium = Medium_W) 
-                          annotation (extent=[-58,10; -38,30]);
+                          annotation (extent=[-20,10; 0,30]);
     Fluids.FixedResistances.FixedResistanceDpM res_2(
     dp0=10,
     redeclare package Medium = Medium_A,
     from_dp=false,
     linearized=true, 
-    m0_flow=500) 
+    m0_flow=mAir0_flow) 
              annotation (extent=[0,-20; -20,0],   rotation=0);
     Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
-    m0_flow=5,
     dp0=10,
-    redeclare package Medium = Medium_W) 
+    redeclare package Medium = Medium_W, 
+    m0_flow=mWat0_flow) 
              annotation (extent=[60,10; 80,30]);
   Modelica.Blocks.Sources.Constant const annotation (extent=[-100,-60; -80,-40]);
   Modelica.Blocks.Math.Feedback feedback annotation (extent=[-72,-60; -52,-40]);
@@ -58,10 +65,11 @@ partial model PartialStaticFourPortCoolingTower
     height=(0.0133 - 0.0175),
     offset=0.0175) "Humidity concentration" 
                  annotation (extent=[-100,-100; -80,-80]);
+    Modelica.Blocks.Sources.Constant PWatIn(k=101335) 
+      annotation (extent=[-60,40; -40,60]);
 equation 
   connect(TWat.y, sou_1.T_in) 
-                             annotation (points=[-79,50; -70,50; -70,20; -60,20],
-                                                                  style(
+                             annotation (points=[-39,20; -22,20], style(
       color=74,
       rgbcolor={0,0,127},
       pattern=0,
@@ -92,8 +100,9 @@ equation
       fillColor=0,
       rgbfillColor={0,0,0},
       fillPattern=1));
-  connect(sou_1.port, tow.port_a1) annotation (points=[-38,20; 10,20; 10,2; 28,
-        2],    style(
+  connect(sou_1.port, tow.port_a1) annotation (points=[5.55112e-16,20; 10,20; 
+        10,2; 28,2],
+               style(
       color=69,
       rgbcolor={0,127,255},
       pattern=0,
@@ -102,15 +111,6 @@ equation
       fillPattern=1));
   connect(POut.y, sin_2.p_in) annotation (points=[-79,90; -70,90; -70,-4; -62,
         -4],  style(
-      color=74,
-      rgbcolor={0,0,127},
-      pattern=0,
-      fillColor=0,
-      rgbfillColor={0,0,0},
-      fillPattern=1));
-  connect(TWat.y, sin_2.T_in) 
-                             annotation (points=[-79,50; -70,50; -70,-10; -62,
-        -10], style(
       color=74,
       rgbcolor={0,0,127},
       pattern=0,
@@ -148,4 +148,7 @@ equation
         48,-10], style(color=69, rgbcolor={0,127,255}));
   connect(sin_2.port, res_2.port_b) annotation (points=[-40,-10; -20,-10],
       style(color=69, rgbcolor={0,127,255}));
+  annotation (Diagram);
+  connect(PWatIn.y, sou_1.p_in) annotation (points=[-39,50; -30,50; -30,26; -22,
+        26], style(color=74, rgbcolor={0,0,127}));
 end PartialStaticFourPortCoolingTower;
