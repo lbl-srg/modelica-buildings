@@ -1,4 +1,4 @@
-function der_regNonZeroPower 
+encapsulated function der_regNonZeroPower 
   "Power function, regularized near zero, but nonzero value for x=0" 
  input Real x "Abscissa value";
  input Real n "Exponent";
