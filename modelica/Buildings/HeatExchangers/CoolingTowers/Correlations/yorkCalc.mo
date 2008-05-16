@@ -3,7 +3,7 @@ function yorkCalc "Cooling tower performance correlation for YorkCalc model"
     Documentation(info="<html>
 <p>
 Correlation for approach temperature for YorkCalc cooling tower model.
-See <a href=\"Modelica:Examples/YorkCalc.mo\">Examples/YorkCalc.mo</a> for the graph.
+See <a href=\"Modelica:Buildings.HeatExchangers.CoolingTowers.Correlations.Examples.YorkCalc\">Examples/YorkCalc.mo</a> for the graph.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -14,7 +14,6 @@ First implementation.
 </ul>
 </html>"),
 smoothOrder=5, derivative=BaseClasses.der_yorkCalc);
-
   
   input Modelica.SIunits.Temperature TRan 
     "Range temperature (water in - water out)" 

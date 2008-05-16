@@ -1,10 +1,15 @@
-function der_yorkCalc "Derivative of cooling tower performance correlation for YorkCalc model" 
+function der_yorkCalc 
+  "Derivative of cooling tower performance correlation for YorkCalc model" 
+  
   annotation (
     Documentation(info="<html>
 <p>
 Derivative of correlation for approach temperature for YorkCalc cooling tower model
-with respect to <tt>FRWat</tt>. <tt>FRWat</tt> is the independent variable during the initialization
-of the YorkCalc cooling tower model, and providing this derivative avoid having to compute
+with respect to <tt>FRWat</tt>.
+</p><p>
+During the initialization
+of the YorkCalc cooling tower model, <tt>FRWat</tt> is the independent variable.
+Providing this derivative avoids Dymola from having to compute
 the Jacobian numerically.
 </p>
 </html>", revisions="<html>
@@ -15,7 +20,6 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
   
   input Modelica.SIunits.Temperature TRan 
     "Range temperature (water in - water out)" 
@@ -25,10 +29,11 @@ First implementation.
     "Ratio actual over design water mass flow ratio";
   input Modelica.SIunits.MassFraction FRAir 
     "Ratio actual over design air mass flow ratio";
-  input Real der_FRAir 
+  input Real der_FRWat 
     "Derivative of ratio actual over design air mass flow ratio";
   
-  output Modelica.SIunits.Temperature der_TApp "Derivative of approach temperature with respect to FRWat";
+  output Modelica.SIunits.Temperature der_TApp 
+    "Derivative of approach temperature with respect to FRWat";
   
 protected 
   Modelica.SIunits.CelsiusTemperature TWB_degC "Air wet-bulb inlet temperature";
@@ -46,8 +51,9 @@ protected
   
 algorithm 
   TWB_degC :=Modelica.SIunits.Conversions.to_degC(TWB);
-  liqGasRat := 1/FRAir; // by chain rule
-  der_TApp :=
+  liqGasRat := FRWat/FRAir;
+  // first term due to chain rule
+  der_TApp := 1/FRAir * (
        c[10]  +
        c[11] * TWB_degC +
        c[12] * TWB_degC * TWB_degC +
@@ -65,5 +71,5 @@ algorithm
        c[24] * TWB_degC * TWB_degC * TRan * 2 * liqGasRat +
        c[25] * TRan * TRan * 2 * liqGasRat +
        c[26] * TWB_degC * TRan * TRan * 2 * liqGasRat +
-       c[27] * TWB_degC * TWB_degC * TRan * TRan * 2 * liqGasRat;
+       c[27] * TWB_degC * TWB_degC * TRan * TRan * 2 * liqGasRat);
 end der_yorkCalc;
