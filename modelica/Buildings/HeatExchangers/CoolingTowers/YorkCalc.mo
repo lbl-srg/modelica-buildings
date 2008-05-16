@@ -56,13 +56,6 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
     "Design air flow rate" 
       annotation (Dialog(group="Nominal condition"));
   
-  Modelica.SIunits.MassFraction FRWat0(min=0, start=1) 
-    "Ratio actual over design water mass flow ratio at nominal condition";
-  Modelica.SIunits.Temperature TWatIn0 
-    "Water inlet temperature at nominal condition";
-  Modelica.SIunits.Temperature TWatOut0 
-    "Water outlet temperature at nominal condition";
-  
   Modelica.SIunits.Temperature TApp(min=0, nominal=1) "Approach temperature";
   Modelica.SIunits.Temperature TAirInWB(start=273.15+20) 
     "Air wet-bulb inlet temperature";
@@ -73,14 +66,27 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
  // Modelica.SIunits.MassFraction FRAir 
  //   "Ratio actual over design air mass flow ratio";
   
-  Modelica.SIunits.MassFlowRate mWatRef_flow(min=0, start=mWat0_flow) 
+protected 
+  parameter Modelica.SIunits.MassFraction FRWat0(min=0, start=1, fixed=false) 
+    "Ratio actual over design water mass flow ratio at nominal condition";
+  parameter Modelica.SIunits.Temperature TWatIn0(fixed=false) 
+    "Water inlet temperature at nominal condition";
+  parameter Modelica.SIunits.Temperature TWatOut0(fixed=false) 
+    "Water outlet temperature at nominal condition";
+  parameter Modelica.SIunits.MassFlowRate mWatRef_flow(min=0, start=mWat0_flow, fixed=false) 
     "Reference water flow rate";
   
-protected 
   Utilities.Psychrometrics.WetBulbTemperature wetBulMod(redeclare package 
       Medium = Medium_2, p(start=101325)) 
     "Model to compute wet bulb temperature" 
     annotation (extent=[-56,50; -36,70]);
+initial equation 
+  mWatRef_flow = mWat0_flow/FRWat0;
+  
+  TWatOut0 = TAirInWB0 + TApp0;
+  TRan0 = TWatIn0 - TWatOut0; // by definition of the range temp.
+  TApp0 = Correlations.yorkCalc(TRan=TRan0, TWB=TAirInWB0,
+                   FRWat=FRWat0, FRAir=1); // this will be solved for FRWat0
   
 equation 
   // compute wet bulb temperature
@@ -90,14 +96,6 @@ equation
   TAirInWB = wetBulMod.TWetBul;
   TAirInWB_degC = Modelica.SIunits.Conversions.to_degC(TAirInWB);
   TWatOut_degC = TApp + TAirInWB_degC;
-  
-  mWatRef_flow = mWat0_flow/FRWat0;
-//  FRAir = m_flow_2 / mAir0_flow;
-  
-  TWatOut0 = TAirInWB0 + TApp0;
-  TRan0 = TWatIn0 - TWatOut0; // by definition of the range temp.
-  TApp0 = Correlations.yorkCalc(TRan=TRan0, TWB=TAirInWB0,
-                   FRWat=FRWat0, FRAir=1); // this will be solve for FRWat0
   
   TApp = 2; // FIX ME.
   
