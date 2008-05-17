@@ -41,7 +41,7 @@ equation
   Q_flow_1 + Q_flow_2 = 0; // no heat losses other than to the air stream
   
   mXi_flow_1 = zeros(Medium_1.nXi); // no mass added or removed (sensible heat only)
-  mXi_flow_2 = zeros(Medium_2.nXi); // no mass added or removed (sensible heat only)
+ // mXi_flow_2 = zeros(Medium_2.nXi); // no mass added or removed (sensible heat only)
   
   dp_1 = 0;
   dp_2 = 0;

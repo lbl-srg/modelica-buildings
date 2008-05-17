@@ -17,7 +17,8 @@ partial model PartialStaticFourPortCoolingTower
     duration=1,
     startTime=1,
     offset=101340, 
-    height=-15)  annotation (extent=[0,-60; 20,-40]);
+    height=-15*(0.15^2)) 
+                 annotation (extent=[0,-60; 20,-40]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_2(T=283.15, redeclare 
       package Medium = Medium_A) 
                           annotation (extent=[40,-80; 60,-60],
