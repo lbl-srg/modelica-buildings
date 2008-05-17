@@ -1,5 +1,5 @@
 model YorkCalc 
-  "Cooling tower with variable speed using the York calculation for the approach temperatureCooling tower with fixed approach temperature based on wet bulb temperature" 
+  "Cooling tower with variable speed using the York calculation for the approach temperature" 
   extends 
     Buildings.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticFourPortCoolingTower;
   annotation (Icon(
@@ -11,7 +11,26 @@ model YorkCalc
           fillColor=58,
           rgbfillColor={0,127,0},
           fillPattern=1),
-        string="York")),  Diagram);
+        string="York")),  Diagram,
+    Documentation(info="<html>
+<p>
+Model for a steady state cooling tower with variable speed fan using the York calculation for the
+aproach temperature.
+</p>
+<p>
+Note that the air outlet temperature can take on values that are higher than
+the water inlet temperature. The reason is that, for computational efficiency, the
+model does not add humidity to the outlet air. So, the enthalpy difference between air inlet and
+outlet leads to sensible heating of the air stream with no latent heat gain.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 16, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
  /*
 COOLING TOWER:VARIABLE SPEED,
 Big Tower1, !- Tower Name
@@ -55,8 +74,15 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
   parameter Modelica.SIunits.MassFlowRate mAir0_flow = 1.64*1.2 
     "Design air flow rate" 
       annotation (Dialog(group="Nominal condition"));
+  parameter Real fraFreCon(min=0, max=1) = 0.125 
+    "Fraction of tower capacity in free convection regime";
   
   Modelica.SIunits.Temperature TApp(min=0, nominal=1) "Approach temperature";
+  Modelica.SIunits.Temperature TAppCor(min=0, nominal=1) 
+    "Approach temperature based on manufacturer correlation";
+  Modelica.SIunits.Temperature TAppFreCon(min=0, nominal=1) 
+    "Approach temperature for free convection";
+  
   Modelica.SIunits.Temperature TRan(nominal=1) "Range temperature";
   Modelica.SIunits.Temperature TAirInWB(start=273.15+20) 
     "Air wet-bulb inlet temperature";
@@ -66,7 +92,6 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
     "Ratio actual over design water mass flow ratio";
   Modelica.SIunits.MassFraction FRAir 
     "Ratio actual over design air mass flow ratio";
-  
 protected 
   parameter Modelica.SIunits.MassFraction FRWat0(min=0, start=1, fixed=false) 
     "Ratio actual over design water mass flow ratio at nominal condition";
@@ -81,6 +106,13 @@ protected
       Medium = Medium_2, p(start=101325)) 
     "Model to compute wet bulb temperature" 
     annotation (extent=[-56,50; -36,70]);
+  
+  Modelica.SIunits.Temperature dTMax(nominal=1) 
+    "Maximum possible temperature difference";
+  
+public 
+  Correlations.BoundsYorkCalc bou "Bounds for correlation"
+    annotation (extent=[-60,0; -40,20]);
 initial equation 
   mWatRef_flow = mWat0_flow/FRWat0;
   
@@ -97,15 +129,19 @@ equation
   TAirInWB = wetBulMod.TWetBul;
   TAirInWB_degC = Modelica.SIunits.Conversions.to_degC(TAirInWB);
   TWatOut_degC = TApp + TAirInWB_degC;
-  
+  // range temperature
   TRan = medium_a1.T - medium_b1.T;
+  // fractional mass flow rates
   FRWat = m_flow_1/mWatRef_flow;
   FRAir = m_flow_2/mAir0_flow;
   
   // At small air flow temperature, the approach temperature may become so large
-  // that the water outlet temperature is higher than the water inlet temperature
-  TApp = min(TWatIn_degC - TAirInWB_degC,
-         Correlations.yorkCalc(TRan=TRan, TWB=TAirInWB,
-                                FRWat=FRWat, FRAir=FRAir));
-  
+  // that the water outlet temperature is higher than the water inlet temperature.
+  // The min-function below restricts the approach temperature.
+  TAppCor = Correlations.yorkCalc(TRan=TRan, TWB=TAirInWB,
+                                  FRWat=FRWat, FRAir=max(FRWat/bou.liqGasRat_max, FRAir));
+  dTMax = TWatIn_degC - TAirInWB_degC;
+  TApp = min(dTMax, TAppCor);
+  TAppFreCon = dTMax - fraFreCon * ( dTMax - Correlations.yorkCalc(TRan=TRan, TWB=TAirInWB,
+                                   FRWat=FRWat, FRAir=1));
 end YorkCalc;

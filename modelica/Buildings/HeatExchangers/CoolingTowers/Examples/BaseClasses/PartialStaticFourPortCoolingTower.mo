@@ -14,10 +14,10 @@ partial model PartialStaticFourPortCoolingTower
       annotation (Dialog(group="Nominal condition"));
   
     Modelica.Blocks.Sources.Ramp PIn(
-    duration=1, 
-    startTime=1, 
+    duration=1,
+    startTime=1,
     offset=101340, 
-    height=-10)  annotation (extent=[0,-60; 20,-40]);
+    height=-15)  annotation (extent=[0,-60; 20,-40]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_2(T=283.15, redeclare 
       package Medium = Medium_A) 
                           annotation (extent=[40,-80; 60,-60],
@@ -49,13 +49,13 @@ partial model PartialStaticFourPortCoolingTower
     dp0=10,
     redeclare package Medium = Medium_A,
     from_dp=false,
-    linearized=true, 
+    linearized=true,
     m0_flow=mAir0_flow) 
              annotation (extent=[0,-20; -20,0],   rotation=0);
     Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
     dp0=10,
-    redeclare package Medium = Medium_W, 
+    redeclare package Medium = Medium_W,
     m0_flow=mWat0_flow) 
              annotation (extent=[60,10; 80,30]);
   Modelica.Blocks.Sources.Constant const annotation (extent=[-100,-60; -80,-40]);
