@@ -40,6 +40,10 @@ For a use of this model, see for example
 revisions="<html>
 <ul>
 <li>
+May 19, 2008 by Michael Wetter:<br>
+Added relative humidity as a port.
+</li>
+<li>
 May 7, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
@@ -63,6 +67,11 @@ First implementation.
       = 
        Medium.MassFraction) "Species concentration at dry bulb temperature" 
     annotation (extent=[-100,-90; -80,-70]);
+  Modelica.Blocks.Interfaces.RealSignal phi(redeclare type SignalType = Real (
+        start=0.5,
+        min=0,
+        max=1)) "Relative humidity (at dry-bulb state) in [0, 1]" 
+    annotation (extent=[80,60; 100,80]);
 equation 
   dryBul.p = p;
   dryBul.T = TDryBul;
@@ -72,4 +81,5 @@ equation
   wetBul.h = dryBul.h + (wetBul.X[Medium.Water] - dryBul.X[Medium.Water])
          * Medium.enthalpyOfLiquid(dryBul.T);
   TWetBul = wetBul.T;
+  phi     = dryBul.phi;
 end WetBulbTemperature;
