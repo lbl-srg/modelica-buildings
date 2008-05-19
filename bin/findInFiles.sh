@@ -1,8 +1,11 @@
 #!/bin/bash
-fl=`find . -name '*.mo'`
+fl=`find . -name '*.mos'`
 for ff in $fl; do
-    grep "1000" $ff
+    grep "Fluids.Media" $ff > /dev/null
     if [ $? == 0 ]; then
-	echo $ff
+	echo "File: $ff"
+	grep "Fluids.Media" $ff 
+#	sed 's/Buildings.Fluids.Media/Buildings.Media/g' -i $ff
+#	sed 's/Fluids.Media/Buildings.Media/g' -i $ff
     fi
 done
