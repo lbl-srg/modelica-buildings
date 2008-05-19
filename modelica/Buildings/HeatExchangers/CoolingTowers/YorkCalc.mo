@@ -1,17 +1,27 @@
 model YorkCalc 
   "Cooling tower with variable speed using the York calculation for the approach temperature" 
   extends 
-    Buildings.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticFourPortCoolingTower;
+    Buildings.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticTwoPortCoolingTower;
   annotation (Icon(
       Text(
-        extent=[-70,34; 42,-86],
+        extent=[-56,14; 56,-106],
         style(
           color=7,
           rgbcolor={255,255,255},
           fillColor=58,
           rgbfillColor={0,127,0},
           fillPattern=1),
-        string="York")),  Diagram,
+        string="York"),
+      Text(
+        extent=[-102,108; -68,70],
+        style(color=74, rgbcolor={0,0,127}),
+        string="yFan"),
+      Rectangle(extent=[-100,82; -70,78], style(
+          color=74,
+          rgbcolor={0,0,127},
+          fillColor=74,
+          rgbfillColor={0,0,127}))),
+                          Diagram,
     Documentation(info="<html>
 <p>
 Model for a steady state cooling tower with variable speed fan using the York calculation for the
@@ -69,11 +79,12 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
     "Design range temperature (water in - water out)" 
       annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.0015*1000 
+    "Design water flow rate" 
+      annotation (Dialog(group="Nominal condition"));
+/*  parameter Modelica.SIunits.MassFlowRate mAir0_flow = 1.64*1.2 
     "Design air flow rate" 
       annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mAir0_flow = 1.64*1.2 
-    "Design air flow rate" 
-      annotation (Dialog(group="Nominal condition"));
+*/
   parameter Real fraFreCon(min=0, max=1) = 0.125 
     "Fraction of tower capacity in free convection regime";
   
@@ -84,10 +95,6 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
     "Approach temperature for free convection";
   
   Modelica.SIunits.Temperature TRan(nominal=1) "Range temperature";
-  Modelica.SIunits.Temperature TAirInWB(start=273.15+20) 
-    "Air wet-bulb inlet temperature";
-  Modelica.SIunits.CelsiusTemperature TAirInWB_degC 
-    "Air wet-bulb inlet temperature";
   Modelica.SIunits.MassFraction FRWat 
     "Ratio actual over design water mass flow ratio";
   Modelica.SIunits.MassFraction FRAir 
@@ -102,46 +109,31 @@ protected
   parameter Modelica.SIunits.MassFlowRate mWatRef_flow(min=0, start=mWat0_flow, fixed=false) 
     "Reference water flow rate";
   
-  Utilities.Psychrometrics.WetBulbTemperature wetBulMod(redeclare package 
-      Medium = Medium_2, p(start=101325)) 
-    "Model to compute wet bulb temperature" 
-    annotation (extent=[-56,50; -36,70]);
-  
   Modelica.SIunits.Temperature dTMax(nominal=1) 
     "Maximum possible temperature difference";
   
 public 
-  Correlations.BoundsYorkCalc bou "Bounds for correlation"
-    annotation (extent=[-60,0; -40,20]);
+  Correlations.BoundsYorkCalc bou "Bounds for correlation";
+  Modelica.Blocks.Interfaces.RealInput y(redeclare type SignalType = Real (min=
+            0)) "Fan control signal"     annotation (extent=[-140,60; -100,100]);
 initial equation 
-  mWatRef_flow = mWat0_flow/FRWat0;
-  
   TWatOut0 = TAirInWB0 + TApp0;
   TRan0 = TWatIn0 - TWatOut0; // by definition of the range temp.
   TApp0 = Correlations.yorkCalc(TRan=TRan0, TWB=TAirInWB0,
                                 FRWat=FRWat0, FRAir=1); // this will be solved for FRWat0
-  
+  mWatRef_flow = mWat0_flow/FRWat0;
 equation 
-  // compute wet bulb temperature
-  wetBulMod.dryBul.h  = medium_a2.h;
-  wetBulMod.dryBul.p  = medium_a2.p;
-  wetBulMod.dryBul.Xi = medium_a2.Xi;
-  TAirInWB = wetBulMod.TWetBul;
-  TAirInWB_degC = Modelica.SIunits.Conversions.to_degC(TAirInWB);
-  TWatOut_degC = TApp + TAirInWB_degC;
   // range temperature
-  TRan = medium_a1.T - medium_b1.T;
+  TRan = medium_a.T - medium_b.T;
   // fractional mass flow rates
-  FRWat = m_flow_1/mWatRef_flow;
-  FRAir = m_flow_2/mAir0_flow;
+  FRWat = m_flow/mWatRef_flow;
+  FRAir = y;
   
-  // At small air flow temperature, the approach temperature may become so large
-  // that the water outlet temperature is higher than the water inlet temperature.
-  // The min-function below restricts the approach temperature.
-  TAppCor = Correlations.yorkCalc(TRan=TRan, TWB=TAirInWB,
+  TAppCor = Correlations.yorkCalc(TRan=TRan, TWB=TAir,
                                   FRWat=FRWat, FRAir=max(FRWat/bou.liqGasRat_max, FRAir));
-  dTMax = TWatIn_degC - TAirInWB_degC;
-  TApp = min(dTMax, TAppCor);
-  TAppFreCon = dTMax - fraFreCon * ( dTMax - Correlations.yorkCalc(TRan=TRan, TWB=TAirInWB,
-                                   FRWat=FRWat, FRAir=1));
+  dTMax = TWatIn_degC - TAirIn_degC;
+  TApp = TAppCor;
+  TAppFreCon = dTMax - fraFreCon * ( dTMax - Correlations.yorkCalc(TRan=TRan, TWB=TAir,
+                                  FRWat=FRWat, FRAir=1));
+  TWatOut_degC = TApp + TAirIn_degC;
 end YorkCalc;

@@ -1,14 +1,19 @@
 model YorkCalc 
-  import Buildings;
-  extends BaseClasses.PartialStaticFourPortCoolingTower(
-    redeclare Buildings.HeatExchangers.CoolingTowers.YorkCalc tow,
-    res_2(m0_flow=0.0015*1000),
-    res_1(
-      m0_flow=mWat0_flow,
-      dp0=100,
-      dh=0.1),
-    sou_1(p=101335),
-    PWatIn(k=101325 + 100));
+  extends 
+    Buildings.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
+    redeclare Buildings.HeatExchangers.CoolingTowers.YorkCalc tow, res_1(dh=1));
   annotation(Diagram, Commands(file="YorkCalc.mos" "run"));
   
+  Modelica.Blocks.Sources.Step yFan(
+    height=-1, 
+    offset=1, 
+    startTime=1) "Fan control signal" annotation (extent=[-60,0; -40,20]);
+equation 
+  connect(yFan.y, tow.y) annotation (points=[-39,10; -30,10; -30,-42; -20,-42], 
+      style(
+      color=74, 
+      rgbcolor={0,0,127}, 
+      fillColor=74, 
+      rgbfillColor={0,0,127}, 
+      fillPattern=1));
 end YorkCalc;
