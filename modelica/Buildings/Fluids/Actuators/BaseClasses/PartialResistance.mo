@@ -31,7 +31,7 @@ protected
   
   Modelica.SIunits.AbsolutePressure dp_small 
     "Turbulent flow if |dp| >= dp_small, not a parameter because k can be a function of time";
-parameter Medium.ThermodynamicState sta0(T=293.15, p=101325);
+parameter Medium.ThermodynamicState sta0(T=Medium.T_default, p=Medium.p_default);
 parameter Modelica.SIunits.DynamicViscosity eta0=Medium.dynamicViscosity(sta0) 
     "Dynamic viscosity, used to compute laminar/turbulent transition";
 parameter Modelica.SIunits.SpecificEnthalpy h0=Medium.h_default 

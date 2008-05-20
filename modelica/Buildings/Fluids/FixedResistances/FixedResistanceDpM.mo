@@ -31,6 +31,17 @@ First implementation.
   parameter SI.Pressure dp0(min=0) "Pressure" annotation(Dialog(group = "Nominal Condition"));
   parameter SI.Length dh=1 "Hydraulic diameter";
   parameter Real ReC=4000 "Reynolds number where transition to laminar starts";
+initial equation 
+ if ( m_small_flow > m0_flow) then
+   Modelica.Utilities.Streams.print("Warning: In FixedResistanceDpM, m0_flow is smaller than m_small_flow."
+           + "\n"
+           + "  m0_flow = " + realString(m0_flow) + "\n"
+           + "  dh      = " + realString(dh) + "\n"
+           + "  To fix, set dh < " +
+                realString(     4*m0_flow/eta0/Modelica.Constants.pi/ReC) + "\n"
+           + "  Suggested value: dh = " +
+                realString(1/10*4*m0_flow/eta0/Modelica.Constants.pi/ReC));
+ end if;
 equation 
   if linearized then
    k = m0_flow / dp0;
