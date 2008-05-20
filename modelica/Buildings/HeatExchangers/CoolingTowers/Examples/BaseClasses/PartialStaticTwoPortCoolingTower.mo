@@ -1,7 +1,7 @@
 partial model PartialStaticTwoPortCoolingTower 
  package Medium_W = Modelica.Media.Water.ConstantPropertyLiquidWater;
   
-  parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.0015*1000 
+  parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.15 
     "Design air flow rate" 
       annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate mAir0_flow = 1.64*1.2 
@@ -15,8 +15,8 @@ partial model PartialStaticTwoPortCoolingTower
     tow(   redeclare package Medium = Medium_W) "Cooling tower" 
     annotation (extent=[-18,-60; 2,-40]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_1(T=283.15, redeclare 
-      package Medium = Medium_W) 
-                          annotation (extent=[80,-60; 60,-40],
+      package Medium = Medium_W, 
+    p=101325)             annotation (extent=[80,-60; 60,-40],
                                                              rotation=0);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_1(
     T=293.15,
@@ -27,7 +27,8 @@ partial model PartialStaticTwoPortCoolingTower
     from_dp=true,
     dp0=10,
     redeclare package Medium = Medium_W,
-    m0_flow=mWat0_flow) 
+    m0_flow=mWat0_flow, 
+    dh=0.005) 
              annotation (extent=[20,-60; 40,-40]);
     Modelica.Blocks.Sources.Constant PWatIn(k=101335) 
       annotation (extent=[-100,-20; -80,0]);
@@ -52,7 +53,7 @@ equation
       rgbfillColor={0,0,0},
       fillPattern=1));
   annotation (Diagram);
-  connect(PWatIn.y, sou_1.p_in) annotation (points=[-79,-10; -70,-10; -70,-44; 
+  connect(PWatIn.y, sou_1.p_in) annotation (points=[-79,-10; -70,-10; -70,-44;
         -58,-44],
              style(color=74, rgbcolor={0,0,127}));
   connect(tow.port_a, sou_1.port) annotation (points=[-18,-50; -36,-50], style(

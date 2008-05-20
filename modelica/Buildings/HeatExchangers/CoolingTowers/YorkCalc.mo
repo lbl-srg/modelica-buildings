@@ -78,10 +78,10 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
   parameter Modelica.SIunits.Temperature TRan0 = 5.56 
     "Design range temperature (water in - water out)" 
       annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.0015*1000 
+  parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.15 
     "Design water flow rate" 
       annotation (Dialog(group="Nominal condition"));
-/*  parameter Modelica.SIunits.MassFlowRate mAir0_flow = 1.64*1.2 
+/*  parameter Modelica.SIunits.MassFlowRate mAir0_flow = 0.164*1.2 
     "Design air flow rate" 
       annotation (Dialog(group="Nominal condition"));
 */
@@ -133,7 +133,7 @@ equation
                                   FRWat=FRWat, FRAir=max(FRWat/bou.liqGasRat_max, FRAir));
   dTMax = TWatIn_degC - TAirIn_degC;
   TApp = TAppCor;
-  TAppFreCon = dTMax - fraFreCon * ( dTMax - Correlations.yorkCalc(TRan=TRan, TWB=TAir,
-                                  FRWat=FRWat, FRAir=1));
+  TAppFreCon = (1-fraFreCon) * ( TWatIn_degC-TAirIn_degC)  + fraFreCon *
+               Correlations.yorkCalc(TRan=TRan, TWB=TAir, FRWat=FRWat, FRAir=1);
   TWatOut_degC = TApp + TAirIn_degC;
 end YorkCalc;
