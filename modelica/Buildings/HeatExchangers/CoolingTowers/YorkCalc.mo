@@ -87,6 +87,8 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
 */
   parameter Real fraFreCon(min=0, max=1) = 0.125 
     "Fraction of tower capacity in free convection regime";
+  parameter Real yMin(min=0.01, max=1) = 0.3 
+    "Minimum control signal until fan is switched off (used for smoothing)";
   
   Modelica.SIunits.Temperature TApp(min=0, nominal=1) "Approach temperature";
   Modelica.SIunits.Temperature TAppCor(min=0, nominal=1) 
@@ -132,8 +134,10 @@ equation
   TAppCor = Correlations.yorkCalc(TRan=TRan, TWB=TAir,
                                   FRWat=FRWat, FRAir=max(FRWat/bou.liqGasRat_max, FRAir));
   dTMax = TWatIn_degC - TAirIn_degC;
-  TApp = TAppCor;
   TAppFreCon = (1-fraFreCon) * ( TWatIn_degC-TAirIn_degC)  + fraFreCon *
                Correlations.yorkCalc(TRan=TRan, TWB=TAir, FRWat=FRWat, FRAir=1);
+  
+  TApp = Modelica.Media.Air.MoistAir.Utilities.spliceFunction(pos=TAppCor, neg=TAppFreCon,
+         x=y-yMin/2, deltax=yMin/2);
   TWatOut_degC = TApp + TAirIn_degC;
 end YorkCalc;
