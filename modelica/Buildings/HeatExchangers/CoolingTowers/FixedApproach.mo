@@ -1,5 +1,4 @@
-model FixedApproach 
-  "Cooling tower with constant approach temperature" 
+model FixedApproach "Cooling tower with constant approach temperature" 
   extends 
     Buildings.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticTwoPortCoolingTower;
   annotation (Icon,       Diagram,
@@ -11,7 +10,7 @@ By connecting a signal that contains either the dry bulb or the wet bulb
 temperature, this model can be used to estimate the water return temperature
 from a cooling tower. 
 For a more detailed model see for example
-<a href=\"Modelica:YorkCalc.mo\">YorkCalc.mo</a>.
+<a href=\"Modelica:Buildings.HeatExchangers.CoolingTowers.YorkCalc\">YorkCalc.mo</a>.
 </p>
 </html>", revisions="<html>
 <ul>

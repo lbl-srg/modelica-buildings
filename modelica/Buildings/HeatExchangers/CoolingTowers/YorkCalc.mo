@@ -28,10 +28,17 @@ Model for a steady state cooling tower with variable speed fan using the York ca
 aproach temperature.
 </p>
 <p>
-Note that the air outlet temperature can take on values that are higher than
-the water inlet temperature. The reason is that, for computational efficiency, the
-model does not add humidity to the outlet air. So, the enthalpy difference between air inlet and
-outlet leads to sensible heating of the air stream with no latent heat gain.
+This model uses a performance curve for a York cooling tower to compute the approach temperature.
+If the fan control signal is zero, then the cooling tower operates in a free convection mode.
+In the current implementation the fan power consumption is proportional to the control signal raised
+to the third power. 
+Not yet implemented are the basin heater power consumption, the water usage and the option to provide
+a fan efficiency curve to compute the fan power consumption. Otherwise, the model is similar to the
+one in EnergyPlus.
+</p>
+<h2>References</h2>
+<p>
+<a href=\"http://www.energyplus.gov\">EnergyPlus 2.0.0 Engineering Reference</a>, April 9, 2007.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -41,34 +48,6 @@ First implementation.
 </li>
 </ul>
 </html>"));
- /*
-COOLING TOWER:VARIABLE SPEED,
-Big Tower1, !- Tower Name
-Condenser 1 Inlet Node, !- Water Inlet Node Name
-Condenser 1 Outlet Node, !- Water Outlet Node Name
-YorkCalc, !- Tower Model Type
-, !- Tower Model Coefficient Name
-#25.5556, !- Design Inlet Air Wet-Bulb Temperature {C}
-#3.8889, !- Design Approach Temperature {C}
-#5.5556, !- Design Range Temperature {C}
-#0.0015, !- Design Water Flow Rate {m3/s}
-#1.6435, !- Design Air Flow Rate {m3/s}
-275, !- Design Fan Power {W}
-FanRatioCurve, !- Fan Power Ratio as a function of Air Flow Rate Ratio Curve Name
-0.2, !- Minimum Air Flow Rate Ratio
-0.125, !- Fraction of Tower Capacity in Free Convection Regime
-450.0, !- Basin Heater Capacity {W/K}
-4.5, !- Basin Heater Set Point Temperature {C}
-BasinSchedule, !- Basin Heater Operating Schedule Name
-SATURATED EXIT, !- Evaporation Loss Mode
-, !- Evaporation Loss Factor
-0.05, !- Makeup Water Usage due to Drift {%}
-SCHEDULED RATE, !- Blowdown Calculation Mode
-BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
-; !- Name of Water Storage Tank for Supply
- 
-*/
-  
   parameter Modelica.SIunits.Temperature TAirInWB0 = 273.15+25.55 
     "Design inlet air wet bulb temperature" 
       annotation (Dialog(group="Nominal condition"));
@@ -81,10 +60,8 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
   parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.15 
     "Design water flow rate" 
       annotation (Dialog(group="Nominal condition"));
-/*  parameter Modelica.SIunits.MassFlowRate mAir0_flow = 0.164*1.2 
-    "Design air flow rate" 
+  parameter Modelica.SIunits.Power PFan0 = 275 "Fan power" 
       annotation (Dialog(group="Nominal condition"));
-*/
   parameter Real fraFreCon(min=0, max=1) = 0.125 
     "Fraction of tower capacity in free convection regime";
   parameter Real yMin(min=0.01, max=1) = 0.3 
@@ -101,6 +78,7 @@ BlowDownSchedule, !- Schedule Name for Makeup Water Usage due to Blowdown
     "Ratio actual over design water mass flow ratio";
   Modelica.SIunits.MassFraction FRAir 
     "Ratio actual over design air mass flow ratio";
+  Modelica.SIunits.Power PFan "Fan power";
 protected 
   parameter Modelica.SIunits.MassFraction FRWat0(min=0, start=1, fixed=false) 
     "Ratio actual over design water mass flow ratio at nominal condition";
@@ -137,7 +115,8 @@ equation
   TAppFreCon = (1-fraFreCon) * ( TWatIn_degC-TAirIn_degC)  + fraFreCon *
                Correlations.yorkCalc(TRan=TRan, TWB=TAir, FRWat=FRWat, FRAir=1);
   
-  TApp = Modelica.Media.Air.MoistAir.Utilities.spliceFunction(pos=TAppCor, neg=TAppFreCon,
+  TApp = Buildings.Utilities.Math.spliceFunction(pos=TAppCor, neg=TAppFreCon,
          x=y-yMin/2, deltax=yMin/2);
   TWatOut_degC = TApp + TAirIn_degC;
+  PFan = y^3 * PFan0;
 end YorkCalc;
