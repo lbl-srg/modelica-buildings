@@ -93,7 +93,7 @@ equation
       fillColor=7,
       rgbfillColor={255,255,255},
       fillPattern=1));
-  connect(res3.port_b, port_3) annotation (points=[1.1119e-15,52; 1.1119e-15,76;
+  connect(res3.port_b, port_3) annotation (points=[1.1119e-15,52; 1.1119e-15,76; 
         5.55112e-16,76; 5.55112e-16,110],
                                        style(
       color=69,
@@ -103,14 +103,14 @@ equation
       rgbfillColor={255,255,255},
       fillPattern=1));
   connect(spl.port_2, res2.port_a) 
-    annotation (points=[11,6.10623e-16; 18.25,6.10623e-16; 18.25,1.22125e-15;
+    annotation (points=[11,6.10623e-16; 18.25,6.10623e-16; 18.25,1.22125e-15; 
         25.5,1.22125e-15; 25.5,6.10623e-16; 40,6.10623e-16],
                                      style(color=69, rgbcolor={0,127,255}));
   connect(res1.port_a, spl.port_1) 
-    annotation (points=[-40,6.10623e-16; -32.75,6.10623e-16; -32.75,1.22125e-15;
+    annotation (points=[-40,6.10623e-16; -32.75,6.10623e-16; -32.75,1.22125e-15; 
         -25.5,1.22125e-15; -25.5,6.10623e-16; -11,6.10623e-16],
                                        style(color=69, rgbcolor={0,127,255}));
-  connect(spl.port_3, res3.port_a) annotation (points=[6.10623e-16,11;
+  connect(spl.port_3, res3.port_a) annotation (points=[6.10623e-16,11; 
         6.10623e-16,32; -1.12703e-16,32],
                            style(color=69, rgbcolor={0,127,255}));
 end SplitterFixedResistanceDpM;

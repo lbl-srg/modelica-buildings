@@ -17,10 +17,10 @@ model PartialStaticTwoPortCoolingTower "Cooling tower with variable speed"
           pattern=0,
           fillColor=0,
           rgbfillColor={0,0,0},
-          fillPattern=1)), 
+          fillPattern=1)),
       Text(
-        extent=[-102,70; -68,32], 
-        style(color=74, rgbcolor={0,0,127}), 
+        extent=[-102,70; -68,32],
+        style(color=74, rgbcolor={0,0,127}),
         string="TAir")),  Diagram);
   Modelica.SIunits.CelsiusTemperature TWatIn_degC(start=35) 
     "Water inlet temperature";

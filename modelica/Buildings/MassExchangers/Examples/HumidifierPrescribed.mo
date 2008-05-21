@@ -35,7 +35,8 @@ First implementation.
 </html>"),
     Coordsys(extent=[-200,-320; 360,200]));
  package Medium = Modelica.Media.Air.MoistAir;
- parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.001;
+ parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.001 
+    "Nominal water mass flow rate";
   Buildings.MassExchangers.HumidifierPrescribed hea1(redeclare package Medium 
       = Medium, m0_flow=mWat0_flow) "Heater and cooler" 
                                                   annotation (extent=[-54,92; -34,

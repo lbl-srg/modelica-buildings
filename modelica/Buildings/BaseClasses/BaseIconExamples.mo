@@ -1,4 +1,4 @@
-partial class BaseIconExamples "Base icon for BaseClasses" 
+partial class BaseIconExamples "Icon for Examples packages" 
   
   annotation (Coordsys(
       extent=[-100, -100; 100, 100],

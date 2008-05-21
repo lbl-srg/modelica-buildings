@@ -25,7 +25,7 @@ First implementation.
   
     Modelica.Blocks.Sources.Ramp p(
     duration=1,
-    offset=101325, 
+    offset=101325,
     height=250)  annotation (extent=[40,60; 60,80]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[74,10;
@@ -41,8 +41,8 @@ First implementation.
     offset=273.15 + 30) "Dry bulb temperature" 
                  annotation (extent=[-100,40; -80,60]);
     Modelica.Blocks.Sources.Ramp XHum(
-    duration=1, 
-    height=(0.0133 - 0.0175), 
+    duration=1,
+    height=(0.0133 - 0.0175),
     offset=0.0175) "Humidity concentration" 
                  annotation (extent=[-100,-60; -80,-40]);
   Modelica.Blocks.Sources.Constant const annotation (extent=[-100,-20; -80,0]);

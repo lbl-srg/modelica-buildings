@@ -65,7 +65,7 @@ equation
       fillColor=0,
       rgbfillColor={0,0,0},
       fillPattern=1));
-  connect(POut.y,sin_2. p_in) annotation (points=[-79,6; -74.25,6; -74.25,6; 
+  connect(POut.y,sin_2. p_in) annotation (points=[-79,6; -74.25,6; -74.25,6;
         -69.5,6; -69.5,6; -60,6],
               style(
       color=74,
@@ -97,9 +97,9 @@ equation
     annotation (points=[-79,50; -62,50], style(color=74, rgbcolor={0,0,127}));
   connect(PSin_1.y, sin_1.p_in) annotation (points=[61,70; 100,70; 100,18; 86,18],
       style(color=74, rgbcolor={0,0,127}));
-  connect(sou_1.port, hex.port_a1) annotation (points=[-40,50; -18,50; -18,12; 
+  connect(sou_1.port, hex.port_a1) annotation (points=[-40,50; -18,50; -18,12;
         6,12], style(color=69, rgbcolor={0,127,255}));
-  connect(hex.port_b1, res_1.port_a) annotation (points=[26,12; 30,12; 30,12; 
+  connect(hex.port_b1, res_1.port_a) annotation (points=[26,12; 30,12; 30,12;
         34,12], style(color=69, rgbcolor={0,127,255}));
   connect(res_2.port_a, hex.port_b2) annotation (points=[-2,6.10623e-16; 2,
         6.10623e-16; 2,5.55112e-16; 6,5.55112e-16], style(color=69, rgbcolor={0,

@@ -39,5 +39,16 @@ algorithm
           rgbcolor={0,0,255},
           fillColor=3,
           rgbfillColor={0,0,255},
-          fillPattern=1))));
+          fillPattern=1))), Documentation(info="<html>
+<p>
+This model prints to a file at a fixed sample interval.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 20, 2007 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end printer;

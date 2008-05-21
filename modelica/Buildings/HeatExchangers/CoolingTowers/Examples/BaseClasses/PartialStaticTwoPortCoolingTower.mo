@@ -15,7 +15,7 @@ partial model PartialStaticTwoPortCoolingTower
     tow(   redeclare package Medium = Medium_W) "Cooling tower" 
     annotation (extent=[-18,-60; 2,-40]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_1(T=283.15, redeclare 
-      package Medium = Medium_W, 
+      package Medium = Medium_W,
     p=101325)             annotation (extent=[80,-60; 60,-40],
                                                              rotation=0);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_1(
@@ -27,7 +27,7 @@ partial model PartialStaticTwoPortCoolingTower
     from_dp=true,
     dp0=10,
     redeclare package Medium = Medium_W,
-    m0_flow=mWat0_flow, 
+    m0_flow=mWat0_flow,
     dh=0.005) 
              annotation (extent=[20,-60; 40,-40]);
     Modelica.Blocks.Sources.Constant PWatIn(k=101335) 

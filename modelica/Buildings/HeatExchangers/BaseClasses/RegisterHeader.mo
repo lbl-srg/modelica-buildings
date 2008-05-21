@@ -58,7 +58,7 @@ First implementation.
     annotation (extent=[110,-10; 90,10]);
   
 equation 
-  connect(port_a, port_b) annotation (points=[-100,5.55112e-16; -50,5.55112e-16; 
+  connect(port_a, port_b) annotation (points=[-100,5.55112e-16; -50,5.55112e-16;
         -50,0; 100,0; 100,5.55112e-16], style(
       color=69,
       rgbcolor={0,127,255},

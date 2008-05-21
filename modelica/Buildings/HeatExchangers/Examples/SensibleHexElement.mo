@@ -127,11 +127,11 @@ equation
                                      annotation (points=[30,6; 42,6; 42,20; 48,
         20],    style(color=69, rgbcolor={0,127,255}));
   connect(res_22.port_a, hex.port_b2) 
-                                     annotation (points=[-4,-20; 2,-20; 2,-6; 
+                                     annotation (points=[-4,-20; 2,-20; 2,-6;
         10,-6],      style(color=69, rgbcolor={0,127,255}));
   connect(TDb1.y, sin_2.T_in) annotation (points=[-79,-20; -62,-20],
                   style(color=74, rgbcolor={0,0,127}));
-  connect(res_11.port_b, hex.port_a1) annotation (points=[-4,20; -2,20; -2,6; 
+  connect(res_11.port_b, hex.port_a1) annotation (points=[-4,20; -2,20; -2,6;
         10,6], style(color=69, rgbcolor={0,127,255}));
   connect(sou_1.port, res_11.port_a) annotation (points=[-40,50; -32,50; -32,20;
         -24,20], style(color=69, rgbcolor={0,127,255}));

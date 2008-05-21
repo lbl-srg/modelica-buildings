@@ -15,7 +15,7 @@ This is a medium model that is similar to
 Modelica.Media.Air.MoistAir</a> but 
 it has a constant specific heat capacity.
 </p><p>
-In particular, the medium is calorically perfect, i.e., 
+In particular, the medium is <i>thermally perfect</i>, i.e., 
 <ul>
 <li>
 it is in thermodynamic equilibrium,
@@ -25,7 +25,7 @@ it is chemically not reacting, and
 internal energy and enthalpy are functions of the temperature only.
 </li>
 </ul>
-In addition, the gas is calorically perfect, i.e., the
+In addition, the gas is <i>calorically perfect</i>, i.e., the
 specific heat capacities at constant pressure
 and constant volume are both constant (Bower 1998).
 </p>

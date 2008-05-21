@@ -51,9 +51,9 @@ equation
   connect(TWBExp.y, assertEquality.u2) 
     annotation (points=[41,-10; 48,-10; 48,18; 62,18],
                                          style(color=74, rgbcolor={0,0,127}));
-  connect(TDB.y, wetBul.TDryBul) annotation (points=[-79,70; -39.5,70; -39.5,38; 
+  connect(TDB.y, wetBul.TDryBul) annotation (points=[-79,70; -39.5,70; -39.5,38;
         1,38], style(color=74, rgbcolor={0,0,127}));
-  connect(feedback.y, wetBul.X[2]) annotation (points=[-49,-10; -6,-10; -6,22; 
+  connect(feedback.y, wetBul.X[2]) annotation (points=[-49,-10; -6,-10; -6,22;
         1,22], style(color=74, rgbcolor={0,0,127}));
   connect(p.y, wetBul.p) annotation (points=[-79,30; 1,30],
       style(color=74, rgbcolor={0,0,127}));
