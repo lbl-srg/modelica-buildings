@@ -1,5 +1,5 @@
 package Buildings "Library for building energy and control systems"
-annotation (preferedView="info", uses(Modelica(version="2.2.1"), Modelica_Fluid(version="1.0 Beta 2")), 
+annotation (preferedView="info", uses(Modelica(version="2.2.1"), Modelica_Fluid(version="1.0 Beta 2")),
   Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Users Guide of the Modelica Buildings Library</font></h3>
 <p>
@@ -20,6 +20,7 @@ or through requirements definition or by providing feedback regarding the model 
 to solve specific problems.
 </p>
 </html>"));
+
 
 package UsersGuide "Users Guide" 
   
@@ -66,7 +67,7 @@ This section summarizes the changes that have been performed
 on the Buildings library
 </p>
 <ul>
-<li> <a href=\"Modelica://Modelica.UsersGuide.ReleaseNotes.Version_1_0_0\">
+<li> <a href=\"Modelica://Buildings.ReleaseNotes.Version_0_1_0\">
 Version 0.1.0</a> (date)</li>
 </ul>
 </html>
@@ -76,20 +77,22 @@ Version 0.1.0</a> (date)</li>
       
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.1.0</font></h3>
+<p>First release of the library.
+</p>
 <p>This version contains basic models for modeling building HVAC systems.
 It also contains new medium models in the package
-<a href=\"Modelica:Buildings.Media\">Buildings.Media</a>. These medium models
+<a href=\"Modelica://Buildings.Media\">Buildings.Media</a>. These medium models
 have simpler property functions than the ones from
-<a href=\"Modelica:Modelica.Media\">Modelica.Media</a>. For example,
+<a href=\"Modelica://Modelica.Media\">Modelica.Media</a>. For example,
 there is medium model with constant heat capacity which is often sufficiently 
 accurate for building HVAC simulation, in contrast to the more detailed models
-from <a href=\"Modelica:Modelica.Media\">Modelica.Media</a> that are valid in 
+from <a href=\"Modelica://Modelica.Media\">Modelica.Media</a> that are valid in 
 a larger temperature range, at the expense of introducing non-linearities due
 to the medium properties.
 <p>
-
+ 
 </p>
-
+ 
 </html>
 "));
   end Version_0_1_0;
