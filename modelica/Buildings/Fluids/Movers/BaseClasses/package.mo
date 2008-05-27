@@ -1,3 +1,3 @@
-package BaseClasses "Basic models for this pumps and fans"
+package BaseClasses "Package with basic models for fans and pumps"
   extends Modelica_Fluid.Icons.BaseClassLibrary;
 end BaseClasses;

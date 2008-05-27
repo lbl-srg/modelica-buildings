@@ -1,4 +1,4 @@
-package Fluids "Library to model fluid flow systems"
+package Fluids "Package with models for fluid flow systems"
 annotation (uses(Modelica(version="2.2.1")), preferedView="info", Documentation(info="<html>
 This package contains components for fluid flow systems such as
 pumps, valves and sensors. For other fluid flow models, see 

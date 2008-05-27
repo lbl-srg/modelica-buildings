@@ -1,2 +1,2 @@
-package Sensors "Library to model sensors"
+package Sensors "Package with sensor models"
 end Sensors;

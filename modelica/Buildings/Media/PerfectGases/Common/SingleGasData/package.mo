@@ -1,4 +1,4 @@
-package SingleGasData "Data records for single gases"
+package SingleGasData "Package with data records for single gases"
  constant DataRecord Air(
    name=Modelica.Media.IdealGases.Common.SingleGasesData.Air.name,
    R=Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,

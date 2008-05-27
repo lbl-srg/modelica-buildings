@@ -1,2 +1,2 @@
-package PerfectGases "Package for perfect gases"
+package PerfectGases "Package with models for perfect gases"
 end PerfectGases;

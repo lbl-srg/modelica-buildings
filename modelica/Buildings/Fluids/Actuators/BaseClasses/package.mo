@@ -1,3 +1,3 @@
-package BaseClasses "Base classes for actuator models"
+package BaseClasses "Package with base classes for actuator models"
   extends Modelica_Fluid.Icons.BaseClassLibrary;
 end BaseClasses;

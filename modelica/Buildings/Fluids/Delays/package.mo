@@ -1,2 +1,2 @@
-package Delays "Library to model delays"
+package Delays "Package with delay models"
 end Delays;

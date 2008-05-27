@@ -1,4 +1,4 @@
-package ConstantPropertyLiquidWater 
+package ConstantPropertyLiquidWater "Package with model for liquid water with constant properties"
   extends Modelica.Media.Water.ConstantPropertyLiquidWater;
 import SI = Modelica.SIunits;
 
@@ -20,7 +20,7 @@ First implementation.
 </html>"));
 
 
- redeclare replaceable function extends density "return constant density" 
+ redeclare replaceable function extends density "Returns constant density" 
  algorithm 
     d := d_const;
  end density;

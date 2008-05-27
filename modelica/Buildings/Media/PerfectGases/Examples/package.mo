@@ -1,3 +1,3 @@
-package Examples "Collection of models to test models and illustrate model use"
+package Examples "Collection of models that illustrate model use and test models"
   extends Buildings.BaseClasses.BaseIconExamples;
 end Examples;

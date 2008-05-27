@@ -1,2 +1,2 @@
-package MassExchangers "Library to model heat exchangers"
+package MassExchangers "Package with mass exchanger models"
 end MassExchangers;

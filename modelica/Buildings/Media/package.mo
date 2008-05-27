@@ -1,2 +1,2 @@
-package Media "Library with medium models"
+package Media "Package with medium models"
 end Media;

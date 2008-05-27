@@ -1,2 +1,2 @@
-package Movers "Library to model fans and pumps"
+package Movers "Package with fan and pump models"
 end Movers;

@@ -1,4 +1,4 @@
-package Buildings "Library for building energy and control systems"
+package Buildings "Library with models for building energy and control systems"
 annotation (preferedView="info", uses(Modelica(version="2.2.1"), Modelica_Fluid(version="1.0 Beta 2")),
   Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Users Guide of the Modelica Buildings Library</font></h3>
@@ -68,7 +68,7 @@ on the Buildings library
 </p>
 <ul>
 <li> <a href=\"Modelica://Buildings.ReleaseNotes.Version_0_1_0\">
-Version 0.1.0</a> (date)</li>
+Version 0.1.0</a>May 27, 2008</li>
 </ul>
 </html>
 "));

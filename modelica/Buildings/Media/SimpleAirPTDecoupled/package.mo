@@ -1,4 +1,4 @@
-package SimpleAirPTDecoupled 
+package SimpleAirPTDecoupled "Package with air model that decouples pressure and temperature"
   extends Modelica.Media.Air.SimpleAir(
       mediumName="SimpleAirPTDecoupled",
       T_min=Cv.from_degC(-50));

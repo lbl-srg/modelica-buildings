@@ -1,2 +1,2 @@
-package Actuators "Library to model actuators (valves and dampers)"
+package Actuators "Package with actuator models such as valves and dampers"
 end Actuators;
