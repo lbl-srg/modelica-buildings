@@ -1,9 +1,10 @@
 model FixedResistanceDpM 
   "Fixed flow resistance with dp and m_flow as parameter" 
   extends Buildings.BaseClasses.BaseIcon;
-  extends Buildings.Fluids.Actuators.BaseClasses.PartialResistance(
-                                                   m_small_flow=eta0*dh/4*
-        Modelica.Constants.pi*ReC);
+  extends Buildings.Fluids.BaseClasses.PartialResistance(
+     final m_small_flow=if use_dh then 
+        eta0*dh/4*Modelica.Constants.pi*ReC else 
+        deltaM * m0_flow);
   import SI = Modelica.SIunits;
   annotation (Diagram, Documentation(info="<html>
 <p>
@@ -14,6 +15,10 @@ Near the origin, the square root relation is regularized to ensure that the deri
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 30, 2008 by Michael Wetter:<br>
+Added parameters <tt>use_dh</tt> and <tt>deltaM</tt> for easier parameterization.
+</li>
 <li>
 July 20, 2007 by Michael Wetter:<br>
 First implementation.
@@ -29,8 +34,14 @@ First implementation.
         string="m0=%m0_flow")));
   parameter SI.MassFlowRate m0_flow "Mass flow rate" annotation(Dialog(group = "Nominal Condition"));
   parameter SI.Pressure dp0(min=0) "Pressure" annotation(Dialog(group = "Nominal Condition"));
-  parameter SI.Length dh=1 "Hydraulic diameter";
-  parameter Real ReC=4000 "Reynolds number where transition to laminar starts";
+  parameter Boolean use_dh = false "Set to true to specify hydraulic diameter" 
+       annotation(Evaluate=true, Dialog(enable = not linearized));
+  parameter SI.Length dh=1 "Hydraulic diameter" annotation(Dialog(enable = use_dh and not linearized));
+  parameter Real ReC=4000 "Reynolds number where transition to laminar starts" 
+      annotation(Dialog(enable = use_dh and not linearized));
+  parameter Real deltaM(min=0) = 0.3 
+    "Fraction of nominal mass flow rate where transition to laminar occurs" 
+       annotation(Dialog(enable = not use_dh and not linearized));
 initial equation 
  if ( m_small_flow > m0_flow) then
    Modelica.Utilities.Streams.print("Warning: In FixedResistanceDpM, m0_flow is smaller than m_small_flow."

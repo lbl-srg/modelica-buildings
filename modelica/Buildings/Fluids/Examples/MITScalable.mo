@@ -33,7 +33,7 @@ model MITScalable "System model for MIT building"
   parameter Real scaDp0FanRet = ( dp0FanRetMIT + (NSui-1) * dp0SuiRet)  / dp0FanRetMIT 
     "Scaling factor for supply fan pressure lift with NSui number of suites";
   
-  Buildings.Fluids.Actuators.OAMixingBoxMinimumDamper mixBox(
+  Buildings.Fluids.Actuators.Dampers.OAMixingBoxMinimumDamper mixBox(
     dp0Out=0.467,
     dp0Rec=0.665,
     dp0Exh=0.164,
@@ -100,7 +100,7 @@ model MITScalable "System model for MIT building"
     scaDp=scaDp0FanRet,
     redeclare package Medium = Medium) 
     annotation (extent=[110,-50; 90,-30], style(thickness=2));
-  Buildings.Fluids.Actuators.VAVBoxExponential vav44(
+  Buildings.Fluids.Actuators.Dampers.VAVBoxExponential vav44(
     dp0=0.999E2,
     A=0.024,
     m0_flow=0.132*1.2,

@@ -183,14 +183,14 @@ First implementation.
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl34(
                                               m0_flow=ones(3), dp0={0.176,0.844,
         0.0662},
-    redeclare package Medium = Medium)                             annotation (extent=[10,130;
-        30,110]);
+    redeclare package Medium = Medium)                             annotation (extent=[10,110; 
+        30,130]);
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM mix55(
                                               m0_flow=ones(3), dp0=1E3*{
         0.263200E-02,0.999990E-03,0.649000E-03},
     redeclare package Medium = Medium) 
-    annotation (extent=[10,-50; 30,-30]);
-  Buildings.Fluids.Actuators.VAVBoxExponential vav39(
+    annotation (extent=[10,-30; 30,-50]);
+  Buildings.Fluids.Actuators.Dampers.VAVBoxExponential vav39(
     A=0.49,
     m0_flow=4.33*1.2,
     dp0=0.999E2,
@@ -200,25 +200,25 @@ First implementation.
                                       m0_flow=1, dp0=0.1E3,
     redeclare package Medium = Medium) 
     annotation (extent=[40,10; 60,30]);
-  Buildings.Fluids.Actuators.VAVBoxExponential vav40(
+  Buildings.Fluids.Actuators.Dampers.VAVBoxExponential vav40(
     A=0.245,
     m0_flow=2.369*1.2,
     dp0=0.999E2,
     redeclare package Medium = Medium) 
     annotation (extent=[70,50; 90,70],  rotation=270);
-  Buildings.Fluids.Actuators.VAVBoxExponential vav41(
+  Buildings.Fluids.Actuators.Dampers.VAVBoxExponential vav41(
     dp0=0.999E2,
     A=0.128,
     m0_flow=0.837*1.2,
     redeclare package Medium = Medium) 
     annotation (extent=[130,50; 150,70],rotation=270);
-  Buildings.Fluids.Actuators.VAVBoxExponential vav42(
+  Buildings.Fluids.Actuators.Dampers.VAVBoxExponential vav42(
     dp0=0.999E2,
     A=0.128,
     m0_flow=0.801*1.2,
     redeclare package Medium = Medium) 
     annotation (extent=[190,50; 210,70],rotation=270);
-  Buildings.Fluids.Actuators.VAVBoxExponential vav43(
+  Buildings.Fluids.Actuators.Dampers.VAVBoxExponential vav43(
     dp0=0.999E2,
     A=0.0494,
     m0_flow=0.302*1.2,
@@ -243,43 +243,43 @@ First implementation.
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl35(
                                               m0_flow=ones(3), dp0=1E3*{
         0.371000E-04,0.259000E-02,0.131000E-02},
-    redeclare package Medium = Medium)                             annotation (extent=[70,130;
-        90,110]);
+    redeclare package Medium = Medium)                             annotation (extent=[70,110; 
+        90,130]);
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl36(
                                               m0_flow=ones(3), dp0=1E3*{
         0.211000E-03,0.128000E-01,0.223000E-02},
-    redeclare package Medium = Medium)                             annotation (extent=[130,130;
-        150,110]);
+    redeclare package Medium = Medium)                             annotation (extent=[130,110; 
+        150,130]);
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl37(
                                               m0_flow=ones(3), dp0=1E3*{
         0.730000E-03,0.128000E-01,0.938000E-02},
-    redeclare package Medium = Medium)                             annotation (extent=[190,130;
-        210,110]);
+    redeclare package Medium = Medium)                             annotation (extent=[190,110; 
+        210,130]);
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl38(
                                               m0_flow=ones(3), dp0=1E3*{
         0.731000E-02,0.895000E-01,0.942000E-01},
-    redeclare package Medium = Medium)                             annotation (extent=[250,130;
-        270,110]);
+    redeclare package Medium = Medium)                             annotation (extent=[250,110; 
+        270,130]);
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM mix54(
                                               m0_flow=ones(3), dp0=1E3*{
         0.653000E-02,0.271000E-03,0.402000E-04},
     redeclare package Medium = Medium) 
-    annotation (extent=[70,-50; 90,-30]);
+    annotation (extent=[70,-30; 90,-50]);
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM mix53(
                                               m0_flow=ones(3), dp0=1E3*{
         0.566000E-01,0.541000E-02,0.749000E-04},
     redeclare package Medium = Medium) 
-    annotation (extent=[130,-50; 150,-30]);
+    annotation (extent=[130,-30; 150,-50]);
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM mix52(
                                               m0_flow=ones(3), dp0=1E3*{
         0.353960,0.494000E-03,0.922000E-03},
     redeclare package Medium = Medium) 
-    annotation (extent=[190,-50; 210,-30]);
+    annotation (extent=[190,-30; 210,-50]);
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM mix51(
                                               m0_flow=ones(3), dp0=1E3*{
         0.847600E-01,1.89750,0.150000E-02},
     redeclare package Medium = Medium) 
-    annotation (extent=[250,-50; 270,-30]);
+    annotation (extent=[250,-30; 270,-50]);
   Buildings.Fluids.Examples.BaseClasses.RoomLeakage lea45(redeclare package 
       Medium = 
         Medium) "Room leakage model" 
@@ -339,8 +339,8 @@ First implementation.
     "Damper signal" 
     annotation (extent=[-140,68; -100,108]);
 equation 
-  connect(spl34.port_3,vav39. port_a)                      annotation (points=[20,109;
-        20,89.5; 20,70; 20,70],  style(color=69, rgbcolor={0,127,255}));
+  connect(spl34.port_3,vav39. port_a)                      annotation (points=[20,110; 
+        20,90; 20,70; 20,70],    style(color=69, rgbcolor={0,127,255}));
   connect(vav39.port_b,roo45.port[1])  annotation (points=[20,50; 20,34.6; 20,
         34.6; 20,19.2],
       style(
@@ -349,7 +349,7 @@ equation
       gradient=3,
       fillColor=3,
       rgbfillColor={0,0,255}));
-  connect(mix55.port_3,roo45.port[2])  annotation (points=[20,-29; 20,19.6],
+  connect(mix55.port_3,roo45.port[2])  annotation (points=[20,-30; 20,19.6],
       style(
       color=69,
       rgbcolor={0,127,255},
@@ -402,16 +402,16 @@ equation
       style(color=69, rgbcolor={0,127,255}));
   connect(spl36.port_2,spl37. port_1) annotation (points=[151,120; 189,120],
       style(color=69, rgbcolor={0,127,255}));
-  connect(spl35.port_3,vav40. port_a) annotation (points=[80,109; 80,70],
+  connect(spl35.port_3,vav40. port_a) annotation (points=[80,110; 80,70],
       style(color=69, rgbcolor={0,127,255}));
-  connect(spl36.port_3,vav41. port_a) annotation (points=[140,109; 140,70],
+  connect(spl36.port_3,vav41. port_a) annotation (points=[140,110; 140,70],
       style(color=69, rgbcolor={0,127,255}));
-  connect(spl37.port_3,vav42. port_a) annotation (points=[200,109; 200,70],
+  connect(spl37.port_3,vav42. port_a) annotation (points=[200,110; 200,70],
       style(color=69, rgbcolor={0,127,255}));
   connect(roo46.port[3],mix54. port_3) 
-    annotation (points=[80,20; 80,-29],    style(color=3, rgbcolor={0,0,255}));
+    annotation (points=[80,20; 80,-30],    style(color=3, rgbcolor={0,0,255}));
   connect(roo47.port[2],mix53. port_3) 
-    annotation (points=[140,19.6; 140,-29],style(color=3, rgbcolor={0,0,255}));
+    annotation (points=[140,19.6; 140,-30],style(color=3, rgbcolor={0,0,255}));
   connect(roo47.port[3],res15. port_a) 
     annotation (points=[140,20; 160,20],   style(color=3, rgbcolor={0,0,255}));
   connect(res15.port_b,roo48.port[2])  annotation (points=[180,20; 190,20; 190,
@@ -431,8 +431,9 @@ equation
                        style(color=69, rgbcolor={0,127,255}));
   connect(mix52.port_2,mix51. port_1) annotation (points=[211,-40; 249,-40],
       style(color=69, rgbcolor={0,127,255}));
-  connect(roo48.port[3],mix51. port_3) annotation (points=[200,20; 200,-12; 260,-12;
-        260,-29], style(color=3, rgbcolor={0,0,255}));
+  connect(roo48.port[3],mix51. port_3) annotation (points=[200,20; 200,-12; 260,
+        -12; 260,-30],
+                  style(color=3, rgbcolor={0,0,255}));
   connect(roo48.port[4],res16. port_a) 
     annotation (points=[200,20.4; 210,20.4; 210,20; 220,20],
                                            style(color=3, rgbcolor={0,0,255}));
@@ -440,14 +441,15 @@ equation
                                   annotation (points=[240,20; 250,20; 250,19.6;
         260,19.6],                                                       style(
         color=69, rgbcolor={0,127,255}));
-  connect(roo49.port[3],mix52. port_3) annotation (points=[260,20; 260,-6; 232,-6; 232,
-        -20; 200,-20; 200,-29],     style(color=3, rgbcolor={0,0,255}));
+  connect(roo49.port[3],mix52. port_3) annotation (points=[260,20; 260,-6; 232,
+        -6; 232,-20; 200,-20; 200,-30],
+                                    style(color=3, rgbcolor={0,0,255}));
   connect(roo49.port[4],res17. port_a) 
     annotation (points=[260,20.4; 270,20.4; 270,20; 280,20],
                                            style(color=3, rgbcolor={0,0,255}));
   connect(spl37.port_2,spl38. port_1) annotation (points=[211,120; 249,120],
       style(color=69, rgbcolor={0,127,255}));
-  connect(vav43.port_a,spl38. port_3) annotation (points=[260,68; 260,109],
+  connect(vav43.port_a,spl38. port_3) annotation (points=[260,68; 260,110],
              style(color=69, rgbcolor={0,127,255}));
   connect(lea45.port_b,roo45.port[4]) annotation (points=[40,140; 40,20.4; 20,
         20.4],

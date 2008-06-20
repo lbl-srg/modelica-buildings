@@ -6,7 +6,7 @@ model VAVBoxExponential
     "Medium in the component" 
          annotation (choicesAllMatching = true);
   
-  Buildings.Fluids.Actuators.DamperExponential dam(
+  Buildings.Fluids.Actuators.Dampers.Exponential dam(
     A=1, redeclare package Medium = Medium) 
          annotation (extent=[20,10; 40,30]);
     Modelica.Blocks.Sources.Ramp yRam(
@@ -26,7 +26,8 @@ model VAVBoxExponential
                Medium, T=273.15 + 20)   annotation (extent=[72,10; 52,30]);
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
       annotation (extent=[60,60; 80,80]);
-  Buildings.Fluids.Actuators.VAVBoxExponential vav(A=1, m0_flow=2, dp0=1,
+  Buildings.Fluids.Actuators.Dampers.VAVBoxExponential vav(
+                                                   A=1, m0_flow=2, dp0=1,
     redeclare package Medium = Medium) 
          annotation (extent=[-2,-50; 18,-30]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sou1(redeclare package Medium 

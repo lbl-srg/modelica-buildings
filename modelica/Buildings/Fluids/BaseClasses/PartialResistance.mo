@@ -14,7 +14,18 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
       Rectangle(extent=[-100,22; 100,-24],   style(
           color=69,
           gradient=2,
-          fillColor=69))));
+          fillColor=69))), Documentation(info="<html>
+<p>
+Partial model for a flow resistance, possible with variable flow coefficient.
+</p>
+</html>"), revisions="<html>
+<ul>
+<li>
+July 20, 2007 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>");
   
   parameter Boolean from_dp = true 
     "= true, use m_flow = f(dp) else dp = f(m_flow)" 
@@ -31,10 +42,11 @@ protected
   
   Modelica.SIunits.AbsolutePressure dp_small 
     "Turbulent flow if |dp| >= dp_small, not a parameter because k can be a function of time";
-parameter Medium.ThermodynamicState sta0(T=Medium.T_default, p=Medium.p_default);
-parameter Modelica.SIunits.DynamicViscosity eta0=Medium.dynamicViscosity(sta0) 
+  parameter Medium.ThermodynamicState sta0(T=Medium.T_default, p=Medium.p_default);
+  
+  parameter Modelica.SIunits.DynamicViscosity eta0=Medium.dynamicViscosity(sta0) 
     "Dynamic viscosity, used to compute laminar/turbulent transition";
-parameter Modelica.SIunits.SpecificEnthalpy h0=Medium.h_default 
+  parameter Modelica.SIunits.SpecificEnthalpy h0=Medium.h_default 
     "Initial value for solver for specific enthalpy";           //specificEnthalpy(sta0) 
   
 initial equation 

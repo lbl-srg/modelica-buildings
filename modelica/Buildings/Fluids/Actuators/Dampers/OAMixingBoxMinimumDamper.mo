@@ -4,20 +4,24 @@ model OAMixingBoxMinimumDamper
   extends Buildings.Fluids.Interfaces.PartialSingleFluidParameters;
   import Modelica.Constants;
   
-  Buildings.Fluids.Actuators.DamperExponential damOAMin( A=AOutMin,
+  Buildings.Fluids.Actuators.Dampers.Exponential damOAMin(
+                                                         A=AOutMin,
     redeclare package Medium = Medium) "Damper for minimum outside air supply" 
                                             annotation (extent=[-42,28; -22,48]);
-  Buildings.Fluids.Actuators.DamperExponential damOA( A=AOut,
+  Buildings.Fluids.Actuators.Dampers.Exponential damOA(
+                                                      A=AOut,
     redeclare package Medium = Medium) 
     annotation (extent=[-42,-30; -22,-10]);
   parameter Modelica.SIunits.Area AOutMin 
     "Face area minimum outside air damper";
   parameter Modelica.SIunits.Area AOut "Face area outside air damper";
-  Buildings.Fluids.Actuators.DamperExponential damExh( A=AExh,
+  Buildings.Fluids.Actuators.Dampers.Exponential damExh(
+                                                       A=AExh,
     redeclare package Medium = Medium) "Exhaust air damper" 
     annotation (extent=[-22,-90; -42,-70]);
   parameter Modelica.SIunits.Area AExh "Face area exhaust air damper";
-  Buildings.Fluids.Actuators.DamperExponential damRec( A=ARec,
+  Buildings.Fluids.Actuators.Dampers.Exponential damRec(
+                                                       A=ARec,
     redeclare package Medium = Medium) "Recirculation air damper" 
                                annotation (extent=[18,-20; 38,0], rotation=90);
   parameter Modelica.SIunits.Area ARec "Face area recirculation air damper";

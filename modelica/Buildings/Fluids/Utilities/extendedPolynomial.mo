@@ -2,13 +2,14 @@ function extendedPolynomial
   "Polynomial that is linearly extended at user specified values" 
   extends Modelica.Icons.Function;
   annotation (Documentation(info="<html>
-This function defines a polynomial 
+For <tt>x</tt> between the bounds <tt>xMin &lt; x &lt; xMax</tt>,
+this function defines a polynomial 
 <pre>
    y = c1 + c2 * x + ... + cN * x^(N-1)
 </pre>
-where N &gt; 1 and
-x is between the bounds xMin &lt; x &lt; xMax. If x is outside this range,
-then the polynomial is replaced with a linear function
+where <tt>N &gt; 1</tt> and <tt>xMin, xMax</tt> are parameters.
+For <tt>x &lt; xMin</tt> and <tt>x &gt; xMax</tt>,
+the polynomial is replaced with a linear function
 in such a way that the first derivative is continuous everywhere. 
 </html>", revisions="<html>
 <ul>
@@ -17,17 +18,16 @@ September 11, 2007 by Michael Wetter:<br>
 Fixed error in computing the polynomial outside of <code>xMin</code> and <code>xMax</code>.
 <li>
 July 19, 2007 by Michael Wetter:<br>
-Created.
+First implementation.
 </li>
 </ul>
 </html>"));
-  
   input Real[:] c "Polynomial coefficients";
   input Real x "x value";
   input Real xMin "Minimum x value for polynomial";
   input Real xMax "Maximum x value for polynomial";
   output Real y "y value";
-     annotation(smoothOrder=1);
+     annotation(smoothOrder=1, derivative=BaseClasses.der_extendedPolynomial);
 protected 
  Integer N = size(c,1) "Number of coefficients";
 algorithm 

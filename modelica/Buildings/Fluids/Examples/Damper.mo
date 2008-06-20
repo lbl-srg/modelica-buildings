@@ -4,10 +4,9 @@ model Damper
             "Damper.mos" "run"));
   
  package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
-    "Medium in the component" 
-           annotation (choicesAllMatching = true);
+    "Medium in the component";
   
-  Buildings.Fluids.Actuators.DamperExponential res(
+  Buildings.Fluids.Actuators.Dampers.Exponential res(
     A=1,
     redeclare package Medium = Medium) 
          annotation (extent=[0,10; 20,30]);

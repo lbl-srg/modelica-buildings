@@ -7,7 +7,7 @@ model OAMixingBoxMinimumDamper
     "Medium in the component" 
          annotation (choicesAllMatching = true);
   
-  Buildings.Fluids.Actuators.OAMixingBoxMinimumDamper mixBox(
+  Buildings.Fluids.Actuators.Dampers.OAMixingBoxMinimumDamper mixBox(
     AOutMin=0.3,
     AOut=0.7,
     AExh=1,

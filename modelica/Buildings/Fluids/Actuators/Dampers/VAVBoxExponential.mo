@@ -8,6 +8,12 @@ VAV box plus an air damper with a flow coefficient that is an exponential functi
 </html>", revisions="<html>
 <ul>
 <li>
+June 10, 2008 by Michael Wetter:<br>
+Introduced new partial base class, 
+<a href=\"Modelica:Buildings.Fluids.Actuators.BaseClasses.PartialDamperExponential\">
+PartialDamperExponential</a>.
+</li>
+<li>
 September 11, 2007 by Michael Wetter:<br>
 Redefined <code>kRes</code>, now the pressure drop of the fully open damper is subtracted from the fixed resistance.
 <li>
@@ -15,15 +21,15 @@ July 27, 2007 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(Rectangle(extent=[-78,-40; -46,40], style(
+</html>"), Icon(Rectangle(extent=[-66,-40; -34,40], style(
           color=7,
           rgbcolor={255,255,255},
           fillColor=7,
-          rgbfillColor={255,255,255})), Rectangle(extent=[-78,2; -46,-4], style(
-          pattern=0,
-          fillColor=70,
-          rgbfillColor={66,105,203},
-          fillPattern=1))),
+          rgbfillColor={255,255,255})),
+      Rectangle(extent=[-98,22; 102,-24],    style(
+          color=69,
+          gradient=2,
+          fillColor=69))),
     Diagram);
   parameter SI.MassFlowRate m0_flow "Mass flow rate" annotation(Dialog(group = "Nominal Condition"));
   parameter SI.Pressure dp0(min=0) "Pressure drop, including fully open damper"

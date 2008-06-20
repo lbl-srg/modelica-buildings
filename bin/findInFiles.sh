@@ -1,11 +1,11 @@
 #!/bin/bash
-fl=`find . -name '*.mos'`
+OLD=FixedResistanceDpM
+NEW=ResistanceDpMDh
+fl=`find . \( -name '*.mos' -or -name '*.mo' \)`
 for ff in $fl; do
-    grep "Fluids.Media" $ff > /dev/null
+    grep "$OLD" $ff > /dev/null
     if [ $? == 0 ]; then
-	echo "File: $ff"
-	grep "Fluids.Media" $ff 
-#	sed 's/Buildings.Fluids.Media/Buildings.Media/g' -i $ff
-#	sed 's/Fluids.Media/Buildings.Media/g' -i $ff
+	sed "s/${OLD}/AAABBAAA/g" -i $ff
+	sed "s/AAABBAAA/${NEW}/g" -i $ff
     fi
 done

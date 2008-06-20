@@ -12,11 +12,13 @@ Many models are based on models from the package
 <a href=\"Modelica://Modelica_Fluid\">Modelica_Fluid</a> and use
 the same ports to ensure compatibility with models from that library.
 </p><p>
-The web page that is dedicated to the development of this library is
+The web page for this library is
 <a href=\"https://gaia.lbl.gov/bir\">https://gaia.lbl.gov/bir</a>. 
-We welcome contributions from different users to further advance this library, 
-whether it is through collaborative model development, through model use and testing
-or through requirements definition or by providing feedback regarding the model applicability
+Contributions from different users to further advance this library are
+welcomed.
+Contributions may not only be in the form of model development, but also
+through model use, model testing,
+requirements definition or providing feedback regarding the model applicability
 to solve specific problems.
 </p>
 </html>"));
@@ -67,14 +69,31 @@ This section summarizes the changes that have been performed
 on the Buildings library
 </p>
 <ul>
-<li> <a href=\"Modelica://Buildings.ReleaseNotes.Version_0_1_0\">
+<li> 
+<a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">
+Version 0.2.0 </a>(June 17, 2008)</li>
+<li> 
+<a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">
 Version 0.1.0 </a>(May 27, 2008)</li>
 </ul>
 </html>
 "));
     
+  class Version_0_2_0 "Version 0.2.0" 
+      annotation (Documentation(info="<html>
+<h3><font color=\"#008000\">Version 0.2.0</font></h3>
+<p>
+New in this version are models for two and three way valves.
+In addition, the <tt>Fluids</tt> package has been slightly revised.
+The package <tt>Fluids.BaseClasses</tt> has been added because in
+the previous version, partial models for fixed resistances 
+where part of the <tt>Actuator</tt> package.
+</p>
+</html>
+"));
+  end Version_0_2_0;
+    
   class Version_0_1_0 "Version 0.1.0" 
-      
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.1.0</font></h3>
 <p>First release of the library.
@@ -89,10 +108,6 @@ accurate for building HVAC simulation, in contrast to the more detailed models
 from <a href=\"Modelica://Modelica.Media\">Modelica.Media</a> that are valid in 
 a larger temperature range, at the expense of introducing non-linearities due
 to the medium properties.
-<p>
- 
-</p>
- 
 </html>
 "));
   end Version_0_1_0;
