@@ -2,7 +2,7 @@ model SensibleHexElement
   import Buildings;
   annotation(Diagram, Commands(file="SensibleHexElement.mos" "run"),
     experimentSetupOutput);
-// package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+// package Medium = Buildings.Media.ConstantPropertyLiquidWater;
  package Medium = Modelica.Media.Air.MoistAir;
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(          redeclare 
       package Medium = Medium, T=288.15) 

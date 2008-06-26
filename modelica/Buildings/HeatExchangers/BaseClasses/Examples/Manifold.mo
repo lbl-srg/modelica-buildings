@@ -2,7 +2,7 @@ model Manifold
   import Buildings;
   annotation(Diagram, Commands(file="Manifold.mos" "run"),
     Coordsys(extent=[-100,-100; 180,100]));
- package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
+ package Medium = Buildings.Media.ConstantPropertyLiquidWater;
  parameter Integer nPipPar = 3 "Number of parallel pipes";
  parameter Integer nPipSeg = 4 "Number of pipe segments";
     Modelica.Blocks.Sources.Constant POut(k=101325) 

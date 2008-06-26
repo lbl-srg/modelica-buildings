@@ -1,5 +1,5 @@
 partial model PartialStaticTwoPortCoolingTower 
- package Medium_W = Modelica.Media.Water.ConstantPropertyLiquidWater;
+ package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
   
   parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.15 
     "Design air flow rate" 

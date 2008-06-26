@@ -2,8 +2,12 @@ model Delay
   
     annotation (Diagram, Commands(file=
             "Delay.mos" "run"));
-// package Medium = Modelica.Media.Water.ConstantPropertyLiquidWater;
- package Medium = Modelica.Media.Air.SimpleAir;
+ package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+// package Medium = Modelica.Media.Air.SimpleAir;
+
+// The package Buildings.Media.ConstantPropertyLiquidWater won't work 
+// because it does not provide an implementation of the density function.
+// package Medium = Buildings.Media.ConstantPropertyLiquidWater;
   
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
       annotation (extent=[62,36; 82,56]);
@@ -41,19 +45,19 @@ equation
   connect(PAtm.y, sin.p_in) annotation (points=[83,46; 90,46; 90,12; 80,12],
       style(color=74, rgbcolor={0,0,127}));
   connect(sou.port, res1.port_a) 
-                                annotation (points=[-38,6; -36,6; -36,6; -34,6;
+                                annotation (points=[-38,6; -36,6; -36,6; -34,6; 
         -34,6; -30,6],style(color=69, rgbcolor={0,127,255}));
   connect(res2.port_b, sin.port) 
     annotation (points=[46,6; 49,6; 49,6; 52,6; 52,6; 58,6],
                                      style(color=69, rgbcolor={0,127,255}));
-  connect(del.port_b, res2.port_a) annotation (points=[18,6; 20,6; 20,6; 22,6;
+  connect(del.port_b, res2.port_a) annotation (points=[18,6; 20,6; 20,6; 22,6; 
         22,6; 26,6],                                                style(
       color=69,
       rgbcolor={0,127,255},
       fillColor=74,
       rgbfillColor={0,0,127},
       fillPattern=1));
-  connect(del.port_a, res1.port_b) annotation (points=[-2.2,6; -4.15,6; -4.15,6;
+  connect(del.port_a, res1.port_b) annotation (points=[-2.2,6; -4.15,6; -4.15,6; 
         -6.1,6; -6.1,6; -10,6],                                        style(
       color=69,
       rgbcolor={0,127,255},

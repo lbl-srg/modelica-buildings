@@ -4,7 +4,7 @@ model FixedResistance
     annotation (Diagram, Commands(file=
             "FixedResistance.mos" "run"));
  package Medium = 
-        Modelica.Media.Water.ConstantPropertyLiquidWater;
+        Buildings.Media.ConstantPropertyLiquidWater;
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
       annotation (extent=[66,76; 86,96]);
     Modelica.Blocks.Sources.Ramp P(

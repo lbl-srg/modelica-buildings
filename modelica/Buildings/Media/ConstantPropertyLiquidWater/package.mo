@@ -2,13 +2,14 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
   extends Modelica.Media.Water.ConstantPropertyLiquidWater;
 import SI = Modelica.SIunits;
 
-
   annotation (Documentation(info="<HTML>
 <p>
 This medium model is identical to 
 <a href=\"Modelica:Modelica.Media.Water.ConstantPropertyLiquidWater\">
-Modelica.Media.Water.ConstantPropertyLiquidWater</a>, except that the 
-density is constant.
+Modelica.Media.Water.ConstantPropertyLiquidWater</a>, except that it
+implements the function to computes the density. This function is
+not implemented in <a href=\"Modelica:Modelica.Media.Water.ConstantPropertyLiquidWater\">
+Modelica.Media.Water.ConstantPropertyLiquidWater</a>.
 </p>
 </HTML>", revisions="<html>
 <ul>
@@ -18,7 +19,6 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
 
  redeclare replaceable function extends density "Returns constant density" 
  algorithm 
