@@ -18,9 +18,21 @@ be used as a base class for
 <a href=\"Modelica:Buildings.Fluids.Actuators.Dampers.VAVBoxExponential\">
 VAVBoxExponential</a>.
 </p>
+<p>
+For a description of the opening characteristics and typical parameter values, see the damper model
+<a href=\"Modelica:Buildings.Fluids.Actuators.Dampers.Exponential\">
+Exponential</a>.
+ 
+</p>
 </html>"),
 revisions="<html>
 <ul>
+<li>
+June 22, 2008 by Michael Wetter:<br>
+Extended range of control signal from 0 to 1 by implementing the function 
+<a href=\"Modelica:Buildings.Fluids.Actuators.BaseClasses.exponentialDamper\">
+exponentialDamper</a>.
+</li>
 <li>
 June 10, 2008 by Michael Wetter:<br>
 First implementation.
@@ -34,12 +46,22 @@ First implementation.
   
   parameter Real a(unit="")=-1.51 "Coefficient a for damper characteristics";
   parameter Real b(unit="")=0.105*90 "Coefficient b for damper characteristics";
+  parameter Real yL = 15/90 "Lower value for damper curve";
+  parameter Real yU = 55/90 "Upper value for damper curve";
+  parameter Real k0(min=0) = 1E6 
+    "Flow coefficient for y=0, k0 = pressure drop divided by dynamic pressure";
+  parameter Real k1(min=0) = 0.45 
+    "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure";
   Real kDam(unit="(kg*m)^(1/2)", start=1) 
     "Flow coefficient for damper, k=m_flow/sqrt(dp)";
   
 protected 
   Real kTheta(min=0) 
     "Flow coefficient, kTheta = pressure drop divided by dynamic pressure";
+  parameter Real[3] cL(fixed=false) 
+    "Polynomial coefficients for curve fit for y < yl";
+  parameter Real[3] cU(fixed=false) 
+    "Polynomial coefficients for curve fit for y > yu";
   
 protected 
   parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
@@ -52,13 +74,20 @@ protected
           pattern=0,
           fillColor=0,
           rgbfillColor={0,0,0}))));
-equation 
-   assert(y >= (15/90) and y <= (55/90),
-          "Damper characteristics not implemented for angles outside 15...55 degree.\n" +
-          "Received y = " + realString(y) + ". Corresponds to " +         realString(y*90) + " degrees.");
+initial equation 
+ cL[1] = (ln(k0) - b - a)/yL^2;
+ cL[2] = (-b*yL - 2*ln(k0) + 2*b + 2*a)/yL;
+ cL[3] = ln(k0);
   
-   kTheta = exp(a+b*(1-y)) "y=0 is closed, but theta=1 is closed in ASHRAE-825";
-   kDam = sqrt(kTheta/2/medium_a.d) / A 
-    "flow coefficient for resistance base model";
+ cU[1] = (ln(k1) - a)/(yU^2 - 2*yU + 1);
+ cU[2] = (-b*yU^2 - 2*ln(k1)*yU - (-2*b - 2*a)*yU - b)/(yU^2 - 2*yU + 1);
+ cU[3] = (ln(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1);
+ assert(k0 > k1, "k0 must be bigger than k1.");
+equation 
+   kTheta = exponentialDamper(y=y, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU) 
+    "y=0 is closed";
+   assert(kTheta>=0, "Flow coefficient must not be negative");
+   kDam = sqrt(2*medium_a.d/kTheta) * A 
+    "flow coefficient for resistance base model, kDam=k=m_flow/sqrt(dp)";
   
 end PartialDamperExponential;

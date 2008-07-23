@@ -60,7 +60,7 @@ This library follows the conventions of the
 "));
   end Conventions;
   
-  class ReleaseNotes "Release notes" 
+  package ReleaseNotes "Release notes" 
     
     annotation (Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Release notes</font></h3>
@@ -69,6 +69,9 @@ This section summarizes the changes that have been performed
 on the Buildings library
 </p>
 <ul>
+<li> 
+<a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">
+Version 0.3.0 </a>(XXXXX, 2008)</li>
 <li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">
 Version 0.2.0 </a>(June 17, 2008)</li>
@@ -79,6 +82,18 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 </html>
 "));
     
+  class Version_0_3_0 "Version 0.3.0" 
+      annotation (Documentation(info="<html>
+<h3><font color=\"#008000\">Version 0.3.0</font></h3>
+<p>
+The damper with exponential opening characteristic has been revised to allow control signals
+over the whole range between <tt>0</tt> and <tt>1</tt>. This was in earlier versions restricted.
+In the same model, a bug was fixed that caused the flow to be largest for <tt>y=0</tt>, i.e., when the damper is closed.
+</p>
+</html>
+"));
+  end Version_0_3_0;
+
   class Version_0_2_0 "Version 0.2.0" 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.2.0</font></h3>

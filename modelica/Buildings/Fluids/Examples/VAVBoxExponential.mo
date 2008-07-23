@@ -7,19 +7,19 @@ model VAVBoxExponential
          annotation (choicesAllMatching = true);
   
   Buildings.Fluids.Actuators.Dampers.Exponential dam(
-    A=1, redeclare package Medium = Medium) 
+         redeclare package Medium = Medium, A=1.8) 
          annotation (extent=[20,10; 40,30]);
     Modelica.Blocks.Sources.Ramp yRam(
-    height=(54 - 16)/90.1,
-    offset=16/90,
-    duration=0.5) 
+    duration=0.4, 
+    height=-1, 
+    offset=1, 
+    startTime=0.6) 
                  annotation (extent=[-60,60; -40,80]);
     Modelica.Blocks.Sources.Ramp P(
-      offset=101320,
-      height=10,
-    duration=0.5,
-    startTime=0.5) 
-                 annotation (extent=[-100,40; -80,60]);
+    duration=0.4, 
+    height=-10, 
+    offset=101330, 
+    startTime=0) annotation (extent=[-100,40; -80,60]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
                Medium, T=273.15 + 20)   annotation (extent=[-70,10; -50,30]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
@@ -27,8 +27,10 @@ model VAVBoxExponential
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
       annotation (extent=[60,60; 80,80]);
   Buildings.Fluids.Actuators.Dampers.VAVBoxExponential vav(
-                                                   A=1, m0_flow=2, dp0=1,
-    redeclare package Medium = Medium) 
+                                                        m0_flow=2,
+    redeclare package Medium = Medium, 
+    dp0=5, 
+    A=1.8) 
          annotation (extent=[-2,-50; 18,-30]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sou1(redeclare package Medium 
       =                                                                         Medium,
@@ -39,8 +41,8 @@ model VAVBoxExponential
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res(
     from_dp=true,
     m0_flow=2,
-    dp0=1,
-    redeclare package Medium = Medium) 
+    redeclare package Medium = Medium, 
+    dp0=5 - 0.45*2^2/1.2/1.8^2/2) 
              annotation (extent=[-36,10; -16,30]);
 equation 
   connect(yRam.y,dam. y) annotation (points=[-39,70; -12,70; -12,28; 18,28],

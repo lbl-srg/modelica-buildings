@@ -29,15 +29,20 @@ First implementation.
       Rectangle(extent=[-98,22; 102,-24],    style(
           color=69,
           gradient=2,
-          fillColor=69))),
+          fillColor=69)),
+         Text(
+        extent=[-104,-34; 18,-100],
+        style(color=3, rgbcolor={0,0,255}),
+        string="dp0=%dp0"), Text(
+        extent=[-102,-76; 10,-122],
+        style(color=3, rgbcolor={0,0,255}),
+        string="m0=%m0_flow")),
     Diagram);
   parameter SI.MassFlowRate m0_flow "Mass flow rate" annotation(Dialog(group = "Nominal Condition"));
   parameter SI.Pressure dp0(min=0) "Pressure drop, including fully open damper"
                                               annotation(Dialog(group = "Nominal Condition"));
-  parameter Real C(min=0)=0.3 
-    "Loss coefficient for fully open damper (=total pressure drop over velocity pressure)";
 protected 
-  parameter SI.Pressure dpDamOpe0 = C*m0_flow^2/2/Medium.density(sta0)/A^2 
+  parameter SI.Pressure dpDamOpe0 = k1*m0_flow^2/2/Medium.density(sta0)/A^2 
     "Pressure drop of fully open damper at nominal flow rate";
   parameter Real kRes(unit="(kg*m)^(1/2)") = m0_flow / sqrt(dp0-dpDamOpe0) 
     "Resistance coefficient for fixed resistance element";
