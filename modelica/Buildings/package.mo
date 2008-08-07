@@ -86,9 +86,23 @@ Version 0.1.0 </a>(May 27, 2008)</li>
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.3.0</font></h3>
 <p>
+<ul>
+<li>
 The damper with exponential opening characteristic has been revised to allow control signals
 over the whole range between <tt>0</tt> and <tt>1</tt>. This was in earlier versions restricted.
 In the same model, a bug was fixed that caused the flow to be largest for <tt>y=0</tt>, i.e., when the damper is closed.
+</li>
+<li>
+Additional models for psychrometric equations have been added. The new models contain equations
+that convert dew point temperature and water vapor pressure, as well
+as water vapor concentration and water vapor pressure.
+</li>
+<li>
+A new mixing volume has been added that allows latent heat exchange with the volume.
+This model can be used to model a volume of moist air with water vapor condensation 
+inside the volume. The condensate is removed from the volume in its liquid phase.
+</li>
+</ul>
 </p>
 </html>
 "));

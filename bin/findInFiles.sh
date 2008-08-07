@@ -1,6 +1,6 @@
 #!/bin/bash
-OLD=FixedResistanceDpM
-NEW=ResistanceDpMDh
+OLD=Modelica.Media.Water.ConstantPropertyLiquidWater
+NEW=Buildings.Media.ConstantPropertyLiquidWater
 fl=`find . \( -name '*.mos' -or -name '*.mo' \)`
 for ff in $fl; do
     grep "$OLD" $ff > /dev/null

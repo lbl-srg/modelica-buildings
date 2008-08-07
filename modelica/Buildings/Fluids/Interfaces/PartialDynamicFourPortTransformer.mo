@@ -17,6 +17,12 @@ The variable names follow the conventions used in
 </html>", revisions="<html>
 <ul>
 <li>
+August 5, 2008, by Michael Wetter:<br>
+Replaced instances of <tt>Delays.DelayFirstOrder</tt> with instances of
+<tt>Components.MixingVolume</tt>. This allows to extract liquid for a condensing cooling
+coil model.
+</li>
+<li>
 March 25, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -38,18 +44,16 @@ First implementation.
           rgbfillColor={0,0,0},
           fillPattern=1))));
   
-  Delays.DelayFirstOrder vol_1(
+  Buildings.Fluids.Components.MixingVolume vol_1(
     redeclare package Medium = Medium_1,
-    allowFlowReversal=allowFlowReversal_1,
-    tau=tau_1,
-    m0_flow=m0_flow_1) "Volume for fluid 1" 
+    nP = 2,
+    final V=m0_flow_1*tau_1/rho0_1) "Volume for fluid 1" 
                                annotation (extent=[-10,70; 10,50]);
   
-  Delays.DelayFirstOrder vol_2(
+  Buildings.Fluids.Components.MixingVolume vol_2(
     redeclare package Medium = Medium_2,
-    allowFlowReversal=allowFlowReversal_2,
-    tau=tau_2,
-    m0_flow=m0_flow_2) "Volume for fluid 2" 
+    nP = 2,
+    final V=m0_flow_2*tau_2/rho0_2) "Volume for fluid 2" 
  annotation (extent=[-10,-50; 10,-70], rotation=
         180);
   
@@ -78,6 +82,13 @@ First implementation.
     "Heat input into fluid 1" annotation (extent=[-20,10; 0,30]);
   Modelica.Thermal.HeatTransfer.HeatFlowSensor heaFloSen_2 
     "Heat input into fluid 1" annotation (extent=[-20,-30; 0,-10]);
+protected 
+  parameter Medium_1.ThermodynamicState sta0_1(T=293.15, p=101325);
+  parameter Modelica.SIunits.Density rho0_1=Medium_1.density(sta0_1) 
+    "Density, used to compute fluid volume";
+  parameter Medium_2.ThermodynamicState sta0_2(T=293.15, p=101325);
+  parameter Modelica.SIunits.Density rho0_2=Medium_2.density(sta0_2) 
+    "Density, used to compute fluid volume";
 equation 
   Q_flow_1 = heaFloSen_1.Q_flow;
   Q_flow_2 = heaFloSen_2.Q_flow;
@@ -89,14 +100,6 @@ equation
   connect(mas.port, temSen_degC.port) annotation (points=[-68,-1.68051e-18; -35,
         -1.68051e-18; -35,6.10623e-16; 17,6.10623e-16], style(color=42,
         rgbcolor={191,0,0}));
-  connect(port_a1, vol_1.port_a) annotation (points=[-100,60; -10.2,60], style(
-        color=69, rgbcolor={0,127,255}));
-  connect(vol_1.port_b, port_b1) 
-    annotation (points=[10,60; 100,60], style(color=69, rgbcolor={0,127,255}));
-  connect(port_a2, vol_2.port_a) annotation (points=[100,-60; 10.2,-60], style(
-        color=69, rgbcolor={0,127,255}));
-  connect(vol_2.port_b, port_b2) annotation (points=[-10,-60; -100,-60], style(
-        color=69, rgbcolor={0,127,255}));
   connect(con1.fluid, heaFloSen_1.port_a) 
     annotation (points=[-36,20; -20,20], style(color=42, rgbcolor={191,0,0}));
   connect(con2.fluid, heaFloSen_2.port_a) annotation (points=[-36,-20; -20,-20],
@@ -107,4 +110,12 @@ equation
   connect(heaFloSen_1.port_b, vol_1.thermalPort) annotation (points=[
         5.55112e-16,20; 5.55112e-16,27.6; 6.66134e-16,27.6; 6.66134e-16,50.2],
       style(color=42, rgbcolor={191,0,0}));
+  connect(port_a1, vol_1.port[1]) annotation (points=[-100,60; -50,60; -50,60.5; 
+        5.55112e-16,60.5], style(color=69, rgbcolor={0,127,255}));
+  connect(vol_1.port[2], port_b1) annotation (points=[5.55112e-16,59.5; 51,59.5; 
+        51,60; 100,60], style(color=69, rgbcolor={0,127,255}));
+  connect(port_a2, vol_2.port[1]) annotation (points=[100,-60; 50,-60; 50,-60.5; 
+        5.55112e-16,-60.5], style(color=69, rgbcolor={0,127,255}));
+  connect(vol_2.port[2], port_b2) annotation (points=[4.996e-16,-59.5; -47,
+        -59.5; -47,-60; -100,-60], style(color=69, rgbcolor={0,127,255}));
 end PartialDynamicFourPortTransformer;
