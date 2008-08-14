@@ -50,14 +50,19 @@ simulation with an error message.
 </p>
 <p>
 Models that extend this partial model need to provide the energy, mass and species
-balance equations. See <a href=\"Modelica:Buildings.Fluids.Components.MixingVolume\">
-Buildings.Fluids.Components.MixingVolume</a>.
+balance equations. See <a href=\"Modelica:Buildings.Fluids.MixingVolumes.MixingVolume\">
+Buildings.Fluids.MixingVolumes.MixingVolume</a>.
 </p>
 <p>
 The thermal port need not be connected, but can have any number of connections.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 12, 2008 by Michael Wetter:<br>
+Introduced option to compute model in steady state. This allows the heat exchanger model
+to switch from a dynamic model for the medium to a steady state model.
+</li>
 <li>
 August 6, 2008 by Michael Wetter:<br>
 Introduced partial class.
@@ -73,6 +78,8 @@ First implementation.
 public 
 Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a thermalPort "Thermal port" 
   annotation (extent=[-20,88; 20,108]);
+public 
+   parameter Boolean steadyState =  false "Set to true for steady state model";
 equation 
   thermalPort.T = medium.T;
   Qs_flow = thermalPort.Q_flow;

@@ -1,12 +1,12 @@
-model MixingVolume 
+model MixingVolumeDryAir 
   import Buildings;
   
     annotation (Diagram, Commands(file=
-            "MixingVolume.mos" "run"),
+            "MixingVolumeDryAir.mos" "run"),
     Coordsys(extent=[-100,-100; 180,100]));
   
-// package Medium = Modelica.Media.Air.SimpleAir;
- package Medium = Buildings.Media.PerfectGases.MoistAir;
+ package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
+    "Medium in the component";
   
     Modelica.Blocks.Sources.Ramp P(
     duration=0.5,
@@ -71,7 +71,7 @@ model MixingVolume
       = Medium) "Enthalpy flow rate" annotation (extent=[40,50; 60,70]);
   Buildings.Fluids.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium
       = Medium) "Enthalpy flow rate" annotation (extent=[40,10; 60,30]);
-  Buildings.Fluids.MixingVolumes.MixingVolumeMoistAir vol2(
+  Buildings.Fluids.MixingVolumes.MixingVolumeDryAir vol2(
     redeclare package Medium = Medium,
     initType=Modelica_Fluid.Types.Init.SteadyStateHydraulic,
     nP=2,
@@ -228,4 +228,4 @@ equation
         -2,-32], style(color=74, rgbcolor={0,0,127}));
   connect(TLiq.y, vol2.TWat) annotation (points=[-19,-90; -10,-90; -10,-38; -2,
         -38], style(color=74, rgbcolor={0,0,127}));
-end MixingVolume;
+end MixingVolumeDryAir;

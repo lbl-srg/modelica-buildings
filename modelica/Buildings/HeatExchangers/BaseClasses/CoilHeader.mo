@@ -1,17 +1,17 @@
-model RegisterHeader "Header for a heat exchanger register" 
+model CoilHeader "Header for a heat exchanger register" 
   extends Buildings.BaseClasses.BaseIcon;
   extends Buildings.Fluids.Interfaces.PartialSingleFluidParameters;
   annotation (Diagram,
 Documentation(info="<html>
 <p>
-Header for a heat exchanger register.</p>
+Header for a heat exchanger coil.</p>
 </p>
 <p>
 This model connects the flow between its ports without
 modeling flow friction.
 Currently, the ports are connected without redistributing
 the flow. In latter versions, the model may be changed to define
-different flow reroutings in the heat exchanger header.
+different flow reroutings in the coil header.
 </p>
 </html>",
 revisions="<html>
@@ -65,4 +65,4 @@ equation
       fillColor=3,
       rgbfillColor={0,0,255},
       fillPattern=1));
-end RegisterHeader;
+end CoilHeader;

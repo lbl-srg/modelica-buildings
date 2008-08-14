@@ -1,29 +1,45 @@
-model SensibleCoilDiscretized 
+model DryCoilDiscretized 
   "Heat exchanger with discretization along the flow path" 
   extends Fluids.Interfaces.PartialStaticFourPortInterface;
   extends Buildings.BaseClasses.BaseIcon;
   
-  annotation (
+ annotation (
     Documentation(info="<html>
 <p>
-Model of a discretized heat exchanger. The heat exchanger is discretized
-along the flow path. Each element has a state variable, modeled either using
-a lumped mass for the metal interface, or a fluid volume for the
-two flow paths.
+Model of a discretized coil. The coil consists of <tt>nReg</tt> registers
+that are perpendicular to the air flow path. Each register consists of <tt>nPipPar</tt>
+parallel pipes, and each pipe can be divided into <tt>nPipSeg</tt> pipe segments along
+the pipe length. Thus, the smallest element of the heat exchanger consists of a pipe 
+segment. These pipe segments are modeled by the instance <tt>ele</tt>.
+Each element has a state variable for the metal. Depending
+on the value of the boolean parameters <tt>steadyState_1</tt> and
+<tt>steadyState_2</tt>, the fluid states are modeled dynamically or in steady
+state.
 </p>
 <p>
-The heat exchanger geometry is configured so that the heat exchanger
-has different registers. A register is a collection of parallel pipes
-that may be discretized along the pipe length. The pipes are perpendicular
-to the air flow path. When using this model, the water (or liquid) flow path
+The convective heat transfer coefficients can, for each fluid individually, be 
+computed as a function of the flow rate and/or the temperature,
+or assigned to a constant. This computation is done in the instance
+<tt>hA</tt>.
+</p>
+<p>
+In this model, the water (or liquid) flow path
 needs to be connected to <tt>port_a1</tt> and <tt>port_b1</tt>, and
 the air flow path need to be connected to the other two ports.
 </p>
 <p>
-Currently, only sensible heat transfer is modeled.
+To model humidity condensation, use the model 
+<a href=\"Modelica:Buildings.HeatExchangers.WetCoilDiscretized\">
+Buildings.HeatExchangers.WetCoilDiscretized</a> instead of this model, which 
+computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 12, 2008 by Michael Wetter:<br>
+Introduced option to compute each medium using a steady state model or
+a dynamic model.
+</li>
 <li>
 March 25, 2008, by Michael Wetter:<br>
 First implementation.
@@ -98,9 +114,13 @@ First implementation.
   parameter Integer nPipSeg(min=1) = 4 
     "Number of pipe segments per register used for discretization" 
      annotation(Dialog(group = "Geometry"));
-  
-  Buildings.HeatExchangers.BaseClasses.SensibleCoilRegister hexReg[
-                                                                  nReg](
+  parameter Boolean steadyState_1=false 
+    "Set to true for steady state model for fluid 1" 
+    annotation (Dialog(group="Fluid 1"));
+  parameter Boolean steadyState_2=true 
+    "Set to true for steady state model for fluid 2" 
+    annotation (Dialog(group="Fluid 2"));
+  Buildings.HeatExchangers.BaseClasses.CoilRegister hexReg[       nReg](
     redeclare each package Medium_1 = Medium_1,
     redeclare each package Medium_2 = Medium_2,
     each final nPipPar=nPipPar,
@@ -110,7 +130,10 @@ First implementation.
     each final m0_flow_2=m0_flow_1/nPipPar/nPipSeg,
     each tau_1=tau_1,
     each tau_2=tau_2,
-    each tau_m=tau_m) "Heat exchanger register" 
+    each tau_m=tau_m,
+    each steadyState_1=steadyState_1,
+    each steadyState_2=steadyState_2,
+    each allowCondensation=allowCondensation) "Heat exchanger register" 
     annotation (extent=[-10,0; 10,20]);
   Buildings.HeatExchangers.BaseClasses.PipeManifoldFixedResistance pipMan_a(
     redeclare package Medium = Medium_1,
@@ -162,23 +185,23 @@ public
     "Heat transfered from solid into medium 1";
   Modelica.SIunits.HeatFlowRate Q_flow_2 
     "Heat transfered from solid into medium 2";
-  parameter Modelica.SIunits.Time tau_1=60 
+  parameter Modelica.SIunits.Time tau_1=20 
     "Time constant at nominal flow for medium 1" 
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau_2=60 
+    annotation (Dialog(group="Nominal condition", enable=not steadyState_1));
+  parameter Modelica.SIunits.Time tau_2=1 
     "Time constant at nominal flow for medium 2" 
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Time tau_m=60 
+    annotation (Dialog(group="Nominal condition", enable=not steadyState_2));
+  parameter Modelica.SIunits.Time tau_m=20 
     "Time constant of metal at nominal UA value" 
     annotation (Dialog(group="Nominal condition"));
   
 protected 
-  BaseClasses.RegisterHeader hea1[nReg/2](
+  BaseClasses.CoilHeader hea1[nReg/2](
       redeclare each final package Medium = Medium_1,
       each final nPipPar = nPipPar) if 
       nReg > 1 "Pipe header to redirect flow into next register" 
     annotation (extent=[40,-4; 60,16],rotation=180);
-  BaseClasses.RegisterHeader hea2[nReg/2-1](
+  BaseClasses.CoilHeader hea2[nReg/2-1](
       redeclare each final package Medium = Medium_1,
       each final nPipPar = nPipPar) if 
       nReg > 2 "Pipe header to redirect flow into next register" 
@@ -190,41 +213,33 @@ protected
     "Gain medium-side 2 to take discretization into account" 
     annotation (extent=[-14,60; -2,74],  rotation=0);
 public 
-  replaceable BaseClasses.HASensibleCoil hAModel(
-               UA0=UA0, m0_flow_a=m0_flow_2, m0_flow_w=m0_flow_1,
-               waterSideTemperatureDependent=true,
-               waterSideFlowDependent=true,
-               airSideTemperatureDependent=true,
-               airSideFlowDependent=true) extends BaseClasses.PartialHA 
+  parameter Boolean waterSideFlowDependent = false 
+    "Set to false to make water-side hA independent of mass flow rate" 
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Boolean airSideFlowDependent = false 
+    "Set to false to make air-side hA independent of mass flow rate" 
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Boolean waterSideTemperatureDependent = false 
+    "Set to false to make water-side hA independent of temperature" 
+    annotation(Dialog(tab="Heat transfer"));
+  parameter Boolean airSideTemperatureDependent = false 
+    "Set to false to make air-side hA independent of temperature" 
+    annotation(Dialog(tab="Heat transfer"));
+  BaseClasses.HADryCoil hA(
+    UA0=UA0,
+    m0_flow_a=m0_flow_2,
+    m0_flow_w=m0_flow_1,
+    waterSideTemperatureDependent=waterSideTemperatureDependent,
+    waterSideFlowDependent=waterSideFlowDependent,
+    airSideTemperatureDependent=airSideTemperatureDependent,
+    airSideFlowDependent=airSideFlowDependent) 
     "Model for convective heat transfer coefficient" 
-        annotation (extent=[-58,74; -38,94],
-      Dialog(tab = "Heat transfer"),
-      Evaluate=false,
-      choices(choice=BaseClasses.HASensibleCoil(UA0=UA0, m0_flow_a=m0_flow_2, m0_flow_w=m0_flow_1,
-               waterSideTemperatureDependent=true,
-               waterSideFlowDependent=true,
-               airSideTemperatureDependent=true,
-               airSideFlowDependent=true) 
-        "Flow dependent, temperature dependent",
-      choice=BaseClasses.HASensibleCoil(UA0=UA0, m0_flow_a=m0_flow_2, m0_flow_w=m0_flow_1,
-               waterSideTemperatureDependent=false,
-               waterSideFlowDependent=true,
-               airSideTemperatureDependent=false,
-               airSideFlowDependent=true) 
-        "Flow dependent, temperature independent",
-      choice=BaseClasses.HASensibleCoil(UA0=UA0, m0_flow_a=m0_flow_2, m0_flow_w=m0_flow_1,
-               waterSideTemperatureDependent=false,
-               waterSideFlowDependent=true,
-               airSideTemperatureDependent=false,
-               airSideFlowDependent=false) 
-        "Water flow dependent, air flow & temperature independent",
-      choice=BaseClasses.HASensibleCoil(UA0=UA0, m0_flow_a=m0_flow_2, m0_flow_w=m0_flow_1,
-               waterSideTemperatureDependent=false,
-               waterSideFlowDependent=false,
-               airSideTemperatureDependent=false,
-               airSideFlowDependent=true) 
-        "Air flow dependent, water flow & temperature independent",
-       choice=BaseClasses.HASensibleCoilConstant() "Constant"));
+        annotation (extent=[-60,80; -40,100]);
+protected 
+  constant Boolean allowCondensation = false 
+    "Set to false to compute sensible heat transfer only" 
+    annotation(Dialog(tab="Heat transfer"));
+  
 protected 
   Modelica_Fluid.Sensors.Temperature temSen_1(redeclare package Medium = 
         Medium_1) "Temperature sensor" annotation (extent=[-76,54; -62,66]);
@@ -309,25 +324,26 @@ equation
         60], style(color=69, rgbcolor={0,127,255}));
   connect(masFloSen_1.port_b, pipMan_a.port_a) annotation (points=[-42,60; -40,
         60; -40,28; -38,28], style(color=69, rgbcolor={0,127,255}));
-  connect(temSen_1.T, hAModel.T_1)        annotation (points=[-69,53.4; -69,50;
-        -80,50; -80,87; -59,87],
+  connect(temSen_1.T, hA.T_1)             annotation (points=[-69,53.4; -69,50;
+        -80,50; -80,93; -61,93],
                              style(color=74, rgbcolor={0,0,127}));
-  connect(masFloSen_1.m_flow, hAModel.m_flow_1)        annotation (points=[-48,53.4;
-        -48,48; -82,48; -82,91; -59,91], style(color=74, rgbcolor={0,0,127}));
+  connect(masFloSen_1.m_flow, hA.m_flow_1)             annotation (points=[-48,53.4;
+        -48,48; -82,48; -82,97; -61,97], style(color=74, rgbcolor={0,0,127}));
   connect(port_a2, masFloSen_2.port_a) annotation (points=[100,-60; 82,-60],
       style(color=69, rgbcolor={0,127,255}));
   connect(masFloSen_2.port_b, temSen_2.port_a) annotation (points=[70,-60; 58,
         -60], style(color=69, rgbcolor={0,127,255}));
   connect(temSen_2.port_b, ducMan_a.port_a) annotation (points=[44,-60; 40,-60;
         40,-16], style(color=69, rgbcolor={0,127,255}));
-  connect(temSen_2.T, hAModel.T_2)        annotation (points=[51,-66.6; 51,-78;
-        -84,-78; -84,81; -59,81],
+  connect(temSen_2.T, hA.T_2)             annotation (points=[51,-66.6; 51,-78;
+        -84,-78; -84,87; -61,87],
                               style(color=74, rgbcolor={0,0,127}));
-  connect(masFloSen_2.m_flow, hAModel.m_flow_2)        annotation (points=[76,-66.6;
-        76,-82; -86,-82; -86,77; -59,77], style(color=74, rgbcolor={0,0,127}));
-  connect(hAModel.hA_1, gai_1.u) 
-    annotation (points=[-37,91; -15.2,91], style(color=3, rgbcolor={0,0,255}));
-  connect(hAModel.hA_2, gai_2.u)        annotation (points=[-37,77; -27.5,77;
+  connect(masFloSen_2.m_flow, hA.m_flow_2)             annotation (points=[76,-66.6;
+        76,-82; -86,-82; -86,83; -61,83], style(color=74, rgbcolor={0,0,127}));
+  connect(hA.hA_1, gai_1.u) 
+    annotation (points=[-39,97; -28,97; -28,91; -15.2,91],
+                                           style(color=3, rgbcolor={0,0,255}));
+  connect(hA.hA_2, gai_2.u)             annotation (points=[-39,83; -27.5,83;
         -27.5,67; -15.2,67],
                        style(color=3, rgbcolor={0,0,255}));
   for i in 1:nReg loop
@@ -338,4 +354,4 @@ equation
           4,-6; 4,-5.55112e-16],
                                style(color=74, rgbcolor={0,0,127}));
   end for;
-end SensibleCoilDiscretized;
+end DryCoilDiscretized;

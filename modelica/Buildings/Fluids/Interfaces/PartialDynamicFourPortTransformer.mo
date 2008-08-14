@@ -10,16 +10,20 @@ partial model PartialDynamicFourPortTransformer
 <p>
 This component transports two fluid streams between four ports. 
 It provides the basic model for implementing a dynamic heat exchanger.
-It is used by <tt>HeatExchangers.BaseClasses.SensibleHexElement<tt>.
+It is used by <tt>HeatExchangers.BaseClasses.HexElement<tt>.
 The variable names follow the conventions used in 
 <tt>Modelica_Fluid.HeatExchangers.BasicHX</tt>.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
+Changed temperature sensor from Celsius to Kelvin.
+Unit conversion should be made during output
+processing.
+<li>
 August 5, 2008, by Michael Wetter:<br>
 Replaced instances of <tt>Delays.DelayFirstOrder</tt> with instances of
-<tt>Components.MixingVolume</tt>. This allows to extract liquid for a condensing cooling
+<tt>MixingVolumes.MixingVolume</tt>. This allows to extract liquid for a condensing cooling
 coil model.
 </li>
 <li>
@@ -44,17 +48,21 @@ First implementation.
           rgbfillColor={0,0,0},
           fillPattern=1))));
   
-  Buildings.Fluids.Components.MixingVolume vol_1(
+  Buildings.Fluids.MixingVolumes.MixingVolume vol_1(
     redeclare package Medium = Medium_1,
     nP = 2,
-    final V=m0_flow_1*tau_1/rho0_1) "Volume for fluid 1" 
+    V=m0_flow_1*tau_1/rho0_1) "Volume for fluid 1" 
                                annotation (extent=[-10,70; 10,50]);
   
-  Buildings.Fluids.Components.MixingVolume vol_2(
+  replaceable Buildings.Fluids.MixingVolumes.MixingVolumeDryAir vol_2(
     redeclare package Medium = Medium_2,
     nP = 2,
-    final V=m0_flow_2*tau_2/rho0_2) "Volume for fluid 2" 
- annotation (extent=[-10,-50; 10,-70], rotation=
+    V=m0_flow_2*tau_2/rho0_2) 
+        extends 
+    Buildings.Fluids.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort 
+    "Volume for fluid 2" 
+   annotation (extent=[-8,-50; 12,-70],
+                      rotation=
         180);
   
   parameter Modelica.SIunits.Time tau_1 = 60 "Time constant at nominal flow" 
@@ -76,8 +84,9 @@ First implementation.
   Modelica.Thermal.HeatTransfer.Convection con2 
     "Convection (and conduction) on fluid side 2" 
     annotation (extent=[-56,-30; -36,-10]);
-  Modelica.Thermal.HeatTransfer.Celsius.TemperatureSensor temSen_degC 
-    annotation (extent=[17,-10; 37,10]);
+  Modelica.Thermal.HeatTransfer.TemperatureSensor temSen 
+    "Temperature sensor of metal" 
+    annotation (extent=[12,-10; 32,10]);
   Modelica.Thermal.HeatTransfer.HeatFlowSensor heaFloSen_1 
     "Heat input into fluid 1" annotation (extent=[-20,10; 0,30]);
   Modelica.Thermal.HeatTransfer.HeatFlowSensor heaFloSen_2 
@@ -97,8 +106,8 @@ equation
         -1.68051e-18], style(color=42, rgbcolor={191,0,0}));
   connect(con2.solid, mas.port) annotation (points=[-56,-20; -56,-20.5; -68,
         -20.5; -68,-1.68051e-18], style(color=42, rgbcolor={191,0,0}));
-  connect(mas.port, temSen_degC.port) annotation (points=[-68,-1.68051e-18; -35,
-        -1.68051e-18; -35,6.10623e-16; 17,6.10623e-16], style(color=42,
+  connect(mas.port, temSen.port)      annotation (points=[-68,-1.68051e-18; -35,
+        -1.68051e-18; -35,6.10623e-16; 12,6.10623e-16], style(color=42,
         rgbcolor={191,0,0}));
   connect(con1.fluid, heaFloSen_1.port_a) 
     annotation (points=[-36,20; -20,20], style(color=42, rgbcolor={191,0,0}));
@@ -106,7 +115,7 @@ equation
       style(color=42, rgbcolor={191,0,0}));
   connect(heaFloSen_2.port_b, vol_2.thermalPort) annotation (points=[
         5.55112e-16,-20; 5.55112e-16,-27.85; -6.66134e-16,-27.85; -6.66134e-16,
-        -50.2; -7.56025e-16,-50.2], style(color=42, rgbcolor={191,0,0}));
+        -50.2; 2,-50.2],            style(color=42, rgbcolor={191,0,0}));
   connect(heaFloSen_1.port_b, vol_1.thermalPort) annotation (points=[
         5.55112e-16,20; 5.55112e-16,27.6; 6.66134e-16,27.6; 6.66134e-16,50.2],
       style(color=42, rgbcolor={191,0,0}));
@@ -115,7 +124,7 @@ equation
   connect(vol_1.port[2], port_b1) annotation (points=[5.55112e-16,59.5; 51,59.5; 
         51,60; 100,60], style(color=69, rgbcolor={0,127,255}));
   connect(port_a2, vol_2.port[1]) annotation (points=[100,-60; 50,-60; 50,-60.5; 
-        5.55112e-16,-60.5], style(color=69, rgbcolor={0,127,255}));
-  connect(vol_2.port[2], port_b2) annotation (points=[4.996e-16,-59.5; -47,
-        -59.5; -47,-60; -100,-60], style(color=69, rgbcolor={0,127,255}));
+        2,-60.5],           style(color=69, rgbcolor={0,127,255}));
+  connect(vol_2.port[2], port_b2) annotation (points=[2,-59.5; -47,-59.5; -47,
+        -60; -100,-60],            style(color=69, rgbcolor={0,127,255}));
 end PartialDynamicFourPortTransformer;

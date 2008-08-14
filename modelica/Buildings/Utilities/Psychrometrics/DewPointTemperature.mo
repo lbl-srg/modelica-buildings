@@ -1,4 +1,4 @@
-model DewPointTemperature 
+block DewPointTemperature 
   "Model to compute the dew point temperature of moist air" 
  extends Modelica.Blocks.Interfaces.BlockIcon;
     annotation (
@@ -24,11 +24,11 @@ First implementation.
 </html>"),
     Icon(
       Text(
-        extent=[-142,60; -104,14],
+        extent=[104,44; 142,-2],
         style(color=3, rgbcolor={0,0,255}),
         string="p_w"),
       Text(
-        extent=[104,44; 142,-2],
+        extent=[-124,46; -86,0],
         style(color=3, rgbcolor={0,0,255}),
         string="TDP"),
       Line(points=[70,86; 70,-72], style(color=0, rgbcolor={0,0,0})),
@@ -72,16 +72,19 @@ First implementation.
           fillColor=0,
           rgbfillColor={0,0,0}),
         string="T")));
-  Modelica.Blocks.Interfaces.RealSignal p_w(redeclare type SignalType = 
-        Modelica.SIunits.Pressure) "Water vapor partial pressure" 
-    annotation (extent=[-120,-12; -100,8]);
-  Modelica.Blocks.Interfaces.RealSignal T(redeclare type SignalType = 
+  Modelica.Blocks.Interfaces.RealOutput p_w(redeclare type SignalType = 
+        Modelica.SIunits.Pressure (
+        min=0,
+        start=10000,
+        nominal=10000)) "Water vapor partial pressure" 
+    annotation (extent=[100,-10; 120,10]);
+  Modelica.Blocks.Interfaces.RealInput T(redeclare type SignalType = 
         Modelica.SIunits.Temperature (
         min=200,
         max=400,
         start=283.15,
         nominal=100)) "Dew point temperature" 
-    annotation (extent=[100,-10; 120,10]);
+    annotation (extent=[-120,-10; -100,10]);
 protected 
   constant Real C8 = -5.800226E3;
   constant Real C9 =  1.3914993E0;
@@ -90,6 +93,6 @@ protected
   constant Real C12= -1.4452093E-8;
   constant Real C13 = 6.5459673E0;
 equation 
- Modelica.Math.log(p_w) = C8/T + C9 + T * ( C10
-           + T * ( C11 + T * C12))  + C13 * Modelica.Math.log(T);
+ p_w = Modelica.Math.exp(C8/T + C9 + T * ( C10
+           + T * ( C11 + T * C12))  + C13 * Modelica.Math.log(T));
 end DewPointTemperature;

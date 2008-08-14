@@ -39,14 +39,7 @@ model DelayFirstOrder
           pattern=0,
           fillColor=7,
           rgbfillColor={255,255,255}))),
-    Documentation(revisions="<html>
-<ul>
-<li>
-March 17 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>", info="<html>
+    Documentation(info="<html>
 <p>
 This model approximates a transport delay using a first order differential equations.
 </p>
@@ -57,6 +50,14 @@ that at the nominal mass flow rate <tt>m0_flow</tt> the time constant of the vol
 <p>
 The heat flux connector is optional, it need not be connnected.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+March 17 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
 </html>"));
   
   parameter Modelica.SIunits.Time tau = 60 "Time constant at nominal flow" 
@@ -65,7 +66,8 @@ The heat flux connector is optional, it need not be connnected.
      annotation(Dialog(group = "Nominal condition"));
   
 protected 
- parameter Medium.ThermodynamicState sta0(T=293.15, p=101325);
+ parameter Medium.ThermodynamicState sta0(T=Medium.T_default,
+       p=Medium.p_default);
  parameter Modelica.SIunits.Density rho0=Medium.density(sta0) 
     "Density, used to compute fluid volume";
 end DelayFirstOrder;

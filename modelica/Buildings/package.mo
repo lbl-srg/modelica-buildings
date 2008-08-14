@@ -88,6 +88,11 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 <p>
 <ul>
 <li>
+The package <a href=\"Modelica:Buildings.HeatExchangers\">Buildings.HeatExchangers</a> has been revised and several models have been renamed.
+The heat exchanger models have been revised to allow computing the fluid volumes either
+dynamically, or in steady-state.
+</li>
+<li>
 The damper with exponential opening characteristic has been revised to allow control signals
 over the whole range between <tt>0</tt> and <tt>1</tt>. This was in earlier versions restricted.
 In the same model, a bug was fixed that caused the flow to be largest for <tt>y=0</tt>, i.e., when the damper is closed.
@@ -107,7 +112,7 @@ inside the volume. The condensate is removed from the volume in its liquid phase
 </html>
 "));
   end Version_0_3_0;
-
+    
   class Version_0_2_0 "Version 0.2.0" 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.2.0</font></h3>

@@ -300,27 +300,27 @@ First implementation.
       Medium = 
         Medium) "Room leakage model" 
     annotation (extent=[270,140; 290,160],rotation=270);
-  Buildings.Fluids.Components.MixingVolume roo45(redeclare package Medium = Medium,
+  Buildings.Fluids.MixingVolumes.MixingVolume roo45(redeclare package Medium = Medium,
     V=10*5*2.5,
     nP=5,
     initType=Modelica_Fluid.Types.Init.SteadyStateHydraulic) 
                           annotation (extent=[10,10; 30,30]);
-  Buildings.Fluids.Components.MixingVolume roo46(redeclare package Medium = Medium,
+  Buildings.Fluids.MixingVolumes.MixingVolume roo46(redeclare package Medium = Medium,
     V=10*5*2.5,
     nP=5,
     initType=Modelica_Fluid.Types.Init.SteadyStateHydraulic) 
                           annotation (extent=[70,10; 90,30]);
-  Buildings.Fluids.Components.MixingVolume roo47(redeclare package Medium = Medium,
+  Buildings.Fluids.MixingVolumes.MixingVolume roo47(redeclare package Medium = Medium,
     V=10*5*2.5,
     nP=5,
     initType=Modelica_Fluid.Types.Init.SteadyStateHydraulic) 
                           annotation (extent=[130,10; 150,30]);
-  Buildings.Fluids.Components.MixingVolume roo48(redeclare package Medium = Medium,
+  Buildings.Fluids.MixingVolumes.MixingVolume roo48(redeclare package Medium = Medium,
     V=10*5*2.5,
     nP=5,
     initType=Modelica_Fluid.Types.Init.SteadyStateHydraulic) 
                           annotation (extent=[190,10; 210,30]);
-  Buildings.Fluids.Components.MixingVolume roo49(redeclare package Medium = Medium,
+  Buildings.Fluids.MixingVolumes.MixingVolume roo49(redeclare package Medium = Medium,
     V=10*5*2.5,
     nP=5,
     initType=Modelica_Fluid.Types.Init.SteadyStateHydraulic) 

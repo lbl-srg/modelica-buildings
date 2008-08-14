@@ -382,7 +382,7 @@ equation
       fillColor=74,
       rgbfillColor={0,0,127},
       fillPattern=1));
-  connect(hea1.port_b, hea2.port_b) annotation (points=[-34,102; 20,102; 20,144;
+  connect(hea1.port_b, hea2.port_b) annotation (points=[-34,102; 20,102; 20,144; 
         8,144],
              style(
       color=69,

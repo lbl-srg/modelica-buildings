@@ -17,9 +17,9 @@ model Manifold
     p=101335)             annotation (extent=[-60,24; -40,44]);
     Fluids.FixedResistances.FixedResistanceDpM res_1(
     m0_flow=5,
-    redeclare package Medium = Medium, 
-    dp0=10, 
-    use_dh=true, 
+    redeclare package Medium = Medium,
+    dp0=10,
+    use_dh=true,
     from_dp=false) 
              annotation (extent=[120,24; 140,44]);
   Modelica_Fluid.Sensors.MassFlowRate[nPipPar] mfr_1(redeclare each package 
@@ -54,9 +54,9 @@ model Manifold
     p=101335)             annotation (extent=[-60,-76; -40,-56]);
     Fluids.FixedResistances.FixedResistanceDpM res_2(
     m0_flow=5,
-    redeclare package Medium = Medium, 
-    dp0=10, 
-    use_dh=true, 
+    redeclare package Medium = Medium,
+    dp0=10,
+    use_dh=true,
     from_dp=false) 
              annotation (extent=[122,-76; 142,-56]);
   Modelica_Fluid.Sensors.MassFlowRate[nPipPar, nPipSeg] mfr_2(redeclare each 
@@ -82,11 +82,11 @@ model Manifold
       nPipPar=nPipPar,
       nPipSeg=nPipSeg) 
     annotation (extent=[116,-76; 96,-56]);
-  Buildings.HeatExchangers.BaseClasses.RegisterHeader hea1(
+  Buildings.HeatExchangers.BaseClasses.CoilHeader hea1(
       redeclare package Medium = Medium,
       nPipPar=nPipPar) "Header for water-side heat exchanger register" 
     annotation (extent=[0,24; 20,44]);
-  Buildings.HeatExchangers.BaseClasses.RegisterHeader hea2(
+  Buildings.HeatExchangers.BaseClasses.CoilHeader hea2(
       redeclare package Medium = Medium,
       nPipPar=nPipPar) "Header for water-side heat exchanger register" 
     annotation (extent=[60,24; 80,44]);
@@ -148,7 +148,7 @@ equation
   connect(res_2.port_a,ducNoRes_2. port_a) 
     annotation (points=[122,-66; 116,-66],
                                        style(color=69, rgbcolor={0,127,255}));
-  connect(pipFixRes_1.port_b, hea1.port_a) annotation (points=[-10,34; 
+  connect(pipFixRes_1.port_b, hea1.port_a) annotation (points=[-10,34;
         -5.55112e-16,34],
              style(color=69, rgbcolor={0,127,255}));
   connect(hea1.port_b, mfr_1.port_a) 

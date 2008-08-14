@@ -107,7 +107,7 @@ model MITScalable "System model for MIT building"
     redeclare package Medium = Medium) 
     annotation (extent=[276,6; 296,26], rotation=270,
     style(thickness=2));
-  Buildings.Fluids.Components.MixingVolume roo50(redeclare package Medium = Medium,
+  Buildings.Fluids.MixingVolumes.MixingVolume roo50(redeclare package Medium = Medium,
     initType=Modelica_Fluid.Types.Init.SteadyStateHydraulic,
     V=10*5*2.5,
     nP=5)                                     annotation (extent=[280,-28; 294,-14], style(

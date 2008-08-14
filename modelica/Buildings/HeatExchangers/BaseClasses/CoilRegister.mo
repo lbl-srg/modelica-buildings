@@ -1,4 +1,4 @@
-model SensibleCoilRegister "Register for a heat exchanger" 
+model CoilRegister "Register for a heat exchanger" 
   extends Buildings.BaseClasses.BaseIcon;
   extends Buildings.Fluids.Interfaces.PartialDoubleFluidParameters;
   import Modelica.Constants;
@@ -18,6 +18,11 @@ between the fluid volumes and the solid in each heat exchanger element.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 12, 2008 by Michael Wetter:<br>
+Introduced option to compute each medium using a steady state model or
+a dynamic model.
+</li>
 <li>
 March 25, 2008, by Michael Wetter:<br>
 First implementation.
@@ -76,7 +81,7 @@ extent=[-20,80; 0,100], Diagram,
   final parameter Integer nEle = nPipPar * nPipSeg 
     "Number of heat exchanger elements";
   
-  Buildings.HeatExchangers.BaseClasses.SensibleHexElement[
+  Buildings.HeatExchangers.BaseClasses.HexElement[
                       nPipPar, nPipSeg] ele(
     redeclare each package Medium_1 = Medium_1,
     redeclare each package Medium_2 = Medium_2,
@@ -87,7 +92,10 @@ extent=[-20,80; 0,100], Diagram,
     each tau_2=tau_2,
     each m0_flow_2=m0_flow_2/nPipPar/nPipSeg,
     each tau_m=tau_m,
-    each UA0=UA0/nPipPar/nPipSeg) "Element of a heat exchanger" 
+    each UA0=UA0/nPipPar/nPipSeg,
+    each steadyState_1=steadyState_1,
+    each steadyState_2=steadyState_2,
+    each allowCondensation=allowCondensation) "Element of a heat exchanger" 
     annotation (extent=[-10,20; 10,40]);
   
   Modelica_Fluid.Interfaces.FluidPort_a[nPipPar] port_a1(
@@ -120,12 +128,18 @@ extent=[-20,80; 0,100], Diagram,
   parameter Modelica.SIunits.MassFlowRate m0_flow_2 "Mass flow rate medium 2" 
   annotation(Dialog(group = "Nominal condition"));
   
-  parameter Modelica.SIunits.Time tau_1=60 
+  parameter Modelica.SIunits.Time tau_1=20 
     "Time constant at nominal flow for medium 1" 
-  annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Time tau_2=60 
+  annotation(Dialog(group = "Nominal condition", enable=not steadyState_1));
+  parameter Modelica.SIunits.Time tau_2=1 
     "Time constant at nominal flow for medium 2" 
-  annotation(Dialog(group = "Nominal condition"));
+  annotation(Dialog(group = "Nominal condition", enable=not steadyState_2));
+  parameter Boolean steadyState_1=false 
+    "Set to true for steady state model for fluid 1" 
+    annotation (Dialog(group="Fluid 1"));
+  parameter Boolean steadyState_2=false 
+    "Set to true for steady state model for fluid 2" 
+    annotation (Dialog(group="Fluid 2"));
   Modelica.SIunits.HeatFlowRate Q_flow_1 
     "Heat transfered from solid into medium 1";
   Modelica.SIunits.HeatFlowRate Q_flow_2 
@@ -133,6 +147,8 @@ extent=[-20,80; 0,100], Diagram,
   parameter Modelica.SIunits.Time tau_m=60 
     "Time constant of metal at nominal UA value" 
     annotation (Dialog(group="Nominal condition"));
+  parameter Boolean allowCondensation = true 
+    "Set to false to compute sensible heat transfer only";
   Modelica.Blocks.Interfaces.RealInput Gc_2(redeclare type SignalType = 
         Modelica.SIunits.ThermalConductance) 
     "Signal representing the convective thermal conductance medium 2 in [W/K]" 
@@ -193,4 +209,4 @@ equation
      end for;
   end for;
   
-end SensibleCoilRegister;
+end CoilRegister;

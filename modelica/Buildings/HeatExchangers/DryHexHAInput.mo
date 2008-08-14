@@ -1,4 +1,4 @@
-model SensibleHexHAInput 
+model DryHexHAInput 
   "Simple heat exchanger with convective heat transfer as input" 
   extends Fluids.Interfaces.PartialDynamicFourPortTransformer(final C=tau_m*UA0);
   extends Buildings.BaseClasses.BaseIcon;
@@ -39,4 +39,4 @@ equation
         -46,30], style(color=74, rgbcolor={0,0,127}));
   connect(Gc_2, con2.Gc) annotation (points=[-120,-30; -60,-30; -60,-2; -46,-2;
         -46,-10], style(color=74, rgbcolor={0,0,127}));
-end SensibleHexHAInput;
+end DryHexHAInput;

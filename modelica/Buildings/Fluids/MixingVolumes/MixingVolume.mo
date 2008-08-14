@@ -20,6 +20,11 @@ The thermal port need not be connected, but can have any number of connections.
 </html>", revisions="<html>
 <ul>
 <li>
+August 12, 2008 by Michael Wetter:<br>
+Introduced option to compute model in steady state. This allows the heat exchanger model
+to switch from a dynamic model for the medium to a steady state model.
+</li>
+<li>
 August 6, 2008 by Michael Wetter:<br>
 Introduced partial class.
 </li>
@@ -30,9 +35,20 @@ First implementation.
 </ul>
 </html>"),
     Diagram);
+  
 equation 
-// Mass and energy balance
-  der(m) = sum(port[i].m_flow for i in 1:nP);
-  der(mXi) = sum(port[i].mXi_flow for i in 1:nP);
-  der(U) = sum(port[i].H_flow for i in 1:nP) + Qs_flow + Ws_flow;
+// Mass and energy balance 
+  if steadyState then
+    0 = sum(port[i].m_flow for i in 1:nP);
+    zeros(Medium.nXi) = sum(port[i].mXi_flow for i in 1:nP);
+    0 = sum(port[i].H_flow for i in 1:nP) + Qs_flow + Ws_flow;
+  else
+    der(m) = sum(port[i].m_flow for i in 1:nP);
+    der(mXi) = sum(port[i].mXi_flow for i in 1:nP);
+    der(U) = sum(port[i].H_flow for i in 1:nP) + Qs_flow + Ws_flow;
+  end if;
+  
+ //  /* der(m) */ 0 = sum(port[i].m_flow for i in 1:nP);
+ //  /* der(mXi) */ zeros(Medium.nXi) = sum(port[i].mXi_flow for i in 1:nP);
+ //  /* der(U) */ 0 = sum(port[i].H_flow for i in 1:nP) + Qs_flow + Ws_flow;
 end MixingVolume;

@@ -4,8 +4,7 @@ model DewPointTemperature "Unit test for dew point temperature calculation"
            annotation (choicesAllMatching = true);
   Buildings.Utilities.Psychrometrics.DewPointTemperature TDewPoi 
     annotation (extent=[20,40; 40,60]);
-  Buildings.Utilities.Psychrometrics.HumidityRatioPressure humRat(redeclare 
-      package Medium = Medium) 
+  Buildings.Utilities.Psychrometrics.HumidityRatioPressure humRat 
     annotation (extent=[-20,0; 0,20]);
   annotation (Diagram);
     Modelica.Blocks.Sources.Ramp XHum(
@@ -30,11 +29,6 @@ equation
       fillColor=7,
       rgbfillColor={255,255,255},
       fillPattern=1));
-  connect(XHum.y, humRat.X[1]) annotation (points=[-59,-30; -40,-30; -40,3; -19,
-        3], style(
-      color=74,
-      rgbcolor={0,0,127},
-      fillColor=7,
-      rgbfillColor={255,255,255},
-      fillPattern=1));
+  connect(XHum.y, humRat.XWat) annotation (points=[-59,-30; -40,-30; -40,3; -19,
+        3], style(color=74, rgbcolor={0,0,127}));
 end DewPointTemperature;
