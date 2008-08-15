@@ -1,6 +1,7 @@
 package MoistAir 
+  "Package with moist air model that decouples pressure and temperature" 
   extends Modelica.Media.Interfaces.PartialCondensingGases(
-     mediumName="Moist air perfect gas",
+     mediumName="MoistAirPTDecoupled",
      substanceNames={"water", "air"},
      final reducedX=true,
      final singleState=false,
@@ -8,34 +9,24 @@ package MoistAir
      fluidConstants = {Modelica.Media.IdealGases.Common.FluidData.H2O,
                        Modelica.Media.IdealGases.Common.FluidData.N2});
   
-  annotation (Documentation(preferedView="info", info="<HTML>
+  annotation (preferedView="info", Documentation(info="<HTML>
 <p>
-This is a medium model that is similar to 
-<a href=\"Modelica:Modelica.Media.Air.MoistAir\">
-Modelica.Media.Air.MoistAir</a> but 
-it has a constant specific heat capacity.
-</p><p>
-In particular, the medium is <i>thermally perfect</i>, i.e., 
-<ul>
-<li>
-it is in thermodynamic equilibrium,
-</li><li>
-it is chemically not reacting, and
-</li><li>
-internal energy and enthalpy are functions of the temperature only.
-</li>
-</ul>
-In addition, the gas is <i>calorically perfect</i>, i.e., the
-specific heat capacities at constant pressure
-and constant volume are both constant (Bower 1998).
+This is a medium model that is identical to 
+<a href=\"Modelica:Buildings.Media.PerfectGases.MoistAir\">
+Buildings.Media.PerfectGases.MoistAir</a>, except the 
+equation <tt>d = p/(R*T)</tt> has been replaced with 
+<tt>d/dStp = p/pStp</tt> where 
+<tt>pStd</tt> and <tt>dStp</tt> are constants for a reference
+temperature and density.
 </p>
-<h3>References</h3>
-Bower, William B. <i>A primer in fluid mechanics: Dynamics of flows in one
-space dimension</i>. CRC Press. 1998.
+<p>
+This new formulation often leads to smaller systems of nonlinear equations 
+because pressure and temperature are decoupled, at the expense of accuracy.
+</p>
 </HTML>", revisions="<html>
 <ul>
 <li>
-May 8, 2008, by Michael Wetter:<br>
+August 15, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
@@ -61,8 +52,8 @@ First implementation.
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
-    MassFraction x_water "mass of total water/mass of dry air";
-    Real phi "relative humidity";
+    MassFraction x_water "Mass of total water/mass of dry air";
+    Real phi "Relative humidity";
     annotation(structurallyIncomplete);
     
   protected 
@@ -77,6 +68,8 @@ First implementation.
     MassFraction x_sat 
       "Steam water mass content of saturation boundary in kg_water/kg_dryair";
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
+   constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
+   constant Density dStp = 1.2 "Fluid density at pressure pStp";
   equation 
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
@@ -96,7 +89,9 @@ required from medium model \""     + mediumName + "\".");
     R = dryair.R*(1 - X_steam/(1 - X_liquid)) + steam.R*X_steam/(1 - X_liquid);
     //                
     u = h - R*T;
-    d = p/(R*T);
+    //    d = p/(R*T);
+    d*pStp = p*dStp;
+    
     /* Note, u and d are computed under the assumption that the volume of the liquid
          water is neglible with respect to the volume of air and of steam
       */
@@ -110,35 +105,35 @@ required from medium model \""     + mediumName + "\".");
     phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
   end BaseProperties;
   
-  function Xsaturation = Modelica.Media.Air.MoistAir.Xsaturation 
+  function Xsaturation = Buildings.Media.PerfectGases.MoistAir.Xsaturation 
     "Steam water mass fraction of saturation boundary in kg_water/kg_moistair";
   
   redeclare function setState_pTX 
     "Thermodynamic state as function of p, T and composition X" 
-      extends Modelica.Media.Air.MoistAir.setState_pTX;
+      extends Buildings.Media.PerfectGases.MoistAir.setState_pTX;
   end setState_pTX;
   
   redeclare function setState_phX 
     "Thermodynamic state as function of p, h and composition X" 
-     extends Modelica.Media.Air.MoistAir.setState_phX;
+     extends Buildings.Media.PerfectGases.MoistAir.setState_phX;
   end setState_phX;
   
   redeclare function setState_dTX 
     "Thermodynamic state as function of d, T and composition X" 
-     extends Modelica.Media.Air.MoistAir.setState_dTX;
+     extends Buildings.Media.PerfectGases.MoistAir.setState_dTX;
   end setState_dTX;
   
   redeclare function gasConstant 
     "Gas constant (computation neglects liquid fraction)" 
-     extends Modelica.Media.Air.MoistAir.gasConstant;
+     extends Buildings.Media.PerfectGases.MoistAir.gasConstant;
   end gasConstant;
   
   function saturationPressureLiquid = 
-      Modelica.Media.Air.MoistAir.saturationPressureLiquid 
+      Buildings.Media.PerfectGases.MoistAir.saturationPressureLiquid 
     "Saturation curve valid for 273.16 <= T <= 373.16. Outside of these limits a (less accurate) result is returned";
   
   function sublimationPressureIce = 
-      Modelica.Media.Air.MoistAir.sublimationPressureIce 
+      Buildings.Media.PerfectGases.MoistAir.sublimationPressureIce 
     "Saturation curve valid for 223.16 <= T <= 273.16. Outside of these limits a (less accurate) result is returned";
   
 redeclare function extends saturationPressure 
@@ -150,20 +145,20 @@ algorithm
 end saturationPressure;
   
  redeclare function pressure "Gas pressure" 
-    extends Modelica.Media.Air.MoistAir.pressure;
+    extends Buildings.Media.PerfectGases.MoistAir.pressure;
  end pressure;
   
  redeclare function temperature "Gas temperature" 
-    extends Modelica.Media.Air.MoistAir.temperature;
+    extends Buildings.Media.PerfectGases.MoistAir.temperature;
  end temperature;
   
  redeclare function density "Gas density" 
-    extends Modelica.Media.Air.MoistAir.density;
+    extends Buildings.Media.PerfectGases.MoistAir.density;
  end density;
   
  redeclare function specificEntropy 
     "Specific entropy (liquid part neglected, mixing entropy included)" 
-    extends Modelica.Media.Air.MoistAir.specificEntropy;
+    extends Buildings.Media.PerfectGases.MoistAir.specificEntropy;
  end specificEntropy;
   
  redeclare function extends enthalpyOfVaporization 
@@ -273,41 +268,7 @@ end thermalConductivity;
   
 function h_pTX 
     "Compute specific enthalpy from pressure, temperature and mass fraction" 
-  extends Modelica.Icons.Function;
-  input SI.Pressure p "Pressure";
-  input SI.Temperature T "Temperature";
-  input SI.MassFraction X[nX] "Mass fractions of moist air";
-  output SI.SpecificEnthalpy h "Specific enthalpy at p, T, X";
-    
-  annotation(Inline=false,smoothOrder=1);
-  protected 
-  SI.AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-  SI.MassFraction x_sat "steam water mass fraction of saturation boundary";
-  SI.MassFraction X_liquid "mass fraction of liquid water";
-  SI.MassFraction X_steam "mass fraction of steam water";
-  SI.MassFraction X_air "mass fraction of air";
-  SI.SpecificEnthalpy hDryAir "Enthalpy of dry air";
-algorithm 
-  p_steam_sat :=saturationPressure(T);
-  x_sat    :=k_mair*p_steam_sat/(p - p_steam_sat);
-  X_liquid :=max(X[Water] - x_sat/(1 + x_sat), 0.0);
-  X_steam  :=X[Water] - X_liquid;
-  X_air    :=1 - X[Water];
-    
-/* THIS DOES NOT WORK --------------------------    
-  h := enthalpyOfDryAir(T) * X_air + 
-       Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
---------------------------------- */
-    
-/* THIS WORKS!!!! +++++++++++++++++++++
-  h := (T - 273.15)*dryair.cp * X_air + 
-       Modelica.Media.Air.MoistAir.enthalpyOfCondensingGas(T) * X_steam + enthalpyOfLiquid(T)*X_liquid;
- +++++++++++++++++++++*/
-    
-  hDryAir := (T - 273.15)*dryair.cp;
-  h := hDryAir * X_air +
-       ((T-273.15) * steam.cp + 2501014.5) * X_steam +
-       (T - 273.15)*4186*X_liquid;
+  extends Buildings.Media.PerfectGases.MoistAir.h_pTX;
 end h_pTX;
   
 redeclare function extends specificEnthalpy "Specific enthalpy" 

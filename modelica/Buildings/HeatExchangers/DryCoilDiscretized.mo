@@ -6,10 +6,11 @@ model DryCoilDiscretized
  annotation (
     Documentation(info="<html>
 <p>
-Model of a discretized coil. The coil consists of <tt>nReg</tt> registers
+Model of a discretized coil with no water vapor condensation.
+The coil consists of <tt>nReg</tt> registers
 that are perpendicular to the air flow path. Each register consists of <tt>nPipPar</tt>
 parallel pipes, and each pipe can be divided into <tt>nPipSeg</tt> pipe segments along
-the pipe length. Thus, the smallest element of the heat exchanger consists of a pipe 
+the pipe length. Thus, the smallest element of the coil consists of a pipe 
 segment. These pipe segments are modeled by the instance <tt>ele</tt>.
 Each element has a state variable for the metal. Depending
 on the value of the boolean parameters <tt>steadyState_1</tt> and
@@ -30,8 +31,8 @@ the air flow path need to be connected to the other two ports.
 <p>
 To model humidity condensation, use the model 
 <a href=\"Modelica:Buildings.HeatExchangers.WetCoilDiscretized\">
-Buildings.HeatExchangers.WetCoilDiscretized</a> instead of this model, which 
-computes only sensible heat transfer.
+Buildings.HeatExchangers.WetCoilDiscretized</a> instead of this model, as
+this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -226,13 +227,13 @@ public
     "Set to false to make air-side hA independent of temperature" 
     annotation(Dialog(tab="Heat transfer"));
   BaseClasses.HADryCoil hA(
-    UA0=UA0,
-    m0_flow_a=m0_flow_2,
-    m0_flow_w=m0_flow_1,
-    waterSideTemperatureDependent=waterSideTemperatureDependent,
-    waterSideFlowDependent=waterSideFlowDependent,
-    airSideTemperatureDependent=airSideTemperatureDependent,
-    airSideFlowDependent=airSideFlowDependent) 
+    final UA0=UA0,
+    final m0_flow_a=m0_flow_2,
+    final m0_flow_w=m0_flow_1,
+    final waterSideTemperatureDependent=waterSideTemperatureDependent,
+    final waterSideFlowDependent=waterSideFlowDependent,
+    final airSideTemperatureDependent=airSideTemperatureDependent,
+    final airSideFlowDependent=airSideFlowDependent) 
     "Model for convective heat transfer coefficient" 
         annotation (extent=[-60,80; -40,100]);
 protected 

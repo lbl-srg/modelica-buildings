@@ -2,7 +2,7 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
   extends Modelica.Media.Water.ConstantPropertyLiquidWater;
 import SI = Modelica.SIunits;
 
-  annotation (Documentation(info="<HTML>
+  annotation (preferedView="info", Documentation(info="<HTML>
 <p>
 This medium model is identical to 
 <a href=\"Modelica:Modelica.Media.Water.ConstantPropertyLiquidWater\">

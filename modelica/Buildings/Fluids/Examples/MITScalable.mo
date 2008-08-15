@@ -9,7 +9,11 @@ model MITScalable "System model for MIT building"
      T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
     "Medium in the component";
 */
- package Medium = Buildings.Media.SimpleAirPTDecoupled;
+//   package Medium = Modelica.Media.Air.SimpleAir;
+// package Medium = Modelica.Media.Air.MoistAir;
+// package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir;
+// package Medium = Buildings.Media.PerfectGases.MoistAir;
+ package Medium = Buildings.Media.GasesPTDecoupled.MoistAir;
   
   parameter Integer NSui = 1 "Number of suites";
   parameter Modelica.SIunits.MassFlowRate mOneSuite_flow = sui[1].m0Tot_flow 
@@ -172,7 +176,7 @@ equation
       color=1,
       rgbcolor={255,0,0},
       thickness=2));
-  connect(PAtm.y, bouIn2.p_in) annotation (points=[-59,-10; -50.5,-10; -50.5,-4;
+  connect(PAtm.y, bouIn2.p_in) annotation (points=[-59,-10; -50.5,-10; -50.5,-4; 
         -42,-4],                                                      style(
       color=1,
       rgbcolor={255,0,0},
@@ -266,7 +270,7 @@ equation
       fillColor=74,
       rgbfillColor={0,0,127},
       fillPattern=1));
-  connect(res33.port_b, sui[1].port_aSup)   annotation (points=[138,16; 166,16;
+  connect(res33.port_b, sui[1].port_aSup)   annotation (points=[138,16; 166,16; 
         166,9.46667], style(
       color=69,
       rgbcolor={0,127,255},
@@ -284,7 +288,7 @@ equation
       rgbfillColor={0,0,127},
       fillPattern=1));
   for i in 1:NSui loop
-  connect(PAtm.y, sui[i].p)   annotation (points=[-59,-10; -50,-10; -50,106;
+  connect(PAtm.y, sui[i].p)   annotation (points=[-59,-10; -50,-10; -50,106; 
           144,106; 144,27.8667; 162.4,27.8667], style(
         color=1,
         rgbcolor={255,0,0},

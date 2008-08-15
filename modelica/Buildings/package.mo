@@ -88,7 +88,15 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 <p>
 <ul>
 <li>
-The package <a href=\"Modelica:Buildings.HeatExchangers\">Buildings.HeatExchangers</a> has been revised and several models have been renamed.
+The package <a href=\"Modelica:Buildings.Media\">Buildings.Media</a> has been reorganized and
+the new medium model 
+<a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAir\">
+Buildings.Media.GasesPTDecoupled.MoistAir</a>
+has been added.
+</li>
+<li>
+The package <a href=\"Modelica:Buildings.HeatExchangers\">Buildings.HeatExchangers</a> 
+has been revised and several models have been renamed.
 The heat exchanger models have been revised to allow computing the fluid volumes either
 dynamically, or in steady-state.
 </li>

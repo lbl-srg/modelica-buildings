@@ -29,7 +29,7 @@ model HeaterCoolerIdeal
         string="u")),
 Documentation(info="<html>
 <p>
-Model for an electric heater or cooler.
+Model for an ideal heater or cooler.
 </p>
 <p>
 This model adds heat in the amount of <tt>Q_flow = u Q0_flow</tt> to the medium.

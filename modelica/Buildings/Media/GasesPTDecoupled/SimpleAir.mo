@@ -1,11 +1,10 @@
-package SimpleAirPTDecoupled "Package with air model that decouples pressure and temperature"
+package SimpleAir 
+  "Package with dry air model that decouples pressure and temperature"
   extends Modelica.Media.Air.SimpleAir(
-      mediumName="SimpleAirPTDecoupled",
+      mediumName="GasesPTDecoupled.SimpleAir",
       T_min=Cv.from_degC(-50));
-import SI = Modelica.SIunits;
 
-
-  annotation (Documentation(info="<HTML>
+  annotation (preferedView="info", Documentation(info="<HTML>
 <p>
 This medium model is identical to 
 <a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
@@ -44,10 +43,10 @@ First implementation.
     "thermodynamic state variables for optional functions";
     parameter Boolean preferredMediumStates=false 
     "= true if StateSelect.prefer shall be used for the independent property variables of the medium";
-    SI.Conversions.NonSIunits.Temperature_degC T_degC=
+    Modelica.SIunits.Conversions.NonSIunits.Temperature_degC T_degC=
         Modelica.SIunits.Conversions.to_degC(T) 
     "Temperature of medium in [degC]";
-    SI.Conversions.NonSIunits.Pressure_bar p_bar=
+    Modelica.SIunits.Conversions.NonSIunits.Pressure_bar p_bar=
         Modelica.SIunits.Conversions.to_bar(p) 
     "Absolute pressure of medium in [bar]";
    constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
@@ -89,4 +88,4 @@ First implementation.
  algorithm 
     s := cp_const*Modelica.Math.log(state.T/T0);// - R_gas*Modelica.Math.log(state.p/reference_p);
  end specificEntropy;
-end SimpleAirPTDecoupled;
+end SimpleAir;

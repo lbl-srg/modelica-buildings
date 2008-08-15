@@ -3,7 +3,7 @@ model HexElement
   annotation(Diagram, Commands(file="HexElement.mos" "run"),
     experimentSetupOutput);
  package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium_A = Buildings.Media.SimpleAirPTDecoupled;
+ //package Medium_A = Buildings.Media.GasesPTDecoupled.SimpleAir;
  //package Medium_A = Modelica.Media.Air.SimpleAir;
   package Medium_A = Buildings.Media.PerfectGases.MoistAir;
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(

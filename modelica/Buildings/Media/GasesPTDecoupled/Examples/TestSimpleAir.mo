@@ -1,7 +1,7 @@
 model TestMoistAir 
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium = 
-          Buildings.Media.PerfectGases.MoistAir);
+          Buildings.Media.GasesPTDecoupled.MoistAir);
   
       annotation (Diagram, Commands(file="TestMoistAir.mos" "run"),
     Documentation(preferedView="info", info="<html>
@@ -11,7 +11,7 @@ Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-May 12, 2008, by Michael Wetter:<br>
+August 15, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

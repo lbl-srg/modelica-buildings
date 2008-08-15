@@ -3,9 +3,8 @@ model WetCoilDiscretized
   
   annotation(Diagram, Commands(file="WetCoilDiscretized.mos" "run"));
  package Medium_1 = Buildings.Media.ConstantPropertyLiquidWater;
- package Medium_2 = Buildings.Media.PerfectGases.MoistAir 
-    "Medium in the component" 
-           annotation (choicesAllMatching = true);
+ //package Medium_2 = Buildings.Media.PerfectGases.MoistAir;
+ package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAir;
   
   Buildings.HeatExchangers.WetCoilDiscretized hex(
     redeclare package Medium_1 = Medium_1,
@@ -106,8 +105,8 @@ equation
   connect(res_2.port_a, hex.port_b2) annotation (points=[-2,6.10623e-16; 4,
         6.10623e-16; 4,5.55112e-16; 8,5.55112e-16],
                                        style(color=69, rgbcolor={0,127,255}));
-  connect(hex.port_b1, res_1.port_a) annotation (points=[28,12; 34,12],
-                style(color=69, rgbcolor={0,127,255}));
+  connect(hex.port_b1, res_1.port_a) annotation (points=[28,12; 31,12; 31,12; 
+        34,12], style(color=69, rgbcolor={0,127,255}));
   connect(hex.port_a2, sou_2.port) annotation (points=[28,5.55112e-16; 68,
         5.55112e-16; 68,-60; 60,-60], style(color=69, rgbcolor={0,127,255}));
   connect(TDb.y, sou_2.T_in) annotation (points=[1,-80; 20,-80; 20,-60; 38,-60],
