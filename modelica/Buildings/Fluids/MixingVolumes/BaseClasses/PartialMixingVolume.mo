@@ -15,13 +15,18 @@ partial model PartialMixingVolume
     h(start=h_start),
     T(start=T_start),
     Xi(start=X_start[1:Medium.nXi]));
-  Modelica.SIunits.Energy U "Internal energy of fluid";
-  Modelica.SIunits.Mass m "Mass of fluid";
+  Modelica.SIunits.Energy U(start=V*rho0*Medium.specificInternalEnergy(sta0)) 
+    "Internal energy of fluid";
+  Modelica.SIunits.Mass m(start=V*rho0) "Mass of fluid";
   Modelica.SIunits.Mass mXi[Medium.nXi] 
     "Masses of independent components in the fluid";
   Modelica.SIunits.Volume V_lumped "Volume";
   
 protected 
+   parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=T_start,
+         p=p_start, X=X_start[1:Medium.nXi]);
+   parameter Modelica.SIunits.Density rho0=Medium.density(sta0) 
+    "Density, used to compute fluid volume";
   Modelica.SIunits.HeatFlowRate Qs_flow 
     "Heat flow across boundaries or energy source/sink";
   Modelica.SIunits.Power Ws_flow=0 "Work flow across boundaries or source term";
@@ -58,6 +63,12 @@ The thermal port need not be connected, but can have any number of connections.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 4, 2008 by Michael Wetter:<br>
+Added start values for the medium mass and internal energy.
+This avoids a division by zero that occured in some problems during the initialization
+since the start value for the mass was set to zero and this mass was used in the denominator.
+</li>
 <li>
 August 12, 2008 by Michael Wetter:<br>
 Introduced option to compute model in steady state. This allows the heat exchanger model

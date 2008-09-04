@@ -3,11 +3,7 @@ model Delay
     annotation (Diagram, Commands(file=
             "Delay.mos" "run"));
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
-// package Medium = Modelica.Media.Air.SimpleAir;
-  
-// The package Buildings.Media.ConstantPropertyLiquidWater won't work 
-// because it does not provide an implementation of the density function.
-// package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+// package Medium = Buildings.Media.IdealGases.SimpleAir;
   
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
       annotation (extent=[62,36; 82,56]);

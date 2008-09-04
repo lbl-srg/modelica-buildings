@@ -14,6 +14,10 @@ Modelica.Media.Water.ConstantPropertyLiquidWater</a>.
 </HTML>", revisions="<html>
 <ul>
 <li>
+September 4, 2008, by Michael Wetter:<br>
+Added implementation for partial function <tt>specificInternalEnergy</tt>.
+</li>
+<li>
 March 19, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -24,4 +28,12 @@ First implementation.
  algorithm 
     d := d_const;
  end density;
+
+ redeclare replaceable function extends specificInternalEnergy 
+  "Return specific internal energy" 
+  input ThermodynamicState state;
+  output SpecificEnergy u "Specific internal energy";
+ algorithm 
+   u := cv_const * (state.T-T0);
+ end specificInternalEnergy;
 end ConstantPropertyLiquidWater;

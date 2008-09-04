@@ -1,10 +1,9 @@
 model SplitterFixedResistanceDpM 
+  
   annotation (Diagram, Commands(file=
           "SplitterFixedResistanceDpM.mos" "run"));
   
- package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
-    "Medium in the component" 
-         annotation (choicesAllMatching = true);
+ package Medium = Buildings.Media.IdealGases.SimpleAir;
   
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl(
     m0_flow={1,2,3},

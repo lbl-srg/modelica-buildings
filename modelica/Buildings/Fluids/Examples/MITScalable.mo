@@ -5,11 +5,8 @@ model MITScalable "System model for MIT building"
     experiment(
       Tolerance=1e-006));
   
-/* package Medium = Modelica.Media.Air.SimpleAir (
-     T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
-    "Medium in the component";
-*/
-//   package Medium = Modelica.Media.Air.SimpleAir;
+// package Medium = Buildings.Media.IdealGases.SimpleAir
+// package Medium = Modelica.Media.Air.SimpleAir;
 // package Medium = Modelica.Media.Air.MoistAir;
 // package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir;
 // package Medium = Buildings.Media.PerfectGases.MoistAir;

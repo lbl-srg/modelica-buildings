@@ -2,11 +2,11 @@ model DryCoilDiscretized
   
   annotation(Diagram, Commands(file="DryCoilDiscretized.mos" "run"));
  package Medium_1 = Buildings.Media.ConstantPropertyLiquidWater;
-// package Medium_2 = Buildings.Media.PerfectGases.MoistAir;
-// package Medium_2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
-// package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAir;
- package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid;
-//package Medium_2 = Modelica.Media.Air.SimpleAir;
+ //package Medium_2 = Buildings.Media.PerfectGases.MoistAir;
+ package Medium_2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
+ //package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAir;
+ //package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid;
+//package Medium_2 = Buildings.Media.IdealGases.SimpleAir;
   
   Buildings.HeatExchangers.DryCoilDiscretized hex(
     redeclare package Medium_1 = Medium_1,

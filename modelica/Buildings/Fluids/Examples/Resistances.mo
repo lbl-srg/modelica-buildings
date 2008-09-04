@@ -1,9 +1,7 @@
 model Resistances "Test of multiple resistances" 
   annotation (Diagram, Commands(file=
           "Resistances.mos" "run"));
- package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
-    "Medium in the component" 
-         annotation (choicesAllMatching = true);
+ package Medium = Buildings.Media.IdealGases.SimpleAir;
   annotation (
     Diagram(Text(
         extent=[-20,58; 30,44],

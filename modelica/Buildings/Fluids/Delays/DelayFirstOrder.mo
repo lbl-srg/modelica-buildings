@@ -54,6 +54,11 @@ The heat flux connector is optional, it need not be connnected.
 revisions="<html>
 <ul>
 <li>
+September 4 by Michael Wetter:<br>
+Fixed bug in assignment of parameter <tt>sta0</tt>. The earlier implementation
+required temperature to be a state, which is not always the case.
+</li>
+<li>
 March 17 by Michael Wetter:<br>
 First implementation.
 </li>
@@ -66,8 +71,8 @@ First implementation.
      annotation(Dialog(group = "Nominal condition"));
   
 protected 
- parameter Medium.ThermodynamicState sta0(T=Medium.T_default,
-       p=Medium.p_default);
- parameter Modelica.SIunits.Density rho0=Medium.density(sta0) 
+   parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=T_start,
+         p=p_start, X=X_start[1:Medium.nXi]);
+   parameter Modelica.SIunits.Density rho0=Medium.density(sta0) 
     "Density, used to compute fluid volume";
 end DelayFirstOrder;

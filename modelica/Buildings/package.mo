@@ -93,6 +93,20 @@ the new medium model
 <a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAir\">
 Buildings.Media.GasesPTDecoupled.MoistAir</a>
 has been added.
+<br>
+In addition, this package now contains a bug fix that is needed for Modelica 2.2.1 and 2.2.2.
+The bugs are fixed by using a new
+base class
+<a href=\"Modelica:Buildings.Media.Interfaces.PartialSimpleIdealGasMedium\">
+Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</a>
+ (that fixes the bugs) instead of
+<a href=\"Modelica:Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
+Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>.
+In the original implementation, initial states of fluid volumes can be far away from
+the steady-state value because of an inconsistent implementation of the the enthalpy
+and internal energy.
+When the <tt>Buildings</tt> library is upgraded to
+to Modelica 3.0.0, it should be safe to remove this bug fix.
 </li>
 <li>
 The package <a href=\"Modelica:Buildings.HeatExchangers\">Buildings.HeatExchangers</a> 

@@ -25,7 +25,7 @@ model MixingVolumeMoistAir
     "Conversion from humidity ratio to partial water vapor pressure" 
     annotation (extent=[-20,-118; 0,-98]);
   Buildings.Utilities.Psychrometrics.DewPointTemperature dewPoi 
-    "Dew point temperature" annotation (extent=[8,-102; 28,-82]);
+    "Dew point temperature" annotation (extent=[8,-90; 28,-70]);
   Modelica.Thermal.HeatTransfer.HeatFlowSensor heatFlowSensor 
     annotation (extent=[64,120; 84,140]);
   Modelica.Blocks.Continuous.Integrator QSen "Sensible heat transfer" 
@@ -71,8 +71,9 @@ equation
       fillColor=0,
       rgbfillColor={0,0,0},
       fillPattern=1));
-  connect(dewPoi.p_w, humRat.p_w) annotation (points=[29,-92; 8,-92; 8,-92; -30,
-        -92; -30,-101; -19,-101],   style(color=3, rgbcolor={0,0,255}));
+  connect(dewPoi.p_w, humRat.p_w) annotation (points=[29,-80; 32,-80; 32,-92; 
+        -28,-92; -28,-101; -19,-101],
+                                    style(color=3, rgbcolor={0,0,255}));
   connect(preHeaFlo.port, heatFlowSensor.port_a) 
     annotation (points=[56,130; 64,130],
                                        style(color=42, rgbcolor={191,0,0}));
@@ -115,7 +116,8 @@ equation
         rgbcolor={0,0,127}));
   connect(gai1.y, vol1.mWat_flow) annotation (points=[1,-50; 32,-50; 32,-2; 48,
         -2], style(color=74, rgbcolor={0,0,127}));
-  connect(dewPoi.T, vol1.TWat) annotation (points=[7,-92; 40,-92; 40,-8; 48,-8],
+  connect(dewPoi.T, vol1.TWat) annotation (points=[7,-80; 4,-80; 4,-66; 42,-66; 
+        42,-8; 48,-8],
               style(color=3, rgbcolor={0,0,255}));
   connect(vol1.XWat, PI1.u_m) annotation (points=[72,-4; 80,-4; 80,-134; -40,
         -134; -40,-62], style(color=74, rgbcolor={0,0,127}));

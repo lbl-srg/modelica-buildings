@@ -3,7 +3,7 @@ model DewPointTemperature "Unit test for dew point temperature calculation"
    package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" 
            annotation (choicesAllMatching = true);
   Buildings.Utilities.Psychrometrics.DewPointTemperature TDewPoi 
-    annotation (extent=[20,40; 40,60]);
+    annotation (extent=[-60,40; -40,60]);
   Buildings.Utilities.Psychrometrics.HumidityRatioPressure humRat 
     annotation (extent=[-20,0; 0,20]);
   annotation (Diagram);
@@ -15,9 +15,8 @@ model DewPointTemperature "Unit test for dew point temperature calculation"
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure" 
                                     annotation (extent=[-80,0; -60,20]);
 equation 
-  connect(humRat.p_w, TDewPoi.p_w) annotation (points=[-19,17; -32,17; -32,49.8;
-        19,49.8],
-                style(
+  connect(humRat.p_w, TDewPoi.p_w) annotation (points=[-19,17; -32,17; -32,50; 
+        -39,50],style(
       color=0,
       rgbcolor={0,0,0},
       fillColor=7,

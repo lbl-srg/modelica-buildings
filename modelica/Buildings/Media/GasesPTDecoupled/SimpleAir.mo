@@ -1,6 +1,6 @@
 package SimpleAir 
   "Package with dry air model that decouples pressure and temperature"
-  extends Modelica.Media.Air.SimpleAir(
+  extends Buildings.Media.IdealGases.SimpleAir(
       mediumName="GasesPTDecoupled.SimpleAir",
       T_min=Cv.from_degC(-50));
 

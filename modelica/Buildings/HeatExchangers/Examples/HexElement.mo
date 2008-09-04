@@ -3,10 +3,10 @@ model HexElement
   annotation(Diagram, Commands(file="HexElement.mos" "run"),
     experimentSetupOutput);
  package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
-// With this medium, hex.vol_1.m becomes a parameter, set to 0! package Medium_W = Modelica.Media.Air.SimpleAir;
-// With this medium, hex.vol_2.m becomes a parameter, set to 0! package Medium_A = Buildings.Media.GasesPTDecoupled.SimpleAir;
-// With this medium, hex.vol_2.m becomes a parameter, set to 0! package Medium_A = Modelica.Media.Air.SimpleAir;
-//   package Medium_A = Modelica.Media.Air.SimpleAir;
+// package Medium_W = Modelica.Media.Air.SimpleAir;
+// package Medium_A = Buildings.Media.GasesPTDecoupled.SimpleAir;
+// package Medium_A = Modelica.Media.Air.SimpleAir;
+// package Medium_A = Modelica.Media.Air.SimpleAir;
 // package Medium_A = Buildings.Media.PerfectGases.MoistAirNonsaturated;
  package Medium_A = Buildings.Media.PerfectGases.MoistAir;
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(

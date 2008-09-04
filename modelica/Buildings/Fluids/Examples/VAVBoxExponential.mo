@@ -2,7 +2,7 @@ model VAVBoxExponential
   
  annotation (Diagram, Commands(file=
             "VAVBoxExponential.mos" "run"));
- package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50));
+ package Medium = Buildings.Media.IdealGases.SimpleAir;
   
   Buildings.Fluids.Actuators.Dampers.Exponential dam(
          redeclare package Medium = Medium, A=1.8) 

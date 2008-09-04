@@ -5,7 +5,7 @@ model MixingVolume
             "MixingVolume.mos" "run"),
     Coordsys(extent=[-100,-100; 180,100]));
   
-// package Medium = Modelica.Media.Air.SimpleAir;
+// package Medium = Buildings.Media.IdealGases.SimpleAir;
  package Medium = Buildings.Media.PerfectGases.MoistAir;
   
     Modelica.Blocks.Sources.Ramp P(

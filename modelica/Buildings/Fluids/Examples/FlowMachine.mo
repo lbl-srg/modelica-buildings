@@ -2,7 +2,7 @@ model FlowMachine
   
     annotation (Diagram, Commands(file=
             "FlowMachine.mos" "run"));
-   //package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50));
+   //package Medium = Buildings.Media.IdealGases.SimpleAir;
     package Medium =  Buildings.Media.PerfectGases.MoistAir;
     Modelica.Blocks.Sources.Ramp P(
     height=-1500,

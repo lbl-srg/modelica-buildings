@@ -3,8 +3,7 @@ model Damper
     annotation (Diagram, Commands(file=
             "Damper.mos" "run"));
   
- package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
-    "Medium in the component";
+ package Medium = Buildings.Media.IdealGases.SimpleAir;
   
   Buildings.Fluids.Actuators.Dampers.Exponential res(
     A=1,

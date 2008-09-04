@@ -5,7 +5,7 @@ model MixingVolumeDryAir
             "MixingVolumeDryAir.mos" "run"),
     Coordsys(extent=[-100,-100; 180,100]));
   
- package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
+ package Medium = Buildings.Media.IdealGases.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
     "Medium in the component";
   
     Modelica.Blocks.Sources.Ramp P(

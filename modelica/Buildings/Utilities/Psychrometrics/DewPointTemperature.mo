@@ -1,8 +1,7 @@
-block DewPointTemperature 
+model DewPointTemperature 
   "Model to compute the dew point temperature of moist air" 
- extends Modelica.Blocks.Interfaces.BlockIcon;
+ extends Buildings.BaseClasses.BaseIcon;
     annotation (
-    Diagram,
     Documentation(info="<html>
 <p>
 Dew point temperature calculation for moist air above freezing temperature.
@@ -17,12 +16,23 @@ temperatures.
 </html>", revisions="<html>
 <ul>
 <li>
+September 4, 2008 by Michael Wetter:<br>
+Changed from causal to acausal ports, needed, for example, for
+<a href=\"Modelica:Buildings.Fluids.Examples.MixingVolumeMoistAir\">
+Buildings.Fluids.Examples.MixingVolumeMoistAir</a>.
+</li>
+<li>
 August 7, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
 </html>"),
     Icon(
+      Rectangle(extent=[-100,100; 100,-100], style(
+          color=0,
+          rgbcolor={0,0,0},
+          fillColor=7,
+          rgbfillColor={255,255,255})),
       Text(
         extent=[104,44; 142,-2],
         style(color=3, rgbcolor={0,0,255}),
@@ -72,13 +82,13 @@ First implementation.
           fillColor=0,
           rgbfillColor={0,0,0}),
         string="T")));
-  Modelica.Blocks.Interfaces.RealOutput p_w(redeclare type SignalType = 
+  Modelica.Blocks.Interfaces.RealSignal p_w(redeclare type SignalType = 
         Modelica.SIunits.Pressure (
         min=0,
         start=10000,
         nominal=10000)) "Water vapor partial pressure" 
     annotation (extent=[100,-10; 120,10]);
-  Modelica.Blocks.Interfaces.RealInput T(redeclare type SignalType = 
+  Modelica.Blocks.Interfaces.RealSignal T(redeclare type SignalType = 
         Modelica.SIunits.Temperature (
         min=200,
         max=400,
