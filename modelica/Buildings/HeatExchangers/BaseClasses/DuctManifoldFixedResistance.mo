@@ -16,6 +16,15 @@ for each flow path.
 revisions="<html>
 <ul>
 <li>
+August 22, 2008, by Michael Wetter:<br>
+Added start value for resistance mass flow rate.
+</li>
+<li>
+August 21, 2008, by Michael Wetter:<br>
+Added mixing volume to break large nonlinear system of equations in model
+<a href=\"Modelica:Buildings.HeatExchangers.DryCoilDiscretized\">
+Buildings.HeatExchangers.DryCoilDiscretized</a>.
+</li><li>
 April 14, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -40,25 +49,40 @@ Icon( Rectangle(extent=[28,68; 72,52], style(
                                               annotation(Dialog(group = "Nominal Condition"));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter for duct";
   parameter Real ReC=4000 "Reynolds number where transition to laminar starts";
+  parameter Boolean linearized = false 
+    "= true, use linear relation between m_flow and dp for any flow rate" 
+    annotation(Dialog(tab="Advanced"));
   
   Fluids.FixedResistances.FixedResistanceDpM[nPipPar,nPipSeg] fixRes(
     redeclare each package Medium = Medium,
     each m0_flow=m0_flow/nPipPar/nPipSeg,
+    each m_flow(start=mStart_flow_a/nPipPar/nPipSeg),
     each dp0=dp0,
     each dh=dh/sqrt(nPipPar*nPipSeg),
-    each from_dp=true) "Fixed resistance for each duct" 
+    each from_dp=false,
+    each linearized=linearized) "Fixed resistance for each duct" 
     annotation (extent=[0,-10; 20,10]);
+  parameter Modelica.SIunits.Length dl = 0.3 "Length of mixing volume";
+  Fluids.MixingVolumes.MixingVolume vol(redeclare package Medium =                       Medium,
+    final V=dh*dh*dl,
+    final nP=1+nPipPar*nPipSeg,
+    final steadyState=steadyState) 
+                       annotation (extent=[-56,-10; -36,10]);
+  parameter Boolean steadyState=false "Set to true for steady state model";
 equation 
   for i in 1:nPipPar loop
     for j in 1:nPipSeg loop
-     connect(port_a, fixRes[i, j].port_a) annotation (points=[-100,5.55112e-16;
-            -50,5.55112e-16; -50,6.10623e-16; -5.55112e-16,6.10623e-16],
-                                                                       style(
-          color=69, rgbcolor={0,127,255}));
+   connect(vol.port[1+(i-1)*nPipSeg+j], fixRes[i, j].port_a) annotation (points=[-46,
+            5.55112e-16; -23,5.55112e-16; -23,6.10623e-16; -5.55112e-16,
+            6.10623e-16],                                style(color=69,
+        rgbcolor={0,127,255}));
     end for;
   end for;
   
-  connect(fixRes.port_b, port_b) annotation (points=[20,6.10623e-16; 58,
-        6.10623e-16; 58,5.55112e-16; 100,5.55112e-16], style(color=69, rgbcolor=
+  connect(port_a, vol.port[1]) annotation (points=[-100,5.55112e-16; -74,
+        -4.87687e-22; -74,5.55112e-16; -46,5.55112e-16],
+                                          style(color=69, rgbcolor={0,127,255}));
+  connect(fixRes.port_b, port_b) annotation (points=[20,6.10623e-16; 56,
+        6.10623e-16; 56,5.55112e-16; 100,5.55112e-16], style(color=69, rgbcolor=
          {0,127,255}));
 end DuctManifoldFixedResistance;

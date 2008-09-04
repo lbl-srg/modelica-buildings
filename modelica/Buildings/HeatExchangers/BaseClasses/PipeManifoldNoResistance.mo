@@ -20,10 +20,25 @@ First implementation.
 </li>
 </ul>
 </html>"));
+ parameter Boolean connectAllPressures=true;
 equation 
   for i in 1:nPipPar loop
-    connect(port_a, port_b[i]) annotation (points=[-100,5.55112e-16; -2,
-          5.55112e-16; -2,5.55112e-16; 100,5.55112e-16],
-                                     style(color=69, rgbcolor={0,127,255}));
+   if (connectAllPressures == true) then
+     port_a.p = port_b[i].p;
+   end if;
+    port_a.h = port_b[i].h;
+    port_a.Xi = port_b[i].Xi;
+    port_a.C = port_b[i].C;
   end for;
+   if (connectAllPressures == false) then
+     port_a.p = port_b[1].p;
+        for i in 2:nPipPar loop
+          port_b[1].m_flow = port_b[i].m_flow;
+        end for;
+   end if;
+  
+   port_a.m_flow + sum(port_b[i].m_flow for i in 1:nPipPar) = 0;
+   port_a.H_flow + sum(port_b[i].H_flow  for i in 1:nPipPar) = 0;
+   port_a.mXi_flow + sum(port_b[i].mXi_flow for i in 1:nPipPar) = zeros(Medium.nXi);
+   port_a.mC_flow + sum(port_b[i].mC_flow for i in 1:nPipPar) = zeros(Medium.nC);
 end PipeManifoldNoResistance;

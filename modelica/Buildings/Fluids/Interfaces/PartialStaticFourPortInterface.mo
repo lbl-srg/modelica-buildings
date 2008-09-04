@@ -1,7 +1,6 @@
 partial model PartialStaticFourPortInterface 
   "Partial element transporting fluid between two ports without storing mass or energy" 
   extends Buildings.Fluids.Interfaces.PartialDoubleFluidParameters;
-  import Modelica.Constants;
   
   annotation (
     Coordsys(grid=[1, 1], component=[20, 20]),
@@ -28,22 +27,22 @@ First implementation.
     Icon);
   
   Modelica_Fluid.Interfaces.FluidPort_a port_a1(redeclare package Medium = 
-        Medium_1, m_flow(start=0, min=if allowFlowReversal_1 then -Constants.inf else 
+        Medium_1, m_flow(start=0, min=if allowFlowReversal_1 then -Modelica.Constants.inf else 
                 0)) 
     "Fluid connector a for medium 1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (extent=[-110,50; -90,70]);
   Modelica_Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium = 
-        Medium_1, m_flow(start=0, max=if allowFlowReversal_1 then +Constants.inf else 
+        Medium_1, m_flow(start=0, max=if allowFlowReversal_1 then +Modelica.Constants.inf else 
                 0)) 
     "Fluid connector b for medium 1 (positive design flow direction is from port_a to port_b)"
     annotation (extent=[110,50; 90,70]);
   Modelica_Fluid.Interfaces.FluidPort_a port_a2(redeclare package Medium = 
-        Medium_2, m_flow(start=0, min=if allowFlowReversal_2 then -Constants.inf else 
+        Medium_2, m_flow(start=0, min=if allowFlowReversal_2 then -Modelica.Constants.inf else 
                 0)) 
     "Fluid connector a for medium 2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (extent=[90,-70; 110,-50]);
   Modelica_Fluid.Interfaces.FluidPort_b port_b2(redeclare package Medium = 
-        Medium_2, m_flow(start=0, max=if allowFlowReversal_2 then +Constants.inf else 
+        Medium_2, m_flow(start=0, max=if allowFlowReversal_2 then +Modelica.Constants.inf else 
                 0)) 
     "Fluid connector b for medium 2 (positive design flow direction is from port_a to port_b)"
     annotation (extent=[-90,-70; -110,-50]);

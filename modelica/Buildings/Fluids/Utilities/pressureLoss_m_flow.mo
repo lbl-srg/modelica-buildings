@@ -1,6 +1,7 @@
 function pressureLoss_m_flow "Pressure loss as a function of flow rate" 
   extends Modelica.Icons.Function;
   import SI = Modelica.SIunits;
+  annotation(smoothOrder=2);
   input SI.MassFlowRate m_flow "Mass flow rate from port_a to port_b";
   input SI.MassFlowRate m_small_flow 
     "Mass flow rate where function is approximated";

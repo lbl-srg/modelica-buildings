@@ -1,5 +1,4 @@
 model Manifold 
-  import Buildings;
   annotation(Diagram, Commands(file="Manifold.mos" "run"),
     Coordsys(extent=[-100,-100; 180,100]));
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
@@ -31,15 +30,19 @@ model Manifold
     offset=293.15) annotation (extent=[-100,20; -80,40]);
   Modelica.Blocks.Sources.Ramp P(
     duration=1,
-    height=10,
-    offset=101320) annotation (extent=[-100,60; -80,80]);
+    height=40,
+    offset=101305) annotation (extent=[-100,60; -80,80]);
   Buildings.HeatExchangers.BaseClasses.PipeManifoldFixedResistance pipFixRes_1(
     redeclare package Medium = Medium,
     nPipPar=nPipPar,
     m0_flow=5,
-    dp0=10) annotation (extent=[-30,24; -10,44]);
+    dp0=10,
+    linearized=false, 
+    mStart_flow_a=5) 
+            annotation (extent=[-30,24; -10,44]);
   Buildings.HeatExchangers.BaseClasses.PipeManifoldNoResistance pipNoRes_1(
-      redeclare package Medium = Medium, nPipPar=nPipPar) 
+      redeclare package Medium = Medium, nPipPar=nPipPar, 
+    mStart_flow_a=5) 
     annotation (extent=[114,24; 94,44]);
     Modelica.Blocks.Sources.Constant POut1(
                                           k=101325) 
@@ -69,26 +72,32 @@ model Manifold
     offset=293.15) annotation (extent=[-100,-80; -80,-60]);
   Modelica.Blocks.Sources.Ramp P1(
     duration=1,
-    height=10,
-    offset=101320) annotation (extent=[-100,-40; -80,-20]);
+    height=40,
+    offset=101305) annotation (extent=[-100,-40; -80,-20]);
   Buildings.HeatExchangers.BaseClasses.DuctManifoldFixedResistance ducFixRes_2(
     redeclare package Medium = Medium,
     nPipPar=nPipPar,
     nPipSeg=nPipSeg,
     m0_flow=5,
-    dp0=10) annotation (extent=[-32,-76; -12,-56]);
+    dp0=10,
+    linearized=false,
+    mStart_flow_a=5) 
+            annotation (extent=[-32,-76; -12,-56]);
   Buildings.HeatExchangers.BaseClasses.DuctManifoldNoResistance ducNoRes_2(
       redeclare package Medium = Medium,
       nPipPar=nPipPar,
-      nPipSeg=nPipSeg) 
+      nPipSeg=nPipSeg,
+    mStart_flow_a=5) 
     annotation (extent=[116,-76; 96,-56]);
   Buildings.HeatExchangers.BaseClasses.CoilHeader hea1(
       redeclare package Medium = Medium,
-      nPipPar=nPipPar) "Header for water-side heat exchanger register" 
+      nPipPar=nPipPar, 
+    mStart_flow_a=5) "Header for water-side heat exchanger register" 
     annotation (extent=[0,24; 20,44]);
   Buildings.HeatExchangers.BaseClasses.CoilHeader hea2(
       redeclare package Medium = Medium,
-      nPipPar=nPipPar) "Header for water-side heat exchanger register" 
+      nPipPar=nPipPar, 
+    mStart_flow_a=5) "Header for water-side heat exchanger register" 
     annotation (extent=[60,24; 80,44]);
 equation 
   connect(POut.y, sin_1.p_in) annotation (points=[81,80; 100,80],
@@ -148,7 +157,7 @@ equation
   connect(res_2.port_a,ducNoRes_2. port_a) 
     annotation (points=[122,-66; 116,-66],
                                        style(color=69, rgbcolor={0,127,255}));
-  connect(pipFixRes_1.port_b, hea1.port_a) annotation (points=[-10,34;
+  connect(pipFixRes_1.port_b, hea1.port_a) annotation (points=[-10,34; 
         -5.55112e-16,34],
              style(color=69, rgbcolor={0,127,255}));
   connect(hea1.port_b, mfr_1.port_a) 

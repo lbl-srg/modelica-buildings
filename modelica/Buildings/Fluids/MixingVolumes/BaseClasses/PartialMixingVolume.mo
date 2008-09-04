@@ -19,7 +19,7 @@ partial model PartialMixingVolume
   Modelica.SIunits.Mass m "Mass of fluid";
   Modelica.SIunits.Mass mXi[Medium.nXi] 
     "Masses of independent components in the fluid";
-  Modelica.SIunits.Volume V_lumped=V "Volume";
+  Modelica.SIunits.Volume V_lumped "Volume";
   
 protected 
   Modelica.SIunits.HeatFlowRate Qs_flow 
@@ -81,6 +81,7 @@ Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a thermalPort "Thermal port"
 public 
    parameter Boolean steadyState =  false "Set to true for steady state model";
 equation 
+  V_lumped=V;
   thermalPort.T = medium.T;
   Qs_flow = thermalPort.Q_flow;
 // boundary conditions  

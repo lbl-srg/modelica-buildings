@@ -2,9 +2,11 @@ model DryCoilDiscretized
   
   annotation(Diagram, Commands(file="DryCoilDiscretized.mos" "run"));
  package Medium_1 = Buildings.Media.ConstantPropertyLiquidWater;
- package Medium_2 = Buildings.Media.PerfectGases.MoistAir 
-    "Medium in the component" 
-           annotation (choicesAllMatching = true);
+// package Medium_2 = Buildings.Media.PerfectGases.MoistAir;
+// package Medium_2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
+// package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAir;
+ package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid;
+//package Medium_2 = Modelica.Media.Air.SimpleAir;
   
   Buildings.HeatExchangers.DryCoilDiscretized hex(
     redeclare package Medium_1 = Medium_1,
@@ -16,14 +18,15 @@ model DryCoilDiscretized
     Q0_flow=50000,
     nPipPar=1,
     nPipSeg=3,
+    steadyState_2=false,
     nReg=2)              annotation (extent=[8,-4; 28,16]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(          redeclare 
       package Medium = Medium_2, T=303.15) 
                           annotation (extent=[-58,-10; -38,10]);
     Modelica.Blocks.Sources.Ramp PIn(
-    offset=101325,
-    height=200,
-    duration=60) annotation (extent=[-20,-50; 0,-30]);
+    duration=60,
+    offset=101525,
+    height=-199) annotation (extent=[-20,-50; 0,-30]);
   Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_2(T=283.15, redeclare 
       package Medium = Medium_2) 
                           annotation (extent=[40,-70; 60,-50],
@@ -60,10 +63,9 @@ model DryCoilDiscretized
              annotation (extent=[34,2; 54,22]);
     Modelica.Blocks.Sources.Ramp PSin_1(
     duration=60,
-    height=5000,
     startTime=240,
-    offset=300000) 
-                 annotation (extent=[40,60; 60,80]);
+    offset=300000,
+    height=4990) annotation (extent=[40,60; 60,80]);
 equation 
   connect(PIn.y,sou_2. p_in) annotation (points=[1,-40; 20,-40; 20,-54; 38,-54],
       style(

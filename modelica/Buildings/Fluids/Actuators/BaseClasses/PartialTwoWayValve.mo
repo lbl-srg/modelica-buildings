@@ -43,6 +43,16 @@ changes.
 The two way valve models are implemented using this partial model, as opposed to using
 different functions for the valve opening characteristics, because
 each valve opening characteristics has different parameters.
+</html>", revisions="<html>
+<ul>
+<li>
+August 15, 2008 by Michael Wetter:<br>
+Set valve leakage to nonzero value.
+<li>
+June 3, 2008 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
 </html>"),
 revisions="<html>
 <ul>
@@ -55,7 +65,7 @@ First implementation.
   
   parameter Real k_SI(min=0, unit="(kg*m)^(1/2)") 
     "Flow coefficient for fully open valve in SI units, k=m_flow/sqrt(dp)";
-  parameter Real l(min=0, max=1) = 0 "Valve leakage, l=Cv(y=0)/Cvs";
+  parameter Real l(min=0, max=1) = 0.005 "Valve leakage, l=Cv(y=0)/Cvs";
   parameter Real deltaM = 0.02 
     "Fraction of nominal flow rate where linearization starts, if y=1" 
     annotation(Dialog(group="Pressure-flow linearization"));

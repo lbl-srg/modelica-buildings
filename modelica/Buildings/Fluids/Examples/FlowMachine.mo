@@ -1,10 +1,9 @@
 model FlowMachine 
+  
     annotation (Diagram, Commands(file=
             "FlowMachine.mos" "run"));
- package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
-    "Medium in the component" 
-          annotation (choicesAllMatching = true);
-  
+   //package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50));
+    package Medium =  Buildings.Media.PerfectGases.MoistAir;
     Modelica.Blocks.Sources.Ramp P(
     height=-1500,
     offset=101325,
@@ -66,7 +65,7 @@ equation
           69, rgbcolor={0,127,255}));
   connect(N.y, fan.N_in) annotation (points=[-19,60; -10,60; -10,6; -1,6],
       style(color=74, rgbcolor={0,0,127}));
-  connect(P.y, sou.p_in) annotation (points=[-59,6.10623e-16; -51.5,6.10623e-16;
+  connect(P.y, sou.p_in) annotation (points=[-59,6.10623e-16; -51.5,6.10623e-16; 
         -51.5,6; -44,6], style(color=74, rgbcolor={0,0,127}));
   connect(PAtm.y, sin.p_in) annotation (points=[61,42; 74,42; 74,6; 62,6],
       style(color=74, rgbcolor={0,0,127}));

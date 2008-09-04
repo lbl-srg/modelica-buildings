@@ -26,6 +26,33 @@ because pressure and temperature are decoupled, at the expense of accuracy.
 </HTML>", revisions="<html>
 <ul>
 <li>
+August 28, 2008, by Michael Wetter:<br>
+Referenced <tt>spliceFunction</tt> from package 
+<a href=\"Modelica:Buildings.Utilities.Math\">Buildings.Utilities.Math</a>
+to avoid duplicate code.
+</li>
+<li>
+August 21, 2008, by Michael Wetter:<br>
+Replaced <tt>d*pStp = p*dStp</tt> by
+<tt>d/dStp = p/pStp</tt> to indicate that division by 
+<tt>dStp</tt> and <tt>pStp</tt> is allowed.
+</li>
+<li>
+August 22, 2008, by Michael Wetter:<br>
+Changed function 
+<a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAir.density\">
+density</a> so that it uses <tt>rho=p/pStd*rhoStp</tt>
+instead of the ideal gas law.
+</li>
+<li>
+August 18, 2008, by Michael Wetter:<br>
+Changed function 
+<a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAir.T_phX\">
+T_phX</a> so that it uses the implementation of
+<a href=\"Buildings.Media.PerfectGases.MoistAir.T_phX\">
+Buildings.Media.PerfectGases.MoistAir.T_phX</a>.
+</li>
+<li>
 August 15, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -90,7 +117,7 @@ required from medium model \""     + mediumName + "\".");
     //                
     u = h - R*T;
     //    d = p/(R*T);
-    d*pStp = p*dStp;
+    d/dStp = p/pStp;
     
     /* Note, u and d are computed under the assumption that the volume of the liquid
          water is neglible with respect to the volume of air and of steam
@@ -115,7 +142,20 @@ required from medium model \""     + mediumName + "\".");
   
   redeclare function setState_phX 
     "Thermodynamic state as function of p, h and composition X" 
-     extends Buildings.Media.PerfectGases.MoistAir.setState_phX;
+  extends Modelica.Icons.Function;
+    annotation (Documentation(info="<html>
+Function to set the state for given pressure, enthalpy and species concentration.
+This function needed to be reimplemented in order for the medium model to use
+the implementation of <tt>T_phX</tt> provided by this package as opposed to the 
+implementation provided by its parent package.
+</html>"));
+  input AbsolutePressure p "Pressure";
+  input SpecificEnthalpy h "Specific enthalpy";
+  input MassFraction X[:] "Mass fractions";
+  output ThermodynamicState state;
+  algorithm 
+  state := if size(X,1) == nX then ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else 
+         ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
   end setState_phX;
   
   redeclare function setState_dTX 
@@ -141,7 +181,7 @@ redeclare function extends saturationPressure
     
   annotation(Inline=false,smoothOrder=5);
 algorithm 
-  psat := Utilities.spliceFunction(saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
+  psat := Buildings.Utilities.Math.spliceFunction(saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
 end saturationPressure;
   
  redeclare function pressure "Gas pressure" 
@@ -153,7 +193,11 @@ end saturationPressure;
  end temperature;
   
  redeclare function density "Gas density" 
-    extends Buildings.Media.PerfectGases.MoistAir.density;
+   extends Modelica.Icons.Function;
+   input ThermodynamicState state;
+   output Density d "Density";
+ algorithm 
+  d :=state.p*1.2/101325;
  end density;
   
  redeclare function specificEntropy 
@@ -295,100 +339,7 @@ algorithm
 end specificHelmholtzEnergy;
   
 function T_phX "Compute temperature from specific enthalpy and mass fraction" 
-  input AbsolutePressure p "Pressure";
-  input SpecificEnthalpy h "specific enthalpy";
-  input MassFraction[:] X "mass fractions of composition";
-  output Temperature T "temperature";
-  protected 
-package Internal 
-      "Solve h(data,T) for T with given h (use only indirectly via temperature_phX)" 
-  extends Modelica.Media.Common.OneNonLinearEquation;
-  redeclare record extends f_nonlinear_Data 
-        "Data to be passed to non-linear function" 
-    extends Buildings.Media.PerfectGases.Common.DataRecord;
-  end f_nonlinear_Data;
-      
-  redeclare function extends f_nonlinear 
-  algorithm 
-      y := h_pTX(p,x,X);
-  end f_nonlinear;
-      
-  // Dummy definition has to be added for current Dymola
-  redeclare function extends solve 
-  end solve;
-end Internal;
-    
-algorithm 
- /* The function call below has been changed from 
-      Internal.solve(h, 200, 6000, p, X[1:nXi], steam);
-    to  
-      Internal.solve(h, 200, 6000, p, X, steam);
-    The reason is that when running the problem
-       Buildings.Media.PerfectGases.Examples.MoistAirComparison
-    then an assertion is triggered because the vector X had the wrong
-    dimension. The above example verifies that T(h(T)) = T.
- */
-  T := Internal.solve(h, 200, 6000, p, X, steam);
+  extends Buildings.Media.PerfectGases.MoistAir.T_phX;
 end T_phX;
   
-  package Utilities "Utility functions" 
-    function spliceFunction 
-        input Real pos;
-        input Real neg;
-        input Real x;
-        input Real deltax=1;
-        output Real out;
-        annotation (derivative=spliceFunction_der);
-    protected 
-        Real scaledX;
-        Real scaledX1;
-        Real y;
-    algorithm 
-        scaledX1 := x/deltax;
-        scaledX := scaledX1*Modelica.Math.asin(1);
-        if scaledX1 <= -0.999999999 then
-          y := 0;
-        elseif scaledX1 >= 0.999999999 then
-          y := 1;
-        else
-          y := (Modelica.Math.tanh(Modelica.Math.tan(scaledX)) + 1)/2;
-        end if;
-        out := pos*y + (1 - y)*neg;
-    end spliceFunction;
-    
-    function spliceFunction_der 
-        input Real pos;
-        input Real neg;
-        input Real x;
-        input Real deltax=1;
-        input Real dpos;
-        input Real dneg;
-        input Real dx;
-        input Real ddeltax=0;
-        output Real out;
-    protected 
-        Real scaledX;
-        Real scaledX1;
-        Real dscaledX1;
-        Real y;
-    algorithm 
-        scaledX1 := x/deltax;
-        scaledX := scaledX1*Modelica.Math.asin(1);
-        dscaledX1 := (dx - scaledX1*ddeltax)/deltax;
-        if scaledX1 <= -0.99999999999 then
-          y := 0;
-        elseif scaledX1 >= 0.9999999999 then
-          y := 1;
-        else
-          y := (Modelica.Math.tanh(Modelica.Math.tan(scaledX)) + 1)/2;
-        end if;
-        out := dpos*y + (1 - y)*dneg;
-        if (abs(scaledX1) < 1) then
-          out := out + (pos - neg)*dscaledX1*Modelica.Math.asin(1)/2/(
-            Modelica.Math.cosh(Modelica.Math.tan(scaledX))*Modelica.Math.cos(
-            scaledX))^2;
-        end if;
-    end spliceFunction_der;
-    
-  end Utilities;
 end MoistAir;

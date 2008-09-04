@@ -6,6 +6,7 @@ model MixingVolumeMoistAir
   
 // package Medium = Buildings.Media.PerfectGases.MoistAir;
    package Medium = Buildings.Media.GasesPTDecoupled.MoistAir;
+//   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid;
   
   Buildings.Fluids.MixingVolumes.MixingVolumeMoistAir vol1(
     redeclare package Medium = Medium,

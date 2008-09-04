@@ -1,6 +1,7 @@
 function polynomial 
   "Polynomial, used because OpenModelica 1.4.3 does not expand the sum() into a scalar" 
   extends Modelica.Icons.Function;
+  annotation(smoothOrder=5);
   input Real[:] c "Coefficients";
   input Real x "Independent variable";
   output Real y "Dependent variable";

@@ -78,6 +78,13 @@ Since this model uses two way valves to construct a three way valve, see
 <a href=\"Modelica:Buildings.Fluids.Actuators.BaseClasses.PartialTwoWayValve\">
 PartialTwoWayValve</a> for details regarding the valve implementation.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 3, 2008 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
 </html>"),
 revisions="<html>
 <ul>

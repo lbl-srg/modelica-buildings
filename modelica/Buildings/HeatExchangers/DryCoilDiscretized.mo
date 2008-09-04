@@ -16,6 +16,9 @@ Each element has a state variable for the metal. Depending
 on the value of the boolean parameters <tt>steadyState_1</tt> and
 <tt>steadyState_2</tt>, the fluid states are modeled dynamically or in steady
 state.
+If the parameter <tt>steadyStateDuctConnection</tt> is set the <tt>false</tt> then
+a mixing volume of length <tt>dl</tt> is added to the duct connection. This can
+help reducing the dimension of the nonlinear system of equations.
 </p>
 <p>
 The convective heat transfer coefficients can, for each fluid individually, be 
@@ -121,9 +124,11 @@ First implementation.
   parameter Boolean steadyState_2=true 
     "Set to true for steady state model for fluid 2" 
     annotation (Dialog(group="Fluid 2"));
-  Buildings.HeatExchangers.BaseClasses.CoilRegister hexReg[       nReg](
+  Buildings.HeatExchangers.BaseClasses.CoilRegister hexReg[nReg](
     redeclare each package Medium_1 = Medium_1,
     redeclare each package Medium_2 = Medium_2,
+    each flowDirection_1=flowDirection_1,
+    each flowDirection_2=flowDirection_2,
     each final nPipPar=nPipPar,
     each final nPipSeg=nPipSeg,
     each final UA0=Q0_flow/dT0/nReg,
@@ -142,16 +147,20 @@ First implementation.
     final m0_flow=m0_flow_1,
     final dp0=dp0_1,
     final dh=dh_1,
-    final ReC=ReC_1) "Pipe manifold at port a" annotation (extent=[-38,18; -18,
+    final ReC=ReC_1,
+    final mStart_flow_a=mStart_flow_a1) "Pipe manifold at port a" 
+                                               annotation (extent=[-38,18; -18,
         38]);
   Buildings.HeatExchangers.BaseClasses.PipeManifoldNoResistance pipMan_b(
     redeclare package Medium = Medium_1,
-    final nPipPar=nPipPar) "Pipe manifold at port b" 
+    final nPipPar=nPipPar,
+    final mStart_flow_a=-mStart_flow_a1) "Pipe manifold at port b" 
                                          annotation (extent=[52,50; 32,70]);
   Buildings.HeatExchangers.BaseClasses.DuctManifoldNoResistance ducMan_b(
     redeclare package Medium = Medium_2,
     final nPipPar=nPipPar,
-    final nPipSeg=nPipSeg) "Duct manifold at port b" 
+    final nPipSeg=nPipSeg,
+    final mStart_flow_a=-mStart_flow_a2) "Duct manifold at port b" 
     annotation (extent=[-52,-70; -32,-50]);
   Buildings.HeatExchangers.BaseClasses.DuctManifoldFixedResistance ducMan_a(
     redeclare package Medium = Medium_2,
@@ -160,7 +169,10 @@ First implementation.
     final m0_flow=m0_flow_2,
     final dp0=dp0_2,
     final dh=dh_2,
-    final ReC=ReC_2) "Duct manifold at port a" 
+    final ReC=ReC_2,
+    dl=dl,
+    steadyState=steadyStateDuctConnection,
+    final mStart_flow_a=mStart_flow_a2) "Duct manifold at port a" 
     annotation (extent=[40,-26; 20,-6]);
 public 
   parameter Modelica.SIunits.Length dh_1=0.025 
@@ -199,12 +211,14 @@ public
 protected 
   BaseClasses.CoilHeader hea1[nReg/2](
       redeclare each final package Medium = Medium_1,
-      each final nPipPar = nPipPar) if 
+      each final nPipPar = nPipPar,
+      each final mStart_flow_a=mStart_flow_a1) if 
       nReg > 1 "Pipe header to redirect flow into next register" 
     annotation (extent=[40,-4; 60,16],rotation=180);
   BaseClasses.CoilHeader hea2[nReg/2-1](
       redeclare each final package Medium = Medium_1,
-      each final nPipPar = nPipPar) if 
+      each final nPipPar = nPipPar,
+      each final mStart_flow_a=mStart_flow_a1) if 
       nReg > 2 "Pipe header to redirect flow into next register" 
       annotation (extent=[-60,-2; -40,18]);
   Modelica.Blocks.Math.Gain gai_1(k=1/nReg) 
@@ -223,7 +237,7 @@ public
   parameter Boolean waterSideTemperatureDependent = false 
     "Set to false to make water-side hA independent of temperature" 
     annotation(Dialog(tab="Heat transfer"));
-  parameter Boolean airSideTemperatureDependent = false 
+  constant Boolean airSideTemperatureDependent = false 
     "Set to false to make air-side hA independent of temperature" 
     annotation(Dialog(tab="Heat transfer"));
   BaseClasses.HADryCoil hA(
@@ -250,6 +264,19 @@ protected
         Medium_2) "Temperature sensor" annotation (extent=[58,-66; 44,-54]);
   Modelica_Fluid.Sensors.MassFlowRate masFloSen_2(redeclare package Medium = 
         Medium_2) "Mass flow rate sensor" annotation (extent=[82,-66; 70,-54]);
+public 
+  parameter Boolean steadyStateDuctConnection=false 
+    "Set to true for steady state model for the connection between the air duct and the heat exchanger"
+    annotation (Evaluate=true, Dialog(group="Fluid 2"));
+  parameter Modelica.SIunits.Length dl=0.3 
+    "Length of mixing volume for duct connection" 
+    annotation (Dialog(group="Fluid 2", enable=not steadyStateDuctConnection));
+  parameter Modelica.SIunits.MassFlowRate mStart_flow_a1=m0_flow_1 
+    "Guess value for mass flow rate at port_a1" 
+    annotation(Dialog(tab="General", group="Initialization"));
+  parameter Modelica.SIunits.MassFlowRate mStart_flow_a2=m0_flow_2 
+    "Guess value for mass flow rate at port_a2" 
+    annotation(Dialog(tab="General", group="Initialization"));
 equation 
   Q_flow_1 = sum(hexReg[i].Q_flow_1 for i in 1:nReg);
   Q_flow_2 = sum(hexReg[i].Q_flow_2 for i in 1:nReg);

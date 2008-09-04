@@ -15,6 +15,10 @@ for each flow path.
 revisions="<html>
 <ul>
 <li>
+August 22, 2008, by Michael Wetter:<br>
+Added start value for resistance mass flow rate.
+</li>
+<li>
 April 14, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -39,13 +43,18 @@ Icon( Rectangle(extent=[30,68; 74,52], style(
                                               annotation(Dialog(group = "Nominal Condition"));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter for each pipe";
   parameter Real ReC=4000 "Reynolds number where transition to laminar starts";
+  parameter Boolean linearized = false 
+    "= true, use linear relation between m_flow and dp for any flow rate" 
+    annotation(Dialog(tab="Advanced"));
   
   Fluids.FixedResistances.FixedResistanceDpM[nPipPar] fixRes(
     redeclare each package Medium = Medium,
     each m0_flow=m0_flow/nPipPar,
+    each m_flow(start=mStart_flow_a),
     each dp0=dp0,
     each dh=dh,
-    each from_dp=true) "Fixed resistance for each duct" 
+    each from_dp=false,
+    each linearized=linearized) "Fixed resistance for each duct" 
     annotation (extent=[-12,-10; 8,10]);
 equation 
   for i in 1:nPipPar loop

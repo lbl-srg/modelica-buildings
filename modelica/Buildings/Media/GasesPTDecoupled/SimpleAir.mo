@@ -29,6 +29,12 @@ quantities are constant.
 </HTML>", revisions="<html>
 <ul>
 <li>
+August 21, 2008, by Michael Wetter:<br>
+Replaced <tt>d*pStp = p*dStp</tt> by
+<tt>d/dStp = p/pStp</tt> to indicate that division by 
+<tt>dStp</tt> and <tt>pStp</tt> is allowed.
+</li>
+<li>
 March 19, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -57,7 +63,7 @@ First implementation.
     u = h-R*T;
     R = R_gas;
     //    d = p/(R*T);
-    d*pStp = p*dStp;
+    d/dStp = p/pStp;
     MM = MM_const;
     state.T = T;
     state.p = p;

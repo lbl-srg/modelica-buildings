@@ -13,7 +13,8 @@ model MITScalable "System model for MIT building"
 // package Medium = Modelica.Media.Air.MoistAir;
 // package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir;
 // package Medium = Buildings.Media.PerfectGases.MoistAir;
- package Medium = Buildings.Media.GasesPTDecoupled.MoistAir;
+// this currently does not converge package Medium = Buildings.Media.PerfectGases.MoistAirNonsaturated;
+  package Medium = Buildings.Media.GasesPTDecoupled.MoistAir;
   
   parameter Integer NSui = 1 "Number of suites";
   parameter Modelica.SIunits.MassFlowRate mOneSuite_flow = sui[1].m0Tot_flow 

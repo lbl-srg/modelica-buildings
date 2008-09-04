@@ -19,8 +19,7 @@ First implementation.
 </ul>
 </html>"));
   
- package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
-    "Medium in the component";
+ package Medium = Buildings.Media.ConstantPropertyLiquidWater;
   
   Buildings.Fluids.Actuators.Valves.TwoWayLinear valLin(
     redeclare package Medium = Medium,

@@ -1,7 +1,5 @@
 partial model PartialDoubleFluidParameters 
   "Partial model with parameters that are shared by flow models" 
-  import SI = Modelica.SIunits;
-  import Modelica.Constants;
   
   replaceable package Medium_1 = Modelica.Media.Interfaces.PartialMedium 
     "Fluid 1"              annotation(choicesAllMatching, Dialog(tab="General",group="Fluid 1"));

@@ -1,9 +1,9 @@
-model TestMoistAir 
+model TestMoistAirNoLiquid 
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium = 
-          Buildings.Media.GasesPTDecoupled.MoistAir);
+          Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid);
   
-      annotation (Diagram, Commands(file="TestMoistAir.mos" "run"),
+      annotation (Diagram, Commands(file="TestMoistAirNoLiquid.mos" "run"),
     Documentation(preferedView="info", info="<html>
 This is a simple test for the medium model. It uses the test model described in
 <a href=\"Modelica:Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium\">
@@ -16,4 +16,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TestMoistAir;
+end TestMoistAirNoLiquid;

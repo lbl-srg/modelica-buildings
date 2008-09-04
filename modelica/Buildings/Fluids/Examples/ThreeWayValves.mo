@@ -19,7 +19,7 @@ First implementation.
 </ul>
 </html>"));
   
- package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50)) 
+ package Medium = Buildings.Media.ConstantPropertyLiquidWater 
     "Medium in the component";
   
   Buildings.Fluids.Actuators.Valves.ThreeWayLinear valLin(
@@ -54,7 +54,7 @@ First implementation.
   Actuators.Valves.ThreeWayEqualPercentageLinear valEquPerLin(
     k_SI=2/sqrt(6000),
     l={0.05,0.05},
-    redeclare package Medium = Medium, 
+    redeclare package Medium = Medium,
     R=10) 
     annotation (extent=[0,-60; 20,-40]);
 equation 

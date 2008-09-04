@@ -49,7 +49,7 @@ First implementation.
     annotation (extent=[-100,-10; -80,10], style(fillColor=0, rgbfillColor={0,0,
           0}));
   Modelica.Blocks.Interfaces.RealSignal XWat(redeclare type SignalType = 
-        Modelica.SIunits.MassFraction (start=0.01)) 
+        Modelica.SIunits.MassFraction (start=0.01), nominal=0.01) 
     "Species concentration at dry bulb temperature" 
     annotation (extent=[-100,-80; -80,-60], style(fillColor=0, rgbfillColor={0,
           0,0}));
@@ -62,12 +62,12 @@ First implementation.
           0}));
   
   annotation (Diagram, Icon);
-  Modelica.SIunits.MassFraction X_dryAir 
+  Modelica.SIunits.MassFraction X_dryAir(min=0, max=1, nominal=0.01, start=0.001) 
     "Water mass fraction per mass of dry air";
 equation 
   if cardinality(p)==0 then
     p = pAtm;
   end if;
-  X_dryAir = (XWat/(1-XWat));
+  X_dryAir * (1-XWat) = XWat;
  ( p - p_w)   * X_dryAir = 0.62198 * p_w;
 end HumidityRatioPressure;

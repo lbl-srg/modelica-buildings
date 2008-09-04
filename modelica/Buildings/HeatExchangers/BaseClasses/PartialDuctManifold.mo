@@ -14,6 +14,10 @@ between the ports with and without flow friction.
 revisions="<html>
 <ul>
 <li>
+August 22, 2008, by Michael Wetter:<br>
+Added start value for port mass flow rate.
+</li>
+<li>
 April 14, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -24,7 +28,8 @@ First implementation.
   
   Modelica_Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b(
         redeclare each package Medium = Medium,
-        each m_flow(start=0, max=if allowFlowReversal then +Modelica.Constants.inf else 0)) 
+        each m_flow(start=-mStart_flow_a/nPipSeg/nPipPar,
+             max=if allowFlowReversal then +Modelica.Constants.inf else 0)) 
     "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
     annotation (extent=[110,-10; 90,10]);
 end PartialDuctManifold;

@@ -60,36 +60,36 @@ model MassExchange
           rgbcolor={0,0,127},
           fillColor=74,
           rgbfillColor={0,0,127},
-          fillPattern=1)), 
-      Polygon(points=[-30,66; -36,46; -38,32; -36,26; -30,22; -20,22; -12,28; 
+          fillPattern=1)),
+      Polygon(points=[-30,66; -36,46; -38,32; -36,26; -30,22; -20,22; -12,28;
             -10,36; -14,52; -24,84; -30,66], style(
-          color=3, 
-          rgbcolor={0,0,255}, 
-          fillColor=3, 
-          rgbfillColor={0,0,255})), 
-      Polygon(points=[10,26; 4,6; 2,-8; 4,-14; 10,-18; 20,-18; 28,-12; 30,-4; 
+          color=3,
+          rgbcolor={0,0,255},
+          fillColor=3,
+          rgbfillColor={0,0,255})),
+      Polygon(points=[10,26; 4,6; 2,-8; 4,-14; 10,-18; 20,-18; 28,-12; 30,-4;
             26,12; 16,44; 10,26], style(
-          color=3, 
-          rgbcolor={0,0,255}, 
-          fillColor=3, 
-          rgbfillColor={0,0,255})), 
+          color=3,
+          rgbcolor={0,0,255},
+          fillColor=3,
+          rgbfillColor={0,0,255})),
       Polygon(points=[-38,-18; -44,-38; -46,-52; -44,-58; -38,-62; -28,-62; -20,
             -56; -18,-48; -22,-32; -32,0; -38,-18], style(
-          color=3, 
-          rgbcolor={0,0,255}, 
-          fillColor=3, 
-          rgbfillColor={0,0,255})), 
+          color=3,
+          rgbcolor={0,0,255},
+          fillColor=3,
+          rgbfillColor={0,0,255})),
       Polygon(points=[14,-46; 8,-66; 6,-80; 8,-86; 14,-90; 24,-90; 32,-84; 34,
             -76; 30,-60; 20,-28; 14,-46], style(
-          color=3, 
-          rgbcolor={0,0,255}, 
-          fillColor=3, 
-          rgbfillColor={0,0,255})), 
-      Polygon(points=[38,100; 32,80; 30,66; 32,60; 38,56; 48,56; 56,62; 58,70; 
+          color=3,
+          rgbcolor={0,0,255},
+          fillColor=3,
+          rgbfillColor={0,0,255})),
+      Polygon(points=[38,100; 32,80; 30,66; 32,60; 38,56; 48,56; 56,62; 58,70;
             54,86; 50,100; 38,100], style(
-          color=3, 
-          rgbcolor={0,0,255}, 
-          fillColor=3, 
+          color=3,
+          rgbcolor={0,0,255},
+          fillColor=3,
           rgbfillColor={0,0,255}))),
                             Diagram,
     Documentation(info="<html>
@@ -169,7 +169,7 @@ public
     annotation (extent=[-40,-66; -20,-46]);
 protected 
  parameter Medium.ThermodynamicState sta0(T=Medium.T_default,
-       p=Medium.p_default, X=Medium.X_default);
+       p=Medium.p_default);
  parameter Modelica.SIunits.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(sta0) 
     "Density, used to compute fluid volume";
  parameter Real cpLe(unit="J/kg/K") = cp * Le^(1-n);
@@ -192,8 +192,8 @@ equation
         -120,1.11022e-15], style(color=74, rgbcolor={0,0,127}));
   connect(humRatPre.XWat, delX.u1) annotation (points=[1,3; -60,3; -60,-50; -42,
         -50], style(color=3, rgbcolor={0,0,255}));
-  connect(delX.y, min.u2)
+  connect(delX.y, min.u2) 
     annotation (points=[-19,-56; 18,-56], style(color=74, rgbcolor={0,0,127}));
-  connect(min.y, mWat.u1) annotation (points=[41,-50; 48,-50; 48,-64; 58,-64], 
+  connect(min.y, mWat.u1) annotation (points=[41,-50; 48,-50; 48,-64; 58,-64],
       style(color=74, rgbcolor={0,0,127}));
 end MassExchange;

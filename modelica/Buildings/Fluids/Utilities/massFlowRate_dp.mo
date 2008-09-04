@@ -1,6 +1,7 @@
 function massFlowRate_dp "Mass flow rate as a function of pressure drop" 
   extends Modelica.Icons.Function;
   import SI = Modelica.SIunits;
+  annotation(smoothOrder=2);
   input SI.Pressure dp "Pressure drop (dp = port_a.p - port_b.p)";
   input SI.AbsolutePressure dp_small = 1 "Turbulent flow if |dp| >= dp_small";
   input Real k(min=0, unit="(kg*m)^(1/2)") 
