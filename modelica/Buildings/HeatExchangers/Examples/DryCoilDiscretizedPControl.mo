@@ -52,18 +52,16 @@ model DryCoilDiscretizedPControl
   Modelica_Fluid.Sensors.Temperature temperature(redeclare package Medium = 
         Medium_2) annotation (extent=[14,-26; 34,-6]);
   Buildings.Fluids.Actuators.Valves.TwoWayEqualPercentage val(
-    redeclare package Medium = Medium_1, 
-    k_SI=5/sqrt(9000), 
+    redeclare package Medium = Medium_1,
+    k_SI=5/sqrt(9000),
     l=0.005) "Valve model" 
-             annotation (extent=[0,40; 20,60]);
+             annotation (extent=[28,40; 48,60]);
   Modelica.Blocks.Math.Gain P(k=10)   annotation (extent=[-38,120; -18,140]);
   Modelica.Blocks.Math.Feedback fedBac annotation (extent=[-78,120; -58,140]);
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,298.15; 600,298.15; 600,
         303.15; 1200,303.15; 1800,298.15; 2400,298.15; 2400,304.15]) 
     "Setpoint temperature" 
     annotation (extent=[-80,162; -60,182]);
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMin=0) 
-    annotation (extent=[0,120; 20,140]);
   Buildings.HeatExchangers.DryCoilDiscretized hex(
     redeclare package Medium_1 = Medium_1,
     redeclare package Medium_2 = Medium_2,
@@ -77,6 +75,8 @@ model DryCoilDiscretizedPControl
     Q0_flow=200000)      annotation (extent=[60,16; 80,36]);
     Modelica.Blocks.Sources.Constant TWat(k=273.15 + 40) 
       annotation (extent=[-100,60; -80,80]);
+  Buildings.Fluids.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model" 
+    annotation (extent=[-6,70; 14,90]);
 equation 
   connect(POut.y,sin_2. p_in) annotation (points=[-79,-10; -60,-10],
               style(
@@ -110,17 +110,13 @@ equation
   connect(POut1.y, sou_2.p_in) annotation (points=[51,-58; 68,-58; 68,-64; 88,
         -64], style(color=74, rgbcolor={0,0,127}));
   connect(sou_1.port, val.port_a)                   annotation (points=[-40,70; 
-        -20,70; -20,50; -5.55112e-16,50], style(color=69, rgbcolor={0,127,255}));
+        -20,70; -20,50; 28,50],           style(color=69, rgbcolor={0,127,255}));
   connect(P.u, fedBac.y)  annotation (points=[-40,130; -59,130], style(color=74,
         rgbcolor={0,0,127}));
   connect(temperature.T, fedBac.u2) annotation (points=[24,-27; 24,-42; -68,-42;
         -68,122], style(color=74, rgbcolor={0,0,127}));
   connect(TSet.y, fedBac.u1) annotation (points=[-59,172; -42,172; -42,148; -86,
         148; -86,130; -76,130], style(color=74, rgbcolor={0,0,127}));
-  connect(P.y, limiter.u) 
-    annotation (points=[-17,130; -2,130], style(color=74, rgbcolor={0,0,127}));
-  connect(limiter.y, val.y)                   annotation (points=[21,130; 34,
-        130; 34,80; -8,80; -8,58; -2,58], style(color=74, rgbcolor={0,0,127}));
   connect(hex.port_b1, res_1.port_a) 
     annotation (points=[80,32; 90,32], style(color=69, rgbcolor={0,127,255}));
   connect(TWat.y, sou_1.T_in) 
@@ -131,6 +127,10 @@ equation
         48,20; 60,20], style(color=69, rgbcolor={0,127,255}));
   connect(sou_2.port, hex.port_a2) annotation (points=[110,-70; 120,-70; 120,20;
         80,20], style(color=69, rgbcolor={0,127,255}));
-  connect(val.port_b, hex.port_a1)                   annotation (points=[20,50;
-        40,50; 40,32; 60,32], style(color=69, rgbcolor={0,127,255}));
+  connect(val.port_b, hex.port_a1)                   annotation (points=[48,50; 
+        52,50; 52,32; 60,32], style(color=69, rgbcolor={0,127,255}));
+  connect(mot.y, val.y) annotation (points=[15,80; 20,80; 20,58; 26,58], style(
+        color=74, rgbcolor={0,0,127}));
+  connect(P.y, mot.u) annotation (points=[-17,130; -16,130; -16,80; -8,80], 
+      style(color=74, rgbcolor={0,0,127}));
 end DryCoilDiscretizedPControl;

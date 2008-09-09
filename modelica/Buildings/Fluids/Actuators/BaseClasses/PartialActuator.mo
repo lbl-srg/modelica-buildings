@@ -19,6 +19,7 @@ First implementation.
     Diagram);
   
 public 
-  Modelica.Blocks.Interfaces.RealInput y "Damper position (0: closed, 1: open)"
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) 
+    "Damper position (0: closed, 1: open)" 
     annotation (extent=[-140,60; -100,100]);
 end PartialActuator;

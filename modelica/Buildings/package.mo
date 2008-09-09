@@ -88,6 +88,10 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 <p>
 <ul>
 <li>
+The package <a href=\"Modelica:Buildings.Fluids.Actuators.Motors\">Buildings.Fluids.Actuators.Motors</a> has been added.
+The package contains a motor model for valves and dampers.
+</li>
+<li>
 The package <a href=\"Modelica:Buildings.Media\">Buildings.Media</a> has been reorganized and
 the new medium model 
 <a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAir\">

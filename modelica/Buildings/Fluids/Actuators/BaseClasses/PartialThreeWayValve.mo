@@ -6,11 +6,7 @@ partial model PartialThreeWayValve "Partial three way valve"
           redeclare package Medium = Medium,
           flowDirection=Modelica_Fluid.Types.FlowDirection.Bidirectional));
   
-  annotation (Diagram(Text(
-        extent=[-104,-6; 58,-68],
-        style(color=3, rgbcolor={0,0,255}),
-        string="Move port_3 to bottom to simplify schematic view")),
-                       Icon(
+  annotation (Diagram, Icon(
       Rectangle(extent=[-100,44; 100,-36],   style(
           color=0,
           gradient=2,
