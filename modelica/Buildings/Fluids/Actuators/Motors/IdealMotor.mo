@@ -86,9 +86,10 @@ First implementation.
   Modelica.Blocks.Continuous.LimIntegrator int(
     final y_start=y_start,
     final k=1,
-    initType=Modelica.Blocks.Types.Init.InitialOutput,
     outMax=1,
-    outMin=0,
+    outMin=0, 
+    initType=Modelica.Blocks.Types.Init.InitialState, 
+    limitsAtInit=true, 
     y(stateSelect=StateSelect.always)) "Integrator for valve opening position" 
     annotation (extent=[60,-10; 80,10]);
   
@@ -116,8 +117,8 @@ equation
         -38], style(color=74, rgbcolor={0,0,127}));
   connect(zer.y, lowSwi.u1) annotation (points=[-19,6.10623e-16; -14,
         6.10623e-16; -14,-22; -2,-22], style(color=74, rgbcolor={0,0,127}));
-  connect(add.y, int.u) annotation (points=[53,6.10623e-16; 64.5,6.10623e-16; 
-        64.5,6.66134e-16; 58,6.66134e-16], style(color=74, rgbcolor={0,0,127}));
+  connect(add.y, int.u) annotation (points=[53,6.10623e-16; 60,6.10623e-16; 60,
+        6.66134e-16; 58,6.66134e-16],      style(color=74, rgbcolor={0,0,127}));
   connect(uppSwi.y, add.u1) annotation (points=[21,30; 24,30; 24,6; 30,6],
       style(color=74, rgbcolor={0,0,127}));
   connect(u, feeBac.u1)   annotation (points=[-120,1.11022e-15; -104,

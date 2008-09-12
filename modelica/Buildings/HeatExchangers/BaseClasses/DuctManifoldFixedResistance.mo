@@ -16,6 +16,10 @@ for each flow path.
 revisions="<html>
 <ul>
 <li>
+September 10, 2008, by Michael Wetter:<br>
+Added additional parameters.
+</li>
+<li>
 August 22, 2008, by Michael Wetter:<br>
 Added start value for resistance mass flow rate.
 </li>
@@ -43,15 +47,26 @@ Icon( Rectangle(extent=[28,68; 72,52], style(
           fillColor=0,
           rgbfillColor={0,0,0}))));
   
+  parameter Boolean use_dh = false "Set to true to specify hydraulic diameter" 
+       annotation(Evaluate=true, Dialog(enable = not linearized));
+  
   parameter Modelica.SIunits.MassFlowRate m0_flow "Mass flow rate at port_a" 
                                                                annotation(Dialog(group = "Nominal Condition"));
   parameter Modelica.SIunits.Pressure dp0(min=0) "Pressure" 
                                               annotation(Dialog(group = "Nominal Condition"));
-  parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter for duct";
-  parameter Real ReC=4000 "Reynolds number where transition to laminar starts";
+  parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter of duct" 
+        annotation(Dialog(enable= not linearized));
+  parameter Real ReC=4000 "Reynolds number where transition to laminar starts" 
+   annotation(Dialog(enable = use_dh and not linearized));
   parameter Boolean linearized = false 
     "= true, use linear relation between m_flow and dp for any flow rate" 
     annotation(Dialog(tab="Advanced"));
+  parameter Real deltaM(min=0) = 0.3 
+    "Fraction of nominal mass flow rate where transition to laminar occurs" 
+       annotation(Dialog(enable = not use_dh and not linearized));
+  parameter Boolean from_dp = false 
+    "= true, use m_flow = f(dp) else dp = f(m_flow)" 
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
   
   Fluids.FixedResistances.FixedResistanceDpM[nPipPar,nPipSeg] fixRes(
     redeclare each package Medium = Medium,
@@ -59,7 +74,10 @@ Icon( Rectangle(extent=[28,68; 72,52], style(
     each m_flow(start=mStart_flow_a/nPipPar/nPipSeg),
     each dp0=dp0,
     each dh=dh/sqrt(nPipPar*nPipSeg),
-    each from_dp=false,
+    each from_dp=from_dp,
+    each deltaM=deltaM,
+    each ReC=ReC,
+    each use_dh=use_dh,
     each linearized=linearized) "Fixed resistance for each duct" 
     annotation (extent=[0,-10; 20,10]);
   parameter Modelica.SIunits.Length dl = 0.3 "Length of mixing volume";

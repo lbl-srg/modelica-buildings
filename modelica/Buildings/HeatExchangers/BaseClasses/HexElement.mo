@@ -9,7 +9,9 @@ model HexElement "Element of a heat exchanger"
     vol_2(redeclare package Medium = Medium_2,
           steadyState=steadyState_2,
           nP = 2,
-          V=m0_flow_2*tau_2/rho0_2));
+          V=m0_flow_2*tau_2/rho0_2), 
+    con1(dT(min=-200)), 
+    con2(dT(min=-200)));
   extends Buildings.BaseClasses.BaseIcon;
   // Note that we MUST declare the value of vol_2.V here.
   // Otherwise, if the class of vol_2 is redeclared at a higher level,

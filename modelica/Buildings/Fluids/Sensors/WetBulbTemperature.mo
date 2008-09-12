@@ -1,31 +1,9 @@
 model WetBulbTemperature "Ideal wet bulb temperature sensor" 
-  import SI = Modelica.SIunits;
   extends Modelica_Fluid.Sensors.BaseClasses.PartialFlowSensor;
   Medium.BaseProperties medium;
-  Modelica.Blocks.Interfaces.RealOutput TWB(unit = "K", start=293.15) 
-    "Wet bulb temperature in port medium" 
-    annotation (extent=[-10,-120; 10,-100], rotation=-90);
   
 annotation (
-  Diagram(
-      Line(points=[0,-70; 0,-100], style(rgbcolor={0,0,127})),
-      Ellipse(extent=[-20, -98; 20, -60], style(
-          color=0,
-          rgbcolor={0,0,0},
-          thickness=2,
-          fillColor=74,
-          rgbfillColor={0,0,127})),
-      Rectangle(extent=[-12, 40; 12, -68], style(
-          pattern=0,
-          fillColor=74,
-          rgbfillColor={0,0,127})),
-      Polygon(points=[-12, 40; -12, 80; -10, 86; -6, 88; 0, 90; 6, 88; 10, 86;
-             12, 80; 12, 40; -12, 40], style(color=0, thickness=2)),
-      Line(points=[-12, 40; -12, -64], style(color=0, thickness=2)),
-      Line(points=[12, 40; 12, -64], style(color=0, thickness=2)),
-      Line(points=[-40, -20; -12, -20], style(color=0)),
-      Line(points=[-40, 20; -12, 20], style(color=0)),
-      Line(points=[-40, 60; -12, 60], style(color=0))),
+  Diagram,
     Icon(
       Ellipse(extent=[-20,-88; 20,-50], style(
           color=0,
@@ -62,25 +40,34 @@ between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
 revisions="<html>
 <ul>
 <li>
+September 10, 2008 by Michael Wetter:<br>
+Renamed output port to have the same interfaces as the dry bulb temperature sensor.
+</li>
+<li>
 May 5, 2008 by Michael Wetter:<br>
 First implementation based on 
-<a href=\"Modelica://Modelica_Fluid.Sensors.Temperature\">Modelica_Fluid.Sensors.Temperature</a>.
+<a href=\"Modelica:Modelica_Fluid.Sensors.Temperature\">Modelica_Fluid.Sensors.Temperature</a>.
 </li>
 </ul>
 </html>"));
-  Buildings.Utilities.Psychrometrics.WetBulbTemperature wetBulMod(
-               redeclare package Medium = Medium) 
-    "Model for wet bulb temperature";
+  
+  Modelica.Blocks.Interfaces.RealOutput T(
+    redeclare type SignalType = Modelica.SIunits.Temperature,
+    start=Medium.T_default) "Wet bulb temperature in port medium" 
+    annotation (extent=[-10,-120; 10,-100], rotation=-90);
+  
+  Buildings.Utilities.Psychrometrics.WetBulbTemperature wetBulMod(redeclare 
+      package Medium = Medium) "Model for wet bulb temperature";
   
 equation 
   port_a.p = medium.p;
   h  = medium.h;
   Xi = medium.Xi;
   
-  // compute wet bulb temperature
+  // Compute wet bulb temperature
   wetBulMod.dryBul.h  = medium.h;
   wetBulMod.dryBul.p  = medium.p;
   wetBulMod.dryBul.Xi = medium.Xi;
-  TWB = wetBulMod.wetBul.T;
+  T = wetBulMod.wetBul.T;
   
 end WetBulbTemperature;

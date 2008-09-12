@@ -38,7 +38,14 @@ Buildings.HeatExchangers.WetCoilDiscretized</a> instead of this model, as
 this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
-<ul>
+<ul><li>
+September 10, 2008, by Michael Wetter:<br>
+Added additional parameters.
+</li>
+<li>
+September 9, 2008 by Michael Wetter:<br>
+Propagated more parameters.
+</li>
 <li>
 August 12, 2008 by Michael Wetter:<br>
 Introduced option to compute each medium using a steady state model or
@@ -124,11 +131,36 @@ First implementation.
   parameter Boolean steadyState_2=true 
     "Set to true for steady state model for fluid 2" 
     annotation (Dialog(group="Fluid 2"));
+  parameter Boolean from_dp_1 = false 
+    "= true, use m_flow = f(dp) else dp = f(m_flow)" 
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Boolean from_dp_2 = false 
+    "= true, use m_flow = f(dp) else dp = f(m_flow)" 
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Real deltaM_1(min=0) = 0.3 
+    "Fraction of nominal mass flow rate where transition to laminar occurs" 
+       annotation(Dialog(enable = not use_dh_1 and not linearized_1, tab="Advanced"));
+  parameter Real deltaM_2(min=0) = 0.3 
+    "Fraction of nominal mass flow rate where transition to laminar occurs" 
+       annotation(Dialog(enable = not use_dh_2 and not linearized_2, tab="Advanced"));
+  parameter Boolean linearized_1 = false 
+    "= true, use linear relation between m_flow and dp for any flow rate" 
+    annotation(Dialog(tab="Advanced"));
+  parameter Boolean linearized_2 = false 
+    "= true, use linear relation between m_flow and dp for any flow rate" 
+    annotation(Dialog(tab="Advanced"));
+  parameter Boolean use_dh_1 = false 
+    "Set to true to specify hydraulic diameter for pipe pressure drop" 
+       annotation(Evaluate=true, Dialog(enable = not linearized, tab="Advanced"));
+  parameter Boolean use_dh_2 = false 
+    "Set to true to specify hydraulic diameter for duct pressure drop)" 
+       annotation(Evaluate=true, Dialog(enable = not linearized, tab="Advanced"));
+  
   Buildings.HeatExchangers.BaseClasses.CoilRegister hexReg[nReg](
     redeclare each package Medium_1 = Medium_1,
     redeclare each package Medium_2 = Medium_2,
-    each flowDirection_1=flowDirection_1,
-    each flowDirection_2=flowDirection_2,
+    each final flowDirection_1=flowDirection_1,
+    each final flowDirection_2=flowDirection_2,
     each final nPipPar=nPipPar,
     each final nPipSeg=nPipSeg,
     each final UA0=Q0_flow/dT0/nReg,
@@ -137,8 +169,8 @@ First implementation.
     each tau_1=tau_1,
     each tau_2=tau_2,
     each tau_m=tau_m,
-    each steadyState_1=steadyState_1,
-    each steadyState_2=steadyState_2,
+    each final steadyState_1=steadyState_1,
+    each final steadyState_2=steadyState_2,
     each allowCondensation=allowCondensation) "Heat exchanger register" 
     annotation (extent=[-10,0; 10,20]);
   Buildings.HeatExchangers.BaseClasses.PipeManifoldFixedResistance pipMan_a(
@@ -148,7 +180,12 @@ First implementation.
     final dp0=dp0_1,
     final dh=dh_1,
     final ReC=ReC_1,
-    final mStart_flow_a=mStart_flow_a1) "Pipe manifold at port a" 
+    final mStart_flow_a=mStart_flow_a1,
+    final flowDirection=flowDirection_1,
+    final linearized=linearized_1,
+    final use_dh=use_dh_1,
+    final deltaM=deltaM_1,
+    final from_dp=from_dp_1) "Pipe manifold at port a" 
                                                annotation (extent=[-38,18; -18,
         38]);
   Buildings.HeatExchangers.BaseClasses.PipeManifoldNoResistance pipMan_b(
@@ -171,15 +208,25 @@ First implementation.
     final dh=dh_2,
     final ReC=ReC_2,
     dl=dl,
-    steadyState=steadyStateDuctConnection,
-    final mStart_flow_a=mStart_flow_a2) "Duct manifold at port a" 
+    final steadyState=steadyStateDuctConnection,
+    final mStart_flow_a=mStart_flow_a2,
+    final linearized=linearized_2,
+    final flowDirection=flowDirection_2,
+    final use_dh=use_dh_2,
+    final deltaM=deltaM_2,
+    final from_dp=from_dp_2) "Duct manifold at port a" 
     annotation (extent=[40,-26; 20,-6]);
 public 
   parameter Modelica.SIunits.Length dh_1=0.025 
     "Hydraulic diameter for a single pipe" 
-     annotation(Dialog(group = "Geometry"));
+     annotation(Dialog(group = "Geometry",
+                enable = use_dh_1 and not linearized_1));
   parameter Real ReC_1=4000 
-    "Reynolds number where transition to laminar starts inside pipes";
+    "Reynolds number where transition to laminar starts inside pipes" 
+     annotation(Dialog(enable = use_dh_1 and not linearized_1, tab="Advanced"));
+  parameter Real ReC_2=4000 
+    "Reynolds number where transition to laminar starts inside ducts" 
+     annotation(Dialog(enable = use_dh_2 and not linearized_2, tab="Advanced"));
   parameter Modelica.SIunits.MassFlowRate m0_flow_1 
     "Mass flow rate at port_a1 for all pipes" 
      annotation(Dialog(group = "Nominal condition"));
@@ -187,8 +234,6 @@ public
       annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Length dh_2=1 "Hydraulic diameter for duct" 
       annotation(Dialog(group = "Geometry"));
-  parameter Real ReC_2=4000 
-    "Reynolds number where transition to laminar starts inside ducts";
   parameter Modelica.SIunits.MassFlowRate m0_flow_2 
     "Mass flow rate at port_a_2 for duct" 
      annotation(Dialog(group = "Nominal condition"));

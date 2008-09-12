@@ -17,6 +17,10 @@ The variable names follow the conventions used in
 </html>", revisions="<html>
 <ul>
 <li>
+September 10, 2008 by Michael Wetter:<br>
+Added <tt>stateSelect=StateSelect.always</tt> for temperature of volume 1.
+</li>
+<li>
 Changed temperature sensor from Celsius to Kelvin.
 Unit conversion should be made during output
 processing.
@@ -51,7 +55,8 @@ First implementation.
   Buildings.Fluids.MixingVolumes.MixingVolume vol_1(
     redeclare package Medium = Medium_1,
     nP = 2,
-    V=m0_flow_1*tau_1/rho0_1) "Volume for fluid 1" 
+    V=m0_flow_1*tau_1/rho0_1,
+    medium(T(stateSelect=StateSelect.always))) "Volume for fluid 1" 
                                annotation (extent=[-10,70; 10,50]);
   
   replaceable Buildings.Fluids.MixingVolumes.MixingVolumeDryAir vol_2(
@@ -75,7 +80,8 @@ First implementation.
   parameter Modelica.SIunits.MassFlowRate m0_flow_2(min=0) "Mass flow rate" 
      annotation(Dialog(group = "Nominal condition"));
   
-  Modelica.Thermal.HeatTransfer.HeatCapacitor mas(C=C) "Mass of metal" 
+  Modelica.Thermal.HeatTransfer.HeatCapacitor mas(C=C, T(stateSelect=StateSelect.always)) 
+    "Mass of metal" 
     annotation (extent=[-88,-10; -68,10], rotation=90);
   Modelica.Thermal.HeatTransfer.Convection con1 
     "Convection (and conduction) on fluid side 1" 

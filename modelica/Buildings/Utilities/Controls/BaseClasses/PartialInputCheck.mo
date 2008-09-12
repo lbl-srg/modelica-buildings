@@ -20,7 +20,7 @@ First implementation.
 </ul>
 </html>"));
   parameter Modelica.SIunits.Time startTime = 0 
-    "Start time for activating the assert, set to -1 to disable";
+    "Start time for activating the assert";
   parameter Real threShold(min=0)=1E-2 "Threshold for equality comparison";
   parameter String message = "Inputs differ by more than threShold";
 protected 

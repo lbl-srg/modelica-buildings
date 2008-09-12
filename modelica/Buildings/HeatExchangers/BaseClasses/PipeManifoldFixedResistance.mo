@@ -15,6 +15,10 @@ for each flow path.
 revisions="<html>
 <ul>
 <li>
+September 10, 2008, by Michael Wetter:<br>
+Added additional parameters.
+</li>
+<li>
 August 22, 2008, by Michael Wetter:<br>
 Added start value for resistance mass flow rate.
 </li>
@@ -41,11 +45,22 @@ Icon( Rectangle(extent=[30,68; 74,52], style(
                                                                annotation(Dialog(group = "Nominal Condition"));
   parameter Modelica.SIunits.Pressure dp0(min=0) "Pressure" 
                                               annotation(Dialog(group = "Nominal Condition"));
-  parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter for each pipe";
-  parameter Real ReC=4000 "Reynolds number where transition to laminar starts";
+  
+  parameter Boolean use_dh = false "Set to true to specify hydraulic diameter" 
+       annotation(Evaluate=true, Dialog(enable = not linearized));
+  parameter Modelica.SIunits.Length dh=0.025 "Hydraulic diameter for each pipe"
+        annotation(Dialog(enable = use_dh and not linearized));
+  parameter Real ReC=4000 "Reynolds number where transition to laminar starts" 
+   annotation(Dialog(enable = use_dh and not linearized));
   parameter Boolean linearized = false 
     "= true, use linear relation between m_flow and dp for any flow rate" 
     annotation(Dialog(tab="Advanced"));
+  parameter Real deltaM(min=0) = 0.3 
+    "Fraction of nominal mass flow rate where transition to laminar occurs" 
+       annotation(Dialog(enable = not use_dh and not linearized));
+  parameter Boolean from_dp = false 
+    "= true, use m_flow = f(dp) else dp = f(m_flow)" 
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
   
   Fluids.FixedResistances.FixedResistanceDpM[nPipPar] fixRes(
     redeclare each package Medium = Medium,
@@ -53,15 +68,18 @@ Icon( Rectangle(extent=[30,68; 74,52], style(
     each m_flow(start=mStart_flow_a),
     each dp0=dp0,
     each dh=dh,
-    each from_dp=false,
+    each from_dp=from_dp,
+    each deltaM=deltaM,
+    each ReC=ReC,
+    each use_dh=use_dh,
     each linearized=linearized) "Fixed resistance for each duct" 
-    annotation (extent=[-12,-10; 8,10]);
+    annotation (extent=[-10,-10; 10,10]);
 equation 
   for i in 1:nPipPar loop
     connect(port_a, fixRes[i].port_a) annotation (points=[-100,5.55112e-16; -56,
-          5.55112e-16; -56,6.10623e-16; -12,6.10623e-16], style(color=69,
+          5.55112e-16; -56,6.10623e-16; -10,6.10623e-16], style(color=69,
           rgbcolor={0,127,255}));
-    connect(fixRes[i].port_b, port_b[i]) annotation (points=[8,6.10623e-16; 52,
+    connect(fixRes[i].port_b, port_b[i]) annotation (points=[10,6.10623e-16; 52,
           6.10623e-16; 52,5.55112e-16; 100,5.55112e-16],
                                      style(color=69, rgbcolor={0,127,255}));
   end for;

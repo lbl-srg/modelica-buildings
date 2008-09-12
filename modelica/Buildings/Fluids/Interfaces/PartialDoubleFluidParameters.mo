@@ -25,6 +25,11 @@ This model contains parameters that are used by models that have two fluids.
 </html>", revisions="<html>
 <ul>
 <li>
+September 9, 2008, by Michael Wetter:<br>
+Made <tt>allowFlowReversal_1</tt> and <tt>allowFlowReversal_2</tt> final, 
+otherwise they show up in the GUI.
+</li>
+<li>
 March 25, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -32,11 +37,11 @@ First implementation.
 </html>"),
     Icon);
   
-    parameter Boolean allowFlowReversal_1=
+    final parameter Boolean allowFlowReversal_1=
      flowDirection_1 == Modelica_Fluid.Types.FlowDirection.Bidirectional 
     "= false, if flow only from port_a to port_b, otherwise reversing flow allowed"
      annotation(Evaluate=true, Hide=true);
-    parameter Boolean allowFlowReversal_2=
+    final parameter Boolean allowFlowReversal_2=
      flowDirection_2 == Modelica_Fluid.Types.FlowDirection.Bidirectional 
     "= false, if flow only from port_a to port_b, otherwise reversing flow allowed"
      annotation(Evaluate=true, Hide=true);
