@@ -1,5 +1,5 @@
 #!/bin/bash
-LIST=(Modelica.Media.Air.SimpleAir Buildings.Media.IdealGases.SimpleAir)
+LIST=(AAAAA Buildings.Fluids.Sources)
 i=0
 while [ $i -le 1 ]; do
  OLD=${LIST[$i]}
@@ -23,9 +23,8 @@ for ff in $fl; do
     egrep $OLD $ff > /dev/null
     if [ $? == 0 ]; then
 	echo "Found string in file $ff"
-	emacs $ff &
-#	sed "s/${OLD}/AAABBAAA/g" -i $ff
-#	sed "s/AAABBAAA/${NEW}/g" -i $ff
+	sed "s/${OLD}/AAABBAAA/g" -i $ff
+	sed "s/AAABBAAA/${NEW}/g" -i $ff
     fi
 done
 
