@@ -88,6 +88,12 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 <p>
 <ul>
 <li>
+The package <a href=\"Modelica:Buildings.Fluids.Sources\">Buildings.Fluids.Sources</a> has been added.
+The package contains models for modeling species that
+do not affect the medium balance of volumes. This can be used to track
+for example carbon dioxide or other species that have a small concentration.
+</li>
+<li>
 The package <a href=\"Modelica:Buildings.Fluids.Actuators.Motors\">Buildings.Fluids.Actuators.Motors</a> has been added.
 The package contains a motor model for valves and dampers.
 </li>

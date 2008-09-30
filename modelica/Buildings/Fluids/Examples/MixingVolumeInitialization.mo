@@ -10,11 +10,11 @@ model MixingVolumeInitialization
   
     Modelica.Blocks.Sources.Constant PAtm(k=101320) 
       annotation (extent=[114,80; 134,100]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou1(
                                                     redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[-60,10;
         -40,30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin1(
                                                     redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[120,10;
         100,30]);

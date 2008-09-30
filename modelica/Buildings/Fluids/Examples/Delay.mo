@@ -18,10 +18,10 @@ model Delay
     dp0=5,
     redeclare package Medium = Medium) 
              annotation (extent=[-30,-4; -10,16]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(
                 T=293.15, redeclare package Medium = Medium) 
                           annotation (extent=[-58,-4; -38,16]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(
                 T=283.15, redeclare package Medium = Medium) 
                           annotation (extent=[78,-4; 58,16], rotation=0);
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res2(

@@ -27,13 +27,13 @@ First implementation.
     duration=1,
     offset=101325,
     height=250)  annotation (extent=[40,60; 60,80]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
-        Medium, T=293.15)                           annotation (extent=[74,10;
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium 
+      = Medium, T=293.15)                           annotation (extent=[74,10;
         54,30]);
   Buildings.Fluids.Sensors.WetBulbTemperature senWetBul(redeclare package 
       Medium = Medium) "Wet bulb temperature sensor" 
     annotation (extent=[16,10; 36,30]);
-  Modelica_Fluid.Sources.PrescribedMassFlowRate_TX massFlowRate(redeclare 
+  Buildings.Fluids.Sources.PrescribedMassFlowRate_pTX massFlowRate(redeclare 
       package Medium = Medium, m_flow=1) annotation (extent=[-30,10; -10,30]);
     Modelica.Blocks.Sources.Ramp TDB(
     height=10,

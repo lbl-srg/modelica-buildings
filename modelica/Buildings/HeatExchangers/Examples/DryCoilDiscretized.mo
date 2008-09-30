@@ -20,14 +20,14 @@ model DryCoilDiscretized
     nPipSeg=3,
     steadyState_2=false,
     nReg=2)              annotation (extent=[8,-4; 28,16]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(          redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_2(          redeclare 
       package Medium = Medium_2, T=303.15) 
                           annotation (extent=[-58,-10; -38,10]);
     Modelica.Blocks.Sources.Ramp PIn(
     duration=60,
     offset=101525,
     height=-199) annotation (extent=[-20,-50; 0,-30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_2(T=283.15, redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_2(T=283.15, redeclare 
       package Medium = Medium_2) 
                           annotation (extent=[40,-70; 60,-50],
                                                              rotation=0);
@@ -41,11 +41,11 @@ model DryCoilDiscretized
     annotation (extent=[-20,-90; 0,-70]);
     Modelica.Blocks.Sources.Constant POut(k=101325) 
       annotation (extent=[-100,-4; -80,16]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_1(          redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_1(          redeclare 
       package Medium = Medium_1,
     p=300000,
     T=293.15)             annotation (extent=[84,2; 64,22],  rotation=0);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_1(
     T=293.15,
     redeclare package Medium = Medium_1,
     p=300000 + 5000)      annotation (extent=[-60,40; -40,60]);

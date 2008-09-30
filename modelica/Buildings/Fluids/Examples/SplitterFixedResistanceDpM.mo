@@ -11,13 +11,13 @@ model SplitterFixedResistanceDpM
     dh={1,2,3},
     redeclare package Medium = Medium) "Splitter" 
     annotation (extent=[-16,-10; 4,10]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX bou1(redeclare package Medium 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX bou1(redeclare package Medium 
       =        Medium, T=273.15 + 10) annotation (extent=[-58,-10;
         -38,10]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX bou2(redeclare package Medium 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX bou2(redeclare package Medium 
       =        Medium, T=273.15 + 20) annotation (extent=[52,-10;
         32,10]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX bou3(redeclare package Medium 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX bou3(redeclare package Medium 
       =        Medium, T=273.15 + 30) annotation (extent=[-58,-66; -38,-46]);
     Modelica.Blocks.Sources.Constant P2(k=101325) 
       annotation (extent=[40,54; 60,74]);

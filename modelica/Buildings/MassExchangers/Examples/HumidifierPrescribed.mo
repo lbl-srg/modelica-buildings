@@ -43,7 +43,7 @@ First implementation.
         112]);
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature" 
     annotation (extent=[-200,92; -180,112]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_1(
     T=293.15,
     redeclare package Medium = Medium,
     p=101335)             annotation (extent=[-168,92; -148,112]);
@@ -60,7 +60,7 @@ First implementation.
     m0_flow=0.5) 
              annotation (extent=[-100,134; -80,154],
                                                   rotation=0);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_1(          redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_1(          redeclare 
       package Medium = Medium, T=288.15) 
                           annotation (extent=[-168,134; -148,154],
                                                              rotation=0);
@@ -80,7 +80,7 @@ First implementation.
   Buildings.MassExchangers.HumidifierPrescribed hea3(redeclare package Medium 
       = Medium, m0_flow=mWat0_flow) "Heater and cooler" 
                                                   annotation (extent=[-54,12; -34,32]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_2(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_2(
     T=293.15,
     redeclare package Medium = Medium,
     p=101335)             annotation (extent=[-168,12; -148,32]);
@@ -96,7 +96,7 @@ First implementation.
     dp0=5,
     m0_flow=0.5) 
              annotation (extent=[-100,54; -80,74],rotation=0);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(          redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_2(          redeclare 
       package Medium = Medium, T=288.15) 
                           annotation (extent=[-168,54; -148,74],
                                                              rotation=0);
@@ -147,7 +147,7 @@ First implementation.
   Modelica.Blocks.Sources.Constant TDb1(
                                        k=293.15) "Drybulb temperature" 
     annotation (extent=[-200,-110; -180,-90]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_3(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_3(
     T=293.15,
     redeclare package Medium = Medium,
     p=101335)             annotation (extent=[-168,-110; -148,-90]);
@@ -164,7 +164,7 @@ First implementation.
     m0_flow=0.5) 
              annotation (extent=[-100,-68; -80,-48],
                                                   rotation=0);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_3(          redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_3(          redeclare 
       package Medium = Medium, T=288.15) 
                           annotation (extent=[-168,-68; -148,-48],
                                                              rotation=0);
@@ -180,7 +180,7 @@ First implementation.
       = Medium, m0_flow=mWat0_flow) "Heater and cooler" 
                                                   annotation (extent=[-54,-190;
         -34,-170]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_4(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_4(
     T=293.15,
     redeclare package Medium = Medium,
     p=101335)             annotation (extent=[-168,-190; -148,-170]);
@@ -197,7 +197,7 @@ First implementation.
     m0_flow=0.5) 
              annotation (extent=[-100,-148; -80,-128],
                                                   rotation=0);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_4(          redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_4(          redeclare 
       package Medium = Medium, T=288.15) 
                           annotation (extent=[-168,-148; -148,-128],
                                                              rotation=0);

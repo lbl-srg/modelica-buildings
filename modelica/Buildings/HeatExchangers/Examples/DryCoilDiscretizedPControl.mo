@@ -9,10 +9,10 @@ model DryCoilDiscretizedPControl
  // package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid;
  package Medium_2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
   
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(          redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_2(          redeclare 
       package Medium = Medium_2, T=303.15) 
                           annotation (extent=[-58,-26; -38,-6]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_2(T=283.15, redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_2(T=283.15, redeclare 
       package Medium = Medium_2) 
                           annotation (extent=[90,-80; 110,-60],
                                                              rotation=0);
@@ -20,12 +20,12 @@ model DryCoilDiscretizedPControl
     annotation (extent=[30,-100; 50,-80]);
     Modelica.Blocks.Sources.Constant POut(k=101325) 
       annotation (extent=[-100,-20; -80,0]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_1(          redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_1(          redeclare 
       package Medium = Medium_1,
     p=300000,
     T=293.15)             annotation (extent=[164,22; 144,42],
                                                              rotation=0);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_1(
     T=293.15,
     redeclare package Medium = Medium_1,
     p=300000 + 9000)      annotation (extent=[-60,60; -40,80]);

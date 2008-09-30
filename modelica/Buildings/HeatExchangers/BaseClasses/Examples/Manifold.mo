@@ -6,11 +6,11 @@ model Manifold
  parameter Integer nPipSeg = 4 "Number of pipe segments";
     Modelica.Blocks.Sources.Constant POut(k=101325) 
       annotation (extent=[60,70; 80,90]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_1(T=283.15, redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_1(T=283.15, redeclare 
       package Medium = Medium) 
                           annotation (extent=[102,64; 122,84],
                                                              rotation=0);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_1(
     T=293.15,
     redeclare package Medium = Medium,
     p=101335)             annotation (extent=[-60,24; -40,44]);
@@ -47,11 +47,11 @@ model Manifold
     Modelica.Blocks.Sources.Constant POut1(
                                           k=101325) 
       annotation (extent=[60,-20; 80,0]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(T=283.15, redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_2(T=283.15, redeclare 
       package Medium = Medium) 
                           annotation (extent=[98,-26; 118,-6],
                                                              rotation=0);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_2(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_2(
     T=293.15,
     redeclare package Medium = Medium,
     p=101335)             annotation (extent=[-60,-76; -40,-56]);

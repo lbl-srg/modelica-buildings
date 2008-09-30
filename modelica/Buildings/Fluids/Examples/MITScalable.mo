@@ -51,17 +51,17 @@ model MITScalable "System model for MIT building"
     redeclare package Medium = Medium) "mixing box" 
                             annotation (extent=[20,-42; 40,-22], style(
         thickness=2));
-    Modelica_Fluid.Sources.PrescribedBoundary_pTX bouIn(redeclare package 
+    Buildings.Fluids.Sources.PrescribedBoundary_pTX bouIn(redeclare package 
       Medium = Medium, T=293.15)                        annotation (extent=[-40,10;
         -20,30], style(thickness=2));
-    Modelica_Fluid.Sources.PrescribedBoundary_pTX bouExh(redeclare package 
+    Buildings.Fluids.Sources.PrescribedBoundary_pTX bouExh(redeclare package 
       Medium = Medium, T=293.15)                         annotation (extent=[-40,-50;
         -20,-30], style(thickness=2));
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
       annotation (extent=[-80,-20; -60,0], style(thickness=2));
     Modelica.Blocks.Sources.Constant yMinOA(k=0.5) 
       annotation (extent=[-40,40; -20,60], style(thickness=2));
-    Modelica_Fluid.Sources.PrescribedBoundary_pTX bouIn2(redeclare package 
+    Buildings.Fluids.Sources.PrescribedBoundary_pTX bouIn2(redeclare package 
       Medium = Medium, T=293.15)                          annotation (extent=[-40,-20;
         -20,0], style(thickness=2));
   Buildings.Fluids.FixedResistances.FixedResistanceDpM res31(

@@ -14,10 +14,10 @@ model MixingVolumeDryAir
     height=-10,
     offset=101330) 
                  annotation (extent=[-100,60; -80,80]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[-68,50;
         -48,70]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
         Medium, T=283.15)                           annotation (extent=[128,50;
         108,70]);
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
@@ -40,11 +40,11 @@ model MixingVolumeDryAir
     from_dp=true,
     m0_flow=2) 
              annotation (extent=[80,50; 100,70]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou1(
                                                     redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[-72,10;
         -52,30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin1(
                                                     redeclare package Medium = 
         Medium, T=283.15)                           annotation (extent=[128,10;
         108,30]);
@@ -77,11 +77,11 @@ model MixingVolumeDryAir
     nP=2,
     V=0.1) 
           annotation (extent=[0,-40; 20,-20]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou2(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou2(
                                                     redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[-72,-40;
         -52,-20]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin2(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin2(
                                                     redeclare package Medium = 
         Medium, T=283.15)                           annotation (extent=[128,-40;
         108,-20]);

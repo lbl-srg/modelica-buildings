@@ -34,11 +34,11 @@ model MixingVolumeMoistAir
     annotation (extent=[140,60; 160,80]);
   Modelica.Blocks.Sources.RealExpression HWat_flow(y=vol1.HWat_flow) 
     "MoistAir heat flow rate" annotation (extent=[112,60; 132,80]);
-  Modelica_Fluid.Sources.PrescribedMassFlowRate_TX sou(
+  Buildings.Fluids.Sources.PrescribedMassFlowRate_TX sou(
     redeclare package Medium = Medium,
     T=293.15,
     m_flow=0.01) annotation (extent=[-38,-10; -18,10]);
-  Modelica_Fluid.Sources.FixedBoundary_pTX sin(redeclare package Medium = 
+  Buildings.Fluids.Sources.FixedBoundary_pTX sin(redeclare package Medium = 
         Medium, T=293.15) annotation (extent=[130,-10; 150,10], rotation=180);
   Modelica.Blocks.Continuous.LimPID PI(
     Ni=0.1,

@@ -22,21 +22,21 @@ model OAMixingBoxMinimumDamper
     dp0Exh=20,
     redeclare package Medium = Medium) "mixing box" 
                             annotation (extent=[14,-22; 34,-2]);
-    Modelica_Fluid.Sources.PrescribedBoundary_pTX bouIn(redeclare package 
+    Buildings.Fluids.Sources.PrescribedBoundary_pTX bouIn(redeclare package 
       Medium = Medium, T=273.15 + 10)                     annotation (extent=[-60,38;
         -40,58]);
-    Modelica_Fluid.Sources.PrescribedBoundary_pTX bouSup(redeclare package 
+    Buildings.Fluids.Sources.PrescribedBoundary_pTX bouSup(redeclare package 
       Medium = Medium, T=273.15 + 26)                                               annotation (extent=[68,-10;
         48,10]);
-    Modelica_Fluid.Sources.PrescribedBoundary_pTX bouRet(redeclare package 
+    Buildings.Fluids.Sources.PrescribedBoundary_pTX bouRet(redeclare package 
       Medium = Medium, T=273.15 + 20)                                 annotation (extent=[68,-90; 48,-70]);
-    Modelica_Fluid.Sources.PrescribedBoundary_pTX bouExh(redeclare package 
+    Buildings.Fluids.Sources.PrescribedBoundary_pTX bouExh(redeclare package 
       Medium = Medium, T=273.15 + 10)                    annotation (extent=[-60,-16; -40,4]);
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
       annotation (extent=[-100,10; -80,30]);
     Modelica.Blocks.Sources.Constant yDamMin(k=0.5) 
       annotation (extent=[-20,80; 0,100]);
-    Modelica_Fluid.Sources.PrescribedBoundary_pTX bouIn2(redeclare package 
+    Buildings.Fluids.Sources.PrescribedBoundary_pTX bouIn2(redeclare package 
       Medium = Medium, T=273.15 + 10)                     annotation (extent=[-60,10; -40,30]);
     Modelica.Blocks.Sources.Ramp PSup(
     offset=101320,

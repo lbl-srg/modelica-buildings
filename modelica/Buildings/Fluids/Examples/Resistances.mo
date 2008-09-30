@@ -22,10 +22,10 @@ model Resistances "Test of multiple resistances"
     height=2*dp0*nRes,
     offset=101325 - dp0*nRes) 
                  annotation (extent=[-80,60; -60,80]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
                Medium, T=273.15 + 20) annotation (extent=[-40,20;
         -20,40]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
                Medium, T=273.15 + 10) annotation (extent=[56,20;
         36,40]);
   parameter Integer nRes( min=2) = 3 "Number of resistances";

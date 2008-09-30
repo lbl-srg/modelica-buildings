@@ -18,9 +18,9 @@ model VAVBoxExponential
     height=-10,
     offset=101330,
     startTime=0) annotation (extent=[-100,40; -80,60]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
                Medium, T=273.15 + 20)   annotation (extent=[-70,10; -50,30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
                Medium, T=273.15 + 20)   annotation (extent=[72,10; 52,30]);
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
       annotation (extent=[60,60; 80,80]);
@@ -30,10 +30,10 @@ model VAVBoxExponential
     dp0=5,
     A=1.8) 
          annotation (extent=[-2,-50; 18,-30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou1(redeclare package Medium 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou1(redeclare package Medium 
       =                                                                         Medium,
      T=273.15 + 10)    annotation (extent=[-70,-50; -50,-30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin1(redeclare package Medium 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin1(redeclare package Medium 
       =                                                                         Medium,
      T=273.15 + 10)    annotation (extent=[72,-50; 52,-30]);
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res(

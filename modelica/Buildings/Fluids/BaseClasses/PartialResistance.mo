@@ -21,6 +21,11 @@ Partial model for a flow resistance, possible with variable flow coefficient.
 </html>"), revisions="<html>
 <ul>
 <li>
+September 18, 2008 by Michael Wetter:<br>
+Added equations for the mass balance of extra species flow,
+i.e., <tt>C</tt> and <tt>mC_flow</tt>.
+</li>
+<li>
 July 20, 2007 by Michael Wetter:<br>
 First implementation.
 </li>
@@ -70,4 +75,10 @@ equation
        dp = Buildings.Fluids.Utilities.pressureLoss_m_flow(             m_flow=m_flow,m_small_flow=m_small_flow,k=kInv);
     end if;
   end if;
+  ///////////////////////////////////////////////////////////////////////////////////
+  // Extra species flow. This may be removed when upgrading to the new Modelica.Fluid.  
+   port_a.mC_flow = semiLinear(port_a.m_flow, port_a.C, port_b.C);
+   port_a.mC_flow + port_b.mC_flow = zeros(Medium.nC);
+  ///////////////////////////////////////////////////////////////////////////////////
+  
 end PartialResistance;

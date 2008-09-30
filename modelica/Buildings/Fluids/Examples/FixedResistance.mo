@@ -17,10 +17,10 @@ model FixedResistance
     from_dp=true,
     m0_flow=5,
     dp0=10)  annotation (extent=[-28,30; -8,50]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou1(
                                                     redeclare package Medium = 
         Medium, T=293.15) annotation (extent=[-68,30; -48,50]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin1(
                                                     redeclare package Medium = 
         Medium, T=283.15) annotation (extent=[84,30; 64,50], rotation=0);
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res2(
@@ -30,10 +30,10 @@ model FixedResistance
     dp0=10,
     use_dh=true) 
              annotation (extent=[-28,-10; -8,10]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou2(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou2(
                                                     redeclare package Medium = 
         Medium, T=293.15) annotation (extent=[-68,-10; -48,10]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin2(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin2(
                                                     redeclare package Medium = 
         Medium, T=283.15) annotation (extent=[84,-10; 64,10],rotation=0);
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res3(
@@ -43,10 +43,10 @@ model FixedResistance
     dp0=10,
     use_dh=true) 
              annotation (extent=[-28,-50; -8,-30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou3(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou3(
                                                     redeclare package Medium = 
         Medium, T=293.15) annotation (extent=[-68,-50; -48,-30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin3(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin3(
                                                     redeclare package Medium = 
         Medium, T=283.15) annotation (extent=[84,-50; 64,-30],
                                                              rotation=0);

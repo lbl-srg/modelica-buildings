@@ -19,9 +19,9 @@ model FlowMachine
                     annotation (extent=[0,-10; 20,10]);
   Modelica.Blocks.Sources.Constant N(k=22.3333) 
                                          annotation (extent=[-40,50; -20,70]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[-42,-10; -22,10]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[60,-10; 40,10]);
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
       annotation (extent=[40,32; 60,52]);

@@ -47,7 +47,7 @@ First implementation.
   Modelica_Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = 
         Medium)                 annotation (extent=[90,-10; 110,10]);
   
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX amb(redeclare package Medium = Medium, p=101325, T=293.15) 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX amb(redeclare package Medium = Medium, p=101325, T=293.15) 
     annotation (extent=[-40,-10; -20,10]);
 equation 
   connect(res.port_b, port_b) 

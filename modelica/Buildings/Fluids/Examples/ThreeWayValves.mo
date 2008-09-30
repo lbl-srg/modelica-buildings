@@ -37,17 +37,17 @@ First implementation.
     startTime=0.5,
     height=6E3,
     offset=3E5)  annotation (extent=[-100,60; -80,80]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[-68,-26;
         -48,-6]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[74,-26;
         54,-6]);
     Modelica.Blocks.Sources.Constant PSin(k=3E5) 
       annotation (extent=[60,60; 80,80]);
     Modelica.Blocks.Sources.Constant PSou(k=306000) 
       annotation (extent=[-100,-20; -80,0]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou1(
                                                     redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[-70,-60;
         -50,-40]);

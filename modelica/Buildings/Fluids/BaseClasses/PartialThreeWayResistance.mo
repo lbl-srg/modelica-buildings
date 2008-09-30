@@ -11,6 +11,11 @@ flow mixer/splitter or a three way valve.
 revisions="<html>
 <ul>
 <li>
+September 18, 2008 by Michael Wetter:<br>
+Replaced splitter model with a fluid port since the 
+splitter model in Modelica_Fluid 1.0 beta does not transport
+<tt>mC_flow</tt>.
+<li>
 June 11, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
@@ -30,12 +35,7 @@ First implementation.
   Modelica_Fluid.Interfaces.FluidPort_b port_3(redeclare package Medium = 
         Medium) annotation (extent=[-10,-110; 10,-90]);
   
-  Medium.AbsolutePressure pMix "Pressure";
-  Medium.SpecificEnthalpy hMix "Mixing enthalpy";
-  Medium.MassFraction XiMix[Medium.nXi] 
-    "Independent mixture mass fractions m_i/m";
-  
-  parameter Boolean from_dp = true 
+ parameter Boolean from_dp = true 
     "= true, use m_flow = f(dp) else dp = f(m_flow)" 
     annotation (Evaluate=true, Dialog(tab="Advanced"));
  parameter Modelica_Fluid.Types.FlowDirection.Temp flowDirection=
@@ -43,8 +43,6 @@ First implementation.
     "Unidirectional (port_1 -> port_2) or bidirectional flow component" 
      annotation(Dialog(tab="Advanced"));
                                                                                                 annotation (extent=[40,-10; 60,10]);
-  Modelica_Fluid.Junctions.Splitter spl(redeclare package Medium=Medium)       annotation (extent=[-10,10;
-        10,-10]);
   replaceable Modelica_Fluid.Interfaces.PartialTwoPortTransport res1(redeclare 
       package Medium = Medium) 
     "Partial model, to be replaced with a fluid component" 
@@ -63,26 +61,25 @@ protected
      flowDirection == Modelica_Fluid.Types.FlowDirection.Bidirectional 
     "= false, if flow only from port_a to port_b, otherwise reversing flow allowed"
      annotation(Evaluate=true, Hide=true);
+protected 
+  Modelica_Fluid.Interfaces.FluidPort_b port_m(redeclare package Medium = 
+        Medium) "Mixing port" annotation (extent=[-1,-1; 1,1]);
 equation 
-  pMix = spl.p;
-  hMix = spl.hMix;
-  XiMix   = spl.Xi;
   connect(port_1, res1.port_a) annotation (points=[-110,5.55112e-16; -86,
         5.55112e-16; -86,6.10623e-16; -60,6.10623e-16], style(color=69,
-        rgbcolor={0,127,255}));
-  connect(res1.port_b, spl.port_1) annotation (points=[-40,6.10623e-16; -26,
-        -1.22125e-15; -26,-6.10623e-16; -11,-6.10623e-16],
-                          style(color=69, rgbcolor={0,127,255}));
-  connect(spl.port_2, res2.port_b) annotation (points=[11,-6.10623e-16; 26,
-        -3.36456e-22; 26,6.10623e-16; 40,6.10623e-16],  style(color=69,
         rgbcolor={0,127,255}));
   connect(res2.port_a, port_2) annotation (points=[60,6.10623e-16; 88,
         6.10623e-16; 88,5.55112e-16; 110,5.55112e-16], style(color=69, rgbcolor=
          {0,127,255}));
-  connect(spl.port_3, res3.port_b) annotation (points=[6.10623e-16,-11; 
-        6.10623e-16,-25.5; -1.1119e-15,-25.5; -1.1119e-15,-40], style(color=69,
-        rgbcolor={0,127,255}));
   connect(res3.port_a, port_3) annotation (points=[1.12703e-16,-60; 1.12703e-16,
         -79; 5.55112e-16,-79; 5.55112e-16,-100], style(color=69, rgbcolor={0,
           127,255}));
+  connect(res1.port_b, port_m) annotation (points=[-40,6.10623e-16; -20,
+        6.10623e-16; -20,2.08167e-17; 2.08167e-17,2.08167e-17], style(color=69,
+        rgbcolor={0,127,255}));
+  connect(res2.port_b, port_m) annotation (points=[40,6.10623e-16; 20,
+        6.10623e-16; 20,2.08167e-17; 2.08167e-17,2.08167e-17], style(color=69,
+        rgbcolor={0,127,255}));
+  connect(res3.port_b, port_m) annotation (points=[-1.1119e-15,-40; 2.08167e-17,
+        -40; 2.08167e-17,2.08167e-17], style(color=69, rgbcolor={0,127,255}));
 end PartialThreeWayResistance;

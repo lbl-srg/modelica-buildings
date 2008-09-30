@@ -15,10 +15,10 @@ model Damper
     offset=0, 
     startTime=0.2) 
                  annotation (extent=[-60,60; -40,80]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[-68,10;
         -48,30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[74,10;
         54,30]);
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
@@ -37,11 +37,11 @@ model Damper
     height=-10,
     offset=101330) 
                  annotation (extent=[-100,-60; -80,-40]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou1(
                                                     redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[-68,-90; 
         -48,-70]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin1(
                                                     redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[74,-90; 
         54,-70]);

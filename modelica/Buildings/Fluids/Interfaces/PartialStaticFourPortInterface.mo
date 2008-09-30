@@ -19,6 +19,11 @@ mass transfer and pressure drop equations.
 </html>", revisions="<html>
 <ul>
 <li>
+September 19, 2008 by Michael Wetter:<br>
+Added equations for the mass balance of extra species flow,
+i.e., <tt>C</tt> and <tt>mC_flow</tt>.
+</li>
+<li>
 April 28, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -103,5 +108,13 @@ equation
   // Pressure difference between ports
   dp_1 = port_a1.p - port_b1.p;
   dp_2 = port_a2.p - port_b2.p;
+  
+  ///////////////////////////////////////////////////////////////////////////////////
+  // Extra species flow. This may be removed when upgrading to the new Modelica.Fluid.  
+  port_a1.mC_flow = semiLinear(port_a1.m_flow, port_a1.C, port_b1.C);
+  port_a1.mC_flow + port_b1.mC_flow = zeros(Medium_1.nC);
+  port_a2.mC_flow = semiLinear(port_a2.m_flow, port_a2.C, port_b2.C);
+  port_a2.mC_flow + port_b2.mC_flow = zeros(Medium_2.nC);
+  ///////////////////////////////////////////////////////////////////////////////////
   
 end PartialStaticFourPortInterface;

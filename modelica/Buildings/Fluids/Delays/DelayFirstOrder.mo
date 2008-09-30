@@ -1,6 +1,6 @@
 model DelayFirstOrder 
   "Delay element, approximated by a first order differential equation" 
-  extends Modelica_Fluid.Volumes.MixingVolume(final V=m0_flow*tau/rho0);
+  extends Buildings.Fluids.MixingVolumes.MixingVolume(final V=m0_flow*tau/rho0, nP=2);
   annotation (Diagram,
     Icon(
       Rectangle(extent=[-100,100; 100,-100], style(
@@ -8,10 +8,6 @@ model DelayFirstOrder
           fillColor=7,
           rgbfillColor={255,255,255})),
       Rectangle(extent=[-72,78; 78,-46], style(
-          pattern=0,
-          fillColor=74,
-          rgbfillColor={0,0,127})),
-      Rectangle(extent=[-96,4; 94,-6], style(
           pattern=0,
           fillColor=74,
           rgbfillColor={0,0,127})),
@@ -53,6 +49,11 @@ The heat flux connector is optional, it need not be connnected.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 24 by Michael Wetter:<br>
+Changed base class from <tt>Modelica_Fluid</tt> to <tt>Buildings</tt> library.
+This was done to track the auxiliary species flow <tt>mC_flow</tt>.
+</li>
 <li>
 September 4 by Michael Wetter:<br>
 Fixed bug in assignment of parameter <tt>sta0</tt>. The earlier implementation

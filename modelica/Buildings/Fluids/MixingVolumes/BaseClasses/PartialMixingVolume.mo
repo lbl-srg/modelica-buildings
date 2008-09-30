@@ -6,9 +6,10 @@ partial model PartialMixingVolume
       annotation (choicesAllMatching = true);
   parameter Modelica.SIunits.Volume V "Volume";
   parameter Integer nP(min=1) = 2 "Number of ports";
-  Modelica_Fluid.Interfaces.FluidPort_a port[nP](redeclare each package Medium 
-      =                                                                          Medium) 
-    "Fluid port"     annotation (extent=[-10,-10; 10,10]);
+  Modelica_Fluid.Interfaces.FluidPort_a port[nP](
+     redeclare each package Medium = Medium,
+     each C(nominal=1E-3)) "Fluid port" 
+                     annotation (extent=[-10,-10; 10,10]);
   Medium.BaseProperties medium(
     preferredMediumStates=true,
     p(start=p_start),
@@ -21,6 +22,11 @@ partial model PartialMixingVolume
   Modelica.SIunits.Mass mXi[Medium.nXi] 
     "Masses of independent components in the fluid";
   Modelica.SIunits.Volume V_lumped "Volume";
+  
+  Medium.ExtraProperty mC[Medium.nC] 
+    "Masses of auxiliary components in the fluid";
+  Medium.MassFraction mc[Medium.nC](start=zeros(Medium.nC), nominal=1E-3) 
+    "Mass fraction of auxiliary components in the fluid";
   
 protected 
    parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=T_start,
@@ -64,6 +70,11 @@ The thermal port need not be connected, but can have any number of connections.
 </html>", revisions="<html>
 <ul>
 <li>
+September 18, 2008 by Michael Wetter:<br>
+Added equations for the mass balance of extra species flow,
+i.e., <tt>C</tt> and <tt>mC_flow</tt>.
+</li>
+<li>
 September 4, 2008 by Michael Wetter:<br>
 Added start values for the medium mass and internal energy.
 This avoids a division by zero that occured in some problems during the initialization
@@ -106,11 +117,24 @@ equation
       port[i].m_flow,
       port[i].Xi,
       medium.Xi);
+    port[i].mC_flow = semiLinear(
+      port[i].m_flow,
+      port[i].C,
+      mc);
   end for;
 // Total quantities
   m = V_lumped*medium.d;
   mXi = m*medium.Xi;
   U = m*medium.u;
+  
+  // The auxiliary species balances is formulated in the non-dimensional form
+  // using mc instead of mC, which makes it easier to provide a nominal value
+  if steadyState then
+    zeros(Medium.nC) = sum(port[i].mC_flow for i in 1:nP);
+  else
+    der(mc) = sum(port[i].mC_flow for i in 1:nP)/m;
+  end if;
+  mC = mc*m;
   
 // Mass and energy balance.
 // To be implemented by models that extend this partial model.

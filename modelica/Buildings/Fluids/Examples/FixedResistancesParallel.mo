@@ -20,10 +20,10 @@ model FixedResistancesParallel
     linearized=false,
     from_dp=false) 
              annotation (extent=[-28,30; -8,50]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou1(
                                                     redeclare package Medium = 
         Medium, T=293.15) annotation (extent=[-68,30; -48,50]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin1(
                                                     redeclare package Medium = 
         Medium, T=283.15) annotation (extent=[84,30; 64,50], rotation=0);
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res2(

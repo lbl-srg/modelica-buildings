@@ -14,11 +14,11 @@ partial model PartialStaticTwoPortCoolingTower
     Buildings.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticTwoPortCoolingTower
     tow(   redeclare package Medium = Medium_W) "Cooling tower" 
     annotation (extent=[-18,-60; 2,-40]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_1(T=283.15, redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_1(T=283.15, redeclare 
       package Medium = Medium_W,
     p=101325)             annotation (extent=[80,-60; 60,-40],
                                                              rotation=0);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_1(
     T=293.15,
     p=101335,
     redeclare package Medium = Medium_W) 

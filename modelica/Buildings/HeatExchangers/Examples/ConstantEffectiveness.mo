@@ -6,14 +6,14 @@ model ConstantEffectiveness
  //package Medium_2 = Modelica.Media.Air.MoistAir;
  package Medium_2 = Buildings.Media.PerfectGases.MoistAir;
   
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(          redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_2(          redeclare 
       package Medium = Medium_2, T=273.15 + 10) 
                           annotation (extent=[-58,-10; -38,10]);
     Modelica.Blocks.Sources.Ramp PIn(
     offset=101325,
     height=200,
     duration=60) annotation (extent=[-20,-50; 0,-30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_2(          redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_2(          redeclare 
       package Medium = Medium_2, T=273.15 + 5) 
                           annotation (extent=[40,-70; 60,-50],
                                                              rotation=0);
@@ -27,11 +27,11 @@ model ConstantEffectiveness
     annotation (extent=[-20,-90; 0,-70]);
     Modelica.Blocks.Sources.Constant POut(k=101325) 
       annotation (extent=[-100,-4; -80,16]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_1(          redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_1(          redeclare 
       package Medium = Medium_1,
     p=300000,
     T=273.15 + 30)        annotation (extent=[84,2; 64,22],  rotation=0);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_1(
     redeclare package Medium = Medium_1,
     p=300000 + 5000,
     T=273.15 + 50)        annotation (extent=[-60,40; -40,60]);

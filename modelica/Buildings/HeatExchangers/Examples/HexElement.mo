@@ -9,7 +9,7 @@ model HexElement
 // package Medium_A = Modelica.Media.Air.SimpleAir;
 // package Medium_A = Buildings.Media.PerfectGases.MoistAirNonsaturated;
  package Medium_A = Buildings.Media.PerfectGases.MoistAir;
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_2(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_2(
                                T=288.15, redeclare package Medium = Medium_A) 
                           annotation (extent=[-60,-30; -40,-10]);
     Modelica.Blocks.Sources.Ramp PIn(
@@ -19,7 +19,7 @@ model HexElement
     startTime=300) 
                  annotation (extent=[0,-60; 20,-40]);
   annotation (Diagram);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_2(T=283.15, redeclare 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_2(T=283.15, redeclare 
       package Medium = Medium_A) 
                           annotation (extent=[40,-80; 60,-60],
                                                              rotation=0);
@@ -33,10 +33,10 @@ model HexElement
     annotation (extent=[-100,40; -80,60]);
     Modelica.Blocks.Sources.Constant POut(k=101325) 
       annotation (extent=[-100,80; -80,100]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin_1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin_1(
                                T=288.15, redeclare package Medium = Medium_W) 
                           annotation (extent=[42,40; 62,60], rotation=0);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou_1(
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou_1(
     T=293.15,
     p=101335,
     redeclare package Medium = Medium_W) 

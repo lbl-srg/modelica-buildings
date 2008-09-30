@@ -26,10 +26,10 @@ First implementation.
     l=0.05,
     k_SI=2/sqrt(6000)) "Valve model, linear opening characteristics" 
          annotation (extent=[0,10; 20,30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[-68,10;
         -48,30]);
-  Modelica_Fluid.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
         Medium, T=293.15)                           annotation (extent=[74,10;
         54,30]);
     Modelica.Blocks.Sources.Constant PSin(k=3E5) 
