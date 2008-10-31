@@ -19,14 +19,14 @@ model FlowMachine
                     annotation (extent=[0,-10; 20,10]);
   Modelica.Blocks.Sources.Constant N(k=22.3333) 
                                          annotation (extent=[-40,50; -20,70]);
-  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
-        Medium, T=293.15)                           annotation (extent=[-42,-10; -22,10]);
-  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
-        Medium, T=293.15)                           annotation (extent=[60,-10; 40,10]);
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(redeclare package Medium 
+      = Medium, T=293.15)                           annotation (extent=[-42,-10; -22,10]);
+  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium 
+      = Medium, T=293.15)                           annotation (extent=[60,-10; 40,10]);
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
       annotation (extent=[40,32; 60,52]);
-  Utilities.printer printer(
-    fileName="outputFan.txt",
+  Buildings.Utilities.Reports.Printer printer(
+    fileName="testFan.txt",
     nin=6,
     header="time dp dpNorm mNorm m_flow power") 
     annotation (extent=[16,-42; 36,-22]);
@@ -65,7 +65,7 @@ equation
           69, rgbcolor={0,127,255}));
   connect(N.y, fan.N_in) annotation (points=[-19,60; -10,60; -10,6; -1,6],
       style(color=74, rgbcolor={0,0,127}));
-  connect(P.y, sou.p_in) annotation (points=[-59,6.10623e-16; -51.5,6.10623e-16; 
+  connect(P.y, sou.p_in) annotation (points=[-59,6.10623e-16; -51.5,6.10623e-16;
         -51.5,6; -44,6], style(color=74, rgbcolor={0,0,127}));
   connect(PAtm.y, sin.p_in) annotation (points=[61,42; 74,42; 74,6; 62,6],
       style(color=74, rgbcolor={0,0,127}));

@@ -59,6 +59,11 @@ Note that if the mass flow rate tends to zero, the moisture difference over this
 component tends to infinity for non-zero <tt>m_flow</tt>, so add proper control
 when using this component.
 </p>
+<p>
+This model can only be used with medium models that define the integer constant
+<tt>Water</tt> which needs to be equal to the index of the water mass fraction 
+in the species vector.
+</p>
 </html>",
 revisions="<html>
 <ul>

@@ -33,6 +33,12 @@ This model transfers heat in the amount of
 where <tt>eps</tt> is a constant effectiveness and 
 <tt>Q_max</tt> is the maximum heat that can be transferred.
 </p>
+<p>
+For a heat and moisture exchanger, use
+<a href=\"Modelica:Buildings.MassExchangers.ConstantEffectiveness\">
+Buildings.MassExchangers.ConstantEffectiveness</a>
+instead of this model.
+</p>
 </html>",
 revisions="<html>
 <ul>

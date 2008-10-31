@@ -7,7 +7,7 @@ import SI = Modelica.SIunits;
 This medium model is identical to 
 <a href=\"Modelica:Modelica.Media.Water.ConstantPropertyLiquidWater\">
 Modelica.Media.Water.ConstantPropertyLiquidWater</a>, except that it
-implements the function to computes the density. This function is
+implements the function that computes the density. This function is
 not implemented in <a href=\"Modelica:Modelica.Media.Water.ConstantPropertyLiquidWater\">
 Modelica.Media.Water.ConstantPropertyLiquidWater</a>.
 </p>

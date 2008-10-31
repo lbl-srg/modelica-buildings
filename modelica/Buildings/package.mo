@@ -70,8 +70,12 @@ on the Buildings library
 </p>
 <ul>
 <li> 
+<a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">
+Version 0.4.0 </a>(October 31, 2008)</li>
+<li> 
+<li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">
-Version 0.3.0 </a>(XXXXX, 2008)</li>
+Version 0.3.0 </a>(September 30, 2008)</li>
 <li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">
 Version 0.2.0 </a>(June 17, 2008)</li>
@@ -82,13 +86,37 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 </html>
 "));
     
+  class Version_0_4_0 "Version 0.4.0" 
+      annotation (Documentation(info="<html>
+<h3><font color=\"#008000\">Version 0.4.0</font></h3>
+<p>
+<ul>
+<li>
+Added package <a href=\"Modelica:Buildings.Fluids.Storage\">
+Buildings.Fluids.Storage</a>
+with models for thermal energy storage.
+<li>
+Added a steady-state model for a heat and moisture exchanger with
+constant effectiveness. 
+See <a href=\"Modelica:Buildings.MassExchangers.ConstantEffectiveness\">
+Buildings.MassExchangers.ConstantEffectiveness</a>
+<li>
+Added package <a href=\"Modelica:Buildings.Utilities.Reports\">Buildings.Utilities.Reports</a>.
+The package contains models that facilitate reporting.
+</li>
+</ul>
+</p>
+</html>
+"));
+  end Version_0_4_0;
+    
   class Version_0_3_0 "Version 0.3.0" 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.3.0</font></h3>
 <p>
 <ul>
 <li>
-The package <a href=\"Modelica:Buildings.Fluids.Sources\">Buildings.Fluids.Sources</a> has been added.
+Added package <a href=\"Modelica:Buildings.Fluids.Sources\">Buildings.Fluids.Sources</a>.
 The package contains models for modeling species that
 do not affect the medium balance of volumes. This can be used to track
 for example carbon dioxide or other species that have a small concentration.
