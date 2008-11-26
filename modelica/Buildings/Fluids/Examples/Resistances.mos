@@ -1,7 +1,0 @@
-simulateModel("Buildings.Fluids.Examples.Resistances(from_dp={true,true,true})", numberOfIntervals=0, outputInterval=0.00001, method="Euler", fixedstepsize=0.00001, resultFile="Resistances");
-
-createPlot(id = 1,
- position = {(-1), 6, 400, 280},
- x = "res[1].dp",
- y = ({"res[1].m_flow", "res[1].m_small_flow"}),
- grid = true);

@@ -32,7 +32,7 @@ model PrescribedExtraPropertyFlow
   PrescribedExtraPropertyFlowRate sou1(
                                       redeclare package Medium = Medium) 
     annotation (extent=[-46,-10; -26,10]);
-  Buildings.Utilities.Controls.AssertEquality assEqu(threShold=1E-4) 
+  Buildings.Utilities.Diagnostics.AssertEquality assEqu(threShold=1E-4) 
     "Assert that both volumes have the same concentration" 
     annotation (extent=[60,130; 80,150]);
   Modelica.Blocks.Sources.RealExpression reaExp(y=vol.mC[1]) 
@@ -58,7 +58,7 @@ model PrescribedExtraPropertyFlow
     m0_flow={1,1,1},
     dp0={1,1,1},
     from_dp=false) annotation (extent=[22,-70; 42,-50], rotation=270);
-  Buildings.Utilities.Controls.AssertEquality assEqu1(
+  Buildings.Utilities.Diagnostics.AssertEquality assEqu1(
                                                      threShold=1E-4) 
     "Assert that both volumes have the same concentration" 
     annotation (extent=[60,70; 80,90]);

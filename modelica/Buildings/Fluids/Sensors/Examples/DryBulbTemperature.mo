@@ -43,7 +43,7 @@ First implementation.
                  annotation (extent=[-100,-60; -80,-40]);
   Modelica.Blocks.Sources.Constant const annotation (extent=[-100,-20; -80,0]);
   Modelica.Blocks.Math.Feedback feedback annotation (extent=[-70,-20; -50,0]);
-  Buildings.Utilities.Controls.AssertEquality assertEquality(startTime=0,
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(startTime=0,
       threShold=0.001) 
     annotation (extent=[60,-40; 80,-20]);
   Modelica.Blocks.Continuous.FirstOrder firOrd(T=10, initType=Modelica.Blocks.

@@ -5,11 +5,11 @@ model SmoothBlocks
   Modelica.Blocks.Sources.Sine sine(freqHz=8) 
     annotation (extent=[-80,60; -60,80]);
   Modelica.Blocks.Sources.Sine sine1 annotation (extent=[-100,0; -80,20]);
-  Controls.AssertEquality assEquMax(threShold=0.08) 
+  Diagnostics.AssertEquality assEquMax(threShold=0.08) 
     annotation (extent=[40,20; 60,40]);
   SmoothMin smoMin(deltaX=0.5) annotation (extent=[-20,-40; 0,-20]);
   Modelica.Blocks.Math.Min Min annotation (extent=[-20,-80; 0,-60]);
-  Controls.AssertEquality assEquMin(threShold=0.08) 
+  Diagnostics.AssertEquality assEquMin(threShold=0.08) 
     annotation (extent=[40,-60; 60,-40]);
 equation 
   

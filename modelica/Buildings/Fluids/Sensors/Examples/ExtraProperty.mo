@@ -39,7 +39,7 @@ model ExtraProperty
     annotation (extent=[140,50; 160,70]);
   RelativePressure dp(redeclare package Medium = Medium) 
     annotation (extent=[102,-38; 122,-18]);
-  Buildings.Utilities.Controls.AssertEquality assertEquality(startTime=0,
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(startTime=0,
       threShold=1E-8) 
     annotation (extent=[136,-88; 156,-68]);
   Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal" 

@@ -70,6 +70,9 @@ on the Buildings library
 </p>
 <ul>
 <li> 
+<a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">
+Version 0.5.0 </a>(XXXXXX XXXXX, 2008)</li>
+<li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">
 Version 0.4.0 </a>(October 31, 2008)</li>
 <li> 
@@ -86,6 +89,28 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 </html>
 "));
     
+  class Version_0_5_0 "Version 0.5.0" 
+      annotation (Documentation(info="<html>
+<h3><font color=\"#008000\">Version 0.5.0</font></h3>
+<p>
+<ul>
+<li>
+Moved most examples from package <a href=\"Modelica:Buildings.Fluids.Examples\">
+Buildings.Fluids.Examples</a> to the example directory in the package of the
+individual model.
+</li>
+<li>
+Renamed package <a href=\"Modelica:Buildings.Utilites.Controls\">
+Buildings.Utilites.Controls</a> to 
+<a href=\"Modelica:Buildings.Utilites.Diagnostics\">
+Buildings.Utilites.Diagnostics</a>.
+</li>
+</ul>
+</p>
+</html>
+"));
+  end Version_0_5_0;
+
   class Version_0_4_0 "Version 0.4.0" 
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.4.0</font></h3>

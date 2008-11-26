@@ -112,28 +112,28 @@ First implementation.
              annotation (extent=[10,30; 30,50],   rotation=90);
   Modelica_Fluid.Volumes.MixingVolume mix1(redeclare package Medium = Medium, V=
        0.000001) annotation (extent=[-22,12; -2,32]);
-  Buildings.Utilities.Controls.AssertEquality ass1(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass1(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[160,140; 180,160]);
   Modelica.Blocks.Sources.RealExpression y1(y=hea2.medium_b.T_degC) 
     annotation (extent=[40,150; 140,170]);
   Modelica.Blocks.Sources.RealExpression y2(y=hea1.medium_b.T_degC) 
     annotation (extent=[40,130; 140,150]);
-  Buildings.Utilities.Controls.AssertEquality ass2(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass2(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[160,100; 180,120]);
   Modelica.Blocks.Sources.RealExpression y3(y=hea2.medium_a.T_degC) 
     annotation (extent=[40,110; 140,130]);
   Modelica.Blocks.Sources.RealExpression y4(y=hea1.medium_a.T_degC) 
     annotation (extent=[40,90; 140,110]);
-  Buildings.Utilities.Controls.AssertEquality ass3(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass3(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[160,38; 180,58]);
   Modelica.Blocks.Sources.RealExpression y5(y=hea4.medium_b.T_degC) 
     annotation (extent=[40,48; 140,68]);
   Modelica.Blocks.Sources.RealExpression y6(y=hea3.medium_b.T_degC) 
     annotation (extent=[40,28; 140,48]);
-  Buildings.Utilities.Controls.AssertEquality ass4(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass4(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[160,-2; 180,18]);
   Modelica.Blocks.Sources.RealExpression y7(y=hea4.medium_a.T_degC) 
@@ -215,7 +215,7 @@ First implementation.
                                                   rotation=90);
   Modelica_Fluid.Volumes.MixingVolume mix2(redeclare package Medium = Medium, V=
        0.000001) annotation (extent=[-22,-190; -2,-170]);
-  Buildings.Utilities.Controls.AssertEquality ass5(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass5(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[160,-62; 180,-42]);
   Modelica.Blocks.Sources.RealExpression y9(y=hea6.medium_b.T_degC) 
@@ -223,7 +223,7 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y10(
                                             y=hea5.medium_b.T_degC) 
     annotation (extent=[40,-72; 140,-52]);
-  Buildings.Utilities.Controls.AssertEquality ass6(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass6(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[160,-102; 180,-82]);
   Modelica.Blocks.Sources.RealExpression y11(
@@ -232,7 +232,7 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y12(
                                             y=hea5.medium_a.T_degC) 
     annotation (extent=[40,-112; 140,-92]);
-  Buildings.Utilities.Controls.AssertEquality ass7(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass7(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[160,-164; 180,-144]);
   Modelica.Blocks.Sources.RealExpression y13(
@@ -241,7 +241,7 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y14(
                                             y=hea7.medium_b.T_degC) 
     annotation (extent=[40,-174; 140,-154]);
-  Buildings.Utilities.Controls.AssertEquality ass8(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass8(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[160,-204; 180,-184]);
   Modelica.Blocks.Sources.RealExpression y15(
@@ -250,28 +250,28 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y16(
                                             y=hea7.medium_a.T_degC) 
     annotation (extent=[40,-214; 140,-194]);
-  Buildings.Utilities.Controls.AssertEquality ass9(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass9(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[160,-300; 180,-280]);
   Modelica.Blocks.Sources.RealExpression y17(y=hea2.medium_b.T_degC) 
     annotation (extent=[40,-290; 140,-270]);
   Modelica.Blocks.Sources.RealExpression y18(y=hea5.medium_b.T_degC) 
     annotation (extent=[40,-310; 140,-290]);
-  Buildings.Utilities.Controls.AssertEquality ass10(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass10(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[160,-260; 180,-240]);
   Modelica.Blocks.Sources.RealExpression y19(y=hea4.medium_a.T_degC) 
     annotation (extent=[40,-250; 140,-230]);
   Modelica.Blocks.Sources.RealExpression y20(y=hea7.medium_a.T_degC) 
     annotation (extent=[40,-270; 140,-250]);
-  Buildings.Utilities.Controls.AssertEquality ass11(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass11(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[340,140; 360,160]);
   Modelica.Blocks.Sources.RealExpression y21(y=hea2.medium_b.X[1]) 
     annotation (extent=[220,150; 320,170]);
   Modelica.Blocks.Sources.RealExpression y22(y=hea1.medium_b.X[1]) 
     annotation (extent=[220,130; 320,150]);
-  Buildings.Utilities.Controls.AssertEquality ass12(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass12(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[340,100; 360,120]);
   Modelica.Blocks.Sources.RealExpression y23(
@@ -280,7 +280,7 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y24(
                                             y=hea1.medium_a.X[1]) 
     annotation (extent=[220,90; 320,110]);
-  Buildings.Utilities.Controls.AssertEquality ass13(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass13(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[340,38; 360,58]);
   Modelica.Blocks.Sources.RealExpression y25(
@@ -289,7 +289,7 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y26(
                                             y=hea3.medium_b.X[1]) 
     annotation (extent=[220,28; 320,48]);
-  Buildings.Utilities.Controls.AssertEquality ass14(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass14(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[340,-2; 360,18]);
   Modelica.Blocks.Sources.RealExpression y27(
@@ -298,7 +298,7 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y28(
                                             y=hea3.medium_a.X[1]) 
     annotation (extent=[220,-12; 320,8]);
-  Buildings.Utilities.Controls.AssertEquality ass15(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass15(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[340,-62; 360,-42]);
   Modelica.Blocks.Sources.RealExpression y29(
@@ -307,7 +307,7 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y30(
                                             y=hea5.medium_b.X[1]) 
     annotation (extent=[220,-72; 320,-52]);
-  Buildings.Utilities.Controls.AssertEquality ass16(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass16(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[340,-102; 360,-82]);
   Modelica.Blocks.Sources.RealExpression y31(
@@ -316,7 +316,7 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y32(
                                             y=hea5.medium_a.X[1]) 
     annotation (extent=[220,-112; 320,-92]);
-  Buildings.Utilities.Controls.AssertEquality ass17(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass17(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[340,-164; 360,-144]);
   Modelica.Blocks.Sources.RealExpression y33(
@@ -325,7 +325,7 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y34(
                                             y=hea7.medium_b.X[1]) 
     annotation (extent=[220,-174; 320,-154]);
-  Buildings.Utilities.Controls.AssertEquality ass18(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass18(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[340,-204; 360,-184]);
   Modelica.Blocks.Sources.RealExpression y35(
@@ -334,14 +334,14 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y36(
                                             y=hea7.medium_a.X[1]) 
     annotation (extent=[220,-214; 320,-194]);
-  Buildings.Utilities.Controls.AssertEquality ass19(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass19(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[340,-300; 360,-280]);
   Modelica.Blocks.Sources.RealExpression y37(y=hea2.medium_b.X[1]) 
     annotation (extent=[220,-290; 320,-270]);
   Modelica.Blocks.Sources.RealExpression y38(y=hea5.medium_b.X[1]) 
     annotation (extent=[220,-310; 320,-290]);
-  Buildings.Utilities.Controls.AssertEquality ass20(threShold=1E-2, startTime=
+  Buildings.Utilities.Diagnostics.AssertEquality ass20(threShold=1E-2, startTime=
         0.3) 
     annotation (extent=[340,-260; 360,-240]);
   Modelica.Blocks.Sources.RealExpression y39(y=hea4.medium_a.X[1]) 

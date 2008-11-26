@@ -30,7 +30,7 @@ First implementation.
                  annotation (extent=[-100,60; -80,80]);
   Modelica.Blocks.Sources.Constant const annotation (extent=[-100,-20; -80,0]);
   Modelica.Blocks.Math.Feedback feedback annotation (extent=[-68,-20; -48,0]);
-  Buildings.Utilities.Controls.AssertEquality assertEquality(startTime=0,
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(startTime=0,
       threShold=0.05) 
     annotation (extent=[60,20; 80,40]);
   Modelica.Blocks.Sources.Constant TWBExp(k=273.15 + 25) 

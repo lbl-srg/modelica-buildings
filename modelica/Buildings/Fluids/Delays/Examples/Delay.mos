@@ -1,0 +1,5 @@
+simulateModel("Buildings.Fluids.Delays.Examples.Delay",
+  stopTime=300, tolerance=1e-6, resultFile="Delay");
+createPlot(id = 1,
+ y = ({"del.medium.T_degC"}),
+ grid = true);
