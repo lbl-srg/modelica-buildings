@@ -76,7 +76,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">
-Version 0.5.0 </a>(XXXXXX XXXXX, 2008)</li>
+Version 0.5.0 </a>(February 19, 2009)</li>
 <li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">
 Version 0.4.0 </a>(October 31, 2008)</li>
@@ -113,7 +113,6 @@ Buildings.Utilites.Controls</a> to
 <a href=\"Modelica:Buildings.Utilites.Diagnostics\">
 Buildings.Utilites.Diagnostics</a>.
 </li>
-</li>
 <li>
 Introduced packages 
 <a href=\"Modelica:Buildings.Controls\">Buildings.Controls</a>,
@@ -123,6 +122,12 @@ modeling of the fluid flow),
 <a href=\"Modelica:Buildings.Fluids.Boilers\">Buildings.Fluids.Boilers</a> and
 <a href=\"Modelica:Buildings.Fluids.HeatExchangers.Radiators\">
 Buildings.Fluids.HeatExchangers.Radiators</a>.
+</li>
+<li>
+Changed valve models in <a href=\"Modelica:Buildings.Fluids.Actuators.Valves\">
+Buildings.Fluids.Actuators.Valves</a> so that <tt>Kv</tt> or <tt>Cv</tt> can
+be used as the flow coefficient (in [m3/h] or [USG/min]).
+</li>
 </ul>
 </p>
 </html>
