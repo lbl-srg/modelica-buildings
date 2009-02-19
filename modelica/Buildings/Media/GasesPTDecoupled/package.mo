@@ -1,3 +1,4 @@
+within Buildings.Media;
 package GasesPTDecoupled "Package with models for gases where pressure and temperature are independent of each other"
   annotation (preferedView="info", Documentation(info="<HTML>
 <p>

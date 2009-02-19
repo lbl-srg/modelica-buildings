@@ -1,6 +1,8 @@
-model ExtendedPolynomialDerivativeCheck 
-  
- annotation(Diagram, Commands(file="ExtendedPolynomialDerivativeCheck.mos" "run"));
+within Buildings.Fluids.Utilities.Examples;
+model ExtendedPolynomialDerivativeCheck
+
+ annotation(Diagram(graphics),
+                     Commands(file="ExtendedPolynomialDerivativeCheck.mos" "run"));
   annotation (
     Documentation(info="<html>
 <p>
@@ -16,19 +18,19 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
-  parameter Real[:] c={0.1162,1.5404,-1.4825,0.7664,-0.1971} 
+
+  parameter Real[:] c={0.1162,1.5404,-1.4825,0.7664,-0.1971}
     "Polynomial coefficients";
   parameter Real xMin=1 "Minimum x value for polynomial";
   parameter Real xMax=2 "Maximum x value for polynomial";
-  
+
   Real x;
   Real y;
-initial equation 
+initial equation
    y=x;
-equation 
+equation
   x=Buildings.Fluids.Utilities.extendedPolynomial(c, time, xMin, xMax);
   der(y)=der(x);
   assert(abs(x-y) < 1E-2, "Model has an error");
-  
+
 end ExtendedPolynomialDerivativeCheck;

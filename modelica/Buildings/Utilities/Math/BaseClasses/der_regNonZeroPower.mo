@@ -1,5 +1,6 @@
-encapsulated function der_regNonZeroPower 
-  "Power function, regularized near zero, but nonzero value for x=0" 
+within Buildings.Utilities.Math.BaseClasses;
+encapsulated function der_regNonZeroPower
+  "Power function, regularized near zero, but nonzero value for x=0"
  input Real x "Abscissa value";
  input Real n "Exponent";
  input Real delta = 0.01 "Abscissa value where transition occurs";
@@ -8,7 +9,7 @@ encapsulated function der_regNonZeroPower
 // input Real der_delta;
 output Real der_y "Function value";
  annotation(derivative=BaseClasses.der_2_regNonZeroPower);
-protected 
+protected
   Real a1;
   Real a3;
   Real delta2;
@@ -16,7 +17,7 @@ protected
   Real y_d "=y(delta)";
   Real yP_d "=dy(delta)/dx";
   Real yPP_d "=d^2y(delta)/dx^2";
-algorithm 
+algorithm
   if abs(x) > delta then
    der_y := sign(x)*n*abs(x)^(n-1);
   else

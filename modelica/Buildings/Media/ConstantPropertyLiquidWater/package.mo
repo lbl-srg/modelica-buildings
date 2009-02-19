@@ -1,15 +1,15 @@
+within Buildings.Media;
 package ConstantPropertyLiquidWater "Package with model for liquid water with constant properties"
   extends Modelica.Media.Water.ConstantPropertyLiquidWater;
 import SI = Modelica.SIunits;
+
 
   annotation (preferedView="info", Documentation(info="<HTML>
 <p>
 This medium model is identical to 
 <a href=\"Modelica:Modelica.Media.Water.ConstantPropertyLiquidWater\">
 Modelica.Media.Water.ConstantPropertyLiquidWater</a>, except that it
-implements the function that computes the density. This function is
-not implemented in <a href=\"Modelica:Modelica.Media.Water.ConstantPropertyLiquidWater\">
-Modelica.Media.Water.ConstantPropertyLiquidWater</a>.
+implements the function that computes the specific internal energy.
 </p>
 </HTML>", revisions="<html>
 <ul>
@@ -24,16 +24,12 @@ First implementation.
 </ul>
 </html>"));
 
- redeclare replaceable function extends density "Returns constant density" 
- algorithm 
-    d := d_const;
- end density;
 
- redeclare replaceable function extends specificInternalEnergy 
-  "Return specific internal energy" 
+ redeclare replaceable function extends specificInternalEnergy
+  "Return specific internal energy"
   input ThermodynamicState state;
   output SpecificEnergy u "Specific internal energy";
- algorithm 
+ algorithm
    u := cv_const * (state.T-T0);
  end specificInternalEnergy;
 end ConstantPropertyLiquidWater;

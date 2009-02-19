@@ -1,9 +1,8 @@
-model PrescribedExtraPropertyFlowRate 
-  "Source with mass flow that does not take part in medium mass balance (such as CO2)" 
-  extends Buildings.BaseClasses.BaseIcon;
-  replaceable package Medium = 
-      Modelica.Media.Interfaces.PartialMedium "Medium model within the source" 
-     annotation (choicesAllMatching=true);
+within Buildings.Fluids.Sources;
+model PrescribedExtraPropertyFlowRate
+  "Source with mass flow that does not take part in medium mass balance (such as CO2)"
+  extends Modelica_Fluid.Sources.BaseClasses.PartialSource(nPorts=1);
+
   annotation (Documentation(info="<html>
 This model adds a mass flow rate to the port for an auxiliary
 medium that does not take part in the mass balance of the medium
@@ -19,64 +18,98 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
-  Modelica_Fluid.Interfaces.FluidPort_b port(redeclare package Medium = Medium,
-      m_flow(min=-Modelica.Constants.inf, max=0)) 
-    annotation (extent=[90,-10; 110,10],    rotation=0);
-  
-  annotation (Diagram, Icon(
-      Rectangle(extent=[20,60; 100,-60],   style(
-          color=0,
-          gradient=2,
-          fillColor=8)),
-      Rectangle(extent=[38,40; 100,-40],   style(
-          color=69,
-          gradient=2,
-          fillColor=69)),
-      Ellipse(extent=[-100,80; 60,-80], style(
-          color=0,
-          rgbcolor={0,0,0},
-          fillColor=7,
-          rgbfillColor={255,255,255})),
-      Polygon(points=[-60,70; 60,0; -60,-68; -60,70], style(
-          color=0,
-          rgbcolor={0,0,0},
-          fillColor=0,
-          rgbfillColor={0,0,0})),
-      Text(
-        extent=[-54,32; 16,-30],
-        style(color=41, fillColor=41),
-        string="m"),
-      Ellipse(extent=[-26,30; -18,22],   style(color=1, fillColor=1)),
-      Text(
-        extent=[-210,102; -70,70],
-        style(
-          color=0,
-          rgbcolor={0,0,0},
-          fillColor=7,
-          rgbfillColor={255,255,255}),
-        string="m_flow"),
-      Text(
-        extent=[-100,14; -60,-20],
-        style(
-          color=0,
-          rgbcolor={0,0,0},
-          fillColor=7,
-          rgbfillColor={255,255,255}),
-        string="C")));
-  parameter Medium.ExtraPropertyFlowRate mC_flow[Medium.nC] = ones(Medium.nC) 
-    "Fixed mass flow rate for extra property going out of the fluid port";
-  Modelica.Blocks.Interfaces.RealInput mC_flow_in[Medium.nC](redeclare type 
-      SignalType = 
-       Medium.ExtraPropertyFlowRate) 
-    "Prescribed mass flow rate for extra property" 
-    annotation (extent=[-141,-20; -101,20]);
-equation 
-  if cardinality(mC_flow_in)==0 then
-    mC_flow_in = mC_flow;
+
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
+                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics={
+        Rectangle(
+          extent={{20,60},{100,-60}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{38,40},{100,-40}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Ellipse(
+          extent={{-100,80},{60,-80}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-60,70},{60,0},{-60,-68},{-60,70}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-54,32},{16,-30}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="m"),
+        Ellipse(
+          extent={{-26,30},{-18,22}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-210,102},{-70,70}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="m_flow"),
+        Text(
+          extent={{-100,14},{-60,-20}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="C")}));
+  parameter String substanceName = "CO2" "Name of trace substance";
+  parameter Boolean use_m_flow_in = false
+    "Get the trace substance mass flow rate from the input connector" 
+    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+
+  parameter Medium.MassFlowRate m_flow = 0
+    "Fixed mass flow rate going out of the fluid port" 
+    annotation (Evaluate = true,
+                Dialog(enable = not use_m_flow_in));
+  Modelica.Blocks.Interfaces.RealInput m_flow_in if 
+       use_m_flow_in "Prescribed mass flow rate for extra property" 
+    annotation (Placement(transformation(extent={{-141,-20},{-101,20}},
+          rotation=0)));
+
+protected
+  Modelica.Blocks.Interfaces.RealInput m_flow_in_internal
+    "Needed to connect to conditional connector";
+  parameter Medium.ExtraProperty C_in_internal[Medium.nC](
+       fixed=false,
+       quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
+    "Boundary trace substances" 
+    annotation (Evaluate=true,
+                Dialog(enable = Medium.nC > 0));
+initial algorithm
+  for i in 1:Medium.nC loop
+    if ( Modelica.Utilities.Strings.isEqual(Medium.extraPropertiesNames[i], substanceName)) then
+      C_in_internal[i] := 1;
+    else
+      C_in_internal[i] := 0;
+    end if;
+  end for;
+  assert(sum(C_in_internal) > 0, "Trace substance '" + substanceName + "' is not present in medium '"
+         + Medium.mediumName + "'.\n"
+         + "Check source parameter and medium model.");
+equation
+  connect(m_flow_in, m_flow_in_internal);
+  if not use_m_flow_in then
+    m_flow_in_internal = m_flow;
   end if;
-  assert(sum(mC_flow_in) >= 0, "Reverse flow for species source is not implemented yet.");
-  port.m_flow = -Modelica.Constants.eps;
-  port.C = mC_flow_in/Modelica.Constants.eps;
-  port.h = Medium.h_default;
+
+  assert(sum(m_flow_in_internal) >= 0, "Reverse flow for species source is not yet implemented.");
+  sum(ports.m_flow) = -m_flow_in_internal;
+  medium.T = Medium.T_default;
+  medium.Xi = Medium.X_default[1:Medium.nXi];
+  ports.C_outflow = fill(C_in_internal, nPorts);
 end PrescribedExtraPropertyFlowRate;

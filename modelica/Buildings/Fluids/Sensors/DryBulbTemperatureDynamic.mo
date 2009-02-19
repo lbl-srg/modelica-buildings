@@ -1,34 +1,46 @@
-model DryBulbTemperatureDynamic "Ideal temperature sensor" 
+within Buildings.Fluids.Sensors;
+model DryBulbTemperatureDynamic "Ideal temperature sensor"
   extends Modelica_Fluid.Sensors.BaseClasses.PartialFlowSensor;
 annotation (
-  Diagram,
-    Icon(
-      Ellipse(extent=[-20,-88; 20,-50],   style(
-          color=0,
-          thickness=2,
-          fillColor=42)),
-      Rectangle(extent=[-12,50; 12,-58],   style(color=42, fillColor=42)),
-      Line(points=[0,-70; 0,-100], style(rgbcolor={0,0,127})),
-      Polygon(points=[-12,50; -12,90; -10,96; -6,98; 0,100; 6,98; 10,96; 12,
-            90; 12,50; -12,50],        style(color=0, thickness=2)),
-      Line(points=[-12,50; -12,-54],   style(color=0, thickness=2)),
-      Line(points=[12,50; 12,-54],   style(color=0, thickness=2)),
-      Line(points=[-40,-10; -12,-10],   style(color=0)),
-      Line(points=[-40,30; -12,30],   style(color=0)),
-      Line(points=[-40,70; -12,70],   style(color=0)),
-      Text(
-        extent=[120,-40; 0,-90],
-        style(color=0),
-        string="T"),
-      Text(extent=[-126,160; 138,98],   string="%name"),
-      Line(points=[-100,0; -14,0], style(color=69, rgbcolor={0,128,255})),
-      Line(points=[14,0; 100,0],   style(color=69, rgbcolor={0,128,255})),
-      Text(
-        extent=[14,116; 108,20],
-        style(color=74, rgbcolor={0,0,127}),
-        string="tau=10"),
-      Line(points=[20,10; 24,26; 34,40; 54,52; 78,54; 96,54], style(color=74,
-            rgbcolor={0,0,127}))),
+  Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}),
+          graphics),
+    Icon(graphics={
+        Line(points={{-100,0},{92,0}}, color={0,128,255}),
+        Ellipse(
+          extent={{-20,-58},{20,-20}},
+          lineColor={0,0,0},
+          lineThickness=0.5,
+          fillColor={191,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(points={{20,10},{24,26},{34,40},{54,52},{78,54},{96,54}}, color={0,
+              0,127}),
+        Line(points={{-40,60},{-12,60}}, color={0,0,0}),
+        Line(points={{-40,30},{-12,30}}, color={0,0,0}),
+        Line(points={{-40,0},{-12,0}}, color={0,0,0}),
+        Rectangle(
+          extent={{-12,60},{12,-24}},
+          lineColor={191,0,0},
+          fillColor={191,0,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-12,60},{-12,80},{-10,86},{-6,88},{0,90},{6,88},{10,86},{12,
+              80},{12,60},{-12,60}},
+          lineColor={0,0,0},
+          lineThickness=0.5),
+        Text(
+          extent={{102,140},{-18,90}},
+          lineColor={0,0,0},
+          textString="T"),
+        Line(
+          points={{-12,60},{-12,-25}},
+          color={0,0,0},
+          thickness=0.5),
+        Line(
+          points={{12,60},{12,-24}},
+          color={0,0,0},
+          thickness=0.5),
+        Line(points={{0,100},{0,50}}, color={0,0,127})}),
     Documentation(info="<HTML>
 <p>
 This component monitors the temperature of the medium in the flow
@@ -46,30 +58,51 @@ First implementation based on
 </li>
 </ul>
 </html>");
-  
-  Medium.BaseProperties medium;
+
   parameter Modelica.SIunits.Time tau(min=0) = 10 "Time constant";
-  Modelica.Blocks.Interfaces.RealOutput T(redeclare type SignalType = 
-       Modelica.SIunits.Temperature(start=T_start)) 
-    "Temperature in port medium" 
-    annotation (extent=[-10,-120; 10,-100], rotation=-90);
-  parameter Modelica.Blocks.Types.Init.Temp initType=Modelica.Blocks.Types.Init.NoInit 
-    "Type of initialization (InitialState and InitialOutput are identical)"         annotation(Evaluate=true,
-      Dialog(group="Initialization"));
-  parameter Modelica.SIunits.Temperature T_start=Medium.T_default 
+  Modelica.Blocks.Interfaces.RealOutput T( final quantity="ThermodynamicTemperature",
+                                           final unit="K",
+                                           min = 0,
+                                           displayUnit="degC")
+    "Temperature of the passing fluid" 
+    annotation (Placement(transformation(
+        origin={0,110},
+        extent={{10,-10},{-10,10}},
+        rotation=270)));
+
+  parameter Medium.MassFlowRate m0_flow(min=0) "Nominal mass flow rate" 
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m0_flow
+    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
+    annotation(Dialog(tab="Advanced"));
+
+  parameter Modelica.Blocks.Types.Init initType = Modelica.Blocks.Types.Init.NoInit
+    "Type of initialization (InitialState and InitialOutput are identical)" 
+     annotation(Evaluate=true, Dialog(group="Initialization"));
+  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
     "Initial or guess value of output (= state)" 
     annotation (Dialog(group="Initialization"));
-  
-initial equation 
+protected
+  Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
+  Medium.Temperature T_b_inflow
+    "Temperature of inflowing fluid at port_b or T_a_inflow, if uni-directional flow";
+  Medium.Temperature TMed "Medium to which sensor is exposed";
+initial equation
   if initType == Modelica.Blocks.Types.Init.SteadyState then
     der(T) = 0;
   elseif initType == Modelica.Blocks.Types.Init.InitialState or 
          initType == Modelica.Blocks.Types.Init.InitialOutput then
     T = T_start;
   end if;
-equation 
-  port_a.p = medium.p;
-  h  = medium.h;
-  Xi = medium.Xi;
-  der(T)  = (medium.T-T)/tau;
+equation
+  if allowFlowReversal then
+     T_a_inflow = Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
+     T_b_inflow = Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow));
+     TMed = Modelica_Fluid.Utilities.regStep(port_a.m_flow, T_a_inflow, T_b_inflow, m_flow_small);
+  else
+     TMed = Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
+     T_a_inflow = TMed;
+     T_b_inflow = TMed;
+  end if;
+  der(T)  = (TMed-T)/tau;
 end DryBulbTemperatureDynamic;

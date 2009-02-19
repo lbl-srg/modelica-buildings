@@ -1,6 +1,7 @@
-function der_equalPercentage 
-  "Derivative of valve opening characteristics for equal percentage valve" 
-  
+within Buildings.Fluids.Actuators.BaseClasses;
+function der_equalPercentage
+  "Derivative of valve opening characteristics for equal percentage valve"
+
 annotation (
 Documentation(info="<html>
 <p>
@@ -24,10 +25,10 @@ First implementation.
   input Real l(min=0, max=1) "Valve leakage, l=Cv(y=0)/Cvs";
   input Real delta "Range of significant deviation from equal percentage law";
   input Real der_y "Derivative of valve opening signal";
-  
-  output Real der_phi 
+
+  output Real der_phi
     "Derivative of ratio actual to nominal mass flow rate, dphi/dy";
-protected 
+protected
    Real a "Polynomial coefficient";
    Real b "Polynomial coefficient";
    Real c "Polynomial coefficient";
@@ -35,7 +36,7 @@ protected
    Real z "Auxiliary variable";
    Real q "Auxiliary variable";
    Real p "Auxiliary variable";
-algorithm 
+algorithm
   if y < delta/2 then
     der_phi := (R^(delta-1) - l) / delta;
   else

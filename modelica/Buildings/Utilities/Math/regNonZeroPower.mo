@@ -1,6 +1,7 @@
-function regNonZeroPower 
-  "Power function, regularized near zero, but nonzero value for x=0" 
-  
+within Buildings.Utilities.Math;
+function regNonZeroPower
+  "Power function, regularized near zero, but nonzero value for x=0"
+
   annotation (
     Documentation(info="<html>
 <p>
@@ -44,7 +45,7 @@ First implementation.
  input Real delta = 0.01 "Abscissa value where transition occurs";
  output Real y "Function value";
  annotation(smoothOrder=2, derivative=BaseClasses.der_regNonZeroPower);
-protected 
+protected
   Real a1;
   Real a3;
   Real a5;
@@ -53,7 +54,7 @@ protected
   Real y_d "=y(delta)";
   Real yP_d "=dy(delta)/dx";
   Real yPP_d "=d^2y(delta)/dx^2";
-algorithm 
+algorithm
   if abs(x) > delta then
    y := abs(x)^n;
   else

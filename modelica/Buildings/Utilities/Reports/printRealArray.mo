@@ -1,11 +1,12 @@
-function printRealArray "Print string to terminal or file" 
+within Buildings.Utilities.Reports;
+function printRealArray "Print string to terminal or file"
   extends Modelica.Icons.Function;
   input Real[:] x "Input to be printed";
   input String fileName="" "File where to print (empty string is the terminal)";
   input Integer minimumWidth =  1 "Minimum width of result";
   input Integer precision = 6 "Number of significant digits";
   output String outStr="" "String to be printed";
-algorithm 
+algorithm
   for i in 1:size(x,1) loop
      outStr :=outStr + "  "
                      + realString(number=x[i], minimumWidth=minimumWidth,

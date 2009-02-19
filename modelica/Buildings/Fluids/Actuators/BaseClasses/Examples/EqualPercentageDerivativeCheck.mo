@@ -1,6 +1,8 @@
-model EqualPercentageDerivativeCheck 
-  
- annotation(Diagram, Commands(file="EqualPercentageDerivativeCheck.mos" "run"));
+within Buildings.Fluids.Actuators.BaseClasses.Examples;
+model EqualPercentageDerivativeCheck
+
+ annotation(Diagram(graphics),
+                     Commands(file="EqualPercentageDerivativeCheck.mos" "run"));
   annotation (
     Documentation(info="<html>
 <p>
@@ -16,17 +18,17 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
+
  parameter Real R = 50 "Rangeability";
  parameter Real delta = 0.01 "Value where transition occurs";
  parameter Real l = 0.001 "Leakage";
   Real x;
   Real y;
-initial equation 
+initial equation
    y=x;
-equation 
+equation
   x=Buildings.Fluids.Actuators.BaseClasses.equalPercentage(time, R, l, delta);
   der(y)=der(x);
   assert(abs(x-y) < 1E-2, "Model has an error");
-  
+
 end EqualPercentageDerivativeCheck;

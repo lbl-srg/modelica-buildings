@@ -1,3 +1,4 @@
+within Buildings.Media;
 package Interfaces "Package with partial medium models"
   annotation (preferedView="info", Documentation(info="<html>
 This package contains partial medium models that are used

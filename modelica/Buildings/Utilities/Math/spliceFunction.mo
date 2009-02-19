@@ -1,4 +1,5 @@
-function spliceFunction 
+within Buildings.Utilities.Math;
+function spliceFunction
     input Real pos "Argument of x > 0";
     input Real neg "Argument of x < 0";
     input Real x "Independent value";
@@ -21,11 +22,11 @@ First implementation.
 </li>
 </ul>
 </html>"));
-protected 
+protected
     Real scaledX;
     Real scaledX1;
     Real y;
-algorithm 
+algorithm
     scaledX1 := x/deltax;
     scaledX := scaledX1*Modelica.Math.asin(1);
     if scaledX1 <= -0.999999999 then

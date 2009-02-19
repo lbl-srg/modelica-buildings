@@ -1,3 +1,4 @@
+within Buildings.Controls;
 package Continuous "Package with models for discrete time controls"
 annotation (preferedView="info", Documentation(info="<html>
 This package contains components models for continuous time controls.

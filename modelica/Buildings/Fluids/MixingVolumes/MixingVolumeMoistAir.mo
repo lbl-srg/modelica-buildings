@@ -1,12 +1,14 @@
-model MixingVolumeMoistAir 
-  "Mixing volume with heat port for latent heat exchange, to be used with media that conatin water" 
+within Buildings.Fluids.MixingVolumes;
+model MixingVolumeMoistAir
+  "Mixing volume with heat port for latent heat exchange, to be used with media that conatin water"
   extends BaseClasses.PartialMixingVolumeWaterPort;
   // redeclare Medium with a more restricting base class. This improves the error
   // message if a user selects a medium that does not contain the function
   // enthalpyOfLiquid(.)
   replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
       annotation (choicesAllMatching = true);
-  annotation (Diagram, Icon,
+  annotation (Diagram(graphics),
+                       Icon(graphics),
 Documentation(info="<html>
 Model for an ideally mixed fluid volume with <tt>nP</tt> ports and the ability 
 to store mass and energy. The volume is fixed, 
@@ -39,8 +41,19 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
-equation 
+
+protected
+  parameter Integer iWat(min=1, fixed=false) "Index for water substance";
+initial algorithm
+  iWat :=1;
+  if cardinality(mWat_flow) > 0 then
+    for i in 1:Medium.nXi loop
+      if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
+        iWat :=i;
+      end if;
+    end for;
+  end if;
+equation
   if cardinality(mWat_flow) == 0 then
     mWat_flow = 0;
     HWat_flow = 0;
@@ -52,9 +65,9 @@ equation
        HWat_flow = mWat_flow * Medium.enthalpyOfLiquid(TWat);
     end if;
     for i in 1:Medium.nXi loop
-      mXi_flow[i] = if ( i == Medium.Water) then mWat_flow else 0;
+      mXi_flow[i] = if ( i == iWat) then mWat_flow else 0;
     end for;
   end if;
 // Medium species concentration
-  XWat = medium.X[Medium.Water];
+  XWat = medium.X[iWat];
 end MixingVolumeMoistAir;

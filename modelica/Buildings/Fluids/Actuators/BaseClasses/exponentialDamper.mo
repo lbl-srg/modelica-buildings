@@ -1,6 +1,7 @@
-function exponentialDamper 
-  "Damper opening characteristics for an exponential damper" 
-  
+within Buildings.Fluids.Actuators.BaseClasses;
+function exponentialDamper
+  "Damper opening characteristics for an exponential damper"
+
 annotation (
 Documentation(info="<html>
 <p>
@@ -31,11 +32,11 @@ First implementation.
   input Real[3] cU "Polynomial coefficients for curve fit for y > yu";
   input Real yL "Lower value for damper curve";
   input Real yU "Upper value for damper curve";
-  
-  output Real kTheta(min=0) 
+
+  output Real kTheta(min=0)
     "Flow coefficient, kTheta = pressure drop divided by dynamic pressure";
   annotation(smoothOrder=1, derivative=der_exponentialDamper);
-algorithm 
+algorithm
   if y < yL then
     kTheta := exp(cL[3] + y * (cL[2] + y * cL[1]));
   else

@@ -1,6 +1,10 @@
-model ThreeWayValves 
-  
-    annotation (Diagram, Commands(file=
+within Buildings.Fluids.Actuators.Examples;
+model ThreeWayValves
+
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                        graphics),
+                         Commands(file=
             "ThreeWayValves.mos" "run"),
     Documentation(info="<html>
 <p>
@@ -18,94 +22,93 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
- package Medium = Buildings.Media.ConstantPropertyLiquidWater 
+
+ package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the component";
-  
+
   Buildings.Fluids.Actuators.Valves.ThreeWayLinear valLin(
     redeclare package Medium = Medium,
-    k_SI=2/sqrt(6000),
-    l={0.05,0.05}) "Valve model, linear opening characteristics" 
-         annotation (extent=[0,-26; 20,-6]);
+    l={0.05,0.05},
+    m0_flow=2) "Valve model, linear opening characteristics" 
+         annotation (Placement(transformation(extent={{0,-26},{20,-6}},
+          rotation=0)));
     Modelica.Blocks.Sources.Ramp y(
     height=1,
     duration=1,
     offset=0) "Control signal" 
-                 annotation (extent=[-60,60; -40,80]);
-    Modelica.Blocks.Sources.Ramp P(
-    duration=0.5,
-    startTime=0.5,
-    height=6E3,
-    offset=3E5)  annotation (extent=[-100,60; -80,80]);
-  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(redeclare package Medium = 
-        Medium, T=293.15)                           annotation (extent=[-68,-26;
-        -48,-6]);
-  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium = 
-        Medium, T=293.15)                           annotation (extent=[74,-26;
-        54,-6]);
+                 annotation (Placement(transformation(extent={{-40,0},{-20,20}},
+          rotation=0)));
+  Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+      = Medium,
+    nPorts=2,
+    use_p_in=true,
+    T=313.15)                                       annotation (Placement(
+        transformation(extent={{-50,-28},{-30,-8}}, rotation=0)));
+  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+      = Medium,
+    nPorts=2,
+    use_p_in=true,
+    T=313.15)                                       annotation (Placement(
+        transformation(extent={{70,-28},{50,-8}}, rotation=0)));
     Modelica.Blocks.Sources.Constant PSin(k=3E5) 
-      annotation (extent=[60,60; 80,80]);
+      annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
     Modelica.Blocks.Sources.Constant PSou(k=306000) 
-      annotation (extent=[-100,-20; -80,0]);
-  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou1(
-                                                    redeclare package Medium = 
-        Medium, T=293.15)                           annotation (extent=[-70,-60;
-        -50,-40]);
+      annotation (Placement(transformation(extent={{-88,-20},{-68,0}},
+          rotation=0)));
   Actuators.Valves.ThreeWayEqualPercentageLinear valEquPerLin(
-    k_SI=2/sqrt(6000),
     l={0.05,0.05},
     redeclare package Medium = Medium,
-    R=10) 
-    annotation (extent=[0,-60; 20,-40]);
-equation 
-  connect(y.y, valLin.y) annotation (points=[-39,70; -12,70; -12,-8; -2,-8],
-      style(
-      color=74,
-      rgbcolor={0,0,127},
-      pattern=0,
-      fillColor=0,
-      rgbfillColor={0,0,0},
-      fillPattern=1));
-  connect(PSin.y, sin.p_in) annotation (points=[81,70; 86,70; 86,-10; 76,-10],
-      style(color=74, rgbcolor={0,0,127}));
-  connect(PSou.y, sou.p_in) 
-    annotation (points=[-79,-10; -70,-10],
-                                         style(color=74, rgbcolor={0,0,127}));
-  connect(PSou.y, sou1.p_in) annotation (points=[-79,-10; -74,-10; -74,-44; -72,
-        -44],style(color=74, rgbcolor={0,0,127}));
-  connect(sou1.port, valLin.port_3) annotation (points=[-50,-50; -40,-50; -40,
-        -32; 10,-32; 10,-26],
-      style(color=69, rgbcolor={0,127,255}));
-  connect(sou.port, valLin.port_1) annotation (points=[-48,-16; -1,-16], style(
-        color=69, rgbcolor={0,127,255}));
-  connect(sin.port, valLin.port_2) annotation (points=[54,-16; 21,-16], style(
-        color=69, rgbcolor={0,127,255}));
-  connect(sou.port, valEquPerLin.port_1) annotation (points=[-48,-16; -26,-16; 
-        -26,-50; -1,-50], style(
-      color=69,
-      rgbcolor={0,127,255},
-      fillColor=0,
-      rgbfillColor={0,0,0},
-      fillPattern=1));
-  connect(sou1.port, valEquPerLin.port_3) annotation (points=[-50,-50; -40,-50;
-        -40,-70; 10,-70; 10,-60], style(
-      color=69,
-      rgbcolor={0,127,255},
-      fillColor=0,
-      rgbfillColor={0,0,0},
-      fillPattern=1));
-  connect(valEquPerLin.port_2, sin.port) annotation (points=[21,-50; 40,-50; 40,
-        -16; 54,-16], style(
-      color=69,
-      rgbcolor={0,127,255},
-      fillColor=0,
-      rgbfillColor={0,0,0},
-      fillPattern=1));
-  connect(y.y, valEquPerLin.y) annotation (points=[-39,70; -12,70; -12,-42; -2,
-        -42], style(
-      color=74,
-      rgbcolor={0,0,127},
-      fillColor=0,
-      rgbfillColor={0,0,0},
-      fillPattern=1));
+    R=10,
+    m0_flow=2) 
+    annotation (Placement(transformation(extent={{0,-60},{20,-40}}, rotation=0)));
+  Modelica_Fluid.Sources.Boundary_pT ret(
+    redeclare package Medium = Medium,
+    nPorts=2,
+    use_p_in=true,
+    T=303.15)                                       annotation (Placement(
+        transformation(extent={{10,-10},{-10,10}},  rotation=0,
+        origin={64,-70})));
+  inner Modelica_Fluid.System system
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+equation
+  connect(y.y, valLin.y) annotation (Line(
+      points={{-19,10},{-12,10},{-12,-8},{-2,-8}},
+      color={0,0,127},
+      pattern=LinePattern.None));
+  connect(PSin.y, sin.p_in) annotation (Line(points={{81,70},{86,70},{86,-10},{
+          72,-10}}, color={0,0,127}));
+  connect(y.y, valEquPerLin.y) annotation (Line(points={{-19,10},{-12,10},{-12,
+          -42},{-2,-42}}, color={0,0,127}));
+  connect(sou.ports[1], valLin.port_1) annotation (Line(
+      points={{-30,-16},{0,-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sou.ports[2], valEquPerLin.port_1) annotation (Line(
+      points={{-30,-20},{-24,-20},{-24,-50},{0,-50}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(valLin.port_2, sin.ports[1]) annotation (Line(
+      points={{20,-16},{50,-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(valEquPerLin.port_2, sin.ports[2]) annotation (Line(
+      points={{20,-50},{37,-50},{37,-20},{50,-20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(PSou.y, ret.p_in) annotation (Line(
+      points={{-67,-10},{-60,-10},{-60,-88},{90,-88},{90,-62},{76,-62}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(ret.ports[1], valLin.port_3) annotation (Line(
+      points={{54,-68},{44,-68},{44,-34},{10,-34},{10,-26}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(ret.ports[2], valEquPerLin.port_3) annotation (Line(
+      points={{54,-72},{10,-72},{10,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(PSou.y, sou.p_in) annotation (Line(
+      points={{-67,-10},{-52,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
 end ThreeWayValves;

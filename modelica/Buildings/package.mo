@@ -1,6 +1,11 @@
+within ;
 package Buildings "Library with models for building energy and control systems"
-annotation (preferedView="info", uses(Modelica(version="2.2.1"), Modelica_Fluid(version="1.0 Beta 2")),
-  Documentation(info="<html>
+annotation (preferedView="info", 
+      version="0.5.0", 
+      uses(
+        Modelica(version="3.0"), 
+        Modelica_Fluid(version="1.0")),
+      Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Users Guide of the Modelica Buildings Library</font></h3>
 <p>
 Package <b>Buildings</b> is a free package
@@ -24,8 +29,8 @@ to solve specific problems.
 </html>"));
 
 
-package UsersGuide "Users Guide" 
-  
+package UsersGuide "Users Guide"
+
   annotation (DocumentationClass=true, Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Users Guide of the Modelica Buildings Library</font></h3>
 <p>
@@ -46,9 +51,9 @@ or through requirements definition or by providing feedback regarding the model 
 to solve specific problems.
 </p>
 </html>"));
-  
-  class Conventions "Conventions" 
-    
+
+  class Conventions "Conventions"
+
     annotation (Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Conventions</font></h3>
 
@@ -59,9 +64,9 @@ This library follows the conventions of the
 </html>
 "));
   end Conventions;
-  
-  package ReleaseNotes "Release notes" 
-    
+
+  package ReleaseNotes "Release notes"
+
     annotation (Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Release notes</font></h3>
 <p>
@@ -88,12 +93,15 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 </ul>
 </html>
 "));
-    
-  class Version_0_5_0 "Version 0.5.0" 
+
+  class Version_0_5_0 "Version 0.5.0"
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.5.0</font></h3>
 <p>
 <ul>
+<li>
+Updated library to Modelica_Fluid 1.0.
+</li>
 <li>
 Moved most examples from package <a href=\"Modelica:Buildings.Fluids.Examples\">
 Buildings.Fluids.Examples</a> to the example directory in the package of the
@@ -105,13 +113,23 @@ Buildings.Utilites.Controls</a> to
 <a href=\"Modelica:Buildings.Utilites.Diagnostics\">
 Buildings.Utilites.Diagnostics</a>.
 </li>
+</li>
+<li>
+Introduced packages 
+<a href=\"Modelica:Buildings.Controls\">Buildings.Controls</a>,
+<a href=\"Modelica:Buildings.HeatTransfer\">Buildings.HeatTransfer</a>
+(which contains models for heat transfer that generally does not involve 
+modeling of the fluid flow),
+<a href=\"Modelica:Buildings.Fluids.Boilers\">Buildings.Fluids.Boilers</a> and
+<a href=\"Modelica:Buildings.Fluids.HeatExchangers.Radiators\">
+Buildings.Fluids.HeatExchangers.Radiators</a>.
 </ul>
 </p>
 </html>
 "));
   end Version_0_5_0;
 
-  class Version_0_4_0 "Version 0.4.0" 
+  class Version_0_4_0 "Version 0.4.0"
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.4.0</font></h3>
 <p>
@@ -123,8 +141,8 @@ with models for thermal energy storage.
 <li>
 Added a steady-state model for a heat and moisture exchanger with
 constant effectiveness. 
-See <a href=\"Modelica:Buildings.MassExchangers.ConstantEffectiveness\">
-Buildings.MassExchangers.ConstantEffectiveness</a>
+See <a href=\"Modelica:Buildings.Fluids.MassExchangers.ConstantEffectiveness\">
+Buildings.Fluids.MassExchangers.ConstantEffectiveness</a>
 <li>
 Added package <a href=\"Modelica:Buildings.Utilities.Reports\">Buildings.Utilities.Reports</a>.
 The package contains models that facilitate reporting.
@@ -134,8 +152,8 @@ The package contains models that facilitate reporting.
 </html>
 "));
   end Version_0_4_0;
-    
-  class Version_0_3_0 "Version 0.3.0" 
+
+  class Version_0_3_0 "Version 0.3.0"
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.3.0</font></h3>
 <p>
@@ -172,7 +190,7 @@ When the <tt>Buildings</tt> library is upgraded to
 to Modelica 3.0.0, it should be safe to remove this bug fix.
 </li>
 <li>
-The package <a href=\"Modelica:Buildings.HeatExchangers\">Buildings.HeatExchangers</a> 
+The package <a href=\"Modelica:Buildings.Fluids.HeatExchangers\">Buildings.Fluids.HeatExchangers</a> 
 has been revised and several models have been renamed.
 The heat exchanger models have been revised to allow computing the fluid volumes either
 dynamically, or in steady-state.
@@ -197,8 +215,8 @@ inside the volume. The condensate is removed from the volume in its liquid phase
 </html>
 "));
   end Version_0_3_0;
-    
-  class Version_0_2_0 "Version 0.2.0" 
+
+  class Version_0_2_0 "Version 0.2.0"
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.2.0</font></h3>
 <p>
@@ -211,8 +229,8 @@ where part of the <tt>Actuator</tt> package.
 </html>
 "));
   end Version_0_2_0;
-    
-  class Version_0_1_0 "Version 0.1.0" 
+
+  class Version_0_1_0 "Version 0.1.0"
       annotation (Documentation(info="<html>
 <h3><font color=\"#008000\">Version 0.1.0</font></h3>
 <p>First release of the library.
@@ -231,9 +249,9 @@ to the medium properties.
 "));
   end Version_0_1_0;
   end ReleaseNotes;
-  
-  class Contact "Contact" 
-    
+
+  class Contact "Contact"
+
     annotation (Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Contact</font></h3>
 <dl>
@@ -249,11 +267,11 @@ to the medium properties.
 <p>
 </html>
 "));
-    
+
   end Contact;
-  
-  class License "License" 
-    
+
+  class License "License"
+
     annotation (Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Modelica License</font></h3>
 <p>by Martin Otter -- last modified 2007-01-07 12:07 AM
@@ -282,11 +300,11 @@ You are under no obligation whatsoever to provide any bug fixes, patches, or upg
 </p>
 </html>
 "));
-    
+
   end License;
-  
-  class Copyright "Copyright" 
-    
+
+  class Copyright "Copyright"
+
     annotation (Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Copyright</font></h3>
 <p>
@@ -299,8 +317,8 @@ NOTICE.  This software was developed under partial funding from the U.S. Departm
 </p>
 </html>
 "));
-    
+
   end Copyright;
-  
+
 end UsersGuide;
 end Buildings;

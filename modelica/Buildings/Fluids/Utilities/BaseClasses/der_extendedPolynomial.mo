@@ -1,5 +1,6 @@
-function der_extendedPolynomial 
-  "Polynomial that is linearly extended at user specified values" 
+within Buildings.Fluids.Utilities.BaseClasses;
+function der_extendedPolynomial
+  "Polynomial that is linearly extended at user specified values"
   extends Modelica.Icons.Function;
   annotation (Documentation(info="<html>
 <p>
@@ -21,9 +22,9 @@ First implementation.
   input Real xMax "Maximum x value for polynomial";
   input Real der_x;
   output Real der_y "Derivative dy/dx";
-protected 
+protected
  Integer N = size(c,1) "Number of coefficients";
-algorithm 
+algorithm
 if x < xMin then
    der_y := 0;
    for i in 2:N loop

@@ -1,24 +1,39 @@
-model ThreeWayLinear "Three way valve with linear characteristics" 
+within Buildings.Fluids.Actuators.Valves;
+model ThreeWayLinear "Three way valve with linear characteristics"
     extends BaseClasses.PartialThreeWayValve(
       redeclare TwoWayLinear res1(
       redeclare package Medium = Medium,
-      k_SI=k_SI,
       l=l[1],
       deltaM=deltaM,
       dp0=dp0,
-      flowDirection=flowDirection,
       from_dp=from_dp,
-      linearized=linearized[1]),
+      linearized=linearized[1],
+      m0_flow=m0_flow,
+      CvData=CvData,
+      Kv_SI=Kv_SI,
+      Kv=Kv,
+      Cv=Cv,
+      Av=Av),
       redeclare TwoWayLinear res3(
       redeclare package Medium = Medium,
-      k_SI=fraK*k_SI,
       l=l[2],
       deltaM=deltaM,
       dp0=dp0,
-      flowDirection=flowDirection,
       from_dp=from_dp,
-      linearized=linearized[2]));
-  annotation (Diagram, Icon,
+      linearized=linearized[2],
+      m0_flow=m0_flow,
+      CvData=CvData,
+      Kv_SI=fraK*Kv_SI,
+      Kv=fraK*Kv,
+      Cv=fraK*Cv,
+      Av=fraK*Av));
+
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
+                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                            graphics),
     Documentation(info="<html>
 <p>
 Three way valve with linear opening characteristic.
@@ -47,13 +62,12 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
-equation 
-  connect(inv.y, res3.y) annotation (points=[-35,72; 20,72; 20,-72; 8,-72; 8,
-        -62],                                                       style(color=
-         74, rgbcolor={0,0,127}));
-  connect(y, inv.u2) annotation (points=[-120,80; -92,80; -92,40; -44,40; -44,
-        64], style(color=74, rgbcolor={0,0,127}));
-  connect(y, res1.y) annotation (points=[-120,80; -92,80; -92,8; -62,8],
-      style(color=74, rgbcolor={0,0,127}));
+
+equation
+  connect(inv.y, res3.y) annotation (Line(points={{-35,72},{20,72},{20,-72},{8,
+          -72},{8,-62}}, color={0,0,127}));
+  connect(y, inv.u2) annotation (Line(points={{-120,80},{-92,80},{-92,40},{-44,
+          40},{-44,64}}, color={0,0,127}));
+  connect(y, res1.y) annotation (Line(points={{-120,80},{-92,80},{-92,8},{-62,8}},
+        color={0,0,127}));
 end ThreeWayLinear;

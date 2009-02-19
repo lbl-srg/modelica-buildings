@@ -1,4 +1,5 @@
-model TwoWayLinear "Two way valve with linear flow characteristics" 
+within Buildings.Fluids.Actuators.Valves;
+model TwoWayLinear "Two way valve with linear flow characteristics"
   extends BaseClasses.PartialTwoWayValve;
 annotation (
 Documentation(info="<html>
@@ -19,7 +20,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
-equation 
+
+equation
   phi = l + y * (1 - l);
 end TwoWayLinear;

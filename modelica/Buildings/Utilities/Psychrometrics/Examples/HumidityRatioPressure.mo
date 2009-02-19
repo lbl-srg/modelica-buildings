@@ -1,25 +1,25 @@
-model HumidityRatioPressure "Unit test for humidity ratio model" 
- annotation(Commands(file="HumidityRatioPressure.mos" "run"), Diagram);
+within Buildings.Utilities.Psychrometrics.Examples;
+model HumidityRatioPressure "Unit test for humidity ratio model"
+ annotation(Commands(file="HumidityRatioPressure.mos" "run"), Diagram(graphics));
  package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" 
            annotation (choicesAllMatching = true);
-  Buildings.Utilities.Psychrometrics.HumidityRatioPressure humRat 
+  Buildings.Utilities.Psychrometrics.HumidityRatioPressure humRat
     "Model for humidity ratio" 
-                          annotation (extent=[0,20; 20,40]);
+                          annotation (Placement(transformation(extent={{0,20},{
+            20,40}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp XHum(
     duration=1,
     height=(0.0133 - 0.2),
     offset=0.2) "Humidity concentration" 
-                 annotation (extent=[-60,-20; -40,0]);
+                 annotation (Placement(transformation(extent={{-60,-20},{-40,0}},
+          rotation=0)));
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure" 
-                                    annotation (extent=[-60,20; -40,40]);
+                                    annotation (Placement(transformation(extent=
+           {{-60,20},{-40,40}}, rotation=0)));
   annotation (Diagram);
-equation 
-  connect(p.y, humRat.p) annotation (points=[-39,30; 1,30], style(
-      color=74,
-      rgbcolor={0,0,127},
-      fillColor=7,
-      rgbfillColor={255,255,255},
-      fillPattern=1));
-  connect(XHum.y, humRat.XWat) annotation (points=[-39,-10; -20,-10; -20,23; 1,
-        23], style(color=74, rgbcolor={0,0,127}));
+equation
+  connect(p.y, humRat.p) annotation (Line(points={{-39,30},{1,30}}, color={0,0,
+          127}));
+  connect(XHum.y, humRat.XWat) annotation (Line(points={{-39,-10},{-20,-10},{
+          -20,23},{1,23}}, color={0,0,127}));
 end HumidityRatioPressure;

@@ -1,4 +1,5 @@
-function der_spliceFunction 
+within Buildings.Utilities.Math.BaseClasses;
+function der_spliceFunction
     input Real pos;
     input Real neg;
     input Real x;
@@ -8,12 +9,12 @@ function der_spliceFunction
     input Real dx;
     input Real ddeltax=0;
     output Real out;
-protected 
+protected
     Real scaledX;
     Real scaledX1;
     Real dscaledX1;
     Real y;
-algorithm 
+algorithm
     scaledX1 := x/deltax;
     scaledX := scaledX1*Modelica.Math.asin(1);
     dscaledX1 := (dx - scaledX1*ddeltax)/deltax;

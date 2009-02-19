@@ -1,6 +1,8 @@
-model SmoothExponentialDerivativeCheck 
-  
- annotation(Diagram, Commands(file="SmoothExponentialDerivativeCheck.mos" "run"));
+within Buildings.Utilities.Math.Examples;
+model SmoothExponentialDerivativeCheck
+
+ annotation(Diagram(graphics),
+                     Commands(file="SmoothExponentialDerivativeCheck.mos" "run"));
   annotation (
     Documentation(info="<html>
 <p>
@@ -16,13 +18,13 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
+
   Real x;
   Real y;
   Real ex "exact function value";
-initial equation 
+initial equation
    y=x;
-equation 
+equation
   x=Buildings.Utilities.Math.smoothExponential(x=time-2, delta=0.5);
   der(y)=der(x);
   assert(abs(x-y) < 1E-2, "Model has an error");

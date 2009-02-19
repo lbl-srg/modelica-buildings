@@ -1,6 +1,7 @@
-function smoothExponential 
-  "Once continuously differentiable approximation to exp(-|x|) in interval |x| < delta" 
-  
+within Buildings.Utilities.Math;
+function smoothExponential
+  "Once continuously differentiable approximation to exp(-|x|) in interval |x| < delta"
+
     annotation (smoothOrder=1, Documentation(info="<html>
 <p>
 Function to provide a once continuously differentiable approximation 
@@ -17,18 +18,18 @@ Buildings.Fluids.Storage.BaseClasses.Stratifier</a>.
 </li>
 </ul>
 </html>"));
-  
+
   input Real x "Input argument";
   input Real delta "Transition point where approximation occurs";
   output Real y "Output argument";
-protected 
+protected
   Real absX "Absolute value of x";
   Real a2 "Coefficient for approximating function";
   Real a3 "Coefficient for approximating function";
   Real e;
   Real d2;
   Real x2;
-algorithm 
+algorithm
   absX :=abs(x);
   if absX > delta then
     y :=  exp(-absX);

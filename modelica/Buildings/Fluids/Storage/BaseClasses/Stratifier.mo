@@ -1,4 +1,5 @@
-model Stratifier "Model to reduce the numerical dissipation in a tank" 
+within Buildings.Fluids.Storage.BaseClasses;
+model Stratifier "Model to reduce the numerical dissipation in a tank"
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = 
     Modelica.Media.Interfaces.PartialMedium "Medium model"  annotation (
@@ -39,63 +40,67 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Icon(Rectangle(extent=[-100,100; 100,-100], style(
-          color=0,
-          rgbcolor={0,0,0},
-          fillColor=7,
-          rgbfillColor={255,255,255})), Text(
-        extent=[-58,20; 82,-102],
-        style(
-          color=0,
-          rgbcolor={0,0,0},
-          fillColor=7,
-          rgbfillColor={255,255,255},
-          fillPattern=1),
-        string="exp(...)")));
-  
+Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid), Text(
+          extent={{-58,20},{82,-102}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="exp(...)")}));
+
   parameter Integer nSeg(min=2) = 2 "Number of volume segments";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heatPort 
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heatPort
     "Heat input into the volumes" 
-    annotation (extent=[90,-10; 110,10]);
-  
-  Modelica.Blocks.Interfaces.RealInput m_flow 
+    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+
+  Modelica.Blocks.Interfaces.RealInput m_flow
     "Mass flow rate from port a to port b" 
-    annotation (extent=[-140,62; -100,102]);
-  
-  Modelica.Blocks.Interfaces.RealInput[nSeg+1] H_flow 
+    annotation (Placement(transformation(extent={{-140,62},{-100,102}},
+          rotation=0)));
+
+  Modelica.Blocks.Interfaces.RealInput[nSeg+1] H_flow
     "Enthalpy flow between the volumes" 
-    annotation (extent=[-140,-100; -100,-60]);
-  Modelica.SIunits.Enthalpy[nSeg+2] hOut 
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
+          rotation=0)));
+  Modelica.SIunits.Enthalpy[nSeg+2] hOut
     "Extended vector with new outlet enthalpies to reduce numerical dissipation";
-  Modelica.SIunits.Enthalpy[nSeg+2] h 
+  Modelica.SIunits.Enthalpy[nSeg+2] h
     "Extended vector with port enthalpies, needed to simplify loop";
-  
-  parameter Real a(min=0)= 1E-4 
+
+  parameter Real a(min=0)= 1E-4
     "Tuning factor. a=0 is equivalent to not using this model";
-  parameter Modelica.SIunits.Temperature delta = 1 
+  parameter Modelica.SIunits.TemperatureDifference delta = 1
     "Temperature difference for which which exp(-|x|) will be approximated";
-  
+
   Modelica_Fluid.Interfaces.FluidPort_a[nSeg+2] fluidPort(
-      redeclare each package Medium = Medium) 
+      redeclare each package Medium = Medium)
     "Fluid port, needed to get pressure, temperature and species concentration"
-    annotation (extent=[-110,-10; -90,10]);
-protected 
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
+           0)));
+protected
   Integer s(min=-1, max=1) "Index shift to pick up or down volume";
    parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=Medium.T_default,
          p=Medium.p_default, X=Medium.X_default[1:Medium.nXi]);
-   parameter Modelica.SIunits.SpecificHeatCapacity cp0=Medium.specificHeatCapacityCp(sta0) 
+   parameter Modelica.SIunits.SpecificHeatCapacity cp0=Medium.specificHeatCapacityCp(sta0)
     "Density, used to compute fluid volume";
   Real[nSeg] intArg "Argument for interpolation function";
-  parameter Real intDel=a*cp0*delta 
+  parameter Real intDel=a*cp0*delta
     "Scaling argument delta for interpolation function";
-equation 
+equation
   // assign zero flow conditions at port
   fluidPort[:].m_flow = zeros(nSeg+2);
-  fluidPort[:].H_flow = zeros(nSeg+2);
-  fluidPort[:].mXi_flow = zeros(nSeg+2, Medium.nXi);
-  
+  fluidPort[:].h_outflow = zeros(nSeg+2);
+  fluidPort[:].Xi_outflow = zeros(nSeg+2, Medium.nXi);
+  fluidPort[:].C_outflow  = zeros(nSeg+2, Medium.nC);
+
   // assign extended enthalpy vectors
-  h[:] = fluidPort[:].h;
+  for i in 1:nSeg+2 loop
+    h[i] = inStream(fluidPort[i].h_outflow);
+  end for;
   // in loop, i+1-s is the "down" volume, i+1+s is the "up" volume
   s = if m_flow > 0 then 1 else -1;
   hOut[1] = h[1];

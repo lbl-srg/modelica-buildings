@@ -1,3 +1,4 @@
+within Buildings;
 package Controls "Package with models for controls"
 annotation (preferedView="info", Documentation(info="<html>
 This package contains components models for controls.

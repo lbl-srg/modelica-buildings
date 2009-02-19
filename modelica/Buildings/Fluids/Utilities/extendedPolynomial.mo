@@ -1,5 +1,6 @@
-function extendedPolynomial 
-  "Polynomial that is linearly extended at user specified values" 
+within Buildings.Fluids.Utilities;
+function extendedPolynomial
+  "Polynomial that is linearly extended at user specified values"
   extends Modelica.Icons.Function;
   annotation (Documentation(info="<html>
 For <tt>x</tt> between the bounds <tt>xMin &lt; x &lt; xMax</tt>,
@@ -28,9 +29,9 @@ First implementation.
   input Real xMax "Maximum x value for polynomial";
   output Real y "y value";
      annotation(smoothOrder=1, derivative=BaseClasses.der_extendedPolynomial);
-protected 
+protected
  Integer N = size(c,1) "Number of coefficients";
-algorithm 
+algorithm
 if x < xMin then
    y := c[1];
    for i in 2:N loop

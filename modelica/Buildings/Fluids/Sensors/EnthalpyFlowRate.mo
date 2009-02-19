@@ -1,24 +1,25 @@
-model EnthalpyFlowRate "Ideal enthalphy flow rate sensor" 
+within Buildings.Fluids.Sensors;
+model EnthalpyFlowRate "Ideal enthalphy flow rate sensor"
   extends Modelica_Fluid.Sensors.BaseClasses.PartialFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-  Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W") 
+  Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Enthalpy flow rate, positive if from port_a to port_b" 
-    annotation (extent=[-10,-120; 10,-100], rotation=-90);
-  
+    annotation (Placement(transformation(
+        origin={0,110},
+        extent={{-10,-10},{10,10}},
+        rotation=90)));
+
 annotation (
-  Diagram(
-      Line(points=[-100,0; -70,0], style(color=69, rgbcolor={0,128,255})),
-      Line(points=[70,0; 100,0], style(color=69, rgbcolor={0,128,255})),
-      Line(points=[0,-70; 0,-100], style(rgbcolor={0,0,127}))),
-  Icon(
-      Line(points=[-100,0; -70,0], style(color=69, rgbcolor={0,128,255})),
-      Line(points=[70,0; 100,0], style(color=69, rgbcolor={0,128,255})),
-      Line(points=[0,-70; 0,-100], style(rgbcolor={0,0,127})),
-      Text(extent=[-126,160; 138,98], string="%name"),
-      Text(
-        extent=[204,-49; 44,-101],
-        style(color=0),
-        string="H_flow")),
+  Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
+            100}}), graphics),
+  Icon(graphics={
+        Line(points={{-100,0},{-70,0}}, color={0,128,255}),
+        Line(points={{70,0},{100,0}}, color={0,128,255}),
+        Line(points={{0,100},{0,70}}, color={0,0,127}),
+        Text(
+          extent={{180,151},{20,99}},
+          lineColor={0,0,0},
+          textString="H_flow")}),
   Documentation(info="<HTML>
 <p>
 This component monitors the enthalphy flow rate of the medium in the flow
@@ -33,6 +34,11 @@ First implementation based on enthalpy sensor of Modelica_Fluid.
 </li>
 </ul>
 </html>"));
-equation 
-  H_flow = port_a.H_flow;
+
+equation
+  if allowFlowReversal then
+     H_flow = port_a.m_flow * actualStream(port_a.h_outflow);
+  else
+     H_flow = port_a.m_flow * port_b.h_outflow;
+  end if;
 end EnthalpyFlowRate;

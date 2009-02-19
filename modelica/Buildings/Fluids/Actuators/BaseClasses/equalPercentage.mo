@@ -1,6 +1,7 @@
-function equalPercentage 
-  "Valve opening characteristics for equal percentage valve" 
-  
+within Buildings.Fluids.Actuators.BaseClasses;
+function equalPercentage
+  "Valve opening characteristics for equal percentage valve"
+
 annotation (
 Documentation(info="<html>
 <p>
@@ -29,7 +30,7 @@ First implementation.
   input Real delta "Range of significant deviation from equal percentage law";
   output Real phi "Ratio actual to nominal mass flow rate, phi=Cv(y)/Cv(y=1)";
   annotation(smoothOrder=1, derivative=der_equalPercentage);
-protected 
+protected
    Real a "Polynomial coefficient";
    Real b "Polynomial coefficient";
    Real c "Polynomial coefficient";
@@ -38,7 +39,7 @@ protected
    Real z "Auxiliary variable";
    Real q "Auxiliary variable";
    Real p "Auxiliary variable";
-algorithm 
+algorithm
   if y < delta/2 then
     phi := l + y * (R^(delta-1) - l) / delta;
   else

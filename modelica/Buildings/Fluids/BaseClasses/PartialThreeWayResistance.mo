@@ -1,7 +1,13 @@
-partial model PartialThreeWayResistance 
-  "Flow splitter with partial resistance model at each port" 
+within Buildings.Fluids.BaseClasses;
+partial model PartialThreeWayResistance
+  "Flow splitter with partial resistance model at each port"
     extends Buildings.BaseClasses.BaseIcon;
-  annotation (Diagram, Icon,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -100},{100,100}}),
+                      graphics),
+                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                            graphics),
     Documentation(info="<html>
 <p>
 Partial model for flow resistances with three ports such as a 
@@ -21,65 +27,81 @@ First implementation.
 </li>
 </ul>
 </html>");
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium 
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Fluid medium model" 
       annotation (choicesAllMatching=true);
-  Modelica_Fluid.Interfaces.FluidPort_b port_1(
-        redeclare package Medium = Medium,
-        m_flow(start=0,min=if allowFlowReversal then -Modelica.Constants.inf else 0)) annotation (extent=[-120,-10; -100,10]);
-  Modelica_Fluid.Interfaces.FluidPort_b port_2(
-        redeclare package Medium = Medium,
-        m_flow(start=0,max=if allowFlowReversal then +Modelica.Constants.inf else 0)) annotation (extent=[100,-10; 120,10]);
-  // For port_3, allowFlowReversal must not be specified because the flow
-  // direction is different for a mixer and splitter
-  Modelica_Fluid.Interfaces.FluidPort_b port_3(redeclare package Medium = 
-        Medium) annotation (extent=[-10,-110; 10,-90]);
-  
- parameter Boolean from_dp = true 
+
+  Modelica_Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium = 
+        Medium, m_flow(min=if (portFlowDirection_1 == Modelica_Fluid.Types.PortFlowDirection.Entering) then 
+                0.0 else -Modelica.Constants.inf, max=if (portFlowDirection_1
+           == Modelica_Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf)) 
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
+          rotation=0)));
+  Modelica_Fluid.Interfaces.FluidPort_b port_2(redeclare package Medium = 
+        Medium, m_flow(min=if (portFlowDirection_2 == Modelica_Fluid.Types.PortFlowDirection.Entering) then 
+                0.0 else -Modelica.Constants.inf, max=if (portFlowDirection_2
+           == Modelica_Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf)) 
+    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
+           0)));
+  Modelica_Fluid.Interfaces.FluidPort_a port_3(
+    redeclare package Medium=Medium,
+    m_flow(min=if (portFlowDirection_3==Modelica_Fluid.Types.PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
+    max=if (portFlowDirection_3==Modelica_Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf)) 
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}},
+                                                                     rotation=
+           0)));
+
+ parameter Boolean from_dp = true
     "= true, use m_flow = f(dp) else dp = f(m_flow)" 
     annotation (Evaluate=true, Dialog(tab="Advanced"));
- parameter Modelica_Fluid.Types.FlowDirection.Temp flowDirection=
-                   Modelica_Fluid.Types.FlowDirection.Bidirectional 
-    "Unidirectional (port_1 -> port_2) or bidirectional flow component" 
-     annotation(Dialog(tab="Advanced"));
                                                                                                 annotation (extent=[40,-10; 60,10]);
-  replaceable Modelica_Fluid.Interfaces.PartialTwoPortTransport res1(redeclare 
-      package Medium = Medium) 
+  replaceable Modelica_Fluid.Interfaces.PartialTwoPortTransport res1(redeclare
+      package Medium = Medium)
     "Partial model, to be replaced with a fluid component" 
-    annotation (extent=[-60,-10; -40,10]);
-  replaceable Modelica_Fluid.Interfaces.PartialTwoPortTransport res2(redeclare 
-      package Medium = Medium) 
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=
+            0)));
+  replaceable Modelica_Fluid.Interfaces.PartialTwoPortTransport res2(redeclare
+      package Medium = Medium)
     "Partial model, to be replaced with a fluid component" 
-    annotation (extent=[60,-10; 40,10]);
-  replaceable Modelica_Fluid.Interfaces.PartialTwoPortTransport res3(redeclare 
-      package Medium = Medium) 
+    annotation (Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
+  replaceable Modelica_Fluid.Interfaces.PartialTwoPortTransport res3(redeclare
+      package Medium = Medium)
     "Partial model, to be replaced with a fluid component" 
-    annotation (extent=[10,-60; -10,-40],
-                                        rotation=90);
-protected 
-    parameter Boolean allowFlowReversal=
-     flowDirection == Modelica_Fluid.Types.FlowDirection.Bidirectional 
-    "= false, if flow only from port_a to port_b, otherwise reversing flow allowed"
-     annotation(Evaluate=true, Hide=true);
-protected 
+    annotation (Placement(transformation(
+        origin={0,-50},
+        extent={{-10,10},{10,-10}},
+        rotation=90)));
+
+protected
+  parameter Modelica_Fluid.Types.PortFlowDirection portFlowDirection_1=Modelica_Fluid.Types.PortFlowDirection.Bidirectional
+    "Flow direction for port_1" 
+   annotation(Dialog(tab="Advanced"));
+  parameter Modelica_Fluid.Types.PortFlowDirection portFlowDirection_2=Modelica_Fluid.Types.PortFlowDirection.Bidirectional
+    "Flow direction for port_2" 
+   annotation(Dialog(tab="Advanced"));
+  parameter Modelica_Fluid.Types.PortFlowDirection portFlowDirection_3=Modelica_Fluid.Types.PortFlowDirection.Bidirectional
+    "Flow direction for port_3" 
+   annotation(Dialog(tab="Advanced"));
+
+protected
   Modelica_Fluid.Interfaces.FluidPort_b port_m(redeclare package Medium = 
-        Medium) "Mixing port" annotation (extent=[-1,-1; 1,1]);
-equation 
-  connect(port_1, res1.port_a) annotation (points=[-110,5.55112e-16; -86,
-        5.55112e-16; -86,6.10623e-16; -60,6.10623e-16], style(color=69,
-        rgbcolor={0,127,255}));
-  connect(res2.port_a, port_2) annotation (points=[60,6.10623e-16; 88,
-        6.10623e-16; 88,5.55112e-16; 110,5.55112e-16], style(color=69, rgbcolor=
-         {0,127,255}));
-  connect(res3.port_a, port_3) annotation (points=[1.12703e-16,-60; 1.12703e-16,
-        -79; 5.55112e-16,-79; 5.55112e-16,-100], style(color=69, rgbcolor={0,
+        Medium) "Mixing port" annotation (Placement(transformation(extent={{-1,
+            -1},{1,1}}, rotation=0)));
+equation
+  connect(port_1, res1.port_a) annotation (Line(points={{-100,0},{-100,0},{-60,
+          0}},                                                      color={0,
           127,255}));
-  connect(res1.port_b, port_m) annotation (points=[-40,6.10623e-16; -20,
-        6.10623e-16; -20,2.08167e-17; 2.08167e-17,2.08167e-17], style(color=69,
-        rgbcolor={0,127,255}));
-  connect(res2.port_b, port_m) annotation (points=[40,6.10623e-16; 20,
-        6.10623e-16; 20,2.08167e-17; 2.08167e-17,2.08167e-17], style(color=69,
-        rgbcolor={0,127,255}));
-  connect(res3.port_b, port_m) annotation (points=[-1.1119e-15,-40; 2.08167e-17,
-        -40; 2.08167e-17,2.08167e-17], style(color=69, rgbcolor={0,127,255}));
+  connect(res2.port_b, port_2) annotation (Line(points={{60,0},{60,0},{100,0}},
+                                                               color={0,127,255}));
+  connect(res3.port_a, port_3) annotation (Line(points={{-6.12323e-016,-60},{
+          -6.12323e-016,-79},{0,-79},{0,-100}},                      color={0,
+          127,255}));
+  connect(res1.port_b, port_m) annotation (Line(points={{-40,0},{-20,0},{0,0}},
+                                                                         color=
+          {0,127,255}));
+  connect(res2.port_a, port_m) annotation (Line(points={{40,0},{40,0},{0,0}},
+                                                                        color={
+          0,127,255}));
+  connect(res3.port_b, port_m) annotation (Line(points={{6.12323e-016,-40},{0,
+          -40},{0,0}},                                    color={0,127,255}));
 end PartialThreeWayResistance;

@@ -1,4 +1,5 @@
-block SignalRanker "Ranks output signals such that y[i] >= y[i+1]" 
+within Buildings.Controls.Continuous;
+block SignalRanker "Ranks output signals such that y[i] >= y[i+1]"
    extends Modelica.Blocks.Interfaces.MIMO(final nout=nin);
   annotation (Documentation(info="<html>
 <p>
@@ -17,13 +18,13 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Icon(Text(
-        extent=[-94,34; 96,-164], 
-        style(color=3, rgbcolor={0,0,255}), 
-        string="y[i] >= y[i+1]")));
-protected 
+Icon(graphics={Text(
+          extent={{-94,34},{96,-164}},
+          lineColor={0,0,255},
+          textString="y[i] >= y[i+1]")}));
+protected
   Real t "Temporary variable";
-algorithm 
+algorithm
   y[:] := u[:];
   for i in 1:nin loop
     for j in 1:nin-1 loop

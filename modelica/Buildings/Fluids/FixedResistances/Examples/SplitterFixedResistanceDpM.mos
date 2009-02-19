@@ -3,7 +3,7 @@
 simulateModel("Buildings.Fluids.FixedResistances.Examples.SplitterFixedResistanceDpM", method="dassl", resultFile="SplitterFixedResistanceDpM");
 createPlot(id = 1,
  position = {55, 50, 591, 491},
- y = {"spl.spl.port_1.m_flow", "spl.spl.port_2.m_flow", "spl.spl.port_3.m_flow"},
+ y = {"spl.port_1.m_flow", "spl.port_2.m_flow", "spl.port_3.m_flow"},
  range = {0, 1.0, 2, (-2.0)},
  autoscale = true,
  autoerase = true,
@@ -15,8 +15,7 @@ createPlot(id = 1,
  bottomTitleType = 1);
 createPlot(id = 1,
  position = {55, 50, 591, 160},
- y = {"spl.spl.hMix", "spl.spl.port_1.h", "spl.spl.port_2.h", "spl.spl.port_3.h"},
- range = {0, 1.0, (-14000.0), (-22000.0)},
+ y = {"spl.res1.state_a.T", "spl.res2.state_a.T", "spl.res3.state_a.T"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,

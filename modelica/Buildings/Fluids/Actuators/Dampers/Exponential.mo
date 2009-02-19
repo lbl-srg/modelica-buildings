@@ -1,4 +1,5 @@
-model Exponential "Air damper with exponential opening characteristics" 
+within Buildings.Fluids.Actuators.Dampers;
+model Exponential "Air damper with exponential opening characteristics"
   extends Buildings.Fluids.Actuators.BaseClasses.PartialDamperExponential;
    annotation (Documentation(info="<html>
 This model is an air damper with flow coefficient that is an exponential function 
@@ -74,8 +75,10 @@ July 20, 2007 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"), Icon,
-    Diagram);
-equation 
+</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),
+                graphics),
+    Diagram(graphics));
+equation
   k = kDam "flow coefficient for resistance base model";
 end Exponential;

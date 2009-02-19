@@ -1,17 +1,22 @@
-model NumberOfRequests "Example model" 
- annotation (Diagram, Commands(file="NumberOfRequests.mos" "run"));
+within Buildings.Controls.Continuous.Examples;
+model NumberOfRequests "Example model"
+ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                     graphics),
+                      Commands(file="NumberOfRequests.mos" "run"));
   Buildings.Controls.Continuous.NumberOfRequests numReq(
     nin=2,
     threShold=0,
-    kind=0) annotation (extent=[0,20; 20,40]);
+    kind=0) annotation (Placement(transformation(extent={{0,20},{20,40}},
+          rotation=0)));
   Modelica.Blocks.Sources.Sine sine(freqHz=2) 
-    annotation (extent=[-60,40; -40,60]);
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}}, rotation=0)));
   annotation (Diagram);
   Modelica.Blocks.Sources.Pulse pulse(period=0.25) 
-    annotation (extent=[-60,0; -40,20]);
-equation 
-  connect(sine.y, numReq.u[1]) annotation (points=[-39,50; -21.5,50; -21.5,29;
-        -2,29], style(color=74, rgbcolor={0,0,127}));
-  connect(pulse.y, numReq.u[2]) annotation (points=[-39,10; -20,10; -20,31; -2,
-        31], style(color=74, rgbcolor={0,0,127}));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}},rotation=0)));
+equation
+  connect(sine.y, numReq.u[1]) annotation (Line(points={{-39,-10},{-19.5,-10},{
+          -19.5,29},{-2,29}}, color={0,0,127}));
+  connect(pulse.y, numReq.u[2]) annotation (Line(points={{-39,30},{-20,30},{-20,
+          31},{-2,31}}, color={0,0,127}));
 end NumberOfRequests;

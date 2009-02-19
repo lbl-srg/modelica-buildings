@@ -1,7 +1,12 @@
-model MixingVolumeDryAir 
-  "Mixing volume with heat port for latent heat exchange, to be used with dry air" 
+within Buildings.Fluids.MixingVolumes;
+model MixingVolumeDryAir
+  "Mixing volume with heat port for latent heat exchange, to be used with dry air"
   extends BaseClasses.PartialMixingVolumeWaterPort;
-  annotation (Diagram, Icon,
+  annotation (Diagram(graphics),
+                       Icon(graphics={Text(
+          extent={{-152,102},{148,142}},
+          textString="%name",
+          lineColor={0,0,255})}),
 Documentation(info="<html>
 Model for an ideally mixed fluid volume with <tt>nP</tt> ports and the ability 
 to store mass and energy. The volume is fixed, 
@@ -34,8 +39,8 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
-equation 
+
+equation
   if cardinality(mWat_flow) == 0 then
     mWat_flow = 0;
   end if;

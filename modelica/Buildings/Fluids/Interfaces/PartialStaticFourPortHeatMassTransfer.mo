@@ -1,36 +1,24 @@
-partial model PartialStaticFourPortHeatMassTransfer 
-  "Partial element transporting two fluid streams between four ports without storing mass or energy" 
+within Buildings.Fluids.Interfaces;
+partial model PartialStaticFourPortHeatMassTransfer
+  "Partial element transporting two fluid streams between four ports without storing mass or energy"
   extends Buildings.Fluids.Interfaces.PartialStaticFourPortInterface;
   import Modelica.Constants;
-  
+
   annotation (
-    Coordsys(grid=[1, 1], component=[20, 20]),
-    Diagram,
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={1,1}), graphics),
     Documentation(info="<html>
 <p>
 This component transports two fluid streams between four ports, without
-storing mass or energy. It is based on 
-<tt>Modelica_Fluid.Interfaces.PartialTwoPortTransport</tt> but does not 
-include the energy, mass and substance balance, and it uses four ports.
-Reversal and zero mass flow rate is taken
-care of, for details see definition of built-in operator semiLinear().
-The variable names follow the conventions used in 
-<tt>Modelica_Fluid.HeatExchangers.BasicHX</tt>.
-<p>
-When using this partial component, equations for the momentum
-balance have to be added by specifying a relationship
-between the pressure drop <tt>dpi</tt> and the mass flow rate <tt>m_flowi</tt>,
-where <tt>i=1, 2</tt> and 
-the energy and mass balances, such as
-<pre>
-  port_a1.H_flow   + port_b1.H_flow = 0;
-  port_a1.m_flow   + port_b1.m_flow = 0;
-  port_a1.mXi_flow + port_b1.mXi_flow = zeros(Medium_1.nXi);
- 
-  port_a2.H_flow   + port_b2.H_flow = 0;
-  port_a2.m_flow   + port_b2.m_flow = 0;
-  port_a2.mXi_flow + port_b2.mXi_flow = zeros(Medium_2.nXi);
-</pre>
+storing mass or energy. It is similar to
+<a href=\"Modelica:Buildings.Fluids.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
+Buildings.Fluids.Interfaces.PartialStaticTwoPortHeatMassTransfer</a>,
+but it has four ports instead of two. See the documentation of the
+<a href=\"Modelica:Buildings.Fluids.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
+Buildings.Fluids.Interfaces.PartialStaticTwoPortHeatMassTransfer</a>
+for how to use this model.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -40,57 +28,55 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(
-      Rectangle(extent=[-70,80; 70,-80], style(
-          pattern=0,
-          fillColor=10,
-          rgbfillColor={95,95,95})),
-      Rectangle(extent=[-100,65; 101,55], style(
-          pattern=0,
-          fillColor=0,
-          rgbfillColor={0,0,0},
-          fillPattern=1)),
-      Rectangle(extent=[-100,-55; 101,-65], style(
-          pattern=0,
-          fillColor=0,
-          rgbfillColor={0,0,0},
-          fillPattern=1))));
-  
-  Medium_1.MassFlowRate mXi_flow_1[Medium_1.nXi] 
+    Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={1,1}), graphics={
+        Rectangle(
+          extent={{-70,80},{70,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,65},{101,55}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,-55},{101,-65}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}));
+
+  Modelica.SIunits.HeatFlowRate Q_flow_1 "Heat transfered into the medium 1";
+  Medium_1.MassFlowRate mXi_flow_1[Medium_1.nXi]
     "Mass flow rates of independent substances added to the medium 1";
-  Medium_2.MassFlowRate mXi_flow_2[Medium_2.nXi] 
+  Modelica.SIunits.HeatFlowRate Q_flow_2 "Heat transfered into the medium 2";
+  Medium_2.MassFlowRate mXi_flow_2[Medium_2.nXi]
     "Mass flow rates of independent substances added to the medium 2";
-protected 
-  parameter Real one = 1 
-    "Dummy parameter to break semiLinear sequence (Dynasim support request #8991)";
-equation 
-  /* Handle reverse and zero flow */
-  // enthalpy balance
-  port_a1.H_flow   = if port_a1.m_flow >= 0 then (port_a1.m_flow * port_a1.h) else 
-                         -port_b1.m_flow * port_b1.h - Q_flow_1;
-  
-  port_a2.H_flow   = if port_a2.m_flow >= 0 then (port_a2.m_flow * port_a2.h) else 
-                         -port_b2.m_flow * port_b2.h - Q_flow_2;
-  
-  // species flow balance (taking into account the species influx
-  for i in 1:Medium_1.nXi loop
-     port_a1.mXi_flow[i] = if port_a1.m_flow >= 0 then 
-                               (port_a1.m_flow * port_a1.Xi[i]) else 
-                               -port_b1.m_flow * port_b1.Xi[i] - mXi_flow_1[i];
-  end for;
-  for i in 1:Medium_2.nXi loop
-     port_a2.mXi_flow[i] = if port_a2.m_flow >= 0 then 
-                               (port_a2.m_flow * port_a2.Xi[i]) else 
-                               -port_b2.m_flow * port_b2.Xi[i] - mXi_flow_2[i];
-  end for;
-  
-  /* Energy, mass and substance mass balance */
-  0 = port_a1.H_flow + port_b1.H_flow     + Q_flow_1;
-  0 = port_a1.m_flow + port_b1.m_flow     + sum(mXi_flow_1);
-  zeros(Medium_1.nXi) = port_a1.mXi_flow + one * port_b1.mXi_flow + mXi_flow_1;
-  
-  0 = port_a2.H_flow + port_b2.H_flow     + Q_flow_2;
-  0 = port_a2.m_flow + port_b2.m_flow     + sum(mXi_flow_2);
-  zeros(Medium_2.nXi) = port_a2.mXi_flow + one * port_b2.mXi_flow + mXi_flow_2;
-  
+  Real TInStr_a1=inStream(port_a1.h_outflow)/4200+298.15-273.15;
+equation
+  // Energy balance (no storage, no heat loss/gain)
+  port_a1.m_flow*port_a1.h_outflow + port_b1.m_flow*inStream(port_b1.h_outflow) = -Q_flow_1;
+  port_a1.m_flow*port_b1.h_outflow + port_b1.m_flow*inStream(port_a1.h_outflow) =  Q_flow_1;
+  port_a2.m_flow*port_a2.h_outflow + port_b2.m_flow*inStream(port_b2.h_outflow) = -Q_flow_2;
+  port_a2.m_flow*port_b2.h_outflow + port_b2.m_flow*inStream(port_a2.h_outflow) =  Q_flow_2;
+
+  // Mass balance (no storage)
+  port_a1.m_flow + port_b1.m_flow = -sum(mXi_flow_1);
+  port_a2.m_flow + port_b2.m_flow = -sum(mXi_flow_2);
+
+  port_a1.m_flow*port_a1.Xi_outflow + port_b1.m_flow*inStream(port_b1.Xi_outflow) = -mXi_flow_1;
+  port_a1.m_flow*port_b1.Xi_outflow + port_b1.m_flow*inStream(port_a1.Xi_outflow) =  mXi_flow_1;
+  port_a2.m_flow*port_a2.Xi_outflow + port_b2.m_flow*inStream(port_b2.Xi_outflow) = -mXi_flow_2;
+  port_a2.m_flow*port_b2.Xi_outflow + port_b2.m_flow*inStream(port_a2.Xi_outflow) =  mXi_flow_2;
+
+  // Transport of trace substances
+  port_a1.C_outflow = inStream(port_b1.C_outflow);
+  port_b1.C_outflow = inStream(port_a1.C_outflow);
+  port_a2.C_outflow = inStream(port_b2.C_outflow);
+  port_b2.C_outflow = inStream(port_a2.C_outflow);
 end PartialStaticFourPortHeatMassTransfer;

@@ -1,6 +1,7 @@
-function der_exponentialDamper 
-  "Derivative of damper opening characteristics for an exponential damper" 
-  
+within Buildings.Fluids.Actuators.BaseClasses;
+function der_exponentialDamper
+  "Derivative of damper opening characteristics for an exponential damper"
+
 annotation (
 Documentation(info="<html>
 <p>
@@ -32,17 +33,17 @@ First implementation.
   input Real yL "Lower value for damper curve";
   input Real yU "Upper value for damper curve";
   input Real der_y(unit="") "Derivative of control signal";
-  
-  output Real der_kTheta(min=0) 
+
+  output Real der_kTheta(min=0)
     "Derivative of flow coefficient, der_kTheta=dkTheta/dy";
-algorithm 
+algorithm
   if y < yL then
     der_kTheta := exp(cL[3] + y * (cL[2] + y * cL[1]))*(2 * cL[1] * y + cL[2]);
   else
     if (y > yU) then
       der_kTheta := exp(cU[3] + y * (cU[2] + y * cU[1]))*(2 * cU[1] * y + cU[2]);
     else
-      der_kTheta := -b*exp(a+b*(1-y)) 
+      der_kTheta := -b*exp(a+b*(1-y))
         "y=0 is closed, but theta=1 is closed in ASHRAE-825";
     end if;
   end if;

@@ -1,4 +1,5 @@
-model TwoWayQuickOpening "Two way valve with linear flow characteristics" 
+within Buildings.Fluids.Actuators.Valves;
+model TwoWayQuickOpening "Two way valve with linear flow characteristics"
   extends BaseClasses.PartialTwoWayValve;
 annotation (
 Documentation(info="<html>
@@ -22,8 +23,8 @@ First implementation.
 </html>"));
   parameter Real alp = 2 "Parameter for valve characteristics, alp>0";
   parameter Real delta0 = 0.01 "Range of significant deviation from power law";
-protected 
+protected
    parameter Real alpInv = 1/alp;
-equation 
+equation
   phi = l + Modelica_Fluid.Utilities.regPow(y, alpInv, delta0) * (1 - l);
 end TwoWayQuickOpening;

@@ -1,6 +1,10 @@
-model DryBulbTemperature 
-  
-    annotation (Diagram, Commands(file=
+within Buildings.Fluids.Sensors.Examples;
+model DryBulbTemperature
+
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -100},{100,100}}),
+                        graphics),
+                         Commands(file=
             "DryBulbTemperature.mos" "run"),
     Documentation(info="<html>
 This examples is a unit test for the dynamic dry bulb temperature sensor.
@@ -12,69 +16,96 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
- package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" 
-           annotation (choicesAllMatching = true);
-  
-    Modelica.Blocks.Sources.Ramp p(
-    duration=1,
-    offset=101325,
-    height=250)  annotation (extent=[40,60; 60,80]);
-  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(redeclare package Medium 
-      = Medium, T=293.15)                           annotation (extent=[78,10;
-        58,30]);
-  Buildings.Fluids.Sensors.DryBulbTemperatureDynamic sen(
-                            redeclare package Medium = Medium,
-    T_start=Medium.T_default,
-    initType=Modelica.Blocks.Types.Init.SteadyState) 
-    "Dynamic temperature sensor" 
-    annotation (extent=[30,10; 50,30]);
-  Buildings.Fluids.Sources.PrescribedMassFlowRate_pTX massFlowRate(redeclare 
-      package Medium = Medium, m_flow=1) annotation (extent=[-36,10; -16,30]);
+
+// package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" annotation 1;
+ package Medium = Modelica.Media.Air.MoistAir;
+  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+      = Medium,
+    nPorts=1,
+    T=293.15)                                       annotation (Placement(
+        transformation(extent={{90,-2},{70,18}}, rotation=0)));
+  Modelica_Fluid.Sources.MassFlowSource_T masFloRat(
+    redeclare package Medium = Medium,
+    use_T_in=true,
+    use_m_flow_in=true,
+    nPorts=1)                            annotation (Placement(transformation(
+          extent={{-36,-2},{-16,18}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp TDB(
     height=10,
     duration=1,
     offset=273.15 + 30) "Dry bulb temperature" 
-                 annotation (extent=[-100,40; -80,60]);
+                 annotation (Placement(transformation(extent={{-100,20},{-80,40}},
+          rotation=0)));
     Modelica.Blocks.Sources.Ramp XHum(
     height=(0.0133 - 0.0175),
     offset=0.0175,
     duration=60) "Humidity concentration" 
-                 annotation (extent=[-100,-60; -80,-40]);
-  Modelica.Blocks.Sources.Constant const annotation (extent=[-100,-20; -80,0]);
-  Modelica.Blocks.Math.Feedback feedback annotation (extent=[-70,-20; -50,0]);
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(startTime=0,
-      threShold=0.001) 
-    annotation (extent=[60,-40; 80,-20]);
-  Modelica.Blocks.Continuous.FirstOrder firOrd(T=10, initType=Modelica.Blocks.
-        Types.Init.SteadyState) 
-    annotation (extent=[10,-46; 30,-26]);
-  Modelica_Fluid.Sensors.Temperature temSteSta(redeclare package Medium = 
+                 annotation (Placement(transformation(extent={{-100,-60},{-80,
+            -40}}, rotation=0)));
+  Modelica.Blocks.Sources.Constant const annotation (Placement(transformation(
+          extent={{-100,-20},{-80,0}}, rotation=0)));
+  Modelica.Blocks.Math.Feedback feedback annotation (Placement(transformation(
+          extent={{-70,-20},{-50,0}}, rotation=0)));
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(
+      threShold=0.001, startTime=0) 
+    annotation (Placement(transformation(extent={{60,60},{80,80}},   rotation=0)));
+  Modelica.Blocks.Continuous.FirstOrder firOrd(T=10,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=293.15) 
+    annotation (Placement(transformation(extent={{0,60},{20,80}},    rotation=0)));
+  Modelica_Fluid.Sensors.TemperatureTwoPort temSteSta(
+                                               redeclare package Medium = 
         Medium) "Steady state temperature sensor" 
-    annotation (extent=[0,10; 20,30]);
-equation 
-  connect(sen.port_b, sin.port) 
-    annotation (points=[50,20; 58,20], style(color=69, rgbcolor={0,127,255}));
-  connect(TDB.y, massFlowRate.T_in) annotation (points=[-79,50; -60,50; -60,20;
-        -38,20], style(color=74, rgbcolor={0,0,127}));
-  connect(const.y, feedback.u1) annotation (points=[-79,-10; -68,-10], style(
-        color=74, rgbcolor={0,0,127}));
-  connect(XHum.y, feedback.u2) annotation (points=[-79,-50; -60,-50; -60,-18],
-      style(color=74, rgbcolor={0,0,127}));
-  connect(XHum.y, massFlowRate.X_in[1]) annotation (points=[-79,-50; -40,-50;
-        -40,13.9; -35.2,13.9], style(color=74, rgbcolor={0,0,127}));
-  connect(feedback.y, massFlowRate.X_in[2]) annotation (points=[-51,-10; -44,
-        -10; -44,13.9; -35.2,13.9], style(color=74, rgbcolor={0,0,127}));
-  connect(p.y, sin.p_in) annotation (points=[61,70; 94,70; 94,26; 80,26], style(
-        color=74, rgbcolor={0,0,127}));
-  connect(sen.T, assertEquality.u1) annotation (points=[40,9; 40,-24; 58,-24],
-      style(color=74, rgbcolor={0,0,127}));
-  connect(firOrd.y, assertEquality.u2) 
-    annotation (points=[31,-36; 58,-36], style(color=74, rgbcolor={0,0,127}));
-  connect(massFlowRate.port, temSteSta.port_a) annotation (points=[-16,20;
-        -5.55112e-16,20], style(color=69, rgbcolor={0,127,255}));
-  connect(temSteSta.port_b, sen.port_a) 
-    annotation (points=[20,20; 30,20], style(color=69, rgbcolor={0,127,255}));
-  connect(temSteSta.T, firOrd.u) annotation (points=[10,9; 10,-14; -12,-14; -12,
-        -36; 8,-36], style(color=74, rgbcolor={0,0,127}));
+    annotation (Placement(transformation(extent={{0,-2},{20,18}}, rotation=0)));
+  inner Modelica_Fluid.System system 
+    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+    Modelica.Blocks.Sources.Pulse m_flow(
+    offset=-1,
+    amplitude=2,
+    period=30) "Mass flow rate" 
+                 annotation (Placement(transformation(extent={{-100,60},{-80,80}},
+          rotation=0)));
+  DryBulbTemperatureDynamic temDyn(
+    redeclare package Medium = Medium,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    m0_flow=1,
+    T_start=293.15) 
+    annotation (Placement(transformation(extent={{30,-2},{50,18}})));
+equation
+  connect(TDB.y, masFloRat.T_in)    annotation (Line(points={{-79,30},{-60,30},
+          {-60,12},{-38,12}}, color={0,0,127}));
+  connect(const.y, feedback.u1) annotation (Line(points={{-79,-10},{-68,-10}},
+        color={0,0,127}));
+  connect(XHum.y, feedback.u2) annotation (Line(points={{-79,-50},{-60,-50},{
+          -60,-18}}, color={0,0,127}));
+  connect(XHum.y, masFloRat.X_in[1])    annotation (Line(points={{-79,-50},{-40,
+          -50},{-40,4},{-38,4}},         color={0,0,127}));
+  connect(feedback.y, masFloRat.X_in[2])    annotation (Line(points={{-51,-10},
+          {-44,-10},{-44,4},{-38,4}},         color={0,0,127}));
+  connect(temSteSta.T, firOrd.u) annotation (Line(points={{10,19},{10,40},{-20,
+          40},{-20,70},{-2,70}},   color={0,0,127}));
+  connect(masFloRat.ports[1], temSteSta.port_a) annotation (Line(
+      points={{-16,8},{0,8}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(firOrd.y, assertEquality.u1) annotation (Line(
+      points={{21,70},{44,70},{44,76},{58,76}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(m_flow.y, masFloRat.m_flow_in) annotation (Line(
+      points={{-79,70},{-58,70},{-58,16},{-36,16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(temSteSta.port_b, temDyn.port_a) annotation (Line(
+      points={{20,8},{30,8}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(temDyn.port_b, sin.ports[1]) annotation (Line(
+      points={{50,8},{70,8}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(temDyn.T, assertEquality.u2) annotation (Line(
+      points={{40,19},{40,64},{58,64}},
+      color={0,0,127},
+      smooth=Smooth.None));
 end DryBulbTemperature;

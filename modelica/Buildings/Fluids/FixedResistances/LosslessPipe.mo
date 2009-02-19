@@ -1,19 +1,23 @@
-model LosslessPipe "Pipe with no flow friction and no heat transfer" 
-  extends Modelica_Fluid.Interfaces.PartialTwoPortTransport(final dp=0);
+within Buildings.Fluids.FixedResistances;
+model LosslessPipe "Pipe with no flow friction and no heat transfer"
+  extends Modelica_Fluid.Interfaces.PartialTwoPortTransport;
   extends Buildings.BaseClasses.BaseIcon;
-  annotation (Icon(
-      Rectangle(extent=[-100,60; 100,-60],   style(
-          color=0,
-          gradient=2,
-          fillColor=8)),
-      Rectangle(extent=[-100,50; 100,-48],   style(
-          color=69,
-          gradient=2,
-          fillColor=69)),
-         Text(
-        extent=[-104,-50; 18,-116],
-        style(color=3, rgbcolor={0,0,255}),
-        string="dp0=0")),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-100,60},{100,-60}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-100,50},{100,-48}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Text(
+          extent={{-104,-50},{18,-116}},
+          lineColor={0,0,255},
+          textString="dp0=0")}),
     Documentation(info="<html>
 <p>
 Model of a pipe with no flow resistance and no heat loss.
@@ -30,4 +34,9 @@ First implementation.
 </li>
 </ul>
 </html>");
+equation
+ dp=0;
+  // Isenthalpic state transformation (no storage and no loss of energy)
+  port_a.h_outflow = inStream(port_b.h_outflow);
+  port_b.h_outflow = inStream(port_a.h_outflow);
 end LosslessPipe;

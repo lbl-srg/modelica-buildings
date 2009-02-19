@@ -1,54 +1,72 @@
-model SplitterFixedResistanceDpM 
-  
-  annotation (Diagram, Commands(file=
+within Buildings.Fluids.FixedResistances.Examples;
+model SplitterFixedResistanceDpM
+
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
+                       Commands(file=
           "SplitterFixedResistanceDpM.mos" "run"));
-  
- package Medium = Buildings.Media.IdealGases.SimpleAir;
-  
+
+ package Medium = Modelica.Media.Air.SimpleAir;
+
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl(
     m0_flow={1,2,3},
     dp0={5,10,15},
     dh={1,2,3},
     redeclare package Medium = Medium) "Splitter" 
-    annotation (extent=[-16,-10; 4,10]);
-  Buildings.Fluids.Sources.PrescribedBoundary_pTX bou1(redeclare package Medium 
-      =        Medium, T=273.15 + 10) annotation (extent=[-58,-10;
-        -38,10]);
-  Buildings.Fluids.Sources.PrescribedBoundary_pTX bou2(redeclare package Medium 
-      =        Medium, T=273.15 + 20) annotation (extent=[52,-10;
-        32,10]);
-  Buildings.Fluids.Sources.PrescribedBoundary_pTX bou3(redeclare package Medium 
-      =        Medium, T=273.15 + 30) annotation (extent=[-58,-66; -38,-46]);
+    annotation (Placement(transformation(extent={{-16,-10},{4,10}}, rotation=0)));
+  Modelica_Fluid.Sources.Boundary_pT bou1(             redeclare package Medium
+      =        Medium, T=273.15 + 10,
+    use_p_in=true,
+    nPorts=1)                         annotation (Placement(transformation(
+          extent={{-58,-10},{-38,10}}, rotation=0)));
+  Modelica_Fluid.Sources.Boundary_pT bou2(             redeclare package Medium
+      =        Medium, T=273.15 + 20,
+    use_p_in=true,
+    nPorts=1)                         annotation (Placement(transformation(
+          extent={{52,-10},{32,10}}, rotation=0)));
+  Modelica_Fluid.Sources.Boundary_pT bou3(             redeclare package Medium
+      =        Medium, T=273.15 + 30,
+    use_p_in=true,
+    nPorts=1)                         annotation (Placement(transformation(
+          extent={{-58,-66},{-38,-46}}, rotation=0)));
     Modelica.Blocks.Sources.Constant P2(k=101325) 
-      annotation (extent=[40,54; 60,74]);
+      annotation (Placement(transformation(extent={{40,54},{60,74}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp P1(
     offset=101320,
     height=10,
     duration=0.5) 
-                 annotation (extent=[-100,-4; -80,16]);
+                 annotation (Placement(transformation(extent={{-100,-4},{-80,16}},
+          rotation=0)));
     Modelica.Blocks.Sources.Ramp P3(
       offset=101320,
       height=10,
     duration=0.5,
     startTime=0.5) 
-                 annotation (extent=[-100,-60; -80,-40]);
-equation 
+                 annotation (Placement(transformation(extent={{-100,-60},{-80,
+            -40}}, rotation=0)));
+  inner Modelica_Fluid.System system(p_ambient=101325) 
+                                   annotation (Placement(transformation(extent={{60,-80},
+            {80,-60}},         rotation=0)));
+equation
   connect(P1.y, bou1.p_in) 
-    annotation (points=[-79,6; -74.25,6; -74.25,6; -69.5,6; -69.5,6; -60,6],
-                                       style(color=74, rgbcolor={0,0,127}));
-  connect(bou1.port, spl.port_1) annotation (points=[-38,6.10623e-16; -32.75,
-        6.10623e-16; -32.75,1.22125e-15; -27.5,1.22125e-15; -27.5,6.10623e-16; 
-        -17,6.10623e-16],
-            style(color=69, rgbcolor={0,127,255}));
-  connect(spl.port_2, bou2.port) 
-    annotation (points=[5,6.10623e-16; 11.75,6.10623e-16; 11.75,1.22125e-15; 
-        18.5,1.22125e-15; 18.5,6.10623e-16; 32,6.10623e-16],
-                                    style(color=69, rgbcolor={0,127,255}));
-  connect(P2.y, bou2.p_in) annotation (points=[61,64; 74,64; 74,6; 54,6], style(
-        color=74, rgbcolor={0,0,127}));
-  connect(bou3.port, spl.port_3) annotation (points=[-38,-56; -6,-56; -6,-10],
-      style(color=69, rgbcolor={0,127,255}));
+    annotation (Line(points={{-79,6},{-74.25,6},{-69.5,6},{-69.5,8},{-60,8}},
+                    color={0,0,127}));
+  connect(P2.y, bou2.p_in) annotation (Line(points={{61,64},{74,64},{74,8},{54,
+          8}}, color={0,0,127}));
   connect(bou3.p_in, P3.y) 
-    annotation (points=[-60,-50; -79,-50],
-                                         style(color=74, rgbcolor={0,0,127}));
+    annotation (Line(points={{-60,-48},{-69.5,-48},{-69.5,-50},{-79,-50}},
+                                                   color={0,0,127}));
+  connect(bou1.ports[1], spl.port_1) annotation (Line(
+      points={{-38,0},{-16,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(bou3.ports[1], spl.port_3) annotation (Line(
+      points={{-38,-56},{-6,-56},{-6,-10}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(spl.port_2, bou2.ports[1]) annotation (Line(
+      points={{4,0},{32,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
 end SplitterFixedResistanceDpM;

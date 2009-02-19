@@ -1,3 +1,4 @@
+within Buildings;
 package Fluids "Package with models for fluid flow systems"
 annotation (preferedView="info", Documentation(info="<html>
 This package contains components for fluid flow systems such as
@@ -5,8 +6,9 @@ pumps, valves and sensors. For other fluid flow models, see
 <a href=\"Modelica:Modelica_Fluid\">Modelica_Fluid</a>.
 </html>"));
 
-package UsersGuide "User Guide" 
-  
+
+package UsersGuide "User Guide"
+
   annotation (DocumentationClass=true, Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Users Guide</font></h3>
 <p>
@@ -23,6 +25,6 @@ which is typically more readily available prior to the detailed
 HVAC system design.
 </p>
 </html>"));
-  
+
 end UsersGuide;
 end Fluids;

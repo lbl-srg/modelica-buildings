@@ -1,10 +1,13 @@
-block AssertInequality "Assert when condition is violated" 
+within Buildings.Utilities.Diagnostics;
+block AssertInequality "Assert when condition is violated"
   extends BaseClasses.PartialInputCheck(message = "Inputs differ by more than threShold",
      threShold = 0);
-  annotation (Icon(           Text(
-        extent=[-84,108; 90,-28],
-        string="u1 = u2",
-        style(color=1, rgbcolor={255,0,0}))), Diagram,
+  annotation (Icon(graphics={Text(
+          extent={{-84,108},{90,-28}},
+          lineColor={255,0,0},
+          textString="u1 > u2")}),            Diagram(coordinateSystem(
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+                                                      graphics),
 Documentation(info="<html>
 <p>
 Model that triggers an assert if 
@@ -20,7 +23,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-equation 
+equation
   when (time > t0) then
     assert(u1 > u2 - threShold, message + "\n"
       + "  u1         = " + realString(u1) + "\n"

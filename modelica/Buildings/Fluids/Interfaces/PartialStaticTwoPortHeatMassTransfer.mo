@@ -1,11 +1,14 @@
-partial model PartialStaticTwoPortHeatMassTransfer 
-  "Partial element transporting fluid between two ports without storing mass or energy" 
+within Buildings.Fluids.Interfaces;
+partial model PartialStaticTwoPortHeatMassTransfer
+  "Partial element transporting fluid between two ports without storing mass or energy"
   extends Buildings.Fluids.Interfaces.PartialStaticTwoPortInterface;
   import Modelica.Constants;
-  
+
   annotation (
-    Coordsys(grid=[1, 1], component=[20, 20]),
-    Diagram,
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={1,1}), graphics),
     Documentation(info="<html>
 <p>
 This component transports fluid between its two ports, without
@@ -39,19 +42,25 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon);
+    Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={1,1}), graphics));
   Modelica.SIunits.HeatFlowRate Q_flow "Heat transfered into the medium";
-  Medium.MassFlowRate mXi_flow[Medium.nXi] 
+  Medium.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
-equation 
-  /* Handle reverse and zero flow */
-  port_a.H_flow   = if port_a.m_flow >= 0 then (port_a.m_flow * port_a.h) else 
-                         -port_b.m_flow * port_b.h - Q_flow;
-  port_a.mXi_flow = if port_a.m_flow >= 0 then (port_a.m_flow * port_a.Xi) else 
-                         -port_b.m_flow * port_b.Xi - mXi_flow;
-  
-  /* Energy, mass and substance mass balance */
-  0 = port_a.H_flow + port_b.H_flow     + Q_flow;
-  0 = port_a.m_flow + port_b.m_flow     + sum(mXi_flow);
-  zeros(Medium.nXi) = port_a.mXi_flow + port_b.mXi_flow + mXi_flow;
+equation
+  // Energy balance (no storage, no heat loss/gain)
+  port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -Q_flow;
+  port_a.m_flow*port_b.h_outflow + port_b.m_flow*inStream(port_a.h_outflow) =  Q_flow;
+
+  // Mass balance (no storage)
+  port_a.m_flow + port_b.m_flow = -sum(mXi_flow);
+
+  port_a.m_flow*port_a.Xi_outflow + port_b.m_flow*inStream(port_b.Xi_outflow) = -mXi_flow;
+  port_a.m_flow*port_b.Xi_outflow + port_b.m_flow*inStream(port_a.Xi_outflow) = mXi_flow;
+
+  // Transport of trace substances
+  port_a.C_outflow = inStream(port_b.C_outflow);
+  port_b.C_outflow = inStream(port_a.C_outflow);
 end PartialStaticTwoPortHeatMassTransfer;

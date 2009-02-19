@@ -1,5 +1,7 @@
-model SpliceFunctionDerivativeCheck 
- annotation(Diagram, Commands(file="SpliceFunctionDerivativeCheck.mos" "run"));
+within Buildings.Utilities.Math.Examples;
+model SpliceFunctionDerivativeCheck
+ annotation(Diagram(graphics),
+                     Commands(file="SpliceFunctionDerivativeCheck.mos" "run"));
   annotation (
     Documentation(info="<html>
 <p>
@@ -15,14 +17,14 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
+
   Real x;
   Real y;
-initial equation 
+initial equation
    y=x;
-equation 
+equation
   x=Buildings.Utilities.Math.spliceFunction(10, -10, time+0.1, 0.2);
   der(y)=der(x);
   assert(abs(x-y) < 1E-2, "Model has an error");
-  
+
 end SpliceFunctionDerivativeCheck;

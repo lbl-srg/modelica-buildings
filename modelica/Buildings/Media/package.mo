@@ -1,3 +1,4 @@
+within Buildings;
 package Media "Package with medium models"
   annotation (preferedView="info", Documentation(info="<html>
 This package contains different implementations for

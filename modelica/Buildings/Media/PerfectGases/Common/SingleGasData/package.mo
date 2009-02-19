@@ -1,3 +1,4 @@
+within Buildings.Media.PerfectGases.Common;
 package SingleGasData "Package with data records for single gases"
   annotation (Documentation(preferedView="info", info="<HTML>
 <p>

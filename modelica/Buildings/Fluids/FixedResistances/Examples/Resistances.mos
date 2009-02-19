@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluids.FixedResistances.Examples.Resistances(from_dp={true,true,true})", numberOfIntervals=0, outputInterval=0.00001, method="Euler", fixedstepsize=0.00001, resultFile="Resistances");
+simulateModel("Buildings.Fluids.FixedResistances.Examples.Resistances(from_dp={true,true,true})", numberOfIntervals=0, resultFile="Resistances");
 
 createPlot(id = 1,
  position = {(-1), 6, 400, 280},

@@ -1,61 +1,71 @@
-model Delay 
-  
-    annotation (Diagram, Commands(file=
+within Buildings.Fluids.Delays.Examples;
+model Delay
+
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                        graphics),
+                         Commands(file=
             "Delay.mos" "run"));
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 // package Medium = Buildings.Media.IdealGases.SimpleAir;
-  
+
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
-      annotation (extent=[62,36; 82,56]);
+      annotation (Placement(transformation(extent={{62,36},{82,56}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp P(
       duration=1,
     height=20,
     offset=101315) 
-                 annotation (extent=[-94,30; -74,50]);
+                 annotation (Placement(transformation(extent={{-94,30},{-74,50}},
+          rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res1(
     from_dp=true,
     m0_flow=5,
     dp0=5,
     redeclare package Medium = Medium) 
-             annotation (extent=[-30,-4; -10,16]);
-  Buildings.Fluids.Sources.PrescribedBoundary_pTX sou(
-                T=293.15, redeclare package Medium = Medium) 
-                          annotation (extent=[-58,-4; -38,16]);
-  Buildings.Fluids.Sources.PrescribedBoundary_pTX sin(
-                T=283.15, redeclare package Medium = Medium) 
-                          annotation (extent=[78,-4; 58,16], rotation=0);
+             annotation (Placement(transformation(extent={{-30,-4},{-10,16}},
+          rotation=0)));
+  Modelica_Fluid.Sources.Boundary_pT sou(
+                T=293.15, redeclare package Medium = Medium,
+    use_p_in=true,
+    nPorts=1)             annotation (Placement(transformation(extent={{-58,-4},
+            {-38,16}}, rotation=0)));
+  Modelica_Fluid.Sources.Boundary_pT sin(
+                T=283.15, redeclare package Medium = Medium,
+    use_p_in=true,
+    nPorts=1)             annotation (Placement(transformation(extent={{78,-4},
+            {58,16}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res2(
     from_dp=true,
     m0_flow=5,
     dp0=5,
     redeclare package Medium = Medium) 
-             annotation (extent=[26,-4; 46,16]);
-  Buildings.Fluids.Delays.DelayFirstOrder del(         m0_flow=5, redeclare 
+             annotation (Placement(transformation(extent={{26,-4},{46,16}},
+          rotation=0)));
+  Buildings.Fluids.Delays.DelayFirstOrder del(         m0_flow=5, redeclare
       package Medium = Medium,
-    T_start=283.15,
-    initType=Modelica_Fluid.Types.Init.InitialValues) 
-    annotation (extent=[-2,-4; 18,16]);
-equation 
-  connect(P.y, sou.p_in) annotation (points=[-73,40; -66,40; -66,12; -60,12],
-      style(color=74, rgbcolor={0,0,127}));
-  connect(PAtm.y, sin.p_in) annotation (points=[83,46; 90,46; 90,12; 80,12],
-      style(color=74, rgbcolor={0,0,127}));
-  connect(sou.port, res1.port_a) 
-                                annotation (points=[-38,6; -36,6; -36,6; -34,6; 
-        -34,6; -30,6],style(color=69, rgbcolor={0,127,255}));
-  connect(res2.port_b, sin.port) 
-    annotation (points=[46,6; 49,6; 49,6; 52,6; 52,6; 58,6],
-                                     style(color=69, rgbcolor={0,127,255}));
-  connect(del.port_b, res2.port_a) annotation (points=[18,6; 26,6], style(
-      color=69,
-      rgbcolor={0,127,255},
-      fillColor=74,
-      rgbfillColor={0,0,127},
-      fillPattern=1));
-  connect(del.port_a, res1.port_b) annotation (points=[-2.2,6; -10,6], style(
-      color=69,
-      rgbcolor={0,127,255},
-      fillColor=74,
-      rgbfillColor={0,0,127},
-      fillPattern=1));
+    T_start=283.15) 
+    annotation (Placement(transformation(extent={{0,6},{20,26}},   rotation=0)));
+  inner Modelica_Fluid.System system 
+    annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
+equation
+  connect(P.y, sou.p_in) annotation (Line(points={{-73,40},{-66,40},{-66,14},{
+          -60,14}}, color={0,0,127}));
+  connect(PAtm.y, sin.p_in) annotation (Line(points={{83,46},{90,46},{90,14},{
+          80,14}}, color={0,0,127}));
+  connect(sou.ports[1], res1.port_a) annotation (Line(
+      points={{-38,6},{-30,6}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sin.ports[1], res2.port_b) annotation (Line(
+      points={{58,6},{46,6}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res1.port_b, del.ports[1]) annotation (Line(
+      points={{-10,6},{8,6}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(del.ports[2], res2.port_a) annotation (Line(
+      points={{12,6},{26,6}},
+      color={0,127,255},
+      smooth=Smooth.None));
 end Delay;

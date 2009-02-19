@@ -1,27 +1,40 @@
-model FlowMachinePolynomial 
-  "Pump with head and efficiency given by a non-dimensional polynomial" 
-  extends Buildings.Fluids.Interfaces.PartialStaticTwoPortTransformer;
-  
-annotation (Icon(
-      Rectangle(extent=[-92,4; -54,-4], style(
-          color=0,
-          rgbcolor={0,0,0},
-          fillColor=0,
-          rgbfillColor={0,0,0})),
-      Rectangle(extent=[56,2; 94,-6], style(
-          color=0,
-          rgbcolor={0,0,0},
-          fillColor=0,
-          rgbfillColor={0,0,0})),
-      Ellipse(extent=[-60,40; 60,-80],   style(gradient=3)),
-      Polygon(points=[-30,12; -30,-48; 48,-20; -30,12],   style(
-          pattern=0,
-          gradient=2,
-          fillColor=7)),
-      Polygon(points=[-40,-64; -60,-100; 60,-100; 40,-64; -40,-64],
-          style(pattern=0, fillColor=74)),
-      Line(points=[-100,60; -2,60; 0,60; 0,40], style(color=3, rgbcolor={0,0,
-              255}))), Diagram,
+within Buildings.Fluids.Movers;
+model FlowMachinePolynomial
+  "Pump with head and efficiency given by a non-dimensional polynomial"
+  extends Buildings.Fluids.Interfaces.PartialStaticTwoPortInterface;
+
+annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics={
+        Rectangle(
+          extent={{-92,4},{-54,-4}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{56,2},{94,-6}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          extent={{-60,40},{60,-80}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere),
+        Polygon(
+          points={{-30,12},{-30,-48},{48,-20},{-30,12}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
+        Polygon(
+          points={{-40,-64},{-60,-100},{60,-100},{40,-64},{-40,-64}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,191},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-100,60},{-2,60},{0,60},{0,40}}, color={0,0,255})}),
+                       Diagram(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}),
+                               graphics),
     Documentation(revisions="<html>
 <ul>
 <li>
@@ -45,35 +58,38 @@ This is a model of a flow machine (pump or fan).
 The normalized pressure difference is computed using a function of the normalized mass flow rate. The function is a polynomial for which a user needs to supply the coefficients and two values that determine for what flow rate the polynomial is linearly extended.
 </p>
 </html>"));
-  
-  Modelica.Blocks.Interfaces.RealInput N_in(redeclare type SignalType = 
-        Modelica.SIunits.AngularVelocity) "Prescribed rotational speed" 
-    annotation (extent=[-120,50; -100,70], rotation=0);
-  
+
+  Modelica.Blocks.Interfaces.RealInput N_in "Prescribed rotational speed" 
+    annotation (Placement(transformation(extent={{-120,50},{-100,70}}, rotation=
+           0)));
+
   parameter Modelica.SIunits.Length D "Diameter";
   parameter Real[:] a "Polynomial coefficients for pressure=p(mNor_flow)";
   parameter Real[:] b "Polynomial coefficients for etaSha=p(mNor_flow)";
   parameter Real mNorMin_flow "Lowest valid normalized mass flow rate";
   parameter Real mNorMax_flow "Highest valid normalized mass flow rate";
-  parameter Real scaM_flow = 1 
+  parameter Real scaM_flow = 1
     "Factor used to scale the mass flow rate of the fan (used for quickly adjusting fan size)";
-  parameter Real scaDp = 1 
+  parameter Real scaDp = 1
     "Factor used to scale the pressure increase of the fan (used for quickly adjusting fan size)";
-  
+
   Real pNor(min=0) "Normalized pressure";
   Real mNor_flow(start=mNorMax_flow) "Normalized mass flow rate";
   Real etaSha(min=0, max=1) "Efficiency, flow work divided by shaft power";
   Modelica.SIunits.Power PSha "Power input at shaft";
-protected 
-  parameter Real pNorMin1(fixed=false) 
+
+  Medium.Density den "Medium density";
+protected
+  parameter Real pNorMin1(fixed=false)
     "Normalized pressure, used to test slope of polynomial outside [xMin, xMax]";
-  parameter Real pNorMin2(fixed=false) 
+  parameter Real pNorMin2(fixed=false)
     "Normalized pressure, used to test slope of polynomial outside [xMin, xMax]";
-  parameter Real pNorMax1(fixed=false) 
+  parameter Real pNorMax1(fixed=false)
     "Normalized pressure, used to test slope of polynomial outside [xMin, xMax]";
-  parameter Real pNorMax2(fixed=false) 
+  parameter Real pNorMax2(fixed=false)
     "Normalized pressure, used to test slope of polynomial outside [xMin, xMax]";
-initial equation 
+
+initial equation
  // check slope of polynomial outside the domain [mNorMin_flow, mNorMax_flow]
  pNorMin1 = Buildings.Fluids.Utilities.extendedPolynomial(
                                         c=a, x=mNorMin_flow/2, xMin=mNorMin_flow, xMax=mNorMax_flow);
@@ -87,18 +103,29 @@ initial equation
     "Slope of pump pressure polynomial is non-negative for mNor_flow < mNorMin_flow. Check parameter a.");
  assert(pNorMax1>pNorMax2,
     "Slope of pump pressure polynomial is non-negative for mNorMax_flow < mNor_flow. Check parameter a.");
-equation 
-  -dp = scaDp     * pNor      * medium_a.d * D*D   * N_in * N_in;
-  m_flow = scaM_flow * mNor_flow * medium_a.d * D*D*D * N_in;
+
+equation
+  den = Medium.density(sta_a);
+  -dp = scaDp     * pNor      * den * D*D   * N_in * N_in;
+  m_flow = scaM_flow * mNor_flow * den * D*D*D * N_in;
   pNor = Buildings.Fluids.Utilities.extendedPolynomial(
                                         c=a, x=mNor_flow, xMin=mNorMin_flow, xMax=mNorMax_flow);
   etaSha = max(0.1, Buildings.Fluids.Utilities.polynomial(
                                                       c=b, x=mNor_flow));
-                                                                // for OpenModelica 1.4.3 sum(mNor_flow^(i - 1)*b[i] for i in 1:size(b,1));
-  etaSha * PSha = -dp * m_flow / medium_a.d; // dp<0 and m_flow>0 for normal operation
-  
-  // interface ports and state conservation equations
-  port_a.H_flow + port_b.H_flow + PSha = 0;
+  etaSha * PSha = -dp * m_flow / den; // dp<0 and m_flow>0 for normal operation
+
+  // Energy balance (no storage, no heat loss/gain)
+  PSha = -m_flow*(port_a.h_outflow-inStream(port_b.h_outflow));
+  PSha = m_flow*(port_b.h_outflow-inStream(port_a.h_outflow));
+
+  // Mass balance (no storage)
   port_a.m_flow + port_b.m_flow = 0;
-  port_a.mXi_flow + port_b.mXi_flow = zeros(Medium.nXi);
+
+  // Transport of substances
+  port_a.Xi_outflow = inStream(port_b.Xi_outflow);
+  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
+
+  port_a.C_outflow = inStream(port_b.C_outflow);
+  port_b.C_outflow = inStream(port_a.C_outflow);
+
 end FlowMachinePolynomial;

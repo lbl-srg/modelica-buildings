@@ -1,5 +1,7 @@
-model RegNonZeroPowerDerivative_2_Check 
- annotation(Diagram, Commands(file="RegNonZeroPowerDerivative_2_Check.mos" "run"));
+within Buildings.Utilities.Math.Examples;
+model RegNonZeroPowerDerivative_2_Check
+ annotation(Diagram(graphics),
+                     Commands(file="RegNonZeroPowerDerivative_2_Check.mos" "run"));
   annotation (
     Documentation(info="<html>
 <p>
@@ -15,17 +17,17 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  
+
  parameter Real n=0.33 "Exponent";
  parameter Real delta = 0.1 "Abscissa value where transition occurs";
-  
+
   Real x;
   Real y;
-initial equation 
+initial equation
    y=x;
-equation 
+equation
   x=Buildings.Utilities.Math.BaseClasses.der_regNonZeroPower(time,n, delta, time);
   der(y)=der(x);
   assert(abs(x-y) < 1E-2, "Model has an error");
-  
+
 end RegNonZeroPowerDerivative_2_Check;
