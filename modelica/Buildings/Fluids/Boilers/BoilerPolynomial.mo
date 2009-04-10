@@ -2,8 +2,9 @@ within Buildings.Fluids.Boilers;
 model BoilerPolynomial
   "Boiler with efficiency curve described by a polynomial of the temperature"
 
-  extends Interfaces.PartialDynamicTwoPortTransformer(m0_flow=Q0_flow/dT0/cp0, final tau=0,
-    vol(                                                                                    final V =   VWat));
+  extends Interfaces.PartialDynamicTwoPortTransformer(
+    m_flow_nominal=Q_flow_nominal/dT_nominal/cp_nominal, final tau=0,
+    vol(final V =   VWat));
   annotation (Diagram(graphics), Icon(graphics={
         Ellipse(
           extent={{-20,22},{20,-20}},
@@ -41,7 +42,7 @@ in the control signal <tt>y</tt> and
 the boiler temperature <tt>T</tt>.
 </p>
 <p>
-The parameter <tt>Q0_flow</tt> is the power transferred to the fluid
+The parameter <tt>Q_flow_nominal</tt> is the power transferred to the fluid
 for <tt>y=1</tt> and, if the efficiency depends on temperature, 
 for <tt>T=T0</tt>.
 </p>
@@ -68,21 +69,21 @@ First implementation.
 </ul>
 </html>"));
 
-  parameter Modelica.SIunits.Power Q0_flow "Nominal heating power";
-  parameter Modelica.SIunits.Temperature T0 = 353.15
+  parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
+  parameter Modelica.SIunits.Temperature T_nominal = 353.15
     "Temperature used to compute nominal efficiency (only used if efficiency curve depends on temperature)";
   // Assumptions
   parameter Buildings.Fluids.Types.EfficiencyCurves effCur=Buildings.Fluids.Types.EfficiencyCurves.Constant
     "Curve used to compute the efficiency";
   parameter Real a[:] = {0.9} "Coefficients for efficiency curve";
-  parameter Modelica.SIunits.TemperatureDifference dT0(min=0)
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal(min=0)
     "Temperature difference of water loop at nominal load";
-  parameter Modelica.SIunits.ThermalConductance UA=0.05*Q0_flow/30
+  parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
-  parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q0_flow
+  parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
     "Water volume of boiler" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q0_flow if 
+  parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal if 
         not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)
     "Mass of boiler that will be lumped to water heat capacity" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)));
@@ -96,10 +97,10 @@ First implementation.
     annotation (Placement(transformation(extent={{-140,60},{-100,100}},
           rotation=0)));
 protected
-  Real eta0 "Boiler efficiency at nominal condition";
+  Real eta_nominal "Boiler efficiency at nominal condition";
 
 protected
-   parameter Modelica.SIunits.SpecificHeatCapacity cp0=Medium.specificHeatCapacityCp(sta0)
+   parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=Medium.specificHeatCapacityCp(sta_nominal)
     "Specific heat capacity of fluid in boiler";
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA)
@@ -126,20 +127,24 @@ public
 equation
   if effCur ==Buildings.Fluids.Types.EfficiencyCurves.Constant then
     eta  = a[1];
-    eta0 = a[1];
+    eta_nominal = a[1];
   elseif effCur ==Buildings.Fluids.Types.EfficiencyCurves.Polynomial then
-    eta  = Buildings.Fluids.BaseClasses.polynomial(a=a, x=y);
-    eta0 = Buildings.Fluids.BaseClasses.polynomial(a=a, x=1);
+    eta  = Buildings.Utilities.Math.Functions.polynomial(
+                                                   a=a, x=y);
+    eta_nominal = Buildings.Utilities.Math.Functions.polynomial(
+                                                          a=a, x=1);
   elseif effCur ==Buildings.Fluids.Types.EfficiencyCurves.QuadraticLinear then
-    eta  = Buildings.Fluids.BaseClasses.quadraticLinear(a=a, x1=y, x2=T);
-    eta0 = Buildings.Fluids.BaseClasses.quadraticLinear(a=a, x1=1, x2=T0);
+    eta  = Buildings.Utilities.Math.Functions.quadraticLinear(
+                                                        a=a, x1=y, x2=T);
+    eta_nominal = Buildings.Utilities.Math.Functions.quadraticLinear(
+                                                               a=a, x1=1, x2=T_nominal);
   else
     eta  = 0;
-    eta0 = 999;
+    eta_nominal = 999;
   end if;
   assert(eta > 0.001, "Efficiency curve is wrong.");
   // Heat released by fuel
-  QFue_flow = y * Q0_flow/eta0;
+  QFue_flow = y * Q_flow_nominal/eta_nominal;
   // Heat input into water
   QWat_flow = eta * QFue_flow;
   connect(UAOve.port_b, vol.heatPort)            annotation (Line(

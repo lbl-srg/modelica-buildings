@@ -1,6 +1,8 @@
 within Buildings.Utilities.Math.Examples;
 model SmoothBlocks
-  annotation(Diagram(graphics),
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                     graphics),
                       Commands(file="SmoothBlocks.mos" "run"));
   SmoothMax smoMax(deltaX=0.5) annotation (Placement(transformation(extent={{
             -20,40},{0,60}}, rotation=0)));

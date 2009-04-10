@@ -18,7 +18,7 @@ First implementation.
 </ul>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}), graphics={Text(
-          extent={{-134,138},{-110,100}},
+          extent={{38,112},{62,74}},
           lineColor={0,0,127},
           textString="y")}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
@@ -28,6 +28,10 @@ First implementation.
 public
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)
     "Damper position (0: closed, 1: open)" 
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+          rotation=270,
+        origin={0,80}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={0,80})));
 end PartialActuator;

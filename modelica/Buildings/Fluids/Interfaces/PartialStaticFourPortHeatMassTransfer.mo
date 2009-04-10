@@ -51,28 +51,28 @@ First implementation.
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}));
 
-  Modelica.SIunits.HeatFlowRate Q_flow_1 "Heat transfered into the medium 1";
-  Medium_1.MassFlowRate mXi_flow_1[Medium_1.nXi]
+  Modelica.SIunits.HeatFlowRate Q1_flow "Heat transfered into the medium 1";
+  Medium1.MassFlowRate mXi1_flow[Medium1.nXi]
     "Mass flow rates of independent substances added to the medium 1";
-  Modelica.SIunits.HeatFlowRate Q_flow_2 "Heat transfered into the medium 2";
-  Medium_2.MassFlowRate mXi_flow_2[Medium_2.nXi]
+  Modelica.SIunits.HeatFlowRate Q2_flow "Heat transfered into the medium 2";
+  Medium2.MassFlowRate mXi2_flow[Medium2.nXi]
     "Mass flow rates of independent substances added to the medium 2";
-  Real TInStr_a1=inStream(port_a1.h_outflow)/4200+298.15-273.15;
+//  Real TInStr_a1=inStream(port_a1.h_outflow)/4200+298.15-273.15;
 equation
   // Energy balance (no storage, no heat loss/gain)
-  port_a1.m_flow*port_a1.h_outflow + port_b1.m_flow*inStream(port_b1.h_outflow) = -Q_flow_1;
-  port_a1.m_flow*port_b1.h_outflow + port_b1.m_flow*inStream(port_a1.h_outflow) =  Q_flow_1;
-  port_a2.m_flow*port_a2.h_outflow + port_b2.m_flow*inStream(port_b2.h_outflow) = -Q_flow_2;
-  port_a2.m_flow*port_b2.h_outflow + port_b2.m_flow*inStream(port_a2.h_outflow) =  Q_flow_2;
+  port_a1.m_flow*port_a1.h_outflow + port_b1.m_flow*inStream(port_b1.h_outflow) = -Q1_flow;
+  port_a1.m_flow*port_b1.h_outflow + port_b1.m_flow*inStream(port_a1.h_outflow) =  Q1_flow;
+  port_a2.m_flow*port_a2.h_outflow + port_b2.m_flow*inStream(port_b2.h_outflow) = -Q2_flow;
+  port_a2.m_flow*port_b2.h_outflow + port_b2.m_flow*inStream(port_a2.h_outflow) =  Q2_flow;
 
   // Mass balance (no storage)
-  port_a1.m_flow + port_b1.m_flow = -sum(mXi_flow_1);
-  port_a2.m_flow + port_b2.m_flow = -sum(mXi_flow_2);
+  port_a1.m_flow + port_b1.m_flow = -sum(mXi1_flow);
+  port_a2.m_flow + port_b2.m_flow = -sum(mXi2_flow);
 
-  port_a1.m_flow*port_a1.Xi_outflow + port_b1.m_flow*inStream(port_b1.Xi_outflow) = -mXi_flow_1;
-  port_a1.m_flow*port_b1.Xi_outflow + port_b1.m_flow*inStream(port_a1.Xi_outflow) =  mXi_flow_1;
-  port_a2.m_flow*port_a2.Xi_outflow + port_b2.m_flow*inStream(port_b2.Xi_outflow) = -mXi_flow_2;
-  port_a2.m_flow*port_b2.Xi_outflow + port_b2.m_flow*inStream(port_a2.Xi_outflow) =  mXi_flow_2;
+  port_a1.m_flow*port_a1.Xi_outflow + port_b1.m_flow*inStream(port_b1.Xi_outflow) = -mXi1_flow;
+  port_a1.m_flow*port_b1.Xi_outflow + port_b1.m_flow*inStream(port_a1.Xi_outflow) =  mXi1_flow;
+  port_a2.m_flow*port_a2.Xi_outflow + port_b2.m_flow*inStream(port_b2.Xi_outflow) = -mXi2_flow;
+  port_a2.m_flow*port_b2.Xi_outflow + port_b2.m_flow*inStream(port_a2.Xi_outflow) =  mXi2_flow;
 
   // Transport of trace substances
   port_a1.C_outflow = inStream(port_b1.C_outflow);

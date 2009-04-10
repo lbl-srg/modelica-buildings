@@ -14,7 +14,8 @@ partial model PartialStaticTwoPortCoolingTower
           rotation=0)));
   replaceable
     Buildings.Fluids.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticTwoPortCoolingTower
-    tow(   redeclare package Medium = Medium_W) "Cooling tower" 
+    tow(   redeclare package Medium = Medium_W, m_flow_nominal=mWat0_flow)
+    "Cooling tower" 
     annotation (Placement(transformation(extent={{-18,-60},{2,-40}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sin_1(             T=283.15, redeclare
       package Medium = Medium_W,
@@ -31,9 +32,9 @@ partial model PartialStaticTwoPortCoolingTower
             {-36,-40}}, rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
-    dp0=10,
+    dp_nominal=10,
     redeclare package Medium = Medium_W,
-    m0_flow=mWat0_flow,
+    m_flow_nominal=mWat0_flow,
     dh=0.005) 
              annotation (Placement(transformation(extent={{20,-60},{40,-40}},
           rotation=0)));

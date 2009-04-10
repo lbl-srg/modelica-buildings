@@ -27,9 +27,9 @@ First implementation.
 
   Buildings.Fluids.Actuators.Valves.TwoWayLinear valOPPoi(
     redeclare package Medium = Medium,
-    m0_flow=150/3600,
+    m_flow_nominal=150/3600,
     CvData=Buildings.Fluids.Types.CvTypes.OpPoint,
-    dp0(displayUnit="kPa") = 4500)
+    dp_nominal(displayUnit="kPa") = 4500)
     "Valve model, linear opening characteristics" 
          annotation (Placement(transformation(extent={{-10,30},{10,50}},
                                                                        rotation=
@@ -59,9 +59,9 @@ First implementation.
   Valves.TwoWayLinear valKv(
     redeclare package Medium = Medium,
     CvData=Buildings.Fluids.Types.CvTypes.Kv,
-    m0_flow=150/3600,
+    m_flow_nominal=150/3600,
     Kv=0.73,
-    dp0=450000) "Valve model, linear opening characteristics" 
+    dp_nominal=450000) "Valve model, linear opening characteristics" 
          annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                                                                        rotation=
            0)));
@@ -69,10 +69,10 @@ First implementation.
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Valves.TwoWayLinear valCv(
     redeclare package Medium = Medium,
-    m0_flow=150/3600,
+    m_flow_nominal=150/3600,
     CvData=Buildings.Fluids.Types.CvTypes.Cv,
     Cv=0.84,
-    dp0=450000) "Valve model, linear opening characteristics" 
+    dp_nominal=450000) "Valve model, linear opening characteristics" 
          annotation (Placement(transformation(extent={{-10,-50},{10,-30}},
                                                                        rotation=
            0)));
@@ -96,21 +96,21 @@ First implementation.
                                                   redeclare package Medium = 
         Medium) 
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
-  Buildings.Utilities.Diagnostics.AssertEquality equ1(threShold=0.01)
+  Buildings.Utilities.Diagnostics.AssertEquality equ1(threShold=0.01) 
     annotation (Placement(transformation(extent={{70,60},{90,80}})));
-  Buildings.Utilities.Diagnostics.AssertEquality equ2(threShold=0.01)
+  Buildings.Utilities.Diagnostics.AssertEquality equ2(threShold=0.01) 
     annotation (Placement(transformation(extent={{72,-40},{92,-20}})));
 equation
   connect(y.y, valOPPoi.y) 
                          annotation (Line(
-      points={{-39,70},{-20,70},{-20,48},{-12,48}},
+      points={{-39,70},{-20,70},{-20,54},{0,54},{0,48}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(PSou.y, sou.p_in) 
     annotation (Line(points={{-79,26},{-74.5,26},{-74.5,8},{-72,8}},
                                                  color={0,0,127}));
   connect(y.y, valKv.y)  annotation (Line(
-      points={{-39,70},{-20,70},{-20,8},{-12,8}},
+      points={{-39,70},{-20,70},{-20,14},{0,14},{0,8}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(valKv.port_a, sou.ports[2])  annotation (Line(
@@ -122,7 +122,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y, valCv.y) annotation (Line(
-      points={{-39,70},{-20,70},{-20,-32},{-12,-32}},
+      points={{-39,70},{-20,70},{-20,-26},{0,-26},{0,-32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[1], valOPPoi.port_a) annotation (Line(

@@ -1,7 +1,7 @@
 within Buildings.Fluids.Actuators.Dampers;
 model VAVBoxExponential
   "VAV box with a fixed resistance plus a damper model withe exponential characteristics"
-  extends Buildings.Fluids.Actuators.BaseClasses.PartialDamperExponential;
+  extends Buildings.Fluids.Actuators.BaseClasses.PartialDamperExponential(dp_start=dp_nominal);
   import SI = Modelica.SIunits;
 
    annotation (Documentation(info="<html>
@@ -35,25 +35,40 @@ First implementation.
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Text(
-          extent={{-104,-34},{18,-100}},
+          extent={{-110,-34},{12,-100}},
           lineColor={0,0,255},
-          textString="dp0=%dp0"),
+          textString="dp0=%dp_nominal"),
         Text(
           extent={{-102,-76},{10,-122}},
           lineColor={0,0,255},
-          textString="m0=%m0_flow")}),
+          textString="m0=%m_flow_nominal"),
+        Polygon(
+          points={{-24,8},{24,50},{24,38},{-24,-4},{-24,8}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-20,-36},{28,6},{28,-6},{-20,-48},{-20,-36}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
             graphics));
-  parameter SI.MassFlowRate m0_flow "Mass flow rate" annotation(Dialog(group = "Nominal Condition"));
-  parameter SI.Pressure dp0(min=0) "Pressure drop, including fully open damper"
+  parameter SI.MassFlowRate m_flow_nominal "Mass flow rate" annotation(Dialog(group = "Nominal Condition"));
+  parameter SI.Pressure dp_nominal(min=0)
+    "Pressure drop, including fully open damper" 
                                               annotation(Dialog(group = "Nominal Condition"));
 protected
-  parameter SI.Pressure dpDamOpe0 = k1*m0_flow^2/2/Medium.density(sta0)/A^2
+  parameter SI.Pressure dpDamOpe0 = k1*m_flow_nominal^2/2/Medium.density(sta0)/A^2
     "Pressure drop of fully open damper at nominal flow rate";
-  parameter Real kRes = m0_flow / sqrt(dp0-dpDamOpe0)
-    "Resistance coefficient for fixed resistance element with unit=(kg.m)^(1/2)";
+  parameter Real kResSqu(unit="kg.m") = m_flow_nominal^2 / (dp_nominal-dpDamOpe0)
+    "Resistance coefficient for fixed resistance element";
 equation
-   kInv = 1/kRes/kRes + 1/kDam/kDam
+   //kInv = 1/kRes/kRes + 1/kDam/kDam
+//   k = 1/sqrt(1/kRes/kRes + 1/kDam/kDam)
+//    "flow coefficient for resistance base model";
+   kSqu = 1/(1/kResSqu + 1/kDamSqu)
     "flow coefficient for resistance base model";
+
 end VAVBoxExponential;

@@ -13,7 +13,9 @@ partial model PartialDynamicTwoPortTransformer
 <p>
 This component transports one fluid stream. 
 It provides the basic model for implementing a dynamic heater such as a boiler.
-It is used by <tt>FIX ME<tt>.
+It is used by 
+<a href=\"Modelica:Buildings.Fluids.Boilers.BoilerPolynomial\">
+Buildings.Fluids.Boilers.BoilerPolynomial</a>.
 The variable names follow the conventions used in 
 <tt>Modelica_Fluid.HeatExchangers.BasicHX</tt>.
 </p>
@@ -51,7 +53,7 @@ First implementation.
   Buildings.Fluids.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     nPorts = 2,
-    V=m0_flow*tau/rho0,
+    V=m_flow_nominal*tau/rho_nominal,
     final use_HeatTransfer=true,
     redeclare model HeatTransfer = 
         Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer,
@@ -69,7 +71,7 @@ First implementation.
 
   parameter Modelica.SIunits.Time tau = 300 "Time constant at nominal flow" 
      annotation (Dialog(group="Nominal condition"));
-//  parameter Modelica.SIunits.MassFlowRate m0_flow(min=0) "Mass flow rate"
+//  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) "Mass flow rate"
 //     annotation(Dialog(group = "Nominal condition"));
   // Assumptions
   parameter Modelica_Fluid.Types.Dynamics energyDynamics=system.energyDynamics
@@ -114,9 +116,9 @@ First implementation.
     annotation (Placement(transformation(extent={{5,30},{25,50}},   rotation=0)));
 
 protected
-  parameter Medium.ThermodynamicState sta0=Medium.setState_pTX(
+  parameter Medium.ThermodynamicState sta_nominal=Medium.setState_pTX(
       T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho0=Medium.density(sta0)
+  parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta_nominal)
     "Density, used to compute fluid volume";
 equation
   assert(vol.use_HeatTransfer == true, "Wrong parameter for vol.");

@@ -50,22 +50,22 @@ First implementation.
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-100,65},{101,55}},
+          extent={{-99,64},{102,54}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-100,-55},{101,-65}},
+          extent={{-99,-56},{102,-66}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}));
 
-  Buildings.Fluids.MixingVolumes.MixingVolume vol_1(
-    redeclare package Medium = Medium_1,
+  Buildings.Fluids.MixingVolumes.MixingVolume vol1(
+    redeclare package Medium = Medium1,
     nPorts = 2,
-    V=m0_flow_1*tau_1/rho0_1,
+    V=m1_flow_nominal*tau1/rho1_nominal,
     medium(T(stateSelect=StateSelect.always)),
     final use_HeatTransfer=true,
     redeclare model HeatTransfer = 
@@ -73,10 +73,10 @@ First implementation.
     "Volume for fluid 1"       annotation (Placement(transformation(extent={{
             -10,70},{10,50}}, rotation=0)));
 
-  replaceable Buildings.Fluids.MixingVolumes.MixingVolumeDryAir vol_2(
-    redeclare package Medium = Medium_2,
+  replaceable Buildings.Fluids.MixingVolumes.MixingVolumeDryAir vol2(
+    redeclare package Medium = Medium2,
     nPorts = 2,
-    V=m0_flow_2*tau_2/rho0_2,
+    V=m2_flow_nominal*tau2/rho2_nominal,
     final use_HeatTransfer=true,
     redeclare model HeatTransfer = 
         Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer(surfaceAreas={1})) 
@@ -88,94 +88,50 @@ First implementation.
         extent={{-10,10},{10,-10}},
         rotation=180)));
 
-  parameter Modelica.SIunits.Time tau_1 = 60 "Time constant at nominal flow" 
+  parameter Modelica.SIunits.Time tau1 = 60 "Time constant at nominal flow" 
      annotation (Dialog(group="Nominal condition"));
-//  parameter Modelica.SIunits.MassFlowRate m0_flow_1(min=0) "Mass flow rate"
+//  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0) "Mass flow rate"
  //    annotation(Dialog(group = "Nominal condition"));
 
-  parameter Modelica.SIunits.Time tau_2 = 60 "Time constant at nominal flow" 
+  parameter Modelica.SIunits.Time tau2 = 60 "Time constant at nominal flow" 
      annotation (Dialog(group="Nominal condition"));
-//  parameter Modelica.SIunits.MassFlowRate m0_flow_2(min=0) "Mass flow rate"
+//  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0) "Mass flow rate"
 //     annotation(Dialog(group = "Nominal condition"));
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mas(
-                                                  C=C, T(stateSelect=StateSelect.always))
-    "Mass of metal" 
-    annotation (Placement(transformation(
-        origin={-78,0},
-        extent={{-10,-10},{10,10}},
-        rotation=90)));
-  Modelica.Thermal.HeatTransfer.Components.Convection con1
-    "Convection (and conduction) on fluid side 1" 
-    annotation (Placement(transformation(extent={{-56,10},{-36,30}}, rotation=0)));
-  parameter Modelica.SIunits.HeatCapacity C=2 "Heat capacity of metal (= cp*m)";
-  Modelica.Thermal.HeatTransfer.Components.Convection con2
-    "Convection (and conduction) on fluid side 2" 
-    annotation (Placement(transformation(extent={{-56,-30},{-36,-10}}, rotation=
-           0)));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen(
-    T(final quantity="ThermodynamicTemperature",
-      final unit = "K", displayUnit = "degC", min=0))
-    "Temperature sensor of metal" 
-    annotation (Placement(transformation(extent={{12,-10},{32,10}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen_1
-    "Heat input into fluid 1" annotation (Placement(transformation(extent={{-20,
-            10},{0,30}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFloSen_2
-    "Heat input into fluid 1" annotation (Placement(transformation(extent={{-20,
-            -30},{0,-10}}, rotation=0)));
-
-  Modelica.SIunits.HeatFlowRate Q_flow_1 "Heat flow rate into medium 1";
-  Modelica.SIunits.HeatFlowRate Q_flow_2 "Heat flow rate into medium 2";
+  Modelica.SIunits.HeatFlowRate Q1_flow=
+     if vol1.use_HeatTransfer then sum(vol1.heatPort.Q_flow) else 0
+    "Heat flow rate into medium 1";
+  Modelica.SIunits.HeatFlowRate Q2_flow=
+     if vol2.use_HeatTransfer then sum(vol2.heatPort.Q_flow) else 0
+    "Heat flow rate into medium 2";
 
 protected
-  parameter Medium_1.ThermodynamicState sta0_1=Medium_1.setState_pTX(
-      T=Medium_1.T_default, p=Medium_1.p_default, X=Medium_1.X_default);
-  parameter Modelica.SIunits.Density rho0_1=Medium_1.density(sta0_1)
+  parameter Medium1.ThermodynamicState sta1_nominal=Medium1.setState_pTX(
+      T=Medium1.T_default, p=Medium1.p_default, X=Medium1.X_default);
+  parameter Modelica.SIunits.Density rho1_nominal=Medium1.density(sta1_nominal)
     "Density, used to compute fluid volume";
-  parameter Medium_2.ThermodynamicState sta0_2=Medium_2.setState_pTX(
-      T=Medium_2.T_default, p=Medium_2.p_default, X=Medium_2.X_default);
-  parameter Modelica.SIunits.Density rho0_2=Medium_2.density(sta0_2)
+  parameter Medium2.ThermodynamicState sta2_nominal=Medium2.setState_pTX(
+      T=Medium2.T_default, p=Medium2.p_default, X=Medium2.X_default);
+  parameter Modelica.SIunits.Density rho2_nominal=Medium2.density(sta2_nominal)
     "Density, used to compute fluid volume";
 equation
-  assert(vol_1.use_HeatTransfer == true, "Wrong parameter for vol_1.");
-  assert(vol_2.use_HeatTransfer == true, "Wrong parameter for vol_2.");
-  Q_flow_1 = heaFloSen_1.Q_flow;
-  Q_flow_2 = heaFloSen_2.Q_flow;
+  assert(vol1.use_HeatTransfer == true, "Wrong parameter for vol1.");
+  assert(vol2.use_HeatTransfer == true, "Wrong parameter for vol2.");
 
-  connect(con1.solid, mas.port) annotation (Line(points={{-56,20},{-68,20},{-68,
-          -6.12323e-016}}, color={191,0,0}));
-  connect(con2.solid, mas.port) annotation (Line(points={{-56,-20},{-56,-20.5},
-          {-68,-20.5},{-68,-6.12323e-016}}, color={191,0,0}));
-  connect(mas.port, temSen.port)      annotation (Line(points={{-68,
-          -6.12323e-016},{-35,-6.12323e-016},{-35,0},{12,0}},
-                          color={191,0,0}));
-  connect(con1.fluid, heaFloSen_1.port_a) 
-    annotation (Line(points={{-36,20},{-20,20}}, color={191,0,0}));
-  connect(con2.fluid, heaFloSen_2.port_a) annotation (Line(points={{-36,-20},{
-          -20,-20}}, color={191,0,0}));
-  connect(port_a1, vol_1.ports[1]) annotation (Line(
+  connect(port_a1, vol1.ports[1]) annotation (Line(
       points={{-100,60},{-20,60},{-20,70},{-2,70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(vol_1.ports[2], port_b1) annotation (Line(
+  connect(vol1.ports[2], port_b1) annotation (Line(
       points={{2,70},{20,70},{20,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(port_a2, vol_2.ports[1]) annotation (Line(
+  connect(port_a2, vol2.ports[1]) annotation (Line(
       points={{100,-60},{40,-60},{40,-70},{4,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(vol_2.ports[2], port_b2) annotation (Line(
+  connect(vol2.ports[2], port_b2) annotation (Line(
       points={{-1.11022e-015,-70},{-30,-70},{-30,-60},{-100,-60}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(heaFloSen_1.port_b, vol_1.heatPort) annotation (Line(
-      points={{0,20},{0,40},{-10,40},{-10,60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(heaFloSen_2.port_b, vol_2.heatPort) annotation (Line(
-      points={{0,-20},{26,-20},{26,-60},{12,-60}},
-      color={191,0,0},
       smooth=Smooth.None));
 end PartialDynamicFourPortTransformer;

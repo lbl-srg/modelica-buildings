@@ -15,13 +15,13 @@ model OAMixingBoxMinimumDamper
   Buildings.Fluids.Actuators.Dampers.Exponential damOAMin(
                                                          A=AOutMin,
     redeclare package Medium = Medium,
-    m0_flow=m0OutMin_flow) "Damper for minimum outside air supply" 
+    m_flow_nominal=m0OutMin_flow) "Damper for minimum outside air supply" 
                                             annotation (Placement(
         transformation(extent={{-42,28},{-22,48}}, rotation=0)));
   Buildings.Fluids.Actuators.Dampers.Exponential damOA(
                                                       A=AOut,
     redeclare package Medium = Medium,
-    m0_flow=m0Out_flow) 
+    m_flow_nominal=m0Out_flow) 
     annotation (Placement(transformation(extent={{-42,-30},{-22,-10}}, rotation=
            0)));
   parameter Modelica.SIunits.Area AOutMin
@@ -30,14 +30,14 @@ model OAMixingBoxMinimumDamper
   Buildings.Fluids.Actuators.Dampers.Exponential damExh(
                                                        A=AExh,
     redeclare package Medium = Medium,
-    m0_flow=m0Exh_flow) "Exhaust air damper" 
+    m_flow_nominal=m0Exh_flow) "Exhaust air damper" 
     annotation (Placement(transformation(extent={{-22,-90},{-42,-70}}, rotation=
            0)));
   parameter Modelica.SIunits.Area AExh "Face area exhaust air damper";
   Buildings.Fluids.Actuators.Dampers.Exponential damRec(
                                                        A=ARec,
     redeclare package Medium = Medium,
-    m0_flow=m0Rec_flow) "Recirculation air damper" 
+    m_flow_nominal=m0Rec_flow) "Recirculation air damper" 
                                annotation (Placement(transformation(
         origin={28,-10},
         extent={{-10,-10},{10,10}},
@@ -47,50 +47,50 @@ model OAMixingBoxMinimumDamper
   parameter Modelica.SIunits.MassFlowRate m0OutMin_flow
     "Mass flow rate minimum outside air damper" 
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp0OutMin
+  parameter Modelica.SIunits.Pressure dpOutMin_nominal
     "Pressure drop minimum outside air leg (without damper)" 
      annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m0Out_flow
     "Mass flow rate outside air damper" 
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp0Out
+  parameter Modelica.SIunits.Pressure dpOut_nominal
     "Pressure drop outside air leg (without damper)" 
      annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m0Rec_flow
     "Mass flow rate recirculation air damper" 
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp0Rec
+  parameter Modelica.SIunits.Pressure dpRec_nominal
     "Pressure drop recirculation air leg (without damper)" 
      annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m0Exh_flow
     "Mass flow rate exhaust air damper" 
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp0Exh
+  parameter Modelica.SIunits.Pressure dpExh_nominal
     "Pressure drop exhaust air leg (without damper)" 
      annotation (Dialog(group="Nominal condition"));
 
   Buildings.Fluids.FixedResistances.FixedResistanceDpM preDroOutMin(
-                                                              m0_flow=
-        m0OutMin_flow, dp0=dp0OutMin, redeclare package Medium = Medium)
+                                                              m_flow_nominal=
+        m0OutMin_flow, dp_nominal=dpOutMin_nominal, redeclare package Medium = Medium)
     "Pressure drop for minimum outside air branch" 
     annotation (Placement(transformation(extent={{-82,28},{-62,48}}, rotation=0)));
   Buildings.Fluids.FixedResistances.FixedResistanceDpM preDroOut(
-                                                           m0_flow=
-        m0Out_flow, dp0=dp0Out, redeclare package Medium = Medium)
+                                                           m_flow_nominal=
+        m0Out_flow, dp_nominal=dpOut_nominal, redeclare package Medium = Medium)
     "Pressure drop for outside air branch" annotation (Placement(transformation(
           extent={{-82,-30},{-62,-10}}, rotation=0)));
   Buildings.Fluids.FixedResistances.FixedResistanceDpM preDroExh(
-                                                           m0_flow=
-        m0Exh_flow, dp0=dp0Exh, redeclare package Medium = Medium)
+                                                           m_flow_nominal=
+        m0Exh_flow, dp_nominal=dpExh_nominal, redeclare package Medium = Medium)
     "Pressure drop for exhaust air branch" 
     annotation (Placement(transformation(extent={{-62,-90},{-82,-70}}, rotation=
            0)));
   Buildings.Fluids.FixedResistances.FixedResistanceDpM preDroRec(
-                                                           m0_flow=
-        m0Rec_flow, dp0=dp0Rec, redeclare package Medium = Medium)
+                                                           m_flow_nominal=
+        m0Rec_flow, dp_nominal=dpRec_nominal, redeclare package Medium = Medium)
     "Pressure drop for recirculation air branch" 
     annotation (Placement(transformation(
         origin={28,-50},

@@ -5,36 +5,36 @@ model DryCoilDiscretized
             -100},{100,100}}),
                      graphics),
                       Commands(file="DryCoilDiscretized.mos" "run"));
- package Medium_1 = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium_2 = Buildings.Media.PerfectGases.MoistAir;
- //package Medium_2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
- package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAir;
- //package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid;
-//package Medium_2 = Buildings.Media.IdealGases.SimpleAir;
-  parameter Modelica.SIunits.Temperature T0_a1 = 60+273.15;
-  parameter Modelica.SIunits.Temperature T0_b1 = 40+273.15;
-  parameter Modelica.SIunits.Temperature T0_a2 =  5+273.15;
-  parameter Modelica.SIunits.Temperature T0_b2 = 20+273.15;
-  parameter Modelica.SIunits.MassFlowRate m0_flow_1 = 5
+ package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
+ //package Medium2 = Buildings.Media.PerfectGases.MoistAir;
+ //package Medium2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
+ package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
+ //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid;
+//package Medium2 = Buildings.Media.IdealGases.SimpleAir;
+  parameter Modelica.SIunits.Temperature T_a1_nominal = 60+273.15;
+  parameter Modelica.SIunits.Temperature T_b1_nominal = 40+273.15;
+  parameter Modelica.SIunits.Temperature T_a2_nominal =  5+273.15;
+  parameter Modelica.SIunits.Temperature T_b2_nominal = 20+273.15;
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 5
     "Nominal mass flow rate medium 1";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_2 = m0_flow_1*4200/1000*(T0_a1-T0_b1)/(T0_b2-T0_a2)
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 
   Buildings.Fluids.HeatExchangers.DryCoilDiscretized hex(
-    redeclare package Medium_1 = Medium_1,
-    redeclare package Medium_2 = Medium_2,
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
     nPipPar=1,
     nPipSeg=3,
     nReg=2,
-    m0_flow_1=m0_flow_1,
-    m0_flow_2=m0_flow_2,
-    Q0_flow=m0_flow_1*4200*(T0_a1-T0_b1),
-    dT0=((T0_a1 - T0_b2) - (T0_b1 - T0_a2))/Modelica.Math.log((T0_a1 - T0_b2)/(T0_b1 - T0_a2)),
-    dp0_1=2000,
-    dp0_2=200)           annotation (Placement(transformation(extent={{8,-4},{
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal,
+    Q_flow_nominal=m1_flow_nominal*4200*(T_a1_nominal-T_b1_nominal),
+    dT_nominal=((T_a1_nominal - T_b2_nominal) - (T_b1_nominal - T_a2_nominal))/Modelica.Math.log((T_a1_nominal - T_b2_nominal)/(T_b1_nominal - T_a2_nominal)),
+    dp_nominal_1=2000,
+    dp_nominal_2=200)           annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sin_2(                       redeclare
-      package Medium = Medium_2, T=303.15,
+      package Medium = Medium2, T=303.15,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-58,-10},
             {-38,10}}, rotation=0)));
@@ -46,7 +46,7 @@ model DryCoilDiscretized
                  annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
           rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sou_2(                       redeclare
-      package Medium = Medium_2,
+      package Medium = Medium2,
     use_p_in=true,
     use_T_in=true,
     T=283.15,
@@ -65,14 +65,14 @@ model DryCoilDiscretized
       annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
           rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
-      package Medium = Medium_1,
+      package Medium = Medium1,
     p=300000,
     T=293.15,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{84,2},{
             64,22}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sou_1(
-    redeclare package Medium = Medium_1,
+    redeclare package Medium = Medium1,
     p=300000 + 5000,
     use_T_in=true,
     T=293.15,
@@ -80,15 +80,15 @@ model DryCoilDiscretized
             {-40,60}}, rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
-    redeclare package Medium = Medium_2,
-    m0_flow=m0_flow_2,
-    dp0=200) annotation (Placement(transformation(extent={{-2,-10},{-22,10}},
+    redeclare package Medium = Medium2,
+    m_flow_nominal=m2_flow_nominal,
+    dp_nominal=200) annotation (Placement(transformation(extent={{-2,-10},{-22,10}},
           rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
-    redeclare package Medium = Medium_1,
-    m0_flow=m0_flow_1,
-    dp0=5000) 
+    redeclare package Medium = Medium1,
+    m_flow_nominal=m1_flow_nominal,
+    dp_nominal=5000) 
              annotation (Placement(transformation(extent={{34,2},{54,22}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp PSin_1(

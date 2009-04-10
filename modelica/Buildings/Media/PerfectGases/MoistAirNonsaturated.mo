@@ -157,7 +157,8 @@ redeclare function extends saturationPressure
 
   annotation(Inline=false,smoothOrder=5);
 algorithm
-  psat := Buildings.Utilities.Math.spliceFunction(saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
+  psat := Buildings.Utilities.Math.Functions.spliceFunction(
+                                                  saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
 end saturationPressure;
 
  redeclare function pressure "Gas pressure"
@@ -278,8 +279,9 @@ end dynamicViscosity;
 redeclare function extends thermalConductivity
     "Thermal conductivity of dry air as a polynomial in the temperature"
 algorithm
-  lambda := Polynomials_Temp.evaluate({(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},
-   Cv.to_degC(state.T));
+  lambda := Modelica.Media.Incompressible.TableBased.Polynomials_Temp.evaluate(
+      {(-4.8737307422969E-008), 7.67803133753502E-005, 0.0241814385504202},
+   Modelica.SIunits.Conversions.to_degC(state.T));
 end thermalConductivity;
 
 function h_pTX

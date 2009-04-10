@@ -17,7 +17,7 @@ model LosslessPipe "Pipe with no flow friction and no heat transfer"
         Text(
           extent={{-104,-50},{18,-116}},
           lineColor={0,0,255},
-          textString="dp0=0")}),
+          textString="dp_nominal=0")}),
     Documentation(info="<html>
 <p>
 Model of a pipe with no flow resistance and no heat loss.

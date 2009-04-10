@@ -31,9 +31,9 @@ model MixingVolume
         transformation(extent={{130,48},{110,68}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res1(
     redeclare each package Medium = Medium,
-    dp0=5,
+    dp_nominal=5,
     from_dp=true,
-    m0_flow=2) 
+    m_flow_nominal=2) 
              annotation (Placement(transformation(extent={{-36,50},{-16,70}},
           rotation=0)));
   MixingVolumes.MixingVolume vol1(
@@ -44,23 +44,23 @@ model MixingVolume
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res2(
     redeclare each package Medium = Medium,
-    dp0=5,
+    dp_nominal=5,
     from_dp=true,
-    m0_flow=2) 
+    m_flow_nominal=2) 
              annotation (Placement(transformation(extent={{80,50},{100,70}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res11(
     redeclare each package Medium = Medium,
-    dp0=5,
+    dp_nominal=5,
     from_dp=true,
-    m0_flow=2) 
+    m_flow_nominal=2) 
              annotation (Placement(transformation(extent={{-40,0},{-20,20}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res12(
     redeclare each package Medium = Medium,
-    dp0=5,
+    dp_nominal=5,
     from_dp=true,
-    m0_flow=2) 
+    m_flow_nominal=2) 
              annotation (Placement(transformation(extent={{80,0},{100,20}},
           rotation=0)));
   Modelica_Fluid.Vessels.ClosedVolume vol(
@@ -86,16 +86,16 @@ model MixingVolume
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res21(
     redeclare each package Medium = Medium,
-    dp0=5,
+    dp_nominal=5,
     from_dp=true,
-    m0_flow=2) 
+    m_flow_nominal=2) 
              annotation (Placement(transformation(extent={{-40,-92},{-20,-72}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res22(
     redeclare each package Medium = Medium,
-    dp0=5,
+    dp_nominal=5,
     from_dp=true,
-    m0_flow=2) 
+    m_flow_nominal=2) 
              annotation (Placement(transformation(extent={{80,-92},{100,-72}},
           rotation=0)));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality1 

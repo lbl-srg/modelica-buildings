@@ -23,9 +23,9 @@ model Manifold
     nPorts=2)             annotation (Placement(transformation(extent={{-60,22},
             {-40,42}}, rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_1(
-    m0_flow=5,
+    m_flow_nominal=5,
     redeclare package Medium = Medium,
-    dp0=10,
+    dp_nominal=10,
     use_dh=true,
     from_dp=false) 
              annotation (Placement(transformation(extent={{120,24},{140,44}},
@@ -43,23 +43,25 @@ model Manifold
     height=40,
     offset=101305) annotation (Placement(transformation(extent={{-100,60},{-80,
             80}}, rotation=0)));
-  Buildings.Fluids.HeatExchangers.BaseClasses.PipeManifoldFixedResistance pipFixRes_1(
+  Buildings.Fluids.HeatExchangers.BaseClasses.PipeManifoldFixedResistance
+    pipFixRes_1(
     redeclare package Medium = Medium,
     nPipPar=nPipPar,
-    m0_flow=5,
-    dp0=10,
+    m_flow_nominal=5,
+    dp_nominal=10,
     linearized=false,
     mStart_flow_a=5) 
             annotation (Placement(transformation(extent={{-30,24},{-10,44}},
           rotation=0)));
-  Buildings.Fluids.HeatExchangers.BaseClasses.PipeManifoldNoResistance pipNoRes_1(
+  Buildings.Fluids.HeatExchangers.BaseClasses.PipeManifoldNoResistance
+    pipNoRes_1(
       redeclare package Medium = Medium, nPipPar=nPipPar,
     mStart_flow_a=5) 
     annotation (Placement(transformation(extent={{114,24},{94,44}}, rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_2(
-    m0_flow=5,
+    m_flow_nominal=5,
     redeclare package Medium = Medium,
-    dp0=10,
+    dp_nominal=10,
     use_dh=true,
     from_dp=false) 
              annotation (Placement(transformation(extent={{122,-76},{142,-56}},
@@ -68,17 +70,19 @@ model Manifold
       package Medium = 
                Medium) 
     annotation (Placement(transformation(extent={{30,-76},{50,-56}}, rotation=0)));
-  Buildings.Fluids.HeatExchangers.BaseClasses.DuctManifoldFixedResistance ducFixRes_2(
+  Buildings.Fluids.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
+    ducFixRes_2(
     redeclare package Medium = Medium,
     nPipPar=nPipPar,
     nPipSeg=nPipSeg,
-    m0_flow=5,
-    dp0=10,
+    m_flow_nominal=5,
+    dp_nominal=10,
     linearized=false,
     mStart_flow_a=5) 
             annotation (Placement(transformation(extent={{-32,-76},{-12,-56}},
           rotation=0)));
-  Buildings.Fluids.HeatExchangers.BaseClasses.DuctManifoldNoResistance ducNoRes_2(
+  Buildings.Fluids.HeatExchangers.BaseClasses.DuctManifoldNoResistance
+    ducNoRes_2(
       redeclare package Medium = Medium,
       nPipPar=nPipPar,
       nPipSeg=nPipSeg,

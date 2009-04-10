@@ -5,61 +5,61 @@ model DryCoilDiscretizedPControl
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{200,200}}), graphics),
                       Commands(file="DryCoilDiscretizedPControl.mos" "run"));
- package Medium_1 = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium_2 = Buildings.Media.PerfectGases.MoistAir;
- //package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAir;
- // package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid;
- package Medium_2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
-  parameter Modelica.SIunits.Temperature T0_a1 = 60+273.15;
-  parameter Modelica.SIunits.Temperature T0_b1 = 50+273.15;
-  parameter Modelica.SIunits.Temperature T0_a2 = 20+273.15;
-  parameter Modelica.SIunits.Temperature T0_b2 = 40+273.15;
-  parameter Modelica.SIunits.MassFlowRate m0_flow_1 = 5
+ package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
+ //package Medium2 = Buildings.Media.PerfectGases.MoistAir;
+ //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
+ // package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid;
+ package Medium2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
+  parameter Modelica.SIunits.Temperature T_a1_nominal = 60+273.15;
+  parameter Modelica.SIunits.Temperature T_b1_nominal = 50+273.15;
+  parameter Modelica.SIunits.Temperature T_a2_nominal = 20+273.15;
+  parameter Modelica.SIunits.Temperature T_b2_nominal = 40+273.15;
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 5
     "Nominal mass flow rate medium 1";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_2 = m0_flow_1*4200/1000*(T0_a1-T0_b1)/(T0_b2-T0_a2)
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 
   Modelica_Fluid.Sources.Boundary_pT sin_2(                       redeclare
-      package Medium = Medium_2,
+      package Medium = Medium2,
     nPorts=1,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     T=303.15)             annotation (Placement(transformation(extent={{-52,10},
             {-32,30}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sou_2(                       redeclare
-      package Medium = Medium_2,
+      package Medium = Medium2,
     nPorts=1,
     use_p_in=false,
     use_T_in=false,
     p(displayUnit="Pa") = 101625,
-    T=T0_a2)              annotation (Placement(transformation(extent={{140,10},
+    T=T_a2_nominal)              annotation (Placement(transformation(extent={{140,10},
             {120,30}},  rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
-      package Medium = Medium_1,
+      package Medium = Medium1,
     p=300000,
     T=293.15,
     nPorts=1,
     use_p_in=true)        annotation (Placement(transformation(extent={{140,50},
             {120,70}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sou_1(
-    redeclare package Medium = Medium_1,
+    redeclare package Medium = Medium1,
     p=300000 + 9000,
     nPorts=1,
     use_T_in=false,
-    T=T0_a1)              annotation (Placement(transformation(extent={{-22,50},
+    T=T_a1_nominal)              annotation (Placement(transformation(extent={{-22,50},
             {-2,70}},  rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
-    redeclare package Medium = Medium_2,
-    dp0=100,
-    m0_flow=m0_flow_2) 
+    redeclare package Medium = Medium2,
+    dp_nominal=100,
+    m_flow_nominal=m2_flow_nominal) 
              annotation (Placement(transformation(extent={{4,10},{-16,30}},
           rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
-    redeclare package Medium = Medium_1,
-    m0_flow=5,
-    dp0=3000) 
+    redeclare package Medium = Medium1,
+    m_flow_nominal=5,
+    dp_nominal=3000) 
              annotation (Placement(transformation(extent={{90,50},{110,70}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp PSin_1(
@@ -70,14 +70,14 @@ model DryCoilDiscretizedPControl
                  annotation (Placement(transformation(extent={{140,90},{160,110}},
           rotation=0)));
   Modelica_Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium = 
-        Medium_2) annotation (Placement(transformation(extent={{40,10},{20,30}},
+        Medium2) annotation (Placement(transformation(extent={{40,10},{20,30}},
           rotation=0)));
   Buildings.Fluids.Actuators.Valves.TwoWayEqualPercentage val(
-    redeclare package Medium = Medium_1,
+    redeclare package Medium = Medium1,
     l=0.005,
     Kv_SI=5/sqrt(4000),
-    m0_flow=m0_flow_1) "Valve model" 
-             annotation (Placement(transformation(extent={{28,50},{48,70}},
+    m_flow_nominal=m1_flow_nominal) "Valve model" 
+             annotation (Placement(transformation(extent={{30,50},{50,70}},
           rotation=0)));
   Modelica.Blocks.Math.Gain P(k=1)    annotation (Placement(transformation(
           extent={{-20,90},{0,110}},    rotation=0)));
@@ -90,21 +90,21 @@ model DryCoilDiscretizedPControl
     annotation (Placement(transformation(extent={{-80,90},{-60,110}},  rotation=
            0)));
   Buildings.Fluids.HeatExchangers.DryCoilDiscretized hex(
-    redeclare package Medium_1 = Medium_1,
-    redeclare package Medium_2 = Medium_2,
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
     nPipPar=1,
     nPipSeg=3,
     nReg=4,
-    m0_flow_1=m0_flow_1,
-    m0_flow_2=m0_flow_2,
-    Q0_flow=m0_flow_1*4200*(T0_a1-T0_b1),
-    dT0=((T0_a1 - T0_b2) - (T0_b1 - T0_a2))/Modelica.Math.log((T0_a1 - T0_b2)/(T0_b1 - T0_a2)),
-    dp0_1(displayUnit="Pa") = 2000,
-    dp0_2(displayUnit="Pa") = 200) 
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal,
+    Q_flow_nominal=m1_flow_nominal*4200*(T_a1_nominal-T_b1_nominal),
+    dT_nominal=((T_a1_nominal - T_b2_nominal) - (T_b1_nominal - T_a2_nominal))/Modelica.Math.log((T_a1_nominal - T_b2_nominal)/(T_b1_nominal - T_a2_nominal)),
+    dp_nominal_1(displayUnit="Pa") = 2000,
+    dp_nominal_2(displayUnit="Pa") = 200) 
                          annotation (Placement(transformation(extent={{60,16},{
             80,36}}, rotation=0)));
   Buildings.Fluids.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model" 
-    annotation (Placement(transformation(extent={{20,90},{40,110}},rotation=0)));
+    annotation (Placement(transformation(extent={{12,90},{32,110}},rotation=0)));
   inner Modelica_Fluid.System system 
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
@@ -119,12 +119,12 @@ equation
   connect(hex.port_b1, res_1.port_a) 
     annotation (Line(points={{80,32},{86,32},{86,60},{90,60}},
                                                color={0,127,255}));
-  connect(val.port_b, hex.port_a1)                   annotation (Line(points={{48,60},
+  connect(val.port_b, hex.port_a1)                   annotation (Line(points={{50,60},
           {52,60},{52,32},{60,32}},        color={0,127,255}));
-  connect(P.y, mot.u) annotation (Line(points={{1,100},{1,100},{18,100}},
+  connect(P.y, mot.u) annotation (Line(points={{1,100},{1,100},{10,100}},
                 color={0,0,127}));
   connect(sou_1.ports[1], val.port_a) annotation (Line(
-      points={{-2,60},{28,60}},
+      points={{-2,60},{30,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin_1.ports[1], res_1.port_b) annotation (Line(
@@ -144,7 +144,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mot.y, val.y) annotation (Line(
-      points={{41,100},{48,100},{48,80},{12,80},{12,68},{26,68}},
+      points={{33,100},{40,100},{40,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b2, temSen.port_a) annotation (Line(

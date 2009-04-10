@@ -17,13 +17,13 @@ model OAMixingBoxMinimumDamper
     AExh=1,
     ARec=1,
     m0OutMin_flow=0.3,
-    dp0OutMin=20,
+    dpOutMin_nominal=20,
     m0Out_flow=1,
-    dp0Out=20,
+    dpOut_nominal=20,
     m0Rec_flow=1,
-    dp0Rec=20,
+    dpRec_nominal=20,
     m0Exh_flow=1,
-    dp0Exh=20,
+    dpExh_nominal=20,
     redeclare package Medium = Medium) "mixing box" 
                             annotation (Placement(transformation(extent={{14,
             -22},{34,-2}}, rotation=0)));

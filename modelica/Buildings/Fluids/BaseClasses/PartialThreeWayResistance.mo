@@ -1,7 +1,6 @@
 within Buildings.Fluids.BaseClasses;
 partial model PartialThreeWayResistance
   "Flow splitter with partial resistance model at each port"
-    extends Buildings.BaseClasses.BaseIcon;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
@@ -83,10 +82,6 @@ protected
     "Flow direction for port_3" 
    annotation(Dialog(tab="Advanced"));
 
-protected
-  Modelica_Fluid.Interfaces.FluidPort_b port_m(redeclare package Medium = 
-        Medium) "Mixing port" annotation (Placement(transformation(extent={{-1,
-            -1},{1,1}}, rotation=0)));
 equation
   connect(port_1, res1.port_a) annotation (Line(points={{-100,0},{-100,0},{-60,
           0}},                                                      color={0,
@@ -96,12 +91,12 @@ equation
   connect(res3.port_a, port_3) annotation (Line(points={{-6.12323e-016,-60},{
           -6.12323e-016,-79},{0,-79},{0,-100}},                      color={0,
           127,255}));
-  connect(res1.port_b, port_m) annotation (Line(points={{-40,0},{-20,0},{0,0}},
-                                                                         color=
-          {0,127,255}));
-  connect(res2.port_a, port_m) annotation (Line(points={{40,0},{40,0},{0,0}},
-                                                                        color={
-          0,127,255}));
-  connect(res3.port_b, port_m) annotation (Line(points={{6.12323e-016,-40},{0,
-          -40},{0,0}},                                    color={0,127,255}));
+  connect(res1.port_b, res2.port_a) annotation (Line(
+      points={{-40,0},{40,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res1.port_b, res3.port_b) annotation (Line(
+      points={{-40,0},{6.12323e-016,0},{6.12323e-016,-40}},
+      color={0,127,255},
+      smooth=Smooth.None));
 end PartialThreeWayResistance;

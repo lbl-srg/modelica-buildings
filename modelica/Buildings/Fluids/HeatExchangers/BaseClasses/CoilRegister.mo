@@ -1,10 +1,10 @@
 within Buildings.Fluids.HeatExchangers.BaseClasses;
 model CoilRegister "Register for a heat exchanger"
   import Modelica.Constants;
-  replaceable package Medium_1 = 
+  replaceable package Medium1 = 
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component" 
       annotation (choicesAllMatching = true);
-  replaceable package Medium_2 = 
+  replaceable package Medium2 = 
       Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component" 
       annotation (choicesAllMatching = true);
   outer Modelica_Fluid.System system "System wide properties";
@@ -107,58 +107,60 @@ extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=false,
 
   Buildings.Fluids.HeatExchangers.BaseClasses.HexElement[
                       nPipPar, nPipSeg] ele(
-    redeclare each package Medium_1 = Medium_1,
-    redeclare each package Medium_2 = Medium_2,
+    redeclare each package Medium1 = Medium1,
+    redeclare each package Medium2 = Medium2,
     each allowFlowReversal_1=allowFlowReversal_1,
     each allowFlowReversal_2=allowFlowReversal_2,
-    each tau_1=tau_1/nPipSeg,
-    each m0_flow_1=m0_flow_1/nPipPar,
-    each tau_2=tau_2,
-    each m0_flow_2=m0_flow_2/nPipPar/nPipSeg,
+    each tau1=tau1/nPipSeg,
+    each m1_flow_nominal=m1_flow_nominal/nPipPar,
+    each tau2=tau2,
+    each m2_flow_nominal=m2_flow_nominal/nPipPar/nPipSeg,
     each tau_m=tau_m,
-    each UA0=UA0/nPipPar/nPipSeg,
+    each UA_nominal=UA_nominal/nPipPar/nPipSeg,
     each energyDynamics_1=energyDynamics_1,
     each energyDynamics_2=energyDynamics_2,
     each allowCondensation=allowCondensation) "Element of a heat exchanger" 
     annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=0)));
 
   Modelica_Fluid.Interfaces.FluidPort_a[nPipPar] port_a1(
-        redeclare each package Medium = Medium_1,
+        redeclare each package Medium = Medium1,
         each m_flow(start=0, min=if allowFlowReversal_1 then -Constants.inf else 0))
     "Fluid connector a for medium 1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}}, rotation=
             0)));
   Modelica_Fluid.Interfaces.FluidPort_b[nPipPar] port_b1(
-        redeclare each package Medium = Medium_1,
+        redeclare each package Medium = Medium1,
         each m_flow(start=0, max=if allowFlowReversal_1 then +Constants.inf else 0))
     "Fluid connector b for medium 1 (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}}, rotation=0)));
   Modelica_Fluid.Interfaces.FluidPort_a[nPipPar,nPipSeg] port_a2(
-        redeclare each package Medium = Medium_2,
+        redeclare each package Medium = Medium2,
         each m_flow(start=0, min=if allowFlowReversal_2 then -Constants.inf else 0))
     "Fluid connector a for medium 2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}}, rotation=
             0)));
   Modelica_Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b2(
-        redeclare each package Medium = Medium_2,
+        redeclare each package Medium = Medium2,
         each m_flow(start=0, max=if allowFlowReversal_2 then +Constants.inf else 0))
     "Fluid connector b for medium 2 (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-72},{-110,-52}},
           rotation=0)));
 
-  parameter Modelica.SIunits.ThermalConductance UA0
+  parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Thermal conductance at nominal flow, used to compute time constant" 
      annotation(Dialog(group = "Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m0_flow_1 "Mass flow rate medim 1" 
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
+    "Mass flow rate medim 1" 
   annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m0_flow_2 "Mass flow rate medium 2" 
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
+    "Mass flow rate medium 2" 
   annotation(Dialog(group = "Nominal condition"));
 
-  parameter Modelica.SIunits.Time tau_1=20
+  parameter Modelica.SIunits.Time tau1=20
     "Time constant at nominal flow for medium 1" 
   annotation(Dialog(group = "Nominal condition", enable=not steadyState_1));
-  parameter Modelica.SIunits.Time tau_2=1
+  parameter Modelica.SIunits.Time tau2=1
     "Time constant at nominal flow for medium 2" 
   annotation(Dialog(group = "Nominal condition", enable=not steadyState_2));
   parameter Boolean steadyState_1=false
@@ -167,9 +169,9 @@ extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=false,
   parameter Boolean steadyState_2=false
     "Set to true for steady state model for fluid 2" 
     annotation (Dialog(group="Fluid 2"));
-  Modelica.SIunits.HeatFlowRate Q_flow_1
+  Modelica.SIunits.HeatFlowRate Q1_flow
     "Heat transfered from solid into medium 1";
-  Modelica.SIunits.HeatFlowRate Q_flow_2
+  Modelica.SIunits.HeatFlowRate Q2_flow
     "Heat transfered from solid into medium 2";
   parameter Modelica.SIunits.Time tau_m=60
     "Time constant of metal at nominal UA value" 
@@ -204,8 +206,8 @@ protected
     "Gain medium-side 2 to take discretization into account" 
     annotation (Placement(transformation(extent={{24,-76},{12,-62}}, rotation=0)));
 equation
-  Q_flow_1 = sum(ele[i,j].Q_flow_1 for i in 1:nPipPar, j in 1:nPipSeg);
-  Q_flow_2 = sum(ele[i,j].Q_flow_2 for i in 1:nPipPar, j in 1:nPipSeg);
+  Q1_flow = sum(ele[i,j].Q1_flow for i in 1:nPipPar, j in 1:nPipSeg);
+  Q2_flow = sum(ele[i,j].Q2_flow for i in 1:nPipPar, j in 1:nPipSeg);
   for i in 1:nPipPar loop
     // liquid side (pipes)
     connect(ele[i,1].port_a1,       port_a1[i]) 

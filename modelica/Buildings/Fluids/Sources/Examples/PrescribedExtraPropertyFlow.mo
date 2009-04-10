@@ -25,8 +25,8 @@ model PrescribedExtraPropertyFlow
             0)));
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
-    m0_flow=1,
-    dp0=1) "Resistance, used to check if species are transported between ports"
+    m_flow_nominal=1,
+    dp_nominal=1) "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{60,2},{82,22}},   rotation=0)));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
@@ -62,8 +62,8 @@ model PrescribedExtraPropertyFlow
             {80,-60}}, rotation=0)));
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl(
     redeclare package Medium = Medium,
-    m0_flow={1,1,1},
-    dp0={1,1,1},
+    m_flow_nominal={1,1,1},
+    dp_nominal={1,1,1},
     from_dp=false) annotation (Placement(transformation(
         origin={42,-60},
         extent={{-10,-10},{10,10}},
@@ -102,20 +102,20 @@ model PrescribedExtraPropertyFlow
           rotation=0)));
   FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = Medium,
-    m0_flow=1,
-    dp0=1) "Resistance, used to check if species are transported between ports"
+    m_flow_nominal=1,
+    dp_nominal=1) "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{98,-50},{120,-30}}, rotation=
             0)));
   FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = Medium,
-    m0_flow=1,
-    dp0=1) "Resistance, used to check if species are transported between ports"
+    m_flow_nominal=1,
+    dp_nominal=1) "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{98,-90},{120,-70}}, rotation=
             0)));
   FixedResistances.FixedResistanceDpM res3(
     redeclare package Medium = Medium,
-    m0_flow=1,
-    dp0=1) "Resistance, used to check if species are transported between ports"
+    m_flow_nominal=1,
+    dp_nominal=1) "Resistance, used to check if species are transported between ports"
     annotation (Placement(transformation(extent={{-26,-100},{-4,-80}}, rotation=
            0)));
   inner Modelica_Fluid.System system 

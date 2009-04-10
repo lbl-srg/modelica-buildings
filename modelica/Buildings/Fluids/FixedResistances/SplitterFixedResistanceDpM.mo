@@ -4,17 +4,17 @@ model SplitterFixedResistanceDpM
     extends Buildings.Fluids.BaseClasses.PartialThreeWayResistance(
       redeclare Buildings.Fluids.FixedResistances.FixedResistanceDpM res1(
          redeclare package Medium=Medium,
-         from_dp=from_dp, m0_flow=m0_flow[1], dp0=dp0[1],
+         from_dp=from_dp, m_flow_nominal=m_flow_nominal[1], dp_nominal=dp_nominal[1],
          ReC=ReC[1], dh=dh[1],
          linearized=linearized, deltaM=deltaM),
       redeclare Buildings.Fluids.FixedResistances.FixedResistanceDpM res2(
          redeclare package Medium=Medium,
-         from_dp=from_dp, m0_flow=m0_flow[2], dp0=dp0[2],
+         from_dp=from_dp, m_flow_nominal=m_flow_nominal[2], dp_nominal=dp_nominal[2],
          ReC=ReC[2], dh=dh[2],
          linearized=linearized, deltaM=deltaM),
       redeclare Buildings.Fluids.FixedResistances.FixedResistanceDpM res3(
          redeclare package Medium=Medium,
-         from_dp=from_dp, m0_flow=m0_flow[3], dp0=dp0[3],
+         from_dp=from_dp, m_flow_nominal=m_flow_nominal[3], dp_nominal=dp_nominal[3],
          ReC=ReC[3], dh=dh[3],
          linearized=linearized, deltaM=deltaM));
 
@@ -53,18 +53,18 @@ First implementation.
 
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter" 
        annotation(Evaluate=true, Dialog(enable = not linearized));
-  parameter Modelica.SIunits.MassFlowRate[3] m0_flow(each min=0)
+  parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal(each min=0)
     "Mass flow rate"                                                annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure[3] dp0(each min=0) "Pressure" 
+  parameter Modelica.SIunits.Pressure[3] dp_nominal(each min=0) "Pressure" 
                                                       annotation(Dialog(group = "Nominal condition"));
   parameter Real deltaM(min=0) = 0.3
-    "Fraction of nominal mass flow rate where transition to laminar occurs" 
+    "Fraction of nominal mass flow rate where transition to turbulent occurs" 
        annotation(Dialog(enable = not use_dh and not linearized));
 
   parameter Modelica.SIunits.Length[3] dh={1, 1, 1} "Hydraulic diameter" 
     annotation(Dialog(enable = use_dh and not linearized));
   parameter Real[3] ReC={4000, 4000, 4000}
-    "Reynolds number where transition to laminar starts" 
+    "Reynolds number where transition to turbulent starts" 
       annotation(Dialog(enable = use_dh and not linearized));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate" 

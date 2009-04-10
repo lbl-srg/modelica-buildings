@@ -10,7 +10,7 @@ This package contains type definitions.
       QuadraticLinear "quadratic in x1, linear in x2")
     "Enumeration to define the efficiency curves";
   type CvTypes = enumeration(
-      OpPoint "flow coefficient defined by m0_flow/sqrt(dp0)",
+      OpPoint "flow coefficient defined by m_flow_nominal/sqrt(dp_nominal)",
       Kv "Kv (metric) flow coefficient",
       Cv "Cv (US) flow coefficient",
       Av "Av (metric) flow coefficient")
@@ -27,7 +27,7 @@ Enumeration to define the choice of valve flow coefficient
     <th><b>Meaning</b></th></tr>
  
 <tr><td>OpPoint</td>
-    <td>flow coefficient defined by ratio m0_flow/sqrt(dp0)</td></tr>
+    <td>flow coefficient defined by ratio m_flow_nominal/sqrt(dp_nominal)</td></tr>
  
 <tr><td>Kv</td>
     <td>Kv (metric) flow coefficient</td></tr>
@@ -47,4 +47,10 @@ The details of the coefficients are explained in the
 </p>
  
 </html>"));
+  type EfficiencyInput = enumeration(
+      volume "use state of fluid volume",
+      port_a "use port_a",
+      port_b "use port_b",
+      average "use (port_a+port_b)/2)")
+    "Enumeration to define the input for efficiency curves";
 end Types;

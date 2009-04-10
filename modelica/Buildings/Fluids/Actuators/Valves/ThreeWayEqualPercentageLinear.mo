@@ -6,12 +6,12 @@ model ThreeWayEqualPercentageLinear
       redeclare package Medium = Medium,
       l=l[1],
       deltaM=deltaM,
-      dp0=dp0,
+      dp_nominal=dp_nominal,
       from_dp=from_dp,
       linearized=linearized[1],
       R=R,
       delta0=delta0,
-      m0_flow=m0_flow,
+      m_flow_nominal=m_flow_nominal,
       CvData=CvData,
       Kv_SI=Kv_SI,
       Kv=Kv,
@@ -21,16 +21,16 @@ model ThreeWayEqualPercentageLinear
       redeclare package Medium = Medium,
       l=l[2],
       deltaM=deltaM,
-      dp0=dp0,
+      dp_nominal=dp_nominal,
       from_dp=from_dp,
       linearized=linearized[2],
-      m0_flow=m0_flow,
+      m_flow_nominal=m_flow_nominal,
       CvData=CvData,
       Kv_SI=fraK*Kv_SI,
       Kv=fraK*Kv,
       Cv=fraK*Cv,
       Av=fraK*Av));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
                        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -77,10 +77,12 @@ First implementation.
     "Range of significant deviation from equal percentage law";
 
 equation
-  connect(inv.y, res3.y) annotation (Line(points={{-35,72},{20,72},{20,-74},{8,
-          -74},{8,-62}}, color={0,0,127}));
-  connect(y, inv.u2) annotation (Line(points={{-120,80},{-92,80},{-92,40},{-44,
-          40},{-44,64}}, color={0,0,127}));
-  connect(y, res1.y) annotation (Line(points={{-120,80},{-92,80},{-92,8},{-62,8}},
+  connect(inv.y, res3.y) annotation (Line(points={{-41,70},{-20,70},{-20,20},{
+          20,20},{20,-50},{8,-50}},
+                         color={0,0,127}));
+  connect(y, inv.u2) annotation (Line(points={{0,80},{0,80},{0,30},{-50,30},{
+          -50,62}},      color={0,0,127}));
+  connect(y, res1.y) annotation (Line(points={{0,80},{0,80},{0,30},{-50,30},{
+          -50,8}},
         color={0,0,127}));
 end ThreeWayEqualPercentageLinear;

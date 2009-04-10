@@ -63,24 +63,24 @@ model HexElement
             {-40,60}}, rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_22(
     from_dp=true,
-    m0_flow=5,
-    dp0=5,
+    m_flow_nominal=5,
+    dp_nominal=5,
     redeclare package Medium = Medium_A) 
              annotation (Placement(transformation(extent={{-4,-30},{-24,-10}},
           rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_12(
     from_dp=true,
-    m0_flow=5,
-    dp0=5,
+    m_flow_nominal=5,
+    dp_nominal=5,
     redeclare package Medium = Medium_W) 
              annotation (Placement(transformation(extent={{48,10},{68,30}},
           rotation=0)));
   Buildings.Fluids.HeatExchangers.BaseClasses.HexElement hex(
-    m0_flow_1=5,
-    m0_flow_2=5,
-    UA0=9999,
-    redeclare package Medium_1 = Medium_W,
-    redeclare package Medium_2 = Medium_A,
+    m1_flow_nominal=5,
+    m2_flow_nominal=5,
+    UA_nominal=9999,
+    redeclare package Medium1 = Medium_W,
+    redeclare package Medium2 = Medium_A,
     allowCondensation=false) 
                     annotation (Placement(transformation(extent={{10,-10},{30,
             10}}, rotation=0)));
@@ -89,15 +89,15 @@ model HexElement
           rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_11(
     from_dp=true,
-    m0_flow=5,
-    dp0=5,
+    m_flow_nominal=5,
+    dp_nominal=5,
     redeclare package Medium = Medium_W) 
              annotation (Placement(transformation(extent={{-24,10},{-4,30}},
           rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_21(
     from_dp=true,
-    m0_flow=5,
-    dp0=5,
+    m_flow_nominal=5,
+    dp_nominal=5,
     redeclare package Medium = Medium_A) 
              annotation (Placement(transformation(extent={{70,-30},{50,-10}},
           rotation=0)));

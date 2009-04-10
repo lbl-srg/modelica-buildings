@@ -3,10 +3,10 @@ model Stratified "Model of a stratified tank for thermal energy storage"
   extends Buildings.Fluids.Interfaces.PartialStaticTwoPortInterface(final
       p_a_start =                                                                     p_start,
                                                                     final
-      p_b_start =                                                                     p_start,
-      redeclare package Medium = 
-        Modelica.Media.Interfaces.PartialSimpleMedium);
+      p_b_start =                                                                     p_start);
   extends Buildings.BaseClasses.BaseIcon;
+  replaceable package Medium = 
+      Modelica.Media.Interfaces.PartialSimpleMedium;
   import Modelica_Fluid.Types;
   import Modelica_Fluid.Types.Dynamics;
   annotation (Documentation(info="<html>
@@ -37,6 +37,12 @@ Buildings.Fluids.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 19, 2009 by Michael Wetter:<br>
+Changed declaration that constrains the medium. The earlier
+declaration caused the medium model to be not shown in the parameter
+window.
+</li>
 <li>
 October 31, 2008 by Michael Wetter:<br>
 Added heat conduction.

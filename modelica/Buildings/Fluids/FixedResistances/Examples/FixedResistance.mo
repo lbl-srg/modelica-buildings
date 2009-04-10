@@ -20,8 +20,8 @@ model FixedResistance
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = Medium,
     from_dp=true,
-    m0_flow=5,
-    dp0=10)  annotation (Placement(transformation(extent={{-28,30},{-8,50}},
+    m_flow_nominal=5,
+    dp_nominal=10)  annotation (Placement(transformation(extent={{-28,30},{-8,50}},
           rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sou1(          redeclare package Medium = 
         Medium,
@@ -37,16 +37,16 @@ model FixedResistance
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = Medium,
     from_dp=true,
-    m0_flow=5,
-    dp0=10,
+    m_flow_nominal=5,
+    dp_nominal=10,
     use_dh=true) 
              annotation (Placement(transformation(extent={{-28,-10},{-8,10}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res3(
     redeclare package Medium = Medium,
     from_dp=true,
-    m0_flow=5,
-    dp0=10,
+    m_flow_nominal=5,
+    dp_nominal=10,
     use_dh=true) 
              annotation (Placement(transformation(extent={{-28,-50},{-8,-30}},
           rotation=0)));

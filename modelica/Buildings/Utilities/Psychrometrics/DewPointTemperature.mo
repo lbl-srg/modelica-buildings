@@ -40,10 +40,10 @@ First implementation.
           lineColor={0,0,255},
           textString="p_w"),
         Text(
-          extent={{-124,46},{-86,0}},
+          extent={{-136,50},{-98,4}},
           lineColor={0,0,255},
           textString="TDP"),
-        Line(points={{70,86},{70,-72}}, color={0,0,0}),
+        Line(points={{-68,86},{-68,-72}}, color={0,0,0}),
         Line(points={{82,-72},{-66,-72}}, color={0,0,0}),
         Line(points={{-68,-46},{-54,-42},{-24,-30},{8,-2},{20,22},{28,54},{32,
               74}}, color={0,0,0}),
@@ -62,12 +62,12 @@ First implementation.
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{70,86},{72,72},{68,72},{70,86}},
+          points={{-68,88},{-66,74},{-70,74},{-68,88}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{74,84},{96,66}},
+          extent={{-64,84},{-42,66}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
@@ -77,18 +77,21 @@ First implementation.
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="T")}),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+          textString="T"),
+        Line(points={{68,-44},{-62,-44}}, color={175,175,175}),
+        Line(points={{68,-18},{-10,-18}}, color={175,175,175}),
+        Line(points={{70,6},{12,6}}, color={175,175,175}),
+        Line(points={{68,32},{22,32}}, color={175,175,175})}),
+    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics));
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal p_w
-    "Water vapor partial pressure" 
+  Modelica.Blocks.Interfaces.RealOutput p_w "Water vapor partial pressure" 
     annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
             0)));
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal T(start=278.15,
-                                           final quantity="ThermodynamicTemperature",
-                                           final unit="K",
-                                           min = 0,
-                                           displayUnit="degC")
+  Modelica.Blocks.Interfaces.RealInput T(start=278.15,
+                                         final quantity="ThermodynamicTemperature",
+                                         final unit="K",
+                                         min = 0,
+                                         displayUnit="degC")
     "Dew point temperature" 
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
           rotation=0)));

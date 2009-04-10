@@ -28,7 +28,7 @@ First implementation.
   Buildings.Fluids.Actuators.Valves.TwoWayLinear valLin(
     redeclare package Medium = Medium,
     l=0.05,
-    m0_flow=2) "Valve model, linear opening characteristics" 
+    m_flow_nominal=2) "Valve model, linear opening characteristics" 
          annotation (Placement(transformation(extent={{0,10},{20,30}}, rotation=
            0)));
   Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
@@ -51,7 +51,7 @@ First implementation.
   Buildings.Fluids.Actuators.Valves.TwoWayQuickOpening valQui(
     redeclare package Medium = Medium,
     l=0.05,
-    m0_flow=2) "Valve model, quick opening characteristics" 
+    m_flow_nominal=2) "Valve model, quick opening characteristics" 
          annotation (Placement(transformation(extent={{0,-20},{20,0}}, rotation=
            0)));
   Buildings.Fluids.Actuators.Valves.TwoWayEqualPercentage valEqu(
@@ -59,7 +59,7 @@ First implementation.
     l=0.05,
     R=10,
     delta0=0.1,
-    m0_flow=2) "Valve model, equal percentage opening characteristics" 
+    m_flow_nominal=2) "Valve model, equal percentage opening characteristics" 
          annotation (Placement(transformation(extent={{0,-50},{20,-30}},
           rotation=0)));
   Modelica.Blocks.Sources.TimeTable ySet(table=[0,0; 60,0; 60,1; 120,1; 180,0.5;
@@ -78,12 +78,15 @@ equation
                                                  color={0,0,127}));
   connect(ySet.y, mot.u) 
     annotation (Line(points={{-79,70},{-62,70}}, color={0,0,127}));
-  connect(mot.y, valEqu.y) annotation (Line(points={{-39,70},{-12,70},{-12,-32},
-          {-2,-32}}, color={0,0,127}));
-  connect(mot.y, valQui.y) annotation (Line(points={{-39,70},{-12,70},{-12,-2},
-          {-2,-2}}, color={0,0,127}));
-  connect(mot.y, valLin.y) annotation (Line(points={{-39,70},{-12,70},{-12,28},
-          {-2,28}}, color={0,0,127}));
+  connect(mot.y, valEqu.y) annotation (Line(points={{-39,70},{-12,70},{-12,-28},
+          {10,-28},{10,-32}},
+                     color={0,0,127}));
+  connect(mot.y, valQui.y) annotation (Line(points={{-39,70},{-12,70},{-12,2},{
+          10,2},{10,-2}},
+                    color={0,0,127}));
+  connect(mot.y, valLin.y) annotation (Line(points={{-39,70},{-12,70},{-12,34},
+          {10,34},{10,28}},
+                    color={0,0,127}));
   connect(sou.ports[1], valLin.port_a) annotation (Line(
       points={{-40,-7.33333},{-20,-7.33333},{-20,20},{0,20}},
       color={0,127,255},

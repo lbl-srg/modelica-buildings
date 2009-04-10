@@ -42,7 +42,7 @@ First implementation.
   Buildings.Fluids.MassExchangers.HumidifierPrescribed hea1(redeclare package
       Medium = 
         Medium,
-    m0_flow=0.5,
+    m_flow_nominal=0.5,
     mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
         transformation(extent={{-54,92},{-34,112}}, rotation=0)));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature" 
@@ -58,15 +58,15 @@ First implementation.
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_11(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5,
-    m0_flow=0.5) 
+    dp_nominal=5,
+    m_flow_nominal=0.5) 
              annotation (Placement(transformation(extent={{-100,92},{-80,112}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_12(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5,
-    m0_flow=0.5) 
+    dp_nominal=5,
+    m_flow_nominal=0.5) 
              annotation (Placement(transformation(extent={{-100,134},{-80,154}},
           rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
@@ -88,7 +88,7 @@ First implementation.
   Buildings.Fluids.MassExchangers.HumidifierPrescribed hea2(
                                                  redeclare package Medium = 
         Medium,
-    m0_flow=0.5,
+    m_flow_nominal=0.5,
     mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
         transformation(extent={{-12,134},{8,154}}, rotation=0)));
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
@@ -96,34 +96,34 @@ First implementation.
   Buildings.Fluids.MassExchangers.HumidifierPrescribed hea3(redeclare package
       Medium = 
         Medium,
-    m0_flow=0.5,
+    m_flow_nominal=0.5,
     mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
         transformation(extent={{-54,12},{-34,32}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5,
-    m0_flow=0.5) 
+    dp_nominal=5,
+    m_flow_nominal=0.5) 
              annotation (Placement(transformation(extent={{-100,12},{-80,32}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_3(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5,
-    m0_flow=0.5) 
+    dp_nominal=5,
+    m_flow_nominal=0.5) 
              annotation (Placement(transformation(extent={{-100,54},{-80,74}},
           rotation=0)));
   Buildings.Fluids.MassExchangers.HumidifierPrescribed hea4(
                                                  redeclare package Medium = 
         Medium,
-    m0_flow=0.5,
+    m_flow_nominal=0.5,
     mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
         transformation(extent={{-12,54},{8,74}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_4(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5,
-    m0_flow=0.5) 
+    dp_nominal=5,
+    m_flow_nominal=0.5) 
              annotation (Placement(transformation(
         origin={20,40},
         extent={{-10,-10},{10,10}},
@@ -169,60 +169,60 @@ First implementation.
   Buildings.Fluids.MassExchangers.HumidifierPrescribed hea5(redeclare package
       Medium = 
         Medium,
-    m0_flow=0.5,
+    m_flow_nominal=0.5,
     mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
         transformation(extent={{-54,-110},{-34,-90}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5,
-    m0_flow=0.5) 
+    dp_nominal=5,
+    m_flow_nominal=0.5) 
              annotation (Placement(transformation(extent={{-100,-110},{-80,-90}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_5(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5,
-    m0_flow=0.5) 
+    dp_nominal=5,
+    m_flow_nominal=0.5) 
              annotation (Placement(transformation(extent={{-100,-68},{-80,-48}},
           rotation=0)));
   Buildings.Fluids.MassExchangers.HumidifierPrescribed hea6(
                                                  redeclare package Medium = 
         Medium,
-    m0_flow=0.5,
+    m_flow_nominal=0.5,
     mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
         transformation(extent={{-12,-68},{8,-48}}, rotation=0)));
   Buildings.Fluids.MassExchangers.HumidifierPrescribed hea7(redeclare package
       Medium = 
         Medium,
-    m0_flow=0.5,
+    m_flow_nominal=0.5,
     mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
         transformation(extent={{-54,-190},{-34,-170}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_6(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5,
-    m0_flow=0.5) 
+    dp_nominal=5,
+    m_flow_nominal=0.5) 
              annotation (Placement(transformation(extent={{-100,-190},{-80,-170}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_7(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5,
-    m0_flow=0.5) 
+    dp_nominal=5,
+    m_flow_nominal=0.5) 
              annotation (Placement(transformation(extent={{-100,-148},{-80,-128}},
           rotation=0)));
   Buildings.Fluids.MassExchangers.HumidifierPrescribed hea8(
                                                  redeclare package Medium = 
         Medium,
-    m0_flow=0.5,
+    m_flow_nominal=0.5,
     mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
         transformation(extent={{-12,-148},{8,-128}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_8(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5,
-    m0_flow=0.5) 
+    dp_nominal=5,
+    m_flow_nominal=0.5) 
              annotation (Placement(transformation(
         origin={20,-162},
         extent={{-10,-10},{10,10}},

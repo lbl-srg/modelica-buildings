@@ -5,30 +5,31 @@ model WetCoilDiscretizedPControl
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{200,200}}), graphics),
                       Commands(file="WetCoilDiscretizedPControl.mos" "run"));
- package Medium_1 = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium_2 = Buildings.Media.PerfectGases.MoistAir;
- package Medium_2 = Buildings.Media.GasesPTDecoupled.MoistAir;
- // package Medium_2 = Buildings.Media.PerfectGases.MoistAirNonsaturated;
- //package Medium_2 = Buildings.Media.PerfectGases.MoistAir;
+ package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
+ //package Medium2 = Buildings.Media.PerfectGases.MoistAir;
+ package Medium2 = Modelica.Media.Air.MoistAir;
+ //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
+ // package Medium2 = Buildings.Media.PerfectGases.MoistAirNonsaturated;
+ //package Medium2 = Buildings.Media.PerfectGases.MoistAir;
 
-  parameter Modelica.SIunits.Temperature T0_a1 = 5+273.15;
-  parameter Modelica.SIunits.Temperature T0_b1 = 10+273.15;
-  parameter Modelica.SIunits.Temperature T0_a2 = 30+273.15;
-  parameter Modelica.SIunits.Temperature T0_b2 = 10+273.15;
-  parameter Modelica.SIunits.MassFlowRate m0_flow_1 = 5
+  parameter Modelica.SIunits.Temperature T_a1_nominal = 5+273.15;
+  parameter Modelica.SIunits.Temperature T_b1_nominal = 10+273.15;
+  parameter Modelica.SIunits.Temperature T_a2_nominal = 30+273.15;
+  parameter Modelica.SIunits.Temperature T_b2_nominal = 10+273.15;
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 5
     "Nominal mass flow rate medium 1";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_2 = m0_flow_1*4200/1000*(T0_a1-T0_b1)/(T0_b2-T0_a2)
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 
  Modelica_Fluid.Sources.Boundary_pT sin_2(                       redeclare
-      package Medium = Medium_2,
+      package Medium = Medium2,
     nPorts=1,
     use_p_in=false,
     p=101325,
     T=303.15)             annotation (Placement(transformation(extent={{-58,-26},
             {-38,-6}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sou_2(                       redeclare
-      package Medium = Medium_2,
+      package Medium = Medium2,
     nPorts=1,
     use_p_in=false,
     use_T_in=true,
@@ -36,14 +37,14 @@ model WetCoilDiscretizedPControl
     T=293.15)             annotation (Placement(transformation(extent={{160,8},
             {140,28}},  rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
-      package Medium = Medium_1,
+      package Medium = Medium1,
     p=300000,
     T=293.15,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{160,40},
             {140,60}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sou_1(
-    redeclare package Medium = Medium_1,
+    redeclare package Medium = Medium1,
     p=300000 + 9000,
     nPorts=1,
     use_T_in=true,
@@ -51,16 +52,16 @@ model WetCoilDiscretizedPControl
             {-4,58}},  rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
-    redeclare package Medium = Medium_2,
-    dp0=200,
-    m0_flow=m0_flow_2) 
+    redeclare package Medium = Medium2,
+    dp_nominal=200,
+    m_flow_nominal=m2_flow_nominal) 
              annotation (Placement(transformation(extent={{-2,-26},{-22,-6}},
           rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
-    redeclare package Medium = Medium_1,
-    dp0=2000,
-    m0_flow=m0_flow_1) 
+    redeclare package Medium = Medium1,
+    dp_nominal=2000,
+    m_flow_nominal=m1_flow_nominal) 
              annotation (Placement(transformation(extent={{100,40},{120,60}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp PSin(
@@ -71,13 +72,13 @@ model WetCoilDiscretizedPControl
                  annotation (Placement(transformation(extent={{140,80},{160,100}},
           rotation=0)));
   Modelica_Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium = 
-        Medium_2) annotation (Placement(transformation(extent={{40,-26},{20,-6}},
+        Medium2) annotation (Placement(transformation(extent={{40,-26},{20,-6}},
           rotation=0)));
   Buildings.Fluids.Actuators.Valves.TwoWayLinear val(
-    redeclare package Medium = Medium_1,
+    redeclare package Medium = Medium1,
     l=0.005,
-    Kv_SI=m0_flow_1/sqrt(5000),
-    m0_flow=m0_flow_1) 
+    Kv_SI=m1_flow_nominal/sqrt(5000),
+    m_flow_nominal=m1_flow_nominal) 
              annotation (Placement(transformation(extent={{18,38},{38,58}},
           rotation=0)));
   Modelica.Blocks.Math.Gain P(k=-10)  annotation (Placement(transformation(
@@ -93,31 +94,31 @@ model WetCoilDiscretizedPControl
   Modelica.Blocks.Nonlinear.Limiter limiter(uMin=0) 
     annotation (Placement(transformation(extent={{40,120},{60,140}},rotation=0)));
   Buildings.Fluids.HeatExchangers.WetCoilDiscretized hex(
-    redeclare package Medium_1 = Medium_1,
-    redeclare package Medium_2 = Medium_2,
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
     nPipPar=1,
     nPipSeg=3,
     nReg=4,
-    m0_flow_1=m0_flow_1,
-    m0_flow_2=m0_flow_2,
-    Q0_flow=m0_flow_1*4200*(T0_b1-T0_a1),
-    dT0=((T0_a2 - T0_b1) - (T0_b2 - T0_a1))/Modelica.Math.log((T0_a2 - T0_b1)/(
-        T0_b2 - T0_a1)),
-    dp0_1(displayUnit="Pa") = 2000,
-    dp0_2(displayUnit="Pa") = 200) 
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal,
+    Q_flow_nominal=m1_flow_nominal*4200*(T_b1_nominal-T_a1_nominal),
+    dT_nominal=((T_a2_nominal - T_b1_nominal) - (T_b2_nominal - T_a1_nominal))/Modelica.Math.log((T_a2_nominal - T_b1_nominal)/(
+        T_b2_nominal - T_a1_nominal)),
+    dp_nominal_1(displayUnit="Pa") = 2000,
+    dp_nominal_2(displayUnit="Pa") = 200) 
                          annotation (Placement(transformation(extent={{60,16},{
             80,36}}, rotation=0)));
   inner Modelica_Fluid.System system 
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Step TSou_2(
     startTime=3000,
-    offset=T0_a2,
+    offset=T_a2_nominal,
     height=-3) 
     annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
   Modelica.Blocks.Sources.Step TSou_1(
     startTime=3000,
     height=10,
-    offset=T0_a1) 
+    offset=T_a1_nominal) 
     annotation (Placement(transformation(extent={{-60,42},{-40,62}})));
 equation
   connect(PSin.y, sin_1.p_in)   annotation (Line(points={{161,90},{180,90},{180,
@@ -173,7 +174,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(limiter.y, val.y) annotation (Line(
-      points={{61,130},{80,130},{80,80},{8,80},{8,56},{16,56}},
+      points={{61,130},{80,130},{80,80},{28,80},{28,56}},
       color={0,0,127},
       smooth=Smooth.None));
 end WetCoilDiscretizedPControl;

@@ -9,12 +9,12 @@ model BoilerPolynomial "Test model"
     experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})));
- parameter Modelica.SIunits.Power Q0_flow = 3000 "Nominal power";
- parameter Modelica.SIunits.Temperature dT0 = 20
+ parameter Modelica.SIunits.Power Q_flow_nominal = 3000 "Nominal power";
+ parameter Modelica.SIunits.Temperature dT_nominal = 20
     "Nominal temperature difference";
- parameter Modelica.SIunits.MassFlowRate m0_flow = Q0_flow/dT0/4200
+ parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dT_nominal/4200
     "Nominal mass flow rate";
- parameter Modelica.SIunits.Pressure dp0 = 3000 "Pressure drop at m0_flow";
+ parameter Modelica.SIunits.Pressure dp_nominal = 3000 "Pressure drop at m_flow_nominal";
   inner Modelica_Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
@@ -27,7 +27,7 @@ model BoilerPolynomial "Test model"
   Modelica_Fluid.Sources.Boundary_pT sou(
     nPorts=2,
     redeclare package Medium = Medium,
-    p=300000 + dp0,
+    p=300000 + dp_nominal,
     T=303.15) 
     annotation (Placement(transformation(extent={{-84,-68},{-64,-48}})));
   Modelica.Blocks.Sources.TimeTable y(table=[0,0; 1800,1; 1800,0; 2400,0; 2400,
@@ -36,8 +36,8 @@ model BoilerPolynomial "Test model"
   Buildings.Fluids.Boilers.BoilerPolynomial fur1(
     a={0.9},
     effCur=Buildings.Fluids.Types.EfficiencyCurves.Constant,
-    Q0_flow=Q0_flow,
-    dT0=dT0,
+    Q_flow_nominal=Q_flow_nominal,
+    dT_nominal=dT_nominal,
     T_start=293.15,
     redeclare package Medium = Medium) "Boiler" 
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
@@ -48,8 +48,8 @@ model BoilerPolynomial "Test model"
   Buildings.Fluids.Boilers.BoilerPolynomial fur2(
     a={0.9},
     effCur=Buildings.Fluids.Types.EfficiencyCurves.Constant,
-    Q0_flow=Q0_flow,
-    dT0=dT0,
+    Q_flow_nominal=Q_flow_nominal,
+    dT_nominal=dT_nominal,
     redeclare package Medium = Medium,
     energyDynamics=Modelica_Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica_Fluid.Types.Dynamics.SteadyState,
@@ -61,12 +61,12 @@ model BoilerPolynomial "Test model"
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
   FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = Medium,
-    m0_flow=m0_flow,
-    dp0=dp0) annotation (Placement(transformation(extent={{20,-2},{40,18}})));
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal) annotation (Placement(transformation(extent={{20,-2},{40,18}})));
   FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = Medium,
-    m0_flow=m0_flow,
-    dp0=dp0) annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal) annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T=0.1) 
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
 equation

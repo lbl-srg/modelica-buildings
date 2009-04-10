@@ -1,5 +1,6 @@
 within Buildings.Fluids.Sensors.Examples;
 model WetBulbTemperature
+  import Buildings;
 
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
@@ -40,7 +41,7 @@ First implementation.
         transformation(extent={{74,10},{54,30}}, rotation=0)));
   Buildings.Fluids.Sensors.WetBulbTemperature senWetBul(redeclare package
       Medium = Medium) "Wet bulb temperature sensor" 
-    annotation (Placement(transformation(extent={{16,10},{36,30}}, rotation=0)));
+    annotation (Placement(transformation(extent={{0,10},{20,30}},  rotation=0)));
   Modelica_Fluid.Sources.MassFlowSource_T massFlowRate(            redeclare
       package Medium = Medium, m_flow=1,
     use_T_in=true,
@@ -70,6 +71,9 @@ First implementation.
             {12,86}},           rotation=0)));
   inner Modelica_Fluid.System system 
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
+  Buildings.Fluids.Sensors.MassFraction masFra(
+                      redeclare package Medium = Medium) "Mass fraction" 
+    annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 equation
   connect(TDB.y, massFlowRate.T_in) annotation (Line(points={{-79,50},{-60,50},
           {-60,24},{-32,24}}, color={0,0,127}));
@@ -84,11 +88,11 @@ equation
   connect(p.y, sin.p_in) annotation (Line(points={{81,70},{92,70},{92,28},{76,
           28}}, color={0,0,127}));
   connect(massFlowRate.ports[1], senWetBul.port_a) annotation (Line(
-      points={{-10,20},{16,20}},
+      points={{-10,20},{0,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senWetBul.port_b, sin.ports[1]) annotation (Line(
-      points={{36,20},{54,20}},
+      points={{20,20},{54,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TWBExp.y, assertEquality.u1) annotation (Line(
@@ -96,7 +100,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(senWetBul.T, assertEquality.u2) annotation (Line(
-      points={{26,31},{26,44},{20,44},{20,64},{28,64}},
+      points={{10,31},{10,44},{20,44},{20,64},{28,64}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(senWetBul.port_a, masFra.port) annotation (Line(
+      points={{0,20},{0,40},{-40,40},{-40,50}},
+      color={0,127,255},
       smooth=Smooth.None));
 end WetBulbTemperature;

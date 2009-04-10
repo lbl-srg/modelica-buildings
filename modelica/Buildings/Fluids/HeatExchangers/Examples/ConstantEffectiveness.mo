@@ -6,11 +6,11 @@ model ConstantEffectiveness
             -100},{100,100}}),
                      graphics),
                       Commands(file="ConstantEffectiveness.mos" "run"));
- package Medium_1 = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium_2 = Modelica.Media.Air.MoistAir;
- package Medium_2 = Buildings.Media.PerfectGases.MoistAir;
+ package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
+ //package Medium2 = Modelica.Media.Air.MoistAir;
+ package Medium2 = Buildings.Media.PerfectGases.MoistAir;
   Modelica_Fluid.Sources.Boundary_pT sin_2(                       redeclare
-      package Medium = Medium_2, T=273.15 + 10,
+      package Medium = Medium2, T=273.15 + 10,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-58,-10},
             {-38,10}}, rotation=0)));
@@ -20,7 +20,7 @@ model ConstantEffectiveness
     duration=60) annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
           rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sou_2(                       redeclare
-      package Medium = Medium_2, T=273.15 + 5,
+      package Medium = Medium2, T=273.15 + 5,
     use_p_in=true,
     use_T_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{40,-70},
@@ -38,14 +38,14 @@ model ConstantEffectiveness
       annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
           rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
-      package Medium = Medium_1,
+      package Medium = Medium1,
     T=273.15 + 30,
     use_p_in=true,
     p=300000,
     nPorts=1)             annotation (Placement(transformation(extent={{84,2},{
             64,22}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sou_1(
-    redeclare package Medium = Medium_1,
+    redeclare package Medium = Medium1,
     p=300000 + 5000,
     T=273.15 + 50,
     use_T_in=true,
@@ -53,16 +53,16 @@ model ConstantEffectiveness
             {-40,56}}, rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
-    m0_flow=5,
-    dp0=10,
-    redeclare package Medium = Medium_2) 
+    m_flow_nominal=5,
+    dp_nominal=10,
+    redeclare package Medium = Medium2) 
              annotation (Placement(transformation(extent={{-2,-10},{-22,10}},
           rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
-    m0_flow=5,
-    redeclare package Medium = Medium_1,
-    dp0=500) annotation (Placement(transformation(extent={{34,2},{54,22}},
+    m_flow_nominal=5,
+    redeclare package Medium = Medium1,
+    dp_nominal=500) annotation (Placement(transformation(extent={{34,2},{54,22}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp PSin_1(
     duration=60,
@@ -72,9 +72,9 @@ model ConstantEffectiveness
                  annotation (Placement(transformation(extent={{40,60},{60,80}},
           rotation=0)));
   Buildings.Fluids.HeatExchangers.ConstantEffectiveness hex(redeclare package
-      Medium_1 = 
-        Medium_1, redeclare package Medium_2 = Medium_2,
-    m0_flow_1=5) 
+      Medium1 = 
+        Medium1, redeclare package Medium2 = Medium2,
+    m1_flow_nominal=5) 
     annotation (Placement(transformation(extent={{6,-4},{26,16}}, rotation=0)));
   inner Modelica_Fluid.System system(
     p_ambient=300000,

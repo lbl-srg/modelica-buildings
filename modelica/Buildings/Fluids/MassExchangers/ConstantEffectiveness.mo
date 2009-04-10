@@ -72,12 +72,12 @@ Buildings.Fluids.HeatExchangers.ConstantEffectiveness</a>.
 
   Modelica.SIunits.Temperature T_in1 "Inlet temperature of medium 1";
   Modelica.SIunits.Temperature T_in2 "Inlet temperature of medium 2";
-  Medium_1.MassFraction XWat_in1 "Inlet water mass fraction of medium 1";
-  Medium_2.MassFraction XWat_in2 "Inlet water mass fraction of medium 2";
+  Medium1.MassFraction XWat_in1 "Inlet water mass fraction of medium 1";
+  Medium2.MassFraction XWat_in2 "Inlet water mass fraction of medium 2";
 
-  Modelica.SIunits.ThermalConductance C_flow_1
+  Modelica.SIunits.ThermalConductance C1_flow
     "Heat capacity flow rate medium 1";
-  Modelica.SIunits.ThermalConductance C_flow_2
+  Modelica.SIunits.ThermalConductance C2_flow
     "Heat capacity flow rate medium 2";
   Modelica.SIunits.ThermalConductance CMin_flow(min=0)
     "Minimum heat capacity flow rate";
@@ -90,48 +90,48 @@ Buildings.Fluids.HeatExchangers.ConstantEffectiveness</a>.
 equation
 
   // Definitions for effectiveness model
-  if m_flow_1 >= 0 then
-     T_in1  = sta_a1.T;
-     XWat_in1 = sta_a1.X[Medium_1.Water];
+  if m1_flow >= 0 then
+     T_in1  = Medium1.temperature(sta_a1);
+     XWat_in1 = sta_a1.X[Medium1.Water];
   else
-     T_in1 = sta_b1.T;
-     XWat_in1 = sta_b1.X[Medium_1.Water];
+     T_in1 = Medium1.temperature(sta_b1);
+     XWat_in1 = sta_b1.X[Medium1.Water];
   end if;
 
-  if m_flow_2 >= 0 then
-     T_in2  = sta_a2.T;
-     XWat_in2 = sta_a2.X[Medium_2.Water];
+  if m2_flow >= 0 then
+     T_in2  = Medium2.temperature(sta_a2);
+     XWat_in2 = sta_a2.X[Medium2.Water];
   else
-     T_in2 = sta_b2.T;
-     XWat_in2 = sta_b2.X[Medium_2.Water];
+     T_in2 = Medium2.temperature(sta_b2);
+     XWat_in2 = sta_b2.X[Medium2.Water];
   end if;
 
   // The specific heat capacity is computed using the state of the
   // medium at port_a. For forward flow, this is correct, for reverse flow,
   // this is an approximation.
-  C_flow_1 = abs(m_flow_1)* Medium_1.specificHeatCapacityCp(sta_a1);
-  C_flow_2 = abs(m_flow_2)* Medium_2.specificHeatCapacityCp(sta_a2);
+  C1_flow = abs(m1_flow)* Medium1.specificHeatCapacityCp(sta_a1);
+  C2_flow = abs(m2_flow)* Medium2.specificHeatCapacityCp(sta_a2);
 
-  CMin_flow = min( C_flow_1, C_flow_2);
+  CMin_flow = min( C1_flow, C2_flow);
   QMax_flow = CMin_flow * (T_in2 - T_in1);
 
   // transferred heat
-  Q_flow_1 = epsS * QMax_flow;
-  0 = Q_flow_1 + Q_flow_2;
+  Q1_flow = epsS * QMax_flow;
+  0 = Q1_flow + Q2_flow;
 
   // mass exchange
-  mMax_flow = min(abs(m_flow_1), abs(m_flow_2)) * (XWat_in2 - XWat_in1);
+  mMax_flow = min(abs(m1_flow), abs(m2_flow)) * (XWat_in2 - XWat_in1);
   mWat_flow = epsL * mMax_flow;
 
-  for i in 1:Medium_1.nXi loop
-     mXi_flow_1[i] = if ( i == Medium_1.Water) then mWat_flow else 0;
+  for i in 1:Medium1.nXi loop
+     mXi1_flow[i] = if ( i == Medium1.Water) then mWat_flow else 0;
   end for;
 
-  for i in 1:Medium_2.nXi loop
-     mXi_flow_2[i] = if ( i == Medium_2.Water) then -mWat_flow else 0;
+  for i in 1:Medium2.nXi loop
+     mXi2_flow[i] = if ( i == Medium2.Water) then -mWat_flow else 0;
   end for;
 
   // no pressure drop
-  dp_1 = 0;
-  dp_2 = 0;
+  dp1 = 0;
+  dp2 = 0;
 end ConstantEffectiveness;

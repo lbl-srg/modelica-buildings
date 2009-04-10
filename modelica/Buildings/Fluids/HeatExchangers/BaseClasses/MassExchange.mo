@@ -88,8 +88,8 @@ the convective sensible heat transfer coefficient and the mass transfer coeffici
 <p>
 Using the Lewis number which is defined as the ratio between the heat and mass
 diffusion coefficients, one can obtain the ratio between convection 
-heat transfer coefficient <tt>h</tt> (in W/(m^2*K)) and
-mass transfer coefficient <tt>h_m</tt> (in m/s) as follows:
+heat transfer coefficient <tt>h</tt> in (W/(m^2*K)) and
+mass transfer coefficient <tt>h_m</tt> in (m/s) as follows:
 <pre>
   h
  --- = rho * c_p * Le^(1-n),

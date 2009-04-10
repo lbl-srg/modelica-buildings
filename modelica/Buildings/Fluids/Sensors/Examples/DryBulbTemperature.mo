@@ -68,7 +68,7 @@ First implementation.
   DryBulbTemperatureDynamic temDyn(
     redeclare package Medium = Medium,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    m0_flow=1,
+    m_flow_nominal=1,
     T_start=293.15) 
     annotation (Placement(transformation(extent={{30,-2},{50,18}})));
 equation

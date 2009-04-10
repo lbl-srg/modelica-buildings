@@ -28,7 +28,7 @@ First implementation.
   Buildings.Fluids.Actuators.Valves.TwoWayLinear valLin(
     redeclare package Medium = Medium,
     l=0.05,
-    m0_flow=2) "Valve model, linear opening characteristics" 
+    m_flow_nominal=2) "Valve model, linear opening characteristics" 
          annotation (Placement(transformation(extent={{0,10},{20,30}}, rotation=
            0)));
     Modelica.Blocks.Sources.Ramp y(
@@ -57,7 +57,7 @@ First implementation.
   Buildings.Fluids.Actuators.Valves.TwoWayQuickOpening valQui(
     redeclare package Medium = Medium,
     l=0.05,
-    m0_flow=2) "Valve model, quick opening characteristics" 
+    m_flow_nominal=2) "Valve model, quick opening characteristics" 
          annotation (Placement(transformation(extent={{0,-20},{20,0}}, rotation=
            0)));
   Buildings.Fluids.Actuators.Valves.TwoWayEqualPercentage valEqu(
@@ -65,14 +65,14 @@ First implementation.
     l=0.05,
     R=10,
     delta0=0.1,
-    m0_flow=2) "Valve model, equal percentage opening characteristics" 
+    m_flow_nominal=2) "Valve model, equal percentage opening characteristics" 
          annotation (Placement(transformation(extent={{0,-50},{20,-30}},
           rotation=0)));
   inner Modelica_Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(y.y, valLin.y) annotation (Line(
-      points={{-39,70},{-12,70},{-12,28},{-2,28}},
+      points={{-39,70},{-12,70},{-12,32},{10,32},{10,28}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(PSin.y, sin.p_in) annotation (Line(points={{81,70},{86,70},{86,-2},{
@@ -81,11 +81,11 @@ equation
     annotation (Line(points={{-79,26},{-74.5,26},{-74.5,-2},{-72,-2}},
                                                  color={0,0,127}));
   connect(y.y, valQui.y) annotation (Line(
-      points={{-39,70},{-12,70},{-12,-2},{-2,-2}},
+      points={{-39,70},{-12,70},{-12,2},{10,2},{10,-2}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(y.y, valEqu.y) annotation (Line(
-      points={{-39,70},{-12,70},{-12,-32},{-2,-32}},
+      points={{-39,70},{-12,70},{-12,-28},{10,-28},{10,-32}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(sou.ports[1], valLin.port_a) annotation (Line(

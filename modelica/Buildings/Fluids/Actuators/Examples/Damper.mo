@@ -12,7 +12,7 @@ model Damper
   Buildings.Fluids.Actuators.Dampers.Exponential res(
     A=1,
     redeclare package Medium = Medium,
-    m0_flow=1) 
+    m_flow_nominal=1) 
          annotation (Placement(transformation(extent={{0,10},{20,30}}, rotation=
            0)));
     Modelica.Blocks.Sources.Ramp yRam(
@@ -20,7 +20,7 @@ model Damper
     height=1,
     offset=0,
     startTime=0.2) 
-                 annotation (Placement(transformation(extent={{-60,60},{-40,80}},
+                 annotation (Placement(transformation(extent={{-20,40},{0,60}},
           rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
@@ -39,14 +39,14 @@ model Damper
   Buildings.Fluids.Actuators.Dampers.Exponential res1(
     A=1,
     redeclare package Medium = Medium,
-    m0_flow=1) 
+    m_flow_nominal=1) 
          annotation (Placement(transformation(extent={{0,-90},{20,-70}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp yRam1(
     duration=0.3,
     height=1,
-    offset=0)    annotation (Placement(transformation(extent={{-60,-40},{-40,
-            -20}}, rotation=0)));
+    offset=0)    annotation (Placement(transformation(extent={{-20,-60},{0,-40}},
+                   rotation=0)));
     Modelica.Blocks.Sources.Ramp P1(
     duration=0.5,
     startTime=0.5,
@@ -77,14 +77,14 @@ model Damper
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(yRam.y, res.y) annotation (Line(
-      points={{-39,70},{-12,70},{-12,28},{-2,28}},
+      points={{1,50},{10,50},{10,28}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(PAtm.y, sin.p_in) annotation (Line(points={{81,70},{86,70},{86,28},{
           76,28}}, color={0,0,127}));
   connect(yRam1.y, res1.y) 
                          annotation (Line(
-      points={{-39,-30},{-12,-30},{-12,-72},{-2,-72}},
+      points={{1,-50},{10,-50},{10,-72}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(P1.y, sou1.p_in) 

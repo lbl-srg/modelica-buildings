@@ -106,7 +106,7 @@ initial equation
   mWatRef_flow = mWat0_flow/FRWat0;
 equation
   // range temperature
-  TRan = sta_a.T - sta_b.T;
+  TRan = Medium.temperature(sta_a) - Medium.temperature(sta_b);
   // fractional mass flow rates
   FRWat = m_flow/mWatRef_flow;
   FRAir = y;
@@ -117,7 +117,8 @@ equation
   TAppFreCon = (1-fraFreCon) * ( TWatIn_degC-TAirIn_degC)  + fraFreCon *
                Correlations.yorkCalc(TRan=TRan, TWB=TAir, FRWat=FRWat, FRAir=1);
 
-  TApp = Buildings.Utilities.Math.spliceFunction(pos=TAppCor, neg=TAppFreCon,
+  TApp = Buildings.Utilities.Math.Functions.spliceFunction(
+                                                 pos=TAppCor, neg=TAppFreCon,
          x=y-yMin/2, deltax=yMin/2);
   TWatOut_degC = TApp + TAirIn_degC;
   PFan = y^3 * PFan0;

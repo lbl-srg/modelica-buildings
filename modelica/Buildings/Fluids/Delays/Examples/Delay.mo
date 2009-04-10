@@ -19,8 +19,8 @@ model Delay
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res1(
     from_dp=true,
-    m0_flow=5,
-    dp0=5,
+    m_flow_nominal=5,
+    dp_nominal=5,
     redeclare package Medium = Medium) 
              annotation (Placement(transformation(extent={{-30,-4},{-10,16}},
           rotation=0)));
@@ -36,12 +36,12 @@ model Delay
             {58,16}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res2(
     from_dp=true,
-    m0_flow=5,
-    dp0=5,
+    m_flow_nominal=5,
+    dp_nominal=5,
     redeclare package Medium = Medium) 
              annotation (Placement(transformation(extent={{26,-4},{46,16}},
           rotation=0)));
-  Buildings.Fluids.Delays.DelayFirstOrder del(         m0_flow=5, redeclare
+  Buildings.Fluids.Delays.DelayFirstOrder del(         m_flow_nominal=5, redeclare
       package Medium = Medium,
     T_start=283.15) 
     annotation (Placement(transformation(extent={{0,6},{20,26}},   rotation=0)));

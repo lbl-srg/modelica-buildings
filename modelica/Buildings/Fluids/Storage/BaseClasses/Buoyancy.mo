@@ -1,5 +1,6 @@
 within Buildings.Fluids.Storage.BaseClasses;
-model Buoyancy "Model to reduce the numerical dissipation in a tank"
+model Buoyancy
+  "Model to add buoyancy if there is a temperature inversion in the tank"
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = 
     Modelica.Media.Interfaces.PartialMedium "Medium model"  annotation (
@@ -62,7 +63,9 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
           pattern=LinePattern.None,
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
-    Diagram(graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
+            100,100}}),
+            graphics));
   parameter Modelica.SIunits.Volume V "Volume";
   parameter Integer nSeg(min=2) = 2 "Number of volume segments";
   parameter Modelica.SIunits.Time tau(min=0) "Time constant for mixing";
@@ -76,11 +79,11 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
 protected
    parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=Medium.T_default,
          p=Medium.p_default, X=Medium.X_default[1:Medium.nXi]);
-   parameter Modelica.SIunits.Density rho0=Medium.density(sta0)
+   parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
     "Density, used to compute fluid mass";
    parameter Modelica.SIunits.SpecificHeatCapacity cp0=Medium.specificHeatCapacityCp(sta0)
     "Specific heat capacity";
-   parameter Real k(unit="W/K") = V*rho0*cp0/tau/nSeg
+   parameter Real k(unit="W/K") = V*rho_nominal*cp0/tau/nSeg
     "Proportionality constant, since we use dT instead of dH";
 equation
   for i in 1:nSeg-1 loop

@@ -1,7 +1,7 @@
 within Buildings.Fluids.MixingVolumes.BaseClasses;
 partial model PartialMixingVolumeWaterPort
   "Partial mixing volume that allows adding or subtracting water vapor"
-  extends Modelica_Fluid.Interfaces.PartialLumpedVolume(fluidVolume = V, m(start=V*rho0, fixed=false));
+  extends Modelica_Fluid.Interfaces.PartialLumpedVolume(fluidVolume = V, m(start=V*rho_nominal, fixed=false));
   annotation (
     Documentation(info="<html>
 Model for an ideally mixed fluid volume with <tt>nP</tt> ports and the ability 
@@ -123,7 +123,7 @@ First implementation.
 protected
    parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=T_start,
          p=p_start, X=X_start[1:Medium.nXi]);
-   parameter Modelica.SIunits.Density rho0=Medium.density(sta0)
+   parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
     "Density, used to compute fluid mass";
 equation
    assert(not (energyDynamics<>Modelica_Fluid.Types.Dynamics.SteadyState and 

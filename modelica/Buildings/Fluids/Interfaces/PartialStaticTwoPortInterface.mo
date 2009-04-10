@@ -47,9 +47,9 @@ First implementation.
 </ul>
 </html>"));
 
-  parameter Medium.MassFlowRate m0_flow(min=0) "Nominal mass flow rate" 
+  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate" 
     annotation(Dialog(group = "Nominal condition"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m0_flow
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
     "Small mass flow rate for regularization of zero flow" 
     annotation(Dialog(tab = "Advanced"));
 

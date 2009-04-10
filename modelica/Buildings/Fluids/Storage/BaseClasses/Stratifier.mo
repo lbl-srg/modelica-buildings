@@ -27,6 +27,11 @@ Vienna, Austria, September 2006.
 </html>", revisions="<html>
 <ul>
 <li>
+April 6, 2009 by Michael Wetter:<br>
+Fixed sign error of <tt>H_flow</tt> in
+<tt>heatPort[i].Q_flow = +m_flow * (hOut[i+2]-hOut[i+1]) -H_flow[i] +H_flow[i+1];</tt>
+</li>
+<li>
 October 30, 2008 by Michael Wetter:<br>
 Modified interpolation function to prevent chattering.
 </li>
@@ -90,6 +95,7 @@ protected
   Real[nSeg] intArg "Argument for interpolation function";
   parameter Real intDel=a*cp0*delta
     "Scaling argument delta for interpolation function";
+  Real[nSeg] ex "Output of smooth exponential function";
 equation
   // assign zero flow conditions at port
   fluidPort[:].m_flow = zeros(nSeg+2);
@@ -105,7 +111,7 @@ equation
   s = if m_flow > 0 then 1 else -1;
   hOut[1] = h[1];
   hOut[nSeg+2] = h[nSeg+2];
-  for i in 2:(nSeg+1) loop
+  for i in 1:nSeg loop
      /*
      // original implementation that causes chattering
      intArg[i-1] = -a * abs(h[i-s]-h[i]);
@@ -113,14 +119,14 @@ equation
      */
      // approximation that is once continuously differentiable
      // and does not cause chattering
-     intArg[i-1] = a * (h[i-s]-h[i]);
-     hOut[i] = (h[i]-h[i+s]) * Buildings.Utilities.Math.smoothExponential( intArg[i-1], intDel)   + h[i+s];
-  end for;
-  for i in 1:nSeg loop
+     intArg[i] = a * (h[i-s+1]-h[i+1]);
+     ex[i] = Buildings.Utilities.Math.Functions.smoothExponential(
+                                                         intArg[i], intDel);
+     hOut[i+1] = (h[i+1]-h[i+s+1]) * ex[i]   + h[i+s+1];
      if s > 0 then
-       heatPort[i].Q_flow = -m_flow * (hOut[i]-hOut[i+1])   +H_flow[i]   -H_flow[i+1];
+       heatPort[i].Q_flow = -m_flow * (hOut[i]-hOut[i+1])   +H_flow[i] -H_flow[i+1];
      else
-       heatPort[i].Q_flow = +m_flow * (hOut[i+2]-hOut[i+1]) -H_flow[i+1] +H_flow[i];
+       heatPort[i].Q_flow = +m_flow * (hOut[i+2]-hOut[i+1]) -H_flow[i] +H_flow[i+1];
      end if;
   end for;
 end Stratifier;

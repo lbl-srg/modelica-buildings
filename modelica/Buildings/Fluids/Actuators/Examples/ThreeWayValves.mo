@@ -29,7 +29,7 @@ First implementation.
   Buildings.Fluids.Actuators.Valves.ThreeWayLinear valLin(
     redeclare package Medium = Medium,
     l={0.05,0.05},
-    m0_flow=2) "Valve model, linear opening characteristics" 
+    m_flow_nominal=2) "Valve model, linear opening characteristics" 
          annotation (Placement(transformation(extent={{0,-26},{20,-6}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp y(
@@ -59,7 +59,7 @@ First implementation.
     l={0.05,0.05},
     redeclare package Medium = Medium,
     R=10,
-    m0_flow=2) 
+    m_flow_nominal=2) 
     annotation (Placement(transformation(extent={{0,-60},{20,-40}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT ret(
     redeclare package Medium = Medium,
@@ -68,17 +68,18 @@ First implementation.
     T=303.15)                                       annotation (Placement(
         transformation(extent={{10,-10},{-10,10}},  rotation=0,
         origin={64,-70})));
-  inner Modelica_Fluid.System system
+  inner Modelica_Fluid.System system 
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   connect(y.y, valLin.y) annotation (Line(
-      points={{-19,10},{-12,10},{-12,-8},{-2,-8}},
+      points={{-19,10},{10,10},{10,-8}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(PSin.y, sin.p_in) annotation (Line(points={{81,70},{86,70},{86,-10},{
           72,-10}}, color={0,0,127}));
   connect(y.y, valEquPerLin.y) annotation (Line(points={{-19,10},{-12,10},{-12,
-          -42},{-2,-42}}, color={0,0,127}));
+          -38},{10,-38},{10,-42}},
+                          color={0,0,127}));
   connect(sou.ports[1], valLin.port_1) annotation (Line(
       points={{-30,-16},{0,-16}},
       color={0,127,255},

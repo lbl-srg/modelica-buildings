@@ -46,30 +46,31 @@ First implementation.
 </ul>
 </html>"));
 
-  parameter Medium_1.MassFlowRate m0_flow_1(min=0) "Nominal mass flow rate" 
+  parameter Medium1.MassFlowRate m1_flow_nominal(min=0)
+    "Nominal mass flow rate" 
     annotation(Dialog(group = "Nominal condition"));
-  parameter Medium_2.MassFlowRate m0_flow_2(min=0) = m0_flow_1
+  parameter Medium2.MassFlowRate m2_flow_nominal(min=0) = m1_flow_nominal
     "Nominal mass flow rate" 
     annotation(Dialog(group = "Nominal condition"));
 
-  parameter Medium_1.MassFlowRate m_flow_1_small(min=0) = 1E-4*m0_flow_1
+  parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*m1_flow_nominal
     "Small mass flow rate for regularization of zero flow" 
     annotation(Dialog(tab = "Advanced"));
-  parameter Medium_2.MassFlowRate m_flow_2_small(min=0) = 1E-4*m0_flow_2
+  parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*m2_flow_nominal
     "Small mass flow rate for regularization of zero flow" 
     annotation(Dialog(tab = "Advanced"));
 
   // Initialization
-  parameter Medium_1.AbsolutePressure p_a1_start=system.p_start
+  parameter Medium1.AbsolutePressure p_a1_start=system.p_start
     "Guess value for inlet pressure" 
     annotation(Dialog(tab="Initialization"));
-  parameter Medium_1.AbsolutePressure p_b1_start=p_a1_start
+  parameter Medium1.AbsolutePressure p_b1_start=p_a1_start
     "Guess value for outlet pressure" 
     annotation(Dialog(tab="Initialization"));
-  parameter Medium_2.AbsolutePressure p_a2_start=system.p_start
+  parameter Medium2.AbsolutePressure p_a2_start=system.p_start
     "Guess value for inlet pressure" 
     annotation(Dialog(tab="Initialization"));
-  parameter Medium_2.AbsolutePressure p_b2_start=p_a2_start
+  parameter Medium2.AbsolutePressure p_b2_start=p_a2_start
     "Guess value for outlet pressure" 
     annotation(Dialog(tab="Initialization"));
 
@@ -80,96 +81,62 @@ First implementation.
     "= true, if volume flow rate at inflowing port is computed" 
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
-  Modelica.SIunits.VolumeFlowRate V_flow_1=
-      m_flow_1/Modelica_Fluid.Utilities.regStep(m_flow_1,
-                  Medium_1.density(state_a1_inflow),
-                  Medium_1.density(state_b1_inflow),
-                  m_flow_1_small) if show_V_flow
+  Modelica.SIunits.VolumeFlowRate V1_flow=
+      m1_flow/Modelica_Fluid.Utilities.regStep(m1_flow,
+                  Medium1.density(state_a1_inflow),
+                  Medium1.density(state_b1_inflow),
+                  m1_flow_small) if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a1 to port_b1)";
-  Modelica.SIunits.VolumeFlowRate V_flow_2=
-      m_flow_2/Modelica_Fluid.Utilities.regStep(m_flow_2,
-                  Medium_2.density(state_a2_inflow),
-                  Medium_2.density(state_b2_inflow),
-                  m_flow_2_small) if show_V_flow
+  Modelica.SIunits.VolumeFlowRate V2_flow=
+      m2_flow/Modelica_Fluid.Utilities.regStep(m2_flow,
+                  Medium2.density(state_a2_inflow),
+                  Medium2.density(state_b2_inflow),
+                  m2_flow_small) if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a2 to port_b2)";
 
-/*
-  Medium_1.Temperature port_a1_T=
-      Modelica_Fluid.Utilities.regStep(port_a1.m_flow,
-                  Medium_1.temperature(state_a1),
-                  Medium_1.temperature(
-                    Medium_1.setState_phX(port_a1.p,
-                    port_a1.h_outflow, port_a1.Xi_outflow)),
-                    m_flow_1_small) if show_T 
-    "Temperature close to port_a1, if show_T = true";
-  Medium_1.Temperature port_b1_T=
-      Modelica_Fluid.Utilities.regStep(port_b1.m_flow,
-                  Medium_1.temperature(state_b1),
-                  Medium_1.temperature(
-                     Medium_1.setState_phX(port_b1.p,
-                     port_b1.h_outflow, port_b1.Xi_outflow)),
-                  m_flow_1_small) if show_T 
-    "Temperature close to port_b1, if show_T = true";
-  Medium_2.Temperature port_a2_T=
-      Modelica_Fluid.Utilities.regStep(port_a2.m_flow,
-                  Medium_2.temperature(state_a2),
-                  Medium_2.temperature(
-                    Medium_2.setState_phX(port_a2.p,
-                    port_a2.h_outflow, port_a2.Xi_outflow)),
-                    m_flow_2_small) if show_T 
-    "Temperature close to port_a2, if show_T = true";
-  Medium_2.Temperature port_b2_T=
-      Modelica_Fluid.Utilities.regStep(port_b2.m_flow,
-                  Medium_2.temperature(state_b2),
-                  Medium_2.temperature(
-                     Medium_2.setState_phX(port_b2.p,
-                     port_b2.h_outflow, port_b2.Xi_outflow)),
-                  m_flow_2_small) if show_T 
-    "Temperature close to port_b2, if show_T = true";
-*/
-  Medium_1.MassFlowRate m_flow_1(start=0)
-    "Mass flow rate from port_a1 to port_b1 (m_flow_1 > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp_1(start=0, displayUnit="Pa")
+  Medium1.MassFlowRate m1_flow(start=0)
+    "Mass flow rate from port_a1 to port_b1 (m1_flow > 0 is design flow direction)";
+  Modelica.SIunits.Pressure dp1(start=0, displayUnit="Pa")
     "Pressure difference between port_a1 and port_b1";
-  Medium_2.MassFlowRate m_flow_2(start=0)
-    "Mass flow rate from port_a2 to port_b2 (m_flow_2 > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp_2(start=0, displayUnit="Pa")
+  Medium2.MassFlowRate m2_flow(start=0)
+    "Mass flow rate from port_a2 to port_b2 (m2_flow > 0 is design flow direction)";
+  Modelica.SIunits.Pressure dp2(start=0, displayUnit="Pa")
     "Pressure difference between port_a2 and port_b2";
 
-  Medium_1.ThermodynamicState sta_a1=
-      Medium_1.setState_phX(port_a1.p, actualStream(port_a1.h_outflow), actualStream(port_a1.Xi_outflow))
+  Medium1.ThermodynamicState sta_a1=
+      Medium1.setState_phX(port_a1.p, actualStream(port_a1.h_outflow), actualStream(port_a1.Xi_outflow))
     "Medium properties in port_a1";
-  Medium_1.ThermodynamicState sta_b1=
-      Medium_1.setState_phX(port_b1.p, actualStream(port_b1.h_outflow), actualStream(port_b1.Xi_outflow))
+  Medium1.ThermodynamicState sta_b1=
+      Medium1.setState_phX(port_b1.p, actualStream(port_b1.h_outflow), actualStream(port_b1.Xi_outflow))
     "Medium properties in port_b1";
-  Medium_2.ThermodynamicState sta_a2=
-      Medium_2.setState_phX(port_a2.p, actualStream(port_a2.h_outflow), actualStream(port_a2.Xi_outflow))
+  Medium2.ThermodynamicState sta_a2=
+      Medium2.setState_phX(port_a2.p, actualStream(port_a2.h_outflow), actualStream(port_a2.Xi_outflow))
     "Medium properties in port_a2";
-  Medium_2.ThermodynamicState sta_b2=
-      Medium_2.setState_phX(port_b2.p, actualStream(port_b2.h_outflow), actualStream(port_b2.Xi_outflow))
+  Medium2.ThermodynamicState sta_b2=
+      Medium2.setState_phX(port_b2.p, actualStream(port_b2.h_outflow), actualStream(port_b2.Xi_outflow))
     "Medium properties in port_b2";
 
 protected
-  Medium_1.ThermodynamicState state_a1_inflow=
-    Medium_1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))
+  Medium1.ThermodynamicState state_a1_inflow=
+    Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow), inStream(port_a1.Xi_outflow))
     "state for medium inflowing through port_a1";
-  Medium_1.ThermodynamicState state_b1_inflow=
-    Medium_1.setState_phX(port_b1.p, inStream(port_b1.h_outflow), inStream(port_b1.Xi_outflow))
+  Medium1.ThermodynamicState state_b1_inflow=
+    Medium1.setState_phX(port_b1.p, inStream(port_b1.h_outflow), inStream(port_b1.Xi_outflow))
     "state for medium inflowing through port_b1";
-  Medium_2.ThermodynamicState state_a2_inflow=
-    Medium_2.setState_phX(port_a2.p, inStream(port_a2.h_outflow), inStream(port_a2.Xi_outflow))
+  Medium2.ThermodynamicState state_a2_inflow=
+    Medium2.setState_phX(port_a2.p, inStream(port_a2.h_outflow), inStream(port_a2.Xi_outflow))
     "state for medium inflowing through port_a2";
-  Medium_2.ThermodynamicState state_b2_inflow=
-    Medium_2.setState_phX(port_b2.p, inStream(port_b2.h_outflow), inStream(port_b2.Xi_outflow))
+  Medium2.ThermodynamicState state_b2_inflow=
+    Medium2.setState_phX(port_b2.p, inStream(port_b2.h_outflow), inStream(port_b2.Xi_outflow))
     "state for medium inflowing through port_b2";
 
 equation
   // Design direction of mass flow rate
-  m_flow_1 = port_a1.m_flow;
-  m_flow_2 = port_a2.m_flow;
+  m1_flow = port_a1.m_flow;
+  m2_flow = port_a2.m_flow;
 
   // Pressure difference between ports
-  dp_1 = port_a1.p - port_b1.p;
-  dp_2 = port_a2.p - port_b2.p;
+  dp1 = port_a1.p - port_b1.p;
+  dp2 = port_a2.p - port_b2.p;
 
 end PartialStaticFourPortInterface;

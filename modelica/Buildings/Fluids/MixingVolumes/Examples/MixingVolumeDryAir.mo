@@ -39,16 +39,16 @@ model MixingVolumeDryAir
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res11(
     redeclare each package Medium = Medium,
-    dp0=5,
+    dp_nominal=5,
     from_dp=true,
-    m0_flow=2) 
+    m_flow_nominal=2) 
              annotation (Placement(transformation(extent={{-40,10},{-20,30}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res12(
     redeclare each package Medium = Medium,
-    dp0=5,
+    dp_nominal=5,
     from_dp=true,
-    m0_flow=2) 
+    m_flow_nominal=2) 
              annotation (Placement(transformation(extent={{80,10},{100,30}},
           rotation=0)));
   Buildings.Fluids.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium
@@ -56,16 +56,16 @@ model MixingVolumeDryAir
           extent={{40,10},{60,30}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res21(
     redeclare each package Medium = Medium,
-    dp0=5,
+    dp_nominal=5,
     from_dp=true,
-    m0_flow=2) 
+    m_flow_nominal=2) 
              annotation (Placement(transformation(extent={{-40,-90},{-20,-70}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res22(
     redeclare each package Medium = Medium,
-    dp0=5,
+    dp_nominal=5,
     from_dp=true,
-    m0_flow=2) 
+    m_flow_nominal=2) 
              annotation (Placement(transformation(extent={{80,-90},{100,-70}},
           rotation=0)));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality1(startTime=0) 

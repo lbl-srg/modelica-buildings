@@ -19,7 +19,7 @@ discretization scheme.
     hTan=3,
     dIns=0.3,
     VTan=5,
-    m0_flow=10) "Tank"  annotation (Placement(transformation(extent={{-20,0},{0,
+    m_flow_nominal=10) "Tank"  annotation (Placement(transformation(extent={{-20,0},{0,
             20}}, rotation=0)));
     Modelica.Blocks.Sources.TimeTable TWat(table=[0,273.15 + 40; 3600,273.15 +
         40; 3600,273.15 + 20; 7200,273.15 + 20]) "Water temperature" 
@@ -42,8 +42,8 @@ discretization scheme.
     FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5000,
-    m0_flow=10) 
+    dp_nominal=5000,
+    m_flow_nominal=10) 
              annotation (Placement(transformation(extent={{36,0},{56,20}},
           rotation=0)));
   Buildings.Fluids.Storage.StratifiedEnhanced tanEnh(
@@ -53,13 +53,13 @@ discretization scheme.
     hTan=3,
     dIns=0.3,
     VTan=5,
-    m0_flow=10) "Tank"  annotation (Placement(transformation(extent={{-18,-38},
+    m_flow_nominal=10) "Tank"  annotation (Placement(transformation(extent={{-18,-38},
             {2,-18}}, rotation=0)));
     FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
     redeclare package Medium = Medium,
-    dp0=5000,
-    m0_flow=10) 
+    dp_nominal=5000,
+    m_flow_nominal=10) 
              annotation (Placement(transformation(extent={{38,-38},{58,-18}},
           rotation=0)));
   Buildings.Fluids.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium

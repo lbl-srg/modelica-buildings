@@ -1,5 +1,6 @@
 within Buildings.Fluids.HeatExchangers.CoolingTowers.BaseClasses;
-model PartialStaticTwoPortCoolingTower "Cooling tower with variable speed"
+partial model PartialStaticTwoPortCoolingTower
+  "Cooling tower with variable speed"
   extends Fluids.Interfaces.PartialStaticTwoPortHeatMassTransfer;
   extends Buildings.BaseClasses.BaseIcon;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -43,8 +44,8 @@ model PartialStaticTwoPortCoolingTower "Cooling tower with variable speed"
                                          annotation (Placement(transformation(
           extent={{-140,20},{-100,60}}, rotation=0)));
 equation
-  TWatIn_degC  = Modelica.SIunits.Conversions.to_degC(sta_a.T);
-  TWatOut_degC = Modelica.SIunits.Conversions.to_degC(sta_b.T);
+  TWatIn_degC  = Modelica.SIunits.Conversions.to_degC(Medium.temperature(sta_a));
+  TWatOut_degC = Modelica.SIunits.Conversions.to_degC(Medium.temperature(sta_b));
   TAirIn_degC  = Modelica.SIunits.Conversions.to_degC(TAir);
 
   dp = 0;

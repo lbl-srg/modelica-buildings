@@ -27,5 +27,5 @@ First implementation.
             0)));
  parameter Real deltaX "Width of transition interval";
 equation
-  y = Buildings.Utilities.Math.spliceFunction(u1, u2, u1-u2, deltaX);
+  y =  Buildings.Utilities.Math.Functions.smoothMax(x1=u1, x2=u2, deltaX=deltaX);
 end SmoothMax;

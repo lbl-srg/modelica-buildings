@@ -14,7 +14,7 @@ model FlowMachine
     height=-1500,
     offset=101325,
     duration=1.5) 
-                 annotation (Placement(transformation(extent={{-80,-10},{-60,10}},
+                 annotation (Placement(transformation(extent={{-80,-2},{-60,18}},
           rotation=0)));
   Buildings.Fluids.Movers.FlowMachinePolynomial fan(
     D=0.6858,
@@ -23,11 +23,11 @@ model FlowMachine
     mNorMin_flow=1,
     mNorMax_flow=2,
     redeclare package Medium = Medium,
-    m0_flow=10)     annotation (Placement(transformation(extent={{0,-10},{20,10}},
+    m_flow_nominal=10)     annotation (Placement(transformation(extent={{0,-10},{20,10}},
           rotation=0)));
   Modelica.Blocks.Sources.Constant N(k=22.3333) 
                                          annotation (Placement(transformation(
-          extent={{-40,50},{-20,70}}, rotation=0)));
+          extent={{-40,30},{-20,50}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     use_p_in=true,
@@ -87,10 +87,10 @@ equation
           {0,-30.3333},{14,-30.3333}}, color={0,0,127}));
   connect(fan_mFlow.y, printer.x[5]) annotation (Line(points={{-19,-84},{-6,-84},
           {-6,-31},{14,-31}}, color={0,0,127}));
-  connect(N.y, fan.N_in) annotation (Line(points={{-19,60},{-10,60},{-10,6},{-1,
-          6}}, color={0,0,127}));
-  connect(P.y, sou.p_in) annotation (Line(points={{-59,0},{-51.5,0},{-51.5,8},{
-          -44,8}},                          color={0,0,127}));
+  connect(N.y, fan.N_in) annotation (Line(points={{-19,40},{10,40},{10,7},{10,7}},
+               color={0,0,127}));
+  connect(P.y, sou.p_in) annotation (Line(points={{-59,8},{-51.5,8},{-44,8}},
+                                            color={0,0,127}));
   connect(PAtm.y, sin.p_in) annotation (Line(points={{61,42},{74,42},{74,8},{62,
           8}}, color={0,0,127}));
   connect(sou.ports[1], fan.port_a) annotation (Line(

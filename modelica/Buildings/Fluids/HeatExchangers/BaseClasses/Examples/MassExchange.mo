@@ -4,8 +4,9 @@ model MassExchange "Test model for latent heat exchange"
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{180,100}}), graphics),
                       Commands(file="MassExchange.mos" "run"));
-  Buildings.Fluids.HeatExchangers.BaseClasses.MassExchange masExc(redeclare package
-      Medium = Medium) "Model for mass exchange" 
+  Buildings.Fluids.HeatExchangers.BaseClasses.MassExchange masExc(redeclare
+      package Medium = 
+               Medium) "Model for mass exchange" 
                                      annotation (Placement(transformation(
           extent={{20,0},{40,20}}, rotation=0)));
   Modelica.Blocks.Sources.Ramp TSur(

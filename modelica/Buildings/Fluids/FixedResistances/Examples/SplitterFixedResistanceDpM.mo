@@ -10,10 +10,10 @@ model SplitterFixedResistanceDpM
  package Medium = Modelica.Media.Air.SimpleAir;
 
   Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl(
-    m0_flow={1,2,3},
-    dp0={5,10,15},
+    m_flow_nominal={1,2,3},
     dh={1,2,3},
-    redeclare package Medium = Medium) "Splitter" 
+    redeclare package Medium = Medium,
+    dp_nominal(displayUnit="Pa") = {5,10,15}) "Splitter" 
     annotation (Placement(transformation(extent={{-16,-10},{4,10}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT bou1(             redeclare package Medium
       =        Medium, T=273.15 + 10,

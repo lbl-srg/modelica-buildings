@@ -2,7 +2,7 @@ within Buildings.Fluids.HeatExchangers;
 model WetCoilDiscretized "Coil with condensation"
   extends DryCoilDiscretized(final allowCondensation=true,
   each hexReg(ele(redeclare each
-          Buildings.Fluids.MixingVolumes.MixingVolumeMoistAir vol_2(
+          Buildings.Fluids.MixingVolumes.MixingVolumeMoistAir vol2(
           final use_HeatTransfer = true,
           medium(T(stateSelect=StateSelect.never))))));
  annotation (
@@ -42,4 +42,5 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
 end WetCoilDiscretized;

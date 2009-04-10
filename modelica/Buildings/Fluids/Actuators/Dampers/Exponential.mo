@@ -1,6 +1,7 @@
 within Buildings.Fluids.Actuators.Dampers;
 model Exponential "Air damper with exponential opening characteristics"
-  extends Buildings.Fluids.Actuators.BaseClasses.PartialDamperExponential;
+  extends Buildings.Fluids.Actuators.BaseClasses.PartialDamperExponential(dp_nominal=(m_flow_nominal/kDam_nominal)^2,
+  dp(nominal=10));
    annotation (Documentation(info="<html>
 This model is an air damper with flow coefficient that is an exponential function 
 of the opening angle. The model is as in ASHRAE 825-RP.
@@ -75,10 +76,36 @@ July 20, 2007 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+</html>"), Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),
-                graphics),
+                graphics={Polygon(
+          points={{-26,12},{22,54},{22,42},{-26,0},{-26,12}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillPattern=FillPattern.Solid), Polygon(
+          points={{-22,-32},{26,10},{26,-2},{-22,-44},{-22,-32}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillPattern=FillPattern.Solid)}),
     Diagram(graphics));
+protected
+   parameter Real kDam_nominal(fixed=false)
+    "Flow coefficient for damper, k=m_flow/sqrt(dp), with unit=(kg*m)^(1/2)";
+   parameter Real kTheta_nominal(min=0, fixed=false)
+    "Flow coefficient, kTheta = pressure drop divided by dynamic pressure";
+initial algorithm
+   kTheta_nominal :=Buildings.Fluids.Actuators.BaseClasses.exponentialDamper(
+    y=1,
+    a=a,
+    b=b,
+    cL=cL,
+    cU=cU,
+    yL=yL,
+    yU=yU) "y=0 is closed";
+   assert(kTheta_nominal>=0, "Flow coefficient must not be negative");
+   kDam_nominal :=sqrt(2*rho_nominal/kTheta_nominal)*A
+    "flow coefficient for resistance base model, kDam=k=m_flow/sqrt(dp)";
+
 equation
-  k = kDam "flow coefficient for resistance base model";
+  kSqu = kDamSqu "flow coefficient for resistance base model";
 end Exponential;

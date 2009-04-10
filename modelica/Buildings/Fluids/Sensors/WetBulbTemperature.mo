@@ -66,9 +66,9 @@ First implementation based on
     final quantity="Temperature",
     final unit="K") "Wet bulb temperature in port medium" 
     annotation (Placement(transformation(
-        origin={0,-110},
+        origin={0,110},
         extent={{-10,-10},{10,10}},
-        rotation=270), iconTransformation(
+        rotation=90),  iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));

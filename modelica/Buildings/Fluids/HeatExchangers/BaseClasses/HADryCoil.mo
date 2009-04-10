@@ -45,7 +45,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(graphics={Rectangle(
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},
@@ -54,22 +55,22 @@ First implementation.
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString=
-               "hA")}));
-  parameter Modelica.SIunits.ThermalConductance UA0(min=0)
+          textString="hA")}));
+  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow" 
           annotation(Dialog(tab="General", group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m0_flow_w "Water mass flow rate" 
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_w
+    "Water mass flow rate" 
           annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m0_flow_a "Air mass flow rate" 
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_a "Air mass flow rate"
           annotation(Dialog(tab="General", group="Nominal condition"));
 
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal m_flow_1
+  ObsoleteModelica3.Blocks.Interfaces.RealSignal m1_flow
     "Mass flow rate medium 1" 
     annotation (Placement(transformation(extent={{-120,60},{-100,80}}, rotation=
            0)));
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal m_flow_2
+  ObsoleteModelica3.Blocks.Interfaces.RealSignal m2_flow
     "Mass flow rate medium 2" 
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}},
           rotation=0)));
@@ -115,10 +116,10 @@ First implementation.
 
   parameter Real r(min=0, max=1)=0.5
     "Ratio between air-side and water-side convective heat transfer coefficient";
-  parameter Modelica.SIunits.ThermalConductance hA0_w(min=0)=UA0 * (r+1)/r
+  parameter Modelica.SIunits.ThermalConductance hA_nominal_w(min=0)=UA_nominal * (r+1)/r
     "Water side convective heat transfer coefficient" 
           annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.ThermalConductance hA0_a(min=0)=r * hA0_w
+  parameter Modelica.SIunits.ThermalConductance hA_nominal_a(min=0)=r * hA_nominal_w
     "Air side convective heat transfer coefficient, including fin resistance" 
           annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Real n_w(min=0, max=1)=0.85
@@ -154,9 +155,9 @@ protected
   Real fm_a "Fraction of actual to nominal mass flow rate";
 equation
   fm_w = if waterSideFlowDependent then 
-              m_flow_1 / m0_flow_w else 1;
+              m1_flow / m_flow_nominal_w else 1;
   fm_a = if airSideFlowDependent then 
-              m_flow_2 / m0_flow_a else 1;
+              m2_flow / m_flow_nominal_a else 1;
   s_w =  if waterSideTemperatureDependent then 
             0.014/(1+0.014*Modelica.SIunits.Conversions.to_degC(T_1)) else 
               1;
@@ -167,14 +168,16 @@ equation
          1 + 4.769E-3 * (T_2-T0_a) else 
               1;
   if ( waterSideFlowDependent == true) then
-    hA_1 = x_w * Buildings.Utilities.Math.regNonZeroPower(fm_w, n_w, 0.1) * hA0_w;
+    hA_1 = x_w * Buildings.Utilities.Math.Functions.regNonZeroPower(
+                                                          fm_w, n_w, 0.1) * hA_nominal_w;
   else
-    hA_1 = x_w * hA0_w;
+    hA_1 = x_w * hA_nominal_w;
   end if;
 
   if ( airSideFlowDependent == true) then
-    hA_2 = x_a * Buildings.Utilities.Math.regNonZeroPower(fm_a, n_a, 0.1) * hA0_a;
+    hA_2 = x_a * Buildings.Utilities.Math.Functions.regNonZeroPower(
+                                                          fm_a, n_a, 0.1) * hA_nominal_a;
   else
-    hA_2 = x_a * hA0_a;
+    hA_2 = x_a * hA_nominal_a;
   end if;
 end HADryCoil;

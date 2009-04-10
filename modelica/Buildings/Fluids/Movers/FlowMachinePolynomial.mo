@@ -3,7 +3,7 @@ model FlowMachinePolynomial
   "Pump with head and efficiency given by a non-dimensional polynomial"
   extends Buildings.Fluids.Interfaces.PartialStaticTwoPortInterface;
 
-annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(
           extent={{-92,4},{-54,-4}},
@@ -31,7 +31,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100}
           pattern=LinePattern.None,
           fillColor={0,0,191},
           fillPattern=FillPattern.Solid),
-        Line(points={{-100,60},{-2,60},{0,60},{0,40}}, color={0,0,255})}),
+        Line(points={{0,60},{0,60},{0,60},{0,40}}, color={0,0,255})}),
                        Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                graphics),
@@ -60,8 +60,11 @@ The normalized pressure difference is computed using a function of the normalize
 </html>"));
 
   Modelica.Blocks.Interfaces.RealInput N_in "Prescribed rotational speed" 
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},   rotation=270,
+        origin={0,70}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={0,70})));
 
   parameter Modelica.SIunits.Length D "Diameter";
   parameter Real[:] a "Polynomial coefficients for pressure=p(mNor_flow)";

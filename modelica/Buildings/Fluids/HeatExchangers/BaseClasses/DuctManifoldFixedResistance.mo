@@ -37,7 +37,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), 
         graphics={
         Rectangle(
           extent={{28,68},{72,52}},
@@ -61,19 +61,20 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter" 
        annotation(Evaluate=true, Dialog(enable = not linearized));
 
-  parameter Modelica.SIunits.MassFlowRate m0_flow "Mass flow rate at port_a" 
-                                                               annotation(Dialog(group = "Nominal Condition"));
-  parameter Modelica.SIunits.Pressure dp0(min=0) "Pressure" 
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Mass flow rate at port_a"                                 annotation(Dialog(group = "Nominal Condition"));
+  parameter Modelica.SIunits.Pressure dp_nominal(min=0) "Pressure" 
                                               annotation(Dialog(group = "Nominal Condition"));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter of duct" 
         annotation(Dialog(enable= not linearized));
-  parameter Real ReC=4000 "Reynolds number where transition to laminar starts" 
+  parameter Real ReC=4000
+    "Reynolds number where transition to turbulent starts" 
    annotation(Dialog(enable = use_dh and not linearized));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate" 
     annotation(Dialog(tab="Advanced"));
   parameter Real deltaM(min=0) = 0.3
-    "Fraction of nominal mass flow rate where transition to laminar occurs" 
+    "Fraction of nominal mass flow rate where transition to turbulent occurs" 
        annotation(Dialog(enable = not use_dh and not linearized));
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)" 
@@ -81,9 +82,9 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
 
   Fluids.FixedResistances.FixedResistanceDpM[nPipPar,nPipSeg] fixRes(
     redeclare each package Medium = Medium,
-    each m0_flow=m0_flow/nPipPar/nPipSeg,
+    each m_flow_nominal=m_flow_nominal/nPipPar/nPipSeg,
     each m_flow(start=mStart_flow_a/nPipPar/nPipSeg),
-    each dp0=dp0,
+    each dp_nominal=dp_nominal,
     each dh=dh/sqrt(nPipPar*nPipSeg),
     each from_dp=from_dp,
     each deltaM=deltaM,

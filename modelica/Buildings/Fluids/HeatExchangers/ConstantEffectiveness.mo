@@ -51,9 +51,9 @@ First implementation.
 
   Modelica.SIunits.Temperature T_in1 "Inlet temperature medium 1";
   Modelica.SIunits.Temperature T_in2 "Inlet temperature medium 2";
-  Modelica.SIunits.ThermalConductance C_flow_1
+  Modelica.SIunits.ThermalConductance C1_flow
     "Heat capacity flow rate medium 1";
-  Modelica.SIunits.ThermalConductance C_flow_2
+  Modelica.SIunits.ThermalConductance C2_flow
     "Heat capacity flow rate medium 2";
   Modelica.SIunits.ThermalConductance CMin_flow(min=0)
     "Minimum heat capacity flow rate";
@@ -61,27 +61,29 @@ First implementation.
 
 equation
   // Definitions for heat transfer effectiveness model
-  T_in1 = if m_flow_1 >= 0 then sta_a1.T else sta_b1.T;
-  T_in2 = if m_flow_2 >= 0 then sta_a2.T else sta_b2.T;
+  T_in1 = if m1_flow >= 0 then Medium1.temperature(sta_a1) else 
+                                Medium1.temperature(sta_b1);
+  T_in2 = if m2_flow >= 0 then Medium2.temperature(sta_a2) else 
+                                Medium2.temperature(sta_b2);
 
   // The specific heat capacity is computed using the state of the
   // medium at port_a. For forward flow, this is correct, for reverse flow,
   // this is an approximation.
-  C_flow_1 = abs(m_flow_1)* Medium_1.specificHeatCapacityCp(sta_a1);
-  C_flow_2 = abs(m_flow_2)* Medium_2.specificHeatCapacityCp(sta_a2);
+  C1_flow = abs(m1_flow)* Medium1.specificHeatCapacityCp(sta_a1);
+  C2_flow = abs(m2_flow)* Medium2.specificHeatCapacityCp(sta_a2);
 
-  CMin_flow = min(C_flow_1, C_flow_2);
+  CMin_flow = min(C1_flow, C2_flow);
   QMax_flow = CMin_flow * (T_in2 - T_in1);
 
   // transferred heat
-  Q_flow_1 = eps * QMax_flow;
-  0 = Q_flow_1 + Q_flow_2;
+  Q1_flow = eps * QMax_flow;
+  0 = Q1_flow + Q2_flow;
 
   // no mass exchange
-  mXi_flow_1 = zeros(Medium_1.nXi);
-  mXi_flow_2 = zeros(Medium_2.nXi);
+  mXi1_flow = zeros(Medium1.nXi);
+  mXi2_flow = zeros(Medium2.nXi);
 
   // no pressure drop
-  dp_1 = 0;
-  dp_2 = 0;
+  dp1 = 0;
+  dp2 = 0;
 end ConstantEffectiveness;

@@ -24,7 +24,7 @@ between the pressure drop <tt>dp</tt> and the mass flow rate <tt>m_flow</tt> and
 the energy and mass balances, such as
 <pre>
   dp = 0;
-  mWat_flow = u * m0_flow;
+  mWat_flow = u * m_flow_nominal;
   Q_flow = Medium.enthalpyOfLiquid(TWat) * mWat_flow;
   for i in 1:Medium.nXi loop
      mXi_flow[i] = if ( i == Medium.Water) then  mWat_flow else 0;

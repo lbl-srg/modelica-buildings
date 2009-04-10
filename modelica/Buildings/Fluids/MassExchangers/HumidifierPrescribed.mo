@@ -20,7 +20,7 @@ model HumidifierPrescribed
         Text(
           extent={{-56,-12},{54,-72}},
           lineColor={0,0,255},
-          textString="m=%m0_flow"),
+          textString="m=%m_flow_nominal"),
         Rectangle(
           extent={{-100,61},{-70,58}},
           lineColor={0,0,255},
@@ -47,9 +47,9 @@ Model for an air humidifier or dehumidifier.
 </p>
 <p>
 This model adds (or removes) moisture from the air stream.
-The amount of exchanged moisture is equal to <tt>m_flow = u m0_flow</tt>.
-The input signal <tt>u</tt> and the nominal moisture flow rate added to the air stream <tt>m0_flow</tt> can be positive or negative.
-If the product <tt>u * m0_flow</tt> are positive, then moisture is added
+The amount of exchanged moisture is equal to <tt>m_flow = u m_flow_nominal</tt>.
+The input signal <tt>u</tt> and the nominal moisture flow rate added to the air stream <tt>m_flow_nominal</tt> can be positive or negative.
+If the product <tt>u * m_flow_nominal</tt> are positive, then moisture is added
 to the air stream, otherwise it is removed.
 </p>
 <p>
@@ -59,8 +59,8 @@ added to the air stream.
 </p>
 <p>
 Note that if the mass flow rate tends to zero, the moisture difference over this 
-component tends to infinity for non-zero <tt>m_flow</tt>, so add proper control
-when using this component.
+component tends to infinity for non-zero <tt>m_flow</tt>.
+Hence, using a proper control for <tt>u</tt> is essential when using this component.
 </p>
 <p>
 This model can only be used with medium models that define the integer constant

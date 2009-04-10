@@ -10,7 +10,7 @@ model VAVBoxExponential
 
   Buildings.Fluids.Actuators.Dampers.Exponential dam(
          redeclare package Medium = Medium, A=1.8,
-    m0_flow=2) 
+    m_flow_nominal=2) 
          annotation (Placement(transformation(extent={{20,10},{40,30}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp yRam(
@@ -40,23 +40,23 @@ model VAVBoxExponential
       annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluids.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = Medium,
-    dp0=5,
+    dp_nominal=5,
     A=1.8,
-    m0_flow=2) 
+    m_flow_nominal=2) 
          annotation (Placement(transformation(extent={{-2,-50},{18,-30}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res(
     from_dp=true,
-    m0_flow=2,
+    m_flow_nominal=2,
     redeclare package Medium = Medium,
-    dp0=5 - 0.45*2^2/1.2/1.8^2/2) 
+    dp_nominal=5 - 0.45*2^2/1.2/1.8^2/2) 
              annotation (Placement(transformation(extent={{-36,10},{-16,30}},
           rotation=0)));
   inner Modelica_Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(yRam.y,dam. y) annotation (Line(
-      points={{-39,70},{-12,70},{-12,28},{18,28}},
+      points={{-39,70},{-12,70},{-12,32},{30,32},{30,28}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(P.y, sou.p_in) annotation (Line(points={{-79,50},{-78,50},{-78,-2},{
@@ -64,7 +64,7 @@ equation
   connect(PAtm.y, sin.p_in) annotation (Line(points={{81,70},{92,70},{92,-2},{
           74,-2}}, color={0,0,127}));
   connect(yRam.y, vav.y) annotation (Line(
-      points={{-39,70},{-12,70},{-12,-32},{-4,-32}},
+      points={{-39,70},{-12,70},{-12,-26},{8,-26},{8,-32}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(res.port_b, dam.port_a) 

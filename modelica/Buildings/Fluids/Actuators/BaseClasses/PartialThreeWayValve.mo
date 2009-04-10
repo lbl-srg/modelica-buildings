@@ -4,12 +4,13 @@ partial model PartialThreeWayValve "Partial three way valve"
         redeclare FixedResistances.LosslessPipe res2(
             redeclare package Medium = Medium));
     extends Buildings.Fluids.Actuators.BaseClasses.ValveParameters(
-      rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+      rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default),
+      final dpVal_nominal=dp_nominal);
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,44},{100,-36}},
@@ -22,24 +23,24 @@ partial model PartialThreeWayValve "Partial three way valve"
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),
         Polygon(
-          points={{-2,2},{-80,64},{-80,-56},{-2,2}},
+          points={{0,2},{-78,64},{-78,-56},{0,2}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-70,56},{-2,2},{54,44},{74,60},{-70,56}},
+          points={{-68,56},{0,2},{56,44},{76,60},{-68,56}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-58,-40},{-2,2},{54,44},{58,-40},{-58,-40}},
+          points={{-56,-40},{0,2},{56,44},{60,-40},{-56,-40}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-2,2},{80,64},{80,-54},{-2,2}},
+          points={{0,2},{82,64},{82,-54},{0,2}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -54,10 +55,22 @@ partial model PartialThreeWayValve "Partial three way valve"
           fillPattern=FillPattern.VerticalCylinder,
           fillColor={0,127,255}),
         Polygon(
-          points={{-2,2},{60,-80},{-60,-80},{-2,2}},
+          points={{0,2},{62,-80},{-58,-80},{0,2}},
           lineColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-40,46},{40,46}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Line(
+          points={{0,100},{0,-2}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Text(
+          extent={{30,116},{68,66}},
+          lineColor={0,0,127},
+          textString="y")}),
     Documentation(info="<html>
 <p>
 Partial model of a three way valve. This is the base model for valves
@@ -100,24 +113,26 @@ First implementation.
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1" 
     annotation(Dialog(group="Pressure-flow linearization"));
-  parameter Medium.MassFlowRate m0_flow(min=0) "Nominal mass flow rate" 
+  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate" 
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp0 = 6000 "Nominal pressure drop" 
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") = 6000
+    "Nominal pressure drop" 
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean[2] linearized = {false, false}
     "= true, use linear relation between m_flow and dp for any flow rate" 
     annotation(Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.RealInput y "Damper position (0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}},
-          rotation=0)));
+  Modelica.Blocks.Interfaces.RealInput y "Valve position (0: closed, 1: open)" 
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+          rotation=270,
+        origin={0,80})));
 protected
   Modelica.Blocks.Math.Feedback inv "Inversion of control signal" 
-    annotation (Placement(transformation(extent={{-54,62},{-34,82}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}}, rotation=0)));
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Outputs one for bypass valve" 
-    annotation (Placement(transformation(extent={{-84,62},{-64,82}}, rotation=0)));
+    annotation (Placement(transformation(extent={{-100,60},{-80,80}},rotation=0)));
 equation
   connect(uni.y, inv.u1) 
-    annotation (Line(points={{-63,72},{-52,72}}, color={0,0,127}));
+    annotation (Line(points={{-79,70},{-58,70}}, color={0,0,127}));
 end PartialThreeWayValve;

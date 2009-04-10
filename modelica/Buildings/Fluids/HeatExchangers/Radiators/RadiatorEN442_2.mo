@@ -90,7 +90,7 @@ First implementation.
   parameter Integer nEle(min=1) = 5
     "Number of elements used in the discretization" 
     annotation (Dialog(tab="Assumptions", group="Dynamics"));
-  parameter Modelica.SIunits.Power Q0_flow "Nominal heating power";
+  parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
   parameter Real fraRad(min=0, max=1) = 0.35 "Fraction radiant heat transfer";
   // Assumptions
   parameter Modelica_Fluid.Types.Dynamics energyDynamics=system.energyDynamics
@@ -119,13 +119,13 @@ First implementation.
     "Start value of trace substances" 
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
-  parameter Modelica.SIunits.TemperatureDifference dT0(min=0) = 50
+  parameter Modelica.SIunits.TemperatureDifference dT_nominal(min=0) = 50
     "Nominal temperature difference (between water and air)";
   parameter Real n = 1.24 "Exponent for heat transfer";
-  parameter Modelica.SIunits.Volume VWat = 5.8E-6*Q0_flow
+  parameter Modelica.SIunits.Volume VWat = 5.8E-6*Q_flow_nominal
     "Water volume of radiator" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)));
-  parameter Modelica.SIunits.Mass mDry = 0.0263*Q0_flow if 
+  parameter Modelica.SIunits.Mass mDry = 0.0263*Q_flow_nominal if 
         not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)
     "Dry mass of radiator that will be lumped to water heat capacity" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)));
@@ -183,7 +183,7 @@ protected
     "Temperature difference for convective heat transfer";
    Modelica.SIunits.TemperatureDifference[nEle] dTRad
     "Temperature difference for radiative heat transfer";
-   parameter Modelica.SIunits.ThermalConductance UA0n = Q0_flow /dT0^n/nEle;
+   parameter Modelica.SIunits.ThermalConductance UA_nominaln = Q_flow_nominal /dT_nominal^n/nEle;
    Modelica.SIunits.ThermalConductance[nEle] UACon
     "Thermal conductance between radiator and room for convective heat transfer";
    Modelica.SIunits.ThermalConductance[nEle] UARad
@@ -193,8 +193,10 @@ equation
   for i in 1:nEle loop
      dTCon[i] = heatPortCon.T - vol[i].medium.T;
      dTRad[i] = heatPortRad.T - vol[i].medium.T;
-     UACon[i] = (1-fraRad)  * UA0n * Buildings.Utilities.Math.regNonZeroPower(x=dTCon[i], n=n-1, delta=deltaT);
-     UARad[i] = fraRad      * UA0n * Buildings.Utilities.Math.regNonZeroPower(x=dTRad[i], n=n-1, delta=deltaT);
+     UACon[i] = (1-fraRad)  * UA_nominaln * Buildings.Utilities.Math.Functions.regNonZeroPower(
+                                                                                     x=dTCon[i], n=n-1, delta=deltaT);
+     UARad[i] = fraRad      * UA_nominaln * Buildings.Utilities.Math.Functions.regNonZeroPower(
+                                                                                     x=dTRad[i], n=n-1, delta=deltaT);
      preHeaFloCon[i].Q_flow = UACon[i] * dTCon[i];
      preHeaFloRad[i].Q_flow = UARad[i] * dTRad[i];
   end for;

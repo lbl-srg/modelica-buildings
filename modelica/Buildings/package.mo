@@ -1,9 +1,9 @@
 within ;
 package Buildings "Library with models for building energy and control systems"
-annotation (preferedView="info", 
-      version="0.5.0", 
+annotation (preferedView="info",
+      version="0.6.0",
       uses(
-        Modelica(version="3.0"), 
+        Modelica(version="3.0"),
         Modelica_Fluid(version="1.0")),
       Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Users Guide of the Modelica Buildings Library</font></h3>
@@ -16,7 +16,18 @@ air-conditioning systems.
 Many models are based on models from the package
 <a href=\"Modelica://Modelica_Fluid\">Modelica_Fluid</a> and use
 the same ports to ensure compatibility with models from that library.
-</p><p>
+</p>
+<p>
+The figure below shows a section of the schematic view of the model 
+<a href=\"Modelica:Buildings.Examples.HydronicHeating\">
+Buildings.Examples.HydronicHeating</a>.
+In the lower part of the figure, there is a dynamic model of a boiler, a pump and a stratified energy storage tank. Based on the temperatures of the storage tank, a finite state machine switches the boiler on and off. 
+The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a simplified room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
+<blockquote>
+    <img src=\"../Images/UsersGuide/HydronicHeating.png\" border=1>
+</blockquote>
+</p>
+<p>
 The web page for this library is
 <a href=\"https://gaia.lbl.gov/bir\">https://gaia.lbl.gov/bir</a>. 
 Contributions from different users to further advance this library are
@@ -75,6 +86,9 @@ on the Buildings library
 </p>
 <ul>
 <li> 
+<a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">
+Version 0.6.0 </a>(XXXXXXXXX XXXXXX, 2009)</li>
+<li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">
 Version 0.5.0 </a>(February 19, 2009)</li>
 <li> 
@@ -93,6 +107,81 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 </ul>
 </html>
 "));
+
+  class Version_0_6_0 "Version 0.6.0"
+      annotation (Documentation(info="<html>
+<h3><font color=\"#008000\">Version 0.6.0</font></h3>
+<p>
+<ul>
+<li>
+Redesigned package
+<a href=\"Modelica:Buildings.Utilities.Math\">
+Buildings.Utilities.Math</a> to allow having blocks and functions
+with the same name. Functions are now in 
+<a href=\"Modelica:Buildings.Utilities.Math.Functions\">
+Buildings.Utilities.Math.Functions</a>.
+</li>
+<li>
+Fixed sign error in
+<a href=\"Modelica:Buildings.Fluids.Storage.BaseClasses.Stratifier\">
+Buildings.Fluids.Storage.BaseClasses.Stratifier</a>
+which caused a wrong energy balance in
+<a href=\"Modelica:Buildings.Fluids.Storage.StratifiedEnhanced\">
+Buildings.Fluids.Storage.StratifiedEnhanced</a>.
+</li>
+<li>
+Renamed 
+<tt>Buildings.Fluids.HeatExchangers.HeaterCoolerIdeal</tt> to
+<a href=\"Modelica:Buildings.Fluids.HeatExchangers.HeaterCoolerPrescribed\">
+Buildings.Fluids.HeatExchangers.HeaterCoolerPrescribed</a>
+to have the same nomenclatures as is used for
+<a href=\"Modelica:Buildings.Fluids.MassExchangers.HumidifierPrescribed\">
+Buildings.Fluids.MassExchangers.HumidifierPrescribed</a>
+</li>
+<li>
+In 
+<a href=\"Modelica:Buildings.Fluids/Actuators/BaseClasses/PartialDamperExponential\">
+Buildings.Fluids/Actuators/BaseClasses/PartialDamperExponential</a>,
+added option to compute linearization near zero based on 
+the fraction of nominal flow instead of the Reynolds number.
+This was set as the default, as it leads most reliably to a model 
+parametrization that leads to a derivative <tt>d m_flow/d p</tt> 
+near the origin that is not too steep for a Newton-based solver.
+</li>
+<li>
+In damper and VAV box models, added optional parameters
+to allow specifying the nominal face velocity instead of the area.
+</li>
+<li>
+Set nominal attribute for pressure drop <tt>dp</tt> in 
+<a href=\"Modelica:Buildings.Fluids.BaseClasses.PartialResistance\"</a>
+Buildings.Fluids.BaseClasses.PartialResistance</a> and in its
+child classes.
+</li>
+<li>
+Added models for chiller
+(<a href=\"Modelica:Buildings.Fluids.Chillers.Carnot\">
+Buildings.Fluids.Chillers.Carnot</a>),
+for occupancy
+(<a href=\"Modelica:Buildings.Controls.SetPoints.OccupancySchedule\">
+Buildings.Controls.SetPoints.OccupancySchedule</a>) and for
+blocks that take a vector as an argument
+(<a href=\"Modelica:Buildings.Utilities.Math.Min\">
+Buildings.Utilities.Math.Min</a>,
+<a href=\"Modelica:Buildings.Utilities.Math.Max\">
+Buildings.Utilities.Math.Max</a>, and
+<a href=\"Modelica:Buildings.Utilities.Math.Average\">
+Buildings.Utilities.Math.Average</a>).
+</li>
+<li>
+Changed various variable names to be consistent with naming
+convention used in Modelica_Fluid 1.0.
+</li>
+</ul>
+</p>
+</html>
+"));
+  end Version_0_6_0;
 
   class Version_0_5_0 "Version 0.5.0"
       annotation (Documentation(info="<html>

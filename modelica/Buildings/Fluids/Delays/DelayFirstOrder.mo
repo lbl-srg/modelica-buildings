@@ -36,7 +36,7 @@ This model approximates a transport delay using a first order differential equat
 </p>
 <p>
 The model is essentially a mixing volume with two ports and a volume that is such
-that at the nominal mass flow rate <tt>m0_flow</tt> the time constant of the volume is equal to the parameter <tt>tau</tt>.
+that at the nominal mass flow rate <tt>m_flow_nominal</tt> the time constant of the volume is equal to the parameter <tt>tau</tt>.
 </p>
 <p>
 The heat flux connector is optional, it need not be connnected.
@@ -63,14 +63,14 @@ First implementation.
 
   parameter Modelica.SIunits.Time tau = 60 "Time constant at nominal flow" 
      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m0_flow(min=0) "Mass flow rate" 
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) "Mass flow rate" 
      annotation(Dialog(group = "Nominal condition"));
 
 protected
    parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=T_start,
          p=p_start, X=X_start[1:Medium.nXi]);
-   parameter Modelica.SIunits.Density rho0=Medium.density(sta0)
+   parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
     "Density, used to compute fluid volume";
-   parameter Modelica.SIunits.Volume V0 = m0_flow*tau/rho0
+   parameter Modelica.SIunits.Volume V0 = m_flow_nominal*tau/rho_nominal
     "Volume of delay element";
 end DelayFirstOrder;

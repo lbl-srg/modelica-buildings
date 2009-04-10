@@ -182,7 +182,8 @@ redeclare function extends saturationPressure
 
   annotation(Inline=false,smoothOrder=5);
 algorithm
-  psat := Buildings.Utilities.Math.spliceFunction(saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
+  psat := Buildings.Utilities.Math.Functions.spliceFunction(
+                                                  saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
 end saturationPressure;
 
  redeclare function pressure "Gas pressure"

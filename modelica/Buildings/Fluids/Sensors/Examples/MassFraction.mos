@@ -1,0 +1,16 @@
+simulateModel("Buildings.Fluids.Sensors.Examples.MassFraction", method="dassl", resultFile="MassFraction");
+
+removePlots();
+createPlot(id = 9,
+ position = {86, 95, 400, 269},
+ y = {"vol.medium.Xi[1]", "masFra.X"},
+ range = {0, 1, 0.022, 0.008},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "MassFraction.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+
