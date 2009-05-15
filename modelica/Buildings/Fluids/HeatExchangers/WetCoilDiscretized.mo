@@ -1,5 +1,8 @@
 within Buildings.Fluids.HeatExchangers;
-model WetCoilDiscretized "Coil with condensation"
+model WetCoilDiscretized
+  "Coil with discretization along the flow paths and humidity condensation"
+  // When replacing the volume, the Medium is constrained so that the enthalpyOfLiquid
+  // function is known. Otherwise, checkModel(...) will fail
   extends DryCoilDiscretized(final allowCondensation=true,
   each hexReg(ele(redeclare each
           Buildings.Fluids.MixingVolumes.MixingVolumeMoistAir vol2(
@@ -13,11 +16,11 @@ This model is identical to
 <a href=\"Modelica:Buildings.Fluids.HeatExchangers.DryCoilDiscretized\">
 Buildings.Fluids.HeatExchangers.DryCoilDiscretized</a>
 but in addition, the mass transfer from fluid 2 to the metal is computed.
-The mass transfer is computed based using similarity laws between
+The mass transfer is computed using a similarity law between
 heat and mass transfer, as implemented by the model
-<a href=\"Modelica:Buildings.Fluids.HeatExchangers.BaseClasses.MassExchange</a>
-Buildings.Fluids.HeatExchangers.BaseClasses.MassExchange</a>. See this model 
-for details.
+<a href=\"Modelica:Buildings.Fluids.HeatExchangers.BaseClasses.MassExchange\">
+Buildings.Fluids.HeatExchangers.BaseClasses.MassExchange</a>. 
+See this model for details.
 </p>
 <p>
 This model can only be used with medium models that

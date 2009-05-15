@@ -1,6 +1,6 @@
 within Buildings.Fluids.Movers;
 model FlowMachinePolynomial
-  "Pump with head and efficiency given by a non-dimensional polynomial"
+  "Pump or fan with head and efficiency declared by a non-dimensional polynomial"
   extends Buildings.Fluids.Interfaces.PartialStaticTwoPortInterface;
 
 annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},

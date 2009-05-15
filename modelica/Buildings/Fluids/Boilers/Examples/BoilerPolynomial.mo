@@ -14,7 +14,8 @@ model BoilerPolynomial "Test model"
     "Nominal temperature difference";
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dT_nominal/4200
     "Nominal mass flow rate";
- parameter Modelica.SIunits.Pressure dp_nominal = 3000 "Pressure drop at m_flow_nominal";
+ parameter Modelica.SIunits.Pressure dp_nominal = 3000
+    "Pressure drop at m_flow_nominal";
   inner Modelica_Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
@@ -38,8 +39,9 @@ model BoilerPolynomial "Test model"
     effCur=Buildings.Fluids.Types.EfficiencyCurves.Constant,
     Q_flow_nominal=Q_flow_nominal,
     dT_nominal=dT_nominal,
-    T_start=293.15,
-    redeclare package Medium = Medium) "Boiler" 
+    redeclare package Medium = Medium,
+    dp_nominal=dp_nominal,
+    T_start=293.15) "Boiler" 
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAmb1(
                                                               T=288.15)
@@ -53,20 +55,13 @@ model BoilerPolynomial "Test model"
     redeclare package Medium = Medium,
     energyDynamics=Modelica_Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica_Fluid.Types.Dynamics.SteadyState,
+    dp_nominal=dp_nominal,
     T_start=293.15) "Boiler" 
     annotation (Placement(transformation(extent={{-12,-70},{8,-50}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAmb2(
                                                               T=288.15)
     "Ambient temperature in boiler room" 
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
-  FixedResistances.FixedResistanceDpM res1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal) annotation (Placement(transformation(extent={{20,-2},{40,18}})));
-  FixedResistances.FixedResistanceDpM res2(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=dp_nominal) annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T=0.1) 
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
 equation
@@ -88,22 +83,6 @@ equation
       points={{-64,-60},{-12,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(fur1.port_b, res1.port_a) annotation (Line(
-      points={{10,8},{20,8}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(fur2.port_b, res2.port_a) annotation (Line(
-      points={{8,-60},{20,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res1.port_b, sin.ports[1]) annotation (Line(
-      points={{40,8},{56,8},{56,-56},{70,-56}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res2.port_b, sin.ports[2]) annotation (Line(
-      points={{40,-60},{70,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(y.y, firstOrder.u) annotation (Line(
       points={{-79,-20},{-75.5,-20},{-75.5,-20},{-72,-20}},
       color={0,0,127},
@@ -115,5 +94,13 @@ equation
   connect(firstOrder.y, fur2.y) annotation (Line(
       points={{-49,-20},{-40,-20},{-40,-52},{-14,-52}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(fur2.port_b, sin.ports[2]) annotation (Line(
+      points={{8,-60},{70,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(fur1.port_b, sin.ports[1]) annotation (Line(
+      points={{10,8},{40,8},{40,-56},{70,-56}},
+      color={0,127,255},
       smooth=Smooth.None));
 end BoilerPolynomial;

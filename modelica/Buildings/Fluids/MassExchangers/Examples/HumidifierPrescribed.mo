@@ -43,7 +43,8 @@ First implementation.
       Medium = 
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
+    mWat0_flow=mWat0_flow,
+    dp_nominal=50) "Heater and cooler"            annotation (Placement(
         transformation(extent={{-54,92},{-34,112}}, rotation=0)));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature" 
     annotation (Placement(transformation(extent={{-200,92},{-180,112}},
@@ -51,9 +52,9 @@ First implementation.
   Modelica_Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium,
     use_T_in=true,
-    p=101335,
-    T=293.15,
-    nPorts=4)             annotation (Placement(transformation(extent={{-168,92},
+    nPorts=4,
+    p(displayUnit="Pa") = 101435,
+    T=293.15)             annotation (Placement(transformation(extent={{-168,92},
             {-148,112}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_11(
     from_dp=true,
@@ -89,7 +90,8 @@ First implementation.
                                                  redeclare package Medium = 
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
+    mWat0_flow=mWat0_flow,
+    dp_nominal=50) "Heater and cooler"            annotation (Placement(
         transformation(extent={{-12,134},{8,154}}, rotation=0)));
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
           extent={{-50,174},{-30,194}}, rotation=0)));
@@ -97,7 +99,8 @@ First implementation.
       Medium = 
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
+    mWat0_flow=mWat0_flow,
+    dp_nominal=50) "Heater and cooler"            annotation (Placement(
         transformation(extent={{-54,12},{-34,32}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
@@ -117,7 +120,8 @@ First implementation.
                                                  redeclare package Medium = 
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
+    mWat0_flow=mWat0_flow,
+    dp_nominal=50) "Heater and cooler"            annotation (Placement(
         transformation(extent={{-12,54},{8,74}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_4(
     from_dp=true,
@@ -170,7 +174,8 @@ First implementation.
       Medium = 
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
+    mWat0_flow=mWat0_flow,
+    dp_nominal=50) "Heater and cooler"            annotation (Placement(
         transformation(extent={{-54,-110},{-34,-90}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
@@ -190,13 +195,15 @@ First implementation.
                                                  redeclare package Medium = 
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
+    mWat0_flow=mWat0_flow,
+    dp_nominal=50) "Heater and cooler"            annotation (Placement(
         transformation(extent={{-12,-68},{8,-48}}, rotation=0)));
   Buildings.Fluids.MassExchangers.HumidifierPrescribed hea7(redeclare package
       Medium = 
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
+    mWat0_flow=mWat0_flow,
+    dp_nominal=50) "Heater and cooler"            annotation (Placement(
         transformation(extent={{-54,-190},{-34,-170}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_6(
     from_dp=true,
@@ -216,7 +223,8 @@ First implementation.
                                                  redeclare package Medium = 
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow) "Heater and cooler"    annotation (Placement(
+    mWat0_flow=mWat0_flow,
+    dp_nominal=50) "Heater and cooler"            annotation (Placement(
         transformation(extent={{-12,-148},{8,-128}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_8(
     from_dp=true,

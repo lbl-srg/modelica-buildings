@@ -1,6 +1,6 @@
 within Buildings.Controls.Continuous;
 model PIDHysteresisTimer
-  "Controller with hysteresis and timer to prevent short cycling"
+  "PID controller with anti-windup, hysteresis and timer to prevent short cycling"
   extends Modelica.Blocks.Interfaces.SVcontrol;
 
   annotation (Diagram(graphics), Icon(graphics={

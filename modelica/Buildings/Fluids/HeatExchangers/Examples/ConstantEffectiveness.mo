@@ -51,19 +51,6 @@ model ConstantEffectiveness
     use_T_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-60,36},
             {-40,56}}, rotation=0)));
-    Fluids.FixedResistances.FixedResistanceDpM res_2(
-    from_dp=true,
-    m_flow_nominal=5,
-    dp_nominal=10,
-    redeclare package Medium = Medium2) 
-             annotation (Placement(transformation(extent={{-2,-10},{-22,10}},
-          rotation=0)));
-    Fluids.FixedResistances.FixedResistanceDpM res_1(
-    from_dp=true,
-    m_flow_nominal=5,
-    redeclare package Medium = Medium1,
-    dp_nominal=500) annotation (Placement(transformation(extent={{34,2},{54,22}},
-          rotation=0)));
     Modelica.Blocks.Sources.Ramp PSin_1(
     duration=60,
     offset=300000,
@@ -74,7 +61,10 @@ model ConstantEffectiveness
   Buildings.Fluids.HeatExchangers.ConstantEffectiveness hex(redeclare package
       Medium1 = 
         Medium1, redeclare package Medium2 = Medium2,
-    m1_flow_nominal=5) 
+    m1_flow_nominal=5,
+    m2_flow_nominal=5,
+    dp1_nominal=500,
+    dp2_nominal=10) 
     annotation (Placement(transformation(extent={{6,-4},{26,16}}, rotation=0)));
   inner Modelica_Fluid.System system(
     p_ambient=300000,
@@ -92,20 +82,8 @@ equation
                                                  color={0,0,127}));
   connect(PSin_1.y, sin_1.p_in) annotation (Line(points={{61,70},{100,70},{100,
           20},{86,20}}, color={0,0,127}));
-  connect(hex.port_b1, res_1.port_a) annotation (Line(points={{26,12},{30,12},{
-          34,12}},         color={0,127,255}));
-  connect(res_2.port_a, hex.port_b2) annotation (Line(points={{-2,0},{2,0},{6,0}},
-                                                               color={0,127,255}));
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(
       points={{-40,46},{0,46},{0,12},{6,12}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sin_2.ports[1], res_2.port_b) annotation (Line(
-      points={{-38,0},{-22,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res_1.port_b, sin_1.ports[1]) annotation (Line(
-      points={{54,12},{64,12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hex.port_a2, sou_2.ports[1]) annotation (Line(
@@ -115,5 +93,13 @@ equation
   connect(POut.y, sin_2.p_in) annotation (Line(
       points={{-79,8},{-60,8}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(hex.port_b1, sin_1.ports[1]) annotation (Line(
+      points={{26,12},{64,12}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(sin_2.ports[1], hex.port_b2) annotation (Line(
+      points={{-38,0},{6,0}},
+      color={0,127,255},
       smooth=Smooth.None));
 end ConstantEffectiveness;

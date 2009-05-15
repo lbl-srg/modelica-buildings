@@ -4,7 +4,9 @@ model MixingVolume
   extends Modelica_Fluid.Vessels.ClosedVolume(m(start=V*rho_nominal, fixed=false), use_portsData=false);
 
   annotation (Documentation(info="<html>
-This mixing volume is identical to the one from <tt>Modelica_Fluid</tt>.
+This mixing volume is identical to the one from <tt>Modelica_Fluid</tt>,
+but it sets parameters in the parent class and declares protected
+variables that are needed by its child classes.
 </html>"), Diagram(graphics));
 protected
    parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=T_start,

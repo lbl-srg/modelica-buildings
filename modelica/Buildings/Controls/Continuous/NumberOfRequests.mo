@@ -9,7 +9,7 @@ Block whose output is equal to the number of inputs
 that exceed a threshold.
 </p>
 <p>
-This model may for example be used to check how many rooms
+This model may be used to check how many rooms
 exceed a temperature threshold.
 </html>",
 revisions="<html>

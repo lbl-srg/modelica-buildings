@@ -99,8 +99,8 @@ model DryCoilDiscretizedPControl
     m2_flow_nominal=m2_flow_nominal,
     Q_flow_nominal=m1_flow_nominal*4200*(T_a1_nominal-T_b1_nominal),
     dT_nominal=((T_a1_nominal - T_b2_nominal) - (T_b1_nominal - T_a2_nominal))/Modelica.Math.log((T_a1_nominal - T_b2_nominal)/(T_b1_nominal - T_a2_nominal)),
-    dp_nominal_1(displayUnit="Pa") = 2000,
-    dp_nominal_2(displayUnit="Pa") = 200) 
+    dp1_nominal(displayUnit="Pa") = 2000,
+    dp2_nominal(displayUnit="Pa") = 200) 
                          annotation (Placement(transformation(extent={{60,16},{
             80,36}}, rotation=0)));
   Buildings.Fluids.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model" 

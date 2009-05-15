@@ -37,7 +37,8 @@ First implementation.
                                                          redeclare package
       Medium = 
         Medium, Q_flow_nominal=5000,
-    m_flow_nominal=0.5) "Heater and cooler"              annotation (Placement(
+    m_flow_nominal=0.5,
+    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
         transformation(extent={{-54,86},{-34,106}}, rotation=0)));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature" 
     annotation (Placement(transformation(extent={{-200,94},{-180,114}},
@@ -45,9 +46,9 @@ First implementation.
   Modelica_Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium,
     use_T_in=true,
-    p=101335,
-    T=293.15,
-    nPorts=4)             annotation (Placement(transformation(extent={{-170,90},
+    nPorts=4,
+    p(displayUnit="Pa") = 101735,
+    T=293.15)             annotation (Placement(transformation(extent={{-170,90},
             {-150,110}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_11(
     from_dp=true,
@@ -82,7 +83,8 @@ First implementation.
   Buildings.Fluids.HeatExchangers.HeaterCoolerPrescribed hea2(
                                                  redeclare package Medium = 
         Medium, Q_flow_nominal=5000,
-    m_flow_nominal=0.5) "Heater and cooler"              annotation (Placement(
+    m_flow_nominal=0.5,
+    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
         transformation(extent={{-12,134},{8,154}}, rotation=0)));
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
           extent={{-50,174},{-30,194}}, rotation=0)));
@@ -90,7 +92,8 @@ First implementation.
                                                          redeclare package
       Medium = 
         Medium, Q_flow_nominal=5000,
-    m_flow_nominal=0.5) "Heater and cooler"              annotation (Placement(
+    m_flow_nominal=0.5,
+    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
         transformation(extent={{-54,-28},{-34,-8}},rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
@@ -109,7 +112,8 @@ First implementation.
   Buildings.Fluids.HeatExchangers.HeaterCoolerPrescribed hea4(
                                                  redeclare package Medium = 
         Medium, Q_flow_nominal=5000,
-    m_flow_nominal=0.5) "Heater and cooler"              annotation (Placement(
+    m_flow_nominal=0.5,
+    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
         transformation(extent={{-12,14},{8,34}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_4(
     from_dp=true,
@@ -137,7 +141,8 @@ First implementation.
                                                          redeclare package
       Medium = 
         Medium, Q_flow_nominal=5000,
-    m_flow_nominal=0.5) "Heater and cooler"              annotation (Placement(
+    m_flow_nominal=0.5,
+    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
         transformation(extent={{-54,-190},{-34,-170}},rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_1(
     from_dp=true,
@@ -156,14 +161,16 @@ First implementation.
   Buildings.Fluids.HeatExchangers.HeaterCoolerPrescribed hea6(
                                                  redeclare package Medium = 
         Medium, Q_flow_nominal=5000,
-    m_flow_nominal=0.5) "Heater and cooler"              annotation (Placement(
+    m_flow_nominal=0.5,
+    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
         transformation(extent={{-12,-130},{8,-110}},
                                                    rotation=0)));
   Buildings.Fluids.HeatExchangers.HeaterCoolerPrescribed hea7(
                                                          redeclare package
       Medium = 
         Medium, Q_flow_nominal=5000,
-    m_flow_nominal=0.5) "Heater and cooler"              annotation (Placement(
+    m_flow_nominal=0.5,
+    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
         transformation(extent={{-54,-332},{-34,-312}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_6(
     from_dp=true,
@@ -182,7 +189,8 @@ First implementation.
   Buildings.Fluids.HeatExchangers.HeaterCoolerPrescribed hea8(
                                                  redeclare package Medium = 
         Medium, Q_flow_nominal=5000,
-    m_flow_nominal=0.5) "Heater and cooler"              annotation (Placement(
+    m_flow_nominal=0.5,
+    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
         transformation(extent={{-12,-270},{8,-250}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res_8(
     from_dp=true,

@@ -1,5 +1,5 @@
 within Buildings.Fluids.Interfaces;
-partial model PartialFourPort "Partial component with two ports"
+partial model PartialFourPort "Partial model with four ports"
   import Modelica.Constants;
   outer Modelica_Fluid.System system "System wide properties";
 
@@ -10,35 +10,35 @@ partial model PartialFourPort "Partial component with two ports"
       Modelica.Media.Interfaces.PartialMedium "Medium 2 in the component" 
       annotation (choicesAllMatching = true);
 
-  parameter Boolean allowFlowReversal_1 = system.allowFlowReversal
+  parameter Boolean allowFlowReversal1 = system.allowFlowReversal
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean allowFlowReversal_2 = system.allowFlowReversal
+  parameter Boolean allowFlowReversal2 = system.allowFlowReversal
     "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
   Modelica_Fluid.Interfaces.FluidPort_a port_a1(
                                 redeclare package Medium = Medium1,
-                     m_flow(min=if allowFlowReversal_1 then -Constants.inf else 0))
+                     m_flow(min=if allowFlowReversal1 then -Constants.inf else 0))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}},
             rotation=0)));
   Modelica_Fluid.Interfaces.FluidPort_b port_b1(
                                 redeclare package Medium = Medium1,
-                     m_flow(max=if allowFlowReversal_1 then +Constants.inf else 0))
+                     m_flow(max=if allowFlowReversal1 then +Constants.inf else 0))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,50},{90,70}},  rotation=
              0), iconTransformation(extent={{110,50},{90,70}})));
 
   Modelica_Fluid.Interfaces.FluidPort_a port_a2(
                                 redeclare package Medium = Medium2,
-                     m_flow(min=if allowFlowReversal_2 then -Constants.inf else 0))
+                     m_flow(min=if allowFlowReversal2 then -Constants.inf else 0))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}},
             rotation=0)));
   Modelica_Fluid.Interfaces.FluidPort_b port_b2(
                                 redeclare package Medium = Medium2,
-                     m_flow(max=if allowFlowReversal_2 then +Constants.inf else 0))
+                     m_flow(max=if allowFlowReversal2 then +Constants.inf else 0))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{-90,-70},{-110,-50}},
                                                                      rotation=

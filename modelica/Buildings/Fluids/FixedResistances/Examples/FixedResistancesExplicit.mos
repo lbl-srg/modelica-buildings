@@ -1,0 +1,1 @@
+simulateModel("Buildings.Fluids.FixedResistances.Examples.FixedResistancesExplicit", startTime=-1, numberOfIntervals=5000, method="dassl", resultFile="FixedResistancesExplicit");

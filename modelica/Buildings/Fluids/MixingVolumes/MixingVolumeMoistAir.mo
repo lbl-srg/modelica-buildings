@@ -21,8 +21,8 @@ adding (or subtracting) water in liquid phase, which causes a change in
 enthalpy and species concentration. 
 The water flow rate is assumed to be added or extracted at the
 temperature of the input port <tt>TWat</tt>, or 
-if this port is not connected at the medium default temperature as
-returned by <tt>Medium.T_default</tt>.
+if this port is not connected, at the medium default temperature as
+defined by <tt>Medium.T_default</tt>.
 </p>
 <p>
 Note that this model can only be used with medium models that include water

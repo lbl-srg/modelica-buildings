@@ -15,7 +15,7 @@ Model for a steady state cooling tower with constant approach temperature.
 By connecting a signal that contains either the dry bulb or the wet bulb
 temperature, this model can be used to estimate the water return temperature
 from a cooling tower. 
-For a more detailed model see for example
+For a more detailed model, use for example
 <a href=\"Modelica:Buildings.Fluids.HeatExchangers.CoolingTowers.YorkCalc\">YorkCalc.mo</a>.
 </p>
 </html>", revisions="<html>
@@ -30,7 +30,8 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  parameter Modelica.SIunits.Temperature TApp = 2 "Approach temperature";
+  parameter Modelica.SIunits.TemperatureDifference TApp(min=0) = 2
+    "Approach temperature";
 equation
  Q_flow = m_flow * (Medium.specificEnthalpy(Medium.setState_pTX(port_b.p, TAir+TApp, inStream(port_b.Xi_outflow)))-inStream(port_a.h_outflow));
 end FixedApproach;

@@ -42,8 +42,9 @@ model HydronicHeating "Test model"
     Q_flow_nominal=Q_flow_nominal,
     dT_nominal=dT_nominal,
     redeclare package Medium = Medium,
-    T_start=293.15,
-    allowFlowReversal=false) "Boiler" 
+    allowFlowReversal=false,
+    dp_nominal=3000,
+    T_start=293.15) "Boiler" 
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
   inner Modelica_Fluid.System system 
     annotation (Placement(transformation(extent={{-60,400},{-40,420}})));
@@ -223,9 +224,9 @@ model HydronicHeating "Test model"
     annotation (Placement(transformation(extent={{80,10},{60,30}})));
   Buildings.Fluids.FixedResistances.FixedResistanceDpM res3(
     redeclare package Medium = Medium,
-    dp_nominal=5000,
     allowFlowReversal=false,
-    m_flow_nominal=2*m_flow_nominal) 
+    m_flow_nominal=2*m_flow_nominal,
+    dp_nominal=2000) 
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={124,-60})));

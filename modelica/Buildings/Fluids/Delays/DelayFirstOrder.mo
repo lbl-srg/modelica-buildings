@@ -35,8 +35,10 @@ model DelayFirstOrder
 This model approximates a transport delay using a first order differential equations.
 </p>
 <p>
-The model is essentially a mixing volume with two ports and a volume that is such
-that at the nominal mass flow rate <tt>m_flow_nominal</tt> the time constant of the volume is equal to the parameter <tt>tau</tt>.
+The model consists of a mixing volume with two ports. The size of the
+mixing volume is such that at the nominal mass flow rate 
+<tt>m_flow_nominal</tt>,
+the time constant of the volume is equal to the parameter <tt>tau</tt>.
 </p>
 <p>
 The heat flux connector is optional, it need not be connnected.
@@ -63,7 +65,8 @@ First implementation.
 
   parameter Modelica.SIunits.Time tau = 60 "Time constant at nominal flow" 
      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) "Mass flow rate" 
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
+    "Mass flow rate" 
      annotation(Dialog(group = "Nominal condition"));
 
 protected

@@ -1,9 +1,14 @@
 within Buildings.Fluids.Boilers;
 model BoilerPolynomial
   "Boiler with efficiency curve described by a polynomial of the temperature"
-
+  // For the preDro(m_flow(nominal)), we use a constant specific heat capacity.
+  // Otherwise, the nominal attribute won't be set by Dymola 7.1 because
+  // cp_nominal is a non-literal value.
+  // Since only the order of magnitude should be correct, using a constant
+  // value for cp suffices.
   extends Interfaces.PartialDynamicTwoPortTransformer(
     m_flow_nominal=Q_flow_nominal/dT_nominal/cp_nominal, final tau=0,
+    preDro(m_flow(nominal=Q_flow_nominal/dT_nominal/4200)),
     vol(final V =   VWat));
   annotation (Diagram(graphics), Icon(graphics={
         Ellipse(
@@ -99,9 +104,9 @@ First implementation.
 protected
   Real eta_nominal "Boiler efficiency at nominal condition";
 
-protected
-   parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=Medium.specificHeatCapacityCp(sta_nominal)
-    "Specific heat capacity of fluid in boiler";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=
+      Medium.specificHeatCapacityCp(sta_nominal)
+    "Specific heat capacity of fluid in boiler" annotation (Evaluate=true);
 protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA)
     "Overall thermal conductance (if heatPort is connected)" 

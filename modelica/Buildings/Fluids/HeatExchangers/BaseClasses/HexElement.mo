@@ -4,13 +4,13 @@ model HexElement "Element of a heat exchanger"
     vol1(redeclare package Medium = Medium1,
           V=m1_flow_nominal*tau1/rho1_nominal,
           nPorts=2,
-          final energyDynamics=energyDynamics_1,
-          final massDynamics=energyDynamics_1),
+          final energyDynamics=energyDynamics1,
+          final massDynamics=energyDynamics1),
     vol2(redeclare package Medium = Medium2,
           nPorts = 2,
           V=m2_flow_nominal*tau2/rho2_nominal,
-          final energyDynamics=energyDynamics_2,
-          final massDynamics=energyDynamics_2));
+          final energyDynamics=energyDynamics2,
+          final massDynamics=energyDynamics2));
   // Note that we MUST declare the value of vol2.V here.
   // Otherwise, if the class of vol2 is redeclared at a higher level,
   // it will overwrite the assignment of V in the base class
@@ -38,9 +38,9 @@ into account heat conduction in the heat exchanger fins and
 <tt>T_1</tt> and <tt>T_2</tt> are the medium temperatures.
 Assuming <tt>hA_1=hA_2</tt>, this equation can be rewritten as
 <pre>
-  C       dT
- ------  ---- = (T_1 - T) + (T_2 - T)
- 2 UA_nominal    dt
+     dT
+  C ---- = 2 UA_nominal ( (T_1 - T) + (T_2 - T) )
+     dt
 </pre>
 where <tt>UA_nominal</tt> is the <tt>UA</tt> value at nominal condition. 
 Hence we set the heat capacity of the metal to <tt>C = 2 * UA_nominal * tau_m</tt>.
@@ -99,11 +99,11 @@ First implementation.
     "Model for mass exchange"        annotation (Placement(transformation(
           extent={{48,-44},{68,-24}}, rotation=0)));
 
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics_1=
+  parameter Modelica_Fluid.Types.Dynamics energyDynamics1=
     Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics_2=
+  parameter Modelica_Fluid.Types.Dynamics energyDynamics2=
     Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 2" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));

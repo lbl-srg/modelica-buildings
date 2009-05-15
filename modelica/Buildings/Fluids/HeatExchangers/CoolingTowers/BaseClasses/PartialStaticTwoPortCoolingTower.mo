@@ -47,8 +47,5 @@ equation
   TWatIn_degC  = Modelica.SIunits.Conversions.to_degC(Medium.temperature(sta_a));
   TWatOut_degC = Modelica.SIunits.Conversions.to_degC(Medium.temperature(sta_b));
   TAirIn_degC  = Modelica.SIunits.Conversions.to_degC(TAir);
-
-  dp = 0;
-  mXi_flow = zeros(Medium.nXi); // no mass added or removed (sensible heat only)
-
+  mXi_flow     = zeros(Medium.nXi); // no mass added or removed (sensible heat only)
 end PartialStaticTwoPortCoolingTower;

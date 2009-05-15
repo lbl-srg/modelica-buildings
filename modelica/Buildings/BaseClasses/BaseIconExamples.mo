@@ -19,18 +19,6 @@ partial class BaseIconExamples "Icon for Examples packages"
           points={{100,70},{100,-80},{80,-100},{80,50},{100,70}},
           lineColor={0,0,0},
           fillColor={179,179,119},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-94,15},{73,-16}},
-          lineColor={0,0,255},
-          textString="Library of"),
-        Text(
-          extent={{-120,122},{120,73}},
-          lineColor={255,0,0},
-          textString="%name"),
-        Text(
-          extent={{-92,-44},{73,-72}},
-          lineColor={0,0,255},
-          textString="examples")}));
+          fillPattern=FillPattern.Solid)}));
 
 end BaseIconExamples;

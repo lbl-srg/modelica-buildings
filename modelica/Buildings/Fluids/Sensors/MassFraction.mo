@@ -11,7 +11,7 @@ model MassFraction "Ideal one port mass fraction sensor"
 annotation (defaultComponentName="massFraction",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),     graphics),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), 
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),
         Text(

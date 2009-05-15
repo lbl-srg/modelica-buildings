@@ -1,5 +1,5 @@
 within Buildings.Fluids.HeatExchangers.BaseClasses.Examples;
-model Manifold
+model Manifold "Test model for coil manifold"
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}), graphics),
                       Commands(file="Manifold.mos" "run"));

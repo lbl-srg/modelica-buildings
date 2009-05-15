@@ -82,8 +82,4 @@ equation
   // no mass exchange
   mXi1_flow = zeros(Medium1.nXi);
   mXi2_flow = zeros(Medium2.nXi);
-
-  // no pressure drop
-  dp1 = 0;
-  dp2 = 0;
 end ConstantEffectiveness;

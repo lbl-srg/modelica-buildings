@@ -1,7 +1,9 @@
 within Buildings.Fluids.Interfaces;
 partial model PartialDynamicTwoPortTransformer
-  "Partial element transporting one fluid stream with storing mass or energy"
+  "Partial model transporting one fluid stream with storing mass or energy"
   extends Buildings.Fluids.Interfaces.PartialStaticTwoPortInterface;
+  extends Buildings.Fluids.Interfaces.TwoPortFlowResistanceParameters(
+    final computeFlowResistance=true);
   import Modelica.Constants;
 
   annotation (
@@ -21,6 +23,10 @@ The variable names follow the conventions used in
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2009, by Michael Wetter:<br>
+Added model to compute flow friction.
+</li>
 <li>
 January 29, 2009 by Michael Wetter:<br>
 First implementation.
@@ -67,12 +73,9 @@ First implementation.
     final C_start=C_start) "Volume for fluid stream" 
                                     annotation (Placement(transformation(extent={{-9,0},{
             11,-20}},         rotation=0)));
- //   medium(T(stateSelect=StateSelect.always)),
 
   parameter Modelica.SIunits.Time tau = 300 "Time constant at nominal flow" 
      annotation (Dialog(group="Nominal condition"));
-//  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) "Mass flow rate"
-//     annotation(Dialog(group = "Nominal condition"));
   // Assumptions
   parameter Modelica_Fluid.Types.Dynamics energyDynamics=system.energyDynamics
     "Formulation of energy balance" 
@@ -120,6 +123,20 @@ protected
       T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
   parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta_nominal)
     "Density, used to compute fluid volume";
+public
+  Buildings.Fluids.FixedResistances.FixedResistanceDpM preDro(
+    redeclare package Medium = Medium,
+    final use_dh=false,
+    final m_flow_nominal=m_flow_nominal,
+    final deltaM=deltaM,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small,
+    final show_T=false,
+    final show_V_flow=show_V_flow,
+    final from_dp=from_dp,
+    final linearized=linearizeFlowResistance,
+    final dp_nominal=dp_nominal) "Pressure drop model" 
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   assert(vol.use_HeatTransfer == true, "Wrong parameter for vol.");
 
@@ -127,12 +144,16 @@ equation
       points={{5,40},{-9,40},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(port_a, vol.ports[1]) annotation (Line(
-      points={{-100,0},{-1,0}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(vol.ports[2], port_b) annotation (Line(
       points={{3,0},{100,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_a, preDro.port_a) annotation (Line(
+      points={{-100,0},{-60,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(preDro.port_b, vol.ports[1]) annotation (Line(
+      points={{-40,0},{-1,0}},
       color={0,127,255},
       smooth=Smooth.None));
 end PartialDynamicTwoPortTransformer;

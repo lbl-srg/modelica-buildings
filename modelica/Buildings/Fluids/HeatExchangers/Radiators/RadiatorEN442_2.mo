@@ -193,10 +193,10 @@ equation
   for i in 1:nEle loop
      dTCon[i] = heatPortCon.T - vol[i].medium.T;
      dTRad[i] = heatPortRad.T - vol[i].medium.T;
-     UACon[i] = (1-fraRad)  * UA_nominaln * Buildings.Utilities.Math.Functions.regNonZeroPower(
-                                                                                     x=dTCon[i], n=n-1, delta=deltaT);
-     UARad[i] = fraRad      * UA_nominaln * Buildings.Utilities.Math.Functions.regNonZeroPower(
-                                                                                     x=dTRad[i], n=n-1, delta=deltaT);
+     UACon[i] = (1-fraRad)  * UA_nominaln *
+                Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTCon[i], n=n-1, delta=deltaT);
+     UARad[i] = fraRad      * UA_nominaln *
+                Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTRad[i], n=n-1, delta=deltaT);
      preHeaFloCon[i].Q_flow = UACon[i] * dTCon[i];
      preHeaFloRad[i].Q_flow = UARad[i] * dTRad[i];
   end for;

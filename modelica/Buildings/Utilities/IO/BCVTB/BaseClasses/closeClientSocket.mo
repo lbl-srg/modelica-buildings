@@ -1,0 +1,24 @@
+within Buildings.Utilities.IO.BCVTB.BaseClasses;
+function closeClientSocket
+  "Closes the socket for the inter process communication"
+
+annotation(Documentation(info="<html>
+Function that closes the inter-process communication.
+</html>",
+revisions="<html>
+<ul>
+<li>
+May 5, 2009, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
+  input Integer socketFD
+    "Socket file descripter, or a negative value if an error occured";
+  output Integer retVal
+    "Return value of the function that closes the socket connection";
+  external "C" 
+     retVal=closeBSDSocket(socketFD) 
+       annotation(Library={"bcvtb", "bcvtb_modelica"},
+                  Include="#include \"bcvtb.h\"");
+end closeClientSocket;

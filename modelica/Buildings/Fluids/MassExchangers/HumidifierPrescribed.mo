@@ -1,6 +1,6 @@
 within Buildings.Fluids.MassExchangers;
 model HumidifierPrescribed
-  "Ideal electric heater or cooler, no losses, no dynamics"
+  "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction"
   extends Fluids.Interfaces.PartialStaticTwoPortHeatMassTransfer;
   extends Buildings.BaseClasses.BaseIcon;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -47,9 +47,9 @@ Model for an air humidifier or dehumidifier.
 </p>
 <p>
 This model adds (or removes) moisture from the air stream.
-The amount of exchanged moisture is equal to <tt>m_flow = u m_flow_nominal</tt>.
+The amount of exchanged moisture is equal to <tt>m_flow = u * m_flow_nominal</tt>.
 The input signal <tt>u</tt> and the nominal moisture flow rate added to the air stream <tt>m_flow_nominal</tt> can be positive or negative.
-If the product <tt>u * m_flow_nominal</tt> are positive, then moisture is added
+If the product <tt>u * m_flow_nominal</tt> is positive, then moisture is added
 to the air stream, otherwise it is removed.
 </p>
 <p>
@@ -58,8 +58,9 @@ set by the parameter <tt>T</tt> is used for temperature of the water that is
 added to the air stream.
 </p>
 <p>
-Note that if the mass flow rate tends to zero, the moisture difference over this 
-component tends to infinity for non-zero <tt>m_flow</tt>.
+Note that for non-zero <tt>m_flow</tt>, 
+if the mass flow rate tends to zero, then the moisture difference over this 
+component tends to infinity.
 Hence, using a proper control for <tt>u</tt> is essential when using this component.
 </p>
 <p>
@@ -85,7 +86,8 @@ First implementation.
     "Temperature of water added to the fluid stream" 
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
           rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput u annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealInput u "Control input" 
+    annotation (Placement(transformation(
           extent={{-140,40},{-100,80}}, rotation=0)));
 protected
   constant Modelica.SIunits.MassFraction[Medium.nXi] XiWat = {1}
@@ -95,8 +97,6 @@ equation
   if cardinality(T_in)==0 then
     T_in = T;
   end if;
-
-  dp = 0;
   mWat_flow = u * mWat0_flow;
   Q_flow = Medium.enthalpyOfLiquid(T_in) * mWat_flow;
   for i in 1:Medium.nXi loop

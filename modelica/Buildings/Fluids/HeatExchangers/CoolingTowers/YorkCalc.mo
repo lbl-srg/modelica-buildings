@@ -30,12 +30,12 @@ aproach temperature.
 </p>
 <p>
 This model uses a performance curve for a York cooling tower to compute the approach temperature.
-If the fan control signal is zero, then the cooling tower operates in a free convection mode.
+If the fan control signal is zero, then the cooling tower operates in free convection mode.
 In the current implementation the fan power consumption is proportional to the control signal raised
 to the third power. 
 Not yet implemented are the basin heater power consumption, the water usage and the option to provide
 a fan efficiency curve to compute the fan power consumption. Otherwise, the model is similar to the
-one in EnergyPlus.
+one that is implemented in the EnergyPlus building energy simulation program.
 </p>
 <h2>References</h2>
 <p>

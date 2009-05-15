@@ -26,7 +26,8 @@ model PrescribedExtraPropertyFlow
   FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=1) "Resistance, used to check if species are transported between ports"
+    dp_nominal=1)
+    "Resistance, used to check if species are transported between ports" 
     annotation (Placement(transformation(extent={{60,2},{82,22}},   rotation=0)));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
@@ -103,19 +104,22 @@ model PrescribedExtraPropertyFlow
   FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=1) "Resistance, used to check if species are transported between ports"
+    dp_nominal=1)
+    "Resistance, used to check if species are transported between ports" 
     annotation (Placement(transformation(extent={{98,-50},{120,-30}}, rotation=
             0)));
   FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=1) "Resistance, used to check if species are transported between ports"
+    dp_nominal=1)
+    "Resistance, used to check if species are transported between ports" 
     annotation (Placement(transformation(extent={{98,-90},{120,-70}}, rotation=
             0)));
   FixedResistances.FixedResistanceDpM res3(
     redeclare package Medium = Medium,
     m_flow_nominal=1,
-    dp_nominal=1) "Resistance, used to check if species are transported between ports"
+    dp_nominal=1)
+    "Resistance, used to check if species are transported between ports" 
     annotation (Placement(transformation(extent={{-26,-100},{-4,-80}}, rotation=
            0)));
   inner Modelica_Fluid.System system 

@@ -1,6 +1,7 @@
 within Buildings.Fluids.HeatExchangers.BaseClasses;
 model MassExchange
   "Block to compute the latent heat transfer based on the Lewis number"
+  import Buildings;
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Fluid medium model" 
@@ -141,10 +142,10 @@ First implementation.
   parameter Real n = 1/3
     "Exponent in bondary layer ratio, delta/delta_t = Pr^n";
 public
-  Buildings.Utilities.Psychrometrics.HumidityRatioPressure humRatPre
-    "Model to convert water vapor pressure into humidity ratio" 
+  Buildings.Utilities.Psychrometrics.HumidityRatio_pWat humRatPre(use_p_in=
+        false) "Model to convert water vapor pressure into humidity ratio" 
     annotation (Placement(transformation(extent={{0,0},{20,20}}, rotation=0)));
-  Buildings.Utilities.Psychrometrics.DewPointTemperature TDewPoi
+  Buildings.Utilities.Psychrometrics.DewPointTemperature_pWat TDewPoi
     "Model to compute the water vapor pressure at the dew point" 
     annotation (Placement(transformation(extent={{-60,40},{-40,60}}, rotation=0)));
   Modelica.Blocks.Math.Gain gain(k=1/cpLe)
@@ -170,7 +171,7 @@ equation
   connect(TSur, TDewPoi.T) annotation (Line(points={{-120,80},{-80,80},{-80,50},
           {-61,50}}, color={0,0,127}));
   connect(TDewPoi.p_w, humRatPre.p_w) annotation (Line(points={{-39,50},{-20,50},
-          {-20,17},{1,17}}, color={0,0,255}));
+          {-20,10},{-1,10}},color={0,0,255}));
   connect(TSur, TLiq) annotation (Line(points={{-120,80},{80,80},{80,-40},{110,
           -40}}, color={0,0,127}));
   connect(Gc, gain.u) annotation (Line(points={{-120,-80},{-82,-80}}, color={0,
@@ -183,8 +184,9 @@ equation
           18,-44}}, color={0,0,127}));
   connect(delX.u2,XInf)  annotation (Line(points={{-42,-62},{-80,-62},{-80,0},{
           -120,0}},                           color={0,0,127}));
-  connect(humRatPre.XWat, delX.u1) annotation (Line(points={{1,3},{-60,3},{-60,
-          -50},{-42,-50}}, color={0,0,255}));
+  connect(humRatPre.XWat, delX.u1) annotation (Line(points={{21,10},{28,10},{28,
+          -8},{-60,-8},{-60,-50},{-42,-50}},
+                           color={0,0,255}));
   connect(delX.y, min.u2) 
     annotation (Line(points={{-19,-56},{18,-56}}, color={0,0,127}));
   connect(min.y, mWat.u1) annotation (Line(points={{41,-50},{48,-50},{48,-64},{

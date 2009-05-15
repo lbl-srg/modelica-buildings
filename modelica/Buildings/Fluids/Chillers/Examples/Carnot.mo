@@ -5,20 +5,38 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     "Medium model";
  package Medium2 = Modelica.Media.Water.ConstantPropertyLiquidWater
     "Medium model";
+
+  parameter Modelica.SIunits.Power P_nominal=10E3
+    "Nominal compressor power (at y=1)";
+  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=10
+    "Temperature difference evaporator inlet-outlet";
+  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
+    "Temperature difference condenser outlet-inlet";
+  parameter Real COPc = 3 "Chiller COP";
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
+     P_nominal*(COPc+1)/dTEva_nominal/4200
+    "Nominal mass flow rate at evaporator";
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
+     m1_flow_nominal*COPc/(COPc+1) "Nominal mass flow rate at condenser";
+
   Buildings.Fluids.Chillers.Carnot chi(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
     P_nominal=P_nominal,
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
-    COP_nominal=3,
+    COP_nominal=COPc,
     use_eta_Carnot=true,
-    etaCar=0.3) "Chiller model" 
+    etaCar=0.3,
+    dp1_nominal=6000,
+    dp2_nominal=6000,
+    m1_flow_nominal=m1_flow_nominal,
+    m2_flow_nominal=m2_flow_nominal) "Chiller model" 
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica_Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,
     use_T_in=true,
-    m_flow=chi.m1_flow_nominal,
+    m_flow=m1_flow_nominal,
     T=298.15) 
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -27,7 +45,7 @@ model Carnot "Test model for chiller based on Carnot efficiency"
   Modelica_Fluid.Sources.MassFlowSource_T sou2(nPorts=1,
     redeclare package Medium = Medium2,
     use_T_in=true,
-    m_flow=chi.m2_flow_nominal,
+    m_flow=m2_flow_nominal,
     T=291.15) 
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
   Modelica_Fluid.Sources.FixedBoundary sin1(nPorts=1, redeclare package Medium
@@ -62,12 +80,6 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     startTime=900,
     offset=273.15 + 10) "Condenser inlet temperature" 
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
-  parameter Modelica.SIunits.Power P_nominal=100E3
-    "Nominal compressor power (at y=1)";
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=10
-    "Temperature difference evaporator inlet-outlet";
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
-    "Temperature difference condenser outlet-inlet";
 equation
   connect(sou1.ports[1], chi.port_a1)    annotation (Line(
       points={{-40,16},{0,16}},

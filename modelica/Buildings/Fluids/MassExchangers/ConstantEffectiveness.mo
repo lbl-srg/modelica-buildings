@@ -130,8 +130,4 @@ equation
   for i in 1:Medium2.nXi loop
      mXi2_flow[i] = if ( i == Medium2.Water) then -mWat_flow else 0;
   end for;
-
-  // no pressure drop
-  dp1 = 0;
-  dp2 = 0;
 end ConstantEffectiveness;

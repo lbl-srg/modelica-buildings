@@ -8,9 +8,7 @@ model Carnot
      final use_HeatTransfer=true,
      redeclare model HeatTransfer = 
           Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
-             surfaceAreas={1})),
-     m1_flow_nominal=P_nominal*(COP_nominal+1)/abs(dTCon_nominal)/cp1_nominal,
-     m2_flow_nominal=P_nominal*COP_nominal/abs(dTEva_nominal)/cp2_nominal);
+             surfaceAreas={1})));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={
@@ -203,13 +201,9 @@ First implementation.
     "Condenser temperature used to compute efficiency";
   Modelica.SIunits.Temperature TEva
     "Evaporator temperature used to compute efficiency";
-protected
-   parameter Modelica.SIunits.SpecificHeatCapacity cp1_nominal=Medium1.specificHeatCapacityCp(sta1_nominal)
-    "Specific heat capacity of fluid 1";
-   parameter Modelica.SIunits.SpecificHeatCapacity cp2_nominal=Medium2.specificHeatCapacityCp(sta2_nominal)
-    "Specific heat capacity of fluid 2";
-
 initial equation
+  assert(dTEva_nominal>0, "Parameter dTEva_nominal must be positive.");
+  assert(dTCon_nominal>0, "Parameter dTCon_nominal must be positive.");
   if use_eta_Carnot then
     COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
   else

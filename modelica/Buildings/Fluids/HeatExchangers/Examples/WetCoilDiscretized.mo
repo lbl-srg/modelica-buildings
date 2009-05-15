@@ -28,11 +28,11 @@ model WetCoilDiscretized
     Q_flow_nominal=m1_flow_nominal*4200*(T_b1_nominal-T_a1_nominal),
     dT_nominal=((T_a2_nominal - T_b1_nominal) - (T_b2_nominal - T_a1_nominal))/Modelica.Math.log((T_a2_nominal - T_b1_nominal)/(
         T_b2_nominal - T_a1_nominal)),
-    dp_nominal_2(displayUnit="Pa") = 200,
+    dp2_nominal(displayUnit="Pa") = 200,
     nPipPar=1,
     nPipSeg=3,
     nReg=2,
-    dp_nominal_1(displayUnit="Pa") = 3000) 
+    dp1_nominal(displayUnit="Pa") = 3000) 
                          annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sin_2(                       redeclare

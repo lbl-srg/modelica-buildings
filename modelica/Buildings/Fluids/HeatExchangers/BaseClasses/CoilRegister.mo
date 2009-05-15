@@ -1,6 +1,8 @@
 within Buildings.Fluids.HeatExchangers.BaseClasses;
 model CoilRegister "Register for a heat exchanger"
   import Modelica.Constants;
+  extends Buildings.Fluids.Interfaces.FourPortFlowResistanceParameters(
+     final computeFlowResistance1=true, final computeFlowResistance2=true);
   replaceable package Medium1 = 
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component" 
       annotation (choicesAllMatching = true);
@@ -34,7 +36,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=false,
+extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-100,-100},{100,100}}),
                                 graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -91,10 +93,10 @@ extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=false,
           textString="h")}),
     Placement(transformation(extent={{-20,80},{0,100}}, rotation=0)));
 
-  parameter Boolean allowFlowReversal_1 = system.allowFlowReversal
+  parameter Boolean allowFlowReversal1 = system.allowFlowReversal
     "= true to allow flow reversal in medium 1, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Boolean allowFlowReversal_2 = system.allowFlowReversal
+  parameter Boolean allowFlowReversal2 = system.allowFlowReversal
     "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
@@ -109,39 +111,47 @@ extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=false,
                       nPipPar, nPipSeg] ele(
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
-    each allowFlowReversal_1=allowFlowReversal_1,
-    each allowFlowReversal_2=allowFlowReversal_2,
+    each allowFlowReversal1=allowFlowReversal1,
+    each allowFlowReversal2=allowFlowReversal2,
     each tau1=tau1/nPipSeg,
     each m1_flow_nominal=m1_flow_nominal/nPipPar,
     each tau2=tau2,
     each m2_flow_nominal=m2_flow_nominal/nPipPar/nPipSeg,
     each tau_m=tau_m,
     each UA_nominal=UA_nominal/nPipPar/nPipSeg,
-    each energyDynamics_1=energyDynamics_1,
-    each energyDynamics_2=energyDynamics_2,
-    each allowCondensation=allowCondensation) "Element of a heat exchanger" 
+    each energyDynamics1=energyDynamics1,
+    each energyDynamics2=energyDynamics2,
+    each allowCondensation=allowCondensation,
+    each from_dp1=from_dp1,
+    each linearizeFlowResistance1=linearizeFlowResistance1,
+    each deltaM1=deltaM1,
+    each from_dp2=from_dp2,
+    each linearizeFlowResistance2=linearizeFlowResistance2,
+    each deltaM2=deltaM2,
+    each dp1_nominal=dp1_nominal,
+    each dp2_nominal=dp2_nominal) "Element of a heat exchanger" 
     annotation (Placement(transformation(extent={{-10,20},{10,40}}, rotation=0)));
 
   Modelica_Fluid.Interfaces.FluidPort_a[nPipPar] port_a1(
         redeclare each package Medium = Medium1,
-        each m_flow(start=0, min=if allowFlowReversal_1 then -Constants.inf else 0))
+        each m_flow(start=0, min=if allowFlowReversal1 then -Constants.inf else 0))
     "Fluid connector a for medium 1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}}, rotation=
             0)));
   Modelica_Fluid.Interfaces.FluidPort_b[nPipPar] port_b1(
         redeclare each package Medium = Medium1,
-        each m_flow(start=0, max=if allowFlowReversal_1 then +Constants.inf else 0))
+        each m_flow(start=0, max=if allowFlowReversal1 then +Constants.inf else 0))
     "Fluid connector b for medium 1 (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}}, rotation=0)));
   Modelica_Fluid.Interfaces.FluidPort_a[nPipPar,nPipSeg] port_a2(
         redeclare each package Medium = Medium2,
-        each m_flow(start=0, min=if allowFlowReversal_2 then -Constants.inf else 0))
+        each m_flow(start=0, min=if allowFlowReversal2 then -Constants.inf else 0))
     "Fluid connector a for medium 2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}}, rotation=
             0)));
   Modelica_Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b2(
         redeclare each package Medium = Medium2,
-        each m_flow(start=0, max=if allowFlowReversal_2 then +Constants.inf else 0))
+        each m_flow(start=0, max=if allowFlowReversal2 then +Constants.inf else 0))
     "Fluid connector b for medium 2 (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-90,-72},{-110,-52}},
           rotation=0)));
@@ -178,11 +188,11 @@ extent=[-20,80; 0,100], Diagram(coordinateSystem(preserveAspectRatio=false,
     annotation (Dialog(group="Nominal condition"));
   parameter Boolean allowCondensation = true
     "Set to false to compute sensible heat transfer only";
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics_1=
+  parameter Modelica_Fluid.Types.Dynamics energyDynamics1=
     Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics_2=
+  parameter Modelica_Fluid.Types.Dynamics energyDynamics2=
     Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 2" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));

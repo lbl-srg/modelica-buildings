@@ -1,8 +1,12 @@
 within Buildings.Fluids.HeatExchangers;
 model DryCoilDiscretized
-  "Heat exchanger with discretization along the flow path"
+  "Coil with discretization along the flow paths and no humidity condensation"
   extends Fluids.Interfaces.PartialStaticFourPortInterface;
-
+  extends Buildings.Fluids.Interfaces.FourPortFlowResistanceParameters(
+    final computeFlowResistance1=true,
+    final computeFlowResistance2=true,
+    from_dp1 = false,
+    from_dp2 = false);
  annotation (
     Documentation(info="<html>
 <p>
@@ -11,20 +15,23 @@ The coil consists of <tt>nReg</tt> registers
 that are perpendicular to the air flow path. Each register consists of <tt>nPipPar</tt>
 parallel pipes, and each pipe can be divided into <tt>nPipSeg</tt> pipe segments along
 the pipe length. Thus, the smallest element of the coil consists of a pipe 
-segment. These pipe segments are modeled by the instance <tt>ele</tt>.
+segment. Each pipe segment is modeled by an instance of
+<a href=\"Modelica:Buildings.Fluids.HeatExchangers.BaseClasses.HexElement\">
+Buildings.Fluids.HeatExchangers.BaseClasses.HexElement</a>.
 Each element has a state variable for the metal. Depending
 on the value of the boolean parameters <tt>steadyState_1</tt> and
 <tt>steadyState_2</tt>, the fluid states are modeled dynamically or in steady
 state.
-If the parameter <tt>steadyStateDuctConnection</tt> is set the <tt>false</tt> then
+If the parameter <tt>steadyStateDuctConnection</tt> is set the <tt>false</tt>, then
 a mixing volume of length <tt>dl</tt> is added to the duct connection. This can
 help reducing the dimension of the nonlinear system of equations.
 </p>
 <p>
 The convective heat transfer coefficients can, for each fluid individually, be 
 computed as a function of the flow rate and/or the temperature,
-or assigned to a constant. This computation is done in the instance
-<tt>hA</tt>.
+or assigned to a constant. This computation is done using an instance of
+<a href=\"Modelica:Buildings.Fluids.HeatExchangers.BaseClasses.HADryCoil\">
+Buildings.Fluids.HeatExchangers.BaseClasses.HADryCoil</a>.
 </p>
 <p>
 In this model, the water (or liquid) flow path
@@ -138,36 +145,18 @@ First implementation.
   parameter Integer nPipSeg(min=1) = 4
     "Number of pipe segments per register used for discretization" 
      annotation(Dialog(group = "Geometry"));
-  parameter Boolean from_dp1 = false
-    "= true, use m_flow = f(dp) else dp = f(m_flow)" 
-    annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Boolean from_dp2 = false
-    "= true, use m_flow = f(dp) else dp = f(m_flow)" 
-    annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Real deltaM_1(min=0) = 0.3
-    "Fraction of nominal mass flow rate where transition to turbulent occurs" 
-       annotation(Dialog(enable = not use_dh_1 and not linearized_1, tab="Advanced"));
-  parameter Real deltaM_2(min=0) = 0.3
-    "Fraction of nominal mass flow rate where transition to turbulent occurs" 
-       annotation(Dialog(enable = not use_dh_2 and not linearized_2, tab="Advanced"));
-  parameter Boolean linearized_1 = false
-    "= true, use linear relation between m_flow and dp for any flow rate" 
-    annotation(Dialog(tab="Advanced"));
-  parameter Boolean linearized_2 = false
-    "= true, use linear relation between m_flow and dp for any flow rate" 
-    annotation(Dialog(tab="Advanced"));
-  parameter Boolean use_dh_1 = false
+  parameter Boolean use_dh1 = false
     "Set to true to specify hydraulic diameter for pipe pressure drop" 
-       annotation(Evaluate=true, Dialog(enable = not linearized, tab="Advanced"));
-  parameter Boolean use_dh_2 = false
+       annotation(Evaluate=true, Dialog(enable = not linearizeFlowResistance1, tab="Advanced"));
+  parameter Boolean use_dh2 = false
     "Set to true to specify hydraulic diameter for duct pressure drop)" 
-       annotation(Evaluate=true, Dialog(enable = not linearized, tab="Advanced"));
+       annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics_1=
+  parameter Modelica_Fluid.Types.Dynamics energyDynamics1=
     Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics_2=
+  parameter Modelica_Fluid.Types.Dynamics energyDynamics2=
     Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 2" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
@@ -175,8 +164,8 @@ First implementation.
   Buildings.Fluids.HeatExchangers.BaseClasses.CoilRegister hexReg[nReg](
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
-    each final allowFlowReversal_1=allowFlowReversal_1,
-    each final allowFlowReversal_2=allowFlowReversal_2,
+    each final allowFlowReversal1=allowFlowReversal1,
+    each final allowFlowReversal2=allowFlowReversal2,
     each final nPipPar=nPipPar,
     each final nPipSeg=nPipSeg,
     each final UA_nominal=Q_flow_nominal/dT_nominal/nReg,
@@ -185,31 +174,39 @@ First implementation.
     each tau1=tau1,
     each tau2=tau2,
     each tau_m=tau_m,
-    each final energyDynamics_1=energyDynamics_1,
-    each final energyDynamics_2=energyDynamics_2,
-    each allowCondensation=allowCondensation) "Heat exchanger register" 
+    each final energyDynamics1=energyDynamics1,
+    each final energyDynamics2=energyDynamics2,
+    each allowCondensation=allowCondensation,
+    each from_dp1=from_dp1,
+    each linearizeFlowResistance1=linearizeFlowResistance1,
+    each deltaM1=deltaM1,
+    each from_dp2=from_dp2,
+    each linearizeFlowResistance2=linearizeFlowResistance2,
+    each deltaM2=deltaM2,
+    each dp1_nominal=dp1_nominal/nReg,
+    each dp2_nominal=dp2_nominal/nReg) "Heat exchanger register" 
     annotation (Placement(transformation(extent={{-10,0},{10,20}}, rotation=0)));
   Buildings.Fluids.HeatExchangers.BaseClasses.PipeManifoldFixedResistance
     pipMan_a(
     redeclare package Medium = Medium1,
     final nPipPar=nPipPar,
     final m_flow_nominal=m1_flow_nominal,
-    final dp_nominal=dp_nominal_1,
-    final dh=dh_1,
+    final dp_nominal=dp1_nominal,
+    final dh=dh1,
     final ReC=ReC_1,
     final mStart_flow_a=mStart_flow_a1,
-    final linearized=linearized_1,
-    final use_dh=use_dh_1,
-    final deltaM=deltaM_1,
+    final linearized=linearizeFlowResistance1,
+    final use_dh=use_dh1,
+    final deltaM=deltaM1,
     final from_dp=from_dp1,
-    final allowFlowReversal=allowFlowReversal_1) "Pipe manifold at port a" 
+    final allowFlowReversal=allowFlowReversal1) "Pipe manifold at port a" 
                                                annotation (Placement(
         transformation(extent={{-38,18},{-18,38}}, rotation=0)));
   Buildings.Fluids.HeatExchangers.BaseClasses.PipeManifoldNoResistance pipMan_b(
     redeclare package Medium = Medium1,
     final nPipPar=nPipPar,
     final mStart_flow_a=-mStart_flow_a1,
-    final allowFlowReversal=allowFlowReversal_1) "Pipe manifold at port b" 
+    final allowFlowReversal=allowFlowReversal1) "Pipe manifold at port b" 
                                          annotation (Placement(transformation(
           extent={{52,50},{32,70}}, rotation=0)));
   Buildings.Fluids.HeatExchangers.BaseClasses.DuctManifoldNoResistance ducMan_b(
@@ -217,7 +214,7 @@ First implementation.
     final nPipPar=nPipPar,
     final nPipSeg=nPipSeg,
     final mStart_flow_a=-mStart_flow_a2,
-    final allowFlowReversal=allowFlowReversal_2) "Duct manifold at port b" 
+    final allowFlowReversal=allowFlowReversal2) "Duct manifold at port b" 
     annotation (Placement(transformation(extent={{-52,-70},{-32,-50}}, rotation=
            0)));
   Buildings.Fluids.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
@@ -226,42 +223,34 @@ First implementation.
     final nPipPar = nPipPar,
     final nPipSeg = nPipSeg,
     final m_flow_nominal=m2_flow_nominal,
-    final dp_nominal=dp_nominal_2,
-    final dh=dh_2,
+    final dp_nominal=dp2_nominal,
+    final dh=dh2,
     final ReC=ReC_2,
     final dl=dl,
     final mStart_flow_a=mStart_flow_a2,
-    final linearized=linearized_2,
-    final use_dh=use_dh_2,
-    final deltaM=deltaM_2,
+    final linearized=linearizeFlowResistance2,
+    final use_dh=use_dh2,
+    final deltaM=deltaM2,
     final from_dp=from_dp2,
-    final allowFlowReversal=allowFlowReversal_2,
+    final allowFlowReversal=allowFlowReversal2,
     final energyDynamics=ductConnectionDynamics) "Duct manifold at port a" 
     annotation (Placement(transformation(extent={{40,-26},{20,-6}}, rotation=0)));
 public
-  parameter Modelica.SIunits.Length dh_1=0.025
+  parameter Modelica.SIunits.Length dh1=0.025
     "Hydraulic diameter for a single pipe" 
      annotation(Dialog(group = "Geometry",
-                enable = use_dh_1 and not linearized_1));
+                enable = use_dh1 and not linearizeFlowResistance1));
   parameter Real ReC_1=4000
     "Reynolds number where transition to turbulent starts inside pipes" 
-     annotation(Dialog(enable = use_dh_1 and not linearized_1, tab="Advanced"));
+     annotation(Dialog(enable = use_dh1 and not linearizeFlowResistance1, tab="Advanced"));
   parameter Real ReC_2=4000
     "Reynolds number where transition to turbulent starts inside ducts" 
-     annotation(Dialog(enable = use_dh_2 and not linearized_2, tab="Advanced"));
+     annotation(Dialog(enable = use_dh2 and not linearized2, tab="Advanced"));
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal
     "Mass flow rate at port_a1 for all pipes" 
      annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp_nominal_1
-    "Pressure drop for all pipes" 
-      annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Length dh_2=1 "Hydraulic diameter for duct" 
+  parameter Modelica.SIunits.Length dh2=1 "Hydraulic diameter for duct" 
       annotation(Dialog(group = "Geometry"));
-//  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal
-//    "Mass flow rate at port_a_2 for duct"
-//     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp_nominal_2 "Pressure drop inside duct" 
-     annotation(Dialog(group = "Nominal condition"));
   Modelica.SIunits.HeatFlowRate Q1_flow
     "Heat transfered from solid into medium 1";
   Modelica.SIunits.HeatFlowRate Q2_flow
@@ -281,7 +270,7 @@ protected
       redeclare each final package Medium = Medium1,
       each final nPipPar = nPipPar,
       each final mStart_flow_a=mStart_flow_a1,
-      each allowFlowReversal=allowFlowReversal_1) if 
+      each allowFlowReversal=allowFlowReversal1) if 
       nReg > 1 "Pipe header to redirect flow into next register" 
     annotation (Placement(transformation(
         origin={50,6},
@@ -291,7 +280,7 @@ protected
       redeclare each final package Medium = Medium1,
       each final nPipPar = nPipPar,
       each final mStart_flow_a=mStart_flow_a1,
-      each allowFlowReversal=allowFlowReversal_1) if 
+      each allowFlowReversal=allowFlowReversal1) if 
       nReg > 2 "Pipe header to redirect flow into next register" 
       annotation (Placement(transformation(extent={{-60,-2},{-40,18}}, rotation=
            0)));

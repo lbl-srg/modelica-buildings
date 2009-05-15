@@ -1,20 +1,20 @@
 within Buildings.Fluids.Interfaces;
 partial model PartialStaticFourPortInterface
-  "Partial element transporting fluid between two ports without storing mass or energy"
+  "Partial model transporting fluid between two ports without storing mass or energy"
   import Modelica.Constants;
   extends Buildings.Fluids.Interfaces.PartialFourPort(
     port_a1(
       p(start=p_a1_start),
-      m_flow(min = if allowFlowReversal_1 then -Constants.inf else 0)),
+      m_flow(min = if allowFlowReversal1 then -Constants.inf else 0)),
     port_b1(
       p(start=p_b1_start),
-      m_flow(max = if allowFlowReversal_1 then +Constants.inf else 0)),
+      m_flow(max = if allowFlowReversal1 then +Constants.inf else 0)),
     port_a2(
       p(start=p_a2_start),
-      m_flow(min = if allowFlowReversal_2 then -Constants.inf else 0)),
+      m_flow(min = if allowFlowReversal2 then -Constants.inf else 0)),
     port_b2(
       p(start=p_b2_start),
-      m_flow(max = if allowFlowReversal_2 then +Constants.inf else 0)));
+      m_flow(max = if allowFlowReversal2 then +Constants.inf else 0)));
 
   annotation (
     Diagram(coordinateSystem(
@@ -46,10 +46,10 @@ First implementation.
 </ul>
 </html>"));
 
-  parameter Medium1.MassFlowRate m1_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate" 
     annotation(Dialog(group = "Nominal condition"));
-  parameter Medium2.MassFlowRate m2_flow_nominal(min=0) = m1_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0) = m1_flow_nominal
     "Nominal mass flow rate" 
     annotation(Dialog(group = "Nominal condition"));
 

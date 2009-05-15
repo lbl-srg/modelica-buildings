@@ -77,8 +77,7 @@ First implementation.
 </li>
 </ul>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
-            {100,100}}),
-                graphics={Polygon(
+            {100,100}}), graphics={Polygon(
           points={{-26,12},{22,54},{22,42},{-26,0},{-26,12}},
           lineColor={0,0,0},
           smooth=Smooth.None,
@@ -107,5 +106,5 @@ initial algorithm
     "flow coefficient for resistance base model, kDam=k=m_flow/sqrt(dp)";
 
 equation
-  kSqu = kDamSqu "flow coefficient for resistance base model";
+  k = sqrt(kDamSqu) "flow coefficient for resistance base model";
 end Exponential;

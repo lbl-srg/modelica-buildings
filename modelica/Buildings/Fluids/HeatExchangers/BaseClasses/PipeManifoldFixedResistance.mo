@@ -29,7 +29,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), 
+Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Rectangle(
           extent={{30,68},{74,52}},

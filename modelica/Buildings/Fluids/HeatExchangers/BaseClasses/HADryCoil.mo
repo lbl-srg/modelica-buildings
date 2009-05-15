@@ -66,26 +66,26 @@ First implementation.
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal_a "Air mass flow rate"
           annotation(Dialog(tab="General", group="Nominal condition"));
 
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal m1_flow
-    "Mass flow rate medium 1" 
+  Modelica.Blocks.Interfaces.RealInput m1_flow "Mass flow rate medium 1" 
     annotation (Placement(transformation(extent={{-120,60},{-100,80}}, rotation=
            0)));
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal m2_flow
-    "Mass flow rate medium 2" 
+  Modelica.Blocks.Interfaces.RealInput m2_flow "Mass flow rate medium 2" 
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}},
           rotation=0)));
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal hA_1
-    "Convective heat transfer medium 1" annotation (Placement(transformation(
-          extent={{100,60},{120,80}}, rotation=0)));
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal hA_2
-    "Convective heat transfer medium 2" annotation (Placement(transformation(
-          extent={{100,-80},{120,-60}}, rotation=0)));
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal T_1 "Temperature medium 1" 
+  Modelica.Blocks.Interfaces.RealInput T_1 "Temperature medium 1" 
     annotation (Placement(transformation(extent={{-120,20},{-100,40}}, rotation=
            0)));
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal T_2 "Temperature medium 2" 
+  Modelica.Blocks.Interfaces.RealInput T_2 "Temperature medium 2" 
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}},
           rotation=0)));
+
+  Modelica.Blocks.Interfaces.RealOutput hA_1
+    "Convective heat transfer medium 1" annotation (Placement(transformation(
+          extent={{100,60},{120,80}}, rotation=0)));
+  Modelica.Blocks.Interfaces.RealOutput hA_2
+    "Convective heat transfer medium 2" annotation (Placement(transformation(
+          extent={{100,-80},{120,-60}}, rotation=0)));
+
   annotation (Icon(
       Rectangle(extent=[-36,-36; -24,-72],   style(
           color=0,
@@ -168,15 +168,15 @@ equation
          1 + 4.769E-3 * (T_2-T0_a) else 
               1;
   if ( waterSideFlowDependent == true) then
-    hA_1 = x_w * Buildings.Utilities.Math.Functions.regNonZeroPower(
-                                                          fm_w, n_w, 0.1) * hA_nominal_w;
+    hA_1 = x_w * hA_nominal_w
+               * Buildings.Utilities.Math.Functions.regNonZeroPower(fm_w, n_w, 0.1);
   else
     hA_1 = x_w * hA_nominal_w;
   end if;
 
   if ( airSideFlowDependent == true) then
-    hA_2 = x_a * Buildings.Utilities.Math.Functions.regNonZeroPower(
-                                                          fm_a, n_a, 0.1) * hA_nominal_a;
+    hA_2 = x_a * hA_nominal_a
+               * Buildings.Utilities.Math.Functions.regNonZeroPower(fm_a, n_a, 0.1);
   else
     hA_2 = x_a * hA_nominal_a;
   end if;

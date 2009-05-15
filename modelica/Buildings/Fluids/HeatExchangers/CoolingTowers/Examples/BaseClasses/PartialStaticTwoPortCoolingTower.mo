@@ -14,8 +14,8 @@ partial model PartialStaticTwoPortCoolingTower
           rotation=0)));
   replaceable
     Buildings.Fluids.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticTwoPortCoolingTower
-    tow(   redeclare package Medium = Medium_W, m_flow_nominal=mWat0_flow)
-    "Cooling tower" 
+    tow(   redeclare package Medium = Medium_W, m_flow_nominal=mWat0_flow,
+    dp_nominal=10) "Cooling tower" 
     annotation (Placement(transformation(extent={{-18,-60},{2,-40}}, rotation=0)));
   Modelica_Fluid.Sources.Boundary_pT sin_1(             T=283.15, redeclare
       package Medium = Medium_W,
@@ -30,14 +30,6 @@ partial model PartialStaticTwoPortCoolingTower
     p=101335,
     T=293.15)             annotation (Placement(transformation(extent={{-56,-60},
             {-36,-40}}, rotation=0)));
-    Fluids.FixedResistances.FixedResistanceDpM res_1(
-    from_dp=true,
-    dp_nominal=10,
-    redeclare package Medium = Medium_W,
-    m_flow_nominal=mWat0_flow,
-    dh=0.005) 
-             annotation (Placement(transformation(extent={{20,-60},{40,-40}},
-          rotation=0)));
     Modelica.Blocks.Sources.Constant PWatIn(k=101335) 
       annotation (Placement(transformation(extent={{-100,-20},{-80,0}},
           rotation=0)));
@@ -57,14 +49,12 @@ equation
                       graphics));
   connect(PWatIn.y, sou_1.p_in) annotation (Line(points={{-79,-10},{-70,-10},{
           -70,-42},{-58,-42}}, color={0,0,127}));
-  connect(res_1.port_a, tow.port_b) 
-    annotation (Line(points={{20,-50},{2,-50}}, color={0,127,255}));
   connect(sou_1.ports[1], tow.port_a) annotation (Line(
       points={{-36,-50},{-18,-50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res_1.port_b, sin_1.ports[1]) annotation (Line(
-      points={{40,-50},{60,-50}},
+  connect(tow.port_b, sin_1.ports[1]) annotation (Line(
+      points={{2,-50},{60,-50}},
       color={0,127,255},
       smooth=Smooth.None));
 end PartialStaticTwoPortCoolingTower;

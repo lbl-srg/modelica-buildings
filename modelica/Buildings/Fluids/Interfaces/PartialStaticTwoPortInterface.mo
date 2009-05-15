@@ -1,6 +1,6 @@
 within Buildings.Fluids.Interfaces;
 partial model PartialStaticTwoPortInterface
-  "Partial element transporting fluid between two ports without storing mass or energy"
+  "Partial model transporting fluid between two ports without storing mass or energy"
   import Modelica.Constants;
   extends Modelica_Fluid.Interfaces.PartialTwoPort(
     port_a(

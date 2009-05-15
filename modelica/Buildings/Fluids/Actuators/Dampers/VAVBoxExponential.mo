@@ -37,7 +37,7 @@ First implementation.
         Text(
           extent={{-110,-34},{12,-100}},
           lineColor={0,0,255},
-          textString="dp0=%dp_nominal"),
+          textString="dp_nominal=%dp_nominal"),
         Text(
           extent={{-102,-76},{10,-122}},
           lineColor={0,0,255},
@@ -65,10 +65,8 @@ protected
   parameter Real kResSqu(unit="kg.m") = m_flow_nominal^2 / (dp_nominal-dpDamOpe0)
     "Resistance coefficient for fixed resistance element";
 equation
-   //kInv = 1/kRes/kRes + 1/kDam/kDam
-//   k = 1/sqrt(1/kRes/kRes + 1/kDam/kDam)
 //    "flow coefficient for resistance base model";
-   kSqu = 1/(1/kResSqu + 1/kDamSqu)
+   k = sqrt(1/(1/kResSqu + 1/kDamSqu))
     "flow coefficient for resistance base model";
 
 end VAVBoxExponential;

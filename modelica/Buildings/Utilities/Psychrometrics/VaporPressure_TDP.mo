@@ -1,7 +1,7 @@
 within Buildings.Utilities.Psychrometrics;
-model DewPointTemperature
-  "Model to compute the dew point temperature of moist air"
- extends Buildings.BaseClasses.BaseIcon;
+block VaporPressure_TDP
+  "Model to compute the water vapor pressure for a given dew point temperature of moist air"
+  extends Modelica.Blocks.Interfaces.BlockIcon;
     annotation (
     Documentation(info="<html>
 <p>
@@ -36,11 +36,11 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{104,44},{142,-2}},
+          extent={{-124,50},{-86,4}},
           lineColor={0,0,255},
           textString="p_w"),
         Text(
-          extent={{-136,50},{-98,4}},
+          extent={{102,46},{140,0}},
           lineColor={0,0,255},
           textString="TDP"),
         Line(points={{-68,86},{-68,-72}}, color={0,0,0}),
@@ -84,25 +84,19 @@ First implementation.
         Line(points={{68,32},{22,32}}, color={175,175,175})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics));
-  Modelica.Blocks.Interfaces.RealOutput p_w "Water vapor partial pressure" 
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
+  Modelica.Blocks.Interfaces.RealInput p_w "Water vapor partial pressure" 
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
+                                                                      rotation=
             0)));
-  Modelica.Blocks.Interfaces.RealInput T(start=278.15,
+  Modelica.Blocks.Interfaces.RealOutput T(start=278.15,
                                          final quantity="ThermodynamicTemperature",
                                          final unit="K",
                                          min = 0,
                                          displayUnit="degC")
     "Dew point temperature" 
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
+    annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
-protected
-  constant Real C8 = -5.800226E3;
-  constant Real C9 =  1.3914993E0;
-  constant Real C10= -4.8640239E-2;
-  constant Real C11 = 4.1764768E-5;
-  constant Real C12= -1.4452093E-8;
-  constant Real C13 = 6.5459673E0;
+
 equation
- p_w = Modelica.Math.exp(C8/T + C9 + T * ( C10
-           + T * ( C11 + T * C12))  + C13 * Modelica.Math.log(T));
-end DewPointTemperature;
+ p_w = Buildings.Utilities.Psychrometrics.BaseClasses.dewPointTemperature(T=T);
+end VaporPressure_TDP;

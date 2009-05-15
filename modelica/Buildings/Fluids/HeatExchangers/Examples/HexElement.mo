@@ -22,9 +22,9 @@ model HexElement
             {-40,-10}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp PIn(
     height=20,
-    offset=101320,
     duration=300,
-    startTime=300) 
+    startTime=300,
+    offset=101325) 
                  annotation (Placement(transformation(extent={{0,-60},{20,-40}},
           rotation=0)));
   annotation (Diagram);
@@ -57,9 +57,9 @@ model HexElement
   Modelica_Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium_W,
     use_T_in=true,
-    p=101335,
-    T=293.15,
-    nPorts=1)             annotation (Placement(transformation(extent={{-60,40},
+    nPorts=1,
+    p=101340,
+    T=293.15)             annotation (Placement(transformation(extent={{-60,40},
             {-40,60}}, rotation=0)));
     Fluids.FixedResistances.FixedResistanceDpM res_22(
     from_dp=true,
@@ -81,8 +81,9 @@ model HexElement
     UA_nominal=9999,
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
-    allowCondensation=false) 
-                    annotation (Placement(transformation(extent={{10,-10},{30,
+    allowCondensation=false,
+    dp1_nominal=5,
+    dp2_nominal=5)  annotation (Placement(transformation(extent={{10,-10},{30,
             10}}, rotation=0)));
   Modelica.Blocks.Sources.Constant TDb1(k=303.15) "Drybulb temperature" 
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}},
