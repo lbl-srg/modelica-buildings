@@ -43,7 +43,7 @@ First implementation.
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature" 
     annotation (Placement(transformation(extent={{-200,94},{-180,114}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_1(
+  Modelica.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium,
     use_T_in=true,
     nPorts=4,
@@ -64,7 +64,7 @@ First implementation.
     m_flow_nominal=0.5) 
              annotation (Placement(transformation(extent={{-100,134},{-80,154}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium,
     use_p_in=true,
     T=288.15,
@@ -214,30 +214,30 @@ First implementation.
         0.3, threShold=0.05) 
     annotation (Placement(transformation(extent={{160,-360},{180,-340}},
           rotation=0)));
-  inner Modelica_Fluid.System system(m_flow_start=0) 
+  inner Modelica.Fluid.System system(m_flow_start=0) 
     annotation (Placement(transformation(extent={{-180,-380},{-160,-360}})));
-  Modelica_Fluid.Sensors.Temperature senTem2a(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem2a(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-20,160},{-4,174}})));
-  Modelica_Fluid.Sensors.Temperature senTem2b(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem2b(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{0,174},{16,188}})));
-  Modelica_Fluid.Sensors.Temperature senTem1a(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem1a(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-60,114},{-44,128}})));
-  Modelica_Fluid.Sensors.Temperature senTem1b(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem1b(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-40,122},{-24,136}})));
-  Modelica_Fluid.Sensors.Temperature senTem3a(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem3a(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-60,-6},{-44,8}})));
-  Modelica_Fluid.Sensors.Temperature senTem3b(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem3b(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-40,2},{-24,16}})));
-  Modelica_Fluid.Sensors.Temperature senTem4a(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem4a(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-20,40},{-4,54}})));
-  Modelica_Fluid.Sensors.Temperature senTem4b(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem4b(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{0,60},{16,74}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass3(startTime=0.2, threShold=
@@ -257,16 +257,16 @@ First implementation.
         0.05) 
     annotation (Placement(transformation(extent={{160,-100},{180,-80}},rotation=
            0)));
-  Modelica_Fluid.Sensors.Temperature senTem6b(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem6b(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{0,-80},{16,-66}})));
-  Modelica_Fluid.Sensors.Temperature senTem6a(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem6a(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-20,-100},{-4,-86}})));
-  Modelica_Fluid.Sensors.Temperature senTem5b(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem5b(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-40,-154},{-24,-140}})));
-  Modelica_Fluid.Sensors.Temperature senTem5a(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem5a(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-60,-162},{-44,-148}})));
   Buildings.Utilities.Diagnostics.AssertEquality ass7(startTime=0.2, threShold=
@@ -279,16 +279,16 @@ First implementation.
     annotation (Placement(transformation(extent={{160,-240},{180,-220}},
                                                                        rotation=
            0)));
-  Modelica_Fluid.Sensors.Temperature senTem8b(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem8b(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{0,-220},{16,-206}})));
-  Modelica_Fluid.Sensors.Temperature senTem8a(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem8a(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-20,-240},{-4,-226}})));
-  Modelica_Fluid.Sensors.Temperature senTem7b(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem7b(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-40,-294},{-24,-280}})));
-  Modelica_Fluid.Sensors.Temperature senTem7a(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Temperature senTem7a(redeclare package Medium = Medium)
     "Temperature sensor" 
     annotation (Placement(transformation(extent={{-60,-302},{-44,-288}})));
 equation

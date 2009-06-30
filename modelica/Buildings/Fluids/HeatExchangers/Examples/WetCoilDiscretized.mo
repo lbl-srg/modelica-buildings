@@ -35,7 +35,7 @@ model WetCoilDiscretized
     dp1_nominal(displayUnit="Pa") = 3000) 
                          annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_2(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2,
     nPorts=1,
     use_p_in=false,
@@ -49,7 +49,7 @@ model WetCoilDiscretized
     startTime=120) 
                  annotation (Placement(transformation(extent={{60,-40},{80,-20}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_2(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sou_2(                       redeclare
       package Medium = Medium2,
     use_p_in=true,
     nPorts=1,
@@ -63,14 +63,14 @@ model WetCoilDiscretized
     startTime=120) "Water temperature" 
                  annotation (Placement(transformation(extent={{-90,34},{-70,54}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium1,
     p=300000,
     T=293.15,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{90,30},
             {70,50}},rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_1(
+  Modelica.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     p=300000 + 5000,
     use_T_in=true,
@@ -97,7 +97,7 @@ model WetCoilDiscretized
     offset=300000) 
                  annotation (Placement(transformation(extent={{40,62},{60,82}},
           rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(res_2.port_a, hex.port_b2) annotation (Line(points={{-8,0},{-8,0},{8,

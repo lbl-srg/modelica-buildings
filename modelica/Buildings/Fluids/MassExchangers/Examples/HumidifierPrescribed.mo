@@ -49,7 +49,7 @@ First implementation.
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature" 
     annotation (Placement(transformation(extent={{-200,92},{-180,112}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_1(
+  Modelica.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium,
     use_T_in=true,
     nPorts=4,
@@ -70,7 +70,7 @@ First implementation.
     m_flow_nominal=0.5) 
              annotation (Placement(transformation(extent={{-100,134},{-80,154}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium,
     use_p_in=true,
     T=288.15,
@@ -415,7 +415,7 @@ First implementation.
   Modelica.Blocks.Sources.RealExpression y40(y=hea7.sta_a.X[1]) 
     annotation (Placement(transformation(extent={{220,-270},{320,-250}},
           rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-180,-300},{-160,-280}})));
 equation
   connect(POut.y,sin_1. p_in) annotation (Line(

@@ -33,7 +33,7 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal) "Chiller model" 
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica_Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
+  Modelica.Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,
     use_T_in=true,
     m_flow=m1_flow_nominal,
@@ -42,19 +42,19 @@ model Carnot "Test model for chiller based on Carnot efficiency"
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics), Commands(file=
           "Carnot.mos" "run"));
-  Modelica_Fluid.Sources.MassFlowSource_T sou2(nPorts=1,
+  Modelica.Fluid.Sources.MassFlowSource_T sou2(nPorts=1,
     redeclare package Medium = Medium2,
     use_T_in=true,
     m_flow=m2_flow_nominal,
     T=291.15) 
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
-  Modelica_Fluid.Sources.FixedBoundary sin1(nPorts=1, redeclare package Medium
+  Modelica.Fluid.Sources.FixedBoundary sin1(nPorts=1, redeclare package Medium
       = Medium1)                                     annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={70,40})));
-  Modelica_Fluid.Sources.FixedBoundary sin2(nPorts=1, redeclare package Medium
+  Modelica.Fluid.Sources.FixedBoundary sin2(nPorts=1, redeclare package Medium
       = Medium2)                                     annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -66,7 +66,7 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     offset=1,
     startTime=1800) "Compressor control signal" 
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
     height=10,

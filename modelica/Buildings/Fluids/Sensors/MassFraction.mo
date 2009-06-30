@@ -1,6 +1,6 @@
 within Buildings.Fluids.Sensors;
 model MassFraction "Ideal one port mass fraction sensor"
-  extends Modelica_Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+  extends Modelica.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
   parameter String substanceName = "water" "Name of species substance";
 
@@ -33,7 +33,7 @@ The sensor is ideal, i.e. it does not influence the fluid.
 <ul>
 <li>
 April 7, 2009 by Michael Wetter:<br>
-First implementation based on enthalpy sensor of Modelica_Fluid.
+First implementation based on enthalpy sensor of Modelica.Fluid.
 </li>
 </ul>
 </html>"));

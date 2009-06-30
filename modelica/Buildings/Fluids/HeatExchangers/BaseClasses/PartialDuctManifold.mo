@@ -28,7 +28,7 @@ First implementation.
   parameter Integer nPipSeg(min=1)
     "Number of pipe segments per register used for discretization";
 
-  Modelica_Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b(
+  Modelica.Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b(
         redeclare each package Medium = Medium,
         each m_flow(start=-mStart_flow_a/nPipSeg/nPipPar,
              max=if allowFlowReversal then +Modelica.Constants.inf else 0))

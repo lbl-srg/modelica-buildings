@@ -87,11 +87,11 @@ First implementation.
     "Overall UA value";
   parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
     "Water volume of boiler" 
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)));
+    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal if 
-        not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)
+        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mass of boiler that will be lumped to water heat capacity" 
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)));
+    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   Real eta(min=0) "Boiler efficiency";
 
@@ -117,7 +117,7 @@ public
                              annotation (Placement(transformation(extent={{-10,62},
             {10,82}},            rotation=0)));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCapDry(C=500*mDry,
-      T(start=T_start)) if not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)
+      T(start=T_start)) if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "heat capacity of boiler metal" 
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",

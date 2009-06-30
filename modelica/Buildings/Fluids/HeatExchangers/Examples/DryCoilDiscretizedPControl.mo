@@ -19,14 +19,14 @@ model DryCoilDiscretizedPControl
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 
-  Modelica_Fluid.Sources.Boundary_pT sin_2(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2,
     nPorts=1,
     use_p_in=false,
     p(displayUnit="Pa") = 101325,
     T=303.15)             annotation (Placement(transformation(extent={{-52,10},
             {-32,30}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_2(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sou_2(                       redeclare
       package Medium = Medium2,
     nPorts=1,
     use_p_in=false,
@@ -34,14 +34,14 @@ model DryCoilDiscretizedPControl
     p(displayUnit="Pa") = 101625,
     T=T_a2_nominal)              annotation (Placement(transformation(extent={{140,10},
             {120,30}},  rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium1,
     p=300000,
     T=293.15,
     nPorts=1,
     use_p_in=true)        annotation (Placement(transformation(extent={{140,50},
             {120,70}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_1(
+  Modelica.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     p=300000 + 9000,
     nPorts=1,
@@ -69,7 +69,7 @@ model DryCoilDiscretizedPControl
     offset=300000) 
                  annotation (Placement(transformation(extent={{140,90},{160,110}},
           rotation=0)));
-  Modelica_Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium = 
+  Modelica.Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium = 
         Medium2) annotation (Placement(transformation(extent={{40,10},{20,30}},
           rotation=0)));
   Buildings.Fluids.Actuators.Valves.TwoWayEqualPercentage val(
@@ -105,7 +105,7 @@ model DryCoilDiscretizedPControl
             80,36}}, rotation=0)));
   Buildings.Fluids.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model" 
     annotation (Placement(transformation(extent={{12,90},{32,110}},rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(PSin_1.y, sin_1.p_in) annotation (Line(points={{161,100},{180,100},{

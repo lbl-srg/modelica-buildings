@@ -17,12 +17,12 @@ model MixingVolume
     offset=101330) 
                  annotation (Placement(transformation(extent={{-100,60},{-80,80}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium, T=293.15,
     use_p_in=true,
     nPorts=3)                                       annotation (Placement(
         transformation(extent={{-70,48},{-50,68}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=3,
     use_p_in=false,
@@ -31,43 +31,47 @@ model MixingVolume
         transformation(extent={{130,48},{110,68}}, rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res1(
     redeclare each package Medium = Medium,
-    dp_nominal=5,
     from_dp=true,
-    m_flow_nominal=2) 
+    m_flow_nominal=2,
+    dp_nominal=2.5) 
              annotation (Placement(transformation(extent={{-36,50},{-16,70}},
           rotation=0)));
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     V=0.1,
-    nPorts=2) 
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) 
           annotation (Placement(transformation(extent={{0,10},{20,30}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res2(
     redeclare each package Medium = Medium,
-    dp_nominal=5,
     from_dp=true,
-    m_flow_nominal=2) 
+    m_flow_nominal=2,
+    dp_nominal=2.5) 
              annotation (Placement(transformation(extent={{80,50},{100,70}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res11(
     redeclare each package Medium = Medium,
-    dp_nominal=5,
     from_dp=true,
-    m_flow_nominal=2) 
+    m_flow_nominal=2,
+    dp_nominal=2.5) 
              annotation (Placement(transformation(extent={{-40,0},{-20,20}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res12(
     redeclare each package Medium = Medium,
-    dp_nominal=5,
     from_dp=true,
-    m_flow_nominal=2) 
+    m_flow_nominal=2,
+    dp_nominal=2.5) 
              annotation (Placement(transformation(extent={{80,0},{100,20}},
           rotation=0)));
-  Modelica_Fluid.Vessels.ClosedVolume vol(
+  Modelica.Fluid.Vessels.ClosedVolume vol(
     redeclare package Medium = Medium,
     V=0.1,
     nPorts=2,
-    use_portsData=false) 
+    use_portsData=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) 
          annotation (Placement(transformation(extent={{0,60},{22,80}}, rotation=
            0)));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality 
@@ -81,21 +85,23 @@ model MixingVolume
   Buildings.Fluids.MixingVolumes.MixingVolumeMoistAir vol2(
     redeclare package Medium = Medium,
     V=0.1,
-    nPorts=2) 
+    nPorts=2,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) 
           annotation (Placement(transformation(extent={{0,-82},{20,-62}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res21(
     redeclare each package Medium = Medium,
-    dp_nominal=5,
     from_dp=true,
-    m_flow_nominal=2) 
+    m_flow_nominal=2,
+    dp_nominal=2.5) 
              annotation (Placement(transformation(extent={{-40,-92},{-20,-72}},
           rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res22(
     redeclare each package Medium = Medium,
-    dp_nominal=5,
     from_dp=true,
-    m_flow_nominal=2) 
+    m_flow_nominal=2,
+    dp_nominal=2.5) 
              annotation (Placement(transformation(extent={{80,-92},{100,-72}},
           rotation=0)));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality1 
@@ -110,7 +116,7 @@ model MixingVolume
     Modelica.Blocks.Sources.Constant TLiq(k=283.15) 
       annotation (Placement(transformation(extent={{-40,-60},{-20,-40}},
           rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(P.y, sou.p_in) annotation (Line(points={{-79,70},{-72,70},{-72,66}},

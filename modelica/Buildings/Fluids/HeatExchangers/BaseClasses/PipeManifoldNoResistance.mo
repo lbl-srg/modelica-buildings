@@ -24,7 +24,7 @@ First implementation.
 </ul>
 </html>"));
  parameter Boolean connectAllPressures=true;
-  Modelica_Fluid.Fittings.MultiPort mulPor(
+  Modelica.Fluid.Fittings.MultiPort mulPor(
       redeclare package Medium = Medium,
       final nPorts_b=nPipPar) 
     annotation (Placement(transformation(extent={{0,-10},{8,10}})));

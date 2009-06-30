@@ -25,14 +25,14 @@ discretization scheme.
         40; 3600,273.15 + 20; 7200,273.15 + 20]) "Water temperature" 
                  annotation (Placement(transformation(extent={{-100,2},{-80,22}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_1(
+  Modelica.Fluid.Sources.Boundary_pT sou_1(
     p=300000 + 5000,
     T=273.15 + 50,
     redeclare package Medium = Medium,
     use_T_in=true,
     nPorts=2)             annotation (Placement(transformation(extent={{-60,-2},
             {-40,18}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_1(
+  Modelica.Fluid.Sources.Boundary_pT sin_1(
     redeclare package Medium = Medium,
     T=273.15 + 20,
     use_p_in=true,
@@ -95,7 +95,7 @@ discretization scheme.
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBCTop2
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,32},{-28,44}}, rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(TWat.y, sou_1.T_in) annotation (Line(

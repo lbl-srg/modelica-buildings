@@ -22,13 +22,13 @@ model Damper
     startTime=0.2) 
                  annotation (Placement(transformation(extent={{-20,40},{0,60}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     use_p_in=true,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-68,10},{-48,30}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     use_p_in=true,
     nPorts=1,
@@ -54,13 +54,13 @@ model Damper
     offset=101330) 
                  annotation (Placement(transformation(extent={{-100,-82},{-80,
             -62}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou1(          redeclare package Medium = 
+  Modelica.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium = 
         Medium,
     use_p_in=true,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-68,-90},{-48,-70}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin1(          redeclare package Medium = 
+  Modelica.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium = 
         Medium,
     use_p_in=true,
     nPorts=1,
@@ -73,7 +73,7 @@ model Damper
     Modelica.Blocks.Sources.Constant PAtm0(k=101335) 
       annotation (Placement(transformation(extent={{-100,18},{-80,38}},
           rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(yRam.y, res.y) annotation (Line(

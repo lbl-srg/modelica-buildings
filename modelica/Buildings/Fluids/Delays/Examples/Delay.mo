@@ -24,12 +24,12 @@ model Delay
     redeclare package Medium = Medium) 
              annotation (Placement(transformation(extent={{-30,-4},{-10,16}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou(
+  Modelica.Fluid.Sources.Boundary_pT sou(
                 T=293.15, redeclare package Medium = Medium,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-58,-4},
             {-38,16}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(
+  Modelica.Fluid.Sources.Boundary_pT sin(
                 T=283.15, redeclare package Medium = Medium,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{78,-4},
@@ -45,7 +45,7 @@ model Delay
       package Medium = Medium,
     T_start=283.15) 
     annotation (Placement(transformation(extent={{0,6},{20,26}},   rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(P.y, sou.p_in) annotation (Line(points={{-73,40},{-66,40},{-66,14},{

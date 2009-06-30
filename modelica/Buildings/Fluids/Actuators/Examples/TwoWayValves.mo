@@ -37,13 +37,13 @@ First implementation.
     offset=0) "Control signal" 
                  annotation (Placement(transformation(extent={{-60,60},{-40,80}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     use_p_in=true,
     nPorts=3,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-70,-20},{-50,0}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     use_p_in=true,
     nPorts=3,
@@ -68,7 +68,7 @@ First implementation.
     m_flow_nominal=2) "Valve model, equal percentage opening characteristics" 
          annotation (Placement(transformation(extent={{0,-50},{20,-30}},
           rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(y.y, valLin.y) annotation (Line(

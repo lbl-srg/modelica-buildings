@@ -3,7 +3,7 @@ partial model PartialDuctPipeManifold
   "Partial heat exchanger duct and pipe manifold"
   extends Buildings.BaseClasses.BaseIcon;
 
-  outer Modelica_Fluid.System system "System wide properties";
+  outer Modelica.Fluid.System system "System wide properties";
 
   replaceable package Medium = 
       Modelica.Media.Interfaces.PartialMedium "Medium in the component" 
@@ -73,7 +73,7 @@ First implementation.
     "Guess value for mass flow rate at port_a" 
     annotation(Dialog(group = "Initialization"));
 
-  Modelica_Fluid.Interfaces.FluidPort_a port_a(
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
         redeclare package Medium = Medium,
         m_flow(start=mStart_flow_a, min=if allowFlowReversal then -Modelica.Constants.inf else 0))
     "Fluid connector a for medium (positive design flow direction is from port_a to port_b)"

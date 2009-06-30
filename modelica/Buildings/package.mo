@@ -3,7 +3,7 @@ package Buildings "Library with models for building energy and control systems"
 annotation (preferedView="info",
       version="0.6.0",
       uses(
-        Modelica_Fluid(version="1.0"), Modelica(version="3.0.1")),
+        Modelica_Fluid(version="1.0"), Modelica(version="3.1")),
       Documentation(info="<html>
 <h3><font color=\"#008000\" size=5>Users Guide of the Modelica Buildings Library</font></h3>
 <p>
@@ -79,6 +79,9 @@ on the Buildings library
 </p>
 <ul>
 <li> 
+<a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">
+Version 0.7.0 </a>(XXXX XXXX, 2009)</li>
+<li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">
 Version 0.6.0 </a>(May 15, 2009)</li>
 <li> 
@@ -100,6 +103,20 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 </ul>
 </html>
 "));
+
+class Version_0_7_0 "Version 0.7.0"
+      annotation (Documentation(info="<html>
+<h3><font color=\"#008000\">Version 0.7.0</font></h3>
+<p>
+<ul>
+<li>
+Updated library from Modelica_Fluid to Modelica.Fluid 1.0
+</li>
+</ul>
+</p>
+</html>
+"));
+  end Version_0_7_0;
 
   class Version_0_6_0 "Version 0.6.0"
       annotation (Documentation(info="<html>

@@ -13,7 +13,7 @@ model HexElement
 // package Medium_A = Modelica.Media.Air.SimpleAir;
 // package Medium_A = Buildings.Media.PerfectGases.MoistAirNonsaturated;
  package Medium_A = Buildings.Media.PerfectGases.MoistAir;
-  Modelica_Fluid.Sources.Boundary_pT sin_2(
+  Modelica.Fluid.Sources.Boundary_pT sin_2(
                                          redeclare package Medium = Medium_A,
     use_p_in=true,
     use_T_in=true,
@@ -28,7 +28,7 @@ model HexElement
                  annotation (Placement(transformation(extent={{0,-60},{20,-40}},
           rotation=0)));
   annotation (Diagram);
-  Modelica_Fluid.Sources.Boundary_pT sou_2(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sou_2(                       redeclare
       package Medium = Medium_A,
     use_p_in=true,
     use_T_in=true,
@@ -48,13 +48,13 @@ model HexElement
     Modelica.Blocks.Sources.Constant POut(k=101325) 
       annotation (Placement(transformation(extent={{-100,80},{-80,100}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_1(
+  Modelica.Fluid.Sources.Boundary_pT sin_1(
                                          redeclare package Medium = Medium_W,
     use_p_in=true,
     T=288.15,
     nPorts=1)             annotation (Placement(transformation(extent={{42,40},
             {62,60}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_1(
+  Modelica.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium_W,
     use_T_in=true,
     nPorts=1,
@@ -104,7 +104,7 @@ model HexElement
           rotation=0)));
   Modelica.Blocks.Sources.Constant hACon(k=10000) "Convective heat transfer" 
     annotation (Placement(transformation(extent={{-20,60},{0,80}}, rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(TDb.y, sou_1.T_in) annotation (Line(

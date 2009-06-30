@@ -26,12 +26,12 @@ model VAVBoxExponential
     offset=101330,
     startTime=0) annotation (Placement(transformation(extent={{-100,40},{-80,60}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       =        Medium, T=273.15 + 20,
     nPorts=2,
     use_p_in=true)                      annotation (Placement(transformation(
           extent={{-70,-20},{-50,0}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       =        Medium, T=273.15 + 20,
     nPorts=2,
     use_p_in=true)                      annotation (Placement(transformation(
@@ -52,7 +52,7 @@ model VAVBoxExponential
     dp_nominal=5 - 0.45*2^2/1.2/1.8^2/2) 
              annotation (Placement(transformation(extent={{-36,10},{-16,30}},
           rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(yRam.y,dam. y) annotation (Line(

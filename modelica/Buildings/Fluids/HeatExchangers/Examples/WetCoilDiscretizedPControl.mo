@@ -21,14 +21,14 @@ model WetCoilDiscretizedPControl
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
     "Nominal mass flow rate medium 2";
 
- Modelica_Fluid.Sources.Boundary_pT sin_2(                       redeclare
+ Modelica.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2,
     nPorts=1,
     use_p_in=false,
     p=101325,
     T=303.15)             annotation (Placement(transformation(extent={{-58,-26},
             {-38,-6}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_2(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sou_2(                       redeclare
       package Medium = Medium2,
     nPorts=1,
     use_p_in=false,
@@ -36,14 +36,14 @@ model WetCoilDiscretizedPControl
     p(displayUnit="Pa") = 101725,
     T=293.15)             annotation (Placement(transformation(extent={{160,8},
             {140,28}},  rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium1,
     p=300000,
     T=293.15,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{160,40},
             {140,60}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_1(
+  Modelica.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     p=300000 + 9000,
     nPorts=1,
@@ -71,7 +71,7 @@ model WetCoilDiscretizedPControl
     offset=300000) 
                  annotation (Placement(transformation(extent={{140,80},{160,100}},
           rotation=0)));
-  Modelica_Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium = 
+  Modelica.Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium = 
         Medium2) annotation (Placement(transformation(extent={{40,-26},{20,-6}},
           rotation=0)));
   Buildings.Fluids.Actuators.Valves.TwoWayLinear val(
@@ -107,7 +107,7 @@ model WetCoilDiscretizedPControl
     dp2_nominal(displayUnit="Pa") = 200) 
                          annotation (Placement(transformation(extent={{60,16},{
             80,36}}, rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Step TSou_2(
     startTime=3000,

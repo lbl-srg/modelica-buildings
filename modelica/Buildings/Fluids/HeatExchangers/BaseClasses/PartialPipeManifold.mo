@@ -24,7 +24,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  Modelica_Fluid.Interfaces.FluidPort_b[nPipPar] port_b(
+  Modelica.Fluid.Interfaces.FluidPort_b[nPipPar] port_b(
         redeclare each package Medium = Medium,
         each m_flow(start=-mStart_flow_a/nPipPar, max=if allowFlowReversal then +Modelica.Constants.inf else 0))
     "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"

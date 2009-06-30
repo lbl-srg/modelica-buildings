@@ -15,17 +15,17 @@ model SplitterFixedResistanceDpM
     redeclare package Medium = Medium,
     dp_nominal(displayUnit="Pa") = {5,10,15}) "Splitter" 
     annotation (Placement(transformation(extent={{-16,-10},{4,10}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT bou1(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT bou1(             redeclare package Medium
       =        Medium, T=273.15 + 10,
     use_p_in=true,
     nPorts=1)                         annotation (Placement(transformation(
           extent={{-58,-10},{-38,10}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT bou2(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT bou2(             redeclare package Medium
       =        Medium, T=273.15 + 20,
     use_p_in=true,
     nPorts=1)                         annotation (Placement(transformation(
           extent={{52,-10},{32,10}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT bou3(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT bou3(             redeclare package Medium
       =        Medium, T=273.15 + 30,
     use_p_in=true,
     nPorts=1)                         annotation (Placement(transformation(
@@ -45,7 +45,7 @@ model SplitterFixedResistanceDpM
     startTime=0.5) 
                  annotation (Placement(transformation(extent={{-100,-60},{-80,
             -40}}, rotation=0)));
-  inner Modelica_Fluid.System system(p_ambient=101325) 
+  inner Modelica.Fluid.System system(p_ambient=101325) 
                                    annotation (Placement(transformation(extent={{60,-80},
             {80,-60}},         rotation=0)));
 equation

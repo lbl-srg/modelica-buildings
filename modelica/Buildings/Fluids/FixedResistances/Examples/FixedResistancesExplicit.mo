@@ -15,13 +15,13 @@ in one variable after the symbolic manipulations.
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})));
  package Medium = Modelica.Media.Air.SimpleAir;
-  Modelica_Fluid.Sources.Boundary_ph sou(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_ph sou(             redeclare package Medium
       =        Medium,
     nPorts=1,
     p(displayUnit="Pa") = 101335,
     use_p_in=true)                    annotation (Placement(transformation(
           extent={{-60,90},{-40,110}},rotation=0)));
-  Modelica_Fluid.Sources.Boundary_ph sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_ph sin(             redeclare package Medium
       =        Medium,
     nPorts=1,
     use_p_in=false,
@@ -36,7 +36,7 @@ in one variable after the symbolic manipulations.
     dp_nominal=5) 
              annotation (Placement(transformation(extent={{-20,90},{0,110}},
           rotation=0)));
-  inner Modelica_Fluid.System system(p_ambient=101325) 
+  inner Modelica.Fluid.System system(p_ambient=101325) 
                                    annotation (Placement(transformation(extent={{140,-80},
             {160,-60}},        rotation=0)));
     Buildings.Fluids.FixedResistances.FixedResistanceDpM res1(
@@ -88,30 +88,30 @@ in one variable after the symbolic manipulations.
     from_dp=true) 
              annotation (Placement(transformation(extent={{-20,-60},{0,-40}},
           rotation=0)));
-  Modelica_Fluid.Sources.MassFlowSource_h bou(
+  Modelica.Fluid.Sources.MassFlowSource_h bou(
     redeclare package Medium = Medium,
     m_flow=1,
     nPorts=1) annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica_Fluid.Sources.MassFlowSource_h bou1(
+  Modelica.Fluid.Sources.MassFlowSource_h bou1(
     redeclare package Medium = Medium,
     m_flow=1,
     nPorts=1) 
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Modelica_Fluid.Sources.Boundary_pT sin1(            redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin1(            redeclare package Medium
       =        Medium, T=273.15 + 10,
     nPorts=2,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
           extent={{120,-40},{100,-20}},
                                     rotation=0)));
-  Modelica_Fluid.Sources.Boundary_ph sin2(            redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_ph sin2(            redeclare package Medium
       =        Medium,
     nPorts=1,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(
           extent={{120,50},{100,70}},
                                     rotation=0)));
-  Modelica_Fluid.Sources.Boundary_ph sou1(            redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_ph sou1(            redeclare package Medium
       =        Medium,
     nPorts=1,
     p(displayUnit="Pa") = 101335,
@@ -124,16 +124,16 @@ in one variable after the symbolic manipulations.
                  annotation (Placement(transformation(extent={{-100,90},{-80,
             110}},
           rotation=0)));
-  Modelica_Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
+  Modelica.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Modelica_Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium =
+  Modelica.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Modelica_Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium =
+  Modelica.Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Modelica_Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium =
+  Modelica.Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality

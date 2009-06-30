@@ -100,8 +100,8 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
     final massDynamics=energyDynamics) 
                        annotation (Placement(transformation(extent={{-60,0},{
             -40,20}}, rotation=0)));
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics=
-    Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
 equation

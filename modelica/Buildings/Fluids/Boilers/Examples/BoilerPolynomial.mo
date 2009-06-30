@@ -16,16 +16,16 @@ model BoilerPolynomial "Test model"
     "Nominal mass flow rate";
  parameter Modelica.SIunits.Pressure dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 
-  Modelica_Fluid.Sources.Boundary_pT sin(
+  Modelica.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 300000,
     T=333.15) "Sink" 
     annotation (Placement(transformation(extent={{90,-68},{70,-48}})));
-  Modelica_Fluid.Sources.Boundary_pT sou(
+  Modelica.Fluid.Sources.Boundary_pT sou(
     nPorts=2,
     redeclare package Medium = Medium,
     p=300000 + dp_nominal,
@@ -53,8 +53,8 @@ model BoilerPolynomial "Test model"
     Q_flow_nominal=Q_flow_nominal,
     dT_nominal=dT_nominal,
     redeclare package Medium = Medium,
-    energyDynamics=Modelica_Fluid.Types.Dynamics.SteadyState,
-    massDynamics=Modelica_Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal=dp_nominal,
     T_start=293.15) "Boiler" 
     annotation (Placement(transformation(extent={{-12,-70},{8,-50}})));

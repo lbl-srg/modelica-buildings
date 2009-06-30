@@ -82,13 +82,13 @@ First implementation.
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
   Modelica.SIunits.VolumeFlowRate V1_flow=
-      m1_flow/Modelica_Fluid.Utilities.regStep(m1_flow,
+      m1_flow/Modelica.Fluid.Utilities.regStep(m1_flow,
                   Medium1.density(state_a1_inflow),
                   Medium1.density(state_b1_inflow),
                   m1_flow_small) if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a1 to port_b1)";
   Modelica.SIunits.VolumeFlowRate V2_flow=
-      m2_flow/Modelica_Fluid.Utilities.regStep(m2_flow,
+      m2_flow/Modelica.Fluid.Utilities.regStep(m2_flow,
                   Medium2.density(state_a2_inflow),
                   Medium2.density(state_b2_inflow),
                   m2_flow_small) if show_V_flow

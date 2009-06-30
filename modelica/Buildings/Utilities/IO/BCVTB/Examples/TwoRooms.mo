@@ -62,8 +62,7 @@ exchanged between Dymola and the Building Controls Virtual Test Bed.
     samplePeriod=60,
     nDblWri=2,
     nDblRea=2,
-    xmlFileName=
-        "P:\\bcvtb\\task1-supVis\\code\\bcvtb\\trunk\\bcvtb\\examples\\roomPtDymola\\socket.cfg") 
+    xmlFileName="socket.cfg") 
     annotation (Placement(transformation(extent={{-80,-16},{-60,4}})));
   Modelica.Blocks.Routing.Multiplex2 multiplex2_1 
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));

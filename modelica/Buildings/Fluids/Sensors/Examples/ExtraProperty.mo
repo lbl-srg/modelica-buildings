@@ -15,7 +15,7 @@ model ExtraProperty
                           annotation (Placement(transformation(extent={{74,50},
             {94,70}}, rotation=0)));
   annotation (Diagram, Coordsys(extent=[-100,-100; 180,180]));
-  inner Modelica_Fluid.System system   annotation (Placement(transformation(
+  inner Modelica.Fluid.System system   annotation (Placement(transformation(
           extent={{-100,-100},{-80,-80}}, rotation=0)));
   Sources.PrescribedExtraPropertyFlowRate sou(redeclare package Medium = Medium,
     nPorts=3,
@@ -23,24 +23,24 @@ model ExtraProperty
     annotation (Placement(transformation(extent={{-2,30},{18,50}}, rotation=0)));
   Modelica.Blocks.Sources.Constant step(k=8.18E-6) 
     annotation (Placement(transformation(extent={{-80,30},{-60,50}}, rotation=0)));
-  Modelica_Fluid.Sensors.TraceSubstances senVol(
+  Modelica.Fluid.Sensors.TraceSubstances senVol(
                     redeclare package Medium = Medium) "Sensor at volume" 
     annotation (Placement(transformation(extent={{100,50},{120,70}}, rotation=0)));
-  Modelica_Fluid.Sensors.TraceSubstances senSou(
+  Modelica.Fluid.Sensors.TraceSubstances senSou(
                     redeclare package Medium = Medium, substanceName="CO2")
     "Sensor at source" 
     annotation (Placement(transformation(extent={{100,90},{120,110}}, rotation=
             0)));
   Modelica.Blocks.Sources.Constant m_flow(k=15*1.2/3600) "Fresh air flow rate" 
     annotation (Placement(transformation(extent={{-80,-14},{-60,6}}, rotation=0)));
-  Modelica_Fluid.Sources.MassFlowSource_T mSou(
+  Modelica.Fluid.Sources.MassFlowSource_T mSou(
                                           redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=2)   annotation (Placement(transformation(extent={{0,-22},{20,-2}},
           rotation=0)));
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
           extent={{-40,-54},{-20,-34}}, rotation=0)));
-  Modelica_Fluid.Sources.MassFlowSource_T mSin(
+  Modelica.Fluid.Sources.MassFlowSource_T mSin(
                                           redeclare package Medium = Medium,
     use_m_flow_in=true,
     nPorts=2)   annotation (Placement(transformation(extent={{0,-62},{20,-42}},
@@ -52,7 +52,7 @@ model ExtraProperty
   Conversions.MassFractionVolumeFraction masFraVol(MMMea=Modelica.Media.
         IdealGases.Common.SingleGasesData.CO2.MM) 
     annotation (Placement(transformation(extent={{140,50},{160,70}}, rotation=0)));
-  Modelica_Fluid.Sensors.RelativePressure dp(
+  Modelica.Fluid.Sensors.RelativePressure dp(
                       redeclare package Medium = Medium) 
     annotation (Placement(transformation(extent={{100,-20},{120,0}},   rotation=
            0)));
@@ -62,7 +62,7 @@ model ExtraProperty
            0)));
   Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal" 
     annotation (Placement(transformation(extent={{78,-94},{98,-74}}, rotation=0)));
-  Modelica_Fluid.Sensors.Pressure preSen(  redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Pressure preSen(  redeclare package Medium = Medium)
     "Pressure sensor" annotation (Placement(transformation(extent={{20,120},{40,
             140}}, rotation=0)));
 equation

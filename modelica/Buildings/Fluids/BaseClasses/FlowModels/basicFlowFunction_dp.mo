@@ -56,6 +56,6 @@ algorithm
   if linearized then
      m_flow :=k*dp*conv2;
   else
-     m_flow :=Modelica_Fluid.Utilities.regRoot2(x=dp, x_small=dp_turbulent, k1=kSqu, k2=kSqu);
+     m_flow :=Modelica.Fluid.Utilities.regRoot2(x=dp, x_small=dp_turbulent, k1=kSqu, k2=kSqu);
   end if;
 end basicFlowFunction_dp;

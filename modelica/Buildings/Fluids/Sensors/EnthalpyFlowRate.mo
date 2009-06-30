@@ -1,6 +1,6 @@
 within Buildings.Fluids.Sensors;
 model EnthalpyFlowRate "Ideal enthalphy flow rate sensor"
-  extends Modelica_Fluid.Sensors.BaseClasses.PartialFlowSensor;
+  extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Enthalpy flow rate, positive if from port_a to port_b" 
@@ -30,7 +30,7 @@ between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
 <ul>
 <li>
 April 9, 2008 by Michael Wetter:<br>
-First implementation based on enthalpy sensor of Modelica_Fluid.
+First implementation based on enthalpy sensor of Modelica.Fluid.
 </li>
 </ul>
 </html>"));

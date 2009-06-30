@@ -33,7 +33,7 @@ First implementation.
     offset=101325,
     height=250)  annotation (Placement(transformation(extent={{60,60},{80,80}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     use_p_in=true,
     nPorts=1,
@@ -42,7 +42,7 @@ First implementation.
   Buildings.Fluids.Sensors.WetBulbTemperature senWetBul(redeclare package
       Medium = Medium) "Wet bulb temperature sensor" 
     annotation (Placement(transformation(extent={{0,10},{20,30}},  rotation=0)));
-  Modelica_Fluid.Sources.MassFlowSource_T massFlowRate(            redeclare
+  Modelica.Fluid.Sources.MassFlowSource_T massFlowRate(            redeclare
       package Medium = Medium, m_flow=1,
     use_T_in=true,
     use_X_in=true,
@@ -69,7 +69,7 @@ First implementation.
   Modelica.Blocks.Sources.Constant TWBExp(k=273.15 + 25)
     "Expected wet bulb temperature" annotation (Placement(transformation(extent={{-8,66},
             {12,86}},           rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Fluids.Sensors.MassFraction masFra(
                       redeclare package Medium = Medium) "Mass fraction" 

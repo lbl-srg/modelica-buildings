@@ -99,12 +99,12 @@ First implementation.
     "Model for mass exchange"        annotation (Placement(transformation(
           extent={{48,-44},{68,-24}}, rotation=0)));
 
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics1=
-    Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics2=
-    Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics2=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 2" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
 

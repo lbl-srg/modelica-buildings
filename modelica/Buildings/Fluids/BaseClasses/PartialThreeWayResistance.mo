@@ -18,7 +18,7 @@ revisions="<html>
 <li>
 September 18, 2008 by Michael Wetter:<br>
 Replaced splitter model with a fluid port since the 
-splitter model in Modelica_Fluid 1.0 beta does not transport
+splitter model in Modelica.Fluid 1.0 beta does not transport
 <tt>mC_flow</tt>.
 <li>
 June 11, 2008 by Michael Wetter:<br>
@@ -30,22 +30,22 @@ First implementation.
     "Fluid medium model" 
       annotation (choicesAllMatching=true);
 
-  Modelica_Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium = 
-        Medium, m_flow(min=if (portFlowDirection_1 == Modelica_Fluid.Types.PortFlowDirection.Entering) then 
+  Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium = 
+        Medium, m_flow(min=if (portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Entering) then 
                 0.0 else -Modelica.Constants.inf, max=if (portFlowDirection_1
-           == Modelica_Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf)) 
+           == Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf)) 
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
           rotation=0)));
-  Modelica_Fluid.Interfaces.FluidPort_b port_2(redeclare package Medium = 
-        Medium, m_flow(min=if (portFlowDirection_2 == Modelica_Fluid.Types.PortFlowDirection.Entering) then 
+  Modelica.Fluid.Interfaces.FluidPort_b port_2(redeclare package Medium = 
+        Medium, m_flow(min=if (portFlowDirection_2 == Modelica.Fluid.Types.PortFlowDirection.Entering) then 
                 0.0 else -Modelica.Constants.inf, max=if (portFlowDirection_2
-           == Modelica_Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf)) 
+           == Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf)) 
     annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=
            0)));
-  Modelica_Fluid.Interfaces.FluidPort_a port_3(
+  Modelica.Fluid.Interfaces.FluidPort_a port_3(
     redeclare package Medium=Medium,
-    m_flow(min=if (portFlowDirection_3==Modelica_Fluid.Types.PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
-    max=if (portFlowDirection_3==Modelica_Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf)) 
+    m_flow(min=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Entering) then 0.0 else -Modelica.Constants.inf,
+    max=if (portFlowDirection_3==Modelica.Fluid.Types.PortFlowDirection.Leaving) then 0.0 else Modelica.Constants.inf)) 
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}},
                                                                      rotation=
            0)));
@@ -54,16 +54,16 @@ First implementation.
     "= true, use m_flow = f(dp) else dp = f(m_flow)" 
     annotation (Evaluate=true, Dialog(tab="Advanced"));
                                                                                                 annotation (extent=[40,-10; 60,10]);
-  replaceable Modelica_Fluid.Interfaces.PartialTwoPortTransport res1(redeclare
+  replaceable Modelica.Fluid.Interfaces.PartialTwoPortTransport res1(redeclare
       package Medium = Medium)
     "Partial model, to be replaced with a fluid component" 
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=
             0)));
-  replaceable Modelica_Fluid.Interfaces.PartialTwoPortTransport res2(redeclare
+  replaceable Modelica.Fluid.Interfaces.PartialTwoPortTransport res2(redeclare
       package Medium = Medium)
     "Partial model, to be replaced with a fluid component" 
     annotation (Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
-  replaceable Modelica_Fluid.Interfaces.PartialTwoPortTransport res3(redeclare
+  replaceable Modelica.Fluid.Interfaces.PartialTwoPortTransport res3(redeclare
       package Medium = Medium)
     "Partial model, to be replaced with a fluid component" 
     annotation (Placement(transformation(
@@ -72,13 +72,13 @@ First implementation.
         rotation=90)));
 
 protected
-  parameter Modelica_Fluid.Types.PortFlowDirection portFlowDirection_1=Modelica_Fluid.Types.PortFlowDirection.Bidirectional
+  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_1=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
     "Flow direction for port_1" 
    annotation(Dialog(tab="Advanced"));
-  parameter Modelica_Fluid.Types.PortFlowDirection portFlowDirection_2=Modelica_Fluid.Types.PortFlowDirection.Bidirectional
+  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_2=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
     "Flow direction for port_2" 
    annotation(Dialog(tab="Advanced"));
-  parameter Modelica_Fluid.Types.PortFlowDirection portFlowDirection_3=Modelica_Fluid.Types.PortFlowDirection.Bidirectional
+  parameter Modelica.Fluid.Types.PortFlowDirection portFlowDirection_3=Modelica.Fluid.Types.PortFlowDirection.Bidirectional
     "Flow direction for port_3" 
    annotation(Dialog(tab="Advanced"));
 

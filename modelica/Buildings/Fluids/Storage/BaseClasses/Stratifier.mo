@@ -9,7 +9,7 @@ model Stratifier "Model to reduce the numerical dissipation in a tank"
 This model reduces the numerical dissipation that is introduced
 by the standard upwind discretization scheme.
 The model is described by Wischhusen (2006).
-Since we use this model in conjunction with Modelica_Fluid,
+Since we use this model in conjunction with Modelica.Fluid,
 we compute a heat flux that need to be added to each volume
 in order to give the results published in the above paper.
 The model is used by
@@ -81,7 +81,7 @@ Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}})
   parameter Modelica.SIunits.TemperatureDifference delta = 1
     "Temperature difference for which which exp(-|x|) will be approximated";
 
-  Modelica_Fluid.Interfaces.FluidPort_a[nSeg+2] fluidPort(
+  Modelica.Fluid.Interfaces.FluidPort_a[nSeg+2] fluidPort(
       redeclare each package Medium = Medium)
     "Fluid port, needed to get pressure, temperature and species concentration"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=

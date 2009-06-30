@@ -1,6 +1,6 @@
 within Buildings.Fluids.Sensors;
 model DryBulbTemperatureDynamic "Ideal temperature sensor"
-  extends Modelica_Fluid.Sensors.BaseClasses.PartialFlowSensor;
+  extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 annotation (
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
@@ -54,7 +54,7 @@ revisions="<html>
 <li>
 September 10, 2008 by Michael Wetter:<br>
 First implementation based on 
-<a href=\"Modelica:Modelica_Fluid.Sensors.Temperature\">Modelica_Fluid.Sensors.Temperature</a>.
+<a href=\"Modelica:Modelica.Fluid.Sensors.Temperature\">Modelica.Fluid.Sensors.Temperature</a>.
 </li>
 </ul>
 </html>");
@@ -98,7 +98,7 @@ equation
   if allowFlowReversal then
      T_a_inflow = Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
      T_b_inflow = Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow));
-     TMed = Modelica_Fluid.Utilities.regStep(port_a.m_flow, T_a_inflow, T_b_inflow, m_flow_small);
+     TMed = Modelica.Fluid.Utilities.regStep(port_a.m_flow, T_a_inflow, T_b_inflow, m_flow_small);
   else
      TMed = Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
      T_a_inflow = TMed;

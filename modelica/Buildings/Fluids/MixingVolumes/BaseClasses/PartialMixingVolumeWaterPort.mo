@@ -1,15 +1,15 @@
 within Buildings.Fluids.MixingVolumes.BaseClasses;
 partial model PartialMixingVolumeWaterPort
   "Partial mixing volume that allows adding or subtracting water vapor"
-  extends Modelica_Fluid.Interfaces.PartialLumpedVolume(fluidVolume = V, m(start=V*rho_nominal, fixed=false));
+  extends Modelica.Fluid.Interfaces.PartialLumpedVolume(fluidVolume = V, m(start=V*rho_nominal, fixed=false));
   annotation (
     Documentation(info="<html>
 Model for an ideally mixed fluid volume with <tt>nP</tt> ports and the ability 
 to store mass and energy. The volume is fixed. 
 <p>
 This model represents the same physics as 
-<a href=\"Modelica:Modelica_Fluid.Vessels.Volume\">
-Modelica_Fluid.Vessels.Volume</a> but in addition,
+<a href=\"Modelica:Modelica.Fluid.Vessels.Volume\">
+Modelica.Fluid.Vessels.Volume</a> but in addition,
 it allows to connect signals for the water exchanged with the volume.
 The model is partial in order to allow a submodel that can be used with media
 that contain water as a substance, and a submodel that can be used with dry air.
@@ -59,11 +59,11 @@ First implementation.
           lineColor={0,0,0},
           textString="V=%V")}));
 
-// declarations similar than in PartialLumpedVolumePorts from Modelica_Fluid
+// declarations similar than in PartialLumpedVolumePorts from Modelica.Fluid
   // Port definitions
   parameter Integer nPorts(min=1)=1 "Number of ports" 
     annotation(Evaluate=true, Dialog(__Dymola_connectorSizing=true, tab="General",group="Ports"));
-  Modelica_Fluid.Interfaces.FluidPorts_b ports[nPorts](
+  Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid outlets" 
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
@@ -83,10 +83,10 @@ First implementation.
     "= true to use the HeatTransfer model" 
       annotation (Dialog(tab="Assumptions", group="Heat transfer"));
   replaceable model HeatTransfer = 
-      Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
+      Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
        surfaceAreas={4*Modelica.Constants.pi*(3/4*V/Modelica.Constants.pi)^(2/3)}) 
     constrainedby
-    Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer
+    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer
     "Wall heat transfer" 
       annotation (Dialog(tab="Assumptions", group="Heat transfer",enable=use_HeatTransfer),choicesAllMatching=true);
   HeatTransfer heatTransfer(
@@ -126,8 +126,8 @@ protected
    parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
     "Density, used to compute fluid mass";
 equation
-   assert(not (energyDynamics<>Modelica_Fluid.Types.Dynamics.SteadyState and 
-        massDynamics==Modelica_Fluid.Types.Dynamics.SteadyState) or Medium.singleState,
+   assert(not (energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState and 
+        massDynamics==Modelica.Fluid.Types.Dynamics.SteadyState) or Medium.singleState,
           "Bad combination of dynamics options and Medium not conserving mass if fluidVolume is fixed.");
 
   ports_p_static = medium.p;
@@ -139,12 +139,12 @@ equation
   Wb_flow = 0;
 
   mb_flow = sum(ports.m_flow) + mWat_flow
-    "eqn. differs from Modelica_Fluid implementation";
+    "eqn. differs from Modelica.Fluid implementation";
   mbXi_flow = sum_ports_mXi_flow + mXi_flow
-    "eqn. differs from Modelica_Fluid implementation";
+    "eqn. differs from Modelica.Fluid implementation";
   mbC_flow  = sum_ports_mC_flow;
   Hb_flow = sum(ports_H_flow) + HWat_flow
-    "eqn. differs from Modelica_Fluid implementation";
+    "eqn. differs from Modelica.Fluid implementation";
   Qb_flow = heatTransfer.Q_flows[1];
 
   // Only one connection allowed to a port to avoid unwanted ideal mixing

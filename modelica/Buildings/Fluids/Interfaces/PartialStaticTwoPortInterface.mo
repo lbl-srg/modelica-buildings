@@ -2,7 +2,7 @@ within Buildings.Fluids.Interfaces;
 partial model PartialStaticTwoPortInterface
   "Partial model transporting fluid between two ports without storing mass or energy"
   import Modelica.Constants;
-  extends Modelica_Fluid.Interfaces.PartialTwoPort(
+  extends Modelica.Fluid.Interfaces.PartialTwoPort(
     port_a(
       p(start=p_a_start),
       m_flow(min = if allowFlowReversal then -Constants.inf else 0)),
@@ -19,8 +19,8 @@ partial model PartialStaticTwoPortInterface
 <p>
 This component defines the interface for models that 
 transports a fluid between two ports. It is similar to 
-<a href=\"Modelica:Modelica_Fluid.Interfaces.PartialTwoPortTransport\">
-Modelica_Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not 
+<a href=\"Modelica:Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
+Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not 
 include the species balance 
 <pre>
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
@@ -69,7 +69,7 @@ First implementation.
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
   Modelica.SIunits.VolumeFlowRate V_flow=
-      m_flow/Modelica_Fluid.Utilities.regStep(m_flow,
+      m_flow/Modelica.Fluid.Utilities.regStep(m_flow,
                   Medium.density(state_a_inflow),
                   Medium.density(state_b_inflow),
                   m_flow_small) if show_V_flow
@@ -77,13 +77,13 @@ First implementation.
 
 /*
   Medium.Temperature port_a_T=
-      Modelica_Fluid.Utilities.regStep(port_a.m_flow,
+      Modelica.Fluid.Utilities.regStep(port_a.m_flow,
                   Medium.temperature(state_a),
                   Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow)),
                   m_flow_small) if show_T 
     "Temperature close to port_a, if show_T = true";
   Medium.Temperature port_b_T=
-      Modelica_Fluid.Utilities.regStep(port_b.m_flow,
+      Modelica.Fluid.Utilities.regStep(port_b.m_flow,
                   Medium.temperature(state_b),
                   Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow)),
                   m_flow_small) if show_T 

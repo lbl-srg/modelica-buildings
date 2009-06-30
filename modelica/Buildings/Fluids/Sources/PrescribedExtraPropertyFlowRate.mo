@@ -1,7 +1,7 @@
 within Buildings.Fluids.Sources;
 model PrescribedExtraPropertyFlowRate
   "Source with mass flow that does not take part in medium mass balance (such as CO2)"
-  extends Modelica_Fluid.Sources.BaseClasses.PartialSource(nPorts=1);
+  extends Modelica.Fluid.Sources.BaseClasses.PartialSource(nPorts=1);
 
   annotation (Documentation(info="<html>
 This model adds a mass flow rate to the port for an auxiliary

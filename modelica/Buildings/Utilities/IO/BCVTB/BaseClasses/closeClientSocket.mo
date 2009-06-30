@@ -19,6 +19,6 @@ First implementation.
     "Return value of the function that closes the socket connection";
   external "C" 
      retVal=closeBSDSocket(socketFD) 
-       annotation(Library={"bcvtb", "bcvtb_modelica"},
+       annotation(Library="bcvtb_modelica",
                   Include="#include \"bcvtb.h\"");
 end closeClientSocket;

@@ -21,12 +21,12 @@ First implementation.
 
 // package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" annotation 1;
  package Medium = Modelica.Media.Air.MoistAir;
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{90,-2},{70,18}}, rotation=0)));
-  Modelica_Fluid.Sources.MassFlowSource_T masFloRat(
+  Modelica.Fluid.Sources.MassFlowSource_T masFloRat(
     redeclare package Medium = Medium,
     nPorts=1,
     use_m_flow_in=false,
@@ -34,7 +34,7 @@ First implementation.
     X={0.02,0.98},
     m_flow=10)                           annotation (Placement(transformation(
           extent={{-36,-2},{-16,18}}, rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Fluids.Sensors.MassFraction masFra(redeclare package Medium = 
         Medium) "Mass fraction" 

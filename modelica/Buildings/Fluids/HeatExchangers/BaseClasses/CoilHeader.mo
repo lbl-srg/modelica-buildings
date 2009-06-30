@@ -2,7 +2,7 @@ within Buildings.Fluids.HeatExchangers.BaseClasses;
 model CoilHeader "Header for a heat exchanger register"
   extends Buildings.BaseClasses.BaseIcon;
 
-  outer Modelica_Fluid.System system "System wide properties";
+  outer Modelica.Fluid.System system "System wide properties";
 
   replaceable package Medium = 
       Modelica.Media.Interfaces.PartialMedium "Medium in the component" 
@@ -60,14 +60,14 @@ First implementation.
     "Guess value for mass flow rate at port_a" 
     annotation(Dialog(group = "Initialization"));
 
-  Modelica_Fluid.Interfaces.FluidPort_a port_a[nPipPar](
+  Modelica.Fluid.Interfaces.FluidPort_a port_a[nPipPar](
         redeclare each final package Medium = Medium,
         each m_flow(start=mStart_flow_a/nPipPar, min=if allowFlowReversal then -Modelica.Constants.inf else 0))
     "Fluid connector a for medium (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
            0)));
 
-  Modelica_Fluid.Interfaces.FluidPort_b port_b[nPipPar](
+  Modelica.Fluid.Interfaces.FluidPort_b port_b[nPipPar](
         redeclare each final package Medium = Medium,
         each m_flow(start=-mStart_flow_a/nPipPar, max=if allowFlowReversal then +Modelica.Constants.inf else 0))
     "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"

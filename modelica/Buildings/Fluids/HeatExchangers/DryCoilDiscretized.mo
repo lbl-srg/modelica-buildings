@@ -152,12 +152,12 @@ First implementation.
     "Set to true to specify hydraulic diameter for duct pressure drop)" 
        annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics1=
-    Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics2=
-    Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics2=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 2" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
 
@@ -320,23 +320,23 @@ protected
     annotation(Dialog(tab="Heat transfer"));
 
 protected
-  Modelica_Fluid.Sensors.TemperatureTwoPort temSen_1(
+  Modelica.Fluid.Sensors.TemperatureTwoPort temSen_1(
                                               redeclare package Medium = 
         Medium1) "Temperature sensor" annotation (Placement(transformation(
           extent={{-58,54},{-48,66}}, rotation=0)));
-  Modelica_Fluid.Sensors.MassFlowRate masFloSen_1(redeclare package Medium = 
+  Modelica.Fluid.Sensors.MassFlowRate masFloSen_1(redeclare package Medium = 
         Medium1) "Mass flow rate sensor" annotation (Placement(transformation(
           extent={{-80,54},{-68,66}}, rotation=0)));
-  Modelica_Fluid.Sensors.TemperatureTwoPort temSen_2(
+  Modelica.Fluid.Sensors.TemperatureTwoPort temSen_2(
                                               redeclare package Medium = 
         Medium2) "Temperature sensor" annotation (Placement(transformation(
           extent={{58,-66},{44,-54}}, rotation=0)));
-  Modelica_Fluid.Sensors.MassFlowRate masFloSen_2(redeclare package Medium = 
+  Modelica.Fluid.Sensors.MassFlowRate masFloSen_2(redeclare package Medium = 
         Medium2) "Mass flow rate sensor" annotation (Placement(transformation(
           extent={{82,-66},{70,-54}}, rotation=0)));
 public
-  parameter Modelica_Fluid.Types.Dynamics ductConnectionDynamics=
-    Modelica_Fluid.Types.Dynamics.DynamicFreeInitial
+  parameter Modelica.Fluid.Types.Dynamics ductConnectionDynamics=
+    Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for duct connection" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
   parameter Modelica.SIunits.Length dl=0.3

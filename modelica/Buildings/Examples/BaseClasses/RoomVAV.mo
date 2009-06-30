@@ -17,7 +17,7 @@ model RoomVAV "Model for CO2 emitted by people"
     nPorts=7) "Room volume" 
                           annotation (extent=[-10,-10; 10,10], Placement(
         transformation(extent={{-10,0},{10,20}})));
-  Modelica_Fluid.Sensors.TraceSubstances senCO2(       redeclare package Medium
+  Modelica.Fluid.Sensors.TraceSubstances senCO2(       redeclare package Medium
       = Medium) "Sensor at volume" 
     annotation (extent=[14,20; 34,40], Placement(transformation(extent={{16,20},
             {36,40}})));
@@ -35,14 +35,14 @@ model RoomVAV "Model for CO2 emitted by people"
         rotation=90,
         origin={-10,-60})));
   parameter Modelica.SIunits.Volume VPle "Volume of plenum";
-  Modelica_Fluid.Interfaces.FluidPort_a portRoo1(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_a portRoo1(redeclare package Medium = 
         Medium) "Fluid port" 
                      annotation (extent=[-170,-10; -150,10]);
-  Modelica_Fluid.Interfaces.FluidPort_a portSup(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_a portSup(redeclare package Medium = 
         Medium) "Fluid port" 
                      annotation (extent=[-8,150; 12,170], Placement(
         transformation(extent={{-10,150},{10,170}})));
-  Modelica_Fluid.Interfaces.FluidPort_a portRet(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_a portRet(redeclare package Medium = 
         Medium) "Fluid port" 
                      annotation (extent=[-8,-170; 12,-150], Placement(
         transformation(extent={{-10,-170},{10,-150}})));
@@ -121,7 +121,7 @@ model RoomVAV "Model for CO2 emitted by people"
           rgbfillColor={0,0,127},
           fillPattern=1),
         string="occ")));
-  Modelica_Fluid.Interfaces.FluidPort_a portRoo2(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_a portRoo2(redeclare package Medium = 
         Medium) "Fluid port" 
                      annotation (extent=[150,-10; 170,10]);
   Modelica.Blocks.Interfaces.RealInput pAtm "Atmospheric pressure" 

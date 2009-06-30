@@ -9,13 +9,13 @@ model EnthalpyFlowRate "Test model for enthalpy flow rate"
   Buildings.Fluids.Sensors.EnthalpyFlowRate senH_flow(redeclare package Medium
       = Medium) "Sensor for enthalpy flow rate" 
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
-  Modelica_Fluid.Sources.MassFlowSource_h sou(
+  Modelica.Fluid.Sources.MassFlowSource_h sou(
     use_m_flow_in=true,
     use_h_in=true,
     redeclare package Medium = Medium,
     nPorts=1) 
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica_Fluid.Sources.Boundary_ph sin(use_h_in=true, redeclare package
+  Modelica.Fluid.Sources.Boundary_ph sin(use_h_in=true, redeclare package
       Medium = Medium,
     nPorts=1)          annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -32,11 +32,11 @@ model EnthalpyFlowRate "Test model for enthalpy flow rate"
     annotation (Placement(transformation(extent={{-100,-16},{-80,4}})));
   Modelica.Blocks.Sources.Constant const1(k=20) 
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Modelica_Fluid.Sensors.SpecificEnthalpyTwoPort senH(redeclare package Medium
+  Modelica.Fluid.Sensors.SpecificEnthalpyTwoPort senH(redeclare package Medium
       = Medium) annotation (Placement(transformation(extent={{0,-20},{20,0}})));
-  Modelica_Fluid.Sensors.MassFlowRate senM_flow(redeclare package Medium = 
+  Modelica.Fluid.Sensors.MassFlowRate senM_flow(redeclare package Medium = 
         Medium) annotation (Placement(transformation(extent={{28,-20},{48,0}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality 
     annotation (Placement(transformation(extent={{40,60},{60,80}})));

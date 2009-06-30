@@ -17,14 +17,14 @@ model MixingVolumeDryAir
     startTime=150) 
                  annotation (Placement(transformation(extent={{-100,16},{-80,36}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     nPorts=2,
     use_p_in=true,
     p=Medium.p_default,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-70,8},{-50,28}},  rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     use_p_in=false,
     p=101325,
@@ -80,7 +80,7 @@ model MixingVolumeDryAir
     Modelica.Blocks.Sources.Constant TLiq(k=283.15) 
       annotation (Placement(transformation(extent={{-40,-52},{-20,-32}},
           rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluids.MixingVolumes.MixingVolumeDryAir vol2(
     redeclare package Medium = Medium,

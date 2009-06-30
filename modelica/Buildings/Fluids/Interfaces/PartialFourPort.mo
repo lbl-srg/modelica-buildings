@@ -1,7 +1,7 @@
 within Buildings.Fluids.Interfaces;
 partial model PartialFourPort "Partial model with four ports"
   import Modelica.Constants;
-  outer Modelica_Fluid.System system "System wide properties";
+  outer Modelica.Fluid.System system "System wide properties";
 
   replaceable package Medium1 = 
       Modelica.Media.Interfaces.PartialMedium "Medium 1 in the component" 
@@ -17,26 +17,26 @@ partial model PartialFourPort "Partial model with four ports"
     "= true to allow flow reversal in medium 2, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  Modelica_Fluid.Interfaces.FluidPort_a port_a1(
+  Modelica.Fluid.Interfaces.FluidPort_a port_a1(
                                 redeclare package Medium = Medium1,
                      m_flow(min=if allowFlowReversal1 then -Constants.inf else 0))
     "Fluid connector a1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{-110,50},{-90,70}},
             rotation=0)));
-  Modelica_Fluid.Interfaces.FluidPort_b port_b1(
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1(
                                 redeclare package Medium = Medium1,
                      m_flow(max=if allowFlowReversal1 then +Constants.inf else 0))
     "Fluid connector b1 (positive design flow direction is from port_a1 to port_b1)"
     annotation (Placement(transformation(extent={{110,50},{90,70}},  rotation=
              0), iconTransformation(extent={{110,50},{90,70}})));
 
-  Modelica_Fluid.Interfaces.FluidPort_a port_a2(
+  Modelica.Fluid.Interfaces.FluidPort_a port_a2(
                                 redeclare package Medium = Medium2,
                      m_flow(min=if allowFlowReversal2 then -Constants.inf else 0))
     "Fluid connector a2 (positive design flow direction is from port_a2 to port_b2)"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}},
             rotation=0)));
-  Modelica_Fluid.Interfaces.FluidPort_b port_b2(
+  Modelica.Fluid.Interfaces.FluidPort_b port_b2(
                                 redeclare package Medium = Medium2,
                      m_flow(max=if allowFlowReversal2 then +Constants.inf else 0))
     "Fluid connector b2 (positive design flow direction is from port_a2 to port_b2)"
@@ -74,8 +74,8 @@ should redefine the protected parameters <tt><b>port_a1_exposesState</b></tt> an
 This will be visualized at the port icons, in order to improve the understanding of fluid model diagrams.
 </p>
 <p>
-This partial model is identical to <a href=\"Modelica:Modelica_Fluid.Interfaces.PartialTwoPort</a>
-Modelica_Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
+This partial model is identical to <a href=\"Modelica:Modelica.Fluid.Interfaces.PartialTwoPort</a>
+Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </p>
 </html>"),
     Icon(coordinateSystem(

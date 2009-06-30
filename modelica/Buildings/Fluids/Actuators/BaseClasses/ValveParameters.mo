@@ -7,8 +7,8 @@ Documentation(info="<html>
 <p>
 Model that computes the flow coefficients of valves. This base class allows the following modeling options,
 which have been adapted from the valve implementation 
-in <a href=\"Modelica://Modelica_Fluid\">
-Modelica_Fluid</a>
+in <a href=\"Modelica://Modelica.Fluid\">
+Modelica.Fluid</a>
 to specify the valve flow coefficient in fully open conditions:
 <ul><li><tt>CvData = Buildings.Fluids.Types.CvTypes.Av</tt>: the flow coefficient is given by the metric <tt>Av</tt> coefficient (m^2).
 <li><tt>CvData = Buildings.Fluids.Types.CvTypes.Kv</tt>: the flow coefficient is given by the metric <tt>Kv</tt> coefficient (m^3/h).
@@ -19,11 +19,11 @@ to specify the valve flow coefficient in fully open conditions:
 <p>
 The treatment of parameters <b>Kv</b> and <b>Cv</b> is
 explained in detail in the 
-<a href=\"Modelica://Modelica_Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics\">Users Guide</a>.
+<a href=\"Modelica://Modelica.Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics\">Users Guide</a>.
 </p>
 <p>
-In contrast to the model in <a href=\"Modelica://Modelica_Fluid\">
-Modelica_Fluid</a>, this model uses the parameter <tt>Kv_SI</tt>,
+In contrast to the model in <a href=\"Modelica://Modelica.Fluid\">
+Modelica.Fluid</a>, this model uses the parameter <tt>Kv_SI</tt>,
 which is the flow coefficient in SI units, i.e., 
 it is the ratio between mass flow rate in <tt>kg/s</tt> and square root 
 of pressure drop in <tt>Pa</tt>.

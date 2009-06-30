@@ -38,13 +38,13 @@ First implementation.
     offset=0) "Control signal" 
                  annotation (Placement(transformation(extent={{-40,0},{-20,20}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     nPorts=2,
     use_p_in=true,
     T=313.15)                                       annotation (Placement(
         transformation(extent={{-50,-28},{-30,-8}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=2,
     use_p_in=true,
@@ -61,14 +61,14 @@ First implementation.
     R=10,
     m_flow_nominal=2) 
     annotation (Placement(transformation(extent={{0,-60},{20,-40}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT ret(
+  Modelica.Fluid.Sources.Boundary_pT ret(
     redeclare package Medium = Medium,
     nPorts=2,
     use_p_in=true,
     T=303.15)                                       annotation (Placement(
         transformation(extent={{10,-10},{-10,10}},  rotation=0,
         origin={64,-70})));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   connect(y.y, valLin.y) annotation (Line(

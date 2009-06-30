@@ -22,7 +22,7 @@ For a more detailed model, use for example
 <ul>
 <li>
 April 7, 2009, by Michael Wetter:<br>
-Changed interface to new Modelica_Fluid stream concept.
+Changed interface to new Modelica.Fluid stream concept.
 </li>
 <li>
 May 14, 2008, by Michael Wetter:<br>

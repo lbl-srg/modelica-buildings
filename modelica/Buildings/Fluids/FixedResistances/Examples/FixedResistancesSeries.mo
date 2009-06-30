@@ -28,12 +28,12 @@ model FixedResistancesSeries "Test of multiple resistances in series"
     offset=101325 - dp_nominal*nRes) 
                  annotation (Placement(transformation(extent={{-80,60},{-60,80}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       =        Medium, T=273.15 + 20,
     use_p_in=true,
     nPorts=1)                         annotation (Placement(transformation(
           extent={{-40,20},{-20,40}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       =        Medium, T=273.15 + 10,
     use_p_in=true,
     nPorts=1)                         annotation (Placement(transformation(
@@ -47,7 +47,7 @@ model FixedResistancesSeries "Test of multiple resistances in series"
     each m_flow_nominal=2) 
              annotation (Placement(transformation(extent={{0,20},{20,40}},
           rotation=0)));
-  inner Modelica_Fluid.System system(p_ambient=101325) 
+  inner Modelica.Fluid.System system(p_ambient=101325) 
                                    annotation (Placement(transformation(extent={{-80,-80},
             {-60,-60}},        rotation=0)));
 equation

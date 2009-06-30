@@ -46,36 +46,36 @@ model HydronicHeating "Test model"
     dp_nominal=3000,
     T_start=293.15) "Boiler" 
     annotation (Placement(transformation(extent={{-20,-70},{0,-50}})));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-60,400},{-40,420}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAmb(T=288.15)
     "Ambient temperature in boiler room" 
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Modelica_Fluid.Machines.PrescribedPump pumRad(
+  Modelica.Fluid.Machines.PrescribedPump pumRad(
     N_nominal=3000,
     use_N_in=true,
     redeclare package Medium = Medium,
     redeclare function flowCharacteristic = 
-        Modelica_Fluid.Machines.BaseClasses.PumpCharacteristics.linearFlow (
+        Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.linearFlow (
           V_flow_nominal={m_flow_nominal/1000,0.5*m_flow_nominal/1000},
           head_nominal=1.5*dp_nominal/9.81/1000*{1,2}),
     allowFlowReversal=false,
     checkValve=true,
     V=0.01,
-    energyDynamics=Modelica_Fluid.Types.Dynamics.DynamicFreeInitial)
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
     "Pump that serves the radiators" 
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,44})));
 
-  Modelica_Fluid.Vessels.OpenTank expVes(
+  Modelica.Fluid.Vessels.OpenTank expVes(
     height=2,
     crossArea=1,
     level_start=1,
     nPorts=1,
     use_portsData=false,
     redeclare package Medium = Medium,
-    massDynamics=Modelica_Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     p_ambient=100000)
     "Expansion vessel, used to set static pressure in water loop" 
     annotation (Placement(transformation(extent={{-78,-46},{-58,-26}})));
@@ -117,7 +117,7 @@ model HydronicHeating "Test model"
     amplitude=5,
     phase=-1.5707963267949) "Outside air temperature" 
     annotation (Placement(transformation(extent={{-20,350},{0,370}})));
-  Modelica_Fluid.Sensors.RelativePressure dpSen(redeclare package Medium = 
+  Modelica.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium = 
         Medium) 
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
@@ -199,14 +199,14 @@ model HydronicHeating "Test model"
     VTan=0.1,
     nSeg=5) "Storage tank" 
     annotation (Placement(transformation(extent={{220,-80},{260,-40}})));
-  Modelica_Fluid.Machines.PrescribedPump pumBoi(
+  Modelica.Fluid.Machines.PrescribedPump pumBoi(
     N_nominal=3000,
     use_N_in=true,
     redeclare package Medium = Medium,
     checkValve=true,
     allowFlowReversal=false,
     redeclare function flowCharacteristic = 
-        Modelica_Fluid.Machines.BaseClasses.PumpCharacteristics.linearFlow (
+        Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics.linearFlow (
           head_nominal=1.5*5000/9.81/1000*{1,2}, V_flow_nominal=2*{
             m_flow_nominal/1000,0.5*m_flow_nominal/1000})) 
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -256,9 +256,9 @@ model HydronicHeating "Test model"
     annotation (Placement(transformation(extent={{446,30},{466,50}})));
   Modelica.StateGraph.TransitionWithSignal toOn(enableTimer=false) 
     annotation (Placement(transformation(extent={{470,30},{490,50}})));
-  Modelica_Fluid.Sensors.Temperature temSup(redeclare package Medium = Medium) 
+  Modelica.Fluid.Sensors.Temperature temSup(redeclare package Medium = Medium) 
     annotation (Placement(transformation(extent={{130,62},{150,82}})));
-  Modelica_Fluid.Sensors.Temperature temRet(redeclare package Medium = Medium) 
+  Modelica.Fluid.Sensors.Temperature temRet(redeclare package Medium = Medium) 
     annotation (Placement(transformation(extent={{264,62},{284,82}})));
   Buildings.Controls.SetPoints.HotWaterTemperatureReset heaCha(
     use_TRoo_in=false,

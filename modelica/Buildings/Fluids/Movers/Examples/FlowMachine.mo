@@ -28,13 +28,13 @@ model FlowMachine
   Modelica.Blocks.Sources.Constant N(k=22.3333) 
                                          annotation (Placement(transformation(
           extent={{-40,30},{-20,50}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     use_p_in=true,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-42,-10},{-22,10}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     use_p_in=true,
     nPorts=1,
@@ -64,11 +64,11 @@ model FlowMachine
   Modelica.Blocks.Sources.RealExpression fan_PSha(y=fan.PSha) 
     annotation (Placement(transformation(extent={{-40,-106},{-20,-86}},
           rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Modelica_Fluid.Sensors.Temperature TIn(redeclare package Medium = Medium) 
+  Modelica.Fluid.Sensors.Temperature TIn(redeclare package Medium = Medium) 
     annotation (Placement(transformation(extent={{-10,54},{10,74}})));
-  Modelica_Fluid.Sensors.Temperature TOut(redeclare package Medium = Medium) 
+  Modelica.Fluid.Sensors.Temperature TOut(redeclare package Medium = Medium) 
     annotation (Placement(transformation(extent={{10,66},{30,86}})));
   Buildings.Utilities.Diagnostics.AssertInequality assertInequality 
     annotation (Placement(transformation(extent={{60,60},{80,80}})));

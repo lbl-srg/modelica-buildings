@@ -111,7 +111,7 @@ Buildings.Fluids.Actuators.Dampers.OAMixingBoxMinimumDamper mixBox(
                             annotation (extent=[8,-72; 28,-52],  style(
         thickness=2),
     Placement(transformation(extent={{10,-72},{30,-52}})));
-  Modelica_Fluid.Sources.Boundary_pT bouIn(
+  Modelica.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,
     use_p_in=true,
     nPorts=3,
@@ -132,7 +132,7 @@ Modelica.Blocks.Continuous.FirstOrder gaiRet(
     T=120) "Gain for return air fan" 
     annotation (extent=[104,-46; 116,-34], Placement(transformation(extent={{88,
             -46},{100,-34}})));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
    Modelica.Blocks.Continuous.LimPID PID(

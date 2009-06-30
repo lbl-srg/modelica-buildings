@@ -48,7 +48,7 @@ revisions="<html>
 <ul>
 <li>
 September 24 by Michael Wetter:<br>
-Changed base class from <tt>Modelica_Fluid</tt> to <tt>Buildings</tt> library.
+Changed base class from <tt>Modelica.Fluid</tt> to <tt>Buildings</tt> library.
 This was done to track the auxiliary species flow <tt>mC_flow</tt>.
 </li>
 <li>

@@ -42,7 +42,7 @@ Enumeration to define the choice of valve flow coefficient
 
 <p>
 The details of the coefficients are explained in the 
-<a href=\"Modelica://Modelica_Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics\">
+<a href=\"Modelica://Modelica.Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics\">
    Users Guide </a>.
 </p>
  

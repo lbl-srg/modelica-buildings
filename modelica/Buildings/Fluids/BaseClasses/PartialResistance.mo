@@ -1,6 +1,6 @@
 within Buildings.Fluids.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
-    extends Modelica_Fluid.Interfaces.PartialTwoPortTransport(m_flow_small = 1E-4*m_flow_nominal,
+    extends Modelica.Fluid.Interfaces.PartialTwoPortTransport(m_flow_small = 1E-4*m_flow_nominal,
      m_flow(nominal=m_flow_nominal), dp(nominal=dp_nominal, displayUnit="Pa"));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,

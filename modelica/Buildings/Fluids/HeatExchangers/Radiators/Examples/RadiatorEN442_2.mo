@@ -16,7 +16,7 @@ model RadiatorEN442_2 "Test model for radiator"
  parameter Modelica.SIunits.Pressure dp_nominal = 3000
     "Pressure drop at m_flow_nominal";
 
-  Modelica_Fluid.Sources.Boundary_pT sou(
+  Modelica.Fluid.Sources.Boundary_pT sou(
     nPorts=2,
     redeclare package Medium = Medium,
     use_p_in=true,
@@ -30,13 +30,13 @@ model RadiatorEN442_2 "Test model for radiator"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dp_nominal) annotation (Placement(transformation(extent={{20,-2},{40,18}})));
-  Modelica_Fluid.Sources.Boundary_pT sin(
+  Modelica.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 300000,
     T=333.15) "Sink" 
     annotation (Placement(transformation(extent={{90,-68},{70,-48}})));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluids.HeatExchangers.Radiators.RadiatorEN442_2 rad1(redeclare
       package Medium = 
@@ -47,7 +47,7 @@ model RadiatorEN442_2 "Test model for radiator"
   Buildings.Fluids.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
     redeclare package Medium = Medium,
     Q_flow_nominal=1000,
-    energyDynamics=Modelica_Fluid.Types.Dynamics.SteadyState,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nEle=5,
     m_flow_nominal=m_flow_nominal) "Radiator" 
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));

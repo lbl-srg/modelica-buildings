@@ -37,13 +37,13 @@ First implementation.
     Modelica.Blocks.Sources.Constant y(k=1) "Control signal" 
                  annotation (Placement(transformation(extent={{-60,60},{-40,80}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     use_p_in=true,
     nPorts=4,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-70,-10},{-50,10}},rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=4,
     use_p_in=false,
@@ -65,7 +65,7 @@ First implementation.
          annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                                                                        rotation=
            0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Valves.TwoWayLinear valCv(
     redeclare package Medium = Medium,
@@ -76,23 +76,23 @@ First implementation.
          annotation (Placement(transformation(extent={{-10,-50},{10,-30}},
                                                                        rotation=
            0)));
-  Modelica_Fluid.Sensors.MassFlowRate senM_flowOpPoi(redeclare package Medium
+  Modelica.Fluid.Sensors.MassFlowRate senM_flowOpPoi(redeclare package Medium
       = Medium) annotation (Placement(transformation(extent={{20,30},{40,50}})));
-  Modelica_Fluid.Sensors.MassFlowRate senM_flowKv(redeclare package Medium = 
+  Modelica.Fluid.Sensors.MassFlowRate senM_flowKv(redeclare package Medium = 
         Medium) annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica_Fluid.Sensors.MassFlowRate senM_flowCv(redeclare package Medium = 
+  Modelica.Fluid.Sensors.MassFlowRate senM_flowCv(redeclare package Medium = 
         Medium) 
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Modelica_Fluid.Valves.ValveIncompressible valFlu(
+  Modelica.Fluid.Valves.ValveIncompressible valFlu(
     redeclare package Medium = Medium,
     dp_nominal(displayUnit="Pa") = 4500,
     m_flow_nominal=0.0416,
-    CvData=Modelica_Fluid.Types.CvTypes.Cv,
+    CvData=Modelica.Fluid.Types.CvTypes.Cv,
     Cv=0.84) "Valve model, linear opening characteristics" 
          annotation (Placement(transformation(extent={{-10,-90},{10,-70}},
                                                                        rotation=
            0)));
-  Modelica_Fluid.Sensors.MassFlowRate senM_flowFlu(
+  Modelica.Fluid.Sensors.MassFlowRate senM_flowFlu(
                                                   redeclare package Medium = 
         Medium) 
     annotation (Placement(transformation(extent={{20,-90},{40,-70}})));

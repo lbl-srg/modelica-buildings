@@ -33,7 +33,7 @@ model DryCoilDiscretized
     dp1_nominal=2000,
     dp2_nominal=200)           annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_2(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2, T=303.15,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-58,-10},
@@ -45,7 +45,7 @@ model DryCoilDiscretized
     startTime=120) 
                  annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_2(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sou_2(                       redeclare
       package Medium = Medium2,
     use_p_in=true,
     use_T_in=true,
@@ -64,14 +64,14 @@ model DryCoilDiscretized
     Modelica.Blocks.Sources.Constant POut(k=101325) 
       annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium1,
     p=300000,
     T=293.15,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{84,2},{
             64,22}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_1(
+  Modelica.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
     p=300000 + 5000,
     use_T_in=true,
@@ -97,7 +97,7 @@ model DryCoilDiscretized
     height=4990,
     duration=60) annotation (Placement(transformation(extent={{40,60},{60,80}},
           rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(PIn.y,sou_2. p_in) annotation (Line(

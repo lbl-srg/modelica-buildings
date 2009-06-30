@@ -15,7 +15,7 @@ partial model PartialStaticTwoPortHeatMassTransfer
 <p>
 This component transports fluid between its two ports, without
 storing mass or energy. It is based on 
-<tt>Modelica_Fluid.Interfaces.PartialTwoPortTransport</tt> but it does
+<tt>Modelica.Fluid.Interfaces.PartialTwoPortTransport</tt> but it does
 use a different implementation for handling reverse flow because
 in this component, mass flow rate can be added or removed from
 the medium.

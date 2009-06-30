@@ -89,13 +89,13 @@ model PrescribedExtraPropertyFlow
       use_m_flow_in=true) 
     annotation (Placement(transformation(extent={{-46,-70},{-26,-50}}, rotation=
            0)));
-  Modelica_Fluid.Sources.Boundary_pT bou(
+  Modelica.Fluid.Sources.Boundary_pT bou(
     redeclare package Medium = Medium,
     p=101325,
     nPorts=1,
     T=293.15) annotation (Placement(transformation(extent={{-60,-100},{-40,-80}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT bou1(
+  Modelica.Fluid.Sources.Boundary_pT bou1(
     redeclare package Medium = Medium,
     nPorts=2,
     p=101320,
@@ -122,7 +122,7 @@ model PrescribedExtraPropertyFlow
     "Resistance, used to check if species are transported between ports" 
     annotation (Placement(transformation(extent={{-26,-100},{-4,-80}}, rotation=
            0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
 equation
   connect(reaExp.y, assEqu.u1) 

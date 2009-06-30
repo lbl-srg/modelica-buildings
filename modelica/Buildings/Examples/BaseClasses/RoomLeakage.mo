@@ -53,11 +53,11 @@ First implementation.
   Modelica.Blocks.Interfaces.RealInput p "Pressure" 
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
           rotation=0)));
-  Modelica_Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium = 
         Medium)                 annotation (Placement(transformation(extent={{
             90,-10},{110,10}}, rotation=0)));
 
-  Modelica_Fluid.Sources.Boundary_pT amb(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT amb(             redeclare package Medium
       =                                                                          Medium,
     nPorts=1,
     use_p_in=true,

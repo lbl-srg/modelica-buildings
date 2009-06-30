@@ -31,13 +31,13 @@ First implementation.
     m_flow_nominal=2) "Valve model, linear opening characteristics" 
          annotation (Placement(transformation(extent={{0,10},{20,30}}, rotation=
            0)));
-  Modelica_Fluid.Sources.Boundary_pT sou(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     nPorts=3,
     use_p_in=true,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-60,-20},{-40,0}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(             redeclare package Medium
+  Modelica.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
     nPorts=3,
     use_p_in=true,
@@ -68,7 +68,7 @@ First implementation.
             60},{-80,80}}, rotation=0)));
   Actuators.Motors.IdealMotor mot(                 tOpe=60) "Motor model" 
     annotation (Placement(transformation(extent={{-60,60},{-40,80}}, rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(PSin.y, sin.p_in) annotation (Line(points={{81,70},{86,70},{86,-2},{

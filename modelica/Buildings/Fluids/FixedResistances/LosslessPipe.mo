@@ -1,6 +1,6 @@
 within Buildings.Fluids.FixedResistances;
 model LosslessPipe "Pipe with no flow friction and no heat transfer"
-  extends Modelica_Fluid.Interfaces.PartialTwoPortTransport;
+  extends Modelica.Fluid.Interfaces.PartialTwoPortTransport;
   extends Buildings.BaseClasses.BaseIcon;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={

@@ -93,7 +93,7 @@ First implementation.
   parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
   parameter Real fraRad(min=0, max=1) = 0.35 "Fraction radiant heat transfer";
   // Assumptions
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics=system.energyDynamics
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=system.energyDynamics
     "Formulation of energy balance" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
 
@@ -124,11 +124,11 @@ First implementation.
   parameter Real n = 1.24 "Exponent for heat transfer";
   parameter Modelica.SIunits.Volume VWat = 5.8E-6*Q_flow_nominal
     "Water volume of radiator" 
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)));
+    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.Mass mDry = 0.0263*Q_flow_nominal if 
-        not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)
+        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Dry mass of radiator that will be lumped to water heat capacity" 
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)));
+    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   Modelica.SIunits.HeatFlowRate QCon_flow
     "Heat input into the water due to convective heat transfer with room air";
   Modelica.SIunits.HeatFlowRate QRad_flow
@@ -149,7 +149,7 @@ public
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nEle] heaCapDry(
       each C=500*mDry/nEle,
-      each T(start=T_start)) if not (energyDynamics == Modelica_Fluid.Types.Dynamics.SteadyState)
+      each T(start=T_start)) if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "heat capacity of radiator metal" 
     annotation (Placement(transformation(extent={{-80,4},{-60,24}})));
 
@@ -166,7 +166,7 @@ public
     each V=VWat/nEle,
     each final use_HeatTransfer=true,
     redeclare each model HeatTransfer = 
-        Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer,
+        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer,
     each final energyDynamics=energyDynamics,
     each final massDynamics=energyDynamics,
     each final p_start=p_start,

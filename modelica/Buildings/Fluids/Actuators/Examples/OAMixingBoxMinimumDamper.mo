@@ -27,17 +27,17 @@ model OAMixingBoxMinimumDamper
     redeclare package Medium = Medium) "mixing box" 
                             annotation (Placement(transformation(extent={{14,
             -22},{34,-2}}, rotation=0)));
-    Modelica_Fluid.Sources.Boundary_pT bouIn(             redeclare package
+    Modelica.Fluid.Sources.Boundary_pT bouIn(             redeclare package
       Medium = Medium, T=273.15 + 10,
     use_p_in=true,
     nPorts=3)                                             annotation (Placement(
         transformation(extent={{-60,2},{-40,22}},  rotation=0)));
-    Modelica_Fluid.Sources.Boundary_pT bouSup(             redeclare package
+    Modelica.Fluid.Sources.Boundary_pT bouSup(             redeclare package
       Medium = Medium, T=273.15 + 26,
     use_p_in=true,
     nPorts=1)                                                                       annotation (Placement(
         transformation(extent={{68,-10},{48,10}}, rotation=0)));
-    Modelica_Fluid.Sources.Boundary_pT bouRet(             redeclare package
+    Modelica.Fluid.Sources.Boundary_pT bouRet(             redeclare package
       Medium = Medium, T=273.15 + 20,
     use_p_in=true,
     nPorts=1)                                                         annotation (Placement(
@@ -68,7 +68,7 @@ model OAMixingBoxMinimumDamper
     offset=0.45) annotation (Placement(transformation(extent={{-40,40},{-20,60}},
           rotation=0)));
 
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(yDamMin.y, mixBox.yOutMin) 

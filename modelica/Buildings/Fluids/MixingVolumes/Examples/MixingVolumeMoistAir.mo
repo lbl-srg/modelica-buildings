@@ -46,12 +46,12 @@ model MixingVolumeMoistAir
   Modelica.Blocks.Sources.RealExpression HWat_flow(y=vol1.HWat_flow)
     "MoistAir heat flow rate" annotation (Placement(transformation(extent={{112,
             60},{132,80}}, rotation=0)));
-  Modelica_Fluid.Sources.MassFlowSource_T sou(
+  Modelica.Fluid.Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     nPorts=1,
     T=293.15)    annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin(        redeclare package Medium = 
+  Modelica.Fluid.Sources.Boundary_pT sin(        redeclare package Medium = 
         Medium,
     nPorts=1,
     T=293.15)             annotation (Placement(transformation(
@@ -78,10 +78,10 @@ model MixingVolumeMoistAir
     Td=1) 
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}}, rotation=
            0)));
-  Modelica_Fluid.Sensors.MassFlowRate mIn_flow(redeclare package Medium = 
+  Modelica.Fluid.Sensors.MassFlowRate mIn_flow(redeclare package Medium = 
         Medium) annotation (Placement(transformation(extent={{6,-10},{26,10}},
           rotation=0)));
-  Modelica_Fluid.Sensors.MassFlowRate mOut_flow(redeclare package Medium = 
+  Modelica.Fluid.Sensors.MassFlowRate mOut_flow(redeclare package Medium = 
         Medium) annotation (Placement(transformation(extent={{84,-10},{104,10}},
           rotation=0)));
   Modelica.Blocks.Math.Add dM_flow(k2=-1) annotation (Placement(transformation(
@@ -90,7 +90,7 @@ model MixingVolumeMoistAir
           extent={{2,120},{22,140}}, rotation=0)));
   Modelica.Blocks.Math.Gain gai1(k=0.1) annotation (Placement(transformation(
           extent={{-20,-60},{0,-40}}, rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
 equation
   connect(preHeaFlo.port, heatFlowSensor.port_a) 

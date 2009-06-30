@@ -19,7 +19,7 @@ It is used by
 <a href=\"Modelica:Buildings.Fluids.Boilers.BoilerPolynomial\">
 Buildings.Fluids.Boilers.BoilerPolynomial</a>.
 The variable names follow the conventions used in 
-<tt>Modelica_Fluid.HeatExchangers.BasicHX</tt>.
+<tt>Modelica.Fluid.HeatExchangers.BasicHX</tt>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -62,7 +62,7 @@ First implementation.
     V=m_flow_nominal*tau/rho_nominal,
     final use_HeatTransfer=true,
     redeclare model HeatTransfer = 
-        Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer,
+        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=p_start,
@@ -77,16 +77,16 @@ First implementation.
   parameter Modelica.SIunits.Time tau = 300 "Time constant at nominal flow" 
      annotation (Dialog(group="Nominal condition"));
   // Assumptions
-  parameter Modelica_Fluid.Types.Dynamics energyDynamics=system.energyDynamics
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=system.energyDynamics
     "Formulation of energy balance" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  parameter Modelica_Fluid.Types.Dynamics massDynamics=energyDynamics
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Formulation of mass balance" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  final parameter Modelica_Fluid.Types.Dynamics substanceDynamics=massDynamics
+  final parameter Modelica.Fluid.Types.Dynamics substanceDynamics=massDynamics
     "Formulation of substance balance" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  final parameter Modelica_Fluid.Types.Dynamics traceDynamics=massDynamics
+  final parameter Modelica.Fluid.Types.Dynamics traceDynamics=massDynamics
     "Formulation of trace substance balance" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
 

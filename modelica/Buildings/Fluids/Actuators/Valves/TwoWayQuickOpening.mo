@@ -26,5 +26,5 @@ First implementation.
 protected
    parameter Real alpInv = 1/alp;
 equation
-  phi = l + Modelica_Fluid.Utilities.regPow(y, alpInv, delta0) * (1 - l);
+  phi = l + Modelica.Fluid.Utilities.regPow(y, alpInv, delta0) * (1 - l);
 end TwoWayQuickOpening;

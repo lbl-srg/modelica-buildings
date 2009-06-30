@@ -1,6 +1,6 @@
 within Buildings.Fluids.Storage;
 package BaseClasses "Package with base classes for tank models"
-  extends Modelica_Fluid.Icons.BaseClassLibrary;
+  extends Modelica.Fluid.Icons.BaseClassLibrary;
 
 
 annotation (preferedView="info", Documentation(info="<html>

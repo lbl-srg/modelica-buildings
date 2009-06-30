@@ -17,12 +17,12 @@ partial model PartialStaticTwoPortCoolingTower
     tow(   redeclare package Medium = Medium_W, m_flow_nominal=mWat0_flow,
     dp_nominal=10) "Cooling tower" 
     annotation (Placement(transformation(extent={{-18,-60},{2,-40}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_1(             T=283.15, redeclare
+  Modelica.Fluid.Sources.Boundary_pT sin_1(             T=283.15, redeclare
       package Medium = Medium_W,
     p=101325,
     nPorts=1)             annotation (Placement(transformation(extent={{80,-60},
             {60,-40}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_1(
+  Modelica.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium_W,
     nPorts=1,
     use_p_in=true,
@@ -36,7 +36,7 @@ partial model PartialStaticTwoPortCoolingTower
   Modelica.Blocks.Sources.Sine TOut(amplitude=10, offset=293.15)
     "Outside air temperature" annotation (Placement(transformation(extent={{-60,
             80},{-40,100}}, rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(TWat.y, sou_1.T_in) 

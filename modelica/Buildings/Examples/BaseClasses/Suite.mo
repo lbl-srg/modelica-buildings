@@ -173,7 +173,7 @@ First implementation.
 
   Modelica.Blocks.Interfaces.RealInput p "Pressure" 
     annotation (extent=[-138,160; -98,200]);
-  Modelica_Fluid.Interfaces.FluidPort_b port_aSup(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_b port_aSup(redeclare package Medium = 
         Medium)                 annotation (extent=[-110,110; -90,130]);
   parameter Real scaM_flow "Scaling factor for mass flow rate";
 
@@ -252,7 +252,7 @@ scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
         0.847600E-01,1.89750,0.150000E-02},
     redeclare package Medium = Medium) 
     annotation (extent=[210,-30; 230,-50]);
-  Modelica_Fluid.Interfaces.FluidPort_b port_bExh(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_b port_bExh(redeclare package Medium = 
         Medium)                 annotation (extent=[-110,-50; -90,-30]);
   Buildings.Fluids.FixedResistances.FixedResistanceDpM res1(
                                       m_flow_nominal=scaM_flow*1, dp_nominal=0.1E3,
@@ -297,7 +297,7 @@ scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
     VPle=43) "Room model"        annotation (extent=[270,10; 290,30]);
   Occupancy occ "Occupancy"        annotation (extent=[-80,-20; -60,0],
       Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica_Fluid.Sensors.RelativePressure dpMea(  redeclare package Medium = 
+  Modelica.Fluid.Sensors.RelativePressure dpMea(  redeclare package Medium = 
         Medium) "Static pressure measurement" 
     annotation (extent=[192,110; 212,90], rotation=90);
   Modelica.Blocks.Interfaces.RealOutput p_rel "Relative pressure signal" 
@@ -306,7 +306,7 @@ scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
   Modelica.Blocks.Interfaces.RealOutput yDam[6] "VAV damper positions" 
                                                 annotation (extent=[300,70; 320,
         50],                                                                             rotation=0);
-  Modelica_Fluid.Sensors.Pressure pRoo(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.Pressure pRoo(redeclare package Medium = Medium)
     "Room pressure" 
     annotation (extent=[234,140; 254,160], Placement(transformation(extent={{
             234,140},{254,160}})));

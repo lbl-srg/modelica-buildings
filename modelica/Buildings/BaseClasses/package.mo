@@ -1,6 +1,6 @@
 within Buildings;
 package BaseClasses "Package with base classes for Buildings library"
-  extends Modelica_Fluid.Icons.BaseClassLibrary;
+  extends Modelica.Fluid.Icons.BaseClassLibrary;
 
 
   annotation (Documentation(info="<html>

@@ -2,7 +2,7 @@ within Buildings.Fluids.Actuators.Dampers;
 model OAMixingBoxMinimumDamper
   "Outside air mixing box with parallel damper for minimum outside air flow rate"
   extends Buildings.BaseClasses.BaseIcon;
-  outer Modelica_Fluid.System system "System wide properties";
+  outer Modelica.Fluid.System system "System wide properties";
   replaceable package Medium = 
       Modelica.Media.Interfaces.PartialMedium "Medium in the component" 
     annotation (choicesAllMatching = true);
@@ -195,31 +195,31 @@ First implementation.
 Model of an outside air mixing box with air dampers and a flow path for the minimum outside air flow rate.
 </p>
 </html>"));
-  Modelica_Fluid.Interfaces.FluidPort_a port_Out(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_a port_Out(redeclare package Medium = 
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else 
                 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-112,-30},{-92,-10}},
           rotation=0)));
-  Modelica_Fluid.Interfaces.FluidPort_a port_OutMin(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_a port_OutMin(redeclare package Medium = 
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else 
                 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-112,10},{-92,30}}, rotation=
             0)));
-  Modelica_Fluid.Interfaces.FluidPort_b port_Exh(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_b port_Exh(redeclare package Medium = 
         Medium, m_flow(start=0, max=if allowFlowReversal then +Constants.inf else 
                 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{-92,-90},{-112,-70}},
           rotation=0)));
-  Modelica_Fluid.Interfaces.FluidPort_a port_Ret(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_a port_Ret(redeclare package Medium = 
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else 
                 0))
     "Fluid connector a (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,-90},{90,-70}}, rotation=
             0)));
-  Modelica_Fluid.Interfaces.FluidPort_b port_Sup(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_b port_Sup(redeclare package Medium = 
         Medium, m_flow(start=0, max=if allowFlowReversal then +Constants.inf else 
                 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
@@ -238,11 +238,11 @@ Model of an outside air mixing box with air dampers and a flow path for the mini
                              annotation (Placement(transformation(extent={{40,
             60},{60,80}}, rotation=0)));
 protected
-  Modelica_Fluid.Interfaces.FluidPort_b port_Ret1(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_b port_Ret1(redeclare package Medium = 
         Medium) annotation (Placement(transformation(extent={{27,-81},{29,-79}},
           rotation=0)));
 protected
-  Modelica_Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium = 
+  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium = 
         Medium) annotation (Placement(transformation(extent={{27,19},{29,21}},
           rotation=0)));
 equation

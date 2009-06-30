@@ -33,6 +33,6 @@ First implementation.
                         dblValWri, nDblWri,
                         simTimRea,
                         dblValRea, nDblRea) 
-       annotation(Library={"bcvtb", "bcvtb_modelica"},
+       annotation(Library="bcvtb_modelica",
                   Include="#include \"bcvtb.h\"");
 end exchangeReals;

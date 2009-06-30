@@ -8,13 +8,13 @@ model Manifold "Test model for coil manifold"
  parameter Integer nPipSeg = 4 "Number of pipe segments";
     Modelica.Blocks.Sources.Constant POut(k=101325) 
       annotation (Placement(transformation(extent={{60,72},{80,92}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin_1(                       redeclare
+  Modelica.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium,
     use_p_in=true,
     T=283.15,
     nPorts=2)             annotation (Placement(transformation(extent={{172,22},
             {152,42}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou_1(
+  Modelica.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium,
     use_p_in=true,
     use_T_in=true,
@@ -30,7 +30,7 @@ model Manifold "Test model for coil manifold"
     from_dp=false) 
              annotation (Placement(transformation(extent={{120,24},{140,44}},
           rotation=0)));
-  Modelica_Fluid.Sensors.MassFlowRate[nPipPar] mfr_1(redeclare each package
+  Modelica.Fluid.Sensors.MassFlowRate[nPipPar] mfr_1(redeclare each package
       Medium = Medium) 
     annotation (Placement(transformation(extent={{30,24},{50,44}}, rotation=0)));
   Modelica.Blocks.Sources.Ramp TDb(
@@ -66,7 +66,7 @@ model Manifold "Test model for coil manifold"
     from_dp=false) 
              annotation (Placement(transformation(extent={{122,-76},{142,-56}},
           rotation=0)));
-  Modelica_Fluid.Sensors.MassFlowRate[nPipPar, nPipSeg] mfr_2(redeclare each
+  Modelica.Fluid.Sensors.MassFlowRate[nPipPar, nPipSeg] mfr_2(redeclare each
       package Medium = 
                Medium) 
     annotation (Placement(transformation(extent={{30,-76},{50,-56}}, rotation=0)));
@@ -99,7 +99,7 @@ model Manifold "Test model for coil manifold"
       nPipPar=nPipPar,
     mStart_flow_a=5) "Header for water-side heat exchanger register" 
     annotation (Placement(transformation(extent={{60,24},{80,44}}, rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(POut.y, sin_1.p_in) annotation (Line(

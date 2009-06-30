@@ -7,7 +7,7 @@ model Carnot
      nPorts=2, V=m2_flow_nominal*tau2/rho2_nominal,
      final use_HeatTransfer=true,
      redeclare model HeatTransfer = 
-          Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
+          Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
              surfaceAreas={1})));
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,

@@ -23,13 +23,13 @@ model FixedResistance
     m_flow_nominal=5,
     dp_nominal=10)  annotation (Placement(transformation(extent={{-28,30},{-8,50}},
           rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sou1(          redeclare package Medium = 
+  Modelica.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium = 
         Medium,
     use_p_in=true,
     T=293.15,
     nPorts=3)             annotation (Placement(transformation(extent={{-60,-10},
             {-40,10}}, rotation=0)));
-  Modelica_Fluid.Sources.Boundary_pT sin1(          redeclare package Medium = 
+  Modelica.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium = 
         Medium, T=283.15,
     use_p_in=true,
     nPorts=3)             annotation (Placement(transformation(extent={{90,-10},
@@ -53,17 +53,17 @@ model FixedResistance
   FixedResistances.LosslessPipe pipCon(redeclare package Medium = Medium)
     "Lossless pipe connection" annotation (Placement(transformation(extent={{34,
             -50},{54,-30}}, rotation=0)));
-  Modelica_Fluid.Sensors.MassFlowRate masFlo2(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.MassFlowRate masFlo2(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{20,-10},
             {40,10}}, rotation=0)));
-  Modelica_Fluid.Sensors.MassFlowRate masFlo3(redeclare package Medium = Medium)
+  Modelica.Fluid.Sensors.MassFlowRate masFlo3(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{0,-50},
             {20,-30}}, rotation=0)));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu(threShold=1E-4, message=
         "Inputs differ, check that lossless pipe is correctly implemented.")
     "Assert equality of the two mass flow rates" 
     annotation (Placement(transformation(extent={{40,60},{60,80}},   rotation=0)));
-  inner Modelica_Fluid.System system 
+  inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(res2.port_b, masFlo2.port_a) annotation (Line(points={{-8,0},{20,0}},

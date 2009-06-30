@@ -7,8 +7,8 @@ model Stratified "Model of a stratified tank for thermal energy storage"
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = 
       Modelica.Media.Interfaces.PartialSimpleMedium;
-  import Modelica_Fluid.Types;
-  import Modelica_Fluid.Types.Dynamics;
+  import Modelica.Fluid.Types;
+  import Modelica.Fluid.Types.Dynamics;
   annotation (Documentation(info="<html>
 <p>
 This is a model of a stratified storage tank.
@@ -222,7 +222,7 @@ Icon(graphics={
     each m_flow_small = m_flow_small,
     each use_HeatTransfer=true,
     redeclare each model HeatTransfer = 
-        Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer)
+        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer)
     "Tank segment"            annotation (Placement(transformation(extent={{-26,-10},
             {-6,10}},      rotation=0)));
   Sensors.EnthalpyFlowRate hA(redeclare package Medium = Medium) 

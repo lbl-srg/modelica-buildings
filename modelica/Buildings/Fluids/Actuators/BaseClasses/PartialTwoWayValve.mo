@@ -46,13 +46,13 @@ or quick opening.
 </p>
 <p><b>Modelling options</b></p>
 <p>The following options have been adapted from the valve implementation 
-in <a href=\"Modelica://Modelica_Fluid\">
-Modelica_Fluid</a> and are described in 
+in <a href=\"Modelica://Modelica.Fluid\">
+Modelica.Fluid</a> and are described in 
 <a href=\"Modelica:Buildings.Fluids.Actuators.BaseClasses.ValveParameters\">
 Buildings.Fluids.Actuators.BaseClasses.ValveParameters</a>.
 <p>
-In contrast to the model in <a href=\"Modelica://Modelica_Fluid\">
-Modelica_Fluid</a>, this model uses the parameter <tt>Kv_SI</tt>,
+In contrast to the model in <a href=\"Modelica://Modelica.Fluid\">
+Modelica.Fluid</a>, this model uses the parameter <tt>Kv_SI</tt>,
 which is the flow coefficient in SI units, i.e., 
 it is the ratio between mass flow rate in <tt>kg/s</tt> and square root 
 of pressure drop in <tt>Pa</tt>.
@@ -75,7 +75,7 @@ each valve opening characteristics has different parameters.
 <li>
 February 18, 2009 by Michael Wetter:<br>
 Implemented parameterization of flow coefficient as in 
-<tt>Modelica_Fluid</tt>.
+<tt>Modelica.Fluid</tt>.
 <li>
 August 15, 2008 by Michael Wetter:<br>
 Set valve leakage to nonzero value.

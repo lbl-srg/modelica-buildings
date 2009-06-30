@@ -1,6 +1,6 @@
 within Buildings.Fluids.Sensors;
 model WetBulbTemperature "Ideal wet bulb temperature sensor"
-  extends Modelica_Fluid.Sensors.BaseClasses.PartialFlowSensor;
+  extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 
 annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
@@ -56,7 +56,7 @@ Renamed output port to have the same interfaces as the dry bulb temperature sens
 <li>
 May 5, 2008 by Michael Wetter:<br>
 First implementation based on 
-<a href=\"Modelica:Modelica_Fluid.Sensors.Temperature\">Modelica_Fluid.Sensors.Temperature</a>.
+<a href=\"Modelica:Modelica.Fluid.Sensors.Temperature\">Modelica.Fluid.Sensors.Temperature</a>.
 </li>
 </ul>
 </html>"));
@@ -81,8 +81,8 @@ First implementation based on
 
 equation
   if allowFlowReversal then
-    wetBulMod.dryBul.h  = Modelica_Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow, port_a.h_outflow, m_flow_small);
-    wetBulMod.dryBul.Xi = Modelica_Fluid.Utilities.regStep(port_a.m_flow, port_b.Xi_outflow, port_a.Xi_outflow, m_flow_small);
+    wetBulMod.dryBul.h  = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow, port_a.h_outflow, m_flow_small);
+    wetBulMod.dryBul.Xi = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.Xi_outflow, port_a.Xi_outflow, m_flow_small);
   else
     wetBulMod.dryBul.h = port_b.h_outflow;
     wetBulMod.dryBul.Xi = port_b.Xi_outflow;

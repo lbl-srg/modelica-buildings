@@ -17,7 +17,7 @@ This component transports two fluid streams between four ports.
 It provides the basic model for implementing a dynamic heat exchanger.
 It is used by <tt>HeatExchangers.BaseClasses.HexElement<tt>.
 The variable names follow the conventions used in 
-<tt>Modelica_Fluid.HeatExchangers.BasicHX</tt>.
+<tt>Modelica.Fluid.HeatExchangers.BasicHX</tt>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -75,7 +75,7 @@ First implementation.
     medium(T(stateSelect=StateSelect.always)),
     final use_HeatTransfer=true,
     redeclare model HeatTransfer = 
-        Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer)
+        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer)
     "Volume for fluid 1"       annotation (Placement(transformation(extent={{
             -10,70},{10,50}}, rotation=0)));
 
@@ -85,7 +85,7 @@ First implementation.
     V=m2_flow_nominal*tau2/rho2_nominal,
     final use_HeatTransfer=true,
     redeclare model HeatTransfer = 
-        Modelica_Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer(surfaceAreas={1})) 
+        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer(surfaceAreas={1})) 
         constrainedby
     Buildings.Fluids.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort
     "Volume for fluid 2" 
