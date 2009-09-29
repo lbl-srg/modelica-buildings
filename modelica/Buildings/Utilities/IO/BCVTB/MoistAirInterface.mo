@@ -57,7 +57,7 @@ First implementation.
   Modelica.Blocks.Interfaces.RealOutput HLat_flow(unit="W")
     "Latent enthalpy flow rate, positive if flow into the component" 
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Buildings.Fluids.Sensors.SensibleEnthalpyFlowRate senEntFloRat[nPorts](
+  Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate senEntFloRat[nPorts](
       redeclare package Medium = Medium) "Sensible enthalpy flow rates" 
     annotation (Placement(transformation(extent={{40,-10},{20,10}})));
 public

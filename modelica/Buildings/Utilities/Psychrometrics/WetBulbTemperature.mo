@@ -50,7 +50,7 @@ Given a moist are medium model, this component computes the states
 of the medium at its wet bulb temperature.
 </p><p>
 For a use of this model, see for example
-<a href=\"Modelica://Buildings.Fluids.Sensors.WetBulbTemperature\">Buildings.Fluids.Sensors.WetBulbTemperature</a>
+<a href=\"Modelica://Buildings.Fluid.Sensors.WetBulbTemperature\">Buildings.Fluid.Sensors.WetBulbTemperature</a>
 </p>
 </HTML>
 ",

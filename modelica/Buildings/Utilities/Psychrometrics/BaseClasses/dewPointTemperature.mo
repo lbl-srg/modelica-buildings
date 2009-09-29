@@ -19,8 +19,8 @@ temperatures.
 <li>
 September 4, 2008 by Michael Wetter:<br>
 Changed from causal to acausal ports, needed, for example, for
-<a href=\"Modelica:Buildings.Fluids.Examples.MixingVolumeMoistAir\">
-Buildings.Fluids.Examples.MixingVolumeMoistAir</a>.
+<a href=\"Modelica:Buildings.Fluid.Examples.MixingVolumeMoistAir\">
+Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
 August 7, 2008 by Michael Wetter:<br>

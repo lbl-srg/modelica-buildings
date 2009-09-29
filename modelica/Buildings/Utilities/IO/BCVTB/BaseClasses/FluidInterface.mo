@@ -64,7 +64,7 @@ partial model FluidInterface
     annotation (Evaluate = true,
                 Dialog(enable = not use_m_flow_in));
 
-  Buildings.Fluids.Sensors.EnthalpyFlowRate totEntFloRat[nPorts](redeclare
+  Buildings.Fluid.Sensors.EnthalpyFlowRate totEntFloRat[nPorts](redeclare
       package Medium = Medium)
     "Total enthalpy flow rate (sensible plus latent)" 
     annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
@@ -83,7 +83,7 @@ partial model FluidInterface
   Modelica.Blocks.Interfaces.RealOutput HSen_flow(unit="W")
     "Sensible enthalpy flow rate, positive if flow into the component" 
     annotation (Placement(transformation(extent={{100,80},{120,100}})));
-  Modelica.Fluid.Sources.MassFlowSource_T bou(
+  Buildings.Fluid.Sources.MassFlowSource_T bou(
     redeclare package Medium = Medium,
     final use_T_in=true,
     final nPorts=nPorts,

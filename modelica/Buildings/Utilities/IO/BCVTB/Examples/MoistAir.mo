@@ -31,12 +31,12 @@ First implementation.
 </html>"));
   parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_nominal
     = 259.2*6/1.2/3600 "Nominal mass flow rate";
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM dp1(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM dp1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200) 
     annotation (Placement(transformation(extent={{218,90},{238,110}})));
-  Modelica.Fluid.Sources.Boundary_pT sou1(
+  Buildings.Fluid.Sources.Boundary_pT sou1(
     nPorts=1,
     redeclare package Medium = Medium,
     use_p_in=false,
@@ -47,7 +47,7 @@ First implementation.
             {120,110}},rotation=0)));
   inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-80,160},{-60,180}})));
-  Modelica.Fluid.Sources.Boundary_pT sou2(
+  Buildings.Fluid.Sources.Boundary_pT sou2(
     nPorts=1,
     redeclare package Medium = Medium,
     use_p_in=false,
@@ -55,7 +55,7 @@ First implementation.
     T=293.15)             annotation (Placement(transformation(extent={{-10,-10},
             {10,10}},  rotation=180,
         origin={290,-50})));
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM dp2(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200) 
@@ -68,13 +68,13 @@ First implementation.
     m_flow=0,
     use_m_flow_in=false) 
     annotation (Placement(transformation(extent={{148,-58},{168,-38}})));
-  Buildings.Fluids.MassExchangers.HumidifierPrescribed hum(
+  Buildings.Fluid.MassExchangers.HumidifierPrescribed hum(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     redeclare package Medium = Medium,
     mWat0_flow=0.01*m_flow_nominal) "Humidifier" 
     annotation (Placement(transformation(extent={{192,90},{212,110}})));
-  Buildings.Fluids.HeatExchangers.HeaterCoolerPrescribed hex(
+  Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hex(
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     redeclare package Medium = Medium,
@@ -82,10 +82,10 @@ First implementation.
     annotation (Placement(transformation(extent={{140,90},{160,110}})));
   Modelica.Blocks.Sources.Constant TWat(k=293.15) 
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
-  Modelica.Fluid.Sensors.Temperature TRet(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.Temperature TRet(redeclare package Medium = Medium)
     "Return air temperature" 
     annotation (Placement(transformation(extent={{250,-40},{270,-20}})));
-  Buildings.Fluids.Sensors.MassFraction XiWat(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.MassFraction XiWat(redeclare package Medium = Medium)
     "Measured air humidity" 
     annotation (Placement(transformation(extent={{220,-20},{240,0}})));
   Modelica.Blocks.Sources.Constant XSet(k=0.005) "Set point for humidity" 
@@ -133,7 +133,7 @@ First implementation.
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Modelica.Blocks.Routing.Multiplex5 mul 
     annotation (Placement(transformation(extent={{340,0},{360,20}})));
-  Modelica.Fluid.Sensors.Temperature TSup(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.Temperature TSup(redeclare package Medium = Medium)
     "Supply air temperature" 
     annotation (Placement(transformation(extent={{250,60},{270,80}})));
   Modelica.Blocks.Math.Add add2(k2=-1) 

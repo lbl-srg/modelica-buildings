@@ -13,8 +13,8 @@ in the interval <tt>|x| < delta</tt> for some positive <tt>delta</tt>
 <li>
 October 30, 2008, by Michael Wetter:<br>
 First implementation to reduce chattering in 
-<a href=\"Modelica:Buildings.Fluids.Storage.BaseClasses.Stratifier\"</a>
-Buildings.Fluids.Storage.BaseClasses.Stratifier</a>.
+<a href=\"Modelica:Buildings.Fluid.Storage.BaseClasses.Stratifier\"</a>
+Buildings.Fluid.Storage.BaseClasses.Stratifier</a>.
 </li>
 </ul>
 </html>"));
