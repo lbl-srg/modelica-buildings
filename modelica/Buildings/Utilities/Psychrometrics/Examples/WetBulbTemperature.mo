@@ -1,8 +1,8 @@
 within Buildings.Utilities.Psychrometrics.Examples;
 model WetBulbTemperature
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{
-            -100,-100},{100,100}}),
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
                         graphics),
                          Commands(file=
             "WetBulbTemperature.mos" "run"),

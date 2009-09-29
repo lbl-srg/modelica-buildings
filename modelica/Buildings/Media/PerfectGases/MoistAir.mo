@@ -30,7 +30,7 @@ In addition, the gas is <i>calorically perfect</i>, i.e., the
 specific heat capacities at constant pressure
 and constant volume are both constant (Bower 1998).
 </p>
-<h3>References</h3>
+<h4>References</h4>
 Bower, William B. <i>A primer in fluid mechanics: Dynamics of flows in one
 space dimension</i>. CRC Press. 1998.
 </HTML>", revisions="<html>

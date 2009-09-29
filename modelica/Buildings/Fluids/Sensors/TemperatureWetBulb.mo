@@ -1,5 +1,5 @@
 within Buildings.Fluids.Sensors;
-model WetBulbTemperature "Ideal wet bulb temperature sensor"
+model TemperatureWetBulb "Ideal wet bulb temperature sensor"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 
 annotation (
@@ -92,4 +92,4 @@ equation
   // Compute wet bulb temperature
   T = wetBulMod.wetBul.T;
 
-end WetBulbTemperature;
+end TemperatureWetBulb;

@@ -37,7 +37,7 @@ Not yet implemented are the basin heater power consumption, the water usage and 
 a fan efficiency curve to compute the fan power consumption. Otherwise, the model is similar to the
 one that is implemented in the EnergyPlus building energy simulation program.
 </p>
-<h2>References</h2>
+<h4>References</h4>
 <p>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 2.0.0 Engineering Reference</a>, April 9, 2007.
 </p>

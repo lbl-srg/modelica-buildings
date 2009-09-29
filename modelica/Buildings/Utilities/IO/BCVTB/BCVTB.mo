@@ -8,6 +8,8 @@ model BCVTB
     "Number of double values to write to the BCVTB";
   parameter Integer nDblRea(min=0)
     "Number of double values to be read from the BCVTB";
+  parameter Integer flaDblWri[nDblWri] = zeros(nDblWri)
+    "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
   Modelica.Blocks.Interfaces.RealInput uR[nDblWri]
     "Real inputs to be sent to the BCVTB" 
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
@@ -23,6 +25,10 @@ protected
   parameter Integer socketFD(fixed=false)
     "Socket file descripter, or a negative value if an error occured";
   constant Integer flaWri=0;
+  Real uRInt[nDblWri] "Value of integral";
+  Real uRIntPre[nDblWri] "Value of integral at previous sampling instance";
+public
+  Real uRWri[nDblWri] "Value to be sent to the interface";
 initial algorithm
   socketFD :=Buildings.Utilities.IO.BCVTB.BaseClasses.establishClientSocket(
     xmlFileName=xmlFileName);
@@ -31,39 +37,61 @@ initial algorithm
                          "   A negative value indicates that no connection\n" +
                          "   could be established. Check file 'utilSocket.log'.\n" +
                          "   Received: socketFD = " + integerString(socketFD));
-   flaRea :=0;
+   flaRea   := 0;
+   uRInt    := zeros(nDblWri);
+   uRIntPre := zeros(nDblWri);
+
+equation
+   for i in 1:nDblWri loop
+      der(uRInt[i]) = if (flaDblWri[i] > 0) then uR[i] else 0;
+   end for;
 algorithm
   when {sampleTrigger} then
-    assert(flaRea == 0, "BCVTB interface attempts to exchange data after Ptolemy reached final its final time.\n" +
-                        "   Aborting simulation. Check file final time in Modelica and in Ptolemy.\n" +
+    assert(flaRea == 0, "BCVTB interface attempts to exchange data after Ptolemy reached its final time.\n" +
+                        "   Aborting simulation. Check final time in Modelica and in Ptolemy.\n" +
                         "   Received: flaRea = " + integerString(flaRea));
+     // Compute value that will be sent to the BCVTB interface
+     for i in 1:nDblWri loop
+       if (flaDblWri[i] == 0) then
+         uRWri[i] :=pre(uR[i]);  // Send the current value.
+                                 // Without the pre(), Dymola 7.2 crashes during translation of Examples.MoistAir
+       else
+         uRWri[i] :=uRInt[i] - uRIntPre[i]; // Integral over the sampling interval
+         if (flaDblWri[i] == 1) then
+            uRWri[i] := uRWri[i]/samplePeriod;   // Average value over the sampling interval
+         end if;
+       end if;
+      end for;
 
-    // exchange data
+    // Exchange data
     (flaRea, simTimRea, yR, retVal) :=
       Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals(
       socketFD=socketFD,
       flaWri=flaWri,
       simTimWri=time,
-      dblValWri=uR,
-      nDblWri=size(uR, 1),
+      dblValWri=uRWri,
+      nDblWri=size(uRWri, 1),
       nDblRea=size(yR, 1));
-    // check for valid return flags
+    // Check for valid return flags
     assert(flaRea >= 0, "BCVTB sent a negative flag to Modelica during data transfer.\n" +
                         "   Aborting simulation. Check file 'utilSocket.log'.\n" +
                         "   Received: flaRea = " + integerString(flaRea));
     assert(retVal >= 0, "Obtained negative return value during data transfer with BCVTB.\n" +
                         "   Aborting simulation. Check file 'utilSocket.log'.\n" +
                         "   Received: retVal = " + integerString(retVal));
+
+    // Store current value of integral
+    uRIntPre:=uRInt;
   end when;
-   // close socket connnection
+   // Close socket connnection
    when terminal() then
       Buildings.Utilities.IO.BCVTB.BaseClasses.closeClientSocket(
                                                         socketFD);
    end when;
 
-  annotation (defaultComponentName="bcvtb",
-   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),            graphics), Icon(coordinateSystem(
+  annotation (defaultComponentName="cliBCVTB",
+   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+            100,100}}),        graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
         ={
         Rectangle(
@@ -190,14 +218,55 @@ algorithm
           textString="tS=%samplePeriod%")}),
     Documentation(info="<html>
 Block that exchanges data with the 
-<a href=\"https://gaia.lbl.gov/bcvtb\">Building Controls Virtual Test Bed</a>.
+<a href=\"https://gaia.lbl.gov/bcvtb\">Building Controls Virtual Test Bed</a> (BCVTB).
 <p>
 At the start of the simulation, this block establishes a socket connection
 using the Berkeley Software Distribution socket (BSD socket).
 At each sampling interval, data are exchanged between Modelica
-and the Building Controls Virtual Test Bed.
-When Dymola terminates, a signal is sent to the Building Controls Virtual Test Bed
-so that it can gracefully terminate.
+and the BCVTB.
+When Dymola terminates, a signal is sent to the BCVTB
+so that it can terminate gracefully.
+</p>
+<p>
+For each element in the input vector <code>uR[nDblWri]</code>, 
+the value of the flag <code>flaDblWri[nDblWri]</code> determines whether
+the current value, the average over the sampling interval or the integral
+over the sampling interval is sent to the BCVTB. The following three options are allowed:
+<table border=\"1\">
+<tr>
+<td>
+flaDblWri[i]
+</td>
+<td>
+Value sent to the BCVTB
+</td>
+</tr>
+<tr>
+<td>
+0
+</td>
+<td>
+Current value of uR[i]
+</td>
+</tr>
+<tr>
+<td>
+1
+</td>
+<td>
+Average value of uR[i] over the sampling interval
+</td>
+</tr>
+<tr>
+<td>
+2
+</td>
+<td>
+Integral of uR[i] over the sampling interval
+</td>
+</tr>
+</table>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

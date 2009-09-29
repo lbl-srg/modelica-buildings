@@ -1,12 +1,18 @@
 within ;
 package Buildings "Library with models for building energy and control systems"
+
 annotation (preferedView="info",
-      version="0.6.0",
-      uses(
-        Modelica_Fluid(version="1.0"), Modelica(version="3.1")),
+      version="0.7.0",
+  __Dymola_classOrder={
+"UsersGuide",
+"Controls",
+"Fluids",
+"HeatTransfer",
+"Media",
+"Utilities",
+"BaseClasses"},
+      uses(Modelica(version="3.1")),
       Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Users Guide of the Modelica Buildings Library</font></h3>
-<p>
 Package <b>Buildings</b> is a free package
 for modeling building HVAC systems. 
 It provides partial models and model
@@ -37,14 +43,12 @@ to solve specific problems.
 </html>"));
 
 
-package UsersGuide "Users Guide"
+package UsersGuide "User's Guide"
 
   annotation (DocumentationClass=true, Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Users Guide of the Modelica Buildings Library</font></h3>
-<p>
 Package <b>Buildings</b> is a free package for modeling building energy and control systems. 
 Many models are based on models from the package
-<a href=\"Modelica://Modelica_Fluid\">Modelica_Fluid</a> and use
+<a href=\"Modelica://Modelica.Fluid\">Modelica.Fluid</a> and use
 the same ports to ensure compatibility with models from that library.
 </p><p>
 The web page for this library is
@@ -59,9 +63,6 @@ to solve specific problems.
   class Conventions "Conventions"
 
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Conventions</font></h3>
-
-<p>
 This library follows the conventions of the 
 <a href=\"Modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>.
 </p>
@@ -72,15 +73,13 @@ This library follows the conventions of the
   package ReleaseNotes "Release notes"
 
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Release notes</font></h3>
-<p>
 This section summarizes the changes that have been performed
 on the Buildings library
 </p>
 <ul>
 <li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">
-Version 0.7.0 </a>(XXXX XXXX, 2009)</li>
+Version 0.7.0 </a>(September 29, 2009)</li>
 <li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">
 Version 0.6.0 </a>(May 15, 2009)</li>
@@ -104,24 +103,31 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 </html>
 "));
 
-class Version_0_7_0 "Version 0.7.0"
-      annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.7.0</font></h3>
-<p>
+    class Version_0_7_0 "Version 0.7.0"
+          annotation (Documentation(info="<html>
 <ul>
 <li>
 Updated library from Modelica_Fluid to Modelica.Fluid 1.0
+<li>
+Merged sensor and source models from Modelica.Fluid to Buildings.Fluids.
+</li>
+<li> Added sensor for sensible and latent enthalpy flow rate,
+<a href=\"Modelica:Buildings.Fluids.Sensors.SensibleEnthalpyFlowRate\">
+Buildings.Fluids.Sensors.SensibleEnthalpyFlowRate</a> and
+<a href=\"Modelica:Buildings.Fluids.Sensors.LatentEnthalpyFlowRate\">
+Buildings.Fluids.Sensors.LatentEnthalpyFlowRate</a>.
+These sensors are needed, for example, to interface air-conditioning
+systems that are modeled with Modelica with the Building Controls
+Virtual Test Bed.
 </li>
 </ul>
 </p>
 </html>
 "));
-  end Version_0_7_0;
+    end Version_0_7_0;
 
   class Version_0_6_0 "Version 0.6.0"
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.6.0</font></h3>
-<p>
 <ul>
 <li>
 Added the package
@@ -230,8 +236,6 @@ convention used in Modelica_Fluid 1.0.
 
   class Version_0_5_0 "Version 0.5.0"
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.5.0</font></h3>
-<p>
 <ul>
 <li>
 Updated library to Modelica_Fluid 1.0.
@@ -270,8 +274,6 @@ be used as the flow coefficient (in [m3/h] or [USG/min]).
 
   class Version_0_4_0 "Version 0.4.0"
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.4.0</font></h3>
-<p>
 <ul>
 <li>
 Added package <a href=\"Modelica:Buildings.Fluids.Storage\">
@@ -294,8 +296,6 @@ The package contains models that facilitate reporting.
 
   class Version_0_3_0 "Version 0.3.0"
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.3.0</font></h3>
-<p>
 <ul>
 <li>
 Added package <a href=\"Modelica:Buildings.Fluids.Sources\">Buildings.Fluids.Sources</a>.
@@ -357,8 +357,6 @@ inside the volume. The condensate is removed from the volume in its liquid phase
 
   class Version_0_2_0 "Version 0.2.0"
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.2.0</font></h3>
-<p>
 New in this version are models for two and three way valves.
 In addition, the <tt>Fluids</tt> package has been slightly revised.
 The package <tt>Fluids.BaseClasses</tt> has been added because in
@@ -371,7 +369,6 @@ where part of the <tt>Actuator</tt> package.
 
   class Version_0_1_0 "Version 0.1.0"
       annotation (Documentation(info="<html>
-<h3><font color=\"#008000\">Version 0.1.0</font></h3>
 <p>First release of the library.
 </p>
 <p>This version contains basic models for modeling building HVAC systems.
@@ -392,7 +389,6 @@ to the medium properties.
   class Contact "Contact"
 
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Contact</font></h3>
 <dl>
 <dt>The development of the Buildings package is organized by</dt>
 <dd><a href=\"http://simulationresearch.lbl.gov/wetter\">Michael Wetter</a><br>
@@ -412,7 +408,7 @@ to the medium properties.
   class License "Modelica License 2"
 
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>The Modelica License 2</font></h3>
+<h4><font color=\"#008000\" size=5>The Modelica License 2</font></h4>
  
 <strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work. 
 <p>
@@ -535,7 +531,7 @@ You may use the Original Work in all ways not otherwise restricted or conditione
 You are under no obligation whatsoever to provide any bug fixes, patches, or upgrades to the features, functionality or performance of the source code (\"Enhancements\") to anyone; however, if you choose to make your Enhancements available either publicly, or directly to Lawrence Berkeley National Laboratory, without imposing a separate written license agreement for such Enhancements, then you hereby grant the following license: a non-exclusive, royalty-free perpetual license to install, use, modify, prepare derivative works, incorporate into other computer software, distribute, and sublicense such enhancements or derivative works thereof, in binary and source code form. 
 </li></ol>
 <p>
-<h1>How to Apply the Modelica License 2</h1>
+<h4>How to Apply the Modelica License 2</h4>
 <p>
 At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package: 
 <ul><li style=\"list-style-type:none\">
@@ -576,7 +572,7 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
   class Copyright "Copyright"
 
     annotation (Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Copyright</font></h3>
+<h4><font color=\"#008000\" size=5>Copyright</font></h4>
 <p>
 Copyright (c) 2009, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
 </p><p>

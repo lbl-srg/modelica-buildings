@@ -65,7 +65,7 @@ First implementation.
     period=30) "Mass flow rate" 
                  annotation (Placement(transformation(extent={{-100,60},{-80,80}},
           rotation=0)));
-  DryBulbTemperatureDynamic temDyn(
+  Buildings.Fluids.Sensors.TemperatureDryBulbDynamic temDyn(
     redeclare package Medium = Medium,
     initType=Modelica.Blocks.Types.Init.InitialState,
     m_flow_nominal=1,

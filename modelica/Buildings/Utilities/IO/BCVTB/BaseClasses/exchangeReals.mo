@@ -27,12 +27,12 @@ First implementation.
   output Real[nDblRea] dblValRea "Double values read from socket";
   output Integer retVal "The exit value, which is negative if an error occured";
   external "C" 
-     retVal=exchangeDoublesWithBSDSocket(socketFD,
-                        flaWri, flaRea,
-                        simTimWri,
-                        dblValWri, nDblWri,
-                        simTimRea,
-                        dblValRea, nDblRea) 
-       annotation(Library="bcvtb_modelica",
-                  Include="#include \"bcvtb.h\"");
+     retVal=exchangeModelicaClient(socketFD,
+       flaWri, flaRea,
+       simTimWri,
+       dblValWri, nDblWri,
+       simTimRea,
+       dblValRea, nDblRea) 
+    annotation(Library="bcvtb_modelica",
+        Include="#include \"bcvtb.h\"");
 end exchangeReals;

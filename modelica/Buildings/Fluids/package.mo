@@ -1,18 +1,36 @@
 within Buildings;
 package Fluids "Package with models for fluid flow systems"
-annotation (preferedView="info", Documentation(info="<html>
+annotation (
+  __Dymola_classOrder={
+"UsersGuide",
+"Actuators",
+"Boilers",
+"Chillers",
+"Delays",
+"FixedResistances",
+"HeatExchangers",
+"MassExchangers",
+"MixingVolumes",
+"Movers",
+"Sensors",
+"Sources",
+"Storage",
+"Types",
+"Utilities",
+"BaseClasses",
+"Interfaces",
+"Images"},
+preferedView="info", Documentation(info="<html>
 This package contains components for fluid flow systems such as
 pumps, valves and sensors. For other fluid flow models, see 
 <a href=\"Modelica:Modelica.Fluid\">Modelica.Fluid</a>.
 </html>"));
 
 
-package UsersGuide "User Guide"
+package UsersGuide "User's Guide"
 
   annotation (DocumentationClass=true, Documentation(info="<html>
-<h3><font color=\"#008000\" size=5>Users Guide</font></h3>
-<p>
-Package <b>Fluids</b> consists of models
+The package <b>Building.Fluids</b> consists of models
 for pressure driven mass flow rate.
 The models have the same interface as models of the package
 <a href=\"Modelica:Modelica.Fluid\">Modelica.Fluid</a>, 

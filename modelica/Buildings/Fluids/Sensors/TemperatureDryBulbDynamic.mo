@@ -1,5 +1,5 @@
 within Buildings.Fluids.Sensors;
-model DryBulbTemperatureDynamic "Ideal temperature sensor"
+model TemperatureDryBulbDynamic "Ideal temperature sensor"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 annotation (
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
@@ -105,4 +105,4 @@ equation
      T_b_inflow = TMed;
   end if;
   der(T)  = (TMed-T)/tau;
-end DryBulbTemperatureDynamic;
+end TemperatureDryBulbDynamic;

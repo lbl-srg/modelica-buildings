@@ -15,7 +15,7 @@ of the convective heat transfer coefficients.
 For a detailed explanation of the equation, see
 the references below.
 </p>
-<h3>References</h3>
+<h4>References</h4>
 <p>
 <ul>
 <li>

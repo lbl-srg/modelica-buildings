@@ -6,10 +6,8 @@ Function that establishes a socket connection to the BCVTB.
 <p>
 For the xml file name, on Windows use two backslashes to separate directories, i.e., use
 <pre>
-  xmlFileName=\"C:\\\\examples\\\\roomPtDymola\\\\socket.cfg\"
+  xmlFileName=\"C:\\\\examples\\\\dymola-room\\\\socket.cfg\"
 </pre>
-In case of a problem, check the file <tt>utilSocket.log</tt> that is written during
-the data exchange with the BCVTB.
 </html>",
 revisions="<html>
 <ul>
@@ -24,7 +22,7 @@ First implementation.
   output Integer socketFD
     "Socket file descripter, or a negative value if an error occured";
   external "C" 
-     socketFD=establishBSDSocket(xmlFileName) 
+     socketFD=establishModelicaClient(xmlFileName) 
        annotation(Library="bcvtb_modelica",
                   Include="#include \"bcvtb.h\"");
 end establishClientSocket;

@@ -25,6 +25,11 @@ annotation (
 This component monitors the enthalphy flow rate of the medium in the flow
 between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
 </p>
+<p>
+For a sensor that measures the latent enthalpy flow rate, use
+<a href=\"Modelica:Buildings.Fluids.Sensors.LatentEnthalpyFlowRate\">
+Buildings.Fluids.Sensors.LatentEnthalpyFlowRate</a>.
+</p>
 </HTML>
 ", revisions="<html>
 <ul>
