@@ -43,7 +43,7 @@ First implementation.
 </ul>
 </html>"));
 
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM res(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
     m_flow_nominal=1,
     dp_nominal=1000,
     redeclare package Medium = Medium) "Resistance model" 
@@ -57,7 +57,7 @@ First implementation.
         Medium)                 annotation (Placement(transformation(extent={{
             90,-10},{110,10}}, rotation=0)));
 
-  Modelica.Fluid.Sources.Boundary_pT amb(             redeclare package Medium
+  Buildings.Fluid.Sources.Boundary_pT amb(             redeclare package Medium
       =                                                                          Medium,
     nPorts=1,
     use_p_in=true,

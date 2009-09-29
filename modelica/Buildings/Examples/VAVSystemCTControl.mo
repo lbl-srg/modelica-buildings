@@ -45,14 +45,14 @@ parameter Real scaDpFanRet_nominal = 1
   Modelica.Blocks.Sources.Constant yDam(k=0.5) 
       annotation (extent=[-40,20; -20,40], style(thickness=2),
     Placement(transformation(extent={{-40,-20},{-20,0}})));
-Buildings.Fluids.FixedResistances.FixedResistanceDpM res31(
+Buildings.Fluid.FixedResistances.FixedResistanceDpM res31(
                                                dp_nominal=0.546,
   m_flow_nominal=scaM_flow*1,
   dh=sqrt(scaM_flow)*1,
   redeclare package Medium = Medium) 
     annotation (extent=[50,-20; 70,0],style(thickness=2),
     Placement(transformation(extent={{50,-20},{70,0}})));
-Buildings.Fluids.Movers.FlowMachinePolynomial fan32(
+Buildings.Fluid.Movers.FlowMachinePolynomial fan32(
   D=0.6858,
   a={4.2904,-1.387,4.2293,-3.92920,0.8534},
   b={0.1162,1.5404,-1.4825,0.7664,-0.1971},
@@ -64,21 +64,21 @@ Buildings.Fluids.Movers.FlowMachinePolynomial fan32(
     m_flow_nominal=mMIT_flow) 
     annotation (extent=[116,-20; 136,0],
                                        style(thickness=2));
-Buildings.Fluids.FixedResistances.FixedResistanceDpM res33(
+Buildings.Fluid.FixedResistances.FixedResistanceDpM res33(
   dp_nominal=0.164,
   dh=sqrt(scaM_flow)*1,
   m_flow_nominal=scaM_flow*1,
   redeclare package Medium = Medium) 
     annotation (extent=[144,-20; 164,0],style(thickness=2),
     Placement(transformation(extent={{146,-20},{166,0}})));
-Buildings.Fluids.FixedResistances.FixedResistanceDpM res57(
+Buildings.Fluid.FixedResistances.FixedResistanceDpM res57(
                                                dp_nominal=0.118000,
   m_flow_nominal=scaM_flow*1,
   dh=sqrt(scaM_flow)*1,
   redeclare package Medium = Medium) 
     annotation (extent=[54,-80; 74,-60], style(thickness=2),
     Placement(transformation(extent={{96,-80},{76,-60}})));
-Buildings.Fluids.Movers.FlowMachinePolynomial fan56(
+Buildings.Fluid.Movers.FlowMachinePolynomial fan56(
   D=1.13,
   a={4.19370,-1.63370,12.2110,-23.9619,9.81620},
   b={0.619000E-01,3.14170,-5.75510,6.16760,-3.37480},
@@ -94,7 +94,7 @@ BaseClasses.Suite roo(redeclare package Medium = Medium, scaM_flow=scaM_flow)
     annotation (extent=[198,-92; 302,20], Placement(transformation(extent={{198,
             -92},{302,20}})));
   annotation (Coordsys(extent=[-100,-100; 350,150]), Diagram);
-Buildings.Fluids.Actuators.Dampers.OAMixingBoxMinimumDamper mixBox(
+Buildings.Fluid.Actuators.Dampers.OAMixingBoxMinimumDamper mixBox(
   dpOut_nominal=0.467,
   dpRec_nominal=0.665,
   dpExh_nominal=0.164,
@@ -111,7 +111,7 @@ Buildings.Fluids.Actuators.Dampers.OAMixingBoxMinimumDamper mixBox(
                             annotation (extent=[8,-72; 28,-52],  style(
         thickness=2),
     Placement(transformation(extent={{10,-72},{30,-52}})));
-  Modelica.Fluid.Sources.Boundary_pT bouIn(
+  Buildings.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,
     use_p_in=true,
     nPorts=3,
@@ -145,12 +145,12 @@ Modelica.Blocks.Continuous.FirstOrder gaiRet(
             annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Modelica.Blocks.Sources.Constant const(k=120) 
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Buildings.Fluids.Delays.DelayFirstOrder delSup(
+  Buildings.Fluid.Delays.DelayFirstOrder delSup(
     redeclare package Medium = Medium,
     m_flow_nominal=mMIT_flow,
     tau=120) "Delay to break algebraic loop" 
     annotation (Placement(transformation(extent={{170,-10},{190,10}})));
-  Buildings.Fluids.Delays.DelayFirstOrder delRet(
+  Buildings.Fluid.Delays.DelayFirstOrder delRet(
     redeclare package Medium = Medium,
     m_flow_nominal=mMIT_flow,
     tau=120) "Delay to break algebraic loop" 

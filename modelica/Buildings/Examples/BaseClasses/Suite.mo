@@ -180,81 +180,81 @@ First implementation.
   parameter Modelica.SIunits.MassFlowRate m0Tot_flow=
 scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
 
-  Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl34(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl34(
                                               m_flow_nominal=scaM_flow*ones(3), dp_nominal={0.176,0.844,
         0.0662},
     redeclare package Medium = Medium,
     from_dp=false)                                                 annotation (extent=[-30,110;
         -10,130], Placement(transformation(extent={{-30,110},{-10,130}})));
-  Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM mix55(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix55(
                                               m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
         0.263200E-02,0.999990E-03,0.649000E-03},
     redeclare package Medium = Medium) 
     annotation (extent=[-30,-30; -10,-50], Placement(transformation(extent={{
             -30,-30},{-10,-50}})));
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM res13(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res13(
                                       m_flow_nominal=scaM_flow*1, dp_nominal=0.1E3,
     redeclare package Medium = Medium) 
     annotation (extent=[0,10; 20,30], Placement(transformation(extent={{0,10},{
             20,30}})));
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM res14(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res14(
                                       m_flow_nominal=scaM_flow*1, dp_nominal=0.1E3,
     redeclare package Medium = Medium) 
     annotation (extent=[60,10; 80,30]);
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM res15(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res15(
                                       m_flow_nominal=scaM_flow*1, dp_nominal=0.1E3,
     redeclare package Medium = Medium) 
     annotation (extent=[120,10; 140,30]);
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM res16(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res16(
                                       m_flow_nominal=scaM_flow*1, dp_nominal=0.1E3,
     redeclare package Medium = Medium) 
     annotation (extent=[180,10; 200,30], Placement(transformation(extent={{180,
             10},{200,30}})));
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM res17(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res17(
                                       m_flow_nominal=scaM_flow*1, dp_nominal=0.1E3,
     redeclare package Medium = Medium) 
     annotation (extent=[240,10; 260,30], Placement(transformation(extent={{240,
             10},{260,30}})));
-  Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl35(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl35(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
         0.371000E-04,0.259000E-02,0.131000E-02},
     redeclare package Medium = Medium,
     from_dp=false)                                                 annotation (extent=[30,110;
         50,130]);
-  Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl36(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl36(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
         0.211000E-03,0.128000E-01,0.223000E-02},
     redeclare package Medium = Medium,
     from_dp=false)                                                 annotation (extent=[90,110;
         110,130]);
-  Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl37(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl37(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
         0.730000E-03,0.128000E-01,0.938000E-02},
     redeclare package Medium = Medium,
     from_dp=false)                                                 annotation (extent=[150,110;
         170,130]);
-  Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM spl38(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl38(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
         0.731000E-02,0.895000E-01,0.942000E-01},
     redeclare package Medium = Medium,
     from_dp=false)                                                 annotation (extent=[210,110;
         230,130]);
-  Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM mix54(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix54(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
         0.653000E-02,0.271000E-03,0.402000E-04},
     redeclare package Medium = Medium) 
     annotation (extent=[30,-30; 50,-50]);
-  Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM mix53(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix53(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
         0.566000E-01,0.541000E-02,0.749000E-04},
     redeclare package Medium = Medium) 
     annotation (extent=[90,-30; 110,-50]);
-  Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM mix52(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix52(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
         0.353960,0.494000E-03,0.922000E-03},
     redeclare package Medium = Medium) 
     annotation (extent=[150,-30; 170,-50], Placement(transformation(extent={{
             150,-30},{170,-50}})));
-  Buildings.Fluids.FixedResistances.SplitterFixedResistanceDpM mix51(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix51(           m_flow_nominal=scaM_flow*ones(3), dp_nominal=1E3*{
         0.847600E-01,1.89750,0.150000E-02},
     redeclare package Medium = Medium) 
     annotation (extent=[210,-30; 230,-50]);
   Modelica.Fluid.Interfaces.FluidPort_b port_bExh(redeclare package Medium = 
         Medium)                 annotation (extent=[-110,-50; -90,-30]);
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM res1(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
                                       m_flow_nominal=scaM_flow*1, dp_nominal=0.1E3,
     redeclare package Medium = Medium) 
     annotation (extent=[-60,10; -40,30],   style(thickness=2));
@@ -297,7 +297,7 @@ scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
     VPle=43) "Room model"        annotation (extent=[270,10; 290,30]);
   Occupancy occ "Occupancy"        annotation (extent=[-80,-20; -60,0],
       Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Modelica.Fluid.Sensors.RelativePressure dpMea(  redeclare package Medium = 
+  Buildings.Fluid.Sensors.RelativePressure dpMea(  redeclare package Medium = 
         Medium) "Static pressure measurement" 
     annotation (extent=[192,110; 212,90], rotation=90);
   Modelica.Blocks.Interfaces.RealOutput p_rel "Relative pressure signal" 
@@ -306,7 +306,7 @@ scaM_flow*(5.196+2.8428+1.0044+0.9612+0.3624+0.1584);
   Modelica.Blocks.Interfaces.RealOutput yDam[6] "VAV damper positions" 
                                                 annotation (extent=[300,70; 320,
         50],                                                                             rotation=0);
-  Modelica.Fluid.Sensors.Pressure pRoo(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.Pressure pRoo(redeclare package Medium = Medium)
     "Room pressure" 
     annotation (extent=[234,140; 254,160], Placement(transformation(extent={{
             234,140},{254,160}})));

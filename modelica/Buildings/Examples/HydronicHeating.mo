@@ -36,9 +36,9 @@ model HydronicHeating "Test model"
     "Pressure difference of three-way valve";
  parameter Modelica.SIunits.Pressure dp_nominal = dpPip_nominal + dpVal_nominal + dpRoo_nominal
     "Pressure difference of loop";
-  Buildings.Fluids.Boilers.BoilerPolynomial boi(
+  Buildings.Fluid.Boilers.BoilerPolynomial boi(
     a={0.9},
-    effCur=Buildings.Fluids.Types.EfficiencyCurves.Constant,
+    effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     Q_flow_nominal=Q_flow_nominal,
     dT_nominal=dT_nominal,
     redeclare package Medium = Medium,
@@ -79,14 +79,14 @@ model HydronicHeating "Test model"
     p_ambient=100000)
     "Expansion vessel, used to set static pressure in water loop" 
     annotation (Placement(transformation(extent={{-78,-46},{-58,-26}})));
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM res1(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dpPip_nominal/2) 
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=270,
         origin={220,102})));
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM res2(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=dpPip_nominal/2) 
@@ -117,12 +117,12 @@ model HydronicHeating "Test model"
     amplitude=5,
     phase=-1.5707963267949) "Outside air temperature" 
     annotation (Placement(transformation(extent={{-20,350},{0,370}})));
-  Modelica.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium = 
+  Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium = 
         Medium) 
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={186,44})));
-  Fluids.Actuators.Valves.TwoWayEqualPercentage val2(
+  Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = Medium,
     dp_nominal(displayUnit="Pa") = dpVal_nominal,
     Kv_SI=m_flow_nominal/nRoo/sqrt(dpVal_nominal),
@@ -145,7 +145,7 @@ model HydronicHeating "Test model"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut1
     "Outside temperature boundary condition" 
     annotation (Placement(transformation(extent={{260,350},{280,370}})));
-  Fluids.Actuators.Valves.TwoWayEqualPercentage val1(
+  Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
     redeclare package Medium = Medium,
     dp_nominal(displayUnit="Pa") = dpVal_nominal,
     Kv_SI=m_flow_nominal/nRoo/sqrt(dpVal_nominal),
@@ -161,19 +161,19 @@ model HydronicHeating "Test model"
   Modelica.Blocks.Sources.Constant TRooSet1(
                                            k=273.15 + 20) 
     annotation (Placement(transformation(extent={{412,390},{432,410}})));
-  Buildings.Fluids.HeatExchangers.Radiators.RadiatorEN442_2 rad1(
+  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(
     Q_flow_nominal=Q_flow_nominal/nRoo,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal/nRoo,
     dT_nominal=(60 + 40)/2 - 20) "Radiator" 
     annotation (Placement(transformation(extent={{392,298},{412,318}})));
-  Buildings.Fluids.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
+  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
     Q_flow_nominal=Q_flow_nominal/nRoo,
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal/nRoo,
     dT_nominal=(60 + 40)/2 - 20) "Radiator" 
     annotation (Placement(transformation(extent={{392,118},{412,138}})));
-  Buildings.Fluids.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
+  Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
                                             redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
     dp_nominal=dpThrWayVal_nominal,
@@ -191,7 +191,7 @@ model HydronicHeating "Test model"
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for pump" 
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
-  Fluids.Storage.StratifiedEnhanced tan(
+  Fluid.Storage.StratifiedEnhanced tan(
     m_flow_nominal=m_flow_nominal,
     dIns=0.3,
     redeclare package Medium = Medium,
@@ -222,7 +222,7 @@ model HydronicHeating "Test model"
     annotation (Placement(transformation(extent={{332,-84},{352,-64}})));
   Modelica.Blocks.Math.BooleanToReal booToRea 
     annotation (Placement(transformation(extent={{80,10},{60,30}})));
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM res3(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
     redeclare package Medium = Medium,
     allowFlowReversal=false,
     m_flow_nominal=2*m_flow_nominal,
@@ -232,7 +232,7 @@ model HydronicHeating "Test model"
         origin={124,-60})));
   Modelica.Blocks.Math.Gain gain(            k=3000) 
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM res4(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=100) 
@@ -256,9 +256,9 @@ model HydronicHeating "Test model"
     annotation (Placement(transformation(extent={{446,30},{466,50}})));
   Modelica.StateGraph.TransitionWithSignal toOn(enableTimer=false) 
     annotation (Placement(transformation(extent={{470,30},{490,50}})));
-  Modelica.Fluid.Sensors.Temperature temSup(redeclare package Medium = Medium) 
+  Buildings.Fluid.Sensors.Temperature temSup(redeclare package Medium = Medium) 
     annotation (Placement(transformation(extent={{130,62},{150,82}})));
-  Modelica.Fluid.Sensors.Temperature temRet(redeclare package Medium = Medium) 
+  Buildings.Fluid.Sensors.Temperature temRet(redeclare package Medium = Medium) 
     annotation (Placement(transformation(extent={{264,62},{284,82}})));
   Buildings.Controls.SetPoints.HotWaterTemperatureReset heaCha(
     use_TRoo_in=false,
@@ -329,7 +329,7 @@ model HydronicHeating "Test model"
     mat=Buildings.HeatTransfer.Data.InsulationBoard(),
     x=0.2) "Conduction through interior facing layer" 
     annotation (Placement(transformation(extent={{328,170},{348,190}})));
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM resRoo1(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM resRoo1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal/nRoo,
     dp_nominal=dpRoo_nominal,
@@ -337,7 +337,7 @@ model HydronicHeating "Test model"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={290,290})));
-  Buildings.Fluids.FixedResistances.FixedResistanceDpM resRoo2(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM resRoo2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal/nRoo,
     dp_nominal=dpRoo_nominal,

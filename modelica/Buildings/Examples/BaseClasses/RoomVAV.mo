@@ -3,30 +3,30 @@ model RoomVAV "Model for CO2 emitted by people"
 
   replaceable package Medium = 
       Modelica.Media.Interfaces.PartialMedium "Medium in the component";
-  replaceable model MotorModel = Buildings.Fluids.Actuators.Motors.IdealMotor(delta=0.02, tOpe=60);
-  Fluids.Actuators.Dampers.VAVBoxExponential vav(
+  replaceable model MotorModel = Buildings.Fluid.Actuators.Motors.IdealMotor(delta=0.02, tOpe=60);
+  Fluid.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = Medium,
     from_dp=false,
     A=ADam,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1E2) 
     annotation (extent=[-10,60; 10,80], rotation=270);
-  Buildings.Fluids.MixingVolumes.MixingVolume vol(
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     V=VRoo,
     nPorts=7) "Room volume" 
                           annotation (extent=[-10,-10; 10,10], Placement(
         transformation(extent={{-10,0},{10,20}})));
-  Modelica.Fluid.Sensors.TraceSubstances senCO2(       redeclare package Medium
+  Buildings.Fluid.Sensors.TraceSubstances senCO2(       redeclare package Medium
       = Medium) "Sensor at volume" 
     annotation (extent=[14,20; 34,40], Placement(transformation(extent={{16,20},
             {36,40}})));
-  Buildings.Fluids.Sources.PrescribedExtraPropertyFlowRate sou(redeclare
+  Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate sou(redeclare
       package Medium = Medium, use_m_flow_in=true) "CO2 source" 
     annotation (extent=[-98,-70; -78,-50], Placement(transformation(extent={{-100,
             -70},{-80,-50}})));
   parameter Modelica.SIunits.Volume VRoo "Volume of room";
-  Buildings.Fluids.MixingVolumes.MixingVolume ple(
+  Buildings.Fluid.MixingVolumes.MixingVolume ple(
     redeclare package Medium = Medium,
     V=VPle,
     nPorts=2) "Plenum volume" 
@@ -136,7 +136,7 @@ model RoomVAV "Model for CO2 emitted by people"
   Modelica.Blocks.Math.Gain gaiCO2(k=8.18E-6) "CO2 emission per person" 
     annotation (extent=[-140,-70; -120,-50], Placement(transformation(extent={{-138,
             -70},{-118,-50}})));
-  Buildings.Fluids.Sensors.Conversions.MassFractionVolumeFraction volFraCO2(
+  Buildings.Fluid.Sensors.Conversions.MassFractionVolumeFraction volFraCO2(
                                                    MMMea=Modelica.Media.
         IdealGases.Common.SingleGasesData.CO2.MM) "CO2 volume fraction" 
     annotation (extent=[40,20; 60,40], Placement(transformation(extent={{60,20},
