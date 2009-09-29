@@ -107,7 +107,7 @@ Version 0.1.0 </a>(May 27, 2008)</li>
           annotation (Documentation(info="<html>
 <ul>
 <li>
-Updated library from Modelica.Fluid to Modelica.Fluid 1.0
+Updated library from Modelica_Fluid to Modelica.Fluid 1.0
 <li>
 Merged sensor and source models from Modelica.Fluid to Buildings.Fluid.
 </li>
