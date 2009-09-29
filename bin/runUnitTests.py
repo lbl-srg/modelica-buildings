@@ -10,12 +10,13 @@
 import os, string, fnmatch, pwd, os.path
 # --------------------------
 LIBHOME="C:/Documents and Settings/mwetter/Desktop/modelica/Buildings"
-FLUHOME="P:/ldrd/bie/modeling/Modelica_Fluid/package.mo"
+FLUHOME="P:/ldrd/bie/modeling/Modelica/package.mo"
 
 def checkKey(key, fileName, counter):
         filObj=file(fileName)
         filTex=filObj.readline()
-	# strip white spaces so we can test strpos for zero
+	# Strip white spaces so we can test strpos for zero.
+        # This test returns non-zero for partial classes.
         filTex.strip()
         strpos=filTex.find("within")
         if strpos == 0:
