@@ -6,7 +6,7 @@ annotation (preferedView="info",
   __Dymola_classOrder={
 "UsersGuide",
 "Controls",
-"Fluids",
+"Fluid",
 "HeatTransfer",
 "Media",
 "Utilities",
@@ -19,7 +19,7 @@ It provides partial models and model
 components for modeling thermal building systems 
 such as heating, ventilation and air-conditioning systems. 
 Many models are based on models from the package
-<a href=\"Modelica://Modelica_Fluid\">Modelica_Fluid</a> and use
+<a href=\"Modelica://Modelica.Fluid\">Modelica.Fluid</a> and use
 the same ports to ensure compatibility with models from that library.
 </p>
 <p>
@@ -107,15 +107,15 @@ Version 0.1.0 </a>(May 27, 2008)</li>
           annotation (Documentation(info="<html>
 <ul>
 <li>
-Updated library from Modelica_Fluid to Modelica.Fluid 1.0
+Updated library from Modelica.Fluid to Modelica.Fluid 1.0
 <li>
-Merged sensor and source models from Modelica.Fluid to Buildings.Fluids.
+Merged sensor and source models from Modelica.Fluid to Buildings.Fluid.
 </li>
 <li> Added sensor for sensible and latent enthalpy flow rate,
-<a href=\"Modelica:Buildings.Fluids.Sensors.SensibleEnthalpyFlowRate\">
-Buildings.Fluids.Sensors.SensibleEnthalpyFlowRate</a> and
-<a href=\"Modelica:Buildings.Fluids.Sensors.LatentEnthalpyFlowRate\">
-Buildings.Fluids.Sensors.LatentEnthalpyFlowRate</a>.
+<a href=\"Modelica:Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate\">
+Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate</a> and
+<a href=\"Modelica:Buildings.Fluid.Sensors.LatentEnthalpyFlowRate\">
+Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 These sensors are needed, for example, to interface air-conditioning
 systems that are modeled with Modelica with the Building Controls
 Virtual Test Bed.
@@ -152,17 +152,17 @@ in Modelica 3.0.
 </li>
 <li>
 Changed the base class 
-<a href=\"Modelica:Buildings.Fluids.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
-Buildings.Fluids.Interfaces.PartialStaticTwoPortHeatMassTransfer</a>
+<a href=\"Modelica:Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
+Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer</a>
 to enable computation of pressure drop of mechanical equipment.
 </li>
 <li>
 Introduced package
-<a href=\"Modelica:Buildings.Fluids.BaseClasses.FlowModels\">
-Buildings.Fluids.BaseClasses.FlowModels</a> to model pressure drop,
+<a href=\"Modelica:Buildings.Fluid.BaseClasses.FlowModels\">
+Buildings.Fluid.BaseClasses.FlowModels</a> to model pressure drop,
 and rewrote 
-<a href=\"Modelica:Buildings.Fluids.BaseClasses.PartialResistance\">
-Buildings.Fluids.BaseClasses.PartialResistance</a>.
+<a href=\"Modelica:Buildings.Fluid.BaseClasses.PartialResistance\">
+Buildings.Fluid.BaseClasses.PartialResistance</a>.
 </li>
 <li>
 Redesigned package
@@ -174,25 +174,25 @@ Buildings.Utilities.Math.Functions</a>.
 </li>
 <li>
 Fixed sign error in
-<a href=\"Modelica:Buildings.Fluids.Storage.BaseClasses.Stratifier\">
-Buildings.Fluids.Storage.BaseClasses.Stratifier</a>
+<a href=\"Modelica:Buildings.Fluid.Storage.BaseClasses.Stratifier\">
+Buildings.Fluid.Storage.BaseClasses.Stratifier</a>
 which caused a wrong energy balance in
-<a href=\"Modelica:Buildings.Fluids.Storage.StratifiedEnhanced\">
-Buildings.Fluids.Storage.StratifiedEnhanced</a>.
+<a href=\"Modelica:Buildings.Fluid.Storage.StratifiedEnhanced\">
+Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </li>
 <li>
 Renamed 
-<tt>Buildings.Fluids.HeatExchangers.HeaterCoolerIdeal</tt> to
-<a href=\"Modelica:Buildings.Fluids.HeatExchangers.HeaterCoolerPrescribed\">
-Buildings.Fluids.HeatExchangers.HeaterCoolerPrescribed</a>
+<tt>Buildings.Fluid.HeatExchangers.HeaterCoolerIdeal</tt> to
+<a href=\"Modelica:Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
+Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a>
 to have the same nomenclatures as is used for
-<a href=\"Modelica:Buildings.Fluids.MassExchangers.HumidifierPrescribed\">
-Buildings.Fluids.MassExchangers.HumidifierPrescribed</a>
+<a href=\"Modelica:Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
+Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>
 </li>
 <li>
 In 
-<a href=\"Modelica:Buildings.Fluids/Actuators/BaseClasses/PartialDamperExponential\">
-Buildings.Fluids/Actuators/BaseClasses/PartialDamperExponential</a>,
+<a href=\"Modelica:Buildings.Fluid/Actuators/BaseClasses/PartialDamperExponential\">
+Buildings.Fluid/Actuators/BaseClasses/PartialDamperExponential</a>,
 added option to compute linearization near zero based on 
 the fraction of nominal flow instead of the Reynolds number.
 This was set as the default, as it leads most reliably to a model 
@@ -205,14 +205,14 @@ to allow specifying the nominal face velocity instead of the area.
 </li>
 <li>
 Set nominal attribute for pressure drop <tt>dp</tt> in 
-<a href=\"Modelica:Buildings.Fluids.BaseClasses.PartialResistance\"</a>
-Buildings.Fluids.BaseClasses.PartialResistance</a> and in its
+<a href=\"Modelica:Buildings.Fluid.BaseClasses.PartialResistance\"</a>
+Buildings.Fluid.BaseClasses.PartialResistance</a> and in its
 child classes.
 </li>
 <li>
 Added models for chiller
-(<a href=\"Modelica:Buildings.Fluids.Chillers.Carnot\">
-Buildings.Fluids.Chillers.Carnot</a>),
+(<a href=\"Modelica:Buildings.Fluid.Chillers.Carnot\">
+Buildings.Fluid.Chillers.Carnot</a>),
 for occupancy
 (<a href=\"Modelica:Buildings.Controls.SetPoints.OccupancySchedule\">
 Buildings.Controls.SetPoints.OccupancySchedule</a>) and for
@@ -226,7 +226,7 @@ Buildings.Utilities.Math.Average</a>).
 </li>
 <li>
 Changed various variable names to be consistent with naming
-convention used in Modelica_Fluid 1.0.
+convention used in Modelica.Fluid 1.0.
 </li>
 </ul>
 </p>
@@ -238,11 +238,11 @@ convention used in Modelica_Fluid 1.0.
       annotation (Documentation(info="<html>
 <ul>
 <li>
-Updated library to Modelica_Fluid 1.0.
+Updated library to Modelica.Fluid 1.0.
 </li>
 <li>
-Moved most examples from package <a href=\"Modelica:Buildings.Fluids.Examples\">
-Buildings.Fluids.Examples</a> to the example directory in the package of the
+Moved most examples from package <a href=\"Modelica:Buildings.Fluid.Examples\">
+Buildings.Fluid.Examples</a> to the example directory in the package of the
 individual model.
 </li>
 <li>
@@ -257,13 +257,13 @@ Introduced packages
 <a href=\"Modelica:Buildings.HeatTransfer\">Buildings.HeatTransfer</a>
 (which contains models for heat transfer that generally does not involve 
 modeling of the fluid flow),
-<a href=\"Modelica:Buildings.Fluids.Boilers\">Buildings.Fluids.Boilers</a> and
-<a href=\"Modelica:Buildings.Fluids.HeatExchangers.Radiators\">
-Buildings.Fluids.HeatExchangers.Radiators</a>.
+<a href=\"Modelica:Buildings.Fluid.Boilers\">Buildings.Fluid.Boilers</a> and
+<a href=\"Modelica:Buildings.Fluid.HeatExchangers.Radiators\">
+Buildings.Fluid.HeatExchangers.Radiators</a>.
 </li>
 <li>
-Changed valve models in <a href=\"Modelica:Buildings.Fluids.Actuators.Valves\">
-Buildings.Fluids.Actuators.Valves</a> so that <tt>Kv</tt> or <tt>Cv</tt> can
+Changed valve models in <a href=\"Modelica:Buildings.Fluid.Actuators.Valves\">
+Buildings.Fluid.Actuators.Valves</a> so that <tt>Kv</tt> or <tt>Cv</tt> can
 be used as the flow coefficient (in [m3/h] or [USG/min]).
 </li>
 </ul>
@@ -276,14 +276,14 @@ be used as the flow coefficient (in [m3/h] or [USG/min]).
       annotation (Documentation(info="<html>
 <ul>
 <li>
-Added package <a href=\"Modelica:Buildings.Fluids.Storage\">
-Buildings.Fluids.Storage</a>
+Added package <a href=\"Modelica:Buildings.Fluid.Storage\">
+Buildings.Fluid.Storage</a>
 with models for thermal energy storage.
 <li>
 Added a steady-state model for a heat and moisture exchanger with
 constant effectiveness. 
-See <a href=\"Modelica:Buildings.Fluids.MassExchangers.ConstantEffectiveness\">
-Buildings.Fluids.MassExchangers.ConstantEffectiveness</a>
+See <a href=\"Modelica:Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
+Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
 <li>
 Added package <a href=\"Modelica:Buildings.Utilities.Reports\">Buildings.Utilities.Reports</a>.
 The package contains models that facilitate reporting.
@@ -298,13 +298,13 @@ The package contains models that facilitate reporting.
       annotation (Documentation(info="<html>
 <ul>
 <li>
-Added package <a href=\"Modelica:Buildings.Fluids.Sources\">Buildings.Fluids.Sources</a>.
+Added package <a href=\"Modelica:Buildings.Fluid.Sources\">Buildings.Fluid.Sources</a>.
 The package contains models for modeling species that
 do not affect the medium balance of volumes. This can be used to track
 for example carbon dioxide or other species that have a small concentration.
 </li>
 <li>
-The package <a href=\"Modelica:Buildings.Fluids.Actuators.Motors\">Buildings.Fluids.Actuators.Motors</a> has been added.
+The package <a href=\"Modelica:Buildings.Fluid.Actuators.Motors\">Buildings.Fluid.Actuators.Motors</a> has been added.
 The package contains a motor model for valves and dampers.
 </li>
 <li>
@@ -329,7 +329,7 @@ When the <tt>Buildings</tt> library is upgraded to
 to Modelica 3.0.0, it should be safe to remove this bug fix.
 </li>
 <li>
-The package <a href=\"Modelica:Buildings.Fluids.HeatExchangers\">Buildings.Fluids.HeatExchangers</a> 
+The package <a href=\"Modelica:Buildings.Fluid.HeatExchangers\">Buildings.Fluid.HeatExchangers</a> 
 has been revised and several models have been renamed.
 The heat exchanger models have been revised to allow computing the fluid volumes either
 dynamically, or in steady-state.
@@ -359,7 +359,7 @@ inside the volume. The condensate is removed from the volume in its liquid phase
       annotation (Documentation(info="<html>
 New in this version are models for two and three way valves.
 In addition, the <tt>Fluids</tt> package has been slightly revised.
-The package <tt>Fluids.BaseClasses</tt> has been added because in
+The package <tt>Fluid.BaseClasses</tt> has been added because in
 the previous version, partial models for fixed resistances 
 where part of the <tt>Actuator</tt> package.
 </p>
