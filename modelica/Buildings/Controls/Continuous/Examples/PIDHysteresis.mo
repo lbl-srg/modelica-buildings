@@ -13,7 +13,8 @@ model PIDHysteresis "Example model"
     pre_y_start=false,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0.3,
-    Ti=600) 
+    Ti=600,
+    Td=60) 
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 40) "Set point" 
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
