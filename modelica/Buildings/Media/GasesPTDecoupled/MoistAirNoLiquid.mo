@@ -25,6 +25,10 @@ because it allows to invert the function <tt>T_phX</tt> analytically.
 </HTML>", revisions="<html>
 <ul>
 <li>
+January 13, 2010, by Michael Wetter:<br>
+Fixed implementation of derivative functions.
+</li>
+<li>
 August 28, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -204,10 +208,10 @@ replaceable function der_enthalpyOfLiquid
     "Temperature derivative of enthalpy of liquid per unit mass of liquid"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
-  input Temperature der_T "temperature derivative";
-  output SpecificHeatCapacity der_h "derivative of liquid enthalpy";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of liquid enthalpy";
 algorithm
-  der_h := 4186;
+  der_h := 4186*der_T;
 end der_enthalpyOfLiquid;
 
 redeclare function enthalpyOfCondensingGas
@@ -225,10 +229,10 @@ replaceable function der_enthalpyOfCondensingGas
     "Derivative of enthalpy of steam per unit mass of steam"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
-  input Temperature der_T "temperature derivative";
-  output SpecificHeatCapacity der_h "derivative of steam enthalpy";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of steam enthalpy";
 algorithm
-  der_h := steam.cp;
+  der_h := steam.cp*der_T;
 end der_enthalpyOfCondensingGas;
 
 redeclare replaceable function extends enthalpyOfGas
@@ -253,10 +257,10 @@ replaceable function der_enthalpyOfDryAir
     "Derivative of enthalpy of dry air per unit mass of dry air"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
-  input Temperature der_T "temperature derivative";
-  output SpecificHeatCapacity der_h "derivative of dry air enthalpy";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of dry air enthalpy";
 algorithm
-  der_h := dryair.cp;
+  der_h := dryair.cp*der_T;
 end der_enthalpyOfDryAir;
 
 redeclare replaceable function extends specificHeatCapacityCp
