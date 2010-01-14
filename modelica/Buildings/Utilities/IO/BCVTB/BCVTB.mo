@@ -12,10 +12,10 @@ model BCVTB
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
   Modelica.Blocks.Interfaces.RealInput uR[nDblWri]
     "Real inputs to be sent to the BCVTB" 
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput yR[nDblRea]
     "Real outputs received from the BCVTB" 
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
  Integer flaRea "Flag received from BCVTB";
  Modelica.SIunits.Time simTimRea
@@ -90,8 +90,8 @@ algorithm
    end when;
 
   annotation (defaultComponentName="cliBCVTB",
-   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            100,100}}),        graphics), Icon(coordinateSystem(
+   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}),            graphics), Icon(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
         ={
         Rectangle(

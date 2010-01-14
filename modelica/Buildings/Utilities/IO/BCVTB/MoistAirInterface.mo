@@ -67,17 +67,10 @@ public
   Modelica.Blocks.Math.Feedback diff
     "Difference between total and sensible enthalpy flow rate" 
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Modelica.Blocks.Interfaces.RealInput XWat_totAir
-    "Prescribed water vapor concentration in [kg/kg_totalAirMass]" 
+  Modelica.Blocks.Interfaces.RealInput X[Medium.nX]
+    "Medium species concentration" 
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
           rotation=0)));
-  Modelica.Blocks.Sources.Constant uni(k=1) "Outputs 1" 
-                                         annotation (Placement(transformation(
-          extent={{-100,-100},{-80,-80}},
-                                       rotation=0)));
-  Modelica.Blocks.Math.Feedback feedback annotation (Placement(transformation(
-          extent={{-58,-36},{-38,-16}},
-                                      rotation=0)));
 equation
   for i in 1:nPorts loop
   connect(senEntFloRat[i].port_a, ports[i]) annotation (Line(
@@ -109,19 +102,7 @@ equation
       points={{80,52},{80,40},{41,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(feedback.y, bou.X_in[2]) annotation (Line(
-      points={{-39,-26},{-30,-26},{-30,-12},{-68,-12},{-68,-4},{-62,-4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(XWat_totAir, feedback.u2) annotation (Line(
-      points={{-120,-60},{-48,-60},{-48,-34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(uni.y, feedback.u1) annotation (Line(
-      points={{-79,-90},{-70,-90},{-70,-26},{-56,-26}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(bou.X_in[1], XWat_totAir) annotation (Line(
+  connect(bou.X_in, X) annotation (Line(
       points={{-62,-4},{-80,-4},{-80,-60},{-120,-60}},
       color={0,0,127},
       smooth=Smooth.None));

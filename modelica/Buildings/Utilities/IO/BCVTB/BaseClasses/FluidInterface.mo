@@ -113,7 +113,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(bou.T_in, T_in) annotation (Line(
-      points={{-62,4},{-76,4},{-76,60},{-120,60}},
+      points={{-62,4},{-80,4},{-80,60},{-120,60}},
       color={0,0,127},
       smooth=Smooth.None));
 end FluidInterface;

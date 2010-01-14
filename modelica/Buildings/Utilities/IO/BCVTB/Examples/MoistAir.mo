@@ -2,7 +2,9 @@ within Buildings.Utilities.IO.BCVTB.Examples;
 model MoistAir
   "Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room"
   import Buildings;
- package Medium = Modelica.Media.Air.MoistAir;
+// package Medium = Modelica.Media.Air.MoistAir;
+  package Medium = Buildings.Media.GasesPTDecoupled.MoistAir;
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{400,200}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{400,
@@ -144,7 +146,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(dp1.port_b, bouBCVTB.ports[1]) annotation (Line(
-      points={{238,100},{252,100},{252,-46},{167.8,-46}},
+      points={{238,100},{250,100},{250,-46},{167.8,-46}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dp2.port_a, bouBCVTB.ports[2]) annotation (Line(
@@ -200,87 +202,111 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(bcvtb.yR, deMultiplex2_1.u) annotation (Line(
-      points={{-53,36},{-42,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      points={{-53,30},{-47.5,30},{-47.5,36},{-42,36}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(uniCon.y, add.u1) annotation (Line(
       points={{-19,116},{38,116}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(add.y, sou1.T_in) annotation (Line(
       points={{61,110},{80,110},{80,104},{98,104}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(deMultiplex2_1.y1[1], add.u2) annotation (Line(
       points={{-19,45},{30,45},{30,104},{38,104}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(deMultiplex2_1.y2[1], add1.u2) annotation (Line(
       points={{-19,39},{14,39},{14,-16},{38,-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(uniCon.y, add1.u1) annotation (Line(
       points={{-19,116},{20,116},{20,-4},{38,-4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add1.y, bouBCVTB.T_in) annotation (Line(
       points={{61,-10},{80,-10},{80,-42},{146,-42}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(toTotalAir.XiTotalAir, bouBCVTB.XWat_totAir) annotation (Line(
-      points={{61,-50},{80,-50},{80,-54},{146,-54}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(toTotalAir.XiDry, deMultiplex2_1.y4[1]) annotation (Line(
       points={{39,-50},{10,-50},{10,27},{-19,27}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(toTotalAir1.XiTotalAir, sou1.X_in[1]) annotation (Line(
       points={{61,70},{80,70},{80,96},{98,96}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(toTotalAir1.XNonVapor, sou1.X_in[2]) annotation (Line(
-      points={{61,76},{78,76},{78,96},{98,96}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(toTotalAir1.XiDry, deMultiplex2_1.y3[1]) annotation (Line(
-      points={{39,70},{-8,70},{-8,34},{-19,33}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      points={{61,66},{80,66},{80,96},{98,96}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(mul.y, bcvtb.uR)          annotation (Line(
-      points={{361,10},{370,10},{370,-80},{-80,-80},{-80,36},{-76,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      points={{361,10},{370,10},{370,-80},{-80,-80},{-80,30},{-76,30}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(PIDHum.y, mul.u4[1])          annotation (Line(
       points={{241,170},{320,170},{320,5},{338,5}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(PIDHea.y, mul.u3[1])          annotation (Line(
       points={{161,170},{170,170},{170,140},{328,140},{328,10},{338,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(mul.u1[1], bouBCVTB.HSen_flow)          annotation (Line(
       points={{338,20},{180,20},{180,-39},{169,-39}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(bouBCVTB.HLat_flow, mul.u2[1])          annotation (Line(
       points={{169,-42},{184,-42},{184,15},{338,15}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(TSup.port, dp1.port_b) annotation (Line(
       points={{260,60},{260,52},{250,52},{250,100},{238,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(add2.u1, TSup.T) annotation (Line(
       points={{274,48},{270,48},{270,70},{267,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(uniCon.y, add2.u2) annotation (Line(
       points={{-19,116},{20,116},{20,36},{274,36}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(add2.y, mul.u5[1]) annotation (Line(
       points={{297,42},{314,42},{314,0},{338,0}},
-      color={0,0,127},
-      smooth=Smooth.None));
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(toTotalAir.XiTotalAir, bouBCVTB.X[1]) annotation (Line(
+      points={{61,-50},{102,-50},{102,-54},{146,-54}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(toTotalAir.XNonVapor, bouBCVTB.X[2]) annotation (Line(
+      points={{61,-54},{146,-54}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(deMultiplex2_1.y3[1], toTotalAir1.XiDry) annotation (Line(
+      points={{-19,33},{-6,33},{-6,70},{39,70}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
 end MoistAir;

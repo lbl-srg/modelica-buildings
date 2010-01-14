@@ -44,7 +44,7 @@ First implementation.
 
   Modelica.Blocks.Interfaces.RealOutput XNonVapor
     "Mass fraction of remaining substances" 
-    annotation (Placement(transformation(extent={{100,50},{120,70}},  rotation=
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}},rotation=
             0)));
 equation
   XiTotalAir = XiDry / (1+XiDry);
