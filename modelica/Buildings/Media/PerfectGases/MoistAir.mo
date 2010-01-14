@@ -9,7 +9,7 @@ package MoistAir
      fluidConstants = {Modelica.Media.IdealGases.Common.FluidData.H2O,
                        Modelica.Media.IdealGases.Common.FluidData.N2});
 
-  annotation (Documentation(preferedView="info", info="<HTML>
+  annotation (preferedView="info", Documentation(info="<HTML>
 <p>
 This is a medium model that is similar to 
 <a href=\"Modelica:Modelica.Media.Air.MoistAir\">
@@ -35,6 +35,18 @@ Bower, William B. <i>A primer in fluid mechanics: Dynamics of flows in one
 space dimension</i>. CRC Press. 1998.
 </HTML>", revisions="<html>
 <ul>
+<li>
+January 13, 2010, by Michael Wetter:<br>
+Added function <tt>enthalpyOfNonCondensingGas</tt> and its derivative.
+</li>
+<li>
+January 13, 2010, by Michael Wetter:<br>
+Fixed implementation of derivative functions.
+</li>
+<li>
+October 12, 2009, by Michael Wetter:<br>
+Added annotation for analytic derivative for functions
+<code>saturationPressureLiquid</code> and <code>sublimationPressureIce</code>.
 <li>
 August 28, 2008, by Michael Wetter:<br>
 Referenced <tt>spliceFunction</tt> from package 
@@ -155,11 +167,13 @@ implementation provided by its parent package.
 
   function saturationPressureLiquid = 
       Modelica.Media.Air.MoistAir.saturationPressureLiquid
-    "Saturation curve valid for 273.16 <= T <= 373.16. Outside of these limits a (less accurate) result is returned";
+    "Saturation curve valid for 273.16 <= T <= 373.16. Outside of these limits a (less accurate) result is returned"
+    annotation(Inline=false,smoothOrder=5, derivative=Modelica.Media.Air.MoistAir.saturationPressureLiquid_der);
 
   function sublimationPressureIce = 
       Modelica.Media.Air.MoistAir.sublimationPressureIce
-    "Saturation curve valid for 223.16 <= T <= 273.16. Outside of these limits a (less accurate) result is returned";
+    "Saturation curve valid for 223.16 <= T <= 273.16. Outside of these limits a (less accurate) result is returned"
+    annotation(Inline=false,smoothOrder=5,derivative=Modelica.Media.Air.MoistAir.sublimationPressureIce_der);
 
 redeclare function extends saturationPressure
     "Saturation curve valid for 223.16 <= T <= 373.16 (and slightly outside with less accuracy)"
@@ -214,10 +228,10 @@ replaceable function der_enthalpyOfLiquid
     "Temperature derivative of enthalpy of liquid per unit mass of liquid"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
-  input Temperature der_T "temperature derivative";
-  output SpecificHeatCapacity der_h "derivative of liquid enthalpy";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of liquid enthalpy";
 algorithm
-  der_h := 4186;
+  der_h := 4186*der_T;
 end der_enthalpyOfLiquid;
 
 redeclare function enthalpyOfCondensingGas
@@ -235,11 +249,32 @@ replaceable function der_enthalpyOfCondensingGas
     "Derivative of enthalpy of steam per unit mass of steam"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
-  input Temperature der_T "temperature derivative";
-  output SpecificHeatCapacity der_h "derivative of steam enthalpy";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of steam enthalpy";
 algorithm
-  der_h := steam.cp;
+  der_h := steam.cp*der_T;
 end der_enthalpyOfCondensingGas;
+
+redeclare function enthalpyOfNonCondensingGas
+    "Enthalpy of non-condensing gas per unit mass of steam"
+  extends Modelica.Icons.Function;
+
+  annotation(smoothOrder=5, derivative=der_enthalpyOfNonCondensingGas);
+  input Temperature T "temperature";
+  output SpecificEnthalpy h "enthalpy";
+algorithm
+  h := enthalpyOfDryAir(T);
+end enthalpyOfNonCondensingGas;
+
+replaceable function der_enthalpyOfNonCondensingGas
+    "Derivative of enthalpy of non-condensing gas per unit mass of steam"
+  extends Modelica.Icons.Function;
+  input Temperature T "temperature";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of steam enthalpy";
+algorithm
+  der_h := der_enthalpyOfDryAir(T, der_T);
+end der_enthalpyOfNonCondensingGas;
 
 redeclare replaceable function extends enthalpyOfGas
     "Enthalpy of gas mixture per unit mass of gas mixture"
@@ -251,6 +286,7 @@ end enthalpyOfGas;
 replaceable function enthalpyOfDryAir
     "Enthalpy of dry air per unit mass of dry air"
   extends Modelica.Icons.Function;
+
   annotation(smoothOrder=5, derivative=der_enthalpyOfDryAir);
   input Temperature T "temperature";
   output SpecificEnthalpy h "dry air enthalpy";
@@ -262,10 +298,10 @@ replaceable function der_enthalpyOfDryAir
     "Derivative of enthalpy of dry air per unit mass of dry air"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
-  input Temperature der_T "temperature derivative";
-  output SpecificHeatCapacity der_h "derivative of dry air enthalpy";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of dry air enthalpy";
 algorithm
-  der_h := dryair.cp;
+  der_h := dryair.cp*der_T;
 end der_enthalpyOfDryAir;
 
 redeclare replaceable function extends specificHeatCapacityCp

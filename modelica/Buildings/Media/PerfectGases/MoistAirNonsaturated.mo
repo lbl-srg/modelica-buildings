@@ -205,10 +205,10 @@ replaceable function der_enthalpyOfLiquid
     "Temperature derivative of enthalpy of liquid per unit mass of liquid"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
-  input Temperature der_T "temperature derivative";
-  output SpecificHeatCapacity der_h "derivative of liquid enthalpy";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of liquid enthalpy";
 algorithm
-  der_h := 4186;
+  der_h := 4186*der_T;
 end der_enthalpyOfLiquid;
 
 redeclare function enthalpyOfCondensingGas
@@ -226,10 +226,10 @@ replaceable function der_enthalpyOfCondensingGas
     "Derivative of enthalpy of steam per unit mass of steam"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
-  input Temperature der_T "temperature derivative";
-  output SpecificHeatCapacity der_h "derivative of steam enthalpy";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of steam enthalpy";
 algorithm
-  der_h := steam.cp;
+  der_h := steam.cp*der_T;
 end der_enthalpyOfCondensingGas;
 
 redeclare replaceable function extends enthalpyOfGas
@@ -242,6 +242,7 @@ end enthalpyOfGas;
 replaceable function enthalpyOfDryAir
     "Enthalpy of dry air per unit mass of dry air"
   extends Modelica.Icons.Function;
+
   annotation(smoothOrder=5, derivative=der_enthalpyOfDryAir);
   input Temperature T "temperature";
   output SpecificEnthalpy h "dry air enthalpy";
@@ -253,10 +254,10 @@ replaceable function der_enthalpyOfDryAir
     "Derivative of enthalpy of dry air per unit mass of dry air"
   extends Modelica.Icons.Function;
   input Temperature T "temperature";
-  input Temperature der_T "temperature derivative";
-  output SpecificHeatCapacity der_h "derivative of dry air enthalpy";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of dry air enthalpy";
 algorithm
-  der_h := dryair.cp;
+  der_h := dryair.cp*der_T;
 end der_enthalpyOfDryAir;
 
 redeclare replaceable function extends specificHeatCapacityCp
@@ -336,6 +337,7 @@ function T_phX "Compute temperature from specific enthalpy and mass fraction"
   input SpecificEnthalpy h "specific enthalpy";
   input MassFraction[:] X "mass fractions of composition";
   output Temperature T "temperature";
+
   annotation(Inline=false, smoothOrder=5,
       Documentation(info="<html>
 Temperature as a function of specific enthalpy and species concentration.

@@ -1,7 +1,9 @@
 within Buildings.Media.PerfectGases.Examples;
 model MoistAirDerivativeCheck
 
-   annotation(Diagram(graphics),
+   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
                        Commands(file="MoistAirDerivativeCheck.mos" "run"));
     annotation (
       Documentation(info="<html>
@@ -26,21 +28,22 @@ First implementation.
     Modelica.SIunits.SpecificEnthalpy hSteCod "Water vapor enthalpy";
     Modelica.SIunits.SpecificEnthalpy hAirSym "Dry air enthalpy";
     Modelica.SIunits.SpecificEnthalpy hAirCod "Dry air enthalpy";
-
+    constant Real conv(unit="K/s") = 1
+    "Conversion factor to satisfy unit check";
 initial equation
      hLiqSym = hLiqCod;
      hSteSym = hSteCod;
      hAirSym = hAirCod;
 equation
-    hLiqCod=Medium.enthalpyOfLiquid(time);
+    hLiqCod=Medium.enthalpyOfLiquid(conv*time);
     der(hLiqCod)=der(hLiqSym);
     assert(abs(hLiqCod-hLiqSym) < 1E-2, "Model has an error");
 
-    hSteCod=Medium.enthalpyOfCondensingGas(time);
+    hSteCod=Medium.enthalpyOfCondensingGas(conv*time);
     der(hSteCod)=der(hSteSym);
     assert(abs(hSteCod-hSteSym) < 1E-2, "Model has an error");
 
-    hAirCod=Medium.enthalpyOfDryAir(time);
+    hAirCod=Medium.enthalpyOfDryAir(conv*time);
     der(hAirCod)=der(hAirSym);
     assert(abs(hAirCod-hAirSym) < 1E-2, "Model has an error");
 

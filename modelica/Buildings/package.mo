@@ -1,23 +1,13 @@
 within ;
 package Buildings "Library with models for building energy and control systems"
 
+
 annotation (preferedView="info",
-      version="0.7.0",
-  __Dymola_classOrder={
-"UsersGuide",
-"Controls",
-"Fluid",
-"HeatTransfer",
-"Media",
-"Utilities",
-"BaseClasses"},
+      version="0.8.0",
       uses(Modelica(version="3.1")),
       Documentation(info="<html>
-Package <b>Buildings</b> is a free package
-for modeling building HVAC systems. 
-It provides partial models and model
-components for modeling thermal building systems 
-such as heating, ventilation and air-conditioning systems. 
+The <b>Buildings</b> library is a free library
+for modeling building energy and control systems. 
 Many models are based on models from the package
 <a href=\"Modelica://Modelica.Fluid\">Modelica.Fluid</a> and use
 the same ports to ensure compatibility with models from that library.
@@ -27,12 +17,14 @@ The figure below shows a section of the schematic view of the model
 <a href=\"Modelica:Buildings.Examples.HydronicHeating\">
 Buildings.Examples.HydronicHeating</a>.
 In the lower part of the figure, there is a dynamic model of a boiler, a pump and a stratified energy storage tank. Based on the temperatures of the storage tank, a finite state machine switches the boiler on and off. 
-The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a simplified room model that is connected to a radiator whose flow is controlled by a thermostatic valve.<br>
-<img src=\"../Images/UsersGuide/HydronicHeating.png\" border=1>
+The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a simplified room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
+</p>
+<p>
+<img src=\"../Images/UsersGuide/HydronicHeating.png\" border=\"1\">
 </p>
 <p>
 The web page for this library is
-<a href=\"https://gaia.lbl.gov/bir\">https://gaia.lbl.gov/bir</a>. 
+<a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>. 
 Contributions from different users to further advance this library are
 welcomed.
 Contributions may not only be in the form of model development, but also
@@ -78,6 +70,9 @@ on the Buildings library
 </p>
 <ul>
 <li> 
+<a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">
+Version 0.8.0 </a>(XXXXX, 2009)</li>
+<li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">
 Version 0.7.0 </a>(September 29, 2009)</li>
 <li> 
@@ -103,8 +98,91 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 </html>
 "));
 
+    class Version_0_8_0 "Version 0.8.0"
+
+              annotation (Documentation(info="<html>
+<ul>
+In <a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAir\">
+Buildings.Media.GasesPTDecoupled.MoistAir</a> and in
+<a href=\"Modelica:Buildings.Media.PerfectGases.MoistAir\">
+Buildings.Media.PerfectGases.MoistAir</a>, added function
+<tt>enthalpyOfNonCondensingGas</tt> and its derivative.
+<li>
+In <a href=\"Modelica:Buildings.Media\">
+Buildings.Media</a>, 
+fixed bug in implementations of derivatives.
+</li>
+<li>
+Added model 
+<a href=\"Modelica:Buildings.Fluid.Storage.ExpansionVessel\">
+Buildings.Fluid.Storage.ExpansionVessel</a>.
+</li>
+<li>
+Added Wrapper function <a href=\"Modelica:Buildings.Fluid.Movers.BaseClasses.Characteristics.solve\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics.solve</a> for 
+<a href=\"Modelica:Modelica.Math.Matrices.solve\">
+Modelica.Math.Matrices.solve</a>. This is currently needed since 
+<a href=\"Modelica:Modelica.Math.Matrices.solve\">
+Modelica.Math.Matrices.solve</a> does not specify a 
+derivative.
+</li>
+<li>
+Fixed bug in 
+<a href=\"Buildings.Fluid.Storage.Stratified\">
+Buildings.Fluid.Storage.Stratified</a>. 
+In the previous version, 
+for computing the heat conduction between the top (or bottom) segment and
+the outside, 
+the whole thickness of the water volume was used
+instead of only have the thickness.
+<li>
+In <a href=\"Buildings.Media.ConstantPropertyLiquidWater\">
+Buildings.Media.ConstantPropertyLiquidWater</a>, added the option to specify a compressibility.
+This can help reducing the size of the coupled nonlinear system of equations, at
+the expense of introducing stiffness. This change required to change the inheritance 
+tree of the medium. Its base class is now
+<a href=\"Buildings.Media.Interfaces.PartialSimpleMedium\">
+Buildings.Media.Interfaces.PartialSimpleMedium</a>,
+which contains the equation for the compressibility. The default setting will model 
+the flow as incompressible.
+</li>
+<li>
+In <a href=\"Modelica://Buildings.Controls.Continuous.Examples.PIDHysteresis\">
+Buildings.Controls.Continuous.Examples.PIDHysteresis</a>
+and <a href=\"Modelica://Buildings.Controls.Continuous.Examples.PIDHysteresisTimer\">
+Buildings.Controls.Continuous.Examples.PIDHysteresisTimer</a>,
+fixed error in default parameter <code>eOn</code>.
+Fixed error by introducing parameter <code>Td</code>, 
+which used to be hard-wired in the PID controller.
+</li>
+<li>
+Added more models for fans and pumps to the package 
+<a href=\"Modelica://Buildings.Fluid.Movers\">
+Buildings.Fluid.Movers</a>.
+The models are similar to the ones in
+<a href=\"Modelica://Modelica.Fluid.Machines\">
+Modelica.Fluid.Machines</a> but have been adapted for 
+air-based systems, and to include more characteristic curves
+in 
+<a href=\"Modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
+The new models are better suited than the existing fan model
+<a href=\"Modelica://Buildings.Fluid.Movers.FlowMachinePolynomial\">
+Buildings.Fluid.Movers.FlowMachinePolynomial</a> for zero flow rate.
+</li>
+<li>
+Added an optional mixing volume to <a href=\"Modelica://Buildings.Fluid.BaseClasses.PartialThreeWayResistance\">
+Buildings.Fluid.BaseClasses.PartialThreeWayResistance</a>
+and hence to the flow splitter and to the three-way valves. This often breaks algebraic loops and provides a state for the temperature if the mass flow rate goes to zero.
+</li>
+</ul>
+</p>
+</html>
+"));
+    end Version_0_8_0;
+
     class Version_0_7_0 "Version 0.7.0"
-          annotation (Documentation(info="<html>
+              annotation (Documentation(info="<html>
 <ul>
 <li>
 Updated library from Modelica_Fluid to Modelica.Fluid 1.0
@@ -587,4 +665,5 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
   end Copyright;
 
 end UsersGuide;
+
 end Buildings;
