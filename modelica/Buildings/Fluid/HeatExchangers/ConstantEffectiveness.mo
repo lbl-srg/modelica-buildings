@@ -40,6 +40,11 @@ instead of this model.
 revisions="<html>
 <ul>
 <li>
+October 2, 2009, by Michael Wetter:<br>
+Changed computation of inlet temperatures to use 
+<code>state_*_inflow</code> which is already known in base class.
+</li>
+<li>
 April 28, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -61,25 +66,26 @@ First implementation.
 
 equation
   // Definitions for heat transfer effectiveness model
-  T_in1 = if m1_flow >= 0 then Medium1.temperature(sta_a1) else 
-                                Medium1.temperature(sta_b1);
-  T_in2 = if m2_flow >= 0 then Medium2.temperature(sta_a2) else 
-                                Medium2.temperature(sta_b2);
+  T_in1 = if m1_flow >= 0 then Medium1.temperature(state_a1_inflow) else 
+                                Medium1.temperature(state_b1_inflow);
+  T_in2 = if m2_flow >= 0 then Medium2.temperature(state_a2_inflow) else 
+                                Medium2.temperature(state_b2_inflow);
 
   // The specific heat capacity is computed using the state of the
   // medium at port_a. For forward flow, this is correct, for reverse flow,
   // this is an approximation.
-  C1_flow = abs(m1_flow)* Medium1.specificHeatCapacityCp(sta_a1);
-  C2_flow = abs(m2_flow)* Medium2.specificHeatCapacityCp(sta_a2);
+  C1_flow = abs(m1_flow) * Medium1.specificHeatCapacityCp(sta_a1);
+  C2_flow = abs(m2_flow) * Medium2.specificHeatCapacityCp(sta_a2);
 
   CMin_flow = min(C1_flow, C2_flow);
   QMax_flow = CMin_flow * (T_in2 - T_in1);
 
-  // transferred heat
+  // transfered heat
   Q1_flow = eps * QMax_flow;
   0 = Q1_flow + Q2_flow;
 
   // no mass exchange
   mXi1_flow = zeros(Medium1.nXi);
   mXi2_flow = zeros(Medium2.nXi);
+
 end ConstantEffectiveness;
