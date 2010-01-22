@@ -4,7 +4,9 @@ model TestMoistAirNoLiquid
      redeclare package Medium = 
           Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid);
 
-      annotation (Diagram(graphics),
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
+            -100,-100},{100,100}}),
+                          graphics),
                            Commands(file="TestMoistAirNoLiquid.mos" "run"),
     Documentation(preferedView="info", info="<html>
 This is a simple test for the medium model. It uses the test model described in
