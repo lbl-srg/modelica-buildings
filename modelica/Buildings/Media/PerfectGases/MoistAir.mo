@@ -70,6 +70,10 @@ First implementation.
         Buildings.Media.PerfectGases.Common.SingleGasData.H2O;
   import SI = Modelica.SIunits;
 
+    // Min and max values, used for Brent's algorithm in T_hpX
+    constant Modelica.SIunits.Temperature TMin = 200 "Minimum temperature";
+    constant Modelica.SIunits.Temperature TMax = 400 "Maximum temperature";
+
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
@@ -96,11 +100,11 @@ First implementation.
     MassFraction x_sat
       "Steam water mass content of saturation boundary in kg_water/kg_dryair";
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
+
   equation
-    assert(T >= 200.0 and T <= 423.15, "
-Temperature T is not in the allowed range
-200.0 K <= (T ="
-               + String(T) + " K) <= 423.15 K
+    assert(T >= TMin and T <= TMax, "
+Temperature T is not in the allowed range " + String(TMin) + " <= (T ="
+               + String(T) + " K) <= " + String(TMax) + " K
 required from medium model \""     + mediumName + "\".");
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
@@ -392,7 +396,38 @@ algorithm
 end specificHelmholtzEnergy;
 
 function T_phX "Compute temperature from specific enthalpy and mass fraction"
-  extends Modelica.Media.Air.MoistAir.T_phX;
+  input AbsolutePressure p "Pressure";
+  input SpecificEnthalpy h "Specific enthalpy";
+  input MassFraction X[nX] "Mass fractions of composition";
+  output Temperature T "Temperature";
+
+  protected
+package Internal
+      "Solve h(data,T) for T with given h (use only indirectly via temperature_phX)"
+  extends Modelica.Media.Common.OneNonLinearEquation;
+
+  redeclare record extends f_nonlinear_Data
+        "Data to be passed to non-linear function"
+    extends Modelica.Media.IdealGases.Common.DataRecord;
+  end f_nonlinear_Data;
+
+  redeclare function extends f_nonlinear
+  algorithm
+      y := h_pTX(p,x,X);
+  end f_nonlinear;
+
+  // Dummy definition has to be added for current Dymola
+  redeclare function extends solve
+  end solve;
+end Internal;
+  protected
+constant Modelica.Media.IdealGases.Common.DataRecord steam=
+              Modelica.Media.IdealGases.Common.SingleGasesData.H2O;
+algorithm
+  T := Internal.solve(h, TMin, TMax, p, X[:], steam);
+    annotation (Documentation(info="<html>
+Temperature is computed from pressure, specific enthalpy and composition via numerical inversion of function <a href=Modelica:Modelica.Media.Air.MoistAir.h_pTX>h_pTX</a>.
+</html>"));
 end T_phX;
 
 end MoistAir;
