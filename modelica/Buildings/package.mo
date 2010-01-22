@@ -102,6 +102,14 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 
               annotation (Documentation(info="<html>
 <ul>
+<li>
+In <a href=\"Buildings.Utilities.IO.BCVTB.BCVTB\">
+Buildings.Utilities.IO.BCVTB.BCVTB</a>, added parameter to specify
+the value to be sent to the BCVTB at the first data exchange,
+and added parameter that deactivates the interface. Deactivating 
+the interface is sometimes useful during debugging. 
+</li>
+<li>
 In <a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAir\">
 Buildings.Media.GasesPTDecoupled.MoistAir</a> and in
 <a href=\"Modelica:Buildings.Media.PerfectGases.MoistAir\">
