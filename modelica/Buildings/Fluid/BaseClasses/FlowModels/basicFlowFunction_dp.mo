@@ -2,11 +2,10 @@ within Buildings.Fluid.BaseClasses.FlowModels;
 function basicFlowFunction_dp "Basic class for flow models"
 
 annotation(LateInline=true,
-           __Dymola_inverse(dp=basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized)),
-           smoothOrder=2);
-
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={Line(
+           inverse(dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized)),
+           smoothOrder=2,
+           Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}), graphics={Line(
           points={{-80,-40},{-80,60},{80,-40},{80,60}},
           color={0,0,255},
           smooth=Smooth.None,

@@ -2,6 +2,7 @@ within Buildings.Fluid.FixedResistances;
 model SplitterFixedResistanceDpM
   "Flow splitter with fixed resistance at each port"
     extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
+    mDyn_flow_nominal = sum(m_flow_nominal[:]/3),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
          redeclare package Medium=Medium,
          from_dp=from_dp, m_flow_nominal=m_flow_nominal[1], dp_nominal=dp_nominal[1],
@@ -19,18 +20,26 @@ model SplitterFixedResistanceDpM
          linearized=linearized, deltaM=deltaM));
 
   annotation (Diagram(graphics),
-                       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={Polygon(
+                       Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -100},{100,100}}), graphics={
+        Polygon(
           points={{-100,-46},{-32,-40},{-32,-100},{30,-100},{30,-36},{100,-30},
               {100,38},{-100,52},{-100,-46}},
           lineColor={0,0,0},
           fillColor={175,175,175},
-          fillPattern=FillPattern.Solid), Polygon(
+          fillPattern=FillPattern.Solid),
+        Polygon(
           points={{-100,-34},{-18,-28},{-18,-100},{18,-100},{18,-26},{100,-20},
               {100,22},{-100,38},{-100,-34}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,128,255})}),
+          fillColor={0,128,255}),
+        Ellipse(
+   visible=dynamicBalance,
+          extent={{-38,36},{40,-40}},
+          lineColor={0,0,127},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
 Model of a flow splitter (or mixer) with a fixed resistance in each flow leg.

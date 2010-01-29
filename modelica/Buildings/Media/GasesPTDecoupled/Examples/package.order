@@ -2,3 +2,4 @@ TestMoistAir
 TestMoistAirNoLiquid
 TestSimpleAir
 MoistAirTemperatureEnthalpyInversion
+MoistAirNoLiquidTemperatureEnthalpyInversion

@@ -17,7 +17,7 @@ model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
 annotation (defaultComponentName="specificEnthalpy",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), 
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{102,120},{0,90}},

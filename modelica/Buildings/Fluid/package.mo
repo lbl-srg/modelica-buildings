@@ -1,30 +1,5 @@
 within Buildings;
 package Fluid "Package with models for fluid flow systems"
-annotation (
-  __Dymola_classOrder={
-"UsersGuide",
-"Actuators",
-"Boilers",
-"Chillers",
-"Delays",
-"FixedResistances",
-"HeatExchangers",
-"MassExchangers",
-"MixingVolumes",
-"Movers",
-"Sensors",
-"Sources",
-"Storage",
-"Types",
-"Utilities",
-"BaseClasses",
-"Interfaces",
-"Images"},
-preferedView="info", Documentation(info="<html>
-This package contains components for fluid flow systems such as
-pumps, valves and sensors. For other fluid flow models, see 
-<a href=\"Modelica:Modelica.Fluid\">Modelica.Fluid</a>.
-</html>"));
 
 
 package UsersGuide "User's Guide"
@@ -45,4 +20,12 @@ HVAC system design.
 </html>"));
 
 end UsersGuide;
+
+
+annotation (
+preferedView="info", Documentation(info="<html>
+This package contains components for fluid flow systems such as
+pumps, valves and sensors. For other fluid flow models, see 
+<a href=\"Modelica:Modelica.Fluid\">Modelica.Fluid</a>.
+</html>"));
 end Fluid;

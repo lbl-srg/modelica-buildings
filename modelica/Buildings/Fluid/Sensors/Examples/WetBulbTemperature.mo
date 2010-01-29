@@ -39,8 +39,8 @@ First implementation.
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{74,10},{54,30}}, rotation=0)));
-  Buildings.Fluid.Sensors.TemperatureWetBulb senWetBul(redeclare package
-      Medium = Medium) "Wet bulb temperature sensor" 
+  Buildings.Fluid.Sensors.TemperatureWetBulb senWetBul(redeclare package Medium
+      =        Medium) "Wet bulb temperature sensor" 
     annotation (Placement(transformation(extent={{0,10},{20,30}},  rotation=0)));
   Buildings.Fluid.Sources.MassFlowSource_T massFlowRate(            redeclare
       package Medium = Medium, m_flow=1,

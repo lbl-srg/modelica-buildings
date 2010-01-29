@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers;
 model HeaterCoolerPrescribed "Heater or cooler with prescribed heat flow rate"
   extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer;
-  extends Buildings.BaseClasses.BaseIcon;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

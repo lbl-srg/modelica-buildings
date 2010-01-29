@@ -6,6 +6,7 @@ model TwoRooms
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nom = 100 "Nominal heat flow";
   parameter Modelica.SIunits.ThermalConductance UA = Q_flow_nom / 20
     "Thermal conductance of room";
+  parameter Modelica.SIunits.Temperature TStart = 283.15 "Start temperature";
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{240,100}}), graphics),
     experiment(StopTime=21600),
@@ -34,7 +35,7 @@ First implementation.
 </ul>
 </html>"));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor C1(C=tau*UA, T(start=
-          283.15)) "Heat capacity of room" 
+          TStart, fixed=true)) "Heat capacity of room" 
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UA1(G=UA)
     "Heat transmission of room" 
@@ -52,7 +53,7 @@ First implementation.
     "Heat transmission of room" 
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor C2(C=2*tau*UA, T(start=
-         283.15)) "Heat capacity of room" 
+          TStart, fixed=true)) "Heat capacity of room" 
     annotation (Placement(transformation(extent={{70,-28},{90,-8}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut2(T=278.15)
     "Outside air temperature" 
@@ -73,8 +74,9 @@ First implementation.
     samplePeriod=60,
     nDblWri=2,
     nDblRea=2,
-    xmlFileName="socket.cfg") 
-    annotation (Placement(transformation(extent={{-80,-16},{-60,4}})));
+    xmlFileName="socket.cfg",
+    uStart={TStart - 273.15,TStart - 273.15}) 
+    annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Routing.Multiplex2 multiplex2_1 
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
   Modelica.Blocks.Routing.DeMultiplex2 deMultiplex2_1 

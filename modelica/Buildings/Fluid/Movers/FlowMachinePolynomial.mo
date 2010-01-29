@@ -57,6 +57,11 @@ This is a model of a flow machine (pump or fan).
 <p>
 The normalized pressure difference is computed using a function of the normalized mass flow rate. The function is a polynomial for which a user needs to supply the coefficients and two values that determine for what flow rate the polynomial is linearly extended.
 </p>
+<p>
+<b>Note:</b> This model is here for compatibility with older versions of this library.
+For new models, use instead <a href=\"Modelica://Buildings.Fluid.Movers.FlowMachine_y\">
+Buildings.Fluid.Movers.FlowMachine_y</a>.
+</p>
 </html>"));
 
   Modelica.Blocks.Interfaces.RealInput N_in "Prescribed rotational speed" 

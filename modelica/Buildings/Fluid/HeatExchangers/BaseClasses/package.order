@@ -1,0 +1,14 @@
+CoilHeader
+CoilRegister
+DuctManifoldFixedResistance
+DuctManifoldNoResistance
+Examples
+HADryCoil
+HexElement
+MassExchange
+PartialDuctManifold
+PartialDuctPipeManifold
+PartialPipeManifold
+PipeManifoldFixedResistance
+PipeManifoldNoResistance
+ConstantEffectiveness

@@ -1,17 +1,31 @@
 within Buildings.Fluid.BaseClasses.FlowModels.Examples;
 model TestFlowFunctions "Test model for flow functions"
+
 annotation (Commands(file="TestFlowFunctions.mos" "run"));
- Modelica.SIunits.MassFlowRate m_flow;
  Modelica.SIunits.MassFlowRate m1_flow;
- Modelica.SIunits.MassFlowRate m_flow_nominal=2;
+ Modelica.SIunits.MassFlowRate m2_flow;
+ Modelica.SIunits.Pressure dp1;
+ Modelica.SIunits.Pressure dp2;
+ Modelica.SIunits.Pressure p1_nominal=2;
  Modelica.SIunits.Time dTime= 1;
- Modelica.SIunits.Pressure dp;
+ Modelica.SIunits.Pressure p1 "Boundary condition";
+ parameter Modelica.SIunits.Pressure p2 = 101325 "Boundary condition";
  parameter Boolean linearized=false;
- parameter Real k = 0.05;
+ parameter Boolean from_dp = false;
+ parameter Real k = 0.5;
+ parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1 "Nominal flow rate";
 equation
-  m_flow = time/dTime * m_flow_nominal;
-  m_flow=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_nominal*0.3, linearized=linearized);
-  dp=FlowModels.basicFlowFunction_m_flow(m_flow=m1_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3, linearized=linearized);
+  p1 = p1_nominal + time/dTime * 20;
+  m1_flow = m2_flow;
+  p2-p1 = dp1 + dp2;
+  if from_dp then
+  m1_flow=FlowModels.basicFlowFunction_dp(dp=dp1, k=k, m_flow_turbulent=m_flow_nominal*0.3, linearized=linearized);
+  m2_flow=FlowModels.basicFlowFunction_dp(dp=dp2, k=k, m_flow_turbulent=m_flow_nominal*0.3, linearized=linearized);
+  else
+  dp1=FlowModels.basicFlowFunction_m_flow(m_flow=m1_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3, linearized=linearized);
+  dp2=FlowModels.basicFlowFunction_m_flow(m_flow=m2_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3, linearized=linearized);
+
+  end if;
   annotation (Documentation(info="<html>
 This model test the inverse functions. When translating this model in 
 Dymola 7.2, there should be no numerical solution be required to solve

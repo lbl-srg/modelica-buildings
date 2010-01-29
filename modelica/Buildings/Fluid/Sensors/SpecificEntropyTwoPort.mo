@@ -16,7 +16,7 @@ model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
 annotation (defaultComponentName="specificEntropy",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), 
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{120,120},{0,90}},

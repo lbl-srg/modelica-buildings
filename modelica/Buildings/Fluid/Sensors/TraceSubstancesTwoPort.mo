@@ -16,7 +16,7 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
 annotation (defaultComponentName="traceSubstance",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
-  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}), 
+  Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Text(
           extent={{82,122},{0,92}},

@@ -1,4 +1,4 @@
-within Buildings.Media.PerfectGases.Examples;
+within Media.PerfectGases.Examples;
 model MoistAirDerivativeCheck
 
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

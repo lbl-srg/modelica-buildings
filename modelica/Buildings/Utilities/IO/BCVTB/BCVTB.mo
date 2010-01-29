@@ -10,6 +10,16 @@ model BCVTB
     "Number of double values to be read from the BCVTB";
   parameter Integer flaDblWri[nDblWri] = zeros(nDblWri)
     "Flag for double values (0: use current value, 1: use average over interval, 2: use integral over interval)";
+  parameter Real uStart[nDblWri]
+    "Initial input signal, used during first data transfer with BCVTB";
+  parameter Boolean activateInterface = true
+    "Set to false to deactivate interface and use instead yFixed as output" 
+    annotation(Evaluate = true);
+  parameter Real yRFixed[nDblRea] = zeros(nDblRea)
+    "Fixed output, used if activateInterface=false" 
+    annotation(Evaluate = true,
+                Dialog(enable = not activateInterface));
+
   Modelica.Blocks.Interfaces.RealInput uR[nDblWri]
     "Real inputs to be sent to the BCVTB" 
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
@@ -24,14 +34,17 @@ model BCVTB
 protected
   parameter Integer socketFD(fixed=false)
     "Socket file descripter, or a negative value if an error occured";
+  parameter Real _uStart[nDblWri](fixed=false)
+    "Initial input signal, used during first data transfer with BCVTB";
   constant Integer flaWri=0;
   Real uRInt[nDblWri] "Value of integral";
   Real uRIntPre[nDblWri] "Value of integral at previous sampling instance";
 public
   Real uRWri[nDblWri] "Value to be sent to the interface";
 initial algorithm
-  socketFD :=Buildings.Utilities.IO.BCVTB.BaseClasses.establishClientSocket(
-    xmlFileName=xmlFileName);
+  socketFD :=if activateInterface then 
+      Buildings.Utilities.IO.BCVTB.BaseClasses.establishClientSocket(xmlFileName=xmlFileName) else 
+      0;
     // check for valid socketFD
      assert(socketFD >= 0, "Socket file descripter for BCVTB must be positive.\n" +
                          "   A negative value indicates that no connection\n" +
@@ -40,6 +53,20 @@ initial algorithm
    flaRea   := 0;
    uRInt    := zeros(nDblWri);
    uRIntPre := zeros(nDblWri);
+   for i in 1:nDblWri loop
+     assert(flaDblWri[i]>=0 and flaDblWri[i]<=2,
+        "Parameter flaDblWri out of range for " + integerString(i) + "-th component.");
+     if (flaDblWri[i] == 0) then
+        _uStart[i] := uStart[i];               // Current value.
+     elseif (flaDblWri[i] == 1) then
+        _uStart[i] := uStart[i];                // Average over interval
+     else
+        _uStart[i] := uStart[i]*samplePeriod;  // Integral over the sampling interval
+                                               // This is multiplied with samplePeriod because if
+                                               // u is power, then uRWri needs to be energy.
+
+     end if;
+   end for;
 
 equation
    for i in 1:nDblWri loop
@@ -64,14 +91,21 @@ algorithm
       end for;
 
     // Exchange data
-    (flaRea, simTimRea, yR, retVal) :=
-      Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals(
-      socketFD=socketFD,
-      flaWri=flaWri,
-      simTimWri=time,
-      dblValWri=uRWri,
-      nDblWri=size(uRWri, 1),
-      nDblRea=size(yR, 1));
+    if activateInterface then
+      (flaRea, simTimRea, yR, retVal) :=
+        Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals(
+        socketFD=socketFD,
+        flaWri=flaWri,
+        simTimWri=time,
+        dblValWri=if firstTrigger then _uStart else uRWri,
+        nDblWri=size(uRWri, 1),
+        nDblRea=size(yR, 1));
+    else
+      flaRea := 0;
+      simTimRea := time;
+      yR := yRFixed;
+      retVal := 0;
+      end if;
     // Check for valid return flags
     assert(flaRea >= 0, "BCVTB sent a negative flag to Modelica during data transfer.\n" +
                         "   Aborting simulation. Check file 'utilSocket.log'.\n" +
@@ -85,15 +119,29 @@ algorithm
   end when;
    // Close socket connnection
    when terminal() then
-      Buildings.Utilities.IO.BCVTB.BaseClasses.closeClientSocket(
-                                                        socketFD);
+     if activateInterface then
+        Buildings.Utilities.IO.BCVTB.BaseClasses.closeClientSocket(
+                                                          socketFD);
+     end if;
    end when;
 
   annotation (defaultComponentName="cliBCVTB",
    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),            graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics
-        ={
+          preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics=
+         {
+        Rectangle(
+          visible=not activateInterface,
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={255,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          visible=activateInterface,
+          extent={{-100,-100},{100,100}},
+          lineColor={0,0,127},
+          fillColor={223,223,159},
+          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{0,28},{80,-100}},
           lineColor={0,0,0},
@@ -211,7 +259,7 @@ algorithm
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{-66,104},{46,36}},
+          extent={{-82,108},{30,40}},
           lineColor={0,0,0},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid,
@@ -267,8 +315,31 @@ Integral of uR[i] over the sampling interval
 </tr>
 </table>
 </p>
+<p>
+For the first call to the BCVTB interface, the value of the parameter <code>uStart[nDblWri]</code>
+will be used instead of <code>uR[nDblWri]</code>. This avoids an algebraic loop when determining
+the initial conditions. If <code>uR[nDblWri]</code> were to be used, then computing the initial conditions
+may require an iterative solution in which the function <code>exchangeWithSocket</code> may be called
+multiple times.
+Unfortunately, it does not seem possible to use a parameter that would give a user the option to either
+select <code>uR[i]</code> or <code>uStart[i]</code> in the first data exchange. The reason is that the symbolic solver does not evaluate
+the test that picks <code>uR[i]</code> or <code>uStart[i]</code>, and hence there would be an algebraic loop.
+</p>
+<p>
+If the parameter <code>activateInterface</code> is set to false, then no data is exchanged with the BCVTB.
+The output of this block is then equal to the value of the parameter <code>yRFixed[nDblRea]</code>.
+This option can be helpful during debugging. Since during model translation, the functions are 
+still linked to the C library, the header files and libraries need to be present in the current working 
+directory even if <code>activateInterface=false</code>.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 19, 2010, by Michael Wetter:<br>
+Introduced parameter to set initial value to be sent to the BCVTB.
+In the prior implementation, if a variable was in an algebraic loop, then zero was
+sent for this variable.
+</li>
 <li>
 May 14, 2009, by Michael Wetter:<br>
 First implementation.

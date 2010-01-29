@@ -36,6 +36,10 @@ space dimension</i>. CRC Press. 1998.
 </HTML>", revisions="<html>
 <ul>
 <li>
+January 27, 2010, by Michael Wetter:<br>
+Fixed bug that lead to run-time error in <code>T_phX</code>.
+</li>
+<li>
 January 13, 2010, by Michael Wetter:<br>
 Added function <tt>enthalpyOfNonCondensingGas</tt> and its derivative.
 </li>
@@ -155,8 +159,9 @@ implementation provided by its parent package.
   input MassFraction X[:] "Mass fractions";
   output ThermodynamicState state;
   algorithm
-  state := if size(X,1) == nX then ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else 
-         ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
+  state := if size(X,1) == nX then 
+        ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else 
+        ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
   end setState_phX;
 
   redeclare function setState_dTX
@@ -338,7 +343,7 @@ function h_pTX
   extends Modelica.Icons.Function;
   input SI.Pressure p "Pressure";
   input SI.Temperature T "Temperature";
-  input SI.MassFraction X[nX] "Mass fractions of moist air";
+  input SI.MassFraction X[:] "Mass fractions of moist air";
   output SI.SpecificEnthalpy h "Specific enthalpy at p, T, X";
 
   annotation(Inline=false,smoothOrder=1);
@@ -398,7 +403,7 @@ end specificHelmholtzEnergy;
 function T_phX "Compute temperature from specific enthalpy and mass fraction"
   input AbsolutePressure p "Pressure";
   input SpecificEnthalpy h "Specific enthalpy";
-  input MassFraction X[nX] "Mass fractions of composition";
+  input MassFraction X[:] "Mass fractions of composition";
   output Temperature T "Temperature";
 
   protected
@@ -424,7 +429,7 @@ end Internal;
 constant Modelica.Media.IdealGases.Common.DataRecord steam=
               Modelica.Media.IdealGases.Common.SingleGasesData.H2O;
 algorithm
-  T := Internal.solve(h, TMin, TMax, p, X[:], steam);
+  T := Internal.solve(h, TMin, TMax, p, X[1:nXi], steam);
     annotation (Documentation(info="<html>
 Temperature is computed from pressure, specific enthalpy and composition via numerical inversion of function <a href=Modelica:Modelica.Media.Air.MoistAir.h_pTX>h_pTX</a>.
 </html>"));

@@ -82,7 +82,7 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}},
           grid={1,1}), graphics={Text(
-          extent={{-149,-114},{151,-154}},
+          extent={{-151,147},{149,107}},
           lineColor={0,0,255},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255},

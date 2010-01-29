@@ -150,4 +150,12 @@ equation
       points={{-40,6},{-30,6},{-30,-28},{-18,-28}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(TBCSid1.port, tanSim.heaPorSid) annotation (Line(
+      points={{-28,90},{-4.4,90},{-4.4,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(TBCTop1.port, tanSim.heaPorTop) annotation (Line(
+      points={{-28,72},{-8,72},{-8,17.4}},
+      color={191,0,0},
+      smooth=Smooth.None));
 end Stratified;

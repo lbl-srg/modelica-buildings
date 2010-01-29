@@ -124,21 +124,21 @@ in one variable after the symbolic manipulations.
                  annotation (Placement(transformation(extent={{-100,90},{-80,
             110}},
           rotation=0)));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
-        Medium) "Mass flow rate sensor"
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = 
+        Medium) "Mass flow rate sensor" 
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium =
-        Medium) "Mass flow rate sensor"
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium = 
+        Medium) "Mass flow rate sensor" 
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium =
-        Medium) "Mass flow rate sensor"
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium = 
+        Medium) "Mass flow rate sensor" 
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium =
-        Medium) "Mass flow rate sensor"
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium = 
+        Medium) "Mass flow rate sensor" 
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality 
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality1
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality1 
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 equation
   connect(res.port_b, res1.port_a) annotation (Line(

@@ -81,11 +81,11 @@ equation
           -38},{10,-38},{10,-42}},
                           color={0,0,127}));
   connect(sou.ports[1], valLin.port_1) annotation (Line(
-      points={{-30,-16},{0,-16}},
+      points={{-30,-16},{-5.55112e-16,-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], valEquPerLin.port_1) annotation (Line(
-      points={{-30,-20},{-24,-20},{-24,-50},{0,-50}},
+      points={{-30,-20},{-24,-20},{-24,-50},{-5.55112e-16,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valLin.port_2, sin.ports[1]) annotation (Line(
@@ -113,3 +113,4 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 end ThreeWayValves;
+

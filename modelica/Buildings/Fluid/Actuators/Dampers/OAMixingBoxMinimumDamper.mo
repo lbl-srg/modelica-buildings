@@ -12,14 +12,12 @@ model OAMixingBoxMinimumDamper
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  Buildings.Fluid.Actuators.Dampers.Exponential damOAMin(
-                                                         A=AOutMin,
+  Buildings.Fluid.Actuators.Dampers.Exponential damOAMin(A=AOutMin,
     redeclare package Medium = Medium,
     m_flow_nominal=m0OutMin_flow) "Damper for minimum outside air supply" 
                                             annotation (Placement(
         transformation(extent={{-42,28},{-22,48}}, rotation=0)));
-  Buildings.Fluid.Actuators.Dampers.Exponential damOA(
-                                                      A=AOut,
+  Buildings.Fluid.Actuators.Dampers.Exponential damOA(A=AOut,
     redeclare package Medium = Medium,
     m_flow_nominal=m0Out_flow) 
     annotation (Placement(transformation(extent={{-42,-30},{-22,-10}}, rotation=
@@ -27,15 +25,13 @@ model OAMixingBoxMinimumDamper
   parameter Modelica.SIunits.Area AOutMin
     "Face area minimum outside air damper";
   parameter Modelica.SIunits.Area AOut "Face area outside air damper";
-  Buildings.Fluid.Actuators.Dampers.Exponential damExh(
-                                                       A=AExh,
+  Buildings.Fluid.Actuators.Dampers.Exponential damExh(A=AExh,
     redeclare package Medium = Medium,
     m_flow_nominal=m0Exh_flow) "Exhaust air damper" 
     annotation (Placement(transformation(extent={{-22,-90},{-42,-70}}, rotation=
            0)));
   parameter Modelica.SIunits.Area AExh "Face area exhaust air damper";
-  Buildings.Fluid.Actuators.Dampers.Exponential damRec(
-                                                       A=ARec,
+  Buildings.Fluid.Actuators.Dampers.Exponential damRec(A=ARec,
     redeclare package Medium = Medium,
     m_flow_nominal=m0Rec_flow) "Recirculation air damper" 
                                annotation (Placement(transformation(

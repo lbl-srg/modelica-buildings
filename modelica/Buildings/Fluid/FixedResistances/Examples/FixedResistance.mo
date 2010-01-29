@@ -23,14 +23,14 @@ model FixedResistance
     m_flow_nominal=5,
     dp_nominal=10)  annotation (Placement(transformation(extent={{-28,30},{-8,50}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium = 
-        Medium,
+  Buildings.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium
+      = Medium,
     use_p_in=true,
     T=293.15,
     nPorts=3)             annotation (Placement(transformation(extent={{-60,-10},
             {-40,10}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium = 
-        Medium, T=283.15,
+  Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium
+      = Medium, T=283.15,
     use_p_in=true,
     nPorts=3)             annotation (Placement(transformation(extent={{90,-10},
             {70,10}}, rotation=0)));

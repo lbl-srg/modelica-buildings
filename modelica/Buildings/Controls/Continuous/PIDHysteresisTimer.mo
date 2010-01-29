@@ -33,6 +33,10 @@ avoids the controller from switching on until <tt>minOffTime</tt> seconds elapse
 </html>", revisions="<html>
 <ul>
 <li>
+October 2, 2009, by Michael Wetter:<br>
+Fixed error in default parameter <code>eOn</code>.
+</li>
+<li>
 February 9, 2009, by Michael Wetter:<br>
 First implementation.
 </li>
@@ -41,10 +45,10 @@ First implementation.
   parameter Real minOffTime=600
     "Minimum time that devices needs to be off before it can run again" 
       annotation (Dialog(group="On/off controller"));
-  parameter Real eOn = -eOn
+  parameter Real eOn = 1
     "if off and control error > eOn, switch to set point tracking" 
     annotation (Dialog(group="On/off controller"));
-  parameter Real eOff = -1 "if on and control error < eOff, set y=0" 
+  parameter Real eOff = -eOn "if on and control error < eOff, set y=0" 
     annotation (Dialog(group="On/off controller"));
   parameter Boolean pre_y_start=false
     "Value of hysteresis output at initial time" 

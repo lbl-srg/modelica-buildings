@@ -1,4 +1,4 @@
-within Buildings.Media.PerfectGases.Examples;
+within Media.PerfectGases.Examples;
 model MoistAirComparison
 
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

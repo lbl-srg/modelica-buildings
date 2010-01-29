@@ -3,10 +3,10 @@ model PIDHysteresis
   "PID controller with anti-windup, output limiter and output hysteresis"
   extends Modelica.Blocks.Interfaces.SVcontrol;
 
-  parameter Real eOn = -eOn
+  parameter Real eOn = 1
     "if off and control error > eOn, switch to set point tracking" 
     annotation (Dialog(group="Hysteresis"));
-  parameter Real eOff = -1 "if on and control error < eOff, set y=0" 
+  parameter Real eOff = -eOn "if on and control error < eOff, set y=0" 
     annotation (Dialog(group="Hysteresis"));
   parameter Boolean pre_y_start=false
     "Value of hysteresis output at initial time" 
@@ -19,6 +19,8 @@ model PIDHysteresis
     annotation (Dialog(group="Set point tracking"));
   parameter Modelica.SIunits.Time Ti "Time constant of Integrator block" 
     annotation (Dialog(group="Set point tracking"));
+  parameter Modelica.SIunits.Time Td "Time constant of Derivative block" 
+      annotation (Dialog(group="Set point tracking"));
   parameter Real yMax=1 "Upper limit of output" 
     annotation (Dialog(group="Set point tracking"));
   parameter Real yMin=0 "Lower limit of output" 
@@ -47,7 +49,6 @@ model PIDHysteresis
     annotation (Dialog(group="Initialization"));
 
   Modelica.Blocks.Continuous.LimPID PID(
-    Td=60,
     controllerType=controllerType,
     k=k,
     Ti=Ti,
@@ -61,7 +62,8 @@ model PIDHysteresis
     limitsAtInit=limitsAtInit,
     xi_start=xi_start,
     xd_start=xd_start,
-    y_start=y_start) "Controller for room temperature" 
+    y_start=y_start,
+    Td=Td) "Controller for room temperature" 
     annotation (Placement(transformation(extent={{-30,-2},{-10,18}})));
   annotation (Diagram(graphics), Icon(graphics={
         Polygon(
@@ -104,6 +106,12 @@ is small enough.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 2, 2009, by Michael Wetter:<br>
+Fixed error in default parameter <code>eOn</code>.
+Fixed error by introducing parameter <code>Td</code>, 
+which used to be hard-wired in the PID controller.
+</li>
 <li>
 February 14, 2009, by Michael Wetter:<br>
 First implementation.

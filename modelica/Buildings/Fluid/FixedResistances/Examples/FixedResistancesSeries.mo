@@ -38,7 +38,7 @@ model FixedResistancesSeries "Test of multiple resistances in series"
     use_p_in=true,
     nPorts=1)                         annotation (Placement(transformation(
           extent={{56,20},{36,40}}, rotation=0)));
-  parameter Integer nRes( min=2) = 3 "Number of resistances";
+  parameter Integer nRes( min=2) = 10 "Number of resistances";
     Buildings.Fluid.FixedResistances.FixedResistanceDpM[
                        nRes] res(
     redeclare each package Medium = Medium,

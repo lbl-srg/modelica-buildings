@@ -53,4 +53,8 @@ The details of the coefficients are explained in the
       port_b "use port_b",
       average "use (port_a+port_b)/2)")
     "Enumeration to define the input for efficiency curves";
+  type DynamicsTimeConstants = enumeration(
+      Instantaneous "Instantaneous response",
+      FirstOrder "First order response")
+    "Enumeration to define the dynamic response based on time constants";
 end Types;

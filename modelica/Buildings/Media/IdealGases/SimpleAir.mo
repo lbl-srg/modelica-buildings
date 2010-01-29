@@ -3,7 +3,7 @@ package SimpleAir "Air: Simple dry air model (0..100 degC)"
   extends Modelica.Media.Air.SimpleAir(
      T_min=Modelica.SIunits.Conversions.from_degC(-50));
 
-  annotation (Documentation(info="<html>
+  annotation (preferedView="info", Documentation(info="<html>
 <p>
 This partial package is identical to 
 <a href=\"Modelica:Modelica.Media.Air.SimpleAir\">

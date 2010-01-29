@@ -1,10 +1,12 @@
-within Buildings.Media.PerfectGases.Examples;
+within Media.PerfectGases.Examples;
 model TestMoistAirNonsaturated
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium = 
           Buildings.Media.PerfectGases.MoistAirNonsaturated);
 
-      annotation (Diagram(graphics),
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
+            -100,-100},{100,100}}),
+                          graphics),
                            Commands(file="TestMoistAirNonsaturated.mos" "run"),
     Documentation(preferedView="info", info="<html>
 This is a simple test for the medium model. It uses the test model described in

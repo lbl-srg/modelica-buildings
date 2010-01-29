@@ -1,8 +1,7 @@
 within Buildings.Fluid.MassExchangers;
 model ConstantEffectiveness
   "Heat and moisture exchanger with constant effectiveness"
-  extends Fluid.Interfaces.PartialStaticFourPortHeatMassTransfer;
-  extends Buildings.BaseClasses.BaseIcon;
+  extends Buildings.Fluid.HeatExchangers.BaseClasses.ConstantEffectiveness(final eps=epsS);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -29,6 +28,7 @@ model ConstantEffectiveness
           extent={{-60,4},{50,-56}},
           lineColor={255,255,255},
           textString="epsL=%epsL")}),
+          preferedView="info",
 Documentation(info="<html>
 <p>
 Model for a heat and moisture exchanger with constant effectiveness.
@@ -45,6 +45,12 @@ for the sensible and latent heat transfer,
 <tt>mWat_max</tt> is the maximum moisture that can be transferred.
 </p>
 <p>
+In the region <tt>mK_flow_small > abs(mK_flow) > mK_flow_small/2</tt>, for <tt>K = 1</tt> or
+<tt>2</tt>, the effectivness <tt>epsS</tt> and <tt>epsL</tt> are transitioned from 
+their user-specified value to 0. This improves the numerical robustness near
+zero flow.
+</p>
+<p>
 For a sensible heat exchanger, use
 <a href=\"Modelica:Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>
@@ -59,6 +65,10 @@ in the species vector.
 revisions="<html>
 <ul>
 <li>
+January 28, 2010, by Michael Wetter:<br>
+Added regularization near zero flow.
+</li>
+<li>
 October 21, 2008, by Michael Wetter:<br>
 First implementation, based on 
 <a href=\"Modelica:Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
@@ -70,57 +80,26 @@ Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>.
     "Sensible heat exchanger effectiveness";
   parameter Real epsL(min=0, max=1) = 0.8 "Latent heat exchanger effectiveness";
 
-  Modelica.SIunits.Temperature T_in1 "Inlet temperature of medium 1";
-  Modelica.SIunits.Temperature T_in2 "Inlet temperature of medium 2";
   Medium1.MassFraction XWat_in1 "Inlet water mass fraction of medium 1";
   Medium2.MassFraction XWat_in2 "Inlet water mass fraction of medium 2";
-
-  Modelica.SIunits.ThermalConductance C1_flow
-    "Heat capacity flow rate medium 1";
-  Modelica.SIunits.ThermalConductance C2_flow
-    "Heat capacity flow rate medium 2";
-  Modelica.SIunits.ThermalConductance CMin_flow(min=0)
-    "Minimum heat capacity flow rate";
-  Modelica.SIunits.HeatFlowRate QMax_flow "Maximum heat flow rate";
 
   Modelica.SIunits.MassFlowRate mWat_flow
     "Water flow rate from medium 2 to medium 1";
   Modelica.SIunits.MassFlowRate mMax_flow
     "Maximum water flow rate from medium 2 to medium 1";
+
 equation
-
   // Definitions for effectiveness model
-  if m1_flow >= 0 then
-     T_in1  = Medium1.temperature(sta_a1);
-     XWat_in1 = sta_a1.X[Medium1.Water];
-  else
-     T_in1 = Medium1.temperature(sta_b1);
-     XWat_in1 = sta_b1.X[Medium1.Water];
-  end if;
-
-  if m2_flow >= 0 then
-     T_in2  = Medium2.temperature(sta_a2);
-     XWat_in2 = sta_a2.X[Medium2.Water];
-  else
-     T_in2 = Medium2.temperature(sta_b2);
-     XWat_in2 = sta_b2.X[Medium2.Water];
-  end if;
-
-  // The specific heat capacity is computed using the state of the
-  // medium at port_a. For forward flow, this is correct, for reverse flow,
-  // this is an approximation.
-  C1_flow = abs(m1_flow)* Medium1.specificHeatCapacityCp(sta_a1);
-  C2_flow = abs(m2_flow)* Medium2.specificHeatCapacityCp(sta_a2);
-
-  CMin_flow = min( C1_flow, C2_flow);
-  QMax_flow = CMin_flow * (T_in2 - T_in1);
-
-  // transferred heat
-  Q1_flow = epsS * QMax_flow;
-  0 = Q1_flow + Q2_flow;
+  XWat_in1 = Modelica.Fluid.Utilities.regStep(m1_flow,
+                  state_a1_inflow.X[Medium1.Water],
+                  state_b1_inflow.X[Medium1.Water], m1_flow_small);
+  XWat_in2 = Modelica.Fluid.Utilities.regStep(m2_flow,
+                  state_a2_inflow.X[Medium2.Water],
+                  state_b2_inflow.X[Medium2.Water], m2_flow_small);
 
   // mass exchange
-  mMax_flow = min(abs(m1_flow), abs(m2_flow)) * (XWat_in2 - XWat_in1);
+  mMax_flow = smooth(1, min(smooth(1, gai1 * abs(m1_flow)),
+                            smooth(1, gai2 * abs(m2_flow)))) * (XWat_in2 - XWat_in1);
   mWat_flow = epsL * mMax_flow;
 
   for i in 1:Medium1.nXi loop

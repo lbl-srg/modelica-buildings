@@ -2,7 +2,6 @@ within Buildings.Fluid.MassExchangers;
 model HumidifierPrescribed
   "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction"
   extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer;
-  extends Buildings.BaseClasses.BaseIcon;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

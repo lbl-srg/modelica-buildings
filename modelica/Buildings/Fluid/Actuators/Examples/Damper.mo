@@ -54,14 +54,14 @@ model Damper
     offset=101330) 
                  annotation (Placement(transformation(extent={{-100,-82},{-80,
             -62}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium = 
-        Medium,
+  Buildings.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium
+      = Medium,
     use_p_in=true,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-68,-90},{-48,-70}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium = 
-        Medium,
+  Buildings.Fluid.Sources.Boundary_pT sin1(          redeclare package Medium
+      = Medium,
     use_p_in=true,
     nPorts=1,
     T=293.15)                                       annotation (Placement(

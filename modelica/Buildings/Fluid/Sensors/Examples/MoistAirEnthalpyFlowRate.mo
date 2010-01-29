@@ -42,8 +42,8 @@ model MoistAirEnthalpyFlowRate
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Math.Product product 
     annotation (Placement(transformation(extent={{0,54},{20,74}})));
-  Buildings.Fluid.Sensors.LatentEnthalpyFlowRate senHLat_flow(redeclare
-      package Medium = Medium) "Sensor for latent enthalpy flow rate" 
+  Buildings.Fluid.Sensors.LatentEnthalpyFlowRate senHLat_flow(redeclare package
+      Medium =         Medium) "Sensor for latent enthalpy flow rate" 
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate senHSen_flow(redeclare
       package Medium = Medium) "Sensor for sensible enthalpy flow rate" 

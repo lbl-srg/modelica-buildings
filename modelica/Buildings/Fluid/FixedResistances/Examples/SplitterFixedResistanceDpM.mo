@@ -15,18 +15,18 @@ model SplitterFixedResistanceDpM
     redeclare package Medium = Medium,
     dp_nominal(displayUnit="Pa") = {5,10,15}) "Splitter" 
     annotation (Placement(transformation(extent={{-16,-10},{4,10}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT bou1(             redeclare package Medium
-      =        Medium, T=273.15 + 10,
+  Buildings.Fluid.Sources.Boundary_pT bou1(             redeclare package
+      Medium = Medium, T=273.15 + 10,
     use_p_in=true,
     nPorts=1)                         annotation (Placement(transformation(
           extent={{-58,-10},{-38,10}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT bou2(             redeclare package Medium
-      =        Medium, T=273.15 + 20,
+  Buildings.Fluid.Sources.Boundary_pT bou2(             redeclare package
+      Medium = Medium, T=273.15 + 20,
     use_p_in=true,
     nPorts=1)                         annotation (Placement(transformation(
           extent={{52,-10},{32,10}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT bou3(             redeclare package Medium
-      =        Medium, T=273.15 + 30,
+  Buildings.Fluid.Sources.Boundary_pT bou3(             redeclare package
+      Medium = Medium, T=273.15 + 30,
     use_p_in=true,
     nPorts=1)                         annotation (Placement(transformation(
           extent={{-58,-66},{-38,-46}}, rotation=0)));

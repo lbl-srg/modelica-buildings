@@ -1,5 +1,6 @@
 within Buildings.Fluid.Storage;
 model Stratified "Model of a stratified tank for thermal energy storage"
+
   extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface(final
       p_a_start =                                                                     p_start,
                                                                     final
@@ -20,6 +21,11 @@ that measures the fluid temperature of an individual volume. It may also
 be used to add heat to individual volumes.
 </p>
 <p>
+The tank has <code>nSeg</code> fluid volumes. The top volume has the index <code>1</code>.
+Thus, to add a heating element to the bottom element, connect a heat input to
+<code>heaPorVol[nSeg]</code>.
+</p>
+<p>
 The heat ports outside the tank insulation can be 
 used to specify an ambient temperature.
 Leave these ports unconnected to force adiabatic boundary conditions.
@@ -37,6 +43,20 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 25, 2009 by Michael Wetter:<br>
+Changed computation of heat transfer through top (and bottom) of tank. Now,
+the thermal resistance of the fluid is not taken into account, i.e., the 
+top (and bottom) element is assumed to be mixed.
+<li>
+October 23, 2009 by Michael Wetter:<br>
+Fixed bug in computing heat conduction of top and bottom segment. 
+In the previous version, 
+for computing the heat conduction between the top (or bottom) segment and
+the outside, 
+the whole thickness of the water volume was used
+instead of only have the thickness.
+</li>
 <li>
 February 19, 2009 by Michael Wetter:<br>
 Changed declaration that constrains the medium. The earlier
@@ -164,7 +184,7 @@ Icon(graphics={
           points={{22,-74},{70,-74},{70,72}},
           color={127,0,0},
           pattern=LinePattern.Dot)}),
-                            Diagram(coordinateSystem(preserveAspectRatio=false,
+                            Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-100,-100},{100,100}}),
                                     graphics));
   parameter Modelica.SIunits.Volume VTan "Tank volume";
@@ -223,16 +243,18 @@ Icon(graphics={
     each use_HeatTransfer=true,
     redeclare each model HeatTransfer = 
         Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer)
-    "Tank segment"            annotation (Placement(transformation(extent={{-26,-10},
-            {-6,10}},      rotation=0)));
-  Sensors.EnthalpyFlowRate hA(redeclare package Medium = Medium) 
-    annotation (Placement(transformation(extent={{-72,-30},{-52,-10}},rotation=
+    "Tank segment"            annotation (Placement(transformation(extent={{6,-16},
+            {26,4}},       rotation=0)));
+  Sensors.EnthalpyFlowRate hA_flow(redeclare package Medium = Medium)
+    "Enthalpy flow rate at port a" 
+    annotation (Placement(transformation(extent={{-62,-90},{-42,-70}},rotation=
             0)));
   Sensors.EnthalpyFlowRate[nSeg-1] hVol_flow(redeclare package Medium = Medium) 
-    annotation (Placement(transformation(extent={{-22,-50},{-2,-30}}, rotation=
+    annotation (Placement(transformation(extent={{-20,-50},{0,-30}},  rotation=
             0)));
-  Sensors.EnthalpyFlowRate hB(redeclare package Medium = Medium) 
-    annotation (Placement(transformation(extent={{46,-42},{66,-22}}, rotation=0)));
+  Sensors.EnthalpyFlowRate hB_flow(redeclare package Medium = Medium)
+    "Enthalpy flow rate at port b" 
+    annotation (Placement(transformation(extent={{50,-90},{70,-70}}, rotation=0)));
   BaseClasses.Buoyancy buo(
     redeclare package Medium = Medium,
     V=VTan,
@@ -242,13 +264,12 @@ Icon(graphics={
   parameter Modelica.SIunits.Time tau=1
     "Time constant for mixing due to temperature inversion";
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[
-                                                 nSeg - 1] conFlu(
-                                                                each G=conFluSeg)
-    "Thermal conductance in fluid between the segments" 
-    annotation (Placement(transformation(extent={{-52,30},{-38,44}}, rotation=0)));
+                                                 nSeg - 1] conFlu(each G=
+        conFluSeg) "Thermal conductance in fluid between the segments" 
+    annotation (Placement(transformation(extent={{-56,4},{-42,18}},  rotation=0)));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor[
                                                  nSeg] conWal(
-     each G=2*Modelica.Constants.pi*kIns*hSeg/ln((rTan+dIns)/rTan))
+     each G=2*Modelica.Constants.pi*kIns*hSeg/Modelica.Math.log((rTan+dIns)/rTan))
     "Thermal conductance through tank wall" 
     annotation (Placement(transformation(extent={{10,34},{20,46}}, rotation=0)));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conTop(
@@ -283,7 +304,7 @@ Icon(graphics={
     "Heat flow at bottom of tank (outside insulation)" 
     annotation (Placement(transformation(extent={{30,14},{42,26}}, rotation=0)));
   Modelica.Blocks.Interfaces.RealOutput Ql_flow
-    "Heat loss of tank (positve if heat flows from to ambient)" 
+    "Heat loss of tank (positive if heat flows from tank to ambient)" 
     annotation (Placement(transformation(extent={{100,62},{120,82}}, rotation=0)));
 
 protected
@@ -296,7 +317,7 @@ protected
     "Tank diameter (without insulation)";
   parameter Modelica.SIunits.ThermalConductance conFluSeg = ATan*Medium.lambda_const/hSeg
     "Thermal conductance between fluid volumes";
-  parameter Modelica.SIunits.ThermalConductance conTopSeg = 1/(1/conFluSeg+1/(ATan*kIns/dIns))
+  parameter Modelica.SIunits.ThermalConductance conTopSeg = ATan*kIns/dIns
     "Thermal conductance from center of top (or bottom) volume through tank insulation at top (or bottom)";
 
 protected
@@ -308,54 +329,59 @@ protected
   Modelica.Blocks.Math.Sum sum1(nin=nSeg + 2) 
                                           annotation (Placement(transformation(
           extent={{78,42},{90,56}}, rotation=0)));
+public
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=nSeg)
+    "Connector to assign multiple heat ports to one heat port" 
+    annotation (Placement(transformation(extent={{46,20},{58,32}})));
 equation
-  connect(hA.port_b, vol[1].ports[1]) 
-                                     annotation (Line(points={{-52,-20},{-52,
-          -10},{-16,-10}},                        color={0,127,255}));
-  connect(vol[nSeg].ports[2], hB.port_a) 
-                                        annotation (Line(points={{-16,-10},{-16,
-          -20},{30,-20},{30,-32},{46,-32}},                 color={0,127,255}));
-  connect(hB.port_b, port_b) annotation (Line(points={{66,-32},{82,-32},{82,0},
+  connect(hA_flow.port_b, vol[1].ports[1]) 
+                                     annotation (Line(points={{-42,-80},{-42,
+          -80},{14,-80},{14,-16},{16,-16}},       color={0,127,255}));
+  connect(vol[nSeg].ports[2], hB_flow.port_a) 
+                                        annotation (Line(points={{16,-16},{14,
+          -16},{14,-80},{50,-80}},                          color={0,127,255}));
+  connect(hB_flow.port_b, port_b) 
+                             annotation (Line(points={{70,-80},{82,-80},{82,0},
           {100,0}},                          color={0,127,255}));
   for i in 1:(nSeg-1) loop
 
   connect(vol[i].ports[2], hVol_flow[i].port_a) 
-                                               annotation (Line(points={{-16,-10},
-            {-16,-20},{-28,-20},{-28,-40},{-22,-40}},               color={0,
+                                               annotation (Line(points={{16,-16},
+            {16,-20},{-28,-20},{-28,-40},{-20,-40}},                color={0,
             127,255}));
   connect(hVol_flow[i].port_b, vol[i+1].ports[1]) 
-                                                 annotation (Line(points={{-2,-40},
-            {4,-40},{4,-10},{-16,-10}},                        color={0,127,255}));
+                                                 annotation (Line(points={{0,-40},
+            {4,-40},{4,-16},{16,-16}},                         color={0,127,255}));
   end for;
-  connect(port_a, hA.port_a) annotation (Line(points={{-100,0},{-80,0},{-80,-20},
-          {-72,-20}},                                           color={0,127,
+  connect(port_a, hA_flow.port_a) 
+                             annotation (Line(points={{-100,0},{-80,0},{-80,-80},
+          {-62,-80}},                                           color={0,127,
           255}));
   connect(buo.heatPort, vol.heatPort)    annotation (Line(
-      points={{-40,60},{-26,60},{-26,0}},
+      points={{-40,60},{6,60},{6,-6}},
       color={191,0,0},
       pattern=LinePattern.None));
   for i in 1:nSeg-1 loop
   // heat conduction between fluid nodes
-     connect(vol[i].heatPort, conFlu[i].port_a)    annotation (Line(points={{-26,0},
-            {-26,20},{-60,20},{-60,40},{-52,40},{-52,37}}, color={191,0,0}));
-    connect(vol[i+1].heatPort, conFlu[i].port_b)    annotation (Line(points={{-26,0},
-            {-26,16},{-26,37},{-38,37}}, color={191,0,0}));
+     connect(vol[i].heatPort, conFlu[i].port_a)    annotation (Line(points={{6,-6},{
+            6,-6},{-60,-6},{-60,10},{-56,10},{-56,11}},    color={191,0,0}));
+    connect(vol[i+1].heatPort, conFlu[i].port_b)    annotation (Line(points={{6,-6},{
+            -40,-6},{-40,11},{-42,11}},  color={191,0,0}));
   end for;
-  connect(vol[1].heatPort, conTop.port_a)    annotation (Line(points={{-26,0},{
-          -26,60},{-4,60},{10,60}},          color={191,0,0}));
-  connect(vol.heatPort, conWal.port_a)    annotation (Line(points={{-26,0},{-26,
-          40},{0,40},{10,40}},           color={191,0,0}));
+  connect(vol[1].heatPort, conTop.port_a)    annotation (Line(points={{6,-6},{6,
+          60},{-4,60},{10,60}},              color={191,0,0}));
+  connect(vol.heatPort, conWal.port_a)    annotation (Line(points={{6,-6},{6,40},
+          {0,40},{10,40}},               color={191,0,0}));
   connect(conBot.port_a, vol[nSeg].heatPort)    annotation (Line(points={{10,20},
-          {-26,20},{-26,0}},   color={191,0,0}));
-  connect(vol.heatPort, heaPorVol)    annotation (Line(points={{-26,0},{-26,-2},
-          {-26,12},{0,12},{0,0}},
+          {10,20},{6,20},{6,-6}},
+                               color={191,0,0}));
+  connect(vol.heatPort, heaPorVol)    annotation (Line(points={{6,-6},{6,-6},{0,
+          -6},{0,0}},
         color={191,0,0}));
   connect(conWal.port_b, heaFloSid.port_a) 
     annotation (Line(points={{20,40},{30,40}}, color={191,0,0}));
   for i in 1:nSeg loop
 
-    connect(heaFloSid[i].port_b, heaPorSid) annotation (Line(points={{42,40},{
-          56,40},{56,0}},               color={191,0,0}));
   end for;
 
   connect(conTop.port_b, heaFloTop.port_a) 
@@ -376,4 +402,12 @@ equation
           0,0,127}));
   connect(sum1.y, Ql_flow) annotation (Line(points={{90.6,49},{98,49},{98,72},{
           110,72}}, color={0,0,127}));
+  connect(heaFloSid.port_b, theCol.port_a) annotation (Line(
+      points={{42,40},{52,40},{52,32}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(theCol.port_b, heaPorSid) annotation (Line(
+      points={{52,20},{52,0},{56,0}},
+      color={191,0,0},
+      smooth=Smooth.None));
 end Stratified;

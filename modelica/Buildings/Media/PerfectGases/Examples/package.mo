@@ -1,4 +1,5 @@
 within Buildings.Media.PerfectGases;
-package Examples "Collection of models that illustrate model use and test models"
+package Examples 
   extends Buildings.BaseClasses.BaseIconExamples;
+
 end Examples;

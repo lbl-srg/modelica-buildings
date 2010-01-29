@@ -25,6 +25,16 @@ because it allows to invert the function <tt>T_phX</tt> analytically.
 </HTML>", revisions="<html>
 <ul>
 <li>
+January 27, 2010, by Michael Wetter:<br>
+Fixed bug in <code>else</code> branch of function <code>setState_phX</code>
+that lead to a run-time error when the constructor of this function was called.
+</li>
+<li>
+January 22, 2010, by Michael Wetter:<br>
+Added implementation of function
+<a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid.enthalpyOfNonCondensingGas\">
+enthalpyOfNonCondensingGas</a> and its derivative.
+<li>
 January 13, 2010, by Michael Wetter:<br>
 Fixed implementation of derivative functions.
 </li>
@@ -129,8 +139,10 @@ implementation provided by its parent package.
   input MassFraction X[:] "Mass fractions";
   output ThermodynamicState state;
   algorithm
-  state := if size(X,1) == nX then ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else 
-         ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
+  state := if size(X,1) == nX then 
+         ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else 
+        ThermodynamicState(p=p,T=T_phX(p,h,cat(1,X,{1-sum(X)})), X=cat(1,X,{1-sum(X)}));
+    //    ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
   end setState_phX;
 
   redeclare function setState_dTX
@@ -339,4 +351,24 @@ algorithm
   T := 273.15 + (h-2501014.5 * X[Water])/(dryair.cp * (1 - X[Water])+steam.cp*X[Water]);
 end T_phX;
 
+redeclare function enthalpyOfNonCondensingGas
+    "Enthalpy of non-condensing gas per unit mass"
+  extends Modelica.Icons.Function;
+
+  annotation(smoothOrder=5, derivative=der_enthalpyOfNonCondensingGas);
+  input Temperature T "temperature";
+  output SpecificEnthalpy h "enthalpy";
+algorithm
+  h := enthalpyOfDryAir(T);
+end enthalpyOfNonCondensingGas;
+
+replaceable function der_enthalpyOfNonCondensingGas
+    "Derivative of enthalpy of non-condensing gas per unit mass"
+  extends Modelica.Icons.Function;
+  input Temperature T "temperature";
+  input Real der_T "temperature derivative";
+  output Real der_h "derivative of steam enthalpy";
+algorithm
+  der_h := der_enthalpyOfDryAir(T, der_T);
+end der_enthalpyOfNonCondensingGas;
 end MoistAirNoLiquid;

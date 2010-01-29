@@ -2,9 +2,8 @@ simulateModel("Buildings.Fluid.BaseClasses.FlowModels.Examples.TestFlowFunctions
 removePlots();
 createPlot(id = 5,
  position = {95, 9, 719, 388},
- x = "dp",
- y = {"m1_flow", "m_flow"},
- range = {(-200.0), 240.0, 1, (-1.0)},
+ x = "dp1",
+ y = {"m1_flow"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,

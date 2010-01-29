@@ -75,9 +75,7 @@ First implementation.
     annotation(Dialog(tab="Initialization"));
 
   // Diagnostics
-//  parameter Boolean show_T = true
-//    "= true, if temperatures at port_a and port_b are computed" annotation 7;
-  parameter Boolean show_V_flow = true
+  parameter Boolean show_V_flow = false
     "= true, if volume flow rate at inflowing port is computed" 
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 

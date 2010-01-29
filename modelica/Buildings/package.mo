@@ -20,7 +20,7 @@ In the lower part of the figure, there is a dynamic model of a boiler, a pump an
 The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a simplified room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
 </p>
 <p>
-<img src=\"../Images/UsersGuide/HydronicHeating.png\" border=\"1\">
+<img src=\"Images/UsersGuide/HydronicHeating.png\" border=\"1\">
 </p>
 <p>
 The web page for this library is
@@ -103,7 +103,33 @@ Version 0.1.0 </a>(May 27, 2008)</li>
               annotation (Documentation(info="<html>
 <ul>
 <li>
-In <a href=\"Buildings.Utilities.IO.BCVTB.BCVTB\">
+Added regularizaation near zero flow to
+<a href=\"Modelica:Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
+Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>
+and
+<a href=\"Modelica:Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
+Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>.
+</li>
+<li>
+Fixed bug regarding temperature offset in 
+<a href=\"Modelica:Buildings.Media.PerfectGases.MoistAirNonsaturated.T_phX\">
+Buildings.Media.PerfectGases.MoistAirNonsaturated.T_phX</a>.
+</li>
+<li>
+Added implementation of function
+<a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid.enthalpyOfNonCondensingGas\">
+Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid.enthalpyOfNonCondensingGas</a> and its derivative.
+</li>
+<li>
+In <a href=\"Modelica:Buildings.Media.PerfectGases.MoistAir\">
+Buildings.Media.PerfectGases.MoistAir</a>, fixed
+bug in implementation of <a href=\"Modelica:Buildings.Media.PerfectGases.MoistAir.T_phX\">
+Buildings.Media.PerfectGases.MoistAir.T_phX</a>. In the 
+previous version, it computed the inverse of its parent class,
+which gave slightly different results.
+</li>
+<li>
+In <a href=\"Modelica:Buildings.Utilities.IO.BCVTB.BCVTB\">
 Buildings.Utilities.IO.BCVTB.BCVTB</a>, added parameter to specify
 the value to be sent to the BCVTB at the first data exchange,
 and added parameter that deactivates the interface. Deactivating 
@@ -190,6 +216,7 @@ and hence to the flow splitter and to the three-way valves. This often breaks al
     end Version_0_8_0;
 
     class Version_0_7_0 "Version 0.7.0"
+
               annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -213,6 +240,7 @@ Virtual Test Bed.
     end Version_0_7_0;
 
   class Version_0_6_0 "Version 0.6.0"
+
       annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -321,6 +349,7 @@ convention used in Modelica.Fluid 1.0.
   end Version_0_6_0;
 
   class Version_0_5_0 "Version 0.5.0"
+
       annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -359,6 +388,7 @@ be used as the flow coefficient (in [m3/h] or [USG/min]).
   end Version_0_5_0;
 
   class Version_0_4_0 "Version 0.4.0"
+
       annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -381,6 +411,7 @@ The package contains models that facilitate reporting.
   end Version_0_4_0;
 
   class Version_0_3_0 "Version 0.3.0"
+
       annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -442,6 +473,7 @@ inside the volume. The condensate is removed from the volume in its liquid phase
   end Version_0_3_0;
 
   class Version_0_2_0 "Version 0.2.0"
+
       annotation (Documentation(info="<html>
 New in this version are models for two and three way valves.
 In addition, the <tt>Fluids</tt> package has been slightly revised.
@@ -454,6 +486,7 @@ where part of the <tt>Actuator</tt> package.
   end Version_0_2_0;
 
   class Version_0_1_0 "Version 0.1.0"
+
       annotation (Documentation(info="<html>
 <p>First release of the library.
 </p>

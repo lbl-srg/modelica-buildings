@@ -17,12 +17,13 @@ model RoomVAV "Model for CO2 emitted by people"
     nPorts=7) "Room volume" 
                           annotation (extent=[-10,-10; 10,10], Placement(
         transformation(extent={{-10,0},{10,20}})));
-  Buildings.Fluid.Sensors.TraceSubstances senCO2(       redeclare package Medium
-      = Medium) "Sensor at volume" 
+  Buildings.Fluid.Sensors.TraceSubstances senCO2(       redeclare package
+      Medium = 
+        Medium) "Sensor at volume" 
     annotation (extent=[14,20; 34,40], Placement(transformation(extent={{16,20},
             {36,40}})));
-  Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate sou(redeclare
-      package Medium = Medium, use_m_flow_in=true) "CO2 source" 
+  Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate sou(redeclare package
+      Medium =         Medium, use_m_flow_in=true) "CO2 source" 
     annotation (extent=[-98,-70; -78,-50], Placement(transformation(extent={{-100,
             -70},{-80,-50}})));
   parameter Modelica.SIunits.Volume VRoo "Volume of room";

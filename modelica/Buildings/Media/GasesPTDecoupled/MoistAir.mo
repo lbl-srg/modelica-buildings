@@ -163,8 +163,10 @@ implementation provided by its parent package.
   input MassFraction X[:] "Mass fractions";
   output ThermodynamicState state;
   algorithm
-  state := if size(X,1) == nX then ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else 
-         ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
+  state := if size(X,1) == nX then 
+         ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else 
+        ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
+     //   ThermodynamicState(p=p,T=T_phX(p,h,cat(1,X,{1-sum(X)})), X=cat(1,X,{1-sum(X)}));
   end setState_phX;
 
   redeclare function setState_dTX

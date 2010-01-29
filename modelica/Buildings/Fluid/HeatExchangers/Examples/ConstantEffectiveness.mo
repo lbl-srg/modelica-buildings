@@ -8,16 +8,23 @@ model ConstantEffectiveness
                       Commands(file="ConstantEffectiveness.mos" "run"));
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
  //package Medium2 = Modelica.Media.Air.MoistAir;
- package Medium2 = Buildings.Media.PerfectGases.MoistAir;
+// package Medium2 = Buildings.Media.PerfectGases.MoistAir;
+//package Medium2 = Buildings.Media.PerfectGases.MoistAirNonsaturated;
+
+ //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
+ package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid;
   Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
-      package Medium = Medium2, T=273.15 + 10,
+      package Medium = Medium2,
     use_p_in=true,
-    nPorts=1)             annotation (Placement(transformation(extent={{-58,-10},
+    nPorts=1,
+    T=273.15 + 10,
+    X={0.005,0.995})      annotation (Placement(transformation(extent={{-58,-10},
             {-38,10}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp PIn(
-    offset=101325,
     height=200,
-    duration=60) annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
+    duration=60,
+    offset=101325) 
+                 annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
       package Medium = Medium2, T=273.15 + 5,
@@ -39,10 +46,10 @@ model ConstantEffectiveness
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium1,
-    T=273.15 + 30,
     use_p_in=true,
+    nPorts=1,
     p=300000,
-    nPorts=1)             annotation (Placement(transformation(extent={{84,2},{
+    T=273.15 + 25)        annotation (Placement(transformation(extent={{84,2},{
             64,22}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
@@ -53,9 +60,9 @@ model ConstantEffectiveness
             {-40,56}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp PSin_1(
     duration=60,
-    offset=300000,
     startTime=240,
-    height=10000) 
+    height=10000,
+    offset=300000) 
                  annotation (Placement(transformation(extent={{40,60},{60,80}},
           rotation=0)));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package
@@ -87,19 +94,21 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(hex.port_a2, sou_2.ports[1]) annotation (Line(
-      points={{26,0},{32,0},{32,-20},{70,-20},{70,-60},{60,-60}},
+      points={{26,5.55112e-16},{32,5.55112e-16},{32,-20},{70,-20},{70,-60},{60,
+          -60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(POut.y, sin_2.p_in) annotation (Line(
-      points={{-79,8},{-60,8}},
+      points={{-79,8},{-69.5,8},{-69.5,8},{-60,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1, sin_1.ports[1]) annotation (Line(
-      points={{26,12},{64,12}},
+      points={{26,12},{45,12},{45,12},{64,12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin_2.ports[1], hex.port_b2) annotation (Line(
-      points={{-38,0},{6,0}},
+      points={{-38,6.66134e-16},{-27,6.66134e-16},{-27,1.22125e-15},{-16,
+          1.22125e-15},{-16,5.55112e-16},{6,5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
 end ConstantEffectiveness;
