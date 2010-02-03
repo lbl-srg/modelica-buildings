@@ -1,9 +1,9 @@
 within Buildings.Fluid.Chillers.Examples;
 model Carnot "Test model for chiller based on Carnot efficiency"
   import Buildings;
- package Medium1 = Modelica.Media.Water.ConstantPropertyLiquidWater
+ package Medium1 = Buildings.Media.ConstantPropertyLiquidWater
     "Medium model";
- package Medium2 = Modelica.Media.Water.ConstantPropertyLiquidWater
+ package Medium2 = Buildings.Media.ConstantPropertyLiquidWater
     "Medium model";
 
   parameter Modelica.SIunits.Power P_nominal=10E3

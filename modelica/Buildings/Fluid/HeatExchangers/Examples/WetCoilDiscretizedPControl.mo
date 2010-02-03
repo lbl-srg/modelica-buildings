@@ -9,7 +9,7 @@ model WetCoilDiscretizedPControl
  //package Medium2 = Buildings.Media.PerfectGases.MoistAir;
  package Medium2 = Modelica.Media.Air.MoistAir;
  //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
- // package Medium2 = Buildings.Media.PerfectGases.MoistAirNonsaturated;
+ // package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
  //package Medium2 = Buildings.Media.PerfectGases.MoistAir;
 
   parameter Modelica.SIunits.Temperature T_a1_nominal = 5+273.15;

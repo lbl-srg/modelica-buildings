@@ -89,6 +89,8 @@ First implementation.
     MolarMass MM "Molar mass (of mixture or single fluid)";
     ThermodynamicState state
       "thermodynamic state record for optional functions";
+    parameter Boolean constantDensity = false
+      "= true if the mass density should be constant at dStp";
     parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
       annotation (Evaluate=true, Dialog(tab="Advanced"));
@@ -146,7 +148,12 @@ First implementation.
     u = h-R*T;
     R = R_gas;
     //    d = p/(R*T);
-    d/dStp = p/pStp;
+    if constantDensity then
+      d = dStp;
+    else
+      d/dStp = p/pStp;
+    end if;
+
     MM = MM_const;
     state.T = T;
     state.p = p;

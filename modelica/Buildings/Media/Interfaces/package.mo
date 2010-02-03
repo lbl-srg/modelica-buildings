@@ -14,5 +14,4 @@ Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</a>
 for details.
 </html>"));
 
-
 end Interfaces;

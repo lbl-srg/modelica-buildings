@@ -2,8 +2,8 @@ within Buildings.Fluid.Movers.BaseClasses;
 package Characteristics "Functions for fan or pump characteristics"
 
   annotation (Documentation(info="<html>
-<p>This package is similar to <a href=\"Modelica:Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics\">
-Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics</a>, 
+<p>This package is similar to <a href=\"Modelica:Buildings.Fluid.Movers.BaseClasses.Characteristics\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics</a>, 
 but instead of head in meters H20, total pressure in Pascal is used. 
 This makes the models applicable for fans as well since the flow models from Modelica.Fluid use the 
 density of the medium model, such as the density of air instead of water, 

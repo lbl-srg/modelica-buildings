@@ -1,13 +1,13 @@
 within Buildings.Media.GasesPTDecoupled.Examples;
-model TestMoistAirNoLiquid
+model TestMoistAirUnsaturated
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium = 
-          Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid);
+          Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated);
 
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
             -100,-100},{100,100}}),
                           graphics),
-                           Commands(file="TestMoistAirNoLiquid.mos" "run"),
+                           Commands(file="TestMoistAirUnsaturated.mos" "run"),
     Documentation(preferedView="info", info="<html>
 This is a simple test for the medium model. It uses the test model described in
 <a href=\"Modelica:Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium\">
@@ -20,4 +20,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end TestMoistAirNoLiquid;
+end TestMoistAirUnsaturated;

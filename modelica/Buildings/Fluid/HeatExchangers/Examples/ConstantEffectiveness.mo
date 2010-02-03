@@ -9,16 +9,16 @@ model ConstantEffectiveness
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
  //package Medium2 = Modelica.Media.Air.MoistAir;
 // package Medium2 = Buildings.Media.PerfectGases.MoistAir;
-//package Medium2 = Buildings.Media.PerfectGases.MoistAirNonsaturated;
+//package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
 
  //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
- package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid;
+ package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
   Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2,
     use_p_in=true,
     nPorts=1,
     T=273.15 + 10,
-    X={0.005,0.995})      annotation (Placement(transformation(extent={{-58,-10},
+    X={0.001,0.999})      annotation (Placement(transformation(extent={{-58,-10},
             {-38,10}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp PIn(
     height=200,

@@ -1,5 +1,5 @@
 TestMoistAir
-TestMoistAirNoLiquid
+TestMoistAirUnsaturated
 TestSimpleAir
 MoistAirTemperatureEnthalpyInversion
-MoistAirNoLiquidTemperatureEnthalpyInversion
+MoistAirUnsaturatedTemperatureEnthalpyInversion

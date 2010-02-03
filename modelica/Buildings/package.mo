@@ -103,6 +103,17 @@ Version 0.1.0 </a>(May 27, 2008)</li>
               annotation (Documentation(info="<html>
 <ul>
 <li>
+Renamed <code>Buildings.Media.PerfectGases.MoistAirNonSaturated</code>
+to 
+<a href=\"Modelica:Buildings.Media.PerfectGases.MoistAirUnsaturated\">
+Buildings.Media.PerfectGases.MoistAirUnsaturated</a>
+and <code>Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid</code>
+to 
+<a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated\">
+Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>,
+and added <code>assert</code> statements if saturation occurs.
+</li>
+<li>
 Added regularizaation near zero flow to
 <a href=\"Modelica:Buildings.Fluid.HeatExchangers.ConstantEffectiveness\">
 Buildings.Fluid.HeatExchangers.ConstantEffectiveness</a>
@@ -112,13 +123,13 @@ Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>.
 </li>
 <li>
 Fixed bug regarding temperature offset in 
-<a href=\"Modelica:Buildings.Media.PerfectGases.MoistAirNonsaturated.T_phX\">
-Buildings.Media.PerfectGases.MoistAirNonsaturated.T_phX</a>.
+<a href=\"Modelica:Buildings.Media.PerfectGases.MoistAirUnsaturated.T_phX\">
+Buildings.Media.PerfectGases.MoistAirUnsaturated.T_phX</a>.
 </li>
 <li>
 Added implementation of function
-<a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid.enthalpyOfNonCondensingGas\">
-Buildings.Media.GasesPTDecoupled.MoistAirNoLiquid.enthalpyOfNonCondensingGas</a> and its derivative.
+<a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas\">
+Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated.enthalpyOfNonCondensingGas</a> and its derivative.
 </li>
 <li>
 In <a href=\"Modelica:Buildings.Media.PerfectGases.MoistAir\">

@@ -11,7 +11,7 @@ model HexElement
 // package Medium_A = Buildings.Media.GasesPTDecoupled.SimpleAir;
 // package Medium_A = Modelica.Media.Air.SimpleAir;
 // package Medium_A = Modelica.Media.Air.SimpleAir;
-// package Medium_A = Buildings.Media.PerfectGases.MoistAirNonsaturated;
+// package Medium_A = Buildings.Media.PerfectGases.MoistAirUnsaturated;
  package Medium_A = Buildings.Media.PerfectGases.MoistAir;
   Buildings.Fluid.Sources.Boundary_pT sin_2(
                                          redeclare package Medium = Medium_A,

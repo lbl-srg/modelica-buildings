@@ -26,16 +26,17 @@ partial package PartialSimpleMedium
     Temperature T "Temperature of medium";
   end ThermodynamicState;
 
+  // Compressibility of water (used to break algebraic loops)
+  constant Real kappa_const(unit="1/Pa") = 0
+    "Compressibility factor at constant temperature";
+  constant Modelica.SIunits.AbsolutePressure p0 = 3E5
+    "Reference pressure for compressibility";
+
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else 
                        StateSelect.default),
     p(stateSelect=if preferredMediumStates then StateSelect.prefer else 
                        StateSelect.default)) "Base properties"
-
-  // Compressibility of water (used to break algebraic loops)
-  constant Real kT = 0 "Compressibility factor at constant temperature";
-  constant Modelica.SIunits.AbsolutePressure p0 = 3E5
-      "Reference pressure for compressibility";
 
   equation
         assert(T >= T_min and T <= T_max, "
@@ -49,7 +50,7 @@ required from medium model \""   + mediumName + "\".
     h = specificEnthalpy_pTX(p,T,X);
     u = cv_const*(T-T0);
     // original equation d = d_const;
-    d = if (kT > 1E-20) then d_const * (1+kT*(p-p0)/p0) else d_const;
+    d = if (kappa_const > 1E-20) then d_const * (1+kappa_const*(p-p0)) else d_const;
    // d = d_const * (1+kT*(T-T0)/T0); "this gives large coupled equations"
     R = 0;
     MM = MM_const;
@@ -241,11 +242,11 @@ This medium model is identical to
 Modelica.Media.Interfaces.PartialSimpleMedium</a>, but it allows
 to define a compressibility of the medium.
 This helps breaking algebraic loops, but the system gets stiff.
-The compressibility is defined by the constant <code>kT</code>.
-If <code>kT=0</code>, then the density is constant. Otherwise,
+The compressibility is defined by the constant <code>kappa_const</code>.
+If <code>kappa_const=0</code>, then the density is constant. Otherwise,
 the density is
 <pre>
-  rho(p) = rho(p0) * ( 1 + kT * (p-p0)/p0)
+  rho(p) = rho(p0) * ( 1 + kappa_const * (p-p0))
 </pre>
 
 </html>", revisions="<html>

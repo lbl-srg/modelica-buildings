@@ -1,10 +1,10 @@
 within Media.PerfectGases.Examples;
-model MoistAirDerivativeCheck
+model MoistAirUnsaturatedDerivativeCheck
 
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics),
-                       Commands(file="MoistAirDerivativeCheck.mos" "run"));
+                       Commands(file="MoistAirUnsaturatedDerivativeCheck.mos" "run"));
     annotation (
       Documentation(info="<html>
 <p>
@@ -20,7 +20,7 @@ First implementation.
 </li>
 </ul>
 </html>"));
-   package Medium = Buildings.Media.PerfectGases.MoistAir;
+   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
 
     Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hLiqCod "Liquid phase enthalpy";
@@ -47,4 +47,4 @@ equation
     der(hAirCod)=der(hAirSym);
     assert(abs(hAirCod-hAirSym) < 1E-2, "Model has an error");
 
-end MoistAirDerivativeCheck;
+end MoistAirUnsaturatedDerivativeCheck;
