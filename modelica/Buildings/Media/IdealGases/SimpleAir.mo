@@ -1,5 +1,5 @@
 within Buildings.Media.IdealGases;
-package SimpleAir "Air: Simple dry air model (0..100 degC)"
+package SimpleAir "Air: Simple dry air model (-50..100 degC)"
   extends Modelica.Media.Air.SimpleAir(
      T_min=Modelica.SIunits.Conversions.from_degC(-50));
 
