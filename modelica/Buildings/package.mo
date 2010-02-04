@@ -71,7 +71,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">
-Version 0.8.0 </a>(XXXXX, 2009)</li>
+Version 0.8.0 </a>(February 4, 2010)</li>
 <li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">
 Version 0.7.0 </a>(September 29, 2009)</li>
