@@ -1,5 +1,3 @@
-BaseClasses
-Examples
 polynomial
 quadraticLinear
 regNonZeroPower
@@ -7,3 +5,5 @@ smoothExponential
 smoothMax
 smoothMin
 spliceFunction
+Examples
+BaseClasses
