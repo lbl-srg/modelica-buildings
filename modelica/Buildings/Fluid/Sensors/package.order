@@ -2,7 +2,6 @@ Conversions
 Density
 DensityTwoPort
 EnthalpyFlowRate
-Examples
 LatentEnthalpyFlowRate
 MassFlowRate
 MassFraction
@@ -21,3 +20,4 @@ TemperatureWetBulb
 TraceSubstances
 TraceSubstancesTwoPort
 VolumeFlowRate
+Examples
