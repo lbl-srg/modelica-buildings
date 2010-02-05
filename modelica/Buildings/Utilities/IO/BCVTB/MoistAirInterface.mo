@@ -67,14 +67,17 @@ public
   Modelica.Blocks.Math.Feedback diff
     "Difference between total and sensible enthalpy flow rate" 
     annotation (Placement(transformation(extent={{70,50},{90,70}})));
-  Modelica.Blocks.Interfaces.RealInput X[Medium.nX]
-    "Medium species concentration" 
+  Modelica.Blocks.Interfaces.RealInput phi "Medium relative humidity" 
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
           rotation=0)));
+  Psychrometrics.MassFraction_pTphi masFra(use_p_in=false, redeclare package
+      Medium = Medium) "Mass fraction"
+    annotation (Placement(transformation(extent={{-60,-64},{-40,-44}})));
 equation
   for i in 1:nPorts loop
   connect(senEntFloRat[i].port_a, ports[i]) annotation (Line(
-      points={{40,0},{98,0}},
+      points={{40,6.10623e-16},{54.5,6.10623e-16},{54.5,-1.60982e-15},{69,
+            -1.60982e-15},{69,-2.22045e-15},{98,-2.22045e-15}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senEntFloRat[i].H_flow, sumHSen_flow.u[i]) annotation (Line(
@@ -83,7 +86,8 @@ equation
       smooth=Smooth.None));
   end for;
   connect(senEntFloRat.port_b, totEntFloRat.port_a) annotation (Line(
-      points={{20,0},{0,0}},
+      points={{20,6.10623e-16},{15,6.10623e-16},{15,1.22125e-15},{10,
+          1.22125e-15},{10,6.10623e-16},{5.55112e-16,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sumHSen_flow.y, HSen_flow) annotation (Line(
@@ -102,8 +106,16 @@ equation
       points={{80,52},{80,40},{41,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(bou.X_in, X) annotation (Line(
-      points={{-62,-4},{-80,-4},{-80,-60},{-120,-60}},
+  connect(masFra.T, T_in) annotation (Line(
+      points={{-62,-54},{-84,-54},{-84,60},{-120,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(masFra.phi, phi) annotation (Line(
+      points={{-62,-60},{-120,-60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(masFra.X, bou.X_in) annotation (Line(
+      points={{-39,-54},{-20,-54},{-20,-30},{-72,-30},{-72,-4},{-62,-4}},
       color={0,0,127},
       smooth=Smooth.None));
 end MoistAirInterface;

@@ -140,10 +140,6 @@ First implementation.
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
   Modelica.Blocks.Math.Add add1 
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotalAir 
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
-  Buildings.Utilities.Psychrometrics.ToTotalAir toTotalAir1 
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Modelica.Blocks.Routing.Multiplex5 mul 
     annotation (Placement(transformation(extent={{400,0},{420,20}})));
   Buildings.Fluid.Sensors.Temperature TSup(redeclare package Medium = Medium)
@@ -158,6 +154,15 @@ First implementation.
     annotation (Placement(transformation(extent={{140,90},{160,110}})));
   Modelica.Blocks.Sources.Constant yFan(k=1) "Fan control signal" 
     annotation (Placement(transformation(extent={{100,110},{120,130}})));
+  Modelica.Blocks.Math.Gain perToRel(k=0.01) "Converts 0...100 to 0...1" 
+    annotation (Placement(transformation(extent={{40,-50},{60,-30}})));
+  Modelica.Blocks.Math.Gain perToRel1(
+                                     k=0.01) "Converts 0...100 to 0...1" 
+    annotation (Placement(transformation(extent={{20,50},{40,70}})));
+  Buildings.Utilities.Psychrometrics.MassFraction_pTphi masFra(
+                                           use_p_in=false, redeclare package
+      Medium = Medium) "Mass fraction" 
+    annotation (Placement(transformation(extent={{50,56},{70,76}})));
 equation
   connect(dp1.port_b, bouBCVTB.ports[1]) annotation (Line(
       points={{298,100},{310,100},{310,12},{227.8,12}},
@@ -219,36 +224,21 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(deMultiplex2_1.y1[1], add.u2) annotation (Line(
-      points={{-19,39},{30,39},{30,104},{38,104}},
+      points={{-19,39},{12,39},{12,104},{38,104}},
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(deMultiplex2_1.y2[1], add1.u2) annotation (Line(
-      points={{-19,33},{14,33},{14,-16},{38,-16}},
+      points={{-19,33},{-4,33},{-4,-16},{38,-16}},
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(uniCon.y, add1.u1) annotation (Line(
-      points={{-19,116},{20,116},{20,-4},{38,-4}},
+      points={{-19,116},{0,116},{0,-4},{38,-4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add1.y, bouBCVTB.T_in) annotation (Line(
       points={{61,-10},{80,-10},{80,16},{206,16}},
-      color={0,127,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(toTotalAir.XiDry, deMultiplex2_1.y4[1]) annotation (Line(
-      points={{39,-50},{10,-50},{10,21},{-19,21}},
-      color={0,127,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(toTotalAir1.XiTotalAir, sou1.X_in[1]) annotation (Line(
-      points={{61,70},{80,70},{80,66},{94,66}},
-      color={0,127,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(toTotalAir1.XNonVapor, sou1.X_in[2]) annotation (Line(
-      points={{61,66},{94,66}},
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -287,27 +277,12 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(uniCon.y, add2.u2) annotation (Line(
-      points={{-19,116},{26,116},{26,36},{334,36}},
+      points={{-19,116},{8,116},{8,36},{334,36}},
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(add2.y, mul.u5[1]) annotation (Line(
       points={{357,42},{374,42},{374,-6.66134e-16},{398,-6.66134e-16}},
-      color={0,127,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(toTotalAir.XiTotalAir, bouBCVTB.X[1]) annotation (Line(
-      points={{61,-50},{102,-50},{102,4},{206,4}},
-      color={0,127,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(toTotalAir.XNonVapor, bouBCVTB.X[2]) annotation (Line(
-      points={{61,-54},{104,-54},{104,4},{206,4}},
-      color={0,127,0},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(deMultiplex2_1.y3[1], toTotalAir1.XiDry) annotation (Line(
-      points={{-19,27},{-6,27},{-6,70},{39,70}},
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -335,4 +310,34 @@ equation
       points={{272,-50},{320,-50},{320,-70},{130,-70},{130,68},{116,68}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(perToRel.y, bouBCVTB.phi) annotation (Line(
+      points={{61,-40},{100,-40},{100,4},{206,4}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(deMultiplex2_1.y4[1], perToRel.u) annotation (Line(
+      points={{-19,21},{-8,21},{-8,-40},{38,-40}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(perToRel1.u, deMultiplex2_1.y3[1]) annotation (Line(
+      points={{18,60},{-6,60},{-6,27},{-19,27}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(masFra.phi, perToRel1.y) annotation (Line(
+      points={{48,60},{41,60}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(masFra.X, sou1.X_in) annotation (Line(
+      points={{71,66},{94,66}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(masFra.T, add.y) annotation (Line(
+      points={{48,66},{44,66},{44,90},{70,90},{70,110},{61,110}},
+      color={0,127,0},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
 end MoistAir;

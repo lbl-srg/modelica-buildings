@@ -1,5 +1,6 @@
 DewPointTemperature_pWat
 HumidityRatio_pWat
+MassFraction_pTphi
 ToDryAir
 ToTotalAir
 VaporPressure_TDP

@@ -5,6 +5,7 @@ model WetBulbTemperature "Model to compute the wet bulb temperature"
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model" 
                                                             annotation (
       choicesAllMatching = true);
+
 annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
@@ -97,15 +98,15 @@ First implementation.
     "Relative humidity (at dry-bulb state) in [0, 1]" 
     annotation (Placement(transformation(extent={{80,60},{100,80}}, rotation=0)));
 protected
-  parameter Integer iWat(min=1, fixed=false)
-    "Index for water vapor concentration";
+ parameter Integer iWat(min=1, fixed=false) "Index for water substance";
 initial algorithm
   iWat :=1;
-  for i in 1:Medium.nC loop
-    if ( Modelica.Utilities.Strings.isEqual(Medium.extraPropertiesNames[i], "Water")) then
-      iWat := i;
-    end if;
-  end for;
+    for i in 1:Medium.nXi loop
+      if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
+        iWat :=i;
+      end if;
+    end for;
+
 equation
   dryBul.p = p;
   dryBul.T = TDryBul;

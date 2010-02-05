@@ -52,10 +52,9 @@ First implementation.
                                          final unit="Pa",
                                          min = 0) if  use_p_in
     "Atmospheric Pressure" 
-    annotation (Placement(transformation(extent={{-120,50},{-100,70}},
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}},
                 rotation=0)));
-  output Modelica.SIunits.MassFraction X_dryAir(min=0, max=1, nominal=0.01, start=0.001)
-    "Water mass fraction per mass of dry air";
+
 protected
   Modelica.Blocks.Interfaces.RealInput p_in_internal
     "Needed to connect to conditional connector";

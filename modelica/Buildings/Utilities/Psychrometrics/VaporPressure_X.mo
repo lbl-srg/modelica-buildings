@@ -46,6 +46,9 @@ First implementation.
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0), iconTransformation(extent={{100,-10},{120,10}})));
 
+  output Modelica.SIunits.MassFraction X_dryAir(min=0, max=1, nominal=0.01, start=0.001)
+    "Water mass fraction per mass of dry air";
+
 equation
   X_dryAir * (1-XWat) = XWat;
  ( p_in_internal - p_w)   * X_dryAir = 0.62198 * p_w;
