@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations;
-record BoundsYorkCalc "Coefficient data record for properties of perfect gases"
+record BoundsYorkCalc
+  "Coefficient data record for properties of York cooling tower model"
   extends BaseClasses.Bounds(TAirInWB_min = 273.15-34.4,
   TAirInWB_max = 273.15+26.7,
   TRan_min =     1.1,

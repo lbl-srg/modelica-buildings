@@ -1,7 +1,9 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.Examples;
 model YorkCalc "Example for yorkCalc correlation"
 
-  annotation(Diagram(graphics),
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                     graphics),
                       Commands(file="YorkCalc.mos" "run"));
   parameter Modelica.SIunits.Temperature TRan = 5.56
     "Range temperature (water in - water out)";

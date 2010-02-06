@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BaseClasses;
-record Bounds "Coefficient data record for properties of perfect gases"
+record Bounds "Coefficient data record for properties of cooling tower model"
   extends Modelica.Icons.Record;
   Modelica.SIunits.Temperature TAirInWB_min
     "Minimum air inlet wet bulb temperature";

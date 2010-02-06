@@ -15,7 +15,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-smoothOrder=5, derivative=BaseClasses.der_yorkCalc);
+smoothOrder=5);
 
   input Modelica.SIunits.Temperature TRan
     "Range temperature (water in - water out)" 
