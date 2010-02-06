@@ -77,12 +77,13 @@ First implementation.
     "Range of significant deviation from equal percentage law";
 
 equation
-  connect(inv.y, res3.y) annotation (Line(points={{-41,70},{-20,70},{-20,20},{
-          20,20},{20,-50},{8,-50}},
+  connect(inv.y, res3.y) annotation (Line(points={{69,60},{74,60},{80,60},{80,
+          -50},{20,-50},{8,-50}},
                          color={0,0,127}));
-  connect(y, inv.u2) annotation (Line(points={{0,80},{0,80},{0,30},{-50,30},{
-          -50,62}},      color={0,0,127}));
-  connect(y, res1.y) annotation (Line(points={{0,80},{0,80},{0,30},{-50,30},{
-          -50,8}},
+  connect(y, inv.u2) annotation (Line(points={{1.11022e-15,80},{0,80},{0,30},{
+          60,30},{60,52}},
+                         color={0,0,127}));
+  connect(y, res1.y) annotation (Line(points={{1.11022e-15,80},{0,80},{0,30},{
+          -50,30},{-50,8}},
         color={0,0,127}));
 end ThreeWayEqualPercentageLinear;

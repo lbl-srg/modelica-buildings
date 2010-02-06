@@ -6,8 +6,11 @@ model Delay
                         graphics),
                          Commands(file=
             "Delay.mos" "run"));
- package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+// package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 // package Medium = Buildings.Media.IdealGases.SimpleAir;
+// We set X_default to a small enough value to avoid saturation at the medium temperature
+// that is used in this model.
+ package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated(X_default={0.001, 0.999});
 
     Modelica.Blocks.Sources.Constant PAtm(k=101325) 
       annotation (Placement(transformation(extent={{62,36},{82,56}}, rotation=0)));
@@ -53,19 +56,19 @@ equation
   connect(PAtm.y, sin.p_in) annotation (Line(points={{83,46},{90,46},{90,14},{
           80,14}}, color={0,0,127}));
   connect(sou.ports[1], res1.port_a) annotation (Line(
-      points={{-38,6},{-30,6}},
+      points={{-38,6},{-36,6},{-36,6},{-34,6},{-34,6},{-30,6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin.ports[1], res2.port_b) annotation (Line(
-      points={{58,6},{46,6}},
+      points={{58,6},{55,6},{55,6},{52,6},{52,6},{46,6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res1.port_b, del.ports[1]) annotation (Line(
-      points={{-10,6},{8,6}},
+      points={{-10,6},{-5.5,6},{-5.5,6},{-1,6},{-1,6},{8,6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(del.ports[2], res2.port_a) annotation (Line(
-      points={{12,6},{26,6}},
+      points={{12,6},{15.5,6},{15.5,6},{19,6},{19,6},{26,6}},
       color={0,127,255},
       smooth=Smooth.None));
 end Delay;

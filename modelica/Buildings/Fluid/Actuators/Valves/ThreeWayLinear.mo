@@ -28,7 +28,7 @@ model ThreeWayLinear "Three way valve with linear characteristics"
       Cv=fraK*Cv,
       Av=fraK*Av));
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
                        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -64,10 +64,12 @@ First implementation.
 </html>"));
 
 equation
-  connect(inv.y, res3.y) annotation (Line(points={{-35,72},{20,72},{20,-72},{8,
-          -72},{8,-62}}, color={0,0,127}));
-  connect(y, inv.u2) annotation (Line(points={{-120,80},{-92,80},{-92,40},{-44,
-          40},{-44,64}}, color={0,0,127}));
-  connect(y, res1.y) annotation (Line(points={{-120,80},{-92,80},{-92,8},{-62,8}},
+  connect(inv.y, res3.y) annotation (Line(points={{69,60},{80,60},{80,-50},{20,
+          -50},{8,-50}}, color={0,0,127}));
+  connect(y, inv.u2) annotation (Line(points={{1.11022e-15,80},{0,80},{0,40},{
+          60,40},{60,52}},
+                         color={0,0,127}));
+  connect(y, res1.y) annotation (Line(points={{1.11022e-15,80},{0,80},{0,40},{
+          -50,40},{-50,8}},
         color={0,0,127}));
 end ThreeWayLinear;

@@ -68,7 +68,7 @@ First implementation.
   replaceable Modelica.Fluid.Interfaces.PartialTwoPortTransport res2(redeclare
       package Medium = Medium)
     "Partial model, to be replaced with a fluid component" 
-    annotation (Placement(transformation(extent={{40,-10},{60,10}}, rotation=0)));
+    annotation (Placement(transformation(extent={{60,-10},{40,10}}, rotation=0)));
   replaceable Modelica.Fluid.Interfaces.PartialTwoPortTransport res3(redeclare
       package Medium = Medium)
     "Partial model, to be replaced with a fluid component" 
@@ -89,7 +89,7 @@ protected
    annotation(Dialog(tab="Advanced"));
 
 public
-  Delays.DelayFirstOrder del(
+  Delays.DelayFirstOrder vol(
     redeclare package Medium = Medium,
     use_portsData=false,
     nPorts=3,
@@ -105,7 +105,7 @@ public
     h_start=h_start,
     X_start=X_start,
     C_start=C_start) if 
-       dynamicBalance "Delay element to break algebraic loop" 
+       dynamicBalance "Fluid volume to break algebraic loop" 
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
@@ -147,33 +147,36 @@ public
     Medium.nC]=fill(0, Medium.nC) "Start value of trace substances" 
     annotation (Dialog(tab="Initialization"));
 equation
-  connect(port_1, res1.port_a) annotation (Line(points={{-100,0},{-100,0},{-60,
-          0}},                                                      color={0,
+  connect(port_1, res1.port_a) annotation (Line(points={{-100,5.55112e-16},{
+          -100,6.10623e-16},{-60,6.10623e-16}},                     color={0,
           127,255}));
-  connect(res2.port_b, port_2) annotation (Line(points={{60,0},{60,0},{100,0}},
-                                                               color={0,127,255}));
-  connect(res3.port_a, port_3) annotation (Line(points={{-6.12323e-016,-60},{
-          -6.12323e-016,-79},{0,-79},{0,-100}},                      color={0,
+  connect(res2.port_a, port_2) annotation (Line(points={{60,6.10623e-16},{60,
+          5.55112e-16},{100,5.55112e-16}},                     color={0,127,255}));
+  connect(res3.port_a, port_3) annotation (Line(points={{-1.68051e-18,-60},{
+          -1.68051e-18,-79},{5.55112e-16,-79},{5.55112e-16,-100}},   color={0,
           127,255}));
-  connect(res1.port_b, del.ports[1]) annotation (Line(
-      points={{-40,0},{-2.66667,0}},
+  connect(res1.port_b,vol. ports[1]) annotation (Line(
+      points={{-40,6.10623e-16},{-30.6666,6.10623e-16},{-30.6666,5.55115e-17},{
+          -21.3333,5.55115e-17},{-21.3333,-5.55112e-16},{-2.66667,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res2.port_a, del.ports[2]) annotation (Line(
-      points={{40,0},{2.22045e-016,0}},
+  connect(res2.port_b,vol. ports[2]) annotation (Line(
+      points={{40,6.10623e-16},{30,6.10623e-16},{30,5.55115e-17},{20,
+          5.55115e-17},{20,-5.55112e-16},{5.55112e-16,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res3.port_b, del.ports[3]) annotation (Line(
-      points={{6.12323e-016,-40},{2.66667,-40},{2.66667,0}},
+  connect(res3.port_b,vol. ports[3]) annotation (Line(
+      points={{1.22293e-15,-40},{2.66667,-40},{2.66667,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   if not dynamicBalance then
     connect(res1.port_b, res3.port_b) annotation (Line(
-      points={{-40,0},{-20,0},{-20,-40},{6.12323e-016,-40}},
+      points={{-40,6.10623e-16},{-20,6.10623e-16},{-20,-40},{1.22293e-15,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-    connect(res1.port_b, res2.port_a) annotation (Line(
-      points={{-40,0},{40,0}},
+    connect(res1.port_b, res2.port_b) annotation (Line(
+      points={{-40,6.10623e-16},{-20,6.10623e-16},{-20,1.22125e-15},{0,
+            1.22125e-15},{0,6.10623e-16},{40,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   end if;

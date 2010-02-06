@@ -61,6 +61,7 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
     p(start=p_start),
     h(start=h_start),
     T(start=T_start),
+    X(start=X_start[1:Medium.nX]),
     Xi(start=X_start[1:Medium.nXi]));
   Modelica.SIunits.Energy U "Internal energy of fluid";
   Modelica.SIunits.Mass m "Mass of fluid";
@@ -190,6 +191,12 @@ a differential equation, while modeling the total mass balance as a steady-state
 equation.
 </html>", revisions="<html>
 <ul>
+<li><i>February 6, 2010</i> by Michael Wetter:<br>
+Added to <code>Medium.BaseProperties</code> the initialization 
+<code>X(start=X_start[1:Medium.nX])</code>. Previously, the initialization
+was only done for <code>Xi</code> but not for <code>X</code>, which caused the
+medium to be initialized to <code>reference_X</code>, ignoring the value of <code>X_start</code>.
+</li>
 <li><i>October 12, 2009</i> by Michael Wetter:<br>
 Implemented first version in <code>Buildings</code> library, based on model from
 <code>Modelica.Fluid 1.0</code>.

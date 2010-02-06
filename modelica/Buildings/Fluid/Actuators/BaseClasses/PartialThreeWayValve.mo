@@ -129,11 +129,12 @@ First implementation.
         origin={0,80})));
 protected
   Modelica.Blocks.Math.Feedback inv "Inversion of control signal" 
-    annotation (Placement(transformation(extent={{-60,60},{-40,80}}, rotation=0)));
+    annotation (Placement(transformation(extent={{50,50},{70,70}},   rotation=0)));
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Outputs one for bypass valve" 
-    annotation (Placement(transformation(extent={{-100,60},{-80,80}},rotation=0)));
+    annotation (Placement(transformation(extent={{10,50},{30,70}},   rotation=0)));
 equation
   connect(uni.y, inv.u1) 
-    annotation (Line(points={{-79,70},{-58,70}}, color={0,0,127}));
+    annotation (Line(points={{31,60},{36,60},{42,60},{52,60}},
+                                                 color={0,0,127}));
 end PartialThreeWayValve;
