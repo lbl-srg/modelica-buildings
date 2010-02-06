@@ -103,6 +103,15 @@ Version 0.1.0 </a>(May 27, 2008)</li>
               annotation (Documentation(info="<html>
 <ul>
 <li>
+In 
+<a href=\"Modelica:Buildings.Fluid.Interfaces.PartialLumpedVolume\">
+Buildings.Fluid.Interfaces.PartialLumpedVolume</a>,
+added to <code>Medium.BaseProperties</code> the initialization 
+<code>X(start=X_start[1:Medium.nX])</code>. Previously, the initialization
+was only done for <code>Xi</code> but not for <code>X</code>, which caused the
+medium to be initialized to <code>reference_X</code>, ignoring the value of <code>X_start</code>.
+</li>
+<li>
 Renamed <code>Buildings.Media.PerfectGases.MoistAirNonSaturated</code>
 to 
 <a href=\"Modelica:Buildings.Media.PerfectGases.MoistAirUnsaturated\">
