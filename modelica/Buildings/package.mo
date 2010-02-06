@@ -188,7 +188,7 @@ In the previous version,
 for computing the heat conduction between the top (or bottom) segment and
 the outside, 
 the whole thickness of the water volume was used
-instead of only have the thickness.
+instead of only half the thickness.
 <li>
 In <a href=\"Buildings.Media.ConstantPropertyLiquidWater\">
 Buildings.Media.ConstantPropertyLiquidWater</a>, added the option to specify a compressibility.

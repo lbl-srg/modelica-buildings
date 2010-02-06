@@ -55,7 +55,7 @@ In the previous version,
 for computing the heat conduction between the top (or bottom) segment and
 the outside, 
 the whole thickness of the water volume was used
-instead of only have the thickness.
+instead of only half the thickness.
 </li>
 <li>
 February 19, 2009 by Michael Wetter:<br>
@@ -341,8 +341,8 @@ equation
                                         annotation (Line(points={{16,-16},{14,
           -16},{14,-80},{50,-80}},                          color={0,127,255}));
   connect(hB_flow.port_b, port_b) 
-                             annotation (Line(points={{70,-80},{82,-80},{82,0},
-          {100,0}},                          color={0,127,255}));
+                             annotation (Line(points={{70,-80},{82,-80},{82,
+          5.55112e-16},{100,5.55112e-16}},   color={0,127,255}));
   for i in 1:(nSeg-1) loop
 
   connect(vol[i].ports[2], hVol_flow[i].port_a) 
@@ -350,12 +350,12 @@ equation
             {16,-20},{-28,-20},{-28,-40},{-20,-40}},                color={0,
             127,255}));
   connect(hVol_flow[i].port_b, vol[i+1].ports[1]) 
-                                                 annotation (Line(points={{0,-40},
-            {4,-40},{4,-16},{16,-16}},                         color={0,127,255}));
+                                                 annotation (Line(points={{
+            5.55112e-16,-40},{4,-40},{4,-16},{16,-16}},        color={0,127,255}));
   end for;
   connect(port_a, hA_flow.port_a) 
-                             annotation (Line(points={{-100,0},{-80,0},{-80,-80},
-          {-62,-80}},                                           color={0,127,
+                             annotation (Line(points={{-100,5.55112e-16},{-80,
+          5.55112e-16},{-80,-80},{-62,-80}},                    color={0,127,
           255}));
   connect(buo.heatPort, vol.heatPort)    annotation (Line(
       points={{-40,60},{6,60},{6,-6}},
@@ -375,8 +375,8 @@ equation
   connect(conBot.port_a, vol[nSeg].heatPort)    annotation (Line(points={{10,20},
           {10,20},{6,20},{6,-6}},
                                color={191,0,0}));
-  connect(vol.heatPort, heaPorVol)    annotation (Line(points={{6,-6},{6,-6},{0,
-          -6},{0,0}},
+  connect(vol.heatPort, heaPorVol)    annotation (Line(points={{6,-6},{6,-6},{
+          -2.22045e-16,-6},{-2.22045e-16,-2.22045e-16}},
         color={191,0,0}));
   connect(conWal.port_b, heaFloSid.port_a) 
     annotation (Line(points={{20,40},{30,40}}, color={191,0,0}));
@@ -407,7 +407,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(theCol.port_b, heaPorSid) annotation (Line(
-      points={{52,20},{52,0},{56,0}},
+      points={{52,20},{52,-2.22045e-16},{56,-2.22045e-16}},
       color={191,0,0},
       smooth=Smooth.None));
 end Stratified;
