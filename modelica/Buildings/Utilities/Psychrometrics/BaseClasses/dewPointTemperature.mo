@@ -23,6 +23,10 @@ Changed from causal to acausal ports, needed, for example, for
 Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
+February 6, 2010 by Michael Wetter:<br>
+Fixed derivative implementation.
+</li>
+<li>
 August 7, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
@@ -42,6 +46,7 @@ protected
   constant Real C11 = 4.1764768E-5;
   constant Real C12= -1.4452093E-8;
   constant Real C13 = 6.5459673E0;
+
  annotation(smoothOrder=1, derivative=der_dewPointTemperature);
 algorithm
  p_w := Modelica.Math.exp(C8/T + C9 + T * ( C10

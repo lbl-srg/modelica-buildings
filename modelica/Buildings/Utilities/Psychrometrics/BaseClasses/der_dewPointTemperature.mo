@@ -20,9 +20,8 @@ First implementation.
             100,100}}), graphics));
 
   input Modelica.SIunits.Temperature T "Dew point temperature";
-  input Modelica.SIunits.Temperature dT;
-  output Real dp_w(unit="Pa/K")
-    "Differential of water vapor partial pressure (dp_w/dT)";
+  input Real dT;
+  output Real dp_w "Differential of water vapor partial pressure";
 protected
   constant Real C8 = -5.800226E3;
   constant Real C9 =  1.3914993E0;
@@ -33,5 +32,5 @@ protected
 algorithm
  dp_w := Modelica.Math.exp(C8/T + C9 + T * ( C10
            + T * ( C11 + T * C12))  + C13 * Modelica.Math.log(T))
-           * (-C8/T/T+C10+2*C11*T+3*C12*T*T+C13/T);
+           * (-C8/T/T+C10+2*C11*T+3*C12*T*T+C13/T)*dT;
 end der_dewPointTemperature;

@@ -28,10 +28,11 @@ First implementation.
 </html>"));
   Real x;
   Real y;
+  parameter Real uniCon(unit="K/s") = 1 "Constant to convert units";
 initial equation
    y=x;
 equation
-  x=Buildings.Utilities.Psychrometrics.BaseClasses.dewPointTemperature(T=time);
+  x=Buildings.Utilities.Psychrometrics.BaseClasses.dewPointTemperature(T=time*uniCon);
   der(y)=der(x);
   assert(abs(x-y) < 1E-2, "Model has an error");
 end DewPointTemperatureDerivativeCheck;
