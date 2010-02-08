@@ -133,7 +133,8 @@ equation
   ports_p_static = medium.p;
 
   connect(heatPort, heatTransfer.heatPorts[1]) annotation (Line(
-      points={{-100,0},{-87,0},{-87,8.88178e-016},{-74,8.88178e-016}},
+      points={{-100,5.55112e-16},{-87,5.55112e-16},{-87,2.22045e-15},{-74,
+          2.22045e-15}},
       color={191,0,0},
       smooth=Smooth.None));
   Wb_flow = 0;

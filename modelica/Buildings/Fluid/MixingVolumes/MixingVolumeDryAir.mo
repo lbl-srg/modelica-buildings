@@ -8,28 +8,20 @@ model MixingVolumeDryAir
           textString="%name",
           lineColor={0,0,255})}),
 Documentation(info="<html>
-Model for an ideally mixed fluid volume with <tt>nP</tt> ports and the ability 
+Model for an ideally mixed fluid volume and the ability 
 to store mass and energy. The volume is fixed, 
-and latent and sensible heat can be exchanged.
+and sensible heat can be exchanged.
 <p>
-This model represents the same physics as 
-<a href=\"Modelica:Buildings.Fluid.MixingVolumes.MixingVolume\">
-Buildings.Fluid.MixingVolumes.MixingVolume</a>, but in addition, it allows
-adding (or subtracting) water in liquid phase, which causes a change in 
-enthalpy and species concentration. 
-The water flow rate is assumed to be added or extracted at the
-temperature of the input port <tt>TWat</tt>, or 
-if this port is not connected at the medium default temperature as
-returned by <tt>Medium.T_default</tt>.
+This model has the same ports as
+<a href=\"Modelica:Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir\">
+Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
+However, there is no mass exchange with the medium other than through the port
+<code>ports</code>.
 </p>
 <p>
-Note that this model can only be used with medium models that include water
-as a substance. In particular, the medium model need to provide the function
-<tt>enthalpyOfLiquid(T)</tt> and the integer variable <tt>Water</tt> that
-contains the index to the water substance. For medium that do not provide this
-functionality, use instead the model
-<a href=\"Modelica:Buildings.Fluid.MixingVolumes.MixingVolumeDryAir\">
-Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
+For media that do provide water as a species, use the model
+<a href=\"Modelica:Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir\">
+Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -174,8 +174,7 @@ public
     each final T_start=T_start,
     each final h_start=h_start,
     each final X_start=X_start,
-    each final C_start=C_start,
-    each final m_flow_small=m_flow_small) "Volume for fluid stream" 
+    each final C_start=C_start) "Volume for fluid stream" 
     annotation (Placement(transformation(extent={{-9,0},{11,-20}},
                           rotation=0)));
 protected
@@ -219,17 +218,20 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(port_a, vol[1].ports[1]) annotation (Line(
-      points={{-100,0},{-1,0}},
+      points={{-100,5.55112e-16},{-75.25,5.55112e-16},{-75.25,1.11022e-15},{
+          -50.5,1.11022e-15},{-50.5,5.55112e-16},{-1,5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol[nEle].ports[2], port_b) annotation (Line(
-      points={{3,0},{100,0}},
+      points={{3,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,
+          1.11022e-15},{51.5,5.55112e-16},{100,5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   for i in 1:nEle-1 loop
 
     connect(vol[i].ports[2], vol[i+1].ports[1]) annotation (Line(
-        points={{3,0},{-1,0}},
+        points={{3,5.55112e-16},{2,5.55112e-16},{2,1.11022e-15},{1,1.11022e-15},
+            {1,5.55112e-16},{-1,5.55112e-16}},
         color={0,127,255},
         smooth=Smooth.None));
   end for;

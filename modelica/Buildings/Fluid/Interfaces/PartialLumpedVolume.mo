@@ -18,15 +18,6 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
   parameter Types.Dynamics massDynamics=system.massDynamics
     "Formulation of mass balance" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-
-  /* Original formulation
-  final parameter Types.Dynamics substanceDynamics=massDynamics 
-    "Formulation of substance balance" 
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  final parameter Types.Dynamics traceDynamics=massDynamics 
-    "Formulation of trace substance balance" 
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-    */
   parameter Types.Dynamics substanceDynamics=energyDynamics
     "Formulation of substance balance" 
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
@@ -61,8 +52,8 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
     p(start=p_start),
     h(start=h_start),
     T(start=T_start),
-    X(start=X_start[1:Medium.nX]),
     Xi(start=X_start[1:Medium.nXi]));
+  //  X(start=X_start[1:Medium.nX]),
   Modelica.SIunits.Energy U "Internal energy of fluid";
   Modelica.SIunits.Mass m "Mass of fluid";
   Modelica.SIunits.Mass[Medium.nXi] mXi
@@ -82,7 +73,6 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
     "Enthalpy flow across boundaries or energy source/sink";
   Modelica.SIunits.HeatFlowRate Qb_flow
     "Heat flow across boundaries or energy source/sink";
-  Modelica.SIunits.Power Wb_flow "Work flow across boundaries or source term";
 protected
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure";
@@ -100,9 +90,9 @@ equation
 
   // Energy and mass balances
   if energyDynamics == Dynamics.SteadyState then
-    0 = Hb_flow + Qb_flow + Wb_flow;
+    0 = Hb_flow + Qb_flow;
   else
-    der(U) = Hb_flow + Qb_flow + Wb_flow;
+    der(U) = Hb_flow + Qb_flow;
   end if;
 
   if massDynamics == Dynamics.SteadyState then
@@ -163,11 +153,10 @@ initial equation
 
   annotation (
     Documentation(info="<html>
-<p>Interface and base class for an ideally mixed fluid volume with the ability to store mass and energy. The following boundary flow and source terms are part of the energy balance and must be specified in an extending class: </p>
-<p><ul>
-<li><pre><b>Qb_flow</b></pre>, e.g. convective or latent heat flow rate across segment boundary, and</li>
-<li><pre><b>Wb_flow</b></pre>, work term, e.g. p*der(fluidVolume) if the volume is not constant.</li>
-</ul></p>
+<p>Interface and base class for an ideally mixed fluid volume with the ability to store mass and energy. 
+An extending class must specify an equation for
+<b>Qb_flow</b>, e.g. convective or latent heat flow rate across the boundary.
+</p>
 The component volume <pre><b>fluidVolume</b> is an input that needs to be set in the extending class to complete the model. </pre>
 <p>Further source terms must be defined by an extending class for fluid flow across the segment boundary: </p>
 <p><ul>
@@ -177,7 +166,7 @@ The component volume <pre><b>fluidVolume</b> is an input that needs to be set in
 <li><pre><b>mbC_flow</b></pre>, trace substance mass flow.</li>
 </ul></p>
 <p>
-<b>Note:</b> This model is identical to 
+<b>Note:</b> This model is similar to 
 <a href=\"Modelica://Modelica.Fluid.Interfaces.PartialLumpedVolume\">
 Modelica.Fluid.Interfaces.PartialLumpedVolume</a>, except for 
 <ul>

@@ -1,6 +1,6 @@
 within Buildings.Fluid.MixingVolumes;
 model MixingVolumeMoistAir
-  "Mixing volume with heat port for latent heat exchange, to be used with media that conatin water"
+  "Mixing volume with heat port for latent heat exchange, to be used with media that contain water"
   extends BaseClasses.PartialMixingVolumeWaterPort;
   // redeclare Medium with a more restricting base class. This improves the error
   // message if a user selects a medium that does not contain the function
@@ -10,7 +10,7 @@ model MixingVolumeMoistAir
   annotation (Diagram(graphics),
                        Icon(graphics),
 Documentation(info="<html>
-Model for an ideally mixed fluid volume with <tt>nP</tt> ports and the ability 
+Model for an ideally mixed fluid volume and the ability 
 to store mass and energy. The volume is fixed, 
 and latent and sensible heat can be exchanged.
 <p>
@@ -26,10 +26,10 @@ defined by <tt>Medium.T_default</tt>.
 </p>
 <p>
 Note that this model can only be used with medium models that include water
-as a substance. In particular, the medium model need to provide the function
+as a substance. In particular, the medium model needs to implement the function
 <tt>enthalpyOfLiquid(T)</tt> and the integer variable <tt>Water</tt> that
 contains the index to the water substance. For medium that do not provide this
-functionality, use instead the model
+functionality, use
 <a href=\"Modelica:Buildings.Fluid.MixingVolumes.MixingVolumeDryAir\">
 Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
 </p>

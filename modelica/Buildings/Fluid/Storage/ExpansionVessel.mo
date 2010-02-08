@@ -104,7 +104,6 @@ equation
     "Trace substance mass flow";
   Hb_flow   = port_a.m_flow * actualStream(port_a.h_outflow) "Enthalpy flow";
   Qb_flow   = heatTransfer.Q_flows[1];
-  Wb_flow   = 0;
 
   // Outflowing quantities
   port_a.h_outflow  = medium.h;

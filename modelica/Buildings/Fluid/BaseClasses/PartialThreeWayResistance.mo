@@ -91,12 +91,10 @@ protected
 public
   Delays.DelayFirstOrder vol(
     redeclare package Medium = Medium,
-    use_portsData=false,
     nPorts=3,
     use_HeatTransfer=false,
     tau=tau,
     m_flow_nominal=mDyn_flow_nominal,
-    m_flow_small=1E-4*mDyn_flow_nominal,
     energyDynamics=energyDynamics,
     massDynamics=massDynamics,
     p_start=p_start,

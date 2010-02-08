@@ -239,7 +239,6 @@ Icon(graphics={
     each C_start=C_start,
     each V=VTan/nSeg,
     each nPorts=nPorts,
-    each m_flow_small = m_flow_small,
     each use_HeatTransfer=true,
     redeclare each model HeatTransfer = 
         Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer)
