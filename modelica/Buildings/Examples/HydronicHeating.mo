@@ -126,7 +126,9 @@ model HydronicHeating "Test model"
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     yMax=1,
     yMin=0,
-    k=2) "Controller for room temperature" 
+    k=2,
+    Ti=60,
+    Td=60) "Controller for room temperature" 
     annotation (Placement(transformation(extent={{460,210},{480,230}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRoo1 
     annotation (Placement(transformation(extent={{420,350},{440,370}})));
@@ -148,7 +150,9 @@ model HydronicHeating "Test model"
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     yMax=1,
     yMin=0,
-    k=2) "Controller for room temperature" 
+    k=2,
+    Ti=60,
+    Td=60) "Controller for room temperature" 
     annotation (Placement(transformation(extent={{460,390},{480,410}})));
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(
     Q_flow_nominal=Q_flow_nominal/nRoo,
@@ -178,8 +182,8 @@ model HydronicHeating "Test model"
     yMin=0,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     xi_start=1,
-    controllerType=Modelica.Blocks.Types.SimpleController.P)
-    "Controller for pump" 
+    controllerType=Modelica.Blocks.Types.SimpleController.P,
+    Td=60) "Controller for pump" 
     annotation (Placement(transformation(extent={{180,-10},{200,10}})));
   Fluid.Storage.StratifiedEnhanced tan(
     m_flow_nominal=m_flow_nominal,
@@ -431,7 +435,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b,pumBoi. port_a) annotation (Line(
-      points={{0,-60},{56,-60}},
+      points={{5.55112e-16,-60},{56,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.heaPorVol[1], tanTemTop.port) annotation (Line(
@@ -503,7 +507,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(conVal.y, thrWayVal.y) annotation (Line(
-      points={{201,0},{212,0},{212,4.89859e-016}},
+      points={{201,6.10623e-16},{212,6.10623e-16},{212,1.15598e-15}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(onSta.active, booToRea.u) annotation (Line(
@@ -519,7 +523,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(heaCha.TSup, conVal.u_s) annotation (Line(
-      points={{81,76},{110,76},{110,0},{178,0}},
+      points={{81,76},{110,76},{110,6.66134e-16},{178,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOutBC.y, heaCha.TOut) annotation (Line(
@@ -551,7 +555,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(res2.port_b, thrWayVal.port_3) annotation (Line(
-      points={{240,80},{240,-6.12323e-016},{230,-6.12323e-016}},
+      points={{240,80},{240,-1.68051e-18},{230,-1.68051e-18}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(venLos1.port_a, TOut1.port) annotation (Line(
