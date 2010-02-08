@@ -70,6 +70,9 @@ on the Buildings library
 </p>
 <ul>
 <li> 
+<a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
+Version 0.9.0 </a>(xxxxx, 2010)</li>
+<li> 
 <a href=\"Modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">
 Version 0.8.0 </a>(February 6, 2010)</li>
 <li> 
@@ -98,7 +101,22 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 </html>
 "));
 
-    class Version_0_8_0 "Version 0.8.0"
+  class Version_0_9_0 "Version 0.9.0"
+  annotation (Documentation(info="<html>
+<ul>
+<li>
+Simplified the mixing volumes in 
+<a href=\"Modelica:Buildings.Fluid.MixingVolumes\">
+Buildings.Fluid.MixingVolumes</a> by removing the port velocity, 
+pressure drop and height.
+</li>
+</ul>
+</p>
+</html>
+"));
+  end Version_0_9_0;
+
+  class Version_0_8_0 "Version 0.8.0"
 
               annotation (Documentation(info="<html>
 <ul>
@@ -233,7 +251,7 @@ and hence to the flow splitter and to the three-way valves. This often breaks al
 </p>
 </html>
 "));
-    end Version_0_8_0;
+  end Version_0_8_0;
 
     class Version_0_7_0 "Version 0.7.0"
 
