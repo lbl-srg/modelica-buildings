@@ -135,7 +135,7 @@ Modelica.Blocks.Continuous.FirstOrder gaiRet(
   inner Modelica.Fluid.System system 
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 
-   Modelica.Blocks.Continuous.LimPID PID(
+   Buildings.Controls.Continuous.LimPID PID(
     Ti=60,
     yMax=1,
     yMin=0,
@@ -182,7 +182,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(fan32.N_in, gaiSup.y) annotation (Line(
-      points={{126,-3},{126,0},{100.6,0}},
+      points={{126,-3},{126,-1.88738e-16},{100.6,-1.88738e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fan56.N_in, gaiRet.y) annotation (Line(
@@ -198,7 +198,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(PID.y, gaiSup.u) annotation (Line(
-      points={{61,90},{80,90},{80,0},{86.8,0}},
+      points={{61,90},{80,90},{80,-1.55431e-16},{86.8,-1.55431e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PID.y, gaiRet.u) annotation (Line(

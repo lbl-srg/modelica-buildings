@@ -122,7 +122,7 @@ model HydronicHeating "Test model"
     l=0.0001,
     from_dp=true) "Radiator valve" 
     annotation (Placement(transformation(extent={{320,118},{340,138}})));
-  Modelica.Blocks.Continuous.LimPID conRoo2(
+  Controls.Continuous.LimPID conRoo2(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     yMax=1,
     yMin=0,
@@ -146,7 +146,7 @@ model HydronicHeating "Test model"
     l=0.0001,
     from_dp=true) "Radiator valve" 
     annotation (Placement(transformation(extent={{320,298},{340,318}})));
-  Modelica.Blocks.Continuous.LimPID conRoo1(
+  Controls.Continuous.LimPID conRoo1(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     yMax=1,
     yMin=0,
@@ -175,7 +175,7 @@ model HydronicHeating "Test model"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,0})));
-  Modelica.Blocks.Continuous.LimPID conVal(
+  Controls.Continuous.LimPID conVal(
     k=1,
     Ti=60,
     yMax=1,
@@ -717,7 +717,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch3.y, conRoo2.u_s) annotation (Line(
-      points={{163,420},{192,420},{192,450},{446,450},{446,220},{458,220}},
+      points={{163,420},{192,420},{192,452},{446,452},{446,220},{458,220}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pumRad.y_in, conPum.y) annotation (Line(

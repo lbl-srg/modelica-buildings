@@ -7,7 +7,7 @@ model LimPID "Example model"
                       Commands(file="LimPID.mos" "run"));
 
   Modelica.Blocks.Sources.Pulse pulse(period=0.25) 
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}},rotation=0)));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}},rotation=0)));
   Buildings.Controls.Continuous.LimPID limPID(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
     Ti=1,
@@ -15,7 +15,7 @@ model LimPID "Example model"
     yMax=1,
     yMin=-1,
     initType=Modelica.Blocks.Types.InitPID.InitialState) 
-          annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+          annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.Continuous.LimPID limPIDRev(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
     reverseAction=true,
@@ -32,17 +32,28 @@ model LimPID "Example model"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1e-10) 
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
+  Modelica.Blocks.Continuous.LimPID limPIDOri(
+    controllerType=Modelica.Blocks.Types.SimpleController.PID,
+    Ti=1,
+    Td=1,
+    yMax=1,
+    yMin=-1,
+    initType=Modelica.Blocks.Types.InitPID.InitialState) 
+          annotation (Placement(transformation(extent={{-20,70},{0,90}})));
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality1(
+                                                                threShold=1e-10) 
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(pulse.y, limPID.u_s) annotation (Line(
-      points={{-59,50},{-22,50}},
+      points={{-59,40},{-22,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pulse.y, limPIDRev.u_s) annotation (Line(
-      points={{-59,50},{-45.5,50},{-45.5,-10},{-22,-10}},
+      points={{-59,40},{-45.5,40},{-45.5,-10},{-22,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, limPID.u_m) annotation (Line(
-      points={{-59,10},{-10,10},{-10,38}},
+      points={{-59,10},{-10,10},{-10,28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, limPIDRev.u_m) annotation (Line(
@@ -58,7 +69,25 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(limPID.y, assertEquality.u1) annotation (Line(
-      points={{1,50},{30,50},{30,36},{58,36}},
+      points={{1,40},{30,40},{30,36},{58,36}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pulse.y, limPIDOri.u_s) 
+                               annotation (Line(
+      points={{-59,40},{-45.5,40},{-45.5,80},{-22,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(const.y, limPIDOri.u_m) 
+                               annotation (Line(
+      points={{-59,10},{-52,10},{-52,60},{-10,60},{-10,68}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(assertEquality1.u1, limPIDOri.y) annotation (Line(
+      points={{58,76},{30,76},{30,80},{1,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(assertEquality1.u2, limPID.y) annotation (Line(
+      points={{58,64},{30,64},{30,40},{1,40}},
       color={0,0,127},
       smooth=Smooth.None));
 end LimPID;
