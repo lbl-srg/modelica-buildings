@@ -33,6 +33,11 @@ avoids the controller from switching on until <tt>minOffTime</tt> seconds elapse
 </html>", revisions="<html>
 <ul>
 <li>
+February 24, 2010, by Michael Wetter:<br>
+Changed PID controller from Modelica Standard Library to
+PID controller from Buildings library to allow reverse control action. 
+</li>
+<li>
 October 2, 2009, by Michael Wetter:<br>
 Fixed error in default parameter <code>eOn</code>.
 </li>
@@ -76,6 +81,10 @@ First implementation.
       annotation (Dialog(group="Set point tracking"));
   parameter Real Nd=10 "The higher Nd, the more ideal the derivative block" 
       annotation (Dialog(group="Set point tracking"));
+  parameter Boolean reverseAction = false
+    "Set to true to enable reverse action (such as for a cooling coil controller)"
+     annotation (Dialog(group="Set point tracking"));
+
   parameter Modelica.Blocks.Types.InitPID initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation (Dialog(group="Initialization"));
@@ -98,7 +107,7 @@ First implementation.
     annotation (Placement(transformation(extent={{100,30},{120,50}},
         rotation=0)));
 
-  Modelica.Blocks.Continuous.LimPID con(
+  LimPID con(
     controllerType=controllerType,
     k=k,
     Ti=Ti,
@@ -113,7 +122,8 @@ First implementation.
     xd_start=xd_start,
     y_start=y_start,
     final yMin=yMin,
-    final yMax=yMax) "Controller to track setpoint" 
+    final yMax=yMax,
+    reverseAction=reverseAction) "Controller to track setpoint" 
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 protected
   Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal" 
@@ -152,7 +162,8 @@ public
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(u_m, con.u_m) annotation (Line(
-      points={{0,-120},{0,-62}},
+      points={{-1.11022e-15,-120},{-1.11022e-15,-105.5},{-6.66131e-16,-105.5},{
+          -6.66131e-16,-91},{4.44089e-16,-91},{4.44089e-16,-62}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zer.y,switch2. u3) annotation (Line(
@@ -160,15 +171,16 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch2.y, y) annotation (Line(
-      points={{83,-40},{96,-40},{96,0},{110,0}},
+      points={{83,-40},{96,-40},{96,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(and3.y,switch2. u2) annotation (Line(
-      points={{81,0},{90,0},{90,-20},{52,-20},{52,-40},{60,-40}},
+      points={{81,6.10623e-16},{90,6.10623e-16},{90,-20},{52,-20},{52,-40},{60,
+          -40}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(greaterEqualThreshold.y, and3.u1) annotation (Line(
-      points={{41,10},{50,10},{50,0},{58,0}},
+      points={{41,10},{50,10},{50,6.66134e-16},{58,6.66134e-16}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(offHys.y, greaterEqualThreshold.u)   annotation (Line(
@@ -188,15 +200,17 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(and3.y, on) annotation (Line(
-      points={{81,0},{90,0},{90,-80},{110,-80}},
+      points={{81,6.10623e-16},{90,6.10623e-16},{90,-80},{110,-80}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and3.y, onTimer.u) annotation (Line(
-      points={{81,0},{90,0},{90,60},{-40,60},{-40,80},{-22,80}},
+      points={{81,6.10623e-16},{90,6.10623e-16},{90,60},{-40,60},{-40,80},{-22,
+          80}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(and3.y, not1.u) annotation (Line(
-      points={{81,0},{90,0},{90,60},{-40,60},{-40,40},{-22,40}},
+      points={{81,6.10623e-16},{90,6.10623e-16},{90,60},{-40,60},{-40,40},{-22,
+          40}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(not1.y, offTimer.u) annotation (Line(
@@ -204,15 +218,17 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(and3.y, switch1.u2) annotation (Line(
-      points={{81,0},{90,0},{90,-20},{-60,-20},{-60,-50},{-42,-50}},
+      points={{81,6.10623e-16},{90,6.10623e-16},{90,-20},{-60,-20},{-60,-50},{
+          -42,-50}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(u_s, switch1.u1) annotation (Line(
-      points={{-120,0},{-92,0},{-92,-42},{-42,-42}},
+      points={{-120,1.11022e-15},{-92,1.11022e-15},{-92,-42},{-42,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(u_m, switch1.u3) annotation (Line(
-      points={{0,-120},{0,-90},{-80,-90},{-80,-58},{-42,-58}},
+      points={{-1.11022e-15,-120},{-1.11022e-15,-90},{-80,-90},{-80,-58},{-42,
+          -58}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch1.y, con.u_s) annotation (Line(
@@ -220,23 +236,25 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(u_s, feeBac.u1) annotation (Line(
-      points={{-120,0},{-88,0}},
+      points={{-120,1.11022e-15},{-112,1.11022e-15},{-112,1.77635e-15},{-104,
+          1.77635e-15},{-104,6.66134e-16},{-88,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(u_m, feeBac.u2) annotation (Line(
-      points={{0,-120},{0,-90},{-80,-90},{-80,-8}},
+      points={{-1.11022e-15,-120},{-1.11022e-15,-90},{-80,-90},{-80,-8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(feeBac.y, hys.u) annotation (Line(
-      points={{-71,0},{-62,0}},
+      points={{-71,6.10623e-16},{-68.75,6.10623e-16},{-68.75,1.27676e-15},{
+          -66.5,1.27676e-15},{-66.5,6.66134e-16},{-62,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hys.y, offHys.u) annotation (Line(
-      points={{-39,0},{-30,0},{-30,10},{-22,10}},
+      points={{-39,6.10623e-16},{-30,6.10623e-16},{-30,10},{-22,10}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(hys.y, and3.u2) annotation (Line(
-      points={{-39,0},{-30,0},{-30,-8},{58,-8}},
+      points={{-39,6.10623e-16},{-30,6.10623e-16},{-30,-8},{58,-8}},
       color={255,0,255},
       smooth=Smooth.None));
 end PIDHysteresisTimer;

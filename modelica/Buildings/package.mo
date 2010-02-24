@@ -128,6 +128,13 @@ Version 0.1.0 </a>(May 27, 2008)</li>
   annotation (Documentation(info="<html>
 <ul>
 <li>
+Added model <a href=\"Modelica:Buildings.Controls.Continuous.LimPID\">
+Buildings.Controls.Continuous.LimPID</a>, which is identical to 
+<a href=\"Modelica:Modelica.Blocks.Continuous.LimPID\">
+Modelica.Blocks.Continuous.LimPID</a>, except that it 
+allows reverse control action. This simplifies use of the controller
+for cooling applications.
+<li>
 Added model <a href=\"Modelica:Buildings.Fluid.Actuators.Dampers.MixingBox\">
 Buildings.Fluid.Actuators.Dampers.MixingBox</a> for an outside air
 mixing box with air dampers.

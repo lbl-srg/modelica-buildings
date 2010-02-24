@@ -33,6 +33,10 @@ model PIDHysteresis
     annotation (Dialog(group="Set point tracking"));
   parameter Real Nd=10 "The higher Nd, the more ideal the derivative block" 
     annotation (Dialog(group="Set point tracking"));
+  parameter Boolean reverseAction = false
+    "Set to true to enable reverse action (such as for a cooling coil controller)"
+     annotation (Dialog(group="Set point tracking"));
+
   parameter Modelica.Blocks.Types.InitPID initType=Modelica.Blocks.Types.InitPID.DoNotUse_InitialIntegratorState
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation (Dialog(group="Initialization"));
@@ -48,7 +52,7 @@ model PIDHysteresis
   parameter Real y_start=0 "Initial value of output" 
     annotation (Dialog(group="Initialization"));
 
-  Modelica.Blocks.Continuous.LimPID PID(
+  LimPID PID(
     controllerType=controllerType,
     k=k,
     Ti=Ti,
@@ -63,7 +67,8 @@ model PIDHysteresis
     xi_start=xi_start,
     xd_start=xd_start,
     y_start=y_start,
-    Td=Td) "Controller for room temperature" 
+    Td=Td,
+    reverseAction=reverseAction) "Controller for room temperature" 
     annotation (Placement(transformation(extent={{-30,-2},{-10,18}})));
   annotation (Diagram(graphics), Icon(graphics={
         Polygon(
@@ -107,6 +112,11 @@ is small enough.
 </html>", revisions="<html>
 <ul>
 <li>
+February 24, 2010, by Michael Wetter:<br>
+Changed PID controller from Modelica Standard Library to
+PID controller from Buildings library to allow reverse control action. 
+</li>
+<li>
 October 2, 2009, by Michael Wetter:<br>
 Fixed error in default parameter <code>eOn</code>.
 Fixed error by introducing parameter <code>Td</code>, 
@@ -131,6 +141,7 @@ First implementation.
     annotation (Placement(transformation(extent={{-70,50},{-50,70}})));
   Modelica.Blocks.Logical.Switch swi1 
     annotation (Placement(transformation(extent={{40,50},{60,70}})));
+
 equation
   assert(eOff < eOn, "Wrong controller parameters. Require eOff < eOn.");
   connect(zer.y, swi.u3) annotation (Line(
@@ -138,27 +149,28 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(swi.y, y) annotation (Line(
-      points={{81,0},{110,0}},
+      points={{81,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
+          1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(u_m, PID.u_m) annotation (Line(
-      points={{0,-120},{0,-80},{-20,-80},{-20,-4}},
+      points={{-1.11022e-15,-120},{-1.11022e-15,-80},{-20,-80},{-20,-4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hys.y, swi.u2) annotation (Line(
-      points={{-9,60},{20,60},{20,0},{58,0}},
+      points={{-9,60},{20,60},{20,6.66134e-16},{58,6.66134e-16}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(PID.y, swi.u1) annotation (Line(
-      points={{-9,8},{58,8}},
+      points={{-9,8},{24.5,8},{24.5,8},{58,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(u_s, feeBac.u1) annotation (Line(
-      points={{-120,0},{-80,0},{-80,60},{-68,60}},
+      points={{-120,1.11022e-15},{-80,1.11022e-15},{-80,60},{-68,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(u_m, feeBac.u2) annotation (Line(
-      points={{0,-120},{0,-80},{-60,-80},{-60,52}},
+      points={{-1.11022e-15,-120},{-1.11022e-15,-80},{-60,-80},{-60,52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(feeBac.y, hys.u) annotation (Line(
@@ -166,7 +178,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(u_s, swi1.u1) annotation (Line(
-      points={{-120,0},{-80,0},{-80,80},{20,80},{20,68},{38,68}},
+      points={{-120,1.11022e-15},{-80,1.11022e-15},{-80,80},{20,80},{20,68},{38,
+          68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hys.y, swi1.u2) annotation (Line(
@@ -174,7 +187,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(u_m, swi1.u3) annotation (Line(
-      points={{0,-120},{0,52},{38,52}},
+      points={{-1.11022e-15,-120},{-1.11022e-15,52},{38,52}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(swi1.y, PID.u_s) annotation (Line(
