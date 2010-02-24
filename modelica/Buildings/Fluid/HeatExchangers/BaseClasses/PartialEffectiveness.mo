@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model ConstantEffectiveness "Heat exchanger with constant effectiveness"
+partial model PartialEffectiveness
+  "Partial model to implement heat exchangers based on effectiveness model"
   extends Fluid.Interfaces.PartialStaticFourPortHeatMassTransfer;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
@@ -10,32 +11,29 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
           fillPattern=FillPattern.Solid)}),
 Documentation(info="<html>
 <p>
-Model for a heat exchanger with constant effectiveness.
+Partial model to implement heat exchanger models
 </p>
 <p>
-This model transfers heat in the amount of 
-<pre>
-  Q = Q_max * eps,
-</pre>
-where <tt>eps</tt> is a constant effectiveness and 
-<tt>Q_max</tt> is the maximum heat that can be transferred.
-</p>
-<p>
-In the region <tt>mK_flow_small > abs(mK_flow) > mK_flow_small/2</tt>, for <tt>K = 1</tt> or
-<tt>2</tt>, the effectivness <tt>eps</tt> is transitioned from 
-its user-specified value to 0. This improves the numerical robustness near
-zero flow.
-</p>
-<p>
-Classes that extend this model need to define the mass balance in a form like<pre>
+Classes that extend this model need to implement heat and 
+mass balance equations in a form like<pre>
+  // transfered heat
+  Q1_flow = eps * QMax_flow;
+  // no heat loss to ambient
+  0 = Q1_flow + Q2_flow;
   // no mass exchange
   mXi1_flow = zeros(Medium1.nXi);
   mXi2_flow = zeros(Medium2.nXi);
 </pre>
+Thus, if medium 1 is heated in this device, then <code>Q1_flow &gt; 0</code>
+and <code>QMax_flow &gt; 0</code>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 12, 2010, by Michael Wetter:<br>
+Changed model structure to implement effectiveness-NTU model.
+</li>
 <li>
 January 28, 2010, by Michael Wetter:<br>
 Added regularization near zero flow.
@@ -53,7 +51,6 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics));
-  parameter Real eps(min=0, max=1) = 0.8 "Heat exchanger effectiveness";
 
   Modelica.SIunits.Temperature T_in1 "Inlet temperature medium 1";
   Modelica.SIunits.Temperature T_in2 "Inlet temperature medium 2";
@@ -63,11 +60,12 @@ First implementation.
     "Heat capacity flow rate medium 2";
   Modelica.SIunits.ThermalConductance CMin_flow(min=0)
     "Minimum heat capacity flow rate";
-  Modelica.SIunits.HeatFlowRate QMax_flow "Maximum heat flow rate";
+  Modelica.SIunits.HeatFlowRate QMax_flow
+    "Maximum heat flow rate into medium 1";
 protected
   Real gai1(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
   Real gai2(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
-
+  parameter Real delta = 1E-3 "Parameter used for smoothing";
 equation
   // Definitions for heat transfer effectiveness model
   T_in1 = Modelica.Fluid.Utilities.regStep(m1_flow,
@@ -88,11 +86,8 @@ equation
   // this is an approximation.
   C1_flow = smooth(1, gai1 * abs(m1_flow)) * Medium1.specificHeatCapacityCp(sta_a1);
   C2_flow = smooth(1, gai2 * abs(m2_flow)) * Medium2.specificHeatCapacityCp(sta_a2);
-  CMin_flow = min(C1_flow, C2_flow);
+  CMin_flow = Buildings.Utilities.Math.Functions.smoothMin(C1_flow, C2_flow, delta*(C1_flow+C2_flow));
+  // QMax_flow is maximum heat transfer into medium 1
   QMax_flow = CMin_flow * (T_in2 - T_in1);
 
-  // transfered heat
-  Q1_flow = eps * QMax_flow;
-  0 = Q1_flow + Q2_flow;
-
-end ConstantEffectiveness;
+end PartialEffectiveness;

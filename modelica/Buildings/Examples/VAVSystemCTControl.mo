@@ -94,7 +94,7 @@ BaseClasses.Suite roo(redeclare package Medium = Medium, scaM_flow=scaM_flow)
     annotation (extent=[198,-92; 302,20], Placement(transformation(extent={{198,
             -92},{302,20}})));
   annotation (Coordsys(extent=[-100,-100; 350,150]), Diagram);
-Buildings.Fluid.Actuators.Dampers.OAMixingBoxMinimumDamper mixBox(
+Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow mixBox(
   dpOut_nominal=0.467,
   dpRec_nominal=0.665,
   dpExh_nominal=0.164,

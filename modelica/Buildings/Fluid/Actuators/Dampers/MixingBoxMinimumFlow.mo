@@ -1,5 +1,5 @@
 within Buildings.Fluid.Actuators.Dampers;
-model OAMixingBoxMinimumDamper
+model MixingBoxMinimumFlow
   "Outside air mixing box with parallel damper for minimum outside air flow rate"
   extends Buildings.BaseClasses.BaseIcon;
   outer Modelica.Fluid.System system "System wide properties";
@@ -12,87 +12,75 @@ model OAMixingBoxMinimumDamper
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  Buildings.Fluid.Actuators.Dampers.Exponential damOAMin(A=AOutMin,
+  VAVBoxExponential damOAMin(                            A=AOutMin,
     redeclare package Medium = Medium,
-    m_flow_nominal=m0OutMin_flow) "Damper for minimum outside air supply" 
-                                            annotation (Placement(
+    m_flow_nominal=m0OutMin_flow,
+    dp_nominal=dpOutMin_nominal,
+    dp_nominalIncludesDamper=dp_nominalIncludesDamper)
+    "Damper for minimum outside air supply" annotation (Placement(
         transformation(extent={{-42,28},{-22,48}}, rotation=0)));
-  Buildings.Fluid.Actuators.Dampers.Exponential damOA(A=AOut,
+  VAVBoxExponential damOA(                            A=AOut,
     redeclare package Medium = Medium,
-    m_flow_nominal=m0Out_flow) 
+    m_flow_nominal=m0Out_flow,
+    dp_nominal=dpOut_nominal,
+    dp_nominalIncludesDamper=dp_nominalIncludesDamper) 
     annotation (Placement(transformation(extent={{-42,-30},{-22,-10}}, rotation=
            0)));
   parameter Modelica.SIunits.Area AOutMin
     "Face area minimum outside air damper";
   parameter Modelica.SIunits.Area AOut "Face area outside air damper";
-  Buildings.Fluid.Actuators.Dampers.Exponential damExh(A=AExh,
+  VAVBoxExponential damExh(                            A=AExh,
     redeclare package Medium = Medium,
-    m_flow_nominal=m0Exh_flow) "Exhaust air damper" 
+    m_flow_nominal=m0Exh_flow,
+    dp_nominal=dpExh_nominal,
+    dp_nominalIncludesDamper=dp_nominalIncludesDamper) "Exhaust air damper" 
     annotation (Placement(transformation(extent={{-22,-90},{-42,-70}}, rotation=
            0)));
   parameter Modelica.SIunits.Area AExh "Face area exhaust air damper";
-  Buildings.Fluid.Actuators.Dampers.Exponential damRec(A=ARec,
+  VAVBoxExponential damRec(                            A=ARec,
     redeclare package Medium = Medium,
-    m_flow_nominal=m0Rec_flow) "Recirculation air damper" 
-                               annotation (Placement(transformation(
+    m_flow_nominal=m0Rec_flow,
+    dp_nominal=dpRec_nominal,
+    dp_nominalIncludesDamper=dp_nominalIncludesDamper)
+    "Recirculation air damper" annotation (Placement(transformation(
         origin={28,-10},
         extent={{-10,-10},{10,10}},
         rotation=90)));
   parameter Modelica.SIunits.Area ARec "Face area recirculation air damper";
 
+  parameter Boolean dp_nominalIncludesDamper=false
+    "set to true if dp_nominal includes the pressure loss of the open damper" 
+    annotation (Dialog(group="Nominal condition"));
+
   parameter Modelica.SIunits.MassFlowRate m0OutMin_flow
     "Mass flow rate minimum outside air damper" 
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpOutMin_nominal
+  parameter Modelica.SIunits.Pressure dpOutMin_nominal(min=0, displayUnit="Pa")
     "Pressure drop minimum outside air leg (without damper)" 
      annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m0Out_flow
     "Mass flow rate outside air damper" 
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpOut_nominal
+  parameter Modelica.SIunits.Pressure dpOut_nominal(min=0, displayUnit="Pa")
     "Pressure drop outside air leg (without damper)" 
      annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m0Rec_flow
     "Mass flow rate recirculation air damper" 
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpRec_nominal
+  parameter Modelica.SIunits.Pressure dpRec_nominal(min=0, displayUnit="Pa")
     "Pressure drop recirculation air leg (without damper)" 
      annotation (Dialog(group="Nominal condition"));
 
   parameter Modelica.SIunits.MassFlowRate m0Exh_flow
     "Mass flow rate exhaust air damper" 
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpExh_nominal
+  parameter Modelica.SIunits.Pressure dpExh_nominal(min=0, displayUnit="Pa")
     "Pressure drop exhaust air leg (without damper)" 
      annotation (Dialog(group="Nominal condition"));
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDroOutMin(
-                                                              m_flow_nominal=
-        m0OutMin_flow, dp_nominal=dpOutMin_nominal, redeclare package Medium = Medium)
-    "Pressure drop for minimum outside air branch" 
-    annotation (Placement(transformation(extent={{-82,28},{-62,48}}, rotation=0)));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDroOut(
-                                                           m_flow_nominal=
-        m0Out_flow, dp_nominal=dpOut_nominal, redeclare package Medium = Medium)
-    "Pressure drop for outside air branch" annotation (Placement(transformation(
-          extent={{-82,-30},{-62,-10}}, rotation=0)));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDroExh(
-                                                           m_flow_nominal=
-        m0Exh_flow, dp_nominal=dpExh_nominal, redeclare package Medium = Medium)
-    "Pressure drop for exhaust air branch" 
-    annotation (Placement(transformation(extent={{-62,-90},{-82,-70}}, rotation=
-           0)));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDroRec(
-                                                           m_flow_nominal=
-        m0Rec_flow, dp_nominal=dpRec_nominal, redeclare package Medium = Medium)
-    "Pressure drop for recirculation air branch" 
-    annotation (Placement(transformation(
-        origin={28,-50},
-        extent={{-10,-10},{10,10}},
-        rotation=90)));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
                        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -169,18 +157,25 @@ model OAMixingBoxMinimumDamper
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-102,72},{-76,50}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="y"),
         Text(
           extent={{-96,110},{-70,88}},
-          lineColor={0,0,255},
+          lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yMin")}),
     Documentation(revisions="<html>
 <ul>
+<li>
+February 24, 2010 by Michael Wetter:<br>
+Changed implementation of flow resistance. Instead of using a
+fixed resistance and a damper model in series, only one model is used
+that internally adds these two resistances. This leads to smaller systems
+of nonlinear equations.
+</li>
 <li>
 July 20, 2007 by Michael Wetter:<br>
 First implementation.
@@ -189,6 +184,13 @@ First implementation.
 </html>", info="<html>
 <p>
 Model of an outside air mixing box with air dampers and a flow path for the minimum outside air flow rate.
+</p>
+<p>
+If <code>dp_nominalIncludesDamper=true</code>, then the parameter <code>dp_nominal</code>
+is equal to the pressure drop of the damper plus the fixed flow resistance at the nominal
+flow rate.
+If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
+does not include the flow resistance of the air damper.
 </p>
 </html>"));
   Modelica.Fluid.Interfaces.FluidPort_a port_Out(redeclare package Medium = 
@@ -242,34 +244,22 @@ protected
         Medium) annotation (Placement(transformation(extent={{27,19},{29,21}},
           rotation=0)));
 equation
-  connect(preDroOutMin.port_b, damOAMin.port_a)    annotation (Line(points={{
-          -62,38},{-42,38}}, color={0,127,255}));
-  connect(preDroOut.port_b, damOA.port_a)    annotation (Line(points={{-62,-20},
-          {-42,-20}}, color={0,127,255}));
-  connect(yOutMin, damOAMin.y) annotation (Line(points={{-120,100},{-54,100},{
-          -54,46},{-44,46}}, color={0,0,127}));
-  connect(y, damOA.y) annotation (Line(points={{-120,60},{-58,60},{-58,-12},{
-          -44,-12}}, color={0,0,127}));
-  connect(y, damExh.y) annotation (Line(points={{-120,60},{-58,60},{-58,-64},{
-          -6,-64},{-6,-72},{-20,-72}}, color={0,0,127}));
-  connect(damExh.port_b, preDroExh.port_a) annotation (Line(points={{-42,-80},{
-          -62,-80}}, color={0,127,255}));
-  connect(preDroExh.port_b, port_Exh) annotation (Line(points={{-82,-80},{-102,
-          -80}}, color={0,127,255}));
-  connect(preDroOut.port_a, port_Out) annotation (Line(points={{-82,-20},{-102,
-          -20}}, color={0,127,255}));
-  connect(port_OutMin, preDroOutMin.port_a) annotation (Line(points={{-102,20},
-          {-93,20},{-93,38},{-82,38}}, color={0,127,255}));
+  connect(yOutMin, damOAMin.y) annotation (Line(points={{-120,100},{-32,100},{
+          -32,48},{-32,46}}, color={0,0,127}));
+  connect(y, damOA.y) annotation (Line(points={{-120,60},{-60,60},{-60,0},{-32,
+          0},{-32,-12}},
+                     color={0,0,127}));
+  connect(y, damExh.y) annotation (Line(points={{-120,60},{-60,60},{-60,-60},{
+          -32,-60},{-32,-72}},         color={0,0,127}));
   connect(uni.y, add.u1) annotation (Line(points={{1,90},{20,90},{20,76},{38,76}},
         color={0,0,127}));
   connect(y, add.u2) annotation (Line(points={{-120,60},{-42,60},{-42,64},{38,
           64}}, color={0,0,127}));
-  connect(add.y, damRec.y) annotation (Line(points={{61,70},{68,70},{68,-28},{
-          20,-28},{20,-22}}, color={0,0,127}));
+  connect(add.y, damRec.y) annotation (Line(points={{61,70},{70,70},{70,48},{12,
+          48},{12,-10},{20,-10}},
+                             color={0,0,127}));
   connect(port_Ret, port_Ret1) annotation (Line(points={{100,-80},{28,-80}},
         color={0,127,255}));
-  connect(preDroRec.port_a, port_Ret1) annotation (Line(points={{28,-60},{28,
-          -80}}, color={0,127,255}));
   connect(damExh.port_a, port_Ret1) annotation (Line(points={{-22,-80},{28,-80}},
         color={0,127,255}));
   connect(damOAMin.port_b, port_b1) annotation (Line(points={{-22,38},{28,38},{
@@ -277,9 +267,23 @@ equation
   connect(port_Sup, port_b1) 
     annotation (Line(points={{98,20},{28,20}}, color={0,127,255}));
   connect(damRec.port_b, port_b1) 
-    annotation (Line(points={{28,0},{28,20}},            color={0,127,255}));
+    annotation (Line(points={{28,5.55112e-16},{28,20}},  color={0,127,255}));
   connect(damOA.port_b, port_b1) annotation (Line(points={{-22,-20},{4,-20},{4,
           20},{28,20}}, color={0,127,255}));
-  connect(preDroRec.port_b, damRec.port_a) annotation (Line(points={{28,-40},{
-          28,-20}}, color={0,127,255}));
-end OAMixingBoxMinimumDamper;
+  connect(port_OutMin, damOAMin.port_a) annotation (Line(
+      points={{-102,20},{-80,20},{-80,38},{-42,38}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_Out, damOA.port_a) annotation (Line(
+      points={{-102,-20},{-42,-20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_Exh, damExh.port_b) annotation (Line(
+      points={{-102,-80},{-42,-80}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(damRec.port_a, port_Ret1) annotation (Line(
+      points={{28,-20},{28,-80}},
+      color={0,127,255},
+      smooth=Smooth.None));
+end MixingBoxMinimumFlow;

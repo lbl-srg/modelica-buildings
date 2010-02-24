@@ -1,17 +1,17 @@
 within Buildings.Fluid.Actuators.Examples;
-model OAMixingBoxMinimumDamper
+model MixingBoxMinimumFlow
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                       graphics),
                        Commands(file=
-          "OAMixingBoxMinimumDamper.mos" "run"));
+          "MixingBoxMinimumFlow.mos" "run"));
 
- package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir
+ package Medium = Buildings.Media.GasesConstantDensity.SimpleAir
     "Medium in the component" 
          annotation (choicesAllMatching = true);
 
-  Buildings.Fluid.Actuators.Dampers.OAMixingBoxMinimumDamper mixBox(
+  Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow mixBox(
     AOutMin=0.3,
     AOut=0.7,
     AExh=1,
@@ -95,11 +95,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouSup.ports[1], mixBox.port_Sup) annotation (Line(
-      points={{48,0},{42,0},{42,-10},{33.8,-10}},
+      points={{48,6.66134e-16},{42,6.66134e-16},{42,-10},{33.8,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouRet.ports[1], mixBox.port_Ret) annotation (Line(
       points={{48,-80},{42,-80},{42,-20},{34,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-end OAMixingBoxMinimumDamper;
+end MixingBoxMinimumFlow;

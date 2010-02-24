@@ -28,6 +28,11 @@ Exponential</a>.
 </html>", revisions="<html>
 <ul>
 <li>
+February 11, 2010 by Michael Wetter:<br>
+Added default value for parameter <code>A</code> to avoid compilation error
+if the parameter is disabled but not specified.
+</li>
+<li>
 March 23, 2009 by Michael Wetter:<br>
 Added option to specify <tt>deltaM</tt> for smoothing.
 This is the default setting, as it most reliably leads to a 
@@ -67,7 +72,8 @@ First implementation.
     "Set to true to use face velocity to compute area";
   parameter Modelica.SIunits.Velocity v_nominal=1 "Nominal face velocity" 
     annotation(Dialog(enable=use_v_nominal));
-  parameter Modelica.SIunits.Area A "Face area" 
+  parameter Modelica.SIunits.Area A=m_flow_nominal/rho_nominal/v_nominal
+    "Face area" 
     annotation(Dialog(enable=not use_v_nominal));
 
   parameter Boolean roundDuct = false
@@ -81,6 +87,7 @@ First implementation.
    annotation(Dialog(tab="Damper coefficients"));
   parameter Real b(unit="")=0.105*90 "Coefficient b for damper characteristics"
    annotation(Dialog(tab="Damper coefficients"));
+
   parameter Real yL = 15/90 "Lower value for damper curve" 
    annotation(Dialog(tab="Damper coefficients"));
   parameter Real yU = 55/90 "Upper value for damper curve" 

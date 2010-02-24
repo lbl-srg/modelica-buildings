@@ -58,6 +58,28 @@ to solve specific problems.
 This library follows the conventions of the 
 <a href=\"Modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>.
 </p>
+<p>
+The nomenclature used in the package
+<a href=\"Modelica:Buildings.Utilities.Psychrometrics\">
+Buildings.Utilities.Psychrometrics</a>
+ is as follows, 
+<ul>
+<li>
+Uppercase <code>X</code> denotes mass fraction per total mass.
+</li>
+<li>
+Lowercase <code>x</code> denotes mass fraction per mass of dry air.
+</li>
+<li>
+The notation <code>z_xy</code> denotes that the function or block has output
+<code>z</code> and inputs <code>x</code> and <code>y</code>.
+</li>
+<li>
+The symbol <code>pW</code> denotes water vapor pressure, <code>Tdp</code> 
+denotes dew point temperature, <code>Twb</code> denotes wet bulb temperature,
+and <code>Tdb</code> (or simply <code>T</code>) denotes dry bulb temperature.
+</li>
+</ul>
 </html>
 "));
   end Conventions;
@@ -102,8 +124,55 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 "));
 
   class Version_0_9_0 "Version 0.9.0"
+
   annotation (Documentation(info="<html>
 <ul>
+<li>
+Added model <a href=\"Modelica:Buildings.Fluid.Actuators.Dampers.MixingBox\">
+Buildings.Fluid.Actuators.Dampers.MixingBox</a> for an outside air
+mixing box with air dampers.
+<li>
+Changed implementation of flow resistance in
+<a href=\"Modelica:Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow\">
+Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow</a>. Instead of using a
+fixed resistance and a damper model in series, only one model is used
+that internally adds these two resistances. This leads to smaller systems
+of nonlinear equations.
+</li>
+<li>
+Changed 
+<a href=\"Modelica:Buildings.Media.PerfectGases.MoistAir.T_phX\">
+Buildings.Media.PerfectGases.MoistAir.T_phX</a> (and by inheritance all
+other moist air medium models) to first compute <code>T</code> 
+in closed form assuming no saturation. Then, a check is done to determine
+whether the state is in the fog region. If the state is in the fog region,
+then <code>Internal.solve</code> is called. This new implementation
+can lead to significantly shorter computing
+time in models that frequently call <code>T_phX</code>.
+<li>
+Added package
+<a href=\"Modelica:Buildings.Media.GasesConstantDensity\">
+Buildings.Media.GasesConstantDensity</a> which contains medium models
+for dry air and moist air.
+The use of a constant density avoids having pressure as a state variable in mixing volumes. Hence, fast transients
+introduced by a change in pressure are avoided. 
+The drawback is that the dimensionality of the coupled
+nonlinear equation system is typically larger for flow
+networks.
+</li>
+<li>
+Added model 
+<a href=\"Modelica:Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>
+for a sensible heat exchanger that uses the <code>epsilon-NTU</code>
+relations to compute the heat transfer.
+<li>
+In 
+<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
+Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</a>,
+added default value for parameter <code>A</code> to avoid compilation error
+if the parameter is disabled but not specified.
+</li>
 <li>
 Simplified the mixing volumes in 
 <a href=\"Modelica:Buildings.Fluid.MixingVolumes\">

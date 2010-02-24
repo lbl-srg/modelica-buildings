@@ -5,7 +5,17 @@ model VAVBoxExponential
   import SI = Modelica.SIunits;
 
    annotation (Documentation(info="<html>
-VAV box plus an air damper with a flow coefficient that is an exponential function of the opening angle.
+<p>
+Model of two resistance in series. One resistance has a fixed flow coefficient, the
+other resistance is an air damper whose flow coefficient is an exponential function of the opening angle.
+</p>
+<p>
+If <code>dp_nominalIncludesDamper=true</code>, then the parameter <code>dp_nominal</code>
+is equal to the pressure drop of the damper plus the fixed flow resistance at the nominal
+flow rate.
+If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
+does not include the flow resistance of the air damper.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -17,6 +27,9 @@ PartialDamperExponential</a>.
 <li>
 September 11, 2007 by Michael Wetter:<br>
 Redefined <code>kRes</code>, now the pressure drop of the fully open damper is subtracted from the fixed resistance.
+<li>
+February 24, 2010 by Michael Wetter:<br>
+Added parameter <code>dp_nominalIncludesDamper</code>.
 <li>
 July 27, 2007 by Michael Wetter:<br>
 First implementation.
@@ -59,11 +72,19 @@ First implementation.
   parameter SI.Pressure dp_nominal(min=0)
     "Pressure drop, including fully open damper" 
                                               annotation(Dialog(group = "Nominal Condition"));
+  parameter Boolean dp_nominalIncludesDamper = true
+    "set to true if dp_nominal includes the pressure loss of the open damper" 
+                                              annotation(Dialog(group = "Nominal Condition"));
+
 protected
   parameter SI.Pressure dpDamOpe0 = k1*m_flow_nominal^2/2/Medium.density(sta0)/A^2
     "Pressure drop of fully open damper at nominal flow rate";
-  parameter Real kResSqu(unit="kg.m") = m_flow_nominal^2 / (dp_nominal-dpDamOpe0)
+  parameter Real kResSqu(unit="kg.m", fixed=false)
     "Resistance coefficient for fixed resistance element";
+initial equation
+  kResSqu = if dp_nominalIncludesDamper then 
+       m_flow_nominal^2 / (dp_nominal-dpDamOpe0) else 
+       m_flow_nominal^2 / dp_nominal;
 equation
 //    "flow coefficient for resistance base model";
    k = sqrt(1/(1/kResSqu + 1/kDamSqu))

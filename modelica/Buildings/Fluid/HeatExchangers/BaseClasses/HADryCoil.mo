@@ -1,7 +1,9 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HADryCoil "Sensible convective heat transfer model for air to water coil"
   extends Buildings.BaseClasses.BaseIcon;
-annotation (Diagram(graphics),
+annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                    graphics),
 Documentation(info="<html>
 <p>
 Model for sensible convective heat transfer coefficients for an air to water coil.

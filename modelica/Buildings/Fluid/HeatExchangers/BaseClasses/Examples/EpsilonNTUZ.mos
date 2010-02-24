@@ -1,0 +1,1 @@
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.EpsilonNTUZ", method="Euler", fixedstepsize=0.001, resultFile="EpsilonNTUZ");

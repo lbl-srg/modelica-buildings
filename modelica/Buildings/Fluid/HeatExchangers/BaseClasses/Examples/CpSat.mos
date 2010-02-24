@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.CpSat", method="euler", resultFile="CpSat");
+createPlot(id = 1,
+ position = {15, 10, 616, 347},
+ x = "XW2",
+ y = {"cpSat"},
+ range = {0.024, 0.052, 5400.0, 3800.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "CpSat.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

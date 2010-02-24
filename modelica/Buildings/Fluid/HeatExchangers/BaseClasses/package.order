@@ -10,5 +10,11 @@ PartialDuctPipeManifold
 PartialPipeManifold
 PipeManifoldFixedResistance
 PipeManifoldNoResistance
-ConstantEffectiveness
 Examples
+epsilon_ntuZ
+ntu_epsilonZ
+Internal
+PartialEffectiveness
+cpSat
+epsilon_C
+epsilonCondensate_WetCoil

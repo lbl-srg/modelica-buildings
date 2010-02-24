@@ -15,7 +15,7 @@ model MassExchange "Test model for latent heat exchange"
     offset=273.15 + 5) "Surface temperature" 
                    annotation (Placement(transformation(extent={{-80,60},{-60,
             80}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant XWat(k=0.01)
+    Modelica.Blocks.Sources.Constant X_w(k=0.01)
     "Humidity mass fraction in medium" 
       annotation (Placement(transformation(extent={{-80,0},{-60,20}}, rotation=
             0)));
@@ -29,6 +29,6 @@ equation
           18},{18,18}}, color={0,0,127}));
   connect(Gc.y, masExc.Gc)    annotation (Line(points={{-59,-70},{8,-70},{8,2},
           {18,2}}, color={0,0,127}));
-  connect(XWat.y, masExc.XInf) annotation (Line(points={{-59,10},{-20,10},{18,
+  connect(X_w.y, masExc.XInf) annotation (Line(points={{-59,10},{-20,10},{18,
           10}},         color={0,0,127}));
 end MassExchange;

@@ -147,7 +147,7 @@ equation
   connect(masExc.TLiq, vol2.TWat) annotation (Line(points={{69,-38},{72,-38},{
           72,-55.2},{14,-55.2}},
                              color={0,0,127}));
-  connect(vol2.XWat, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},
+  connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},
           {-20,-34},{46,-34}}, color={0,0,127}));
   connect(con1.solid,mas. port) annotation (Line(points={{-60,20},{-72,20},{-72,
           -6.12323e-016}}, color={191,0,0}));
