@@ -27,7 +27,7 @@ protected
   Modelica.Blocks.Sources.Constant xSetNor(k=1) "CO2 set point (normalized)" 
                                           annotation (extent=[-20,-50; 0,-30]);
 public
-  Modelica.Blocks.Continuous.LimPID con(
+  Buildings.Controls.Continuous.LimPID con(
     yMin=0,
     initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=0.5,

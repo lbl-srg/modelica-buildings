@@ -1,11 +1,11 @@
 within Buildings.Utilities.Psychrometrics.Examples;
-model WetBulbTemperature
+model Twb_TdbXi
 
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                         graphics),
                          Commands(file=
-            "WetBulbTemperature.mos" "run"),
+            "Twb_TdbXi.mos" "run"),
     Documentation(info="<html>
 This examples is a unit test for the wet bulb computation.
 The problem setup is such that the moisture concentration and
@@ -39,29 +39,34 @@ First implementation.
   Modelica.Blocks.Sources.Constant TWBExp(k=273.15 + 25)
     "Expected wet bulb temperature" annotation (Placement(transformation(extent=
            {{20,-20},{40,0}}, rotation=0)));
-  Buildings.Utilities.Psychrometrics.WetBulbTemperature wetBul(redeclare
+  Buildings.Utilities.Psychrometrics.Twb_TdbXi wetBul(         redeclare
       package Medium = Medium) "Model for wet bulb temperature" 
     annotation (Placement(transformation(extent={{0,20},{20,40}}, rotation=0)));
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure" 
-                                    annotation (Placement(transformation(extent=
-           {{-100,20},{-80,40}}, rotation=0)));
+                                    annotation (Placement(transformation(extent={{-100,
+            -20},{-80,0}},       rotation=0)));
     Modelica.Blocks.Sources.Ramp XHum(
     duration=1,
     height=(0.0133 - 0.0175),
     offset=0.0175) "Humidity concentration" 
-                 annotation (Placement(transformation(extent={{-100,-20},{-80,0}},
+                 annotation (Placement(transformation(extent={{-100,20},{-80,40}},
                    rotation=0)));
 equation
   connect(TWBExp.y, assertEquality.u2) 
     annotation (Line(points={{41,-10},{48,-10},{48,24},{58,24}}, color={0,0,127}));
-  connect(TDB.y, wetBul.TDryBul) annotation (Line(points={{-79,70},{-39.5,70},{
-          -39.5,38},{1,38}}, color={0,0,127}));
-  connect(p.y, wetBul.p) annotation (Line(points={{-79,30},{1,30}}, color={0,0,
+  connect(p.y, wetBul.p) annotation (Line(points={{-79,-10},{-40,-10},{-40,22},
+          {-1,22}},                                                 color={0,0,
           127}));
-  connect(wetBul.TWetBul, assertEquality.u1) 
-    annotation (Line(points={{19,30},{40,30},{40,36},{58,36}}, color={0,0,255}));
   connect(XHum.y, wetBul.Xi[1]) annotation (Line(
-      points={{-79,-10},{-38,-10},{-38,22},{1,22}},
+      points={{-79,30},{-1,30}},
       color={0,0,127},
       smooth=Smooth.None));
-end WetBulbTemperature;
+  connect(TDB.y, wetBul.Tdb) annotation (Line(
+      points={{-79,70},{-40,70},{-40,38},{-1,38}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(wetBul.Twb, assertEquality.u1) annotation (Line(
+      points={{21,30},{39.5,30},{39.5,36},{58,36}},
+      color={0,0,127},
+      smooth=Smooth.None));
+end Twb_TdbXi;

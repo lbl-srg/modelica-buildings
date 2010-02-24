@@ -1,5 +1,5 @@
-within Buildings.Utilities.Psychrometrics.BaseClasses;
-function der_dewPointTemperature "Derivative of dewPointTemperature function"
+within Buildings.Utilities.Psychrometrics.Functions.BaseClasses;
+function der_pW_Tdp "Derivative of function pW_Tdp"
 
     annotation (
     Documentation(info="<html>
@@ -33,4 +33,4 @@ algorithm
  dp_w := Modelica.Math.exp(C8/T + C9 + T * ( C10
            + T * ( C11 + T * C12))  + C13 * Modelica.Math.log(T))
            * (-C8/T/T+C10+2*C11*T+3*C12*T*T+C13/T)*dT;
-end der_dewPointTemperature;
+end der_pW_Tdp;

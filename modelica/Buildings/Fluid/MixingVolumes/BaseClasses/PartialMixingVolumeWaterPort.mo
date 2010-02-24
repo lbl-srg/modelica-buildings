@@ -40,7 +40,7 @@ First implementation.
           lineColor={255,255,255},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
-          textString="XWat"),
+          textString="X_w"),
         Text(
           extent={{-122,114},{-80,82}},
           lineColor={0,0,0},
@@ -112,7 +112,7 @@ First implementation.
     "Temperature of liquid that is drained from or injected into volume" 
     annotation (Placement(transformation(extent={{-140,28},{-100,68}},
           rotation=0)));
-  Modelica.Blocks.Interfaces.RealOutput XWat "Species composition of medium" 
+  Modelica.Blocks.Interfaces.RealOutput X_w "Species composition of medium" 
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}, rotation=
            0)));
   Medium.MassFlowRate mXi_flow[Medium.nXi]

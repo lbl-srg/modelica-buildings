@@ -1,6 +1,6 @@
-within Buildings.Utilities.Psychrometrics.BaseClasses;
-function dewPointTemperature
-  "Function to compute the dew point temperature of moist air"
+within Buildings.Utilities.Psychrometrics.Functions;
+function pW_Tdp
+  "Function to compute the water vapor partial pressure for a given dew point temperature of moist air"
 
     annotation (
     Documentation(info="<html>
@@ -17,14 +17,18 @@ temperatures.
 </html>", revisions="<html>
 <ul>
 <li>
-September 4, 2008 by Michael Wetter:<br>
-Changed from causal to acausal ports, needed, for example, for
-<a href=\"Modelica:Buildings.Fluid.Examples.MixingVolumeMoistAir\">
-Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
+February 17, 2010 by Michael Wetter:<br>
+Renamed function from <code>dewPointTemperature</code> to <code>pW_Tdp</code>.
 </li>
 <li>
 February 6, 2010 by Michael Wetter:<br>
 Fixed derivative implementation.
+</li>
+<li>
+September 4, 2008 by Michael Wetter:<br>
+Changed from causal to acausal ports, needed, for example, for
+<a href=\"Modelica:Buildings.Fluid.Examples.MixingVolumeMoistAir\">
+Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
 August 7, 2008 by Michael Wetter:<br>
@@ -47,8 +51,8 @@ protected
   constant Real C12= -1.4452093E-8;
   constant Real C13 = 6.5459673E0;
 
- annotation(smoothOrder=1, derivative=der_dewPointTemperature);
+ annotation(smoothOrder=1, derivative=BaseClasses.der_pW_Tdp);
 algorithm
  p_w := Modelica.Math.exp(C8/T + C9 + T * ( C10
            + T * ( C11 + T * C12))  + C13 * Modelica.Math.log(T));
-end dewPointTemperature;
+end pW_Tdp;

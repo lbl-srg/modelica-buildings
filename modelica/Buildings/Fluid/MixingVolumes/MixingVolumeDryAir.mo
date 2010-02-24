@@ -42,5 +42,5 @@ equation
   HWat_flow = 0;
   mXi_flow  = zeros(Medium.nXi);
 // Assign output port
-  XWat = 0;
+  X_w = 0;
 end MixingVolumeDryAir;

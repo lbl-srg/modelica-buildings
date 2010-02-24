@@ -70,8 +70,9 @@ public
   Modelica.Blocks.Interfaces.RealInput phi "Medium relative humidity" 
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
           rotation=0)));
-  Psychrometrics.MassFraction_pTphi masFra(use_p_in=false, redeclare package
-      Medium = Medium) "Mass fraction"
+  Buildings.Utilities.Psychrometrics.X_pTphi masFra(
+                                           use_p_in=false, redeclare package
+      Medium = Medium) "Mass fraction" 
     annotation (Placement(transformation(extent={{-60,-64},{-40,-44}})));
 equation
   for i in 1:nPorts loop

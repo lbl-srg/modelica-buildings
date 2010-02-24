@@ -5,7 +5,7 @@ model DewPointTemperature "Unit test for dew point temperature calculation"
                                                                      graphics));
    package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" 
            annotation (choicesAllMatching = true);
-  Buildings.Utilities.Psychrometrics.DewPointTemperature_pWat watVapPre 
+  Buildings.Utilities.Psychrometrics.pW_Tdp watVapPre 
     annotation (Placement(transformation(extent={{40,0},{60,20}},    rotation=0)));
   annotation (Diagram);
     Modelica.Blocks.Sources.Ramp XHum(
@@ -14,12 +14,13 @@ model DewPointTemperature "Unit test for dew point temperature calculation"
     offset=0.1) "Humidity concentration" 
                  annotation (Placement(transformation(extent={{-80,0},{-60,20}},
                    rotation=0)));
-  VaporPressure_X humRat(use_p_in=false) 
+  Buildings.Utilities.Psychrometrics.pW_X humRat(
+                         use_p_in=false) 
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  VaporPressure_TDP TDewPoi 
+  Buildings.Utilities.Psychrometrics.Tdp_pW TDewPoi 
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
-  connect(XHum.y, humRat.XWat) annotation (Line(
+  connect(XHum.y, humRat.X_w) annotation (Line(
       points={{-59,10},{-41,10}},
       color={0,0,127},
       smooth=Smooth.None));

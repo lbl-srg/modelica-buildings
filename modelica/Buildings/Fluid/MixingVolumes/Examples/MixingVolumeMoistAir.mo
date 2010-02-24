@@ -29,12 +29,12 @@ model MixingVolumeMoistAir
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 20)
     "Set point for temperature" annotation (Placement(transformation(extent={{
             -80,120},{-60,140}}, rotation=0)));
-  Buildings.Utilities.Psychrometrics.VaporPressure_X humRat(use_p_in=false)
+  Buildings.Utilities.Psychrometrics.pW_X humRat(           use_p_in=false)
     "Conversion from humidity ratio to partial water vapor pressure" 
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}},rotation=
             0)));
-  Buildings.Utilities.Psychrometrics.VaporPressure_TDP dewPoi
-    "Dew point temperature" annotation (Placement(transformation(extent={{12,-120},
+  Buildings.Utilities.Psychrometrics.Tdp_pW dewPoi "Dew point temperature" 
+                            annotation (Placement(transformation(extent={{12,-120},
             {32,-100}},rotation=0)));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor 
     annotation (Placement(transformation(extent={{64,120},{84,140}}, rotation=0)));
@@ -58,7 +58,7 @@ model MixingVolumeMoistAir
         origin={140,0},
         extent={{-10,-10},{10,10}},
         rotation=180)));
-  Modelica.Blocks.Continuous.LimPID PI(
+  Buildings.Controls.Continuous.LimPID PI(
     Ni=0.1,
     yMax=1000,
     k=1,
@@ -68,7 +68,7 @@ model MixingVolumeMoistAir
     wd=0) 
     annotation (Placement(transformation(extent={{-40,120},{-20,140}}, rotation=
            0)));
-  Modelica.Blocks.Continuous.LimPID PI1(
+  Buildings.Controls.Continuous.LimPID PI1(
     Ni=0.1,
     Ti=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -117,9 +117,9 @@ equation
           18},{48,18}}, color={0,0,127}));
   connect(dewPoi.T, vol1.TWat) annotation (Line(points={{33,-110},{42,-110},{42,
           -66},{42,14.8},{48,14.8}}, color={0,0,255}));
-  connect(vol1.XWat, PI1.u_m) annotation (Line(points={{72,6},{80,6},{80,-134},
+  connect(vol1.X_w, PI1.u_m) annotation (Line(points={{72,6},{80,6},{80,-134},
           {-40,-134},{-40,-62}}, color={0,0,127}));
-  connect(vol1.XWat, humRat.XWat) annotation (Line(points={{72,6},{80,6},{80,
+  connect(vol1.X_w, humRat.X_w) annotation (Line(points={{72,6},{80,6},{80,
           -134},{-28,-134},{-28,-110},{-21,-110}}, color={0,0,127}));
   connect(sou.ports[1], mIn_flow.port_a) annotation (Line(
       points={{-20,0},{6,0}},

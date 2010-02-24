@@ -1,10 +1,11 @@
-DewPointTemperature_pWat
-HumidityRatio_pWat
-MassFraction_pTphi
+Functions
+Tdp_pW
+pW_Tdp
+X_pW
+pW_X
+X_pTphi
 ToDryAir
 ToTotalAir
-VaporPressure_TDP
-VaporPressure_X
-WetBulbTemperature
+Twb_TdbXi
 Examples
 BaseClasses

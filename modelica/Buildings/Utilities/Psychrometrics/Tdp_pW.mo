@@ -1,6 +1,6 @@
 within Buildings.Utilities.Psychrometrics;
-block VaporPressure_TDP
-  "Model to compute the water vapor pressure for a given dew point temperature of moist air"
+block Tdp_pW
+  "Model to compute the dew point temperature for given water vapor pressure of moist air"
   extends Modelica.Blocks.Interfaces.BlockIcon;
     annotation (
     Documentation(info="<html>
@@ -98,5 +98,5 @@ First implementation.
           rotation=0)));
 
 equation
- p_w = Buildings.Utilities.Psychrometrics.BaseClasses.dewPointTemperature(T=T);
-end VaporPressure_TDP;
+ p_w = Buildings.Utilities.Psychrometrics.Functions.pW_Tdp(T=T);
+end Tdp_pW;

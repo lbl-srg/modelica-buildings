@@ -1,11 +1,11 @@
 within Buildings.Utilities.Psychrometrics;
-block DewPointTemperature_pWat
-  "Model to compute the dew point temperature of moist air"
+block pW_Tdp
+  "Model to compute the water vapor pressure for a given dew point temperature of moist air"
   extends Modelica.Blocks.Interfaces.BlockIcon;
     annotation (
     Documentation(info="<html>
 <p>
-Dew point temperature calculation for moist air above freezing temperature.
+Block to compute the water vapor pressure for a given dew point temperature.
 </p>
 <p>
 The correlation used in this model is valid for dew point temperatures between 
@@ -16,6 +16,10 @@ temperatures.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>February 17, 2010 by Michael Wetter:<br>
+Renamed block from <code>DewPointTemperature_pWat</code>
+to <code>pW_Tdp</code>.
+</li>
 <li>
 September 4, 2008 by Michael Wetter:<br>
 Changed from causal to acausal ports, needed, for example, for
@@ -96,5 +100,5 @@ First implementation.
           rotation=0)));
 
 equation
- p_w = Buildings.Utilities.Psychrometrics.BaseClasses.dewPointTemperature(T=T);
-end DewPointTemperature_pWat;
+ p_w = Buildings.Utilities.Psychrometrics.Functions.pW_Tdp(T=T);
+end pW_Tdp;

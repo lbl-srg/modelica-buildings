@@ -95,7 +95,7 @@ First implementation.
   Buildings.Fluid.Sensors.Temperature TRet(redeclare package Medium = Medium)
     "Return air temperature" 
     annotation (Placement(transformation(extent={{310,-40},{330,-20}})));
-  Buildings.Fluid.Sensors.MassFraction XiWat(redeclare package Medium = Medium)
+  Buildings.Fluid.Sensors.MassFraction Xi_w(redeclare package Medium = Medium)
     "Measured air humidity" 
     annotation (Placement(transformation(extent={{282,-20},{302,0}})));
   Modelica.Blocks.Sources.Constant XSet(k=0.005) "Set point for humidity" 
@@ -103,7 +103,7 @@ First implementation.
   Modelica.Blocks.Sources.Constant TRooSet(k=273.15 + 20)
     "Set point for room air temperature" 
     annotation (Placement(transformation(extent={{100,160},{120,180}})));
-  Modelica.Blocks.Continuous.LimPID PIDHea(
+  Buildings.Controls.Continuous.LimPID PIDHea(
     yMax=1,
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -111,7 +111,7 @@ First implementation.
     k=0.1,
     Ti=600) "Controller for heating" 
     annotation (Placement(transformation(extent={{140,160},{160,180}})));
-  Modelica.Blocks.Continuous.LimPID PIDHum(
+  Buildings.Controls.Continuous.LimPID PIDHum(
     yMax=1,
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
@@ -159,7 +159,7 @@ First implementation.
   Modelica.Blocks.Math.Gain perToRel1(
                                      k=0.01) "Converts 0...100 to 0...1" 
     annotation (Placement(transformation(extent={{20,50},{40,70}})));
-  Buildings.Utilities.Psychrometrics.MassFraction_pTphi masFra(
+  Buildings.Utilities.Psychrometrics.X_pTphi masFra(
                                            use_p_in=false, redeclare package
       Medium = Medium) "Mass fraction" 
     annotation (Placement(transformation(extent={{50,56},{70,76}})));
@@ -180,7 +180,7 @@ equation
       points={{278,100},{260,100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(XiWat.port, dp2.port_b) annotation (Line(
+  connect(Xi_w.port, dp2.port_b) annotation (Line(
       points={{292,-20},{292,-50},{272,-50}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -290,7 +290,7 @@ equation
       points={{272,-50},{320,-50},{320,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(XiWat.X, PIDHum.u_m) annotation (Line(
+  connect(Xi_w.X, PIDHum.u_m) annotation (Line(
       points={{303,-10},{364,-10},{364,148},{230,148},{230,158}},
       color={0,0,127},
       smooth=Smooth.None));

@@ -1,10 +1,10 @@
 within Buildings.Utilities.Psychrometrics;
-block MassFraction_pTphi
+block X_pTphi
   "Return steam mass fraction as a function of relative humidity phi and temperature T"
   extends
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
- replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
-    "Medium model";
+ replaceable package Medium = 
+      Modelica.Media.Interfaces.PartialCondensingGases "Medium model";
   annotation (Documentation(info="<html>
 <p>
 Block to compute the water vapor concentration based on
@@ -19,7 +19,11 @@ and the value provided by the input connector is used instead.
 </html>", revisions="<html>
 <ul>
 <li>
-February 4, 2010 by Michael Wetter:<br>
+February 17, 2010 by Michael Wetter:<br>
+Renamed block from <code>MassFraction_pTphi</code> to <code>X_pTphi</code>
+</li>
+<li>
+February 4, 2009 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
@@ -51,19 +55,19 @@ public
 protected
   constant Real k = 0.621964713077499 "Ratio of molar masses";
   Modelica.SIunits.AbsolutePressure psat "Saturation pressure";
- parameter Integer iWat(min=1, fixed=false) "Index for water substance";
+ parameter Integer i_w(min=1, fixed=false) "Index for water substance";
 
 initial algorithm
-  iWat :=1;
+  i_w :=1;
     for i in 1:Medium.nXi loop
       if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
-        iWat :=i;
+        i_w :=i;
       end if;
     end for;
 
 algorithm
   psat := Medium.saturationPressure(T);
-  X[iWat] := phi*k/(k*phi+p_in_internal/psat-phi);
+  X[i_w] := phi*k/(k*phi+p_in_internal/psat-phi);
   //sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system
-  X[if iWat == 1 then 2 else 1] := 1 - X[iWat];
-end MassFraction_pTphi;
+  X[if i_w == 1 then 2 else 1] := 1 - X[i_w];
+end X_pTphi;

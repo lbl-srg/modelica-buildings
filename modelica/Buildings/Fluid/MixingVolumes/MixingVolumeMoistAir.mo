@@ -43,13 +43,13 @@ First implementation.
 </html>"));
 
 protected
-  parameter Integer iWat(min=1, fixed=false) "Index for water substance";
+  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
 initial algorithm
-  iWat :=1;
+  i_w :=1;
   if cardinality(mWat_flow) > 0 then
     for i in 1:Medium.nXi loop
       if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
-        iWat :=i;
+        i_w :=i;
       end if;
     end for;
   end if;
@@ -65,9 +65,9 @@ equation
        HWat_flow = mWat_flow * Medium.enthalpyOfLiquid(TWat);
     end if;
     for i in 1:Medium.nXi loop
-      mXi_flow[i] = if ( i == iWat) then mWat_flow else 0;
+      mXi_flow[i] = if ( i == i_w) then mWat_flow else 0;
     end for;
   end if;
 // Medium species concentration
-  XWat = medium.X[iWat];
+  X_w = medium.X[i_w];
 end MixingVolumeMoistAir;

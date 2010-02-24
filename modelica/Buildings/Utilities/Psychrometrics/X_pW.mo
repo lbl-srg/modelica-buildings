@@ -1,5 +1,5 @@
 within Buildings.Utilities.Psychrometrics;
-block VaporPressure_X "Water vapor pressure for given humidity ratio"
+block X_pW "Humidity ratio for given water vapor pressure"
   extends
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
   annotation (
@@ -8,7 +8,7 @@ block VaporPressure_X "Water vapor pressure for given humidity ratio"
             graphics),
     Documentation(info="<html>
 <p>
-Block to compute the water vapor partial pressure for a given humidity ratio.
+Block to compute the humidity ratio for a given water vapor partial pressure.
 </p>
 <p>If <tt>use_p_in</tt> is false (default option), the <tt>p</tt> parameter
 is used as atmospheric pressure, 
@@ -18,6 +18,10 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 17, 2010 by Michael Wetter:<br>
+Renamed block from <code>HumidityRatio_pWat</code> to <code>X_pW</code>.
+</li>
 <li>
 April 14, 2009 by Michael Wetter:<br>
 Converted model to block because <tt>RealInput</tt> are obsolete in Modelica 3.0.
@@ -29,27 +33,25 @@ First implementation.
 </ul>
 </html>"),
     Icon(graphics={Text(
-          extent={{-88,26},{-60,-26}},
+          extent={{-92,52},{-36,-40}},
           lineColor={0,0,0},
-          textString="X"), Text(
-          extent={{46,30},{90,-32}},
+          textString="pW"), Text(
+          extent={{46,44},{94,-24}},
           lineColor={0,0,0},
-          textString="pW")}));
-  Modelica.Blocks.Interfaces.RealInput XWat(min=0, max=1, nominal=0.01)
+          textString="X")}));
+  Modelica.Blocks.Interfaces.RealOutput X_w(min=0, max=1, nominal=0.01)
     "Species concentration at dry bulb temperature" 
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},rotation=
-           0), iconTransformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealOutput p_w(final quantity="Pressure",
+    annotation (Placement(transformation(extent={{100,-10},{120,10}},
+          rotation=0)));
+  Modelica.Blocks.Interfaces.RealInput p_w(final quantity="Pressure",
                                            final unit="Pa",
                                            displayUnit="Pa",
                                            min = 0) "Water vapor pressure" 
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0), iconTransformation(extent={{100,-10},{120,10}})));
-
-  output Modelica.SIunits.MassFraction X_dryAir(min=0, max=1, nominal=0.01, start=0.001)
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
+          rotation=0)));
+  output Modelica.SIunits.MassFraction x_w(min=0, max=1, nominal=0.01, start=0.001)
     "Water mass fraction per mass of dry air";
-
 equation
-  X_dryAir * (1-XWat) = XWat;
- ( p_in_internal - p_w)   * X_dryAir = 0.62198 * p_w;
-end VaporPressure_X;
+  X_w = Buildings.Utilities.Psychrometrics.Functions.X_pW(p_w=p_w, p=p_in_internal);
+  x_w = X_w/(1-X_w);
+end X_pW;
