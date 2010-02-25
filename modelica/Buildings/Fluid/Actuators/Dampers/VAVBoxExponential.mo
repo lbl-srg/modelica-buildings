@@ -77,13 +77,13 @@ First implementation.
                                               annotation(Dialog(group = "Nominal condition"));
 
 protected
-  parameter SI.Pressure dpDamOpe0 = k1*m_flow_nominal^2/2/Medium.density(sta0)/A^2
+  parameter SI.Pressure dpDamOpe_nominal = k1*m_flow_nominal^2/2/Medium.density(sta0)/A^2
     "Pressure drop of fully open damper at nominal flow rate";
   parameter Real kResSqu(unit="kg.m", fixed=false)
     "Resistance coefficient for fixed resistance element";
 initial equation
   kResSqu = if dp_nominalIncludesDamper then 
-       m_flow_nominal^2 / (dp_nominal-dpDamOpe0) else 
+       m_flow_nominal^2 / (dp_nominal-dpDamOpe_nominal) else 
        m_flow_nominal^2 / dp_nominal;
 equation
 //    "flow coefficient for resistance base model";

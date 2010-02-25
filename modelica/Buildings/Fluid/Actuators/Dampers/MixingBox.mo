@@ -34,7 +34,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=m0Out_flow) 
+    m_flow_nominal=mOut_flow_nominal) 
     annotation (Placement(transformation(extent={{-40,50},{-20,70}},   rotation=
            0)));
   parameter Boolean use_deltaM = true
@@ -54,12 +54,12 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "Reynolds number where transition to turbulent starts" 
     annotation(Dialog(enable=not use_deltaM));
 
-  parameter Modelica.SIunits.Area AOut=m0Out_flow/rho_nominal/v_nominal
+  parameter Modelica.SIunits.Area AOut=mOut_flow_nominal/rho_nominal/v_nominal
     "Face area outside air damper" 
     annotation(Dialog(enable=not use_v_nominal));
   VAVBoxExponential damExh(                            A=AExh,
     redeclare package Medium = Medium,
-    m_flow_nominal=m0Exh_flow,
+    m_flow_nominal=mExh_flow_nominal,
     dp_nominal=dpExh_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
@@ -83,12 +83,12 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     allowFlowReversal=allowFlowReversal) "Exhaust air damper" 
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}}, rotation=
            0)));
-  parameter Modelica.SIunits.Area AExh=m0Exh_flow/rho_nominal/v_nominal
+  parameter Modelica.SIunits.Area AExh=mExh_flow_nominal/rho_nominal/v_nominal
     "Face area exhaust air damper" 
     annotation(Dialog(enable=not use_v_nominal));
   VAVBoxExponential damRec(                            A=ARec,
     redeclare package Medium = Medium,
-    m_flow_nominal=m0Rec_flow,
+    m_flow_nominal=mRec_flow_nominal,
     dp_nominal=dpRec_nominal,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
@@ -114,7 +114,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
         origin={30,0},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  parameter Modelica.SIunits.Area ARec=m0Rec_flow/rho_nominal/v_nominal
+  parameter Modelica.SIunits.Area ARec=mRec_flow_nominal/rho_nominal/v_nominal
     "Face area recirculation air damper" 
     annotation(Dialog(enable=not use_v_nominal));
 
@@ -122,21 +122,21 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "set to true if dp_nominal includes the pressure loss of the open damper" 
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m0Out_flow
+  parameter Modelica.SIunits.MassFlowRate mOut_flow_nominal
     "Mass flow rate outside air damper" 
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Pressure dpOut_nominal(min=0, displayUnit="Pa")
     "Pressure drop outside air leg (without damper)" 
      annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m0Rec_flow
+  parameter Modelica.SIunits.MassFlowRate mRec_flow_nominal
     "Mass flow rate recirculation air damper" 
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Pressure dpRec_nominal(min=0, displayUnit="Pa")
     "Pressure drop recirculation air leg (without damper)" 
      annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m0Exh_flow
+  parameter Modelica.SIunits.MassFlowRate mExh_flow_nominal
     "Mass flow rate exhaust air damper" 
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Pressure dpExh_nominal(min=0, displayUnit="Pa")
@@ -150,7 +150,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
       system.m_flow_start "Guess value of m_flow = port_a.m_flow" 
     annotation (Dialog(tab="Advanced"));
   parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_small=1E-4
-      *m0Out_flow "Small mass flow rate for regularization of zero flow" 
+      *mOut_flow_nominal "Small mass flow rate for regularization of zero flow" 
     annotation (Dialog(tab="Advanced"));
   parameter Boolean from_dp=true
     "= true, use m_flow = f(dp) else dp = f(m_flow)" 

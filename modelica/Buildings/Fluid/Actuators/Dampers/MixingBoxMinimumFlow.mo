@@ -7,7 +7,7 @@ model MixingBoxMinimumFlow
   parameter Modelica.SIunits.Area AOutMin
     "Face area minimum outside air damper";
 
-  parameter Modelica.SIunits.MassFlowRate m0OutMin_flow
+  parameter Modelica.SIunits.MassFlowRate mOutMin_flow_nominal
     "Mass flow rate minimum outside air damper" 
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Pressure dpOutMin_nominal(min=0, displayUnit="Pa")
@@ -102,7 +102,7 @@ does not include the flow resistance of the air damper.
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=m0OutMin_flow,
+    m_flow_nominal=mOutMin_flow_nominal,
     dp_nominal=dpOutMin_nominal,
     A=AOutMin) "Damper for minimum outside air intake" 
     annotation (Placement(transformation(extent={{20,70},{40,90}},     rotation=

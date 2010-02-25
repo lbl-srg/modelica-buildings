@@ -103,10 +103,10 @@ Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow mixBox(
   AOut=scaM_flow*1.32,
   AExh=scaM_flow*1.05,
   ARec=scaM_flow*1.05,
-  m0OutMin_flow=scaM_flow*0.1*1,
-  m0Out_flow=scaM_flow*1,
-  m0Rec_flow=scaM_flow*1,
-  m0Exh_flow=scaM_flow*1,
+  mOutMin_flow_nominal=scaM_flow*0.1*1,
+  mOut_flow_nominal=scaM_flow*1,
+  mRec_flow_nominal=scaM_flow*1,
+  mExh_flow_nominal=scaM_flow*1,
   redeclare package Medium = Medium) "mixing box" 
                             annotation (extent=[8,-72; 28,-52],  style(
         thickness=2),
