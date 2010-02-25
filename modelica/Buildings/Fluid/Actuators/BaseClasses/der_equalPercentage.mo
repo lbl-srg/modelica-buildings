@@ -47,7 +47,7 @@ algorithm
     der_phi := (R^(delta-1) - l) / delta * der_y;
   else
     if (y > (3/2 * delta)) then
-      der_phi := R^(y-1)*ln(R) * der_y;
+      der_phi := R^(y-1)*Modelica.Math.log(R) * der_y;
     else
       logR := Modelica.Math.log(R);
       z := (3*delta/2);

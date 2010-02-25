@@ -17,10 +17,9 @@ model Damper
            0)));
     Modelica.Blocks.Sources.Ramp yRam(
     duration=0.3,
-    height=1,
     offset=0,
-    startTime=0.2) 
-                 annotation (Placement(transformation(extent={{-20,40},{0,60}},
+    startTime=0.2,
+    height=1)    annotation (Placement(transformation(extent={{-20,40},{0,60}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
@@ -97,7 +96,7 @@ equation
     annotation (Line(points={{-79,28},{-74.5,28},{-70,28}},
                                                  color={0,0,127}));
   connect(sou.ports[1], res.port_a) annotation (Line(
-      points={{-48,20},{0,20}},
+      points={{-48,20},{-5.55112e-16,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin.ports[1], res.port_b) annotation (Line(
@@ -105,7 +104,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou1.ports[1], res1.port_a) annotation (Line(
-      points={{-48,-80},{0,-80}},
+      points={{-48,-80},{-5.55112e-16,-80}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res1.port_b, sin1.ports[1]) annotation (Line(

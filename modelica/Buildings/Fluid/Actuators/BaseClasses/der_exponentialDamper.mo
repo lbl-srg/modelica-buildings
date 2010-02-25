@@ -48,12 +48,12 @@ First implementation.
     "Derivative of flow coefficient, der_kTheta=dkTheta/dy";
 algorithm
   if y < yL then
-    der_kTheta := exp(cL[3] + y * (cL[2] + y * cL[1]))*(2 * cL[1] * y + cL[2]) * der_y;
+    der_kTheta := Modelica.Math.exp(cL[3] + y * (cL[2] + y * cL[1]))*(2 * cL[1] * y + cL[2]) * der_y;
   else
     if (y > yU) then
-      der_kTheta := exp(cU[3] + y * (cU[2] + y * cU[1]))*(2 * cU[1] * y + cU[2]) * der_y;
+      der_kTheta := Modelica.Math.exp(cU[3] + y * (cU[2] + y * cU[1]))*(2 * cU[1] * y + cU[2]) * der_y;
     else
-      der_kTheta := -b*exp(a+b*(1-y)) * der_y
+      der_kTheta := -b*Modelica.Math.exp(a+b*(1-y)) * der_y
         "y=0 is closed, but theta=1 is closed in ASHRAE-825";
     end if;
   end if;

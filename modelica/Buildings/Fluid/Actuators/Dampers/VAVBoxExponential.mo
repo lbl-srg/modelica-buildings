@@ -74,7 +74,7 @@ First implementation.
                                               annotation(Dialog(group = "Nominal Condition"));
   parameter Boolean dp_nominalIncludesDamper = true
     "set to true if dp_nominal includes the pressure loss of the open damper" 
-                                              annotation(Dialog(group = "Nominal Condition"));
+                                              annotation(Dialog(group = "Nominal condition"));
 
 protected
   parameter SI.Pressure dpDamOpe0 = k1*m_flow_nominal^2/2/Medium.density(sta0)/A^2

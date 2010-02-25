@@ -11,33 +11,112 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
     annotation(Dialog(tab="Assumptions"), Evaluate=true);
 
-  VAVBoxExponential damOA(                            A=AOut,
+  VAVBoxExponential damOA(A=AOut,
     redeclare package Medium = Medium,
-    m_flow_nominal=m0Out_flow,
     dp_nominal=dpOut_nominal,
-    dp_nominalIncludesDamper=dp_nominalIncludesDamper) 
+    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
+    from_dp=from_dp,
+    linearized=linearized,
+    use_deltaM=use_deltaM,
+    deltaM=deltaM,
+    use_v_nominal=use_v_nominal,
+    v_nominal=v_nominal,
+    roundDuct=roundDuct,
+    ReC=ReC,
+    dp_start=dp_start,
+    m_flow_start=m_flow_start,
+    m_flow_small=m_flow_small,
+    a=a,
+    b=b,
+    yL=yL,
+    yU=yU,
+    k0=k0,
+    k1=k1,
+    use_constant_density=use_constant_density,
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=m0Out_flow) 
     annotation (Placement(transformation(extent={{-40,50},{-20,70}},   rotation=
            0)));
+  parameter Boolean use_deltaM = true
+    "Set to true to use deltaM for turbulent transition, else ReC is used";
+  parameter Real deltaM = 0.3
+    "Fraction of nominal mass flow rate where transition to turbulent occurs" 
+    annotation(Dialog(enable=use_deltaM));
+  parameter Boolean use_v_nominal = true
+    "Set to true to use face velocity to compute area";
+  parameter Modelica.SIunits.Velocity v_nominal=1 "Nominal face velocity" 
+    annotation(Dialog(enable=use_v_nominal));
 
-  parameter Modelica.SIunits.Area AOut "Face area outside air damper";
+  parameter Boolean roundDuct = false
+    "Set to true for round duct, false for square cross section" 
+    annotation(Dialog(enable=not use_deltaM));
+  parameter Real ReC=4000
+    "Reynolds number where transition to turbulent starts" 
+    annotation(Dialog(enable=not use_deltaM));
+
+  parameter Modelica.SIunits.Area AOut=m0Out_flow/rho_nominal/v_nominal
+    "Face area outside air damper" 
+    annotation(Dialog(enable=not use_v_nominal));
   VAVBoxExponential damExh(                            A=AExh,
     redeclare package Medium = Medium,
     m_flow_nominal=m0Exh_flow,
     dp_nominal=dpExh_nominal,
-    dp_nominalIncludesDamper=dp_nominalIncludesDamper) "Exhaust air damper" 
+    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
+    from_dp=from_dp,
+    linearized=linearized,
+    use_deltaM=use_deltaM,
+    deltaM=deltaM,
+    use_v_nominal=use_v_nominal,
+    v_nominal=v_nominal,
+    roundDuct=roundDuct,
+    ReC=ReC,
+    dp_start=dp_start,
+    m_flow_start=m_flow_start,
+    m_flow_small=m_flow_small,
+    a=a,
+    b=b,
+    yL=yL,
+    yU=yU,
+    k0=k0,
+    k1=k1,
+    use_constant_density=use_constant_density,
+    allowFlowReversal=allowFlowReversal) "Exhaust air damper" 
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}}, rotation=
            0)));
-  parameter Modelica.SIunits.Area AExh "Face area exhaust air damper";
+  parameter Modelica.SIunits.Area AExh=m0Exh_flow/rho_nominal/v_nominal
+    "Face area exhaust air damper" 
+    annotation(Dialog(enable=not use_v_nominal));
   VAVBoxExponential damRec(                            A=ARec,
     redeclare package Medium = Medium,
     m_flow_nominal=m0Rec_flow,
     dp_nominal=dpRec_nominal,
-    dp_nominalIncludesDamper=dp_nominalIncludesDamper)
-    "Recirculation air damper" annotation (Placement(transformation(
+    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
+    from_dp=from_dp,
+    linearized=linearized,
+    use_deltaM=use_deltaM,
+    deltaM=deltaM,
+    use_v_nominal=use_v_nominal,
+    v_nominal=v_nominal,
+    roundDuct=roundDuct,
+    ReC=ReC,
+    dp_start=dp_start,
+    m_flow_start=m_flow_start,
+    m_flow_small=m_flow_small,
+    a=a,
+    b=b,
+    yL=yL,
+    yU=yU,
+    k0=k0,
+    k1=k1,
+    use_constant_density=use_constant_density,
+    allowFlowReversal=allowFlowReversal) "Recirculation air damper" 
+                               annotation (Placement(transformation(
         origin={30,0},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  parameter Modelica.SIunits.Area ARec "Face area recirculation air damper";
+  parameter Modelica.SIunits.Area ARec=m0Rec_flow/rho_nominal/v_nominal
+    "Face area recirculation air damper" 
+    annotation(Dialog(enable=not use_v_nominal));
 
   parameter Boolean dp_nominalIncludesDamper=false
     "set to true if dp_nominal includes the pressure loss of the open damper" 
@@ -63,6 +142,39 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Modelica.SIunits.Pressure dpExh_nominal(min=0, displayUnit="Pa")
     "Pressure drop exhaust air leg (without damper)" 
      annotation (Dialog(group="Nominal condition"));
+
+  parameter Modelica.Media.Interfaces.PartialMedium.AbsolutePressure dp_start=
+      dpOut_nominal "Guess value of dp = port_a.p - port_b.p" 
+    annotation (Dialog(tab="Advanced"));
+  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_start=
+      system.m_flow_start "Guess value of m_flow = port_a.m_flow" 
+    annotation (Dialog(tab="Advanced"));
+  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_small=1E-4
+      *m0Out_flow "Small mass flow rate for regularization of zero flow" 
+    annotation (Dialog(tab="Advanced"));
+  parameter Boolean from_dp=true
+    "= true, use m_flow = f(dp) else dp = f(m_flow)" 
+    annotation (Dialog(tab="Advanced"));
+  parameter Boolean linearized=false
+    "= true, use linear relation between m_flow and dp for any flow rate" 
+    annotation (Dialog(tab="Advanced"));
+  parameter Boolean use_constant_density=true
+    "Set to true to use constant density for flow friction" 
+    annotation (Dialog(tab="Advanced"));
+  parameter Real a=-1.51 "Coefficient a for damper characteristics" 
+    annotation (Dialog(tab="Damper coefficients"));
+  parameter Real b=0.105*90 "Coefficient b for damper characteristics" 
+    annotation (Dialog(tab="Damper coefficients"));
+  parameter Real yL=15/90 "Lower value for damper curve" 
+    annotation (Dialog(tab="Damper coefficients"));
+  parameter Real yU=55/90 "Upper value for damper curve" 
+    annotation (Dialog(tab="Damper coefficients"));
+  parameter Real k0=1E6
+    "Flow coefficient for y=0, k0 = pressure drop divided by dynamic pressure" 
+    annotation (Dialog(tab="Damper coefficients"));
+  parameter Real k1=0.45
+    "Flow coefficient for y=1, k1 = pressure drop divided by dynamic pressure" 
+    annotation (Dialog(tab="Damper coefficients"));
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
@@ -177,10 +289,12 @@ does not include the flow resistance of the air damper.
   Modelica.Blocks.Math.Add add(k2=-1) 
                              annotation (Placement(transformation(extent={{-40,-10},
             {-20,10}},    rotation=0)));
+
 protected
-  Modelica.Fluid.Interfaces.FluidPort_b port_b1(redeclare package Medium = 
-        Medium) annotation (Placement(transformation(extent={{28,30},{28,32}},
-          rotation=0)));
+  parameter Medium.Density rho_nominal=Medium.density(sta_nominal)
+    "Density, used to compute fluid volume";
+  parameter Medium.ThermodynamicState sta_nominal=
+     Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
 equation
   connect(y, damOA.y) annotation (Line(points={{1.11022e-15,120},{0,120},{0,80},
           {-30,80},{-30,68}},
@@ -195,8 +309,16 @@ equation
   connect(add.y, damRec.y) annotation (Line(points={{-19,6.10623e-16},{-19,0},{
           22,0},{22,1.15598e-15}},
                              color={0,0,127}));
-  connect(damOA.port_b, port_Sup) annotation (Line(
-      points={{-20,60},{100,60}},
+  connect(damOA.port_a, port_Out) annotation (Line(
+      points={{-40,60},{-100,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(damExh.port_b, port_Exh) annotation (Line(
+      points={{-40,-60},{-100,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(port_Sup, damOA.port_b) annotation (Line(
+      points={{100,60},{-20,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(damRec.port_b, port_Sup) annotation (Line(
@@ -207,16 +329,8 @@ equation
       points={{100,-60},{-20,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(damOA.port_a, port_Out) annotation (Line(
-      points={{-40,60},{-100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(damExh.port_b, port_Exh) annotation (Line(
-      points={{-40,-60},{-100,-60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(damRec.port_a, port_Ret) annotation (Line(
-      points={{30,-10},{30,-60},{100,-60}},
+  connect(port_Ret, damRec.port_a) annotation (Line(
+      points={{100,-60},{30,-60},{30,-10}},
       color={0,127,255},
       smooth=Smooth.None));
 end MixingBox;

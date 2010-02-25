@@ -66,7 +66,7 @@ model MixingBox
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(yDam.y, mixBox.y) annotation (Line(points={{-19,50},{24,50},{24,
-          6.66134e-16},{24,6.66134e-16}},
+          6.66134e-16}},
                    color={0,0,127}));
   connect(bouIn.p_in, PAtm.y) annotation (Line(points={{-62,20},{-72,20},{-79,
           20}},          color={0,0,127}));

@@ -134,17 +134,18 @@ protected
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}));
 initial equation
- cL[1] = (ln(k0) - b - a)/yL^2;
- cL[2] = (-b*yL - 2*ln(k0) + 2*b + 2*a)/yL;
- cL[3] = ln(k0);
+ cL[1] = (Modelica.Math.log(k0) - b - a)/yL^2;
+ cL[2] = (-b*yL - 2*Modelica.Math.log(k0) + 2*b + 2*a)/yL;
+ cL[3] = Modelica.Math.log(k0);
 
- cU[1] = (ln(k1) - a)/(yU^2 - 2*yU + 1);
- cU[2] = (-b*yU^2 - 2*ln(k1)*yU - (-2*b - 2*a)*yU - b)/(yU^2 - 2*yU + 1);
- cU[3] = (ln(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1);
+ cU[1] = (Modelica.Math.log(k1) - a)/(yU^2 - 2*yU + 1);
+ cU[2] = (-b*yU^2 - 2*Modelica.Math.log(k1)*yU - (-2*b - 2*a)*yU - b)/(yU^2 - 2*yU + 1);
+ cU[3] = (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1);
  assert(k0 > k1, "k0 must be bigger than k1.");
 equation
    rho = if use_constant_density then rho_nominal else Medium.density(state_a);
-   m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else eta_nominal*ReC*sqrt(area)*facRouDuc;
+   m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else 
+       eta_nominal*ReC*sqrt(area)*facRouDuc;
    kTheta = exponentialDamper(y=y, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU)
     "y=0 is closed";
    assert(kTheta>=0, "Flow coefficient must not be negative");

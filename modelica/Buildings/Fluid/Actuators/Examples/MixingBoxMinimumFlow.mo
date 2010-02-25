@@ -72,10 +72,12 @@ model MixingBoxMinimumFlow
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(yDamMin.y, mixBox.yOutMin) 
-                               annotation (Line(points={{-19,80},{4,80},{4,-2},
-          {12,-2}},color={0,0,127}));
-  connect(yDam.y, mixBox.y) annotation (Line(points={{-19,50},{-4,50},{-4,-6},{
-          12,-6}}, color={0,0,127}));
+                               annotation (Line(points={{-19,80},{30,80},{30,
+          6.66134e-16}},
+                   color={0,0,127}));
+  connect(yDam.y, mixBox.y) annotation (Line(points={{-19,50},{24,50},{24,
+          6.66134e-16}},
+                   color={0,0,127}));
   connect(bouIn.p_in, PAtm.y) annotation (Line(points={{-62,20},{-72,20},{-79,
           20}},          color={0,0,127}));
   connect(PRet.y, bouRet.p_in) annotation (Line(points={{81,-40},{90,-40},{90,
@@ -83,23 +85,23 @@ equation
   connect(bouSup.p_in, PSup.y) annotation (Line(points={{70,8},{92,8},{92,50},{
           81,50}}, color={0,0,127}));
   connect(bouIn.ports[1], mixBox.port_OutMin) annotation (Line(
-      points={{-40,14.6667},{-14,14.6667},{-14,-10},{13.8,-10}},
+      points={{-40,14.6667},{-14,14.6667},{-14,-2},{14,-2}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouIn.ports[2], mixBox.port_Out) annotation (Line(
-      points={{-40,12},{-16,12},{-16,-14},{13.8,-14}},
+      points={{-40,12},{-16,12},{-16,-6},{14,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouIn.ports[3], mixBox.port_Exh) annotation (Line(
-      points={{-40,9.33333},{-18,9.33333},{-18,-20},{13.8,-20}},
+      points={{-40,9.33333},{-18,9.33333},{-18,-18},{14,-18}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouSup.ports[1], mixBox.port_Sup) annotation (Line(
-      points={{48,6.66134e-16},{42,6.66134e-16},{42,-10},{33.8,-10}},
+      points={{48,6.66134e-16},{42,6.66134e-16},{42,-6},{34,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouRet.ports[1], mixBox.port_Ret) annotation (Line(
-      points={{48,-80},{42,-80},{42,-20},{34,-20}},
+      points={{48,-80},{42,-80},{42,-18},{34,-18}},
       color={0,127,255},
       smooth=Smooth.None));
 end MixingBoxMinimumFlow;
