@@ -3,52 +3,84 @@ model Boundary_ph
   "Boundary with prescribed pressure, specific enthalpy, composition and trace substances"
   extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_p_in = false
-    "Get the pressure from the input connector" 
+    "Get the pressure from the input connector"
     annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
   parameter Boolean use_h_in= false
-    "Get the specific enthalpy from the input connector" 
+    "Get the specific enthalpy from the input connector"
     annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
   parameter Boolean use_X_in = false
-    "Get the composition from the input connector" 
+    "Get the composition from the input connector"
     annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
   parameter Boolean use_C_in = false
-    "Get the trace substances from the input connector" 
+    "Get the trace substances from the input connector"
     annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
   parameter Medium.AbsolutePressure p = Medium.p_default
-    "Fixed value of pressure" 
+    "Fixed value of pressure"
     annotation (Evaluate = true,
                 Dialog(enable = not use_p_in));
   parameter Medium.SpecificEnthalpy h = Medium.h_default
-    "Fixed value of specific enthalpy" 
+    "Fixed value of specific enthalpy"
     annotation (Evaluate = true,
                 Dialog(enable = not use_h_in));
   parameter Medium.MassFraction X[Medium.nX] = Medium.X_default
-    "Fixed value of composition" 
+    "Fixed value of composition"
     annotation (Evaluate = true,
                 Dialog(enable = (not use_X_in) and Medium.nXi > 0));
   parameter Medium.ExtraProperty C[Medium.nC](
        quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
-    "Fixed values of trace substances" 
+    "Fixed values of trace substances"
     annotation (Evaluate=true,
                 Dialog(enable = (not use_C_in) and Medium.nC > 0));
   Modelica.Blocks.Interfaces.RealInput p_in if              use_p_in
-    "Prescribed boundary pressure" 
+    "Prescribed boundary pressure"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}},
           rotation=0)));
   Modelica.Blocks.Interfaces.RealInput h_in if              use_h_in
-    "Prescribed boundary specific enthalpy" 
+    "Prescribed boundary specific enthalpy"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}},
           rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if 
+  Modelica.Blocks.Interfaces.RealInput X_in[Medium.nX] if
                                                         use_X_in
-    "Prescribed boundary composition" 
+    "Prescribed boundary composition"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}},
           rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if 
+  Modelica.Blocks.Interfaces.RealInput C_in[Medium.nC] if
                                                         use_C_in
-    "Prescribed boundary trace substances" 
+    "Prescribed boundary trace substances"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
           rotation=0)));
+protected
+  Modelica.Blocks.Interfaces.RealInput p_in_internal
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput h_in_internal
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX]
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC]
+    "Needed to connect to conditional connector";
+equation
+  Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
+    Medium.singleState, true, X_in_internal, "Boundary_ph");
+  connect(p_in, p_in_internal);
+  connect(h_in, h_in_internal);
+  connect(X_in, X_in_internal);
+  connect(C_in, C_in_internal);
+  if not use_p_in then
+    p_in_internal = p;
+  end if;
+  if not use_h_in then
+    h_in_internal = h;
+  end if;
+  if not use_X_in then
+    X_in_internal = X;
+  end if;
+  if not use_C_in then
+    C_in_internal = C;
+  end if;
+  medium.p = p_in_internal;
+  medium.h = h_in_internal;
+  medium.Xi = X_in_internal[1:Medium.nXi];
+  ports.C_outflow = fill(C_in_internal, nPorts);
   annotation (defaultComponentName="boundary",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
@@ -127,36 +159,4 @@ the port into the boundary, the boundary definitions,
 with exception of boundary pressure, do not have an effect.
 </p>
 </html>"));
-protected
-  Modelica.Blocks.Interfaces.RealInput p_in_internal
-    "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput h_in_internal
-    "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX]
-    "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC]
-    "Needed to connect to conditional connector";
-equation
-  Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
-    Medium.singleState, true, X_in_internal, "Boundary_ph");
-  connect(p_in, p_in_internal);
-  connect(h_in, h_in_internal);
-  connect(X_in, X_in_internal);
-  connect(C_in, C_in_internal);
-  if not use_p_in then
-    p_in_internal = p;
-  end if;
-  if not use_h_in then
-    h_in_internal = h;
-  end if;
-  if not use_X_in then
-    X_in_internal = X;
-  end if;
-  if not use_C_in then
-    C_in_internal = C;
-  end if;
-  medium.p = p_in_internal;
-  medium.h = h_in_internal;
-  medium.Xi = X_in_internal[1:Medium.nXi];
-  ports.C_outflow = fill(C_in_internal, nPorts);
 end Boundary_ph;

@@ -1,30 +1,25 @@
 within Buildings.Fluid.Delays.Examples;
 model Delay
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-                         Commands(file=
-            "Delay.mos" "run"));
 // package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 // package Medium = Buildings.Media.IdealGases.SimpleAir;
 // We set X_default to a small enough value to avoid saturation at the medium temperature
 // that is used in this model.
  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated(X_default={0.001, 0.999});
 
-    Modelica.Blocks.Sources.Constant PAtm(k=101325) 
+    Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{62,36},{82,56}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp P(
       duration=1,
     height=20,
-    offset=101315) 
+    offset=101315)
                  annotation (Placement(transformation(extent={{-94,30},{-74,50}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     from_dp=true,
     m_flow_nominal=5,
     dp_nominal=5,
-    redeclare package Medium = Medium) 
+    redeclare package Medium = Medium)
              annotation (Placement(transformation(extent={{-30,-4},{-10,16}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -41,14 +36,15 @@ model Delay
     from_dp=true,
     m_flow_nominal=5,
     dp_nominal=5,
-    redeclare package Medium = Medium) 
+    redeclare package Medium = Medium)
              annotation (Placement(transformation(extent={{26,-4},{46,16}},
           rotation=0)));
   Buildings.Fluid.Delays.DelayFirstOrder del(         m_flow_nominal=5, redeclare
       package Medium = Medium,
-    T_start=283.15) 
-    annotation (Placement(transformation(extent={{0,6},{20,26}},   rotation=0)));
-  inner Modelica.Fluid.System system 
+    T_start=283.15,
+    nPorts=2)
+    annotation (Placement(transformation(extent={{-2,6},{18,26}},  rotation=0)));
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(P.y, sou.p_in) annotation (Line(points={{-73,40},{-66,40},{-66,14},{
@@ -64,11 +60,16 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(res1.port_b, del.ports[1]) annotation (Line(
-      points={{-10,6},{-5.5,6},{-5.5,6},{-1,6},{-1,6},{8,6}},
+      points={{-10,6},{6,6}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(del.ports[2], res2.port_a) annotation (Line(
-      points={{12,6},{15.5,6},{15.5,6},{19,6},{19,6},{26,6}},
+  connect(res2.port_a, del.ports[2]) annotation (Line(
+      points={{26,6},{10,6}},
       color={0,127,255},
       smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                        graphics),
+                         Commands(file=
+            "Delay.mos" "run"));
 end Delay;

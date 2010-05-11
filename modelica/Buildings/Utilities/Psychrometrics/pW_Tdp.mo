@@ -2,6 +2,19 @@ within Buildings.Utilities.Psychrometrics;
 block pW_Tdp
   "Model to compute the water vapor pressure for a given dew point temperature of moist air"
   extends Modelica.Blocks.Interfaces.BlockIcon;
+  Modelica.Blocks.Interfaces.RealOutput p_w "Water vapor partial pressure"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
+            0)));
+  Modelica.Blocks.Interfaces.RealInput T(final quantity="ThermodynamicTemperature",
+                                         final unit="K",
+                                         min = 0,
+                                         displayUnit="degC")
+    "Dew point temperature"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
+          rotation=0)));
+
+equation
+ p_w = Buildings.Utilities.Psychrometrics.Functions.pW_Tdp(T=T);
     annotation (
     Documentation(info="<html>
 <p>
@@ -23,7 +36,7 @@ to <code>pW_Tdp</code>.
 <li>
 September 4, 2008 by Michael Wetter:<br>
 Changed from causal to acausal ports, needed, for example, for
-<a href=\"Modelica:Buildings.Fluid.Examples.MixingVolumeMoistAir\">
+<a href=\"modelica://Buildings.Fluid.Examples.MixingVolumeMoistAir\">
 Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
@@ -88,17 +101,4 @@ First implementation.
         Line(points={{68,32},{22,32}}, color={175,175,175})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics));
-  Modelica.Blocks.Interfaces.RealOutput p_w "Water vapor partial pressure" 
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-            0)));
-  Modelica.Blocks.Interfaces.RealInput T(final quantity="ThermodynamicTemperature",
-                                         final unit="K",
-                                         min = 0,
-                                         displayUnit="degC")
-    "Dew point temperature" 
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
-
-equation
- p_w = Buildings.Utilities.Psychrometrics.Functions.pW_Tdp(T=T);
 end pW_Tdp;

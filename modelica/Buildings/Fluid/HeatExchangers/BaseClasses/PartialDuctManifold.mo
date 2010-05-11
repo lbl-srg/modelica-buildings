@@ -2,6 +2,15 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 partial model PartialDuctManifold
   "Partial manifold for heat exchanger duct connection"
   extends PartialDuctPipeManifold;
+  parameter Integer nPipSeg(min=1)
+    "Number of pipe segments per register used for discretization";
+
+  Modelica.Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b(
+        redeclare each package Medium = Medium,
+        each m_flow(start=-mStart_flow_a/nPipSeg/nPipPar,
+             max=if allowFlowReversal then +Modelica.Constants.inf else 0))
+    "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=0)));
 annotation(Diagram(graphics),
                     Documentation(info="<html>
 <p>
@@ -25,13 +34,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  parameter Integer nPipSeg(min=1)
-    "Number of pipe segments per register used for discretization";
-
-  Modelica.Fluid.Interfaces.FluidPort_b[nPipPar,nPipSeg] port_b(
-        redeclare each package Medium = Medium,
-        each m_flow(start=-mStart_flow_a/nPipSeg/nPipPar,
-             max=if allowFlowReversal then +Modelica.Constants.inf else 0))
-    "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=0)));
 end PartialDuctManifold;

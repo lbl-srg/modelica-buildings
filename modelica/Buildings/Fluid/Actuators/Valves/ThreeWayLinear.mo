@@ -28,6 +28,15 @@ model ThreeWayLinear "Three way valve with linear characteristics"
       Cv=fraK*Cv,
       Av=fraK*Av));
 
+equation
+  connect(inv.y, res3.y) annotation (Line(points={{69,60},{80,60},{80,-50},{20,
+          -50},{8,-50}}, color={0,0,127}));
+  connect(y, inv.u2) annotation (Line(points={{1.11022e-15,80},{0,80},{0,40},{
+          60,40},{60,52}},
+                         color={0,0,127}));
+  connect(y, res1.y) annotation (Line(points={{1.11022e-15,80},{0,80},{0,40},{
+          -50,40},{-50,8}},
+        color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
@@ -39,16 +48,16 @@ model ThreeWayLinear "Three way valve with linear characteristics"
 Three way valve with linear opening characteristic.
 </p><p>
 This model is based on the partial valve models 
-<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
 PartialThreeWayValve</a> and
-<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
 PartialTwoWayValve</a>. 
 See
-<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
 PartialThreeWayValve</a>
 for the implementation of the three way valve
 and see
-<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
 PartialTwoWayValve</a>
 for the implementation of the leakage flow or 
 the regularization near the origin.
@@ -62,14 +71,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-equation
-  connect(inv.y, res3.y) annotation (Line(points={{69,60},{80,60},{80,-50},{20,
-          -50},{8,-50}}, color={0,0,127}));
-  connect(y, inv.u2) annotation (Line(points={{1.11022e-15,80},{0,80},{0,40},{
-          60,40},{60,52}},
-                         color={0,0,127}));
-  connect(y, res1.y) annotation (Line(points={{1.11022e-15,80},{0,80},{0,40},{
-          -50,40},{-50,8}},
-        color={0,0,127}));
 end ThreeWayLinear;

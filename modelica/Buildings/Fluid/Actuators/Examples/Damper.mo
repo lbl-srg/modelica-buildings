@@ -1,18 +1,12 @@
 within Buildings.Fluid.Actuators.Examples;
 model Damper
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-                         Commands(file=
-            "Damper.mos" "run"));
-
  package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Fluid.Actuators.Dampers.Exponential res(
     A=1,
     redeclare package Medium = Medium,
-    m_flow_nominal=1) 
+    m_flow_nominal=1)
          annotation (Placement(transformation(extent={{0,10},{20,30}}, rotation=
            0)));
     Modelica.Blocks.Sources.Ramp yRam(
@@ -33,12 +27,12 @@ model Damper
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{74,10},{54,30}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PAtm(k=101325) 
+    Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluid.Actuators.Dampers.Exponential res1(
     A=1,
     redeclare package Medium = Medium,
-    m_flow_nominal=1) 
+    m_flow_nominal=1)
          annotation (Placement(transformation(extent={{0,-90},{20,-70}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp yRam1(
@@ -50,7 +44,7 @@ model Damper
     duration=0.5,
     startTime=0.5,
     height=-10,
-    offset=101330) 
+    offset=101330)
                  annotation (Placement(transformation(extent={{-100,-82},{-80,
             -62}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium
@@ -66,13 +60,13 @@ model Damper
     T=293.15)                                       annotation (Placement(
         transformation(extent={{74,-90},{54,-70}}, rotation=0)));
     Modelica.Blocks.Sources.Constant PAtm1(
-                                          k=101325) 
+                                          k=101325)
       annotation (Placement(transformation(extent={{60,-40},{80,-20}}, rotation=
            0)));
-    Modelica.Blocks.Sources.Constant PAtm0(k=101335) 
+    Modelica.Blocks.Sources.Constant PAtm0(k=101335)
       annotation (Placement(transformation(extent={{-100,18},{-80,38}},
           rotation=0)));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(yRam.y, res.y) annotation (Line(
@@ -81,18 +75,18 @@ equation
       pattern=LinePattern.None));
   connect(PAtm.y, sin.p_in) annotation (Line(points={{81,70},{86,70},{86,28},{
           76,28}}, color={0,0,127}));
-  connect(yRam1.y, res1.y) 
+  connect(yRam1.y, res1.y)
                          annotation (Line(
       points={{1,-50},{10,-50},{10,-72}},
       color={0,0,127},
       pattern=LinePattern.None));
-  connect(P1.y, sou1.p_in) 
+  connect(P1.y, sou1.p_in)
                          annotation (Line(points={{-79,-72},{-74,-72},{-70,-72}},
                       color={0,0,127}));
-  connect(PAtm1.y, sin1.p_in) 
+  connect(PAtm1.y, sin1.p_in)
                             annotation (Line(points={{81,-30},{86,-30},{86,-72},
           {76,-72}}, color={0,0,127}));
-  connect(PAtm0.y, sou.p_in) 
+  connect(PAtm0.y, sou.p_in)
     annotation (Line(points={{-79,28},{-74.5,28},{-70,28}},
                                                  color={0,0,127}));
   connect(sou.ports[1], res.port_a) annotation (Line(
@@ -111,4 +105,9 @@ equation
       points={{20,-80},{54,-80}},
       color={0,127,255},
       smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                        graphics),
+                         Commands(file=
+            "Damper.mos" "run"));
 end Damper;

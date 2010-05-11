@@ -2,11 +2,6 @@ within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolumeDryAir
   import Buildings;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{180,100}}),      graphics),
-                         Commands(file=
-            "MixingVolumeDryAir.mos" "run"));
-
  package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50))
     "Medium in the component";
 
@@ -14,7 +9,7 @@ model MixingVolumeDryAir
     height=-10,
     offset=101330,
     duration=300,
-    startTime=150) 
+    startTime=150)
                  annotation (Placement(transformation(extent={{-100,16},{-80,36}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
@@ -34,21 +29,21 @@ model MixingVolumeDryAir
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     V=0.1,
-    nPorts=2) 
+    nPorts=2)
           annotation (Placement(transformation(extent={{0,20},{20,40}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res11(
     redeclare each package Medium = Medium,
     dp_nominal=5,
     from_dp=true,
-    m_flow_nominal=2) 
+    m_flow_nominal=2)
              annotation (Placement(transformation(extent={{-40,10},{-20,30}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res12(
     redeclare each package Medium = Medium,
     dp_nominal=5,
     from_dp=true,
-    m_flow_nominal=2) 
+    m_flow_nominal=2)
              annotation (Placement(transformation(extent={{80,10},{100,30}},
           rotation=0)));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium
@@ -58,34 +53,34 @@ model MixingVolumeDryAir
     redeclare each package Medium = Medium,
     dp_nominal=5,
     from_dp=true,
-    m_flow_nominal=2) 
+    m_flow_nominal=2)
              annotation (Placement(transformation(extent={{-40,-90},{-20,-70}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res22(
     redeclare each package Medium = Medium,
     dp_nominal=5,
     from_dp=true,
-    m_flow_nominal=2) 
+    m_flow_nominal=2)
              annotation (Placement(transformation(extent={{80,-90},{100,-70}},
           rotation=0)));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality1(startTime=0) 
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality1(startTime=0)
     annotation (Placement(transformation(extent={{152,40},{172,60}},   rotation=
            0)));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium
       = Medium) "Enthalpy flow rate" annotation (Placement(transformation(
           extent={{40,-90},{60,-70}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant zero(k=0) 
+    Modelica.Blocks.Sources.Constant zero(k=0)
       annotation (Placement(transformation(extent={{-40,-20},{-20,0}},
           rotation=0)));
-    Modelica.Blocks.Sources.Constant TLiq(k=283.15) 
+    Modelica.Blocks.Sources.Constant TLiq(k=283.15)
       annotation (Placement(transformation(extent={{-40,-52},{-20,-32}},
           rotation=0)));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.MixingVolumes.MixingVolumeDryAir vol2(
     redeclare package Medium = Medium,
     V=0.1,
-    nPorts=2) 
+    nPorts=2)
           annotation (Placement(transformation(extent={{0,-80},{20,-60}},
           rotation=0)));
 equation
@@ -145,4 +140,8 @@ equation
       points={{-79,26},{-72,26}},
       color={0,0,127},
       smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -100},{180,100}}),      graphics),
+                         Commands(file=
+            "MixingVolumeDryAir.mos" "run"));
 end MixingVolumeDryAir;

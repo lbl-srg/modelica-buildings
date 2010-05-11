@@ -1,37 +1,31 @@
 within Buildings.Fluid.Sensors.Examples;
 model ExtraProperty
   import Buildings;
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{180,180}}),
-                        graphics),
-                         Commands(file=
-            "ExtraProperty.mos" "run"));
  package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
 
   MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     V=2*3*3,
-    nPorts=4) "Mixing volume" 
+    nPorts=4) "Mixing volume"
                           annotation (Placement(transformation(extent={{74,50},
             {94,70}}, rotation=0)));
-  annotation (Diagram, Coordsys(extent=[-100,-100; 180,180]));
   inner Modelica.Fluid.System system   annotation (Placement(transformation(
           extent={{-100,-100},{-80,-80}}, rotation=0)));
   Sources.PrescribedExtraPropertyFlowRate sou(redeclare package Medium = Medium,
     nPorts=3,
-    use_m_flow_in=true) 
+    use_m_flow_in=true)
     annotation (Placement(transformation(extent={{-2,30},{18,50}}, rotation=0)));
-  Modelica.Blocks.Sources.Constant step(k=8.18E-6) 
+  Modelica.Blocks.Sources.Constant step(k=8.18E-6)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}}, rotation=0)));
   Buildings.Fluid.Sensors.TraceSubstances senVol(
-                    redeclare package Medium = Medium) "Sensor at volume" 
+                    redeclare package Medium = Medium) "Sensor at volume"
     annotation (Placement(transformation(extent={{100,50},{120,70}}, rotation=0)));
   Buildings.Fluid.Sensors.TraceSubstances senSou(
                     redeclare package Medium = Medium, substanceName="CO2")
-    "Sensor at source" 
+    "Sensor at source"
     annotation (Placement(transformation(extent={{100,90},{120,110}}, rotation=
             0)));
-  Modelica.Blocks.Sources.Constant m_flow(k=15*1.2/3600) "Fresh air flow rate" 
+  Modelica.Blocks.Sources.Constant m_flow(k=15*1.2/3600) "Fresh air flow rate"
     annotation (Placement(transformation(extent={{-80,-14},{-60,6}}, rotation=0)));
   Buildings.Fluid.Sources.MassFlowSource_T mSou(
                                           redeclare package Medium = Medium,
@@ -46,21 +40,21 @@ model ExtraProperty
     nPorts=2)   annotation (Placement(transformation(extent={{0,-62},{20,-42}},
           rotation=0)));
   Conversions.MassFractionVolumeFraction masFraSou(MMMea=Modelica.Media.
-        IdealGases.Common.SingleGasesData.CO2.MM) 
+        IdealGases.Common.SingleGasesData.CO2.MM)
     annotation (Placement(transformation(extent={{140,90},{160,110}},  rotation=
            0)));
   Conversions.MassFractionVolumeFraction masFraVol(MMMea=Modelica.Media.
-        IdealGases.Common.SingleGasesData.CO2.MM) 
+        IdealGases.Common.SingleGasesData.CO2.MM)
     annotation (Placement(transformation(extent={{140,50},{160,70}}, rotation=0)));
   Buildings.Fluid.Sensors.RelativePressure dp(
-                      redeclare package Medium = Medium) 
+                      redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{100,-20},{120,0}},   rotation=
            0)));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality(startTime=0,
-      threShold=1E-8) 
+      threShold=1E-8)
     annotation (Placement(transformation(extent={{136,-88},{156,-68}}, rotation=
            0)));
-  Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal" 
+  Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal"
     annotation (Placement(transformation(extent={{78,-94},{98,-74}}, rotation=0)));
   Buildings.Fluid.Sensors.Pressure preSen(  redeclare package Medium = Medium)
     "Pressure sensor" annotation (Placement(transformation(extent={{20,120},{40,
@@ -79,7 +73,7 @@ equation
         color={0,0,127}));
   connect(dp.p_rel, assertEquality.u1) annotation (Line(points={{110,-19},{110,
           -19},{110,-72},{134,-72}}, color={0,0,127}));
-  connect(zer.y, assertEquality.u2) 
+  connect(zer.y, assertEquality.u2)
     annotation (Line(points={{99,-84},{134,-84}}, color={0,0,127}));
   connect(mSou.ports[1], dp.port_a) annotation (Line(
       points={{20,-10},{100,-10}},
@@ -117,4 +111,10 @@ equation
       points={{-59,40},{-4.1,40}},
       color={0,0,127},
       smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -100},{180,180}}),
+                        graphics),
+                         Commands(file=
+            "ExtraProperty.mos" "run"),
+              Diagram, Coordsys(extent=[-100,-100; 180,180]));
 end ExtraProperty;

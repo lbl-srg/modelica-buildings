@@ -4,79 +4,31 @@ partial model PartialStaticFourPortInterface
   import Modelica.Constants;
   extends Buildings.Fluid.Interfaces.PartialFourPort(
     port_a1(
-      p(start=p_a1_start),
       m_flow(min = if allowFlowReversal1 then -Constants.inf else 0)),
     port_b1(
-      p(start=p_b1_start),
       m_flow(max = if allowFlowReversal1 then +Constants.inf else 0)),
     port_a2(
-      p(start=p_a2_start),
       m_flow(min = if allowFlowReversal2 then -Constants.inf else 0)),
     port_b2(
-      p(start=p_b2_start),
       m_flow(max = if allowFlowReversal2 then +Constants.inf else 0)));
 
-  annotation (
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
-    Documentation(info="<html>
-<p>
-This component defines the interface for models that 
-transport two fluid streams between four ports. 
-It is similar to 
-<a href=\"Modelica:Buildings.Fluid.Interfaces.PartialTwoPortInterface\">,
-but it has four ports instead of two.
-<p>
-The model is used by other models in this package that add heat transfer,
-mass transfer and pressure drop equations.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-September 19, 2008 by Michael Wetter:<br>
-Added equations for the mass balance of extra species flow,
-i.e., <tt>C</tt> and <tt>mC_flow</tt>.
-</li>
-<li>
-April 28, 2008, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
-
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
-    "Nominal mass flow rate" 
+    "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0) = m1_flow_nominal
-    "Nominal mass flow rate" 
+    "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
 
   parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*m1_flow_nominal
-    "Small mass flow rate for regularization of zero flow" 
+    "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*m2_flow_nominal
-    "Small mass flow rate for regularization of zero flow" 
+    "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-
-  // Initialization
-  parameter Medium1.AbsolutePressure p_a1_start=system.p_start
-    "Guess value for inlet pressure" 
-    annotation(Dialog(tab="Initialization"));
-  parameter Medium1.AbsolutePressure p_b1_start=p_a1_start
-    "Guess value for outlet pressure" 
-    annotation(Dialog(tab="Initialization"));
-  parameter Medium2.AbsolutePressure p_a2_start=system.p_start
-    "Guess value for inlet pressure" 
-    annotation(Dialog(tab="Initialization"));
-  parameter Medium2.AbsolutePressure p_b2_start=p_a2_start
-    "Guess value for outlet pressure" 
-    annotation(Dialog(tab="Initialization"));
 
   // Diagnostics
   parameter Boolean show_V_flow = false
-    "= true, if volume flow rate at inflowing port is computed" 
+    "= true, if volume flow rate at inflowing port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
   Modelica.SIunits.VolumeFlowRate V1_flow=
@@ -137,4 +89,39 @@ equation
   dp1 = port_a1.p - port_b1.p;
   dp2 = port_a2.p - port_b2.p;
 
+  annotation (
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={1,1}), graphics),
+    Documentation(info="<html>
+<p>
+This component defines the interface for models that 
+transport two fluid streams between four ports. 
+It is similar to 
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">,
+but it has four ports instead of two.
+<p>
+The model is used by other models in this package that add heat transfer,
+mass transfer and pressure drop equations.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 21, 2010 by Michael Wetter:<br>
+Changed pressure start value from <code>system.p_start</code>
+to <code>Medium.p_default</code> since HVAC models may have water and 
+air, which are typically at different pressures.
+</li>
+<li>
+September 19, 2008 by Michael Wetter:<br>
+Added equations for the mass balance of extra species flow,
+i.e., <tt>C</tt> and <tt>mC_flow</tt>.
+</li>
+<li>
+April 28, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PartialStaticFourPortInterface;

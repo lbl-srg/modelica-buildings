@@ -2,6 +2,41 @@ within Buildings.Fluid.Sensors;
 model TemperatureWetBulb "Ideal wet bulb temperature sensor"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 
+  Modelica.Blocks.Interfaces.RealOutput T(
+    start=Medium.T_default,
+    final quantity="Temperature",
+    final unit="K") "Wet bulb temperature in port medium"
+    annotation (Placement(transformation(
+        origin={0,110},
+        extent={{-10,-10},{10,10}},
+        rotation=90),  iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,110})));
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1e-4
+    "For bi-directional flow, specific enthalpy is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
+    annotation(Dialog(tab="Advanced"));
+protected
+  Buildings.Utilities.Psychrometrics.Twb_TdbXi wetBulMod(redeclare package
+      Medium = Medium) "Block for wet bulb temperature";
+  Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
+  Medium.MassFraction Xi[Medium.nXi]
+    "Species vector, needed because indexed argument for the operator inStream is not supported";
+  //Medium.MassFraction X[Medium.nX] "Species vector";
+equation
+
+  if allowFlowReversal then
+    h  = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow, port_a.h_outflow, m_flow_small);
+    Xi = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.Xi_outflow, port_a.Xi_outflow, m_flow_small);
+  else
+    h = port_b.h_outflow;
+    Xi = port_b.Xi_outflow;
+  end if;
+  // Compute wet bulb temperature
+  wetBulMod.Tdb = Medium.T_phX(port_a.p, h, cat(1,Xi,{1-sum(Xi)}));
+  wetBulMod.Xi = Xi;
+  wetBulMod.p  = port_a.p;
+  T = wetBulMod.Twb;
 annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
@@ -50,46 +85,18 @@ between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
 revisions="<html>
 <ul>
 <li>
+February 18, 2010 by Michael Wetter:<br>
+Revised model to use new block for computing the wet bulb temperature.
+</li>
+<li>
 September 10, 2008 by Michael Wetter:<br>
 Renamed output port to have the same interfaces as the dry bulb temperature sensor.
 </li>
 <li>
 May 5, 2008 by Michael Wetter:<br>
 First implementation based on 
-<a href=\"Modelica:Buildings.Fluid.Sensors.Temperature\">Buildings.Fluid.Sensors.Temperature</a>.
+<a href=\"modelica://Buildings.Fluid.Sensors.Temperature\">Buildings.Fluid.Sensors.Temperature</a>.
 </li>
 </ul>
 </html>"));
-
-  Modelica.Blocks.Interfaces.RealOutput T(
-    start=Medium.T_default,
-    final quantity="Temperature",
-    final unit="K") "Wet bulb temperature in port medium" 
-    annotation (Placement(transformation(
-        origin={0,110},
-        extent={{-10,-10},{10,10}},
-        rotation=90),  iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,110})));
-
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1e-4
-    "For bi-directional flow, specific enthalpy is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
-    annotation(Dialog(tab="Advanced"));
-  Buildings.Utilities.Psychrometrics.WetBulbTemperature wetBulMod(redeclare
-      package Medium = Medium) "Model for wet bulb temperature";
-
-equation
-  if allowFlowReversal then
-    wetBulMod.dryBul.h  = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow, port_a.h_outflow, m_flow_small);
-    wetBulMod.dryBul.Xi = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.Xi_outflow, port_a.Xi_outflow, m_flow_small);
-  else
-    wetBulMod.dryBul.h = port_b.h_outflow;
-    wetBulMod.dryBul.Xi = port_b.Xi_outflow;
-  end if;
-  wetBulMod.dryBul.p  = port_a.p;
-
-  // Compute wet bulb temperature
-  T = wetBulMod.wetBul.T;
-
 end TemperatureWetBulb;

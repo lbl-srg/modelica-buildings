@@ -3,11 +3,40 @@ partial model PartialThreeWayValve "Partial three way valve"
     extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
       final mDyn_flow_nominal = m_flow_nominal,
         redeclare FixedResistances.LosslessPipe res2(
-            redeclare package Medium = Medium));
+            redeclare package Medium = Medium, m_flow_nominal=m_flow_nominal));
     extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default),
       final dpVal_nominal=dp_nominal);
 
+  parameter Real fraK(min=0, max=1) = 0.7
+    "Fraction Kv_SI(port_1->port_2)/Kv_SI(port_3->port_2)";
+  parameter Real[2] l(min=0, max=1) = {0, 0} "Valve leakage, l=Cv(y=0)/Cvs";
+  parameter Real deltaM = 0.02
+    "Fraction of nominal flow rate where linearization starts, if y=1"
+    annotation(Dialog(group="Pressure-flow linearization"));
+  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") = 6000
+    "Nominal pressure drop"
+    annotation(Dialog(group="Nominal condition"));
+  parameter Boolean[2] linearized = {false, false}
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Dialog(tab="Advanced"));
+
+  Modelica.Blocks.Interfaces.RealInput y "Valve position (0: closed, 1: open)"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+          rotation=270,
+        origin={0,80})));
+protected
+  Modelica.Blocks.Math.Feedback inv "Inversion of control signal"
+    annotation (Placement(transformation(extent={{50,50},{70,70}},   rotation=0)));
+  Modelica.Blocks.Sources.Constant uni(final k=1)
+    "Outputs one for bypass valve"
+    annotation (Placement(transformation(extent={{10,50},{30,70}},   rotation=0)));
+equation
+  connect(uni.y, inv.u1)
+    annotation (Line(points={{31,60},{36,60},{42,60},{52,60}},
+                                                 color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
@@ -89,7 +118,7 @@ is computed as<pre>
 where <tt>fraK</tt> is a parameter.
 </p><p>
 Since this model uses two way valves to construct a three way valve, see 
-<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
 PartialTwoWayValve</a> for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
@@ -108,33 +137,4 @@ First implementation.
 </li>
 </ul>
 </html>");
-  parameter Real fraK(min=0, max=1) = 0.7
-    "Fraction Kv_SI(port_1->port_2)/Kv_SI(port_3->port_2)";
-  parameter Real[2] l(min=0, max=1) = {0, 0} "Valve leakage, l=Cv(y=0)/Cvs";
-  parameter Real deltaM = 0.02
-    "Fraction of nominal flow rate where linearization starts, if y=1" 
-    annotation(Dialog(group="Pressure-flow linearization"));
-  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate" 
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") = 6000
-    "Nominal pressure drop" 
-    annotation(Dialog(group="Nominal condition"));
-  parameter Boolean[2] linearized = {false, false}
-    "= true, use linear relation between m_flow and dp for any flow rate" 
-    annotation(Dialog(tab="Advanced"));
-
-  Modelica.Blocks.Interfaces.RealInput y "Valve position (0: closed, 1: open)" 
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-          rotation=270,
-        origin={0,80})));
-protected
-  Modelica.Blocks.Math.Feedback inv "Inversion of control signal" 
-    annotation (Placement(transformation(extent={{50,50},{70,70}},   rotation=0)));
-  Modelica.Blocks.Sources.Constant uni(final k=1)
-    "Outputs one for bypass valve" 
-    annotation (Placement(transformation(extent={{10,50},{30,70}},   rotation=0)));
-equation
-  connect(uni.y, inv.u1) 
-    annotation (Line(points={{31,60},{36,60},{42,60},{52,60}},
-                                                 color={0,0,127}));
 end PartialThreeWayValve;

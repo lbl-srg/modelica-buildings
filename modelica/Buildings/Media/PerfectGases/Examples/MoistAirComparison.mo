@@ -1,26 +1,6 @@
-within Media.PerfectGases.Examples;
+within Buildings.Media.PerfectGases.Examples;
 model MoistAirComparison
 
-   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Commands(file="MoistAirComparison.mos" "run"));
-    annotation (
-      Documentation(info="<html>
-<p>
-This example compares the perfect medium model
-<a href=\"Modelica://Buildings.Media.PerfectGases.MoistAir\">Buildings.Media.PerfectGases.MoistAir</a>
- with the ideal gas model
-from <a href=\"Modelica://Modelica.Media.Air.MoistAir\">Modelica.Media.Air.MoistAir</a>
-</p>
-</html>",   revisions="<html>
-<ul>
-<li>
-May 12, 2008, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
    package PerfectMedium = Buildings.Media.PerfectGases.MoistAir;
    package IdealMedium =   Modelica.Media.Air.MoistAir;
 
@@ -73,4 +53,23 @@ equation
     assert( abs(errMix) < 2.01, "Error too large. Check medium model.");
     assert( abs(errT) < 0.01, "Error too large. Check medium model.");
 
+   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
+                       Commands(file="MoistAirComparison.mos" "run"),
+      Documentation(info="<html>
+<p>
+This example compares the perfect medium model
+<a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">Buildings.Media.PerfectGases.MoistAir</a>
+ with the ideal gas model
+from <a href=\"modelica://Modelica.Media.Air.MoistAir\">Modelica.Media.Air.MoistAir</a>
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+May 12, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MoistAirComparison;

@@ -2,6 +2,21 @@ within Buildings.Utilities.Psychrometrics;
 block Tdp_pW
   "Model to compute the dew point temperature for given water vapor pressure of moist air"
   extends Modelica.Blocks.Interfaces.BlockIcon;
+  Modelica.Blocks.Interfaces.RealInput p_w "Water vapor partial pressure"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
+                                                                      rotation=
+            0)));
+  Modelica.Blocks.Interfaces.RealOutput T(start=278.15,
+                                         final quantity="ThermodynamicTemperature",
+                                         final unit="K",
+                                         min = 0,
+                                         displayUnit="degC")
+    "Dew point temperature"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}},
+          rotation=0)));
+
+equation
+ p_w = Buildings.Utilities.Psychrometrics.Functions.pW_Tdp(T=T);
     annotation (
     Documentation(info="<html>
 <p>
@@ -19,7 +34,7 @@ temperatures.
 <li>
 September 4, 2008 by Michael Wetter:<br>
 Changed from causal to acausal ports, needed, for example, for
-<a href=\"Modelica:Buildings.Fluid.Examples.MixingVolumeMoistAir\">
+<a href=\"modelica://Buildings.Fluid.Examples.MixingVolumeMoistAir\">
 Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
@@ -84,19 +99,4 @@ First implementation.
         Line(points={{68,32},{22,32}}, color={175,175,175})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics));
-  Modelica.Blocks.Interfaces.RealInput p_w "Water vapor partial pressure" 
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-                                                                      rotation=
-            0)));
-  Modelica.Blocks.Interfaces.RealOutput T(start=278.15,
-                                         final quantity="ThermodynamicTemperature",
-                                         final unit="K",
-                                         min = 0,
-                                         displayUnit="degC")
-    "Dew point temperature" 
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
-
-equation
- p_w = Buildings.Utilities.Psychrometrics.Functions.pW_Tdp(T=T);
 end Tdp_pW;

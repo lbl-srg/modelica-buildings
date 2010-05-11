@@ -1,8 +1,30 @@
 within Buildings.Fluid.Actuators.Dampers;
 model VAVBoxExponential
   "VAV box with a fixed resistance plus a damper model withe exponential characteristics"
-  extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(dp_start=dp_nominal);
+  extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential;
   import SI = Modelica.SIunits;
+
+  parameter SI.MassFlowRate m_flow_nominal "Mass flow rate" annotation(Dialog(group = "Nominal Condition"));
+  parameter Boolean dp_nominalIncludesDamper = true
+    "set to true if dp_nominal includes the pressure loss of the open damper"
+                                              annotation(Dialog(group = "Nominal condition"));
+
+protected
+  parameter SI.Pressure dpDamOpe_nominal = k1*m_flow_nominal^2/2/Medium.density(sta0)/A^2
+    "Pressure drop of fully open damper at nominal flow rate";
+  parameter Real kResSqu(unit="kg.m", fixed=false)
+    "Resistance coefficient for fixed resistance element";
+initial equation
+  kResSqu = if dp_nominalIncludesDamper then
+       m_flow_nominal^2 / (dp_nominal-dpDamOpe_nominal) else
+       m_flow_nominal^2 / dp_nominal;
+  assert(kResSqu > 0,
+         "Wrong parameters in damper model: dp_nominal < dpDamOpe_nominal"
+          + "\n  dp_nominal = "       + realString(dp_nominal)
+          + "\n  dpDamOpe_nominal = " + realString(dpDamOpe_nominal));
+equation
+   k = if noEvent(kDam>Modelica.Constants.eps) then sqrt(1/(1/kResSqu + 1/kDam^2)) else 0
+    "flow coefficient for resistance base model";
 
    annotation (Documentation(info="<html>
 <p>
@@ -19,9 +41,14 @@ does not include the flow resistance of the air damper.
 </html>", revisions="<html>
 <ul>
 <li>
+April 13, 2010 by Michael Wetter:<br>
+Added <code>noEvent</code> to guard evaluation of the square root
+for negative numbers during the solver iterations.
+</li>
+<li>
 June 10, 2008 by Michael Wetter:<br>
 Introduced new partial base class, 
-<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 PartialDamperExponential</a>.
 </li>
 <li>
@@ -68,26 +95,4 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
             graphics));
-  parameter SI.MassFlowRate m_flow_nominal "Mass flow rate" annotation(Dialog(group = "Nominal Condition"));
-  parameter SI.Pressure dp_nominal(min=0)
-    "Pressure drop, including fully open damper" 
-                                              annotation(Dialog(group = "Nominal Condition"));
-  parameter Boolean dp_nominalIncludesDamper = true
-    "set to true if dp_nominal includes the pressure loss of the open damper" 
-                                              annotation(Dialog(group = "Nominal condition"));
-
-protected
-  parameter SI.Pressure dpDamOpe_nominal = k1*m_flow_nominal^2/2/Medium.density(sta0)/A^2
-    "Pressure drop of fully open damper at nominal flow rate";
-  parameter Real kResSqu(unit="kg.m", fixed=false)
-    "Resistance coefficient for fixed resistance element";
-initial equation
-  kResSqu = if dp_nominalIncludesDamper then 
-       m_flow_nominal^2 / (dp_nominal-dpDamOpe_nominal) else 
-       m_flow_nominal^2 / dp_nominal;
-equation
-//    "flow coefficient for resistance base model";
-   k = sqrt(1/(1/kResSqu + 1/kDamSqu))
-    "flow coefficient for resistance base model";
-
 end VAVBoxExponential;

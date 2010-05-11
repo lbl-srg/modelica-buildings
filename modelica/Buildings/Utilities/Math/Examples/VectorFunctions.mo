@@ -1,24 +1,21 @@
 within Buildings.Utilities.Math.Examples;
 model VectorFunctions "Test model for functions that take a vector as argument"
   Buildings.Utilities.Math.Min minVec(
-                   nin=3) 
+                   nin=3)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Modelica.Blocks.Sources.Sine sine(freqHz=6) 
+  Modelica.Blocks.Sources.Sine sine(freqHz=6)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}}, rotation=0)));
   Modelica.Blocks.Sources.Sine sine1(
-                                    freqHz=8) 
+                                    freqHz=8)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}}, rotation=0)));
-  Modelica.Blocks.Sources.Sine sine2(freqHz=10) 
+  Modelica.Blocks.Sources.Sine sine2(freqHz=10)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}},
                                                                      rotation=0)));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                    graphics), Commands(file="VectorFunctions.mos" "run"));
   Buildings.Utilities.Math.Max maxVec(
-                   nin=3) 
+                   nin=3)
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Utilities.Math.Average aveVec(
-                       nin=3) 
+                       nin=3)
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 equation
   connect(sine.y, minVec.u[1]) annotation (Line(
@@ -57,4 +54,7 @@ equation
       points={{-59,-50},{-40,-50},{-40,-8.66667},{-22,-8.66667}},
       color={0,0,127},
       smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                    graphics), Commands(file="VectorFunctions.mos" "run"));
 end VectorFunctions;

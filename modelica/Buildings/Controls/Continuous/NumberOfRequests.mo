@@ -3,6 +3,41 @@ block NumberOfRequests
   "Outputs the number of signals that are above/below a certain threshold"
    extends Modelica.Blocks.Interfaces.BlockIcon;
 
+  parameter Integer nin "Number of inputs";
+  parameter Real threShold = 0 "Threshold";
+  parameter Integer kind
+    "Set to 0 for u>threShold, to 1 for >=, to 2 for <= or to 3 for <";
+  Modelica.Blocks.Interfaces.IntegerOutput y
+    "Number of input signals that violate the threshold"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
+            0)));
+  Modelica.Blocks.Interfaces.RealInput u[nin] "Input signals"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
+          rotation=0)));
+algorithm
+  y := 0;
+  for i in 1:nin loop
+    if kind == 0 then
+      if u[i] > threShold then
+        y := y+1;
+      end if;
+    end if;
+    if kind == 1 then
+      if u[i] >= threShold then
+        y := y+1;
+      end if;
+    end if;
+    if kind == 2 then
+      if u[i] <= threShold then
+        y := y+1;
+      end if;
+    end if;
+    if kind == 3 then
+      if u[i] < threShold then
+        y := y+1;
+      end if;
+    end if;
+  end for;
   annotation (Documentation(info="<html>
 <p>
 Block whose output is equal to the number of inputs
@@ -38,40 +73,4 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}),
             graphics));
-
-  parameter Integer nin "Number of inputs";
-  parameter Real threShold = 0 "Threshold";
-  parameter Integer kind
-    "Set to 0 for u>threShold, to 1 for >=, to 2 for <= or to 3 for <";
-  Modelica.Blocks.Interfaces.IntegerOutput y
-    "Number of input signals that violate the threshold" 
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-            0)));
-  Modelica.Blocks.Interfaces.RealInput u[nin] "Input signals" 
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-          rotation=0)));
-algorithm
-  y := 0;
-  for i in 1:nin loop
-    if kind == 0 then
-      if u[i] > threShold then
-        y := y+1;
-      end if;
-    end if;
-    if kind == 1 then
-      if u[i] >= threShold then
-        y := y+1;
-      end if;
-    end if;
-    if kind == 2 then
-      if u[i] <= threShold then
-        y := y+1;
-      end if;
-    end if;
-    if kind == 3 then
-      if u[i] < threShold then
-        y := y+1;
-      end if;
-    end if;
-  end for;
 end NumberOfRequests;

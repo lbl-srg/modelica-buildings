@@ -3,59 +3,9 @@ partial model PartialStaticFourPortHeatMassTransfer
   "Partial model transporting two fluid streams between four ports without storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialStaticFourPortInterface;
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
-   final computeFlowResistance1=true, final computeFlowResistance2=true);
+   final computeFlowResistance1=(dp1_nominal > Modelica.Constants.eps),
+   final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
   import Modelica.Constants;
-
-  annotation (
-    Diagram(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
-    Documentation(info="<html>
-<p>
-This component transports two fluid streams between four ports, without
-storing mass or energy. It is similar to
-<a href=\"Modelica:Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
-Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer</a>,
-but it has four ports instead of two. See the documentation of 
-<a href=\"Modelica:Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
-Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer</a>
-for how to use this partial model.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-April 13, 2009, by Michael Wetter:<br>
-Added model to compute flow friction.
-</li>
-<li>
-March 25, 2008, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"),
-    Icon(coordinateSystem(
-        preserveAspectRatio=false,
-        extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics={
-        Rectangle(
-          extent={{-70,80},{70,-80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,65},{101,55}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,-55},{101,-65}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}));
 
   Modelica.SIunits.HeatFlowRate Q1_flow "Heat transfered into the medium 1";
   Medium1.MassFlowRate mXi1_flow[Medium1.nXi]
@@ -64,6 +14,11 @@ First implementation.
   Medium2.MassFlowRate mXi2_flow[Medium2.nXi]
     "Mass flow rates of independent substances added to the medium 2";
 
+protected
+  constant Boolean sensibleOnly1
+    "Set to true if sensible exchange only for medium 1";
+  constant Boolean sensibleOnly2
+    "Set to true if sensible exchange only for medium 2";
 equation
   // Energy balance (no storage, no heat loss/gain)
   port_a1.m_flow*port_a1.h_outflow + port_b1.m_flow*inStream(port_b1.h_outflow) = -Q1_flow;
@@ -75,10 +30,20 @@ equation
   port_a1.m_flow + port_b1.m_flow = -sum(mXi1_flow);
   port_a2.m_flow + port_b2.m_flow = -sum(mXi2_flow);
 
-  port_a1.m_flow*port_a1.Xi_outflow + port_b1.m_flow*inStream(port_b1.Xi_outflow) = -mXi1_flow;
-  port_a1.m_flow*port_b1.Xi_outflow + port_b1.m_flow*inStream(port_a1.Xi_outflow) =  mXi1_flow;
-  port_a2.m_flow*port_a2.Xi_outflow + port_b2.m_flow*inStream(port_b2.Xi_outflow) = -mXi2_flow;
-  port_a2.m_flow*port_b2.Xi_outflow + port_b2.m_flow*inStream(port_a2.Xi_outflow) =  mXi2_flow;
+  if sensibleOnly1 then
+    port_a1.Xi_outflow = inStream(port_b1.Xi_outflow);
+    port_b1.Xi_outflow = inStream(port_a1.Xi_outflow);
+  else
+    port_a1.m_flow*port_a1.Xi_outflow + port_b1.m_flow*inStream(port_b1.Xi_outflow) = -mXi1_flow;
+    port_a1.m_flow*port_b1.Xi_outflow + port_b1.m_flow*inStream(port_a1.Xi_outflow) =  mXi1_flow;
+  end if;
+  if sensibleOnly2 then
+    port_a2.Xi_outflow = inStream(port_b2.Xi_outflow);
+    port_b2.Xi_outflow = inStream(port_a2.Xi_outflow);
+  else
+    port_a2.m_flow*port_a2.Xi_outflow + port_b2.m_flow*inStream(port_b2.Xi_outflow) = -mXi2_flow;
+    port_a2.m_flow*port_b2.Xi_outflow + port_b2.m_flow*inStream(port_a2.Xi_outflow) =  mXi2_flow;
+  end if;
 
   // Transport of trace substances
   port_a1.C_outflow = inStream(port_b1.C_outflow);
@@ -117,4 +82,60 @@ equation
     dp2 = 0;
   end if;
 
+  annotation (
+    Diagram(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={1,1}), graphics),
+    Documentation(info="<html>
+<p>
+This component transports two fluid streams between four ports, without
+storing mass or energy. It is similar to
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
+Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer</a>,
+but it has four ports instead of two. See the documentation of 
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
+Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer</a>
+for how to use this partial model.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 22, 2010, by Michael Wetter:<br>
+Added constants <code>sensibleOnly1</code> and
+<code>sensibleOnly2</code> to 
+simplify species balance equations.
+</li>
+<li>
+April 13, 2009, by Michael Wetter:<br>
+Added model to compute flow friction.
+</li>
+<li>
+March 25, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"),
+    Icon(coordinateSystem(
+        preserveAspectRatio=false,
+        extent={{-100,-100},{100,100}},
+        grid={1,1}), graphics={
+        Rectangle(
+          extent={{-70,80},{70,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,65},{101,55}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,-55},{101,-65}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid)}));
 end PartialStaticFourPortHeatMassTransfer;

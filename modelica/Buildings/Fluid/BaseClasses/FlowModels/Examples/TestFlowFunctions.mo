@@ -1,7 +1,6 @@
 within Buildings.Fluid.BaseClasses.FlowModels.Examples;
 model TestFlowFunctions "Test model for flow functions"
 
-annotation (Commands(file="TestFlowFunctions.mos" "run"));
  Modelica.SIunits.MassFlowRate m1_flow;
  Modelica.SIunits.MassFlowRate m2_flow;
  Modelica.SIunits.Pressure dp1;
@@ -26,7 +25,8 @@ equation
   dp2=FlowModels.basicFlowFunction_m_flow(m_flow=m2_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3, linearized=linearized);
 
   end if;
-  annotation (Documentation(info="<html>
+annotation (Commands(file="TestFlowFunctions.mos" "run"),
+              Documentation(info="<html>
 This model test the inverse functions. When translating this model in 
 Dymola 7.2, there should be no numerical solution be required to solve
 the nonlinear equation system.

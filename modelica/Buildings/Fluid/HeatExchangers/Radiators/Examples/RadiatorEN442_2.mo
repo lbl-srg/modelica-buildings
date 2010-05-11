@@ -2,12 +2,6 @@ within Buildings.Fluid.HeatExchangers.Radiators.Examples;
 model RadiatorEN442_2 "Test model for radiator"
   import Buildings;
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
-  annotation (
-          Commands(file=
-          "RadiatorEN442_2.mos" "run"),
-    experiment(StopTime=3600),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics));
  parameter Modelica.SIunits.Power Q_flow_nominal = 1000 "Nominal power";
  parameter Modelica.SIunits.Temperature dT_nominalWat = 20
     "Nominal temperature difference";
@@ -20,7 +14,7 @@ model RadiatorEN442_2 "Test model for radiator"
     nPorts=2,
     redeclare package Medium = Medium,
     use_p_in=true,
-    T=353.15) 
+    T=353.15)
     annotation (Placement(transformation(extent={{-64,-68},{-44,-48}})));
   Fluid.FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = Medium,
@@ -34,35 +28,35 @@ model RadiatorEN442_2 "Test model for radiator"
     redeclare package Medium = Medium,
     nPorts=2,
     p(displayUnit="Pa") = 300000,
-    T=333.15) "Sink" 
+    T=333.15) "Sink"
     annotation (Placement(transformation(extent={{90,-68},{70,-48}})));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(redeclare
-      package Medium = 
+      package Medium =
                Medium, Q_flow_nominal=1000,
     nEle=5,
-    m_flow_nominal=m_flow_nominal) "Radiator" 
+    m_flow_nominal=m_flow_nominal) "Radiator"
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
     redeclare package Medium = Medium,
     Q_flow_nominal=1000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     nEle=5,
-    m_flow_nominal=m_flow_nominal) "Radiator" 
+    m_flow_nominal=m_flow_nominal) "Radiator"
     annotation (Placement(transformation(extent={{-10,-70},{10,-50}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBCCon1(T=293.15) 
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBCCon1(T=293.15)
     annotation (Placement(transformation(extent={{-32,28},{-20,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBCCon2(T=293.15) 
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBCCon2(T=293.15)
     annotation (Placement(transformation(extent={{-32,-40},{-20,-28}})));
   Modelica.Blocks.Sources.Step step(
     startTime=3600,
     offset=300000 + dp_nominal,
-    height=-dp_nominal) 
+    height=-dp_nominal)
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBCRad2(T=293.15) 
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBCRad2(T=293.15)
     annotation (Placement(transformation(extent={{-32,-20},{-20,-8}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBCRad1(T=293.15) 
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBCRad1(T=293.15)
     annotation (Placement(transformation(extent={{-32,48},{-20,60}})));
 equation
   connect(sou.ports[1], rad1.port_a) annotation (Line(
@@ -109,4 +103,10 @@ equation
       points={{-20,34},{-2,34},{-2,15.2}},
       color={191,0,0},
       smooth=Smooth.None));
+  annotation (
+          Commands(file=
+          "RadiatorEN442_2.mos" "run"),
+    experiment(StopTime=3600),
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics));
 end RadiatorEN442_2;

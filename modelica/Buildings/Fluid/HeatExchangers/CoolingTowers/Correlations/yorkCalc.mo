@@ -1,24 +1,8 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations;
 function yorkCalc "Cooling tower performance correlation for YorkCalc model"
 
-  annotation (
-    Documentation(info="<html>
-<p>
-Correlation for approach temperature for YorkCalc cooling tower model.
-See <a href=\"Modelica:Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.Examples.YorkCalc\">Examples/YorkCalc.mo</a> for the graph.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-May 14, 2008, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"),
-smoothOrder=5);
-
   input Modelica.SIunits.Temperature TRan
-    "Range temperature (water in - water out)" 
+    "Range temperature (water in - water out)"
       annotation (Dialog(group="Nominal condition"));
   input Modelica.SIunits.Temperature TWB "Air wet-bulb inlet temperature";
   input Modelica.SIunits.MassFraction FRWat
@@ -73,4 +57,19 @@ algorithm
        c[25] * TRan * TRan * liqGasRat * liqGasRat +
        c[26] * TWB_degC * TRan * TRan * liqGasRat * liqGasRat +
        c[27] * TWB_degC * TWB_degC * TRan * TRan * liqGasRat * liqGasRat;
+  annotation (
+    Documentation(info="<html>
+<p>
+Correlation for approach temperature for YorkCalc cooling tower model.
+See <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.Examples.YorkCalc\">Examples/YorkCalc.mo</a> for the graph.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+May 14, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"),
+smoothOrder=5);
 end yorkCalc;

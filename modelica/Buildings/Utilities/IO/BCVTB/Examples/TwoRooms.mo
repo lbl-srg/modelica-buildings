@@ -7,86 +7,57 @@ model TwoRooms
   parameter Modelica.SIunits.ThermalConductance UA = Q_flow_nom / 20
     "Thermal conductance of room";
   parameter Modelica.SIunits.Temperature TStart = 283.15 "Start temperature";
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{240,100}}), graphics),
-    experiment(StopTime=21600),
-    experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{240,
-            100}})),
-    Documentation(info="<html>
-This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.
-</p>
-<p>
-Given a control signal for two heat flow rates, Modelica simulates the thermal response 
-of two first order systems. The two systems may represent a first order approximation of a room.
-The control signal for the heat flow rate is computed in the Building Controls Virtual Test Bed
-using a discrete time implementation of a proportional controller.
-Every 60 seconds, measured temperatures and control signals for the heat flow rates are
-exchanged between Dymola and the Building Controls Virtual Test Bed.
-</p>
-<p>
-This model is implemented in <tt>bcvtb\\examples\\dymola-room</tt>.
-</html>", revisions="<html>
-<ul>
-<li>
-May 15, 2009, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor C1(C=tau*UA, T(start=
-          TStart, fixed=true)) "Heat capacity of room" 
+          TStart, fixed=true)) "Heat capacity of room"
     annotation (Placement(transformation(extent={{70,70},{90,90}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UA1(G=UA)
-    "Heat transmission of room" 
+    "Heat transmission of room"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut1(T=278.15)
-    "Outside air temperature" 
+    "Outside air temperature"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Q_flow_1
-    "Heat input into the room" 
+    "Heat input into the room"
     annotation (Placement(transformation(extent={{42,20},{62,40}})));
   Modelica.Blocks.Math.Gain GaiQ_flow_nom1(k=Q_flow_nom)
-    "Gain for nominal heat load" 
+    "Gain for nominal heat load"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UA2(G=UA)
-    "Heat transmission of room" 
+    "Heat transmission of room"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor C2(C=2*tau*UA, T(start=
-          TStart, fixed=true)) "Heat capacity of room" 
+          TStart, fixed=true)) "Heat capacity of room"
     annotation (Placement(transformation(extent={{70,-28},{90,-8}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut2(T=278.15)
-    "Outside air temperature" 
+    "Outside air temperature"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Q_flow_2
-    "Heat input into the room" 
+    "Heat input into the room"
     annotation (Placement(transformation(extent={{44,-80},{64,-60}})));
   Modelica.Blocks.Math.Gain GaiQ_flow_nom2(k=Q_flow_nom)
-    "Gain for nominal heat load" 
+    "Gain for nominal heat load"
     annotation (Placement(transformation(extent={{2,-80},{22,-60}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRoo1
-    "Room temperature" 
+    "Room temperature"
     annotation (Placement(transformation(extent={{92,60},{112,80}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRoo2
-    "Room temperature" 
+    "Room temperature"
     annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
   Buildings.Utilities.IO.BCVTB.BCVTB bcvtb(
-    samplePeriod=60,
     nDblWri=2,
     nDblRea=2,
     xmlFileName="socket.cfg",
-    uStart={TStart - 273.15,TStart - 273.15}) 
+    uStart={TStart - 273.15,TStart - 273.15},
+    timeStep=60)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Modelica.Blocks.Routing.Multiplex2 multiplex2_1 
+  Modelica.Blocks.Routing.Multiplex2 multiplex2_1
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
-  Modelica.Blocks.Routing.DeMultiplex2 deMultiplex2_1 
+  Modelica.Blocks.Routing.DeMultiplex2 deMultiplex2_1
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Math.Add add 
-    annotation (Placement(transformation(extent={{160,2},{180,22}})));
-  Modelica.Blocks.Math.Add add1 
-    annotation (Placement(transformation(extent={{160,-28},{180,-8}})));
-  Modelica.Blocks.Sources.Constant uniCon(k=-273.15) "Unit conversion" 
-    annotation (Placement(transformation(extent={{120,-10},{140,10}})));
+  Buildings.Utilities.IO.BCVTB.To_degC to_degC1
+    annotation (Placement(transformation(extent={{140,60},{160,80}})));
+  Buildings.Utilities.IO.BCVTB.To_degC to_degC2
+    annotation (Placement(transformation(extent={{140,-40},{160,-20}})));
 equation
   connect(TOut1.port, UA1.port_a) annotation (Line(
       points={{20,70},{40,70}},
@@ -129,7 +100,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(bcvtb.yR, deMultiplex2_1.u) annotation (Line(
-      points={{-59,0},{-42,0}},
+      points={{-59,6.10623e-16},{-54.75,6.10623e-16},{-54.75,1.27676e-15},{
+          -50.5,1.27676e-15},{-50.5,6.66134e-16},{-42,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(deMultiplex2_1.y1[1], GaiQ_flow_nom1.u) annotation (Line(
@@ -137,35 +109,55 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(deMultiplex2_1.y2[1], GaiQ_flow_nom2.u) annotation (Line(
-      points={{-19,-6},{-10,-6},{-10,-70},{0,-70}},
+      points={{-19,-6},{-10,-6},{-10,-70},{-6.66134e-16,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex2_1.y, bcvtb.uR) annotation (Line(
-      points={{221,0},{230,0},{230,-92},{-90,-92},{-90,0},{-82,0}},
+      points={{221,6.10623e-16},{230,6.10623e-16},{230,-92},{-90,-92},{-90,
+          6.66134e-16},{-82,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(uniCon.y, add.u2) annotation (Line(
-      points={{141,0},{150,0},{150,6},{158,6}},
+  connect(TRoo1.T, to_degC1.Kelvin) annotation (Line(
+      points={{112,70},{138,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(uniCon.y, add1.u1) annotation (Line(
-      points={{141,0},{150,0},{150,-12},{158,-12}},
+  connect(TRoo2.T, to_degC2.Kelvin) annotation (Line(
+      points={{110,-30},{138,-30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRoo1.T, add.u1) annotation (Line(
-      points={{112,70},{128,70},{128,18},{158,18}},
+  connect(to_degC2.Celsius, multiplex2_1.u2[1]) annotation (Line(
+      points={{161,-30},{180,-30},{180,-6},{198,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRoo2.T, add1.u2) annotation (Line(
-      points={{110,-30},{128,-30},{128,-24},{158,-24}},
+  connect(to_degC1.Celsius, multiplex2_1.u1[1]) annotation (Line(
+      points={{161,70},{180,70},{180,6},{198,6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add1.y, multiplex2_1.u2[1]) annotation (Line(
-      points={{181,-18},{189.5,-18},{189.5,-6},{198,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add.y, multiplex2_1.u1[1]) annotation (Line(
-      points={{181,12},{190,12},{190,6},{198,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{240,100}}), graphics),
+    experiment(StopTime=21600),
+    experimentSetupOutput,
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{240,
+            100}})),
+    Documentation(info="<html>
+This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.
+</p>
+<p>
+Given a control signal for two heat flow rates, Modelica simulates the thermal response 
+of two first order systems. The two systems may represent a first order approximation of a room.
+The control signal for the heat flow rate is computed in the Building Controls Virtual Test Bed
+using a discrete time implementation of a proportional controller.
+Every 60 seconds, measured temperatures and control signals for the heat flow rates are
+exchanged between Dymola and the Building Controls Virtual Test Bed.
+</p>
+<p>
+This model is implemented in <tt>bcvtb\\examples\\dymola-room</tt>.
+</html>", revisions="<html>
+<ul>
+<li>
+May 15, 2009, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end TwoRooms;

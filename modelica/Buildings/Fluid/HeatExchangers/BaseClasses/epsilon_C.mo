@@ -18,7 +18,9 @@ function epsilon_C
   output Real NTU "Number of transfer units";
   output Real Z(min=0, max=1) "Ratio of capacity flow rate (CMin/CMax)";
 protected
-  Modelica.SIunits.ThermalConductance delta_C
+  Modelica.SIunits.ThermalConductance deltaCMin
+    "Small number for capacity flow rate";
+  Modelica.SIunits.ThermalConductance deltaCMax
     "Small number for capacity flow rate";
   Modelica.SIunits.ThermalConductance CMin_flow "Minimum capacity flow rate";
   Modelica.SIunits.ThermalConductance CMax_flow "Maximum capacity flow rate";
@@ -26,31 +28,41 @@ protected
     "Minimum capacity flow rate, bounded away from zero";
   Modelica.SIunits.ThermalConductance CMaxNZ_flow
     "Maximum capacity flow rate, bounded away from zero";
-
+  Real gai(min=0, max=1)
+    "Gain used to force UA to zero for very small flow rates";
 algorithm
-  delta_C := delta*(C1_flow + C2_flow);
+  deltaCMin := delta*CMin_flow_nominal;
+  deltaCMax := delta*CMax_flow_nominal;
   // effectiveness
   CMin_flow :=Buildings.Utilities.Math.Functions.smoothMin(
     C1_flow,
     C2_flow,
-    delta_C);
+    deltaCMin/4);
   CMax_flow :=Buildings.Utilities.Math.Functions.smoothMax(
     C1_flow,
     C2_flow,
-    delta_C);
+    deltaCMax/4);
   // CMin and CMax, constrained to be non-zero to compute eps-NTU-Z relationship
   CMinNZ_flow :=Buildings.Utilities.Math.Functions.smoothMax(
     CMin_flow,
-    delta*CMin_flow_nominal,
-    delta*CMin_flow_nominal/2);
+    deltaCMin,
+    deltaCMin/4);
   CMaxNZ_flow :=Buildings.Utilities.Math.Functions.smoothMax(
     CMax_flow,
-    delta*CMax_flow_nominal,
-    delta*CMax_flow_nominal/2);
-  Z :=CMinNZ_flow/CMaxNZ_flow;
-  // NTU value that will be used in the dry coil computation
-  NTU :=UA/CMinNZ_flow;
-  eps := Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(NTU=NTU, Z=Z, flowRegime=flowRegime);
+    deltaCMax,
+    deltaCMax/4);
+  Z :=CMin_flow/CMaxNZ_flow;
+  // Gain that goes to zero as CMin_flow gets below deltaCMin
+  // This is needed to allow zero flow
+  gai := Buildings.Utilities.Math.Functions.spliceFunction(
+                 pos=1, neg=0, x=CMin_flow-deltaCMin, deltax=deltaCMin/2);
+  if ( gai == 0) then
+    NTU := 0;
+    eps := 1; // around zero flow, eps=Q/(CMin*dT) should be one
+  else
+    NTU :=gai*UA/CMinNZ_flow;
+    eps := gai*Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(NTU=NTU, Z=Z, flowRegime=flowRegime);
+   end if;
   annotation(preferedView="info",
            smoothOrder=1,
            Documentation(info="<html>
@@ -60,6 +72,9 @@ for given capacity flow rates.
 </p>
 <p>
 The implementation allows for zero flow rate.
+As <code>CMin_flow</code> crosses <code>delta*CMin_flow_nominal</code> from above,
+the Number of Transfer Units and the heat exchanger effectiveness go to zero.
+</p>
 </html>",
 revisions="<html>
 <ul>

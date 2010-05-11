@@ -1,6 +1,40 @@
 within Buildings.Utilities.Reports;
 model Printer "Model that prints values to a file"
   extends Modelica.Blocks.Interfaces.DiscreteBlock;
+
+  parameter String header="" "Header to be printed";
+  parameter String fileName="" "File name (empty string is the terminal)";
+  parameter Integer nin=1 "Number of inputs";
+  parameter Integer configuration = 1
+    "Index for treating final report (see documentation)";
+  parameter Integer minimumWidth =  1 "Minimum width of result";
+  parameter Integer precision = 16 "Number of significant digits";
+  Modelica.Blocks.Interfaces.RealInput x[nin] "Value to be printed"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
+          rotation=0)));
+
+initial algorithm
+  if (fileName <> "") then
+    Modelica.Utilities.Files.removeFile(fileName);
+  end if;
+  Modelica.Utilities.Streams.print(fileName=fileName, string=header);
+equation
+  if configuration < 3 then
+  when {sampleTrigger, initial()} then
+      Buildings.Utilities.Reports.printRealArray(
+                                      x=x, fileName=fileName,
+                                      minimumWidth=minimumWidth,
+                                      precision=precision);
+  end when;
+  end if;
+  when terminal() then
+    if configuration >= 2 then
+       Buildings.Utilities.Reports.printRealArray(
+                                      x=x, fileName=fileName,
+                                      minimumWidth=minimumWidth,
+                                      precision=precision);
+   end if;
+  end when;
   annotation (Icon(graphics={
         Text(
           extent={{-58,-46},{62,-84}},
@@ -60,14 +94,13 @@ This model prints to a file or the terminal at a fixed sample interval.
 </p>
 <p>
 The parameter <tt>configuration</tt> controls the printing as follows:
-<table>
-<tr><td><tt>configuration</tt></td><td>configuration</td><tr>
-<tr><td><tt>1</tt></td><td>print at sample times only</td><tr>
-<tr><td><tt>2</tt></td><td>print at sample times and at end of simulation</td><tr>
-<tr><td><tt>3</tt></td><td>print at end of simulation only</td><tr>
- 
-</table>
 </p>
+<table border=\"1\">
+<tr><td><tt>configuration</tt></td><td>configuration</td></tr>
+<tr><td><tt>1</tt></td> <td>print at sample times only</td></tr>
+<tr><td><tt>2</tt></td> <td>print at sample times and at end of simulation</td></tr>
+<tr><td><tt>3</tt></td> <td>print at end of simulation only</td></tr>
+ </table>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -80,38 +113,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-  parameter String header="" "Header to be printed";
-  parameter String fileName="" "File name (empty string is the terminal)";
-  parameter Integer nin=1 "Number of inputs";
-  parameter Integer configuration = 1
-    "Index for treating final report (see documentation)";
-  parameter Integer minimumWidth =  1 "Minimum width of result";
-  parameter Integer precision = 16 "Number of significant digits";
-  Modelica.Blocks.Interfaces.RealInput x[nin] "Value to be printed" 
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-          rotation=0)));
-
-initial algorithm
-  if (fileName <> "") then
-    Modelica.Utilities.Files.removeFile(fileName);
-  end if;
-  Modelica.Utilities.Streams.print(fileName=fileName, string=header);
-equation
-  if configuration < 3 then
-  when {sampleTrigger, initial()} then
-      Buildings.Utilities.Reports.printRealArray(
-                                      x=x, fileName=fileName,
-                                      minimumWidth=minimumWidth,
-                                      precision=precision);
-  end when;
-  end if;
-  when terminal() then
-    if configuration >= 2 then
-       Buildings.Utilities.Reports.printRealArray(
-                                      x=x, fileName=fileName,
-                                      minimumWidth=minimumWidth,
-                                      precision=precision);
-   end if;
-  end when;
 end Printer;

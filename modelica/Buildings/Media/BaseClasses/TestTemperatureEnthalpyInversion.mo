@@ -1,7 +1,7 @@
 within Buildings.Media.BaseClasses;
 partial model TestTemperatureEnthalpyInversion
   "Model to check computation of h(T) and its inverse"
-   replaceable package Medium = 
+   replaceable package Medium =
         Modelica.Media.Interfaces.PartialCondensingGases;
      parameter Modelica.SIunits.Temperature T0=273.15+20 "Temperature";
      Modelica.SIunits.Temperature T "Temperature";

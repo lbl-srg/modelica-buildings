@@ -1,12 +1,9 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model Manifold "Test model for coil manifold"
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{180,100}}), graphics),
-                      Commands(file="Manifold.mos" "run"));
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
  parameter Integer nPipPar = 3 "Number of parallel pipes";
  parameter Integer nPipSeg = 4 "Number of pipe segments";
-    Modelica.Blocks.Sources.Constant POut(k=101325) 
+    Modelica.Blocks.Sources.Constant POut(k=101325)
       annotation (Placement(transformation(extent={{60,72},{80,92}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium,
@@ -27,11 +24,11 @@ model Manifold "Test model for coil manifold"
     redeclare package Medium = Medium,
     dp_nominal=10,
     use_dh=true,
-    from_dp=false) 
+    from_dp=false)
              annotation (Placement(transformation(extent={{120,24},{140,44}},
           rotation=0)));
   Buildings.Fluid.Sensors.MassFlowRate[nPipPar] mfr_1(redeclare each package
-      Medium = Medium) 
+      Medium = Medium)
     annotation (Placement(transformation(extent={{30,24},{50,44}}, rotation=0)));
   Modelica.Blocks.Sources.Ramp TDb(
     height=1,
@@ -50,25 +47,25 @@ model Manifold "Test model for coil manifold"
     m_flow_nominal=5,
     dp_nominal=10,
     linearized=false,
-    mStart_flow_a=5) 
+    mStart_flow_a=5)
             annotation (Placement(transformation(extent={{-30,24},{-10,44}},
           rotation=0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldNoResistance
     pipNoRes_1(
       redeclare package Medium = Medium, nPipPar=nPipPar,
-    mStart_flow_a=5) 
+    mStart_flow_a=5)
     annotation (Placement(transformation(extent={{114,24},{94,44}}, rotation=0)));
     Fluid.FixedResistances.FixedResistanceDpM res_2(
     m_flow_nominal=5,
     redeclare package Medium = Medium,
     dp_nominal=10,
     use_dh=true,
-    from_dp=false) 
+    from_dp=false)
              annotation (Placement(transformation(extent={{122,-76},{142,-56}},
           rotation=0)));
   Buildings.Fluid.Sensors.MassFlowRate[nPipPar, nPipSeg] mfr_2(redeclare each
-      package Medium = 
-               Medium) 
+      package Medium =
+               Medium)
     annotation (Placement(transformation(extent={{30,-76},{50,-56}}, rotation=0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance
     ducFixRes_2(
@@ -78,7 +75,7 @@ model Manifold "Test model for coil manifold"
     m_flow_nominal=5,
     dp_nominal=10,
     linearized=false,
-    mStart_flow_a=5) 
+    mStart_flow_a=5)
             annotation (Placement(transformation(extent={{-32,-76},{-12,-56}},
           rotation=0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldNoResistance
@@ -86,20 +83,20 @@ model Manifold "Test model for coil manifold"
       redeclare package Medium = Medium,
       nPipPar=nPipPar,
       nPipSeg=nPipSeg,
-    mStart_flow_a=5) 
+    mStart_flow_a=5)
     annotation (Placement(transformation(extent={{116,-76},{96,-56}}, rotation=
             0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilHeader hea1(
       redeclare package Medium = Medium,
       nPipPar=nPipPar,
-    mStart_flow_a=5) "Header for water-side heat exchanger register" 
+    mStart_flow_a=5) "Header for water-side heat exchanger register"
     annotation (Placement(transformation(extent={{0,24},{20,44}}, rotation=0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilHeader hea2(
       redeclare package Medium = Medium,
       nPipPar=nPipPar,
-    mStart_flow_a=5) "Header for water-side heat exchanger register" 
+    mStart_flow_a=5) "Header for water-side heat exchanger register"
     annotation (Placement(transformation(extent={{60,24},{80,44}}, rotation=0)));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(POut.y, sin_1.p_in) annotation (Line(
@@ -110,17 +107,17 @@ equation
           {-62,36}}, color={0,0,127}));
   connect(P.y, sou_1.p_in) annotation (Line(points={{-79,70},{-72,70},{-72,40},
           {-62,40}}, color={0,0,127}));
-  connect(res_1.port_a, pipNoRes_1.port_a) 
+  connect(res_1.port_a, pipNoRes_1.port_a)
     annotation (Line(points={{120,34},{114,34}}, color={0,127,255}));
-  connect(res_2.port_a,ducNoRes_2. port_a) 
+  connect(res_2.port_a,ducNoRes_2. port_a)
     annotation (Line(points={{122,-66},{116,-66}}, color={0,127,255}));
   connect(pipFixRes_1.port_b, hea1.port_a) annotation (Line(points={{-10,34},{0,
           34}},               color={0,127,255}));
-  connect(hea1.port_b, mfr_1.port_a) 
+  connect(hea1.port_b, mfr_1.port_a)
     annotation (Line(points={{20,34},{30,34}}, color={0,127,255}));
-  connect(mfr_1.port_b, hea2.port_a) 
+  connect(mfr_1.port_b, hea2.port_a)
     annotation (Line(points={{50,34},{60,34}}, color={0,127,255}));
-  connect(hea2.port_b, pipNoRes_1.port_b) 
+  connect(hea2.port_b, pipNoRes_1.port_b)
     annotation (Line(points={{80,34},{94,34}}, color={0,127,255}));
   connect(ducFixRes_2.port_b, mfr_2.port_a) annotation (Line(points={{-12,-66},
           {30,-66}}, color={0,127,255}));
@@ -142,4 +139,7 @@ equation
       points={{152,30},{148,30},{148,-66},{142,-66}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -100},{180,100}}), graphics),
+                      Commands(file="Manifold.mos" "run"));
 end Manifold;

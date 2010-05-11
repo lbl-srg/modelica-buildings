@@ -1,4 +1,7 @@
 Characteristics
-assertPositiveDifference
-FlowMachine
+ControlledFlowMachine
+PrescribedFlowMachine
 PartialFlowMachine
+FlowMachineInterface
+IdealSource
+PowerInterface

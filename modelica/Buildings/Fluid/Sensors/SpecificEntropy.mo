@@ -4,10 +4,12 @@ model SpecificEntropy "Ideal one port specific entropy sensor"
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")
-    "Specific entropy in port medium" 
+    "Specific entropy in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
 
+equation
+  s = Medium.specificEntropy(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
 annotation (defaultComponentName="specificEntropy",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
@@ -30,6 +32,4 @@ The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 </HTML>
 "));
-equation
-  s = Medium.specificEntropy(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
 end SpecificEntropy;

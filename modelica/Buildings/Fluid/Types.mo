@@ -1,8 +1,5 @@
 within Buildings.Fluid;
 package Types "Package with type definitions"
-annotation (preferedView="info", Documentation(info="<html>
-This package contains type definitions.
-</html>"));
 
   type EfficiencyCurves = enumeration(
       Constant "constant",
@@ -22,9 +19,9 @@ Enumeration to define the choice of valve flow coefficient
 (to be selected via choices menu):
 </p>
  
-<table border=1 cellspacing=0 cellpadding=2>
-<tr><th><b>CvTypes.</b></th>
-    <th><b>Meaning</b></th></tr>
+<table border=\"1\">
+<tr><th>Enumeration</th>
+    <th>Description</th></tr>
  
 <tr><td>OpPoint</td>
     <td>flow coefficient defined by ratio m_flow_nominal/sqrt(dp_nominal)</td></tr>
@@ -42,7 +39,7 @@ Enumeration to define the choice of valve flow coefficient
 
 <p>
 The details of the coefficients are explained in the 
-<a href=\"Modelica://Modelica.Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics\">
+<a href=\"modelica://Modelica.Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics\">
    Users Guide </a>.
 </p>
  
@@ -57,4 +54,72 @@ The details of the coefficients are explained in the
       Instantaneous "Instantaneous response",
       FirstOrder "First order response")
     "Enumeration to define the dynamic response based on time constants";
+
+  type HeatExchangerConfiguration = enumeration(
+      ParallelFlow "Parallel flow",
+      CounterFlow "Counter flow",
+      CrossFlowUnmixed "Cross flow, both streams unmixed",
+      CrossFlowStream1MixedStream2Unmixed
+        "Cross flow, stream 1 mixed, stream 2 unmixed",
+      CrossFlowStream1UnmixedStream2Mixed
+        "Cross flow, stream 1 unmixed, stream 2 mixed")
+    "Enumeration for heat exchanger construction"
+  annotation(Documentation(info="<html>
+ Enumeration to define the heat exchanger construction.
+</p>
+<p>
+The following heat exchanger configurations are available in this enumeration:
+</p>
+<table border=\"1\">
+<tr><th>Enumeration</th><th>Description</th></tr>
+<tr><td>ParallelFlow</td><td>Parallel flow</td></tr>
+<tr><td>CounterFlow</td><td>Counter flow</td></tr>
+<tr><td>CrossFlowUnmixed</td><td>Cross flow, both streams unmixed</td></tr>
+<tr><td>CrossFlowStream1MixedStream2Unmixed</td><td>Cross flow, stream 1 mixed, stream 2 unmixed</td></tr>
+<tr><td>CrossFlowStream1UnmixedStream2Mixed</td><td>Cross flow, stream 1 unmixed, stream 2 mixed</td></tr>
+</table>
+<p>
+Note that for a given heat exchanger, the
+ <code>HeatExchangerConfiguration</code> is fixed. However, if the capacity
+ flow rates change, then the 
+ <a href=\"modelica://Buildings.Fluid.Types.HeatExchangerFlowRegime>
+ HeatExchangerFlowRegime</a> may change. For example,
+ a counter flow heat exchanger has <tt>HeatExchangerConfiguration=CounterFlow</tt>,
+ but the <a href=\"modelica://Buildings.Fluid.Types.HeatExchangerFlowRegime>
+ HeatExchangerFlowRegime</a> can change to parallel flow if one of the two capacity flow rates reverts
+ its direction.
+ </p>
+</html>"));
+
+  type HeatExchangerFlowRegime = enumeration(
+      ParallelFlow "Parallel flow",
+      CounterFlow "Counter flow",
+      CrossFlowUnmixed "Cross flow, both streams unmixed",
+      CrossFlowCMinMixedCMaxUnmixed "Cross flow, CMin mixed,   CMax unmixed",
+      CrossFlowCMinUnmixedCMaxMixed "Cross flow, CMin unmixed, CMax mixed")
+    "Enumeration for heat exchanger flow configuration"
+  annotation(Documentation(info="<html>
+<p>
+ Enumeration to define the heat exchanger flow regime.
+</p>
+<p>
+This enumeration defines for the current capacity flow rate the kind of
+heat transfer relation that will be used to compute the relation between
+effectiveness and Number of Transfer Units.
+</p>
+<p>
+The following heat exchanger flow regimes are available in this enumeration:
+</p>
+<table border=\"1\">
+<tr><th>Enumeration</th><th>Description</th></tr>
+<tr><td>ParallelFlow</td><td>Parallel flow</td></tr>
+<tr><td>CounterFlow</td><td>Counter flow</td></tr>
+<tr><td>CrossFlowUnmixed</td><td>Cross flow, both streams unmixed</td></tr>
+<tr><td>CrossFlowCMinMixedCMaxUnmixed</td><td>Cross flow, CMin mixed,   CMax unmixed</td></tr>
+<tr><td>CrossFlowCMinUnmixedCMaxMixed</td><td>Cross flow, CMin unmixed, CMax mixed</td></tr>
+</table>
+</html>"));
+annotation (preferedView="info", Documentation(info="<html>
+This package contains type definitions.
+</html>"));
 end Types;

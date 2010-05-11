@@ -1,9 +1,22 @@
 within Buildings.Fluid.Actuators.BaseClasses.Examples;
 model EqualPercentageDerivativeCheck
 
- annotation(Diagram(graphics),
-                     Commands(file="EqualPercentageDerivativeCheck.mos" "run"));
-  annotation (
+ parameter Real R = 50 "Rangeability";
+ parameter Real delta = 0.01 "Value where transition occurs";
+ parameter Real l = 0.001 "Leakage";
+  Real x;
+  Real y;
+initial equation
+   y=x;
+equation
+  x=Buildings.Fluid.Actuators.BaseClasses.equalPercentage(time, R, l, delta);
+  der(y)=der(x);
+  assert(abs(x-y) < 1E-2, "Model has an error");
+
+ annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                    graphics),
+                     Commands(file="EqualPercentageDerivativeCheck.mos" "run"),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -18,17 +31,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
- parameter Real R = 50 "Rangeability";
- parameter Real delta = 0.01 "Value where transition occurs";
- parameter Real l = 0.001 "Leakage";
-  Real x;
-  Real y;
-initial equation
-   y=x;
-equation
-  x=Buildings.Fluid.Actuators.BaseClasses.equalPercentage(time, R, l, delta);
-  der(y)=der(x);
-  assert(abs(x-y) < 1E-2, "Model has an error");
-
 end EqualPercentageDerivativeCheck;

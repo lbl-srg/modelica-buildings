@@ -1,14 +1,8 @@
 within Buildings.Fluid.Actuators.Examples;
 model MixingBox
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Commands(file=
-          "MixingBox.mos" "run"));
-
  package Medium = Buildings.Media.GasesConstantDensity.SimpleAir
-    "Medium in the component" 
+    "Medium in the component"
          annotation (choicesAllMatching = true);
 
   Dampers.MixingBox mixBox(
@@ -21,7 +15,7 @@ model MixingBox
     dpRec_nominal=20,
     mExh_flow_nominal=1,
     dpExh_nominal=20,
-    redeclare package Medium = Medium) "mixing box" 
+    redeclare package Medium = Medium) "mixing box"
                             annotation (Placement(transformation(extent={{14,
             -22},{34,-2}}, rotation=0)));
     Buildings.Fluid.Sources.Boundary_pT bouIn(             redeclare package
@@ -39,7 +33,7 @@ model MixingBox
     use_p_in=true,
     nPorts=1)                                                         annotation (Placement(
         transformation(extent={{68,-90},{48,-70}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PAtm(k=101325) 
+    Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{-100,10},{-80,30}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp PSup(
@@ -52,7 +46,7 @@ model MixingBox
     height=10,
     offset=101330,
     duration=20,
-    startTime=20) 
+    startTime=20)
                  annotation (Placement(transformation(extent={{60,-50},{80,-30}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp yDam(
@@ -62,7 +56,7 @@ model MixingBox
     duration=10) annotation (Placement(transformation(extent={{-40,40},{-20,60}},
           rotation=0)));
 
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(yDam.y, mixBox.y) annotation (Line(points={{-19,50},{24,50},{24,
@@ -90,4 +84,9 @@ equation
       points={{48,-80},{42,-80},{42,-18},{34,-18}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
+                       Commands(file=
+          "MixingBox.mos" "run"));
 end MixingBox;

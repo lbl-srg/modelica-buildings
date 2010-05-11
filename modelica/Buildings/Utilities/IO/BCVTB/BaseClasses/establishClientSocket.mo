@@ -1,6 +1,14 @@
 within Buildings.Utilities.IO.BCVTB.BaseClasses;
 function establishClientSocket "Establishes the client socket connection"
 
+  input String xmlFileName = "socket.cfg"
+    "Name of xml file that contains the socket information";
+  output Integer socketFD
+    "Socket file descripter, or a negative value if an error occured";
+  external "C"
+     socketFD=establishModelicaClient(xmlFileName)
+       annotation(Library="bcvtb_modelica",
+                  Include="#include \"bcvtb.h\"");
 annotation(Documentation(info="<html>
 Function that establishes a socket connection to the BCVTB.
 <p>
@@ -17,12 +25,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  input String xmlFileName = "socket.cfg"
-    "Name of xml file that contains the socket information";
-  output Integer socketFD
-    "Socket file descripter, or a negative value if an error occured";
-  external "C" 
-     socketFD=establishModelicaClient(xmlFileName) 
-       annotation(Library="bcvtb_modelica",
-                  Include="#include \"bcvtb.h\"");
 end establishClientSocket;

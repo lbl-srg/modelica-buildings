@@ -1,10 +1,8 @@
 within Buildings.Fluid.Chillers.Examples;
 model Carnot "Test model for chiller based on Carnot efficiency"
   import Buildings;
- package Medium1 = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model";
- package Medium2 = Buildings.Media.ConstantPropertyLiquidWater
-    "Medium model";
+ package Medium1 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+ package Medium2 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
   parameter Modelica.SIunits.Power P_nominal=10E3
     "Nominal compressor power (at y=1)";
@@ -31,22 +29,19 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     dp1_nominal=6000,
     dp2_nominal=6000,
     m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal) "Chiller model" 
+    m2_flow_nominal=m2_flow_nominal) "Chiller model"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,
     use_T_in=true,
     m_flow=m1_flow_nominal,
-    T=298.15) 
+    T=298.15)
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Commands(file=
-          "Carnot.mos" "run"));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(nPorts=1,
     redeclare package Medium = Medium2,
     use_T_in=true,
     m_flow=m2_flow_nominal,
-    T=291.15) 
+    T=291.15)
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
   Buildings.Fluid.Sources.FixedBoundary sin1(nPorts=1, redeclare package Medium
       = Medium1)                                     annotation (Placement(
@@ -64,21 +59,21 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     height=-1,
     duration=60,
     offset=1,
-    startTime=1800) "Compressor control signal" 
+    startTime=1800) "Compressor control signal"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
     height=10,
     duration=60,
     offset=273.15 + 20,
-    startTime=60) "Evaporator inlet temperature" 
+    startTime=60) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=10,
     duration=60,
     startTime=900,
-    offset=273.15 + 10) "Condenser inlet temperature" 
+    offset=273.15 + 10) "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
 equation
   connect(sou1.ports[1], chi.port_a1)    annotation (Line(
@@ -109,4 +104,7 @@ equation
       points={{-39,60},{-10,60},{-10,19},{-2,19}},
       color={0,0,127},
       smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}), graphics), Commands(file=
+          "Carnot.mos" "run"));
 end Carnot;

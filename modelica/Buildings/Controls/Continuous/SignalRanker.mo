@@ -1,6 +1,23 @@
 within Buildings.Controls.Continuous;
 block SignalRanker "Ranks output signals such that y[i] >= y[i+1]"
    extends Modelica.Blocks.Interfaces.MIMO(final nout=nin);
+protected
+  Real t "Temporary variable";
+algorithm
+  y[:] := u[:];
+  for i in 1:nin loop
+    for j in 1:nin-1 loop
+    if y[j] < y[j+1] then
+      t      := y[j+1];
+      y[j+1] := y[j];
+      y[j]   := t;
+    end if;
+   end for;
+  end for;
+  // check algorithm (during development only)
+  for i in 1:nin-1 loop
+    assert(y[i] >= y[i+1], "Error in sorting algorithm.");
+  end for;
   annotation (Documentation(info="<html>
 <p>
 Block that sorts the input signal <tt>u[:]</tt> such that the output
@@ -22,21 +39,4 @@ Icon(graphics={Text(
           extent={{-94,34},{96,-164}},
           lineColor={0,0,255},
           textString="y[i] >= y[i+1]")}));
-protected
-  Real t "Temporary variable";
-algorithm
-  y[:] := u[:];
-  for i in 1:nin loop
-    for j in 1:nin-1 loop
-    if y[j] < y[j+1] then
-      t      := y[j+1];
-      y[j+1] := y[j];
-      y[j]   := t;
-    end if;
-   end for;
-  end for;
-  // check algorithm (during development only)
-  for i in 1:nin-1 loop
-    assert(y[i] >= y[i+1], "Error in sorting algorithm.");
-  end for;
 end SignalRanker;

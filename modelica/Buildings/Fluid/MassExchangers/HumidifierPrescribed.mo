@@ -1,7 +1,45 @@
 within Buildings.Fluid.MassExchangers;
 model HumidifierPrescribed
   "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction"
-  extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer;
+  extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer(
+     sensibleOnly = false);
+
+  parameter Boolean use_T_in= false
+    "Get the temperature from the input connector"
+    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+
+  parameter Modelica.SIunits.Temperature T = 293.15
+    "Temperature of water that is added to the fluid stream (used if use_T_in=false)"
+    annotation (Evaluate = true,
+                Dialog(enable = not use_T_in));
+
+  parameter Modelica.SIunits.MassFlowRate mWat0_flow
+    "Water mass flow rate at u=1, positive for humidification";
+
+  Modelica.Blocks.Interfaces.RealInput T_in if use_T_in
+    "Temperature of water added to the fluid stream"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
+          rotation=0)));
+  Modelica.Blocks.Interfaces.RealInput u "Control input"
+    annotation (Placement(transformation(
+          extent={{-140,40},{-100,80}}, rotation=0)));
+protected
+  constant Modelica.SIunits.MassFraction[Medium.nXi] Xi_w = {1}
+    "Mass fraction of water";
+  Modelica.SIunits.MassFlowRate mWat_flow "Water flow rate";
+  Modelica.Blocks.Interfaces.RealInput T_in_internal
+    "Needed to connect to conditional connector";
+equation
+  connect(T_in, T_in_internal);
+  if not use_T_in then
+    T_in_internal = T;
+  end if;
+
+  mWat_flow = u * mWat0_flow;
+  Q_flow = Medium.enthalpyOfLiquid(T_in_internal) * mWat_flow;
+  for i in 1:Medium.nXi loop
+     mXi_flow[i] = if ( i == Medium.Water) then  mWat_flow else 0;
+  end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -31,10 +69,12 @@ model HumidifierPrescribed
           lineColor={0,0,255},
           textString="u"),
         Text(
+          visible=use_T_in,
           extent={{-140,-20},{-96,-48}},
           lineColor={0,0,255},
           textString="T"),
         Rectangle(
+          visible=use_T_in,
           extent={{-100,-59},{-70,-62}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
@@ -71,34 +111,13 @@ in the species vector.
 revisions="<html>
 <ul>
 <li>
+April 14, 2010, by Michael Wetter:<br>
+Converted temperature input to a conditional connector.
+</li>
+<li>
 April 17, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
 </html>"));
-
-  parameter Modelica.SIunits.MassFlowRate mWat0_flow
-    "Water mass flow rate at u=1, positive for humidification";
-  parameter Modelica.SIunits.Temperature T = 293.15
-    "Temperature of water that is added to the fluid stream (used only if T_in is unconnected)";
-  Modelica.Blocks.Interfaces.RealInput T_in
-    "Temperature of water added to the fluid stream" 
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
-          rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput u "Control input" 
-    annotation (Placement(transformation(
-          extent={{-140,40},{-100,80}}, rotation=0)));
-protected
-  constant Modelica.SIunits.MassFraction[Medium.nXi] XiWat = {1}
-    "Mass fraction of water";
-  Modelica.SIunits.MassFlowRate mWat_flow "Water flow rate";
-equation
-  if cardinality(T_in)==0 then
-    T_in = T;
-  end if;
-  mWat_flow = u * mWat0_flow;
-  Q_flow = Medium.enthalpyOfLiquid(T_in) * mWat_flow;
-  for i in 1:Medium.nXi loop
-     mXi_flow[i] = if ( i == Medium.Water) then  mWat_flow else 0;
-  end for;
 end HumidifierPrescribed;

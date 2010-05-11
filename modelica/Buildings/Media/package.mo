@@ -1,5 +1,7 @@
 within Buildings;
 package Media "Package with medium models"
+
+
   annotation (preferedView="info", Documentation(info="<html>
 This package contains different implementations for
 various media.
@@ -16,5 +18,4 @@ models in <a href=\"Modelica:Modelica.Media\">
 Modelica.Media</a>, but the smaller temperature range may often be 
 sufficient for building HVAC applications. 
 </html>"));
-
 end Media;

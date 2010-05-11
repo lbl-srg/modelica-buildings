@@ -4,10 +4,11 @@ model Pressure "Ideal pressure sensor"
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput p(final quantity="Pressure",
                                           final unit="Pa",
-                                          displayUnit="bar",
-                                          min=0) "Pressure at port" 
+                                          min=0) "Pressure at port"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
+equation
+  p = port.p;
   annotation (
   Diagram(coordinateSystem(
         preserveAspectRatio=false,
@@ -34,6 +35,4 @@ ideal, i.e., it does not influence the fluid.
 </p>
 </HTML>
 "));
-equation
-  p = port.p;
 end Pressure;

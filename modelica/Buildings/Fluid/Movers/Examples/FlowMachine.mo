@@ -2,18 +2,13 @@ within Buildings.Fluid.Movers.Examples;
 model FlowMachine
   import Buildings;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-                         Commands(file=
-            "FlowMachine.mos" "run"));
    package Medium = Buildings.Media.IdealGases.SimpleAir;
   //  package Medium =  Buildings.Media.PerfectGases.MoistAir;
   //package Medium = Modelica.Media.Air.SimpleAir;
     Modelica.Blocks.Sources.Ramp P(
     height=-1500,
     offset=101325,
-    duration=1.5) 
+    duration=1.5)
                  annotation (Placement(transformation(extent={{-80,-2},{-60,18}},
           rotation=0)));
   Buildings.Fluid.Movers.FlowMachinePolynomial fan(
@@ -25,7 +20,7 @@ model FlowMachine
     redeclare package Medium = Medium,
     m_flow_nominal=10)     annotation (Placement(transformation(extent={{0,-10},{20,10}},
           rotation=0)));
-  Modelica.Blocks.Sources.Constant N(k=22.3333) 
+  Modelica.Blocks.Sources.Constant N(k=22.3333)
                                          annotation (Placement(transformation(
           extent={{-40,30},{-20,50}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
@@ -40,41 +35,40 @@ model FlowMachine
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{60,-10},{40,10}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PAtm(k=101325) 
+    Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{40,32},{60,52}}, rotation=0)));
   Buildings.Utilities.Reports.Printer printer(
     nin=6,
-    header="time dp dpNorm mNorm m_flow power") 
+    header="time dp dpNorm mNorm m_flow power")
     annotation (Placement(transformation(extent={{16,-42},{36,-22}}, rotation=0)));
-  Modelica.Blocks.Sources.RealExpression fan_mFlow(y=fan.m_flow) 
+  Modelica.Blocks.Sources.RealExpression fan_mFlow(y=fan.m_flow)
     annotation (Placement(transformation(extent={{-40,-94},{-20,-74}}, rotation=
            0)));
-  Modelica.Blocks.Sources.RealExpression simTim2(y=time) 
+  Modelica.Blocks.Sources.RealExpression simTim2(y=time)
     annotation (Placement(transformation(extent={{-40,-32},{-20,-12}}, rotation=
            0)));
-  Modelica.Blocks.Sources.RealExpression fan_dp(y=fan.dp) 
+  Modelica.Blocks.Sources.RealExpression fan_dp(y=fan.dp)
     annotation (Placement(transformation(extent={{-40,-48},{-20,-28}}, rotation=
            0)));
-  Modelica.Blocks.Sources.RealExpression fan_dpNor(y=fan.pNor) 
+  Modelica.Blocks.Sources.RealExpression fan_dpNor(y=fan.pNor)
     annotation (Placement(transformation(extent={{-40,-64},{-20,-44}}, rotation=
            0)));
-  Modelica.Blocks.Sources.RealExpression fan_mNor(y=fan.mNor_flow) 
+  Modelica.Blocks.Sources.RealExpression fan_mNor(y=fan.mNor_flow)
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}}, rotation=
            0)));
-  Modelica.Blocks.Sources.RealExpression fan_PSha(y=fan.PSha) 
+  Modelica.Blocks.Sources.RealExpression fan_PSha(y=fan.PSha)
     annotation (Placement(transformation(extent={{-40,-106},{-20,-86}},
           rotation=0)));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
-  Buildings.Fluid.Sensors.Temperature TIn(redeclare package Medium = Medium) 
+  Buildings.Fluid.Sensors.Temperature TIn(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{-10,54},{10,74}})));
-  Buildings.Fluid.Sensors.Temperature TOut(redeclare package Medium = Medium) 
+  Buildings.Fluid.Sensors.Temperature TOut(redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{10,66},{30,86}})));
-  Buildings.Utilities.Diagnostics.AssertInequality assertInequality 
+  Buildings.Utilities.Diagnostics.AssertInequality assertInequality
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
 
-  annotation (Diagram);
   connect(simTim2.y, printer.x[1]) annotation (Line(points={{-19,-22},{-2,-22},
           {-2,-33.6667},{14,-33.6667}}, color={0,0,127}));
   connect(fan_dp.y, printer.x[2]) annotation (Line(points={{-19,-38},{-4,-38},{
@@ -87,26 +81,29 @@ equation
           {0,-30.3333},{14,-30.3333}}, color={0,0,127}));
   connect(fan_mFlow.y, printer.x[5]) annotation (Line(points={{-19,-84},{-6,-84},
           {-6,-31},{14,-31}}, color={0,0,127}));
-  connect(N.y, fan.N_in) annotation (Line(points={{-19,40},{10,40},{10,7},{10,7}},
+  connect(N.y, fan.N_in) annotation (Line(points={{-19,40},{10,40},{10,7}},
                color={0,0,127}));
-  connect(P.y, sou.p_in) annotation (Line(points={{-59,8},{-51.5,8},{-44,8}},
+  connect(P.y, sou.p_in) annotation (Line(points={{-59,8},{-44,8},{-44,8}},
                                             color={0,0,127}));
   connect(PAtm.y, sin.p_in) annotation (Line(points={{61,42},{74,42},{74,8},{62,
           8}}, color={0,0,127}));
   connect(sou.ports[1], fan.port_a) annotation (Line(
-      points={{-22,0},{0,0}},
+      points={{-22,6.66134e-16},{-16.5,6.66134e-16},{-16.5,1.27676e-15},{-11,
+          1.27676e-15},{-11,6.10623e-16},{-5.55112e-16,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan.port_b, sin.ports[1]) annotation (Line(
-      points={{20,0},{40,0}},
+      points={{20,6.10623e-16},{25,6.10623e-16},{25,1.27676e-15},{30,
+          1.27676e-15},{30,6.66134e-16},{40,6.66134e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan.port_a, TIn.port) annotation (Line(
-      points={{0,0},{0,54}},
+      points={{-5.55112e-16,6.10623e-16},{-5.55112e-16,13.5},{5.55107e-17,13.5},
+          {5.55107e-17,27},{6.10623e-16,27},{6.10623e-16,54}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fan.port_b, TOut.port) annotation (Line(
-      points={{20,0},{20,66}},
+      points={{20,6.10623e-16},{20,66}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TOut.T, assertInequality.u1) annotation (Line(
@@ -117,4 +114,10 @@ equation
       points={{7,64},{58,64}},
       color={0,0,127},
       smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                        graphics),
+                         Commands(file=
+            "FlowMachine.mos" "run"),
+              Diagram);
 end FlowMachine;

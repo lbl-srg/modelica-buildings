@@ -1,24 +1,37 @@
 within Buildings.Fluid.Movers;
-model FlowMachine_dp "Pump or fan with ideally controlled pressure difference"
-  extends Buildings.Fluid.Movers.BaseClasses.FlowMachine(
-  final control_m_flow = false,
-  final use_dp_set=true,
-  final use_m_flow_set=false);
+model FlowMachine_dp
+  "Fan or pump with ideally controlled head dp as input signal"
+  extends Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine(
+  final control_m_flow = false);
+equation
+  assert(dp_in >= 0,
+    "dp_in cannot be negative. Obtained dp_in = " + realString(dp_in));
+
   annotation (defaultComponentName="fan",
   Documentation(info="<HTML>
-<p>This model describes a centrifugal pump (or a group of <tt>nParallel</tt> pumps) 
-   with prescribed pressure difference across the ports, either fixed or provided by an external signal.
-   The model is identical to 
-   <a href=\"Modelica:Modelica.Fluid.Machines.ControlledPump\">
-   Modelica:Modelica.Fluid.Machines.ControlledPump</a>
-   but it defines parameters for easier configuration, and input is the pressure
-<it>difference</it> between the ports, and not the pressure at the <code>port_b</code>.
+<p>
+This model describes a fan or pump with prescribed head.
+The input connector provides the difference between 
+outlet minus inlet pressure.
+The efficiency of the device is computed based
+on the efficiency curves that take as an argument
+the actual volume flow rate divided by the maximum possible volume flow rate.
+</p>
+<p>
+See the 
+<a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
+User's Guide</a> for more information.
+</p>
 </HTML>",
       revisions="<html>
 <ul>
+<li><i>March 24, 2010</i> by Michael Wetter:<br>
+Revised implementation to allow zero flow rate.
+</li>
 <li>October 1, 2009
     by Michael Wetter:<br>
        Model added to the Buildings library.
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Text(extent={{-56,114},{28,80}}, textString="dp_in")}));
 end FlowMachine_dp;

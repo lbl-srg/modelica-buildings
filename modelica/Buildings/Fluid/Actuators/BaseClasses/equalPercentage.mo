@@ -2,34 +2,11 @@ within Buildings.Fluid.Actuators.BaseClasses;
 function equalPercentage
   "Valve opening characteristics for equal percentage valve"
 
-annotation (
-Documentation(info="<html>
-<p>
-This function computes the opening characteristics of an equal percentage valve.
-</p><p>
-The function is used by the model 
-<a href=\"Modelica:Buildings.Fluid.Actuators.TwoWayValveEqualPercentage\">
-TwoWayValveEqualPercentage</a>.
-</p><p>
-For <tt>y &lt; delta/2</tt>, the valve characteristics is linear. For <tt> y &gt; 3*delta/2</tt>
-the valve characteristics is equal percentage. In between, a cubic spline is used to ensure
-that the valve characteristics is once continuously differentiable with respect to <tt>y</tt>.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-June 5, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
   input Real y "Valve opening signal, y=1 is fully open";
   input Real R "Rangeability, R=50...100 typically";
   input Real l(min=0, max=1) "Valve leakage, l=Cv(y=0)/Cvs";
   input Real delta "Range of significant deviation from equal percentage law";
   output Real phi "Ratio actual to nominal mass flow rate, phi=Cv(y)/Cv(y=1)";
-  annotation(smoothOrder=1, derivative=der_equalPercentage);
 protected
    Real a "Polynomial coefficient";
    Real b "Polynomial coefficient";
@@ -57,4 +34,26 @@ algorithm
       phi  := d + y * ( c + y * ( b + y * a));
     end if;
   end if;
+annotation (
+Documentation(info="<html>
+<p>
+This function computes the opening characteristics of an equal percentage valve.
+</p><p>
+The function is used by the model 
+<a href=\"modelica://Buildings.Fluid.Actuators.TwoWayValveEqualPercentage\">
+TwoWayValveEqualPercentage</a>.
+</p><p>
+For <tt>y &lt; delta/2</tt>, the valve characteristics is linear. For <tt> y &gt; 3*delta/2</tt>
+the valve characteristics is equal percentage. In between, a cubic spline is used to ensure
+that the valve characteristics is once continuously differentiable with respect to <tt>y</tt>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+June 5, 2008 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"),   smoothOrder=1, derivative=der_equalPercentage);
 end equalPercentage;

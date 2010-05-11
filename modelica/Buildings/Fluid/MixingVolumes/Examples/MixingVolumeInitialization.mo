@@ -1,22 +1,17 @@
 within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolumeInitialization
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{180,100}}),      graphics),
-                         Commands(file=
-            "MixingVolumeInitialization.mos" "run"));
-
  package Medium = Modelica.Media.Air.SimpleAir;
  //package Medium = Buildings.Media.PerfectGases.MoistAir;
  //package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir;
 
-  Buildings.Fluid.Sources.Boundary_pT sou1(redeclare package Medium = 
+  Buildings.Fluid.Sources.Boundary_pT sou1(redeclare package Medium =
         Medium,
     p=101330,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-60,10},{-40,30}}, rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium = 
+  Buildings.Fluid.Sources.Boundary_pT sin1(redeclare package Medium =
         Medium,
     p=101320,
     nPorts=1,
@@ -35,9 +30,9 @@ model MixingVolumeInitialization
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     V=0.1,
-    nPorts=2) 
+    nPorts=2)
     annotation (Placement(transformation(extent={{20,20},{40,40}}, rotation=0)));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(sou1.ports[1], pipe1.port_a) annotation (Line(
@@ -56,4 +51,8 @@ equation
       points={{80,20},{100,20}},
       color={0,127,255},
       smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -100},{180,100}}),      graphics),
+                         Commands(file=
+            "MixingVolumeInitialization.mos" "run"));
 end MixingVolumeInitialization;

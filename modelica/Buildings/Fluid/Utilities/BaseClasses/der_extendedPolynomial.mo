@@ -2,20 +2,6 @@ within Buildings.Fluid.Utilities.BaseClasses;
 function der_extendedPolynomial
   "Polynomial that is linearly extended at user specified values"
   extends Modelica.Icons.Function;
-  annotation (Documentation(info="<html>
-<p>
-This function is the derivative of  
-<a href=\"Modelica:Buildings.Fluid.Utilities.extendedPolynomial\">
-extendedPolynomial</a> with respect to <tt>x</tt>.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-June 16, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
   input Real[:] c "Polynomial coefficients";
   input Real x "x value";
   input Real xMin "Minimum x value for polynomial";
@@ -41,4 +27,18 @@ if x < xMin then
        der_y := der_y + (i - 1)*xMax^(i - 2)*c[i];
     end for;
   end if;
+  annotation (Documentation(info="<html>
+<p>
+This function is the derivative of  
+<a href=\"modelica://Buildings.Fluid.Utilities.extendedPolynomial\">
+extendedPolynomial</a> with respect to <tt>x</tt>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 16, 2008 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end der_extendedPolynomial;

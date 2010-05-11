@@ -5,6 +5,21 @@ function spliceFunction
     input Real x "Independent value";
     input Real deltax=1 "Width of transition interval";
     output Real out "Smoothed value";
+protected
+    Real scaledX;
+    Real scaledX1;
+    Real y;
+algorithm
+    scaledX1 := x/deltax;
+    scaledX := scaledX1*Modelica.Math.asin(1);
+    if scaledX1 <= -0.999999999 then
+      y := 0;
+    elseif scaledX1 >= 0.999999999 then
+      y := 1;
+    else
+      y := (Modelica.Math.tanh(Modelica.Math.tan(scaledX)) + 1)/2;
+    end if;
+    out := pos*y + (1 - y)*neg;
     annotation (smoothOrder=1, derivative=BaseClasses.der_spliceFunction, Documentation(info="<html>
 <p>
 Function to provide a once continuously differentialbe transition between 
@@ -22,19 +37,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-protected
-    Real scaledX;
-    Real scaledX1;
-    Real y;
-algorithm
-    scaledX1 := x/deltax;
-    scaledX := scaledX1*Modelica.Math.asin(1);
-    if scaledX1 <= -0.999999999 then
-      y := 0;
-    elseif scaledX1 >= 0.999999999 then
-      y := 1;
-    else
-      y := (Modelica.Math.tanh(Modelica.Math.tan(scaledX)) + 1)/2;
-    end if;
-    out := pos*y + (1 - y)*neg;
 end spliceFunction;

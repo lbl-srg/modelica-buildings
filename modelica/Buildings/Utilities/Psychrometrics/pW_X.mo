@@ -2,6 +2,23 @@ within Buildings.Utilities.Psychrometrics;
 block pW_X "Water vapor pressure for given humidity ratio"
   extends
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
+  Modelica.Blocks.Interfaces.RealInput X_w(min=0, max=1, nominal=0.01)
+    "Species concentration at dry bulb temperature"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},rotation=
+           0), iconTransformation(extent={{-120,-10},{-100,10}})));
+  Modelica.Blocks.Interfaces.RealOutput p_w(final quantity="Pressure",
+                                           final unit="Pa",
+                                           displayUnit="Pa",
+                                           min = 0) "Water vapor pressure"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}},
+          rotation=0), iconTransformation(extent={{100,-10},{120,10}})));
+
+  output Modelica.SIunits.MassFraction x_w(min=0, max=1, nominal=0.01, start=0.001)
+    "Water mass fraction per mass of dry air";
+
+equation
+  p_w = Buildings.Utilities.Psychrometrics.Functions.pW_X(X_w=X_w, p=p_in_internal);
+  x_w = X_w/(1-X_w);
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
@@ -39,21 +56,4 @@ First implementation.
           extent={{46,30},{90,-32}},
           lineColor={0,0,0},
           textString="pW")}));
-  Modelica.Blocks.Interfaces.RealInput X_w(min=0, max=1, nominal=0.01)
-    "Species concentration at dry bulb temperature" 
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},rotation=
-           0), iconTransformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealOutput p_w(final quantity="Pressure",
-                                           final unit="Pa",
-                                           displayUnit="Pa",
-                                           min = 0) "Water vapor pressure" 
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0), iconTransformation(extent={{100,-10},{120,10}})));
-
-  output Modelica.SIunits.MassFraction x_w(min=0, max=1, nominal=0.01, start=0.001)
-    "Water mass fraction per mass of dry air";
-
-equation
-  p_w = Buildings.Utilities.Psychrometrics.Functions.pW_X(X_w=X_w, p=p_in_internal);
-  x_w = X_w/(1-X_w);
 end pW_X;

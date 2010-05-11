@@ -1,14 +1,8 @@
 within Buildings.Fluid.Actuators.Examples;
 model MixingBoxMinimumFlow
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Commands(file=
-          "MixingBoxMinimumFlow.mos" "run"));
-
  package Medium = Buildings.Media.GasesConstantDensity.SimpleAir
-    "Medium in the component" 
+    "Medium in the component"
          annotation (choicesAllMatching = true);
 
   Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow mixBox(
@@ -24,7 +18,7 @@ model MixingBoxMinimumFlow
     dpRec_nominal=20,
     mExh_flow_nominal=1,
     dpExh_nominal=20,
-    redeclare package Medium = Medium) "mixing box" 
+    redeclare package Medium = Medium) "mixing box"
                             annotation (Placement(transformation(extent={{14,
             -22},{34,-2}}, rotation=0)));
     Buildings.Fluid.Sources.Boundary_pT bouIn(             redeclare package
@@ -42,10 +36,10 @@ model MixingBoxMinimumFlow
     use_p_in=true,
     nPorts=1)                                                         annotation (Placement(
         transformation(extent={{68,-90},{48,-70}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PAtm(k=101325) 
+    Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{-100,10},{-80,30}},
           rotation=0)));
-    Modelica.Blocks.Sources.Constant yDamMin(k=0.5) 
+    Modelica.Blocks.Sources.Constant yDamMin(k=0.5)
       annotation (Placement(transformation(extent={{-40,70},{-20,90}},rotation=
             0)));
     Modelica.Blocks.Sources.Ramp PSup(
@@ -58,7 +52,7 @@ model MixingBoxMinimumFlow
     height=10,
     offset=101330,
     duration=20,
-    startTime=20) 
+    startTime=20)
                  annotation (Placement(transformation(extent={{60,-50},{80,-30}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp yDam(
@@ -68,10 +62,10 @@ model MixingBoxMinimumFlow
     offset=0.45) annotation (Placement(transformation(extent={{-40,40},{-20,60}},
           rotation=0)));
 
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
-  connect(yDamMin.y, mixBox.yOutMin) 
+  connect(yDamMin.y, mixBox.yOutMin)
                                annotation (Line(points={{-19,80},{30,80},{30,
           6.66134e-16}},
                    color={0,0,127}));
@@ -104,4 +98,9 @@ equation
       points={{48,-80},{42,-80},{42,-18},{34,-18}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
+                       Commands(file=
+          "MixingBoxMinimumFlow.mos" "run"));
 end MixingBoxMinimumFlow;

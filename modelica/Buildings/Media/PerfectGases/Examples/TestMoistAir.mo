@@ -1,7 +1,7 @@
-within Media.PerfectGases.Examples;
+within Buildings.Media.PerfectGases.Examples;
 model TestMoistAir
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
-     redeclare package Medium = 
+     redeclare package Medium =
           Buildings.Media.PerfectGases.MoistAir);
 
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{

@@ -2,40 +2,33 @@ within Buildings.Controls.Continuous.Examples;
 model PIDHysteresis "Example model"
   import Buildings;
 
- annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-                      Commands(file="PIDHysteresis.mos" "run"),
-    experiment(StopTime=86400),
-    experimentSetupOutput);
-  annotation (Diagram);
   Buildings.Controls.Continuous.PIDHysteresis con(
     pre_y_start=false,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     yMin=0.3,
     Ti=600,
-    Td=60) 
+    Td=60)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Modelica.Blocks.Sources.Constant TSet(k=273.15 + 40) "Set point" 
+  Modelica.Blocks.Sources.Constant TSet(k=273.15 + 40) "Set point"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap(C=1000000, T(start=
-         313.15, fixed=true)) 
+         313.15, fixed=true))
     annotation (Placement(transformation(extent={{38,30},{58,50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBC 
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBC
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=20) 
+  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=20)
     annotation (Placement(transformation(extent={{38,60},{58,80}})));
-  Modelica.Blocks.Math.Gain gain(k=2000) 
+  Modelica.Blocks.Math.Gain gain(k=2000)
     annotation (Placement(transformation(extent={{-12,20},{8,40}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen 
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Q_flow 
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Q_flow
     annotation (Placement(transformation(extent={{16,20},{36,40}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/86400,
     offset=273.15,
     amplitude=20,
-    phase=-1.5707963267949) 
+    phase=-1.5707963267949)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
 
@@ -75,4 +68,11 @@ equation
       points={{-59,70},{-2,70}},
       color={0,0,127},
       smooth=Smooth.None));
+ annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -100},{100,100}}),
+                     graphics),
+                      Commands(file="PIDHysteresis.mos" "run"),
+    experiment(StopTime=86400),
+    experimentSetupOutput,
+              Diagram);
 end PIDHysteresis;

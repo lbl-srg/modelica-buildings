@@ -1,77 +1,53 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorSingleLayer "Test model for heat conductor"
   import Buildings;
-  Buildings.HeatTransfer.ConductorSingleLayer con(
-    mat=Buildings.HeatTransfer.Data.Brick(),
-    x=0.2,
-    n=5,
-    A=1) annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB(T=293.15) 
+  Buildings.HeatTransfer.ConductorSingleLayer con(A=1, material=concrete200)
+         annotation (Placement(transformation(extent={{20,0},{40,20}})));
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA 
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Commands(file=
-          "HeatTransfer/Examples/ConductorSingleLayer.mos" "run"));
   Modelica.Blocks.Sources.Step step(
     height=10,
     offset=293.15,
-    startTime=3600) 
+    startTime=3600)
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection convection 
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Modelica.Blocks.Sources.Constant step1(k=10) 
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.HeatTransfer.ConductorSingleLayer con1(
-    mat=Buildings.HeatTransfer.Data.Brick(),
-    A=1,
-    x=0.1,
-    n=3) annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
+    A=1, material=concrete100)
+           annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB1(
-                                                            T=293.15) 
+                                                            T=293.15)
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
-  Modelica.Thermal.HeatTransfer.Components.Convection convection1 
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA1 
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.HeatTransfer.ConductorSingleLayer con2(
-    mat=Buildings.HeatTransfer.Data.Brick(),
-    A=1,
-    x=0.1,
-    n=3) annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
+    A=1, material=concrete100)
+           annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo2
+    annotation (Placement(transformation(extent={{2,-36},{14,-24}})));
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo1
+    annotation (Placement(transformation(extent={{-6,4},{6,16}})));
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-8)
+    annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
+  Buildings.HeatTransfer.Data.Solids.Concrete concrete200(x=0.2, nStaRef=4)
+    annotation (Placement(transformation(extent={{20,60},{40,80}})));
+  Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nStaRef=2)
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  Buildings.HeatTransfer.Convection conv1(              A=1)
+    "Convective heat transfer"
+    annotation (Placement(transformation(extent={{-12,0},{-32,20}})));
+  Buildings.HeatTransfer.Convection conv2(              A=1)
+    "Convective heat transfer"
+    annotation (Placement(transformation(extent={{-12,-40},{-32,-20}})));
 equation
   connect(con.port_b, TB.port) annotation (Line(
       points={{40,10},{60,10}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(TA.port, convection.solid) annotation (Line(
-      points={{-40,10},{-20,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(step.y, TA.T) annotation (Line(
       points={{-79,10},{-62,10}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(convection.fluid, con.port_a) annotation (Line(
-      points={{0,10},{20,10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(step1.y, convection.Gc) annotation (Line(
-      points={{-39,50},{-10,50},{-10,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(convection1.fluid, con1.port_a) annotation (Line(
-      points={{0,-30},{20,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(step1.y, convection1.Gc) annotation (Line(
-      points={{-39,50},{-30,50},{-30,-12},{-10,-12},{-10,-20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TA1.port, convection1.solid) annotation (Line(
-      points={{-40,-30},{-20,-30}},
-      color={191,0,0},
       smooth=Smooth.None));
   connect(step.y, TA1.T) annotation (Line(
       points={{-79,10},{-72,10},{-72,-30},{-62,-30}},
@@ -85,4 +61,52 @@ equation
       points={{70,-30},{80,-30}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(heaFlo2.port_b, con1.port_a) annotation (Line(
+      points={{14,-30},{20,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(heaFlo1.port_b, con.port_a) annotation (Line(
+      points={{6,10},{20,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(assertEquality.u1, heaFlo2.Q_flow) annotation (Line(
+      points={{18,-64},{8,-64},{8,-36}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(assertEquality.u2, heaFlo1.Q_flow) annotation (Line(
+      points={{18,-76},{0,-76},{0,4},{-1.88738e-16,4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TA.port, conv1.fluid) annotation (Line(
+      points={{-40,10},{-32,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(TA1.port, conv2.fluid) annotation (Line(
+      points={{-40,-30},{-32,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(conv2.solid, heaFlo2.port_a) annotation (Line(
+      points={{-12,-30},{2,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(conv1.solid, heaFlo1.port_a) annotation (Line(
+      points={{-12,10},{-6,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}), graphics), Commands(file=
+          "HeatTransfer/Examples/ConductorSingleLayer.mos" "run"),
+    Documentation(info="<html>
+This example tests if two conductors in series computes the same heat transfer
+as one conductor with twice the thickness.
+The <tt>assert</tt> block will stop the simulation if the heat exchange with the boundary
+condition differs.
+</html>", revisions="<html>
+<ul>
+<li>
+March 6 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ConductorSingleLayer;

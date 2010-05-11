@@ -1,64 +1,6 @@
 within Buildings.Controls.SetPoints;
 block OccupancySchedule "Occupancy schedule with look-ahead"
   extends Modelica.Blocks.Interfaces.BlockIcon;
-  annotation (
-    Icon(graphics={
-        Line(
-          points={{-62,-68},{-38,-20},{-14,-70}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-38,-20},{-38,44}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Ellipse(extent={{-54,74},{-22,44}}, lineColor={0,0,255}),
-        Line(
-          points={{-66,22},{-38,36}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-38,36},{-6,20}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Text(
-          extent={{34,74},{90,50}},
-          lineColor={0,0,255},
-          textString="occupancy"),
-        Text(
-          extent={{32,16},{92,-16}},
-          lineColor={0,0,255},
-          textString="non-occupancy"),
-        Text(
-          extent={{34,-44},{94,-76}},
-          lineColor={0,0,255},
-          textString="occupied")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
-    Documentation(info="<html>
-<p>
-This model outputs whether the building is currently occupied,
-and how long it will take until the next time when the building 
-will be occupied or non-occupied.
-The latter may be used, for example, to start a ventilation system
-half an hour before occupancy starts in order to ventilate the room.
-</p>
-<p>
-The occupancy is defined by a time schedule of the form
-<pre>
-  occupancy = 3600*{7, 12, 14, 19}
-</pre>
-This indicates that the occupancy is from <tt>7:00</tt> until <tt>12:00</tt>
-and from <tt>14:00</tt> to <tt>19:00</tt>. This will be repeated periodically.
-The parameters <tt>startTime<tt> and <tt>endTime</tt> define the periodicity.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-April 2, 2009, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
 
   parameter Real occupancy[:]=3600*{7, 19}
     "Occupancy table, each entry switching occupancy on or off";
@@ -68,12 +10,12 @@ First implementation.
   parameter Modelica.SIunits.Time endTime =   86400 "End time of periodicity";
 
   Modelica.Blocks.Interfaces.RealOutput tNexNonOcc
-    "Time until next non-occupancy" 
+    "Time until next non-occupancy"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput tNexOcc "Time until next occupancy" 
+  Modelica.Blocks.Interfaces.RealOutput tNexOcc "Time until next occupancy"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Blocks.Interfaces.BooleanOutput occupied
-    "Outputs true if occupied at current time" 
+    "Outputs true if occupied at current time"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
@@ -153,4 +95,62 @@ algorithm
 
  tNexOcc    := tOcc-time;
  tNexNonOcc := tNonOcc-time;
+  annotation (
+    Icon(graphics={
+        Line(
+          points={{-62,-68},{-38,-20},{-14,-70}},
+          color={0,0,255},
+          smooth=Smooth.None),
+        Line(
+          points={{-38,-20},{-38,44}},
+          color={0,0,255},
+          smooth=Smooth.None),
+        Ellipse(extent={{-54,74},{-22,44}}, lineColor={0,0,255}),
+        Line(
+          points={{-66,22},{-38,36}},
+          color={0,0,255},
+          smooth=Smooth.None),
+        Line(
+          points={{-38,36},{-6,20}},
+          color={0,0,255},
+          smooth=Smooth.None),
+        Text(
+          extent={{34,74},{90,50}},
+          lineColor={0,0,255},
+          textString="occupancy"),
+        Text(
+          extent={{32,16},{92,-16}},
+          lineColor={0,0,255},
+          textString="non-occupancy"),
+        Text(
+          extent={{34,-44},{94,-76}},
+          lineColor={0,0,255},
+          textString="occupied")}),
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics),
+    Documentation(info="<html>
+<p>
+This model outputs whether the building is currently occupied,
+and how long it will take until the next time when the building 
+will be occupied or non-occupied.
+The latter may be used, for example, to start a ventilation system
+half an hour before occupancy starts in order to ventilate the room.
+</p>
+<p>
+The occupancy is defined by a time schedule of the form
+<pre>
+  occupancy = 3600*{7, 12, 14, 19}
+</pre>
+This indicates that the occupancy is from <tt>7:00</tt> until <tt>12:00</tt>
+and from <tt>14:00</tt> to <tt>19:00</tt>. This will be repeated periodically.
+The parameters <tt>startTime<tt> and <tt>endTime</tt> define the periodicity.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 2, 2009, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end OccupancySchedule;

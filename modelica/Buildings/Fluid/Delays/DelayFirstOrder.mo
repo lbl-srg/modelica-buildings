@@ -1,35 +1,31 @@
 within Buildings.Fluid.Delays;
 model DelayFirstOrder
   "Delay element, approximated by a first order differential equation"
-  extends Buildings.Fluid.MixingVolumes.MixingVolume(final V=V0, nPorts=2);
+  extends Buildings.Fluid.MixingVolumes.MixingVolume(final V=V0);
+
+  parameter Modelica.SIunits.Time tau = 60 "Time constant at nominal flow"
+     annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
+    "Mass flow rate"
+     annotation(Dialog(group = "Nominal condition"));
+
+protected
+   parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=T_start,
+         p=p_start, X=X_start[1:Medium.nXi]);
+   parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
+    "Density, used to compute fluid volume";
+   parameter Modelica.SIunits.Volume V0 = m_flow_nominal*tau/rho_nominal
+    "Volume of delay element";
   annotation (Diagram(graphics),
-    Icon(graphics={
-        Rectangle(
-          extent={{-100,100},{102,-100}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-72,78},{78,-46}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{-60,22},{48,-74}},
-          lineColor={255,255,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid,
-          textString="tau=%tau"),
-        Text(
-          extent={{-36,84},{30,-10}},
-          lineColor={255,255,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid,
-          textString="1/s")}),
+    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
+            100}}), graphics={Ellipse(
+          extent={{-100,98},{100,-102}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={170,213,255}), Text(
+          extent={{-72,22},{68,-18}},
+          lineColor={0,0,0},
+          textString="tau=%tau")}),
     Documentation(info="<html>
 <p>
 This model approximates a transport delay using a first order differential equations.
@@ -62,18 +58,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-  parameter Modelica.SIunits.Time tau = 60 "Time constant at nominal flow" 
-     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
-    "Mass flow rate" 
-     annotation(Dialog(group = "Nominal condition"));
-
-protected
-   parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=T_start,
-         p=p_start, X=X_start[1:Medium.nXi]);
-   parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
-    "Density, used to compute fluid volume";
-   parameter Modelica.SIunits.Volume V0 = m_flow_nominal*tau/rho_nominal
-    "Volume of delay element";
 end DelayFirstOrder;

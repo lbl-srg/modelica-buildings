@@ -1,6 +1,16 @@
 within Buildings.Fluid.HeatExchangers;
 model HeaterCoolerPrescribed "Heater or cooler with prescribed heat flow rate"
-  extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer;
+  extends Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer(
+    sensibleOnly=true);
+
+  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
+    "Heat flow rate at u=1, positive for heating";
+  Modelica.Blocks.Interfaces.RealInput u "Control input"
+    annotation (Placement(transformation(
+          extent={{-140,40},{-100,80}}, rotation=0)));
+equation
+  Q_flow = Q_flow_nominal * u;
+  mXi_flow = zeros(Medium.nXi); // no mass added or removed (sensible heat only)
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -53,13 +63,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
-    "Heat flow rate at u=1, positive for heating";
-  Modelica.Blocks.Interfaces.RealInput u "Control input" 
-    annotation (Placement(transformation(
-          extent={{-140,40},{-100,80}}, rotation=0)));
-equation
-  Q_flow = Q_flow_nominal * u;
-  mXi_flow = zeros(Medium.nXi); // no mass added or removed (sensible heat only)
 end HeaterCoolerPrescribed;

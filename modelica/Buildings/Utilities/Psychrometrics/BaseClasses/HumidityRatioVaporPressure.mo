@@ -2,6 +2,27 @@ within Buildings.Utilities.Psychrometrics.BaseClasses;
 partial block HumidityRatioVaporPressure
   "Humidity ratio for given water vapor pressure"
   extends Modelica.Blocks.Interfaces.BlockIcon;
+  parameter Boolean use_p_in = true "Get the pressure from the input connector"
+    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+
+  parameter Modelica.SIunits.Pressure p = 101325 "Fixed value of pressure"
+    annotation (Evaluate = true,
+                Dialog(enable = not use_p_in));
+  Modelica.Blocks.Interfaces.RealInput p_in(final quantity="Pressure",
+                                         final unit="Pa",
+                                         min = 0) if  use_p_in
+    "Atmospheric Pressure"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}},
+                rotation=0)));
+
+protected
+  Modelica.Blocks.Interfaces.RealInput p_in_internal
+    "Needed to connect to conditional connector";
+equation
+  connect(p_in, p_in_internal);
+  if not use_p_in then
+    p_in_internal = p;
+  end if;
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
@@ -42,25 +63,4 @@ First implementation.
           extent={{-90,108},{-34,16}},
           lineColor={0,0,0},
           textString="p_in")}));
-  parameter Boolean use_p_in = true "Get the pressure from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
-
-  parameter Modelica.SIunits.Pressure p = 101325 "Fixed value of pressure" 
-    annotation (Evaluate = true,
-                Dialog(enable = not use_p_in));
-  Modelica.Blocks.Interfaces.RealInput p_in(final quantity="Pressure",
-                                         final unit="Pa",
-                                         min = 0) if  use_p_in
-    "Atmospheric Pressure" 
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}},
-                rotation=0)));
-
-protected
-  Modelica.Blocks.Interfaces.RealInput p_in_internal
-    "Needed to connect to conditional connector";
-equation
-  connect(p_in, p_in_internal);
-  if not use_p_in then
-    p_in_internal = p;
-  end if;
 end HumidityRatioVaporPressure;

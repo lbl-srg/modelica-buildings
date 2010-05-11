@@ -2,8 +2,7 @@ within Buildings.Media.Interfaces;
 partial package PartialSimpleIdealGasMedium
   "Medium model of Ideal gas with constant cp and cv. All other quantities, e.g. transport properties, are constant."
 
-  extends Modelica.Media.Interfaces.PartialPureSubstance(final singleState=
-        false);
+  extends Modelica.Media.Interfaces.PartialPureSubstance(singleState=false);
 
   import SI = Modelica.SIunits;
   constant SpecificHeatCapacity cp_const
@@ -60,9 +59,9 @@ quantities are assumed to be constant.
     input Temperature T "Temperature";
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "thermodynamic state record";
-    annotation(Documentation(info="<html></html>"));
   algorithm
     state := ThermodynamicState(p=p,T=T);
+    annotation(Documentation(info="<html></html>"));
   end setState_pTX;
 
   redeclare function setState_phX
@@ -72,9 +71,9 @@ quantities are assumed to be constant.
     input SpecificEnthalpy h "Specific enthalpy";
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "thermodynamic state record";
-    annotation(Documentation(info="<html></html>"));
   algorithm
     state := ThermodynamicState(p=p,T=T0+h/cp_const);
+    annotation(Documentation(info="<html></html>"));
   end setState_phX;
 
   redeclare replaceable function setState_psX
@@ -84,10 +83,10 @@ quantities are assumed to be constant.
     input SpecificEntropy s "Specific entropy";
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "thermodynamic state record";
-    annotation(Documentation(info="<html></html>"));
   algorithm
-    state := ThermodynamicState(p=p,T=Modelica.Math.exp(s/cp_const + Modelica.Math.log(reference_T))
+    state := ThermodynamicState(p=p,T=Modelica.Math.exp(s/cp_const + Modelica.Math.log(T0))
                                 + R_gas*Modelica.Math.log(p/reference_p));
+    annotation(Documentation(info="<html></html>"));
   end setState_psX;
 
   redeclare replaceable function setState_dTX
@@ -97,23 +96,23 @@ quantities are assumed to be constant.
     input Temperature T "Temperature";
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "thermodynamic state record";
-    annotation(Documentation(info="<html></html>"));
   algorithm
     state := ThermodynamicState(p=d*R_gas*T,T=T);
+    annotation(Documentation(info="<html></html>"));
   end setState_dTX;
 
   redeclare function extends pressure "Return pressure of ideal gas"
 
-    annotation(Documentation(info="<html></html>"));
   algorithm
     p := state.p;
+    annotation(Documentation(info="<html></html>"));
   end pressure;
 
   redeclare function extends temperature "Return temperature of ideal gas"
 
-    annotation(Documentation(info="<html></html>"));
   algorithm
     T := state.T;
+    annotation(Documentation(info="<html></html>"));
   end temperature;
 
   redeclare replaceable function extends density "Return density of ideal gas"
@@ -123,84 +122,84 @@ quantities are assumed to be constant.
 
   redeclare function extends specificEnthalpy "Return specific enthalpy"
       extends Modelica.Icons.Function;
-    annotation(Documentation(info="<html></html>"));
   algorithm
     h := cp_const*(state.T-T0);
+    annotation(Documentation(info="<html></html>"));
   end specificEnthalpy;
 
   redeclare function extends specificInternalEnergy
     "Return specific internal energy"
     extends Modelica.Icons.Function;
-    annotation(Documentation(info="<html></html>"));
   algorithm
     u := (cp_const-R_gas)*(state.T-T0);
+    annotation(Documentation(info="<html></html>"));
   end specificInternalEnergy;
 
   redeclare replaceable function extends specificEntropy
     "Return specific entropy"
       extends Modelica.Icons.Function;
-    annotation(Documentation(info="<html></html>"));
   algorithm
     s := cp_const*Modelica.Math.log(state.T/T0) - R_gas*Modelica.Math.log(state.p/reference_p);
+    annotation(Documentation(info="<html></html>"));
   end specificEntropy;
 
   redeclare function extends specificGibbsEnergy "Return specific Gibbs energy"
     extends Modelica.Icons.Function;
-    annotation(Documentation(info="<html></html>"));
   algorithm
     g := cp_const*(state.T-T0) - state.T*specificEntropy(state);
+    annotation(Documentation(info="<html></html>"));
   end specificGibbsEnergy;
 
   redeclare function extends specificHelmholtzEnergy
     "Return specific Helmholtz energy"
     extends Modelica.Icons.Function;
-    annotation(Documentation(info="<html></html>"));
   algorithm
     f := (cp_const-R_gas)*(state.T-T0) - state.T*specificEntropy(state);
+    annotation(Documentation(info="<html></html>"));
   end specificHelmholtzEnergy;
 
   redeclare function extends dynamicViscosity "Return dynamic viscosity"
 
-    annotation(Documentation(info="<html></html>"));
   algorithm
     eta := eta_const;
+    annotation(Documentation(info="<html></html>"));
   end dynamicViscosity;
 
   redeclare function extends thermalConductivity "Return thermal conductivity"
 
-    annotation(Documentation(info="<html></html>"));
   algorithm
     lambda := lambda_const;
+    annotation(Documentation(info="<html></html>"));
   end thermalConductivity;
 
   redeclare function extends specificHeatCapacityCp
     "Return specific heat capacity at constant pressure"
 
-    annotation(Documentation(info="<html></html>"));
   algorithm
     cp := cp_const;
+    annotation(Documentation(info="<html></html>"));
   end specificHeatCapacityCp;
 
   redeclare function extends specificHeatCapacityCv
     "Return specific heat capacity at constant volume"
 
-    annotation(Documentation(info="<html></html>"));
   algorithm
     cv := cv_const;
+    annotation(Documentation(info="<html></html>"));
   end specificHeatCapacityCv;
 
   redeclare function extends isentropicExponent "Return isentropic exponent"
 
-    annotation(Documentation(info="<html></html>"));
   algorithm
     gamma := cp_const/cv_const;
+    annotation(Documentation(info="<html></html>"));
   end isentropicExponent;
 
   redeclare function extends velocityOfSound "Return velocity of sound "
 
-    annotation(Documentation(info="<html></html>"));
   algorithm
     a := sqrt(cp_const/cv_const*R_gas*state.T);
+    annotation(Documentation(info="<html></html>"));
   end velocityOfSound;
 
   redeclare function specificEnthalpy_pTX
@@ -210,9 +209,9 @@ quantities are assumed to be constant.
     input Temperature T "Temperature";
     input MassFraction X[nX] "Mass fractions";
     output SpecificEnthalpy h "Specific enthalpy at p, T, X";
-    annotation(Documentation(info="<html></html>"));
   algorithm
     h := cp_const*(T-T0);
+    annotation(Documentation(info="<html></html>"));
   end specificEnthalpy_pTX;
 
   redeclare function temperature_phX
@@ -222,9 +221,9 @@ quantities are assumed to be constant.
     input SpecificEnthalpy h "Specific enthalpy";
     input MassFraction X[nX] "Mass fractions";
     output Temperature T "Temperature";
-    annotation(Documentation(info="<html></html>"));
   algorithm
     T := h/cp_const + T0;
+    annotation(Documentation(info="<html></html>"));
   end temperature_phX;
 
   redeclare function density_phX "Return density from p, h, and X or Xi"
@@ -233,9 +232,9 @@ quantities are assumed to be constant.
     input SpecificEnthalpy h "Specific enthalpy";
     input MassFraction X[nX] "Mass fractions";
     output Density d "density";
-    annotation(Documentation(info="<html></html>"));
   algorithm
     d := density(setState_phX(p,h,X));
+    annotation(Documentation(info="<html></html>"));
   end density_phX;
 
   annotation (Documentation(info="<html>
@@ -245,7 +244,16 @@ except that the functions.
 <tt>density</tt>,
 <tt>specificEntropy</tt> and <tt>setState_dTX</tt> are declared as <tt>replaceable</tt>.
 This is required for the implementation of 
-<a href=\"Modelica:Buildings.Media.GasesPTDecoupled.SimpleAir\">
+<a href=\"modelica://Buildings.Media.GasesPTDecoupled.SimpleAir\">
 Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
+</html>", revisions="<html>
+<ul>
+<li>
+February 18, 2010, by Michael Wetter:<br>
+In <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_psX\">
+setState_psX</a>, replaced
+<code>reference_T</code> with <code>T0</code> because enthalpy is defined as zero at <code>T0</code>.
+</li>
+</ul>
 </html>"));
 end PartialSimpleIdealGasMedium;

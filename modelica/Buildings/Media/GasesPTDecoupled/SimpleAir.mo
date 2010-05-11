@@ -31,43 +31,6 @@ package SimpleAir
 //      mediumName="GasesPTDecoupled.SimpleAir",
 //      T_min=Cv.from_degC(-50));
 
-  annotation (preferedView="info", Documentation(info="<HTML>
-<p>
-This medium model is identical to 
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
-Modelica.Media.Air.SimpleAir</a>, except the 
-equation <tt>d = p/(R*T)</tt> has been replaced with 
-<tt>d/dStp = p/pStp</tt> where 
-<tt>pStd</tt> and <tt>dStp</tt> are constants for a reference
-temperature and density.
-</p>
-<p>
-This new formulation often leads to smaller systems of nonlinear equations 
-because pressure and temperature are decoupled, at the expense of accuracy.
-</p>
-<p>
-As in
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
-Modelica.Media.Air.SimpleAir</a>, the
-specific enthalpy h and specific internal energy u are only
-a function of temperature T and all other provided medium
-quantities are constant.
-</p>
-</HTML>", revisions="<html>
-<ul>
-<li>
-August 21, 2008, by Michael Wetter:<br>
-Replaced <tt>d*pStp = p*dStp</tt> by
-<tt>d/dStp = p/pStp</tt> to indicate that division by 
-<tt>dStp</tt> and <tt>pStp</tt> is allowed.
-</li>
-<li>
-March 19, 2008, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
-
 // redeclare model BaseProperties "Basic medium properties"
 //    extends BasePropertiesRecord;
 
@@ -102,15 +65,6 @@ First implementation.
     SI.Conversions.NonSIunits.Pressure_bar p_bar=
      Modelica.SIunits.Conversions.to_bar(p)
       "Absolute pressure of medium in [bar]";
-    annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-              -100},{100,100}}), graphics={Rectangle(
-            extent={{-100,100},{100,-100}},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid,
-            lineColor={0,0,255}), Text(
-            extent={{-152,164},{152,102}},
-            textString="%name",
-            lineColor={0,0,255})}));
 
     // Local connector definition, used for equation balancing check
     connector InputAbsolutePressure = input SI.AbsolutePressure
@@ -157,6 +111,15 @@ First implementation.
     MM = MM_const;
     state.T = T;
     state.p = p;
+    annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+              -100},{100,100}}), graphics={Rectangle(
+            extent={{-100,100},{100,-100}},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid,
+            lineColor={0,0,255}), Text(
+            extent={{-152,164},{152,102}},
+            textString="%name",
+            lineColor={0,0,255})}));
  end BaseProperties;
 
  redeclare function setState_dTX
@@ -185,4 +148,40 @@ First implementation.
  algorithm
     s := cp_const*Modelica.Math.log(state.T/T0);// - R_gas*Modelica.Math.log(state.p/reference_p);
  end specificEntropy;
+  annotation (preferedView="info", Documentation(info="<HTML>
+<p>
+This medium model is identical to 
+<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
+Modelica.Media.Air.SimpleAir</a>, except the 
+equation <tt>d = p/(R*T)</tt> has been replaced with 
+<tt>d/dStp = p/pStp</tt> where 
+<tt>pStd</tt> and <tt>dStp</tt> are constants for a reference
+temperature and density.
+</p>
+<p>
+This new formulation often leads to smaller systems of nonlinear equations 
+because pressure and temperature are decoupled, at the expense of accuracy.
+</p>
+<p>
+As in
+<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
+Modelica.Media.Air.SimpleAir</a>, the
+specific enthalpy h and specific internal energy u are only
+a function of temperature T and all other provided medium
+quantities are constant.
+</p>
+</HTML>", revisions="<html>
+<ul>
+<li>
+August 21, 2008, by Michael Wetter:<br>
+Replaced <tt>d*pStp = p*dStp</tt> by
+<tt>d/dStp = p/pStp</tt> to indicate that division by 
+<tt>dStp</tt> and <tt>pStp</tt> is allowed.
+</li>
+<li>
+March 19, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SimpleAir;

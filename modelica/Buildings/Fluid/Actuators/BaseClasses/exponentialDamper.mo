@@ -2,34 +2,6 @@ within Buildings.Fluid.Actuators.BaseClasses;
 function exponentialDamper
   "Damper opening characteristics for an exponential damper"
 
-annotation (
-Documentation(info="<html>
-<p>
-This function computes the opening characteristics of an exponential damper.
-</p><p>
-The function is used by the model 
-<a href=\"Modelica:Buildings.Fluid.Actuators.Dampers.Exponential\">
-Dampers.Exponential</a>.
-</p><p>
-For <tt>yL &lt; y &lt; yU</tt>, the damper characteristics is <pre>
-  k = exp(a+b*(1-y)).
-</pre>
-Outside this range, the damper characteristic is defined by a quadratic polynomial.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-February 24, 2010 by Michael Wetter:</br>
-Added assert to check for valid input. This helps detecting wrong controls, which
-can lead to non-convergence (or non-physical results) if <code>y &lt; 0</code>.
-</li>
-<li>
-June 22, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
   input Real y(min=0, max=1, unit="")
     "Control signal, y=0 is closed, y=1 is open";
   input Real a(unit="") "Coefficient a for damper characteristics";
@@ -39,21 +11,54 @@ First implementation.
   input Real yL "Lower value for damper curve";
   input Real yU "Upper value for damper curve";
 
-  output Real kTheta(min=0)
-    "Flow coefficient, kTheta = pressure drop divided by dynamic pressure";
-  annotation(smoothOrder=1, derivative=der_exponentialDamper);
+  output Real kThetaSqRt(min=0)
+    "Flow coefficient, kThetaSqRT = =sqrt(kTheta) = sqrt(pressure drop/dynamic pressure)";
 algorithm
-  assert(y >-0.00000001,
-     "Control input y for exponentialDamper must be non-negative. Received y = " + realString(y));
-  assert(y < 1.00000001,
-     "Control input y for exponentialDamper must not be bigger than one. Received y = " + realString(y));
   if y < yL then
-    kTheta := Modelica.Math.exp(cL[3] + y * (cL[2] + y * cL[1]));
+    kThetaSqRt := sqrt(Modelica.Math.exp(cL[3] + y * (cL[2] + y * cL[1])));
   else
     if (y > yU) then
-      kTheta := Modelica.Math.exp(cU[3] + y * (cU[2] + y * cU[1]));
+      kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + y * (cU[2] + y * cU[1])));
     else
-      kTheta := Modelica.Math.exp(a+b*(1-y)) "y=0 is closed";
+      kThetaSqRt := sqrt(Modelica.Math.exp(a+b*(1-y))) "y=0 is closed";
     end if;
   end if;
+annotation (
+Documentation(info="<html>
+<p>
+This function computes the opening characteristics of an exponential damper.
+</p><p>
+The function is used by the model 
+<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.Exponential\">
+Dampers.Exponential</a>.
+</p><p>
+For <tt>yL &lt; y &lt; yU</tt>, the damper characteristics is 
+</p>
+<pre>
+  k = exp(a+b*(1-y)).
+</pre>
+<p>
+Outside this range, the damper characteristic is defined by a quadratic polynomial.
+</p>
+<p>
+Note that this implementation returns <code>sqrt(k)</code> instead of <code>k</code>.
+This is done for numerical reason since otherwise <code>k</code> may be an iteration
+variable, which may cause a lot of warnings and slower convergence if the solver
+attempts <code>k &lt; 0</code> during the iterative solution procedure.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+April 4, 2010 by Michael Wetter:<br>
+Reformulated implementation. The new implementation computes
+<code>sqrt(kTheta)</code>. This avoid having <code>kTheta</code> in
+the iteration variables, which caused warnings when the solver attempted
+<code>kTheta &lt; 0</code>.
+<li>
+June 22, 2008 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"),   smoothOrder=1);
 end exponentialDamper;

@@ -2,6 +2,15 @@ within Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples;
 model DewPointTemperatureDerivativeCheck
   "Model to test correct implementation of derivative"
 
+    Real x;
+    Real y;
+    parameter Real uniCon(unit="K/s") = 1 "Constant to convert units";
+initial equation
+     y=x;
+equation
+    x=Buildings.Utilities.Psychrometrics.Functions.pW_Tdp(  T=time*uniCon);
+    der(y)=der(x);
+    assert(abs(x-y) < 1E-2, "Model has an error");
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics),
@@ -10,8 +19,7 @@ model DewPointTemperatureDerivativeCheck
         StartTime=273.15,
         StopTime=473.15,
         Algorithm="Euler"),
-      experimentSetupOutput);
-    annotation (
+      experimentSetupOutput,
       Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -26,13 +34,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-    Real x;
-    Real y;
-    parameter Real uniCon(unit="K/s") = 1 "Constant to convert units";
-initial equation
-     y=x;
-equation
-    x=Buildings.Utilities.Psychrometrics.Functions.pW_Tdp(  T=time*uniCon);
-    der(y)=der(x);
-    assert(abs(x-y) < 1E-2, "Model has an error");
 end DewPointTemperatureDerivativeCheck;

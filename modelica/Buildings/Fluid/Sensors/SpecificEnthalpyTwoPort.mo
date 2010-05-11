@@ -4,7 +4,7 @@ model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg")
-    "Specific enthalpy of the passing fluid" 
+    "Specific enthalpy of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{10,-10},{-10,10}},
@@ -14,6 +14,12 @@ model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
     "For bi-directional flow, specific enthalpy is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
     annotation(Dialog(tab="Advanced"));
 
+equation
+  if allowFlowReversal then
+     h_out = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow, port_a.h_outflow, m_flow_small);
+  else
+     h_out = port_b.h_outflow;
+  end if;
 annotation (defaultComponentName="specificEnthalpy",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
@@ -33,10 +39,4 @@ The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 </HTML>
 "));
-equation
-  if allowFlowReversal then
-     h_out = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow, port_a.h_outflow, m_flow_small);
-  else
-     h_out = port_b.h_outflow;
-  end if;
 end SpecificEnthalpyTwoPort;

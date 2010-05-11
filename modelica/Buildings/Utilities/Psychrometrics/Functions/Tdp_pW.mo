@@ -2,6 +2,11 @@ within Buildings.Utilities.Psychrometrics.Functions;
 function Tdp_pW
   "Function to compute the water vapor partial pressure for a given dew point temperature of moist air"
 
+  input Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
+  output Modelica.SIunits.Temperature T "Dew point temperature";
+
+algorithm
+  T := Internal.solve(y_zero=p_w, x_min=200, x_max=400, f_nonlinear_data={0});
     annotation (
     Documentation(info="<html>
 <p>
@@ -27,7 +32,7 @@ Fixed derivative implementation.
 <li>
 September 4, 2008 by Michael Wetter:<br>
 Changed from causal to acausal ports, needed, for example, for
-<a href=\"Modelica:Buildings.Fluid.Examples.MixingVolumeMoistAir\">
+<a href=\"modelica://Buildings.Fluid.Examples.MixingVolumeMoistAir\">
 Buildings.Fluid.Examples.MixingVolumeMoistAir</a>.
 </li>
 <li>
@@ -39,12 +44,6 @@ First implementation.
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}), graphics));
-
-  input Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
-  output Modelica.SIunits.Temperature T "Dew point temperature";
-
- annotation(smoothOrder=1);
-algorithm
-  T := Internal.solve(y_zero=p_w, x_min=200, x_max=400, f_nonlinear_data={0});
+            100,100}}), graphics),
+            smoothOrder=1);
 end Tdp_pW;

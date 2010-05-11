@@ -2,23 +2,6 @@ within Buildings.Utilities.Math.Functions;
 function smoothExponential
   "Once continuously differentiable approximation to exp(-|x|) in interval |x| < delta"
 
-    annotation (smoothOrder=1, Documentation(info="<html>
-<p>
-Function to provide a once continuously differentiable approximation 
-to <tt>exp(- |x| )</tt>
-in the interval <tt>|x| < delta</tt> for some positive <tt>delta</tt>
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-October 30, 2008, by Michael Wetter:<br>
-First implementation to reduce chattering in 
-<a href=\"Modelica:Buildings.Fluid.Storage.BaseClasses.Stratifier\"</a>
-Buildings.Fluid.Storage.BaseClasses.Stratifier</a>.
-</li>
-</ul>
-</html>"));
-
   input Real x "Input argument";
   input Real delta "Transition point where approximation occurs";
   output Real y "Output argument";
@@ -41,4 +24,20 @@ algorithm
     x2 := x*x;
     y  := 1+x2*(a2+x2*a3);
   end if;
+    annotation (smoothOrder=1, Documentation(info="<html>
+<p>
+Function to provide a once continuously differentiable approximation 
+to <tt>exp(- |x| )</tt>
+in the interval <tt>|x| < delta</tt> for some positive <tt>delta</tt>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+October 30, 2008, by Michael Wetter:<br>
+First implementation to reduce chattering in 
+<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.Stratifier\"</a>
+Buildings.Fluid.Storage.BaseClasses.Stratifier</a>.
+</li>
+</ul>
+</html>"));
 end smoothExponential;

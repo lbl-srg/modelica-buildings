@@ -1,6 +1,11 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 partial model PartialPipeManifold "Partial pipe manifold for a heat exchanger"
   extends PartialDuctPipeManifold;
+  Modelica.Fluid.Interfaces.FluidPort_b[nPipPar] port_b(
+        redeclare each package Medium = Medium,
+        each m_flow(start=-mStart_flow_a/nPipPar, max=if allowFlowReversal then +Modelica.Constants.inf else 0))
+    "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=0)));
 annotation(Diagram(graphics),
                     Documentation(info="<html>
 <p>
@@ -24,9 +29,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  Modelica.Fluid.Interfaces.FluidPort_b[nPipPar] port_b(
-        redeclare each package Medium = Medium,
-        each m_flow(start=-mStart_flow_a/nPipPar, max=if allowFlowReversal then +Modelica.Constants.inf else 0))
-    "Fluid connector b for medium (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=0)));
 end PartialPipeManifold;

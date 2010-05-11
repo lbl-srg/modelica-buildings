@@ -1,9 +1,5 @@
 within Buildings.Utilities.Reports.Examples;
 model Printer "Test model for printer"
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-                      Commands(file="Printer.mos" "run"));
   Buildings.Utilities.Reports.Printer pri1(
     header="time ramp",
     nin=2)                       annotation (Placement(transformation(extent={{-20,40},
@@ -12,7 +8,6 @@ model Printer "Test model for printer"
            {{-80,40},{-60,60}}, rotation=0)));
   Modelica.Blocks.Sources.Ramp ram annotation (Placement(transformation(extent=
             {{-80,0},{-60,20}}, rotation=0)));
-  annotation (Diagram);
   Buildings.Utilities.Reports.Printer pri2(
     header="time ramp",
     nin=2,
@@ -36,4 +31,9 @@ equation
           {-22,-31}}, color={0,0,127}));
   connect(ram.y, pri3.x[2]) annotation (Line(points={{-59,10},{-40,10},{-40,-29},
           {-22,-29}}, color={0,0,127}));
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                     graphics),
+                      Commands(file="Printer.mos" "run"),
+              Diagram);
 end Printer;

@@ -3,6 +3,67 @@ block HotWaterTemperatureReset
   "Block to compute the supply and return set point of heating systems"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
+  parameter Real m = 1.3 "Exponent for heat transfer";
+  parameter Modelica.SIunits.Temperature TSup_nominal "Supply temperature"
+    annotation (Dialog(group="Nominal conditions"));
+  parameter Modelica.SIunits.Temperature TRet_nominal "Return temperature"
+    annotation (Dialog(group="Nominal conditions"));
+  parameter Modelica.SIunits.Temperature TRoo_nominal = 293.15
+    "Room temperature"
+    annotation (Dialog(group="Nominal conditions"));
+  parameter Modelica.SIunits.Temperature TOut_nominal "Outside temperature"
+    annotation (Dialog(group="Nominal conditions"));
+
+  parameter Boolean use_TRoo_in = false
+    "Get the room temperature set point from the input connector"
+    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+  parameter Modelica.SIunits.Temperature TRoo = 293.15
+    "Fixed value of room air temperature set point"
+    annotation (Evaluate = true,
+                Dialog(enable = not use_TRoo_in));
+  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal = 8
+    "Offset for heating curve";
+  Modelica.Blocks.Interfaces.RealInput TRoo_in(final quantity="ThermodynamicTemperature",
+                                               final unit = "K", displayUnit = "degC", min=0) if
+          use_TRoo_in "Room air temperature set point"
+    annotation (Placement(transformation(extent={{-139,-80},{-99,-40}},
+          rotation=0)));
+
+  Modelica.Blocks.Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
+                                            final unit = "K", displayUnit = "degC", min=0)
+    "Outside temperature"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  Modelica.Blocks.Interfaces.RealOutput TSup(final quantity="ThermodynamicTemperature",
+                                            final unit = "K", displayUnit = "degC", min=0)
+    "Setpoint for supply temperature"
+    annotation (Placement(transformation(extent={{100,50},{120,70}})));
+  Modelica.Blocks.Interfaces.RealOutput TRet(final quantity="ThermodynamicTemperature",
+                                            final unit = "K", displayUnit = "degC", min=0)
+    "Setpoint for return temperature"
+    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
+
+protected
+  Modelica.Blocks.Interfaces.RealInput TRoo_in_internal(final quantity="ThermodynamicTemperature",
+                                                        final unit = "K", displayUnit = "degC", min=0)
+    "Needed to connect to conditional connector";
+  Real qRel "Relative heat load = Q_flow/Q_flow_nominal";
+  Modelica.SIunits.Temperature TOutOffSet
+    "Effective outside temperature for heat transfer (takes into account room heat gains)";
+  parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal
+    "Effective outside temperature for heat transfer at nominal conditions (takes into account room heat gains)";
+
+equation
+  connect(TRoo_in, TRoo_in_internal);
+  if not use_TRoo_in then
+    TRoo_in_internal = TRoo;
+  end if;
+ TOutOffSet = TOut + dTOutHeaBal;
+ // Relative heating load, compared to nominal conditions
+ qRel = max(0, (TRoo_in_internal-TOutOffSet)/(TRoo_nominal-TOutOffSet_nominal));
+ TSup = TRoo_in_internal
+          + ((TSup_nominal+TRet_nominal)/2-TRoo_in_internal) * qRel^(1/m)
+          + (TSup_nominal-TRet_nominal)/2 * qRel;
+ TRet = TSup - qRel * (TSup_nominal-TRet_nominal);
   annotation (Documentation(info="<html>
 This block computes the set point temperatures for the
 supply and return temperature of a heating system.
@@ -67,69 +128,7 @@ First implementation.
         Text(
           extent={{42,-30},{92,-80}},
           lineColor={0,0,127},
-          textString="TRet")}));
-
-  parameter Real m = 1.3 "Exponent for heat transfer";
-  parameter Modelica.SIunits.Temperature TSup_nominal "Supply temperature" 
-    annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TRet_nominal "Return temperature" 
-    annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TRoo_nominal = 293.15
-    "Room temperature" 
-    annotation (Dialog(group="Nominal conditions"));
-  parameter Modelica.SIunits.Temperature TOut_nominal "Outside temperature" 
-    annotation (Dialog(group="Nominal conditions"));
-
-  parameter Boolean use_TRoo_in = false
-    "Get the room temperature set point from the input connector" 
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
-  parameter Modelica.SIunits.Temperature TRoo = 293.15
-    "Fixed value of room air temperature set point" 
-    annotation (Evaluate = true,
-                Dialog(enable = not use_TRoo_in));
-  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal = 8
-    "Offset for heating curve";
-  Modelica.Blocks.Interfaces.RealInput TRoo_in(final quantity="ThermodynamicTemperature",
-                                               final unit = "K", displayUnit = "degC", min=0) if 
-          use_TRoo_in "Room air temperature set point" 
-    annotation (Placement(transformation(extent={{-139,-80},{-99,-40}},
-          rotation=0)));
-
-  Modelica.Blocks.Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
-                                            final unit = "K", displayUnit = "degC", min=0)
-    "Outside temperature" 
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealOutput TSup(final quantity="ThermodynamicTemperature",
-                                            final unit = "K", displayUnit = "degC", min=0)
-    "Setpoint for supply temperature" 
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput TRet(final quantity="ThermodynamicTemperature",
-                                            final unit = "K", displayUnit = "degC", min=0)
-    "Setpoint for return temperature" 
-    annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
-
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+          textString="TRet")}),
+              Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics));
-protected
-  Modelica.Blocks.Interfaces.RealInput TRoo_in_internal(final quantity="ThermodynamicTemperature",
-                                                        final unit = "K", displayUnit = "degC", min=0)
-    "Needed to connect to conditional connector";
-  Real qRel "Relative heat load = Q_flow/Q_flow_nominal";
-  Modelica.SIunits.Temperature TOutOffSet
-    "Effective outside temperature for heat transfer (takes into account room heat gains)";
-  parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal
-    "Effective outside temperature for heat transfer at nominal conditions (takes into account room heat gains)";
-
-equation
-  connect(TRoo_in, TRoo_in_internal);
-  if not use_TRoo_in then
-    TRoo_in_internal = TRoo;
-  end if;
- TOutOffSet = TOut + dTOutHeaBal;
- // Relative heating load, compared to nominal conditions
- qRel = max(0, (TRoo_in_internal-TOutOffSet)/(TRoo_nominal-TOutOffSet_nominal));
- TSup = TRoo_in_internal
-          + ((TSup_nominal+TRet_nominal)/2-TRoo_in_internal) * qRel^(1/m)
-          + (TSup_nominal-TRet_nominal)/2 * qRel;
- TRet = TSup - qRel * (TSup_nominal-TRet_nominal);
 end HotWaterTemperatureReset;

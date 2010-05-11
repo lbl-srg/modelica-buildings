@@ -19,6 +19,25 @@ model SplitterFixedResistanceDpM
          ReC=ReC[3], dh=dh[3],
          linearized=linearized, deltaM=deltaM));
 
+
+  parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
+       annotation(Evaluate=true, Dialog(enable = not linearized));
+  parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal(each min=0)
+    "Mass flow rate"                                                annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.Pressure[3] dp_nominal(each min=0) "Pressure"
+                                                      annotation(Dialog(group = "Nominal condition"));
+  parameter Real deltaM(min=0) = 0.3
+    "Fraction of nominal mass flow rate where transition to turbulent occurs"
+       annotation(Dialog(enable = not use_dh and not linearized));
+
+  parameter Modelica.SIunits.Length[3] dh={1, 1, 1} "Hydraulic diameter"
+    annotation(Dialog(enable = use_dh and not linearized));
+  parameter Real[3] ReC={4000, 4000, 4000}
+    "Reynolds number where transition to turbulent starts"
+      annotation(Dialog(enable = use_dh and not linearized));
+  parameter Boolean linearized = false
+    "= true, use linear relation between m_flow and dp for any flow rate"
+    annotation(Dialog(tab="Advanced"));
   annotation (Diagram(graphics),
                        Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
@@ -35,7 +54,7 @@ model SplitterFixedResistanceDpM
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,128,255}),
         Ellipse(
-   visible=dynamicBalance,
+          visible=dynamicBalance,
           extent={{-38,36},{40,-40}},
           lineColor={0,0,127},
           fillColor={0,0,127},
@@ -50,7 +69,7 @@ revisions="<html>
 <li>
 June 11, 2008 by Michael Wetter:<br>
 Based class on 
-<a href=\"Modelica:Buildings.Fluid.BaseClasses.PartialThreeWayFixedResistance\">
+<a href=\"modelica://Buildings.Fluid.BaseClasses.PartialThreeWayFixedResistance\">
 PartialThreeWayFixedResistance</a>.
 </li>
 <li>
@@ -59,23 +78,4 @@ First implementation.
 </li>
 </ul>
 </html>");
-
-  parameter Boolean use_dh = false "Set to true to specify hydraulic diameter" 
-       annotation(Evaluate=true, Dialog(enable = not linearized));
-  parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal(each min=0)
-    "Mass flow rate"                                                annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure[3] dp_nominal(each min=0) "Pressure" 
-                                                      annotation(Dialog(group = "Nominal condition"));
-  parameter Real deltaM(min=0) = 0.3
-    "Fraction of nominal mass flow rate where transition to turbulent occurs" 
-       annotation(Dialog(enable = not use_dh and not linearized));
-
-  parameter Modelica.SIunits.Length[3] dh={1, 1, 1} "Hydraulic diameter" 
-    annotation(Dialog(enable = use_dh and not linearized));
-  parameter Real[3] ReC={4000, 4000, 4000}
-    "Reynolds number where transition to turbulent starts" 
-      annotation(Dialog(enable = use_dh and not linearized));
-  parameter Boolean linearized = false
-    "= true, use linear relation between m_flow and dp for any flow rate" 
-    annotation(Dialog(tab="Advanced"));
 end SplitterFixedResistanceDpM;

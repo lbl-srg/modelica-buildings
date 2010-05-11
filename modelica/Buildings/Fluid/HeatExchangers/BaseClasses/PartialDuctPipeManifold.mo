@@ -5,10 +5,26 @@ partial model PartialDuctPipeManifold
 
   outer Modelica.Fluid.System system "System wide properties";
 
-  replaceable package Medium = 
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component" 
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
+  parameter Boolean allowFlowReversal = system.allowFlowReversal
+    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
+    annotation(Dialog(tab="Assumptions"), Evaluate=true);
+
+  parameter Integer nPipPar(min=1) "Number of parallel pipes in each register";
+
+  parameter Modelica.SIunits.MassFlowRate mStart_flow_a
+    "Guess value for mass flow rate at port_a"
+    annotation(Dialog(group = "Initialization"));
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(
+        redeclare package Medium = Medium,
+        m_flow(start=mStart_flow_a, min=if allowFlowReversal then -Modelica.Constants.inf else 0))
+    "Fluid connector a for medium (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
+           0)));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -63,20 +79,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  parameter Boolean allowFlowReversal = system.allowFlowReversal
-    "= true to allow flow reversal, false restricts to design direction (port_a -> port_b)"
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-  parameter Integer nPipPar(min=1) "Number of parallel pipes in each register";
-
-  parameter Modelica.SIunits.MassFlowRate mStart_flow_a
-    "Guess value for mass flow rate at port_a" 
-    annotation(Dialog(group = "Initialization"));
-
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
-        redeclare package Medium = Medium,
-        m_flow(start=mStart_flow_a, min=if allowFlowReversal then -Modelica.Constants.inf else 0))
-    "Fluid connector a for medium (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
-           0)));
 end PartialDuctPipeManifold;

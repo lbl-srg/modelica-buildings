@@ -4,8 +4,8 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
   import Modelica.Fluid.Types.Dynamics;
 
   outer Modelica.Fluid.System system "System properties";
-  replaceable package Medium = 
-    Modelica.Media.Interfaces.PartialMedium "Medium in the component" 
+  replaceable package Medium =
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
   // Inputs provided to the volume model
@@ -13,38 +13,38 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
 
   // Assumptions
   parameter Types.Dynamics energyDynamics=system.energyDynamics
-    "Formulation of energy balance" 
+    "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
   parameter Types.Dynamics massDynamics=system.massDynamics
-    "Formulation of mass balance" 
+    "Formulation of mass balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
   parameter Types.Dynamics substanceDynamics=energyDynamics
-    "Formulation of substance balance" 
+    "Formulation of substance balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
   parameter Types.Dynamics traceDynamics=energyDynamics
-    "Formulation of trace substance balance" 
+    "Formulation of trace substance balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
 
   // Initialization
-  parameter Medium.AbsolutePressure p_start = system.p_start
-    "Start value of pressure" 
+  parameter Medium.AbsolutePressure p_start = Medium.p_default
+    "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
   parameter Boolean use_T_start = true "= true, use T_start, otherwise h_start"
     annotation(Dialog(tab = "Initialization"), Evaluate=true);
   parameter Medium.Temperature T_start=
     if use_T_start then system.T_start else Medium.temperature_phX(p_start,h_start,X_start)
-    "Start value of temperature" 
+    "Start value of temperature"
     annotation(Dialog(tab = "Initialization", enable = use_T_start));
   parameter Medium.SpecificEnthalpy h_start=
     if use_T_start then Medium.specificEnthalpy_pTX(p_start, T_start, X_start) else Medium.h_default
-    "Start value of specific enthalpy" 
+    "Start value of specific enthalpy"
     annotation(Dialog(tab = "Initialization", enable = not use_T_start));
   parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
-    "Start value of mass fractions m_i/m" 
+    "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
   parameter Medium.ExtraProperty C_start[Medium.nC](
        quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
-    "Start value of trace substances" 
+    "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
   Medium.BaseProperties medium(
@@ -157,7 +157,7 @@ initial equation
 An extending class must specify an equation for
 <b>Qb_flow</b>, e.g. convective or latent heat flow rate across the boundary.
 </p>
-The component volume <pre><b>fluidVolume</b> is an input that needs to be set in the extending class to complete the model. </pre>
+The component volume <b>fluidVolume</b> is an input that needs to be set in the extending class to complete the model. </pre>
 <p>Further source terms must be defined by an extending class for fluid flow across the segment boundary: </p>
 <p><ul>
 <li><pre><b>Hb_flow</b></pre>, enthalpy flow,</li>
@@ -167,7 +167,7 @@ The component volume <pre><b>fluidVolume</b> is an input that needs to be set in
 </ul></p>
 <p>
 <b>Note:</b> This model is similar to 
-<a href=\"Modelica://Modelica.Fluid.Interfaces.PartialLumpedVolume\">
+<a href=\"modelica://Modelica.Fluid.Interfaces.PartialLumpedVolume\">
 Modelica.Fluid.Interfaces.PartialLumpedVolume</a>, except for 
 <ul>
 <li>the assert statement, which 
@@ -180,6 +180,12 @@ a differential equation, while modeling the total mass balance as a steady-state
 equation.
 </html>", revisions="<html>
 <ul>
+<li>
+March 21, 2010 by Michael Wetter:<br>
+Changed pressure start value from <code>system.p_start</code>
+to <code>Medium.p_default</code> since HVAC models may have water and 
+air, which are typically at different pressures.
+</li>
 <li><i>February 6, 2010</i> by Michael Wetter:<br>
 Added to <code>Medium.BaseProperties</code> the initialization 
 <code>X(start=X_start[1:Medium.nX])</code>. Previously, the initialization

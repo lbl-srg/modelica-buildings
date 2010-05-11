@@ -1,27 +1,23 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model MassExchange "Test model for latent heat exchange"
    package Medium = Buildings.Media.PerfectGases.MoistAir;
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{180,100}}), graphics),
-                      Commands(file="MassExchange.mos" "run"));
   Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange masExc(redeclare
-      package Medium = 
-               Medium) "Model for mass exchange" 
+      package Medium =
+               Medium) "Model for mass exchange"
                                      annotation (Placement(transformation(
           extent={{20,0},{40,20}}, rotation=0)));
   Modelica.Blocks.Sources.Ramp TSur(
     duration=1,
     height=20,
-    offset=273.15 + 5) "Surface temperature" 
+    offset=273.15 + 5) "Surface temperature"
                    annotation (Placement(transformation(extent={{-80,60},{-60,
             80}}, rotation=0)));
     Modelica.Blocks.Sources.Constant X_w(k=0.01)
-    "Humidity mass fraction in medium" 
+    "Humidity mass fraction in medium"
       annotation (Placement(transformation(extent={{-80,0},{-60,20}}, rotation=
             0)));
-  annotation (Diagram);
     Modelica.Blocks.Sources.Constant Gc(k=1)
-    "Sensible convective thermal conductance" 
+    "Sensible convective thermal conductance"
       annotation (Placement(transformation(extent={{-80,-80},{-60,-60}},
           rotation=0)));
 equation
@@ -31,4 +27,8 @@ equation
           {18,2}}, color={0,0,127}));
   connect(X_w.y, masExc.XInf) annotation (Line(points={{-59,10},{-20,10},{18,
           10}},         color={0,0,127}));
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{180,100}}), graphics),
+                      Commands(file="MassExchange.mos" "run"),
+              Diagram);
 end MassExchange;

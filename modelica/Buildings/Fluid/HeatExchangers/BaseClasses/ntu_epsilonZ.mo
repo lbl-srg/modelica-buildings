@@ -21,7 +21,7 @@ algorithm
     NTU := -(Modelica.Math.log(1-eps*a))/(a);
   elseif (flowRegime == f.CounterFlow) then// counter flow
    // a is constraining Z since eps is not defined for Z=1.
-    a := smooth(1, if Z < 0.97 then Z else 
+    a := smooth(1, if Z < 0.97 then Z else
       Buildings.Utilities.Math.Functions.smoothMin(
       x1=Z,
       x2=0.98,
@@ -33,7 +33,7 @@ algorithm
     NTU := Internal.solve(eps, 1E-20, 1E6, {Z});
   elseif (flowRegime == f.CrossFlowCMinUnmixedCMaxMixed) then
     // cross flow, (single pass), CMax mixed, CMin unmixed. (Coil with one row.)
-   a := smooth(1, if Z > 0.03 then Z else 
+   a := smooth(1, if Z > 0.03 then Z else
       Buildings.Utilities.Math.Functions.smoothMin(
       x1=0.02,
       x2=Z,
@@ -41,7 +41,7 @@ algorithm
     NTU := -Modelica.Math.log(1+(Modelica.Math.log(1-eps*a)/a));
   elseif (flowRegime == f.CrossFlowCMinMixedCMaxUnmixed) then
     // cross flow, (single pass), CMin mixed, CMax unmixed.
-   a := smooth(1, if Z > 0.03 then Z else 
+   a := smooth(1, if Z > 0.03 then Z else
       Buildings.Utilities.Math.Functions.smoothMin(
       x1=0.02,
       x2=Z,

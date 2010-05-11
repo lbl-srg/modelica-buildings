@@ -2,18 +2,6 @@ within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistancesExplicit "Test of multiple resistances in series"
   import Buildings;
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{160,160}}),
-                      graphics),
-                       Commands(file=
-          "FixedResistancesExplicit.mos" "run"),
-    Documentation(info="<html>
-This model tests whether inverse functions are being used by the code
-translator. In Dymola 7.2, there should only be one non-linear equation system
-in one variable after the symbolic manipulations.
-</html>"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
-            160}})));
  package Medium = Modelica.Media.Air.SimpleAir;
   Buildings.Fluid.Sources.Boundary_ph sou(             redeclare package Medium
       =        Medium,
@@ -33,59 +21,59 @@ in one variable after the symbolic manipulations.
     redeclare package Medium = Medium,
     from_dp = false,
     m_flow_nominal=2,
-    dp_nominal=5) 
+    dp_nominal=5)
              annotation (Placement(transformation(extent={{-20,90},{0,110}},
           rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325) 
+  inner Modelica.Fluid.System system(p_ambient=101325)
                                    annotation (Placement(transformation(extent={{140,-80},
             {160,-60}},        rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = Medium,
     from_dp = false,
     m_flow_nominal=2,
-    dp_nominal=5) 
+    dp_nominal=5)
              annotation (Placement(transformation(extent={{20,90},{40,110}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
-    from_dp=true) 
+    from_dp=true)
              annotation (Placement(transformation(extent={{20,50},{40,70}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
-    from_dp=true) 
+    from_dp=true)
              annotation (Placement(transformation(extent={{-20,50},{0,70}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res4(
     redeclare package Medium = Medium,
     from_dp = false,
     m_flow_nominal=2,
-    dp_nominal=5) 
+    dp_nominal=5)
              annotation (Placement(transformation(extent={{-20,-20},{0,0}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res5(
     redeclare package Medium = Medium,
     from_dp = false,
     m_flow_nominal=2,
-    dp_nominal=5) 
+    dp_nominal=5)
              annotation (Placement(transformation(extent={{20,-20},{40,0}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res6(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
-    from_dp=true) 
+    from_dp=true)
              annotation (Placement(transformation(extent={{20,-60},{40,-40}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res7(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
-    from_dp=true) 
+    from_dp=true)
              annotation (Placement(transformation(extent={{-20,-60},{0,-40}},
           rotation=0)));
   Buildings.Fluid.Sources.MassFlowSource_h bou(
@@ -95,7 +83,7 @@ in one variable after the symbolic manipulations.
   Buildings.Fluid.Sources.MassFlowSource_h bou1(
     redeclare package Medium = Medium,
     m_flow=1,
-    nPorts=1) 
+    nPorts=1)
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Fluid.Sources.Boundary_pT sin1(            redeclare package Medium
       =        Medium, T=273.15 + 10,
@@ -120,25 +108,25 @@ in one variable after the symbolic manipulations.
     Modelica.Blocks.Sources.Ramp P(
       duration=1,
     height=20,
-    offset=101315) 
+    offset=101315)
                  annotation (Placement(transformation(extent={{-100,90},{-80,
             110}},
           rotation=0)));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium = 
-        Medium) "Mass flow rate sensor" 
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
+        Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,90},{80,110}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium = 
-        Medium) "Mass flow rate sensor" 
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium =
+        Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium = 
-        Medium) "Mass flow rate sensor" 
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium =
+        Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium = 
-        Medium) "Mass flow rate sensor" 
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium =
+        Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality 
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality
     annotation (Placement(transformation(extent={{120,120},{140,140}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality1 
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality1
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 equation
   connect(res.port_b, res1.port_a) annotation (Line(
@@ -229,4 +217,16 @@ equation
       points={{70,71},{70,80},{88,80},{88,124},{118,124}},
       color={0,0,127},
       smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{160,160}}),
+                      graphics),
+                       Commands(file=
+          "FixedResistancesExplicit.mos" "run"),
+    Documentation(info="<html>
+This model tests whether inverse functions are being used by the code
+translator. In Dymola 7.2, there should only be one non-linear equation system
+in one variable after the symbolic manipulations.
+</html>"),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
+            160}})));
 end FixedResistancesExplicit;

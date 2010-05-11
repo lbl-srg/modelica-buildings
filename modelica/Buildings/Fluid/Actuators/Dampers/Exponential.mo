@@ -1,7 +1,28 @@
 within Buildings.Fluid.Actuators.Dampers;
 model Exponential "Air damper with exponential opening characteristics"
-  extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(dp_nominal=(m_flow_nominal/kDam_nominal)^2,
+  extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
+  final dp_nominal=(m_flow_nominal/kDam_nominal)^2,
   dp(nominal=10));
+protected
+   parameter Real kDam_nominal(fixed=false)
+    "Flow coefficient for damper, k=m_flow/sqrt(dp), with unit=(kg*m)^(1/2)";
+   parameter Real kThetaSqRt_nominal(min=0, fixed=false)
+    "Flow coefficient, kThetaSqRt = sqrt(pressure drop divided by dynamic pressure)";
+initial algorithm
+   kThetaSqRt_nominal :=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+    y=1,
+    a=a,
+    b=b,
+    cL=cL,
+    cU=cU,
+    yL=yL,
+    yU=yU) "y=0 is closed";
+   assert(kThetaSqRt_nominal>0, "Flow coefficient must be strictly positive.");
+   kDam_nominal :=sqrt(2*rho_nominal)*A/kThetaSqRt_nominal
+    "flow coefficient for resistance base model, kDam=k=m_flow/sqrt(dp)";
+
+equation
+  k = kDam "flow coefficient for resistance base model";
    annotation (Documentation(info="<html>
 This model is an air damper with flow coefficient that is an exponential function 
 of the opening angle. The model is as in ASHRAE 825-RP.
@@ -53,19 +74,19 @@ ASHRAE, Final Report 825-RP, Atlanta, GA.
 <li>
 June 22, 2008 by Michael Wetter:<br>
 Extended range of control signal from 0 to 1 by implementing the function 
-<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\">
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\">
 exponentialDamper</a>.
 </li>
 <li>
 June 10, 2008 by Michael Wetter:<br>
 Introduced new partial base class, 
-<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
 PartialDamperExponential</a>.
 </li>
 <li>
 June 30, 2007 by Michael Wetter:<br>
 Introduced new partial base class, 
-<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.PartialActuator\">PartialActuator</a>.
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialActuator\">PartialActuator</a>.
 </li>
 <li>
 July 27, 2007 by Michael Wetter:<br>
@@ -87,24 +108,4 @@ First implementation.
           smooth=Smooth.None,
           fillPattern=FillPattern.Solid)}),
     Diagram(graphics));
-protected
-   parameter Real kDam_nominal(fixed=false)
-    "Flow coefficient for damper, k=m_flow/sqrt(dp), with unit=(kg*m)^(1/2)";
-   parameter Real kTheta_nominal(min=0, fixed=false)
-    "Flow coefficient, kTheta = pressure drop divided by dynamic pressure";
-initial algorithm
-   kTheta_nominal :=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
-    y=1,
-    a=a,
-    b=b,
-    cL=cL,
-    cU=cU,
-    yL=yL,
-    yU=yU) "y=0 is closed";
-   assert(kTheta_nominal>=0, "Flow coefficient must not be negative");
-   kDam_nominal :=sqrt(2*rho_nominal/kTheta_nominal)*A
-    "flow coefficient for resistance base model, kDam=k=m_flow/sqrt(dp)";
-
-equation
-  k = sqrt(kDamSqu) "flow coefficient for resistance base model";
 end Exponential;

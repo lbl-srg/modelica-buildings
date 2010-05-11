@@ -1,61 +1,17 @@
 within Buildings.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
-    extends Modelica.Fluid.Interfaces.PartialTwoPortTransport(m_flow_small = 1E-4*m_flow_nominal,
-     m_flow(nominal=m_flow_nominal), dp(nominal=dp_nominal, displayUnit="Pa"));
+    extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface(
+     show_T=false, show_V_flow=false);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={Rectangle(
-          extent={{-100,40},{100,-40}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={192,192,192}), Rectangle(
-          extent={{-100,22},{100,-24}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255})}),
-          defaultComponentName="res",
-Documentation(info="<html>
-<p>
-Partial model for a flow resistance, possible with variable flow coefficient.
-The pressure drop is computed by an instance of
-<a href=\"Modelica:Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
-Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>,
-i.e., using a regularized implementation of the equation
-<pre>
-  m_flow = sign(dp) * k * sqrt(|dp|).
-</pre>
-</p>
-</html>"),
-revisions="<html>
-<ul>
-<li>
-April 13, 2009, by Michael Wetter:<br>
-Extracted pressure drop computation and implemented it in the
-new model
-<a href=\"Modelica:Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
-Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>.
-</li>
-<li>
-September 18, 2008, by Michael Wetter:<br>
-Added equations for the mass balance of extra species flow,
-i.e., <tt>C</tt> and <tt>mC_flow</tt>.
-</li>
-<li>
-July 20, 2007 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>");
-
-  parameter Boolean from_dp = true
-    "= true, use m_flow = f(dp) else dp = f(m_flow)" 
-    annotation (Evaluate=true, Dialog(tab="Advanced"), choices(__Dymola_checkBox=true));
-  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate" 
+  parameter Boolean from_dp = false
+    "= true, use m_flow = f(dp) else dp = f(m_flow)"
+    annotation (Evaluate=true, Dialog(tab="Advanced"));
+  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")
-    "Pressure"                                annotation(Dialog(group = "Nominal condition"));
+    "Pressure drop at nominal mass flow rate"                                annotation(Dialog(group = "Nominal condition"));
   parameter Boolean linearized = false
-    "= true, use linear relation between m_flow and dp for any flow rate" 
+    "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"), choices(__Dymola_checkBox=true));
 
   Real k(unit="") "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
@@ -75,16 +31,95 @@ protected
     "Initial value for solver for specific enthalpy";           //specificEnthalpy(sta0)
  constant Real conv(unit="m.s2/kg") = 1 "Factor, needed to satisfy unit check";
  constant Real conv2 = sqrt(conv) "Factor, needed to satisfy unit check";
+ final parameter Boolean computeFlowResistance=(dp_nominal > Modelica.Constants.eps)
+    "Flag to enable/disable computation of flow resistance"
+   annotation(Evaluate=true);
 equation
   // Pressure drop calculation
-  if from_dp then
-    m_flow=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
+  if computeFlowResistance then
+    if from_dp then
+      m_flow=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
+    else
+      dp=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
+    end if;
   else
-    dp=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
+    dp = 0;
   end if;
-
   // Isenthalpic state transformation (no storage and no loss of energy)
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
 
+  // Mass balance (no storage)
+  port_a.m_flow + port_b.m_flow = 0;
+
+  // Transport of substances
+  port_a.Xi_outflow = inStream(port_b.Xi_outflow);
+  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
+
+  port_a.C_outflow = inStream(port_b.C_outflow);
+  port_b.C_outflow = inStream(port_a.C_outflow);
+
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-100,40},{100,-42}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={192,192,192}),
+        Rectangle(
+          extent={{-100,22},{100,-24}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          visible=linearized,
+          extent={{-100,22},{100,-24}},
+          fillPattern=FillPattern.Backward,
+          fillColor={0,128,255},
+          pattern=LinePattern.None,
+          lineColor={255,255,255})}),
+          defaultComponentName="res",
+Documentation(info="<html>
+<p>
+Partial model for a flow resistance, possible with variable flow coefficient.
+The pressure drop is computed by an instance of
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
+Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>,
+i.e., using a regularized implementation of the equation
+<pre>
+  m_flow = sign(dp) * k * sqrt(|dp|).
+</pre>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 30, 2010 by Michael Wetter:<br>
+Changed base classes to allow easier initialization.
+</li>
+<li>
+July 20, 2007 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"),
+revisions="<html>
+<ul>
+<li>
+April 13, 2009, by Michael Wetter:<br>
+Extracted pressure drop computation and implemented it in the
+new model
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
+Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>.
+</li>
+<li>
+September 18, 2008, by Michael Wetter:<br>
+Added equations for the mass balance of extra species flow,
+i.e., <tt>C</tt> and <tt>mC_flow</tt>.
+</li>
+<li>
+July 20, 2007 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>");
 end PartialResistance;

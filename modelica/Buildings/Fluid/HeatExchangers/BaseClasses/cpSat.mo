@@ -1,30 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 function cpSat "Fictious heat capacity along saturation line"
 
-  annotation (preferedView="info",
-              smoothOrder=1,
-Documentation(info="<html>
-This function computes the specific heat capacity along the saturation line.
-For a given temperature <code>T1</code> it computes its saturation enthalpy <code>h1</code>.
-Next, for a given species concentration <code>X2</code>, it computes the
-saturation temperature <code>T2</code> and the enthalpy <code>h2(T2, X2)</code>.
-It then computes the specific heat capacity as<pre>
-        h2 - h1
-  cp = --------
-        T2 - T1
-</pre>
-<p>
-The pressure is an optional input, which is by default the atmospheric pressure.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-February 18, 2010, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
  input Modelica.SIunits.Temperature T1 "Temperature medium 1";
  input Modelica.SIunits.MassFraction XW2 "Water mass fraction of medium 2";
  input Modelica.SIunits.Pressure p=101325 "Total pressure";
@@ -66,4 +42,28 @@ algorithm
     T=TSat1,
     X={XSat1, 1 - XSat1});
   cp :=(hSat1 - hdp2)/(TSat1 - Tdp2);
+  annotation (preferedView="info",
+              smoothOrder=1,
+Documentation(info="<html>
+This function computes the specific heat capacity along the saturation line.
+For a given temperature <code>T1</code> it computes its saturation enthalpy <code>h1</code>.
+Next, for a given species concentration <code>X2</code>, it computes the
+saturation temperature <code>T2</code> and the enthalpy <code>h2(T2, X2)</code>.
+It then computes the specific heat capacity as<pre>
+        h2 - h1
+  cp = --------
+        T2 - T1
+</pre>
+<p>
+The pressure is an optional input, which is by default the atmospheric pressure.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+February 18, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end cpSat;

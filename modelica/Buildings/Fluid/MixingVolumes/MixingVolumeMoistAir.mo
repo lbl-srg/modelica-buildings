@@ -7,40 +7,6 @@ model MixingVolumeMoistAir
   // enthalpyOfLiquid(.)
   replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
       annotation (choicesAllMatching = true);
-  annotation (Diagram(graphics),
-                       Icon(graphics),
-Documentation(info="<html>
-Model for an ideally mixed fluid volume and the ability 
-to store mass and energy. The volume is fixed, 
-and latent and sensible heat can be exchanged.
-<p>
-This model represents the same physics as 
-<a href=\"Modelica:Buildings.Fluid.MixingVolumes.MixingVolume\">
-Buildings.Fluid.MixingVolumes.MixingVolume</a>, but in addition, it allows
-adding (or subtracting) water in liquid phase, which causes a change in 
-enthalpy and species concentration. 
-The water flow rate is assumed to be added or extracted at the
-temperature of the input port <tt>TWat</tt>, or 
-if this port is not connected, at the medium default temperature as
-defined by <tt>Medium.T_default</tt>.
-</p>
-<p>
-Note that this model can only be used with medium models that include water
-as a substance. In particular, the medium model needs to implement the function
-<tt>enthalpyOfLiquid(T)</tt> and the integer variable <tt>Water</tt> that
-contains the index to the water substance. For medium that do not provide this
-functionality, use
-<a href=\"Modelica:Buildings.Fluid.MixingVolumes.MixingVolumeDryAir\">
-Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-August 7, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
 
 protected
   parameter Integer i_w(min=1, fixed=false) "Index for water substance";
@@ -70,4 +36,38 @@ equation
   end if;
 // Medium species concentration
   X_w = medium.X[i_w];
+  annotation (Diagram(graphics),
+                       Icon(graphics),
+Documentation(info="<html>
+Model for an ideally mixed fluid volume and the ability 
+to store mass and energy. The volume is fixed, 
+and latent and sensible heat can be exchanged.
+<p>
+This model represents the same physics as 
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
+Buildings.Fluid.MixingVolumes.MixingVolume</a>, but in addition, it allows
+adding (or subtracting) water in liquid phase, which causes a change in 
+enthalpy and species concentration. 
+The water flow rate is assumed to be added or extracted at the
+temperature of the input port <tt>TWat</tt>, or 
+if this port is not connected, at the medium default temperature as
+defined by <tt>Medium.T_default</tt>.
+</p>
+<p>
+Note that this model can only be used with medium models that include water
+as a substance. In particular, the medium model needs to implement the function
+<tt>enthalpyOfLiquid(T)</tt> and the integer variable <tt>Water</tt> that
+contains the index to the water substance. For medium that do not provide this
+functionality, use
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeDryAir\">
+Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 7, 2008 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MixingVolumeMoistAir;

@@ -1,10 +1,6 @@
 within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolumeMoistAir
   import Buildings;
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -160},{180,160}}),      graphics),
-                         Commands(file=
-            "MixingVolumeMoistAir.mos" "run"));
 
 // package Medium = Buildings.Media.PerfectGases.MoistAir;
    package Medium = Buildings.Media.GasesPTDecoupled.MoistAir;
@@ -14,34 +10,34 @@ model MixingVolumeMoistAir
     redeclare package Medium = Medium,
     V=1,
     nPorts=2,
-    use_HeatTransfer=true) "Volume" 
+    use_HeatTransfer=true) "Volume"
           annotation (Placement(transformation(extent={{50,0},{70,20}},
           rotation=0)));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSen
-    "Temperature sensor" 
+    "Temperature sensor"
     annotation (Placement(transformation(extent={{-68,82},{-48,102}}, rotation=
             0)));
   Modelica.Blocks.Sources.Constant XSet(k=0.005)
     "Set point for water mass fraction" annotation (Placement(transformation(
           extent={{-80,-60},{-60,-40}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo 
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{36,120},{56,140}}, rotation=0)));
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 20)
     "Set point for temperature" annotation (Placement(transformation(extent={{
             -80,120},{-60,140}}, rotation=0)));
   Buildings.Utilities.Psychrometrics.pW_X humRat(           use_p_in=false)
-    "Conversion from humidity ratio to partial water vapor pressure" 
+    "Conversion from humidity ratio to partial water vapor pressure"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}},rotation=
             0)));
-  Buildings.Utilities.Psychrometrics.Tdp_pW dewPoi "Dew point temperature" 
+  Buildings.Utilities.Psychrometrics.Tdp_pW dewPoi "Dew point temperature"
                             annotation (Placement(transformation(extent={{12,-120},
             {32,-100}},rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor 
+  Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor
     annotation (Placement(transformation(extent={{64,120},{84,140}}, rotation=0)));
-  Modelica.Blocks.Continuous.Integrator QSen "Sensible heat transfer" 
+  Modelica.Blocks.Continuous.Integrator QSen "Sensible heat transfer"
     annotation (Placement(transformation(extent={{140,100},{160,120}}, rotation=
            0)));
-  Modelica.Blocks.Continuous.Integrator QWat "Enthalpy of extracted water" 
+  Modelica.Blocks.Continuous.Integrator QWat "Enthalpy of extracted water"
     annotation (Placement(transformation(extent={{140,60},{160,80}}, rotation=0)));
   Modelica.Blocks.Sources.RealExpression HWat_flow(y=vol1.HWat_flow)
     "MoistAir heat flow rate" annotation (Placement(transformation(extent={{112,
@@ -51,7 +47,7 @@ model MixingVolumeMoistAir
     nPorts=1,
     T=293.15)    annotation (Placement(transformation(extent={{-40,-10},{-20,10}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin(        redeclare package Medium = 
+  Buildings.Fluid.Sources.Boundary_pT sin(        redeclare package Medium =
         Medium,
     nPorts=1,
     T=293.15)             annotation (Placement(transformation(
@@ -65,7 +61,7 @@ model MixingVolumeMoistAir
     Ti=1,
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    wd=0) 
+    wd=0)
     annotation (Placement(transformation(extent={{-40,120},{-20,140}}, rotation=
            0)));
   Buildings.Controls.Continuous.LimPID PI1(
@@ -75,13 +71,13 @@ model MixingVolumeMoistAir
     k=10,
     yMax=1,
     yMin=-1,
-    Td=1) 
+    Td=1)
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}}, rotation=
            0)));
-  Buildings.Fluid.Sensors.MassFlowRate mIn_flow(redeclare package Medium = 
+  Buildings.Fluid.Sensors.MassFlowRate mIn_flow(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{6,-10},{26,10}},
           rotation=0)));
-  Buildings.Fluid.Sensors.MassFlowRate mOut_flow(redeclare package Medium = 
+  Buildings.Fluid.Sensors.MassFlowRate mOut_flow(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{84,-10},{104,10}},
           rotation=0)));
   Modelica.Blocks.Math.Add dM_flow(k2=-1) annotation (Placement(transformation(
@@ -90,16 +86,16 @@ model MixingVolumeMoistAir
           extent={{2,120},{22,140}}, rotation=0)));
   Modelica.Blocks.Math.Gain gai1(k=0.1) annotation (Placement(transformation(
           extent={{-20,-60},{0,-40}}, rotation=0)));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-160},{-80,-140}})));
 equation
-  connect(preHeaFlo.port, heatFlowSensor.port_a) 
+  connect(preHeaFlo.port, heatFlowSensor.port_a)
     annotation (Line(points={{56,130},{64,130}}, color={191,0,0}));
   connect(heatFlowSensor.Q_flow, QSen.u) annotation (Line(points={{74,120},{74,
           110},{138,110}}, color={0,0,127}));
   connect(HWat_flow.y,QWat. u) annotation (Line(points={{133,70},{138,70}},
         color={0,0,127}));
-  connect(TSet.y, PI.u_s) 
+  connect(TSet.y, PI.u_s)
     annotation (Line(points={{-59,130},{-42,130}}, color={0,0,127}));
   connect(TSen.T, PI.u_m) annotation (Line(points={{-48,92},{-30,92},{-30,118}},
         color={0,0,127}));
@@ -109,7 +105,7 @@ equation
           {138,36}},       color={0,0,127}));
   connect(mIn_flow.m_flow, dM_flow.u2) annotation (Line(points={{16,11},{16,20},
           {16,24},{138,24}},                 color={0,0,127}));
-  connect(gai.y, preHeaFlo.Q_flow) 
+  connect(gai.y, preHeaFlo.Q_flow)
     annotation (Line(points={{23,130},{36,130}}, color={0,0,127}));
   connect(PI1.y, gai1.u) annotation (Line(points={{-29,-50},{-22,-50}}, color={
           0,0,127}));
@@ -153,4 +149,8 @@ equation
       points={{1,-110},{11,-110}},
       color={0,0,127},
       smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -160},{180,160}}),      graphics),
+                         Commands(file=
+            "MixingVolumeMoistAir.mos" "run"));
 end MixingVolumeMoistAir;

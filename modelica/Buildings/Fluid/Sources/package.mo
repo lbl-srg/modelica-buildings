@@ -2,6 +2,7 @@ within Buildings.Fluid;
 package Sources "Define fixed or prescribed boundary conditions"
 
 
+
   annotation (preferedView="info",
   __Dymola_classOrder={
 "Boundary_pT",
@@ -18,5 +19,4 @@ Package <b>Sources</b> contains generic sources for fluid connectors
 to define fixed or prescribed ambient conditions.
 </p>
 </html>"));
-
 end Sources;

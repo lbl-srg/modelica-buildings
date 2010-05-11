@@ -5,7 +5,7 @@ package SimpleAir "Air: Simple dry air model (-50..100 degC)"
 
   annotation (preferedView="info", Documentation(info="<html>
 <p>
-This partial package is identical to 
+This package is identical to 
 <a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a> except for the minimum fluid temperature.
 The package is here for convenience so that all medium models that are typically used

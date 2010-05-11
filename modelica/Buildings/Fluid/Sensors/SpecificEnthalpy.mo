@@ -4,10 +4,12 @@ model SpecificEnthalpy "Ideal one port specific enthalpy sensor"
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg")
-    "Specific enthalpy in port medium" 
+    "Specific enthalpy in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
 
+equation
+  h_out = inStream(port.h_outflow);
 annotation (defaultComponentName="specificEnthalpy",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
@@ -30,6 +32,4 @@ The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 </HTML>
 "));
-equation
-  h_out = inStream(port.h_outflow);
 end SpecificEnthalpy;

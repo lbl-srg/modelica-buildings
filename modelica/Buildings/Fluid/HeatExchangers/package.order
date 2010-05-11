@@ -1,6 +1,8 @@
 CoolingTowers
 Radiators
 ConstantEffectiveness
+DryEffectivenessNTU
+WetEffectivenessNTU
 DryCoilDiscretized
 HeaterCoolerPrescribed
 WetCoilDiscretized

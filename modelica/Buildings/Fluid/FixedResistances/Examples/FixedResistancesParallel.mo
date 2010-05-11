@@ -2,19 +2,14 @@ within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistancesParallel
   import Buildings;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-                         Commands(file=
-            "FixedResistancesParallel.mos" "run"));
- package Medium = 
+ package Medium =
         Buildings.Media.ConstantPropertyLiquidWater;
-    Modelica.Blocks.Sources.Constant PAtm(k=101325) 
+    Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{66,76},{86,96}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp P(
       duration=1,
     height=20,
-    offset=101315) 
+    offset=101315)
                  annotation (Placement(transformation(extent={{-100,70},{-80,90}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
@@ -23,7 +18,7 @@ model FixedResistancesParallel
     dp_nominal=10,
     deltaM=0.3,
     linearized=false,
-    from_dp=false) 
+    from_dp=false)
              annotation (Placement(transformation(extent={{-28,30},{-8,50}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou1(          redeclare package Medium
@@ -44,7 +39,7 @@ model FixedResistancesParallel
     dp_nominal=10,
     deltaM=0.3,
     linearized=false,
-    from_dp=false) 
+    from_dp=false)
              annotation (Placement(transformation(extent={{-28,-10},{-8,10}},
           rotation=0)));
   Buildings.Fluid.Sensors.MassFlowRate masFlo2(redeclare package Medium = Medium)
@@ -52,16 +47,16 @@ model FixedResistancesParallel
             {20,10}}, rotation=0)));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu(threShold=1E-4, message=
         "Inputs differ, check that lossless pipe is correctly implemented.")
-    "Assert equality of the two mass flow rates" 
+    "Assert equality of the two mass flow rates"
     annotation (Placement(transformation(extent={{40,60},{60,80}},   rotation=0)));
   Buildings.Fluid.Sensors.MassFlowRate masFlo1(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{20,30},
             {40,50}}, rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325) 
+  inner Modelica.Fluid.System system(p_ambient=101325)
                                    annotation (Placement(transformation(extent={{-80,-80},
             {-60,-60}},        rotation=0)));
 equation
-  connect(PAtm.y, sin1.p_in) 
+  connect(PAtm.y, sin1.p_in)
                             annotation (Line(points={{87,86},{94,86},{94,46},{
           82,46}}, color={0,0,127}));
   connect(P.y, sou1.p_in) annotation (Line(points={{-79,80},{-74,80},{-74,46},{
@@ -69,7 +64,7 @@ equation
   connect(res2.port_b, masFlo2.port_a) annotation (Line(points={{-8,0},{-4,
           -3.36456e-022},{-4,0},{0,0}},
                           color={0,127,255}));
-  connect(res1.port_b, masFlo1.port_a) 
+  connect(res1.port_b, masFlo1.port_a)
     annotation (Line(points={{-8,40},{20,40}},color={0,127,255}));
   connect(sou1.ports[1], res1.port_a) annotation (Line(
       points={{-50,40},{-28,40}},
@@ -95,4 +90,9 @@ equation
       points={{30,51},{30,64},{38,64}},
       color={0,0,127},
       smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                        graphics),
+                         Commands(file=
+            "FixedResistancesParallel.mos" "run"));
 end FixedResistancesParallel;

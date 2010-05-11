@@ -1,6 +1,15 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model DuctManifoldNoResistance "Duct manifold without resistance"
   extends PartialDuctManifold;
+
+equation
+  for i in 1:nPipPar loop
+    for j in 1:nPipSeg loop
+    connect(port_a, port_b[i, j]) annotation (Line(points={{-100,5.55112e-016},
+              {-3,5.55112e-016},{-3,5.55112e-016},{100,5.55112e-016}}, color={0,
+              127,255}));
+    end for;
+  end for;
   annotation (Diagram(graphics),
 Documentation(info="<html>
 <p>
@@ -21,13 +30,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-equation
-  for i in 1:nPipPar loop
-    for j in 1:nPipSeg loop
-    connect(port_a, port_b[i, j]) annotation (Line(points={{-100,5.55112e-016},
-              {-3,5.55112e-016},{-3,5.55112e-016},{100,5.55112e-016}}, color={0,
-              127,255}));
-    end for;
-  end for;
 end DuctManifoldNoResistance;

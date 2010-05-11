@@ -1,6 +1,14 @@
 within Buildings.Utilities.Diagnostics;
 block AssertEquality "Assert when condition is violated"
   extends BaseClasses.PartialInputCheck(message = "Inputs differ by more than threShold");
+equation
+  when (time > t0) then
+    assert(abs(u1 - u2) < threShold, message + "\n"
+      + "  u1         = " + realString(u1) + "\n"
+      + "  u2         = " + realString(u2) + "\n"
+      + "  abs(u1-u2) = " + realString(abs(u1-u2)) + "\n"
+      + "  threShold  = " + realString(threShold));
+  end when;
   annotation (Icon(graphics={Text(
           extent={{-84,108},{90,-28}},
           lineColor={255,0,0},
@@ -20,12 +28,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-equation
-  when (time > t0) then
-    assert(abs(u1 - u2) < threShold, message + "\n"
-      + "  u1         = " + realString(u1) + "\n"
-      + "  u2         = " + realString(u2) + "\n"
-      + "  abs(u1-u2) = " + realString(abs(u1-u2)) + "\n"
-      + "  threShold  = " + realString(threShold));
-  end when;
 end AssertEquality;

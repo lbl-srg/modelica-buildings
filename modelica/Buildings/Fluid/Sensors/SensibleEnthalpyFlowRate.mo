@@ -6,12 +6,12 @@ model SensibleEnthalpyFlowRate
   // redeclare Medium with a more restricting base class. This improves the error
   // message if a user selects a medium that does not contain the function
   // enthalpyOfLiquid(.)
-  replaceable package Medium = 
-      Modelica.Media.Interfaces.PartialCondensingGases 
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialCondensingGases
       annotation (choicesAllMatching = true);
 
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
-    "Sensible enthalpy flow rate, positive if from port_a to port_b" 
+    "Sensible enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{-10,-10},{10,10}},
@@ -19,6 +19,24 @@ model SensibleEnthalpyFlowRate
   Medium.MassFraction XiActual[Medium.nXi] "Medium mass fraction in port_a";
   Medium.ThermodynamicState sta "Medium properties in port_a";
 
+protected
+  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
+initial algorithm
+  i_w :=1;
+    for i in 1:Medium.nXi loop
+      if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
+        i_w :=i;
+      end if;
+    end for;
+equation
+  if allowFlowReversal then
+     XiActual = actualStream(port_a.Xi_outflow);
+     sta = Medium.setState_phX(port_a.p, actualStream(port_a.h_outflow), XiActual);
+  else
+     XiActual = port_b.Xi_outflow;
+     sta = Medium.setState_phX(port_b.p, port_b.h_outflow, XiActual);
+  end if;
+     H_flow = port_a.m_flow * (1-XiActual[i_w]) * Medium.enthalpyOfNonCondensingGas(Medium.temperature(sta));
 annotation (
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics),
@@ -45,11 +63,11 @@ This sensor can only be used with medium models that implement the function
 <p>
 For a sensor that measures 
 <code>HTotal_flow</code>, use
-<a href=\"Modelica:Buildings.Fluid.Sensors.EnthalpyFlowRate\">
+<a href=\"modelica://Buildings.Fluid.Sensors.EnthalpyFlowRate\">
 Buildings.Fluid.Sensors.EnthalpyFlowRate</a>.<br>
 For a sensor that measures 
 <code>HLatent_flow</code>, use
-<a href=\"Modelica:Buildings.Fluid.Sensors.LatentEnthalpyFlowRate\">
+<a href=\"modelica://Buildings.Fluid.Sensors.LatentEnthalpyFlowRate\">
 Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 <p>
 The sensor is ideal, i.e., it does not influence the fluid.
@@ -63,22 +81,4 @@ First implementation based on enthalpy sensor of Modelica.Fluid.
 </li>
 </ul>
 </html>"));
-protected
-  parameter Integer iWat(min=1, fixed=false) "Index for water substance";
-initial algorithm
-  iWat :=1;
-    for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
-        iWat :=i;
-      end if;
-    end for;
-equation
-  if allowFlowReversal then
-     XiActual = actualStream(port_a.Xi_outflow);
-     sta = Medium.setState_phX(port_a.p, actualStream(port_a.h_outflow), XiActual);
-  else
-     XiActual = port_b.Xi_outflow;
-     sta = Medium.setState_phX(port_b.p, port_b.h_outflow, XiActual);
-  end if;
-     H_flow = port_a.m_flow * (1-XiActual[iWat]) * Medium.enthalpyOfNonCondensingGas(Medium.temperature(sta));
 end SensibleEnthalpyFlowRate;

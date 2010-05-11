@@ -1,301 +1,188 @@
 within Buildings.Fluid.Movers.BaseClasses;
-partial model PartialFlowMachine "Base model for fans or pumps"
-//    import Modelica.SIunits.Conversions.NonSIunits.*;
+partial model PartialFlowMachine
+  "Partial model to interface fan or pump models with the medium"
+
   import Modelica.Constants;
 
-  extends Modelica.Fluid.Interfaces.PartialTwoPort(
-    port_b_exposesState = energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState or 
-         massDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState,
+  extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface(show_T=true,
     port_a(
-      p(start=p_a_start),
-      m_flow(start = m_flow_start,
-             min = if allowFlowReversal and not checkValve then -Constants.inf else 0)),
+      h_outflow(start=h_start),
+      final m_flow(min = if allowFlowReversal then -Constants.inf else 0)),
     port_b(
-      p(start=p_b_start),
-      m_flow(start = -m_flow_start,
-             max = if allowFlowReversal and not checkValve then +Constants.inf else 0)));
+      h_outflow(start=h_start),
+      p(start=p_start),
+      final m_flow(max = if allowFlowReversal then +Constants.inf else 0)));
 
+  Delays.DelayFirstOrder vol(
+    redeclare package Medium = Medium,
+    tau=tau,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    use_T_start=use_T_start,
+    T_start=T_start,
+    h_start=h_start,
+    X_start=X_start,
+    C_start=C_start,
+    m_flow_nominal=m_flow_nominal,
+    use_HeatTransfer=true,
+    redeclare model HeatTransfer =
+        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer,
+    nPorts=2,
+    p_start=p_start) if
+       dynamicBalance "Fluid volume for dynamic model"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  parameter Boolean dynamicBalance = false
+    "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
+    annotation (Evaluate=true, Dialog(tab="Assumptions", group="Dynamics"));
+
+  parameter Modelica.SIunits.Time tau=10
+    "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
+    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
+
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
+                     Modelica.Fluid.Types.Dynamics.SteadyStateInitial
+    "Formulation of energy balance (used if dynamicBalance=true)"
+    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+    "Formulation of mass balance (used if dynamicBalance=true)"
+    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
+
+  // Parameters for initialization
   // Initialization
-  parameter Medium.AbsolutePressure p_a_start=system.p_start
-    "Guess value for inlet pressure" 
-    annotation(Dialog(tab="Initialization"));
-  parameter Medium.AbsolutePressure p_b_start=p_a_start
-    "Guess value for outlet pressure" 
-    annotation(Dialog(tab="Initialization"));
-  parameter Medium.MassFlowRate m_flow_start = 1
-    "Guess value of m_flow = port_a.m_flow" 
-    annotation(Dialog(tab = "Initialization"));
-
-  // Characteristics
-  parameter Integer nParallel(min=1) = 1 "Number of fans or pumps in parallel" 
-    annotation(Dialog(group="Characteristics"));
-  replaceable function flowCharacteristic = 
-      Characteristics.baseFlow
-    "Total pressure vs. V_flow characteristic at nominal speed" 
-    annotation(Dialog(group="Characteristics"), choicesAllMatching=true);
-  parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
-    N_nominal = 1500 "Nominal rotational speed for flow characteristic" 
-    annotation(Dialog(group="Characteristics"));
-  parameter Medium.Density rho_nominal = Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default)
-    "Nominal fluid density" 
-    annotation(Dialog(group="Characteristics"));
-  parameter Boolean use_powerCharacteristic = false
-    "Use powerCharacteristic (vs. efficiencyCharacteristic)" 
-     annotation(Evaluate=true,Dialog(group="Characteristics"));
-  replaceable function powerCharacteristic = 
-        Characteristics.quadraticPower (
-       V_flow_nominal={0,0,0},W_nominal={0,0,0})
-    "Power consumption vs. V_flow at nominal speed and density" 
-    annotation(Dialog(group="Characteristics", enable = use_powerCharacteristic),
-               choicesAllMatching=true);
-  replaceable function efficiencyCharacteristic = 
-    Characteristics.constantEfficiency(eta_nominal = 0.8) constrainedby
-    Characteristics.baseEfficiency
-    "Efficiency vs. V_flow at nominal speed and density" 
-    annotation(Dialog(group="Characteristics",enable = not use_powerCharacteristic),
-               choicesAllMatching=true);
-
-  // Assumptions
-  parameter Boolean checkValve=false "= true to prevent reverse flow" 
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-
-  parameter Modelica.SIunits.Volume V=0 "Volume inside the pump" 
-    annotation(Dialog(tab="Assumptions"),Evaluate=true);
-
-  // Energy and mass balance
-  extends Modelica.Fluid.Interfaces.PartialLumpedVolume(
-      final fluidVolume = V,
-      energyDynamics = Modelica.Fluid.Types.Dynamics.SteadyState,
-      massDynamics = energyDynamics,
-      final p_start = p_b_start);
-
-  // Heat transfer through boundary, e.g. to add a housing
-  parameter Boolean use_HeatTransfer = false
-    "= true to use a HeatTransfer model, e.g. for a housing" 
-      annotation (Dialog(tab="Assumptions",group="Heat transfer"));
-  replaceable model HeatTransfer = 
-      Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer 
-    constrainedby
-    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer
-    "Wall heat transfer" 
-      annotation (Dialog(tab="Assumptions",group="Heat transfer",enable=use_HeatTransfer),choicesAllMatching=true);
-  HeatTransfer heatTransfer(
-    redeclare final package Medium = Medium,
-    final n=1,
-    surfaceAreas={4*Modelica.Constants.pi*(3/4*V/Modelica.Constants.pi)^(2/3)},
-    final states = {medium.state},
-    final use_k = use_HeatTransfer) 
-      annotation (Placement(transformation(
-        extent={{-10,-10},{30,30}},
-        rotation=180,
-        origin={50,-10})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer 
-    annotation (Placement(transformation(extent={{30,-70},{50,-50}})));
-
-  // Variables
-//  final parameter Modelica.SIunits.Acceleration g=system.g;
-//  Medium.Density rho = medium.d;
-  Modelica.SIunits.Pressure dp(displayUnit="Pa")=port_b.p - port_a.p
-    "Pressure increase";
-//  Modelica.SIunits.Height head=dp_pump/(medium.d*g) "Pump head";
-  Modelica.SIunits.MassFlowRate m_flow=port_a.m_flow "Mass flow rate (total)";
-  Modelica.SIunits.MassFlowRate m_flow_single=m_flow/nParallel
-    "Mass flow rate (single pump)";
-  Modelica.SIunits.VolumeFlowRate V_flow=m_flow/medium.d
-    "Volume flow rate (total)";
-  Modelica.SIunits.VolumeFlowRate V_flow_single(start=m_flow_start/rho_nominal/
-          nParallel)=V_flow/nParallel "Volume flow rate (single pump)";
-  Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N(min=0, start = N_nominal)
-    "Shaft rotational speed";
-  Modelica.SIunits.Power W_single "Power consumption (single fan or pump)";
-  Modelica.SIunits.Power W_total=W_single*nParallel "Power consumption (total)";
-  Real eta "Global efficiency";
-  Real s(start = m_flow_start)
-    "Curvilinear abscissa for the flow curve in parametric form (either mass flow rate or total pressure)";
-
-  // Diagnostics
-  parameter Boolean show_NPSHa = false
-    "= true to compute Net Positive Suction Head available" 
-    annotation(Dialog(tab="Advanced", group="Diagnostics"));
-  Medium.ThermodynamicState state_a=
-    Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)) if 
-       show_NPSHa "state for medium inflowing through port_a";
-  Medium.Density rho_in = Medium.density(state_a) if show_NPSHa
-    "Liquid density at the inlet port_a";
-  Modelica.SIunits.Length NPSHa=NPSPa/(rho_in*system.g) if show_NPSHa
-    "Net Positive Suction Head available";
-  Modelica.SIunits.Pressure NPSPa=assertPositiveDifference(
-        port_a.p,
-        Medium.saturationPressure(Medium.temperature(state_a)),
-        "Cavitation occurs at the pump inlet") if show_NPSHa
-    "Net Positive Suction Pressure available";
-  Modelica.SIunits.Pressure NPDPa=assertPositiveDifference(
-        port_b.p,
-        Medium.saturationPressure(medium.T),
-        "Cavitation occurs in the pump") if show_NPSHa
-    "Net Positive Discharge Pressure available";
-  // constant Modelica.SIunits.Height unitHead=1;
+  parameter Boolean use_T_start=true "= true, use T_start, otherwise h_start"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.PartialMedium.Temperature T_start=if
+      use_T_start then system.T_start else Medium.temperature_phX(
+      p_start,
+      h_start,
+      X_start) "Start value of temperature"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy h_start=
+      if use_T_start then Medium.specificEnthalpy_pTX(
+      p_start,
+      T_start,
+      X_start) else Medium.h_default "Start value of inlet specific enthalpy"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.PartialMedium.MassFraction X_start[Medium.nX]=
+     Medium.X_default "Start value of mass fractions m_i/m"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.Media.Interfaces.PartialMedium.ExtraProperty C_start[
+    Medium.nC]=fill(0, Medium.nC) "Start value of trace substances"
+    annotation (Dialog(tab="Initialization"));
+  parameter Modelica.SIunits.Pressure p_start = Medium.p_default
+    "Start value of inlet pressure"
+    annotation (Dialog(tab="Initialization"));
+  Modelica.SIunits.Density rho_in "Density of inflowing fluid";
+  Modelica.SIunits.VolumeFlowRate V_in_flow
+    "Volume flow rate that flows into the device";
+  // Models
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if dynamicBalance
+    annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
 
 protected
-  constant Modelica.SIunits.Pressure unitPressure=1;
-  constant Modelica.SIunits.MassFlowRate unitMassFlowRate=1;
+  IdealSource souDyn(redeclare package Medium =
+                       Medium, final addHeatToMedium=false) if dynamicBalance
+    "Pressure source for dynamic model, this changes the pressure in the medium"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Buildings.Fluid.Movers.BaseClasses.IdealSource souSta(
+                            redeclare package Medium = Medium) if not dynamicBalance
+    "Source for static model, this changes the pressure in the medium and adds heat"
+    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea if  dynamicBalance
+    "Prescribed heat flow for dynamic model"
+    annotation (Placement(transformation(extent={{-68,0},{-48,20}})));
 
 equation
-  // Flow equations
-  if not checkValve then
-    // Regular flow characteristics without check valve
-    // With a replaceable function, Dymola 7.3 does not find the derivative function.
-    // Support request: Dynasim #10872
-    dp = (N/N_nominal)^2*flowCharacteristic(V_flow_single*(N_nominal/N));
-    // With the statement below, Dymola 7.3 finds the derivative function
-   // dp = (N/N_nominal)^2*Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow(V_flow_nominal={0,1.8,3}, dp_nominal={1000,600,0},
-   //  V_flow=V_flow_single*(N_nominal/N));
-    s = 0;
-  elseif s > 0 then
-    // Flow characteristics when check valve is open
-    dp = (N/N_nominal)^2*flowCharacteristic(V_flow_single*(N_nominal/N));
-    V_flow_single = s*unitMassFlowRate/medium.d;
-  else
-    // Flow characteristics when check valve is closed
-    dp = (N/N_nominal)^2*flowCharacteristic(0) - s*unitPressure;
-    V_flow_single = 0;
-  end if;
+  // For computing the density, we assume that the fan operates in the design flow direction.
+  rho_in = Medium.density(
+       Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
+  V_in_flow = m_flow/rho_in;
+  connect(preHea.port, vol.heatPort) annotation (Line(
+      points={{-48,10},{-40,10}},
+      color={191,0,0},
+      smooth=Smooth.None));
 
-  // Power consumption
-  if use_powerCharacteristic then
-    W_single = (N/N_nominal)^3*(medium.d/rho_nominal)*powerCharacteristic(V_flow_single*(N_nominal/N));
-    eta = dp*V_flow_single/W_single;
-  else
-    eta = efficiencyCharacteristic(V_flow_single*(N_nominal/N));
-    W_single = dp*V_flow_single/eta;
-  end if;
+  connect(souSta.port_b, port_b) annotation (Line(
+      points={{70,-60},{80,-60},{80,5.55112e-16},{100,5.55112e-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
 
-  // Energy balance
-  Wb_flow = W_total;
-  Qb_flow = heatTransfer.Q_flows[1];
-  Hb_flow = port_a.m_flow*actualStream(port_a.h_outflow) +
-            port_b.m_flow*actualStream(port_b.h_outflow);
-
-  // Ports
-  port_a.h_outflow = medium.h;
-  port_b.h_outflow = medium.h;
-  port_b.p = medium.p
-    "outlet pressure is equal to medium pressure, which includes Wb_flow";
-
-  // Mass balance
-  mb_flow = port_a.m_flow + port_b.m_flow;
-
-  mbXi_flow = port_a.m_flow*actualStream(port_a.Xi_outflow) +
-              port_b.m_flow*actualStream(port_b.Xi_outflow);
-  port_a.Xi_outflow = medium.Xi;
-  port_b.Xi_outflow = medium.Xi;
-
-  mbC_flow = port_a.m_flow*actualStream(port_a.C_outflow) +
-             port_b.m_flow*actualStream(port_b.C_outflow);
-  port_a.C_outflow = C;
-  port_b.C_outflow = C;
-
-  connect(heatTransfer.heatPorts[1], heatPort) annotation (Line(
-      points={{40,-34},{40,-60}},
-      color={127,0,0},
+  connect(vol.heatPort, heatPort) annotation (Line(
+      points={{-40,10},{-40,-80},{-60,-80}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(port_a, vol.ports[1]) annotation (Line(
+      points={{-100,5.55112e-16},{-52,5.55112e-16},{-52,0},{-32,0},{-32,
+          -5.55112e-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(souDyn.port_b, port_b) annotation (Line(
+      points={{20,6.10623e-16},{69,6.10623e-16},{69,5.55112e-16},{100,
+          5.55112e-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(souSta.port_a, port_a) annotation (Line(
+      points={{50,-60},{-60,-60},{-60,5.55112e-16},{-100,5.55112e-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(vol.ports[2], souDyn.port_a) annotation (Line(
+      points={{-28,-5.55112e-16},{-15,-5.55112e-16},{-15,6.10623e-16},{
+          -5.55112e-16,6.10623e-16}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
-        Rectangle(
-          extent={{-100,46},{100,-46}},
-          lineColor={0,0,0},
-          fillColor={0,127,255},
-          fillPattern=FillPattern.HorizontalCylinder),
         Polygon(
           points={{-48,-60},{-72,-100},{72,-100},{48,-60},{-48,-60}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.VerticalCylinder),
+        Rectangle(
+          extent={{-100,46},{100,-46}},
+          lineColor={0,0,0},
+          fillColor={0,127,255},
+          fillPattern=FillPattern.HorizontalCylinder),
+        Polygon(
+          points={{2,70},{2,-66},{72,4},{2,70}},
+          lineColor={0,0,0},
+          pattern=LinePattern.None,
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={255,255,255}),
         Ellipse(
           extent={{-80,80},{80,-80}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={0,100,199}),
         Polygon(
-          points={{0,68},{0,-68},{70,2},{0,68}},
+          points={{0,72},{0,-68},{74,4},{0,72}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={255,255,255})}),
+          fillColor={255,255,255}),
+        Ellipse(
+          extent={{16,18},{46,-12}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          visible=dynamicBalance,
+          fillColor={0,100,199})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}),
             graphics),
     Documentation(info="<HTML>
 <p>This is the base model for fans and pumps.
-<p>The model is similar to <a href=\"Modelica.Fluid.Machines.BaseClasses.PartialPump\">
-Modelica.Fluid.Machines.BaseClasses.PartialPump</a>, except for the parameterization which
-has been changed so that the model is also applicable for fans.
-See the revision notes of this model for details.
-<p>The model describes a fan or pump, or a group of <tt>nParallel</tt> identical fans or pumps. The model is based on the theory of kinematic similarity: the fan or pump characteristics are given for nominal operating conditions (rotational speed and fluid density), and then adapted to actual operating condition, according to the similarity equations.
-
-<p><b>Fan or pump characteristics</b></p>
-<p> The nominal hydraulic characteristic (total pressure vs. volume flow rate) is given by the the replaceable function <tt>flowCharacteristic</tt>.
-<p> The fan or pump energy balance can be specified in two alternative ways:
-<ul>
-<li><tt>use_powerCharacteristic = false</tt> (default option): the replaceable function <tt>efficiencyCharacteristic</tt> (efficiency vs. volume flow rate in nominal conditions) is used to determine the efficiency, and then the power consumption.
-    The default is a constant efficiency of 0.8.</li>
-<li><tt>use_powerCharacteristic = true</tt>: the replaceable function <tt>powerCharacteristic</tt> (power consumption vs. volume flow rate in nominal conditions) is used to determine the power consumption, and then the efficiency.
-    Use <tt>powerCharacteristic</tt> to specify a non-zero power consumption for zero flow rate.
-</ul>
-<p>
-Several functions are provided in the package <tt>Characteristics</tt> to specify the characteristics as a function of some operating points at nominal conditions.
-<p>Depending on the value of the <tt>checkValve</tt> parameter, the model either supports reverse flow conditions, or includes a built-in check valve to avoid flow reversal.
-</p>
-<p>It is possible to take into account the heat capacity of the fluid inside the fan or pump by specifying its volume <tt>V</tt>;
-this is necessary to avoid singularities in the computation of the outlet enthalpy in case of zero flow rate.
-If zero flow rate conditions are always avoided, this dynamic effect can be neglected by leaving the default value <tt>V = 0</tt>, thus avoiding a fast state variable in the model.
-</p>
-
-<p><b>Dynamics options</b></p>
-<p>
-Steady-state mass and energy balances are assumed per default, neglecting the holdup of fluid in the fan or pump.
-Dynamic mass and energy balance can be used by setting the corresponding dynamic parameters.
-This might be desirable if the fan or pump is assembled together with valves before port_a and behind port_b.
-If both valves are closed, then the fluid is useful to define the thermodynamic state and in particular the absolute pressure in the fan or pump.
-Note that the <tt>flowCharacteristic</tt> only specifies a pressure difference.
-</p>
-
-<p><b>Heat transfer</b></p>
-<p>
-The boolean paramter <tt>use_HeatTransfer</tt> can be set to true if heat exchanged with the environment
-should be taken into account or to model a housing. This might be desirable if a fan or pump with realistic
-<tt>powerCharacteristic</tt> for zero flow operates while a valve prevents fluid flow.
-</p>
-
-<p><b>Diagnostics of Cavitation</b></p>
-<p>The boolean parameter show_NPSHa can set true to compute the Net Positive Suction Head available and check for cavitation,
-provided a two-phase medium model is used.
+It provides an interface
+between the equations that compute head and power consumption,
+and the implementation of the energy and pressure balance
+of the fluid.
 </p>
 </HTML>",
       revisions="<html>
 <ul>
-<li><i>October 1, 2009</i>
-    by Michael Wetter:<br>
-    Changed model so that it is based on total pressure in Pascals instead of the pump head in meters.
-    This change is needed if the device is used with air as a medium. The original formulation in Modelica.Fluid
-    converts head to pressure using the density medium.d. Therefore, for fans, head would be converted to pressure
-    using the density of air. However, for fans, manufacturers typically publish the head in 
-    millimeters water (mmH20). Therefore, to avoid confusion and to make this model applicable for any medium,
-    the model has been changed to use total pressure in Pascals instead of head in meters.
+<li>March 24 2010, by Michael Wetter:<br>
+First implementation.
 </li>
-<li><i>Dec 2008</i>
-    by R&uuml;diger Franke:<br>
-    <ul>
-    <li>Replaced simplified mass and energy balances with rigorous formulation (base class PartialLumpedVolume)</li>
-    <li>Introduced optional HeatTransfer model defining Qb_flow</li>
-    <li>Enabled events when the checkValve is operating to support the opening of a discrete valve before port_a</li>
-    </ul></li>
-<li><i>31 Oct 2005</i>
-    by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br>
-       Model added to the Fluid library</li>
 </ul>
 </html>"));
-
 end PartialFlowMachine;

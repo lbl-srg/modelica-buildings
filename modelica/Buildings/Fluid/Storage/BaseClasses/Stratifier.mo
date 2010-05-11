@@ -1,74 +1,22 @@
 within Buildings.Fluid.Storage.BaseClasses;
 model Stratifier "Model to reduce the numerical dissipation in a tank"
   extends Buildings.BaseClasses.BaseIcon;
-  replaceable package Medium = 
+  replaceable package Medium =
     Modelica.Media.Interfaces.PartialMedium "Medium model"  annotation (
       choicesAllMatching = true);
-  annotation (Documentation(info="<html>
-<p>
-This model reduces the numerical dissipation that is introduced
-by the standard upwind discretization scheme.
-The model is described by Wischhusen (2006).
-Since we use this model in conjunction with Modelica.Fluid,
-we compute a heat flux that need to be added to each volume
-in order to give the results published in the above paper.
-The model is used by
-<a href=\"Modelica:Buildings.Fluid.Storage.StratifiedEnhanced\">
-Buildings.Fluid.Storage.StratifiedEnhanced</a>.
-</p>
-<h4>References</h4>
-<p>
-Wischhusen Stefan, 
-<a href=\"http://www.modelica.org/events/modelica2006/Proceedings/sessions/Session3a2.pdf\">An Enhanced Discretization Method for Storage
-Tank Models within Energy Systems</a>, 
-<i>Modelica Conference</i>,
-Vienna, Austria, September 2006.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-April 6, 2009 by Michael Wetter:<br>
-Fixed sign error of <tt>H_flow</tt> in
-<tt>heatPort[i].Q_flow = +m_flow * (hOut[i+2]-hOut[i+1]) -H_flow[i] +H_flow[i+1];</tt>
-</li>
-<li>
-October 30, 2008 by Michael Wetter:<br>
-Modified interpolation function to prevent chattering.
-</li>
-<li>
-October 28, 2008 by Michael Wetter:<br>
-Fixed sign error based on feedback from Stefan Wischhusen.
-</li>
-<li>
-October 23, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"),
-Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
-        graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid), Text(
-          extent={{-58,20},{82,-102}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          textString="exp(...)")}));
 
   parameter Integer nSeg(min=2) = 2 "Number of volume segments";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heatPort
-    "Heat input into the volumes" 
+    "Heat input into the volumes"
     annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
 
   Modelica.Blocks.Interfaces.RealInput m_flow
-    "Mass flow rate from port a to port b" 
+    "Mass flow rate from port a to port b"
     annotation (Placement(transformation(extent={{-140,62},{-100,102}},
           rotation=0)));
 
   Modelica.Blocks.Interfaces.RealInput[nSeg+1] H_flow
-    "Enthalpy flow between the volumes" 
+    "Enthalpy flow between the volumes"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
           rotation=0)));
   Modelica.SIunits.Enthalpy[nSeg+2] hOut
@@ -129,4 +77,56 @@ equation
        heatPort[i].Q_flow = +m_flow * (hOut[i+2]-hOut[i+1]) -H_flow[i] +H_flow[i+1];
      end if;
   end for;
+  annotation (Documentation(info="<html>
+<p>
+This model reduces the numerical dissipation that is introduced
+by the standard upwind discretization scheme.
+The model is described by Wischhusen (2006).
+Since we use this model in conjunction with Modelica.Fluid,
+we compute a heat flux that need to be added to each volume
+in order to give the results published in the above paper.
+The model is used by
+<a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
+Buildings.Fluid.Storage.StratifiedEnhanced</a>.
+</p>
+<h4>References</h4>
+<p>
+Wischhusen Stefan, 
+<a href=\"http://www.modelica.org/events/modelica2006/Proceedings/sessions/Session3a2.pdf\">An Enhanced Discretization Method for Storage
+Tank Models within Energy Systems</a>, 
+<i>Modelica Conference</i>,
+Vienna, Austria, September 2006.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+April 6, 2009 by Michael Wetter:<br>
+Fixed sign error of <tt>H_flow</tt> in
+<tt>heatPort[i].Q_flow = +m_flow * (hOut[i+2]-hOut[i+1]) -H_flow[i] +H_flow[i+1];</tt>
+</li>
+<li>
+October 30, 2008 by Michael Wetter:<br>
+Modified interpolation function to prevent chattering.
+</li>
+<li>
+October 28, 2008 by Michael Wetter:<br>
+Fixed sign error based on feedback from Stefan Wischhusen.
+</li>
+<li>
+October 23, 2008 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"),
+Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+        graphics={Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid), Text(
+          extent={{-58,20},{82,-102}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="exp(...)")}));
 end Stratifier;

@@ -2,6 +2,67 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 partial model PartialEffectiveness
   "Partial model to implement heat exchangers based on effectiveness model"
   extends Fluid.Interfaces.PartialStaticFourPortHeatMassTransfer;
+
+  Modelica.SIunits.Temperature T_in1 "Inlet temperature medium 1";
+  Modelica.SIunits.Temperature T_in2 "Inlet temperature medium 2";
+  Modelica.SIunits.ThermalConductance C1_flow
+    "Heat capacity flow rate medium 1";
+  Modelica.SIunits.ThermalConductance C2_flow
+    "Heat capacity flow rate medium 2";
+  Modelica.SIunits.ThermalConductance CMin_flow(min=0)
+    "Minimum heat capacity flow rate";
+  Modelica.SIunits.HeatFlowRate QMax_flow
+    "Maximum heat flow rate into medium 1";
+protected
+  Real gai1(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
+  Real gai2(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
+  parameter Real delta = 1E-3 "Parameter used for smoothing";
+
+  parameter Modelica.SIunits.SpecificHeatCapacity cp1_default(fixed=false)
+    "Specific heat capacity of medium 1 at default medium state";
+  parameter Modelica.SIunits.SpecificHeatCapacity cp2_default(fixed=false)
+    "Specific heat capacity of medium 2 at default medium state";
+  parameter Modelica.SIunits.ThermalConductance CMin_flow_small(fixed=false)
+    "Small value for smoothing of minimum heat capacity flow rate";
+initial equation
+  cp1_default = Medium1.specificHeatCapacityCp(
+      Medium1.setState_pTX(Medium1.p_default, Medium1.T_default, Medium1.X_default));
+  cp2_default = Medium2.specificHeatCapacityCp(
+      Medium2.setState_pTX(Medium2.p_default, Medium2.T_default, Medium2.X_default));
+  CMin_flow_small = min(m1_flow_small*cp1_default, m2_flow_small*cp2_default);
+equation
+  // Definitions for heat transfer effectiveness model
+  T_in1 = Modelica.Fluid.Utilities.regStep(m1_flow,
+                  Medium1.temperature(state_a1_inflow),
+                  Medium1.temperature(state_b1_inflow), m1_flow_small);
+  T_in2 = Modelica.Fluid.Utilities.regStep(m2_flow,
+                  Medium2.temperature(state_a2_inflow),
+                  Medium2.temperature(state_b2_inflow), m2_flow_small);
+
+  // Compute a gain that goes to zero near zero flow rate.
+  // This is required to smoothen the heat transfer at very small flow rates.
+  // Note that gaiK = 1 for abs(mK_flow) > mK_flow_small
+  gai1 = Modelica.Fluid.Utilities.regStep(abs(m1_flow)- 0.75 * m1_flow_small, 1, 0, 0.25*m1_flow_small);
+  gai2 = Modelica.Fluid.Utilities.regStep(abs(m2_flow)- 0.75 * m2_flow_small, 1, 0, 0.25*m2_flow_small);
+
+  // The specific heat capacity is computed using the state of the
+  // medium at port_a. For forward flow, this is correct, for reverse flow,
+  // this is an approximation.
+//   C1_flow = smooth(1, gai1 * abs(m1_flow)) * Medium1.specificHeatCapacityCp(sta_a1);
+//   C2_flow = smooth(1, gai2 * abs(m2_flow)) * Medium2.specificHeatCapacityCp(sta_a2);
+
+//  CMin_flow = Buildings.Utilities.Math.Functions.smoothMin(C1_flow, C2_flow, CMin_flow_small);
+  // If there is a tiny flow, then CMin_flow must be non-zero. Otherwise, the fluid outlet temperature
+  // is the same as the fluid inlet temperature, which gives very high return water temperatures
+  // for tiny flow rates.
+     C1_flow   = abs(m1_flow) * Medium1.specificHeatCapacityCp(sta_a1);
+     C2_flow   = abs(m2_flow) * Medium2.specificHeatCapacityCp(sta_a2);
+     CMin_flow = min(C1_flow, C2_flow);
+
+  // QMax_flow is maximum heat transfer into medium 1
+  // We multiply by gai1*gai2 to ensure that if one flow is zero, then QMax_flow = 0
+  QMax_flow = CMin_flow * (T_in2 - T_in1);
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
           extent={{-70,78},{70,-82}},
@@ -51,43 +112,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics));
-
-  Modelica.SIunits.Temperature T_in1 "Inlet temperature medium 1";
-  Modelica.SIunits.Temperature T_in2 "Inlet temperature medium 2";
-  Modelica.SIunits.ThermalConductance C1_flow
-    "Heat capacity flow rate medium 1";
-  Modelica.SIunits.ThermalConductance C2_flow
-    "Heat capacity flow rate medium 2";
-  Modelica.SIunits.ThermalConductance CMin_flow(min=0)
-    "Minimum heat capacity flow rate";
-  Modelica.SIunits.HeatFlowRate QMax_flow
-    "Maximum heat flow rate into medium 1";
-protected
-  Real gai1(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
-  Real gai2(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
-  parameter Real delta = 1E-3 "Parameter used for smoothing";
-equation
-  // Definitions for heat transfer effectiveness model
-  T_in1 = Modelica.Fluid.Utilities.regStep(m1_flow,
-                  Medium1.temperature(state_a1_inflow),
-                  Medium1.temperature(state_b1_inflow), m1_flow_small);
-  T_in2 = Modelica.Fluid.Utilities.regStep(m2_flow,
-                  Medium2.temperature(state_a2_inflow),
-                  Medium2.temperature(state_b2_inflow), m2_flow_small);
-
-  // Compute a gain that goes to zero near zero flow rate.
-  // This is required to smoothen the heat transfer at very small flow rates.
-  // Note that gaiK = 1 for abs(mK_flow) > mK_flow_small
-  gai1 = Modelica.Fluid.Utilities.regStep(abs(m1_flow)- 0.75 * m1_flow_small, 1, 0, 0.25*m1_flow_small);
-  gai2 = Modelica.Fluid.Utilities.regStep(abs(m2_flow)- 0.75 * m2_flow_small, 1, 0, 0.25*m2_flow_small);
-
-  // The specific heat capacity is computed using the state of the
-  // medium at port_a. For forward flow, this is correct, for reverse flow,
-  // this is an approximation.
-  C1_flow = smooth(1, gai1 * abs(m1_flow)) * Medium1.specificHeatCapacityCp(sta_a1);
-  C2_flow = smooth(1, gai2 * abs(m2_flow)) * Medium2.specificHeatCapacityCp(sta_a2);
-  CMin_flow = Buildings.Utilities.Math.Functions.smoothMin(C1_flow, C2_flow, delta*(C1_flow+C2_flow));
-  // QMax_flow is maximum heat transfer into medium 1
-  QMax_flow = CMin_flow * (T_in2 - T_in1);
-
 end PartialEffectiveness;

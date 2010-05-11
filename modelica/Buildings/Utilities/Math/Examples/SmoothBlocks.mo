@@ -1,24 +1,20 @@
 within Buildings.Utilities.Math.Examples;
 model SmoothBlocks
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-                      Commands(file="SmoothBlocks.mos" "run"));
   SmoothMax smoMax(deltaX=0.5) annotation (Placement(transformation(extent={{
             -20,40},{0,60}}, rotation=0)));
   Modelica.Blocks.Math.Max max annotation (Placement(transformation(extent={{
             -20,0},{0,20}}, rotation=0)));
-  Modelica.Blocks.Sources.Sine sine(freqHz=8) 
+  Modelica.Blocks.Sources.Sine sine(freqHz=8)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=0)));
   Modelica.Blocks.Sources.Sine sine1 annotation (Placement(transformation(
           extent={{-100,0},{-80,20}}, rotation=0)));
-  Diagnostics.AssertEquality assEquMax(threShold=0.08) 
+  Diagnostics.AssertEquality assEquMax(threShold=0.08)
     annotation (Placement(transformation(extent={{40,20},{60,40}}, rotation=0)));
   SmoothMin smoMin(deltaX=0.5) annotation (Placement(transformation(extent={{
             -20,-40},{0,-20}}, rotation=0)));
   Modelica.Blocks.Math.Min Min annotation (Placement(transformation(extent={{
             -20,-80},{0,-60}}, rotation=0)));
-  Diagnostics.AssertEquality assEquMin(threShold=0.08) 
+  Diagnostics.AssertEquality assEquMin(threShold=0.08)
     annotation (Placement(transformation(extent={{40,-60},{60,-40}}, rotation=0)));
 equation
 
@@ -46,4 +42,8 @@ equation
           -44},{38,-44}}, color={0,0,127}));
   connect(Min.y, assEquMin.u2) annotation (Line(points={{1,-70},{20,-70},{20,
           -56},{38,-56}}, color={0,0,127}));
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                     graphics),
+                      Commands(file="SmoothBlocks.mos" "run"));
 end SmoothBlocks;

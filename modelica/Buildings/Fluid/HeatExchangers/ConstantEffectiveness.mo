@@ -1,6 +1,17 @@
 within Buildings.Fluid.HeatExchangers;
 model ConstantEffectiveness "Heat exchanger with constant effectiveness"
-  extends Buildings.Fluid.HeatExchangers.BaseClasses.ConstantEffectiveness;
+  extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
+    sensibleOnly1 = true,
+    sensibleOnly2 = true);
+  parameter Real eps(min=0, max=1) = 0.8 "Heat exchanger effectiveness";
+equation
+  // transfered heat
+  Q1_flow = eps * QMax_flow;
+  // no heat loss to ambient
+  0 = Q1_flow + Q2_flow;
+  // no mass exchange
+  mXi1_flow = zeros(Medium1.nXi);
+  mXi2_flow = zeros(Medium2.nXi);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
           extent={{-70,78},{70,-82}},
@@ -32,7 +43,7 @@ zero flow.
 </p>
 <p>
 For a heat and moisture exchanger, use
-<a href=\"Modelica:Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
+<a href=\"modelica://Buildings.Fluid.MassExchangers.ConstantEffectiveness\">
 Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
 instead of this model.
 </p>
@@ -54,11 +65,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics));
-equation
-  // no mass exchange
-  mXi1_flow = zeros(Medium1.nXi);
-  mXi2_flow = zeros(Medium2.nXi);
-
+Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),     graphics));
 end ConstantEffectiveness;

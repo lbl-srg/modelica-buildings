@@ -2,6 +2,12 @@ within Buildings.Utilities.Math;
 block SmoothMin
   "Once continuously differentiable approximation to the minimum function"
   extends Modelica.Blocks.Interfaces.SI2SO;
+  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
+            0)));
+ parameter Real deltaX "Width of transition interval";
+equation
+  y = Buildings.Utilities.Math.Functions.smoothMin(x1=u1, x2=u2, deltaX=deltaX);
   annotation (Icon(graphics={Text(
           extent={{-88,40},{92,-32}},
           lineColor={160,160,164},
@@ -22,10 +28,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal" 
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-            0)));
- parameter Real deltaX "Width of transition interval";
-equation
-  y = Buildings.Utilities.Math.Functions.smoothMin(x1=u1, x2=u2, deltaX=deltaX);
 end SmoothMin;

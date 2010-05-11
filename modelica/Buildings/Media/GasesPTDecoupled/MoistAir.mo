@@ -10,63 +10,6 @@ package MoistAir
      fluidConstants = {Modelica.Media.IdealGases.Common.FluidData.H2O,
                        Modelica.Media.IdealGases.Common.FluidData.N2});
 
-  annotation (preferedView="info", Documentation(info="<HTML>
-<p>
-This is a medium model that is identical to 
-<a href=\"Modelica:Buildings.Media.PerfectGases.MoistAir\">
-Buildings.Media.PerfectGases.MoistAir</a>, except the 
-equation <tt>d = p/(R*T)</tt> has been replaced with 
-<tt>d/dStp = p/pStp</tt> where 
-<tt>pStd</tt> and <tt>dStp</tt> are constants for a reference
-temperature and density.
-</p>
-<p>
-This new formulation often leads to smaller systems of nonlinear equations 
-because pressure and temperature are decoupled, at the expense of accuracy.
-</p>
-</HTML>", revisions="<html>
-<ul>
-<li>
-January 13, 2010, by Michael Wetter:<br>
-Added function <tt>enthalpyOfNonCondensingGas</tt> and its derivative.
-</li>
-<li>
-January 13, 2010, by Michael Wetter:<br>
-Fixed implementation of derivative functions.
-</li>
-<li>
-August 28, 2008, by Michael Wetter:<br>
-Referenced <tt>spliceFunction</tt> from package 
-<a href=\"Modelica:Buildings.Utilities.Math\">Buildings.Utilities.Math</a>
-to avoid duplicate code.
-</li>
-<li>
-August 21, 2008, by Michael Wetter:<br>
-Replaced <tt>d*pStp = p*dStp</tt> by
-<tt>d/dStp = p/pStp</tt> to indicate that division by 
-<tt>dStp</tt> and <tt>pStp</tt> is allowed.
-</li>
-<li>
-August 22, 2008, by Michael Wetter:<br>
-Changed function 
-<a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAir.density\">
-density</a> so that it uses <tt>rho=p/pStd*rhoStp</tt>
-instead of the ideal gas law.
-</li>
-<li>
-August 18, 2008, by Michael Wetter:<br>
-Changed function 
-<a href=\"Modelica:Buildings.Media.GasesPTDecoupled.MoistAir.T_phX\">
-T_phX</a> so that it uses the implementation of
-<a href=\"Buildings.Media.PerfectGases.MoistAir.T_phX\">
-Buildings.Media.PerfectGases.MoistAir.T_phX</a>.
-</li>
-<li>
-August 15, 2008, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
   constant Integer Water=1
     "Index of water (in substanceNames, massFractions X, etc.)";
   constant Integer Air=2
@@ -90,7 +33,6 @@ First implementation.
       */
     MassFraction x_water "Mass of total water/mass of dry air";
     Real phi "Relative humidity";
-    annotation(structurallyIncomplete);
 
   protected
     constant SI.MolarMass[2] MMX = {steam.MM,dryair.MM}
@@ -139,6 +81,7 @@ required from medium model \""     + mediumName + "\".");
     x_sat    = k_mair*p_steam_sat/max(100*Modelica.Constants.eps,p - p_steam_sat);
     x_water = Xi[Water]/max(X_air,100*Modelica.Constants.eps);
     phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
+    annotation(structurallyIncomplete);
   end BaseProperties;
 
   function Xsaturation = Buildings.Media.PerfectGases.MoistAir.Xsaturation
@@ -152,21 +95,21 @@ required from medium model \""     + mediumName + "\".");
   redeclare function setState_phX
     "Thermodynamic state as function of p, h and composition X"
   extends Modelica.Icons.Function;
+  input AbsolutePressure p "Pressure";
+  input SpecificEnthalpy h "Specific enthalpy";
+  input MassFraction X[:] "Mass fractions";
+  output ThermodynamicState state;
+  algorithm
+  state := if size(X,1) == nX then
+         ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else
+        ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
+     //   ThermodynamicState(p=p,T=T_phX(p,h,cat(1,X,{1-sum(X)})), X=cat(1,X,{1-sum(X)}));
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
 the implementation of <tt>T_phX</tt> provided by this package as opposed to the 
 implementation provided by its parent package.
 </html>"));
-  input AbsolutePressure p "Pressure";
-  input SpecificEnthalpy h "Specific enthalpy";
-  input MassFraction X[:] "Mass fractions";
-  output ThermodynamicState state;
-  algorithm
-  state := if size(X,1) == nX then 
-         ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else 
-        ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
-     //   ThermodynamicState(p=p,T=T_phX(p,h,cat(1,X,{1-sum(X)})), X=cat(1,X,{1-sum(X)}));
   end setState_phX;
 
   redeclare function setState_dTX
@@ -179,21 +122,22 @@ implementation provided by its parent package.
      extends Buildings.Media.PerfectGases.MoistAir.gasConstant;
   end gasConstant;
 
-  function saturationPressureLiquid = 
+  function saturationPressureLiquid =
       Buildings.Media.PerfectGases.MoistAir.saturationPressureLiquid
-    "Saturation curve valid for 273.16 <= T <= 373.16. Outside of these limits a (less accurate) result is returned";
+    "Saturation curve valid for 273.16 <= T <= 373.16. Outside of these limits a (less accurate) result is returned"
+    annotation(Inline=false,smoothOrder=5,derivative=Buildings.Media.PerfectGases.MoistAir.saturationPressureLiquid_der);
 
-  function sublimationPressureIce = 
+  function sublimationPressureIce =
       Buildings.Media.PerfectGases.MoistAir.sublimationPressureIce
     "Saturation curve valid for 223.16 <= T <= 273.16. Outside of these limits a (less accurate) result is returned";
 
 redeclare function extends saturationPressure
     "Saturation curve valid for 223.16 <= T <= 373.16 (and slightly outside with less accuracy)"
 
-  annotation(Inline=false,smoothOrder=5);
 algorithm
   psat := Buildings.Utilities.Math.Functions.spliceFunction(
                                                   saturationPressureLiquid(Tsat),sublimationPressureIce(Tsat),Tsat-273.16,1.0);
+  annotation(Inline=false,smoothOrder=5);
 end saturationPressure;
 
  redeclare function pressure "Gas pressure"
@@ -235,9 +179,9 @@ end saturationPressure;
 redeclare replaceable function extends enthalpyOfLiquid
     "Enthalpy of liquid (per unit mass of liquid) which is linear in the temperature"
 
-  annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid);
 algorithm
   h := (T - 273.15)*4186;
+  annotation(smoothOrder=5, derivative=der_enthalpyOfLiquid);
 end enthalpyOfLiquid;
 
 replaceable function der_enthalpyOfLiquid
@@ -254,11 +198,11 @@ redeclare function enthalpyOfCondensingGas
     "Enthalpy of steam per unit mass of steam"
   extends Modelica.Icons.Function;
 
-  annotation(smoothOrder=5, derivative=der_enthalpyOfCondensingGas);
   input Temperature T "temperature";
   output SpecificEnthalpy h "steam enthalpy";
 algorithm
   h := (T-273.15) * steam.cp + enthalpyOfVaporization(T);
+  annotation(smoothOrder=5, derivative=der_enthalpyOfCondensingGas);
 end enthalpyOfCondensingGas;
 
 replaceable function der_enthalpyOfCondensingGas
@@ -275,11 +219,11 @@ redeclare function enthalpyOfNonCondensingGas
     "Enthalpy of non-condensing gas per unit mass of steam"
   extends Modelica.Icons.Function;
 
-  annotation(smoothOrder=5, derivative=der_enthalpyOfNonCondensingGas);
   input Temperature T "temperature";
   output SpecificEnthalpy h "enthalpy";
 algorithm
   h := enthalpyOfDryAir(T);
+  annotation(smoothOrder=5, derivative=der_enthalpyOfNonCondensingGas);
 end enthalpyOfNonCondensingGas;
 
 replaceable function der_enthalpyOfNonCondensingGas
@@ -303,11 +247,11 @@ replaceable function enthalpyOfDryAir
     "Enthalpy of dry air per unit mass of dry air"
   extends Modelica.Icons.Function;
 
-  annotation(smoothOrder=5, derivative=der_enthalpyOfDryAir);
   input Temperature T "temperature";
   output SpecificEnthalpy h "dry air enthalpy";
 algorithm
   h := (T - 273.15)*dryair.cp;
+  annotation(smoothOrder=5, derivative=der_enthalpyOfDryAir);
 end enthalpyOfDryAir;
 
 replaceable function der_enthalpyOfDryAir
@@ -377,4 +321,61 @@ function T_phX "Compute temperature from specific enthalpy and mass fraction"
   extends Buildings.Media.PerfectGases.MoistAir.T_phX;
 end T_phX;
 
+  annotation (preferedView="info", Documentation(info="<HTML>
+<p>
+This is a medium model that is identical to 
+<a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
+Buildings.Media.PerfectGases.MoistAir</a>, except the 
+equation <tt>d = p/(R*T)</tt> has been replaced with 
+<tt>d/dStp = p/pStp</tt> where 
+<tt>pStd</tt> and <tt>dStp</tt> are constants for a reference
+temperature and density.
+</p>
+<p>
+This new formulation often leads to smaller systems of nonlinear equations 
+because pressure and temperature are decoupled, at the expense of accuracy.
+</p>
+</HTML>", revisions="<html>
+<ul>
+<li>
+January 13, 2010, by Michael Wetter:<br>
+Added function <tt>enthalpyOfNonCondensingGas</tt> and its derivative.
+</li>
+<li>
+January 13, 2010, by Michael Wetter:<br>
+Fixed implementation of derivative functions.
+</li>
+<li>
+August 28, 2008, by Michael Wetter:<br>
+Referenced <tt>spliceFunction</tt> from package 
+<a href=\"modelica://Buildings.Utilities.Math\">Buildings.Utilities.Math</a>
+to avoid duplicate code.
+</li>
+<li>
+August 21, 2008, by Michael Wetter:<br>
+Replaced <tt>d*pStp = p*dStp</tt> by
+<tt>d/dStp = p/pStp</tt> to indicate that division by 
+<tt>dStp</tt> and <tt>pStp</tt> is allowed.
+</li>
+<li>
+August 22, 2008, by Michael Wetter:<br>
+Changed function 
+<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir.density\">
+density</a> so that it uses <tt>rho=p/pStd*rhoStp</tt>
+instead of the ideal gas law.
+</li>
+<li>
+August 18, 2008, by Michael Wetter:<br>
+Changed function 
+<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir.T_phX\">
+T_phX</a> so that it uses the implementation of
+<a href=\"Buildings.Media.PerfectGases.MoistAir.T_phX\">
+Buildings.Media.PerfectGases.MoistAir.T_phX</a>.
+</li>
+<li>
+August 15, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MoistAir;

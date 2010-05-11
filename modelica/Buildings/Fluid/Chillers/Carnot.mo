@@ -6,10 +6,131 @@ model Carnot
         package Medium = Medium2,
      nPorts=2, V=m2_flow_nominal*tau2/rho2_nominal,
      final use_HeatTransfer=true,
-     redeclare model HeatTransfer = 
+     redeclare model HeatTransfer =
           Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
              surfaceAreas={1})));
 
+  parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=
+    Buildings.Fluid.Types.EfficiencyInput.volume
+    "Temperatures of evaporator fluid used to compute Carnot efficiency"
+    annotation (Dialog(tab="Advanced", group="Temperature dependence"));
+  parameter Buildings.Fluid.Types.EfficiencyInput effInpCon=
+    Buildings.Fluid.Types.EfficiencyInput.port_a
+    "Temperatures of condenser fluid used to compute Carnot efficiency"
+    annotation (Dialog(tab="Advanced", group="Temperature dependence"));
+  parameter Modelica.SIunits.Power P_nominal
+    "Nominal compressor power (at y=1)"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal = 10
+    "Temperature difference evaporator inlet-outlet"
+    annotation (Dialog(group="Nominal condition"));
+  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal = 10
+    "Temperature difference condenser outlet-inlet"
+    annotation (Dialog(group="Nominal condition"));
+  // Efficiency
+  parameter Boolean use_eta_Carnot = true
+    "Set to true to use Carnot efficiency"
+    annotation(Dialog(group="Efficiency"));
+  parameter Real etaCar(fixed=use_eta_Carnot)
+    "Carnot effectiveness (=COP/COP_Carnot)"
+    annotation (Dialog(group="Efficiency", enable=use_eta_Carnot));
+  parameter Real COP_nominal(fixed=not use_eta_Carnot)
+    "Coefficient of performance"
+    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
+  parameter Modelica.SIunits.Temperature TCon_nominal = 303.15
+    "Condenser temperature"
+    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
+  parameter Modelica.SIunits.Temperature TEva_nominal = 278.15
+    "Evaporator temperature"
+    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
+
+  parameter Real a[:] = {1}
+    "Coefficients for efficiency curve (need p(a=a, y=1)=1)"
+    annotation (Dialog(group="Efficiency"));
+
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
+    "Prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
+  Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
+    "Condenser heat flow rate"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
+    "Evaporator heat flow rate"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
+    "Prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
+    annotation (Placement(transformation(extent={{-140,70},{-100,110}},
+          rotation=0)));
+  Real etaPL "Efficiency due to part load of compressor (etaPL(y=1)=1";
+  Real COP(min=0) "Coefficient of performance";
+  Real COPCar(min=0) "Carnot efficiency";
+  Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
+  Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
+  Modelica.SIunits.Power P "Compressor power";
+  Modelica.SIunits.Temperature TCon
+    "Condenser temperature used to compute efficiency";
+  Modelica.SIunits.Temperature TEva
+    "Evaporator temperature used to compute efficiency";
+initial equation
+  assert(dTEva_nominal>0, "Parameter dTEva_nominal must be positive.");
+  assert(dTCon_nominal>0, "Parameter dTCon_nominal must be positive.");
+  if use_eta_Carnot then
+    COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
+  else
+    etaCar = COP_nominal / (TEva_nominal/(TCon_nominal-TEva_nominal));
+  end if;
+  assert(abs(Buildings.Utilities.Math.Functions.polynomial(
+                                                     a=a, x=y)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
+  assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
+  assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
+equation
+  // Set temperatures that will be used to compute Carnot efficiency
+  if effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
+    TCon = vol1.heatPort.T;
+  elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_a then
+    TCon = Medium1.temperature(sta_a1);
+  elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_b then
+    TCon = Medium1.temperature(sta_b1);
+  else
+    TCon = 0.5 * (Medium1.temperature(sta_a1)+Medium1.temperature(sta_b1));
+  end if;
+
+  if effInpEva == Buildings.Fluid.Types.EfficiencyInput.volume then
+    TEva = vol2.heatPort.T;
+  elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_a then
+    TEva = Medium2.temperature(sta_a2);
+  elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_b then
+    TEva = Medium2.temperature(sta_b2);
+  else
+    TEva = 0.5 * (Medium2.temperature(sta_a2)+Medium2.temperature(sta_b2));
+  end if;
+
+  etaPL  = Buildings.Utilities.Math.Functions.polynomial(
+                                                   a=a, x=y);
+  P = y * P_nominal;
+  COPCar = TEva / max(1, abs(TCon-TEva));
+  COP = etaCar * COPCar * etaPL;
+  -QEva_flow = COP * P;
+  0 = P + QEva_flow + QCon_flow;
+
+  connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
+      points={{-59,-40},{-39,-40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(
+      points={{-59,40},{-39,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(
+      points={{-19,40},{-10,40},{-10,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(
+      points={{-19,-40},{30,-40},{30,-60},{12,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -138,125 +259,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=
-    Buildings.Fluid.Types.EfficiencyInput.volume
-    "Temperatures of evaporator fluid used to compute Carnot efficiency" 
-    annotation (Dialog(tab="Advanced", group="Temperature dependence"));
-  parameter Buildings.Fluid.Types.EfficiencyInput effInpCon=
-    Buildings.Fluid.Types.EfficiencyInput.port_a
-    "Temperatures of condenser fluid used to compute Carnot efficiency" 
-    annotation (Dialog(tab="Advanced", group="Temperature dependence"));
-  parameter Modelica.SIunits.Power P_nominal
-    "Nominal compressor power (at y=1)" 
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dTEva_nominal = 10
-    "Temperature difference evaporator inlet-outlet" 
-    annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.TemperatureDifference dTCon_nominal = 10
-    "Temperature difference condenser outlet-inlet" 
-    annotation (Dialog(group="Nominal condition"));
-  // Efficiency
-  parameter Boolean use_eta_Carnot = true
-    "Set to true to use Carnot efficiency" 
-    annotation(Dialog(group="Efficiency"));
-  parameter Real etaCar(fixed=use_eta_Carnot)
-    "Carnot effectiveness (=COP/COP_Carnot)" 
-    annotation (Dialog(group="Efficiency", enable=use_eta_Carnot));
-  parameter Real COP_nominal(fixed=not use_eta_Carnot)
-    "Coefficient of performance" 
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-  parameter Modelica.SIunits.Temperature TCon_nominal = 303.15
-    "Condenser temperature" 
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-  parameter Modelica.SIunits.Temperature TEva_nominal = 278.15
-    "Evaporator temperature" 
-    annotation (Dialog(group="Efficiency", enable=not use_eta_Carnot));
-
-  parameter Real a[:] = {1}
-    "Coefficients for efficiency curve (need p(a=a, y=1)=1)" 
-    annotation (Dialog(group="Efficiency"));
-
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
-    "Prescribed heat flow rate" 
-    annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
-  Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
-    "Condenser heat flow rate" 
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
-    "Evaporator heat flow rate" 
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
-    "Prescribed heat flow rate" 
-    annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio" 
-    annotation (Placement(transformation(extent={{-140,70},{-100,110}},
-          rotation=0)));
-  Real etaPL "Efficiency due to part load of compressor (etaPL(y=1)=1";
-  Real COP(min=0) "Coefficient of performance";
-  Real COPCar(min=0) "Carnot efficiency";
-  Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
-  Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
-  Modelica.SIunits.Power P "Compressor power";
-  Modelica.SIunits.Temperature TCon
-    "Condenser temperature used to compute efficiency";
-  Modelica.SIunits.Temperature TEva
-    "Evaporator temperature used to compute efficiency";
-initial equation
-  assert(dTEva_nominal>0, "Parameter dTEva_nominal must be positive.");
-  assert(dTCon_nominal>0, "Parameter dTCon_nominal must be positive.");
-  if use_eta_Carnot then
-    COP_nominal = etaCar * TEva_nominal/(TCon_nominal-TEva_nominal);
-  else
-    etaCar = COP_nominal / (TEva_nominal/(TCon_nominal-TEva_nominal));
-  end if;
-  assert(abs(Buildings.Utilities.Math.Functions.polynomial(
-                                                     a=a, x=y)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
-  assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
-  assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
-equation
-  // Set temperatures that will be used to compute Carnot efficiency
-  if effInpCon == Buildings.Fluid.Types.EfficiencyInput.volume then
-    TCon = vol1.heatPort.T;
-  elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_a then
-    TCon = Medium1.temperature(sta_a1);
-  elseif effInpCon == Buildings.Fluid.Types.EfficiencyInput.port_b then
-    TCon = Medium1.temperature(sta_b1);
-  else
-    TCon = 0.5 * (Medium1.temperature(sta_a1)+Medium1.temperature(sta_b1));
-  end if;
-
-  if effInpEva == Buildings.Fluid.Types.EfficiencyInput.volume then
-    TEva = vol2.heatPort.T;
-  elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_a then
-    TEva = Medium2.temperature(sta_a2);
-  elseif effInpEva == Buildings.Fluid.Types.EfficiencyInput.port_b then
-    TEva = Medium2.temperature(sta_b2);
-  else
-    TEva = 0.5 * (Medium2.temperature(sta_a2)+Medium2.temperature(sta_b2));
-  end if;
-
-  etaPL  = Buildings.Utilities.Math.Functions.polynomial(
-                                                   a=a, x=y);
-  P = y * P_nominal;
-  COPCar = TEva / max(1, abs(TCon-TEva));
-  COP = etaCar * COPCar * etaPL;
-  -QEva_flow = COP * P;
-  0 = P + QEva_flow + QCon_flow;
-
-  connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
-      points={{-59,-40},{-39,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(
-      points={{-59,40},{-39,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(
-      points={{-19,40},{-10,40},{-10,60}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(
-      points={{-19,-40},{30,-40},{30,-60},{12,-60}},
-      color={191,0,0},
-      smooth=Smooth.None));
 end Carnot;

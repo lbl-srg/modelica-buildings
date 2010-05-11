@@ -2,6 +2,17 @@ within Buildings.Utilities.Psychrometrics;
 block ToDryAir
   "Block to convert absolute humidity from [kg/kg total air] to [kg/kg dry air]"
   extends Modelica.Blocks.Interfaces.BlockIcon;
+  Modelica.Blocks.Interfaces.RealOutput XiDry
+    "Water vapor concentration in [kg/kg dry air]"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
+            0)));
+  Modelica.Blocks.Interfaces.RealInput XiTotalAir
+    "Water vapor concentration in [kg/kg total air]"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
+          rotation=0)));
+
+equation
+  XiDry = XiTotalAir / (1-XiTotalAir);
     annotation (
     Documentation(info="<html>
 <p>
@@ -29,15 +40,4 @@ First implementation.
           textString="XiTotal")}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics));
-  Modelica.Blocks.Interfaces.RealOutput XiDry
-    "Water vapor concentration in [kg/kg dry air]" 
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-            0)));
-  Modelica.Blocks.Interfaces.RealInput XiTotalAir
-    "Water vapor concentration in [kg/kg total air]" 
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
-
-equation
-  XiDry = XiTotalAir / (1-XiTotalAir);
 end ToDryAir;

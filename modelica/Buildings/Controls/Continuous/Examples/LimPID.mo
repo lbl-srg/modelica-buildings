@@ -1,12 +1,8 @@
 within Buildings.Controls.Continuous.Examples;
 model LimPID "Example model"
   import Buildings;
- annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-                      Commands(file="LimPID.mos" "run"));
 
-  Modelica.Blocks.Sources.Pulse pulse(period=0.25) 
+  Modelica.Blocks.Sources.Pulse pulse(period=0.25)
     annotation (Placement(transformation(extent={{-80,30},{-60,50}},rotation=0)));
   Buildings.Controls.Continuous.LimPID limPID(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
@@ -14,7 +10,7 @@ model LimPID "Example model"
     Td=1,
     yMax=1,
     yMin=-1,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) 
+    initType=Modelica.Blocks.Types.InitPID.InitialState)
           annotation (Placement(transformation(extent={{-20,30},{0,50}})));
   Buildings.Controls.Continuous.LimPID limPIDRev(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
@@ -24,13 +20,13 @@ model LimPID "Example model"
     yMax=1,
     yMin=-1,
     initType=Modelica.Blocks.Types.InitPID.InitialState)
-    "Controller with reverse action" 
+    "Controller with reverse action"
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Modelica.Blocks.Sources.Constant const(k=0.5) 
+  Modelica.Blocks.Sources.Constant const(k=0.5)
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Modelica.Blocks.Math.Gain gain(k=-1) 
+  Modelica.Blocks.Math.Gain gain(k=-1)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1e-10) 
+  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1e-10)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Blocks.Continuous.LimPID limPIDOri(
     controllerType=Modelica.Blocks.Types.SimpleController.PID,
@@ -38,10 +34,10 @@ model LimPID "Example model"
     Td=1,
     yMax=1,
     yMin=-1,
-    initType=Modelica.Blocks.Types.InitPID.InitialState) 
+    initType=Modelica.Blocks.Types.InitPID.InitialState)
           annotation (Placement(transformation(extent={{-20,70},{0,90}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality1(
-                                                                threShold=1e-10) 
+                                                                threShold=1e-10)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(pulse.y, limPID.u_s) annotation (Line(
@@ -72,12 +68,12 @@ equation
       points={{1,40},{30,40},{30,36},{58,36}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pulse.y, limPIDOri.u_s) 
+  connect(pulse.y, limPIDOri.u_s)
                                annotation (Line(
       points={{-59,40},{-45.5,40},{-45.5,80},{-22,80}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(const.y, limPIDOri.u_m) 
+  connect(const.y, limPIDOri.u_m)
                                annotation (Line(
       points={{-59,10},{-52,10},{-52,60},{-10,60},{-10,68}},
       color={0,0,127},
@@ -90,4 +86,8 @@ equation
       points={{58,64},{30,64},{30,40},{1,40}},
       color={0,0,127},
       smooth=Smooth.None));
+ annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -100},{100,100}}),
+                     graphics),
+                      Commands(file="LimPID.mos" "run"));
 end LimPID;

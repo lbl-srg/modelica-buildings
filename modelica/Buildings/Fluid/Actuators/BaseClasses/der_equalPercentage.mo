@@ -2,28 +2,6 @@ within Buildings.Fluid.Actuators.BaseClasses;
 function der_equalPercentage
   "Derivative of valve opening characteristics for equal percentage valve"
 
-annotation (
-Documentation(info="<html>
-<p>
-This function computes the derivative of the opening characteristics of an equal percentage valve.
-</p><p>
-The function is the derivative of  
-<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.equalPercentage\">
-TwoWayValveEqualPercentage</a>.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-February 4, 2010 by Michael Wetter:<br>
-Fixed implementation of derivative function.
-</li>
-<li>
-June 6, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
   input Real y "Valve opening signal, y=1 is fully open";
   input Real R "Rangeability, R=50...100 typically";
   input Real l(min=0, max=1) "Valve leakage, l=Cv(y=0)/Cvs";
@@ -59,4 +37,26 @@ algorithm
       der_phi  := (c + y * ( 2*b + 3*a*y)) * der_y;
     end if;
   end if;
+annotation (
+Documentation(info="<html>
+<p>
+This function computes the derivative of the opening characteristics of an equal percentage valve.
+</p><p>
+The function is the derivative of  
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.equalPercentage\">
+TwoWayValveEqualPercentage</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+February 4, 2010 by Michael Wetter:<br>
+Fixed implementation of derivative function.
+</li>
+<li>
+June 6, 2008 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end der_equalPercentage;

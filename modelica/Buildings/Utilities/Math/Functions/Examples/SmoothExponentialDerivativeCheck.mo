@@ -1,11 +1,21 @@
 within Buildings.Utilities.Math.Functions.Examples;
 model SmoothExponentialDerivativeCheck
 
+  Real x;
+  Real y;
+  Real ex "exact function value";
+initial equation
+   y=x;
+equation
+  x=Buildings.Utilities.Math.Functions.smoothExponential(
+                                               x=time-2, delta=0.5);
+  der(y)=der(x);
+  assert(abs(x-y) < 1E-2, "Model has an error");
+  ex=exp(-abs(time-2));
  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                     graphics),
-                     Commands(file="SmoothExponentialDerivativeCheck.mos" "run"));
-  annotation (
+                     Commands(file="SmoothExponentialDerivativeCheck.mos" "run"),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -20,16 +30,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-  Real x;
-  Real y;
-  Real ex "exact function value";
-initial equation
-   y=x;
-equation
-  x=Buildings.Utilities.Math.Functions.smoothExponential(
-                                               x=time-2, delta=0.5);
-  der(y)=der(x);
-  assert(abs(x-y) < 1E-2, "Model has an error");
-  ex=exp(-abs(time-2));
 end SmoothExponentialDerivativeCheck;

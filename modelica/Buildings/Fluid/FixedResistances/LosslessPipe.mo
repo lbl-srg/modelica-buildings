@@ -1,7 +1,24 @@
 within Buildings.Fluid.FixedResistances;
 model LosslessPipe "Pipe with no flow friction and no heat transfer"
-  extends Modelica.Fluid.Interfaces.PartialTwoPortTransport;
+  extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface(
+     show_T=false, show_V_flow=false);
   extends Buildings.BaseClasses.BaseIcon;
+  final parameter Boolean from_dp=true "Used to satisfy replaceable models";
+equation
+  dp=0;
+  // Isenthalpic state transformation (no storage and no loss of energy)
+  port_a.h_outflow = inStream(port_b.h_outflow);
+  port_b.h_outflow = inStream(port_a.h_outflow);
+
+  // Mass balance (no storage)
+  port_a.m_flow + port_b.m_flow = 0;
+
+  // Transport of substances
+  port_a.Xi_outflow = inStream(port_b.Xi_outflow);
+  port_b.Xi_outflow = inStream(port_a.Xi_outflow);
+
+  port_a.C_outflow = inStream(port_b.C_outflow);
+  port_b.C_outflow = inStream(port_a.C_outflow);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -34,9 +51,4 @@ First implementation.
 </li>
 </ul>
 </html>");
-equation
- dp=0;
-  // Isenthalpic state transformation (no storage and no loss of energy)
-  port_a.h_outflow = inStream(port_b.h_outflow);
-  port_b.h_outflow = inStream(port_a.h_outflow);
 end LosslessPipe;

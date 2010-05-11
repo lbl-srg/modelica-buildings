@@ -10,6 +10,8 @@ model MassFlowRate "Ideal sensor for mass flow rate"
         extent={{10,-10},{-10,10}},
         rotation=270)));
 
+equation
+  m_flow = port_a.m_flow;
 annotation (
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
@@ -29,6 +31,4 @@ The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 </HTML>
 "));
-equation
-  m_flow = port_a.m_flow;
 end MassFlowRate;

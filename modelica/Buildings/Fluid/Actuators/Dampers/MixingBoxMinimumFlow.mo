@@ -8,12 +8,62 @@ model MixingBoxMinimumFlow
     "Face area minimum outside air damper";
 
   parameter Modelica.SIunits.MassFlowRate mOutMin_flow_nominal
-    "Mass flow rate minimum outside air damper" 
+    "Mass flow rate minimum outside air damper"
     annotation (Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Pressure dpOutMin_nominal(min=0, displayUnit="Pa")
-    "Pressure drop minimum outside air leg (without damper)" 
+    "Pressure drop minimum outside air leg"
      annotation (Dialog(group="Nominal condition"));
 
+  Modelica.Fluid.Interfaces.FluidPort_a port_OutMin(redeclare package Medium =
+        Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
+                0))
+    "Fluid connector a (positive design flow direction is from port_a to port_b)"
+    annotation (Placement(transformation(extent={{-110,90},{-90,110}},rotation=
+            0), iconTransformation(extent={{-110,90},{-90,110}})));
+  Modelica.Blocks.Interfaces.RealInput yOutMin
+    "Damper position minimum outside air (0: closed, 1: open)"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+          rotation=270,
+        origin={60,120})));
+
+  VAVBoxExponential damOAMin(
+    redeclare package Medium = Medium,
+    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
+    from_dp=from_dp,
+    linearized=linearized,
+    use_deltaM=use_deltaM,
+    deltaM=deltaM,
+    use_v_nominal=use_v_nominal,
+    v_nominal=v_nominal,
+    roundDuct=roundDuct,
+    ReC=ReC,
+    m_flow_small=m_flow_small,
+    a=a,
+    b=b,
+    yL=yL,
+    yU=yU,
+    k0=k0,
+    k1=k1,
+    use_constant_density=use_constant_density,
+    allowFlowReversal=allowFlowReversal,
+    m_flow_nominal=mOutMin_flow_nominal,
+    dp_nominal=dpOutMin_nominal,
+    A=AOutMin) "Damper for minimum outside air intake"
+    annotation (Placement(transformation(extent={{20,70},{40,90}},     rotation=
+           0)));
+equation
+  connect(port_OutMin, damOAMin.port_a) annotation (Line(
+      points={{-100,100},{-46,100},{-46,90},{10,90},{10,80},{20,80}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(damOAMin.port_b, port_Sup) annotation (Line(
+      points={{40,80},{60,80},{60,60},{100,60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(yOutMin, damOAMin.y) annotation (Line(
+      points={{60,120},{60,96},{30,96},{30,88}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
@@ -48,7 +98,7 @@ Changed implementation of flow resistance. Instead of using a
 fixed resistance and a damper model in series, only one model is used
 that internally adds these two resistances. This leads to smaller systems
 of nonlinear equations. This new implementation extends 
-<a href=\"Modelica:Buildings.Fluid.Actuators.Dampers.MixingBox\">
+<a href=\"modelica://Buildings.Fluid.Actuators.Dampers.MixingBox\">
 Buildings.Fluid.Actuators.Dampers.MixingBox</a>.
 </li>
 <li>
@@ -68,56 +118,4 @@ If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
 </html>"));
-  Modelica.Fluid.Interfaces.FluidPort_a port_OutMin(redeclare package Medium = 
-        Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else 
-                0))
-    "Fluid connector a (positive design flow direction is from port_a to port_b)"
-    annotation (Placement(transformation(extent={{-110,90},{-90,110}},rotation=
-            0), iconTransformation(extent={{-110,90},{-90,110}})));
-  Modelica.Blocks.Interfaces.RealInput yOutMin
-    "Damper position minimum outside air (0: closed, 1: open)" 
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-          rotation=270,
-        origin={60,120})));
-
-  VAVBoxExponential damOAMin(
-    redeclare package Medium = Medium,
-    dp_nominalIncludesDamper=dp_nominalIncludesDamper,
-    from_dp=from_dp,
-    linearized=linearized,
-    use_deltaM=use_deltaM,
-    deltaM=deltaM,
-    use_v_nominal=use_v_nominal,
-    v_nominal=v_nominal,
-    roundDuct=roundDuct,
-    ReC=ReC,
-    dp_start=dp_start,
-    m_flow_start=m_flow_start,
-    m_flow_small=m_flow_small,
-    a=a,
-    b=b,
-    yL=yL,
-    yU=yU,
-    k0=k0,
-    k1=k1,
-    use_constant_density=use_constant_density,
-    allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=mOutMin_flow_nominal,
-    dp_nominal=dpOutMin_nominal,
-    A=AOutMin) "Damper for minimum outside air intake" 
-    annotation (Placement(transformation(extent={{20,70},{40,90}},     rotation=
-           0)));
-equation
-  connect(port_OutMin, damOAMin.port_a) annotation (Line(
-      points={{-100,100},{-46,100},{-46,90},{10,90},{10,80},{20,80}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(damOAMin.port_b, port_Sup) annotation (Line(
-      points={{40,80},{60,80},{60,60},{100,60}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(yOutMin, damOAMin.y) annotation (Line(
-      points={{60,120},{60,96},{30,96},{30,88}},
-      color={0,0,127},
-      smooth=Smooth.None));
 end MixingBoxMinimumFlow;

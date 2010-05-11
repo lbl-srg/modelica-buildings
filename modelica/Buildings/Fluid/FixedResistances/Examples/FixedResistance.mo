@@ -2,19 +2,14 @@ within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistance
   import Buildings;
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-                         Commands(file=
-            "FixedResistance.mos" "run"));
- package Medium = 
+ package Medium =
         Buildings.Media.ConstantPropertyLiquidWater;
-    Modelica.Blocks.Sources.Constant PAtm(k=101325) 
+    Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{66,76},{86,96}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp P(
       duration=1,
     height=20,
-    offset=101315) 
+    offset=101315)
                  annotation (Placement(transformation(extent={{-100,70},{-80,90}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
@@ -39,7 +34,7 @@ model FixedResistance
     from_dp=true,
     m_flow_nominal=5,
     dp_nominal=10,
-    use_dh=true) 
+    use_dh=true)
              annotation (Placement(transformation(extent={{-28,-10},{-8,10}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
@@ -47,11 +42,12 @@ model FixedResistance
     from_dp=true,
     m_flow_nominal=5,
     dp_nominal=10,
-    use_dh=true) 
+    use_dh=true)
              annotation (Placement(transformation(extent={{-28,-50},{-8,-30}},
           rotation=0)));
-  FixedResistances.LosslessPipe pipCon(redeclare package Medium = Medium)
-    "Lossless pipe connection" annotation (Placement(transformation(extent={{34,
+  FixedResistances.LosslessPipe pipCon(redeclare package Medium = Medium,
+      m_flow_nominal=5) "Lossless pipe connection"
+                               annotation (Placement(transformation(extent={{34,
             -50},{54,-30}}, rotation=0)));
   Buildings.Fluid.Sensors.MassFlowRate masFlo2(redeclare package Medium = Medium)
     "Mass flow rate sensor" annotation (Placement(transformation(extent={{20,-10},
@@ -61,15 +57,16 @@ model FixedResistance
             {20,-30}}, rotation=0)));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu(threShold=1E-4, message=
         "Inputs differ, check that lossless pipe is correctly implemented.")
-    "Assert equality of the two mass flow rates" 
+    "Assert equality of the two mass flow rates"
     annotation (Placement(transformation(extent={{40,60},{60,80}},   rotation=0)));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
-  connect(res2.port_b, masFlo2.port_a) annotation (Line(points={{-8,0},{20,0}},
-                          color={0,127,255}));
-  connect(res3.port_b, masFlo3.port_a) annotation (Line(points={{-8,-40},{0,-40}},
-                               color={0,127,255}));
+  connect(res2.port_b, masFlo2.port_a) annotation (Line(points={{-8,6.10623e-16},
+          {-1,6.10623e-16},{-1,1.22125e-15},{6,1.22125e-15},{6,6.10623e-16},{20,
+          6.10623e-16}},  color={0,127,255}));
+  connect(res3.port_b, masFlo3.port_a) annotation (Line(points={{-8,-40},{
+          -5.55112e-16,-40}},  color={0,127,255}));
   connect(masFlo3.port_b, pipCon.port_a) annotation (Line(points={{20,-40},{34,
           -40}}, color={0,127,255}));
   connect(P.y, sou1.p_in) annotation (Line(
@@ -97,7 +94,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou1.ports[2], res2.port_a) annotation (Line(
-      points={{-40,-2.22045e-016},{-36,-2.22045e-016},{-36,0},{-28,0}},
+      points={{-40,5.55112e-16},{-36,5.55112e-16},{-36,6.10623e-16},{-28,
+          6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou1.ports[3], res3.port_a) annotation (Line(
@@ -105,11 +103,17 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin1.ports[2], masFlo2.port_b) annotation (Line(
-      points={{70,-2.22045e-016},{55,-2.22045e-016},{55,0},{40,0}},
+      points={{70,5.55112e-16},{55,5.55112e-16},{55,6.10623e-16},{40,
+          6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin1.ports[3], pipCon.port_b) annotation (Line(
       points={{70,-2.66667},{60,-2.66667},{60,-40},{54,-40}},
       color={0,127,255},
       smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                        graphics),
+                         Commands(file=
+            "FixedResistance.mos" "run"));
 end FixedResistance;

@@ -11,10 +11,11 @@ PartialPipeManifold
 PipeManifoldFixedResistance
 PipeManifoldNoResistance
 Examples
+appartusDewPoint
+epsilon_C
+epsilonCondensate_WetCoil
 epsilon_ntuZ
+cpSat
 ntu_epsilonZ
 Internal
 PartialEffectiveness
-cpSat
-epsilon_C
-epsilonCondensate_WetCoil

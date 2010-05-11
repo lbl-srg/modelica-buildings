@@ -16,7 +16,7 @@ for data exchange during the time step integration.
 </p>
 <p>
 To run the examples in 
-<a href=\"Modelica:Buildings.Utilities.IO.BCVTB.Examples\">
+<a href=\"modelica://Buildings.Utilities.IO.BCVTB.Examples\">
 Buildings.Utilities.IO.BCVTB.Examples</a>
 the BCVTB needs to be installed. The BCVTB installation 
 contains these examples and the C libraries that are required

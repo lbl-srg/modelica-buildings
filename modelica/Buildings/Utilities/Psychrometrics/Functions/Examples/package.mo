@@ -6,6 +6,6 @@ extends Buildings.BaseClasses.BaseIconExamples;
   annotation (Documentation(info="<html>
 This package contains examples for the use of models
 that can be found in 
-<a href=\"Modelica:Buildings.Utilities.Psychrometics.Functions\">Buildings.Utilities.Psychrometics.Functions</a>.
+<a href=\"modelica://Buildings.Utilities.Psychrometics.Functions\">Buildings.Utilities.Psychrometics.Functions</a>.
 </html>"));
 end Examples;

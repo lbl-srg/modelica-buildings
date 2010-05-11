@@ -2,6 +2,34 @@ within Buildings.Utilities.Math.Functions;
 function regNonZeroPower
   "Power function, regularized near zero, but nonzero value for x=0"
 
+ input Real x "Abscissa value";
+ input Real n "Exponent";
+ input Real delta = 0.01 "Abscissa value where transition occurs";
+ output Real y "Function value";
+protected
+  Real a1;
+  Real a3;
+  Real a5;
+  Real delta2;
+  Real x2;
+  Real y_d "=y(delta)";
+  Real yP_d "=dy(delta)/dx";
+  Real yPP_d "=d^2y(delta)/dx^2";
+algorithm
+  if abs(x) > delta then
+   y := abs(x)^n;
+  else
+   delta2 :=delta*delta;
+   x2 :=x*x;
+   y_d :=delta^n;
+   yP_d :=n*delta^(n - 1);
+   yPP_d :=n*(n - 1)*delta^(n - 2);
+   a1 := -(yP_d/delta - yPP_d)/delta2/8;
+   a3 := (yPP_d - 12 * a1 * delta2)/2;
+   a5 := (y_d - delta2 * (a3 + delta2 * a1));
+   y := a5 + x2 * (a3 + x2 * a1);
+   assert(a5>0, "delta is too small for this exponent n");
+  end if;
   annotation (
     Documentation(info="<html>
 <p>
@@ -39,34 +67,5 @@ April 14, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"));
- input Real x "Abscissa value";
- input Real n "Exponent";
- input Real delta = 0.01 "Abscissa value where transition occurs";
- output Real y "Function value";
- annotation(smoothOrder=2, derivative=BaseClasses.der_regNonZeroPower);
-protected
-  Real a1;
-  Real a3;
-  Real a5;
-  Real delta2;
-  Real x2;
-  Real y_d "=y(delta)";
-  Real yP_d "=dy(delta)/dx";
-  Real yPP_d "=d^2y(delta)/dx^2";
-algorithm
-  if abs(x) > delta then
-   y := abs(x)^n;
-  else
-   delta2 :=delta*delta;
-   x2 :=x*x;
-   y_d :=delta^n;
-   yP_d :=n*delta^(n - 1);
-   yPP_d :=n*(n - 1)*delta^(n - 2);
-   a1 := -(yP_d/delta - yPP_d)/delta2/8;
-   a3 := (yPP_d - 12 * a1 * delta2)/2;
-   a5 := (y_d - delta2 * (a3 + delta2 * a1));
-   y := a5 + x2 * (a3 + x2 * a1);
-   assert(a5>0, "delta is too small for this exponent n");
-  end if;
+</html>"),  smoothOrder=2, derivative=BaseClasses.der_regNonZeroPower);
 end regNonZeroPower;

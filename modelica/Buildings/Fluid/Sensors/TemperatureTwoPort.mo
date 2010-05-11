@@ -4,9 +4,8 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
 
   Modelica.Blocks.Interfaces.RealOutput T( final quantity="ThermodynamicTemperature",
                                            final unit="K",
-                                           min = 0,
-                                           displayUnit="degC")
-    "Temperature of the passing fluid" 
+                                           min = 0)
+    "Temperature of the passing fluid"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{10,-10},{-10,10}},
@@ -15,6 +14,20 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
     "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
     annotation(Dialog(tab="Advanced"));
 
+protected
+  Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
+  Medium.Temperature T_b_inflow
+    "Temperature of inflowing fluid at port_b or T_a_inflow, if uni-directional flow";
+equation
+  if allowFlowReversal then
+     T_a_inflow = Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
+     T_b_inflow = Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow));
+     T = Modelica.Fluid.Utilities.regStep(port_a.m_flow, T_a_inflow, T_b_inflow, m_flow_small);
+  else
+     T = Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
+     T_a_inflow = T;
+     T_b_inflow = T;
+  end if;
 annotation (defaultComponentName="temperature",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}},
@@ -62,18 +75,4 @@ The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 </HTML>
 "));
-protected
-  Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
-  Medium.Temperature T_b_inflow
-    "Temperature of inflowing fluid at port_b or T_a_inflow, if uni-directional flow";
-equation
-  if allowFlowReversal then
-     T_a_inflow = Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
-     T_b_inflow = Medium.temperature(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow));
-     T = Modelica.Fluid.Utilities.regStep(port_a.m_flow, T_a_inflow, T_b_inflow, m_flow_small);
-  else
-     T = Medium.temperature(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
-     T_a_inflow = T;
-     T_b_inflow = T;
-  end if;
 end TemperatureTwoPort;

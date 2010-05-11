@@ -2,20 +2,17 @@ within Buildings.Fluid.Sensors.Examples;
 model MoistAirEnthalpyFlowRate
   "Test model for sensible and latent enthalpy flow rate"
   import Buildings;
-    annotation (Commands(file="MoistAirEnthalpyFlowRate.mos" "run"), Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-        graphics));
 
   package Medium = Modelica.Media.Air.MoistAir;
   Buildings.Fluid.Sensors.EnthalpyFlowRate senH_flow(redeclare package Medium
-      = Medium) "Sensor for enthalpy flow rate" 
+      = Medium) "Sensor for enthalpy flow rate"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou(
     use_m_flow_in=true,
     redeclare package Medium = Medium,
     nPorts=1,
     X=Medium.X_default,
-    T=293.15) 
+    T=293.15)
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.Fluid.Sources.Boundary_pT sin(               redeclare package
       Medium = Medium,
@@ -28,29 +25,27 @@ model MoistAirEnthalpyFlowRate
   Modelica.Blocks.Sources.Ramp ramp(
     duration=1,
     height=-2,
-    offset=1) 
+    offset=1)
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(redeclare package Medium
       = Medium) annotation (Placement(transformation(extent={{0,10},{20,30}})));
-  Buildings.Fluid.Sensors.MassFlowRate senM_flow(redeclare package Medium = 
+  Buildings.Fluid.Sensors.MassFlowRate senM_flow(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{28,10},{48,30}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assEqu1 
+  Buildings.Utilities.Diagnostics.AssertEquality assEqu1
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Math.Product product 
+  Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{0,54},{20,74}})));
   Buildings.Fluid.Sensors.LatentEnthalpyFlowRate senHLat_flow(redeclare package
-      Medium =         Medium) "Sensor for latent enthalpy flow rate" 
+      Medium =         Medium) "Sensor for latent enthalpy flow rate"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate senHSen_flow(redeclare
-      package Medium = Medium) "Sensor for sensible enthalpy flow rate" 
+      package Medium = Medium) "Sensor for sensible enthalpy flow rate"
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
-  Modelica.Blocks.Math.Add add1 
+  Modelica.Blocks.Math.Add add1
     annotation (Placement(transformation(extent={{20,-46},{40,-26}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assEqu2 
+  Buildings.Utilities.Diagnostics.AssertEquality assEqu2
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
 equation
   connect(ramp.y, sou.m_flow_in) annotation (Line(
@@ -97,7 +92,7 @@ equation
       points={{48,20},{60,20},{60,0},{-70,0},{-70,-70},{-60,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senHLat_flow.port_b, senHSen_flow.port_a) 
+  connect(senHLat_flow.port_b, senHSen_flow.port_a)
     annotation (Line(
       points={{-40,-70},{-20,-70}},
       color={0,127,255},
@@ -114,4 +109,9 @@ equation
       points={{0,-70},{60,-70}},
       color={0,127,255},
       smooth=Smooth.None));
+    annotation (Commands(file="MoistAirEnthalpyFlowRate.mos" "run"), Diagram(
+        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
+        graphics),
+              Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}), graphics));
 end MoistAirEnthalpyFlowRate;

@@ -1,9 +1,6 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model EpsilonNTUZ "Test model for the functions epsilon_ntuZ and ntu_epsilonZ"
   import f = Buildings.Fluid.Types.HeatExchangerFlowRegime;
-  annotation(Commands(file="EpsilonNTUZ.mos" "run"), Documentation(info="<html>
-Model to test the implementation of the epsilon-NTU functions and their inverse functions.
-</html>"));
   Real epsilon[5] "Heat exchanger effectiveness";
   Real eps[5] "Heat exchanger effectiveness";
   Real Z[5] "Ratio of capacity flow rates";
@@ -23,4 +20,7 @@ equation
      diff[conf]    = epsilon[conf] - eps[conf];
      assert(abs(diff[conf]) < 1E-10, "Check model implementation for bugs.");
   end for;
+  annotation(Commands(file="EpsilonNTUZ.mos" "run"), Documentation(info="<html>
+Model to test the implementation of the epsilon-NTU functions and their inverse functions.
+</html>"));
 end EpsilonNTUZ;

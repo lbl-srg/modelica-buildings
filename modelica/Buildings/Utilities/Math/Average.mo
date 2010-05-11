@@ -1,6 +1,8 @@
 within Buildings.Utilities.Math;
 block Average "Average of a vector"
   extends Modelica.Blocks.Interfaces.MISO;
+equation
+ y = sum(u)/nin;
 annotation (
 Documentation(info="<html>
 <p>
@@ -18,6 +20,4 @@ First implementation.
           extent={{-74,46},{66,-58}},
           lineColor={0,0,255},
           textString="ave")}));
-equation
- y = sum(u)/nin;
 end Average;

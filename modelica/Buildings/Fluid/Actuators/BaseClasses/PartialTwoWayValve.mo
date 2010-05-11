@@ -6,6 +6,12 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default),
       final dpVal_nominal=dp_nominal);
 
+  parameter Real l(min=0, max=1) = 0.0001 "Valve leakage, l=Cv(y=0)/Cvs";
+  Real phi "Ratio actual to nominal mass flow rate, phi=Cv(y)/Cv(y=1)";
+
+equation
+ m_flow_turbulent = deltaM * m_flow_nominal;
+ k = phi * Kv_SI;
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Polygon(
@@ -46,12 +52,12 @@ or quick opening.
 </p>
 <p><b>Modelling options</b></p>
 <p>The following options have been adapted from the valve implementation 
-in <a href=\"Modelica://Modelica.Fluid\">
+in <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a> and are described in 
-<a href=\"Modelica:Buildings.Fluid.Actuators.BaseClasses.ValveParameters\">
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.ValveParameters\">
 Buildings.Fluid.Actuators.BaseClasses.ValveParameters</a>.
 <p>
-In contrast to the model in <a href=\"Modelica://Modelica.Fluid\">
+In contrast to the model in <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>, this model uses the parameter <tt>Kv_SI</tt>,
 which is the flow coefficient in SI units, i.e., 
 it is the ratio between mass flow rate in <tt>kg/s</tt> and square root 
@@ -93,11 +99,4 @@ First implementation.
 </li>
 </ul>
 </html>");
-
-  parameter Real l(min=0, max=1) = 0.0001 "Valve leakage, l=Cv(y=0)/Cvs";
-  Real phi "Ratio actual to nominal mass flow rate, phi=Cv(y)/Cv(y=1)";
-
-equation
- m_flow_turbulent = deltaM * m_flow_nominal;
- k = phi * Kv_SI;
 end PartialTwoWayValve;

@@ -1,6 +1,17 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function pW_X "Water vapor pressure for given humidity ratio"
 
+  input Modelica.SIunits.MassFraction X_w(min=0, max=1, nominal=0.01)
+    "Species concentration at dry bulb temperature";
+  input Modelica.SIunits.Pressure p = 101325 "Total pressure";
+  output Modelica.SIunits.Pressure p_w "Water vapor pressure";
+
+protected
+  Modelica.SIunits.MassFraction x_w(nominal=0.01)
+    "Water mass fraction per mass of dry air";
+algorithm
+  x_w := X_w/(1 - X_w);
+  p_w := p * x_w / (0.62198+x_w);
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
@@ -27,16 +38,4 @@ First implementation.
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
-
-  input Modelica.SIunits.MassFraction X_w(min=0, max=1, nominal=0.01)
-    "Species concentration at dry bulb temperature";
-  input Modelica.SIunits.Pressure p = 101325 "Total pressure";
-  output Modelica.SIunits.Pressure p_w "Water vapor pressure";
-
-protected
-  Modelica.SIunits.MassFraction x_w(nominal=0.01)
-    "Water mass fraction per mass of dry air";
-algorithm
-  x_w := X_w/(1 - X_w);
-  p_w := p * x_w / (0.62198+x_w);
 end pW_X;

@@ -3,8 +3,39 @@ block X_pTphi
   "Return steam mass fraction as a function of relative humidity phi and temperature T"
   extends
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
- replaceable package Medium = 
+ replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model";
+
+public
+  Modelica.Blocks.Interfaces.RealInput T(final unit="K",
+                                           displayUnit="degC",
+                                           min = 0) "Temperature"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+  Modelica.Blocks.Interfaces.RealInput phi(min = 0, max=1)
+    "Relative humidity (0...1)"
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+  Modelica.Blocks.Interfaces.RealOutput X[Medium.nX](min = 0, max=1)
+    "Steam mass fraction"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+protected
+  constant Real k = 0.621964713077499 "Ratio of molar masses";
+  Modelica.SIunits.AbsolutePressure psat "Saturation pressure";
+ parameter Integer i_w(min=1, fixed=false) "Index for water substance";
+ parameter Integer i_nw(min=1, fixed=false) "Index for non-water substance";
+
+initial algorithm
+  i_w :=1;
+    for i in 1:Medium.nXi loop
+      if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
+        i_w :=i;
+      end if;
+    end for;
+  i_nw := if i_w == 1 then 2 else 1;
+algorithm
+  psat := Medium.saturationPressure(T);
+  X[i_w] := phi*k/(k*phi+p_in_internal/psat-phi);
+  //sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system
+  X[i_nw] := 1 - X[i_w];
   annotation (Documentation(info="<html>
 <p>
 Block to compute the water vapor concentration based on
@@ -40,34 +71,4 @@ First implementation.
           extent={{26,56},{90,-54}},
           lineColor={0,0,0},
           textString="X_steam")}));
-
-public
-  Modelica.Blocks.Interfaces.RealInput T(final unit="K",
-                                           displayUnit="degC",
-                                           min = 0) "Temperature" 
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput phi(min = 0, max=1)
-    "Relative humidity (0...1)" 
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput X[Medium.nX](min = 0, max=1)
-    "Steam mass fraction" 
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-protected
-  constant Real k = 0.621964713077499 "Ratio of molar masses";
-  Modelica.SIunits.AbsolutePressure psat "Saturation pressure";
- parameter Integer i_w(min=1, fixed=false) "Index for water substance";
-
-initial algorithm
-  i_w :=1;
-    for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
-        i_w :=i;
-      end if;
-    end for;
-
-algorithm
-  psat := Medium.saturationPressure(T);
-  X[i_w] := phi*k/(k*phi+p_in_internal/psat-phi);
-  //sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system
-  X[if i_w == 1 then 2 else 1] := 1 - X[i_w];
 end X_pTphi;

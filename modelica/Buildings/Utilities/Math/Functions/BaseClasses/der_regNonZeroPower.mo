@@ -6,7 +6,6 @@ encapsulated function der_regNonZeroPower
  input Real delta = 0.01 "Abscissa value where transition occurs";
  input Real der_x;
  output Real der_y "Function value";
- annotation(derivative=BaseClasses.der_2_regNonZeroPower);
 protected
   Real a1;
   Real a3;
@@ -28,4 +27,5 @@ algorithm
    a3 := (yPP_d - 12 * a1 * delta2)/2;
    der_y := x * ( 4 * a1 * x * x + 2 * a3);
   end if;
+ annotation(derivative=BaseClasses.der_2_regNonZeroPower);
 end der_regNonZeroPower;

@@ -3,11 +3,13 @@ model Temperature "Ideal one port temperature sensor"
     extends Modelica.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
 
   Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
-                                          final unit = "K", displayUnit = "degC", min=0)
-    "Temperature in port medium" 
+                                          final unit = "K", min=0)
+    "Temperature in port medium"
     annotation (Placement(transformation(extent={{60,-10},{80,10}}, rotation=
             0)));
 
+equation
+  T = Medium.temperature(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
 annotation (defaultComponentName="temperature",
     Documentation(info="<HTML>
 <p>
@@ -85,6 +87,4 @@ The sensor is ideal, i.e. it does not influence the fluid.
           textString="%name",
           lineColor={0,0,255}),
         Line(points={{12,0},{60,0}}, color={0,0,127})}));
-equation
-  T = Medium.temperature(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
 end Temperature;

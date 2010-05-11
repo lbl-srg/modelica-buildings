@@ -1,31 +1,16 @@
 within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistancesSeries "Test of multiple resistances in series"
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Commands(file=
-          "FixedResistancesSeries.mos" "run"));
  package Medium = Modelica.Media.Air.SimpleAir;
-  annotation (
-    Diagram(Text(
-        extent=[-20,58; 30,44],
-        style(color=3, rgbcolor={0,0,255}),
-        string="nRes resistances  in series")),
-    experiment(
-      Interval=0.0001,
-      fixedstepsize=0.0001,
-      Algorithm="Euler"),
-    experimentSetupOutput);
 
-    Modelica.Blocks.Sources.Constant PAtm(k=101325) 
+    Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{40,60},{60,80}}, rotation=0)));
    parameter Modelica.SIunits.Pressure dp_nominal = 5
     "Nominal pressure drop for each resistance";
     Modelica.Blocks.Sources.Ramp P(
       duration=1,
     height=2*dp_nominal*nRes,
-    offset=101325 - dp_nominal*nRes) 
+    offset=101325 - dp_nominal*nRes)
                  annotation (Placement(transformation(extent={{-80,60},{-60,80}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
@@ -44,10 +29,10 @@ model FixedResistancesSeries "Test of multiple resistances in series"
     redeclare each package Medium = Medium,
     each dp_nominal=dp_nominal,
     each from_dp = false,
-    each m_flow_nominal=2) 
+    each m_flow_nominal=2)
              annotation (Placement(transformation(extent={{0,20},{20,40}},
           rotation=0)));
-  inner Modelica.Fluid.System system(p_ambient=101325) 
+  inner Modelica.Fluid.System system(p_ambient=101325)
                                    annotation (Placement(transformation(extent={{-80,-80},
             {-60,-60}},        rotation=0)));
 equation
@@ -67,4 +52,18 @@ equation
       points={{-20,30},{0,30}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
+                       Commands(file=
+          "FixedResistancesSeries.mos" "run"),
+    Diagram(Text(
+        extent=[-20,58; 30,44],
+        style(color=3, rgbcolor={0,0,255}),
+        string="nRes resistances  in series")),
+    experiment(
+      Interval=0.0001,
+      fixedstepsize=0.0001,
+      Algorithm="Euler"),
+    experimentSetupOutput);
 end FixedResistancesSeries;

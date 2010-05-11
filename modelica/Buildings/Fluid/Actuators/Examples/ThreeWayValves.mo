@@ -1,41 +1,19 @@
 within Buildings.Fluid.Actuators.Examples;
 model ThreeWayValves
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-                         Commands(file=
-            "ThreeWayValves.mos" "run"),
-    Documentation(info="<html>
-<p>
-Test model for three way valves. Note that the 
-leakage flow rate has been set to a large value
-and the rangeability to a small value
-for better visualization of the valve characteristics.
-To use common values, use the default values.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-June 16, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
-
  package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the component";
 
   Buildings.Fluid.Actuators.Valves.ThreeWayLinear valLin(
     redeclare package Medium = Medium,
     l={0.05,0.05},
-    m_flow_nominal=2) "Valve model, linear opening characteristics" 
+    m_flow_nominal=2) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{0,-26},{20,-6}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp y(
     height=1,
     duration=1,
-    offset=0) "Control signal" 
+    offset=0) "Control signal"
                  annotation (Placement(transformation(extent={{-40,0},{-20,20}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
@@ -50,16 +28,16 @@ First implementation.
     use_p_in=true,
     T=313.15)                                       annotation (Placement(
         transformation(extent={{70,-28},{50,-8}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PSin(k=3E5) 
+    Modelica.Blocks.Sources.Constant PSin(k=3E5)
       annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PSou(k=306000) 
+    Modelica.Blocks.Sources.Constant PSou(k=306000)
       annotation (Placement(transformation(extent={{-88,-20},{-68,0}},
           rotation=0)));
   Actuators.Valves.ThreeWayEqualPercentageLinear valEquPerLin(
     l={0.05,0.05},
     redeclare package Medium = Medium,
     R=10,
-    m_flow_nominal=2) 
+    m_flow_nominal=2)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT ret(
     redeclare package Medium = Medium,
@@ -68,7 +46,7 @@ First implementation.
     T=303.15)                                       annotation (Placement(
         transformation(extent={{10,-10},{-10,10}},  rotation=0,
         origin={64,-70})));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   connect(y.y, valLin.y) annotation (Line(
@@ -112,5 +90,26 @@ equation
       points={{-67,-10},{-52,-10}},
       color={0,0,127},
       smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                        graphics),
+                         Commands(file=
+            "ThreeWayValves.mos" "run"),
+    Documentation(info="<html>
+<p>
+Test model for three way valves. Note that the 
+leakage flow rate has been set to a large value
+and the rangeability to a small value
+for better visualization of the valve characteristics.
+To use common values, use the default values.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+June 16, 2008 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ThreeWayValves;
 

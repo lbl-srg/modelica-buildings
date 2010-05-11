@@ -2,15 +2,11 @@ within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilDiscretized
   import Buildings;
 
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-                      Commands(file="WetCoilDiscretized.mos" "run"));
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium2 = Buildings.Media.PerfectGases.MoistAir;
- //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
- package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
- //package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
+ // package Medium2 = Buildings.Media.PerfectGases.MoistAir;
+ // package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
+ // package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
+  package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
   parameter Modelica.SIunits.Temperature T_a1_nominal = 5+273.15;
   parameter Modelica.SIunits.Temperature T_b1_nominal = 10+273.15;
   parameter Modelica.SIunits.Temperature T_a2_nominal = 30+273.15;
@@ -32,7 +28,7 @@ model WetCoilDiscretized
     nPipPar=1,
     nPipSeg=3,
     nReg=2,
-    dp1_nominal(displayUnit="Pa") = 3000) 
+    dp1_nominal(displayUnit="Pa") = 3000)
                          annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
@@ -46,7 +42,7 @@ model WetCoilDiscretized
     duration=60,
     height=-200,
     offset=101725,
-    startTime=120) 
+    startTime=120)
                  annotation (Placement(transformation(extent={{60,-40},{80,-20}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
@@ -60,7 +56,7 @@ model WetCoilDiscretized
     duration=60,
     height=15,
     offset=273.15 + 5,
-    startTime=120) "Water temperature" 
+    startTime=120) "Water temperature"
                  annotation (Placement(transformation(extent={{-90,34},{-70,54}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
@@ -87,22 +83,22 @@ model WetCoilDiscretized
     from_dp=true,
     redeclare package Medium = Medium1,
     m_flow_nominal=m1_flow_nominal,
-    dp_nominal=2000) 
+    dp_nominal=2000)
              annotation (Placement(transformation(extent={{40,30},{60,50}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp PSin_1(
     duration=60,
     height=5000,
     startTime=240,
-    offset=300000) 
+    offset=300000)
                  annotation (Placement(transformation(extent={{40,62},{60,82}},
           rotation=0)));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
-  connect(res_2.port_a, hex.port_b2) annotation (Line(points={{-8,0},{-8,0},{8,
-          0}},                                                 color={0,127,255}));
-  connect(TWat.y, sou_1.T_in) 
+  connect(res_2.port_a, hex.port_b2) annotation (Line(points={{-8,6.10623e-16},
+          {-8,5.55112e-16},{8,5.55112e-16}},                   color={0,127,255}));
+  connect(TWat.y, sou_1.T_in)
     annotation (Line(points={{-69,44},{-69,44},{-62,44}},
                                                  color={0,0,127}));
   connect(PSin_1.y, sin_1.p_in) annotation (Line(points={{61,72},{100,72},{100,
@@ -116,11 +112,13 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin_2.ports[1], res_2.port_b) annotation (Line(
-      points={{-38,0},{-28,0}},
+      points={{-38,6.66134e-16},{-35.5,6.66134e-16},{-35.5,1.27676e-15},{-33,
+          1.27676e-15},{-33,6.10623e-16},{-28,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou_2.ports[1], hex.port_a2) annotation (Line(
-      points={{70,0},{28,0}},
+      points={{70,6.66134e-16},{59.5,6.66134e-16},{59.5,1.22125e-15},{49,
+          1.22125e-15},{49,5.55112e-16},{28,5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(PIn.y, sou_2.p_in) annotation (Line(
@@ -131,4 +129,8 @@ equation
       points={{28,12},{28,40},{40,40}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                     graphics),
+                      Commands(file="WetCoilDiscretized.mos" "run"));
 end WetCoilDiscretized;

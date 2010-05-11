@@ -2,6 +2,10 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model FixedApproach "Cooling tower with constant approach temperature"
   extends
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticTwoPortCoolingTower;
+  parameter Modelica.SIunits.TemperatureDifference TApp(min=0) = 2
+    "Approach temperature";
+equation
+ Q_flow = m_flow * (Medium.specificEnthalpy(Medium.setState_pTX(port_b.p, TAir+TApp, inStream(port_b.Xi_outflow)))-inStream(port_a.h_outflow));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                    graphics),
@@ -16,7 +20,7 @@ By connecting a signal that contains either the dry bulb or the wet bulb
 temperature, this model can be used to estimate the water return temperature
 from a cooling tower. 
 For a more detailed model, use for example
-<a href=\"Modelica:Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">YorkCalc.mo</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">YorkCalc.mo</a>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -30,8 +34,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  parameter Modelica.SIunits.TemperatureDifference TApp(min=0) = 2
-    "Approach temperature";
-equation
- Q_flow = m_flow * (Medium.specificEnthalpy(Medium.setState_pTX(port_b.p, TAir+TApp, inStream(port_b.Xi_outflow)))-inStream(port_a.h_outflow));
 end FixedApproach;

@@ -1,25 +1,6 @@
-within Media.PerfectGases.Examples;
+within Buildings.Media.PerfectGases.Examples;
 model MoistAirUnsaturatedDerivativeCheck
 
-   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       Commands(file="MoistAirUnsaturatedDerivativeCheck.mos" "run"));
-    annotation (
-      Documentation(info="<html>
-<p>
-This example checks whether the function derivative
-is implemented correctly. If the derivative implementation
-is not correct, the model will stop with an assert statement.
-</p>
-</html>",   revisions="<html>
-<ul>
-<li>
-May 12, 2008, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
    package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
 
     Modelica.SIunits.SpecificEnthalpy hLiqSym "Liquid phase enthalpy";
@@ -47,4 +28,22 @@ equation
     der(hAirCod)=der(hAirSym);
     assert(abs(hAirCod-hAirSym) < 1E-2, "Model has an error");
 
+   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),
+                       Commands(file="MoistAirUnsaturatedDerivativeCheck.mos" "run"),
+      Documentation(info="<html>
+<p>
+This example checks whether the function derivative
+is implemented correctly. If the derivative implementation
+is not correct, the model will stop with an assert statement.
+</p>
+</html>",   revisions="<html>
+<ul>
+<li>
+May 12, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end MoistAirUnsaturatedDerivativeCheck;

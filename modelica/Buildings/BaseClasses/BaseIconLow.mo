@@ -5,6 +5,4 @@ model BaseIconLow "Base icon with model name below the icon"
           lineColor={0,0,255},
           textString=
                "%name")}));
-equation
-
 end BaseIconLow;

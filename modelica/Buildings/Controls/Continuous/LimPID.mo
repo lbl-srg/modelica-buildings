@@ -8,6 +8,11 @@ block LimPID
     yMin=0,
     yMax=1);
 
+
+  parameter Boolean reverseAction = false
+    "Set to true to enable reverse action (such as for a cooling coil controller)";
+protected
+  parameter Real revAct = if reverseAction then -1 else 1;
   annotation (Documentation(info="<html>
 This model is identical to 
 <a href=\"Modelica:Modelica.Blocks.Continuous.LimPID\">
@@ -30,45 +35,36 @@ First implementation.
 </ul>
 </html>"), Icon(graphics={
         Rectangle(
-          extent={{-4,-16},{68,-62}},
+          extent={{-6,-20},{66,-66}},
           lineColor={255,255,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          visible=(controllerType == Modelica.Blocks.Types.SimpleController.P), 
-
-          extent={{-18,-20},{82,-60}},
+          visible=(controllerType == Modelica.Blocks.Types.SimpleController.P),
+          extent={{-32,-22},{68,-62}},
           lineColor={0,0,0},
           textString="P",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Text(
-          visible=(controllerType == Modelica.Blocks.Types.SimpleController.PI), 
-
-          extent={{-18,-20},{82,-60}},
+          visible=(controllerType == Modelica.Blocks.Types.SimpleController.PI),
+          extent={{-28,-22},{72,-62}},
           lineColor={0,0,0},
           textString="PI",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175}),
         Text(
-          visible=(controllerType == Modelica.Blocks.Types.SimpleController.PD), 
-
-          extent={{-18,-20},{82,-60}},
+          visible=(controllerType == Modelica.Blocks.Types.SimpleController.PD),
+          extent={{-16,-22},{88,-62}},
           lineColor={0,0,0},
-          textString="PD",
           fillPattern=FillPattern.Solid,
-          fillColor={175,175,175}),
+          fillColor={175,175,175},
+          textString="P D"),
         Text(
-          visible=(controllerType == Modelica.Blocks.Types.SimpleController.PID), 
-
-          extent={{-18,-20},{82,-60}},
+          visible=(controllerType == Modelica.Blocks.Types.SimpleController.PID),
+          extent={{-14,-22},{86,-62}},
           lineColor={0,0,0},
           textString="PID",
           fillPattern=FillPattern.Solid,
           fillColor={175,175,175})}));
-
-  parameter Boolean reverseAction = false
-    "Set to true to enable reverse action (such as for a cooling coil controller)";
-protected
-  parameter Real revAct = if reverseAction then -1 else 1;
 end LimPID;

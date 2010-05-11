@@ -2,6 +2,20 @@ within Buildings.Fluid.Sensors.Conversions;
 model MassFractionVolumeFraction
   "Model to convert between mass fraction and volume fraction"
   extends Buildings.BaseClasses.BaseIcon;
+  ObsoleteModelica3.Blocks.Interfaces.RealSignal m "Mass fraction"
+    annotation (Placement(transformation(extent={{-112,-10},{-92,10}}, rotation=
+           0)));
+  ObsoleteModelica3.Blocks.Interfaces.RealSignal V "Volume fraction"
+    annotation (Placement(transformation(extent={{92,-10},{112,10}}, rotation=0)));
+
+ parameter Modelica.SIunits.MolarMass MMMea "Molar mass of measured substance";
+ parameter Modelica.SIunits.MolarMass MMBul=Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
+    "Molar mass of bulk medium";
+protected
+ parameter Real con = MMBul/MMMea
+    "Conversion coefficient from mass to volume fraction";
+equation
+  V = con * m;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -54,18 +68,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal m "Mass fraction" 
-    annotation (Placement(transformation(extent={{-112,-10},{-92,10}}, rotation=
-           0)));
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal V "Volume fraction" 
-    annotation (Placement(transformation(extent={{92,-10},{112,10}}, rotation=0)));
-
- parameter Modelica.SIunits.MolarMass MMMea "Molar mass of measured substance";
- parameter Modelica.SIunits.MolarMass MMBul=Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
-    "Molar mass of bulk medium";
-protected
- parameter Real con = MMBul/MMMea
-    "Conversion coefficient from mass to volume fraction";
-equation
-  V = con * m;
 end MassFractionVolumeFraction;

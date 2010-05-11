@@ -1,22 +1,6 @@
 within Buildings.Fluid.Sensors.Examples;
 model DryBulbTemperature
 
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                        graphics),
-                         Commands(file=
-            "DryBulbTemperature.mos" "run"),
-    Documentation(info="<html>
-This examples is a unit test for the dynamic dry bulb temperature sensor.
-</html>", revisions="<html>
-<ul>
-<li>
-September 10, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
-
 // package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" annotation 1;
  package Medium = Modelica.Media.Air.MoistAir;
   Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
@@ -33,13 +17,13 @@ First implementation.
     Modelica.Blocks.Sources.Ramp TDB(
     height=10,
     duration=1,
-    offset=273.15 + 30) "Dry bulb temperature" 
+    offset=273.15 + 30) "Dry bulb temperature"
                  annotation (Placement(transformation(extent={{-100,20},{-80,40}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp XHum(
     height=(0.0133 - 0.0175),
     offset=0.0175,
-    duration=60) "Humidity concentration" 
+    duration=60) "Humidity concentration"
                  annotation (Placement(transformation(extent={{-100,-60},{-80,
             -40}}, rotation=0)));
   Modelica.Blocks.Sources.Constant const annotation (Placement(transformation(
@@ -47,29 +31,29 @@ First implementation.
   Modelica.Blocks.Math.Feedback feedback annotation (Placement(transformation(
           extent={{-70,-20},{-50,0}}, rotation=0)));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality(
-      threShold=0.001, startTime=0) 
+      threShold=0.001, startTime=0)
     annotation (Placement(transformation(extent={{60,60},{80,80}},   rotation=0)));
   Modelica.Blocks.Continuous.FirstOrder firOrd(T=10,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=293.15) 
+    y_start=293.15)
     annotation (Placement(transformation(extent={{0,60},{20,80}},    rotation=0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSteSta(
-                                               redeclare package Medium = 
-        Medium) "Steady state temperature sensor" 
+                                               redeclare package Medium =
+        Medium) "Steady state temperature sensor"
     annotation (Placement(transformation(extent={{0,-2},{20,18}}, rotation=0)));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
     Modelica.Blocks.Sources.Pulse m_flow(
     offset=-1,
     amplitude=2,
-    period=30) "Mass flow rate" 
+    period=30) "Mass flow rate"
                  annotation (Placement(transformation(extent={{-100,60},{-80,80}},
           rotation=0)));
   Buildings.Fluid.Sensors.TemperatureDryBulbDynamic temDyn(
     redeclare package Medium = Medium,
     initType=Modelica.Blocks.Types.Init.InitialState,
     m_flow_nominal=1,
-    T_start=293.15) 
+    T_start=293.15)
     annotation (Placement(transformation(extent={{30,-2},{50,18}})));
 equation
   connect(TDB.y, masFloRat.T_in)    annotation (Line(points={{-79,30},{-60,30},
@@ -108,4 +92,19 @@ equation
       points={{40,19},{40,64},{58,64}},
       color={0,0,127},
       smooth=Smooth.None));
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
+            -100},{100,100}}),
+                        graphics),
+                         Commands(file=
+            "DryBulbTemperature.mos" "run"),
+    Documentation(info="<html>
+This examples is a unit test for the dynamic dry bulb temperature sensor.
+</html>", revisions="<html>
+<ul>
+<li>
+September 10, 2008 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end DryBulbTemperature;

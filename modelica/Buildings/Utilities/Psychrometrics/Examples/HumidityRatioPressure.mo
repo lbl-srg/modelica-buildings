@@ -1,31 +1,27 @@
 within Buildings.Utilities.Psychrometrics.Examples;
 model HumidityRatioPressure "Unit test for humidity ratio model"
- annotation(Commands(file="HumidityRatioPressure.mos" "run"), Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-                                                                      graphics));
- package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" 
+ package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model"
            annotation (choicesAllMatching = true);
   Buildings.Utilities.Psychrometrics.pW_X vapPre(
-                         use_p_in=true) "Model for humidity ratio" 
+                         use_p_in=true) "Model for humidity ratio"
                           annotation (Placement(transformation(extent={{0,0},{
             20,20}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp XHumDryAir(
     duration=1,
     height=(0.0133 - 0.2),
-    offset=0.2) "Humidity concentration in [kg/kg dry air]" 
+    offset=0.2) "Humidity concentration in [kg/kg dry air]"
                  annotation (Placement(transformation(extent={{-80,-20},{-60,0}},
           rotation=0)));
-  Modelica.Blocks.Sources.Constant p(k=101325) "Pressure" 
+  Modelica.Blocks.Sources.Constant p(k=101325) "Pressure"
                                     annotation (Placement(transformation(extent={{-80,20},
             {-60,40}},          rotation=0)));
-  annotation (Diagram);
   Buildings.Utilities.Psychrometrics.X_pW humRat(
-                            use_p_in=true) 
+                            use_p_in=true)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Diagnostics.AssertEquality assertEquality(threShold=1E-5)
-    "Checks that model and its inverse implementation are correct" 
+    "Checks that model and its inverse implementation are correct"
     annotation (Placement(transformation(extent={{80,-40},{100,-20}})));
-  ToTotalAir toTotalAir 
+  ToTotalAir toTotalAir
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 equation
   connect(vapPre.p_w, humRat.p_w) annotation (Line(
@@ -56,4 +52,8 @@ equation
       points={{-19,-10},{24,-10},{24,-36},{78,-36}},
       color={0,0,127},
       smooth=Smooth.None));
+ annotation(Commands(file="HumidityRatioPressure.mos" "run"), Diagram(
+        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
+                                                                      graphics),
+              Diagram);
 end HumidityRatioPressure;

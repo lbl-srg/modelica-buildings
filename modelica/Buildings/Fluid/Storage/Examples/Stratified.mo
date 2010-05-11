@@ -1,16 +1,6 @@
 within Buildings.Fluid.Storage.Examples;
 model Stratified "Test model for stratified tank"
 
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-                      Commands(file="Stratified.mos" "run"),
-    Documentation(info="<html>
-This test model compares two tank models. The only difference between
-the two tank models is that one uses the model from Stefan Wischhusen
-that reduces the numerical diffusion that is induced by the upwind
-discretization scheme.
-</html>"));
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
   Buildings.Fluid.Storage.Stratified tanSim(
@@ -22,7 +12,7 @@ discretization scheme.
     m_flow_nominal=10) "Tank"  annotation (Placement(transformation(extent={{-20,0},{0,
             20}}, rotation=0)));
     Modelica.Blocks.Sources.TimeTable TWat(table=[0,273.15 + 40; 3600,273.15 +
-        40; 3600,273.15 + 20; 7200,273.15 + 20]) "Water temperature" 
+        40; 3600,273.15 + 20; 7200,273.15 + 20]) "Water temperature"
                  annotation (Placement(transformation(extent={{-100,2},{-80,22}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
@@ -43,7 +33,7 @@ discretization scheme.
     from_dp=true,
     redeclare package Medium = Medium,
     dp_nominal=5000,
-    m_flow_nominal=10) 
+    m_flow_nominal=10)
              annotation (Placement(transformation(extent={{36,0},{56,20}},
           rotation=0)));
   Buildings.Fluid.Storage.StratifiedEnhanced tanEnh(
@@ -59,7 +49,7 @@ discretization scheme.
     from_dp=true,
     redeclare package Medium = Medium,
     dp_nominal=5000,
-    m_flow_nominal=10) 
+    m_flow_nominal=10)
              annotation (Placement(transformation(extent={{38,-38},{58,-18}},
           rotation=0)));
   Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium
@@ -69,13 +59,13 @@ discretization scheme.
       = Medium) "Enthalpy flow rate" annotation (Placement(transformation(
           extent={{18,-36},{34,-20}},rotation=0)));
   Modelica.Blocks.Continuous.Integrator dH
-    "Differenz in enthalpy (should be zero at steady-state)" 
+    "Differenz in enthalpy (should be zero at steady-state)"
     annotation (Placement(transformation(extent={{68,30},{88,50}},   rotation=0)));
   Modelica.Blocks.Math.Add add(k2=-1) annotation (Placement(transformation(
           extent={{32,30},{52,50}},   rotation=0)));
     Modelica.Blocks.Sources.TimeTable P(table=[0,300000; 4200,300000; 4200,
         305000; 7200,305000; 7200,310000; 10800,310000; 10800,305000])
-    "Pressure boundary condition" 
+    "Pressure boundary condition"
                  annotation (Placement(transformation(extent={{20,60},{40,80}},
           rotation=0)));
   Modelica.Blocks.Sources.Sine sine(
@@ -95,7 +85,7 @@ discretization scheme.
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBCTop2
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,32},{-28,44}}, rotation=0)));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(TWat.y, sou_1.T_in) annotation (Line(
@@ -104,15 +94,15 @@ equation
       pattern=LinePattern.None));
   connect(tanSim.port_b, HOut_flow.port_a) annotation (Line(points={{0,10},{0,
           10},{6,10}},               color={0,127,255}));
-  connect(HOut_flow.port_b, res_1.port_a) 
+  connect(HOut_flow.port_b, res_1.port_a)
     annotation (Line(points={{22,10},{30,10},{36,10}},
                                                color={0,127,255}));
-  connect(tanEnh.port_b, HOut_flow1.port_a) 
+  connect(tanEnh.port_b, HOut_flow1.port_a)
     annotation (Line(points={{2,-28},{10,-28},{18,-28}},
                                                color={0,127,255}));
   connect(HOut_flow1.port_b, res_2.port_a) annotation (Line(points={{34,-28},{
           38,-28}}, color={0,127,255}));
-  connect(add.y, dH.u) 
+  connect(add.y, dH.u)
     annotation (Line(points={{53,40},{66,40}},   color={0,0,127}));
   connect(HOut_flow.H_flow, add.u1) annotation (Line(points={{14,18.8},{14,46},
           {30,46}},  color={0,0,127}));
@@ -158,4 +148,14 @@ equation
       points={{-28,72},{-8,72},{-8,17.4}},
       color={191,0,0},
       smooth=Smooth.None));
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                     graphics),
+                      Commands(file="Stratified.mos" "run"),
+    Documentation(info="<html>
+This test model compares two tank models. The only difference between
+the two tank models is that one uses the model from Stefan Wischhusen
+that reduces the numerical diffusion that is induced by the upwind
+discretization scheme.
+</html>"));
 end Stratified;

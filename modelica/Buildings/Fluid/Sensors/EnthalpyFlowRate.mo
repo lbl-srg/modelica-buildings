@@ -3,12 +3,18 @@ model EnthalpyFlowRate "Ideal enthalphy flow rate sensor"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
-    "Enthalpy flow rate, positive if from port_a to port_b" 
+    "Enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{-10,-10},{10,10}},
         rotation=90)));
 
+equation
+  if allowFlowReversal then
+     H_flow = port_a.m_flow * actualStream(port_a.h_outflow);
+  else
+     H_flow = port_a.m_flow * port_b.h_outflow;
+  end if;
 annotation (
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics),
@@ -27,7 +33,7 @@ between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
 </p>
 <p>
 For a sensor that measures the latent enthalpy flow rate, use
-<a href=\"Modelica:Buildings.Fluid.Sensors.LatentEnthalpyFlowRate\">
+<a href=\"modelica://Buildings.Fluid.Sensors.LatentEnthalpyFlowRate\">
 Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 </p>
 </HTML>
@@ -39,11 +45,4 @@ First implementation based on enthalpy sensor of Modelica.Fluid.
 </li>
 </ul>
 </html>"));
-
-equation
-  if allowFlowReversal then
-     H_flow = port_a.m_flow * actualStream(port_a.h_outflow);
-  else
-     H_flow = port_a.m_flow * port_b.h_outflow;
-  end if;
 end EnthalpyFlowRate;

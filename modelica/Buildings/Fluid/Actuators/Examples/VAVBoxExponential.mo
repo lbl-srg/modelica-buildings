@@ -1,23 +1,18 @@
 within Buildings.Fluid.Actuators.Examples;
 model VAVBoxExponential
 
- annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-                      Commands(file=
-            "VAVBoxExponential.mos" "run"));
  package Medium = Modelica.Media.Air.SimpleAir;
 
   Buildings.Fluid.Actuators.Dampers.Exponential dam(
          redeclare package Medium = Medium, A=1.8,
-    m_flow_nominal=2) 
+    m_flow_nominal=2)
          annotation (Placement(transformation(extent={{20,10},{40,30}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp yRam(
     duration=0.4,
     height=-1,
     offset=1,
-    startTime=0.6) 
+    startTime=0.6)
                  annotation (Placement(transformation(extent={{-60,60},{-40,80}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp P(
@@ -36,23 +31,23 @@ model VAVBoxExponential
     nPorts=2,
     use_p_in=true)                      annotation (Placement(transformation(
           extent={{72,-20},{52,0}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PAtm(k=101325) 
+    Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = Medium,
     dp_nominal=5,
     A=1.8,
-    m_flow_nominal=2) 
+    m_flow_nominal=2)
          annotation (Placement(transformation(extent={{-2,-50},{18,-30}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
     from_dp=true,
     m_flow_nominal=2,
     redeclare package Medium = Medium,
-    dp_nominal=5 - 0.45*2^2/1.2/1.8^2/2) 
+    dp_nominal=5 - 0.45*2^2/1.2/1.8^2/2)
              annotation (Placement(transformation(extent={{-36,10},{-16,30}},
           rotation=0)));
-  inner Modelica.Fluid.System system 
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(yRam.y,dam. y) annotation (Line(
@@ -67,7 +62,7 @@ equation
       points={{-39,70},{-12,70},{-12,-26},{8,-26},{8,-32}},
       color={0,0,127},
       pattern=LinePattern.None));
-  connect(res.port_b, dam.port_a) 
+  connect(res.port_b, dam.port_a)
     annotation (Line(points={{-16,20},{20,20}}, color={0,127,255}));
   connect(sou.ports[1], res.port_a) annotation (Line(
       points={{-50,-8},{-42,-8},{-42,20},{-36,20}},
@@ -85,4 +80,9 @@ equation
       points={{52,-12},{46,-12},{46,-40},{18,-40}},
       color={0,127,255},
       smooth=Smooth.None));
+ annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{100,100}}),
+                     graphics),
+                      Commands(file=
+            "VAVBoxExponential.mos" "run"));
 end VAVBoxExponential;

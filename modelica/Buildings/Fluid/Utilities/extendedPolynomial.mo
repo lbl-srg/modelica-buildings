@@ -2,6 +2,30 @@ within Buildings.Fluid.Utilities;
 function extendedPolynomial
   "Polynomial that is linearly extended at user specified values"
   extends Modelica.Icons.Function;
+  input Real[:] c "Polynomial coefficients";
+  input Real x "x value";
+  input Real xMin "Minimum x value for polynomial";
+  input Real xMax "Maximum x value for polynomial";
+  output Real y "y value";
+protected
+ Integer N = size(c,1) "Number of coefficients";
+algorithm
+if x < xMin then
+   y := c[1];
+   for i in 2:N loop
+     y := y + xMin^(i - 1)*c[i] + (x - xMin)*(i - 1)*xMin^(i - 2)*c[i];
+   end for;
+  elseif x < xMax then
+   y := c[1];
+   for i in 2:N loop
+     y := y + x^(i - 1)*c[i];
+  end for;
+  else
+     y := c[1];
+     for i in 2:N loop
+       y := y + xMax^(i - 1)*c[i] + (x - xMax)*(i - 1)*xMax^(i - 2)*c[i];
+    end for;
+  end if;
   annotation (Documentation(info="<html>
 For <tt>x</tt> between the bounds <tt>xMin &lt; x &lt; xMax</tt>,
 this function defines a polynomial 
@@ -22,30 +46,5 @@ July 19, 2007 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"));
-  input Real[:] c "Polynomial coefficients";
-  input Real x "x value";
-  input Real xMin "Minimum x value for polynomial";
-  input Real xMax "Maximum x value for polynomial";
-  output Real y "y value";
-     annotation(smoothOrder=1, derivative=BaseClasses.der_extendedPolynomial);
-protected
- Integer N = size(c,1) "Number of coefficients";
-algorithm
-if x < xMin then
-   y := c[1];
-   for i in 2:N loop
-     y := y + xMin^(i - 1)*c[i] + (x - xMin)*(i - 1)*xMin^(i - 2)*c[i];
-   end for;
-  elseif x < xMax then
-   y := c[1];
-   for i in 2:N loop
-     y := y + x^(i - 1)*c[i];
-  end for;
-  else
-     y := c[1];
-     for i in 2:N loop
-       y := y + xMax^(i - 1)*c[i] + (x - xMax)*(i - 1)*xMax^(i - 2)*c[i];
-    end for;
-  end if;
+</html>"),      smoothOrder=1, derivative=BaseClasses.der_extendedPolynomial);
 end extendedPolynomial;

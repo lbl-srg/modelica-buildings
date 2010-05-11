@@ -3,83 +3,39 @@ model PIDHysteresisTimer
   "PID controller with anti-windup, hysteresis and timer to prevent short cycling"
   extends Modelica.Blocks.Interfaces.SVcontrol;
 
-  annotation (Diagram(graphics), Icon(graphics={
-        Polygon(
-          points={{-80,94},{-88,72},{-72,72},{-80,94}},
-          lineColor={192,192,192},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{90,-76},{68,-68},{68,-84},{90,-76}},
-          lineColor={192,192,192},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Solid),
-        Line(points={{-90,-76},{82,-76}}, color={192,192,192}),
-        Line(points={{-80,84},{-80,-84}}, color={192,192,192}),
-        Line(points={{-80,-76},{-48,-76},{-48,30},{2,40},{54,-42},{54,-76},{64,
-              -76}}, color={0,0,127})}),
-    Documentation(info="<html>
-<p>
-Block of a controller for set point tracking with a hysteresis element that switches the controller on and off, and a timer that prevents the
-controller to short cycle.
-</p>
-<p>
-The controller is similar to 
-<a href=\"Modelica:Buildings.Controls.Continuous.PIDHysteresis\">
-Buildings.Controls.Continuous.PIDHysteresis</a> but in addition, 
-it has a timer that prevents the controller from switching to on
-too fast. When the controller switches off, the timer starts and
-avoids the controller from switching on until <tt>minOffTime</tt> seconds elapsed.
-</html>", revisions="<html>
-<ul>
-<li>
-February 24, 2010, by Michael Wetter:<br>
-Changed PID controller from Modelica Standard Library to
-PID controller from Buildings library to allow reverse control action. 
-</li>
-<li>
-October 2, 2009, by Michael Wetter:<br>
-Fixed error in default parameter <code>eOn</code>.
-</li>
-<li>
-February 9, 2009, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
   parameter Real minOffTime=600
-    "Minimum time that devices needs to be off before it can run again" 
+    "Minimum time that devices needs to be off before it can run again"
       annotation (Dialog(group="On/off controller"));
   parameter Real eOn = 1
-    "if off and control error > eOn, switch to set point tracking" 
+    "if off and control error > eOn, switch to set point tracking"
     annotation (Dialog(group="On/off controller"));
-  parameter Real eOff = -eOn "if on and control error < eOff, set y=0" 
+  parameter Real eOff = -eOn "if on and control error < eOff, set y=0"
     annotation (Dialog(group="On/off controller"));
   parameter Boolean pre_y_start=false
-    "Value of hysteresis output at initial time" 
+    "Value of hysteresis output at initial time"
     annotation (Dialog(group="On/off controller"));
 
   parameter Modelica.Blocks.Types.SimpleController controllerType=Modelica.Blocks.Types.SimpleController.PID
-    "Type of controller" 
+    "Type of controller"
       annotation (Dialog(group="Set point tracking"));
-  parameter Real k=1 "Gain of controller" 
+  parameter Real k=1 "Gain of controller"
       annotation (Dialog(group="Set point tracking"));
-  parameter Modelica.SIunits.Time Ti "Time constant of Integrator block" 
+  parameter Modelica.SIunits.Time Ti "Time constant of Integrator block"
       annotation (Dialog(group="Set point tracking"));
-  parameter Modelica.SIunits.Time Td "Time constant of Derivative block" 
+  parameter Modelica.SIunits.Time Td "Time constant of Derivative block"
       annotation (Dialog(group="Set point tracking"));
-  parameter Real yMax=1 "Upper limit of modulating output" 
+  parameter Real yMax=1 "Upper limit of modulating output"
       annotation (Dialog(group="Set point tracking"));
   parameter Real yMin=0.3
-    "Lower limit of modulating output (before switch to 0)" 
+    "Lower limit of modulating output (before switch to 0)"
       annotation (Dialog(group="Set point tracking"));
-  parameter Real wp=1 "Set-point weight for Proportional block (0..1)" 
+  parameter Real wp=1 "Set-point weight for Proportional block (0..1)"
       annotation (Dialog(group="Set point tracking"));
-  parameter Real wd=0 "Set-point weight for Derivative block (0..1)" 
+  parameter Real wd=0 "Set-point weight for Derivative block (0..1)"
       annotation (Dialog(group="Set point tracking"));
-  parameter Real Ni=0.9 "Ni*Ti is time constant of anti-windup compensation" 
+  parameter Real Ni=0.9 "Ni*Ti is time constant of anti-windup compensation"
       annotation (Dialog(group="Set point tracking"));
-  parameter Real Nd=10 "The higher Nd, the more ideal the derivative block" 
+  parameter Real Nd=10 "The higher Nd, the more ideal the derivative block"
       annotation (Dialog(group="Set point tracking"));
   parameter Boolean reverseAction = false
     "Set to true to enable reverse action (such as for a cooling coil controller)"
@@ -89,21 +45,21 @@ First implementation.
     "Type of initialization (1: no init, 2: steady state, 3: initial state, 4: initial output)"
     annotation (Dialog(group="Initialization"));
   parameter Boolean limitsAtInit=true
-    "= false, if limits are ignored during initializiation" 
+    "= false, if limits are ignored during initializiation"
     annotation (Dialog(group="Initialization"));
   parameter Real xi_start=0
-    "Initial or guess value value for integrator output (= integrator state)" 
+    "Initial or guess value value for integrator output (= integrator state)"
     annotation (Dialog(group="Initialization"));
   parameter Real xd_start=0
-    "Initial or guess value for state of derivative block" 
+    "Initial or guess value for state of derivative block"
     annotation (Dialog(group="Initialization"));
-  parameter Real y_start=0 "Initial value of output" 
+  parameter Real y_start=0 "Initial value of output"
     annotation (Dialog(group="Initialization"));
 
-  Modelica.Blocks.Interfaces.RealOutput tOn "Time since boiler switched on" 
+  Modelica.Blocks.Interfaces.RealOutput tOn "Time since boiler switched on"
     annotation (Placement(transformation(extent={{100,70},{120,90}},
         rotation=0)));
-  Modelica.Blocks.Interfaces.RealOutput tOff "Time since boiler switched off" 
+  Modelica.Blocks.Interfaces.RealOutput tOff "Time since boiler switched off"
     annotation (Placement(transformation(extent={{100,30},{120,50}},
         rotation=0)));
 
@@ -123,42 +79,42 @@ First implementation.
     y_start=y_start,
     final yMin=yMin,
     final yMax=yMax,
-    reverseAction=reverseAction) "Controller to track setpoint" 
+    reverseAction=reverseAction) "Controller to track setpoint"
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
 protected
-  Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal" 
+  Modelica.Blocks.Sources.Constant zer(k=0) "Zero signal"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Modelica.Blocks.Logical.Switch switch2 
+  Modelica.Blocks.Logical.Switch switch2
     annotation (Placement(transformation(extent={{62,-50},{82,-30}})));
   Modelica.Blocks.Logical.GreaterEqualThreshold greaterEqualThreshold(threshold=
-       minOffTime) 
+       minOffTime)
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Modelica.Blocks.Logical.And and3 
+  Modelica.Blocks.Logical.And and3
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 public
-  OffTimer offHys 
+  OffTimer offHys
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Modelica.Blocks.Logical.Timer onTimer 
+  Modelica.Blocks.Logical.Timer onTimer
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
 protected
-  Modelica.Blocks.Logical.Not not1 
+  Modelica.Blocks.Logical.Not not1
     annotation (Placement(transformation(extent={{-20,30},{0,50}})));
 public
-  Modelica.Blocks.Logical.Timer offTimer 
+  Modelica.Blocks.Logical.Timer offTimer
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
          Modelica.Blocks.Interfaces.BooleanOutput on
     "Outputs true if boiler is on"        annotation (Placement(
         transformation(extent={{100,-90},{120,-70}},rotation=0)));
 protected
-  Modelica.Blocks.Logical.Switch switch1 
+  Modelica.Blocks.Logical.Switch switch1
     annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
 public
-  Modelica.Blocks.Math.Feedback feeBac 
+  Modelica.Blocks.Math.Feedback feeBac
     annotation (Placement(transformation(extent={{-90,-10},{-70,10}})));
   Modelica.Blocks.Logical.Hysteresis hys(
     pre_y_start=pre_y_start,
     uLow=eOff,
-    uHigh=eOn) "Hysteresis element to switch controller on and off" 
+    uHigh=eOn) "Hysteresis element to switch controller on and off"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
   connect(u_m, con.u_m) annotation (Line(
@@ -257,4 +213,48 @@ equation
       points={{-39,6.10623e-16},{-30,6.10623e-16},{-30,-8},{58,-8}},
       color={255,0,255},
       smooth=Smooth.None));
+  annotation (Diagram(graphics), Icon(graphics={
+        Polygon(
+          points={{-80,94},{-88,72},{-72,72},{-80,94}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{90,-76},{68,-68},{68,-84},{90,-76}},
+          lineColor={192,192,192},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Solid),
+        Line(points={{-90,-76},{82,-76}}, color={192,192,192}),
+        Line(points={{-80,84},{-80,-84}}, color={192,192,192}),
+        Line(points={{-80,-76},{-48,-76},{-48,30},{2,40},{54,-42},{54,-76},{64,
+              -76}}, color={0,0,127})}),
+    Documentation(info="<html>
+<p>
+Block of a controller for set point tracking with a hysteresis element that switches the controller on and off, and a timer that prevents the
+controller to short cycle.
+</p>
+<p>
+The controller is similar to 
+<a href=\"modelica://Buildings.Controls.Continuous.PIDHysteresis\">
+Buildings.Controls.Continuous.PIDHysteresis</a> but in addition, 
+it has a timer that prevents the controller from switching to on
+too fast. When the controller switches off, the timer starts and
+avoids the controller from switching on until <tt>minOffTime</tt> seconds elapsed.
+</html>", revisions="<html>
+<ul>
+<li>
+February 24, 2010, by Michael Wetter:<br>
+Changed PID controller from Modelica Standard Library to
+PID controller from Buildings library to allow reverse control action. 
+</li>
+<li>
+October 2, 2009, by Michael Wetter:<br>
+Fixed error in default parameter <code>eOn</code>.
+</li>
+<li>
+February 9, 2009, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end PIDHysteresisTimer;

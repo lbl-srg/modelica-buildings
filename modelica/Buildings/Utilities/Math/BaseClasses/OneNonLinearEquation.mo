@@ -2,76 +2,6 @@ within Buildings.Utilities.Math.BaseClasses;
 package OneNonLinearEquation
   "Determine solution of a non-linear algebraic equation in one unknown without derivatives in a reliable and efficient way"
   extends Modelica.Icons.Library;
-   annotation (Documentation(info="<html>
-<p>
-This function should only be used in exceptional cases
-since it might be replaced in the future by another strategy,
-where the tool is responsible for the solution of the non-linear
-equation.
-</p>
-
-<p>
-This library determines the solution of one non-linear algebraic equation \"y=f(x)\"
-in one unknown \"x\" in a reliable way. As input, the desired value y of the
-non-linear function has to be given, as well as an interval x_min, x_max that
-contains the solution, i.e., \"f(x_min) - y\" and \"f(x_max) - y\" must
-have a different sign. If possible, a smaller interval is computed by
-inverse quadratic interpolation (interpolating with a quadratic polynomial
-through the last 3 points and computing the zero). If this fails,
-bisection is used, which always reduces the interval by a factor of 2.
-The inverse quadratic interpolation method has superlinear convergence.
-This is roughly the same convergence rate as a globally convergent Newton
-method, but without the need to compute derivatives of the non-linear
-function. The solver function is a direct mapping of the Algol 60 procedure
-\"zero\" to Modelica, from:
-</p>
-
-<dl>
-<dt> Brent R.P.:</dt>
-<dd> <b>Algorithms for Minimization without derivatives</b>.
-     Prentice Hall, 1973, pp. 58-59.</dd>
-</dl>
-
-<p>
-Due to current limitations of the
-Modelica language (not possible to pass a function reference to a function),
-the construction to use this solver on a user-defined function is a bit
-complicated (this method is from Hans Olsson, Dynasim AB). A user has to
-provide a package in the following way:
-</p>
-
-<pre>
-  <b>package</b> MyNonLinearSolver
-    <b>extends</b> OneNonLinearEquation;
-
-    <b>redeclare record extends</b> Data
-      // Define data to be passed to user function
-      ...
-    <b>end</b> Data;
-
-    <b>redeclare function extends</b> f_nonlinear
-    <b>algorithm</b>
-       // Compute the non-linear equation: y = f(x, Data)
-    <b>end</b> f_nonlinear;
-
-    // Dummy definition that has to be present for current Dymola
-    <b>redeclare function extends</b> solve
-    <b>end</b> solve;
-  <b>end</b> MyNonLinearSolver;
-
-  x_zero = MyNonLinearSolver.solve(y_zero, x_min, x_max, data=data);
-</pre>
-</html>", revisions="<html>
-<ul>
-<li>
-February 12, 2010, by Michael Wetter:<br>
-First implementation, based on 
-<a href=\"Modelica:Modelica.Media.Common.OneNonLinearEquation\">
-Modelica.Media.Common.OneNonLinearEquation</a>.
-This package is implemented to change the interface for the function
-<code>f_nonlinear</code>.
-</li>
-</html>"));
 
    replaceable partial function f_nonlinear
     "Nonlinear algebraic equation in one unknown: y = f_nonlinear(x,p,X)"
@@ -116,7 +46,7 @@ This package is implemented to change the interface for the function
       fa :=f_nonlinear(x_min, f_nonlinear_data) - y_zero;
       fb :=f_nonlinear(x_max, f_nonlinear_data) - y_zero;
       fc := fb;
-      if fa > 0.0 and fb > 0.0 or 
+      if fa > 0.0 and fb > 0.0 or
          fa < 0.0 and fb < 0.0 then
          error("The arguments x_min and x_max to OneNonLinearEquation.solve(..)\n" +
                "do not bracket the root of the single non-linear equation:\n" +
@@ -195,7 +125,7 @@ This package is implemented to change the interface for the function
             b :=b + (if abs(d) > tol then d else if m > 0 then tol else -tol);
             fb :=f_nonlinear(b, f_nonlinear_data) - y_zero;
 
-            if fb > 0 and fc > 0 or 
+            if fb > 0 and fc > 0 or
                fb < 0 and fc < 0 then
                // initialize variables
                c :=a;
@@ -207,4 +137,74 @@ This package is implemented to change the interface for the function
       end while;
    end solve;
 
+   annotation (Documentation(info="<html>
+<p>
+This function should only be used in exceptional cases
+since it might be replaced in the future by another strategy,
+where the tool is responsible for the solution of the non-linear
+equation.
+</p>
+
+<p>
+This library determines the solution of one non-linear algebraic equation \"y=f(x)\"
+in one unknown \"x\" in a reliable way. As input, the desired value y of the
+non-linear function has to be given, as well as an interval x_min, x_max that
+contains the solution, i.e., \"f(x_min) - y\" and \"f(x_max) - y\" must
+have a different sign. If possible, a smaller interval is computed by
+inverse quadratic interpolation (interpolating with a quadratic polynomial
+through the last 3 points and computing the zero). If this fails,
+bisection is used, which always reduces the interval by a factor of 2.
+The inverse quadratic interpolation method has superlinear convergence.
+This is roughly the same convergence rate as a globally convergent Newton
+method, but without the need to compute derivatives of the non-linear
+function. The solver function is a direct mapping of the Algol 60 procedure
+\"zero\" to Modelica, from:
+</p>
+
+<dl>
+<dt> Brent R.P.:</dt>
+<dd> <b>Algorithms for Minimization without derivatives</b>.
+     Prentice Hall, 1973, pp. 58-59.</dd>
+</dl>
+
+<p>
+Due to current limitations of the
+Modelica language (not possible to pass a function reference to a function),
+the construction to use this solver on a user-defined function is a bit
+complicated (this method is from Hans Olsson, Dynasim AB). A user has to
+provide a package in the following way:
+</p>
+
+<pre>
+  <b>package</b> MyNonLinearSolver
+    <b>extends</b> OneNonLinearEquation;
+
+    <b>redeclare record extends</b> Data
+      // Define data to be passed to user function
+      ...
+    <b>end</b> Data;
+
+    <b>redeclare function extends</b> f_nonlinear
+    <b>algorithm</b>
+       // Compute the non-linear equation: y = f(x, Data)
+    <b>end</b> f_nonlinear;
+
+    // Dummy definition that has to be present for current Dymola
+    <b>redeclare function extends</b> solve
+    <b>end</b> solve;
+  <b>end</b> MyNonLinearSolver;
+
+  x_zero = MyNonLinearSolver.solve(y_zero, x_min, x_max, data=data);
+</pre>
+</html>", revisions="<html>
+<ul>
+<li>
+February 12, 2010, by Michael Wetter:<br>
+First implementation, based on 
+<a href=\"Modelica:Modelica.Media.Common.OneNonLinearEquation\">
+Modelica.Media.Common.OneNonLinearEquation</a>.
+This package is implemented to change the interface for the function
+<code>f_nonlinear</code>.
+</li>
+</html>"));
 end OneNonLinearEquation;

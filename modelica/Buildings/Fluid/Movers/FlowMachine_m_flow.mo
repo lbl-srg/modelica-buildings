@@ -1,24 +1,32 @@
 within Buildings.Fluid.Movers;
-model FlowMachine_m_flow "Pump or fan with ideally controlled mass flow rate"
-  extends Buildings.Fluid.Movers.BaseClasses.FlowMachine(
-  final control_m_flow=true,
-  final use_m_flow_set=true,
-  final use_dp_set=false);
+model FlowMachine_m_flow
+  "Fan or pump with ideally controlled mass flow rate as input signal"
+  extends Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine(
+  final control_m_flow=true);
   annotation (defaultComponentName="fan",
   Documentation(
    info="<HTML>
-<p>This model describes a centrifugal pump (or a group of <tt>nParallel</tt> pumps) 
-   with prescribed mass flow rate, either fixed or provided by an external signal.
-   The model is identical to 
-   <a href=\"Modelica://Modelica.Fluid.Machines.ControlledPump\">
-   Modelica.Fluid.Machines.ControlledPump</a>
-   but it defines parameters for easier configuration.
+<p>
+This model describes a fan or pump with prescribed mass flow rate.
+The efficiency of the device is computed based
+on the efficiency curves that take as an argument
+the actual volume flow rate divided by the maximum possible volume flow rate.
+</p>
+<p>
+See the 
+<a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
+User's Guide</a> for more information.
+</p>
 </HTML>",
       revisions="<html>
 <ul>
+<li><i>March 24, 2010</i> by Michael Wetter:<br>
+Revised implementation to allow zero flow rate.
+</li>
 <li>October 1, 2009
     by Michael Wetter:<br>
        Model added to the Buildings library.
 </ul>
-</html>"));
+</html>"),
+    Icon(graphics={Text(extent={{-24,114},{68,70}}, textString="m_flow_in")}));
 end FlowMachine_m_flow;

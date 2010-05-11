@@ -6,6 +6,62 @@ model ExpansionVessel "Pressure expansion vessel with fixed gas cushion"
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     substanceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+
+ parameter Modelica.SIunits.Volume VTot
+    "Total volume of vessel (water and gas side)";
+ parameter Modelica.SIunits.Volume VGas0 = VTot/2 "Initial volume of gas";
+
+  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
+        Medium) "Fluid port"
+    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
+
+  // Heat transfer through boundary
+  parameter Boolean use_HeatTransfer = false
+    "= true to use the HeatTransfer model"
+      annotation (Dialog(tab="Assumptions", group="Heat transfer"));
+  parameter Modelica.SIunits.Pressure pMax = 5E5
+    "Maximum pressure before simulation stops with an error";
+  replaceable model HeatTransfer =
+      Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
+        surfaceAreas={4*Modelica.Constants.pi*(3/4*VTot/Modelica.Constants.pi)^(2/3)})
+    constrainedby
+    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer
+    "Wall heat transfer"
+      annotation (Dialog(tab="Assumptions", group="Heat transfer",enable=use_HeatTransfer),choicesAllMatching=true);
+  HeatTransfer heatTransfer(
+    redeclare final package Medium = Medium,
+    final n=1,
+    final states = {medium.state},
+    final use_k = use_HeatTransfer)
+      annotation (Placement(transformation(
+        extent={{-10,-10},{30,30}},
+        rotation=90,
+        origin={-50,-10})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer
+    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+
+protected
+ Modelica.SIunits.Volume VLiq "Volume of liquid in the vessel";
+equation
+  assert(medium.p < pMax, "Pressure exceeds maximum pressure.\n" +
+       "You may need to increase VTot of the ExpansionVessel.");
+  // Water content and pressure
+  port_a.p * (VTot-fluidVolume) = p_start * VGas0;
+  port_a.p = medium.p;
+
+  // Balance equations
+  mb_flow = port_a.m_flow;
+  mbXi_flow = port_a.m_flow * actualStream(port_a.Xi_outflow)
+    "Component mass flow";
+  mbC_flow  = port_a.m_flow * actualStream(port_a.C_outflow)
+    "Trace substance mass flow";
+  Hb_flow   = port_a.m_flow * actualStream(port_a.h_outflow) "Enthalpy flow";
+  Qb_flow   = heatTransfer.Q_flows[1];
+
+  // Outflowing quantities
+  port_a.h_outflow  = medium.h;
+  port_a.Xi_outflow = medium.Xi;
+  port_a.C_outflow  = C;
    annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={
         Ellipse(
@@ -53,60 +109,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
- parameter Modelica.SIunits.Volume VTot
-    "Total volume of vessel (water and gas side)";
- parameter Modelica.SIunits.Volume VGas0 = VTot/2 "Initial volume of gas";
-
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium = 
-        Medium) "Fluid port" 
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
-
-  // Heat transfer through boundary
-  parameter Boolean use_HeatTransfer = false
-    "= true to use the HeatTransfer model" 
-      annotation (Dialog(tab="Assumptions", group="Heat transfer"));
-  parameter Modelica.SIunits.Pressure pMax = 5E5
-    "Maximum pressure before simulation stops with an error";
-  replaceable model HeatTransfer = 
-      Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
-        surfaceAreas={4*Modelica.Constants.pi*(3/4*VTot/Modelica.Constants.pi)^(2/3)}) 
-    constrainedby
-    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer
-    "Wall heat transfer" 
-      annotation (Dialog(tab="Assumptions", group="Heat transfer",enable=use_HeatTransfer),choicesAllMatching=true);
-  HeatTransfer heatTransfer(
-    redeclare final package Medium = Medium,
-    final n=1,
-    final states = {medium.state},
-    final use_k = use_HeatTransfer) 
-      annotation (Placement(transformation(
-        extent={{-10,-10},{30,30}},
-        rotation=90,
-        origin={-50,-10})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer 
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-
-protected
- Modelica.SIunits.Volume VLiq "Volume of liquid in the vessel";
-equation
-  assert(medium.p < pMax, "Pressure exceeds maximum pressure.\n" +
-       "You may need to increase VTot of the ExpansionVessel.");
-  // Water content and pressure
-  port_a.p * (VTot-fluidVolume) = p_start * VGas0;
-  port_a.p = medium.p;
-
-  // Balance equations
-  mb_flow = port_a.m_flow;
-  mbXi_flow = port_a.m_flow * actualStream(port_a.Xi_outflow)
-    "Component mass flow";
-  mbC_flow  = port_a.m_flow * actualStream(port_a.C_outflow)
-    "Trace substance mass flow";
-  Hb_flow   = port_a.m_flow * actualStream(port_a.h_outflow) "Enthalpy flow";
-  Qb_flow   = heatTransfer.Q_flows[1];
-
-  // Outflowing quantities
-  port_a.h_outflow  = medium.h;
-  port_a.Xi_outflow = medium.Xi;
-  port_a.C_outflow  = C;
 end ExpansionVessel;

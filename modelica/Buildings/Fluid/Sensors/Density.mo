@@ -4,11 +4,12 @@ model Density "Ideal one port density sensor"
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput d(final quantity="Density",
                                           final unit="kg/m3",
-                                          displayUnit="g/cm3",
-                                          min=0) "Density in port medium" 
+                                          min=0) "Density in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
 
+equation
+  d = Medium.density(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
 annotation (defaultComponentName="density",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),     graphics),
@@ -33,6 +34,4 @@ The sensor is ideal, i.e. it does not influence the fluid.
  
 </HTML>
 "));
-equation
-  d = Medium.density(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
 end Density;

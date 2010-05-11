@@ -1,9 +1,10 @@
 ConstantEffectiveness
-ConstantEffectivenessReverseFlow
+DryEffectivenessNTU
+DryEffectivenessNTUPControl
+WetEffectivenessNTUPControl
 DryCoilDiscretized
 DryCoilDiscretizedPControl
 HeaterCoolerPrescribed
 HexElement
 WetCoilDiscretized
 WetCoilDiscretizedPControl
-

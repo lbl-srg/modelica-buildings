@@ -4,8 +4,82 @@ model MassExchange
   import Buildings;
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Fluid medium model" 
+    "Fluid medium model"
       annotation (choicesAllMatching=true);
+
+  Modelica.Blocks.Interfaces.RealInput XInf "Water mass fraction of medium"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
+          rotation=0)));
+  Modelica.Blocks.Interfaces.RealInput TSur(final quantity="ThermodynamicTemperature",
+                                            final unit = "K", displayUnit = "degC", min=0)
+    "Surface temperature"
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}},
+          rotation=0)));
+  Modelica.Blocks.Interfaces.RealOutput mWat_flow(final unit = "kg/s")
+    "Water flow rate"
+    annotation (Placement(transformation(extent={{100,10},{120,30}}, rotation=0)));
+  Modelica.Blocks.Interfaces.RealOutput TLiq(final quantity="ThermodynamicTemperature",
+                                             final unit = "K", displayUnit = "degC", min=0)
+    "Temperature at which condensate drains from system"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}}, rotation=
+           0)));
+  Modelica.Blocks.Interfaces.RealInput Gc
+    "Signal representing the convective (sensible) thermal conductance in [W/K]"
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
+          rotation=0)));
+  parameter Real Le = 1 "Lewis number (around 1 for water vapor in air)";
+  parameter Real n = 1/3
+    "Exponent in bondary layer ratio, delta/delta_t = Pr^n";
+public
+  Buildings.Utilities.Psychrometrics.X_pW humRatPre(              use_p_in=
+        false) "Model to convert water vapor pressure into humidity ratio"
+    annotation (Placement(transformation(extent={{0,0},{20,20}}, rotation=0)));
+  Buildings.Utilities.Psychrometrics.pW_Tdp TDewPoi
+    "Model to compute the water vapor pressure at the dew point"
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}}, rotation=0)));
+  Modelica.Blocks.Math.Gain gain(k=1/cpLe)
+    "Constant to convert from heat transfer to mass transfer"
+    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}}, rotation=
+           0)));
+  Modelica.Blocks.Math.Product mWat "Water flow rate"
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}}, rotation=0)));
+  Modelica.Blocks.Math.Min min annotation (Placement(transformation(extent={{20,
+            -60},{40,-40}}, rotation=0)));
+  Modelica.Blocks.Sources.Constant zero(k=0) "Constant for zero"
+    annotation (Placement(transformation(extent={{-20,-40},{0,-20}}, rotation=0)));
+  Modelica.Blocks.Math.Add delX(k2=-1, k1=1) "Humidity difference"
+    annotation (Placement(transformation(extent={{-40,-66},{-20,-46}}, rotation=
+           0)));
+protected
+ parameter Medium.ThermodynamicState sta0 = Medium.setState_phX(h=Medium.h_default,
+       p=Medium.p_default, X=Medium.X_default);
+ parameter Modelica.SIunits.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(sta0)
+    "Density, used to compute fluid volume";
+ parameter Real cpLe(unit="J/(kg.K)") = cp * Le^(1-n);
+equation
+  connect(TSur, TDewPoi.T) annotation (Line(points={{-120,80},{-80,80},{-80,50},
+          {-61,50}}, color={0,0,127}));
+  connect(TDewPoi.p_w, humRatPre.p_w) annotation (Line(points={{-39,50},{-20,50},
+          {-20,10},{-1,10}},color={0,0,255}));
+  connect(TSur, TLiq) annotation (Line(points={{-120,80},{80,80},{80,-40},{110,
+          -40}}, color={0,0,127}));
+  connect(Gc, gain.u) annotation (Line(points={{-120,-80},{-82,-80}}, color={0,
+          0,127}));
+  connect(gain.y, mWat.u2) annotation (Line(points={{-59,-80},{0,-80},{0,-76},{
+          58,-76}}, color={0,0,127}));
+  connect(mWat.y, mWat_flow) annotation (Line(points={{81,-70},{90,-70},{90,20},
+          {110,20}}, color={0,0,127}));
+  connect(zero.y,min. u1) annotation (Line(points={{1,-30},{10,-30},{10,-44},{
+          18,-44}}, color={0,0,127}));
+  connect(delX.u2,XInf)  annotation (Line(points={{-42,-62},{-80,-62},{-80,0},{
+          -120,0}},                           color={0,0,127}));
+  connect(humRatPre.X_w, delX.u1) annotation (Line(points={{21,10},{28,10},{28,
+          -8},{-60,-8},{-60,-50},{-42,-50}},
+                           color={0,0,255}));
+  connect(delX.y, min.u2)
+    annotation (Line(points={{-19,-56},{18,-56}}, color={0,0,127}));
+  connect(min.y, mWat.u1) annotation (Line(points={{41,-50},{48,-50},{48,-64},{
+          58,-64}}, color={0,0,127}));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -117,78 +191,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-
-  Modelica.Blocks.Interfaces.RealInput XInf "Water mass fraction of medium" 
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-          rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput TSur(final quantity="ThermodynamicTemperature",
-                                            final unit = "K", displayUnit = "degC", min=0)
-    "Surface temperature" 
-    annotation (Placement(transformation(extent={{-140,60},{-100,100}},
-          rotation=0)));
-  Modelica.Blocks.Interfaces.RealOutput mWat_flow(final unit = "kg/s")
-    "Water flow rate" 
-    annotation (Placement(transformation(extent={{100,10},{120,30}}, rotation=0)));
-  Modelica.Blocks.Interfaces.RealOutput TLiq(final quantity="ThermodynamicTemperature",
-                                             final unit = "K", displayUnit = "degC", min=0)
-    "Temperature at which condensate drains from system" 
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}}, rotation=
-           0)));
-  Modelica.Blocks.Interfaces.RealInput Gc
-    "Signal representing the convective (sensible) thermal conductance in [W/K]"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
-          rotation=0)));
-  parameter Real Le = 1 "Lewis number (around 1 for water vapor in air)";
-  parameter Real n = 1/3
-    "Exponent in bondary layer ratio, delta/delta_t = Pr^n";
-public
-  Buildings.Utilities.Psychrometrics.X_pW humRatPre(              use_p_in=
-        false) "Model to convert water vapor pressure into humidity ratio" 
-    annotation (Placement(transformation(extent={{0,0},{20,20}}, rotation=0)));
-  Buildings.Utilities.Psychrometrics.pW_Tdp TDewPoi
-    "Model to compute the water vapor pressure at the dew point" 
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}}, rotation=0)));
-  Modelica.Blocks.Math.Gain gain(k=1/cpLe)
-    "Constant to convert from heat transfer to mass transfer" 
-    annotation (Placement(transformation(extent={{-80,-90},{-60,-70}}, rotation=
-           0)));
-  Modelica.Blocks.Math.Product mWat "Water flow rate" 
-    annotation (Placement(transformation(extent={{60,-80},{80,-60}}, rotation=0)));
-  Modelica.Blocks.Math.Min min annotation (Placement(transformation(extent={{20,
-            -60},{40,-40}}, rotation=0)));
-  Modelica.Blocks.Sources.Constant zero(k=0) "Constant for zero" 
-    annotation (Placement(transformation(extent={{-20,-40},{0,-20}}, rotation=0)));
-  Modelica.Blocks.Math.Add delX(k2=-1, k1=1) "Humidity difference" 
-    annotation (Placement(transformation(extent={{-40,-66},{-20,-46}}, rotation=
-           0)));
-protected
- parameter Medium.ThermodynamicState sta0 = Medium.setState_phX(h=Medium.h_default,
-       p=Medium.p_default, X=Medium.X_default);
- parameter Modelica.SIunits.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(sta0)
-    "Density, used to compute fluid volume";
- parameter Real cpLe(unit="J/(kg.K)") = cp * Le^(1-n);
-equation
-  connect(TSur, TDewPoi.T) annotation (Line(points={{-120,80},{-80,80},{-80,50},
-          {-61,50}}, color={0,0,127}));
-  connect(TDewPoi.p_w, humRatPre.p_w) annotation (Line(points={{-39,50},{-20,50},
-          {-20,10},{-1,10}},color={0,0,255}));
-  connect(TSur, TLiq) annotation (Line(points={{-120,80},{80,80},{80,-40},{110,
-          -40}}, color={0,0,127}));
-  connect(Gc, gain.u) annotation (Line(points={{-120,-80},{-82,-80}}, color={0,
-          0,127}));
-  connect(gain.y, mWat.u2) annotation (Line(points={{-59,-80},{0,-80},{0,-76},{
-          58,-76}}, color={0,0,127}));
-  connect(mWat.y, mWat_flow) annotation (Line(points={{81,-70},{90,-70},{90,20},
-          {110,20}}, color={0,0,127}));
-  connect(zero.y,min. u1) annotation (Line(points={{1,-30},{10,-30},{10,-44},{
-          18,-44}}, color={0,0,127}));
-  connect(delX.u2,XInf)  annotation (Line(points={{-42,-62},{-80,-62},{-80,0},{
-          -120,0}},                           color={0,0,127}));
-  connect(humRatPre.X_w, delX.u1) annotation (Line(points={{21,10},{28,10},{28,
-          -8},{-60,-8},{-60,-50},{-42,-50}},
-                           color={0,0,255}));
-  connect(delX.y, min.u2) 
-    annotation (Line(points={{-19,-56},{18,-56}}, color={0,0,127}));
-  connect(min.y, mWat.u1) annotation (Line(points={{41,-50},{48,-50},{48,-64},{
-          58,-64}}, color={0,0,127}));
 end MassExchange;

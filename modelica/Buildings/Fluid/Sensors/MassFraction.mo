@@ -4,10 +4,29 @@ model MassFraction "Ideal one port mass fraction sensor"
   extends Modelica.Icons.RotationalSensor;
   parameter String substanceName = "water" "Name of species substance";
 
-  Modelica.Blocks.Interfaces.RealOutput X "Mass fraction in port medium" 
+  Modelica.Blocks.Interfaces.RealOutput X "Mass fraction in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
 
+protected
+  parameter Integer ind(fixed=false)
+    "Index of species in vector of auxiliary substances";
+  Medium.MassFraction XiVec[Medium.nXi](
+      quantity=Medium.extraPropertiesNames)
+    "Trace substances vector, needed because indexed argument for the operator inStream is not supported";
+initial algorithm
+  ind:= -1;
+  for i in 1:Medium.nX loop
+    if ( Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], substanceName)) then
+      ind := i;
+    end if;
+  end for;
+  assert(ind > 0, "Species with name '" + substanceName + "' is not present in medium '"
+         + Medium.mediumName + "'.\n"
+         + "Check sensor parameter and medium model.");
+equation
+  XiVec = inStream(port.Xi_outflow);
+  X = if ind > Medium.nXi then (1-sum(XiVec)) else XiVec[ind];
 annotation (defaultComponentName="massFraction",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),     graphics),
@@ -37,23 +56,4 @@ First implementation based on enthalpy sensor of Modelica.Fluid.
 </li>
 </ul>
 </html>"));
-protected
-  parameter Integer ind(fixed=false)
-    "Index of species in vector of auxiliary substances";
-  Medium.MassFraction XiVec[Medium.nXi](
-      quantity=Medium.extraPropertiesNames)
-    "Trace substances vector, needed because indexed argument for the operator inStream is not supported";
-initial algorithm
-  ind:= -1;
-  for i in 1:Medium.nX loop
-    if ( Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], substanceName)) then
-      ind := i;
-    end if;
-  end for;
-  assert(ind > 0, "Species with name '" + substanceName + "' is not present in medium '"
-         + Medium.mediumName + "'.\n"
-         + "Check sensor parameter and medium model.");
-equation
-  XiVec = inStream(port.Xi_outflow);
-  X = if ind > Medium.nXi then (1-sum(XiVec)) else XiVec[ind];
 end MassFraction;

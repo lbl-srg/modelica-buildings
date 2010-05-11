@@ -4,44 +4,14 @@ model MixingVolume
   extends Buildings.Fluid.Interfaces.PartialLumpedVolume(
       m(start=V*rho_nominal, fixed=false),
       final fluidVolume = V);
+  extends Buildings.BaseClasses.BaseIcon;
     import Modelica.Constants.pi;
-  annotation (Documentation(info="<html>
-This model represents an instantaneously mixed volume. 
-Potential and kinetic energy at the port are neglected,
-and there is no pressure drop at the ports.
-The volume can be parameterized to allow heat exchange
-through a <code>heatPort</code>.
-</html>", revisions="<html>
-<ul>
-<li>
-February 7, 2010 by Michael Wetter:<br>
-Simplified model and its base classes by removing the port data
-and the vessel area.
-Eliminated the base class <code>PartialLumpedVessel</code>.
-</li>
-<li>
-October 12, 2009 by Michael Wetter:<br>
-Changed base class to
-<a href=\"Modelica://Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume\">
-Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
-</li>
-</ul>
-</html>"), Diagram(graphics),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics={Ellipse(
-          extent={{-100,98},{100,-102}},
-          lineColor={0,0,0},
-          fillPattern=FillPattern.Sphere,
-          fillColor={170,213,255}), Text(
-          extent={{-58,14},{58,-18}},
-          lineColor={0,0,0},
-          textString="V=%V")}));
 
   // Port definitions
-  parameter Integer nPorts=0 "Number of ports" 
+  parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(__Dymola_connectorSizing=true, tab="General",group="Ports"));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium) "Fluid inlets and outlets" 
+      redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
 
@@ -58,25 +28,25 @@ Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
 
   // Heat transfer through boundary
   parameter Boolean use_HeatTransfer = false
-    "= true to use the HeatTransfer model" 
+    "= true to use the HeatTransfer model"
       annotation (Dialog(tab="Assumptions", group="Heat transfer"));
-  replaceable model HeatTransfer = 
-      Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer 
+  replaceable model HeatTransfer =
+      Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer
     constrainedby
     Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer
-    "Wall heat transfer" 
+    "Wall heat transfer"
       annotation (Dialog(tab="Assumptions", group="Heat transfer",enable=use_HeatTransfer),choicesAllMatching=true);
   HeatTransfer heatTransfer(
     redeclare final package Medium = Medium,
     surfaceAreas={4*pi*(3/4*V/pi)^(2/3)},
     final n=1,
     final states = {medium.state},
-    final use_k = use_HeatTransfer) 
+    final use_k = use_HeatTransfer)
       annotation (Placement(transformation(
         extent={{-10,-10},{30,30}},
         rotation=90,
         origin={-50,-10})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer 
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   parameter Modelica.SIunits.Volume V "Volume";
@@ -135,4 +105,35 @@ of the modeller. Increase nPorts to add an additional port.
       color={191,0,0},
       smooth=Smooth.None));
 
+  annotation (Documentation(info="<html>
+This model represents an instantaneously mixed volume. 
+Potential and kinetic energy at the port are neglected,
+and there is no pressure drop at the ports.
+The volume can be parameterized to allow heat exchange
+through a <code>heatPort</code>.
+</html>", revisions="<html>
+<ul>
+<li>
+February 7, 2010 by Michael Wetter:<br>
+Simplified model and its base classes by removing the port data
+and the vessel area.
+Eliminated the base class <code>PartialLumpedVessel</code>.
+</li>
+<li>
+October 12, 2009 by Michael Wetter:<br>
+Changed base class to
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume\">
+Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
+</li>
+</ul>
+</html>"), Diagram(graphics),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={Ellipse(
+          extent={{-100,98},{100,-102}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.Sphere,
+          fillColor={170,213,255}), Text(
+          extent={{-58,14},{58,-18}},
+          lineColor={0,0,0},
+          textString="V=%V")}));
 end MixingVolume;

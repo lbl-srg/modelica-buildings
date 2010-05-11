@@ -2,6 +2,22 @@ within Buildings.Utilities.Psychrometrics;
 block ToTotalAir
   "Block to convert absolute humidity from [kg/kg dry air] to [kg/kg total air]"
   extends Modelica.Blocks.Interfaces.BlockIcon;
+  Modelica.Blocks.Interfaces.RealOutput XiTotalAir
+    "Water vapor concentration in [kg/kg total air]"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
+            0)));
+  Modelica.Blocks.Interfaces.RealInput XiDry
+    "Water vapor concentration in [kg/kg dry air]"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
+          rotation=0)));
+
+  Modelica.Blocks.Interfaces.RealOutput XNonVapor
+    "Mass fraction of remaining substances"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}},rotation=
+            0)));
+equation
+  XiTotalAir = XiDry / (1+XiDry);
+  XNonVapor = 1 - XiTotalAir;
     annotation (
     Documentation(info="<html>
 <p>
@@ -33,20 +49,4 @@ First implementation.
           textString="XiTotal")}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics));
-  Modelica.Blocks.Interfaces.RealOutput XiTotalAir
-    "Water vapor concentration in [kg/kg total air]" 
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-            0)));
-  Modelica.Blocks.Interfaces.RealInput XiDry
-    "Water vapor concentration in [kg/kg dry air]" 
-    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-          rotation=0)));
-
-  Modelica.Blocks.Interfaces.RealOutput XNonVapor
-    "Mass fraction of remaining substances" 
-    annotation (Placement(transformation(extent={{100,-50},{120,-30}},rotation=
-            0)));
-equation
-  XiTotalAir = XiDry / (1+XiDry);
-  XNonVapor = 1 - XiTotalAir;
 end ToTotalAir;

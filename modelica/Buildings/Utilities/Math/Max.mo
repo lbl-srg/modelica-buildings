@@ -1,6 +1,8 @@
 within Buildings.Utilities.Math;
 block Max "Maximum element of a vector"
   extends Modelica.Blocks.Interfaces.MISO;
+equation
+ y = max(u);
 annotation (
 Documentation(info="<html>
 <p>
@@ -18,6 +20,4 @@ First implementation.
           extent={{-74,90},{70,-70}},
           lineColor={0,0,255},
           textString="max")}));
-equation
- y = max(u);
 end Max;

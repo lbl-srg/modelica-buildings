@@ -1,6 +1,8 @@
 within Buildings.Utilities.Math;
 block Min "Minimum element of a vector"
   extends Modelica.Blocks.Interfaces.MISO;
+equation
+ y = min(u);
 annotation (
 Documentation(info="<html>
 <p>
@@ -18,6 +20,4 @@ First implementation.
           extent={{-72,88},{72,-72}},
           lineColor={0,0,255},
           textString="min")}));
-equation
- y = min(u);
 end Min;
