@@ -77,11 +77,11 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
 equation
   connect(sou1.ports[1], chi.port_a1)    annotation (Line(
-      points={{-40,16},{0,16}},
+      points={{-40,16},{-5.55112e-16,16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou2.ports[1], chi.port_a2)    annotation (Line(
-      points={{40,4},{20,4}},
+      points={{40,4},{35,4},{35,4},{30,4},{30,4},{20,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(chi.port_b1, sin1.ports[1])    annotation (Line(
@@ -89,7 +89,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin2.ports[1], chi.port_b2)    annotation (Line(
-      points={{-40,-20},{-10,-20},{-10,4},{0,4}},
+      points={{-40,-20},{-10,-20},{-10,4},{-5.55112e-16,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TEva_in.y, sou1.T_in) annotation (Line(

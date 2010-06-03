@@ -8,7 +8,8 @@ model Carnot
      final use_HeatTransfer=true,
      redeclare model HeatTransfer =
           Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
-             surfaceAreas={1})));
+             surfaceAreas={1})),
+             final show_T = true);
 
   parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=
     Buildings.Fluid.Types.EfficiencyInput.volume

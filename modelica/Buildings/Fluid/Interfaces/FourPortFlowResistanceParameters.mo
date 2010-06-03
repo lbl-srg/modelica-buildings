@@ -2,7 +2,6 @@ within Buildings.Fluid.Interfaces;
 record FourPortFlowResistanceParameters
   "Parameters for flow resistance for models with four ports"
 
-
   parameter Boolean computeFlowResistance1 = true
     "=true, compute flow resistance. Set to false to assume no friction"
     annotation (Evaluate=true, Dialog(tab="Flow resistance", group="Medium 1"));
@@ -39,7 +38,8 @@ record FourPortFlowResistanceParameters
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation(Dialog(enable = computeFlowResistance2,
                       tab="Flow resistance", group="Medium 2"));
-annotation (Documentation(info="<html>
+annotation (preferedView="info",
+Documentation(info="<html>
 This class contains parameters that are used to
 compute the pressure drop in components that have two fluid streams.
 Note that the nominal mass flow rate is not declared here because

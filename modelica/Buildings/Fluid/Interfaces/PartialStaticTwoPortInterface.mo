@@ -46,6 +46,7 @@ equation
   dp = port_a.p - port_b.p;
 
   annotation (
+    preferedView="info",
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
@@ -54,12 +55,12 @@ equation
 <p>
 This component defines the interface for models that 
 transports a fluid between two ports. It is similar to 
-<a href=\"Modelica:Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
+<a href=\"Modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
 Modelica.Fluid.Interfaces.PartialTwoPortTransport</a>, but it does not 
 include the species balance 
 <pre>
   port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-</pre>.
+</pre>
 Thus, it can be used as a base class for a heat <i>and</i> mass transfer component
 </p>
 <p>

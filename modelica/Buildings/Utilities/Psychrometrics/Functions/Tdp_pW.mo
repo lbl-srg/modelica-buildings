@@ -6,8 +6,12 @@ function Tdp_pW
   output Modelica.SIunits.Temperature T "Dew point temperature";
 
 algorithm
-  T := Internal.solve(y_zero=p_w, x_min=200, x_max=400, f_nonlinear_data={0});
-    annotation (
+  T := Internal.solve(
+    y_zero=p_w,
+    x_min=200,
+    x_max=400,
+    f_nonlinear_data={0});
+  annotation (
     Documentation(info="<html>
 <p>
 Dew point temperature calculation for moist air above freezing temperature.
@@ -43,7 +47,7 @@ First implementation.
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}), graphics),
-            smoothOrder=1);
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+            100}}), graphics),
+    smoothOrder=1);
 end Tdp_pW;

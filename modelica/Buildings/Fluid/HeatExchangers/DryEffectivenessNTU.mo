@@ -16,6 +16,18 @@ model DryEffectivenessNTU
   parameter con configuration "Heat exchanger configuration"
     annotation (Evaluate=true);
 
+  parameter Real r_nominal(min=0, max=1)=2/3
+    "Ratio between air-side and water-side convective heat transfer (hA-value) at nominal condition";
+  Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil hA(
+    final r_nominal = r_nominal,
+    final UA_nominal = UA_nominal,
+    final m_flow_nominal_w = m1_flow_nominal,
+    final m_flow_nominal_a = m2_flow_nominal,
+    waterSideTemperatureDependent = false,
+    airSideTemperatureDependent = false)
+    "Model for convective heat transfer coefficient";
+  Modelica.SIunits.ThermalConductance UA "UA value";
+
   Real eps(min=0, max=1) "Heat exchanger effectiveness";
   Real Z(min=0, max=1) "Ratio of capacity flow rate (CMin/CMax)";
 // NTU has been removed as NTU goes to infinity as CMin goes to zero.
@@ -124,8 +136,14 @@ equation
         flo.CrossFlowCMinUnmixedCMaxMixed else
         flo.CrossFlowCMinMixedCMaxUnmixed;
   end if;
+  // Convective heat transfer coefficient
+  hA.m1_flow = m1_flow;
+  hA.m2_flow = m2_flow;
+  hA.T_1 = T_in1;
+  hA.T_2 = T_in2;
+  UA = 1/(1/hA.hA_1+1/hA.hA_2);
   // effectiveness
-  (eps, Z) = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(UA=UA_nominal,
+  (eps, Z) = Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_C(UA=UA,
        C1_flow=C1_flow, C2_flow=C2_flow, flowRegime=flowRegime,
        CMin_flow_nominal=CMin_flow_nominal, CMax_flow_nominal=CMax_flow_nominal, delta=delta);
   // transfered heat. QMax_flow is maximum heat transfered into medium

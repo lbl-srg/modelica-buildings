@@ -5,6 +5,7 @@ DuctManifoldNoResistance
 HADryCoil
 HexElement
 MassExchange
+PartialEffectiveness
 PartialDuctManifold
 PartialDuctPipeManifold
 PartialPipeManifold
@@ -13,9 +14,7 @@ PipeManifoldNoResistance
 Examples
 appartusDewPoint
 epsilon_C
-epsilonCondensate_WetCoil
 epsilon_ntuZ
-cpSat
 ntu_epsilonZ
+lmtd
 Internal
-PartialEffectiveness

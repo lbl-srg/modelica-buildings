@@ -107,10 +107,9 @@ package Data "Data for heat transfer models"
      parameter Real R(unit="m2.K/W")
         "Thermal resistance of a unit area of material";
      parameter Integer nStaRef(min=0) = 3
-        "Number of state variables in a reference material of 0.2 m concrete";
-     final parameter Integer nSta(min=1) = max(1, nStaRef);
-     // fixme: final parameter Integer nSta(min=1)=max(1, integer(ceil(nStaReal)))
-     //   "Number of state variables in material" annotation(Evaluate=true);
+        "fixme: Material conversion is not yet implemented! Number of state variables in a reference material of 0.2 m concrete";
+     final parameter Integer nSta(min=1)=max(1, nStaRef)
+        "Number of state variables in material" annotation(Evaluate=true);
      final parameter Boolean steadyState= (c == 0)
         "Flag, if true, then material is computed using steady-state heat conduction"
         annotation(Evaluate=true);

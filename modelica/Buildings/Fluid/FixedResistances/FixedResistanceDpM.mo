@@ -25,14 +25,20 @@ initial equation
  end if;
 
 equation
- m_flow_turbulent = if use_dh then
+ // if computeFlowResistance = false, then equations of this model are disabled.
+ if computeFlowResistance then
+   m_flow_turbulent = if use_dh then
                       eta_nominal*dh/4*Modelica.Constants.pi*ReC else
                       deltaM * m_flow_nominal;
-  if linearized then
-   k = m_flow_nominal / dp_nominal / conv2;
+    if linearized then
+     k = m_flow_nominal / dp_nominal / conv2;
+    else
+     k = m_flow_nominal / sqrt(dp_nominal);
+    end if;
   else
-   k = m_flow_nominal / sqrt(dp_nominal);
- end if;
+      m_flow_turbulent = 0;
+      k = 0;
+   end if;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),

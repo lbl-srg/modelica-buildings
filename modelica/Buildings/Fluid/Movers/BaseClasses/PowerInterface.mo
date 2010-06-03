@@ -1,6 +1,7 @@
 within Buildings.Fluid.Movers.BaseClasses;
-partial model PowerInterface "Base model for fans or pumps"
-//    import Modelica.SIunits.Conversions.NonSIunits.*;
+partial model PowerInterface
+  "Partial model to compute power draw and heat dissipation of fans and pumps"
+
   import Modelica.Constants;
 
   parameter Boolean use_powerCharacteristic = false
@@ -39,9 +40,7 @@ partial model PowerInterface "Base model for fans or pumps"
 
   Modelica.SIunits.Pressure dpMachine(displayUnit="Pa") "Pressure increase";
   Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
-  // fixme: This is experimental
-  parameter Boolean addHeatToMedium=
-                      true
+  parameter Boolean addHeatToMedium=true
     "Set to false to avoid any heat being added to medium (may give simpler equations)";
 protected
   parameter Modelica.SIunits.VolumeFlowRate V_flow_max(fixed=false)
@@ -74,26 +73,14 @@ equation
             100,100}}),
             graphics),
     Documentation(info="<html>
-<p>This is an interface that implements the functions to compute the head, power draw 
-and efficiency of fans and pumps. It is used by the model 
-<a href=\"modelica://Buildings.Fluids.Movers.BaseClasses.PrescribedFlowMachine\">PrescribedFlowMachine</a>.
+<p>This is an interface that implements the functions to compute the power draw and the
+heat dissipation of fans and pumps. It is used by the model 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
+Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 </p>
-The nominal hydraulic characteristic (total pressure vs. volume flow rate) is given by the the replaceable function <code>flowCharacteristic</code>.
-<p>The fan or pump energy balance can be specified in two alternative ways: </p>
-<p><ul>
-<li>
-If <code>use_powerCharacteristic = false</code>, the replaceable function
-<code>efficiencyCharacteristic</code>
-(efficiency vs. normalized volume flow rate) is used to determine the efficiency, 
-and then the power consumption. The default is a constant efficiency of 0.8.
-</li>
-<li>
-If <code>use_powerCharacteristic = true</code>, the replaceable function
-<code>powerCharacteristic</code> (power consumption vs. normalized volume flow rate 
-at nominal conditions) 
-is used to determine the power consumption, and then the efficiency. 
-Use
-<code>powerCharacteristic</code> to specify a non-zero power consumption for zero flow rate.
+<p>
+If <code>addHeatToMedium = false</code>, then no heat will be added to the medium.
+This can lead to simpler equations.
 </p>
 </html>",
       revisions="<html>

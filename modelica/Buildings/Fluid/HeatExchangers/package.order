@@ -2,9 +2,10 @@ CoolingTowers
 Radiators
 ConstantEffectiveness
 DryEffectivenessNTU
-WetEffectivenessNTU
+DryCoilCounterFlow
+WetCoilCounterFlow
 DryCoilDiscretized
-HeaterCoolerPrescribed
 WetCoilDiscretized
+HeaterCoolerPrescribed
 Examples
 BaseClasses

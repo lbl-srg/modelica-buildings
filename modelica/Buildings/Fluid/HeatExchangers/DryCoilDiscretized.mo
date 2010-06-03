@@ -8,13 +8,7 @@ model DryCoilDiscretized
     from_dp1 = false,
     from_dp2 = false);
 
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal(min=0) = 10
-    "Temperature difference"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(min=0) = 1000
-    "Heat transfer at dT_nominal"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0) = Q_flow_nominal/dT_nominal
+  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
     "Thermal conductance at nominal flow, used to compute heat capacity"
           annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Integer nReg(min=2)=2 "Number of registers"
@@ -54,7 +48,6 @@ model DryCoilDiscretized
     each final allowFlowReversal2=allowFlowReversal2,
     each final nPipPar=nPipPar,
     each final nPipSeg=nPipSeg,
-    each final UA_nominal=Q_flow_nominal/dT_nominal/nReg,
     each final m1_flow_nominal=m1_flow_nominal/nPipPar,
     each final m2_flow_nominal=m1_flow_nominal/nPipPar/nPipSeg,
     each tau1=tau1,
@@ -69,8 +62,9 @@ model DryCoilDiscretized
     each from_dp2=from_dp2,
     each linearizeFlowResistance2=linearizeFlowResistance2,
     each deltaM2=deltaM2,
-    each dp1_nominal=dp1_nominal/nReg,
-    each dp2_nominal=dp2_nominal/nReg) "Heat exchanger register"
+    each dp1_nominal=0,
+    each dp2_nominal=0,
+    each final UA_nominal=UA_nominal/nReg) "Heat exchanger register"
     annotation (Placement(transformation(extent={{-10,0},{10,20}}, rotation=0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldFixedResistance
     pipMan_a(
@@ -235,8 +229,7 @@ public
     "Guess value for mass flow rate at port_a2"
     annotation(Dialog(tab="General", group="Initialization"));
 initial equation
-  assert(dT_nominal>0,     "Parameter dT_nominal is negative. Check heat exchanger parameters.");
-  assert(Q_flow_nominal>0, "Parameter Q_flow_nominal is negative. Check heat exchanger parameters.");
+  assert(UA_nominal>0,     "Parameter UA_nominal is negative. Check heat exchanger parameters.");
 equation
   Q1_flow = sum(hexReg[i].Q1_flow for i in 1:nReg);
   Q2_flow = sum(hexReg[i].Q2_flow for i in 1:nReg);
@@ -354,7 +347,11 @@ Buildings.Fluid.HeatExchangers.WetCoilDiscretized</a> instead of this model, as
 this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
-<ul><li>
+<ul>
+<li>
+May 28, 2010, by Michael Wetter:<br>
+Fixed bug in assigning pressure drops that led to too high a resistances.
+</li><li>
 September 10, 2008, by Michael Wetter:<br>
 Added additional parameters.
 </li>

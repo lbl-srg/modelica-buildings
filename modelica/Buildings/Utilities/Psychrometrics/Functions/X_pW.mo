@@ -2,20 +2,22 @@ within Buildings.Utilities.Psychrometrics.Functions;
 function X_pW "Humidity ratio for given water vapor pressure"
 
   input Modelica.SIunits.Pressure p_w "Water vapor pressure";
-  input Modelica.SIunits.Pressure p = 101325 "Total pressure";
-  output Modelica.SIunits.MassFraction X_w(min=0, max=1, nominal=0.01)
-    "Species concentration at dry bulb temperature";
+  input Modelica.SIunits.Pressure p=101325 "Total pressure";
+  output Modelica.SIunits.MassFraction X_w(
+    min=0,
+    max=1,
+    nominal=0.01) "Species concentration at dry bulb temperature";
 
 protected
   Modelica.SIunits.MassFraction x_w(nominal=0.01)
     "Water mass fraction per mass of dry air";
 algorithm
-  x_w :=0.62198*p_w/(p - p_w);
-  X_w :=x_w/(1 + x_w);
+  x_w := 0.62198*p_w/(p - p_w);
+  X_w := x_w/(1 + x_w);
   annotation (
+    smoothOrder=5,
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}),
-            graphics),
+            100}}), graphics),
     Documentation(info="<html>
 <p>
 Function to compute the humidity ratio for a given water vapor partial pressure.
@@ -37,6 +39,5 @@ First implementation.
 </ul>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-        graphics));
+            100}}), graphics));
 end X_pW;

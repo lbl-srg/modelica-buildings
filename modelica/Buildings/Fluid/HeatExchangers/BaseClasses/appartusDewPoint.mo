@@ -66,7 +66,7 @@ algorithm
            Documentation(info="<html>
 This function computes iteratively the apparatus dew point temperature for a cooling coil.
 The apparatus dew point temperature is defined as in the HVAC2 Toolkit (Brandemuehl <i>et al.</i>
-1993), namely as the intersection of the line between coil air inlet state (T,X) and
+1993), namely as the intersection of the line between coil air inlet state <i>(T,X)</i> and
 outlet state, and the saturation line.
 </p>
 <p>
@@ -79,9 +79,11 @@ search continues with a smaller step until the step size is smaller than a presc
 ensures that the solution corresponding to the higher temperature is found.
 If no solution can be found, the function stops the simulation.
 </p>
-<h3>References</h3>
-Brandemuehl, Michael, Shauna Gabel and Inger Andresen. HVAC2 Toolkit, A toolkit for secondary HVAC system
-energy calculations. ASHRAE, Atlanta. 1993.
+<h4>References</h4>
+<p>
+Brandemuehl, Michael, Shauna Gabel and Inger Andresen. <i>HVAC2 Toolkit, A toolkit for secondary HVAC system
+energy calculations</i>. ASHRAE, Atlanta. 1993.
+</p>
 </html>",
 revisions="<html>
 <ul>

@@ -3,7 +3,7 @@ function spliceFunction
     input Real pos "Argument of x > 0";
     input Real neg "Argument of x < 0";
     input Real x "Independent value";
-    input Real deltax=1 "Width of transition interval";
+    input Real deltax "Half width of transition interval";
     output Real out "Smoothed value";
 protected
     Real scaledX;
@@ -31,6 +31,10 @@ Modelica.Media.Air.MoistAir.Utilities.spliceFunction</a> and provided here
 for easier accessability to model developers.
 </html>", revisions="<html>
 <ul>
+<li>
+May 11, 2010, by Michael Wetter:<br>
+Removed default value for transition interval as this is problem dependent.
+</li>
 <li>
 May 20, 2008, by Michael Wetter:<br>
 First implementation.

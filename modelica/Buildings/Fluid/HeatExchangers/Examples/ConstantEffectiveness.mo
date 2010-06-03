@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model ConstantEffectiveness
+  "Model that demonstrates use of a heat exchanger with constant effectiveness"
   import Buildings;
 
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;

@@ -4,7 +4,7 @@ model SpliceFunction
   Real y "Function value";
 equation
   y=Buildings.Utilities.Math.Functions.spliceFunction(
-                                            10, -10, time-0.5, 0.2);
+                                            pos=10, neg=-10, x=time-0.4, deltax=0.2);
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                      graphics),

@@ -107,7 +107,7 @@ First, we define the materials as
   Buildings.HeatTransfer.Data.Solids.Concrete concrete(x=0.2, nStaRef=4);
 </pre>
 <p>
-Here, we selected to use four state variables for each material layer (fixme: nStaRef vs. nSta).
+Here, we selected to use four state variables for each material layer.
 </p>
 <p>
 Next, we define the construction as
@@ -125,7 +125,7 @@ the model.)
 Alternatively, to model the insulation in steady-state, we can set its heat capacity to zero by declaring
 </p>
 <pre>
-  Buildings.HeatTransfer.Data.Solids.InsulationBoard insulation(c=0, x=0.1, nSta=4);
+  Buildings.HeatTransfer.Data.Solids.InsulationBoard insulation(c=0, x=0.1, nStaRef=4);
 </pre>
 <p>
 Instead of specifying a material with specific heat capacity and setting <tt>c=0</tt>,
@@ -136,7 +136,7 @@ For example, for a floor with carpet, the declaration would be
 </p>
 <pre>
   Buildings.HeatTransfer.Data.Resistances.Carpet carpet;
-  Buildings.HeatTransfer.Data.Solids.Concrete    concrete(x=0.2, nSta=4);
+  Buildings.HeatTransfer.Data.Solids.Concrete    concrete(x=0.2, nStaRef=4);
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic 
        floor(nLay=2, material={carpet,concrete});
 </pre>

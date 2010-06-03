@@ -1,5 +1,6 @@
-within Buildings.Fluid.HeatExchangers.Examples;
+within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model HexElement
+  "Model that tests the basic element that is used to built heat exchanger models"
   import Buildings;
  package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
 // package Medium_W = Modelica.Media.Air.SimpleAir;

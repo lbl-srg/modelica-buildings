@@ -3,4 +3,5 @@ EnthalpyFlowRate
 ExtraProperty
 MassFraction
 MoistAirEnthalpyFlowRate
+RelativeHumidity
 WetBulbTemperature

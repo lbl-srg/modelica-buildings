@@ -15,7 +15,7 @@ partial model PartialStaticFourPortInterface
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0) = m1_flow_nominal
+  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
 
@@ -30,7 +30,11 @@ partial model PartialStaticFourPortInterface
   parameter Boolean show_V_flow = false
     "= true, if volume flow rate at inflowing port is computed"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
+  parameter Boolean show_T = false
+    "= true, if actual temperature at port is computed (may lead to events)"
+    annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
+public
   Modelica.SIunits.VolumeFlowRate V1_flow=
       m1_flow/Modelica.Fluid.Utilities.regStep(m1_flow,
                   Medium1.density(state_a1_inflow),
@@ -54,17 +58,17 @@ partial model PartialStaticFourPortInterface
     "Pressure difference between port_a2 and port_b2";
 
   Medium1.ThermodynamicState sta_a1=
-      Medium1.setState_phX(port_a1.p, actualStream(port_a1.h_outflow), actualStream(port_a1.Xi_outflow))
-    "Medium properties in port_a1";
+      Medium1.setState_phX(port_a1.p, actualStream(port_a1.h_outflow), actualStream(port_a1.Xi_outflow)) if
+         show_T "Medium properties in port_a1";
   Medium1.ThermodynamicState sta_b1=
-      Medium1.setState_phX(port_b1.p, actualStream(port_b1.h_outflow), actualStream(port_b1.Xi_outflow))
-    "Medium properties in port_b1";
+      Medium1.setState_phX(port_b1.p, actualStream(port_b1.h_outflow), actualStream(port_b1.Xi_outflow)) if
+         show_T "Medium properties in port_b1";
   Medium2.ThermodynamicState sta_a2=
-      Medium2.setState_phX(port_a2.p, actualStream(port_a2.h_outflow), actualStream(port_a2.Xi_outflow))
-    "Medium properties in port_a2";
+      Medium2.setState_phX(port_a2.p, actualStream(port_a2.h_outflow), actualStream(port_a2.Xi_outflow)) if
+         show_T "Medium properties in port_a2";
   Medium2.ThermodynamicState sta_b2=
-      Medium2.setState_phX(port_b2.p, actualStream(port_b2.h_outflow), actualStream(port_b2.Xi_outflow))
-    "Medium properties in port_b2";
+      Medium2.setState_phX(port_b2.p, actualStream(port_b2.h_outflow), actualStream(port_b2.Xi_outflow)) if
+         show_T "Medium properties in port_b2";
 
 protected
   Medium1.ThermodynamicState state_a1_inflow=
@@ -90,6 +94,7 @@ equation
   dp2 = port_a2.p - port_b2.p;
 
   annotation (
+  preferedView="info",
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
@@ -99,7 +104,8 @@ equation
 This component defines the interface for models that 
 transport two fluid streams between four ports. 
 It is similar to 
-<a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">,
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface\">
+Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface</a>,
 but it has four ports instead of two.
 <p>
 The model is used by other models in this package that add heat transfer,

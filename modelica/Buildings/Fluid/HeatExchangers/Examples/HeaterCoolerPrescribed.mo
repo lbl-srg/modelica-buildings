@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model HeaterCoolerPrescribed
+  "Model that tests a heat exchanger model with reverse flow"
   import Buildings;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;

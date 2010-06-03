@@ -1,12 +1,9 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model DryCoilDiscretized
-
+  "Model that demonstrates use of a finite volume model of a heat exchanger without condensation"
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium2 = Buildings.Media.PerfectGases.MoistAir;
- //package Medium2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
-// package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
  package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
-//package Medium2 = Buildings.Media.IdealGases.SimpleAir;
+
   parameter Modelica.SIunits.Temperature T_a1_nominal = 60+273.15;
   parameter Modelica.SIunits.Temperature T_b1_nominal = 40+273.15;
   parameter Modelica.SIunits.Temperature T_a2_nominal =  5+273.15;
@@ -24,10 +21,14 @@ model DryCoilDiscretized
     nReg=2,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
-    Q_flow_nominal=m1_flow_nominal*4200*(T_a1_nominal-T_b1_nominal),
-    dT_nominal=((T_a1_nominal - T_b2_nominal) - (T_b1_nominal - T_a2_nominal))/Modelica.Math.log((T_a1_nominal - T_b2_nominal)/(T_b1_nominal - T_a2_nominal)),
-    dp1_nominal=2000,
-    dp2_nominal=200)           annotation (Placement(transformation(extent={{8,-4},{
+    UA_nominal=m1_flow_nominal*4200*(T_a1_nominal-T_b1_nominal)/
+      Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+        T_a1_nominal,
+        T_b1_nominal,
+        T_a2_nominal,
+        T_b2_nominal),
+    dp2_nominal=200,
+    dp1_nominal=5000)          annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2, T=303.15,
@@ -74,19 +75,6 @@ model DryCoilDiscretized
     T=293.15,
     nPorts=1)             annotation (Placement(transformation(extent={{-60,40},
             {-40,60}}, rotation=0)));
-    Fluid.FixedResistances.FixedResistanceDpM res_2(
-    from_dp=true,
-    redeclare package Medium = Medium2,
-    m_flow_nominal=m2_flow_nominal,
-    dp_nominal=200) annotation (Placement(transformation(extent={{-2,-10},{-22,10}},
-          rotation=0)));
-    Fluid.FixedResistances.FixedResistanceDpM res_1(
-    from_dp=true,
-    redeclare package Medium = Medium1,
-    m_flow_nominal=m1_flow_nominal,
-    dp_nominal=5000)
-             annotation (Placement(transformation(extent={{34,2},{54,22}},
-          rotation=0)));
     Modelica.Blocks.Sources.Ramp PSin_1(
     startTime=240,
     offset=300000,
@@ -100,10 +88,6 @@ equation
       points={{1,-40},{20,-40},{20,-52},{38,-52}},
       color={0,0,127},
       pattern=LinePattern.None));
-  connect(res_2.port_a, hex.port_b2) annotation (Line(points={{-2,6.10623e-16},
-          {8,6.10623e-16},{8,5.55112e-16}},                    color={0,127,255}));
-  connect(hex.port_b1, res_1.port_a) annotation (Line(points={{28,12},{31,12},{
-          34,12}},         color={0,127,255}));
   connect(TDb.y, sou_2.T_in) annotation (Line(points={{1,-80},{20,-80},{20,-56},
           {38,-56}}, color={0,0,127}));
   connect(TWat.y, sou_1.T_in)
@@ -115,15 +99,6 @@ equation
       points={{-40,50},{-16,50},{-16,12},{8,12}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sin_2.ports[1], res_2.port_b) annotation (Line(
-      points={{-38,6.66134e-16},{-34,6.66134e-16},{-34,1.27676e-15},{-30,
-          1.27676e-15},{-30,6.10623e-16},{-22,6.10623e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sin_1.ports[1], res_1.port_b) annotation (Line(
-      points={{64,12},{54,12}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(sou_2.ports[1], hex.port_a2) annotation (Line(
       points={{60,-60},{70,-60},{70,-20},{36,-20},{36,5.55112e-16},{28,
           5.55112e-16}},
@@ -132,6 +107,15 @@ equation
   connect(POut.y, sin_2.p_in) annotation (Line(
       points={{-79,8},{-69.5,8},{-69.5,8},{-60,8}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(sin_2.ports[1], hex.port_b2) annotation (Line(
+      points={{-38,6.66134e-16},{-16,6.66134e-16},{-16,5.55112e-16},{8,
+          5.55112e-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(hex.port_b1, sin_1.ports[1]) annotation (Line(
+      points={{28,12},{64,12}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),

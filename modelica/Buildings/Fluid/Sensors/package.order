@@ -6,6 +6,7 @@ LatentEnthalpyFlowRate
 MassFlowRate
 MassFraction
 Pressure
+RelativeHumidity
 RelativePressure
 RelativeTemperature
 SensibleEnthalpyFlowRate

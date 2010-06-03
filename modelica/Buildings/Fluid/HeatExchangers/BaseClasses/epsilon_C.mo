@@ -62,7 +62,8 @@ algorithm
   else
     NTU :=gai*UA/CMinNZ_flow;
     eps := gai*Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(NTU=NTU, Z=Z, flowRegime=flowRegime);
-   end if;
+  end if;
+
   annotation(preferedView="info",
            smoothOrder=1,
            Documentation(info="<html>

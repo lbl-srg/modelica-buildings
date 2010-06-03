@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 partial model PartialEffectiveness
   "Partial model to implement heat exchangers based on effectiveness model"
-  extends Fluid.Interfaces.PartialStaticFourPortHeatMassTransfer;
+  extends Fluid.Interfaces.PartialStaticFourPortHeatMassTransfer(final show_T=true);
 
   Modelica.SIunits.Temperature T_in1 "Inlet temperature medium 1";
   Modelica.SIunits.Temperature T_in2 "Inlet temperature medium 2";
@@ -16,7 +16,7 @@ partial model PartialEffectiveness
 protected
   Real gai1(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
   Real gai2(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
-  parameter Real delta = 1E-3 "Parameter used for smoothing";
+  parameter Real delta=1E-3 "Parameter used for smoothing";
 
   parameter Modelica.SIunits.SpecificHeatCapacity cp1_default(fixed=false)
     "Specific heat capacity of medium 1 at default medium state";
@@ -24,53 +24,96 @@ protected
     "Specific heat capacity of medium 2 at default medium state";
   parameter Modelica.SIunits.ThermalConductance CMin_flow_small(fixed=false)
     "Small value for smoothing of minimum heat capacity flow rate";
+  Real fra_a1(min=0, max=1)
+    "Fraction of incoming state taken from port a2 (used to avoid excessive calls to regStep)";
+  Real fra_b1(min=0, max=1)
+    "Fraction of incoming state taken from port b2 (used to avoid excessive calls to regStep)";
+  Real fra_a2(min=0, max=1)
+    "Fraction of incoming state taken from port a2 (used to avoid excessive calls to regStep)";
+  Real fra_b2(min=0, max=1)
+    "Fraction of incoming state taken from port b2 (used to avoid excessive calls to regStep)";
 initial equation
-  cp1_default = Medium1.specificHeatCapacityCp(
-      Medium1.setState_pTX(Medium1.p_default, Medium1.T_default, Medium1.X_default));
-  cp2_default = Medium2.specificHeatCapacityCp(
-      Medium2.setState_pTX(Medium2.p_default, Medium2.T_default, Medium2.X_default));
+  cp1_default = Medium1.specificHeatCapacityCp(Medium1.setState_pTX(
+    Medium1.p_default,
+    Medium1.T_default,
+    Medium1.X_default));
+  cp2_default = Medium2.specificHeatCapacityCp(Medium2.setState_pTX(
+    Medium2.p_default,
+    Medium2.T_default,
+    Medium2.X_default));
   CMin_flow_small = min(m1_flow_small*cp1_default, m2_flow_small*cp2_default);
 equation
-  // Definitions for heat transfer effectiveness model
-  T_in1 = Modelica.Fluid.Utilities.regStep(m1_flow,
-                  Medium1.temperature(state_a1_inflow),
-                  Medium1.temperature(state_b1_inflow), m1_flow_small);
-  T_in2 = Modelica.Fluid.Utilities.regStep(m2_flow,
-                  Medium2.temperature(state_a2_inflow),
-                  Medium2.temperature(state_b2_inflow), m2_flow_small);
+  if allowFlowReversal2 then
+    fra_a2 = Modelica.Fluid.Utilities.regStep(
+      m2_flow,
+      1,
+      0,
+      m2_flow_small);
+    fra_b2 = 1-fra_a2;
+  else
+    fra_a2 = 1;
+    fra_b2 = 0;
+  end if;
+  if allowFlowReversal1 then
+    fra_a1 = Modelica.Fluid.Utilities.regStep(
+      m1_flow,
+      1,
+      0,
+      m1_flow_small);
+    fra_b1 = 1-fra_a1;
+  else
+    fra_a1 = 1;
+    fra_b1 = 0;
+  end if;
 
   // Compute a gain that goes to zero near zero flow rate.
   // This is required to smoothen the heat transfer at very small flow rates.
   // Note that gaiK = 1 for abs(mK_flow) > mK_flow_small
-  gai1 = Modelica.Fluid.Utilities.regStep(abs(m1_flow)- 0.75 * m1_flow_small, 1, 0, 0.25*m1_flow_small);
-  gai2 = Modelica.Fluid.Utilities.regStep(abs(m2_flow)- 0.75 * m2_flow_small, 1, 0, 0.25*m2_flow_small);
+  gai1 = Modelica.Fluid.Utilities.regStep(
+    abs(m1_flow) - 0.75*m1_flow_small,
+    1,
+    0,
+    0.25*m1_flow_small);
+  gai2 = Modelica.Fluid.Utilities.regStep(
+    abs(m2_flow) - 0.75*m2_flow_small,
+    1,
+    0,
+    0.25*m2_flow_small);
 
-  // The specific heat capacity is computed using the state of the
-  // medium at port_a. For forward flow, this is correct, for reverse flow,
-  // this is an approximation.
-//   C1_flow = smooth(1, gai1 * abs(m1_flow)) * Medium1.specificHeatCapacityCp(sta_a1);
-//   C2_flow = smooth(1, gai2 * abs(m2_flow)) * Medium2.specificHeatCapacityCp(sta_a2);
+  /////////////////////////////////////////////////////////
+  // Definitions for heat transfer effectiveness model
+  T_in1 = if allowFlowReversal1 then
+    fra_a1 * Medium1.temperature(state_a1_inflow) + fra_b1 * Medium1.temperature(state_b1_inflow) else
+    Medium1.temperature(state_a1_inflow);
+  T_in2 = if allowFlowReversal2 then
+    fra_a2 * Medium2.temperature(state_a2_inflow) + fra_b2 * Medium2.temperature(state_b2_inflow) else
+    Medium2.temperature(state_a2_inflow);
 
-//  CMin_flow = Buildings.Utilities.Math.Functions.smoothMin(C1_flow, C2_flow, CMin_flow_small);
-  // If there is a tiny flow, then CMin_flow must be non-zero. Otherwise, the fluid outlet temperature
-  // is the same as the fluid inlet temperature, which gives very high return water temperatures
-  // for tiny flow rates.
-     C1_flow   = abs(m1_flow) * Medium1.specificHeatCapacityCp(sta_a1);
-     C2_flow   = abs(m2_flow) * Medium2.specificHeatCapacityCp(sta_a2);
-     CMin_flow = min(C1_flow, C2_flow);
+  C1_flow = abs(m1_flow)*
+    ( if allowFlowReversal1 then
+           fra_a1 * Medium1.specificHeatCapacityCp(state_a1_inflow) +
+           fra_b1 * Medium1.specificHeatCapacityCp(state_b1_inflow) else
+        Medium1.specificHeatCapacityCp(state_a1_inflow));
+  C2_flow = abs(m2_flow)*
+    ( if allowFlowReversal2 then
+           fra_a2 * Medium2.specificHeatCapacityCp(state_a2_inflow) +
+           fra_b2 * Medium2.specificHeatCapacityCp(state_b2_inflow) else
+        Medium2.specificHeatCapacityCp(state_a2_inflow));
+  CMin_flow = min(C1_flow, C2_flow);
 
   // QMax_flow is maximum heat transfer into medium 1
   // We multiply by gai1*gai2 to ensure that if one flow is zero, then QMax_flow = 0
-  QMax_flow = CMin_flow * (T_in2 - T_in1);
+  QMax_flow = CMin_flow*(T_in2 - T_in1);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics={Rectangle(
+  annotation (
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics={Rectangle(
           extent={{-70,78},{70,-82}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid)}),
-Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 Partial model to implement heat exchanger models
 </p>
@@ -88,8 +131,7 @@ mass balance equations in a form like<pre>
 Thus, if medium 1 is heated in this device, then <code>Q1_flow &gt; 0</code>
 and <code>QMax_flow &gt; 0</code>.
 </p>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 February 12, 2010, by Michael Wetter:<br>

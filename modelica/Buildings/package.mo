@@ -2,9 +2,7 @@ within ;
 package Buildings "Library with models for building energy and control systems"
 
 
-
 package UsersGuide "User's Guide"
-
 
   class Conventions "Conventions"
 
@@ -39,7 +37,6 @@ and <code>Tdb</code> (or simply <code>T</code>) denotes dry bulb temperature.
   end Conventions;
 
   package ReleaseNotes "Release notes"
-
 
   class Version_0_9_0 "Version 0.9.0"
 
@@ -121,11 +118,23 @@ nonlinear equation system is typically larger for flow
 networks.
 </li>
 <li>
-Added model 
+Added the following heat exchanger models
+<ul>
+<li> 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
 Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>
 for a sensible heat exchanger that uses the <code>epsilon-NTU</code>
 relations to compute the heat transfer.
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> and
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>
+to model a coil without and with water vapor condensation. These models
+approximate the coil as a counterflow heat exchanger.
+</li>
+</ul>
 <li>
 In 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">

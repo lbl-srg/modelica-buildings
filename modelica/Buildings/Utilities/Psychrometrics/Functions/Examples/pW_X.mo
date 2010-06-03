@@ -7,10 +7,10 @@ model pW_X "Model to test pW_X and its inverse function"
   Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
   constant Real conv(unit="1/s") = 0.999 "Conversion factor";
 equation
-  X = conv * time;
+  X = conv*time;
   p_w = Buildings.Utilities.Psychrometrics.Functions.pW_X(X);
   XInv = Buildings.Utilities.Psychrometrics.Functions.X_pW(p_w);
-  dX=X-XInv;
+  dX = X - XInv;
   assert(abs(dX) < 10E-12, "Error in function implementation.");
-  annotation(Commands(file="pW_X.mos" "run"));
+  annotation (Commands(file="pW_X.mos" "run"));
 end pW_X;

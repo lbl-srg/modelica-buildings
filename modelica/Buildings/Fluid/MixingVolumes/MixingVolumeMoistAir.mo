@@ -10,15 +10,24 @@ model MixingVolumeMoistAir
 
 protected
   parameter Integer i_w(min=1, fixed=false) "Index for water substance";
+  parameter Real s[Medium.nXi](fixed=false)
+    "Vector with zero everywhere except where species is";
 initial algorithm
-  i_w :=1;
+  i_w:= -1;
   if cardinality(mWat_flow) > 0 then
-    for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
-        i_w :=i;
-      end if;
-    end for;
-  end if;
+  for i in 1:Medium.nXi loop
+    if ( Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "water")) then
+      i_w := i;
+      s[i] :=1;
+    else
+      s[i] :=0;
+    end if;
+   end for;
+    assert(i_w > 0, "Substance 'water' is not present in medium '"
+         + Medium.mediumName + "'.\n"
+         + "Check medium model.");
+    end if;
+
 equation
   if cardinality(mWat_flow) == 0 then
     mWat_flow = 0;
@@ -30,12 +39,14 @@ equation
     else
        HWat_flow = mWat_flow * Medium.enthalpyOfLiquid(TWat);
     end if;
-    for i in 1:Medium.nXi loop
-      mXi_flow[i] = if ( i == i_w) then mWat_flow else 0;
-    end for;
+  // We obtain the substance concentration with a vector multiplication
+  // because Dymola 7.4 cannot find the derivative in the model
+  // Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretizedPControl
+  // if we set mXi_flow[i] = if ( i == i_w) then mWat_flow else 0;
+    mXi_flow = mWat_flow * s;
   end if;
 // Medium species concentration
-  X_w = medium.X[i_w];
+  X_w = s*medium.Xi;
   annotation (Diagram(graphics),
                        Icon(graphics),
 Documentation(info="<html>
@@ -64,6 +75,12 @@ Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 29, 2010 by Michael Wetter:<br>
+Rewrote computation of index of water substance.
+For the old formulation, Dymola 7.4 failed to differentiate the 
+model when trying to reduce the index of the DAE.
+</li>
 <li>
 August 7, 2008 by Michael Wetter:<br>
 First implementation.

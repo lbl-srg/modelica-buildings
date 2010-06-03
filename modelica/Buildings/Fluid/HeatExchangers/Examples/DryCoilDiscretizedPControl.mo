@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model DryCoilDiscretizedPControl
+  "Model that demonstrates use of a finite volume model of a heat exchanger without condensation and with feedback control"
   import Buildings;
 
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
@@ -89,8 +90,12 @@ model DryCoilDiscretizedPControl
     nReg=4,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
-    Q_flow_nominal=m1_flow_nominal*4200*(T_a1_nominal-T_b1_nominal),
-    dT_nominal=((T_a1_nominal - T_b2_nominal) - (T_b1_nominal - T_a2_nominal))/Modelica.Math.log((T_a1_nominal - T_b2_nominal)/(T_b1_nominal - T_a2_nominal)),
+    UA_nominal=m1_flow_nominal*4200*(T_a1_nominal-T_b1_nominal)/
+      Buildings.Fluid.HeatExchangers.BaseClasses.lmtd(
+        T_a1_nominal,
+        T_b1_nominal,
+        T_a2_nominal,
+        T_b2_nominal),
     dp1_nominal(displayUnit="Pa") = 2000,
     dp2_nominal(displayUnit="Pa") = 200)
                          annotation (Placement(transformation(extent={{60,16},{

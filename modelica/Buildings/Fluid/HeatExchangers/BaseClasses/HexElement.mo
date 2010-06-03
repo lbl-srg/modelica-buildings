@@ -87,23 +87,24 @@ equation
           -50,30}}, color={0,0,127}));
   connect(Gc_2, con2.Gc) annotation (Line(points={{40,-100},{40,-76},{-34,-76},
           {-34,-4},{-50,-4},{-50,-10}}, color={0,0,127}));
-  connect(temSen.T, masExc.TSur) annotation (Line(points={{28,0},{36,0},{36,-26},
-          {46,-26}},                    color={0,0,127}));
+  connect(temSen.T, masExc.TSur) annotation (Line(points={{28,6.10623e-16},{36,
+          6.10623e-16},{36,-26},{46,-26}},
+                                        color={0,0,127}));
   connect(Gc_2, masExc.Gc) annotation (Line(points={{40,-100},{40,-42},{46,-42}},
         color={0,0,127}));
-  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{69,-32},
-          {80,-32},{80,-52},{14,-52}}, color={0,0,127}));
+  connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{69,-32},{
+          80,-32},{80,-52},{14,-52}},  color={0,0,127}));
   connect(masExc.TLiq, vol2.TWat) annotation (Line(points={{69,-38},{72,-38},{
           72,-55.2},{14,-55.2}},
                              color={0,0,127}));
   connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},
           {-20,-34},{46,-34}}, color={0,0,127}));
   connect(con1.solid,mas. port) annotation (Line(points={{-60,20},{-72,20},{-72,
-          -6.12323e-016}}, color={191,0,0}));
+          -1.68051e-18}},  color={191,0,0}));
   connect(con2.solid,mas. port) annotation (Line(points={{-60,-20},{-60,-20.5},
-          {-72,-20.5},{-72,-6.12323e-016}}, color={191,0,0}));
+          {-72,-20.5},{-72,-1.68051e-18}},  color={191,0,0}));
   connect(mas.port,temSen. port)      annotation (Line(points={{-72,
-          -6.12323e-016},{-39,-6.12323e-016},{-39,0},{8,0}},
+          -1.68051e-18},{-39,-1.68051e-18},{-39,6.10623e-16},{8,6.10623e-16}},
                           color={191,0,0}));
   connect(con1.fluid,heaFloSen_1. port_a)
     annotation (Line(points={{-40,20},{-34,20}}, color={191,0,0}));
