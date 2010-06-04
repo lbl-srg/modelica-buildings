@@ -100,29 +100,36 @@ package Data "Data for heat transfer models"
     extends Modelica.Fluid.Icons.BaseClassLibrary;
     record Material "Thermal properties of materials w/o storage"
       extends Modelica.Icons.Record;
-     parameter Modelica.SIunits.Length x "Material thickness";
-     parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
-     parameter Modelica.SIunits.SpecificHeatCapacity c "Specific heat capacity";
-     parameter Modelica.SIunits.Density d "Mass density";
-     parameter Real R(unit="m2.K/W")
+      parameter Modelica.SIunits.Length x "Material thickness";
+      parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
+      parameter Modelica.SIunits.SpecificHeatCapacity c
+        "Specific heat capacity";
+      parameter Modelica.SIunits.Density d "Mass density";
+      parameter Real R(unit="m2.K/W")
         "Thermal resistance of a unit area of material";
-     parameter Integer nStaRef(min=0) = 3
-        "fixme: Material conversion is not yet implemented! Number of state variables in a reference material of 0.2 m concrete";
-     final parameter Integer nSta(min=1)=max(1, nStaRef)
-        "Number of state variables in material" annotation(Evaluate=true);
-     final parameter Boolean steadyState= (c == 0)
+      parameter Integer nStaRef(min=0) = 3
+        "Number of state variables in a reference material of 0.2 m concrete";
+      parameter Integer nSta(min=1)=max(1, integer(ceil(nStaReal)))
+        "Actual number of state variables in material"
+        annotation(Evaluate=true, Dialog(tab="Advanced"));
+      parameter Boolean steadyState= (c == 0 or d == 0)
         "Flag, if true, then material is computed using steady-state heat conduction"
         annotation(Evaluate=true);
-     final parameter Real piRef = 331.4
-        "Ratio x/sqrt(alpha) for reference material of 0.2 m concrete";
-     final parameter Real piMat = if steadyState then piRef else x*sqrt(c*d)/sqrt(k)
-        "Ratio x/sqrt(alpha)"                                                                              annotation(Evaluate=true);
-     final parameter Real nStaReal = nStaRef*piMat/piRef
+      parameter Real piRef=331.4
+        "Ratio x/sqrt(alpha) for reference material of 0.2 m concrete"
+        annotation (Dialog(tab="Advanced"));
+      parameter Real piMat=if steadyState then piRef else x*sqrt(c*d)/sqrt(k)
+        "Ratio x/sqrt(alpha)"
+        annotation(Evaluate=true, Dialog(tab="Advanced"));
+      parameter Real nStaReal(min=0) = nStaRef*piMat/piRef
         "Number of states as a real number"
-                                          annotation(Evaluate=true);
-      annotation (Documentation(info="<html>
-This is the base record for materials. It specifies the thermal properties
-of a material. The specific heat capacity can be zero, in which case the material
+        annotation (Dialog(tab="Advanced"));
+      annotation (preferedView="info",
+      Documentation(info="<html>
+This is the base record for materials that declares the thermal properties. 
+</p>
+<p>
+The specific heat capacity can be zero, in which case the material
 will be modeled as a thermal resistor that does not store energy.
 </p>
 <p>
@@ -135,6 +142,10 @@ and ceilings of different surface area.
 </html>",
     revisions="<html>
 <ul>
+<li>
+June 3 2010, by Michael Wetter:<br>
+Implemented adaptive computation of number of states based on a reference construction of 0.2 m concrete.
+</li>
 <li>
 March 6 2010, by Michael Wetter:<br>
 First implementation.
