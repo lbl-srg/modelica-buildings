@@ -43,12 +43,31 @@ and <code>Tdb</code> (or simply <code>T</code>) denotes dry bulb temperature.
   annotation (Documentation(info="<html>
 <ul>
 <li>
+Added the following heat exchanger models
+<ul>
+<li> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
+Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>
+for a sensible heat exchanger that uses the <code>epsilon-NTU</code>
+relations to compute the heat transfer.
+</li>
+<li>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> and
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
+Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>
+to model a coil without and with water vapor condensation. These models
+approximate the coil as a counterflow heat exchanger.
+</li>
+</ul>
+<li>
 Revised air damper 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.exponentialDamper\">
 Buildings.Fluid.Actuators.BaseClasses.exponentialDamper</a>.
 The new implementation avoids warnings and leads to faster convergence
 since the solver does not attempt anymore to solve for a variable that
 needs to be strictly positive.
+</li>
 <li>
 Revised package
 <a href=\"modelica://Buildings.Fluid.Movers\">
@@ -117,24 +136,6 @@ The drawback is that the dimensionality of the coupled
 nonlinear equation system is typically larger for flow
 networks.
 </li>
-<li>
-Added the following heat exchanger models
-<ul>
-<li> 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryEffectivenessNTU\">
-Buildings.Fluid.HeatExchangers.DryEffectivenessNTU</a>
-for a sensible heat exchanger that uses the <code>epsilon-NTU</code>
-relations to compute the heat transfer.
-</li>
-<li>
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DryCoilCounterFlow\">
-Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilCounterFlow\">
-Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a>
-to model a coil without and with water vapor condensation. These models
-approximate the coil as a counterflow heat exchanger.
-</li>
-</ul>
 <li>
 In 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential\">
@@ -586,7 +587,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
-Version 0.9.0 </a>(xxxxx, 2010)</li>
+Version 0.9.0 </a>(June 11, 2010)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">
 Version 0.8.0 </a>(February 6, 2010)</li>
