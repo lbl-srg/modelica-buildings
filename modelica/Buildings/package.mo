@@ -860,8 +860,9 @@ annotation (preferedView="info",
 The <b>Buildings</b> library is a free library
 for modeling building energy and control systems. 
 Many models are based on models from the package
-<a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a> and use
-the same ports to ensure compatibility with models from that library.
+<code>Modelica.Fluid</code> and use
+the same ports to ensure compatibility with the Modelica Standard
+Library.
 </p>
 <p>
 The figure below shows a section of the schematic view of the model 
@@ -871,7 +872,7 @@ In the lower part of the figure, there is a dynamic model of a boiler, a pump an
 The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a simplified room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
 </p>
 <p>
-<img src=\"Images/UsersGuide/HydronicHeating.png\" border=\"1\">
+<img src=\"../Images/UsersGuide/HydronicHeating.png\" border=\"1\">
 </p>
 <p>
 The web page for this library is
