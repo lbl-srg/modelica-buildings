@@ -38,6 +38,20 @@ and <code>Tdb</code> (or simply <code>T</code>) denotes dry bulb temperature.
 
   package ReleaseNotes "Release notes"
 
+
+  class Version_0_10_0 "Version 0.10.0"
+
+  annotation (Documentation(info="<html>
+<ul>
+<li>
+xxxx
+</li>
+</ul>
+</p>
+</html>
+"));
+  end Version_0_10_0;
+
   class Version_0_9_0 "Version 0.9.0"
 
   annotation (Documentation(info="<html>
@@ -580,11 +594,15 @@ to the medium properties.
 </html>
 "));
   end Version_0_1_0;
+
     annotation (Documentation(info="<html>
 This section summarizes the changes that have been performed
 on the Buildings library
 </p>
 <ul>
+<li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">
+Version 0.10.0 </a>(xxxx, 2010)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
 Version 0.9.0 </a>(June 11, 2010)</li>
