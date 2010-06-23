@@ -884,7 +884,7 @@ end UsersGuide;
 
 
 annotation (preferedView="info",
-      version="0.9.0",
+      version="0.9.1",
       uses(Modelica(version="3.1")),
       Documentation(info="<html>
 The <b>Buildings</b> library is a free library
