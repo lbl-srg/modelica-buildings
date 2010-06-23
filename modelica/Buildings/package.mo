@@ -876,7 +876,7 @@ User's Guides that can be accessed by the following links:
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.HeatTransfer.UsersGuide\">HeatTransfer</a>
    </td>
-   <td valign=\"top\">Library heat transfer in building constructions.</td>
+   <td valign=\"top\">Library for heat transfer in building constructions.</td>
 </tr>
 </table>
 </html>"));
