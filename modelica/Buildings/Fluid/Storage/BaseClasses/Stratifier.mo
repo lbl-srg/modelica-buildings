@@ -34,6 +34,7 @@ model Stratifier "Model to reduce the numerical dissipation in a tank"
     "Fluid port, needed to get pressure, temperature and species concentration"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
            0)));
+
 protected
   Integer s(min=-1, max=1) "Index shift to pick up or down volume";
    parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=Medium.T_default,
@@ -41,8 +42,13 @@ protected
    parameter Modelica.SIunits.SpecificHeatCapacity cp0=Medium.specificHeatCapacityCp(sta0)
     "Density, used to compute fluid volume";
   Real[nSeg] intArg "Argument for interpolation function";
+  Modelica.SIunits.SpecificEnthalpy[nSeg] dh
+    "Difference in specific enthalpy between adjacent volumes";
   parameter Real intDel=a*cp0*delta
     "Scaling argument delta for interpolation function";
+  parameter Modelica.SIunits.SpecificEnthalpy delH=cp0*delta
+    "Scaling argument delta for interpolation function";
+
   Real[nSeg] ex "Output of smooth exponential function";
 equation
   // assign zero flow conditions at port
@@ -67,16 +73,20 @@ equation
      */
      // approximation that is once continuously differentiable
      // and does not cause chattering
-     intArg[i] = a * (h[i-s+1]-h[i+1]);
+     dh[i] = h[i-s+1]-h[i+1];
+     intArg[i] = a * Buildings.Utilities.Math.Functions.smoothMax(dh[i], -dh[i], delH);
      ex[i] = Buildings.Utilities.Math.Functions.smoothExponential(
                                                          intArg[i], intDel);
      hOut[i+1] = (h[i+1]-h[i+s+1]) * ex[i]   + h[i+s+1];
+
      if s > 0 then
-       heatPort[i].Q_flow = -m_flow * (hOut[i]-hOut[i+1])   +H_flow[i] -H_flow[i+1];
+       heatPort[i].Q_flow = m_flow * (hOut[i+1] -hOut[i])  +H_flow[i] -H_flow[i+1];
      else
-       heatPort[i].Q_flow = +m_flow * (hOut[i+2]-hOut[i+1]) -H_flow[i] +H_flow[i+1];
+       heatPort[i].Q_flow = m_flow * (hOut[i+2]-hOut[i+1]) +H_flow[i] -H_flow[i+1];
      end if;
-  end for;
+
+   end for;
+
   annotation (Documentation(info="<html>
 <p>
 This model reduces the numerical dissipation that is introduced
@@ -99,6 +109,10 @@ Vienna, Austria, September 2006.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+June 22, 2010 by Michael Wetter and Wangda Zuo:<br>
+Fixed error that caused energy to be not conserved.
+</li>
 <li>
 April 6, 2009 by Michael Wetter:<br>
 Fixed sign error of <tt>H_flow</tt> in

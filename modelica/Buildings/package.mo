@@ -38,19 +38,31 @@ and <code>Tdb</code> (or simply <code>T</code>) denotes dry bulb temperature.
 
   package ReleaseNotes "Release notes"
 
-
-  class Version_0_10_0 "Version 0.10.0"
+  class Version_0_9_1 "Version 0.9.1"
 
   annotation (Documentation(info="<html>
-<ul>
-<li>
-xxxx
-</li>
-</ul>
+The following <b style=\"color:red\">critical error</b> has been fixed (i.e. error
+that can lead to wrong simulation results):
 </p>
+<p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.</b></td></tr>
+  <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.Stratifier\">
+  Buildings.Fluid.Storage.BaseClasses.Stratifier</a></td>
+      <td valign=\"top\">The model had a sign error that lead to a wrong energy balance.
+      The model that was affected by this error is
+      <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
+      Buildings.Fluid.Storage.StratifiedEnhanced</a>.
+      The model 
+      <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
+      Buildings.Fluid.Storage.Stratified</a> was not affected.
+      
+      </td>
+  </tr>
+</table>
 </html>
 "));
-  end Version_0_10_0;
+  end Version_0_9_1;
 
   class Version_0_9_0 "Version 0.9.0"
 
@@ -601,8 +613,8 @@ on the Buildings library
 </p>
 <ul>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">
-Version 0.10.0 </a>(xxxx, 2010)</li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">
+Version 0.9.1 </a>(June 23, 2010)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
 Version 0.9.0 </a>(June 11, 2010)</li>
