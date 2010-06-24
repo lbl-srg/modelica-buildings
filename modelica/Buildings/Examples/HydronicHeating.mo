@@ -10,7 +10,7 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
  parameter Real ACH = 0.5 "Outside air exchange per hour";
  parameter Modelica.SIunits.Area AHeaTra=(8+5)*3
     "Heat transfer area of one room";
- parameter Modelica.SIunits.Power Q_flow_nominal = 2000 "Nominal power";
+ parameter Modelica.SIunits.Power Q_flow_nominal = 2500 "Nominal power";
  parameter Modelica.SIunits.Temperature dT_nominal = 20
     "Nominal temperature difference";
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = Q_flow_nominal/dT_nominal/4200
@@ -139,13 +139,13 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     redeclare package Medium = Medium,
     dT_nominal=(60 + 40)/2 - 20,
     m_flow_nominal=m_flow_nominal/nRoo,
-    Q_flow_nominal=1.3*Q_flow_nominal/nRoo) "Radiator"
+    Q_flow_nominal=1.8*Q_flow_nominal/nRoo) "Radiator"
     annotation (Placement(transformation(extent={{392,298},{412,318}})));
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad2(
     redeclare package Medium = Medium,
     dT_nominal=(60 + 40)/2 - 20,
     m_flow_nominal=m_flow_nominal/nRoo,
-    Q_flow_nominal=1.3*Q_flow_nominal/nRoo) "Radiator"
+    Q_flow_nominal=1.8*Q_flow_nominal/nRoo) "Radiator"
     annotation (Placement(transformation(extent={{392,118},{412,138}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
                                             redeclare package Medium = Medium,
@@ -172,8 +172,9 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     dIns=0.3,
     redeclare package Medium = Medium,
     hTan=2,
-    VTan=0.1,
-    nSeg=5) "Storage tank"
+    nSeg=5,
+    show_T=true,
+    VTan=0.2) "Storage tank"
     annotation (Placement(transformation(extent={{220,-80},{260,-40}})));
   Fluid.Movers.FlowMachine_y pumBoi(
     redeclare package Medium = Medium,

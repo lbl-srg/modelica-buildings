@@ -5,11 +5,11 @@ model Stratified "Test model for stratified tank"
 
   Buildings.Fluid.Storage.Stratified tanSim(
     redeclare package Medium = Medium,
-    nSeg=10,
     hTan=3,
     dIns=0.3,
     VTan=5,
-    m_flow_nominal=10) "Tank"  annotation (Placement(transformation(extent={{-20,0},{0,
+    m_flow_nominal=10,
+    nSeg=10) "Tank"            annotation (Placement(transformation(extent={{-20,0},{0,
             20}}, rotation=0)));
     Modelica.Blocks.Sources.TimeTable TWat(table=[0,273.15 + 40; 3600,273.15 +
         40; 3600,273.15 + 20; 7200,273.15 + 20]) "Water temperature"
@@ -38,12 +38,11 @@ model Stratified "Test model for stratified tank"
           rotation=0)));
   Buildings.Fluid.Storage.StratifiedEnhanced tanEnh(
     redeclare package Medium = Medium,
-    nSeg=10,
-    a=1E-4,
     hTan=3,
     dIns=0.3,
     VTan=5,
-    m_flow_nominal=10) "Tank"  annotation (Placement(transformation(extent={{-18,-38},
+    m_flow_nominal=10,
+    nSeg=10) "Tank"            annotation (Placement(transformation(extent={{-18,-38},
             {2,-18}}, rotation=0)));
     FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
@@ -92,13 +91,14 @@ equation
       points={{-79,12},{-62,12}},
       color={0,0,127},
       pattern=LinePattern.None));
-  connect(tanSim.port_b, HOut_flow.port_a) annotation (Line(points={{0,10},{0,
-          10},{6,10}},               color={0,127,255}));
+  connect(tanSim.port_b, HOut_flow.port_a) annotation (Line(points={{
+          5.55112e-16,10},{5.55112e-16,10},{6,10}},
+                                     color={0,127,255}));
   connect(HOut_flow.port_b, res_1.port_a)
     annotation (Line(points={{22,10},{30,10},{36,10}},
                                                color={0,127,255}));
   connect(tanEnh.port_b, HOut_flow1.port_a)
-    annotation (Line(points={{2,-28},{10,-28},{18,-28}},
+    annotation (Line(points={{2,-28},{2,-28},{18,-28}},
                                                color={0,127,255}));
   connect(HOut_flow1.port_b, res_2.port_a) annotation (Line(points={{34,-28},{
           38,-28}}, color={0,127,255}));
@@ -154,8 +154,8 @@ equation
                       Commands(file="Stratified.mos" "run"),
     Documentation(info="<html>
 This test model compares two tank models. The only difference between
-the two tank models is that one uses the model from Stefan Wischhusen
-that reduces the numerical diffusion that is induced by the upwind
-discretization scheme.
+the two tank models is that one uses the third order upwind discretization
+scheme that reduces numerical diffusion that is induced when connecting 
+volumes in series.
 </html>"));
 end Stratified;

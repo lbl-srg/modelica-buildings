@@ -47,16 +47,23 @@ that can lead to wrong simulation results):
 <p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
   <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.</b></td></tr>
-  <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.Stratifier\">
-  Buildings.Fluid.Storage.BaseClasses.Stratifier</a></td>
-      <td valign=\"top\">The model had a sign error that lead to a wrong energy balance.
+  <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
+  Buildings.Fluid.Storage.StratifiedEnhanced</a></td>
+      <td valign=\"top\">The model <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt>
+      had a sign error that lead to a wrong energy balance.
       The model that was affected by this error is
       <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
       Buildings.Fluid.Storage.StratifiedEnhanced</a>.
       The model 
       <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
-      Buildings.Fluid.Storage.Stratified</a> was not affected.
-      
+      Buildings.Fluid.Storage.Stratified</a> was not affected.<br>
+      The bug has been fixed by using the newly introduced model
+      <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
+        Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>. This model
+      uses a third-order upwind scheme to reduce the numerical dissipation instead of the
+      correction term that was used in <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt>.
+      The model <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt> has been removed since it
+      also led to significant overshoot in temperatures when the stratification was pronounced.
       </td>
   </tr>
 </table>
@@ -614,7 +621,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">
-Version 0.9.1 </a>(June 23, 2010)</li>
+Version 0.9.1 </a>(June 24, 2010)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
 Version 0.9.0 </a>(June 11, 2010)</li>
