@@ -4,7 +4,7 @@ model FlowMachine_dp
   extends Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine(
   final control_m_flow = false);
 equation
-  assert(dp_in >= 0,
+  assert(dp_in >= -0.1,
     "dp_in cannot be negative. Obtained dp_in = " + realString(dp_in));
 
   annotation (defaultComponentName="fan",
@@ -25,12 +25,18 @@ User's Guide</a> for more information.
 </HTML>",
       revisions="<html>
 <ul>
-<li><i>March 24, 2010</i> by Michael Wetter:<br>
+<li>July 5, 2010, by Michael Wetter:<br>
+Changed <code>assert(dp_in >= 0, ...)</code> to <code>assert(dp_in >= -0.1, ...)</code>.
+The former implementation triggered the assert if <code>dp_in</code> was solved for
+in a nonlinear equation since the solution can be slightly negative while still being
+within the solver tolerance.
+</li>
+<li>March 24, 2010, by Michael Wetter:<br>
 Revised implementation to allow zero flow rate.
 </li>
-<li>October 1, 2009
+<li>October 1, 2009,
     by Michael Wetter:<br>
-       Model added to the Buildings library.
+       Added model to the Buildings library.
 </ul>
 </html>"),
     Icon(graphics={Text(extent={{-56,114},{28,80}}, textString="dp_in")}));

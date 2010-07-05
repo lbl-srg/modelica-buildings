@@ -4,8 +4,7 @@ extends Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine(
     fan4(dynamicBalance=true),
     fan1(dynamicBalance=true),
     fan2(dynamicBalance=true),
-    fan3(dynamicBalance=true),
-    limiter(uMin=0.03));
+    fan3(dynamicBalance=true));
   annotation (
     Commands(file="ControlledFlowMachineDynamic.mos" "run"),
     Documentation(info="<html>

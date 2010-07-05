@@ -114,8 +114,6 @@ model ControlledFlowMachine
     T=293.15,
     nPorts=4) annotation (Placement(transformation(extent={{112,20},{92,40}},
           rotation=0)));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=1, uMin=0)
-    annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
 equation
 
   connect(fan1.port_a, relPre.port_b) annotation (Line(
@@ -218,16 +216,12 @@ equation
       points={{12,-60},{18,-60},{18,-60},{24,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(y.y, limiter.u) annotation (Line(
-      points={{-119,80},{-102,80}},
+  connect(y.y, fan1.y) annotation (Line(
+      points={{-119,80},{34,80},{34,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(limiter.y, fan1.y) annotation (Line(
-      points={{-79,80},{34,80},{34,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(limiter.y, gain.u) annotation (Line(
-      points={{-79,80},{-72,80},{-72,140},{-62,140}},
+  connect(y.y, gain.u) annotation (Line(
+      points={{-119,80},{-80,80},{-80,140},{-62,140}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

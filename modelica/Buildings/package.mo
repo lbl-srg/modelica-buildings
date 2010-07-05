@@ -38,38 +38,33 @@ and <code>Tdb</code> (or simply <code>T</code>) denotes dry bulb temperature.
 
   package ReleaseNotes "Release notes"
 
-  class Version_0_9_1 "Version 0.9.1"
+
+  class Version_0_10_0 "Version 0.10.0"
 
   annotation (Documentation(info="<html>
-The following <b style=\"color:red\">critical error</b> has been fixed (i.e. error
-that can lead to wrong simulation results):
+<ul>
+<li>
+Added package 
+<a href=\"modelica://Buildings.Rooms\">
+Buildings.Rooms</a>
+with models for heat transfer in a room with an arbitrary number of enclosing
+constructions and surfaces.
+</li>
+<li>
+In model <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
+Buildings.Fluid.Movers.FlowMachine_dp</a>, 
+changed <code>assert(dp_in >= 0, ...)</code> to <code>assert(dp_in >= -0.1, ...)</code>.
+The former implementation triggered the assert if <code>dp_in</code> was solved for
+in a nonlinear equation since the solution can be slightly negative while still being
+within the solver tolerance.
+
+
+</li>
+</ul>
 </p>
-<p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-  <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.</b></td></tr>
-  <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
-  Buildings.Fluid.Storage.StratifiedEnhanced</a></td>
-      <td valign=\"top\">The model <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt>
-      had a sign error that lead to a wrong energy balance.
-      The model that was affected by this error is
-      <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
-      Buildings.Fluid.Storage.StratifiedEnhanced</a>.
-      The model 
-      <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
-      Buildings.Fluid.Storage.Stratified</a> was not affected.<br>
-      The bug has been fixed by using the newly introduced model
-      <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
-        Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>. This model
-      uses a third-order upwind scheme to reduce the numerical dissipation instead of the
-      correction term that was used in <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt>.
-      The model <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt> has been removed since it
-      also led to significant overshoot in temperatures when the stratification was pronounced.
-      </td>
-  </tr>
-</table>
 </html>
 "));
-  end Version_0_9_1;
+  end Version_0_10_0;
 
   class Version_0_9_0 "Version 0.9.0"
 
@@ -620,8 +615,8 @@ on the Buildings library
 </p>
 <ul>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">
-Version 0.9.1 </a>(June 24, 2010)</li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">
+Version 0.10.0 </a>(xxxx, 2010)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
 Version 0.9.0 </a>(June 11, 2010)</li>
@@ -883,7 +878,7 @@ User's Guides that can be accessed by the following links:
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.HeatTransfer.UsersGuide\">HeatTransfer</a>
    </td>
-   <td valign=\"top\">Library for heat transfer in building constructions.</td>
+   <td valign=\"top\">Library heat transfer in building constructions.</td>
 </tr>
 </table>
 </html>"));
@@ -891,7 +886,7 @@ end UsersGuide;
 
 
 annotation (preferedView="info",
-      version="0.9.1",
+      version="0.9.0",
       uses(Modelica(version="3.1")),
       Documentation(info="<html>
 The <b>Buildings</b> library is a free library

@@ -96,7 +96,7 @@ the head or the mass flow rate.
       revisions="<html>
 <ul>
 <li>
-March 24, 2010, by Michael Wetter</a>:<br>
+March 24, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

@@ -39,10 +39,10 @@ User's Guide</a> for more information.
 </HTML>",
       revisions="<html>
 <ul>
-<li><i>March 24, 2010</i> by Michael Wetter:<br>
+<li>March 24, 2010, by Michael Wetter:<br>
 Revised implementation to allow zero flow rate.
 </li>
-<li><i>October 1, 2009</i>
+<li>October 1, 2009,
     by Michael Wetter:<br>
        Model added to the Buildings library. 
 </li>
