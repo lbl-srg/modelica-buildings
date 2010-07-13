@@ -9,7 +9,7 @@ block LimPID
     yMax=1);
 
   parameter Boolean reverseAction = false
-    "Set to true to enable reverse action (such as for a cooling coil controller)";
+    "Set to true for throttling the water flow rate through a cooling coil controller";
 protected
   parameter Real revAct = if reverseAction then -1 else 1;
   annotation (Documentation(info="<html>

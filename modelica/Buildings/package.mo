@@ -38,7 +38,6 @@ and <code>Tdb</code> (or simply <code>T</code>) denotes dry bulb temperature.
 
   package ReleaseNotes "Release notes"
 
-
   class Version_0_10_0 "Version 0.10.0"
 
   annotation (Documentation(info="<html>
@@ -57,14 +56,51 @@ changed <code>assert(dp_in >= 0, ...)</code> to <code>assert(dp_in >= -0.1, ...)
 The former implementation triggered the assert if <code>dp_in</code> was solved for
 in a nonlinear equation since the solution can be slightly negative while still being
 within the solver tolerance.
-
-
+</li>
+<li>
+Added model
+<a href=\"modelica://Buildings.Controls.SetPoints.Table\">
+Buildings.Controls.SetPoints.Table</a>
+that allows the specification of a floating setpoint using a table of values.
 </li>
 </ul>
 </p>
 </html>
 "));
   end Version_0_10_0;
+
+  class Version_0_9_1 "Version 0.9.1"
+
+  annotation (Documentation(info="<html>
+The following <b style=\"color:red\">critical error</b> has been fixed (i.e. error
+that can lead to wrong simulation results):
+</p>
+<p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.</b></td></tr>
+  <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
+  Buildings.Fluid.Storage.StratifiedEnhanced</a></td>
+      <td valign=\"top\">The model <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt>
+      had a sign error that lead to a wrong energy balance.
+      The model that was affected by this error is
+      <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
+      Buildings.Fluid.Storage.StratifiedEnhanced</a>.
+      The model 
+      <a href=\"modelica://Buildings.Fluid.Storage.Stratified\">
+      Buildings.Fluid.Storage.Stratified</a> was not affected.<br>
+      The bug has been fixed by using the newly introduced model
+      <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
+        Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>. This model
+      uses a third-order upwind scheme to reduce the numerical dissipation instead of the
+      correction term that was used in <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt>.
+      The model <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt> has been removed since it
+      also led to significant overshoot in temperatures when the stratification was pronounced.
+      </td>
+  </tr>
+</table>
+</html>
+"));
+  end Version_0_9_1;
 
   class Version_0_9_0 "Version 0.9.0"
 
