@@ -8,7 +8,6 @@ block LimPID
     yMin=0,
     yMax=1);
 
-
   parameter Boolean reverseAction = false
     "Set to true to enable reverse action (such as for a cooling coil controller)";
 protected
@@ -23,8 +22,15 @@ that it can be configured to have a reverse action.
 If the parameter <code>reverseAction=false</code> (the default),
 then <code>u_m &lt; u_s</code> increases the controller output, 
 otherwise the controller output is decreased.
-Thus, a heating coils, set <code>reverseAction = false</code> but 
-for cooling coils, set <code>reverseAction = true</code>.
+Thus, 
+<ul>
+<li>
+for a heating coil with a two-way valve, set <code>reverseAction = false</code>,
+</li>
+<li>
+for a cooling coils with a two-way valve, set <code>reverseAction = true</code>.
+</li>
+</ul>
 </html>",
 revisions="<html>
 <ul>
