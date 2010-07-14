@@ -2,6 +2,7 @@ polynomial
 quadraticLinear
 regNonZeroPower
 smoothExponential
+smoothHeaviside
 smoothMax
 smoothMin
 spliceFunction
