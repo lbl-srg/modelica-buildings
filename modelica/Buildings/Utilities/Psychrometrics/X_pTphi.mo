@@ -4,7 +4,7 @@ block X_pTphi
   extends
     Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure;
  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialCondensingGases "Medium model";
+      Modelica.Media.Interfaces.PartialCondensingGases "Medium model" annotation (choicesAllMatching = true);
 
 public
   Modelica.Blocks.Interfaces.RealInput T(final unit="K",
