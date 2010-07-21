@@ -316,7 +316,7 @@ The following table is obtained from ASHRAE page 8.6.
 <TR><TD>Wrestling</TD><TD>  410-505</TD></TR>
 </TABLE> 
 <P>
-<h3>References</h3>
+<h4>References</h4>
 
 <ul><li>
 ASHRAE Handbook, Fundamentals (SI Edition).
@@ -343,15 +343,6 @@ The University of Hong Kong MEBS6006 Environmental Services I;
 http://me.hku.hk/msc-courses/MEBS6006/index.html</a>
 </li>
 </ul>
-
-<h3>Main Authors</h3>
-<P>
-    Michael Wetter and Sorin Costiner<br>
-    <a href=\"http://www.utrc.utc.com\">United Technologies Research Center</a><br>
-    411 Silver Lane<br>
-    East Hartford, CT 06108<br>
-    USA<br>
-</p>
 </html>", revisions="<html>
 <ul>
 <li><i>July 14, 2010</i>, by Michael Wetter:<br/>
