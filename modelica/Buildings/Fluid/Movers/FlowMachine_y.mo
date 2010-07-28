@@ -44,6 +44,10 @@ User's Guide</a> for more information.
 </HTML>",
       revisions="<html>
 <ul>
+<li>
+July 27, 2010, by Michael Wetter:<br>
+Redesigned model to fix bug in medium balance.
+</li>
 <li>March 24, 2010, by Michael Wetter:<br>
 Revised implementation to allow zero flow rate.
 </li>

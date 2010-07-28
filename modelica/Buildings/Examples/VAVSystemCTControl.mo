@@ -97,7 +97,6 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
         Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow (
           V_flow_nominal={0,11.08,14.9}, dp_nominal={1508,743,100}),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    addHeatToMedium=false,
     dynamicBalance=true)
     annotation (Placement(transformation(extent={{114,-18},{130,-2}})));
   Fluid.Movers.FlowMachine_y fan56(
@@ -107,7 +106,6 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
         Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
           V_flow_nominal={2.676,11.05}, dp_nominal={600,100}),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    addHeatToMedium=false,
     dynamicBalance=true)
     annotation (Placement(transformation(extent={{132,-78},{116,-62}})));
 equation

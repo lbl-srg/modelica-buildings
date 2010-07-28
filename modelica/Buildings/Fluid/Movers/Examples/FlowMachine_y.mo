@@ -20,7 +20,7 @@ model FlowMachine_y
 
 equation
   connect(gain.y, floMacDyn.y) annotation (Line(
-      points={{-25,100},{0,100},{0,30},{30,30},{30,10}},
+      points={{-25,100},{8,100},{8,30},{30,30},{30,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, floMacSta.y) annotation (Line(

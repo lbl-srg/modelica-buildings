@@ -1,9 +1,9 @@
 within Buildings.Fluid.Movers.BaseClasses;
 model IdealSource
-  "Base class for pressure and mass flow source with heat input"
-  extends Modelica.Fluid.Interfaces.PartialTwoPortTransport;
-  Modelica.Blocks.Interfaces.RealInput Q_flow_in if addHeatToMedium
-    "Heat flow added to the medium"
+  "Base class for pressure and mass flow source with optional power input"
+  extends Modelica.Fluid.Interfaces.PartialTwoPortTransport(final show_V_flow=true);
+  Modelica.Blocks.Interfaces.RealInput P_in if addPowerToMedium
+    "Power added to the medium"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,80}),    iconTransformation(
@@ -11,8 +11,8 @@ model IdealSource
         rotation=270,
         origin={0,80})));
 
-  parameter Boolean addHeatToMedium=true
-    "Set to false to avoid any heat being added to medium (may give simpler equations)";
+  parameter Boolean addPowerToMedium
+    "Set to false to avoid any power being added to medium (may give simpler equations)";
 
   // what to control
   parameter Boolean control_m_flow "= false to control dp instead of m_flow"
@@ -41,7 +41,7 @@ protected
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput dp_internal
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput Q_flow_internal
+  Modelica.Blocks.Interfaces.RealInput P_internal
     "Needed to connect to conditional connector";
 
 equation
@@ -54,18 +54,18 @@ equation
     m_flow_internal = 0;
   end if;
 
-  if not addHeatToMedium then
-    Q_flow_internal = 0;
+  if not addPowerToMedium then
+    P_internal = 0;
   end if;
 
   connect(dp_internal, dp_in);
   connect(m_flow_internal, m_flow_in);
-  connect(Q_flow_internal, Q_flow_in);
+  connect(P_internal, P_in);
 
   // Energy balance (no storage)
-  if addHeatToMedium then
-    port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -Q_flow_internal;
-    port_a.m_flow*port_b.h_outflow + port_b.m_flow*inStream(port_a.h_outflow) =  Q_flow_internal;
+  if addPowerToMedium then
+    port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -P_internal;
+    port_b.m_flow*port_b.h_outflow + port_a.m_flow*inStream(port_a.h_outflow) = -P_internal;
   else
     port_a.h_outflow = inStream(port_b.h_outflow);
     port_b.h_outflow = inStream(port_a.h_outflow);
@@ -94,19 +94,29 @@ equation
           lineColor={255,255,255},
           textString="m"),
         Text(
-          visible=addHeatToMedium,
+          visible=addPowerToMedium,
           extent={{-30,44},{26,24}},
           lineColor={255,255,255},
-          textString="Q")}),
+          textString="P")}),
     Documentation(info="<html>
 <p>
 Model of a fictious pipe that is used as a base class
 for a pressure source or to prescribe a mass flow rate.
-Optionally, heat can be added to the medium.
+Optionally, power can be added to the enthalpy balance of the medium.
 </p>
-</html>"),
+<p>
+Note that for fans and pumps with dynamic balance,
+both the heat and the flow work are added to the volume of
+air or water. This simplifies the equations compared to 
+adding heat to the volume, and flow work to this model.
+</p>
+</html>",
 revisions="<html>
 <ul>
+<li>
+July 27, 2010 by Michael Wetter:<br>
+Redesigned model to fix bug in medium balance.
+</li>
 <li>
 April 13, 2010 by Michael Wetter:<br>
 Made heat connector optional.
@@ -116,7 +126,7 @@ March 23, 2010 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>",
+</html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}),
                     graphics));

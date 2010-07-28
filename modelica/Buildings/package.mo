@@ -50,6 +50,22 @@ with models for heat transfer in a room with an arbitrary number of enclosing
 constructions and surfaces.
 </li>
 <li>
+Added package 
+<a href=\"modelica://Buildings.Airflow.Multizone\">
+Buildings.Airflow.Multizone</a>
+with models for multizone airflow and contaminant transport.
+</li>
+<li>
+Added the model
+<a href=\"modelica://Buildings.Utilities.Comfort.Fanger\">
+Buildings.Utilities.Comfort.Fanger</a>
+for thermal comfort calculations.
+</li>
+<li>
+Fixed bug in fan and pump models that led to too small an enthalpy
+increase across the flow device.
+</li>
+<li>
 In model <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_dp\">
 Buildings.Fluid.Movers.FlowMachine_dp</a>, 
 changed <code>assert(dp_in >= 0, ...)</code> to <code>assert(dp_in >= -0.1, ...)</code>.
@@ -689,27 +705,47 @@ Version 0.1.0 </a>(May 27, 2008)</li>
   class Contact "Contact"
 
     annotation (Documentation(info="<html>
-<dl>
-<dt>The development of the Buildings package is organized by</dt>
-<dd><a href=\"http://simulationresearch.lbl.gov/wetter\">Michael Wetter</a><br>
+<h4><font color=\"#008000\" size=5>Contact</font></h4>
+<p>
+The development of the Buildings library is organized by<br>
+<a href=\"http://simulationresearch.lbl.gov/wetter\">Michael Wetter</a><br>
     Lawrence Berkeley National Laboratory (LBNL)<br>
     One Cyclotron Road<br> 
     Bldg. 90-3147<br>
     Berkeley, CA 94720<br>
     USA<br>
-    email: <A HREF=\"mailto:MWetter@lbl.gov\">MWetter@lbl.gov</A><br></dd>
-</dl>
-<p>
+    email: <A HREF=\"mailto:MWetter@lbl.gov\">MWetter@lbl.gov</A><br>
+</p>
 </html>
 "));
 
   end Contact;
 
+  class Acknowledgements "Acknowledgements"
+
+    annotation (Documentation(info="<html>
+<h4><font color=\"#008000\" size=5>Acknowledgements</font></h4>
+<p>
+ The development of this library was supported by the Assistant Secretary for
+  Energy Efficiency and Renewable Energy, Office of Building
+  Technologies of the U.S. Department of Energy, under
+  Contract No. DE-AC02-05CH11231.
+</p>
+<p>
+  The <a href=\"modelica://Buildings.Airflow.Multizone\">package for multizone airflow modeling</a>
+  and the <a href=\"modelica://Buildings.Utilities.Comfort.Fanger\">model for thermal comfort</a>
+  was contributed by the United Technologies Research Center.
+</p>
+</html>
+"));
+
+  end Acknowledgements;
+
   class License "Modelica License 2"
 
     annotation (Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>The Modelica License 2</font></h4>
- 
+<p>
 <strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work. 
 <p>
 The Modelica License applies to any Original Work that contains the following licensing notice adjacent to the copyright notice(s) for this Original Work: 
@@ -905,6 +941,10 @@ the overall library. Some of the main sublibraries have their own
 User's Guides that can be accessed by the following links:
 </p>
 <table border=1 cellspacing=0 cellpadding=2>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Airflow.Multizone.UsersGuide\">Airflow.Multizone</a>
+   </td>
+   <td valign=\"top\">Library for multizone airflow and contaminant transport.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.UsersGuide\">Fluid</a>
    </td>
    <td valign=\"top\">Library for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>

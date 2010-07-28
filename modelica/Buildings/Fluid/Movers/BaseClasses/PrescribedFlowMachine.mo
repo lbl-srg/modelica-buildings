@@ -1,13 +1,10 @@
 within Buildings.Fluid.Movers.BaseClasses;
 partial model PrescribedFlowMachine
   "Partial model for fan or pump with speed (y or Nrpm) as input signal"
-  import Modelica.Constants;
-
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
       final show_V_flow = false,
       souDyn(final control_m_flow=false),
-      souSta(final control_m_flow=false,
-      final addHeatToMedium=addHeatToMedium));
+      souSta(final control_m_flow=false));
 
   extends Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface(
     V_flow_max(start=m_flow_nominal/rho_nominal),
@@ -18,17 +15,14 @@ protected
   Modelica.Blocks.Sources.RealExpression dpMac(y=-dpMachine)
     "Pressure drop of the pump or fan"
     annotation (Placement(transformation(extent={{-80,22},{-60,42}})));
-  Modelica.Blocks.Sources.RealExpression QMac_flow(y=Q_flow)
+  Modelica.Blocks.Sources.RealExpression QMac_flow(y=Q_flow + dpMachine*
+        V_in_flow)
     "Heat input into the medium from the fan or pump (not including flow work)"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 
 equation
  VMachine_flow = V_in_flow;
  rho = rho_in;
-  connect(QMac_flow.y, preHea.Q_flow) annotation (Line(
-      points={{-59,50},{-48,50},{-48,24},{-80,24},{-80,10},{-68,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
   connect(dpMac.y, souSta.dp_in) annotation (Line(
       points={{-59,32},{66,32},{66,-52}},
@@ -38,11 +32,15 @@ equation
       points={{-59,32},{16,32},{16,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QMac_flow.y, souSta.Q_flow_in) annotation (Line(
+
+  connect(QMac_flow.y, prePow.Q_flow) annotation (Line(
+      points={{-59,50},{-50,50},{-50,24},{-80,24},{-80,10},{-68,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QMac_flow.y, souSta.P_in) annotation (Line(
       points={{-59,50},{60,50},{60,-52}},
       color={0,0,127},
       smooth=Smooth.None));
-
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics={
@@ -91,6 +89,10 @@ or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
 </HTML>",
       revisions="<html>
 <ul>
+<li>
+July 27, 2010, by Michael Wetter:<br>
+Redesigned model to fix bug in medium balance.
+</li>
 <li>March 24 2010, by Michael Wetter:<br>
 First implementation.
 </li>

@@ -1,7 +1,6 @@
 within Buildings.Fluid.Movers.BaseClasses;
 partial model PartialFlowMachine
   "Partial model to interface fan or pump models with the medium"
-
   import Modelica.Constants;
 
   extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface(show_T=true,
@@ -31,20 +30,23 @@ partial model PartialFlowMachine
     p_start=p_start) if
        dynamicBalance "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  parameter Boolean dynamicBalance = false
+   parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
     annotation (Evaluate=true, Dialog(tab="Assumptions", group="Dynamics"));
 
-  parameter Modelica.SIunits.Time tau=10
-    "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
-    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
+  parameter Boolean addPowerToMedium=true
+    "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
                      Modelica.Fluid.Types.Dynamics.SteadyStateInitial
     "Formulation of energy balance (used if dynamicBalance=true)"
     annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
+  final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
     "Formulation of mass balance (used if dynamicBalance=true)"
+    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
+
+  parameter Modelica.SIunits.Time tau=10
+    "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
     annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
 
   // Parameters for initialization
@@ -81,15 +83,16 @@ partial model PartialFlowMachine
 
 protected
   IdealSource souDyn(redeclare package Medium =
-                       Medium, final addHeatToMedium=false) if dynamicBalance
+                       Medium, final addPowerToMedium=false) if dynamicBalance
     "Pressure source for dynamic model, this changes the pressure in the medium"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Buildings.Fluid.Movers.BaseClasses.IdealSource souSta(
-                            redeclare package Medium = Medium) if not dynamicBalance
+                            redeclare package Medium = Medium,
+                            final addPowerToMedium=addPowerToMedium) if not dynamicBalance
     "Source for static model, this changes the pressure in the medium and adds heat"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea if  dynamicBalance
-    "Prescribed heat flow for dynamic model"
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow if (dynamicBalance and addPowerToMedium)
+    "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-68,0},{-48,20}})));
 
 equation
@@ -97,7 +100,7 @@ equation
   rho_in = Medium.density(
        Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   V_in_flow = m_flow/rho_in;
-  connect(preHea.port, vol.heatPort) annotation (Line(
+  connect(prePow.port, vol.heatPort) annotation (Line(
       points={{-48,10},{-40,10}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -177,9 +180,27 @@ between the equations that compute head and power consumption,
 and the implementation of the energy and pressure balance
 of the fluid.
 </p>
+<p>
+The model has two fluid streams. Depending on the value of
+the parameter <code>dynamicBalance</code>, one of the streams
+is conditionally removed.
+</p>
+<p>
+The parameter <code>addPowerToMedium</code> determines whether 
+any power is added to the fluid. The default is <code>addPowerToMedium=true</code>,
+and hence the outlet enthalpy is higher than the inlet enthalpy if the
+flow device is operating.
+The setting <code>addPowerToMedium=false</code> is physically incorrect
+(since the flow work, the flow friction and the fan heat do not increase
+the enthalpy of the medium), but this setting does in some cases lead to simpler equations.
+</p>
 </HTML>",
       revisions="<html>
 <ul>
+<li>
+July 27, 2010, by Michael Wetter:<br>
+Redesigned model to fix bug in medium balance.
+</li>
 <li>March 24 2010, by Michael Wetter:<br>
 First implementation.
 </li>

@@ -25,6 +25,10 @@ User's Guide</a> for more information.
 </HTML>",
       revisions="<html>
 <ul>
+<li>
+July 27, 2010, by Michael Wetter:<br>
+Redesigned model to fix bug in medium balance.
+</li>
 <li>July 5, 2010, by Michael Wetter:<br>
 Changed <code>assert(dp_in >= 0, ...)</code> to <code>assert(dp_in >= -0.1, ...)</code>.
 The former implementation triggered the assert if <code>dp_in</code> was solved for

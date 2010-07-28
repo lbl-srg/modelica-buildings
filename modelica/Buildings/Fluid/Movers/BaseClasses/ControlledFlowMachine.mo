@@ -3,8 +3,7 @@ model ControlledFlowMachine
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
    final show_V_flow = true,
-   souSta(final control_m_flow=control_m_flow, final addHeatToMedium=
-          addHeatToMedium),
+   souSta(final control_m_flow=control_m_flow),
    souDyn(final control_m_flow=control_m_flow));
 
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
@@ -39,8 +38,8 @@ protected
      p=p_a_nominal, X=X_start[1:Medium.nXi]);
 
 public
-  Modelica.Blocks.Sources.RealExpression QToMedium_flow(y=Q_flow)
-    "Heat input into medium"
+  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + dpMachine*
+        V_in_flow) "Heat and work input into medium"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1) if not control_m_flow
@@ -53,14 +52,6 @@ equation
   dpMachine = -dp;
   VMachine_flow = V_flow;
 
-  connect(QToMedium_flow.y, preHea.Q_flow) annotation (Line(
-      points={{-79,30},{-72.5,30},{-72.5,10},{-68,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(QToMedium_flow.y, souSta.Q_flow_in) annotation (Line(
-      points={{-79,30},{60,30},{60,-52}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(m_flow_in, souDyn.m_flow_in) annotation (Line(
       points={{-50,82},{-50,40},{4,40},{4,8}},
       color={0,0,127},
@@ -82,6 +73,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
+      points={{-79,30},{-74,30},{-74,10},{-68,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(PToMedium_flow.y, souSta.P_in) annotation (Line(
+      points={{-79,30},{60,30},{60,-52}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics),
@@ -95,6 +94,10 @@ the head or the mass flow rate.
 </HTML>",
       revisions="<html>
 <ul>
+<li>
+July 27, 2010, by Michael Wetter:<br>
+Redesigned model to fix bug in medium balance.
+</li>
 <li>
 March 24, 2010, by Michael Wetter:<br>
 First implementation.

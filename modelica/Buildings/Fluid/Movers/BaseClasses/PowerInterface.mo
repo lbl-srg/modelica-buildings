@@ -29,7 +29,7 @@ partial model PowerInterface
   Modelica.SIunits.Power PEle "Electrical power input";
   Modelica.SIunits.Power WHyd
     "Hydraulic power input (converted to flow work and heat)";
-  Modelica.SIunits.Power WFlo "Flow flow work";
+  Modelica.SIunits.Power WFlo "Flow work";
   Modelica.SIunits.HeatFlowRate Q_flow "Heat input from fan or pump to medium";
   Real eta(min=0, max=1) "Global efficiency";
   Real etaHyd(min=0, max=1) "Hydraulic efficiency";
@@ -40,8 +40,6 @@ partial model PowerInterface
 
   Modelica.SIunits.Pressure dpMachine(displayUnit="Pa") "Pressure increase";
   Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
-  parameter Boolean addHeatToMedium=true
-    "Set to false to avoid any heat being added to medium (may give simpler equations)";
 protected
   parameter Modelica.SIunits.VolumeFlowRate V_flow_max(fixed=false)
     "Maximum volume flow rate";
@@ -61,10 +59,8 @@ equation
   QThe_flow +  WFlo = if motorCooledByFluid then PEle else WHyd;
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
   // The next statement sets the heat input into the medium to zero for very small flow rates.
-  Q_flow = if addHeatToMedium then
-       Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
-                       x=abs(VMachine_flow)-2*delta_V_flow, deltax=delta_V_flow) else
-       0;
+  Q_flow = Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
+                       x=abs(VMachine_flow)-2*delta_V_flow, deltax=delta_V_flow);
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
