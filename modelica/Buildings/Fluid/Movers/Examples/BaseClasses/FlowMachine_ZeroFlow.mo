@@ -81,14 +81,6 @@ equation
           6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
-            160}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
-            160}})),
-    Documentation(info="<html>
-This example demonstrates the use of a flow machine whose flow rate transitions to zero.
-</html>"));
   connect(dpSta1.port_b, floMacSta.port_a) annotation (Line(
       points={{5.55112e-16,80},{20,80}},
       color={0,127,255},
@@ -114,4 +106,12 @@ This example demonstrates the use of a flow machine whose flow rate transitions 
       points={{78,80},{100,80},{100,-39},{-68,-39}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
+            160}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
+            160}})),
+    Documentation(info="<html>
+This example demonstrates the use of a flow machine whose flow rate transitions to zero.
+</html>"));
 end FlowMachine_ZeroFlow;

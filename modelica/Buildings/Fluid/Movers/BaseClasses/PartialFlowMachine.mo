@@ -172,7 +172,14 @@ equation
           fillColor={0,100,199})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}),
-            graphics),
+            graphics={Text(
+          extent={{-48,-74},{98,-94}},
+          lineColor={0,0,255},
+          textString="Note that one of the two fluid streams will be removed"),
+          Text(
+          extent={{-48,-84},{70,-102}},
+          lineColor={0,0,255},
+          textString="depending on the value of dynamicBalance.")}),
     Documentation(info="<HTML>
 <p>This is the base model for fans and pumps.
 It provides an interface
@@ -183,7 +190,7 @@ of the fluid.
 <p>
 The model has two fluid streams. Depending on the value of
 the parameter <code>dynamicBalance</code>, one of the streams
-is conditionally removed.
+is removed.
 </p>
 <p>
 The parameter <code>addPowerToMedium</code> determines whether 

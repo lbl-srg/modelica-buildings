@@ -176,14 +176,6 @@ equation
       points={{-119,80},{-80,80},{-80,140},{-62,140}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,
-            160}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,160}})),
-    Documentation(info="<html>
-This example demonstrates the use of the flow model with four different configuration.
-At steady-state, all flow models have the same mass flow rate and pressure difference.
-</html>"),    Diagram);
   connect(dp8.port_a, sou.ports[1]) annotation (Line(
       points={{-52,110},{-62,110},{-62,33},{-70,33}},
       color={0,127,255},
@@ -232,4 +224,12 @@ At steady-state, all flow models have the same mass flow rate and pressure diffe
       points={{80,-60},{102,-60},{102,27},{122,27}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,
+            160}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,160}})),
+    Documentation(info="<html>
+This example demonstrates the use of the flow model with four different configuration.
+At steady-state, all flow models have the same mass flow rate and pressure difference.
+</html>"),    Diagram);
 end ControlledFlowMachine;
