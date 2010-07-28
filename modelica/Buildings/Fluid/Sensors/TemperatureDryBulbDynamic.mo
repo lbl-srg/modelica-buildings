@@ -5,6 +5,7 @@ model TemperatureDryBulbDynamic "Ideal temperature sensor"
   parameter Modelica.SIunits.Time tau(min=0) = 10 "Time constant";
   Modelica.Blocks.Interfaces.RealOutput T( final quantity="ThermodynamicTemperature",
                                            final unit="K",
+                                           displayUnit = "degC",
                                            min = 0,
                                            start=T_start)
     "Temperature of the passing fluid"

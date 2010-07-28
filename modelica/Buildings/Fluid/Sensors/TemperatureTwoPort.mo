@@ -4,6 +4,7 @@ model TemperatureTwoPort "Ideal two port temperature sensor"
 
   Modelica.Blocks.Interfaces.RealOutput T( final quantity="ThermodynamicTemperature",
                                            final unit="K",
+                                           displayUnit = "degC",
                                            min = 0)
     "Temperature of the passing fluid"
     annotation (Placement(transformation(
