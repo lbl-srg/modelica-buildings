@@ -67,18 +67,19 @@ protected
     "Factor for air side temperature dependent variation of heat transfer coefficient";
   Real x_w(min=0)
     "Factor for water side temperature dependent variation of heat transfer coefficient";
-  Real s_w(min=0, nominal=0.01)
+  parameter Real s_w(min=0, fixed=false)
     "Coefficient for temperature dependence of water side heat transfer coefficient";
   Real fm_w "Fraction of actual to nominal mass flow rate";
   Real fm_a "Fraction of actual to nominal mass flow rate";
+initial equation
+  s_w =  if waterSideTemperatureDependent then
+            0.014/(1+0.014*Modelica.SIunits.Conversions.to_degC(T0_w)) else
+              1;
 equation
   fm_w = if waterSideFlowDependent then
               m1_flow / m_flow_nominal_w else 1;
   fm_a = if airSideFlowDependent then
               m2_flow / m_flow_nominal_a else 1;
-  s_w =  if waterSideTemperatureDependent then
-            0.014/(1+0.014*Modelica.SIunits.Conversions.to_degC(T_1)) else
-              1;
   x_w = if waterSideTemperatureDependent then
          1 + s_w * (T_1-T0_w) else
               1;
@@ -138,6 +139,12 @@ Berkeley, CA, 1999.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 8, 2010, by Michael Wetter:<br>
+Fixed bug in computation of <code>s_w</code>.
+The old implementation used the current inlet water temperature instead
+of the design condition that corresponds to <code>UA_nominal</code>.
+</li>
 <li>
 April 16, 2008, by Michael Wetter:<br>
 First implementation.
