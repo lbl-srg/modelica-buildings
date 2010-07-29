@@ -1,0 +1,88 @@
+within Buildings.Airflow.Multizone.Examples;
+model OneOpenDoor
+  package Medium = Buildings.Media.IdealGases.SimpleAir;
+
+  Buildings.Airflow.Multizone.DoorDiscretizedOpen dooOpe(redeclare package
+      Medium = Medium) "Discretized door" annotation (Placement(transformation(
+          extent={{14,-8},{34,12}}, rotation=0)));
+
+  Buildings.Fluid.MixingVolumes.MixingVolume volA(
+    redeclare package Medium = Medium,
+    V=2.5*5*5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nPorts=4) annotation (Placement(transformation(extent={{-32,14},{-12,34}},
+          rotation=0)));
+  Buildings.Fluid.MixingVolumes.MixingVolume volB(
+    redeclare package Medium = Medium,
+    V=2.5*5*5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_HeatTransfer=true,
+    nPorts=4) annotation (Placement(transformation(extent={{60,60},{80,80}},
+          rotation=0)));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+    annotation (Placement(transformation(extent={{14,60},{34,80}}, rotation=0)));
+  Modelica.Blocks.Sources.Sine heaSou(freqHz=1/3600) annotation (Placement(
+        transformation(extent={{-60,60},{-40,80}}, rotation=0)));
+  Modelica.Blocks.Math.Gain Gain1(k=100) annotation (Placement(transformation(
+          extent={{-20,60},{0,80}}, rotation=0)));
+  Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(redeclare
+      package Medium = Medium, LClo=20*1E-4) "Discretized door" annotation (
+      Placement(transformation(extent={{14,-44},{34,-24}}, rotation=0)));
+  Modelica.Blocks.Sources.Ramp ramp(
+    duration=120,
+    height=1,
+    offset=0,
+    startTime=1000) annotation (Placement(transformation(extent={{-74,-36},{-54,
+            -16}}, rotation=0)));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
+equation
+  connect(Gain1.y, preHeaFlo.Q_flow)
+    annotation (Line(points={{1,70},{14,70}}, color={0,0,255}));
+  connect(heaSou.y, Gain1.u)
+    annotation (Line(points={{-39,70},{-39,70},{-22,70}}, color={0,0,255}));
+  connect(ramp.y, dooOpeClo.y) annotation (Line(points={{-53,-26},{-20,-26},{
+          -20,-34},{13,-34}}, color={0,0,255}));
+  connect(preHeaFlo.port, volB.heatPort) annotation (Line(
+      points={{34,70},{60,70}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(volA.ports[1], dooOpeClo.port_b2) annotation (Line(
+      points={{-25,14},{-25,-40},{14,-40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(volA.ports[2], dooOpeClo.port_a1) annotation (Line(
+      points={{-23,14},{-23,-28},{14,-28}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(volA.ports[3], dooOpe.port_b2) annotation (Line(
+      points={{-21,14},{-21,-4},{14,-4}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(volA.ports[4], dooOpe.port_a1) annotation (Line(
+      points={{-19,14},{-19,8},{14,8}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(volB.ports[1], dooOpe.port_b1) annotation (Line(
+      points={{67,60},{67,8},{34,8}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(volB.ports[2], dooOpe.port_a2) annotation (Line(
+      points={{69,60},{72,60},{72,-4},{34,-4}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(volB.ports[3], dooOpeClo.port_b1) annotation (Line(
+      points={{71,60},{68,60},{68,-28},{34,-28}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(volB.ports[4], dooOpeClo.port_a2) annotation (Line(
+      points={{73,60},{73,-40},{34,-40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  annotation (
+    Diagram(graphics),
+    Commands(file="OneOpenDoor.mos" "run"),
+    Diagram);
+end OneOpenDoor;

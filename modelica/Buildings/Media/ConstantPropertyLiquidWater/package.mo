@@ -5,7 +5,6 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
 import SI = Modelica.SIunits;
 
 
-
  redeclare replaceable function extends specificInternalEnergy
   "Return specific internal energy"
   input ThermodynamicState state;

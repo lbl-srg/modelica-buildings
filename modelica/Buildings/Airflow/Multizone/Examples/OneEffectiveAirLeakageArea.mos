@@ -1,0 +1,23 @@
+translateModel("Buildings.Airflow.Multizone.Examples.OneEffectiveAirLeakageArea");
+simulateModel("Buildings.Airflow.Multizone.Examples.OneEffectiveAirLeakageArea", stopTime=7200, 
+    method="dassl", tolerance=1e-003, resultFile="OneEffectiveAirLeakageArea");
+
+removePlots();
+createPlot(id = 4,
+ position = {73, 34, 537, 565},
+ y = {"cra.v", "dooOpeClo.v"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "OneEffectiveAirLeakageArea.mat");
+
+createPlot(id = 5,
+ y = {"cra.m_flow", "dooOpeClo.mAB_flow", "dooOpeClo.mBA_flow"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "OneEffectiveAirLeakageArea.mat");

@@ -2,16 +2,10 @@ within Buildings.Utilities.Math.Functions;
 function smoothHeaviside
   "Once continuously differentiable approximation to the Heaviside function"
   input Real x "Argument";
-  input Real delta "Width of transition interval";
+  input Real delta "Parameter used for scaling";
   output Real y "Result";
 algorithm
-  if x <= -delta then
-    y := 0;
-  elseif x >= delta then
-    y := 1;
-  else
-    y := 0.5*(Modelica.Math.sin(0.5*Modelica.Constants.pi*x/delta) + 1);
-  end if;
+ y := spliceFunction(1, 0, x, delta);
  annotation (Documentation(info="<html>
 <p>
 Once Lipschitz continuously differentiable approximation to the <tt>Heaviside(.,.)</tt> function.

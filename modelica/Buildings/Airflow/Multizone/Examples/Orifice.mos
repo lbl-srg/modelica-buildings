@@ -1,0 +1,47 @@
+translateModel("Buildings.Airflow.Multizone.Examples.Orifice");
+simulateModel("Buildings.Airflow.Multizone.Examples.Orifice", stopTime=1, 
+    method="dassl", tolerance=1e-004, resultFile="Orifice");
+
+
+createPlot(id = 9,
+ position = {75, 27, 537, 493},
+ y = {"ori.V_flow"},
+ range = {0, 1, 0.2, -0.2},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 9,
+ position = {75, 27, 537, 160},
+ y = {"ori.dp"},
+ range = {0, 1, 2, -2.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ subPlot = 3,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 9,
+ position = {75, 27, 537, 161},
+ y = {"ori.v"},
+ range = {0, 1, 1, -1.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+
