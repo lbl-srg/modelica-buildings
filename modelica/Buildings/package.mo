@@ -670,7 +670,10 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">
-Version 0.10.0 </a>(xxxx, 2010)</li>
+Version 0.10.0 </a>(July 28, 2010)</li>
+<li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">
+Version 0.9.1 </a>(June 24, 2010)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
 Version 0.9.0 </a>(June 11, 2010)</li>
@@ -689,7 +692,6 @@ Version 0.5.0 </a>(February 19, 2009)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">
 Version 0.4.0 </a>(October 31, 2008)</li>
-<li> 
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">
 Version 0.3.0 </a>(September 30, 2008)</li>
