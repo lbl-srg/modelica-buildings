@@ -1,6 +1,5 @@
 within Buildings.Airflow.Multizone.BaseClasses;
 model ErrorControl "Interface that defines parameters for error control"
-public
   parameter Boolean forceErrorControlOnFlow = true
     "Flag to force error control on m_flow. Set to true if interested in flow rate";
   annotation (Diagram(graphics),
@@ -21,18 +20,12 @@ on the exchanged mass, which can be defined as
 </pre>
 By setting <code>enforceErrorControlOnFlow = true</code>, such an equation is imposed
 by models that extend this class.
-
-<h3>Main Author</h3>
-<P>
-    Michael Wetter<br>
-    <a href=\"http://www.utrc.utc.com\">United Technologies Research Center</a><br>
-    411 Silver Lane<br>
-    East Hartford, CT 06108<br>
-    USA<br>
-    email: <A HREF=\"mailto:WetterM@utrc.utc.com\">WetterM@utrc.utc.com</A>
-<h3>Release Notes</h3>
-<P>
+</html>",
+revisions="<html>
 <ul>
+<li><i>July 20, 2010</i> by Michael Wetter:<br>
+       Integrated model into the Buildings library.
+</li>
 <li><i>November 1, 2005</i> by Michael Wetter:<br>
        Released first version.
 </ul>

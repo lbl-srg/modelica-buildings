@@ -82,7 +82,7 @@ Dols and Walton (2002) recommend to use for the flow exponent
 <code>m=0.6</code> to <code>m=0.7</code> if the flow exponent is not
 reported with the test results.
 
-<h3>References</h3>
+<h4>References</h4>
 <UL>
 <LI>
 <B>ASHRAE, 1997.</B> 
@@ -98,17 +98,12 @@ National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
 </UL>
-<h3>Main Author</h3>
-<P>
-    Michael Wetter<br>
-    <a href=\"http://www.utrc.utc.com\">United Technologies Research Center</a><br>
-    411 Silver Lane<br>
-    East Hartford, CT 06108<br>
-    USA<br>
-    email: <A HREF=\"mailto:WetterM@utrc.utc.com\">WetterM@utrc.utc.com</A>
-<h3>Release Notes</h3>
-<P>
+</html>",
+revisions="<html>
 <ul>
+<li><i>July 20, 2010</i> by Michael Wetter:<br>
+       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
 <li><i>February 10, 2005</i> by Michael Wetter:<br>
        Released first version.
 </ul>

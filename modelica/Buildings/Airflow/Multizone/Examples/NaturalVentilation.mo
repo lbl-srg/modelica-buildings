@@ -22,7 +22,7 @@ model NaturalVentilation
   Buildings.Airflow.Multizone.MediumColumn colOut(
     redeclare package Medium = Medium,
     h=3,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{89,10},{109,30}}, rotation=0)));
   Buildings.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
@@ -33,7 +33,7 @@ model NaturalVentilation
   Buildings.Airflow.Multizone.MediumColumn colRooTop(
     redeclare package Medium = Medium,
     h=3,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-23,10},{-3,30}},rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
@@ -68,11 +68,6 @@ equation
       points={{8,-20},{38,-20}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
-            100}}), graphics),
-    Commands(file="NaturalVentilation.mos" "run"),
-    Diagram);
   connect(volA.ports[2], colRooTop.port_b) annotation (Line(
       points={{12,-20},{-14,-20},{-14,10},{-13,10}},
       color={0,127,255},
@@ -89,4 +84,9 @@ equation
       points={{99,30},{100,30},{100,50},{61,50}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
+            100}}), graphics),
+    Commands(file="NaturalVentilation.mos" "run"),
+    Diagram);
 end NaturalVentilation;

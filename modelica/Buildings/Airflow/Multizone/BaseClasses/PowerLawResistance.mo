@@ -9,7 +9,7 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
   parameter Real m(min=0.5, max=1)
     "Flow exponent, m=0.5 for turbulent, m=1 for laminar";
   parameter Boolean useConstantDensity=true
-    "Set to false to use density based state (as implemented by the Medium model)"
+    "Set to false to use density based on state (as implemented by the Medium model)"
     annotation (Evaluate=true);
   Modelica.SIunits.Density rho "Fluid density at port_a";
   parameter Modelica.SIunits.Pressure dp_turbulent(min=0) = 0.1
@@ -42,7 +42,7 @@ equation
 
   rho = if useConstantDensity then rho_nominal else Medium.density(sta_a);
   dynVis = Medium.dynamicViscosity(sta_a);
-  port_a.m_flow = rho*Buildings.Airflow.Multizone.BaseClasses.PowerLaw(
+  port_a.m_flow = rho*Buildings.Airflow.Multizone.BaseClasses.powerLaw(
     k=k,
     dp=dp,
     m=m,
@@ -65,11 +65,7 @@ equation
   port_b.C_outflow = inStream(port_a.C_outflow);
   annotation (
     Diagram(graphics),
-    Icon(graphics={Rectangle(
-          extent={{-100,100},{100,-100}},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None)}),
+    Icon(graphics),
     Documentation(info="<html>
 <p>
 This model describes the mass flow rate and pressure difference relation
@@ -83,17 +79,12 @@ For turbulent flow, set <code>m=1/2</code> and
 for laminar flow, set <code>m=1</code>. 
 <P>
 The model is used as a base for the interzonal air flow models.
-<h3>Main Author</h3>
-<P>
-    Michael Wetter<br>
-    <a href=\"http://www.utrc.utc.com\">United Technologies Research Center</a><br>
-    411 Silver Lane<br>
-    East Hartford, CT 06108<br>
-    USA<br>
-    email: <A HREF=\"mailto:WetterM@utrc.utc.com\">WetterM@utrc.utc.com</A>
-<h3>Release Notes</h3>
-<P>
+</html>",
+revisions="<html>
 <ul>
+<li><i>July 20, 2010</i> by Michael Wetter:<br>
+       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
 <li><i>February 4, 2005</i> by Michael Wetter:<br>
        Released first version.
 </ul>

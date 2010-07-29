@@ -21,7 +21,7 @@ model Validation0
   Buildings.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{69,10},{89,30}}, rotation=0)));
   Buildings.Airflow.Multizone.Orifice oriOutTop(
     redeclare package Medium = Medium,
@@ -31,7 +31,7 @@ model Validation0
   Buildings.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{11,10},{31,30}}, rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
@@ -48,12 +48,12 @@ model Validation0
   Buildings.Airflow.Multizone.MediumColumn colEasInBot(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{10,-50},{30,-30}},rotation=0)));
   Buildings.Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{70,-52},{90,-32}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{160,60},{180,80}})));

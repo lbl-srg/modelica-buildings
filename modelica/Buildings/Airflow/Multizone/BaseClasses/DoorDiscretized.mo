@@ -43,10 +43,10 @@ equation
   for i in 1:nCom loop
     // pressure drop in each compartment
     pA[i] = port_a1.p + rho_a1_inflow*Modelica.Constants.g_n*(hA - (i - 0.5)*dh);
-    pB[i] = port_b1.p + rho_a2_inflow*Modelica.Constants.g_n*(hB - (i - 0.5)*dh);
+    pB[i] = port_a2.p + rho_a2_inflow*Modelica.Constants.g_n*(hB - (i - 0.5)*dh);
     dpAB[i] = pA[i] - pB[i];
     // orifice equation
-    dV_flow[i] = Buildings.Airflow.Multizone.BaseClasses.PowerLaw(
+    dV_flow[i] = Buildings.Airflow.Multizone.BaseClasses.powerLaw(
       k=kVal,
       dp=dpAB[i],
       m=m,
@@ -99,18 +99,12 @@ an orifice equation to compute the flow for each compartment.
 <P>
 The compartment area <code>dA</code> is a variable, which allows
 using the model for a door that can be open or closed.
-
-<h3>Main Author</h3>
-<P>
-    Michael Wetter<br>
-    <a href=\"http://www.utrc.utc.com\">United Technologies Research Center</a><br>
-    411 Silver Lane<br>
-    East Hartford, CT 06108<br>
-    USA<br>
-    email: <A HREF=\"mailto:WetterM@utrc.utc.com\">WetterM@utrc.utc.com</A>
-<h3>Release Notes</h3>
-<P>
+</html>",
+revisions="<html>
 <ul>
+<li><i>July 20, 2010</i> by Michael Wetter:<br>
+       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
 <li><i>February 8, 2005</i> by Michael Wetter:<br>
        Released first version.
 </ul>

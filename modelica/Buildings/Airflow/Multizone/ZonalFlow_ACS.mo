@@ -55,17 +55,12 @@ Input is the air change per seconds. The volume flow rate is computed as
 </pre>
 where <code>ACS</code> is an input and the volume <code>V</code> is a parameter.
 </p>
-<h1>Main Author</h1>
-<P>
-    Michael Wetter<br>
-    <a href=\"http://www.utrc.utc.com\">United Technologies Research Center</a><br>
-    411 Silver Lane<br>
-    East Hartford, CT 06108<br>
-    USA<br>
-    email: <A HREF=\"mailto:WetterM@utrc.utc.com\">WetterM@utrc.utc.com</A><br>
-<h3>Release Notes</h3>
-<P>
+</html>",
+revisions="<html>
 <ul>
+<li><i>July 20, 2010</i> by Michael Wetter:<br>
+       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
 <li><i>January 4, 2006</i>
        by Michael Wetter:<br>
        Implemented first version.

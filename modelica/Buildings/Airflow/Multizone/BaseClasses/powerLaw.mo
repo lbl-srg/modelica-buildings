@@ -1,5 +1,5 @@
 within Buildings.Airflow.Multizone.BaseClasses;
-function PowerLaw "Power law used in orifice equations"
+function powerLaw "Power law used in orifice equations"
   input Real k "Flow coefficient, k = V_flow/ dp^m";
   input Modelica.SIunits.Pressure dp "Pressure difference";
   input Real m(min=0.5, max=1)
@@ -21,7 +21,7 @@ algorithm
   s :=dp_turbulent^(m - 1);
                     // m can be time dependent, for example for the operable door
 
-  delP :=dp_turbulent/2.;
+  delP :=dp_turbulent/2.0;
   pTilFor :=dp - dp_turbulent;
   pTilRev :=dp + dp_turbulent;
 
@@ -39,8 +39,15 @@ algorithm
     V_flow :=k*dp^m;
   elseif (dp <= -dp_turbulent) then
     V_flow :=-k*(-dp)^m;
-  else
-  V_flow :=k*spliceFunction(
+ else
+   // The test below avoid computing 0^(-0.5) in
+   // Buildings.Airflow.Multizone.BaseClasses.powerLaw:derf,
+   // which causes the following error:
+   // Model error - power: (abs(dp)) ** (m-1) = (0) ** (-0.5)
+   if (abs(dp)<Modelica.Constants.small) then
+      V_flow := 0;
+   else
+     V_flow :=k*spliceFunction(
       spliceFunction(
         abs(dp)^m,
         s*dp,
@@ -49,10 +56,10 @@ algorithm
       -(abs(dp)^m),
       pTilRev,
       delP);
+   end if;
 
   end if;
 
-// fixme: is smoothOrder = 1 or 2?
   annotation (
           smoothOrder=1,
           Diagram(graphics),
@@ -70,20 +77,14 @@ For turbulent flow, set <code>m=1/2</code> and
 for laminar flow, set <code>m=1</code>. 
 <P>
 The model is used as a base for the interzonal air flow models.
-
-<h3>Main Author</h3>
-<P>
-    Michael Wetter<br>
-    <a href=\"http://www.utrc.utc.com\">United Technologies Research Center</a><br>
-    411 Silver Lane<br>
-    East Hartford, CT 06108<br>
-    USA<br>
-    email: <A HREF=\"mailto:WetterM@utrc.utc.com\">WetterM@utrc.utc.com</A>
-<h3>Release Notes</h3>
-<P>
+</html>",
+revisions="<html>
 <ul>
+<li><i>July 20, 2010</i> by Michael Wetter:<br>
+       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
 <li><i>February 4, 2005</i> by Michael Wetter:<br>
        Released first version.
 </ul>
 </html>"));
-end PowerLaw;
+end powerLaw;

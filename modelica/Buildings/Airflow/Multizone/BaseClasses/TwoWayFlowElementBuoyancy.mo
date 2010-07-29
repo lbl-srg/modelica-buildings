@@ -24,17 +24,12 @@ or alternatively <code>VAB_flow</code> and <code>VBA_flow</code>,
 and the face area <code>area</code>.
 The face area is a variable to allow this partial model to be used
 for doors that can be open or closed as a function of an input signal.
-<h3>Main Author</h3>
-<P>
-    Michael Wetter<br>
-    <a href=\"http://www.utrc.utc.com\">United Technologies Research Center</a><br>
-    411 Silver Lane<br>
-    East Hartford, CT 06108<br>
-    USA<br>
-    email: <A HREF=\"mailto:WetterM@utrc.utc.com\">WetterM@utrc.utc.com</A>
-<h3>Release Notes</h3>
-<P>
+</html>",
+revisions="<html>
 <ul>
+<li><i>July 20, 2010</i> by Michael Wetter:<br>
+       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
 <li><i>February 4, 2005</i> by Michael Wetter:<br>
        Released first version.
 </ul>

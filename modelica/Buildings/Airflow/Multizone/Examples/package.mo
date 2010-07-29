@@ -1,5 +1,5 @@
 within Buildings.Airflow.Multizone;
-package Examples 
+package Examples "Package with example models"
 extends Buildings.BaseClasses.BaseIconExamples;
 
 

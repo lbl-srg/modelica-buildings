@@ -18,7 +18,7 @@ model ReverseBuoyancy3Zones
   Buildings.Airflow.Multizone.MediumColumn colOutTop(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{91,-30},{111,-10}}, rotation=
             0)));
   Buildings.Airflow.Multizone.Orifice oriOutTop(
@@ -30,7 +30,7 @@ model ReverseBuoyancy3Zones
   Buildings.Airflow.Multizone.MediumColumn colEasInTop(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{11,-30},{31,-10}},rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
@@ -43,18 +43,18 @@ model ReverseBuoyancy3Zones
   Buildings.Airflow.Multizone.MediumColumn colEasInBot(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{10,-70},{30,-50}},rotation=0)));
   Buildings.Airflow.Multizone.MediumColumn colOutBot(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{90,-70},{110,-50}}, rotation=
             0)));
   Buildings.Airflow.Multizone.MediumColumn colWesBot(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-130,11},{-110,31}},rotation=
             0)));
   Buildings.Airflow.Multizone.Orifice oriWesTop(
@@ -68,7 +68,7 @@ model ReverseBuoyancy3Zones
   Buildings.Airflow.Multizone.MediumColumn colWesTop(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{-130,79},{-110,99}},rotation=
             0)));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(
@@ -89,7 +89,7 @@ model ReverseBuoyancy3Zones
   Buildings.Airflow.Multizone.MediumColumn col1EasBot(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-20,11},{0,31}}, rotation=0)));
   Buildings.Airflow.Multizone.Orifice oriEasTop(
     redeclare package Medium = Medium,
@@ -102,7 +102,7 @@ model ReverseBuoyancy3Zones
   Buildings.Airflow.Multizone.MediumColumn colEasTop(
     redeclare package Medium = Medium,
     h=1.5,
-    density=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
+    densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{-20,79},{0,99}}, rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume volTopEas(
     redeclare package Medium = Medium,

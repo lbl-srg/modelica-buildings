@@ -55,21 +55,15 @@ equation
     Documentation(info="<html>
 <p>
 This is a partial model for computing the air exchange between volumes.
+Models that extend this model need to provide an equation for
+<code>port_a1.m_flow</code> and <code>port_a2.m_flow</code>.
 </p>
-<p>
-fixme.
-</p>
-<h1>Main Author</h1>
-<P>
-    Michael Wetter<br>
-    <a href=\"http://www.utrc.utc.com\">United Technologies Research Center</a><br>
-    411 Silver Lane<br>
-    East Hartford, CT 06108<br>
-    USA<br>
-    email: <A HREF=\"mailto:WetterM@utrc.utc.com\">WetterM@utrc.utc.com</A><br>
-<h3>Release Notes</h3>
-<P>
+</html>",
+revisions="<html>
 <ul>
+<li><i>July 20, 2010</i> by Michael Wetter:<br>
+       Migrated model to Modelica 3.1 and integrated it into the Buildings library.
+</li>
 <li><i>January 4, 2006</i>
        by Michael Wetter:<br>
        Implemented first version.
