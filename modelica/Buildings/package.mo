@@ -43,6 +43,12 @@ and <code>Tdb</code> (or simply <code>T</code>) denotes dry bulb temperature.
   annotation (Documentation(info="<html>
 <ul>
 <li>
+Added package 
+<a href=\"modelica://Buildings.Airflow.Multizone\">
+Buildings.Airflow.Multizone</a>
+with models for multizone airflow and contaminant transport.
+</li>
+<li>
 Rewrote 
 <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
 Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>, which is used in 
@@ -50,19 +56,6 @@ Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>, which is used in
 Buildings.Fluid.Storage.StratifiedEnhanced</a>,
 to avoid state events when the flow reverses.
 This leads to faster and more robust simulation.
-</li>
-<li>
-Added package 
-<a href=\"modelica://Buildings.Rooms\">
-Buildings.Rooms</a>
-with models for heat transfer in a room with an arbitrary number of enclosing
-constructions and surfaces.
-</li>
-<li>
-Added package 
-<a href=\"modelica://Buildings.Airflow.Multizone\">
-Buildings.Airflow.Multizone</a>
-with models for multizone airflow and contaminant transport.
 </li>
 <li>
 Added the model
@@ -971,7 +964,7 @@ end UsersGuide;
 
 
 annotation (preferedView="info",
-      version="0.9.0",
+      version="0.10.0",
       uses(Modelica(version="3.1")),
       Documentation(info="<html>
 The <b>Buildings</b> library is a free library
