@@ -43,6 +43,15 @@ and <code>Tdb</code> (or simply <code>T</code>) denotes dry bulb temperature.
   annotation (Documentation(info="<html>
 <ul>
 <li>
+Rewrote 
+<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
+Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>, which is used in 
+<a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
+Buildings.Fluid.Storage.StratifiedEnhanced</a>,
+to avoid state events when the flow reverses.
+This leads to faster and more robust simulation.
+</li>
+<li>
 Added package 
 <a href=\"modelica://Buildings.Rooms\">
 Buildings.Rooms</a>

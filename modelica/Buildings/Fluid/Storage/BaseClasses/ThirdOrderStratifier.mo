@@ -6,6 +6,8 @@ model ThirdOrderStratifier
     Modelica.Media.Interfaces.PartialMedium "Medium model"  annotation (
       choicesAllMatching = true);
 
+  parameter Medium.MassFlowRate m_flow_small(min=0)
+    "Small mass flow rate for regularization of zero flow";
   parameter Integer nSeg(min=2) = 2 "Number of volume segments";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heatPort
     "Heat input into the volumes"
@@ -36,8 +38,11 @@ protected
     "Heat exchange computed using upwind third order discretization scheme";
   Modelica.SIunits.HeatFlowRate Q_flow_upWind
     "Heat exchange computed using upwind third order discretization scheme";
+  Real sig
+    "Sign used to implement the third order upwind scheme without triggering a state event";
+  Real comSig
+    "Sign used to implement the third order upwind scheme without triggering a state event";
 
-  Integer s(min=-1, max=1) "Index shift to pick up or down volume";
   parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=Medium.T_default,
          p=Medium.p_default, X=Medium.X_default[1:Medium.nXi]);
   parameter Modelica.SIunits.SpecificHeatCapacity cp0=Medium.specificHeatCapacityCp(sta0)
@@ -53,29 +58,32 @@ equation
   for i in 1:nSeg+2 loop
     h[i] = inStream(fluidPort[i].h_outflow);
   end for;
-  // in loop, i+1-s is the "down" volume, i+1+s is the "up" volume
-  s = if m_flow > 0 then 1 else -1;
+
+  // Value that transitions between 0 and 1 as the flow reverses.
+  sig = Modelica.Fluid.Utilities.regStep(m_flow,1,0,m_flow_small);
+  comSig = 1-sig;
+
   hOut[1] = h[1];
   hOut[nSeg+2] = h[nSeg+2];
 
-  for i in 1:nSeg loop
-    // Third order scheme to approximate interface temperature
-    if ( s > 0) then
-      hOut[i+1] = if ( i==1) then  h[2] else
-        0.5*(h[i+1+s]+h[i+1])-0.125*(h[i+2]+h[i]-2*h[i+1]);
-    else
-      hOut[i+1] = if ( i==nSeg) then  h[end-1] else
-        0.5*(h[i+1+s]+h[i+1])-0.125*(h[i+2]+h[i]-2*h[i+1]);
-    end if;
+  hOut[2] = sig*h[2]
+          + comSig * (0.5*(h[1]+h[2])-0.125*(h[3]+h[1]-2*h[2]));
+
+  for i in 2:(nSeg-1) loop
+    hOut[i+1] = sig*0.5*(h[i+2]+h[i+1])+comSig*0.5*(h[i]+h[i+1])
+              - 0.125*(h[i+2]+h[i]-2*h[i+1]);
   end for;
+
+  hOut[nSeg+1] = comSig*h[nSeg-1]
+               + sig * (0.5*(h[nSeg+2]+h[nSeg+1])-0.125*(h[nSeg+2]+h[nSeg]-2*h[nSeg+1]));
+
   for i in 1:nSeg loop
-     if s > 0 then
-       Q_flow[i] = m_flow * (hOut[i+1] -hOut[i])  +H_flow[i] -H_flow[i+1];
-     else
-       Q_flow[i] = m_flow * (hOut[i+2]-hOut[i+1]) +H_flow[i] -H_flow[i+1];
-     end if;
-     end for;
-     Q_flow_upWind = sum(Q_flow[i] for i in 1:nSeg);
+     Q_flow[i] = sig*(m_flow*(hOut[i+1]-hOut[i])+ H_flow[i] - H_flow[i+1])
+                + comSig*(m_flow*(hOut[i+2]-hOut[i+1])- H_flow[i] + H_flow[i+1]);
+  end for;
+
+  Q_flow_upWind = sum(Q_flow[i] for i in 1:nSeg);
+
   for i in 1:nSeg loop
     heatPort[i].Q_flow = Q_flow[i] - Q_flow_upWind/nSeg;
   end for;
@@ -108,6 +116,11 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 28, 2010 by Wangda Zuo:<br>
+Rewrote third order upwind scheme to avoid state events.
+This leads to more robust and faster simulation.
+</li>
 <li>
 June 23, 2010 by Michael Wetter and Wangda Zuo:<br>
 First implementation.

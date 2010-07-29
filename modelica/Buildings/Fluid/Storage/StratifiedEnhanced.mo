@@ -3,7 +3,8 @@ model StratifiedEnhanced "Stratified tank model with enhanced discretization"
   extends Stratified(nPorts=3);
   BaseClasses.ThirdOrderStratifier str(
     redeclare package Medium = Medium,
-    nSeg=nSeg) "Model to reduce numerical dissipation"
+    nSeg=nSeg,
+    m_flow_small=m_flow_small) "Model to reduce numerical dissipation"
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}}, rotation=
            0)));
   Modelica.Blocks.Sources.RealExpression mTan_flow(y=port_a.m_flow)
