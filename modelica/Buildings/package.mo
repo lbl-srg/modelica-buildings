@@ -49,6 +49,12 @@ Buildings.Airflow.Multizone</a>
 with models for multizone airflow and contaminant transport.
 </li>
 <li>
+Added the model
+<a href=\"modelica://Buildings.Utilities.Comfort.Fanger\">
+Buildings.Utilities.Comfort.Fanger</a>
+for thermal comfort calculations.
+</li>
+<li>
 Rewrote 
 <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
 Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>, which is used in 
@@ -58,10 +64,13 @@ to avoid state events when the flow reverses.
 This leads to faster and more robust simulation.
 </li>
 <li>
-Added the model
-<a href=\"modelica://Buildings.Utilities.Comfort.Fanger\">
-Buildings.Utilities.Comfort.Fanger</a>
-for thermal comfort calculations.
+In models of package 
+<a href=\"modelica://Buildings.Fluid.MixingVolumes\">
+Buildings.Fluid.MixingVolumes</a>,
+added nominal value for <code>mC</code> to avoid wrong trajectory 
+when concentration is around 1E-7.
+See also <a href=\"https://trac.modelica.org/Modelica/ticket/393\">
+https://trac.modelica.org/Modelica/ticket/393</a>.
 </li>
 <li>
 Fixed bug in fan and pump models that led to too small an enthalpy
@@ -670,10 +679,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">
-Version 0.10.0 </a>(July 28, 2010)</li>
-<li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">
-Version 0.9.1 </a>(June 24, 2010)</li>
+Version 0.10.0 </a>(July 30, 2010)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
 Version 0.9.0 </a>(June 11, 2010)</li>
@@ -692,6 +698,7 @@ Version 0.5.0 </a>(February 19, 2009)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">
 Version 0.4.0 </a>(October 31, 2008)</li>
+<li> 
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">
 Version 0.3.0 </a>(September 30, 2008)</li>

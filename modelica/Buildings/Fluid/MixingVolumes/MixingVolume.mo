@@ -3,7 +3,8 @@ model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
   extends Buildings.Fluid.Interfaces.PartialLumpedVolume(
       m(start=V*rho_nominal, fixed=false),
-      final fluidVolume = V);
+      final fluidVolume = V,
+      mC(nominal=V*rho_nominal*C_nominal));
   extends Buildings.BaseClasses.BaseIcon;
     import Modelica.Constants.pi;
 
@@ -52,10 +53,12 @@ model MixingVolume
   parameter Modelica.SIunits.Volume V "Volume";
 
 protected
-   parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=T_start,
-         p=p_start, X=X_start[1:Medium.nXi]);
-   parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
-    "Density, used to compute fluid mass";
+   parameter Modelica.SIunits.Density rho_nominal=Medium.density(
+     Medium.setState_pTX(
+      T=T_start,
+      p=p_start,
+      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
+                                           annotation (Evaluate=true);
 
 equation
 // Only one connection allowed to a port to avoid unwanted ideal mixing
@@ -113,6 +116,13 @@ The volume can be parameterized to allow heat exchange
 through a <code>heatPort</code>.
 </html>", revisions="<html>
 <ul>
+<li>
+July 30, 2010 by Michael Wetter:<br>
+Added nominal value for <code>mC</code> to avoid wrong trajectory 
+when concentration is around 1E-7.
+See also <a href=\"https://trac.modelica.org/Modelica/ticket/393\">
+https://trac.modelica.org/Modelica/ticket/393</a>.
+</li>
 <li>
 February 7, 2010 by Michael Wetter:<br>
 Simplified model and its base classes by removing the port data

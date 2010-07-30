@@ -1,0 +1,26 @@
+simulateModel("Buildings.Airflow.Multizone.Examples.CO2TransportStep", stopTime=86400, method="Radau", tolerance=1e-05, resultFile="CO2TransportStep");
+createPlot(id = 1,
+ position = {15, 10, 701, 391},
+ y = {"volWes.mC[1]", "volEas.mC[1]", "volTop.mC[1]"},
+ range = {0, 90000.0, 0.4, -0.1},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "CO2TransportStep.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 1,
+ position = {15, 10, 701, 192},
+ y = {"CO2SenWes.C", "CO2SenEas.C", "CO2SenTop.C"},
+ range = {0, 90000.0, 0.006, -0.002},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);
+

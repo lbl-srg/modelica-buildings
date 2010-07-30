@@ -1,7 +1,8 @@
 within Buildings.Fluid.MixingVolumes.BaseClasses;
 partial model PartialMixingVolumeWaterPort
   "Partial mixing volume that allows adding or subtracting water vapor"
-  extends Buildings.Fluid.Interfaces.PartialLumpedVolume(fluidVolume = V, m(start=V*rho_nominal, fixed=false));
+  extends Buildings.Fluid.Interfaces.PartialLumpedVolume(fluidVolume = V, m(start=V*rho_nominal, fixed=false),
+      mC(nominal=V*rho_nominal*C_nominal));
 
 // declarations similar than in PartialLumpedVolumePorts from Modelica.Fluid
   // Port definitions
@@ -65,10 +66,12 @@ partial model PartialMixingVolumeWaterPort
     "Enthalpy flow rate of extracted water";
    parameter Modelica.SIunits.Volume V "Volume";
 protected
-   parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=T_start,
-         p=p_start, X=X_start[1:Medium.nXi]);
-   parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
-    "Density, used to compute fluid mass";
+   parameter Modelica.SIunits.Density rho_nominal=Medium.density(
+     Medium.setState_pTX(
+      T=T_start,
+      p=p_start,
+      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
+                                           annotation (Evaluate=true);
 equation
    assert(not (energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState and
         massDynamics==Modelica.Fluid.Types.Dynamics.SteadyState) or Medium.singleState,
@@ -143,6 +146,13 @@ is used that does not implement this function.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 30, 2010 by Michael Wetter:<br>
+Added nominal value for <code>mC</code> to avoid wrong trajectory 
+when concentration is around 1E-7.
+See also <a href=\"https://trac.modelica.org/Modelica/ticket/393\">
+https://trac.modelica.org/Modelica/ticket/393</a>.
+</li>
 <li>
 March 24, 2010 by Michael Wetter:<br>
 Changed base class from <code>Modelica.Fluid</code> to <code>Buildings.Fluid</code>.
