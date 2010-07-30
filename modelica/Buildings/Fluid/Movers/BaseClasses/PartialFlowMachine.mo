@@ -45,7 +45,7 @@ partial model PartialFlowMachine
     "Formulation of mass balance (used if dynamicBalance=true)"
     annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
 
-  parameter Modelica.SIunits.Time tau=10
+  parameter Modelica.SIunits.Time tau=1
     "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
     annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
 
@@ -204,6 +204,10 @@ the enthalpy of the medium), but this setting does in some cases lead to simpler
 </HTML>",
       revisions="<html>
 <ul>
+<li>
+July 29, 2010, by Michael Wetter:<br>
+Reduced fan time constant from 10 to 1 second.
+</li>
 <li>
 July 27, 2010, by Michael Wetter:<br>
 Redesigned model to fix bug in medium balance.
