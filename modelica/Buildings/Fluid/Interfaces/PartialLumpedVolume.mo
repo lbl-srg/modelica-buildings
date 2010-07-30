@@ -46,13 +46,17 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
        quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
-
+  parameter Medium.ExtraProperty C_nominal[Medium.nC](
+       quantity=Medium.extraPropertiesNames) = fill(1E-6, Medium.nC)
+    "Nominal value of trace substances. (Set to typical order of magnitude.)"
+   annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   Medium.BaseProperties medium(
     preferredMediumStates=true,
     p(start=p_start),
     h(start=h_start),
     T(start=T_start),
-    Xi(start=X_start[1:Medium.nXi]));
+    Xi(start=X_start[1:Medium.nXi],
+       nominal=Medium.X_default));
   //  X(start=X_start[1:Medium.nX]),
   Modelica.SIunits.Energy U "Internal energy of fluid";
   Modelica.SIunits.Mass m "Mass of fluid";
@@ -61,7 +65,8 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
   Modelica.SIunits.Mass[Medium.nC] mC "Masses of trace substances in the fluid";
   // C need to be added here because unlike for Xi, which has medium.Xi,
   // there is no variable medium.C
-  Medium.ExtraProperty C[Medium.nC] "Trace substance mixture content";
+  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
+    "Trace substance mixture content";
 
   // variables that need to be defined by an extending class
   Modelica.SIunits.MassFlowRate mb_flow "Mass flows across boundaries";
@@ -180,6 +185,11 @@ a differential equation, while modeling the total mass balance as a steady-state
 equation.
 </html>", revisions="<html>
 <ul>
+<li>
+July 30, 2010 by Michael Wetter:<br>
+Added parameter <code>C_nominal</code> which is used as the nominal attribute for <code>C</code>.
+Without this value, the ODE solver gives wrong results for concentrations around 1E-7.
+</li>
 <li>
 March 21, 2010 by Michael Wetter:<br>
 Changed pressure start value from <code>system.p_start</code>
