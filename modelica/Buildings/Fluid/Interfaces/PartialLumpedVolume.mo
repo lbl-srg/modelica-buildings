@@ -55,8 +55,7 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
     p(start=p_start),
     h(start=h_start),
     T(start=T_start),
-    Xi(start=X_start[1:Medium.nXi],
-       nominal=Medium.X_default));
+    Xi(start=X_start[1:Medium.nXi]));
   //  X(start=X_start[1:Medium.nX]),
   Modelica.SIunits.Energy U "Internal energy of fluid";
   Modelica.SIunits.Mass m "Mass of fluid";

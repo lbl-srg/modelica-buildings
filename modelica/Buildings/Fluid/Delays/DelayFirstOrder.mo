@@ -10,10 +10,6 @@ model DelayFirstOrder
      annotation(Dialog(group = "Nominal condition"));
 
 protected
-   parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=T_start,
-         p=p_start, X=X_start[1:Medium.nXi]);
-   parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
-    "Density, used to compute fluid volume";
    parameter Modelica.SIunits.Volume V0 = m_flow_nominal*tau/rho_nominal
     "Volume of delay element";
   annotation (Diagram(graphics),
