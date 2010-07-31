@@ -47,7 +47,7 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
     "Start value of trace substances"
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   parameter Medium.ExtraProperty C_nominal[Medium.nC](
-       quantity=Medium.extraPropertiesNames) = fill(1E-6, Medium.nC)
+       quantity=Medium.extraPropertiesNames) = fill(1E-2, Medium.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
   Medium.BaseProperties medium(
