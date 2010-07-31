@@ -11,8 +11,8 @@ model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
     use_HeatTransfer=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                           annotation (Placement(transformation(extent={{50,-20},
+    traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    C_nominal={1E-6})      annotation (Placement(transformation(extent={{50,-20},
             {70,0}},    rotation=0)));
 
   Buildings.Airflow.Multizone.Orifice oriOutBot(
@@ -98,7 +98,8 @@ model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    p_start=101325)        annotation (Placement(transformation(extent={{-102,-30},
+    p_start=101325,
+    C_nominal={1E-6})      annotation (Placement(transformation(extent={{-102,-30},
             {-82,-10}},  rotation=0)));
   Modelica.Blocks.Sources.Constant open(k=1) annotation (Placement(
         transformation(extent={{-40,-21},{-20,-1}},  rotation=0)));
@@ -129,8 +130,8 @@ model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
     use_HeatTransfer=true,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
-                           annotation (Placement(transformation(extent={{-20,120},
+    traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    C_nominal={1E-6})      annotation (Placement(transformation(extent={{-20,120},
             {0,140}},        rotation=0)));
 
   inner Modelica.Fluid.System system
