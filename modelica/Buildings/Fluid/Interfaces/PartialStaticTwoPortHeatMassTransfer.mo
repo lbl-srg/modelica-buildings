@@ -15,7 +15,7 @@ protected
 equation
   // Energy balance (no storage, no heat loss/gain)
   port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -Q_flow;
-  port_a.m_flow*port_b.h_outflow + port_b.m_flow*inStream(port_a.h_outflow) =  Q_flow;
+  port_b.m_flow*port_b.h_outflow + port_a.m_flow*inStream(port_a.h_outflow) = -Q_flow;
 
   // Mass balance (no storage)
   port_a.m_flow + port_b.m_flow = -sum(mXi_flow);
@@ -26,7 +26,7 @@ equation
     port_b.Xi_outflow = inStream(port_a.Xi_outflow);
   else
     port_a.m_flow*port_a.Xi_outflow + port_b.m_flow*inStream(port_b.Xi_outflow) = -mXi_flow;
-    port_a.m_flow*port_b.Xi_outflow + port_b.m_flow*inStream(port_a.Xi_outflow) = mXi_flow;
+    port_b.m_flow*port_b.Xi_outflow + port_a.m_flow*inStream(port_a.Xi_outflow) = -mXi_flow;
   end if;
   // Transport of trace substances
   port_a.C_outflow = inStream(port_b.C_outflow);
@@ -83,6 +83,18 @@ the energy and mass balances need to be added, such as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 19, 2010, by Michael Wetter:<br>
+Fixed bug in energy and moisture balance that affected results if a component
+adds or removes moisture to the air stream. 
+In the old implementation, the enthalpy and species
+outflow at <code>port_b</code> was multiplied with the mass flow rate at 
+<code>port_a</code>. The old implementation led to small errors that were proportional
+to the amount of moisture change. For example, if the moisture added by the component
+was <code>0.005 kg/kg</code>, then the error was <code>0.5%</code>.
+Also, the results for forward flow and reverse flow differed by this amount.
+With the new implementation, the energy and moisture balance is exact.
+</li>
 <li>
 March 22, 2010, by Michael Wetter:<br>
 Added constant <code>sensibleOnly</code> to 

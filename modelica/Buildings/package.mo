@@ -38,6 +38,33 @@ and <code>Tdb</code> (or simply <code>T</code>) denotes dry bulb temperature.
 
   package ReleaseNotes "Release notes"
 
+  class Version_0_11_0 "Version 0.11.0"
+
+  annotation (Documentation(info="<html>
+<ul>
+<li>
+In 
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
+Buildings.Fluid.Interfaces.PartialStaticFourPortHeatMassTransfer</a>
+and
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
+Buildings.Fluid.Interfaces.PartialStaticFourPortHeatMassTransfer</a>,
+fixed bug in energy and moisture balance that affected results if a component
+adds or removes moisture to the air stream. 
+In the old implementation, the enthalpy and species
+outflow at <code>port_b</code> was multiplied with the mass flow rate at 
+<code>port_a</code>. The old implementation led to small errors that were proportional
+to the amount of moisture change. For example, if the moisture added by the component
+was <code>0.005 kg/kg</code>, then the error was <code>0.5%</code>.
+Also, the results for forward flow and reverse flow differed by this amount.
+With the new implementation, the energy and moisture balance is exact.
+</li>
+</ul>
+</p>
+</html>
+"));
+  end Version_0_11_0;
+
   class Version_0_10_0 "Version 0.10.0"
 
   annotation (Documentation(info="<html>
@@ -678,8 +705,14 @@ on the Buildings library
 </p>
 <ul>
 <li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">
+Version 0.11.0 </a>(xxxxx fixme, 2010)</li>
+<li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">
 Version 0.10.0 </a>(July 30, 2010)</li>
+<li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">
+Version 0.9.1 </a>(June 24, 2010)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
 Version 0.9.0 </a>(June 11, 2010)</li>
@@ -973,7 +1006,7 @@ end UsersGuide;
 
 
 annotation (preferedView="info",
-      version="0.10.0",
+      version="0.11.0",
       uses(Modelica(version="3.1")),
       Documentation(info="<html>
 The <b>Buildings</b> library is a free library

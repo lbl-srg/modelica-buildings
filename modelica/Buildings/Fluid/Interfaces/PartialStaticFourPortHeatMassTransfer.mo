@@ -20,11 +20,11 @@ protected
   constant Boolean sensibleOnly2
     "Set to true if sensible exchange only for medium 2";
 equation
-  // Energy balance (no storage, no heat loss/gain)
+  // Energy balance (no storage, no heat loss/gain). Fixme
   port_a1.m_flow*port_a1.h_outflow + port_b1.m_flow*inStream(port_b1.h_outflow) = -Q1_flow;
-  port_a1.m_flow*port_b1.h_outflow + port_b1.m_flow*inStream(port_a1.h_outflow) =  Q1_flow;
+  port_b1.m_flow*port_b1.h_outflow + port_a1.m_flow*inStream(port_a1.h_outflow) = -Q1_flow;
   port_a2.m_flow*port_a2.h_outflow + port_b2.m_flow*inStream(port_b2.h_outflow) = -Q2_flow;
-  port_a2.m_flow*port_b2.h_outflow + port_b2.m_flow*inStream(port_a2.h_outflow) =  Q2_flow;
+  port_b2.m_flow*port_b2.h_outflow + port_a2.m_flow*inStream(port_a2.h_outflow) = -Q2_flow;
 
   // Mass balance (no storage)
   port_a1.m_flow + port_b1.m_flow = -sum(mXi1_flow);
@@ -35,14 +35,14 @@ equation
     port_b1.Xi_outflow = inStream(port_a1.Xi_outflow);
   else
     port_a1.m_flow*port_a1.Xi_outflow + port_b1.m_flow*inStream(port_b1.Xi_outflow) = -mXi1_flow;
-    port_a1.m_flow*port_b1.Xi_outflow + port_b1.m_flow*inStream(port_a1.Xi_outflow) =  mXi1_flow;
+    port_b1.m_flow*port_b1.Xi_outflow + port_a1.m_flow*inStream(port_a1.Xi_outflow) = -mXi1_flow;
   end if;
   if sensibleOnly2 then
     port_a2.Xi_outflow = inStream(port_b2.Xi_outflow);
     port_b2.Xi_outflow = inStream(port_a2.Xi_outflow);
   else
     port_a2.m_flow*port_a2.Xi_outflow + port_b2.m_flow*inStream(port_b2.Xi_outflow) = -mXi2_flow;
-    port_a2.m_flow*port_b2.Xi_outflow + port_b2.m_flow*inStream(port_a2.Xi_outflow) =  mXi2_flow;
+    port_b2.m_flow*port_b2.Xi_outflow + port_a2.m_flow*inStream(port_a2.Xi_outflow) = -mXi2_flow;
   end if;
 
   // Transport of trace substances
@@ -101,6 +101,18 @@ for how to use this partial model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 19, 2010, by Michael Wetter:<br>
+Fixed bug in energy and moisture balance that affected results if a component
+adds or removes moisture to the air stream. 
+In the old implementation, the enthalpy and species
+outflow at <code>port_b</code> was multiplied with the mass flow rate at 
+<code>port_a</code>. The old implementation led to small errors that were proportional
+to the amount of moisture change. For example, if the moisture added by the component
+was <code>0.005 kg/kg</code>, then the error was <code>0.5%</code>.
+Also, the results for forward flow and reverse flow differed by this amount.
+With the new implementation, the energy and moisture balance is exact.
+</li>
 <li>
 March 22, 2010, by Michael Wetter:<br>
 Added constants <code>sensibleOnly1</code> and

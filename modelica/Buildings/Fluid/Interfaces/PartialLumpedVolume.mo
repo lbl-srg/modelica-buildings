@@ -164,10 +164,10 @@ An extending class must specify an equation for
 The component volume <b>fluidVolume</b> is an input that needs to be set in the extending class to complete the model. </pre>
 <p>Further source terms must be defined by an extending class for fluid flow across the segment boundary: </p>
 <p><ul>
-<li><pre><b>Hb_flow</b></pre>, enthalpy flow,</li>
-<li><pre><b>mb_flow</b></pre>, mass flow,</li>
-<li><pre><b>mbXi_flow</b></pre>, substance mass flow, and</li>
-<li><pre><b>mbC_flow</b></pre>, trace substance mass flow.</li>
+<li><b>Hb_flow</b>, enthalpy flow,</li>
+<li><b>mb_flow</b>, mass flow,</li>
+<li><b>mbXi_flow</b>, substance mass flow, and</li>
+<li><b>mbC_flow</b>, trace substance mass flow.</li>
 </ul></p>
 <p>
 <b>Note:</b> This model is similar to 
