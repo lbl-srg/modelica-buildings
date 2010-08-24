@@ -95,7 +95,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics), Commands(file=
-          "HeatTransfer/Examples/ConductorSingleLayer.mos" "run"),
+          "ConductorSingleLayer.mos" "run"),
     Documentation(info="<html>
 This example tests if two conductors in series computes the same heat transfer
 as one conductor with twice the thickness.

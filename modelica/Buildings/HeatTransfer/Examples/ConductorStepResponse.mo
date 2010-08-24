@@ -120,7 +120,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics), Commands(file=
-          "HeatTransfer/Examples/ConductorStepResponse.mos" "run"),
+          "ConductorStepResponse.mos" "run"),
     Documentation(info="<html>
 This example illustrates modeling of multi-layer materials. It also tests if the 
 multi-layer material computes the same heat transfer with its boundary condition 
