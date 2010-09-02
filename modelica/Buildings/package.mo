@@ -43,6 +43,19 @@ and <code>Tdb</code> (or simply <code>T</code>) denotes dry bulb temperature.
   annotation (Documentation(info="<html>
 <ul>
 <li>
+Added package 
+<a href=\"modelica://Buildings.BoundaryConditions\">
+Buildings.BoundaryConditions</a>
+with models to compute boundary conditions, such as
+solar irradiation and sky temperature.
+</li>
+<li>
+Added package 
+<a href=\"modelica://Buildings.Utilities.IO.WeatherData\">
+Buildings.Utilities.IO.WeatherData</a>
+with models to read weather data in the TMY3 format.
+</li>
+<li>
 In 
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
 Buildings.Fluid.Interfaces.PartialStaticFourPortHeatMassTransfer</a>
@@ -989,9 +1002,14 @@ User's Guides that can be accessed by the following links:
    </td>
    <td valign=\"top\">Library for multizone airflow and contaminant transport.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">BoundaryConditions</a>
+   </td>
+   <td valign=\"top\">Library for computing boundary conditions, such as solar irradiation.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.UsersGuide\">Fluid</a>
    </td>
    <td valign=\"top\">Library for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Fluid.Movers</a>
    </td>
    <td valign=\"top\">Library with fans and pumps.</td>
@@ -999,6 +1017,10 @@ User's Guides that can be accessed by the following links:
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.HeatTransfer.UsersGuide\">HeatTransfer</a>
    </td>
    <td valign=\"top\">Library heat transfer in building constructions.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.WeatherData.UsersGuide\">Utilities.IO.WeatherData</a>
+   </td>
+   <td valign=\"top\">Library for reading weather data.</td>
 </tr>
 </table>
 </html>"));
