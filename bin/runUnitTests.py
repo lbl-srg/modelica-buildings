@@ -49,9 +49,9 @@ def listFiles(dir):
                     filTex=filObj.read()
                     strpos=filTex.find("simulate")
                     if strpos > -1:
-                        runFil.write("cd " + root + "\n")
-                        runFil.write("RunScript(\"" + filNam + "\");\n")
-                        runFil.write("cd " + LIBHOME + "\n")
+#                        runFil.write("cd " + root + "\n")
+                        runFil.write("RunScript(\"" + root + "/" + filNam + "\");\n")
+#                        runFil.write("cd " + LIBHOME + "\n")
                         iRun=iRun+1
                     filObj.close()
                 # find .mo files
