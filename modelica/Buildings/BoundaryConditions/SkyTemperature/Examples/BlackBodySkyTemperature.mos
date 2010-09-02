@@ -1,0 +1,15 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBodySkyTemperature", startTime=0, stopTime=86400, method="dassl", resultFile="BlackBodySkyTemperature");
+
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"TBlaSky.y"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "BlackBodySkyTemperature.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

@@ -1,0 +1,15 @@
+removePlots();
+simulateModel("Buildings.BoundaryConditions.SkyTemperature.BaseClasses.Examples.BaseEmissivity", startTime=0, stopTime=86400, method="dassl", resultFile="BaseEmissivity");
+
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"basEmi.basEmi"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "BaseEmissivity.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

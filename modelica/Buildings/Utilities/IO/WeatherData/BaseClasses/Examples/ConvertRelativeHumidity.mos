@@ -1,0 +1,27 @@
+removePlots();
+simulateModel("Buildings.Utilities.IO.WeatherData.BaseClasses.Examples.ConvertRelativeHumidity", startTime=0, stopTime=8640000, method="dassl", resultFile="ConvertRelativeHumidity");
+
+createPlot(id = 1,
+ position = {7, 7, 746, 517},
+ y = {"conHum.relHumIn"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "ConvertRelativeHumidity.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+createPlot(id = 1,
+ position = {7, 7, 746, 256},
+ y = {"conHum.relHumOut"},
+ range = {0, 90000.0, 0.3, -0.3},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1);
