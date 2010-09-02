@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.Utilities.IO.WeatherData.BaseClasses.Examples.CheckRadiation", startTime=0, stopTime=8640000, method="dassl", resultFile="ConvertRadiation");
+simulateModel("Buildings.Utilities.IO.WeatherData.BaseClasses.Examples.ConvertRadiation", startTime=0, stopTime=8640000, method="dassl", resultFile="ConvertRadiation");
 
 createPlot(id = 1,
  position = {7, 7, 746, 517},
@@ -10,7 +10,7 @@ createPlot(id = 1,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "CheckRadiation.mat",
+ filename = "ConvertRadiation.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 1,
