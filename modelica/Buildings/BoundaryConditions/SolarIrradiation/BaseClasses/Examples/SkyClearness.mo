@@ -10,10 +10,10 @@ model SkyClearness "Test model for sky clearness"
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
-  Buildings.Utilities.IO.WeatherData.ReadWeatherData weaDat(filNam=
+  Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Utilities.IO.WeatherData.WeatherBus weaBus
+  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus
     annotation (Placement(transformation(extent={{-2,20},{18,40}})));
 equation
   connect(zenAng.y, skyCle.zenAng) annotation (Line(

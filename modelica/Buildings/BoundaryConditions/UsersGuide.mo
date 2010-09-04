@@ -2,8 +2,8 @@ within Buildings.BoundaryConditions;
 package UsersGuide "User's Guide"
 
 annotation (DocumentationClass=true, Documentation(info="<html>
-This package contains models to compute boundary conditions,
-such as solar irradition and sky temperatures.
+This package contains models to read or compute boundary conditions,
+such as weather data, solar irradition and sky temperatures.
 </p>
 <p>
 To compute the solar irradiation, parameter such as the surface azimuth 

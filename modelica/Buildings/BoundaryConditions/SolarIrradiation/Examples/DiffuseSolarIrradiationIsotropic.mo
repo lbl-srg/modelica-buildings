@@ -4,10 +4,10 @@ model DiffuseSolarIrradiationIsotropic
   import Buildings;
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Utilities.IO.WeatherData.ReadWeatherData weaDat(filNam=
+  Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Utilities.IO.WeatherData.WeatherBus weaBus annotation (Placement(
+  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (Placement(
         transformation(extent={{1,-1},{21,21}}), iconTransformation(extent={{1,
             -1},{2,-2}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffuseSolarIrradiationIsotropic

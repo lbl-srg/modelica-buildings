@@ -11,7 +11,7 @@ public
         "RadiantEnergyFluenceRate", final unit="W/m2")
     "Direct solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Utilities.IO.WeatherData.WeatherBus weaBus annotation (Placement(
+  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}})));
 
 protected

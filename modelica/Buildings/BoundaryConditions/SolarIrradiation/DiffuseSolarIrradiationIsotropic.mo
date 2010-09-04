@@ -10,7 +10,7 @@ public
         "RadiantEnergyFluenceRate", final unit="W/m2")
     "Diffuse solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Utilities.IO.WeatherData.WeatherBus weaBus
+  WeatherData.WeatherBus weaBus
     annotation (Placement(transformation(extent={{-111,-11},{-91,11}})));
 
 protected

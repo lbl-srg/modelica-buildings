@@ -5,10 +5,10 @@ model DiffuseSolarIrradiationPerez
   parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
   parameter Modelica.SIunits.Angle aziAng=0.3 "Azi angle";
   parameter Modelica.SIunits.Angle tilAng=0.5 "Tilted angle";
-  Buildings.Utilities.IO.WeatherData.ReadWeatherData weaDat(filNam=
+  Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Utilities.IO.WeatherData.WeatherBus weaBus annotation (Placement(
+  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (Placement(
         transformation(extent={{1,-1},{21,21}}), iconTransformation(extent={{20,
             20},{21,21}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffuseSolarIrradiationPerez
