@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.Examples;
 model DiffuseSolarIrradiationIsotropic
-  "Test model for diffuse solar irradiation on a tilted surface by using isotropic model"
+  "Test model for diffuse solar irradiation on a tilted surface using the isotropic model"
   import Buildings;
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
@@ -24,7 +24,7 @@ equation
       extent={{6,3},{6,3}}));
 
   connect(weaBus, HDifTilIso.weaBus) annotation (Line(
-      points={{11,10},{39.9,10}},
+      points={{11,10},{40,10}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(

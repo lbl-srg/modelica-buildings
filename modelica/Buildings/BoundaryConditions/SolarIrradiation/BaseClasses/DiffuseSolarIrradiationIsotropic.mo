@@ -24,7 +24,7 @@ protected
 
 equation
   tilAng_c = Modelica.Math.cos(tilAng);
-  HDifTil = 0.5*HDifHor*(1 + tilAng_c) + 0.5*HGloHor*rho*HDifHor*(1 - tilAng_c);
+  HDifTil = 0.5*HDifHor*(1 + tilAng_c) + 0.5*HGloHor*rho*(1 - tilAng_c);
   annotation (
     defaultComponentName="HDifTilIso",
     Documentation(info="<HTML>

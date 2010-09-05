@@ -1,20 +1,12 @@
 within Buildings.BoundaryConditions.SolarIrradiation;
 block DiffuseSolarIrradiationPerez
-  "Hemispherical diffuse irradiation on a tilted surface with Perez's anisotropic model"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
+  "Hemispherical diffuse irradiation on a tilted surface using Perez's anisotropic sky model"
+  extends
+    Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
-public
   parameter Real rho=0.2 "Ground reflectance";
-  parameter Modelica.SIunits.Angle tilAng(displayUnit="deg") "Surface tilt";
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle aziAng "Surface azimuth";
-  Modelica.Blocks.Interfaces.RealOutput y(final quantity=
-        "RadiantEnergyFluenceRate", final unit="W/m2")
-    "Hemispherical diffuse solar irradiation on a tilted surfce" annotation (
-      Placement(transformation(extent={{100,-10},{120,10}}),iconTransformation(
-          extent={{100,-10},{120,10}})));
-  WeatherData.WeatherBus weaBus
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
 protected
   BaseClasses.DiffuseSolarIrradiationPerez HDifTil(final tilAng=tilAng, final rho=
@@ -66,11 +58,6 @@ equation
       smooth=Smooth.None));
   connect(HDifTil.zenAng, zenAng.y) annotation (Line(
       points={{41.8,-8.4},{26,-8.4},{26,-80},{-70,-80},{-70,-44},{-79.6,-44}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(HDifTil.HDifTil, y) annotation (Line(
-      points={{90.1,-6.60583e-16},{97.05,-6.60583e-16},{97.05,5.55112e-16},{110,
-          5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.HGloHor, skyCle.HGloHor) annotation (Line(
@@ -137,11 +124,16 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  connect(HDifTil.HDifTil, y) annotation (Line(
+      points={{90.1,-6.60583e-16},{97.05,-6.60583e-16},{97.05,5.55112e-16},{110,
+          5.55112e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     defaultComponentName="HDifTil",
     Documentation(info="<HTML>
 <p>
-This component computes the Hemispherical diffuse irradiation on a tilted surface by using an anisotropic model proposed by Perez. 
+This component computes the hemispherical diffuse irradiation on a tilted surface by using an anisotropic model proposed by Perez. 
 For a definition of the parameters, see the 
 <a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
 </p>

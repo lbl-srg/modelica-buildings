@@ -3,11 +3,11 @@ model CheckSkyCover "Test model for checking sky cover"
   import Buildings;
 
 public
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover cheTotSkyCov
-    "Check total sky cover"
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover
+    cheTotSkyCov "Check total sky cover"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover cheOpaSkyCov
-    "Check opaque sky cover"
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover
+    cheOpaSkyCov "Check opaque sky cover"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Utilities.SimulationTime simTim "Generate simulation time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));

@@ -3,7 +3,8 @@ model ConvertRelativeHumidity "Test model for converting temperature"
   import Buildings;
 
 public
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity conHum
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity
+    conHum
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));

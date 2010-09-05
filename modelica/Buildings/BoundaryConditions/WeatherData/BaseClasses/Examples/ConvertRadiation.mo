@@ -3,11 +3,11 @@ model ConvertRadiation "Test model for convert radiation"
   import Buildings;
 
 public
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation cheGloRad
-    "Check global horizontal radiation"
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
+    cheGloRad "Check global horizontal radiation"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation cheDifRad
-    "Check diffuse horizontal radiation"
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
+    cheDifRad "Check diffuse horizontal radiation"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));

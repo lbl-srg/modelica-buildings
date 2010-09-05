@@ -69,12 +69,12 @@ equation
       extent={{6,3},{6,3}}));
   connect(conTemDew.TemK, weaBus.TDew) annotation (Line(
       points={{61,70},{80,70},{80,0},{90,0},{90,5.55112e-16},{100,5.55112e-16}},
-
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+
   connect(datRea.y[3], conHum.relHumIn) annotation (Line(
       points={{-19,-10},{-10,-10},{-10,50},{-2,50}},
       color={0,0,127},
@@ -92,7 +92,6 @@ equation
       smooth=Smooth.None));
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
       points={{61,30},{80,30},{80,0},{90,0},{90,5.55112e-16},{100,5.55112e-16}},
-
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",

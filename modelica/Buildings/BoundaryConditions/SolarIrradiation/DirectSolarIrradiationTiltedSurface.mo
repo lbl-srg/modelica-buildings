@@ -2,15 +2,12 @@ within Buildings.BoundaryConditions.SolarIrradiation;
 block DirectSolarIrradiationTiltedSurface
   "Direct solar irradiation on a tilted surface"
   import Buildings;
-  extends Modelica.Blocks.Interfaces.BlockIcon;
-public
+  extends
+    Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
+
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle aziAng "Surface azimuth";
-  parameter Modelica.SIunits.Angle tilAng "Surface tilt";
-  Modelica.Blocks.Interfaces.RealOutput y(final quantity=
-        "RadiantEnergyFluenceRate", final unit="W/m2")
-    "Direct solar irradiation on a tilted surfce"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
   Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (Placement(
         transformation(extent={{-110,-10},{-90,10}})));
 
@@ -27,8 +24,7 @@ protected
 
 equation
   connect(HDirTil.HDirTil, y) annotation (Line(
-      points={{42,1.22125e-15},{66,1.22125e-15},{66,5.55112e-16},{110,
-          5.55112e-16}},
+      points={{42,1.22125e-15},{66,1.22125e-15},{66,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(y, y) annotation (Line(

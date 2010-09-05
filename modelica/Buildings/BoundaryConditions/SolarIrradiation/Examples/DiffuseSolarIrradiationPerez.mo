@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.Examples;
 model DiffuseSolarIrradiationPerez
-  "Test model for diffuse solar irradiation on a tilted surface by using Perez model"
+  "Test model for diffuse solar irradiation on a tilted surface using the Perez model"
   import Buildings;
   parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
   parameter Modelica.SIunits.Angle aziAng=0.3 "Azi angle";

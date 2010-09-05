@@ -6,8 +6,8 @@ public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTemperature
     conTemDryBul "Convert unit for dry bulb temperature "
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTemperature conTemDew
-    "Convert unit for dew point temperature"
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTemperature
+    conTemDew "Convert unit for dew point temperature"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));

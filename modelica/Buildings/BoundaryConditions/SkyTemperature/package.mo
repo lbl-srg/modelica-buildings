@@ -1,3 +1,10 @@
 within Buildings.BoundaryConditions;
-package SkyTemperature "Models that compute the sky temperature"
+package SkyTemperature "Package with models to compute the sky temperature"
+
+
+
+annotation (preferedView="info",
+Documentation(info="<html>
+This package contains models to compute the black body sky temperature.
+</html>"));
 end SkyTemperature;

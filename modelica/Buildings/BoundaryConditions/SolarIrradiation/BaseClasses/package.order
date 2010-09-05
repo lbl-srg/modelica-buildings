@@ -5,4 +5,5 @@ DirectSolarIrradiationTiltedSurface
 RelativeAirMass
 SkyBrightness
 SkyClearness
+PartialSolarIrradiation
 Examples
