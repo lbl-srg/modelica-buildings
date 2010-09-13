@@ -73,6 +73,19 @@ Also, the results for forward flow and reverse flow differed by this amount.
 With the new implementation, the energy and moisture balance is exact.
 </li>
 <li>
+In 
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialLumpedVolume\">
+Buildings.Fluid.Interfaces.PartialLumpedVolume</a> and in
+<a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleMedium\">
+Buildings.Media.Interfaces.PartialSimpleMedium</a>, set
+nominal attribute for medium to provide consistent normalization.
+Without this change, Dymola 7.4 uses different values for the nominal attribute
+based on the value of <code>Advanced.OutputModelicaCodeWithJacobians=true/false;</code>
+in the model 
+<a href=\"modelica://Buildings.Examples.HydronicHeating\">
+Buildings.Examples.HydronicHeating</a>.
+</li>
+<li>
 Fixed bug in energy balance of 
 <a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">
 Buildings.Fluid.Chillers.Carnot</a>.
