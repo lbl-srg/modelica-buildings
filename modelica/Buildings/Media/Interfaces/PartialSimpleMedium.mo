@@ -3,7 +3,8 @@ partial package PartialSimpleMedium
   "Medium model with linear dependency of u, h from temperature. All other quantities, especially density, are constant."
 
   extends Modelica.Media.Interfaces.PartialPureSubstance(final ThermoStates=
-        Choices.IndependentVariables.pT, final singleState=true);
+        Choices.IndependentVariables.pT, final singleState=true,
+        reference_p=p0, p_default=p0);
 
   import SI = Modelica.SIunits;
   constant SpecificHeatCapacity cp_const
@@ -30,7 +31,7 @@ partial package PartialSimpleMedium
   constant Real kappa_const(unit="1/Pa") = 0
     "Compressibility factor at constant temperature";
   constant Modelica.SIunits.AbsolutePressure p0 = 3E5
-    "Reference pressure for compressibility";
+    "Reference pressure for compressibility and default medium pressure";
 
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else
@@ -251,6 +252,10 @@ the density is
 
 </html>", revisions="<html>
 <ul>
+<li>
+September 13, 2010, by Michael Wetter:<br>
+Set default values and reference pressure.
+</li>
 <li>
 February 18, 2010, by Michael Wetter:<br>
 In <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleMedium.setState_psX\">

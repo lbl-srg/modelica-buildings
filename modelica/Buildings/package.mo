@@ -72,6 +72,10 @@ was <code>0.005 kg/kg</code>, then the error was <code>0.5%</code>.
 Also, the results for forward flow and reverse flow differed by this amount.
 With the new implementation, the energy and moisture balance is exact.
 </li>
+<li>
+Fixed bug in energy balance of 
+<a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">
+Buildings.Fluid.Chillers.Carnot</a>.
 </ul>
 </p>
 </html>

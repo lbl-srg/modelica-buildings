@@ -50,13 +50,15 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
        quantity=Medium.extraPropertiesNames) = fill(1E-2, Medium.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
+  // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
     preferredMediumStates=true,
-    p(start=p_start),
+    p(start=p_start, nominal=Medium.p_default),
     h(start=h_start),
-    T(start=T_start),
-    Xi(start=X_start[1:Medium.nXi]));
-  //  X(start=X_start[1:Medium.nX]),
+    T(start=T_start, nominal=Medium.T_default),
+    Xi(start=X_start[1:Medium.nXi], nominal=Medium.X_default))
+    "Medium properties";
+
   Modelica.SIunits.Energy U "Internal energy of fluid";
   Modelica.SIunits.Mass m "Mass of fluid";
   Modelica.SIunits.Mass[Medium.nXi] mXi
@@ -184,6 +186,10 @@ a differential equation, while modeling the total mass balance as a steady-state
 equation.
 </html>", revisions="<html>
 <ul>
+<li>
+September 13, 2010 by Michael Wetter:<br>
+Set nominal attributes for medium based on default medium values.
+</li>
 <li>
 July 30, 2010 by Michael Wetter:<br>
 Added parameter <code>C_nominal</code> which is used as the nominal attribute for <code>C</code>.
