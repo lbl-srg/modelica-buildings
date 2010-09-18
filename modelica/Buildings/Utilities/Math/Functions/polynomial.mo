@@ -12,7 +12,7 @@ algorithm
      xp[i+1] :=xp[i]*x;
   end for;
   y :=a*xp;
-  annotation (Documentation(info="<html>
+  annotation (smoothOrder=999, Documentation(info="<html>
 This function computes a polynomial of arbitrary order.
 The polynomial has the form
 <pre>

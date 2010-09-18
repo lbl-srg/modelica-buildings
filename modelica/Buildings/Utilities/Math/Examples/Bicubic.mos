@@ -1,0 +1,1 @@
+simulateModel("Buildings.Utilities.Math.Examples.Bicubic", method="euler", resultFile="Bicubic");

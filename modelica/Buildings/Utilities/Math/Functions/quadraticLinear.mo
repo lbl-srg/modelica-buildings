@@ -11,7 +11,7 @@ algorithm
   x1Sq :=x1*x1;
   y :=a[1] + a[2]*x1 + a[3]*x1Sq + (a[4] + a[5]*x1 + a[6]*x1Sq)*x2;
 
-  annotation (Documentation(info="<html>
+  annotation (smoothOrder=999, Documentation(info="<html>
 This function computes
 <pre>
   y =   a1 + a2 * x1 + a3 *x1^2 

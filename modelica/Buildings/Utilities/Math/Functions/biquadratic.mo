@@ -7,7 +7,7 @@ function biquadratic "Biquadratic function"
 algorithm
   y :=a[1] + x1*(a[2] + a[3]*x1) + x2*(a[4]+ a[5]*x2) + a[6]*x1*x2;
 
-  annotation (Documentation(info="<html>
+  annotation (smoothOrder=999, Documentation(info="<html>
 This function computes
 <pre>
   y =   a1 + a2 * x1 + a3 * x1^2 

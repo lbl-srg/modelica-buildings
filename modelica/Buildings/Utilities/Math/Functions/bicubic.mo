@@ -18,7 +18,7 @@ algorithm
             + a[9] * x1Sq * x2
             + a[10] * x1 * x2Sq;
 
-  annotation (Documentation(info="<html>
+  annotation (smoothOrder=999, Documentation(info="<html>
 This function computes
 <pre>
  y = a1 + a2 * x1 + a3 * x1^2 
