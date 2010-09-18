@@ -1,3 +1,5 @@
+bicubic
+biquadratic
 polynomial
 quadraticLinear
 regNonZeroPower
@@ -5,7 +7,7 @@ smoothExponential
 smoothHeaviside
 smoothMax
 smoothMin
+smoothLimit
 spliceFunction
 Examples
 BaseClasses
-smoothLimit

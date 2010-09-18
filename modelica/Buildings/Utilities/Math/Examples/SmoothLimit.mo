@@ -11,7 +11,7 @@ model SmoothLimit "Test model for smooth limit"
 equation
 
   connect(sine.y, smoLim.u)      annotation (Line(
-      points={{-19,10},{-1,10}},
+      points={{-19,10},{-2,10}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},

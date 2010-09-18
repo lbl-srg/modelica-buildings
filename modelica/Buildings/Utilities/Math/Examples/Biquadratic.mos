@@ -1,0 +1,1 @@
+simulateModel("Buildings.Utilities.Math.Examples.Biquadratic", method="euler", resultFile="Biquadratic");

@@ -2,9 +2,6 @@ within Buildings.Utilities.Math;
 block SmoothMax
   "Once continuously differentiable approximation to the maximum function"
   extends Modelica.Blocks.Interfaces.SI2SO;
-  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-            0)));
  parameter Real deltaX "Width of transition interval";
 equation
   y =  Buildings.Utilities.Math.Functions.smoothMax(x1=u1, x2=u2, deltaX=deltaX);

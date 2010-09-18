@@ -1,15 +1,7 @@
 within Buildings.Utilities.Math;
 block SmoothLimit
   "Once continuously differentiable approximation to the limit function"
-    extends Modelica.Blocks.Interfaces.BlockIcon;
-  Modelica.Blocks.Interfaces.RealInput u "Connector of Real input signal"
- annotation (Placement(transformation(extent={{-120,-10},{-100,10}},
-                                                                   rotation=
-            0)));
-
-  Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
-            0)));
+ extends Modelica.Blocks.Interfaces.SISO;
  parameter Real deltaX "Width of transition interval";
  parameter Real upper "Upper limit";
  parameter Real lower "Lower limit";
