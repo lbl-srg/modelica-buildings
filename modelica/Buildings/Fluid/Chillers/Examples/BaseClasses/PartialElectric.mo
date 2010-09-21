@@ -1,47 +1,40 @@
-within Buildings.Fluid.Chillers.Examples;
-model Carnot "Test model for chiller based on Carnot efficiency"
+within Buildings.Fluid.Chillers.Examples.BaseClasses;
+model PartialElectric "Base class for test model of chiller electric EIR"
   import Buildings;
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
  package Medium2 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
-  parameter Modelica.SIunits.Power P_nominal=10E3
+  parameter Modelica.SIunits.Power P_nominal=-per.QEva_flow_nominal/per.COP_nominal
     "Nominal compressor power (at y=1)";
   parameter Modelica.SIunits.TemperatureDifference dTEva_nominal=10
     "Temperature difference evaporator inlet-outlet";
   parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal = 3 "Chiller COP";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
-     P_nominal*(COPc_nominal+1)/dTEva_nominal/4200
-    "Nominal mass flow rate at evaporator";
-  parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-     m1_flow_nominal*COPc_nominal/(COPc_nominal+1)
-    "Nominal mass flow rate at condenser";
+  parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=
+     per.mCon_flow_nominal "Nominal mass flow rate at evaporator";
+  parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
+     per.mEva_flow_nominal "Nominal mass flow rate at condenser";
 
-  Buildings.Fluid.Chillers.Carnot chi(
-    redeclare package Medium1 = Medium1,
-    redeclare package Medium2 = Medium2,
-    P_nominal=P_nominal,
-    dTEva_nominal=dTEva_nominal,
-    dTCon_nominal=dTCon_nominal,
-    COP_nominal=COPc_nominal,
-    use_eta_Carnot=true,
-    etaCar=0.3,
-    dp1_nominal=6000,
-    dp2_nominal=6000,
-    m1_flow_nominal=m1_flow_nominal,
-    m2_flow_nominal=m2_flow_nominal) "Chiller model"
+  replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectricSteadyState
+    chi                                                                           constrainedby
+    Buildings.Fluid.Chillers.BaseClasses.PartialElectricSteadyState(
+        redeclare package Medium1 = Medium1,
+       redeclare package Medium2 = Medium2,
+       dp1_nominal=6000,
+       dp2_nominal=6000,
+       per=per) "Chiller model"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,
     use_T_in=true,
-    m_flow=m1_flow_nominal,
+    m_flow=mEva_flow_nominal,
     T=298.15)
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(nPorts=1,
     redeclare package Medium = Medium2,
     use_T_in=true,
-    m_flow=m2_flow_nominal,
+    m_flow=mCon_flow_nominal,
     T=291.15)
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
   Buildings.Fluid.Sources.FixedBoundary sin1(nPorts=1, redeclare package Medium
@@ -56,11 +49,11 @@ model Carnot "Test model for chiller based on Carnot efficiency"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-20})));
-  Modelica.Blocks.Sources.Ramp uCom(
-    height=-1,
+  Modelica.Blocks.Sources.Ramp TSet(
     duration=60,
-    offset=1,
-    startTime=1800) "Compressor control signal"
+    startTime=1800,
+    offset=273.15 + 5,
+    height=15) "Set point for leaving chilled water temperature"
     annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -71,11 +64,16 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     startTime=60) "Condensor inlet temperature"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
-    height=10,
     duration=60,
     startTime=900,
-    offset=273.15 + 15) "Evaporator inlet temperature"
+    offset=273.15 + 15,
+    height=5) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
+  replaceable
+    Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_589COP_Vanes
+    per constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
+    "Chiller performance data"
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
 equation
   connect(sou1.ports[1], chi.port_a1)    annotation (Line(
       points={{-40,16},{-5.55112e-16,16}},
@@ -101,11 +99,9 @@ equation
       points={{71,-30},{80,-30},{80,8},{62,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(uCom.y, chi.y) annotation (Line(
-      points={{-39,60},{-10,60},{-10,19},{-2,19}},
+  connect(TSet.y, chi.TSet) annotation (Line(
+      points={{-39,60},{-10,60},{-10,10},{-2,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Commands(file=
-          "Carnot.mos" "run"));
-end Carnot;
+
+end PartialElectric;

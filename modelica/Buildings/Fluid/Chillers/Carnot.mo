@@ -51,16 +51,16 @@ model Carnot
 
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
+    annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
   Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
     "Condenser heat flow rate"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
     "Evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
+    annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}},
           rotation=0)));
@@ -83,7 +83,7 @@ initial equation
     etaCar = COP_nominal / (TEva_nominal/(TCon_nominal-TEva_nominal));
   end if;
   assert(abs(Buildings.Utilities.Math.Functions.polynomial(
-                                                     a=a, x=y)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
+         a=a, x=y)-1) < 0.01, "Efficiency curve is wrong. Need etaPL(y=1)=1.");
   assert(etaCar > 0.1, "Parameters lead to etaCar < 0.1. Check parameters.");
   assert(etaCar < 1,   "Parameters lead to etaCar > 1. Check parameters.");
 equation
@@ -111,25 +111,25 @@ equation
   etaPL  = Buildings.Utilities.Math.Functions.polynomial(
                                                    a=a, x=y);
   P = y * P_nominal;
-  COPCar = TEva / max(1, abs(TCon-TEva));
+  COPCar = TEva / Buildings.Utilities.Math.Functions.smoothMax(x1=1, x2=TCon-TEva, deltaX=0.25);
   COP = etaCar * COPCar * etaPL;
   -QEva_flow = COP * P;
   0 = P + QEva_flow + QCon_flow;
 
   connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
-      points={{-59,-40},{-39,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(
       points={{-59,40},{-39,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(preHeaFloEva.port, vol1.heatPort) annotation (Line(
+  connect(preHeaFloCon.port, vol1.heatPort) annotation (Line(
       points={{-19,40},{-10,40},{-10,60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(preHeaFloCon.port, vol2.heatPort) annotation (Line(
-      points={{-19,-40},{30,-40},{30,-60},{12,-60}},
+  connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(
+      points={{-59,-40},{-39,-40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preHeaFloEva.port, vol2.heatPort) annotation (Line(
+      points={{-19,-40},{12,-40},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -254,6 +254,10 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 </html>",
 revisions="<html>
 <ul>
+<li>
+Sep. 8, 2010 by Michael Wetter:<br>
+Fixed bug in energy balance.
+</li>
 <li>
 March 3, 2009 by Michael Wetter:<br>
 First implementation.
