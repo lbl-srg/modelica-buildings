@@ -56,7 +56,7 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
     p(start=p_start, nominal=Medium.p_default),
     h(start=h_start),
     T(start=T_start, nominal=Medium.T_default),
-    Xi(start=X_start[1:Medium.nXi], nominal=Medium.X_default))
+    Xi(start=X_start[1:Medium.nXi], nominal=Medium.X_default[1:Medium.nXi]))
     "Medium properties";
 
   Modelica.SIunits.Energy U "Internal energy of fluid";
@@ -186,6 +186,9 @@ a differential equation, while modeling the total mass balance as a steady-state
 equation.
 </html>", revisions="<html>
 <ul>
+<li>
+September 28, 2010 by Michael Wetter:<br>
+Changed array index for nominal value of <code>Xi</code>.
 <li>
 September 13, 2010 by Michael Wetter:<br>
 Set nominal attributes for medium based on default medium values.
