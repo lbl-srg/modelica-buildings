@@ -18,7 +18,7 @@ model TemperatureWetBulb "Ideal wet bulb temperature sensor"
     "For bi-directional flow, specific enthalpy is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
     annotation(Dialog(tab="Advanced"));
 protected
-  Buildings.Utilities.Psychrometrics.Twb_TdbXi wetBulMod(redeclare package
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulMod(redeclare package
       Medium = Medium) "Block for wet bulb temperature";
   Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
   Medium.MassFraction Xi[Medium.nXi]
@@ -34,10 +34,10 @@ equation
     Xi = port_b.Xi_outflow;
   end if;
   // Compute wet bulb temperature
-  wetBulMod.Tdb = Medium.T_phX(port_a.p, h, cat(1,Xi,{1-sum(Xi)}));
+  wetBulMod.TDryBul = Medium.T_phX(port_a.p, h, cat(1,Xi,{1-sum(Xi)}));
   wetBulMod.Xi = Xi;
   wetBulMod.p  = port_a.p;
-  T = wetBulMod.Twb;
+  T = wetBulMod.TWetBul;
 annotation (
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),

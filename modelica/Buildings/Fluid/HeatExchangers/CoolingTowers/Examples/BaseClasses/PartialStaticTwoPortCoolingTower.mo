@@ -2,10 +2,7 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses;
 partial model PartialStaticTwoPortCoolingTower
  package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
 
-  parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.15
-    "Design air flow rate"
-      annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mAir0_flow = 1.64*1.2
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.15
     "Design air flow rate"
       annotation (Dialog(group="Nominal condition"));
 
@@ -14,7 +11,7 @@ partial model PartialStaticTwoPortCoolingTower
           rotation=0)));
   replaceable
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticTwoPortCoolingTower
-    tow(   redeclare package Medium = Medium_W, m_flow_nominal=mWat0_flow,
+    tow(   redeclare package Medium = Medium_W, m_flow_nominal=mWat_flow_nominal,
     dp_nominal=10) "Cooling tower"
     annotation (Placement(transformation(extent={{-18,-60},{2,-40}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_1(             T=283.15, redeclare

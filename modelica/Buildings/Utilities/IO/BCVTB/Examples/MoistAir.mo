@@ -43,7 +43,7 @@ model MoistAir
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     redeclare package Medium = Medium,
-    mWat0_flow=0.01*m_flow_nominal,
+    mWat_flow_nominal=0.01*m_flow_nominal,
     from_dp=false,
     allowFlowReversal=false,
     use_T_in=false) "Humidifier"

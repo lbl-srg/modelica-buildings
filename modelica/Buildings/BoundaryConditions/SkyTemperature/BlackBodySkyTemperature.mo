@@ -2,13 +2,13 @@ within Buildings.BoundaryConditions.SkyTemperature;
 block BlackBodySkyTemperature "Calculate black body sky temperature"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
-  parameter Integer calTSky=0 " 0: Use radHor; 1: Use TDry, TDew and nOpa";
-  Modelica.Blocks.Interfaces.RealInput TDry(
+  parameter Integer calTSky=0 " 0: Use radHor; 1: Use TDry, TDewPoi and nOpa";
+  Modelica.Blocks.Interfaces.RealInput TDryBul(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Dry bulb temperature at ground level"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput TDew(
+  Modelica.Blocks.Interfaces.RealInput TDewPoi(
     final quantity="ThermodynamicTemperature",
     final unit="K",
     displayUnit="degC") "Dew point temperature"
@@ -23,19 +23,16 @@ public
   Modelica.Blocks.Interfaces.RealInput radHor "Horizontal radiation"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
-  Real TK=-Modelica.Constants.T_zero;
-  Real TDewK;
-  Real eSky;
-  constant Real Sigma=5.6704e-8 "Stefan-Boltzmann constant";
-
+  Modelica.SIunits.Temperature TDewPoiK;
+  Real epsSky;
 algorithm
   if calTSky == 1 then
-    TBlaSky := (radHor/Sigma)^0.25;
+    TBlaSky := (radHor/Modelica.Constants.sigma)^0.25;
   else
-    TDewK := min(TDry, TDew);
-    eSky := (0.787 + 0.764*Modelica.Math.log(TDewK/TK))*(1 + 0.0224*nOpa -
+    TDewPoiK := min(TDryBul, TDewPoi);
+    epsSky := (0.787 + 0.764*Modelica.Math.log(-TDewPoiK/Modelica.Constants.T_zero))*(1 + 0.0224*nOpa -
       0.0035*(nOpa^2) + 0.00028*(nOpa^3));
-    TBlaSky := TDry*(eSky^0.25);
+    TBlaSky := TDryBul*(epsSky^0.25);
   end if;
   annotation (
     defaultComponentName="TBlaSky",
@@ -52,8 +49,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,100}}),
+                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(
@@ -71,7 +68,7 @@ First implementation.
         Text(
           extent={{-90,36},{-66,24}},
           lineColor={0,0,127},
-          textString="TDew"),
+          textString="TDewPoi"),
         Text(
           extent={{-92,-74},{-62,-88}},
           lineColor={0,0,127},

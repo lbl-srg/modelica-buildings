@@ -20,7 +20,7 @@ package Medium = Modelica.Media.Air.MoistAir;
     show_T=true,
     m_flow_nominal=1,
     T=283.15,
-    mWat0_flow=0.1) "Humidifier with backward flow"
+    mWat_flow_nominal=0.1) "Humidifier with backward flow"
     annotation (Placement(transformation(extent={{-32,-16},{-52,4}})));
   Buildings.Fluid.MassExchangers.HumidifierPrescribed humFor(
     redeclare package Medium = Medium,
@@ -29,7 +29,7 @@ package Medium = Modelica.Media.Air.MoistAir;
     show_T=true,
     m_flow_nominal=1,
     T=283.15,
-    mWat0_flow=0.1) "Humidifier with forward flow"
+    mWat_flow_nominal=0.1) "Humidifier with forward flow"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
   Modelica.Blocks.Sources.Constant u2(k=0.01) "Control input"
     annotation (Placement(transformation(extent={{-92,54},{-80,66}})));

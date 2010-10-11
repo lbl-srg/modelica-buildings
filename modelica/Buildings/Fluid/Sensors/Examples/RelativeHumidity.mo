@@ -18,7 +18,7 @@ model RelativeHumidity "Test model for relative humidity sensor"
     nPorts=1,
     use_m_flow_in=true)                  annotation (Placement(transformation(
           extent={{-30,10},{-10,30}}, rotation=0)));
-    Modelica.Blocks.Sources.Ramp TDB(
+    Modelica.Blocks.Sources.Ramp TDryBul(
     height=10,
     duration=1,
     offset=273.15 + 30) "Dry bulb temperature"
@@ -51,7 +51,7 @@ model RelativeHumidity "Test model for relative humidity sensor"
                  annotation (Placement(transformation(extent={{-80,40},{-60,60}},
           rotation=0)));
 equation
-  connect(TDB.y, massFlowRate.T_in) annotation (Line(points={{-79,24},{-60,24},
+  connect(TDryBul.y, massFlowRate.T_in) annotation (Line(points={{-79,24},{-60,24},
           {-32,24}},          color={0,0,127}));
   connect(const.y, feedback.u1) annotation (Line(points={{-79,-10},{-66,-10}},
         color={0,0,127}));

@@ -27,13 +27,8 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.TDew, TBlaSky.TDew) annotation (Line(
+  connect(weaBus.TDewPoi, TBlaSky.TDewPoi) annotation (Line(
       points={{10,10},{24,10},{24,13},{38,13}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(weaBus.TDryBul, TBlaSky.TDry) annotation (Line(
-      points={{10,10},{24,10},{24,18},{38,18}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -52,4 +47,9 @@ equation
     Diagram(graphics),
     Commands(file="BlackBodySkyTemperature.mos" "run"),
     Icon(graphics));
+  connect(weaBus.TDryBul, TBlaSky.TDryBul) annotation (Line(
+      points={{10,10},{24,10},{24,18},{38,18}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
 end BlackBodySkyTemperature;

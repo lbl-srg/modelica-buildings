@@ -1,10 +1,10 @@
 within Buildings.Utilities.Psychrometrics.Examples;
-model Twb_TdbXi
+model TWetBul_TDryBulXi
 
  package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model"
            annotation (choicesAllMatching = true);
 
-    Modelica.Blocks.Sources.Ramp TDB(
+    Modelica.Blocks.Sources.Ramp TDryBul(
     height=10,
     duration=1,
     offset=273.15 + 30) "Dry bulb temperature"
@@ -13,10 +13,10 @@ model Twb_TdbXi
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality(startTime=0,
       threShold=0.05)
     annotation (Placement(transformation(extent={{60,20},{80,40}}, rotation=0)));
-  Modelica.Blocks.Sources.Constant TWBExp(k=273.15 + 25)
+  Modelica.Blocks.Sources.Constant TWetBulExp(k=273.15 + 25)
     "Expected wet bulb temperature" annotation (Placement(transformation(extent=
            {{20,-20},{40,0}}, rotation=0)));
-  Buildings.Utilities.Psychrometrics.Twb_TdbXi wetBul(         redeclare
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(         redeclare
       package Medium = Medium) "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{0,20},{20,40}}, rotation=0)));
   Modelica.Blocks.Sources.Constant p(k=101325) "Pressure"
@@ -29,7 +29,7 @@ model Twb_TdbXi
                  annotation (Placement(transformation(extent={{-100,20},{-80,40}},
                    rotation=0)));
 equation
-  connect(TWBExp.y, assertEquality.u2)
+  connect(TWetBulExp.y, assertEquality.u2)
     annotation (Line(points={{41,-10},{48,-10},{48,24},{58,24}}, color={0,0,127}));
   connect(p.y, wetBul.p) annotation (Line(points={{-79,-10},{-40,-10},{-40,22},
           {-1,22}},                                                 color={0,0,
@@ -38,11 +38,11 @@ equation
       points={{-79,30},{-1,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TDB.y, wetBul.Tdb) annotation (Line(
+  connect(TDryBul.y, wetBul.TDryBul) annotation (Line(
       points={{-79,70},{-40,70},{-40,38},{-1,38}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(wetBul.Twb, assertEquality.u1) annotation (Line(
+  connect(wetBul.TWetBul, assertEquality.u1) annotation (Line(
       points={{21,30},{39.5,30},{39.5,36},{58,36}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -50,7 +50,7 @@ equation
             -100},{100,100}}),
                         graphics),
                          Commands(file=
-            "Twb_TdbXi.mos" "run"),
+            "TWetBul_TDryBulXi.mos" "run"),
     Documentation(info="<html>
 This examples is a unit test for the wet bulb computation.
 The problem setup is such that the moisture concentration and
@@ -68,4 +68,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Twb_TdbXi;
+end TWetBul_TDryBulXi;

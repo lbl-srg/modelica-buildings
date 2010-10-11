@@ -14,7 +14,7 @@ model DryBulbTemperature
     use_m_flow_in=true,
     nPorts=1)                            annotation (Placement(transformation(
           extent={{-36,-2},{-16,18}}, rotation=0)));
-    Modelica.Blocks.Sources.Ramp TDB(
+    Modelica.Blocks.Sources.Ramp TDryBul(
     height=10,
     duration=1,
     offset=273.15 + 30) "Dry bulb temperature"
@@ -56,7 +56,7 @@ model DryBulbTemperature
     T_start=293.15)
     annotation (Placement(transformation(extent={{30,-2},{50,18}})));
 equation
-  connect(TDB.y, masFloRat.T_in)    annotation (Line(points={{-79,30},{-60,30},
+  connect(TDryBul.y, masFloRat.T_in)    annotation (Line(points={{-79,30},{-60,30},
           {-60,12},{-38,12}}, color={0,0,127}));
   connect(const.y, feedback.u1) annotation (Line(points={{-79,-10},{-68,-10}},
         color={0,0,127}));

@@ -3,19 +3,19 @@ model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
   extends
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticTwoPortCoolingTower;
-  parameter Modelica.SIunits.Temperature TAirInWB0 = 273.15+25.55
+  parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15+25.55
     "Design inlet air wet bulb temperature"
       annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TApp0 = 3.89
-    "Design apprach temperature"
+  parameter Modelica.SIunits.TemperatureDifference TApp_nominal = 3.89
+    "Design approach temperature"
       annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TRan0 = 5.56
+  parameter Modelica.SIunits.TemperatureDifference TRan_nominal = 5.56
     "Design range temperature (water in - water out)"
       annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.15
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.15
     "Design water flow rate"
       annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Power PFan0 = 275 "Fan power"
+  parameter Modelica.SIunits.Power PFan_nominal = 275 "Fan power"
       annotation (Dialog(group="Nominal condition"));
   parameter Real fraFreCon(min=0, max=1) = 0.125
     "Fraction of tower capacity in free convection regime";
@@ -39,9 +39,9 @@ protected
     "Ratio actual over design water mass flow ratio at nominal condition";
   parameter Modelica.SIunits.Temperature TWatIn0(fixed=false)
     "Water inlet temperature at nominal condition";
-  parameter Modelica.SIunits.Temperature TWatOut0(fixed=false)
+  parameter Modelica.SIunits.Temperature TWatOut_nominal(fixed=false)
     "Water outlet temperature at nominal condition";
-  parameter Modelica.SIunits.MassFlowRate mWatRef_flow(min=0, start=mWat0_flow, fixed=false)
+  parameter Modelica.SIunits.MassFlowRate mWatRef_flow(min=0, start=mWat_flow_nominal, fixed=false)
     "Reference water flow rate";
 
   Modelica.SIunits.Temperature dTMax(nominal=1)
@@ -53,11 +53,11 @@ public
                                          annotation (Placement(transformation(
           extent={{-140,60},{-100,100}}, rotation=0)));
 initial equation
-  TWatOut0 = TAirInWB0 + TApp0;
-  TRan0 = TWatIn0 - TWatOut0; // by definition of the range temp.
-  TApp0 = Correlations.yorkCalc(TRan=TRan0, TWB=TAirInWB0,
+  TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
+  TRan_nominal = TWatIn0 - TWatOut_nominal; // by definition of the range temp.
+  TApp_nominal = Correlations.yorkCalc(TRan=TRan_nominal, TWetBul=TAirInWB_nominal,
                                 FRWat=FRWat0, FRAir=1); // this will be solved for FRWat0
-  mWatRef_flow = mWat0_flow/FRWat0;
+  mWatRef_flow = mWat_flow_nominal/FRWat0;
 equation
   // range temperature
   TRan = Medium.temperature(sta_a) - Medium.temperature(sta_b);
@@ -65,17 +65,17 @@ equation
   FRWat = m_flow/mWatRef_flow;
   FRAir = y;
 
-  TAppCor = Correlations.yorkCalc(TRan=TRan, TWB=TAir,
+  TAppCor = Correlations.yorkCalc(TRan=TRan, TWetBul=TAir,
                                   FRWat=FRWat, FRAir=max(FRWat/bou.liqGasRat_max, FRAir));
   dTMax = TWatIn_degC - TAirIn_degC;
   TAppFreCon = (1-fraFreCon) * ( TWatIn_degC-TAirIn_degC)  + fraFreCon *
-               Correlations.yorkCalc(TRan=TRan, TWB=TAir, FRWat=FRWat, FRAir=1);
+               Correlations.yorkCalc(TRan=TRan, TWetBul=TAir, FRWat=FRWat, FRAir=1);
 
   TApp = Buildings.Utilities.Math.Functions.spliceFunction(
                                                  pos=TAppCor, neg=TAppFreCon,
          x=y-yMin/2, deltax=yMin/2);
   TWatOut_degC = TApp + TAirIn_degC;
-  PFan = y^3 * PFan0;
+  PFan = y^3 * PFan_nominal;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Text(

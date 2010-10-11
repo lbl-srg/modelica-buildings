@@ -3,7 +3,7 @@ simulateModel("Buildings.BoundaryConditions.WeatherData.Examples.ReadWeatherData
 
 createPlot(id = 1,
  position = {7, 7, 746, 517},
- y = {"weaDat.weaBus.TDryBul", "weaDat.weaBus.TDew"},
+ y = {"weaDat.weaBus.TDryBul", "weaDat.weaBus.TDewPoi"},
  range = {0, 90000.0, 100000.0, -20000.0},
  autoscale = true,
  autoerase = true,

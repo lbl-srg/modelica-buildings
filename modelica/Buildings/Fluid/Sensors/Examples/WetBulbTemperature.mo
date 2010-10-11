@@ -25,7 +25,7 @@ model WetBulbTemperature
     use_X_in=true,
     nPorts=1)                            annotation (Placement(transformation(
           extent={{-30,10},{-10,30}}, rotation=0)));
-    Modelica.Blocks.Sources.Ramp TDB(
+    Modelica.Blocks.Sources.Ramp TDryBul(
     height=10,
     duration=1,
     offset=273.15 + 30) "Dry bulb temperature"
@@ -44,7 +44,7 @@ model WetBulbTemperature
           extent={{-68,-20},{-48,0}}, rotation=0)));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=0.05)
     annotation (Placement(transformation(extent={{30,60},{50,80}},   rotation=0)));
-  Modelica.Blocks.Sources.Constant TWBExp(k=273.15 + 25)
+  Modelica.Blocks.Sources.Constant TWetBulExp(k=273.15 + 25)
     "Expected wet bulb temperature" annotation (Placement(transformation(extent={{-8,66},
             {12,86}},           rotation=0)));
   inner Modelica.Fluid.System system
@@ -53,7 +53,7 @@ model WetBulbTemperature
                       redeclare package Medium = Medium) "Mass fraction"
     annotation (Placement(transformation(extent={{-50,50},{-30,70}})));
 equation
-  connect(TDB.y, massFlowRate.T_in) annotation (Line(points={{-79,50},{-60,50},
+  connect(TDryBul.y, massFlowRate.T_in) annotation (Line(points={{-79,50},{-60,50},
           {-60,24},{-32,24}}, color={0,0,127}));
   connect(const.y, feedback.u1) annotation (Line(points={{-79,-10},{-66,-10}},
         color={0,0,127}));
@@ -73,7 +73,7 @@ equation
       points={{20,20},{54,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TWBExp.y, assertEquality.u1) annotation (Line(
+  connect(TWetBulExp.y, assertEquality.u1) annotation (Line(
       points={{13,76},{28,76}},
       color={0,0,127},
       smooth=Smooth.None));

@@ -1,1 +1,0 @@
-simulateModel("Buildings.Utilities.Psychrometrics.Examples.Twb_TdbXi", method="dassl", resultFile="Twb_TdbXi");

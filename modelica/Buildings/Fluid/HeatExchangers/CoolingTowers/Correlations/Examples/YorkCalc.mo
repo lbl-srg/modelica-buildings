@@ -14,11 +14,11 @@ model YorkCalc "Example for yorkCalc correlation"
 equation
   x = 0.25+time;
   TApp_Wat=Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(TRan=TRan,
-                                                                    TWB=TAirInWB,
+                                                                    TWetBul=TAirInWB,
                                                                     FRWat=x,
                                                                     FRAir=1);
   TApp_Air=Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(TRan=TRan,
-                                                                    TWB=TAirInWB,
+                                                                    TWetBul=TAirInWB,
                                                                     FRWat=1,
                                                                     FRAir=x);
 

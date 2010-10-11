@@ -13,7 +13,7 @@ model HumidifierPrescribed
     annotation (Evaluate = true,
                 Dialog(enable = not use_T_in));
 
-  parameter Modelica.SIunits.MassFlowRate mWat0_flow
+  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal
     "Water mass flow rate at u=1, positive for humidification";
 
   Modelica.Blocks.Interfaces.RealInput T_in if use_T_in
@@ -35,7 +35,7 @@ equation
     T_in_internal = T;
   end if;
 
-  mWat_flow = u * mWat0_flow;
+  mWat_flow = u * mWat_flow_nominal;
   Q_flow = Medium.enthalpyOfLiquid(T_in_internal) * mWat_flow;
   for i in 1:Medium.nXi loop
      mXi_flow[i] = if ( i == Medium.Water) then  mWat_flow else 0;

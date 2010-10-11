@@ -3,13 +3,13 @@ model HumidifierPrescribed
   import Buildings;
 
  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
- parameter Modelica.SIunits.MassFlowRate mWat0_flow = 0.001
+ parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.001
     "Nominal water mass flow rate";
   Buildings.Fluid.MassExchangers.HumidifierPrescribed hea1(redeclare package
       Medium =
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow,
+    mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true) "Heater and cooler"              annotation (Placement(
         transformation(extent={{-54,92},{-34,112}}, rotation=0)));
@@ -55,7 +55,7 @@ model HumidifierPrescribed
                                                  redeclare package Medium =
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow,
+    mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true) "Heater and cooler"              annotation (Placement(
         transformation(extent={{-12,134},{8,154}}, rotation=0)));
@@ -65,7 +65,7 @@ model HumidifierPrescribed
       Medium =
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow,
+    mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true) "Heater and cooler"              annotation (Placement(
         transformation(extent={{-54,12},{-34,32}}, rotation=0)));
@@ -85,7 +85,7 @@ model HumidifierPrescribed
                                                  redeclare package Medium =
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow,
+    mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true) "Heater and cooler"              annotation (Placement(
         transformation(extent={{-12,54},{8,74}}, rotation=0)));
@@ -139,7 +139,7 @@ model HumidifierPrescribed
       Medium =
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow,
+    mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true) "Heater and cooler"              annotation (Placement(
         transformation(extent={{-54,-110},{-34,-90}}, rotation=0)));
@@ -159,7 +159,7 @@ model HumidifierPrescribed
                                                  redeclare package Medium =
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow,
+    mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true) "Heater and cooler"              annotation (Placement(
         transformation(extent={{-12,-68},{8,-48}}, rotation=0)));
@@ -167,7 +167,7 @@ model HumidifierPrescribed
       Medium =
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow,
+    mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true) "Heater and cooler"              annotation (Placement(
         transformation(extent={{-54,-190},{-34,-170}}, rotation=0)));
@@ -187,7 +187,7 @@ model HumidifierPrescribed
                                                  redeclare package Medium =
         Medium,
     m_flow_nominal=0.5,
-    mWat0_flow=mWat0_flow,
+    mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
     show_T=true) "Heater and cooler"              annotation (Placement(
         transformation(extent={{-12,-148},{8,-128}}, rotation=0)));

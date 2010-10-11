@@ -4,7 +4,7 @@ function yorkCalc "Cooling tower performance correlation for YorkCalc model"
   input Modelica.SIunits.Temperature TRan
     "Range temperature (water in - water out)"
       annotation (Dialog(group="Nominal condition"));
-  input Modelica.SIunits.Temperature TWB "Air wet-bulb inlet temperature";
+  input Modelica.SIunits.Temperature TWetBul "Air wet-bulb inlet temperature";
   input Modelica.SIunits.MassFraction FRWat
     "Ratio actual over design water mass flow ratio";
   input Modelica.SIunits.MassFraction FRAir
@@ -13,7 +13,7 @@ function yorkCalc "Cooling tower performance correlation for YorkCalc model"
   output Modelica.SIunits.Temperature TApp "Approach temperature";
 
 protected
-  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TWB_degC
+  Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TWetBul_degC
     "Air wet-bulb inlet temperature";
   Modelica.SIunits.MassFraction liqGasRat "Liquid to gas mass flow ratio";
   constant Real c[:] = {-0.359741205, -0.055053608,  0.0023850432,
@@ -28,35 +28,35 @@ protected
     "Polynomial coefficients";
 
 algorithm
-  TWB_degC :=Modelica.SIunits.Conversions.to_degC(TWB);
+  TWetBul_degC :=Modelica.SIunits.Conversions.to_degC(TWetBul);
   liqGasRat := FRWat/FRAir;
   TApp := c[1] +
-       c[2] * TWB_degC +
-       c[3] * TWB_degC * TWB_degC +
+       c[2] * TWetBul_degC +
+       c[3] * TWetBul_degC * TWetBul_degC +
        c[4] * TRan +
-       c[5] * TWB_degC * TRan +
-       c[6] * TWB_degC * TWB_degC * TRan +
+       c[5] * TWetBul_degC * TRan +
+       c[6] * TWetBul_degC * TWetBul_degC * TRan +
        c[7] * TRan * TRan +
-       c[8] * TWB_degC * TRan * TRan +
-       c[9] * TWB_degC * TWB_degC * TRan * TRan +
+       c[8] * TWetBul_degC * TRan * TRan +
+       c[9] * TWetBul_degC * TWetBul_degC * TRan * TRan +
        c[10] * liqGasRat +
-       c[11] * TWB_degC * liqGasRat +
-       c[12] * TWB_degC * TWB_degC * liqGasRat +
+       c[11] * TWetBul_degC * liqGasRat +
+       c[12] * TWetBul_degC * TWetBul_degC * liqGasRat +
        c[13] * TRan * liqGasRat +
-       c[14] * TWB_degC * TRan * liqGasRat +
-       c[15] * TWB_degC * TWB_degC * TRan * liqGasRat +
+       c[14] * TWetBul_degC * TRan * liqGasRat +
+       c[15] * TWetBul_degC * TWetBul_degC * TRan * liqGasRat +
        c[16] * TRan * TRan * liqGasRat +
-       c[17] * TWB_degC * TRan * TRan * liqGasRat +
-       c[18] * TWB_degC * TWB_degC * TRan * TRan * liqGasRat +
+       c[17] * TWetBul_degC * TRan * TRan * liqGasRat +
+       c[18] * TWetBul_degC * TWetBul_degC * TRan * TRan * liqGasRat +
        c[19] * liqGasRat * liqGasRat +
-       c[20] * TWB_degC * liqGasRat * liqGasRat +
-       c[21] * TWB_degC * TWB_degC * liqGasRat * liqGasRat +
+       c[20] * TWetBul_degC * liqGasRat * liqGasRat +
+       c[21] * TWetBul_degC * TWetBul_degC * liqGasRat * liqGasRat +
        c[22] * TRan * liqGasRat * liqGasRat +
-       c[23] * TWB_degC * TRan * liqGasRat * liqGasRat +
-       c[24] * TWB_degC * TWB_degC * TRan * liqGasRat * liqGasRat +
+       c[23] * TWetBul_degC * TRan * liqGasRat * liqGasRat +
+       c[24] * TWetBul_degC * TWetBul_degC * TRan * liqGasRat * liqGasRat +
        c[25] * TRan * TRan * liqGasRat * liqGasRat +
-       c[26] * TWB_degC * TRan * TRan * liqGasRat * liqGasRat +
-       c[27] * TWB_degC * TWB_degC * TRan * TRan * liqGasRat * liqGasRat;
+       c[26] * TWetBul_degC * TRan * TRan * liqGasRat * liqGasRat +
+       c[27] * TWetBul_degC * TWetBul_degC * TRan * TRan * liqGasRat * liqGasRat;
   annotation (
     Documentation(info="<html>
 <p>

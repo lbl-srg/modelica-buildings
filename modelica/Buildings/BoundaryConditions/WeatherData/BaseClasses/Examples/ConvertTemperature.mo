@@ -7,7 +7,7 @@ public
     conTemDryBul "Convert unit for dry bulb temperature "
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTemperature
-    conTemDew "Convert unit for dew point temperature"
+    conTemDewPoi "Convert unit for dew point temperature"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
@@ -34,7 +34,7 @@ equation
       points={{1,10},{10,10},{10,30},{18,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(datRea.y[2], conTemDew.TemC) annotation (Line(
+  connect(datRea.y[2], conTemDewPoi.TemC) annotation (Line(
       points={{1,10},{10,10},{10,-10},{18,-10}},
       color={0,0,127},
       smooth=Smooth.None));

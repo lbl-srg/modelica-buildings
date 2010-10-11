@@ -1,12 +1,12 @@
 within Buildings.Utilities.Psychrometrics;
-block Twb_TdbXi "Model to compute the wet bulb temperature"
+block TWetBul_TDryBulXi "Model to compute the wet bulb temperature"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
                                                             annotation (
       choicesAllMatching = true);
 
-  Modelica.Blocks.Interfaces.RealInput Tdb(
+  Modelica.Blocks.Interfaces.RealInput TDryBul(
     start=303,
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -19,7 +19,7 @@ block Twb_TdbXi "Model to compute the wet bulb temperature"
     annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},
                                                                        rotation=
            0)));
-  Modelica.Blocks.Interfaces.RealOutput Twb(
+  Modelica.Blocks.Interfaces.RealOutput TWetBul(
     start=293,
     final quantity="ThermodynamicTemperature",
     final unit="K",
@@ -44,13 +44,13 @@ initial algorithm
 
 equation
   dryBul.p = p;
-  dryBul.T = Tdb;
+  dryBul.T = TDryBul;
   dryBul.Xi = Xi;
   wetBul.phi = 1;
   wetBul.p = dryBul.p;
   wetBul.h = dryBul.h + (wetBul.X[i_w] - dryBul.X[i_w])
          * Medium.enthalpyOfLiquid(dryBul.T);
-  Twb = wetBul.T;
+  TWetBul = wetBul.T;
 annotation (
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),
@@ -88,7 +88,7 @@ annotation (
         Text(
           extent={{-92,100},{-62,56}},
           lineColor={0,0,127},
-          textString="Tdb"),
+          textString="TDryBul"),
         Text(
           extent={{-90,8},{-72,-10}},
           lineColor={0,0,127},
@@ -100,7 +100,7 @@ annotation (
         Text(
           extent={{62,22},{92,-22}},
           lineColor={0,0,127},
-          textString="Twb")}),
+          textString="TWetBul")}),
     Documentation(info="<HTML>
 <p>
 Given a moist are medium model, this component computes the states 
@@ -115,7 +115,7 @@ revisions="<html>
 <ul>
 <li>
 February 17, 2010 by Michael Wetter:<br>
-Renamed block from <code>WetBulbTemperature</code> to <code>Twb_TdbXi</code>
+Renamed block from <code>WetBulbTemperature</code> to <code>TWetBul_TDryBulXi</code>
 and changed obsolete real connectors to input and output connectors.
 </li>
 <li>
@@ -128,4 +128,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Twb_TdbXi;
+end TWetBul_TDryBulXi;
