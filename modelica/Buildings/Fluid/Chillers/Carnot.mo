@@ -108,13 +108,12 @@ equation
     TEva = 0.5 * (Medium2.temperature(sta_a2)+Medium2.temperature(sta_b2));
   end if;
 
-  etaPL  = Buildings.Utilities.Math.Functions.polynomial(
-                                                   a=a, x=y);
+  etaPL  = Buildings.Utilities.Math.Functions.polynomial(a=a, x=y);
   P = y * P_nominal;
   COPCar = TEva / Buildings.Utilities.Math.Functions.smoothMax(x1=1, x2=TCon-TEva, deltaX=0.25);
   COP = etaCar * COPCar * etaPL;
   -QEva_flow = COP * P;
-  0 = P + QEva_flow + QCon_flow;
+  QCon_flow = P - QEva_flow;
 
   connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
       points={{-59,40},{-39,40}},
@@ -255,7 +254,7 @@ The chiller outlet temperatures are equal to the temperatures of these lumped vo
 revisions="<html>
 <ul>
 <li>
-Sep. 8, 2010 by Michael Wetter:<br>
+October 11, 2010 by Michael Wetter:<br>
 Fixed bug in energy balance.
 </li>
 <li>
