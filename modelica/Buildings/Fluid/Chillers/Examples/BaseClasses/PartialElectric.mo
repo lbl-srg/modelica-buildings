@@ -1,5 +1,6 @@
 within Buildings.Fluid.Chillers.Examples.BaseClasses;
-model PartialElectric "Base class for test model of chiller electric EIR"
+partial model PartialElectric
+  "Base class for test model of chiller electric EIR"
   import Buildings;
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
  package Medium2 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
@@ -17,13 +18,12 @@ model PartialElectric "Base class for test model of chiller electric EIR"
      per.mEva_flow_nominal "Nominal mass flow rate at condenser";
 
   replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectricSteadyState
-    chi                                                                           constrainedby
+    chi constrainedby
     Buildings.Fluid.Chillers.BaseClasses.PartialElectricSteadyState(
-        redeclare package Medium1 = Medium1,
+       redeclare package Medium1 = Medium1,
        redeclare package Medium2 = Medium2,
        dp1_nominal=6000,
-       dp2_nominal=6000,
-       per=per) "Chiller model"
+       dp2_nominal=6000) "Chiller model"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,
