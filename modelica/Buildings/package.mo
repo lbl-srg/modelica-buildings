@@ -27,7 +27,7 @@ The notation <code>z_xy</code> denotes that the function or block has output
 <code>z</code> and inputs <code>x</code> and <code>y</code>.
 </li>
 <li>
-The symbol <code>pW</code> denotes water vapor pressure, <code>Tdp</code> 
+The symbol <code>pW</code> denotes water vapor pressure, <code>TDewPoi</code> 
 denotes dew point temperature, <code>TWetBul</code> denotes wet bulb temperature,
 and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature.
 </li>

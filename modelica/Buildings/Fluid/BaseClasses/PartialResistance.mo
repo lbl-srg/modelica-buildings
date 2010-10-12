@@ -42,6 +42,15 @@ equation
     else
       dp=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
     end if;
+/* homotopy is not yet supported in Dymola 7.4 with Modelica 3.1
+    if from_dp then
+      m_flow=homotopy(actual=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized),
+                      simplified=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent, linearized=true));
+    else
+      dp=homotopy(actual=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized),
+                  simplified=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=true));
+    end if;
+*/
   else
     dp = 0;
   end if;

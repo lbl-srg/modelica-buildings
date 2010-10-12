@@ -1,12 +1,11 @@
 within Buildings.Utilities.Psychrometrics.Functions.BaseClasses;
-function der_Tdp_pW_amb "Derivative of function Tdp_pW_amb"
-  extends Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_Tdp_amb;
-
-  input Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
-  input Real dp_w "Differential of water vapor partial pressure";
-  output Real dT "Differential of dew point temperature";
+function der_pW_TDewPoi_amb "Derivative of function pW_TDewPoi_amb"
+  extends Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb;
+  input Modelica.SIunits.Temperature T "Dew point temperature";
+  input Real dT;
+  output Real dp_w "Differential of water vapor partial pressure";
 algorithm
-  dT := dp_w / a2 / p_w;
+  dp_w:=a2*Modelica.Math.exp(a1 + a2*T)*dT;
 
   annotation (
     Documentation(info="<html>
@@ -25,4 +24,4 @@ First implementation.
             100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics));
-end der_Tdp_pW_amb;
+end der_pW_TDewPoi_amb;

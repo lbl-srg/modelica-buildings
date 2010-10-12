@@ -1,6 +1,6 @@
-simulateModel("Buildings.Utilities.Psychrometrics.Functions.Examples.pW_Tdp_comparison", method="dassl", resultFile="pW_Tdp_comparison");
+simulateModel("Buildings.Utilities.Psychrometrics.Functions.Examples.pW_TDewPoi_comparison", method="dassl", resultFile="pW_TDewPoi_comparison");
 createPlot(id = 20,
- filename = "pW_Tdp_comparison.mat",
+ filename = "pW_TDewPoi_comparison.mat",
  position = {35, 9, 400, 376},
  y = {"p_w", "p_w_ashrae"},
  range = {0, 1, 0.06, 0},

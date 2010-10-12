@@ -1,5 +1,5 @@
 within Buildings.Utilities.Psychrometrics;
-block Tdp_pW
+block TDewPoi_pW
   "Model to compute the dew point temperature for given water vapor pressure of moist air"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   Modelica.Blocks.Interfaces.RealInput p_w "Water vapor partial pressure"
@@ -16,7 +16,7 @@ block Tdp_pW
           rotation=0)));
 
 equation
- p_w = Buildings.Utilities.Psychrometrics.Functions.pW_Tdp(T=T);
+ p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);
     annotation (
     Documentation(info="<html>
 <p>
@@ -99,4 +99,4 @@ First implementation.
         Line(points={{68,32},{22,32}}, color={175,175,175})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics));
-end Tdp_pW;
+end TDewPoi_pW;

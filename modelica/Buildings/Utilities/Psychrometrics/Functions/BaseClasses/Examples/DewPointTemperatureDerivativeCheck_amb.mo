@@ -8,7 +8,7 @@ model DewPointTemperatureDerivativeCheck_amb
 initial equation
   y = x;
 equation
-  x = Buildings.Utilities.Psychrometrics.Functions.pW_Tdp_amb(T=time*uniCon);
+  x = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=time*uniCon);
   der(y) = der(x);
   assert(abs(x - y) < 1E-2, "Model has an error");
   annotation (

@@ -29,7 +29,7 @@ model MixingVolumeMoistAir
     "Conversion from humidity ratio to partial water vapor pressure"
     annotation (Placement(transformation(extent={{-20,-120},{0,-100}},rotation=
             0)));
-  Buildings.Utilities.Psychrometrics.Tdp_pW dewPoi "Dew point temperature"
+  Buildings.Utilities.Psychrometrics.TDewPoi_pW dewPoi "Dew point temperature"
                             annotation (Placement(transformation(extent={{12,-120},
             {32,-100}},rotation=0)));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heatFlowSensor

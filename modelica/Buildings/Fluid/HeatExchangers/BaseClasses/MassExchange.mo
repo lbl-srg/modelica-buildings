@@ -34,7 +34,7 @@ public
   Buildings.Utilities.Psychrometrics.X_pW humRatPre(              use_p_in=
         false) "Model to convert water vapor pressure into humidity ratio"
     annotation (Placement(transformation(extent={{0,0},{20,20}}, rotation=0)));
-  Buildings.Utilities.Psychrometrics.pW_Tdp TDewPoi
+  Buildings.Utilities.Psychrometrics.pW_TDewPoi TDewPoi
     "Model to compute the water vapor pressure at the dew point"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}}, rotation=0)));
   Modelica.Blocks.Math.Gain gain(k=1/cpLe)

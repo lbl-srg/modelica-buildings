@@ -1,16 +1,20 @@
 within Buildings.Utilities.Psychrometrics.Functions;
-function Tdp_pW
+function pW_TDewPoi
   "Function to compute the water vapor partial pressure for a given dew point temperature of moist air"
 
-  input Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
-  output Modelica.SIunits.Temperature T "Dew point temperature";
+  input Modelica.SIunits.Temperature T "Dew point temperature";
+  output Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
+protected
+  constant Real C8=-5.800226E3;
+  constant Real C9=1.3914993E0;
+  constant Real C10=-4.8640239E-2;
+  constant Real C11=4.1764768E-5;
+  constant Real C12=-1.4452093E-8;
+  constant Real C13=6.5459673E0;
 
 algorithm
-  T := Internal.solve(
-    y_zero=p_w,
-    x_min=200,
-    x_max=400,
-    f_nonlinear_data={0});
+  p_w := Modelica.Math.exp(C8/T + C9 + T*(C10 + T*(C11 + T*C12)) + C13*
+    Modelica.Math.log(T));
   annotation (
     Documentation(info="<html>
 <p>
@@ -27,7 +31,7 @@ temperatures.
 <ul>
 <li>
 February 17, 2010 by Michael Wetter:<br>
-Renamed function from <code>dewPointTemperature</code> to <code>pW_Tdp</code>.
+Renamed function from <code>dewPointTemperature</code> to <code>pW_TDewPoi</code>.
 </li>
 <li>
 February 6, 2010 by Michael Wetter:<br>
@@ -49,5 +53,6 @@ First implementation.
             100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
-    smoothOrder=1);
-end Tdp_pW;
+    smoothOrder=1,
+    derivative=BaseClasses.der_pW_TDewPoi);
+end pW_TDewPoi;

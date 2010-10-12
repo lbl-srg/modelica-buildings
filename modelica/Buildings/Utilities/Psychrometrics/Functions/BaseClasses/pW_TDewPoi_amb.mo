@@ -1,5 +1,5 @@
 within Buildings.Utilities.Psychrometrics.Functions.BaseClasses;
-partial function pW_Tdp_amb
+partial function pW_TDewPoi_amb
   "Partial function to compute the water vapor partial pressure for a given dew point temperature of moist air and its inverse"
 
 protected
@@ -31,4 +31,4 @@ First implementation.
             100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics));
-end pW_Tdp_amb;
+end pW_TDewPoi_amb;

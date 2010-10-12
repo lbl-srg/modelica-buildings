@@ -1,5 +1,5 @@
 within Buildings.Utilities.Psychrometrics;
-block pW_Tdp
+block pW_TDewPoi
   "Model to compute the water vapor pressure for a given dew point temperature of moist air"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   Modelica.Blocks.Interfaces.RealOutput p_w "Water vapor partial pressure"
@@ -14,7 +14,7 @@ block pW_Tdp
           rotation=0)));
 
 equation
- p_w = Buildings.Utilities.Psychrometrics.Functions.pW_Tdp(T=T);
+ p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);
     annotation (
     Documentation(info="<html>
 <p>
@@ -31,7 +31,7 @@ temperatures.
 <ul>
 <li>February 17, 2010 by Michael Wetter:<br>
 Renamed block from <code>DewPointTemperature_pWat</code>
-to <code>pW_Tdp</code>.
+to <code>pW_TDewPoi</code>.
 </li>
 <li>
 September 4, 2008 by Michael Wetter:<br>
@@ -101,4 +101,4 @@ First implementation.
         Line(points={{68,32},{22,32}}, color={175,175,175})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics));
-end pW_Tdp;
+end pW_TDewPoi;

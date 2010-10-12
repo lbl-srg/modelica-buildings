@@ -48,7 +48,7 @@ algorithm
 
     T :=T_dp - dT;
     // New trial value
-    XW_dp :=psy.X_pW(psy.pW_Tdp(T));
+    XW_dp :=psy.X_pW(psy.pW_TDewPoi(T));
     m :=(XW_in - XW_dp)/(TAir_in - T);
     if (m < m_nominal) then // T is above dew point
        T_dp :=T; // Accept T as new approximation to solution

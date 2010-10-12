@@ -2,7 +2,7 @@ within Buildings.Utilities.Psychrometrics.Examples;
 model DewPointTemperature "Unit test for dew point temperature calculation"
    package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model"
            annotation (choicesAllMatching = true);
-  Buildings.Utilities.Psychrometrics.pW_Tdp watVapPre
+  Buildings.Utilities.Psychrometrics.pW_TDewPoi watVapPre
     annotation (Placement(transformation(extent={{40,0},{60,20}},    rotation=0)));
     Modelica.Blocks.Sources.Ramp XHum(
     duration=1,
@@ -13,7 +13,7 @@ model DewPointTemperature "Unit test for dew point temperature calculation"
   Buildings.Utilities.Psychrometrics.pW_X humRat(
                          use_p_in=false)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.Utilities.Psychrometrics.Tdp_pW TDewPoi
+  Buildings.Utilities.Psychrometrics.TDewPoi_pW TDewPoi
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
 equation
   connect(XHum.y, humRat.X_w) annotation (Line(
