@@ -43,13 +43,13 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
 
-  annotation (
-    Diagram(graphics),
-    Commands(file="BlackBodySkyTemperature.mos" "run"),
-    Icon(graphics));
   connect(weaBus.TDryBul, TBlaSky.TDryBul) annotation (Line(
       points={{10,10},{24,10},{24,18},{38,18}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
+  annotation (
+    Diagram(graphics),
+    Commands(file="BlackBodySkyTemperature.mos" "run"),
+    Icon(graphics));
 end BlackBodySkyTemperature;
