@@ -1,58 +1,21 @@
 within Buildings.Fluid;
 package Sensors "Package with sensor models"
-
-
 annotation (preferedView="info",
-  __Dymola_classOrder={
-"Density",
-"DensityTwoPort",
-"EnthalpyFlowRate",
-"LatentEnthalpyFlowRate",
-"MassFlowRate",
-"MassFraction",
-"Pressure",
-"RelativePressure",
-"RelativeTemperature",
-"SensibleEnthalpyFlowRate",
-"SpecificEnthalpy",
-"SpecificEnthalpyTwoPort",
-"SpecificEntropy",
-"SpecificEntropyTwoPort",
-"Temperature",
-"TemperatureDryBulbDynamic",
-"TemperatureTwoPort",
-"TemperatureWetBulb",
-"TraceSubstances",
-"TraceSubstancesTwoPort",
-"VolumeFlowRate",
-"Conversions",
-"Examples"},                       Documentation(info="<html>
+Documentation(info="<html>
 <p align = justify>
-Package <b>Sensors</b> consists of idealized sensor components that
+Package <code>Sensors</code> consists of idealized sensor components that
 provide variables of a medium model and/or fluid ports as
 output signals. These signals can be, e.g., further processed
-with components of the Modelica.Blocks library.
+with components of the 
+<a href=\"modelica://Modelica.Blocks\">
+Modelica.Blocks</a> 
+library.
 Also more realistic sensor models can be built, by further
-processing (e.g., by attaching block Modelica.Blocks.FirstOrder to
+processing (e.g., by attaching block 
+<a href=\"modelica://Modelica.Blocks.Continuous.FirstOrder\">
+Modelica.Blocks.Continuous.FirstOrder</a> to
 model the time constant of the sensor).
- 
 </p>
- 
-<p align = justify>For the thermodynamic state variables temperature, specific entalpy, specific entropy and density 
-the fluid library provides two different types of sensors: <b>regular one port</b> and <b>two port</b> sensors. </p>
- 
-<ul>
-<li>
-The <b>regular one port</b> sensors have the advantage of easy introduction and removal from a model, as no connections have to be broken. 
-A potential drawback is that the obtained value jumps as flow reverts.
-<a href= \"Modelica.Fluid.Test.TestComponents.Sensors.TestTemperatureSensor\">Modelica.Fluid.Test.TestComponents.Sensors.TestTemperatureSensor </a> provides a test case, 
-which demonstrates this.</li> 
- 
-<li> The <b>two port</b> sensors offer the advantages of an adjustable regularized step function around zero flow.
-Moreover the obtained result is restricted to the value flowing into port_a if allowFlowReversal is false.</li>
-</ul>
- 
- 
 </html>",
       revisions="<html>
 <ul>
