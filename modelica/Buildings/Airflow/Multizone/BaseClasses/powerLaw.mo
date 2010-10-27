@@ -40,7 +40,7 @@ algorithm
   elseif (dp <= -dp_turbulent) then
     V_flow :=-k*(-dp)^m;
  else
-   // The test below avoid computing 0^(-0.5) in
+   // The test below avoids computing 0^(-0.5) in
    // Buildings.Airflow.Multizone.BaseClasses.powerLaw:derf,
    // which causes the following error:
    // Model error - power: (abs(dp)) ** (m-1) = (0) ** (-0.5)
