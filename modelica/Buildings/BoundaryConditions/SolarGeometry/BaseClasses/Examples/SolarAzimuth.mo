@@ -41,7 +41,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(decAng.decAng, zenAng.decAng) annotation (Line(
-      points={{-39,50},{8,50},{8,55.4},{57.8,55.4}},
+      points={{-39,50},{8,50},{8,55.4},{58,55.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solHouAng.solHouAng, zenAng.solHouAng) annotation (Line(
@@ -58,6 +58,10 @@ equation
       smooth=Smooth.None));
   connect(simTim.y, locTim.cloTim) annotation (Line(
       points={{-79,10},{-70,10},{-70,-30},{-62,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(decAng.decAng, solAzi.decAng) annotation (Line(
+      points={{-39,50},{8,50},{8,20},{98,20}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

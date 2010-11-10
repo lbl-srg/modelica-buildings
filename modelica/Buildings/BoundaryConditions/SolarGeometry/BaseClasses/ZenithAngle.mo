@@ -16,9 +16,9 @@ public
     displayUnit="deg") "Zenith angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
-  zenAng = Modelica.Math.cosh(cos(lat)*Modelica.Math.cos(decAng)*
-    Modelica.Math.cos(solHouAng) + Modelica.Math.sin(decAng)*Modelica.Math.sin(
-    solHouAng));
+  Modelica.Math.cos(zenAng) =  Modelica.Math.cos(lat)*Modelica.Math.cos(decAng)*
+    Modelica.Math.cos(solHouAng) + Modelica.Math.sin(lat)*Modelica.Math.sin(
+    decAng) "(A4.8)";
   annotation (
     defaultComponentName="zenAng",
     Documentation(info="<HTML>

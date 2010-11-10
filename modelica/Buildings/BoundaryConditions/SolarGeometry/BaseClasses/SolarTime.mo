@@ -13,8 +13,15 @@ public
     final unit="s",
     displayUnit="s") "Solar time"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-equation
-  solTim = locTim + equTim;
+algorithm
+  solTim := locTim + equTim "Our unit is s in stead of h in (A.4.3)";
+
+  if solTim > 86400 then
+    solTim := solTim - 86400;
+  elseif  solTim < 0 then
+    solTim := solTim + 86400;
+  end if "Limit 0 <= solTim <= 86400";
+
   annotation (
     defaultComponentName="solTim",
     Documentation(info="<HTML>

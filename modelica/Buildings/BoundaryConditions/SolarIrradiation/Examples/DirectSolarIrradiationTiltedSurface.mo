@@ -5,16 +5,16 @@ model DirectSolarIrradiationTiltedSurface
   parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
 
   Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "/media/data/proj/ldrd/branches/wzuo/work/bie/modelica/Buildings/Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (Placement(
-        transformation(extent={{1,-1},{21,21}}), iconTransformation(extent={{20,
-            20},{21,21}})));
+  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (
+      Placement(transformation(extent={{1,-1},{21,21}}), iconTransformation(
+          extent={{20,20},{21,21}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectSolarIrradiationTiltedSurface
     HDirTil(
-    lat=0.6457718232379,
-    aziAng=0.78539816339745,
-    tilAng=1.5707963267949)
+    tilAng=1.5707963267949,
+    lat=0.72483523835325,
+    aziAng=0.78539816339745)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));

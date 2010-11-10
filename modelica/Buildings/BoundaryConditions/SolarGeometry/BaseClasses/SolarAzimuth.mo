@@ -14,16 +14,25 @@ public
     final unit="rad",
     displayUnit="deg") "Solar Azimuth"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-equation
+  Modelica.Blocks.Interfaces.RealInput decAng(quantity="Angle", unit="rad")
+    "Decline angle"
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+
+protected
+Real arg;
+Real tmp;
+
+algorithm
+  tmp :=(Modelica.Math.sin(lat)*Modelica.Math.cos(zenAng) - Modelica.Math.sin(
+    decAng))/(Modelica.Math.cos(lat)*Modelica.Math.sin(zenAng));
+
+  arg :=min(1.0, max(-1.0, tmp));
+
   if solTim < 43200 then
-    solAzi = -Modelica.Math.cosh((Modelica.Math.cos(lat)*Modelica.Math.cos(
-      zenAng) - Modelica.Math.sin(lat))/(Modelica.Math.cos(lat)*
-      Modelica.Math.sin(zenAng)));
+    solAzi :=-Modelica.Math.acos(arg);
   else
-    solAzi = Modelica.Math.cosh((Modelica.Math.cos(lat)*Modelica.Math.cos(
-      zenAng) - Modelica.Math.sin(lat))/(Modelica.Math.cos(lat)*
-      Modelica.Math.sin(zenAng)));
-  end if;
+    solAzi := Modelica.Math.acos(arg);
+  end if "(A4.9a and b)";
   annotation (
     defaultComponentName="solAzi",
     Documentation(info="<HTML>
@@ -39,21 +48,25 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,100}}),
+                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255}),
         Text(
-          extent={{-98,68},{-56,58}},
+          extent={{-100,68},{-58,58}},
           lineColor={0,0,127},
           textString="zenAng"),
         Text(
           extent={{-102,-54},{-60,-64}},
           lineColor={0,0,127},
-          textString="solTim")}),
+          textString="solTim"),
+        Text(
+          extent={{-102,6},{-60,-4}},
+          lineColor={0,0,127},
+          textString="decAng")}),
     Icon(graphics),
     Diagram(graphics));
 end SolarAzimuth;

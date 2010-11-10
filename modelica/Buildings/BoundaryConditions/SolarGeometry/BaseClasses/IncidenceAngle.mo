@@ -6,7 +6,7 @@ public
   parameter Modelica.SIunits.Angle aziAng(displayUnit="degree")
     "Surface azimuth. aziAng=-90 degree if surface outward unit normal points toward east; aziAng=0 if it points toward south";
   parameter Modelica.SIunits.Angle tilAng(displayUnit="degree")
-    "Surface tilt. tilAng=90 degree for walls; tilAng=0 for ceilings";
+    "Surface tilt. tilAng=90 degree for walls; tilAng=0 for ceilings; tilAng=180 for roof";
   Modelica.Blocks.Interfaces.RealInput solHouAng(quantity="Angle", unit="rad")
     "Solar hour angle"
     annotation (Placement(transformation(extent={{-140,-68},{-100,-28}})));
@@ -26,9 +26,10 @@ protected
   Real lat_c=Modelica.Math.cos(lat);
   Real lat_s=Modelica.Math.sin(lat);
 equation
-  incAng = Modelica.Math.cosh(Modelica.Math.cos(tilAng)*(dec_c*sol_c*lat_c +
+  Modelica.Math.cos(incAng) = Modelica.Math.cos(tilAng)*(dec_c*sol_c*lat_c +
     dec_s*lat_s) + Modelica.Math.sin(tilAng)*(Modelica.Math.sin(aziAng)*dec_c*
-    sol_s + Modelica.Math.cos(aziAng)*(dec_c*sol_c*lat_s - dec_s*lat_c)));
+    sol_s + Modelica.Math.cos(aziAng)*(dec_c*sol_c*lat_s - dec_s*lat_c))
+    "(A.4.13)";
   annotation (
     defaultComponentName="incAng",
     Documentation(info="<HTML>

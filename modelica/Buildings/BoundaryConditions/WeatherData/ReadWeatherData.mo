@@ -40,9 +40,12 @@ protected
     cheGloHorRad "Check global horizontal radiation"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
-    cheDifHorRad "CHeck diffuse horizontal radiation"
+    cheDifHorRad "Check diffuse horizontal radiation"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
+    cheDirNorRad "Check direct normal radiation"
+    annotation (Placement(transformation(extent={{2,0},{22,20}})));
 equation
   connect(cloTim, timCon.simTim) annotation (Line(
       points={{-120,1.11022e-15},{-90,1.11022e-15},{-90,-10},{-82,-10}},
@@ -152,12 +155,23 @@ equation
       extent={{6,3},{6,3}}));
 
   connect(cloTim, weaBus.cloTim) annotation (Line(
-      points={{-120,1.11022e-15},{-90,1.11022e-15},{-90,10},{80,10},{80,
-          5.55112e-16},{100,5.55112e-16}},
+      points={{-120,1.11022e-15},{-90,1.11022e-15},{-90,24},{-16,24},{-16,-4},{
+          80,-4},{80,0},{100,0},{100,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[7], weaBus.radHor) annotation (Line(
-      points={{-19,-10},{38,-10},{38,5.55112e-16},{100,5.55112e-16}},
+      points={{-19,-10},{80,-10},{80,5.55112e-16},{100,5.55112e-16}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(datRea.y[9], cheDirNorRad.HIn) annotation (Line(
+      points={{-19,-10},{-10,-10},{-10,10},{-6.66134e-16,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(cheDirNorRad.HOut, weaBus.HDirNor) annotation (Line(
+      points={{23,10},{80,10},{80,5.55112e-16},{100,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",

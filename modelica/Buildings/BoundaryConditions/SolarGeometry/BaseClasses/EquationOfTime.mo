@@ -13,9 +13,10 @@ public
 protected
   Real Bt;
 equation
-  Bt = Modelica.Constants.pi*((nDay + 86400)/86400 - 81)/182;
+  Bt = Modelica.Constants.pi*((nDay + 86400)/86400 - 81)/182
+    "Our unit is s instead of day in (A.4.2b)";
   eqnTim = 60*(9.87*Modelica.Math.sin(2*Bt) - 7.53*Modelica.Math.cos(Bt) - 1.5*
-    Modelica.Math.sin(Bt));
+    Modelica.Math.sin(Bt)) "Our unit is s instead of min in (A.4.2a)";
   annotation (
     defaultComponentName="eqnTim",
     Documentation(info="<HTML>

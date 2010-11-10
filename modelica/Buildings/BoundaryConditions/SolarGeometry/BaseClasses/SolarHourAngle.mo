@@ -11,7 +11,8 @@ public
     displayUnit="deg") "Solar hour angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
-  solHouAng = (solTim/3600 - 12)*2*Modelica.Constants.pi/24;
+  solHouAng = (solTim/3600 - 12)*2*Modelica.Constants.pi/24
+    "Our unit is s instead of h in (A4.6)";
   annotation (
     defaultComponentName="solHouAng",
     Documentation(info="<HTML>
