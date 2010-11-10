@@ -11,12 +11,13 @@ model Carnot "Test model for chiller based on Carnot efficiency"
   parameter Modelica.SIunits.TemperatureDifference dTCon_nominal=10
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal = 3 "Chiller COP";
-  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
-     P_nominal*(COPc_nominal+1)/dTEva_nominal/4200
-    "Nominal mass flow rate at evaporator";
+
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal=
-     m1_flow_nominal*COPc_nominal/(COPc_nominal+1)
-    "Nominal mass flow rate at condenser";
+     P_nominal*COPc_nominal/dTEva_nominal/4200
+    "Nominal mass flow rate at chilled water side";
+  parameter Modelica.SIunits.MassFlowRate m1_flow_nominal=
+    m2_flow_nominal*(COPc_nominal+1)/COPc_nominal
+    "Nominal mass flow rate at condenser water wide";
 
   Buildings.Fluid.Chillers.Carnot chi(
     redeclare package Medium1 = Medium1,

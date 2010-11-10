@@ -13,9 +13,9 @@ partial model PartialElectric
     "Temperature difference condenser outlet-inlet";
   parameter Real COPc_nominal = 3 "Chiller COP";
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal=
-     per.mCon_flow_nominal "Nominal mass flow rate at evaporator";
+     per.mEva_flow_nominal "Nominal mass flow rate at evaporator";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
-     per.mEva_flow_nominal "Nominal mass flow rate at condenser";
+     per.mCon_flow_nominal "Nominal mass flow rate at condenser";
 
   replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectricSteadyState
     chi constrainedby
@@ -69,11 +69,10 @@ partial model PartialElectric
     offset=273.15 + 15,
     height=5) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
-  replaceable
-    Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_589COP_Vanes
-    per constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
-    "Chiller performance data"
-    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+  replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller per
+  constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
+    "Base class for performance data"
+    annotation (Placement(transformation(extent={{60,80},{80,100}})));
 equation
   connect(sou1.ports[1], chi.port_a1)    annotation (Line(
       points={{-40,16},{-5.55112e-16,16}},
