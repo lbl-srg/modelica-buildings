@@ -43,6 +43,20 @@ and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature
   annotation (Documentation(info="<html>
 <ul>
 <li>
+In package
+<a href=\"modelica://Buildings.Fluid.Chillers\">
+Buildings.Fluid.Chillers</a>, added the chiller models
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricReformulatedEIR\">
+Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>
+and
+<a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
+Buildings.Fluid.Chillers.ElectricEIR</a>, and added
+the package 
+<a href=\"modelica://Buildings.Fluid.Chillers.Data\">
+Buildings.Fluid.Chillers.Data</a>
+that contains data sets of chiller performance data.
+</li>
+<li>
 Added package 
 <a href=\"modelica://Buildings.BoundaryConditions\">
 Buildings.BoundaryConditions</a>
