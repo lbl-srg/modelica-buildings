@@ -45,7 +45,7 @@ protected
   Modelica.Blocks.Math.Gain gain(final k=-1) if not control_m_flow
     annotation (Placement(transformation(extent={{20,50},{0,70}})));
 initial equation
-  V_flow_max=m_flow_nominal/rho_nominal;
+  V_flow_max=m_flow_max/rho_nominal;
 equation
   etaHyd = hydraulicEfficiency(r_V=r_V);
   etaMot = motorEfficiency(r_V=r_V);
@@ -94,6 +94,10 @@ the head or the mass flow rate.
 </HTML>",
       revisions="<html>
 <ul>
+<li>
+November 11, 2010, by Michael Wetter:<br>
+Changed <code>V_flow_max=m_flow_nominal/rho_nominal;</code> to <code>V_flow_max=m_flow_max/rho_nominal;</code>
+</li>
 <li>
 July 27, 2010, by Michael Wetter:<br>
 Redesigned model to fix bug in medium balance.
