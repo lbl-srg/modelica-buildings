@@ -21,7 +21,7 @@ package BaseClasses "Base classes for package Data"
       "Nominal mass flow at evaporator"
       annotation (Dialog(group="Nominal condition"));
     parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
-      "Nominal mass flow at condensor"
+      "Nominal mass flow at condenser"
       annotation (Dialog(group="Nominal condition"));
     parameter Modelica.SIunits.Temperature TEvaLvg_nominal
       "Temperature of fluid leaving evaporator at nominal condition"

@@ -18,7 +18,7 @@ model ElectricEIR "Electric chiller based on the DOE-2.1 model"
   final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
     TConEnt_nominal_degC=
     Modelica.SIunits.Conversions.to_degC(per.TConEnt_nominal)
-    "Temperature of fluid entering condensor at nominal condition";
+    "Temperature of fluid entering condenser at nominal condition";
 
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TConEnt_degC
     "Temperature of fluid entering condenser";
@@ -133,14 +133,14 @@ the EnergyPlus chiller model <code>Chiller:Electric:EIR</code>.
 <ul>
 <li>
 A biquadratic function is used to predict cooling capacity as a function of
-condensor entering and evaporator leaving fluid temperature.
+condenser entering and evaporator leaving fluid temperature.
 </li>
 <li>
 A quadratic functions is used to predict power input to cooling capacity ratio with respect to the part load ratio.
 </li>
 <li>
 A biquadratic functions is used to predict power input to cooling capacity ratio as a function of
-condensor entering and evaporator leaving fluid temperature.
+condenser entering and evaporator leaving fluid temperature.
 </li>
 </ul>
 These curves are stored in the data record <code>per</code> and are available from
@@ -171,7 +171,7 @@ The test <pre>
   CR = min(PLR1/per.PRLMin, 1.0);
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
-that a chiller would run if it were to cycle because its load is smaller than the minimal load at which it can operature. Notice that this model does continuously operature even if the part load ratio is below the minimum part load ratio. Its leaving evaporator and condensor temperature can therefore be considered as an 
+that a chiller would run if it were to cycle because its load is smaller than the minimal load at which it can operature. Notice that this model does continuously operature even if the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature can therefore be considered as an 
 average temperature between the modes where the compressor is off and on.
 </li>
 <li>

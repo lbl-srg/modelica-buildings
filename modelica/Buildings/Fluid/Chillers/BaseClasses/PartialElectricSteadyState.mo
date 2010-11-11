@@ -50,7 +50,7 @@ protected
   parameter Modelica.SIunits.MassFlowRate mEva_flow_nominal
     "Nominal mass flow at evaporator";
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal
-    "Nominal mass flow at condensor";
+    "Nominal mass flow at condenser";
   parameter Modelica.SIunits.Temperature TEvaLvg_nominal
     "Temperature of fluid leaving evaporator at nominal condition";
 //  parameter Buildings.Fluid.Chillers.Data.ElectricEIRCurves.Generic cur
@@ -221,7 +221,7 @@ The test <pre>
   CR = min(PLR1/per.PRLMin, 1.0);
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
-that a chiller would run if it were to cycle because its load is smaller than the minimal load at which it can operature. Notice that this model does continuously operature even if the part load ratio is below the minimum part load ratio. Its leaving evaporator and condensor temperature can therefore be considered as an 
+that a chiller would run if it were to cycle because its load is smaller than the minimal load at which it can operature. Notice that this model does continuously operature even if the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature can therefore be considered as an 
 average temperature between the modes where the compressor is off and on.
 </li>
 <li>

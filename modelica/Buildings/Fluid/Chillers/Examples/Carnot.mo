@@ -69,7 +69,7 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     height=10,
     duration=60,
     offset=273.15 + 20,
-    startTime=60) "Condensor inlet temperature"
+    startTime=60) "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
     height=10,

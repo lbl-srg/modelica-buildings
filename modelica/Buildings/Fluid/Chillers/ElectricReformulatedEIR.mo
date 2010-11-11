@@ -19,7 +19,7 @@ model ElectricReformulatedEIR
   final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
     TConLvg_nominal_degC=
     Modelica.SIunits.Conversions.to_degC(per.TConLvg_nominal)
-    "Temperature of fluid leaving condensor at nominal condition";
+    "Temperature of fluid leaving condenser at nominal condition";
 
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TConLvg_degC
     "Temperature of fluid leaving condenser";
@@ -136,7 +136,7 @@ This empirical model is similar to
 <a href=\"Buildings.Fluid.Chillers.ElectricEIR\">
 Buildings.Fluid.Chillers.ElectricEIR</a>.
 The difference is that to compute the performance, this model
-uses the condensor leaving temperature instead of the entering temperature,
+uses the condenser leaving temperature instead of the entering temperature,
 and it uses a bicubic polynomial to compute the part load performance.
 
 </p>
@@ -144,15 +144,15 @@ and it uses a bicubic polynomial to compute the part load performance.
 <ul>
 <li>
 A biquadratic function is used to predict cooling capacity as a function of
-condensor leaving and evaporator leaving fluid temperature.
+condenser leaving and evaporator leaving fluid temperature.
 </li>
 <li>
 A bicubic function is used to predict power input to cooling capacity ratio 
-as a function of condensor leaving temperature and part load ratio.
+as a function of condenser leaving temperature and part load ratio.
 </li>
 <li>
 A biquadratic functions is used to predict power input to cooling capacity ratio as a function of
-condensor leaving and evaporator leaving fluid temperature.
+condenser leaving and evaporator leaving fluid temperature.
 </li>
 </ul>
 These curves are stored in the data record <code>per</code> and are available from
@@ -184,7 +184,7 @@ The test <pre>
   CR = min(PLR1/per.PRLMin, 1.0);
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
-that a chiller would run if it were to cycle because its load is smaller than the minimal load at which it can operature. Notice that this model does continuously operature even if the part load ratio is below the minimum part load ratio. Its leaving evaporator and condensor temperature can therefore be considered as an 
+that a chiller would run if it were to cycle because its load is smaller than the minimal load at which it can operature. Notice that this model does continuously operature even if the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature can therefore be considered as an 
 average temperature between the modes where the compressor is off and on.
 </li>
 <li>
