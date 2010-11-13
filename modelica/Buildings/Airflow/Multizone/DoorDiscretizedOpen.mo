@@ -14,15 +14,13 @@ Documentation(info="<html>
 This model describes the bi-directional air flow through an open door.
 <P>
 To compute the bi-directional flow, 
-the door is discretize along the height coordinate, and uses
-an orifice equation to compute the flow for each compartment.
+the door is discretize along the height coordinate. 
+An orifice equation is used to compute the flow for each compartment.
 <P>
 In this model, the door is always open.
 Use the model 
 <code>Buildings.Airflow.Multizone.DoorDiscretizedOperable</code>
-for a door that can either be open or closed, and the model
-<code>Buildings.Airflow.Multizone.Cracke</code> for a door
-that is always closed.
+for a door that can either be open or closed.
 </html>",
 revisions="<html>
 <ul>

@@ -70,8 +70,7 @@ This model describes the one-directional pressure driven
 air flow through a crack like opening.
 <P>
 The opening is modeled as an orifice. The orifice area
-is parameterized by processing the effective air leakage area
-and the discharge coefficient and pressure drop at a reference condition.
+is parameterized by processing the effective air leakage area, the discharge coefficient and pressure drop at a reference condition.
 The effective air leakage area can be obtained, for example,
 from the ASHRAE fundamentals (ASHRAE, 1997, p. 25.18). In
 the ASHRAE fundamentals, the effective air leakage area is
