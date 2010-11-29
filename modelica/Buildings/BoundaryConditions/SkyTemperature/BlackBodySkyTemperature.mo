@@ -4,23 +4,23 @@ block BlackBodySkyTemperature "Calculate black body sky temperature"
 public
   parameter Integer calTSky=0 " 0: Use radHor; 1: Use TDry, TDewPoi and nOpa";
   Modelica.Blocks.Interfaces.RealInput TDryBul(
-    final quantity="ThermodynamicTemperature",
+    final quantity="Temperature",
     final unit="K",
-    displayUnit="degC") "Dry bulb temperature at ground level"
+    displayUnit="degC") "Dry bulb temperature at ground level" 
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput TDewPoi(
-    final quantity="ThermodynamicTemperature",
+    final quantity="Temperature",
     final unit="K",
-    displayUnit="degC") "Dew point temperature"
+    displayUnit="degC") "Dew point temperature" 
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput nOpa "Opaque sky cover"
+  Modelica.Blocks.Interfaces.RealInput nOpa "Opaque sky cover" 
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealOutput TBlaSky(
-    final quantity="ThermodynamicTemperature",
+    final quantity="Temperature",
     displayUnit="degC",
-    final unit="K") "Black-body sky temperature"
+    final unit="K") "Black-body sky temperature" 
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput radHor "Horizontal radiation"
+  Modelica.Blocks.Interfaces.RealInput radHor "Horizontal radiation" 
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
   Modelica.SIunits.Temperature TDewPoiK;

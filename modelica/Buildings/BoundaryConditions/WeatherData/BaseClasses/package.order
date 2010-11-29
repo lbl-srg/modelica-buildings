@@ -1,5 +1,8 @@
+CheckCeilingHeight
 CheckPressure
 CheckSkyCover
+CheckWindDirection
+CheckWindSpeed
 ConvertRadiation
 ConvertRelativeHumidity
 ConvertTemperature

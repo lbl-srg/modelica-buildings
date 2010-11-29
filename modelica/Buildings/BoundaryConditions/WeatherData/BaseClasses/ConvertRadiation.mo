@@ -7,14 +7,17 @@ public
     "Input radiation (Wh/m2)"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput HOut(final quantity=
-        "RadiantEnergyFluenceRate", final unit="W/m2") "Output radiation"
+        "RadiantEnergyFluenceRate", final unit="W/m2") "Radiation"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
- constant Modelica.SIunits.HeatFlux HMin = 0.0001 "Minimum value for radiation";
+  constant Modelica.SIunits.HeatFlux HMin=0.0001 "Minimum value for radiation";
 equation
   // Modelica Table will interpolate data when it reads the weather data file.
   // It can generate negative value due to the interplotaion.
-  HOut = Buildings.Utilities.Math.Functions.smoothMax(x1=HIn,x2=HMin,deltaX=HMin/10);
+  HOut = Buildings.Utilities.Math.Functions.smoothMax(
+    x1=HIn,
+    x2=HMin,
+    deltaX=HMin/10);
   annotation (
     defaultComponentName="conRad",
     Documentation(info="<HTML>

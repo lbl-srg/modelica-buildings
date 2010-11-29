@@ -3,17 +3,17 @@ block ConvertRelativeHumidity
   "Converts the relative humidity from percentage to [0, 1] and constrains it to [0, 1]"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
-  Modelica.Blocks.Interfaces.RealInput relHumIn
+  Modelica.Blocks.Interfaces.RealInput relHumIn(unit="1")
     "Input relative humidity data in percentage"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput relHumOut
-    "Output relative humidity data in percentage"
+  Modelica.Blocks.Interfaces.RealOutput relHumOut(unit="1")
+    "Relative humidity in (0, 1)"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-  constant Real delta = 0.01 "Smoothing parameter";
+  constant Real delta=0.01 "Smoothing parameter";
 protected
-  constant Real relHumMin = delta "Lower bound";
-  constant Real relHumMax = 1-delta "Upper bound";
+  constant Real relHumMin=delta "Lower bound";
+  constant Real relHumMax=1 - delta "Upper bound";
 equation
   relHumOut = Buildings.Utilities.Math.Functions.smoothLimit(
     relHumIn/100,
@@ -40,7 +40,6 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
             100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Bitmap(
-          extent={{-56,52},{62,-42}},
-          fileName="modelica://Buildings/Images/Utilities/IO/WeatherData/BaseClasses/RelativeHumidity.png")}));
+            100}}), graphics={Bitmap(extent={{-56,52},{62,-42}}, fileName=
+              "modelica://Buildings/Images/Utilities/IO/WeatherData/BaseClasses/RelativeHumidity.png")}));
 end ConvertRelativeHumidity;

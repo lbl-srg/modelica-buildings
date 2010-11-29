@@ -10,16 +10,16 @@ public
       final unit="K") "Temperature in Kelvin"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
- constant Modelica.SIunits.Temperature TMin=273.15-70
+  constant Modelica.SIunits.Temperature TMin=273.15 - 70
     "Minimum allowed temperature";
- constant Modelica.SIunits.Temperature TMax=273.15+70
+  constant Modelica.SIunits.Temperature TMax=273.15 + 70
     "Maximum allowed temperature";
 equation
   TemK = TemC - Modelica.Constants.T_zero;
-  assert(TemK > TMin, "Temperature out of bounds.\n" +
-     "   TemK = " + realString(TemK));
-  assert(TemK < TMax, "Temperature out of bounds.\n" +
-     "   TemK = " + realString(TemK));
+  assert(TemK > TMin, "Temperature out of bounds.\n" + "   TemK = " +
+    realString(TemK));
+  assert(TemK < TMax, "Temperature out of bounds.\n" + "   TemK = " +
+    realString(TemK));
 
   annotation (
     defaultComponentName="conTem",
@@ -40,7 +40,8 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
             100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={           Text(
+            100}}), graphics={
+        Text(
           extent={{-24,100},{-104,20}},
           lineColor={0,0,0},
           textString="K"),
@@ -50,7 +51,7 @@ First implementation.
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid),
         Line(points={{-94,0},{26,0}}, color={0,0,255}),
-                           Text(
+        Text(
           extent={{96,-20},{16,-100}},
           lineColor={0,0,0},
           textString="°C")}));
