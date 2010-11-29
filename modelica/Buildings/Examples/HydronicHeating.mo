@@ -699,11 +699,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(simTim.y, weaDat.cloTim) annotation (Line(
-      points={{-39,360},{-22,360}},
+      points={{-39,360},{-21,360}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{5.55112e-16,360},{20,360}},
+      points={{-0.2,360},{20,360}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -745,7 +745,13 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{500,460}}), graphics),
-          Commands(file=
+Documentation(info="<html>
+<p>
+Important informaiton for Windows users:<p>
+A Radau solver and related compilers are needed to run this example. 
+For Microsoft Windows users, if you use Microsoft viusal C++ express 2010 as a compiler for Dymola window version 7.4, you will not be able to run this example.
+The reason is that Visual C++ Express is not officialy supported by Dymola 7.4 and they can not compile the Radau solver. You can solve the problem by using other compilers, such as Visual C++ 2008. 
+</html>"),Commands(file=
           "HydronicHeating.mos" "run"),
     experiment(
       StopTime=172800,
