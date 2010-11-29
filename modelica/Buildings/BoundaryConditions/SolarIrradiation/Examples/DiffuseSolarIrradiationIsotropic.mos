@@ -2,7 +2,7 @@ removePlots();
 simulateModel("Buildings.BoundaryConditions.SolarIrradiation.Examples.DiffuseSolarIrradiationIsotropic", startTime=0, stopTime=8640000, method="dassl", resultFile="DirectSolarIrradiationIsotropic");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
- y = {"HDifTilIso.HDifTil"},
+ y = {"HDifTilIso.y"},
  range = {0, 90000.0, 100000.0, -20000.0},
  autoscale = true,
  autoerase = true,

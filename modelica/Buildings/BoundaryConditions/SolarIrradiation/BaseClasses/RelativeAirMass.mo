@@ -9,9 +9,17 @@ public
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput relAirMas "Relative air mass"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+protected
+  Real zenAngLim;
+  Real zenAngDeg;
+
 equation
-  relAirMas = 1/(Modelica.Math.cos(zenAng)
-    + 0.15*(93.9 - zenAng*180/Modelica.Constants.pi)^(-1.253));
+  zenAngLim = Buildings.Utilities.Math.Functions.smoothMin(
+    zenAng, 
+    Modelica.Constants.pi/2, 
+    0.01);
+  zenAngDeg = zenAngLim*180/Modelica.Constants.pi;
+  relAirMas = 1/(Modelica.Math.cos(zenAngLim) + 0.15*(93.9 - zenAngDeg)^(-1.253));
   annotation (
     defaultComponentName="relAirMas",
     Documentation(info="<HTML>
