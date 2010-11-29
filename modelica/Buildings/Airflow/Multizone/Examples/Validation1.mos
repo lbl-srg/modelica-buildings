@@ -1,5 +1,5 @@
 translateModel("Buildings.Airflow.Multizone.Examples.Validation1");
-simulateModel("Buildings.Airflow.Multizone.Examples.Validation1", stopTime=3600,  method="radau",
+simulateModel("Buildings.Airflow.Multizone.Examples.Validation1", stopTime=3600, 
  tolerance=1E-4, resultFile="Validation1");
 
 createPlot(id = 1,

@@ -1,6 +1,6 @@
 translateModel("Buildings.Airflow.Multizone.Examples.Validation0");
 simulateModel("Buildings.Airflow.Multizone.Examples.Validation0", stopTime=1, 
- method="radau", tolerance=1E-4, resultFile="Validation0");
+ tolerance=1E-4, resultFile="Validation0");
 
 createPlot(id = 2,
  position = {35, 30, 825, 625},

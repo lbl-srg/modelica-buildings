@@ -1,6 +1,6 @@
 translateModel("Buildings.Airflow.Multizone.Examples.OneOpenDoor");
 simulateModel("Buildings.Airflow.Multizone.Examples.OneOpenDoor", stopTime=7200, 
-    method="radau", tolerance=1e-004, resultFile="OneOpenDoor");
+    tolerance=1e-004, resultFile="OneOpenDoor");
 
 removePlots();
 createPlot(id = 4,
