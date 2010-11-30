@@ -10,7 +10,7 @@ model MassExchange
   Modelica.Blocks.Interfaces.RealInput XInf "Water mass fraction of medium"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
           rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput TSur(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealInput TSur(final quantity="Temperature",
                                             final unit = "K", displayUnit = "degC", min=0)
     "Surface temperature"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}},
@@ -18,7 +18,7 @@ model MassExchange
   Modelica.Blocks.Interfaces.RealOutput mWat_flow(final unit = "kg/s")
     "Water flow rate"
     annotation (Placement(transformation(extent={{100,10},{120,30}}, rotation=0)));
-  Modelica.Blocks.Interfaces.RealOutput TLiq(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealOutput TLiq(final quantity="Temperature",
                                              final unit = "K", displayUnit = "degC", min=0)
     "Temperature at which condensate drains from system"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}}, rotation=
@@ -71,8 +71,8 @@ equation
           {110,20}}, color={0,0,127}));
   connect(zero.y,min. u1) annotation (Line(points={{1,-30},{10,-30},{10,-44},{
           18,-44}}, color={0,0,127}));
-  connect(delX.u2,XInf)  annotation (Line(points={{-42,-62},{-80,-62},{-80,0},{
-          -120,0}},                           color={0,0,127}));
+  connect(delX.u2,XInf)  annotation (Line(points={{-42,-62},{-80,-62},{-80,
+          1.11022e-15},{-120,1.11022e-15}},   color={0,0,127}));
   connect(humRatPre.X_w, delX.u1) annotation (Line(points={{21,10},{28,10},{28,
           -8},{-60,-8},{-60,-50},{-42,-50}},
                            color={0,0,255}));

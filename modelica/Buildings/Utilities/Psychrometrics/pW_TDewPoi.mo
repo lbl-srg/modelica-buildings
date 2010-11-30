@@ -5,7 +5,7 @@ block pW_TDewPoi
   Modelica.Blocks.Interfaces.RealOutput p_w "Water vapor partial pressure"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}, rotation=
             0)));
-  Modelica.Blocks.Interfaces.RealInput T(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealInput T(final quantity="Temperature",
                                          final unit="K",
                                          min = 0,
                                          displayUnit="degC")

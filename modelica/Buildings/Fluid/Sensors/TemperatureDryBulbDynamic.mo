@@ -3,7 +3,7 @@ model TemperatureDryBulbDynamic "Ideal temperature sensor"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 
   parameter Modelica.SIunits.Time tau(min=0) = 10 "Time constant";
-  Modelica.Blocks.Interfaces.RealOutput T( final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealOutput T( final quantity="Temperature",
                                            final unit="K",
                                            displayUnit = "degC",
                                            min = 0,

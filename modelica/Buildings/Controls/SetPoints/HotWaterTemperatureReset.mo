@@ -43,7 +43,7 @@ block HotWaterTemperatureReset
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
-  Modelica.Blocks.Interfaces.RealInput TRoo_in_internal(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealInput TRoo_in_internal(final quantity="Temperature",
                                                         final unit = "K", displayUnit = "degC", min=0)
     "Needed to connect to conditional connector";
   Real qRel "Relative heat load = Q_flow/Q_flow_nominal";

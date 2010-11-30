@@ -15,7 +15,7 @@ model RelativeTemperature "Ideal relative temperature sensor"
     annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=
            0)));
 
-  Modelica.Blocks.Interfaces.RealOutput T_rel(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealOutput T_rel(final quantity="Temperature",
                                               final unit = "K", displayUnit = "degC", min=0)
     "Relative temperature signal"                                                                               annotation (Placement(
         transformation(

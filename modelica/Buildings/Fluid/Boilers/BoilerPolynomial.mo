@@ -56,7 +56,7 @@ public
       T(start=T_start)) if not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "heat capacity of boiler metal"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
-  Modelica.Blocks.Interfaces.RealOutput T(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealOutput T(final quantity="Temperature",
                                           final unit = "K", displayUnit = "degC", min=0)
                                           annotation (Placement(
         transformation(extent={{100,70},{120,90}}, rotation=0)));

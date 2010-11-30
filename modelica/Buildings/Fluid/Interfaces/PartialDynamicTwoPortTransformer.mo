@@ -63,7 +63,7 @@ partial model PartialDynamicTwoPortTransformer
     annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen(
-    T(final quantity="ThermodynamicTemperature",
+    T(final quantity="Temperature",
       final unit = "K", displayUnit = "degC", min=0))
     "Temperature sensor of metal"
     annotation (Placement(transformation(extent={{5,30},{25,50}},   rotation=0)));

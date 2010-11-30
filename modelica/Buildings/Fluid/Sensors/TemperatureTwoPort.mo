@@ -2,7 +2,7 @@ within Buildings.Fluid.Sensors;
 model TemperatureTwoPort "Ideal two port temperature sensor"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 
-  Modelica.Blocks.Interfaces.RealOutput T( final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealOutput T( final quantity="Temperature",
                                            final unit="K",
                                            displayUnit = "degC",
                                            min = 0)

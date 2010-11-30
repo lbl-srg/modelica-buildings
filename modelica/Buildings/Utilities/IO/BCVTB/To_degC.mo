@@ -2,12 +2,12 @@ within Buildings.Utilities.IO.BCVTB;
 block To_degC "Converts Kelvin to Celsius"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
-  Modelica.Blocks.Interfaces.RealInput Kelvin(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealInput Kelvin(final quantity="Temperature",
                                               final unit = "K", displayUnit = "degC", min=0)
     "Temperature in Kelvin"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}}),
         iconTransformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput Celsius(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealOutput Celsius(final quantity="Temperature",
                                                 final unit = "degC", displayUnit = "degC", min=-273.15)
     "Temperature in Celsius"
     annotation (Placement(transformation(extent={{100,-10},{120,10}}),
