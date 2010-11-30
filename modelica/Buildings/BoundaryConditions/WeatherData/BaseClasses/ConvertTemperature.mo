@@ -26,7 +26,8 @@ equation
     Documentation(info="<HTML>
 <p>
 This component converts the temperature from Celsius to Kelvin.
-If the temperature is outside <code>TMin</code> and <code>TMax</code>, the simulation will stop with an error.
+If the temperature is outside <code>TMin</code> and <code>TMax</code>, 
+the simulation will stop with an error.
 </p>
 </HTML>
 ", revisions="<html>

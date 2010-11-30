@@ -1,6 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckCeilingHeight
-  "Ensures that the ceiling height is not lower than bound"
+  "Ensures that the ceiling height is above a lower bound"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput ceiHeiIn(final quantity="Height", final unit
@@ -21,7 +21,7 @@ equation
     defaultComponentName="cheCeiHei",
     Documentation(info="<HTML>
 <p>
-This component ensures that the ceiling height is no less than -1000m.
+This component ensures that the ceiling height is at least <i>0</i> meters.
 </p>
 </HTML>
 ", revisions="<html>

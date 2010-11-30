@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses;
-block CheckWindSpeed "Ensures that the wind speed is not lower than bound"
+block CheckWindSpeed "Ensures that the wind speed is non-negative"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   Modelica.Blocks.Interfaces.RealInput winSpeIn(final quantity="Velocity",
@@ -13,7 +13,7 @@ public
 
 equation
   // Modelica Table will interpolate data when it reads the weather data file.
-  // It can generate negative value due to the interplotaion.
+  // It can generate negative values due to the interpolation.
   winSpeOut = Buildings.Utilities.Math.Functions.smoothMax(
     x1=winSpeIn,
     x2=winSpeMin,
@@ -23,7 +23,7 @@ equation
     defaultComponentName="cheWinSpe",
     Documentation(info="<HTML>
 <p>
-This component ensures that the ceiling height is no less than -1000m.
+This component ensures that the wind speed is non-negative.
 </p>
 </HTML>
 ", revisions="<html>

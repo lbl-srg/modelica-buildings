@@ -181,12 +181,17 @@ equation
       smooth=Smooth.None));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{350,150}}), graphics),
-Documentation(info="<html><p>
-Important informaiton for Windows users:<p>
-A Radau solver and related compilers are needed to run this example. 
-For Microsoft Windows users, if you use Microsoft viusal C++ express 2010 as a compiler for Dymola window version 7.4, you will not be able to run this example.
-The reason is that Visual C++ Express is not officialy supported by Dymola 7.4 and they can not compile the Radau solver. You can solve the problem by using other compilers, such as Visual C++ 2008.</html>"),
-                        Commands(
+Documentation(info="<html>
+<p>
+<b>Information for Windows users:</b>
+This example uses the Radau solver. 
+For Dymola 7.4, Microsoft Visual C++ Express 2010 does
+not work with the Radau solver.
+Microsoft Visual C++ Express is not officialy supported by Dymola 7.4 and it can not link
+the model to the Radau solver. 
+To avoid this problem, use another compiler, such as Visual C++ 2008. 
+</p>
+</html>"),              Commands(
       file="run1DayCTControl.mos" "run",
       file="plotRooACH.mos" "plotRooACH",
       file="plotFan.mos" "plotFan",
