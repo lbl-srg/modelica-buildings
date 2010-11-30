@@ -2,9 +2,9 @@ within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block CheckSkyCover "Constrains the sky cover to [0, 10]"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
-  Modelica.Blocks.Interfaces.RealInput nIn(unit="1") "Input sky cover"
+  Modelica.Blocks.Interfaces.RealInput nIn "Input sky cover [0, 10]"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput nOut(unit="1") "Sky cover"
+  Modelica.Blocks.Interfaces.RealOutput nOut "Sky cover [0, 10]"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   constant Real delta=0.01 "Smoothing parameter";
