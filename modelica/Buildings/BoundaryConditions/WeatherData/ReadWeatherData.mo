@@ -1,11 +1,9 @@
 within Buildings.BoundaryConditions.WeatherData;
 block ReadWeatherData "Read the requested weather data "
-
 public
   parameter String filNam "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Open weather file for reading")));
-
   Modelica.Blocks.Interfaces.RealInput cloTim(final quantity="Time", final unit
       ="s") "Clock time" annotation (Placement(transformation(extent={{-240,-20},
             {-200,20}}), iconTransformation(extent={{-240,-20},{-200,20}})));
@@ -21,7 +19,6 @@ protected
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
     annotation (Placement(transformation(extent={{-130,-40},{-110,-20}})));
-
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime timCon
     annotation (Placement(transformation(extent={{-170,-40},{-150,-20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTemperature
@@ -60,7 +57,7 @@ public
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
 equation
   connect(cloTim, timCon.simTim) annotation (Line(
-      points={{-220,0},{-180,0},{-180,-30},{-172,-30}},
+      points={{-220,1.11022e-15},{-180,1.11022e-15},{-180,-30},{-172,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(timCon.calTim, datRea.u) annotation (Line(
@@ -76,26 +73,25 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conTemDryBul.TemK, weaBus.TDryBul) annotation (Line(
-      points={{-9,110},{110,110},{110,0},{196,0}},
+      points={{-9,110},{110,110},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(conTemDewPoi.TemK, weaBus.TDewPoi) annotation (Line(
-      points={{51,90},{110,90},{110,0},{196,0}},
+      points={{51,90},{110,90},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-
   connect(datRea.y[3], conHum.relHumIn) annotation (Line(
       points={{-109,-30},{-70,-30},{-70,70},{-32,70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conHum.relHumOut, weaBus.relHum) annotation (Line(
-      points={{-9,70},{110,70},{110,0},{196,0}},
+      points={{-9,70},{110,70},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -106,19 +102,18 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
-      points={{51,50},{110,50},{110,0},{196,0}},
+      points={{51,50},{110,50},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-
   connect(datRea.y[17], cheTotSkyCov.nIn) annotation (Line(
       points={{-109,-30},{-32,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheTotSkyCov.nOut, weaBus.nTot) annotation (Line(
-      points={{-9,-30},{110,-30},{110,0},{196,0}},
+      points={{-9,-30},{110,-30},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -129,7 +124,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheOpaSkyCov.nOut, weaBus.nOpa) annotation (Line(
-      points={{51,-50},{110,-50},{110,0},{196,0}},
+      points={{51,-50},{110,-50},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -140,7 +135,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheGloHorRad.HOut, weaBus.HGloHor) annotation (Line(
-      points={{-9,-70},{110,-70},{110,0},{196,0}},
+      points={{-9,-70},{110,-70},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -151,14 +146,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheDifHorRad.HOut, weaBus.HDifHor) annotation (Line(
-      points={{51,-90},{110,-90},{110,0},{196,0}},
+      points={{51,-90},{110,-90},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cloTim, weaBus.cloTim) annotation (Line(
-      points={{-220,0},{196,0}},
+      points={{-220,1.11022e-15},{-116,1.11022e-15},{-116,1.66533e-15},{-12,
+          1.66533e-15},{-12,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea.y[9], cheDirNorRad.HIn) annotation (Line(
@@ -166,7 +162,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheDirNorRad.HOut, weaBus.HDirNor) annotation (Line(
-      points={{-9,30},{110,30},{110,0},{196,0}},
+      points={{-9,30},{110,30},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -177,7 +173,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheCeiHei.ceiHeiOut, weaBus.celHei) annotation (Line(
-      points={{-9,-110},{110,-110},{110,0},{196,0}},
+      points={{-9,-110},{110,-110},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -188,7 +184,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheWinSpe.winSpeOut, weaBus.winSpe) annotation (Line(
-      points={{51,-130},{110,-130},{110,0},{196,0}},
+      points={{51,-130},{110,-130},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -199,20 +195,18 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheRadHor.HOut, weaBus.radHor) annotation (Line(
-      points={{51,130},{110,130},{110,0},{196,0}},
+      points={{51,130},{110,130},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-
   connect(datRea.y[15], cheWinDir.nIn) annotation (Line(
       points={{-109,-30},{-70,-30},{-70,150},{-32,150}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(cheWinDir.nOut, weaBus.winDir) annotation (Line(
-      points={{-9,150},{110,150},{110,0},{196,0}},
+      points={{-9,150},{110,150},{110,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -235,7 +229,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TBlaSky.TBlaSky, weaBus.TBlaSky) annotation (Line(
-      points={{161,70},{180,70},{180,0},{196,0}},
+      points={{161,70},{180,70},{180,5.55112e-16},{196,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -325,41 +319,41 @@ First implementation.
             200}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
             200}}), graphics={Ellipse(
-          extent={{-24,34},{42,-30}}, 
-          lineColor={255,0,0}, 
-          fillColor={255,0,0}, 
+          extent={{-24,34},{42,-30}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
           fillPattern=FillPattern.Solid),Line(
-          points={{-30,42},{-18,28}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{-30,42},{-18,28}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{32,-28},{44,-42}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{32,-28},{44,-42}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{46,0},{64,0}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{46,0},{64,0}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{-48,2},{-30,2}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{-48,2},{-30,2}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{36,28},{50,40}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{36,28},{50,40}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{-34,-36},{-20,-24}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{-34,-36},{-20,-24}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{8,-36},{8,-52}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{8,-36},{8,-52}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{8,54},{8,38}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{8,54},{8,38}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1)}),
     defaultComponentName="weaDat",
     Documentation(info="<HTML>
@@ -379,40 +373,40 @@ First implementation.
             100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             200}}), graphics={Ellipse(
-          extent={{-24,34},{42,-30}}, 
-          lineColor={255,0,0}, 
-          fillColor={255,0,0}, 
+          extent={{-24,34},{42,-30}},
+          lineColor={255,0,0},
+          fillColor={255,0,0},
           fillPattern=FillPattern.Solid),Line(
-          points={{-30,42},{-18,28}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{-30,42},{-18,28}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{32,-28},{44,-42}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{32,-28},{44,-42}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{46,0},{64,0}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{46,0},{64,0}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{-48,2},{-30,2}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{-48,2},{-30,2}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{36,28},{50,40}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{36,28},{50,40}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{-34,-36},{-20,-24}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{-34,-36},{-20,-24}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{8,-36},{8,-52}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{8,-36},{8,-52}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1),Line(
-          points={{8,54},{8,38}}, 
-          color={255,0,0}, 
-          smooth=Smooth.None, 
+          points={{8,54},{8,38}},
+          color={255,0,0},
+          smooth=Smooth.None,
           thickness=1)}));
 end ReadWeatherData;

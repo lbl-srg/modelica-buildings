@@ -6,32 +6,35 @@ public
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     final quantity="Temperature",
     final unit="K",
-    displayUnit="degC") "Dry bulb temperature at ground level" 
+    displayUnit="degC") "Dry bulb temperature at ground level"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput TDewPoi(
     final quantity="Temperature",
     final unit="K",
-    displayUnit="degC") "Dew point temperature" 
+    displayUnit="degC") "Dew point temperature"
     annotation (Placement(transformation(extent={{-140,10},{-100,50}})));
-  Modelica.Blocks.Interfaces.RealInput nOpa "Opaque sky cover" 
+  Modelica.Blocks.Interfaces.RealInput nOpa "Opaque sky cover"
     annotation (Placement(transformation(extent={{-140,-50},{-100,-10}})));
   Modelica.Blocks.Interfaces.RealOutput TBlaSky(
     final quantity="Temperature",
     displayUnit="degC",
-    final unit="K") "Black-body sky temperature" 
+    final unit="K") "Black-body sky temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput radHor "Horizontal radiation" 
+  Modelica.Blocks.Interfaces.RealInput radHor "Horizontal radiation"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
   Modelica.SIunits.Temperature TDewPoiK;
   Real epsSky;
+  Real nOpa10;
 algorithm
   if calTSky == 1 then
     TBlaSky := (radHor/Modelica.Constants.sigma)^0.25;
   else
     TDewPoiK := min(TDryBul, TDewPoi);
-    epsSky := (0.787 + 0.764*Modelica.Math.log(-TDewPoiK/Modelica.Constants.T_zero))*(1 + 0.0224*nOpa -
-      0.0035*(nOpa^2) + 0.00028*(nOpa^3));
+    nOpa10 := 10*nOpa
+      "Input nOpa is scaled to [0,1] instead of [0,10] in formula";
+    epsSky := (0.787 + 0.764*Modelica.Math.log(-TDewPoiK/Modelica.Constants.T_zero))*(1 + 0.0224*nOpa10 -
+      0.0035*(nOpa10^2) + 0.00028*(nOpa10^3));
     TBlaSky := TDryBul*(epsSky^0.25);
   end if;
   annotation (
