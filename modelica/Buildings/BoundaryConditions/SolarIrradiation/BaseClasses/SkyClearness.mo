@@ -2,7 +2,7 @@ within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block SkyClearness "Sky clearness"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
-  Modelica.Blocks.Interfaces.RealInput zenAng(
+  Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
     displayUnit="degreeC") "Zenith angle of the sun beam"
@@ -21,7 +21,7 @@ public
 protected
   Real tmp1;
 algorithm
-  tmp1 := 5.534e-6*(zenAng*180/Modelica.Constants.pi)^3;
+  tmp1 := 5.534e-6*(zen*180/Modelica.Constants.pi)^3;
 
   skyCle := smooth(1, if (HGloHor < Modelica.Constants.small) then 1 else
     Buildings.Utilities.Math.Functions.smoothLimit(
@@ -66,5 +66,5 @@ First implementation.
         Text(
           extent={{-48,-66},{-100,-54}},
           lineColor={0,0,127},
-          textString="zenAng")}));
+          textString="zen")}));
 end SkyClearness;

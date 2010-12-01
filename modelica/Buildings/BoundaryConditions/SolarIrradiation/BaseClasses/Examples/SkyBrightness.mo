@@ -3,7 +3,7 @@ model SkyBrightness "Test model for sky brightness"
   import Buildings;
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass
     relAirMas annotation (Placement(transformation(extent={{10,20},{30,40}})));
-  Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zenAng(lat=
+  Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=
         0.34906585039887)
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness
@@ -17,7 +17,7 @@ model SkyBrightness "Test model for sky brightness"
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 equation
-  connect(zenAng.y, relAirMas.zenAng) annotation (Line(
+  connect(zen.y, relAirMas.zen) annotation (Line(
       points={{-9,30},{8,30}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -45,7 +45,7 @@ equation
       points={{-79,10},{-72,10},{-72,-10},{-62,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.cloTim, zenAng.cloTim) annotation (Line(
+  connect(weaBus.cloTim, zen.cloTim) annotation (Line(
       points={{-12,-10},{-12,12},{-40,12},{-40,30},{-32,30}},
       color={255,204,51},
       thickness=0.5,

@@ -15,8 +15,8 @@ model IncidenceAngle "Test model for incidence angle"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(
     lat=0,
-    aziAng=0,
-    tilAng=90) annotation (Placement(transformation(extent={{60,10},{80,30}})));
+    azi=0,
+    til=90) annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 equation

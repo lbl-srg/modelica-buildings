@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples;
 model BrighteningCoeffcient "Test model for brightening coeffcients"
   import Buildings;
-  Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zenAng(lat=
+  Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=
         0.6457718232379)
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness skyCle
@@ -21,7 +21,7 @@ model BrighteningCoeffcient "Test model for brightening coeffcients"
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 equation
-  connect(zenAng.y, skyCle.zenAng) annotation (Line(
+  connect(zen.y, skyCle.zen) annotation (Line(
       points={{-19,-10},{-8,-10},{-8,24},{38,24}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -29,7 +29,7 @@ equation
       points={{21,-10},{30,-10},{30,-26},{38,-26}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zenAng.y, relAirMas.zenAng) annotation (Line(
+  connect(zen.y, relAirMas.zen) annotation (Line(
       points={{-19,-10},{-2,-10}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -41,7 +41,7 @@ equation
       points={{61,30},{68,30},{68,-4},{78,-4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zenAng.y, briCoe.zenAng) annotation (Line(
+  connect(zen.y, briCoe.zen) annotation (Line(
       points={{-19,-10},{-8,-10},{-8,-60},{72,-60},{72,-16},{78,-16}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -81,7 +81,7 @@ equation
       points={{-79,-10},{-70,-10},{-70,70},{-62,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.cloTim, zenAng.cloTim) annotation (Line(
+  connect(weaBus.cloTim, zen.cloTim) annotation (Line(
       points={{-10,70},{-10,30},{-60,30},{-60,-10},{-42,-10}},
       color={255,204,51},
       thickness=0.5,

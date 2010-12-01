@@ -4,7 +4,7 @@ block DiffuseSolarIrradiationIsotropic
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   parameter Real rho=0.2 "Ground reflectance";
-  parameter Modelica.SIunits.Angle tilAng(displayUnit="deg")
+  parameter Modelica.SIunits.Angle til(displayUnit="deg")
     "Surface tilt angle";
 
   Modelica.Blocks.Interfaces.RealInput HDifHor(quantity=
@@ -20,11 +20,11 @@ public
     "Diffuse solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  Real tilAng_c "Cosine of tilt angle";
+  Real til_c "Cosine of tilt angle";
 
 equation
-  tilAng_c = Modelica.Math.cos(tilAng);
-  HDifTil = 0.5*HDifHor*(1 + tilAng_c) + 0.5*HGloHor*rho*(1 - tilAng_c);
+  til_c = Modelica.Math.cos(til);
+  HDifTil = 0.5*HDifHor*(1 + til_c) + 0.5*HGloHor*rho*(1 - til_c);
   annotation (
     defaultComponentName="HDifTilIso",
     Documentation(info="<HTML>

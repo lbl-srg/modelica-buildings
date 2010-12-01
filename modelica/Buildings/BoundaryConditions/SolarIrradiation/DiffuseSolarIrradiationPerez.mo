@@ -6,10 +6,10 @@ block DiffuseSolarIrradiationPerez
 
   parameter Real rho=0.2 "Ground reflectance";
   parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle aziAng "Surface azimuth";
+  parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
 protected
-  BaseClasses.DiffuseSolarIrradiationPerez HDifTil(final tilAng=tilAng, final rho=
+  BaseClasses.DiffuseSolarIrradiationPerez HDifTil(final til=til, final rho=
           rho) annotation (Placement(transformation(extent={{46,-21},{88,21}})));
   BaseClasses.SkyClearness skyCle
     annotation (Placement(transformation(extent={{-52,16},{-44,24}})));
@@ -21,10 +21,10 @@ protected
     annotation (Placement(transformation(extent={{-30,-56},{-22,-48}})));
   SolarGeometry.IncidenceAngle incAng(
     lat=lat,
-    aziAng=aziAng,
-    tilAng=tilAng)
+    azi=azi,
+    til=til)
     annotation (Placement(transformation(extent={{-90,-96},{-80,-86}})));
-  SolarGeometry.ZenithAngle zenAng(lat=lat)
+  SolarGeometry.ZenithAngle zen(lat=lat)
     annotation (Placement(transformation(extent={{-88,-48},{-80,-40}})));
 equation
   connect(relAirMas.relAirMas, skyBri.relAirMas) annotation (Line(
@@ -43,20 +43,20 @@ equation
       points={{-79.5,-91},{34,-91},{34,-14},{41.8,-14},{41.8,-14.7}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zenAng.y, skyCle.zenAng) annotation (Line(
+  connect(zen.y, skyCle.zen) annotation (Line(
       points={{-79.6,-44},{-70,-44},{-70,17.6},{-52.8,17.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zenAng.y, relAirMas.zenAng) annotation (Line(
+  connect(zen.y, relAirMas.zen) annotation (Line(
       points={{-79.6,-44},{-52.8,-44}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zenAng.y, briCoe.zenAng) annotation (Line(
+  connect(zen.y, briCoe.zen) annotation (Line(
       points={{-79.6,-44},{-70,-44},{-70,-64},{-10,-64},{-10,-34},{1.2,-34},{
           1.2,-32.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDifTil.zenAng, zenAng.y) annotation (Line(
+  connect(HDifTil.zen, zen.y) annotation (Line(
       points={{41.8,-8.4},{26,-8.4},{26,-80},{-70,-80},{-70,-44},{-79.6,-44}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -116,7 +116,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.cloTim, zenAng.cloTim) annotation (Line(
+  connect(weaBus.cloTim, zen.cloTim) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-44},{-88.8,-44}},
       color={255,204,51},
       thickness=0.5,

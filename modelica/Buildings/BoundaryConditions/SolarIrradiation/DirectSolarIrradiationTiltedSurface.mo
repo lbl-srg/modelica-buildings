@@ -6,15 +6,15 @@ block DirectSolarIrradiationTiltedSurface
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 
   parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle aziAng "Surface azimuth";
+  parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
   Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
 protected
   SolarGeometry.IncidenceAngle incAng(
-    final aziAng=aziAng,
-    final tilAng=tilAng,
+    final azi=azi,
+    final til=til,
     final lat=lat)
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DirectSolarIrradiationTiltedSurface

@@ -7,7 +7,7 @@ model ZenithAngle "Test model for zenith angle"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.LocalTime locTim
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zenAng(lat=0)
+  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(lat=0)
     annotation (Placement(transformation(extent={{60,10},{80,30}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
@@ -26,7 +26,7 @@ equation
       points={{-39,-30},{-32,-30},{-32,-15.4},{-22,-15.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(decAng.decAng, zenAng.decAng) annotation (Line(
+  connect(decAng.decAng, zen.decAng) annotation (Line(
       points={{41,50},{50,50},{50,25.4},{57.8,25.4}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -34,7 +34,7 @@ equation
       points={{1,-10},{18,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(solHouAng.solHouAng, zenAng.solHouAng) annotation (Line(
+  connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(
       points={{41,-10},{50,-10},{50,15.2},{58,15.2}},
       color={0,0,127},
       smooth=Smooth.None));

@@ -3,8 +3,8 @@ block IncidenceAngle "Solar incidence angle on a tilted surface"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle aziAng "Surface azimuth";
-  parameter Modelica.SIunits.Angle tilAng "Surface tilt";
+  parameter Modelica.SIunits.Angle azi "Surface azimuth";
+  parameter Modelica.SIunits.Angle til "Surface tilt";
   Modelica.Blocks.Interfaces.RealInput cloTim(unit="s",
     quantity="Time") "Clock time"
                        annotation (Placement(transformation(extent={{-140,-20},
@@ -33,8 +33,8 @@ protected
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.IncidenceAngle incAng(
     final lat=lat,
-    final aziAng=aziAng,
-    final tilAng=tilAng) "Incidence angle"
+    final azi=azi,
+    final til=til) "Incidence angle"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 equation
   connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(

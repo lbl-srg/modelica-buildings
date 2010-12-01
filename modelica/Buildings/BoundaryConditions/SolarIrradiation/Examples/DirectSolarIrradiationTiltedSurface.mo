@@ -12,9 +12,9 @@ model DirectSolarIrradiationTiltedSurface
           extent={{20,20},{21,21}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectSolarIrradiationTiltedSurface
     HDirTil(
-    tilAng=1.5707963267949,
+    til=1.5707963267949,
     lat=0.72483523835325,
-    aziAng=0.78539816339745) 
+    azi=0.78539816339745) 
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Utilities.SimulationTime simTim 
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));

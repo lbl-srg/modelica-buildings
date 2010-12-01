@@ -19,7 +19,7 @@ protected
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
    Buildings.BoundaryConditions.SolarGeometry.BaseClasses.LocalTime locTim
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zenAng(final lat=lat)
+   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(final lat=lat)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
    Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
@@ -36,7 +36,7 @@ equation
       points={{-39,-40},{-32,-40},{-32,-25.4},{-22,-25.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(decAng.decAng, zenAng.decAng) annotation (Line(
+  connect(decAng.decAng, zen.decAng) annotation (Line(
       points={{41,30},{50,30},{50,5.4},{58,5.4}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -44,11 +44,11 @@ equation
       points={{1,-20},{18,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(solHouAng.solHouAng, zenAng.solHouAng) annotation (Line(
+  connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(
       points={{41,-20},{50,-20},{50,-4.8},{58,-4.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zenAng.zenAng, y) annotation (Line(
+  connect(zen.zen, y) annotation (Line(
       points={{81,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
           1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
@@ -67,7 +67,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    defaultComponentName="zenAng",
+    defaultComponentName="zen",
     Documentation(info="<HTML>
 <p>
 This component computes the zenith angle, which is the angle between the earth surface normal and the sun's beam.

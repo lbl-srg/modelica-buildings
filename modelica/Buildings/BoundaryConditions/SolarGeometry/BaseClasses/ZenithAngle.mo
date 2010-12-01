@@ -10,17 +10,17 @@ public
     "Declination"
     annotation (Placement(transformation(extent={{-142,34},{-102,74}}),
         iconTransformation(extent={{-140,34},{-100,74}})));
-  Modelica.Blocks.Interfaces.RealOutput zenAng(
+  Modelica.Blocks.Interfaces.RealOutput zen(
     final quantity="Angle",
     final unit="rad",
     displayUnit="deg") "Zenith angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
-  Modelica.Math.cos(zenAng) =  Modelica.Math.cos(lat)*Modelica.Math.cos(decAng)*
+  Modelica.Math.cos(zen) =  Modelica.Math.cos(lat)*Modelica.Math.cos(decAng)*
     Modelica.Math.cos(solHouAng) + Modelica.Math.sin(lat)*Modelica.Math.sin(
     decAng) "(A4.8)";
   annotation (
-    defaultComponentName="zenAng",
+    defaultComponentName="zen",
     Documentation(info="<HTML>
 <p>
 This component computes the zenith angle, which is the angle between the earth surface normal and the sun's beam. 

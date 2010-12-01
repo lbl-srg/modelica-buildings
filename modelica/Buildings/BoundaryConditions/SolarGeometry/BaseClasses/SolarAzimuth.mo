@@ -3,7 +3,7 @@ block SolarAzimuth "Solar azimuth"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   parameter Modelica.SIunits.Angle lat "Latitude";
-  Modelica.Blocks.Interfaces.RealInput zenAng(quantity="Angle", unit="rad")
+  Modelica.Blocks.Interfaces.RealInput zen(quantity="Angle", unit="rad")
     "Zenith angle"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
   Modelica.Blocks.Interfaces.RealInput solTim(quantity="Time", unit="s")
@@ -23,8 +23,8 @@ Real arg;
 Real tmp;
 
 algorithm
-  tmp :=(Modelica.Math.sin(lat)*Modelica.Math.cos(zenAng) - Modelica.Math.sin(
-    decAng))/(Modelica.Math.cos(lat)*Modelica.Math.sin(zenAng));
+  tmp :=(Modelica.Math.sin(lat)*Modelica.Math.cos(zen) - Modelica.Math.sin(
+    decAng))/(Modelica.Math.cos(lat)*Modelica.Math.sin(zen));
 
   arg :=min(1.0, max(-1.0, tmp));
 
@@ -58,7 +58,7 @@ First implementation.
         Text(
           extent={{-100,68},{-58,58}},
           lineColor={0,0,127},
-          textString="zenAng"),
+          textString="zen"),
         Text(
           extent={{-102,-54},{-60,-64}},
           lineColor={0,0,127},

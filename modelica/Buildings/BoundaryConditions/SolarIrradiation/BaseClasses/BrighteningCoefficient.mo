@@ -3,7 +3,7 @@ block BrighteningCoefficient "Circumsolar and horizon brightening coefficients"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   import H = Buildings.Utilities.Math.Functions.spliceFunction;
 public
-  Modelica.Blocks.Interfaces.RealInput zenAng(
+  Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
     displayUnit="degree") "Zenith angle of the sun beam"
@@ -108,9 +108,9 @@ equation
     a5 + 0.0558651*a6 + 0.1310694*a7 + 0.2506212*a8;
   F1 = Buildings.Utilities.Math.Functions.smoothMax(
     0,
-    F11 + F12*skyBri + F13*zenAng,
+    F11 + F12*skyBri + F13*zen,
     0.01);
-  F2 = F21 + F22*skyBri + F23*zenAng;
+  F2 = F21 + F22*skyBri + F23*zen;
   annotation (
     defaultComponentName="briCoe",
     Documentation(info="<HTML>
@@ -145,7 +145,7 @@ First implementation.
         Text(
           extent={{-96,-46},{-52,-68}},
           lineColor={0,0,127},
-          textString="zenAng"),
+          textString="zen"),
         Text(
           extent={{62,50},{106,28}},
           lineColor={0,0,127},

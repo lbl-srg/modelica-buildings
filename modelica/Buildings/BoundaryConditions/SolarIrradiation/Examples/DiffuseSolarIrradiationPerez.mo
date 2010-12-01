@@ -3,8 +3,8 @@ model DiffuseSolarIrradiationPerez
   "Test model for diffuse solar irradiation on a tilted surface using the Perez model"
   import Buildings;
   parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
-  parameter Modelica.SIunits.Angle aziAng=0.3 "Azi angle";
-  parameter Modelica.SIunits.Angle tilAng=0.5 "Tilted angle";
+  parameter Modelica.SIunits.Angle azi=0.3 "Azi angle";
+  parameter Modelica.SIunits.Angle til=0.5 "Tilted angle";
   Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
@@ -13,9 +13,9 @@ model DiffuseSolarIrradiationPerez
             20},{21,21}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffuseSolarIrradiationPerez
     HDifTil(
-    tilAng=1.5707963267949,
+    til=1.5707963267949,
     lat=0.6457718232379,
-    aziAng=0.78539816339745)
+    azi=0.78539816339745)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));

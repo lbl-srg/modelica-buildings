@@ -3,7 +3,7 @@ simulateModel("Buildings.BoundaryConditions.SolarGeometry.Examples.ZenithAngle",
 
 createPlot(id = 1,
  position = {7, 7, 746, 517},
- y = {"zenAng.y"},
+ y = {"zen.y"},
  range = {0, 90000.0, 100000.0, -20000.0},
  autoscale = true,
  autoerase = true,

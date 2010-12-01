@@ -11,7 +11,7 @@ model DiffuseSolarIrradiationIsotropic
         transformation(extent={{1,-1},{21,21}}), iconTransformation(extent={{1,
             -1},{2,-2}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffuseSolarIrradiationIsotropic
-    HDifTilIso(tilAng=1.5707963267949)
+    HDifTilIso(til=1.5707963267949)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(

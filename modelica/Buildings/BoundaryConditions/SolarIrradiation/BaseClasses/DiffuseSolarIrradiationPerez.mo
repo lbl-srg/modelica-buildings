@@ -4,7 +4,7 @@ block DiffuseSolarIrradiationPerez
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   parameter Real rho=0.2 "Ground reflectance";
-  parameter Modelica.SIunits.Angle tilAng(displayUnit="deg")
+  parameter Modelica.SIunits.Angle til(displayUnit="deg")
     "Surface tilt angle";
   Modelica.Blocks.Interfaces.RealInput briCof1 "Brightening Coeffcient F1"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
@@ -21,7 +21,7 @@ public
         "RadiantEnergyFluenceRate", final unit="W/m2")
     "Hemispherical diffuse solar irradiation on a tilted surfce"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput zenAng(
+  Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
     displayUnit="degree") "Zenith angle of the sun beam"
@@ -39,15 +39,15 @@ protected
 equation
   a = Buildings.Utilities.Math.Functions.smoothMax(
     0,
-    Modelica.Math.cos(zenAng),
+    Modelica.Math.cos(zen),
     0.01);
   b = Buildings.Utilities.Math.Functions.smoothMax(
     bMin,
     Modelica.Math.cos(incAng),
     0.01);
-  HDifTil = HDifHor*(0.5*(1 - briCof1)*(1 + Modelica.Math.cos(tilAng)) +
-    briCof1*a/b + briCof2*Modelica.Math.sin(tilAng)) + HGloHor*0.5*rho*(1 -
-    Modelica.Math.cos(tilAng));
+  HDifTil = HDifHor*(0.5*(1 - briCof1)*(1 + Modelica.Math.cos(til)) +
+    briCof1*a/b + briCof2*Modelica.Math.sin(til)) + HGloHor*0.5*rho*(1 -
+    Modelica.Math.cos(til));
 
   annotation (
     defaultComponentName="HDifTil",
@@ -109,7 +109,7 @@ First implementation.
         Text(
           extent={{-50,-46},{-102,-34}},
           lineColor={0,0,127},
-          textString="zenAng"),
+          textString="zen"),
         Text(
           extent={{-52,-76},{-104,-64}},
           lineColor={0,0,127},

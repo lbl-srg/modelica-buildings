@@ -7,7 +7,7 @@ public
   parameter Real rho=0.2 "Ground reflectance";
 protected
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseSolarIrradiationIsotropic
-    HDifTilIso(tilAng=tilAng, rho=rho)
+    HDifTilIso(til=til, rho=rho)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation

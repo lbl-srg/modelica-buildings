@@ -2,7 +2,7 @@ within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
 block RelativeAirMass "Relative air mass"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
-  Modelica.Blocks.Interfaces.RealInput zenAng(
+  Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
     displayUnit="degree") "Zenith angle of the sun beam"
@@ -10,16 +10,16 @@ public
   Modelica.Blocks.Interfaces.RealOutput relAirMas "Relative air mass"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  Real zenAngLim;
-  Real zenAngDeg;
+  Real zenLim;
+  Real zenDeg;
 
 equation
-  zenAngLim = Buildings.Utilities.Math.Functions.smoothMin(
-    zenAng, 
+  zenLim = Buildings.Utilities.Math.Functions.smoothMin(
+    zen, 
     Modelica.Constants.pi/2, 
     0.01);
-  zenAngDeg = zenAngLim*180/Modelica.Constants.pi;
-  relAirMas = 1/(Modelica.Math.cos(zenAngLim) + 0.15*(93.9 - zenAngDeg)^(-1.253));
+  zenDeg = zenLim*180/Modelica.Constants.pi;
+  relAirMas = 1/(Modelica.Math.cos(zenLim) + 0.15*(93.9 - zenDeg)^(-1.253));
   annotation (
     defaultComponentName="relAirMas",
     Documentation(info="<HTML>
