@@ -23,21 +23,21 @@ block HotWaterTemperatureReset
                 Dialog(enable = not use_TRoo_in));
   parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal = 8
     "Offset for heating curve";
-  Modelica.Blocks.Interfaces.RealInput TRoo_in(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealInput TRoo_in(final quantity="Temperature",
                                                final unit = "K", displayUnit = "degC", min=0) if
           use_TRoo_in "Room air temperature set point"
     annotation (Placement(transformation(extent={{-139,-80},{-99,-40}},
           rotation=0)));
 
-  Modelica.Blocks.Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealInput TOut(final quantity="Temperature",
                                             final unit = "K", displayUnit = "degC", min=0)
     "Outside temperature"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealOutput TSup(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealOutput TSup(final quantity="Temperature",
                                             final unit = "K", displayUnit = "degC", min=0)
     "Setpoint for supply temperature"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Blocks.Interfaces.RealOutput TRet(final quantity="ThermodynamicTemperature",
+  Modelica.Blocks.Interfaces.RealOutput TRet(final quantity="Temperature",
                                             final unit = "K", displayUnit = "degC", min=0)
     "Setpoint for return temperature"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
