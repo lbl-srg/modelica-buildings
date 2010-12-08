@@ -26,9 +26,9 @@ protected
   Real lat_c=Modelica.Math.cos(lat);
   Real lat_s=Modelica.Math.sin(lat);
 equation
-  Modelica.Math.cos(incAng) = Modelica.Math.cos(til)*(dec_c*sol_c*lat_c +
+  incAng = Modelica.Math.acos(Modelica.Math.cos(til)*(dec_c*sol_c*lat_c +
     dec_s*lat_s) + Modelica.Math.sin(til)*(Modelica.Math.sin(azi)*dec_c*
-    sol_s + Modelica.Math.cos(azi)*(dec_c*sol_c*lat_s - dec_s*lat_c))
+    sol_s + Modelica.Math.cos(azi)*(dec_c*sol_c*lat_s - dec_s*lat_c)))
     "(A.4.13)";
   annotation (
     defaultComponentName="incAng",
@@ -39,6 +39,10 @@ This component computes the solar incidence angle on a tilted surface by using s
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+Dec 7, 2010, by Michael Wetter:<br>
+Rewrote equation in explicit form to avoid nonlinear equations in room model.
+</li>
 <li>
 May 19, 2010, by Wangda Zuo:<br>
 First implementation.

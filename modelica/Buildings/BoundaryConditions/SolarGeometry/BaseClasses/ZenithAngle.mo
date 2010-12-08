@@ -16,9 +16,9 @@ public
     displayUnit="deg") "Zenith angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
-  Modelica.Math.cos(zen) =  Modelica.Math.cos(lat)*Modelica.Math.cos(decAng)*
+  zen =  Modelica.Math.acos(Modelica.Math.cos(lat)*Modelica.Math.cos(decAng)*
     Modelica.Math.cos(solHouAng) + Modelica.Math.sin(lat)*Modelica.Math.sin(
-    decAng) "(A4.8)";
+    decAng)) "(A4.8)";
   annotation (
     defaultComponentName="zen",
     Documentation(info="<HTML>
@@ -29,6 +29,10 @@ It needs the solar hour angle and declination angle as input.
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+Dec 7, 2010, by Michael Wetter:<br>
+Rewrote equation in explicit form to avoid nonlinear equations in room model.
+</li>
 <li>
 May 17, 2010, by Wangda Zuo:<br>
 First implementation.

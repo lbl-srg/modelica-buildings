@@ -11,8 +11,9 @@ public
     displayUnit="deg") "Declination angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
-  Modelica.Math.sin(decAng) = -sin(23.45*2*Modelica.Constants.pi/360)*
-    Modelica.Math.cos((nDay/86400 + 10)*2*Modelica.Constants.pi/365.25) "(A4.5)";
+  decAng = Modelica.Math.asin(-sin(23.45*2*Modelica.Constants.pi/360)*
+    Modelica.Math.cos((nDay/86400 + 10)*2*Modelica.Constants.pi/365.25))
+    "(A4.5)";
   annotation (
     defaultComponentName="decAng",
     Documentation(info="<HTML>
@@ -22,6 +23,10 @@ This component computes the angle between the equatorial plane and the solar bea
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+Dec 7, 2010, by Michael Wetter:<br>
+Rewrote equation in explicit form to avoid nonlinear equations in room model.
+</li>
 <li>
 May 17, 2010, by Wangda Zuo:<br>
 First implementation.
