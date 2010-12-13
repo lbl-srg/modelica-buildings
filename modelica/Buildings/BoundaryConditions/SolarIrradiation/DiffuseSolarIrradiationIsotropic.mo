@@ -11,10 +11,6 @@ protected
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
 equation
-  connect(HDifTilIso.HDifTil, y) annotation (Line(
-      points={{11,6.10623e-16},{60.5,6.10623e-16},{60.5,5.55112e-16},{110,5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaBus.HGloHor, HDifTilIso.HGloHor) annotation (Line(
       points={{-100,5.55112e-16},{-51.5,5.55112e-16},{-51.5,4},{-12,4}},
       color={255,204,51},
@@ -32,6 +28,11 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
 
+  connect(HDifTilIso.HDifTil, H) annotation (Line(
+      points={{11,6.10623e-16},{56.5,6.10623e-16},{56.5,5.55112e-16},{110,
+          5.55112e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     defaultComponentName="HDifTilIso",
     Documentation(info="<HTML>

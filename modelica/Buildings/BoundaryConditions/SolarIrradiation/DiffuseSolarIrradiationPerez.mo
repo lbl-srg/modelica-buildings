@@ -124,9 +124,9 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(HDifTil.HDifTil, y) annotation (Line(
-      points={{90.1,-6.60583e-16},{97.05,-6.60583e-16},{97.05,5.55112e-16},{110,
-          5.55112e-16}},
+  connect(HDifTil.HDifTil, H) annotation (Line(
+      points={{90.1,-6.60583e-16},{96.05,-6.60583e-16},{96.05,4.44089e-16},{110,
+          4.44089e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -164,8 +164,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,100}}),
-                    graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
+            100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

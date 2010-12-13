@@ -11,6 +11,12 @@ block DirectSolarIrradiationTiltedSurface
   Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
+  Modelica.Blocks.Interfaces.RealOutput inc(
+    final quantity="Angle",
+    final unit="rad",
+    displayUnit="deg") "Incidence angle"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+
 protected
   SolarGeometry.IncidenceAngle incAng(
     final azi=azi,
@@ -21,15 +27,6 @@ protected
     HDirTil annotation (Placement(transformation(extent={{0,-20},{40,20}})));
 
 equation
-  connect(HDirTil.HDirTil, y) annotation (Line(
-      points={{42,1.22125e-15},{66,1.22125e-15},{66,5.55112e-16},{110,
-          5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(y, y) annotation (Line(
-      points={{110,5.55112e-16},{110,5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(incAng.y, HDirTil.incAng) annotation (Line(
       points={{-29,-20},{-12,-20},{-12,-12},{-4,-12}},
       color={0,0,127},
@@ -51,6 +48,16 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  connect(incAng.y, inc) annotation (Line(
+      points={{-29,-20},{-20,-20},{-20,-40},{110,-40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HDirTil.HDirTil, H) annotation (Line(
+      points={{42,1.22125e-15},{72,1.22125e-15},{72,5.55112e-16},{110,
+          5.55112e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
   annotation (
     defaultComponentName="HDirTil",
     Documentation(info="<HTML>
@@ -62,6 +69,10 @@ For a definition of the parameters, see the
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+December 12, 2010, by Michael Wetter:<br>
+Added incidence angle as output as this is needed for the room model.
+</li>
 <li>
 May 24, 2010, by Wangda Zuo:<br>
 First implementation.
