@@ -1,18 +1,7 @@
 within Buildings.Fluid;
-package Sources "Define fixed or prescribed boundary conditions"
-
-
+package Sources "Package with boundary condition models"
 
   annotation (preferedView="info",
-  __Dymola_classOrder={
-"Boundary_pT",
-"Boundary_ph",
-"FixedBoundary",
-"MassFlowSource_T",
-"MassFlowSource_h",
-"PrescribedExtraPropertyFlowRate",
-"BaseClasses",
-"Examples"},
 Documentation(info="<html>
 <p>
 Package <b>Sources</b> contains generic sources for fluid connectors
