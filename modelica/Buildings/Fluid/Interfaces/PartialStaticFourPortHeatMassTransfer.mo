@@ -20,7 +20,7 @@ protected
   constant Boolean sensibleOnly2
     "Set to true if sensible exchange only for medium 2";
 equation
-  // Energy balance (no storage, no heat loss/gain). Fixme
+  // Energy balance (no storage, no heat loss/gain).
   port_a1.m_flow*port_a1.h_outflow + port_b1.m_flow*inStream(port_b1.h_outflow) = -Q1_flow;
   port_b1.m_flow*port_b1.h_outflow + port_a1.m_flow*inStream(port_a1.h_outflow) = -Q1_flow;
   port_a2.m_flow*port_a2.h_outflow + port_b2.m_flow*inStream(port_b2.h_outflow) = -Q2_flow;
