@@ -49,17 +49,10 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
         rotation=90,
         origin={220,44})));
 
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM resSup(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=dpPip_nominal/2)
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
-        rotation=270,
-        origin={220,102})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    dp_nominal=dpPip_nominal/2)
+    dp_nominal=dpPip_nominal) "Pressure drop of supply and return pipe"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
         origin={240,90})));
@@ -92,7 +85,8 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     redeclare package Medium = Medium,
     dp_nominal(displayUnit="Pa") = dpVal_nominal,
     Kv_SI=m_flow_nominal/nRoo/sqrt(dpVal_nominal),
-    m_flow_nominal=m_flow_nominal/nRoo) "Radiator valve"
+    m_flow_nominal=m_flow_nominal/nRoo,
+    from_dp=false) "Radiator valve"
     annotation (Placement(transformation(extent={{320,118},{340,138}})));
   Controls.Continuous.LimPID conRoo2(
     yMax=1,
@@ -102,7 +96,7 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     k=1,
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for room temperature"
-    annotation (Placement(transformation(extent={{460,210},{480,230}})));
+    annotation (Placement(transformation(extent={{500,210},{520,230}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRoo1
     annotation (Placement(transformation(extent={{420,350},{440,370}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor roo1(             T(
@@ -115,7 +109,8 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     redeclare package Medium = Medium,
     dp_nominal(displayUnit="Pa") = dpVal_nominal,
     Kv_SI=m_flow_nominal/nRoo/sqrt(dpVal_nominal),
-    m_flow_nominal=m_flow_nominal/nRoo) "Radiator valve"
+    m_flow_nominal=m_flow_nominal/nRoo,
+    from_dp=false) "Radiator valve"
     annotation (Placement(transformation(extent={{320,298},{340,318}})));
   Controls.Continuous.LimPID conRoo1(
     yMax=1,
@@ -125,7 +120,7 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     k=1,
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for room temperature"
-    annotation (Placement(transformation(extent={{460,390},{480,410}})));
+    annotation (Placement(transformation(extent={{502,390},{522,410}})));
   Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad1(
     redeclare package Medium = Medium,
     dT_nominal=(60 + 40)/2 - 20,
@@ -274,18 +269,18 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal/nRoo,
     dp_nominal=dpRoo_nominal,
-    from_dp=true) "Resistance of pipe leg that serves the room"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    from_dp=false) "Resistance of pipe leg that serves the room"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={290,290})));
+        origin={290,308})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM resRoo2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal/nRoo,
     dp_nominal=dpRoo_nominal,
-    from_dp=true) "Resistance of pipe leg that serves the room"
-    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+    from_dp=false) "Resistance of pipe leg that serves the room"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={290,110})));
+        origin={290,128})));
   Modelica.Thermal.HeatTransfer.Components.Convection con1
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{360,350},{380,370}})));
@@ -355,11 +350,6 @@ equation
       points={{400,180},{420,180}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TRoo2.T, conRoo2.u_m)
-                              annotation (Line(
-      points={{440,180},{470,180},{470,208}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(pumRad.port_b, dpSen.port_a)
                                      annotation (Line(
       points={{220,54},{186,54}},
@@ -369,11 +359,6 @@ equation
                                annotation (Line(
       points={{400,360},{420,360}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(TRoo1.T, conRoo1.u_m)
-                              annotation (Line(
-      points={{440,360},{470,360},{470,388}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(rad1.heatPortCon, roo1.port) annotation (Line(
       points={{400,315.2},{400,360}},
@@ -397,12 +382,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(conRoo1.y, val1.y) annotation (Line(
-      points={{481,400},{494,400},{494,332},{330,332},{330,316}},
+      points={{523,400},{540,400},{540,332},{330,332},{330,316}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conRoo2.y, val2.y)
                             annotation (Line(
-      points={{481,220},{492,220},{492,150},{330,150},{330,136}},
+      points={{521,220},{540,220},{540,150},{330,150},{330,136}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pumRad.port_a, thrWayVal.port_2)
@@ -466,10 +451,6 @@ equation
       points={{353,-46},{480,-46},{480,28}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(pumRad.port_b, res1.port_a) annotation (Line(
-      points={{220,54},{220,92}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pumRad.port_b, temSup.port) annotation (Line(
       points={{220,54},{220,60},{120,60},{120,62}},
       color={0,127,255},
@@ -478,7 +459,8 @@ equation
       points={{127,72},{134,72},{134,-20},{150,-20},{150,-12}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(res2.port_b, temRet.port) annotation (Line(
+  connect(resSup.port_b, temRet.port)
+                                    annotation (Line(
       points={{240,80},{240,60},{274,60},{274,62}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -514,11 +496,13 @@ equation
       points={{134,-60},{220,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res4.port_a, res2.port_b) annotation (Line(
+  connect(res4.port_a, resSup.port_b)
+                                    annotation (Line(
       points={{260,-12},{260,-6},{240,-6},{240,80}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res2.port_b, thrWayVal.port_3) annotation (Line(
+  connect(resSup.port_b, thrWayVal.port_3)
+                                         annotation (Line(
       points={{240,80},{240,-1.68051e-18},{230,-1.68051e-18}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -571,14 +555,6 @@ equation
       points={{241,420},{250,420},{250,232},{300,232},{300,242},{318,242}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(rad1.port_b, resRoo1.port_a) annotation (Line(
-      points={{412,308},{420,308},{420,290},{300,290}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(rad2.port_b, resRoo2.port_a) annotation (Line(
-      points={{412,128},{420,128},{420,110},{300,110}},
-      color={0,127,255},
-      smooth=Smooth.None));
 
   connect(con1.fluid, roo1.port) annotation (Line(
       points={{380,360},{400,360}},
@@ -608,22 +584,6 @@ equation
       points={{400,135.2},{400,180}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(res2.port_a, resRoo2.port_b) annotation (Line(
-      points={{240,100},{240,110},{280,110}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res2.port_a, resRoo1.port_b) annotation (Line(
-      points={{240,100},{240,290},{280,290}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res1.port_b, val2.port_a) annotation (Line(
-      points={{220,112},{220,128},{320,128}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(val1.port_a, res1.port_b) annotation (Line(
-      points={{320,308},{220,308},{220,112}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(TRooSet.y, switch3.u1) annotation (Line(
       points={{121,440},{130,440},{130,428},{140,428}},
       color={0,0,127},
@@ -637,11 +597,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch3.y, conRoo1.u_s) annotation (Line(
-      points={{163,420},{192,420},{192,452},{446,452},{446,400},{458,400}},
+      points={{163,420},{192,420},{192,452},{446,452},{446,400},{500,400}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch3.y, conRoo2.u_s) annotation (Line(
-      points={{163,420},{192,420},{192,452},{446,452},{446,220},{458,220}},
+      points={{163,420},{192,420},{192,452},{446,452},{446,220},{498,220}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(expVes.port_a, boi.port_a) annotation (Line(
@@ -685,11 +645,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conRoo1.y, maxYVal.u[1]) annotation (Line(
-      points={{481,400},{494,400},{494,332},{32,332},{32,169},{38,169}},
+      points={{523,400},{540,400},{540,332},{32,332},{32,169},{38,169}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conRoo2.y, maxYVal.u[2]) annotation (Line(
-      points={{481,220},{492,220},{492,150},{32,150},{32,170},{38,170},{38,171}},
+      points={{521,220},{540,220},{540,150},{32,150},{32,170},{38,170},{38,171}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -744,7 +704,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{500,460}}), graphics),
+            -100},{600,460}}), graphics),
 Documentation(info="<html>
 <p>
 <b>Information for Windows users:</b>
@@ -762,6 +722,38 @@ To avoid this problem, use another compiler, such as Visual C++ 2008.
       Tolerance=1e-006,
       Algorithm="radau"),
     experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{500,
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{600,
             460}})));
+  connect(TRoo2.T, conRoo2.u_m) annotation (Line(
+      points={{440,180},{510,180},{510,208}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TRoo1.T, conRoo1.u_m) annotation (Line(
+      points={{440,360},{512,360},{512,388}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(resRoo2.port_b, val2.port_a) annotation (Line(
+      points={{300,128},{320,128}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(rad2.port_b, resSup.port_a) annotation (Line(
+      points={{412,128},{420,128},{420,108},{240,108},{240,100}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(resRoo1.port_b, val1.port_a) annotation (Line(
+      points={{300,308},{320,308}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(rad1.port_b, resSup.port_a) annotation (Line(
+      points={{412,308},{420,308},{420,288},{240,288},{240,100}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pumRad.port_b, resRoo2.port_a) annotation (Line(
+      points={{220,54},{220,128},{280,128}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pumRad.port_b, resRoo1.port_a) annotation (Line(
+      points={{220,54},{220,308},{280,308}},
+      color={0,127,255},
+      smooth=Smooth.None));
 end HydronicHeating;
