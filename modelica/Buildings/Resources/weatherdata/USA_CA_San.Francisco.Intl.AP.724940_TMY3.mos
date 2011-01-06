@@ -14,7 +14,7 @@ double tab1(8760,30)
 #C4 Relative humidity in percent at indicated time
 #C5 Atmospheric station pressure in Pa at indicated time
 #C6 Extraterrestrial horizontal radiation in Wh/m2
-#C7 Extraterrestrial direct normal radiation in Wh/
+#C7 Extraterrestrial direct normal radiation in Wh/m2
 #C8 Horizontal infrared radiation intensity in Wh/m2
 #C9 Global horizontal radiation in Wh/m2
 #C10 Direct normal radiation in Wh/m2

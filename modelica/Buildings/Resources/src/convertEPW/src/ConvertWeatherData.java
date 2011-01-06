@@ -92,7 +92,7 @@ public class ConvertWeatherData{
     myArr.add("#C4 Relative humidity in percent at indicated time");    
     myArr.add("#C5 Atmospheric station pressure in Pa at indicated time");    
     myArr.add("#C6 Extraterrestrial horizontal radiation in Wh/m2");    
-    myArr.add("#C7 Extraterrestrial direct normal radiation in Wh/");    
+    myArr.add("#C7 Extraterrestrial direct normal radiation in Wh/m2");    
     myArr.add("#C8 Horizontal infrared radiation intensity in Wh/m2");    
     myArr.add("#C9 Global horizontal radiation in Wh/m2");    
     myArr.add("#C10 Direct normal radiation in Wh/m2");    
