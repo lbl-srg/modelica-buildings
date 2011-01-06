@@ -18,8 +18,6 @@ model BrighteningCoeffcient "Test model for brightening coeffcients"
   Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (Placement(
         transformation(extent={{-20,60},{0,80}}), iconTransformation(extent={{-20,
             60},{-20,60}})));
-  Buildings.Utilities.SimulationTime simTim
-    annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
 equation
   connect(zen.y, skyCle.zen) annotation (Line(
       points={{-19,-10},{-8,-10},{-8,24},{38,24}},
@@ -46,7 +44,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-40,70},{-10,70}},
+      points={{-40.2,70},{-10,70}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -77,10 +75,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(simTim.y, weaDat.cloTim) annotation (Line(
-      points={{-79,-10},{-70,-10},{-70,70},{-62,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaBus.cloTim, zen.cloTim) annotation (Line(
       points={{-10,70},{-10,30},{-60,30},{-60,-10},{-42,-10}},
       color={255,204,51},

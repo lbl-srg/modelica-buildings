@@ -14,8 +14,6 @@ model SkyBrightness "Test model for sky brightness"
   Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (Placement(
         transformation(extent={{-22,-20},{-2,0}}), iconTransformation(extent={{
             -22,-20},{-22,-20}})));
-  Buildings.Utilities.SimulationTime simTim
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 equation
   connect(zen.y, relAirMas.zen) annotation (Line(
       points={{-9,30},{8,30}},
@@ -41,10 +39,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(simTim.y, weaDat.cloTim) annotation (Line(
-      points={{-79,10},{-72,10},{-72,-10},{-62,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaBus.cloTim, zen.cloTim) annotation (Line(
       points={{-12,-10},{-12,12},{-40,12},{-40,30},{-32,30}},
       color={255,204,51},

@@ -333,8 +333,6 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
   BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-20,350},{0,370}})));
-  Utilities.SimulationTime simTim
-    annotation (Placement(transformation(extent={{-60,350},{-40,370}})));
   BoundaryConditions.WeatherData.WeatherBus weaBus
     annotation (Placement(transformation(extent={{10,350},{30,370}})));
   Modelica.Blocks.Continuous.FirstOrder delRadPum(T=10)
@@ -658,10 +656,6 @@ equation
           1.15598e-15}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, weaDat.cloTim) annotation (Line(
-      points={{-39,360},{-21,360}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-0.2,360},{20,360}},
       color={255,204,51},
@@ -703,27 +697,6 @@ equation
       points={{59,20},{40,20},{40,-40},{66,-40},{66,-50}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{600,460}}), graphics),
-Documentation(info="<html>
-<p>
-<b>Information for Windows users:</b>
-This example uses the Radau solver. 
-For Dymola 7.4, Microsoft Visual C++ Express 2010 does
-not work with the Radau solver.
-Microsoft Visual C++ Express is not officialy supported by Dymola 7.4 and it can not link
-the model to the Radau solver. 
-To avoid this problem, use another compiler, such as Visual C++ 2008. 
-</p>
-</html>"),Commands(file=
-          "HydronicHeating.mos" "run"),
-    experiment(
-      StopTime=172800,
-      Tolerance=1e-006,
-      Algorithm="radau"),
-    experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{600,
-            460}})));
   connect(TRoo2.T, conRoo2.u_m) annotation (Line(
       points={{440,180},{510,180},{510,208}},
       color={0,0,127},
@@ -756,4 +729,25 @@ To avoid this problem, use another compiler, such as Visual C++ 2008.
       points={{220,54},{220,308},{280,308}},
       color={0,127,255},
       smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{600,460}}), graphics),
+Documentation(info="<html>
+<p>
+<b>Information for Windows users:</b>
+This example uses the Radau solver. 
+For Dymola 7.4, Microsoft Visual C++ Express 2010 does
+not work with the Radau solver.
+Microsoft Visual C++ Express is not officialy supported by Dymola 7.4 and it can not link
+the model to the Radau solver. 
+To avoid this problem, use another compiler, such as Visual C++ 2008. 
+</p>
+</html>"),Commands(file=
+          "HydronicHeating.mos" "run"),
+    experiment(
+      StopTime=172800,
+      Tolerance=1e-006,
+      Algorithm="radau"),
+    experimentSetupOutput,
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{600,
+            460}})));
 end HydronicHeating;

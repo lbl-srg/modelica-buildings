@@ -7,8 +7,6 @@ model SkyClearness "Test model for sky clearness"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyClearness skyCle
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.Utilities.SimulationTime simTim
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -54,10 +52,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(simTim.y, weaDat.cloTim) annotation (Line(
-      points={{-59,30},{-42,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
   annotation (
     Diagram(graphics),
     Commands(file="SkyClearness.mos" "run"),
