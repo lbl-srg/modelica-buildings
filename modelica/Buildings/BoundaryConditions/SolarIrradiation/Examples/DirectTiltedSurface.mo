@@ -1,15 +1,15 @@
 within Buildings.BoundaryConditions.SolarIrradiation.Examples;
-model DirectSolarIrradiationTiltedSurface
+model DirectTiltedSurface
   "Test model for direct solar irradiation on a tilted surface"
   import Buildings;
   parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
-  Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
+  Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (
       Placement(transformation(extent={{1,-1},{21,21}}), iconTransformation(
           extent={{20,20},{21,21}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DirectSolarIrradiationTiltedSurface
+  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface
     HDirTil(
     til=1.5707963267949,
     lat=0.72483523835325,
@@ -34,6 +34,6 @@ equation
       extent={{-6,3},{-6,3}}));
   annotation (
     Diagram(graphics),
-    Commands(file="DirectSolarIrradiationTiltedSurface.mos" "run"),
+    Commands(file="DirectTiltedSurface.mos" "run"),
     Icon(graphics));
-end DirectSolarIrradiationTiltedSurface;
+end DirectTiltedSurface;

@@ -63,16 +63,16 @@ model Window "Test model for the window"
     haveExteriorShade=false,
     haveInteriorShade=true)
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DirectSolarIrradiationTiltedSurface
+  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface
     HDirTil(
     til=til,
     lat=lat,
     azi=azi)
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DiffuseSolarIrradiationIsotropic
+  Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic
     HDifTilIso(til=til)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(
+  Buildings.BoundaryConditions.WeatherData.Reader weaDat(
                                                         filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
@@ -91,7 +91,7 @@ model Window "Test model for the window"
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{10,-20},{30,0}})));
 equation
   connect(uSha.y, extCon.uSha) annotation (Line(

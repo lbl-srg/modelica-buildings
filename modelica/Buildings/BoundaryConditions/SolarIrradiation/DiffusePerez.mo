@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarIrradiation;
-block DiffuseSolarIrradiationPerez
+block DiffusePerez
   "Hemispherical diffuse irradiation on a tilted surface using Perez's anisotropic sky model"
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
@@ -9,7 +9,7 @@ block DiffuseSolarIrradiationPerez
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
 protected
-  BaseClasses.DiffuseSolarIrradiationPerez HDifTil(final til=til, final rho=
+  BaseClasses.DiffusePerez HDifTil(final til=til, final rho=
           rho) annotation (Placement(transformation(extent={{46,-21},{88,21}})));
   BaseClasses.SkyClearness skyCle
     annotation (Placement(transformation(extent={{-52,16},{-44,24}})));
@@ -172,4 +172,4 @@ First implementation.
           textString="%name",
           lineColor={0,0,255})}),
     DymolaStoredErrors);
-end DiffuseSolarIrradiationPerez;
+end DiffusePerez;

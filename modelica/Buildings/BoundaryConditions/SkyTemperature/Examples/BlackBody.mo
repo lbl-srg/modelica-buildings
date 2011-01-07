@@ -1,13 +1,13 @@
 within Buildings.BoundaryConditions.SkyTemperature.Examples;
-model BlackBodySkyTemperature "Test model for black body sky temperature"
+model BlackBody "Test model for black body sky temperature"
   import Buildings;
 
-  Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
+  Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.BoundaryConditions.SkyTemperature.BlackBodySkyTemperature TBlaSky
+  Buildings.BoundaryConditions.SkyTemperature.BlackBody TBlaSky
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
-  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (
       Placement(transformation(extent={{0,0},{20,20}}), iconTransformation(
           extent={{0,0},{2,2}})));
 equation
@@ -44,6 +44,6 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(graphics),
-    Commands(file="BlackBodySkyTemperature.mos" "run"),
+    Commands(file="BlackBody.mos" "run"),
     Icon(graphics));
-end BlackBodySkyTemperature;
+end BlackBody;

@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
-block DirectSolarIrradiationTiltedSurface
+block DirectTiltedSurface
   "Direct solar irradiation on a tilted surface"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   Modelica.Blocks.Interfaces.RealInput incAng(
@@ -48,4 +48,4 @@ First implementation.
           extent={{-54,-66},{-106,-54}},
           lineColor={0,0,127},
           textString="incAng")}));
-end DirectSolarIrradiationTiltedSurface;
+end DirectTiltedSurface;

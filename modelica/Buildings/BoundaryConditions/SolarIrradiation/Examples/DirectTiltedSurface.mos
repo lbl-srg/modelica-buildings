@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.SolarIrradiation.Examples.DirectSolarIrradiationTiltedSurface", stopTime=8640000, resultFile="DirectSolarIrradiationTiltedSurface");
+simulateModel("Buildings.BoundaryConditions.SolarIrradiation.Examples.DirectTiltedSurface", stopTime=8640000, resultFile="DirectTiltedSurface");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
  y = {"HDirTil.H"},
@@ -9,6 +9,6 @@ createPlot(id = 1,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "DirectSolarIrradiationTiltedSurface.mat",
+ filename = "DirectTiltedSurface.mat",
  leftTitleType = 1,
  bottomTitleType = 1);

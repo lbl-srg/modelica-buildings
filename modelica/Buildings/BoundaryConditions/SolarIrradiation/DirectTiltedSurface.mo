@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarIrradiation;
-block DirectSolarIrradiationTiltedSurface
+block DirectTiltedSurface
   "Direct solar irradiation on a tilted surface"
   import Buildings;
   extends
@@ -8,7 +8,7 @@ block DirectSolarIrradiationTiltedSurface
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
-  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   Modelica.Blocks.Interfaces.RealOutput inc(
@@ -23,7 +23,7 @@ protected
     final til=til,
     final lat=lat)
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
-  Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DirectSolarIrradiationTiltedSurface
+  Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DirectTiltedSurface
     HDirTil annotation (Placement(transformation(extent={{0,-20},{40,20}})));
 
 equation
@@ -86,4 +86,4 @@ First implementation.
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255})}));
-end DirectSolarIrradiationTiltedSurface;
+end DirectTiltedSurface;

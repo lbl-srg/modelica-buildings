@@ -1,10 +1,10 @@
 within Buildings.BoundaryConditions.WeatherData;
-block ReadWeatherData "Read the requested weather data "
+block Reader "Read the requested weather data "
 public
   parameter String filNam "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Open weather file for reading")));
-  WeatherBus weaBus "Weather Data Bus" annotation (Placement(transformation(
+  Bus weaBus "Weather Data Bus" annotation (Placement(transformation(
           extent={{190,-10},{210,10}}), iconTransformation(extent={{190,-10},{
             210,10}})));
 protected
@@ -50,7 +50,7 @@ public
     annotation (Placement(transformation(extent={{30,120},{50,140}})));
   BaseClasses.CheckWindDirection cheWinDir
     annotation (Placement(transformation(extent={{-30,140},{-10,160}})));
-  SkyTemperature.BlackBodySkyTemperature TBlaSky
+  SkyTemperature.BlackBody TBlaSky
     annotation (Placement(transformation(extent={{140,60},{160,80}})));
   Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
@@ -225,6 +225,18 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(simTim.y, weaBus.cloTim) annotation (Line(
+      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,0},{-144,0},{-144,
+          5.55112e-16},{200,5.55112e-16}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(simTim.y, timCon.simTim) annotation (Line(
+      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-30},{-122,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
@@ -399,16 +411,4 @@ First implementation.
           color={255,0,0},
           smooth=Smooth.None,
           thickness=1)}));
-  connect(simTim.y, weaBus.cloTim) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,0},{-144,0},{-144,
-          5.55112e-16},{200,5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(simTim.y, timCon.simTim) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-30},{-122,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-end ReadWeatherData;
+end Reader;

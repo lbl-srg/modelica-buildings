@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SkyTemperature;
-block BlackBodySkyTemperature "Calculate black body sky temperature"
+block BlackBody "Calculate black body sky temperature"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   parameter Integer calTSky=0 " 0: Use radHor; 1: Use TDry, TDewPoi and nOpa";
@@ -84,4 +84,4 @@ First implementation.
           extent={{-88,-24},{-64,-36}},
           lineColor={0,0,127},
           textString="nOpa")}));
-end BlackBodySkyTemperature;
+end BlackBody;

@@ -8,10 +8,10 @@ model SkyBrightness "Test model for sky brightness"
     annotation (Placement(transformation(extent={{-30,20},{-10,40}})));
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness
     skyBri annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
+  Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (Placement(
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-22,-20},{-2,0}}), iconTransformation(extent={{
             -22,-20},{-22,-20}})));
 equation

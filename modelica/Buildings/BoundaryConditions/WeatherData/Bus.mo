@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData;
-expandable connector WeatherBus "Data bus that stores weather data"
+expandable connector Bus "Data bus that stores weather data"
   extends Modelica.Icons.SignalBus;
 
   annotation (
@@ -24,4 +24,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end WeatherBus;
+end Bus;

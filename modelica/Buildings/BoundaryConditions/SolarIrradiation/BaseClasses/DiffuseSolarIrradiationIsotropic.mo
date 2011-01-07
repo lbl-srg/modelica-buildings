@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses;
-block DiffuseSolarIrradiationIsotropic
+block DiffuseIsotropic
   "Diffuse solar irradiation on a tilted surface with an isotropic model"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
@@ -51,4 +51,4 @@ First implementation.
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255})}));
-end DiffuseSolarIrradiationIsotropic;
+end DiffuseIsotropic;

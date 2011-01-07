@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.WeatherData.Examples.ReadWeatherData", startTime=0, stopTime=8640000, method="dassl", resultFile="ReadWeatherData");
+simulateModel("Buildings.BoundaryConditions.WeatherData.Examples.Reader", startTime=0, stopTime=8640000, method="dassl", resultFile="Reader");
 
 createPlot(id = 1,
  position = {7, 7, 746, 517},
@@ -10,7 +10,7 @@ createPlot(id = 1,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "ReadWeatherData.mat",
+ filename = "Reader.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 1,

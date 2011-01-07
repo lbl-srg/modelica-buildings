@@ -330,10 +330,10 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
   Modelica.Blocks.Sources.Constant dpSetOff(k=0)
     "Pressure set point to switch pump off"
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
+  BoundaryConditions.WeatherData.Reader weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-20,350},{0,370}})));
-  BoundaryConditions.WeatherData.WeatherBus weaBus
+  BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{10,350},{30,370}})));
   Modelica.Blocks.Continuous.FirstOrder delRadPum(T=10)
     "Delay element for the transient response of the pump"

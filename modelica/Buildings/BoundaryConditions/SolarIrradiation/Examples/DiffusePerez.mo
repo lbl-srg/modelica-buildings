@@ -1,17 +1,17 @@
 within Buildings.BoundaryConditions.SolarIrradiation.Examples;
-model DiffuseSolarIrradiationPerez
+model DiffusePerez
   "Test model for diffuse solar irradiation on a tilted surface using the Perez model"
   import Buildings;
   parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
   parameter Modelica.SIunits.Angle azi=0.3 "Azi angle";
   parameter Modelica.SIunits.Angle til=0.5 "Tilted angle";
-  Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
+  Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (Placement(
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{1,-1},{21,21}}), iconTransformation(extent={{20,
             20},{21,21}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DiffuseSolarIrradiationPerez
+  Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez
     HDifTil(
     til=1.5707963267949,
     lat=0.6457718232379,
@@ -38,7 +38,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
-    Commands(file="DiffuseSolarIrradiationPerez.mos" "run"),
+    Commands(file="DiffusePerez.mos" "run"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics));
-end DiffuseSolarIrradiationPerez;
+end DiffusePerez;

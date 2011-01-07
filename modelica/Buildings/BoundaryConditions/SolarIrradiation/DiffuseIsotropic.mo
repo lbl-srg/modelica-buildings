@@ -1,12 +1,12 @@
 within Buildings.BoundaryConditions.SolarIrradiation;
-block DiffuseSolarIrradiationIsotropic
+block DiffuseIsotropic
   "Diffuse solar irradiation on a tilted surface with an isotropic sky model"
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
 public
   parameter Real rho=0.2 "Ground reflectance";
 protected
-  Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseSolarIrradiationIsotropic
+  Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseIsotropic
     HDifTilIso(til=til, rho=rho)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 
@@ -61,4 +61,4 @@ First implementation.
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255})}));
-end DiffuseSolarIrradiationIsotropic;
+end DiffuseIsotropic;

@@ -1,7 +1,7 @@
 BrighteningCoefficient
-DiffuseSolarIrradiationIsotropic
-DiffuseSolarIrradiationPerez
-DirectSolarIrradiationTiltedSurface
+DiffuseIsotropic
+DiffusePerez
+DirectTiltedSurface
 RelativeAirMass
 SkyBrightness
 SkyClearness

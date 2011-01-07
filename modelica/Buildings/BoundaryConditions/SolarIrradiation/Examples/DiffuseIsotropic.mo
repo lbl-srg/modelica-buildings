@@ -1,14 +1,14 @@
 within Buildings.BoundaryConditions.SolarIrradiation.Examples;
-model DiffuseSolarIrradiationIsotropic
+model DiffuseIsotropic
   "Test model for diffuse solar irradiation on a tilted surface using the isotropic model"
   import Buildings;
-  Buildings.BoundaryConditions.WeatherData.ReadWeatherData weaDat(filNam=
+  Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.BoundaryConditions.WeatherData.WeatherBus weaBus annotation (Placement(
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{1,-1},{21,21}}), iconTransformation(extent={{1,
             -1},{2,-2}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DiffuseSolarIrradiationIsotropic
+  Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic
     HDifTilIso(til=1.5707963267949)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 equation
@@ -32,6 +32,6 @@ equation
 
   annotation (
     Diagram(graphics),
-    Commands(file="DiffuseSolarIrradiationIsotropic.mos" "run"),
+    Commands(file="DiffuseIsotropic.mos" "run"),
     Icon(graphics));
-end DiffuseSolarIrradiationIsotropic;
+end DiffuseIsotropic;

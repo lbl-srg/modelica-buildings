@@ -9,7 +9,7 @@ partial block PartialSolarIrradiation
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
         rotation=0)));
 
-  WeatherData.WeatherBus weaBus "Bus with weather data"
+  WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   annotation (

@@ -1,5 +1,5 @@
-DiffuseSolarIrradiationIsotropic
-DiffuseSolarIrradiationPerez
-DirectSolarIrradiationTiltedSurface
+DiffuseIsotropic
+DiffusePerez
+DirectTiltedSurface
 Examples
 BaseClasses
