@@ -11,7 +11,7 @@ model GasConvection
   parameter Modelica.SIunits.Area A "Heat transfer area";
   parameter Modelica.SIunits.Area h(min=0) = sqrt(A) "Height of window";
 
-  parameter Modelica.SIunits.Angle til
+  parameter Modelica.SIunits.Angle til(displayUnit="deg")
     "Surface tilt (only 0, 90 and 180 degrees are implemented)";
   parameter Boolean linearize=false "Set to true to linearize emissive power";
 
