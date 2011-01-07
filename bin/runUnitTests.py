@@ -1,16 +1,31 @@
 #!/usr/bin/python
 ####################################################
-# Script that writes runAll.mos, which runs all
-# unit tests.
-# This script searches for all mos files that
-# contain the word simulate.
+# Script that runs all unit tests.
 #
-# MWetter@lbl.gov                        2009-040-10 
+# MWetter@lbl.gov                         2011-01-06
 ####################################################
-import os, string, fnmatch, pwd, os.path
+import os, string, fnmatch, pwd, os.path, sys
 # --------------------------
 LIBHOME=os.path.abspath(".")
 MODELICA_EXE="dymola"
+
+# Check if argument is an executable
+def isExecutable(program):
+    import os
+    def is_exe(fpath):
+        return os.path.exists(fpath) and os.access(fpath, os.X_OK)
+
+    fpath, fname = os.path.split(program)
+    if fpath:
+        if is_exe(program):
+            return True
+    else:
+        for path in os.environ["PATH"].split(os.pathsep):
+            exe_file = os.path.join(path, program)
+            if is_exe(exe_file):
+                return True
+
+    return False
 
 # Check wether the file 'fileName' contains the string 'key'
 # as the first string on the first or second line
@@ -124,6 +139,11 @@ def writeRunscript():
     runFil.write("exit\n")
     runFil.close()
 
+
+# Check if executable is on the path
+if not isExecutable(MODELICA_EXE):
+	sys.stderr.write("Error: Did not find executable '" + MODELICA_EXE + "'\n")
+	exit(3)
 curDir=os.path.split(os.path.abspath("."))[1]
 if curDir == "Buildings":
     writeRunscript()
