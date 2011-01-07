@@ -1,12 +1,13 @@
 within Buildings.HeatTransfer.BaseClasses;
-partial model PartialConstruction
+model PartialConstruction
   "Partial model for constructions with and without convective heat transfer coefficient"
   extends Buildings.BaseClasses.BaseIcon;
   parameter Modelica.SIunits.Area A "Heat transfer area";
 
   replaceable parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
     layers "Construction definition from Data.OpaqueConstructions"
-    annotation (Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,60},
+            {80,80}})));
 
   final parameter Integer nLay(min=1, fixed=true) = layers.nLay
     "Number of layers";
@@ -24,12 +25,7 @@ partial model PartialConstruction
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
-          Rectangle(
-          extent={{-100,100},{100,-100}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
+          preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>
 This is a partial model for constructions and multi-layer heat conductors.
 </html>", revisions="<html>

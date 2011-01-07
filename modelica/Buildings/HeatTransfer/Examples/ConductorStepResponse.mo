@@ -1,19 +1,20 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorStepResponse "Test model for heat conductor"
   import Buildings;
-  Buildings.HeatTransfer.Data.Solids.Brick brick(x=0.12, nStaRef=4)
+  Buildings.HeatTransfer.Data.Solids.Concrete concrete(x=0.12, nStaRef=4)
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.HeatTransfer.Data.Solids.InsulationBoard insul(
-    x=0.05, nStaRef=3) "Insulation"
+  Buildings.HeatTransfer.Data.Resistances.Carpet carpet "carpet"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic composite(nLay=2,
-      material={insul,brick})
+  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic composite(
+      nLay=2,
+      material={carpet,concrete})
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.HeatTransfer.ConductorMultiLayer conMul(
     A=2, layers=composite)
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.HeatTransfer.ConductorSingleLayer con(
-    A=2, material=brick) annotation (Placement(transformation(extent={{20,20},
+    A=2, material=carpet)
+                         annotation (Placement(transformation(extent={{20,20},
             {40,40}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
@@ -25,7 +26,7 @@ model ConductorStepResponse "Test model for heat conductor"
     startTime=3600)
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.HeatTransfer.ConductorSingleLayer con1(
-    A=2, material=insul)
+    A=2, material=carpet)
          annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB1(
                                                             T=293.15)
@@ -33,7 +34,7 @@ model ConductorStepResponse "Test model for heat conductor"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.HeatTransfer.ConductorSingleLayer con2(
-    A=2, material=brick)
+    A=2, material=concrete)
              annotation (Placement(transformation(extent={{50,-20},{70,0}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA2
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));

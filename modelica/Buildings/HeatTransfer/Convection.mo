@@ -2,13 +2,13 @@ within Buildings.HeatTransfer;
 model Convection "Model for a convective heat transfer"
   extends Buildings.BaseClasses.BaseIcon;
   import c = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux;
+  parameter Modelica.SIunits.Area A "Heat transfer area";
   replaceable function qCon_flow =
       Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.constantCoefficient
                                                  constrainedby
     Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.BaseClasses.PartialConvectiveHeatFlux(
       dT=dT) "Function for convective heat transfer coefficient"
    annotation(choicesAllMatching=true);
-  parameter Modelica.SIunits.Area A "Heat transfer area";
   Modelica.SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
   Modelica.SIunits.TemperatureDifference dT(start=0) "= solid.T - fluid.T";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a solid
@@ -26,8 +26,8 @@ equation
   // a continuous first derivative
   Q_flow = A*qCon_flow();
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+            {100,100}}),       graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

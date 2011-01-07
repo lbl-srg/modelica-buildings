@@ -3,8 +3,11 @@ ConductorSingleLayer
 ConductorMultiLayer
 Convection
 ConstructionOpaque
+Surface
+Windows
+Radiosity
 Data
 Functions
 Examples
-DataAdaptive
 BaseClasses
+Interfaces

@@ -110,7 +110,9 @@ First, we define the materials as
 Here, we selected to use four state variables for each material layer.
 </p>
 <p>
-Next, we define the construction as
+Next, we define the construction. In the room model, the convention is that the first material
+layer faces the outside, and the last material layer faces the room-side.
+Therefore, the declaration for an exterior wall with insulation at the outside is
 </p>
 <pre>
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic 
@@ -138,7 +140,7 @@ For example, for a floor with carpet, the declaration would be
   Buildings.HeatTransfer.Data.Resistances.Carpet carpet;
   Buildings.HeatTransfer.Data.Solids.Concrete    concrete(x=0.2, nStaRef=4);
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic 
-       floor(nLay=2, material={carpet,concrete});
+       floor(nLay=2, material={concrete, carpet});
 </pre>
 <p>
 To change the thermal resistance, we could have written
@@ -183,9 +185,9 @@ For example,
       layers(
         material={Data.Solids.Concrete(x=0.30, nStaRef=4)}),
     redeclare function qCon_a_flow = 
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor,
+        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling,
     redeclare function qCon_b_flow = 
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling);
+        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor);
 </pre>
 <p>
 This defines a floor with <tt>10 m2</tt> area. It will be initialized at
@@ -195,10 +197,10 @@ its thickness to <tt>x=0.3</tt> meters. We also changed the number
 of state variables that are used for the spatial discretization
 of the term <tt>d^2T/dx^2</tt> when solving the transient 
 heat conduction in this layer of material.
-To compute the convective heat transfer, we chose chose 
+To compute the convective heat transfer, we chose  
 to use buoyancy-driven equations for the floor 
-(which is at surface a and hence assigned to <tt>qCon_a_flow</tt>) 
-and the ceiling.
+(which is at surface b and hence assigned to <tt>qCon_b_flow</tt>) 
+and the ceiling, which is at surface a.
 </p>
 
 <h5>Definition of Construction without Convective Heat Transfer Coefficients</h5>

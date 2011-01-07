@@ -31,7 +31,7 @@ model ConductorSingleLayer "Test model for heat conductor"
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   Buildings.HeatTransfer.Data.Solids.Concrete concrete200(x=0.2, nStaRef=4)
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nStaRef=2)
+  Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nStaRef=4)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.HeatTransfer.Convection conv1(              A=1)
     "Convective heat transfer"

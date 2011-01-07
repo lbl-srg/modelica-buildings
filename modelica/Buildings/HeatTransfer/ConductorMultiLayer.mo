@@ -136,11 +136,6 @@ To obtain the surface temperature of the construction, use <tt>port_a.T</tt> (or
 and not the variable <tt>T[1]</tt> because there is a thermal resistance between the surface
 and the temperature state.
 </p>
-<p>
-To model a single layer material, use
-<a href=\"Buildings.HeatTransfer.ConductorSingleLayer\">
-Buildings.HeatTransfer.ConductorSingleLayer</a>.
-</p>
 </html>", revisions="<html>
 <ul>
 <li>
