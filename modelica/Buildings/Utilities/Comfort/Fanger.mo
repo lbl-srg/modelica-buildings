@@ -202,7 +202,7 @@ The thermal sensation of a human being is mainly related to the thermal balance 
 body as a whole. This balance is influenced by two groups of factors, personal and
 physical. The activity level and clothing thermal insulation of the subject form the
 group of personal factors, while the environmental parameters: air temperature, mean
-radiant temperature, air velocity, and air humidity composes the group of physical
+radiant temperature, air velocity, and air humidity compose the group of physical
 factors. When the personal factors have been estimated and the physical factors have
 been measured the thermal sensation for the body as a whole (general thermal
 comfort) can be predicted by calculating the PMV index. The PPD index, obtained
