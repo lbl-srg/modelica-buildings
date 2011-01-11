@@ -1,0 +1,16 @@
+within Buildings.RoomsBeta.Examples.TestConditionalConstructions;
+model OnlyExteriorWallWithWindow "Test model for room model"
+  extends BaseClasses.PartialTestModel(
+   nConExt=0,
+   nConExtWin=2,
+   nConPar=0,
+   nConBou=0,
+   nSurBou=0,
+   roo(
+    datConExtWin(layers={matLayExt, matLayExt}, each A=10,
+                 glaSys={glaSys, glaSys},
+                 each AWin=4, each fFra=0.1,
+                 til={Types.Tilt.floor, Types.Tilt.ceiling},
+                 each azi=Types.Azimuth.W)));
+   annotation(Commands(file="OnlyExteriorWallWithWindow.mos" "run"));
+end OnlyExteriorWallWithWindow;

@@ -42,8 +42,8 @@ radiosity leaves the component and hence needs to be negative or zero.
 </p>
 <p>
 This model is used in 
-<a href=\"modelica:Buildings.Rooms.BaseClasses.DummyConstructionExterior\">
-Buildings.Rooms.BaseClasses.DummyConstructionExterior</a>.
+<a href=\"modelica:Buildings.RoomsBeta.BaseClasses.DummyConstructionExterior\">
+Buildings.RoomsBeta.BaseClasses.DummyConstructionExterior</a>.
 </p>
 </html>", revisions="<html>
 <ul>

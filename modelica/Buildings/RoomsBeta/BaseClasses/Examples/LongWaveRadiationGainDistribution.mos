@@ -1,0 +1,1 @@
+simulateModel("Buildings.RoomsBeta.BaseClasses.Examples.LongWaveRadiationGainDistribution", method="dassl", resultFile="LongWaveRadiationGainDistribution");
