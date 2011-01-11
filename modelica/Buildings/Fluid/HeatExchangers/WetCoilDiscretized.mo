@@ -4,9 +4,8 @@ model WetCoilDiscretized
   // When replacing the volume, the Medium is constrained so that the enthalpyOfLiquid
   // function is known. Otherwise, checkModel(...) will fail
   extends DryCoilDiscretized(final allowCondensation=true,
-  each hexReg(ele(redeclare each
+  each hexReg(ele(redeclare each final
           Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
-          final use_HeatTransfer = true,
           medium(T(stateSelect=StateSelect.never))))));
  annotation (
     Documentation(info="<html>

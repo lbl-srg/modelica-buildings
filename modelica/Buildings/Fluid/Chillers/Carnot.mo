@@ -1,15 +1,17 @@
 within Buildings.Fluid.Chillers;
 model Carnot
   "Chiller with performance curve adjusted based on Carnot efficiency"
- extends Interfaces.PartialDynamicFourPortTransformer(
-     redeclare Buildings.Fluid.MixingVolumes.MixingVolumeDryAir vol2(redeclare
-        package Medium = Medium2,
-     nPorts=2, V=m2_flow_nominal*tau2/rho2_nominal,
-     final use_HeatTransfer=true,
-     redeclare model HeatTransfer =
-          Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
-             surfaceAreas={1})),
-             final show_T = true);
+ extends Interfaces.PartialDynamicFourPortTransformer(final show_T = true,
+    vol1(
+      energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      substanceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      traceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial),
+    vol2(
+      energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      substanceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      traceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial));
 
   parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=
     Buildings.Fluid.Types.EfficiencyInput.volume
@@ -49,18 +51,6 @@ model Carnot
     "Coefficients for efficiency curve (need p(a=a, y=1)=1)"
     annotation (Dialog(group="Efficiency"));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
-    "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
-  Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
-    "Condenser heat flow rate"
-    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
-    "Evaporator heat flow rate"
-    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
-    "Prescribed heat flow rate"
-    annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
     annotation (Placement(transformation(extent={{-140,70},{-100,110}},
           rotation=0)));
@@ -74,6 +64,19 @@ model Carnot
     "Condenser temperature used to compute efficiency";
   Modelica.SIunits.Temperature TEva
     "Evaporator temperature used to compute efficiency";
+protected
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
+    "Prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
+    "Prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
+  Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
+    "Evaporator heat flow rate"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
+    "Condenser heat flow rate"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 initial equation
   assert(dTEva_nominal>0, "Parameter dTEva_nominal must be positive.");
   assert(dTCon_nominal>0, "Parameter dTCon_nominal must be positive.");

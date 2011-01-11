@@ -6,7 +6,8 @@ model HexElement "Element of a heat exchanger"
           nPorts=2,
           final energyDynamics=energyDynamics1,
           final massDynamics=energyDynamics1),
-    vol2(redeclare package Medium = Medium2,
+    redeclare Buildings.Fluid.MixingVolumes.MixingVolumeDryAir vol2(
+          redeclare package Medium = Medium2,
           nPorts = 2,
           V=m2_flow_nominal*tau2/rho2_nominal,
           final energyDynamics=energyDynamics2,

@@ -37,42 +37,56 @@ partial model PartialElectric
     m_flow=mCon_flow_nominal,
     T=291.15)
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
-  Buildings.Fluid.Sources.FixedBoundary sin1(nPorts=1, redeclare package Medium
-      = Medium1)                                     annotation (Placement(
+  Buildings.Fluid.Sources.FixedBoundary sin1(          redeclare package Medium
+      = Medium1, nPorts=1)                           annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={70,40})));
-  Buildings.Fluid.Sources.FixedBoundary sin2(nPorts=1, redeclare package Medium
-      = Medium2)                                     annotation (Placement(
+  Buildings.Fluid.Sources.FixedBoundary sin2(          redeclare package Medium
+      = Medium2, nPorts=1)                           annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-50,-20})));
+        origin={-70,-20})));
   Modelica.Blocks.Sources.Ramp TSet(
-    duration=60,
-    startTime=1800,
-    offset=273.15 + 5,
-    height=15) "Set point for leaving chilled water temperature"
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    duration=3600,
+    startTime=3*3600,
+    offset=273.15 + 10,
+    height=8) "Set point for leaving chilled water temperature"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Ramp TCon_in(
     height=10,
-    duration=60,
     offset=273.15 + 20,
-    startTime=60) "Condenser inlet temperature"
+    duration=3600,
+    startTime=2*3600) "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-90,10},{-70,30}})));
   Modelica.Blocks.Sources.Ramp TEva_in(
-    duration=60,
-    startTime=900,
     offset=273.15 + 15,
-    height=5) "Evaporator inlet temperature"
+    height=5,
+    startTime=3600,
+    duration=3600) "Evaporator inlet temperature"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   replaceable parameter Buildings.Fluid.Chillers.Data.BaseClasses.Chiller per
   constrainedby Buildings.Fluid.Chillers.Data.BaseClasses.Chiller
     "Base class for performance data"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
+  Modelica.Blocks.Sources.Pulse pulse(period=3600/2)
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold(threshold=0.5)
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
+    redeclare package Medium = Medium1,
+    m_flow_nominal=mCon_flow_nominal,
+    dp_nominal=6000) "Flow resistance"
+    annotation (Placement(transformation(extent={{32,30},{52,50}})));
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
+    dp_nominal=6000,
+    redeclare package Medium = Medium2,
+    m_flow_nominal=mEva_flow_nominal) "Flow resistance"
+    annotation (Placement(transformation(extent={{-20,-30},{-40,-10}})));
 equation
   connect(sou1.ports[1], chi.port_a1)    annotation (Line(
       points={{-40,16},{-5.55112e-16,16}},
@@ -80,14 +94,6 @@ equation
       smooth=Smooth.None));
   connect(sou2.ports[1], chi.port_a2)    annotation (Line(
       points={{40,4},{35,4},{35,4},{30,4},{30,4},{20,4}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(chi.port_b1, sin1.ports[1])    annotation (Line(
-      points={{20,16},{30,16},{30,40},{60,40}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sin2.ports[1], chi.port_b2)    annotation (Line(
-      points={{-40,-20},{-10,-20},{-10,4},{-5.55112e-16,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TCon_in.y, sou1.T_in) annotation (Line(
@@ -99,8 +105,33 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSet.y, chi.TSet) annotation (Line(
-      points={{-39,60},{-10,60},{-10,10},{-2,10}},
+      points={{-59,60},{-10,60},{-10,7},{-2,7}},
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(greaterThreshold.u, pulse.y) annotation (Line(
+      points={{-42,90},{-59,90}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(greaterThreshold.y, chi.on) annotation (Line(
+      points={{-19,90},{-8,90},{-8,13},{-2,13}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(chi.port_b1, res1.port_a) annotation (Line(
+      points={{20,16},{26,16},{26,40},{32,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res1.port_b, sin1.ports[1]) annotation (Line(
+      points={{52,40},{60,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(chi.port_b2, res2.port_a) annotation (Line(
+      points={{-5.55112e-16,4},{-10,4},{-10,-20},{-20,-20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res2.port_b, sin2.ports[1]) annotation (Line(
+      points={{-40,-20},{-60,-20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  annotation (Diagram(graphics));
 end PartialElectric;

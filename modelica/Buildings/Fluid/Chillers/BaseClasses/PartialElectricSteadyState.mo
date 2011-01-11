@@ -1,18 +1,35 @@
 within Buildings.Fluid.Chillers.BaseClasses;
 partial model PartialElectricSteadyState
   "Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus"
-  extends Buildings.Fluid.Interfaces.PartialStaticFourPortHeatMassTransfer(
+  extends Buildings.Fluid.Interfaces.PartialDynamicFourPortTransformer(
    m1_flow_nominal = mCon_flow_nominal,
    m2_flow_nominal = mEva_flow_nominal,
-   final sensibleOnly1=true,
-   final sensibleOnly2=true,
-   show_T=true,
    h_outflow_b1_start=Medium1.specificEnthalpy_pTX(Medium1.p_default, 273.15+25, Medium1.X_default),
-   h_outflow_b2_start=Medium2.specificEnthalpy_pTX(Medium2.p_default, 273.15+5, Medium2.X_default));
+   h_outflow_b2_start=Medium2.specificEnthalpy_pTX(Medium2.p_default, 273.15+5, Medium2.X_default),
+   vol2(V=m2_flow_nominal*tau2/rho2_nominal, nPorts=2,
+      energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      substanceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      traceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial),
+    vol1(
+      energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      substanceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
+      traceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial));
 
+  Modelica.Blocks.Interfaces.BooleanInput on
+    "Set to true to enable compressor, or false to disable compressor"
+    annotation (Placement(transformation(extent={{-140,10},{-100,50}}),
+        iconTransformation(extent={{-140,10},{-100,50}})));
   Modelica.Blocks.Interfaces.RealInput TSet(unit="K", displayUnit="degC")
     "Set point for leaving chilled water temperature"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
+    annotation (Placement(transformation(extent={{-140,-50},{-100,-10}}),
+        iconTransformation(extent={{-140,-50},{-100,-10}})));
+
+  Modelica.SIunits.Temperature TEvaEnt "Evaporator entering temperature";
+  Modelica.SIunits.Temperature TEvaLvg "Evaporator leaving temperature";
+  Modelica.SIunits.Temperature TConEnt "Condenser entering temperature";
+  Modelica.SIunits.Temperature TConLvg "Condenser leaving temperature";
 
   Real COP(min=0) "Coefficient of performance";
   Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
@@ -37,7 +54,7 @@ protected
   Modelica.SIunits.HeatFlowRate QEva_flow_set(nominal=QEva_flow_nominal,start=QEva_flow_nominal)
     "Cooling capacity required to cool to set point temperature";
   Modelica.SIunits.SpecificEnthalpy hSet
-    "enthalpy setpoint for leaving chilled water";
+    "Enthalpy setpoint for leaving chilled water";
   // Performance data
   parameter Modelica.SIunits.HeatFlowRate QEva_flow_nominal(max=0)
     "Reference capacity (negative number)";
@@ -53,10 +70,6 @@ protected
     "Nominal mass flow at condenser";
   parameter Modelica.SIunits.Temperature TEvaLvg_nominal
     "Temperature of fluid leaving evaporator at nominal condition";
-//  parameter Buildings.Fluid.Chillers.Data.ElectricEIRCurves.Generic cur
-//    "Performance data";
-
-///////////////////////////
   final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
     TEvaLvg_nominal_degC=
     Modelica.SIunits.Conversions.to_degC(TEvaLvg_nominal)
@@ -65,49 +78,90 @@ protected
     "Temperature of fluid leaving evaporator";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_small = QEva_flow_nominal*1E-9
     "Small value for heat flow rate or power, used to avoid division by zero";
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
+    "Prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
+    "Prescribed heat flow rate"
+    annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
+  Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)
+    "Evaporator heat flow rate"
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Modelica.Blocks.Sources.RealExpression QCon_flow_in(y=QCon_flow)
+    "Condenser heat flow rate"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
+
 initial equation
   assert(QEva_flow_nominal < 0, "Parameter QEva_flow_nominal must be smaller than zero.");
   assert(PLRMinUnl >= PLRMin, "Parameter PLRMinUnl must be bigger or equal to PLRMin");
   assert(PLRMax > PLRMinUnl, "Parameter PLRMax must be bigger than PLRMinUnl");
 equation
-  TEvaLvg_degC=Modelica.SIunits.Conversions.to_degC(Medium2.temperature(
-               Medium2.setState_phX(port_b2.p, port_b2.h_outflow, port_b2.Xi_outflow)));
+  // Condenser temperatures
+  TConEnt = Medium1.temperature(Medium1.setState_phX(port_a1.p, inStream(port_a1.h_outflow)));
+  TConLvg = vol1.heatPort.T;
+  // Evaporator temperatures
+  TEvaEnt = Medium2.temperature(Medium2.setState_phX(port_a2.p, inStream(port_a2.h_outflow)));
+  TEvaLvg = vol2.heatPort.T;
+  TEvaLvg_degC=Modelica.SIunits.Conversions.to_degC(TEvaLvg);
 
-  // Available cooling capacity
-  QEva_flow_ava = QEva_flow_nominal*capFunT;
   // Enthalpy of temperature setpoint
   hSet = Medium2.specificEnthalpy_pTX(port_b2.p, TSet, port_b2.Xi_outflow);
-  // Cooling capacity required to chill water to setpoint
-  QEva_flow_set = min(m2_flow*(hSet-inStream(port_a2.h_outflow)),0);
 
-  // Part load ratio
-  PLR1 = min(QEva_flow_set/(QEva_flow_ava+Q_flow_small), PLRMax);
-  // PLR2 is the compressor part load ratio. The lower bound PLRMinUnl is
-  // since for PLR1<PLRMinUnl, the chiller uses hot gas bypass, under which
-  // condition the compressor power is assumed to be the same as if the chiller
-  // were to operate at PLRMinUnl
-  PLR2 = max(PLRMinUnl, PLR1);
-  // Cycling ratio
-  CR = min(PLR1/PLRMin,1.0);
+  if on then
+    // Available cooling capacity
+    QEva_flow_ava = QEva_flow_nominal*capFunT;
+    // Cooling capacity required to chill water to setpoint
+    QEva_flow_set = min(m2_flow*(hSet-inStream(port_a2.h_outflow)),0);
 
-  // Compressor power.
-  P = -QEva_flow_ava/COP_nominal*EIRFunT*EIRFunPLR*CR;
-  // Heat flow rates into evaporator and condenser
-  QEva_flow = max(QEva_flow_set, QEva_flow_ava);
-  QCon_flow = -Q2_flow + P*etaMotor;
-  // Coefficient of performance
-  COP = -QEva_flow/(P-Q_flow_small);
+    // Part load ratio
+    PLR1 = min(QEva_flow_set/(QEva_flow_ava+Q_flow_small), PLRMax);
+    // PLR2 is the compressor part load ratio. The lower bound PLRMinUnl is
+    // since for PLR1<PLRMinUnl, the chiller uses hot gas bypass, under which
+    // condition the compressor power is assumed to be the same as if the chiller
+    // were to operate at PLRMinUnl
+    PLR2 = max(PLRMinUnl, PLR1);
+    // Cycling ratio
+    CR = min(PLR1/PLRMin,1.0);
 
-  // Interface with base class
-  Q1_flow = QCon_flow;
-  Q2_flow = QEva_flow;
-  mXi1_flow = zeros(Medium1.nXi);
-  mXi2_flow = zeros(Medium2.nXi);
+    // Compressor power.
+    P = -QEva_flow_ava/COP_nominal*EIRFunT*EIRFunPLR*CR;
+    // Heat flow rates into evaporator and condenser
+    QEva_flow = max(QEva_flow_set, QEva_flow_ava);
+    QCon_flow = -QEva_flow + P*etaMotor;
+    // Coefficient of performance
+    COP = -QEva_flow/(P-Q_flow_small);
+  else
+    QEva_flow_ava = 0;
+    QEva_flow_set = 0;
+    PLR1 = 0;
+    PLR2 = 0;
+    CR   = 0;
+    P    = 0;
+    QEva_flow = 0;
+    QCon_flow = 0;
+    COP  = 0;
+  end if;
 
+  connect(QCon_flow_in.y, preHeaFloCon.Q_flow) annotation (Line(
+      points={{-59,40},{-39,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preHeaFloCon.port, vol1.heatPort) annotation (Line(
+      points={{-19,40},{-10,40},{-10,60}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(QEva_flow_in.y, preHeaFloEva.Q_flow) annotation (Line(
+      points={{-59,-40},{-39,-40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preHeaFloEva.port, vol2.heatPort) annotation (Line(
+      points={{-19,-40},{12,-40},{12,-60}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (Icon(graphics={
         Text(extent={{64,4},{114,-10}},   textString="P",
           lineColor={0,0,127}),
-        Text(extent={{-122,28},{-76,16}},   textString="T_CHWS",
+        Text(extent={{-94,-24},{-48,-36}},  textString="T_CHWS",
           lineColor={0,0,127}),
         Rectangle(
           extent={{-99,-54},{102,-66}},
@@ -239,6 +293,12 @@ The electric power only contains the power for the compressor, but not any power
 </html>",
 revisions="<html>
 <ul>
+<li>
+Jan. 10, 2011, by Michael Wetter:<br>
+Added input signal to switch chiller off, and changed base class to use a dynamic model.
+The change of the base class was required to improve the robustness of the model when the control 
+is switched on again.
+</li>
 <li>
 Sep. 8, 2010, by Michael Wetter:<br>
 Revised model and included it in the Buildings library.

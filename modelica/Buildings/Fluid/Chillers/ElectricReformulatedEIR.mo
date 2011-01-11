@@ -16,6 +16,7 @@ model ElectricReformulatedEIR
     "Performance data"
     annotation (choicesAllMatching = true);
 
+protected
   final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
     TConLvg_nominal_degC=
     Modelica.SIunits.Conversions.to_degC(per.TConLvg_nominal)
@@ -31,24 +32,29 @@ initial equation
      "Capacity as function of temperature ",
      "per.capFunT");
 equation
-  TConLvg_degC=Modelica.SIunits.Conversions.to_degC(Medium1.temperature(
-     Medium1.setState_phX(port_b1.p, port_b1.h_outflow, port_b1.Xi_outflow)));
+  TConLvg_degC=Modelica.SIunits.Conversions.to_degC(TConLvg);
 
-  // Compute the chiller capacity fraction, using a biquadratic curve.
-  // Since the regression for capacity can have negative values (for unreasonable temperatures),
-  // we constrain its return value to be non-negative. This prevents the solver to pick the
-  // unrealistic solution.
-  capFunT = max(0,
-     Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConLvg_degC));
-  assert(capFunT > 0.1, "Error: Received capFunT = " + realString(capFunT)  + ".\n"
-         + "Coefficient for polynomial seem to be not valid for the encountered temperature range.\n"
-         + "Temperatures are TConLvg_degC = " + realString(TConLvg_degC) + " degC\n"
-         + "                 TEvaLvg_degC = " + realString(TEvaLvg_degC) + " degC");
-  // Chiller energy input ratio biquadratic curve.
-  EIRFunT = Buildings.Utilities.Math.Functions.biquadratic(a=per.EIRFunT, x1=TEvaLvg_degC, x2=TConLvg_degC);
-  // Chiller energy input ratio bicubic curve
-  EIRFunPLR   = Buildings.Utilities.Math.Functions.bicubic(a=per.EIRFunPLR, x1=TConLvg_degC, x2=PLR2);
-
+  if on then
+    // Compute the chiller capacity fraction, using a biquadratic curve.
+    // Since the regression for capacity can have negative values (for unreasonable temperatures),
+    // we constrain its return value to be non-negative. This prevents the solver to pick the
+    // unrealistic solution.
+    capFunT = max(0,
+       Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConLvg_degC));
+/*    assert(capFunT > 0.1, "Error: Received capFunT = " + realString(capFunT)  + ".\n"
+           + "Coefficient for polynomial seem to be not valid for the encountered temperature range.\n"
+           + "Temperatures are TConLvg_degC = " + realString(TConLvg_degC) + " degC\n"
+           + "                 TEvaLvg_degC = " + realString(TEvaLvg_degC) + " degC");
+*/
+    // Chiller energy input ratio biquadratic curve.
+    EIRFunT = Buildings.Utilities.Math.Functions.biquadratic(a=per.EIRFunT, x1=TEvaLvg_degC, x2=TConLvg_degC);
+    // Chiller energy input ratio bicubic curve
+    EIRFunPLR   = Buildings.Utilities.Math.Functions.bicubic(a=per.EIRFunPLR, x1=TConLvg_degC, x2=PLR2);
+  else
+    capFunT   = 0;
+    EIRFunT   = 0;
+    EIRFunPLR = 0;
+  end if;
   annotation (Icon(graphics={
         Text(extent={{64,4},{114,-10}},   textString="P",
           lineColor={0,0,127}),
@@ -138,7 +144,6 @@ Buildings.Fluid.Chillers.ElectricEIR</a>.
 The difference is that to compute the performance, this model
 uses the condenser leaving temperature instead of the entering temperature,
 and it uses a bicubic polynomial to compute the part load performance.
-
 </p>
 <p> This model uses three functions to predict capacity and power consumption:
 <ul>
@@ -200,6 +205,13 @@ power draw does not change.
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
+<p>
+On the Assumptions tag, the model can be parametrized to compute a transient
+or steady-state response.
+The transient response of the boiler is computed using a first
+order differential equation for the evaporator and condenser fluid volumes.
+The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
+</p>
 <h4>References</h4>
 <ul>
 <li>
@@ -214,6 +226,10 @@ Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 </html>",
 revisions="<html>
 <ul>
+<li>
+Jan. 9, 2011, by Michael Wetter:<br>
+Added input signal to switch chiller off.
+</li>
 <li>
 September 17, 2010, by Michael Wetter:<br>
 First implementation.

@@ -3,8 +3,7 @@ model WetCoilCounterFlow
   "Counterflow coil with discretization along the flow paths and humidity condensation"
   extends Buildings.Fluid.HeatExchangers.DryCoilCounterFlow(
     final allowCondensation = true,
-    ele(redeclare each Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
-          final use_HeatTransfer = true)));
+    ele(redeclare each Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2));
 
   Modelica.SIunits.HeatFlowRate QSen2_flow
     "Sensible heat input into air stream (negative if air is cooled)";

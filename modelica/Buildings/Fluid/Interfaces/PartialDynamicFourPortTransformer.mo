@@ -13,20 +13,25 @@ partial model PartialDynamicFourPortTransformer
     medium(T(stateSelect=StateSelect.always)),
     final use_HeatTransfer=true,
     redeclare model HeatTransfer =
-        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer)
-    "Volume for fluid 1"       annotation (Placement(transformation(extent={{
+        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer,
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    substanceDynamics=substanceDynamics,
+    traceDynamics=traceDynamics) "Volume for fluid 1"
+                               annotation (Placement(transformation(extent={{
             -10,70},{10,50}}, rotation=0)));
 
-  replaceable Buildings.Fluid.MixingVolumes.MixingVolumeDryAir vol2(
+  replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol2(
     redeclare package Medium = Medium2,
     nPorts = 2,
     V=m2_flow_nominal*tau2/rho2_nominal,
     final use_HeatTransfer=true,
     redeclare model HeatTransfer =
-        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer(surfaceAreas={1}))
-        constrainedby
-    Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort
-    "Volume for fluid 2"
+       Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer(surfaceAreas={1}),
+    energyDynamics=energyDynamics,
+    massDynamics=massDynamics,
+    substanceDynamics=substanceDynamics,
+    traceDynamics=traceDynamics) "Volume for fluid 2"
    annotation (Placement(transformation(
         origin={2,-60},
         extent={{-10,10},{10,-10}},
@@ -42,6 +47,20 @@ partial model PartialDynamicFourPortTransformer
   Modelica.SIunits.HeatFlowRate Q2_flow=
      if vol2.use_HeatTransfer then sum(vol2.heatPort.Q_flow) else 0
     "Heat flow rate into medium 2";
+
+  // Assumptions
+  parameter Modelica.Fluid.Types.Dynamics energyDynamics=system.energyDynamics
+    "Formulation of energy balance"
+    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+  parameter Modelica.Fluid.Types.Dynamics massDynamics=system.massDynamics
+    "Formulation of mass balance"
+    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+  parameter Modelica.Fluid.Types.Dynamics substanceDynamics=energyDynamics
+    "Formulation of substance balance"
+    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+  parameter Modelica.Fluid.Types.Dynamics traceDynamics=energyDynamics
+    "Formulation of trace substance balance"
+    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
 
 protected
   parameter Medium1.ThermodynamicState sta1_nominal=Medium1.setState_pTX(
@@ -94,7 +113,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol2.ports[2], port_b2) annotation (Line(
-      points={{-1.11022e-015,-70},{-30,-70},{-30,-60},{-100,-60}},
+      points={{-8.88178e-16,-70},{-30,-70},{-30,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a1, preDro1.port_a) annotation (Line(

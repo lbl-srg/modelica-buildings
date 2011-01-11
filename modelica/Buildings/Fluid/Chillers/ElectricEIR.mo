@@ -15,6 +15,7 @@ model ElectricEIR "Electric chiller based on the DOE-2.1 model"
     "Performance data"
     annotation (choicesAllMatching = true);
 
+protected
   final parameter Modelica.SIunits.Conversions.NonSIunits.Temperature_degC
     TConEnt_nominal_degC=
     Modelica.SIunits.Conversions.to_degC(per.TConEnt_nominal)
@@ -30,22 +31,29 @@ initial equation
      "Capacity as function of temperature ",
      "per.capFunT");
 equation
-  TConEnt_degC=Modelica.SIunits.Conversions.to_degC(Medium1.temperature(state_a1_inflow));
+  TConEnt_degC=Modelica.SIunits.Conversions.to_degC(TConEnt);
 
-  // Compute the chiller capacity fraction, using a biquadratic curve.
-  // Since the regression for capacity can have negative values (for unreasonable temperatures),
-  // we constrain its return value to be non-negative. This prevents the solver to pick the
-  // unrealistic solution.
-  capFunT = max(0,
-     Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConEnt_degC));
-  assert(capFunT > 0.1, "Error: Received capFunT = " + realString(capFunT)  + ".\n"
-         + "Coefficient for polynomial seem to be not valid for the encountered temperature range.\n"
-         + "Temperatures are TConEnt_degC = " + realString(TConEnt_degC) + " degC\n"
-         + "                 TEvaLvg_degC = " + realString(TEvaLvg_degC) + " degC");
-  // Chiller energy input ratio biquadratic curve.
-  EIRFunT = Buildings.Utilities.Math.Functions.biquadratic(a=per.EIRFunT, x1=TEvaLvg_degC, x2=TConEnt_degC);
-  // Chiller energy input ratio quadratic curve
-  EIRFunPLR   = per.EIRFunPLR[1]+per.EIRFunPLR[2]*PLR2+per.EIRFunPLR[3]*PLR2^2;
+  if on then
+    // Compute the chiller capacity fraction, using a biquadratic curve.
+    // Since the regression for capacity can have negative values (for unreasonable temperatures),
+    // we constrain its return value to be non-negative. This prevents the solver to pick the
+    // unrealistic solution.
+    capFunT = max(0,
+       Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT, x1=TEvaLvg_degC, x2=TConEnt_degC));
+/*    assert(capFunT > 0.1, "Error: Received capFunT = " + realString(capFunT)  + ".\n"
+           + "Coefficient for polynomial seem to be not valid for the encountered temperature range.\n"
+           + "Temperatures are TConEnt_degC = " + realString(TConEnt_degC) + " degC\n"
+           + "                 TEvaLvg_degC = " + realString(TEvaLvg_degC) + " degC");
+*/
+    // Chiller energy input ratio biquadratic curve.
+    EIRFunT = Buildings.Utilities.Math.Functions.biquadratic(a=per.EIRFunT, x1=TEvaLvg_degC, x2=TConEnt_degC);
+    // Chiller energy input ratio quadratic curve
+    EIRFunPLR   = per.EIRFunPLR[1]+per.EIRFunPLR[2]*PLR2+per.EIRFunPLR[3]*PLR2^2;
+  else
+    capFunT   = 0;
+    EIRFunT   = 0;
+    EIRFunPLR = 0;
+  end if;
 
   annotation (Icon(graphics={
         Text(extent={{64,4},{114,-10}},   textString="P",
@@ -187,6 +195,13 @@ power draw does not change.
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
+<p>
+On the Assumptions tag, the model can be parametrized to compute a transient
+or steady-state response.
+The transient response of the boiler is computed using a first
+order differential equation for the evaporator and condenser fluid volumes.
+The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
+</p>
 <h4>References</h4>
 <ul>
 <li>
@@ -197,6 +212,10 @@ Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 </html>",
 revisions="<html>
 <ul>
+<li>
+Jan. 9, 2011, by Michael Wetter:<br>
+Added input signal to switch chiller off.
+</li>
 <li>
 Sep. 8, 2010, by Michael Wetter:<br>
 Revised model and included it in the Buildings library.

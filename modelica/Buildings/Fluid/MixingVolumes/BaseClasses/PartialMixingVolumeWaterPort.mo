@@ -12,8 +12,6 @@ partial model PartialMixingVolumeWaterPort
       redeclare each package Medium = Medium) "Fluid outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-100})));
-  Medium.AbsolutePressure ports_p_static
-    "static pressure at the ports, inside the volume";
 
   Medium.EnthalpyFlowRate ports_H_flow[nPorts];
   Medium.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
@@ -77,8 +75,6 @@ equation
         massDynamics==Modelica.Fluid.Types.Dynamics.SteadyState) or Medium.singleState,
           "Bad combination of dynamics options and Medium not conserving mass if fluidVolume is fixed.");
 
-  ports_p_static = medium.p;
-
   connect(heatPort, heatTransfer.heatPorts[1]) annotation (Line(
       points={{-100,5.55112e-16},{-87,5.55112e-16},{-87,2.22045e-15},{-74,
           2.22045e-15}},
@@ -107,7 +103,7 @@ of the modeller. Increase nPorts to add an additional port.
 
   // Boundary conditions
   for i in 1:nPorts loop
-    ports[i].p = ports_p_static;
+    ports[i].p = medium.p;
   end for;
   ports.h_outflow = fill(medium.h,   nPorts);
   ports.Xi_outflow = fill(medium.Xi, nPorts);
@@ -146,6 +142,13 @@ is used that does not implement this function.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 10, 2011 by Michael Wetter:<br>
+Removed <code>ports_p_static</code> and used instead <code>medium.p</code> since
+<code>ports_p_static</code> is not available in 
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
+Buildings.Fluid.MixingVolumes.MixingVolume</a> which is sometimes used to replace this model.
+</li>
 <li>
 July 30, 2010 by Michael Wetter:<br>
 Added nominal value for <code>mC</code> to avoid wrong trajectory 
