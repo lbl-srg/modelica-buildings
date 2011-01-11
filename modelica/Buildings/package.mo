@@ -110,6 +110,10 @@ For one-line comments of parameters, variables and classes, no period should be 
 <li>
 Where applicable, all variable must have units, also if the variable is protected.
 </li>
+<li>
+To indicate that a class (i.e., a package, model, block etc.) has not been extensively tested or validated,
+its class name ends with the string <code>Beta</code>.
+</li>
 </ol>
 </html>
 "));
