@@ -1,8 +1,14 @@
 within Buildings;
 package RoomsBeta "Package with models for rooms"
 
+
 annotation (
 preferedView="info", Documentation(info="<html>
+<p>
+<!-- Fixme: Remove Beta notice in final release -->
+<b>Note:</b>This package is in Beta version as it has not yet been validated.
+</p>
+<p>
 This package contains models for the heat transfer in rooms
 and through the building envelope. 
 Multiple instances of these models can be connected to create

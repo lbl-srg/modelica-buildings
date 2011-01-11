@@ -126,6 +126,21 @@ its class name ends with the string <code>Beta</code>.
   annotation (Documentation(info="<html>
 <ul>
 <li>
+Added the package 
+<a href=\"modelica://Buildings.RoomsBeta\">
+Buildings.RoomsBeta</a> to compute heat transfer in rooms
+and through the building envelope. 
+Multiple instances of these models can be connected to create
+a multi-zone building model.
+</li>
+<li>
+Added the package
+<a href=\"modelica:Buildings.HeatTransfer.WindowsBeta\">
+Buildings.HeatTransfer.WindowsBeta</a>
+to compute heat transfer (short-wave radiation, long-wave radiation,
+convection and conduction) through glazing systems.
+</li>
+<li>
 In package
 <a href=\"modelica://Buildings.Fluid.Chillers\">
 Buildings.Fluid.Chillers</a>, added the chiller models
