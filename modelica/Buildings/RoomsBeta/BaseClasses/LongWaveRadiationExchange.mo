@@ -20,7 +20,8 @@ model LongWaveRadiationExchange
     "View factor from surface i to j";
   final parameter Real M[NTot,NTot](min=0, max=1, fixed=false)
     "Incidence matrix, with elements of 1 if surfaces can see each other, or zero otherwise";
-  parameter Boolean linearize "Set to true to linearize emissive power";
+  parameter Boolean linearizeRadiation
+    "Set to true to linearize emissive power";
   Modelica.SIunits.HeatFlowRate J[NTot](max=0, start=A .* 0.8*7385154648, nominal=10*419)
     "Radiosity leaving the surface";
   Modelica.SIunits.HeatFlowRate G[NTot](min=0, start=A .* 0.8*7385154648, nominal=10*419)
@@ -173,14 +174,14 @@ equation
     TOpa[i+NConExt+2*NConPar] = conBou[i].T;
   end for;
   for i in 1:NSurBou loop
-    TOpa[i+NConExt+2*NConPar+NConBou] = surBou[i].T;
+    TOpa[i+NConExt+2*NConPar+NConBou] = conSurBou[i].T;
   end for;
   for i in 1:NConExtWin loop
     TOpa[i+NConExt+2*NConPar+NConBou+NSurBou]            = conExtWin[i].T;
     TOpa[i+NConExt+2*NConPar+NConBou+NConExtWin+NSurBou] = conExtWinFra[i].T;
   end for;
   // 4th power of temperature
-  if linearize then
+  if linearizeRadiation then
     T4Opa = T03 .* TOpa;
   else
     T4Opa = TOpa.^4;
@@ -224,7 +225,7 @@ equation
     Q_flow[i+NConExt+2*NConPar] = conBou[i].Q_flow;
   end for;
   for i in 1:NSurBou loop
-    Q_flow[i+NConExt+2*NConPar+NConBou] = surBou[i].Q_flow;
+    Q_flow[i+NConExt+2*NConPar+NConBou] = conSurBou[i].Q_flow;
   end for;
   for i in 1:NConExtWin loop
     Q_flow[i+NConExt+2*NConPar+NConBou+NSurBou]            = conExtWin[i].Q_flow;
@@ -233,7 +234,7 @@ equation
   // Sum of energy balance
   // Remove sumEBal and assert statement for final release
   sumEBal = sum(conExt.Q_flow)+sum(conPar_a.Q_flow)+sum(conPar_b.Q_flow)
-    +sum(conBou.Q_flow)+sum(surBou.Q_flow)+sum(conExtWin.Q_flow)+sum(conExtWinFra.Q_flow)
+    +sum(conBou.Q_flow)+sum(conSurBou.Q_flow)+sum(conExtWin.Q_flow)+sum(conExtWinFra.Q_flow)
     +(sum(JInConExtWin)+sum(JOutConExtWin));
   assert(abs(sumEBal) < 1E-1, "Program error: Energy is not conserved in LongWaveRadiationExchange."
    + "\n  Sum of all energy is " + realString(sumEBal));
@@ -294,7 +295,7 @@ is the surface area,
 is the emissivity in the infrared spectrum, and
 <i>T<sup>i</sup></i>
 is the surface temperature.
-If the parameter <code>linearize</code> is set to <code>true</code>,
+If the parameter <code>linearizeRadidation</code> is set to <code>true</code>,
 then the term <i>(T<sup>i</sup>)<sup>4</sup></i> is replaced with
 <i>T<sub>0</sub><sup>3</sup> T<sup>i</sup></i>
 where <i>T<sub>0</sub> = 20&deg;C</i> is a parameter.

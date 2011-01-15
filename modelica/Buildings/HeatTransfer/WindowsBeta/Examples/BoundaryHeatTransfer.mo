@@ -5,10 +5,11 @@ model BoundaryHeatTransfer
   parameter Modelica.SIunits.Area A=1 "Window surface area";
   parameter Real fFra=0.2
     "Fraction of frame, = frame area divided by total area";
-  parameter Boolean linearize = false "Set to true to linearize emissive power";
+  parameter Boolean linearizeRadiation = false
+    "Set to true to linearize emissive power";
 
   Buildings.HeatTransfer.WindowsBeta.ExteriorHeatTransfer extCon(A=A, fFra=fFra,
-    linearize=linearize,
+    linearizeRadiation=linearizeRadiation,
     epsLWSha_air=glaSys.shade.epsLW_a,
     epsLWSha_glass=glaSys.shade.epsLW_b,
     tauLWSha_air=glaSys.shade.tauLW_a,
@@ -58,7 +59,7 @@ model BoundaryHeatTransfer
     haveInteriorShade=false) "Parameters for glazing system"
     annotation (Placement(transformation(extent={{80,-56},{100,-36}})));
  Buildings.HeatTransfer.Radiosity.IndoorRadiosity radIn(
-    final linearize=linearize, final A=A) "Indoor radiosity"
+    final linearize=linearizeRadiation, final A=A) "Indoor radiosity"
     annotation (Placement(transformation(extent={{44,-30},{24,-10}})));
 protected
   Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaOut

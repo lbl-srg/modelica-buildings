@@ -3,6 +3,17 @@ model ConstructionOpaque
   "Model for an opaque construction such as a wall, floor or ceiling"
   extends Buildings.BaseClasses.BaseIcon;
   extends Buildings.HeatTransfer.BaseClasses.PartialConstruction;
+
+  parameter Buildings.RoomsBeta.Types.ConvectionModel conMod=
+    Buildings.RoomsBeta.Types.ConvectionModel.Fixed
+    "Convective heat transfer model"
+  annotation(Evaluate=true);
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
+    "Constant convection coefficient"
+    annotation (Dialog(enable=(conMod == Buildings.RoomsBeta.Types.ConvectionModel.fixed)));
+  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
+    annotation (Dialog(enable= not (conMod == Buildings.RoomsBeta.Types.ConvectionModel.fixed)));
+
   parameter Modelica.SIunits.Area A "Heat transfer area";
 
   final parameter Modelica.SIunits.CoefficientOfHeatTransfer U = UA/A
@@ -33,11 +44,16 @@ model ConstructionOpaque
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b surf_b
     "Heat port at surface b"                                                          annotation (Placement(transformation(extent={{10,30},
             {30,50}}, rotation=0), iconTransformation(extent={{44,54},{64,74}})));
-  Convection con_a(final A=A, redeclare final function qCon_flow = qCon_a_flow)
+  Convection con_a(final A=A,
+    final conMod=conMod,
+    final hFixed=hFixed,
+    final til=Modelica.Constants.pi - til)
     "Convective heat transfer at surface a"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
-  Convection con_b(final A=A, redeclare final function qCon_flow = qCon_b_flow)
-    "Convective heat transfer at surface b"
+  Convection con_b(final A=A,
+    final conMod=conMod,
+    final hFixed=hFixed,
+    final til=til) "Convective heat transfer at surface b"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hCon_a_start=3
@@ -46,18 +62,6 @@ model ConstructionOpaque
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hCon_b_start=hCon_a_start
     "Convective heat transfer coefficient on side b, used to compute initial condition"
     annotation (Dialog(tab="Advanced"));
-  replaceable function qCon_a_flow =
-      Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.constantCoefficient
-      constrainedby
-    Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.BaseClasses.PartialConvectiveHeatFlux
-    "Function for convective heat transfer at side a"
-      annotation(choicesAllMatching=true);
-  replaceable function qCon_b_flow =
-      Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.constantCoefficient
-      constrainedby
-    Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.BaseClasses.PartialConvectiveHeatFlux
-    "Function for convective heat transfer at side b"
-      annotation(choicesAllMatching=true);
 equation
   dT = port_a.T - port_b.T;
   connect(port_a, con_a.fluid) annotation (Line(
@@ -72,8 +76,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(solid.port_b, con_b.solid) annotation (Line(
-      points={{10,6.10623e-16},{22.5,6.10623e-16},{22.5,6.10623e-16},{35,
-          6.10623e-16},{35,6.10623e-16},{60,6.10623e-16}},
+      points={{10,6.10623e-16},{36,-3.36456e-22},{36,6.10623e-16},{60,
+          6.10623e-16}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -138,6 +142,30 @@ coefficient, which can be configured to be
 use various functions from the package
 <a href=\"modelica://Buildings.HeatTransfer.Functions.ConvectiveHeatFlux\">
 Buildings.HeatTransfer.Functions.ConvectiveHeatFlux</a>.
+</p>
+<p>
+The model has a parameter <code>til</code> that is used as the surface tilt.
+Because in the room model
+<a href=\"modelica://Buildings.RoomsBeta\">
+Buildings.RoomsBeta</a>, the surface <code>a</code> faces the exterior and 
+the surface <code>b</code> faces the room air, the parameter <code>til</code>
+is used as follows:
+<table border=\"1\">
+<tr>
+<th>Value of parameter <code>til</code></th>
+<th>Surface a</th>
+<th>Surface b</th>
+</tr>
+<tr>
+<td><code>Buildings.RoomsBeta.Types.Tilt.Ceiling</code></td>
+<td>floor (facing the exterior)</td>
+<td>ceiling (facing the room)</td>
+<tr>
+<td><code>Buildings.RoomsBeta.Types.Tilt.Floor</code></td>
+<td>ceiling (facing the exterior)</td>
+<td>floor (facing the room)</td>
+</tr>
+</tr>
 </p>
 <p>
 To compute heat conduction in the solid, this model uses an instance of

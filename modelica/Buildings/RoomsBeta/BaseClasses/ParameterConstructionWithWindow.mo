@@ -20,7 +20,7 @@ record ParameterConstructionWithWindow
     annotation (Dialog(group="Glazing system"));
   final parameter Modelica.SIunits.Area AGla=AWin - AFra "Glass area"
     annotation (Dialog(group="Glazing system"));
-  parameter Boolean linearize=true "Set to true to linearize emissive power"
+  parameter Boolean linearizeRadiation = true  "Set to true to linearize emissive power"
     annotation (Dialog(group="Glazing system"));
 
  replaceable parameter HeatTransfer.Data.GlazingSystems.Generic glaSys

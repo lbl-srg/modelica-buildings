@@ -2,24 +2,7 @@ within Buildings.RoomsBeta.BaseClasses;
 partial model PartialSurfaceInterface
   "Partial model that is used for long-wave radiation balance"
   import Buildings;
-
-  parameter Integer nConExt(min=0) "Number of exterior constructions"
-  annotation (Dialog(group="Exterior constructions"));
-
-  parameter Integer nConExtWin(min=0)
-    "Number of exterior constructions with windows"
-  annotation (Dialog(group="Exterior constructions"));
-
-  parameter Integer nConPar(min=0) "Number of partition constructions"
-  annotation (Dialog(group="Partition constructions"));
-
-  parameter Integer nConBou(min=0)
-    "Number of constructions that have their outside surface exposed to the boundary of this room"
-  annotation (Dialog(group="Boundary constructions"));
-
-  parameter Integer nSurBou(min=0)
-    "Number of surface heat transfer models that connect to constructions that are modeled outside of this room"
-  annotation (Dialog(group="Boundary constructions"));
+  extends Buildings.RoomsBeta.BaseClasses.ConstructionRecords;
 
   parameter Modelica.SIunits.Area AConExt[NConExt]
     "Areas of exterior constructions";
@@ -82,39 +65,11 @@ partial model PartialSurfaceInterface
     "Heat port that connects to room-side surface of constructions that expose their other surface to the outside"
                               annotation (Placement(transformation(extent={{232,
             -170},{252,-150}},   rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surBou[NSurBou]
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conSurBou[NSurBou]
     "Heat port to surfaces of models that compute the heat conduction outside of this room"
                               annotation (Placement(transformation(extent={{231,
             -230},{251,-210}},   rotation=0)));
 
-  // Dimensions of components and connectors
-protected
-  parameter Integer NConExt(min=1)=max(1, nConExt)
-    "Number of elements for exterior constructions";
-
-  parameter Integer NConExtWin(min=1)=max(1, nConExtWin)
-    "Number of elements for exterior constructions with windows";
-
-  parameter Integer NConPar(min=1)=max(1, nConPar)
-    "Number of elements for partition constructions";
-
-  parameter Integer NConBou(min=1)=max(1, nConBou)
-    "Number of elements for constructions that have their outside surface exposed to the boundary of this room";
-
-  parameter Integer NSurBou(min=1)=max(1, nSurBou)
-    "Number of elements for surface heat transfer models that connect to constructions that are modeled outside of this room";
-
-  // Flags to conditionally remove components
-  final parameter Boolean haveConExt = nConExt > 0
-    "Flag to conditionally remove components";
-  final parameter Boolean haveConExtWin = nConExtWin > 0
-    "Flag to conditionally remove components";
-  final parameter Boolean haveConPar = nConPar > 0
-    "Flag to conditionally remove components";
-  final parameter Boolean haveConBou = nConBou > 0
-    "Flag to conditionally remove components";
-  final parameter Boolean haveSurBou = nSurBou > 0
-    "Flag to conditionally remove components";
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,
             -240},{240,240}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,

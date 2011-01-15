@@ -10,7 +10,7 @@ model Window "Model for a window"
   final parameter Modelica.SIunits.Area AFra = fFra*A "Frame area";
   final parameter Modelica.SIunits.Area AGla = A-AFra "Glass area";
   parameter Boolean linearize=false "Set to true to linearize emissive power";
-  parameter Modelica.SIunits.Angle til "Surface tilt";
+  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt";
 
   Interfaces.RadiosityOutflow JOutUns_a
     "Outgoing radiosity that connects to unshaded part of glass at exterior side"

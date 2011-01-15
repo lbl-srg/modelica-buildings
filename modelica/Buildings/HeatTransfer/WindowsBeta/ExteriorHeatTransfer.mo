@@ -15,7 +15,7 @@ model ExteriorHeatTransfer
     annotation (Placement(transformation(extent={{-20,-80},{0,-60}})));
  Radiosity.OutdoorRadiosity radOut(
    final A=AGla, F_sky=F_sky,
-    linearize=linearize) "Outdoor radiosity"
+    linearize=linearizeRadiation) "Outdoor radiosity"
     annotation (Placement(transformation(extent={{-72,-70},{-52,-50}})));
  Modelica.Blocks.Interfaces.RealInput f_clr(min=0, max=1)
     "Fraction of sky that is clear"

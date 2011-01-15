@@ -1,14 +1,19 @@
 within Buildings.HeatTransfer;
 model Convection "Model for a convective heat transfer"
   extends Buildings.BaseClasses.BaseIcon;
-  import c = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux;
+  parameter Buildings.RoomsBeta.Types.ConvectionModel conMod=
+    Buildings.RoomsBeta.Types.ConvectionModel.Fixed
+    "Convective heat transfer model"
+  annotation(Evaluate=true);
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
+    "Constant convection coefficient"
+    annotation (Dialog(enable=(conMod == Buildings.RoomsBeta.Types.ConvectionModel.fixed)));
+  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
+    annotation (Dialog(enable= not (conMod == Buildings.RoomsBeta.Types.ConvectionModel.fixed)));
+
   parameter Modelica.SIunits.Area A "Heat transfer area";
-  replaceable function qCon_flow =
-      Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.constantCoefficient
-                                                 constrainedby
-    Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.BaseClasses.PartialConvectiveHeatFlux(
-      dT=dT) "Function for convective heat transfer coefficient"
-   annotation(choicesAllMatching=true);
+
+  Modelica.SIunits.HeatFlux q_flow "Convective heat flux from solid -> fluid";
   Modelica.SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
   Modelica.SIunits.TemperatureDifference dT(start=0) "= solid.T - fluid.T";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a solid
@@ -17,14 +22,37 @@ model Convection "Model for a convective heat transfer"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b fluid
                               annotation (Placement(transformation(extent={{90,-10},
             {110,10}},         rotation=0)));
+protected
+  final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt"
+    annotation (Evaluate=true);
+  final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt"
+    annotation (Evaluate=true);
+  final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
+    "Flag, true if the surface is a ceiling"
+    annotation (Evaluate=true);
+  final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
+    "Flag, true if the surface is a floor"
+    annotation (Evaluate=true);
+
 equation
   dT = solid.T - fluid.T;
   solid.Q_flow = Q_flow;
   fluid.Q_flow = -Q_flow;
-  // Even if hCon is a step function with a step at zero,
-  // the product hCon*dT is differentiable at zero with
-  // a continuous first derivative
-  Q_flow = A*qCon_flow();
+  if (conMod == Buildings.RoomsBeta.Types.ConvectionModel.Fixed) then
+    q_flow = hFixed * dT;
+  else
+    // Even if hCon is a step function with a step at zero,
+    // the product hCon*dT is differentiable at zero with
+    // a continuous first derivative
+    if isCeiling then
+       q_flow = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling(dT=dT);
+    elseif isFloor then
+       q_flow = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor(dT=dT);
+    else
+       q_flow = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.wall(dT=dT);
+    end if;
+  end if;
+  Q_flow = A*q_flow;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),       graphics), Icon(coordinateSystem(

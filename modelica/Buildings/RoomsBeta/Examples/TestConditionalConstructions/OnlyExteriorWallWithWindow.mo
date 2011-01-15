@@ -10,7 +10,7 @@ model OnlyExteriorWallWithWindow "Test model for room model"
     datConExtWin(layers={matLayExt, matLayExt}, each A=10,
                  glaSys={glaSys, glaSys},
                  each AWin=4, each fFra=0.1,
-                 til={Types.Tilt.floor, Types.Tilt.ceiling},
+                 til={Types.Tilt.Floor, Types.Tilt.Ceiling},
                  each azi=Types.Azimuth.W)));
    annotation(Commands(file="OnlyExteriorWallWithWindow.mos" "run"));
 end OnlyExteriorWallWithWindow;

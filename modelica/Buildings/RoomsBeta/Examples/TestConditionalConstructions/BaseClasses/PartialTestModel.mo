@@ -21,7 +21,7 @@ partial model PartialTestModel
     final nSurBou=nSurBou,
     AFlo=20,
     hRoo=2.7,
-    linearize=true,
+    linearizeRadiation = true ,
     lat=0.73268921998722) "Room model"
     annotation (Placement(transformation(extent={{44,-36},{84,4}})));
 

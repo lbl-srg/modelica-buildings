@@ -7,7 +7,8 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     "Heat transfer area of frame and window";
   parameter Real fFra[:]={0.1}
     "Fraction of window frame divided by total window area";
-  parameter Boolean linearize=false "Set to true to linearize emissive power";
+  parameter Boolean linearizeRadiation = false
+    "Set to true to linearize emissive power";
   HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
@@ -18,15 +19,16 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
   ConstructionWithWindow conExt[1](
     layers={extConMat},
     glaSys={glaSys},
-    linearize={linearize},
+    linearizeRadiation = {linearizeRadiation},
     A=A,
     AWin=AWin,
     fFra=fFra,
     til={1.5707963267949}) "Construction of an exterior wall without a window"
     annotation (Placement(transformation(extent={{0,-30},{60,30}})));
-  Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditionsWithWindow bouConExt(
+  Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditionsWithWindow
+    bouConExt(
     nCon=1,
-    linearize=false,
+    linearizeRadiation = linearizeRadiation,
     fFra=fFra,
     epsLW={extConMat.epsLW_a},
     azi={0},
@@ -41,13 +43,14 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     haveExteriorShade={glaSys.haveExteriorShade},
     haveInteriorShade={glaSys.haveInteriorShade},
     lat=0.73268921998722,
-    til={1.5707963267949})
+    til={Buildings.RoomsBeta.Types.Tilt.Wall})
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  HeatTransfer.Convection con[1](A=A - AWin) "Model for heat convection"
+  HeatTransfer.Convection con[1](A=A - AWin, til={Buildings.RoomsBeta.Types.Tilt.Wall})
+    "Model for heat convection"
     annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=1)
     "Thermal collector to link a vector of models to a single model"
@@ -73,7 +76,8 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     tauLWSha_glass={glaSys.shade.tauLW_b},
     haveExteriorShade={glaSys.haveExteriorShade},
     haveInteriorShade={glaSys.haveInteriorShade},
-    each linearize=linearize) "Model for interior convection"
+    each linearizeRadiation = linearizeRadiation)
+    "Model for interior convection"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Modelica.Blocks.Sources.Constant uSha(k=0) "Shading control signal"
     annotation (Placement(transformation(extent={{-180,-60},{-160,-40}})));
@@ -84,7 +88,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-90,-20})));
-  HeatTransfer.Radiosity.IndoorRadiosity indRad(A=AWin[1], linearize=linearize)
+  HeatTransfer.Radiosity.IndoorRadiosity indRad(A=AWin[1], linearize = linearizeRadiation)
     "Model for indoor radiosity"
     annotation (Placement(transformation(extent={{-102,-78},{-82,-58}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol2(

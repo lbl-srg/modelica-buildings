@@ -1,38 +1,13 @@
 within Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses;
 model PartialLongWaveRadiation
   "Partial model to test long-wave radiation inside the room"
+  extends Buildings.RoomsBeta.BaseClasses.ConstructionNumbers(
+  nConExt=1,
+  nConExtWin=1,
+  nConPar=1,
+  nConBou=1,
+  nSurBou=1);
   import Buildings;
-
-  parameter Integer nConExt(min=0)=1 "Number of exterior constructions"
-    annotation (Dialog(group="Exterior constructions"));
-  parameter Integer nConExtWin(min=0)=1 "Number of window constructions"
-    annotation (Dialog(group="Exterior constructions"));
-
-  parameter Integer nConPar(min=0)=1 "Number of partition constructions"
-  annotation (Dialog(group="Partition constructions"));
-
-  parameter Integer nConBou(min=0)=1
-    "Number of constructions that have their outside surface exposed to the boundary of this room"
-  annotation (Dialog(group="Boundary constructions"));
-
-  parameter Integer nSurBou(min=0)=1
-    "Number of surface heat transfer models that connect to constructions that are modeled outside of this room"
-  annotation (Dialog(group="Boundary constructions"));
-protected
-  parameter Integer NConExt(min=1)=max(1, nConExt)
-    "Number of elements for exterior constructions";
-
-  parameter Integer NConExtWin(min=1)=max(1, nConExtWin)
-    "Number of elements for exterior constructions with windows";
-
-  parameter Integer NConPar(min=1)=max(1, nConPar)
-    "Number of elements for partition constructions";
-
-  parameter Integer NConBou(min=1)=max(1, nConBou)
-    "Number of elements for constructions that have their outside surface exposed to the boundary of this room";
-
-  parameter Integer NSurBou(min=1)=max(1, nSurBou)
-    "Number of elements for surface heat transfer models that connect to constructions that are modeled outside of this room";
 
 protected
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConExt[NConExt](each T=293.15)
@@ -69,35 +44,35 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,60})));
-protected
+
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConExtWinFra[
     NConExtWin](each T=293.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,30})));
-protected
+
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConPar_a[NConPar](each T=
        293.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,0})));
-protected
+
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConPar_b[NConPar](each T=
        293.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,-30})));
-protected
+
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConBou[NConBou](each T=293.15)
     "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,-60})));
-protected
+
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouSurBou[NSurBou](each T=293.15)
     "Boundary condition"
     annotation (Placement(transformation(

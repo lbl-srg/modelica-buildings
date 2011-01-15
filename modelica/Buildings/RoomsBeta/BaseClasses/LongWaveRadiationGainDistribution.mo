@@ -78,7 +78,7 @@ equation
   conPar_a.Q_flow  = -fraConPar_a*Q_flow;
   conPar_b.Q_flow  = -fraConPar_b*Q_flow;
   conBou.Q_flow    = -fraConBou*Q_flow;
-  surBou.Q_flow    = -fraSurBou*Q_flow;
+  conSurBou.Q_flow    = -fraSurBou*Q_flow;
   // This model makes the simplification that the shade, the glass and the frame have
   // the same emissivity in the infrared region
   JOutConExtWin        = -fraConExtWinGla*Q_flow;

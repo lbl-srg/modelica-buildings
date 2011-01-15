@@ -8,7 +8,7 @@ model OnlyPartition "Test model for room model"
    nSurBou=0,
    roo(
     datConPar(layers={matLayPar}, each A=10,
-    each til=Types.Tilt.floor,
+    each til=Types.Tilt.Floor,
     each azi=Types.Azimuth.W)));
 
    annotation(Commands(file="OnlyPartition.mos" "run"));

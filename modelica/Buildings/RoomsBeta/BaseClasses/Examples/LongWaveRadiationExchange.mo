@@ -26,7 +26,7 @@ model LongWaveRadiationExchange "Test model for long-wave radiation exchange"
     each epsConPar_b={0.5 for i in 1:NConExtWin},
     each epsConBou={0.5 for i in 1:NConExtWin},
     each epsSurBou={0.5 for i in 1:NConExtWin},
-    linearize=true)
+    linearizeRadiation = true )
     "Distribution for long wave radiative heat gains (e.g., due to equipment and people)"
     annotation (Placement(transformation(extent={{-30,0},{10,40}})));
   Buildings.HeatTransfer.Radiosity.Constant radSou[NConExtWin](each k=-10)
@@ -58,7 +58,7 @@ equation
       points={{40,-60},{28,-60},{28,6.66667},{10.1667,6.66667}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conSurBou.port_a, lonWavRadGai.surBou) annotation (Line(
+  connect(conSurBou.port_a, lonWavRadGai.conSurBou) annotation (Line(
       points={{40,-90},{24,-90},{24,1.66667},{10.0833,1.66667}},
       color={191,0,0},
       smooth=Smooth.None));

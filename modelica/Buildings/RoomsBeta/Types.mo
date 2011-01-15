@@ -1,17 +1,27 @@
 within Buildings.RoomsBeta;
 package Types "Package with type definitions"
+  type ConvectionModel = enumeration(
+      Fixed "Fixed coefficient (a user-specified parameter is used)",
+      Temperature "Temperature dependent")
+    "Enumeration defining the convective heat transfer model"
+  annotation (Documentation(info="<html>
+<p>
+This enumeration is used to set the function
+that is used to compute the convective
+heat transfer coefficient.</p>
+</html>"), Evaluate=true);
 
   package Tilt "Enumeration for surface tilt"
-     constant Modelica.SIunits.Angle ceiling = 0 "Tilt for ceiling";
-     constant Modelica.SIunits.Angle wall =    Modelica.Constants.pi/2
+    constant Modelica.SIunits.Angle Ceiling=0 "Tilt for ceiling";
+    constant Modelica.SIunits.Angle Wall =    Modelica.Constants.pi/2
       "Tilt for wall";
-     constant Modelica.SIunits.Angle floor =   Modelica.Constants.pi
+    constant Modelica.SIunits.Angle Floor =   Modelica.Constants.pi
       "Tilt for floor";
     annotation(preferedView="info", Documentation(info="<html>
 <p>
  Enumeration to define the tilt of a surface for the room model.
   For example, for a construction that is a floor, use
- <code>Buildings.RoomsBeta.Types.Tilt.floor</code>.
+ <code>Buildings.RoomsBeta.Types.Tilt.Floor</code>.
 </p>
 </html>",
   revisions="<html>

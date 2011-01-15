@@ -17,7 +17,7 @@ model Window "Test model for the window"
     til=til)
     annotation (Placement(transformation(extent={{82,70},{122,110}})));
   Buildings.HeatTransfer.WindowsBeta.InteriorHeatTransfer intCon(A=A, fFra=fFra,
-    linearize=linearize,
+    linearizeRadiation=linearize,
     epsLWSha_air=glaSys.shade.epsLW_a,
     epsLWSha_glass=glaSys.shade.epsLW_b,
     tauLWSha_air=glaSys.shade.tauLW_a,
@@ -27,7 +27,7 @@ model Window "Test model for the window"
     "Room-side convective heat transfer"
     annotation (Placement(transformation(extent={{158,82},{138,102}})));
   Buildings.HeatTransfer.WindowsBeta.ExteriorHeatTransfer extCon(A=A, fFra=fFra,
-    linearize=linearize,
+    linearizeRadiation=linearize,
     epsLWSha_air=glaSys.shade.epsLW_a,
     epsLWSha_glass=glaSys.shade.epsLW_b,
     tauLWSha_air=glaSys.shade.tauLW_a,
@@ -63,14 +63,13 @@ model Window "Test model for the window"
     haveExteriorShade=false,
     haveInteriorShade=true)
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface
-    HDirTil(
+  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=til,
     lat=lat,
     azi=azi)
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic
-    HDifTilIso(til=til)
+  Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic HDifTilIso(
+               til=til)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.BoundaryConditions.WeatherData.Reader weaDat(
                                                         filNam=

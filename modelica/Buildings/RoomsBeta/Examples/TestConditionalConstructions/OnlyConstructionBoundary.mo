@@ -7,7 +7,7 @@ model OnlyConstructionBoundary "Test model for room model"
    nConBou=1,
    nSurBou=0,
    roo(
-    datConBou(layers={matLayPar}, each A=12, each til=Types.Tilt.floor,
+    datConBou(layers={matLayPar}, each A=12, each til=Types.Tilt.Floor,
     each azi=Types.Azimuth.W)));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBou1[nConBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(

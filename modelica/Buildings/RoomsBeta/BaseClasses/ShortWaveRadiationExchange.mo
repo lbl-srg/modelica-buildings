@@ -177,7 +177,7 @@ equation
     Q_flow[i+NConExt+2*NConPar] = conBou[i].Q_flow;
   end for;
   for i in 1:NSurBou loop
-    Q_flow[i+NConExt+2*NConPar+NConBou] = surBou[i].Q_flow;
+    Q_flow[i+NConExt+2*NConPar+NConBou] = conSurBou[i].Q_flow;
   end for;
   for i in 1:NConExtWin loop
     Q_flow[i+NConExt+2*NConPar+NConBou+NSurBou]            = conExtWin[i].Q_flow;

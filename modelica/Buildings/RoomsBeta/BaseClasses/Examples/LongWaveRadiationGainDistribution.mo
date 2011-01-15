@@ -5,7 +5,8 @@ model LongWaveRadiationGainDistribution
     Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses.PartialLongWaveRadiation;
   import Buildings;
 
-  Buildings.RoomsBeta.BaseClasses.LongWaveRadiationGainDistribution lonWavRadGai(
+  Buildings.RoomsBeta.BaseClasses.LongWaveRadiationGainDistribution
+    lonWavRadGai(
     nConExt=nConExt,
     nConExtWin=nConExtWin,
     nConPar=nConPar,
@@ -61,7 +62,7 @@ equation
       points={{40,-60},{28,-60},{28,6.66667},{10.1667,6.66667}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conSurBou.port_a, lonWavRadGai.surBou) annotation (Line(
+  connect(conSurBou.port_a, lonWavRadGai.conSurBou) annotation (Line(
       points={{40,-90},{24,-90},{24,1.66667},{10.0833,1.66667}},
       color={191,0,0},
       smooth=Smooth.None));

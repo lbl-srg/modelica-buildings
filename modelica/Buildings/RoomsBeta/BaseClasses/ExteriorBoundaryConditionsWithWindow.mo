@@ -8,7 +8,7 @@ model ExteriorBoundaryConditionsWithWindow
   HeatTransfer.WindowsBeta.ExteriorHeatTransfer conExtWin[nCon](
     final A=AWin,
     final fFra=fFra,
-    each final linearize=linearize,
+    each final linearizeRadiation = linearizeRadiation,
     final F_sky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i in 1:nCon},
     final epsLWSha_air=epsLWSha_air,
     final epsLWSha_glass=epsLWSha_glass,

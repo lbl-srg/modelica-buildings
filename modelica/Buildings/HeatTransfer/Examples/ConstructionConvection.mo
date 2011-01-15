@@ -14,12 +14,10 @@ model ConstructionConvection
   Buildings.HeatTransfer.ConstructionOpaque const(
     steadyStateInitial=true,
     A=10,
-    redeclare function qCon_a_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.constantCoefficient,
-    redeclare function qCon_b_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.constantCoefficient,
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200
-      layers) "Model of the construction with convective heat transfer"
+      layers,
+    conMod=Buildings.RoomsBeta.Types.ConvectionModel.Fixed,
+    til=0) "Model of the construction with convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={0,10})));
@@ -35,36 +33,33 @@ model ConstructionConvection
   Buildings.HeatTransfer.ConstructionOpaque wall(
     steadyStateInitial=true,
     A=10,
-    redeclare function qCon_a_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.wall,
-    redeclare function qCon_b_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.wall,
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200
-      layers) "Model of the construction with convective heat transfer"
+      layers,
+    conMod=Buildings.RoomsBeta.Types.ConvectionModel.Temperature,
+    til=Buildings.RoomsBeta.Types.Tilt.Wall)
+    "Model of the construction with convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={40,10})));
   Buildings.HeatTransfer.ConstructionOpaque floor(
     steadyStateInitial=true,
     A=10,
-    redeclare function qCon_a_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor,
-    redeclare function qCon_b_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling,
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200
-      layers) "Model of the construction with convective heat transfer"
+      layers,
+    conMod=Buildings.RoomsBeta.Types.ConvectionModel.Temperature,
+    til=Buildings.RoomsBeta.Types.Tilt.Floor)
+    "Model of the construction with convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={80,10})));
   Buildings.HeatTransfer.ConstructionOpaque ceiling(
     steadyStateInitial=true,
     A=10,
-    redeclare function qCon_a_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling,
-    redeclare function qCon_b_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor,
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200
-      layers) "Model of the construction with convective heat transfer"
+      layers,
+    conMod=Buildings.RoomsBeta.Types.ConvectionModel.Temperature,
+    til=Buildings.RoomsBeta.Types.Tilt.Ceiling)
+    "Model of the construction with convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={120,10})));

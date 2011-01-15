@@ -1,43 +1,21 @@
 within Buildings.RoomsBeta;
 model MixedAir "Model of a room in which the air is completely mixed"
   extends Buildings.RoomsBeta.BaseClasses.ParameterFluid;
+  extends Buildings.RoomsBeta.BaseClasses.ConstructionRecords;
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(__Dymola_connectorSizing=true, tab="General",group="Ports"));
 
-  parameter Buildings.RoomsBeta.BaseClasses.ParameterConstruction datConExt[NConExt](
-    each A=0,
-    redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers,
-    each til=0,
-    each azi=0) "Data for exterior construction"
-    annotation (Placement(transformation(extent={{100,-100},{120,-80}})));
-  parameter Buildings.RoomsBeta.BaseClasses.ParameterConstructionWithWindow
-    datConExtWin[NConExtWin](
-    each A=0,
-    redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers,
-    each til=0,
-    each azi=0,
-    each AWin=0,
-    redeclare Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3 glaSys)
-    "Data for exterior construction with window"
-    annotation (Placement(transformation(extent={{100,-140},{120,-120}})));
-  parameter Buildings.RoomsBeta.BaseClasses.ParameterConstruction datConPar[
-              NConPar](
-    each A=0,
-    redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers,
-    each til=0,
-    each azi=0) "Data for partition construction"
-    annotation (Placement(transformation(extent={{100,-180},{120,-160}})));
-  parameter Buildings.RoomsBeta.BaseClasses.ParameterConstruction datConBou[NConBou](
-    each A=0,
-    redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers,
-    each til=0,
-    each azi=0) "Data for construction boundary"
-    annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
-  HeatTransfer.Data.OpaqueSurfaces.Generic surBou[NSurBou](each A=0, each til=0)
-    "Record for data of surfaces whose heat conduction is modeled outside of this room"
-    annotation (Placement(transformation(extent={{160,-140},{140,-120}})));
-
   Buildings.RoomsBeta.BaseClasses.MixedAir air(
+    final nConExt=nConExt,
+    final nConExtWin=nConExtWin,
+    final nConPar=nConPar,
+    final nConBou=nConBou,
+    final nSurBou=nSurBou,
+    final datConExt=datConExt,
+    final datConExtWin=datConExtWin,
+    final datConPar=datConPar,
+    final datConBou=datConBou,
+    final surBou=surBou,
     redeclare final package Medium=Medium,
     final V=V,
     nPorts=nPorts,
@@ -51,41 +29,9 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final h_start=h_start,
     final X_start=X_start,
     final C_start=C_start,
-    final AConExt=datConExt.A,
-    final AConExtWinOpa=datConExtWin.AOpa,
-    final AConExtWinGla=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
-    final AConExtWinFra=datConExtWin.fFra .* datConExtWin.AWin,
-    final AConPar=datConPar.A,
-    final AConBou=datConBou.A,
-    final ASurBou=surBou.A,
-    final nConExt=nConExt,
-    final nConExtWin=nConExtWin,
-    final nConPar=nConPar,
-    final nConBou=nConBou,
-    final nSurBou=nSurBou,
-    final fFra=datConExtWin.fFra,
-    final epsConExt=datConExt.layers.epsLW_b,
-    final epsConExtWinUns={(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].epsLW_b) for i in 1:NConExtWin},
-    final epsConExtWinSha=datConExtWin.glaSys.shade.epsLW_a,
-    final tauLWSha_air=datConExtWin.glaSys.shade.tauLW_a,
-    final tauLWSha_glass=datConExtWin.glaSys.shade.tauLW_b,
-    final epsConExtWinFra=datConExtWin.glaSys.epsLWFra,
-    final epsConPar_a=datConPar.layers.epsLW_a,
-    final epsConPar_b=datConPar.layers.epsLW_b,
-    final epsConBou=datConBou.layers.epsLW_b,
-    final epsSurBou=surBou.epsLW,
     final AFlo=AFlo,
     final hRoo=hRoo,
-    final linearize=linearize,
-    final epsConExtWinOpa=datConExtWin.layers.epsLW_b,
-    final haveExteriorShade={datConExtWin[i].glaSys.haveExteriorShade for i in 1:NConExtWin},
-    final haveInteriorShade={datConExtWin[i].glaSys.haveInteriorShade for i in 1:NConExtWin},
-    final isFloorConExt=datConExt.isFloor,
-    final isFloorConExtWin=datConExtWin.isFloor,
-    final isFloorConPar_a=datConPar.isFloor,
-    final isFloorConPar_b=datConPar.isCeiling,
-    final isFloorConBou=datConBou.isFloor,
-    final isFloorSurBou=surBou.isFloor,
+    final linearizeRadiation = linearizeRadiation,
     tauGlaSW={0.6 for i in 1:NConExtWin}) "Air volume"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
@@ -104,23 +50,6 @@ model MixedAir "Model of a room in which the air is completely mixed"
     annotation (Placement(transformation(extent={{-212,30},{-192,50}}),
         iconTransformation(extent={{-212,32},{-192,52}})));
 
-  ////////////////////////////////////////////////////////////////////////
-  // Number of constructions and surface areas
-  parameter Integer nConExt(min=0) "Number of exterior constructions"
-    annotation (Dialog(group="Exterior constructions"));
-  parameter Integer nConExtWin(min=0) "Number of window constructions"
-    annotation (Dialog(group="Exterior constructions"));
-
-  parameter Integer nConPar(min=0) "Number of partition constructions"
-  annotation (Dialog(group="Partition constructions"));
-
-  parameter Integer nConBou(min=0)
-    "Number of constructions that have their outside surface exposed to the boundary of this room"
-  annotation (Dialog(group="Boundary constructions"));
-
-  parameter Integer nSurBou(min=0)
-    "Number of surface heat transfer models that connect to constructions that are modeled outside of this room"
-  annotation (Dialog(group="Boundary constructions"));
   ////////////////////////////////////////////////////////////////////////
   // Constructions
   Constructions.Construction conExt[NConExt](
@@ -143,7 +72,6 @@ model MixedAir "Model of a room in which the air is completely mixed"
     T_b_start=datConExtWin.T_b_start,
     AWin=datConExtWin.AWin,
     fFra=datConExtWin.fFra,
-    linearize=datConExtWin.linearize,
     glaSys=datConExtWin.glaSys) if
        haveConExtWin
     "Heat conduction through exterior construction that have a window"
@@ -171,7 +99,8 @@ model MixedAir "Model of a room in which the air is completely mixed"
     "Heat conduction through opaque constructions that have the boundary conditions of the other side exposed"
     annotation (Placement(transformation(extent={{24,-136},{4,-116}})));
 
-  parameter Boolean linearize=true "Set to true to linearize emissive power";
+  parameter Boolean linearizeRadiation = true
+    "Set to true to linearize emissive power";
 
   ////////////////////////////////////////////////////////////////////////
   // Models for boundary conditions
@@ -199,7 +128,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final lat=lat,
     final til=datConExt.til,
     final azi=datConExt.azi,
-    linearize=linearize,
+    linearizeRadiation = linearizeRadiation,
     final epsLW=datConExt.layers.epsLW_a,
     final epsSW=datConExt.layers.epsSW_a) if
        haveConExt
@@ -214,7 +143,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final AOpa=datConExtWin.AOpa,
     final AWin=datConExtWin.AWin,
     final fFra=datConExtWin.fFra,
-    linearize=linearize,
+    linearizeRadiation = linearizeRadiation,
     final epsLW=datConExtWin.layers.epsLW_a,
     final epsLWSha_air={datConExtWin[i].glaSys.shade.epsLW_a for i in 1:nConExtWin},
     final epsLWSha_glass={datConExtWin[i].glaSys.shade.epsLW_b for i in 1:nConExtWin},
@@ -248,34 +177,6 @@ model MixedAir "Model of a room in which the air is completely mixed"
     annotation (Placement(transformation(extent={{170,170},{190,190}}),
         iconTransformation(extent={{148,168},{174,194}})));
 
-  // Dimensions of components and connectors
-protected
-  parameter Integer NConExt(min=1)=max(1, nConExt)
-    "Number of elements for exterior constructions";
-
-  parameter Integer NConExtWin(min=1)=max(1, nConExtWin)
-    "Number of elements for exterior constructions with windows";
-
-  parameter Integer NConPar(min=1)=max(1, nConPar)
-    "Number of elements for partition constructions";
-
-  parameter Integer NConBou(min=1)=max(1, nConBou)
-    "Number of elements for constructions that have their outside surface exposed to the boundary of this room";
-
-  parameter Integer NSurBou(min=1)=max(1, nSurBou)
-    "Number of elements for surface heat transfer models that connect to constructions that are modeled outside of this room";
-
-  // Flags to conditionally remove components
-  final parameter Boolean haveConExt = nConExt > 0
-    "Flag to conditionally remove components";
-  final parameter Boolean haveConExtWin = nConExtWin > 0
-    "Flag to conditionally remove components";
-  final parameter Boolean haveConPar = nConPar > 0
-    "Flag to conditionally remove components";
-  final parameter Boolean haveConBou = nConBou > 0
-    "Flag to conditionally remove components";
-  final parameter Boolean haveSurBou = nSurBou > 0
-    "Flag to conditionally remove components";
   Modelica.Blocks.Sources.Constant zer(final k=0) if
        not haveConExtWin
     "Outputs zero. This block is needed to send a signal to the shading connector if no window is used in the room model"
@@ -286,9 +187,6 @@ equation
       points={{-140.083,50},{-180,50},{-180,40},{-202,40}},
       color={191,0,0},
       smooth=Smooth.None));
-
-  for i in 1:nPorts loop
-  end for;
 
   connect(air.conExtWin, conExtWin.opa_b)
                                     annotation (Line(
@@ -312,7 +210,7 @@ equation
       points={{-119.917,43.3333},{-52,43.3333},{-52,-119.333},{3.93333,-119.333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(surf_surBou, air.surBou) annotation (Line(
+  connect(surf_surBou, air.conSurBou) annotation (Line(
       points={{-60,-140},{-60,22},{-119.958,22},{-119.958,40.8333}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -759,24 +657,24 @@ With these constructions, we may define a room as follows: </p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConExt=2,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConExt(layers={matLayRoo, matLayExt},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           A={6*4, 6*3},</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           til={Types.Tilt.ceiling, Types.Tilt.wall},</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           til={Types.Tilt.Ceiling, Types.Tilt.Wall},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           azi={Types.Azimuth.S, Types.Azimuth.W}),</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConExtWin=nConExtWin,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConExtWin(layers={matLayExt}, A={4*3},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              glaSys={glaSys},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              AWin={2*2},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              fFra={0.1},</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              til={Types.Tilt.wall},</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              til={Types.Tilt.Wall},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              azi={Types.Azimuth.S}),</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConPar=1,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConPar(layers={matLayPar}, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=10,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.wall),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.Wall),</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConBou=1,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConBou(layers={matLayFlo}, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*4,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.floor),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.Floor),</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nSurBou=1,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    surBou(</span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*3, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsLW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsSW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.wall),</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    linearize=true,</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    surBou(</span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*3, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsLW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsSW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.Wall),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    linearizeRadiation = true ,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    lat=0.73268921998722) </span><span style=\" font-family:'Courier New,courier'; color:#006400;\">\"Room model\"</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">annotation </span><span style=\" font-family:'Courier New,courier';\">(Placement(transformation(extent={{46,20},{86,60}})));</span></p>
@@ -817,7 +715,7 @@ The lines
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConExt(layers={matLayRoo, matLayExt},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           A={6*4, 6*3},</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           til={Types.Tilt.ceiling, Types.Tilt.wall},</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           til={Types.Tilt.Ceiling, Types.Tilt.Wall},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           azi={Types.Azimuth.S, Types.Azimuth.W}),</span></p>
 
 </pre>
@@ -836,7 +734,7 @@ Next, the declaration
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              glaSys={glaSys},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              AWin={2*2},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              fFra={0.1},</span></p>
-<p style" + "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              til={Types.Tilt.wall},</span></p>
+<p style" + "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              til={Types.Tilt.Wall},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              azi={Types.Azimuth.S}),</span></p>
 
 </pre>
@@ -853,7 +751,7 @@ What follows is the declaration of the partition constructions, as declared by
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConPar=1,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConPar(layers={matLayPar}, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=10,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.wall),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.Wall),</span></p>
 
 </pre>
 Thus, there is one partition construction. Its area is <i>10 m<sup>2</sup></i> for <emph>each</emph>
@@ -864,7 +762,7 @@ Next, the declaration
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConBou=1,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConBou(layers={matLayFlo}, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*4,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.floor),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.Floor),</span></p>
 
 </pre>
 declares one construction whose other surface boundary condition is exposed by this
@@ -874,7 +772,7 @@ room model (through the connector <code>surf_conBou</code>).
 The declaration
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nSurBou=1,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    surBou(</span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*3, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsLW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsSW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.wall),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    surBou(</span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*3, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsLW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsSW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Types.Tilt.Wall),</span></p>
 
 </pre>
 is used to instantiate a model for a surface that is in this room. 
@@ -890,7 +788,7 @@ to couple this room model to another room model that may model the construction.
 <p>
 The declaration
 <pre>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    linearize=true,</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    linearizeRadiation = true ,</span></p>
 
 </pre>
 causes the equations for radiative and convective heat transfer to be linearized. This can

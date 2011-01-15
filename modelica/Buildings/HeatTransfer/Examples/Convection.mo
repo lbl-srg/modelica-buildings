@@ -9,16 +9,15 @@ model Convection "Test model for convective heat transfer coefficients"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.HeatTransfer.Convection conCon(A=1, redeclare function qCon_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.constantCoefficient)
-                                                annotation (Placement(
+  Buildings.HeatTransfer.Convection conCon(A=1,
+  til=Buildings.RoomsBeta.Types.Tilt.Wall)    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,10})));
-  Buildings.HeatTransfer.Convection conVer(               A=1, redeclare
-      function qCon_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.wall)
+  Buildings.HeatTransfer.Convection conVer(A=1,
+  til=Buildings.RoomsBeta.Types.Tilt.Wall,
+  conMod=Buildings.RoomsBeta.Types.ConvectionModel.Temperature)
                                                                annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -33,16 +32,18 @@ model Convection "Test model for convective heat transfer coefficients"
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA4
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.HeatTransfer.Convection conHorFluTop(
-      A=1, redeclare function qCon_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling)
+    A=1,
+    til=Buildings.RoomsBeta.Types.Tilt.Floor,
+    conMod=Buildings.RoomsBeta.Types.ConvectionModel.Temperature)
     "Convection model with fluid on top"        annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,10})));
   Buildings.HeatTransfer.Convection conHorSolTop(
-      A=1, redeclare function qCon_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor)
+    A=1,
+    til=Buildings.RoomsBeta.Types.Tilt.Ceiling,
+    conMod=Buildings.RoomsBeta.Types.ConvectionModel.Temperature)
     "Convection model with solid on top"        annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

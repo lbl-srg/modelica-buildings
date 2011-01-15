@@ -20,7 +20,8 @@ partial model PartialConvection
     "Long wave transmissivity of shade for radiation coming from the glass"
     annotation (Dialog(group="Shading"));
 
-  parameter Boolean linearize "Set to true to linearize emissive power";
+  parameter Boolean linearizeRadiation
+    "Set to true to linearize emissive power";
 
   parameter Boolean haveExteriorShade
     "Set to true if window has exterior shade (at surface a)"
@@ -78,7 +79,7 @@ public
   Shade shade(
     final thisSideHasShade = thisSideHasShade,
     final A=AGla,
-    final linearize=linearize,
+    final linearize=linearizeRadiation,
     final epsLW_air=if thisSideHasShade then epsLWSha_air else 0,
     final epsLW_glass=if thisSideHasShade then epsLWSha_glass else 0,
     final tauLW_air=if thisSideHasShade then tauLWSha_air else 1,

@@ -4,13 +4,13 @@ model ExteriorBoundaryConditions
   parameter Integer nCon(min=1) "Number of exterior constructions"
   annotation (Dialog(group="Exterior constructions"));
   parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle til[nCon]
-    "Surface tilt (0: roof, pi/4: wall)";
+  parameter Modelica.SIunits.Angle til[nCon] "Surface tilt";
   parameter Modelica.SIunits.Angle azi[nCon] "Surface azimuth";
 
   parameter Modelica.SIunits.Area AOpa[nCon]
     "Areas of exterior constructions (excluding the window area)";
-  parameter Boolean linearize "Set to true to linearize emissive power";
+  parameter Boolean linearizeRadiation
+    "Set to true to linearize emissive power";
   parameter Modelica.SIunits.Emissivity epsLW[nCon]
     "Long wave emissivity of building surface";
   parameter Modelica.SIunits.Emissivity epsSW[nCon]
@@ -19,11 +19,12 @@ model ExteriorBoundaryConditions
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a opa_a[nCon]
     "Heat port at surface a of opaque construction"
     annotation (Placement(transformation(extent={{-310,190},{-290,210}})));
-
-  HeatTransfer.Convection conOpa[nCon](final A=AOpa, redeclare function
-      qCon_flow =
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.constantCoefficient)
-    "Convection model for opaque part of the wall"
+  parameter Types.ConvectionModel[nCon] conMod=
+   {Buildings.RoomsBeta.Types.ConvectionModel.Fixed for i in 1:nCon}
+    "Convective heat transfer model";
+  HeatTransfer.Convection conOpa[nCon](final A=AOpa,
+    final conMod=conMod,
+    final til=til) "Convection model for opaque part of the wall"
     annotation (Placement(transformation(extent={{-180,180},{-140,220}})));
 
   SkyRadiationExchange skyRadExc(
@@ -44,8 +45,8 @@ protected
     annotation (Placement(transformation(extent={{100,190},{80,210}})));
 
 public
-  BoundaryConditions.SolarIrradiation.DirectTiltedSurface
-    HDirTil[nCon](
+  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[
+            nCon](
     each final lat=lat,
     final til=til,
     final azi=azi) "Direct solar irradiation on the surface"
@@ -63,6 +64,7 @@ public
      each final alpha=0, each final T_ref=293.15)
     "Total solar heat gain of the surface"
     annotation (Placement(transformation(extent={{0,100},{-20,120}})));
+
 equation
   connect(conOpa.solid, opa_a) annotation (Line(
       points={{-180,200},{-300,200}},
