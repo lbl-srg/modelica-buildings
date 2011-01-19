@@ -401,6 +401,10 @@ equation
       points={{-179,130},{-168,130},{-168,43.3333},{-138.667,43.3333}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(air.TRad, TRad) annotation (Line(
+      points={{-134,41.6667},{-134,20},{210,20}},
+      color={0,0,127},
+      smooth=Smooth.None));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
             -200},{200,200}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
@@ -822,8 +826,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  connect(air.TRad, TRad) annotation (Line(
-      points={{-134,41.6667},{-134,20},{210,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
 end MixedAir;

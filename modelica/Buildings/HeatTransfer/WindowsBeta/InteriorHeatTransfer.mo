@@ -48,6 +48,10 @@ equation
       points={{-1,-28},{-8,-28},{-8,-54},{-68,-54},{-68,-40},{-104,-40}},
       color={0,127,0},
       smooth=Smooth.None));
+  connect(shade.sha, sha) annotation (Line(
+      points={{7.4,-29.8},{7.4,-84},{-32,-84},{-32,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (Diagram(graphics),
            Documentation(info="<html>
 <p>
@@ -70,8 +74,4 @@ First implementation.
 </ul>
 </html>"),
     Icon(graphics));
-  connect(shade.sha, sha) annotation (Line(
-      points={{7.4,-29.8},{7.4,-84},{-32,-84},{-32,-100}},
-      color={191,0,0},
-      smooth=Smooth.None));
 end InteriorHeatTransfer;

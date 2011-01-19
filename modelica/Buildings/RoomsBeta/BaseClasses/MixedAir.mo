@@ -620,6 +620,66 @@ equation
       points={{-79.5833,55},{-70,55},{-70,76},{-200,76},{-200,-250}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(uSha, radTem.uSha) annotation (Line(
+      points={{-260,180},{-220,180},{-220,148},{-110,148},{-110,-62.5},{
+          -100.833,-62.5}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(lonWavRadExc.conExt, radTem.conExt) annotation (Line(
+      points={{-80,19.1667},{-58,19.1667},{-58,-60.8333},{-80,-60.8333}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(lonWavRadExc.conExtWin, radTem.conExtWin) annotation (Line(
+      points={{-80,17.5},{-56,17.5},{-56,-62.5},{-80,-62.5}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(lonWavRadExc.conExtWinFra, radTem.conExtWinFra) annotation (Line(
+      points={{-79.9167,10},{-54,10},{-54,-70},{-79.9167,-70}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(lonWavRadExc.conPar_a, radTem.conPar_a) annotation (Line(
+      points={{-79.9167,7.5},{-52,7.5},{-52,-72.5},{-79.9167,-72.5}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(lonWavRadExc.conPar_b, radTem.conPar_b) annotation (Line(
+      points={{-79.9167,5.83333},{-50,5.83333},{-50,-74.1667},{-79.9167,
+          -74.1667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(lonWavRadExc.conBou, radTem.conBou) annotation (Line(
+      points={{-79.9167,3.33333},{-48,3.33333},{-48,-76.6667},{-79.9167,
+          -76.6667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(lonWavRadExc.conSurBou, radTem.conSurBou) annotation (Line(
+      points={{-79.9583,0.833333},{-46,0.833333},{-46,-79.1667},{-79.9583,
+          -79.1667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(radTem.glaUns, glaUns) annotation (Line(
+      points={{-80,-65},{-44,-65},{-44,-64},{-8,-64},{-8,-42},{212,-42},{212,120},
+          {242,120}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(radTem.glaSha, glaSha) annotation (Line(
+      points={{-80,-66.6667},{-42,-66.6667},{-42,-66},{-4,-66},{-4,-46},{216,
+          -46},{216,80},{242,80}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(convConWin.sha, radTem.sha) annotation (Line(
+      points={{104.8,108},{104,108},{104,80},{-20,80},{-20,-68.4167},{-80,
+          -68.4167}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(radTem.TRad, TRad) annotation (Line(
+      points={{-100.417,-77.6667},{-170,-77.6667},{-170,-228},{-140,-228},{-140,
+          -250}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
            extent={{-240,-240},{240,240}}),
         graphics), Icon(coordinateSystem(
@@ -728,64 +788,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  connect(uSha, radTem.uSha) annotation (Line(
-      points={{-260,180},{-220,180},{-220,148},{-110,148},{-110,-62.5},{
-          -100.833,-62.5}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(lonWavRadExc.conExt, radTem.conExt) annotation (Line(
-      points={{-80,19.1667},{-58,19.1667},{-58,-60.8333},{-80,-60.8333}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(lonWavRadExc.conExtWin, radTem.conExtWin) annotation (Line(
-      points={{-80,17.5},{-56,17.5},{-56,-62.5},{-80,-62.5}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(lonWavRadExc.conExtWinFra, radTem.conExtWinFra) annotation (Line(
-      points={{-79.9167,10},{-54,10},{-54,-70},{-79.9167,-70}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(lonWavRadExc.conPar_a, radTem.conPar_a) annotation (Line(
-      points={{-79.9167,7.5},{-52,7.5},{-52,-72.5},{-79.9167,-72.5}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(lonWavRadExc.conPar_b, radTem.conPar_b) annotation (Line(
-      points={{-79.9167,5.83333},{-50,5.83333},{-50,-74.1667},{-79.9167,
-          -74.1667}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
-  connect(lonWavRadExc.conBou, radTem.conBou) annotation (Line(
-      points={{-79.9167,3.33333},{-48,3.33333},{-48,-76.6667},{-79.9167,
-          -76.6667}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
-  connect(lonWavRadExc.conSurBou, radTem.conSurBou) annotation (Line(
-      points={{-79.9583,0.833333},{-46,0.833333},{-46,-79.1667},{-79.9583,
-          -79.1667}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
-  connect(radTem.glaUns, glaUns) annotation (Line(
-      points={{-80,-65},{-44,-65},{-44,-64},{-8,-64},{-8,-42},{212,-42},{212,120},
-          {242,120}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(radTem.glaSha, glaSha) annotation (Line(
-      points={{-80,-66.6667},{-42,-66.6667},{-42,-66},{-4,-66},{-4,-46},{216,
-          -46},{216,80},{242,80}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(convConWin.sha, radTem.sha) annotation (Line(
-      points={{104.8,108},{104,108},{104,80},{-20,80},{-20,-68.4167},{-80,
-          -68.4167}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
-  connect(radTem.TRad, TRad) annotation (Line(
-      points={{-100.417,-77.6667},{-170,-77.6667},{-170,-228},{-140,-228},{-140,
-          -250}},
-      color={0,0,127},
-      smooth=Smooth.None));
 end MixedAir;
