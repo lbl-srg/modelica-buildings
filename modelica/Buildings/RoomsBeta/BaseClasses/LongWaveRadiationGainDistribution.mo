@@ -3,6 +3,21 @@ model LongWaveRadiationGainDistribution
   "Long-wave radiative heat gain distribution between the room facing surfaces"
   extends Buildings.RoomsBeta.BaseClasses.PartialSurfaceInterface;
 
+  Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin](each min=0, each max=1)
+    "Control signal for the shading device (removed if no shade is present)"
+    annotation (Placement(transformation(extent={{-280,160},{-240,200}}),
+        iconTransformation(extent={{-280,160},{-240,200}})));
+
+  Modelica.Blocks.Interfaces.RealInput Q_flow
+    "Radiative heat input into room (positive if heat gain)"
+        annotation (Placement(transformation(
+        origin={-260,0},
+        extent={{20,-20},{-20,20}},
+        rotation=180)));
+  HeatTransfer.Interfaces.RadiosityOutflow[NConExtWin] JOutConExtWin
+    "Outgoing radiosity that connects to shaded and unshaded part of glass"
+    annotation (Placement(transformation(extent={{240,110},{260,130}})));
+protected
   Real fraConExt[NConExt] = AEpsConExt/sumAEps
     "Fraction of long wave radiant heat gain absorbed by exterior constructions";
   Real fraConExtWinOpa[NConExtWin] = AEpsConExtWinOpa/sumAEps
@@ -21,16 +36,6 @@ model LongWaveRadiationGainDistribution
   Real fraSurBou[NSurBou] = AEpsSurBou/sumAEps
     "Fraction of long wave radiant heat gain absorbed by surface models of constructions that are modeled outside of this room";
 
-  Modelica.Blocks.Interfaces.RealInput Q_flow
-    "Radiative heat input into room (positive if heat gain)"
-        annotation (Placement(transformation(
-        origin={-260,0},
-        extent={{20,-20},{-20,20}},
-        rotation=180)));
-  HeatTransfer.Interfaces.RadiosityOutflow[NConExtWin] JOutConExtWin
-    "Outgoing radiosity that connects to shaded and unshaded part of glass"
-    annotation (Placement(transformation(extent={{240,110},{260,130}})));
-protected
  parameter Real AEpsConExt[NConExt] = {AConExt[i]*epsConExt[i] for i in 1:NConExt}
     "Emissivity times area of exterior constructions";
  parameter Real AEpsConExtWinOpa[NConExtWin] = {AConExtWinOpa[i]*epsConExtWinOpa[i] for i in 1:NConExtWin}
@@ -60,11 +65,6 @@ protected
  Buildings.HeatTransfer.WindowsBeta.BaseClasses.ShadingSignal shaSig[NConExtWin](
       each final haveShade=true)
     "Block to constrain the shading control signal to be strictly within (0, 1) if a shade is present";
-public
-  Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin](each min=0, each max=1)
-    "Control signal for the shading device (removed if no shade is present)"
-    annotation (Placement(transformation(extent={{-280,160},{-240,200}}),
-        iconTransformation(extent={{-280,160},{-240,200}})));
 initial equation
   sumAEpsNoWin = sum(AEpsConExt)+sum(AEpsConExtWinOpa)+sum(AEpsConExtWinFra)
                 +sum(AEpsConPar_a)+sum(AEpsConPar_b)+sum(AEpsConBou)+sum(AEpsSurBou);

@@ -3,6 +3,16 @@ model LongWaveRadiationExchange
   "Long-wave radiation heat exchange between the room facing surfaces"
   extends Buildings.RoomsBeta.BaseClasses.PartialSurfaceInterface;
 
+  parameter Boolean linearizeRadiation
+    "Set to true to linearize emissive power";
+  HeatTransfer.Interfaces.RadiosityOutflow JOutConExtWin[NConExtWin]
+    "Outgoing radiosity that connects to non-frame part of the window"
+    annotation (Placement(transformation(extent={{240,110},{260,130}})));
+  HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin]
+    "Incoming radiosity that connects to non-frame part of the window"
+    annotation (Placement(transformation(extent={{260,70},{240,90}})));
+
+protected
   final parameter Integer NOpa = NConExt+2*NConExtWin+2*NConPar+NConBou+NSurBou
     "Number of opaque surfaces, including the window frame";
   final parameter Integer NWin = NConExtWin "Number of window surfaces";
@@ -20,8 +30,7 @@ model LongWaveRadiationExchange
     "View factor from surface i to j";
   final parameter Real M[NTot,NTot](min=0, max=1, fixed=false)
     "Incidence matrix, with elements of 1 if surfaces can see each other, or zero otherwise";
-  parameter Boolean linearizeRadiation
-    "Set to true to linearize emissive power";
+
   Modelica.SIunits.HeatFlowRate J[NTot](max=0, start=A .* 0.8*7385154648, nominal=10*419)
     "Radiosity leaving the surface";
   Modelica.SIunits.HeatFlowRate G[NTot](min=0, start=A .* 0.8*7385154648, nominal=10*419)
@@ -33,13 +42,6 @@ model LongWaveRadiationExchange
     "Forth power of temperature of opaque surfaces";
   Modelica.SIunits.HeatFlowRate Q_flow[NTot] "Heat flow rate at surfaces";
 
-  HeatTransfer.Interfaces.RadiosityOutflow JOutConExtWin[NConExtWin]
-    "Outgoing radiosity that connects to non-frame part of the window"
-    annotation (Placement(transformation(extent={{240,110},{260,130}})));
-  HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin]
-    "Incoming radiosity that connects to non-frame part of the window"
-    annotation (Placement(transformation(extent={{260,70},{240,90}})));
-protected
   parameter Modelica.SIunits.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer";
   final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"

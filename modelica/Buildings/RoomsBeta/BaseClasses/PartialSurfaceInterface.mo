@@ -4,6 +4,38 @@ partial model PartialSurfaceInterface
   import Buildings;
   extends Buildings.RoomsBeta.BaseClasses.ConstructionRecords;
 
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt[NConExt]
+    "Heat port that connects to room-side surface of exterior constructions"
+                              annotation (Placement(transformation(extent={{230,210},
+            {250,230}},          rotation=0)));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWin[NConExtWin]
+    "Heat port that connects to room-side surface of exterior constructions that contain a window"
+                              annotation (Placement(transformation(extent={{230,170},
+            {250,190}},          rotation=0)));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWinFra[NConExtWin]
+    "Heat port that connects to room-side surface of window frame"
+                              annotation (Placement(transformation(extent={{232,-10},
+            {252,10}},           rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_a[NConPar]
+    "Heat port that connects to room-side surface a of partition constructions"
+                              annotation (Placement(transformation(extent={{232,-70},
+            {252,-50}},          rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_b[NConPar]
+    "Heat port that connects to room-side surface b of partition constructions"
+                              annotation (Placement(transformation(extent={{232,
+            -110},{252,-90}},    rotation=0)));
+
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conBou[NConBou]
+    "Heat port that connects to room-side surface of constructions that expose their other surface to the outside"
+                              annotation (Placement(transformation(extent={{232,
+            -170},{252,-150}},   rotation=0)));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conSurBou[NSurBou]
+    "Heat port to surfaces of models that compute the heat conduction outside of this room"
+                              annotation (Placement(transformation(extent={{231,
+            -230},{251,-210}},   rotation=0)));
+protected
   final parameter Modelica.SIunits.Area AConExt[NConExt] = datConExt.A
     "Areas of exterior constructions";
   final parameter Modelica.SIunits.Area AConExtWinOpa[NConExtWin] = datConExtWin.AOpa
@@ -38,39 +70,6 @@ partial model PartialSurfaceInterface
     "Emissivity of constructions with exterior boundary conditions exposed to outside of room model";
   final parameter Modelica.SIunits.Emissivity epsSurBou[NSurBou] = surBou.epsLW
     "Emissivity of surface models of constructions that are modeled outside of this room";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt[NConExt]
-    "Heat port that connects to room-side surface of exterior constructions"
-                              annotation (Placement(transformation(extent={{230,210},
-            {250,230}},          rotation=0)));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWin[NConExtWin]
-    "Heat port that connects to room-side surface of exterior constructions that contain a window"
-                              annotation (Placement(transformation(extent={{230,170},
-            {250,190}},          rotation=0)));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExtWinFra[NConExtWin]
-    "Heat port that connects to room-side surface of window frame"
-                              annotation (Placement(transformation(extent={{232,-10},
-            {252,10}},           rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_a[NConPar]
-    "Heat port that connects to room-side surface a of partition constructions"
-                              annotation (Placement(transformation(extent={{232,-70},
-            {252,-50}},          rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conPar_b[NConPar]
-    "Heat port that connects to room-side surface b of partition constructions"
-                              annotation (Placement(transformation(extent={{232,
-            -110},{252,-90}},    rotation=0)));
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conBou[NConBou]
-    "Heat port that connects to room-side surface of constructions that expose their other surface to the outside"
-                              annotation (Placement(transformation(extent={{232,
-            -170},{252,-150}},   rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conSurBou[NSurBou]
-    "Heat port to surfaces of models that compute the heat conduction outside of this room"
-                              annotation (Placement(transformation(extent={{231,
-            -230},{251,-210}},   rotation=0)));
-
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,
             -240},{240,240}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
