@@ -308,23 +308,23 @@ First implementation.
     Diagram(graphics),
     Icon(graphics={
         Text(
-          extent={{12,92},{102,78}},
+          extent={{26,86},{102,74}},
           lineColor={0,0,127},
           textString="QAbsExtSha"),
         Text(
-          extent={{-129,-65},{-4,-88}},
+          extent={{-101,-73},{-54,-82}},
           lineColor={0,0,127},
           textString="HRoo"),
         Text(
-          extent={{10,-68},{106,-82}},
+          extent={{24,-68},{102,-80}},
           lineColor={0,0,127},
           textString="QAbsIntSha"),
         Text(
-          extent={{10,48},{102,34}},
+          extent={{34,46},{94,32}},
           lineColor={0,0,127},
           textString="QAbsGlaUns"),
         Text(
-          extent={{10,-30},{104,-44}},
+          extent={{30,-32},{104,-44}},
           lineColor={0,0,127},
           textString="QAbsGlaSha")}));
 end AbsorbedRadiation;

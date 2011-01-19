@@ -101,7 +101,7 @@ partial model PartialSurfaceInterface
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
         Text(
-          extent={{-64,298},{82,234}},
+          extent={{-234,328},{242,244}},
           lineColor={0,0,127},
           textString="%name"),
         Rectangle(

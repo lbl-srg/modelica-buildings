@@ -170,7 +170,7 @@ First implementation.
           extent={{-32,-80},{22,-96}},
           lineColor={0,0,127},
           textString="uSha"), Text(
-          extent={{36,10},{110,-6}},
+          extent={{44,8},{110,-6}},
           lineColor={0,0,127},
           textString="QTra")}));
 end TransmittedRadiation;

@@ -133,7 +133,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final epsSW=datConExt.layers.epsSW_a) if
        haveConExt
     "Exterior boundary conditions for constructions without a window"
-    annotation (Placement(transformation(extent={{114,106},{154,146}})));
+    annotation (Placement(transformation(extent={{116,114},{146,144}})));
 
   BaseClasses.ExteriorBoundaryConditionsWithWindow bouConExtWin(
     final nCon=nConExtWin,
@@ -155,7 +155,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final epsSWFra=datConExtWin.glaSys.epsSWFra) if
        haveConExtWin
     "Exterior boundary conditions for constructions with a window"
-    annotation (Placement(transformation(extent={{116,44},{156,84}})));
+    annotation (Placement(transformation(extent={{116,46},{146,76}})));
 
   HeatTransfer.WindowsBeta.BaseClasses.WindowRadiation conExtWinRad[NConExtWin](
      final AWin=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
@@ -257,7 +257,7 @@ equation
       smooth=Smooth.None));
   connect(air.conExtWinFra, conExtWin.fra_b)
                                        annotation (Line(
-      points={{-119.917,50},{32,50},{32,48},{25.9,48}},
+      points={{-119.917,50},{-38,50},{-38,48},{25.9,48}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(uSha, conExtWin.uSha)
@@ -267,55 +267,55 @@ equation
       smooth=Smooth.None));
   connect(uSha, bouConExtWin.uSha)
                              annotation (Line(
-      points={{-220,180},{100,180},{100,70.6667},{114.667,70.6667}},
+      points={{-220,180},{100,180},{100,66},{115,66}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.opa_a, conExtWin.opa_a)
                                          annotation (Line(
-      points={{116,77.3333},{80,77.3333},{80,71},{56,71}},
+      points={{116,71},{56,71}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.JInUns_a, bouConExtWin.JOutUns)
                                               annotation (Line(
-      points={{56.5,62},{94,62},{94,62.6667},{115.333,62.6667}},
+      points={{56.5,62},{94,62},{94,60},{115.5,60}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.JInUns, conExtWin.JOutUns_a)
                                               annotation (Line(
-      points={{115.333,65.3333},{78,65.3333},{78,60},{56.5,60}},
+      points={{115.5,62},{78,62},{78,60},{56.5,60}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.glaUns_a, bouConExtWin.glaUns)
                                              annotation (Line(
-      points={{56,57},{80,57},{80,58.6667},{116,58.6667}},
+      points={{56,57},{80,57},{80,57},{116,57}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.glaSha, conExtWin.glaSha_a)
                                              annotation (Line(
-      points={{116,56},{88,56},{88,55},{56,55}},
+      points={{116,55},{88,55},{88,55},{56,55}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.JInSha_a, bouConExtWin.JOutSha)
                                               annotation (Line(
-      points={{56.5,53},{86,53},{86,50.6667},{115.333,50.6667}},
+      points={{56.5,53},{86,53},{86,51},{115.5,51}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.JInSha, conExtWin.JOutSha_a)
                                               annotation (Line(
-      points={{115.333,53.3333},{84,53.3333},{84,51},{56.5,51}},
+      points={{115.5,53},{84,53},{84,51},{56.5,51}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.fra_a, bouConExtWin.fra)
                                        annotation (Line(
-      points={{56,48},{82,48},{82,46.6667},{116,46.6667}},
+      points={{56,48},{116,48}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -324,16 +324,16 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(conExt.opa_a, bouConExt.opa_a)      annotation (Line(
-      points={{54,139},{94,139},{94,139.333},{114,139.333}},
+      points={{54,139},{116,139}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaBus, bouConExtWin.weaBus)    annotation (Line(
-      points={{180,180},{180,65.4},{150.867,65.4}},
+      points={{180,180},{180,62.05},{142.15,62.05}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus, bouConExt.weaBus) annotation (Line(
-      points={{180,180},{180,128},{148.867,128},{148.867,127.4}},
+      points={{180,180},{180,130},{142.15,130},{142.15,130.05}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -347,19 +347,19 @@ equation
       smooth=Smooth.None));
   connect(bouConExtWin.QAbsSWSha_flow, conExtWinRad.QAbsExtSha_flow)
     annotation (Line(
-      points={{114.667,68},{100,68},{100,-1},{61,-1}},
+      points={{115,64},{100,64},{100,-1},{61,-1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bouConExtWin.inc, conExtWinRad.incAng) annotation (Line(
-      points={{156.667,76},{172,76},{172,-40},{20,-40},{20,-11},{38.5,-11}},
+      points={{146.5,70},{172,70},{172,-40},{20,-40},{20,-11},{38.5,-11}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bouConExtWin.HDir, conExtWinRad.HDir) annotation (Line(
-      points={{156.667,72},{170,72},{170,-28},{22,-28},{22,-6},{38.5,-6}},
+      points={{146.5,67},{170,67},{170,-28},{22,-28},{22,-6},{38.5,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bouConExtWin.HDif, conExtWinRad.HDif) annotation (Line(
-      points={{156.667,68},{168,68},{168,-26},{24,-26},{24,-2},{38.5,-2}},
+      points={{146.5,64},{168,64},{168,-26},{24,-26},{24,-2},{38.5,-2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(uSha, conExtWinRad.uSha) annotation (Line(

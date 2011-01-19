@@ -23,8 +23,8 @@ partial block PartialRadiation
     final tauShaSW_b=tauShaSW_b,
     final rhoShaSW_a=rhoShaSW_a,
     final rhoShaSW_b=rhoShaSW_b)
-    "Optical properties of window for different irradiation angles" annotation
-    (Evaluate=true, Placement(transformation(extent={{60,20},{80,40}})));
+    "Optical properties of window for different irradiation angles" annotation (
+     Evaluate=true, Placement(transformation(extent={{60,20},{80,40}})));
   Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1)
     "Control signal for shading (0: unshaded; 1: fully shaded)" annotation (
       Placement(transformation(
@@ -36,8 +36,8 @@ partial block PartialRadiation
         origin={-2,-116})));
   Modelica.Blocks.Interfaces.RealInput HDif(quantity="RadiantEnergyFluenceRate",
       unit="W/m2") "Diffussive solar radiation" annotation (Placement(
-        transformation(extent={{-140,60},{-100,100}}),iconTransformation(extent
-          ={{-130,65},{-100,95}})));
+        transformation(extent={{-140,60},{-100,100}}),iconTransformation(extent=
+           {{-130,65},{-100,95}})));
   Modelica.Blocks.Interfaces.RealInput incAng(
     final quantity="Angle",
     final unit="rad",
@@ -81,19 +81,64 @@ First implementation.
     Diagram(graphics),
     Icon(graphics={
         Text(
-          extent={{-94,10},{-34,-32}},
+          extent={{-92,0},{-62,-20}},
           lineColor={0,0,127},
           textString="incAng"),
         Text(
-          extent={{-100,90},{-50,68}},
+          extent={{-94,84},{-70,70}},
           lineColor={0,0,127},
           textString="HDif"),
         Text(
-          extent={{-100,52},{-44,28}},
+          extent={{-96,42},{-62,30}},
           lineColor={0,0,127},
           textString="HDir"),
         Text(
-          extent={{-32,-80},{22,-96}},
+          extent={{-32,-82},{22,-94}},
           lineColor={0,0,127},
-          textString="uSha")}));
+          textString="uSha"),
+        Polygon(
+          points={{-46,66},{-46,-10},{-6,-50},{-6,22},{-46,66}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{18,64},{18,-12},{58,-52},{58,20},{18,64}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-28,2},{-18,10},{-8,0},{2,10},{12,0},{22,10},{32,-2},{40,4},
+              {34,4},{38,-2},{40,4},{38,4}},
+          color={255,128,0},
+          smooth=Smooth.None),
+        Polygon(
+          points={{38,-2},{34,4},{40,4},{38,-2}},
+          lineColor={255,128,0},
+          smooth=Smooth.None,
+          fillColor={255,128,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{38,-4},{46,-14},{58,-4},{66,-14},{66,-14},{76,-4},{86,-16},{
+              94,-10},{88,-10},{92,-16},{94,-10},{92,-10}},
+          color={255,128,0},
+          smooth=Smooth.None),
+        Polygon(
+          points={{92,-16},{88,-10},{94,-10},{92,-16}},
+          lineColor={255,128,0},
+          smooth=Smooth.None,
+          fillColor={255,128,0},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-26,8},{-30,14},{-24,14},{-26,8}},
+          lineColor={255,128,0},
+          smooth=Smooth.None,
+          fillColor={255,128,0},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-80,20},{-72,10},{-60,20},{-52,10},{-52,10},{-42,20},{-32,8},
+              {-24,14},{-30,14},{-26,8},{-24,14},{-26,14}},
+          color={255,128,0},
+          smooth=Smooth.None)}));
 end PartialRadiation;
