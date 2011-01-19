@@ -1,23 +1,7 @@
 within Buildings.RoomsBeta.BaseClasses;
 model MixedAir "Model for room air that is completely mixed"
   extends Buildings.RoomsBeta.BaseClasses.ParameterFluid;
-  extends Buildings.RoomsBeta.BaseClasses.PartialSurfaceInterface(
-    final AConExt=datConExt.A,
-    final AConExtWinOpa=datConExtWin.AOpa,
-    final AConExtWinGla=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
-    final AConExtWinFra=datConExtWin.fFra .* datConExtWin.AWin,
-    final AConPar=datConPar.A,
-    final AConBou=datConBou.A,
-    final ASurBou=surBou.A,
-    final epsConExt=datConExt.layers.epsLW_b,
-    final epsConExtWinUns={(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].epsLW_b) for i in 1:NConExtWin},
-    final epsConExtWinSha=datConExtWin.glaSys.shade.epsLW_a,
-    final epsConExtWinFra=datConExtWin.glaSys.epsLWFra,
-    final epsConPar_a=datConPar.layers.epsLW_a,
-    final epsConPar_b=datConPar.layers.epsLW_b,
-    final epsConBou=datConBou.layers.epsLW_b,
-    final epsSurBou=surBou.epsLW,
-    final epsConExtWinOpa=datConExtWin.layers.epsLW_b);
+  extends Buildings.RoomsBeta.BaseClasses.PartialSurfaceInterface;
 
   parameter Modelica.SIunits.Volume V "Volume";
 
@@ -67,12 +51,12 @@ model MixedAir "Model for room air that is completely mixed"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
      haveConExtWin
     "Heat port that connects to room-side surface of unshaded glass"
-                              annotation (Placement(transformation(extent={{230,110},
-            {250,130}},          rotation=0)));
+                              annotation (Placement(transformation(extent={{232,110},
+            {252,130}},          rotation=0)));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[NConExtWin] if
        haveShade "Heat port that connects to room-side surface of shaded glass"
-                              annotation (Placement(transformation(extent={{230,70},
-            {250,90}},           rotation=0)));
+                              annotation (Placement(transformation(extent={{232,70},
+            {252,90}},           rotation=0)));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
@@ -242,22 +226,11 @@ public
     final nConPar=nConPar,
     final nConBou=nConBou,
     final nSurBou=nSurBou,
-    final AConExt=AConExt,
-    final AConExtWinOpa=AConExtWinOpa,
-    final AConExtWinGla=AConExtWinGla,
-    final AConExtWinFra=AConExtWinFra,
-    final AConPar=AConPar,
-    final AConBou=AConBou,
-    final ASurBou=ASurBou,
-    final epsConExt=epsConExt,
-    final epsConExtWinOpa=epsConExtWinOpa,
-    final epsConExtWinUns=epsConExtWinUns,
-    final epsConExtWinSha=epsConExtWinSha,
-    final epsConExtWinFra=epsConExtWinFra,
-    final epsConPar_a=epsConPar_a,
-    final epsConPar_b=epsConPar_b,
-    final epsConBou=epsConBou,
-    final epsSurBou=epsSurBou,
+    final datConExt = datConExt,
+    final datConExtWin = datConExtWin,
+    final datConPar = datConPar,
+    final datConBou = datConBou,
+    final surBou = surBou,
     final isFloorConExt=isFloorConExt,
     final isFloorConExtWin=isFloorConExtWin,
     final isFloorConPar_a=isFloorConPar_a,
@@ -273,22 +246,11 @@ public
     final nConPar=nConPar,
     final nConBou=nConBou,
     final nSurBou=nSurBou,
-    final AConExt=AConExt,
-    final AConExtWinOpa=AConExtWinOpa,
-    final AConExtWinGla=AConExtWinGla,
-    final AConExtWinFra=AConExtWinFra,
-    final AConPar=AConPar,
-    final AConBou=AConBou,
-    final ASurBou=ASurBou,
-    final epsConExt=epsConExt,
-    final epsConExtWinOpa=epsConExtWinOpa,
-    final epsConExtWinUns=epsConExtWinUns,
-    final epsConExtWinSha=epsConExtWinSha,
-    final epsConExtWinFra=epsConExtWinFra,
-    final epsConPar_a=epsConPar_a,
-    final epsConPar_b=epsConPar_b,
-    final epsConBou=epsConBou,
-    final epsSurBou=epsSurBou)
+    final datConExt = datConExt,
+    final datConExtWin = datConExtWin,
+    final datConPar = datConPar,
+    final datConBou = datConBou,
+    final surBou = surBou)
     "Distribution for long wave radiative heat gains (e.g., due to equipment and people)"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   LongWaveRadiationExchange lonWavRadExc(
@@ -297,22 +259,11 @@ public
     final nConPar=nConPar,
     final nConBou=nConBou,
     final nSurBou=nSurBou,
-    final AConExt=AConExt,
-    final AConExtWinOpa=AConExtWinOpa,
-    final AConExtWinGla=AConExtWinGla,
-    final AConExtWinFra=AConExtWinFra,
-    final AConPar=AConPar,
-    final AConBou=AConBou,
-    final ASurBou=ASurBou,
-    final epsConExt=epsConExt,
-    final epsConExtWinOpa=epsConExtWinOpa,
-    final epsConExtWinUns=epsConExtWinUns,
-    final epsConExtWinSha=epsConExtWinSha,
-    final epsConExtWinFra=epsConExtWinFra,
-    final epsConPar_a=epsConPar_a,
-    final epsConPar_b=epsConPar_b,
-    final epsConBou=epsConBou,
-    final epsSurBou=epsSurBou,
+    final datConExt = datConExt,
+    final datConExtWin = datConExtWin,
+    final datConPar = datConPar,
+    final datConBou = datConBou,
+    final surBou = surBou,
     linearizeRadiation = linearizeRadiation)
     "Long wave radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
@@ -353,6 +304,28 @@ protected
                                         k=0) if
      not haveConExtWin "Radiosity signal, only needed if no window is present"
     annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
+public
+  RadiationTemperature radTem(
+    final nConExt=nConExt,
+    final nConExtWin=nConExtWin,
+    final nConPar=nConPar,
+    final nConBou=nConBou,
+    final nSurBou=nSurBou,
+    final datConExt=datConExt,
+    final datConExtWin=datConExtWin,
+    final datConPar=datConPar,
+    final datConBou=datConBou,
+    final surBou=surBou,
+    final haveShade=haveShade) "Radiative temperature of the room"
+    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+  Modelica.Blocks.Interfaces.RealOutput TRad(unit="K", displayUnit="degC")
+    "Radiative temperature" annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-140,-250}), iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-120,-250})));
 equation
   connect(convConExt.solid, conExt)
                                    annotation (Line(
@@ -463,8 +436,7 @@ equation
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, lonWavRadExc.conExtWinFra) annotation (Line(
-      points={{242,5.55112e-16},{180,5.55112e-16},{180,12},{-79.9167,12},{
-          -79.9167,10}},
+      points={{242,5.55112e-16},{180,5.55112e-16},{180,10},{-79.9167,10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, lonWavRadExc.conPar_a) annotation (Line(
@@ -588,12 +560,12 @@ equation
       smooth=Smooth.None));
   connect(glaUns, convConWin.glaUns)
                                     annotation (Line(
-      points={{240,120},{118,120}},
+      points={{242,120},{118,120}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convConWin.glaSha, glaSha)
                                     annotation (Line(
-      points={{118,116},{180,116},{180,80},{240,80}},
+      points={{118,116},{180,116},{180,80},{242,80}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(zerJ1.JOut, JOutUns[1]) annotation (Line(
@@ -635,7 +607,8 @@ equation
       smooth=Smooth.None));
   connect(QAbsSWSha_flow, convConWin.QAbs_flow)
                                                annotation (Line(
-      points={{-260,-200},{10,-200},{10,88},{108,88},{108,107}},
+      points={{-260,-200},{-180,-200},{-180,-210},{0,-210},{0,88},{108,88},{108,
+          107}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shoWavRadExc.JInConExtWin, JInConExtWin) annotation (Line(
@@ -647,9 +620,9 @@ equation
       points={{-79.5833,55},{-70,55},{-70,76},{-200,76},{-200,-250}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, 
-				       extent={{-240, -240},{240,240}}), 
-		      graphics), Icon(coordinateSystem(
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
+           extent={{-240,-240},{240,240}}),
+        graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-300,-300},{300,300}}), graphics={
           Rectangle(
           extent={{-144,184},{148,-200}},
@@ -672,7 +645,11 @@ equation
         Text(
           extent={{-230,-168},{-174,-230}},
           lineColor={0,0,127},
-          textString="QAbsSW")}),
+          textString="QAbsSW"),
+        Text(
+          extent={{-104,-230},{-48,-292}},
+          lineColor={0,0,127},
+          textString="TRad")}),
     Documentation(info="<html>
 Model for the heat exchange inside a room.
 This model integrates various components that model
@@ -751,4 +728,64 @@ First implementation.
 </li>
 </ul>
 </html>"));
+  connect(uSha, radTem.uSha) annotation (Line(
+      points={{-260,180},{-220,180},{-220,148},{-110,148},{-110,-62.5},{
+          -100.833,-62.5}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(lonWavRadExc.conExt, radTem.conExt) annotation (Line(
+      points={{-80,19.1667},{-58,19.1667},{-58,-60.8333},{-80,-60.8333}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(lonWavRadExc.conExtWin, radTem.conExtWin) annotation (Line(
+      points={{-80,17.5},{-56,17.5},{-56,-62.5},{-80,-62.5}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(lonWavRadExc.conExtWinFra, radTem.conExtWinFra) annotation (Line(
+      points={{-79.9167,10},{-54,10},{-54,-70},{-79.9167,-70}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(lonWavRadExc.conPar_a, radTem.conPar_a) annotation (Line(
+      points={{-79.9167,7.5},{-52,7.5},{-52,-72.5},{-79.9167,-72.5}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(lonWavRadExc.conPar_b, radTem.conPar_b) annotation (Line(
+      points={{-79.9167,5.83333},{-50,5.83333},{-50,-74.1667},{-79.9167,
+          -74.1667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(lonWavRadExc.conBou, radTem.conBou) annotation (Line(
+      points={{-79.9167,3.33333},{-48,3.33333},{-48,-76.6667},{-79.9167,
+          -76.6667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(lonWavRadExc.conSurBou, radTem.conSurBou) annotation (Line(
+      points={{-79.9583,0.833333},{-46,0.833333},{-46,-79.1667},{-79.9583,
+          -79.1667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(radTem.glaUns, glaUns) annotation (Line(
+      points={{-80,-65},{-44,-65},{-44,-64},{-8,-64},{-8,-42},{212,-42},{212,120},
+          {242,120}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(radTem.glaSha, glaSha) annotation (Line(
+      points={{-80,-66.6667},{-42,-66.6667},{-42,-66},{-4,-66},{-4,-46},{216,
+          -46},{216,80},{242,80}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(convConWin.sha, radTem.sha) annotation (Line(
+      points={{104.8,108},{104,108},{104,80},{-20,80},{-20,-68.4167},{-80,
+          -68.4167}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(radTem.TRad, TRad) annotation (Line(
+      points={{-100.417,-77.6667},{-170,-77.6667},{-170,-228},{-140,-228},{-140,
+          -250}},
+      color={0,0,127},
+      smooth=Smooth.None));
 end MixedAir;

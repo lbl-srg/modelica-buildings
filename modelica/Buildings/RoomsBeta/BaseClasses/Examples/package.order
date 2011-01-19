@@ -1,4 +1,5 @@
 HeatGain
 LongWaveRadiationGainDistribution
 LongWaveRadiationExchange
+RadiationTemperature
 BaseClasses

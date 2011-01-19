@@ -4,38 +4,39 @@ partial model PartialSurfaceInterface
   import Buildings;
   extends Buildings.RoomsBeta.BaseClasses.ConstructionRecords;
 
-  parameter Modelica.SIunits.Area AConExt[NConExt]
+  final parameter Modelica.SIunits.Area AConExt[NConExt] = datConExt.A
     "Areas of exterior constructions";
-  parameter Modelica.SIunits.Area AConExtWinOpa[NConExtWin]
+  final parameter Modelica.SIunits.Area AConExtWinOpa[NConExtWin] = datConExtWin.AOpa
     "Opaque areas of exterior construction that have a window";
-  parameter Modelica.SIunits.Area AConExtWinGla[NConExtWin]
+  final parameter Modelica.SIunits.Area AConExtWinGla[NConExtWin] = (1 .- datConExtWin.fFra) .* datConExtWin.AWin
     "Glass areas of exterior construction that have a window";
-  parameter Modelica.SIunits.Area AConExtWinFra[NConExtWin]
+  final parameter Modelica.SIunits.Area AConExtWinFra[NConExtWin] = datConExtWin.fFra .* datConExtWin.AWin
     "Frame areas of exterior construction that have a window";
-  parameter Modelica.SIunits.Area AConPar[NConPar]
+  final parameter Modelica.SIunits.Area AConPar[NConPar] = datConPar.A
     "Areas of partition constructions";
-  parameter Modelica.SIunits.Area AConBou[NConBou]
+  final parameter Modelica.SIunits.Area AConBou[NConBou] = datConBou.A
     "Areas of constructions with exterior boundary conditions exposed to outside of room model";
-  parameter Modelica.SIunits.Area ASurBou[NSurBou]
+  final parameter Modelica.SIunits.Area ASurBou[NSurBou] = surBou.A
     "Area of surface models of constructions that are modeled outside of this room";
 
-  parameter Modelica.SIunits.Emissivity epsConExt[NConExt]
+  final parameter Modelica.SIunits.Emissivity epsConExt[NConExt] = datConExt.layers.epsLW_b
     "Emissivity of exterior constructions";
-  parameter Modelica.SIunits.Emissivity epsConExtWinOpa[NConExtWin]
+  final parameter Modelica.SIunits.Emissivity epsConExtWinOpa[NConExtWin] = datConExtWin.layers.epsLW_b
     "Emissivity of opaque part of exterior constructions that contain a window";
-  parameter Modelica.SIunits.Emissivity epsConExtWinUns[NConExtWin]
+  final parameter Modelica.SIunits.Emissivity epsConExtWinUns[NConExtWin]=
+    {(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].epsLW_b) for i in 1:NConExtWin}
     "Emissivity of unshaded part of window constructions";
-  parameter Modelica.SIunits.Emissivity epsConExtWinSha[NConExtWin]
+  final parameter Modelica.SIunits.Emissivity epsConExtWinSha[NConExtWin] = datConExtWin.glaSys.shade.epsLW_a
     "Emissivity of shaded part of window constructions";
-  parameter Modelica.SIunits.Emissivity epsConExtWinFra[NConExtWin]
+  final parameter Modelica.SIunits.Emissivity epsConExtWinFra[NConExtWin] = datConExtWin.glaSys.epsLWFra
     "Emissivity of window frame";
-  parameter Modelica.SIunits.Emissivity epsConPar_a[NConPar]
+  final parameter Modelica.SIunits.Emissivity epsConPar_a[NConPar] = datConPar.layers.epsLW_a
     "Emissivity of partition constructions surface a";
-  parameter Modelica.SIunits.Emissivity epsConPar_b[NConPar]
+  final parameter Modelica.SIunits.Emissivity epsConPar_b[NConPar] = datConPar.layers.epsLW_b
     "Emissivity of partition constructions surface b";
-  parameter Modelica.SIunits.Emissivity epsConBou[NConBou]
+  final parameter Modelica.SIunits.Emissivity epsConBou[NConBou] = datConBou.layers.epsLW_b
     "Emissivity of constructions with exterior boundary conditions exposed to outside of room model";
-  parameter Modelica.SIunits.Emissivity epsSurBou[NSurBou]
+  final parameter Modelica.SIunits.Emissivity epsSurBou[NSurBou] = surBou.epsLW
     "Emissivity of surface models of constructions that are modeled outside of this room";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a conExt[NConExt]

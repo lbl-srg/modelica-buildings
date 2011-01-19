@@ -1,13 +1,17 @@
 within Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses;
 model PartialLongWaveRadiation
   "Partial model to test long-wave radiation inside the room"
-  extends Buildings.RoomsBeta.BaseClasses.ConstructionNumbers(
+  extends Buildings.RoomsBeta.BaseClasses.ConstructionRecords(
   nConExt=1,
   nConExtWin=1,
   nConPar=1,
   nConBou=1,
-  nSurBou=1);
-  import Buildings;
+  nSurBou=1,
+  datConExt(each A=1),
+  datConBou(each A=1),
+  datConExtWin(each A=1, each AWin=0.5),
+  surBou(each A=1),
+  datConPar(each A=1));
 
 protected
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConExt[NConExt](each T=293.15)

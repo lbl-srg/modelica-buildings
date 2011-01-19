@@ -182,23 +182,26 @@ model MixedAir "Model of a room in which the air is completely mixed"
     "Outputs zero. This block is needed to send a signal to the shading connector if no window is used in the room model"
     annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
 
+  Modelica.Blocks.Interfaces.RealOutput TRad(unit="K", displayUnit="degC")
+    "Radiative temperature"
+    annotation (Placement(transformation(extent={{200,10},{220,30}})));
 equation
   connect(air.heatPort, heaPorAir) annotation (Line(
-      points={{-140.083,50},{-180,50},{-180,40},{-202,40}},
+      points={{-138.067,50},{-180,50},{-180,40},{-202,40}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(air.conExtWin, conExtWin.opa_b)
                                     annotation (Line(
-      points={{-120,57.5},{-56,57.5},{-56,71},{25.9,71}},
+      points={{-122,56},{-56,56},{-56,71},{25.9,71}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(air.conPar_b, conPar.opa_b) annotation (Line(
-      points={{-119.917,45.8333},{-48,45.8333},{-48,-69.3333},{3.93333,-69.3333}},
+      points={{-121.933,46.6667},{-48,46.6667},{-48,-69.3333},{3.93333,-69.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(air.conPar_a, conPar.opa_a) annotation (Line(
-      points={{-119.917,47.5},{-40,47.5},{-40,-54},{40,-54},{40,-69.3333},{24,
+      points={{-121.933,48},{-40,48},{-40,-54},{40,-54},{40,-69.3333},{24,
           -69.3333}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -207,57 +210,57 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(air.conBou, conBou.opa_b) annotation (Line(
-      points={{-119.917,43.3333},{-52,43.3333},{-52,-119.333},{3.93333,-119.333}},
+      points={{-121.933,44.6667},{-52,44.6667},{-52,-119.333},{3.93333,-119.333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(surf_surBou, air.conSurBou) annotation (Line(
-      points={{-60,-140},{-60,22},{-119.958,22},{-119.958,40.8333}},
+      points={{-60,-140},{-60,22},{-121.967,22},{-121.967,42.6667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(uSha, air.uSha)
                     annotation (Line(
-      points={{-220,180},{-168,180},{-168,57.5833},{-140.833,57.5833}},
+      points={{-220,180},{-168,180},{-168,56.0667},{-138.667,56.0667}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(qGai_flow, air.qGai_flow) annotation (Line(
-      points={{-220,100},{-172,100},{-172,54.1667},{-140.833,54.1667}},
+      points={{-220,100},{-172,100},{-172,53.3333},{-138.667,53.3333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(air.JOutUns, conExtWin.JInUns_b)
                                         annotation (Line(
-      points={{-119.583,56.6667},{-5.7915,56.6667},{-5.7915,60},{25.5,60}},
+      points={{-121.667,55.3333},{-5.7915,55.3333},{-5.7915,60},{25.5,60}},
       color={0,127,0},
       smooth=Smooth.None));
 
   connect(conExtWin.JOutUns_b, air.JInUns)
                                         annotation (Line(
-      points={{25.5,62},{-8,62},{-8,56},{-119.667,56}},
+      points={{25.5,62},{-8,62},{-8,54.8},{-121.733,54.8}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(air.JOutSha, conExtWin.JInSha_b)
                                         annotation (Line(
-      points={{-119.583,52.5},{4,52.5},{4,51},{25.5,51}},
+      points={{-121.667,52},{4,52},{4,51},{25.5,51}},
       color={0,127,0},
       smooth=Smooth.None));
 
   connect(conExtWin.JOutSha_b, air.JInSha)
                                         annotation (Line(
-      points={{25.5,53},{0,53},{0,51.6667},{-119.583,51.6667}},
+      points={{25.5,53},{0,53},{0,51.3333},{-121.667,51.3333}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(air.glaUns, conExtWin.glaUns_b)
                                        annotation (Line(
-      points={{-120,55},{-120,40},{16,40},{16,57},{26,57}},
+      points={{-121.933,54},{-121.933,40},{16,40},{16,57},{26,57}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conExtWin.glaSha_b, air.glaSha)
                                        annotation (Line(
-      points={{26,55},{-4,55},{-4,53.3333},{-120,53.3333}},
+      points={{26,55},{-4,55},{-4,52.6667},{-121.933,52.6667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(air.conExtWinFra, conExtWin.fra_b)
                                        annotation (Line(
-      points={{-119.917,50},{-38,50},{-38,48},{25.9,48}},
+      points={{-121.933,50},{-38,50},{-38,48},{25.9,48}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(uSha, conExtWin.uSha)
@@ -320,7 +323,7 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExt.opa_b, air.conExt) annotation (Line(
-      points={{23.9,139},{-106,139},{-106,60},{-120,60},{-120,59.1667}},
+      points={{23.9,139},{-106,139},{-106,60},{-122,60},{-122,57.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conExt.opa_a, bouConExt.opa_a)      annotation (Line(
@@ -338,11 +341,11 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(air.uSha[1], zer.y) annotation (Line(
-      points={{-140.833,57.5833},{-168,57.5833},{-168,130},{-179,130}},
+      points={{-138.667,56.0667},{-168,56.0667},{-168,130},{-179,130}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ports, air.ports) annotation (Line(
-      points={{-200,-60},{-130,-60},{-130,40.0833}},
+      points={{-200,-60},{-130,-60},{-130,42.0667}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bouConExtWin.QAbsSWSha_flow, conExtWinRad.QAbsExtSha_flow)
@@ -367,17 +370,17 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(air.HOutConExtWin, conExtWinRad.HRoo) annotation (Line(
-      points={{-138.333,39.5833},{-138.333,-17.6},{38.5,-17.6}},
+      points={{-136.667,41.6667},{-136.667,-17.6},{38.5,-17.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWinRad.QTra_flow, air.JInConExtWin) annotation (Line(
-      points={{61,-18},{72,-18},{72,-46},{-152,-46},{-152,45.8333},{-140.833,
-          45.8333}},
+      points={{61,-18},{72,-18},{72,-46},{-152,-46},{-152,46.6667},{-138.667,
+          46.6667}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWinRad.QAbsIntSha_flow, air.QAbsSWSha_flow) annotation (Line(
-      points={{61,-13},{76,-13},{76,-48},{-154,-48},{-154,41.6667},{-140.833,
-          41.6667}},
+      points={{61,-13},{76,-13},{76,-48},{-154,-48},{-154,43.3333},{-138.667,
+          43.3333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWin.QAbsSha_flow, conExtWinRad.QAbsGlaSha_flow) annotation (
@@ -391,11 +394,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(zer.y, air.JInConExtWin[1]) annotation (Line(
-      points={{-179,130},{-168,130},{-168,46},{-140.833,46},{-140.833,45.8333}},
+      points={{-179,130},{-168,130},{-168,46},{-138.667,46},{-138.667,46.6667}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zer.y, air.QAbsSWSha_flow[1]) annotation (Line(
-      points={{-179,130},{-168,130},{-168,41.6667},{-140.833,41.6667}},
+      points={{-179,130},{-168,130},{-168,43.3333},{-138.667,43.3333}},
       color={0,0,127},
       smooth=Smooth.None));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
@@ -819,4 +822,8 @@ First implementation.
 </li>
 </ul>
 </html>"));
+  connect(air.TRad, TRad) annotation (Line(
+      points={{-134,41.6667},{-134,20},{210,20}},
+      color={0,0,127},
+      smooth=Smooth.None));
 end MixedAir;

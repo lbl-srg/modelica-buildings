@@ -67,8 +67,11 @@ model Shade
     annotation (Placement(transformation(extent={{84,-10},{104,10}},
                                                                    rotation=0),
         iconTransformation(extent={{84,-10},{104,10}})));
- Modelica.SIunits.Temperature TSha(start=293.15, min=100, max=373.15)
-    "Temperature of shade";
+ Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a sha(T(start=293.15))
+    "Heat port to shade"
+     annotation (Placement(transformation(extent={{-110,
+            -10},{-90,10}},
+                       rotation=0), iconTransformation(extent={{-36,-108},{-16,-88}})));
 protected
  final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"
  annotation(Evaluate=true);
@@ -78,13 +81,14 @@ protected
     "Emissive power of surface that faces air";
  Modelica.SIunits.RadiantPower Eb_glass
     "Emissive power of surface that faces glass";
+
 equation
   if thisSideHasShade then
   // Radiosities that are outgoing from the surface, which are
   // equal to the long-wave emissivity plus the reflected incoming
   // radiosity plus the radiosity that is transmitted from the
   // other surface.
-    T4 = if linearize then T03 * TSha else TSha^4;
+    T4 = if linearize then T03 * sha.T else (sha.T)^4;
     Eb_air   = u * A * epsLW_air   * Modelica.Constants.sigma * T4;
     Eb_glass = u * A * epsLW_glass * Modelica.Constants.sigma * T4;
     // Radiosity outgoing from shade towards air side and glass side
@@ -95,12 +99,12 @@ equation
     QAbs_flow + epsLW_air*JIn_air + epsLW_glass*JIn_glass
       = -air.Q_flow-glass.Q_flow+Eb_air+Eb_glass;
     // Convective heat flow at air node
-    air.Q_flow   = Gc*(air.T-TSha);
-    glass.Q_flow = Gc*(glass.T-TSha);
+    air.Q_flow   = Gc*(air.T-sha.T);
+    glass.Q_flow = Gc*(glass.T-sha.T);
   else
     air.Q_flow   = Gc*(air.T-glass.T);
     glass.Q_flow = -air.Q_flow;
-    TSha = (air.T+glass.T)/2;
+    sha.T = (air.T+glass.T)/2;
     T4 = T03 * T0;
     Eb_air = 0;
     Eb_glass = 0;

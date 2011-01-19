@@ -150,10 +150,9 @@ initial equation
        for j in 1:NTot loop
          F[i,j] = (M[i,j] * A[j]) /sum((M[i,k] * A[k]) for k in 1:NTot);
        end for;
-//      F[i,j] = if (M[i,j] == 0 or A[j] == 0) then 0 else
-//                  (M[i,j] * A[j]) /sum((M[i,k] * A[k]) for k in 1:NTot);
     end if;
   end for;
+
   // Test whether the view factors add up to one, or the sum is zero in case there
   // is only one construction
   for i in 1:NTot loop

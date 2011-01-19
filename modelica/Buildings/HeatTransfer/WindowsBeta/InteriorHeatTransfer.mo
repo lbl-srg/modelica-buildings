@@ -17,6 +17,9 @@ model InteriorHeatTransfer
     "Outgoing radiosity of window construction"
     annotation (Placement(transformation(extent={{-94,-50},{-114,-30}})));
 
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a sha if
+      windowHasShade "Heat port to shade"
+    annotation (Placement(transformation(extent={{-42,-110},{-22,-90}})));
 equation
   connect(conCoeFra.GCon, conFra.Gc) annotation (Line(
       points={{1,-70},{40,-70},{40,-78}},
@@ -67,4 +70,8 @@ First implementation.
 </ul>
 </html>"),
     Icon(graphics));
+  connect(shade.sha, sha) annotation (Line(
+      points={{7.4,-29.8},{7.4,-84},{-32,-84},{-32,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
 end InteriorHeatTransfer;

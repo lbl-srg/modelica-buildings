@@ -2,6 +2,7 @@ ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
 HeatGain
 LongWaveRadiationExchange
+RadiationTemperature
 LongWaveRadiationGainDistribution
 ShortWaveRadiationExchange
 MixedAir
