@@ -14,7 +14,8 @@ partial block PartialRadiation
   ////////////////// Derived parameters
   final parameter Boolean haveShade=haveExteriorShade or haveInteriorShade
     "Set to true if window has a shade" annotation (Evaluate=true);
-  parameter Buildings.HeatTransfer.WindowsBeta.BaseClasses.RadiationData radDat(
+  final parameter Buildings.HeatTransfer.WindowsBeta.BaseClasses.RadiationData
+    radDat(
     final N=N,
     final tauGlaSW=tauGlaSW,
     final rhoGlaSW_a=rhoGlaSW_a,
@@ -49,11 +50,11 @@ partial block PartialRadiation
         transformation(extent={{-140,20},{-100,60}}),iconTransformation(extent=
             {{-130,25},{-100,55}})));
 
-equation
+initial equation
   /* Current model assumes that the window only has either interior or exterior shading.
      Warn user if it has both interior and exterior shading working at the same time. 
-     By adjusting the calcualtaion of coefficents, it is possible to allow both shading at the same time*/
-  assert(not (haveExteriorShade and haveInteriorShade and uSha > 0),
+     Allowing both shades at the same time would require rewriting part of the model. */
+  assert(not (haveExteriorShade and haveInteriorShade),
     "Window radiation model does not support exterior and interior shade at the same time.");
 
   annotation (

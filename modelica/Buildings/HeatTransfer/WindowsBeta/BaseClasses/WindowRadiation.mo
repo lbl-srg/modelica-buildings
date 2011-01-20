@@ -45,8 +45,7 @@ block WindowRadiation "Calculation radiation for window"
     final haveExteriorShade=haveExteriorShade,
     final haveInteriorShade=haveInteriorShade,
     final AWin=AWin,
-    final tauShaSW_b=tauShaSW_b,
-    final radDat=radDat)
+    final tauShaSW_b=tauShaSW_b)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.AbsorbedRadiation abs(
     final N=N,
@@ -59,8 +58,7 @@ block WindowRadiation "Calculation radiation for window"
     final rhoShaSW_b=rhoShaSW_b,
     final haveExteriorShade=haveExteriorShade,
     final haveInteriorShade=haveInteriorShade,
-    final AWin=AWin,
-    final radDat=radDat)
+    final AWin=AWin)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 protected
   final parameter Boolean noShade = not (haveExteriorShade or haveInteriorShade)
