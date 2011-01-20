@@ -46,7 +46,7 @@ model MixedAir "Model for room air that is completely mixed"
     redeclare final model HeatTransfer =
         Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer,
     final nPorts=nPorts+1) "Room air volume"
-    annotation (Placement(transformation(extent={{-150,20},{-170,40}})));
+    annotation (Placement(transformation(extent={{10,-210},{-10,-190}})));
   // Heat ports that are needed to connect to the window glass
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[NConExtWin] if
      haveConExtWin
@@ -376,32 +376,32 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(theConConExt.port_b,vol. heatPort) annotation (Line(
-      points={{38,220},{20,220},{20,30},{-150,30}},
+      points={{38,220},{20,220},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theConConExtWin.port_b,vol. heatPort) annotation (Line(
-      points={{38,180},{20,180},{20,30},{-150,30}},
+      points={{38,180},{20,180},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theConConPar_a.port_b,vol. heatPort) annotation (Line(
-      points={{42,-60},{20,-60},{20,30},{-150,30}},
+      points={{42,-60},{20,-60},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theConConPar_b.port_b,vol. heatPort) annotation (Line(
-      points={{40,-100},{20,-100},{20,30},{-150,30}},
+      points={{40,-100},{20,-100},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theConConBou.port_b,vol. heatPort) annotation (Line(
-      points={{40,-140},{20,-140},{20,30},{-150,30}},
+      points={{40,-140},{20,-140},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theConSurBou.port_b,vol. heatPort) annotation (Line(
-      points={{40,-200},{20,-200},{20,30},{-150,30}},
+      points={{40,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(vol.heatPort, heatPort) annotation (Line(
-      points={{-150,30},{-140,30},{-140,0},{-200,0},{-200,5.55112e-16},{-242,
-          5.55112e-16}},
+      points={{10,-200},{20,-200},{20,-90},{-150,-90},{-150,0},{-200,0},{-200,
+          5.55112e-16},{-242,5.55112e-16}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convConWin.JOutUns, JOutUns)
@@ -514,7 +514,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaGai.QCon_flow,vol. heatPort) annotation (Line(
-      points={{-198,100},{-140,100},{-140,30},{-150,30}},
+      points={{-198,100},{-150,100},{-150,-90},{20,-90},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaGai.qGai_flow, qGai_flow) annotation (Line(
@@ -540,12 +540,14 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaGai.QLat_flow,vol. ports[nPorts+1]) annotation (Line(
-      points={{-198,94},{-180,94},{-180,20},{-160,20}},
+      points={{-198,94},{-180,94},{-180,-220},{-2,-220},{-2,-210},{-7.77156e-16,
+          -210}},
       color={0,127,255},
       smooth=Smooth.None));
   for i in 1:nPorts loop
   connect(ports[i],vol. ports[i]) annotation (Line(
-      points={{2.22045e-15,-238},{0,-238},{0,-220},{-160,-220},{-160,20}},
+      points={{2.22045e-15,-238},{0,-238},{0,-220},{-7.77156e-16,-220},{
+            -7.77156e-16,-210}},
       color={0,127,255},
       smooth=Smooth.None));
   end for;
@@ -555,7 +557,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(theConConWin.port_b,vol. heatPort) annotation (Line(
-      points={{40,120},{20,120},{20,30},{-150,30}},
+      points={{40,120},{20,120},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(glaUns, convConWin.glaUns)
@@ -607,8 +609,7 @@ equation
       smooth=Smooth.None));
   connect(QAbsSWSha_flow, convConWin.QAbs_flow)
                                                annotation (Line(
-      points={{-260,-200},{-180,-200},{-180,-210},{0,-210},{0,88},{108,88},{108,
-          107}},
+      points={{-260,-200},{-210,-200},{-210,88},{108,88},{108,107}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shoWavRadExc.JInConExtWin, JInConExtWin) annotation (Line(
