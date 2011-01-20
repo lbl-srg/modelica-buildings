@@ -108,7 +108,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
        haveConBou "Heat port at surface b of construction conBou"
     annotation (Placement(transformation(extent={{50,-170},{70,-150}}),
         iconTransformation(extent={{50,-170},{70,-150}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b surf_surBou[nSurBou] if
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_surBou[nSurBou] if
        haveSurBou "Heat port of surface that is connected to the room air"
     annotation (Placement(transformation(extent={{-70,-150},{-50,-130}}),
         iconTransformation(extent={{-48,-150},{-28,-130}})));
