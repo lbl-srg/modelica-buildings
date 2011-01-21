@@ -30,8 +30,8 @@ package MoistAirUnsaturated
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
-    MassFraction x_water "mass of total water/mass of dry air";
-    Real phi "relative humidity";
+    MassFraction x_water "Mass of total water/mass of dry air";
+    Real phi "Relative humidity";
 
   protected
     constant SI.MolarMass[2] MMX = {steam.MM,dryair.MM}
