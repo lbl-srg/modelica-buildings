@@ -36,26 +36,26 @@ initial algorithm
   // with 2 dummy variable for interpolation.
   //**************************************************************
   // Glass
-  for i in 1:N loop
-    for j in 1:HEM loop
-      // Properties for glass without shading
-      coeTraWinExtIrr[NoShade, j + 1] := radDat.traRef[1, 1, N, j];
-      // Properties for glass with shading
-      if haveInteriorShade then
-        coeTraWinExtIrr[Shade, j + 1] := radDat.winTraExtIrrIntSha[j];
-      elseif haveExteriorShade then
-        coeTraWinExtIrr[Shade, j + 1] := radDat.winTraExtIrrExtSha[j];
-      else
-        // No Shade
-        coeTraWinExtIrr[Shade, j + 1] := 0.0;
-      end if;
-    end for;
-    // Dummy variables at 1 and HEM+2
-    for k in NoShade:Shade loop
-      coeTraWinExtIrr[k, 1] := coeTraWinExtIrr[k, 2];
-      coeTraWinExtIrr[k, HEM + 2] := coeTraWinExtIrr[k, HEM + 1];
-    end for;
+  //for i in 1:N loop
+  for j in 1:HEM loop
+    // Properties for glass without shading
+    coeTraWinExtIrr[NoShade, j + 1] := radDat.traRef[1, 1, N, j];
+    // Properties for glass with shading
+    if haveInteriorShade then
+      coeTraWinExtIrr[Shade, j + 1] := radDat.winTraExtIrrIntSha[j];
+    elseif haveExteriorShade then
+      coeTraWinExtIrr[Shade, j + 1] := radDat.winTraExtIrrExtSha[j];
+    else
+      // No Shade
+      coeTraWinExtIrr[Shade, j + 1] := 0.0;
+    end if;
   end for;
+  // Dummy variables at 1 and HEM+2
+  for k in NoShade:Shade loop
+    coeTraWinExtIrr[k, 1] := coeTraWinExtIrr[k, 2];
+    coeTraWinExtIrr[k, HEM + 2] := coeTraWinExtIrr[k, HEM + 1];
+  end for;
+  //end for;
 
   //**************************************************************
   // Glass: transmissivity for interior irradiation
