@@ -24,25 +24,29 @@ algorithm
     "Equaiton (A.4.81a)";
   absBac := 1 - traRef[TRA, i, i, HEM] - traRef[Rb, i, i, HEM]
     "Equation (A.4.81b)";
-  absIntIrrExtSha[i] := absIntIrrNoSha[i] + fac*absFro + fac*traRef[TRA, 1, i,
-    HEM]*traRef[Ra, i + 1, N, HEM]*absBac "Equation (A.4.94)";
 
-  for i in 2:N - 1 loop
+  if N >= 2 then
+    absIntIrrExtSha[i] := absIntIrrNoSha[i] + fac*absFro + fac*traRef[TRA, 1, i,
+      HEM]*traRef[Ra, i + 1, N, HEM]*absBac "Equation (A.4.94)";
+
+    for i in 2:N - 1 loop
+      absFro := 1 - traRef[TRA, i, i, HEM] - traRef[Ra, i, i, HEM]
+        "Equaiton (A.4.81a)";
+      absBac := 1 - traRef[TRA, i, i, HEM] - traRef[Rb, i, i, HEM]
+        "Equation (A.4.81b)";
+      absIntIrrExtSha[i] := absIntIrrNoSha[i] + fac*traRef[TRA, 1, i - 1, HEM]*
+        absFro + fac*traRef[TRA, 1, i, HEM]*traRef[Ra, i + 1, N, HEM]*absBac
+        "Equation (A.4.94)";
+    end for;
+
+    i := N;
     absFro := 1 - traRef[TRA, i, i, HEM] - traRef[Ra, i, i, HEM]
       "Equaiton (A.4.81a)";
-    absBac := 1 - traRef[TRA, i, i, HEM] - traRef[Rb, i, i, HEM]
-      "Equation (A.4.81b)";
     absIntIrrExtSha[i] := absIntIrrNoSha[i] + fac*traRef[TRA, 1, i - 1, HEM]*
-      absFro + fac*traRef[TRA, 1, i, HEM]*traRef[Ra, i + 1, N, HEM]*absBac
-      "Equation (A.4.94)";
-  end for;
-
-  i := N;
-  absFro := 1 - traRef[TRA, i, i, HEM] - traRef[Ra, i, i, HEM]
-    "Equaiton (A.4.81a)";
-  absIntIrrExtSha[i] := absIntIrrNoSha[i] + fac*traRef[TRA, 1, i - 1, HEM]*
-    absFro "Equation (A.4.94)";
-
+      absFro "Equation (A.4.94)";
+  else
+    absIntIrrExtSha[i] := absIntIrrNoSha[i] + fac*absFro "Equation (A.4.94)";
+  end if;
   annotation (Documentation(info="<html>
 <p>
 This function computes the hemispherical absorptance of each glass pane for interior irradiation with exterior shading. 

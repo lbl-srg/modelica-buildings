@@ -21,10 +21,24 @@ algorithm
       refIntShaDev) "Equation (A.4.90)";
     absBac := 1 - traRef[TRA, i, i, iD] - traRef[Rb, i, i, iD]
       "Equation (A.4.81b)";
-    absExtIrrNoShaIntSha[i, iD] := absExtIrrNoSha[i, iD] + fac*traRef[TRA, N, i
-       + 1, HEM]*absBac "Equation (A.4.90)";
 
-    for i in 2:N - 1 loop
+    if N >= 2 then
+      absExtIrrNoShaIntSha[i, iD] := absExtIrrNoSha[i, iD] + fac*traRef[TRA, N,
+        i + 1, HEM]*absBac "Equation (A.4.90)";
+
+      for i in 2:N - 1 loop
+        fac := traRef[TRA, 1, N, iD]*refIntShaDev/(1 - traRef[Rb, N, 1, HEM]*
+          refIntShaDev) "Equation (A.4.90)";
+        absFro := 1 - traRef[TRA, i, i, iD] - traRef[Ra, i, i, iD]
+          "Equaiton (A.4.81a)";
+        absBac := 1 - traRef[TRA, i, i, iD] - traRef[Rb, i, i, iD]
+          "Equation (A.4.81b)";
+        absExtIrrNoShaIntSha[i, iD] := absExtIrrNoSha[i, iD] + fac*(traRef[TRA,
+          N, i, HEM]*traRef[Rb, i - 1, 1, HEM]*absFro + traRef[TRA, N, i + 1,
+          HEM]*absBac) "Equation (A.4.90)";
+      end for;
+
+      i := N;
       fac := traRef[TRA, 1, N, iD]*refIntShaDev/(1 - traRef[Rb, N, 1, HEM]*
         refIntShaDev) "Equation (A.4.90)";
       absFro := 1 - traRef[TRA, i, i, iD] - traRef[Ra, i, i, iD]
@@ -32,19 +46,12 @@ algorithm
       absBac := 1 - traRef[TRA, i, i, iD] - traRef[Rb, i, i, iD]
         "Equation (A.4.81b)";
       absExtIrrNoShaIntSha[i, iD] := absExtIrrNoSha[i, iD] + fac*(traRef[TRA, N,
-        i, HEM]*traRef[Rb, i - 1, 1, HEM]*absFro + traRef[TRA, N, i + 1, HEM]*
-        absBac) "Equation (A.4.90)";
-    end for;
+        i, HEM]*traRef[Rb, i - 1, 1, HEM]*absFro + absBac) "Equation (A.4.90)";
 
-    i := N;
-    fac := traRef[TRA, 1, N, iD]*refIntShaDev/(1 - traRef[Rb, N, 1, HEM]*
-      refIntShaDev) "Equation (A.4.90)";
-    absFro := 1 - traRef[TRA, i, i, iD] - traRef[Ra, i, i, iD]
-      "Equaiton (A.4.81a)";
-    absBac := 1 - traRef[TRA, i, i, iD] - traRef[Rb, i, i, iD]
-      "Equation (A.4.81b)";
-    absExtIrrNoShaIntSha[i, iD] := absExtIrrNoSha[i, iD] + fac*(traRef[TRA, N,
-      i, HEM]*traRef[Rb, i - 1, 1, HEM]*absFro + absBac) "Equation (A.4.90)";
+    else
+      absExtIrrNoShaIntSha[i, iD] := absExtIrrNoSha[i, iD] + fac*absBac
+        "Equation (A.4.90)";
+    end if;
   end for;
 
   annotation (Documentation(info="<html>
