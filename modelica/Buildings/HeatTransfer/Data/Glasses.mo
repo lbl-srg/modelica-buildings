@@ -3,7 +3,7 @@ package Glasses "Package with thermophysical properties for window glas"
 
   record Generic "Thermal properties of window glass"
       extends Modelica.Icons.Record;
-   parameter Modelica.SIunits.Length x=0.03 "Thickness";
+   parameter Modelica.SIunits.Length x=0.003 "Thickness";
    parameter Modelica.SIunits.ThermalConductivity k=1 "Thermal conductivity";
    parameter Modelica.SIunits.TransmissionCoefficient tauSW = 0.6
       "Solar infrared transimittance. It is tauSol in WINDOW5.";
