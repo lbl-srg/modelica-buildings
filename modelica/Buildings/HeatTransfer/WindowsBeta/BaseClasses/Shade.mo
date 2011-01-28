@@ -23,6 +23,8 @@ model Shade
     "Temperature used to linearize radiative heat transfer"
     annotation (Dialog(enable=linearize), Evaluate=true);
 
+  parameter Real k(min=0, max=1)=1
+    "Coefficient used to scale convection between shade and glass";
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
@@ -69,19 +71,16 @@ model Shade
         iconTransformation(extent={{84,-10},{104,10}})));
  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a sha(T(start=293.15))
     "Heat port to shade"
-     annotation (Placement(transformation(extent={{-110,
-            -10},{-90,10}},
+     annotation (Placement(transformation(extent={{-50,-110},{-30,-90}},
                        rotation=0), iconTransformation(extent={{-36,-108},{-16,-88}})));
 protected
  final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"
  annotation(Evaluate=true);
  Real T4(min=1E8, start=293.15^4, nominal=1E10, unit="K4")
     "4th power of temperature";
- Modelica.SIunits.RadiantPower Eb_air
-    "Emissive power of surface that faces air";
- Modelica.SIunits.RadiantPower Eb_glass
+ Modelica.SIunits.RadiantPower E_air "Emissive power of surface that faces air";
+ Modelica.SIunits.RadiantPower E_glass
     "Emissive power of surface that faces glass";
-
 equation
   if thisSideHasShade then
   // Radiosities that are outgoing from the surface, which are
@@ -89,29 +88,30 @@ equation
   // radiosity plus the radiosity that is transmitted from the
   // other surface.
     T4 = if linearize then T03 * sha.T else (sha.T)^4;
-    Eb_air   = u * A * epsLW_air   * Modelica.Constants.sigma * T4;
-    Eb_glass = u * A * epsLW_glass * Modelica.Constants.sigma * T4;
+    E_air   = u * A * epsLW_air   * Modelica.Constants.sigma * T4;
+    E_glass = u * A * epsLW_glass * Modelica.Constants.sigma * T4;
     // Radiosity outgoing from shade towards air side and glass side
-    JOut_air   = - Eb_air   - tauLW_glass * JIn_glass - rhoLW_air*JIn_air;
-    JOut_glass = - Eb_glass - tauLW_air   * JIn_air   - rhoLW_glass*JIn_glass;
+    JOut_air   = - E_air   - tauLW_glass * JIn_glass - rhoLW_air*JIn_air;
+    JOut_glass = - E_glass - tauLW_air   * JIn_air   - rhoLW_glass*JIn_glass;
     // Heat balance of shade
-    // fixme: verify equation. Heat resistance is too high if glass only exchanges heat with shade
+    // The term 2*Gc is to combine the parallel convective heat transfer resistances,
+    // see figure in info section.
     QAbs_flow + epsLW_air*JIn_air + epsLW_glass*JIn_glass
-      = -air.Q_flow-glass.Q_flow+Eb_air+Eb_glass;
+      = -2*Gc*((air.T-sha.T)+k*(glass.T-sha.T))+E_air+E_glass;
     // Convective heat flow at air node
-    air.Q_flow   = Gc*(air.T-sha.T);
-    glass.Q_flow = Gc*(glass.T-sha.T);
+    air.Q_flow   = Gc*(2*(air.T-sha.T) + (air.T-glass.T));
+    // Convective heat flow at glass node
+    glass.Q_flow = Gc*((glass.T-air.T)+k*(glass.T-sha.T));
   else
     air.Q_flow   = Gc*(air.T-glass.T);
     glass.Q_flow = -air.Q_flow;
     sha.T = (air.T+glass.T)/2;
     T4 = T03 * T0;
-    Eb_air = 0;
-    Eb_glass = 0;
+    E_air = 0;
+    E_glass = 0;
     JOut_air = -JIn_glass;
     JOut_glass = -JIn_air;
   end if;
-//  0 = air.Q_flow + glass.Q_flow + JIn_air + JIn_glass + JOut_air + JOut_glass + QAbs_flow;
 
   annotation (Diagram(graphics),
     Icon(graphics={
@@ -203,8 +203,38 @@ of a shade that is in the outside or the room-side of a window.
 The input port <code>QAbs_flow</code> needs to be connected to the short-wave radiation 
 that is absorbed by the shade.
 </p>
+<p>
+The convective heat balance is based on the model described by Wright (2008), which can
+be shown as a convective heat resistance model as follows:
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Images/HeatTransfer/Windows/BaseClasses/convection.png\" border=\"1\"/>
+</p>
+<p>
+Wright (2008) reports that if the shading layer is far enough from the window,
+the boundary layers associated with each surface will not interfere with
+each other. In this case, it is reasonable to consider each surface on an 
+individual basis by setting the convective heat transfer coefficient shown in grey to zero,
+and setting the black depicted convective heat transfer coefficients
+to <i>h=4 W/m<sup>2</sup> K</i>.
+In the here implemented model, the grey depicted convective heat transfer coefficient
+is set set to <i>h' = k &nbsp; h</i>, where <i>0 &le; k &le; 1</i> is a parameter.
+</p>
+<h4>References</h4>
+<ul>
+<li>
+Jon L. Wright.<br>
+Calculating Center-Glass Performance Indices
+of Glazing Systems with Shading Devices.<br>
+<i>ASHRAE Transactions</i>, SL-08-020. 2008.
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
+<li>
+January 28 2011, by Michael Wetter:<br>
+Fixed computation of convective heat balance between air, shade and glass.
+</li>
 <li>
 November 3 2010, by Michael Wetter:<br>
 First implementation.
