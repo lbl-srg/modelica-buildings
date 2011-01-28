@@ -51,8 +51,8 @@ model Window "Test model for the window"
   Modelica.Blocks.Sources.Constant fClr(k=0) "Fraction of sky that is clear" 
     annotation (Placement(transformation(extent={{-20,72},{0,92}})));
 
-  Buildings.HeatTransfer.Radiosity.IndoorRadiosity indRad(A=A - A*fFra, fFra=
-        fFra) "Model for indoor radiosity" 
+  Buildings.HeatTransfer.Radiosity.IndoorRadiosity indRad(A=A)
+    "Model for indoor radiosity" 
     annotation (Placement(transformation(extent={{188,80},{168,100}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=0) 
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},

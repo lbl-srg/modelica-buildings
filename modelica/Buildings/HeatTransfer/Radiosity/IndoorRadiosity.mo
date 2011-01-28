@@ -10,7 +10,6 @@ model IndoorRadiosity "Model for indoor radiosity"
     "Heat port of this surface" 
     annotation (Placement(transformation(extent={{-10,-108},{10,-88}}),
         iconTransformation(extent={{-2,-108},{18,-88}})));
-  parameter Real fFra=fFra;
 protected
   final parameter Real T03(
     min=0,
