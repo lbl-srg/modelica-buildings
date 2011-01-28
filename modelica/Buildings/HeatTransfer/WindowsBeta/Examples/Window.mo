@@ -14,7 +14,7 @@ model Window "Test model for the window"
     fFra=fFra,
     glaSys=glaSys,
     linearize=linearize,
-    til=til)
+    til=til) 
     annotation (Placement(transformation(extent={{82,70},{122,110}})));
   Buildings.HeatTransfer.WindowsBeta.InteriorHeatTransfer intCon(A=A, fFra=fFra,
     linearizeRadiation=linearize,
@@ -24,7 +24,7 @@ model Window "Test model for the window"
     tauLWSha_glass=glaSys.shade.tauLW_b,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
-    "Room-side convective heat transfer"
+    "Room-side convective heat transfer" 
     annotation (Placement(transformation(extent={{158,82},{138,102}})));
   Buildings.HeatTransfer.WindowsBeta.ExteriorHeatTransfer extCon(A=A, fFra=fFra,
     linearizeRadiation=linearize,
@@ -34,48 +34,48 @@ model Window "Test model for the window"
     tauLWSha_glass=glaSys.shade.tauLW_b,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade,
-    F_sky=0.5) "Exterior convective heat transfer"
+    F_sky=0.5) "Exterior convective heat transfer" 
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Modelica.Blocks.Sources.Constant TRooAir(k=293.15, y(unit="K"))
-    "Room air temperature"
+    "Room air temperature" 
     annotation (Placement(transformation(extent={{120,140},{140,160}})));
   Modelica.Blocks.Sources.Ramp uSha(duration=0.5, startTime=0.25)
-    "Shading control signal"
+    "Shading control signal" 
     annotation (Placement(transformation(extent={{-90,120},{-70,140}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOuts
-    "Outside air temperature"
+    "Outside air temperature" 
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRAir
-    "Room air temperature"
+    "Room air temperature" 
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
-  Modelica.Blocks.Sources.Constant fClr(k=0) "Fraction of sky that is clear"
+  Modelica.Blocks.Sources.Constant fClr(k=0) "Fraction of sky that is clear" 
     annotation (Placement(transformation(extent={{-20,72},{0,92}})));
 
-  Buildings.HeatTransfer.Radiosity.IndoorRadiosity indRad(A=A)
-    "Model for indoor radiosity"
+  Buildings.HeatTransfer.Radiosity.IndoorRadiosity indRad(A=A - A*fFra, fFra=
+        fFra) "Model for indoor radiosity" 
     annotation (Placement(transformation(extent={{188,80},{168,100}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=0)
+  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=0) 
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={178,48})));
   Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveExteriorShade=false,
-    haveInteriorShade=true)
+    haveInteriorShade=true) 
     annotation (Placement(transformation(extent={{-40,140},{-20,160}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=til,
     lat=lat,
-    azi=azi)
+    azi=azi) 
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
   Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic HDifTilIso(
-               til=til)
+               til=til) 
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
   Buildings.BoundaryConditions.WeatherData.Reader weaDat(
                                                         filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos") 
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Modelica.Blocks.Math.Gain HRoo(k=0.1) "Short-wave irradiation from room"
+  Modelica.Blocks.Math.Gain HRoo(k=0.1) "Short-wave irradiation from room" 
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.WindowRadiation winRad(
     AWin=1,
@@ -88,9 +88,9 @@ model Window "Test model for the window"
     rhoShaSW_a=glaSys.shade.rhoSW_a,
     rhoShaSW_b=glaSys.shade.rhoSW_b,
     haveExteriorShade=glaSys.haveExteriorShade,
-    haveInteriorShade=glaSys.haveInteriorShade)
+    haveInteriorShade=glaSys.haveInteriorShade) 
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus 
     annotation (Placement(transformation(extent={{10,-20},{30,0}})));
 equation
   connect(uSha.y, extCon.uSha) annotation (Line(
@@ -106,7 +106,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOuts.port, extCon.air) annotation (Line(
-      points={{5.55112e-16,50},{28,50},{28,90},{40,90}},
+      points={{0,50},{28,50},{28,90},{40,90}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TRAir.port, intCon.air) annotation (Line(
@@ -228,7 +228,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{5.55112e-16,-10},{20,-10}},
+      points={{0,-10},{20,-10}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(

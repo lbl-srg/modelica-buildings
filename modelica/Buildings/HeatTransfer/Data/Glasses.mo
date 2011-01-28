@@ -32,7 +32,7 @@ First implementation.
   end Generic;
 
   record ID100 =   Buildings.HeatTransfer.Data.Glasses.Generic (
-      x=0.031,
+      x=0.0031,
       k=1.0,
       tauSW=0.646,
       rhoSW_a=0.062,
@@ -41,7 +41,7 @@ First implementation.
       epsLW_a=0.84,
       epsLW_b=0.84) "Generic Bronze Glass 3.1mm. Manufacturer: Generic.";
   record ID101 =   Buildings.HeatTransfer.Data.Glasses.Generic (
-      x=0.057,
+      x=0.0057,
       k=1.0,
       tauSW=0.486,
       rhoSW_a=0.053,
@@ -50,17 +50,17 @@ First implementation.
       epsLW_a=0.84,
       epsLW_b=0.84) "Generic Bronze Glass 5.7mm. Manufacturer: Generic.";
   record ID102 =   Buildings.HeatTransfer.Data.Glasses.Generic (
-      x=0.03,
+      x=0.003,
       k=1.0,
       tauSW=0.834,
       rhoSW_a=0.075,
       rhoSW_b=0.075,
       tauLW=0,
       epsLW_a=0.84,
-      epsLW_b=0.84) "Generic Clear Glass 3.0mm. Manufacturer: Generic.";
+      epsLW_b=0.84) "Generic Clear Glass 3.048mm. Manufacturer: Generic.";
 
   record ID103 =   Buildings.HeatTransfer.Data.Glasses.Generic (
-      x=0.057,
+      x=0.0057,
       k=1.0,
       tauSW=0.771,
       rhoSW_a=0.070,
