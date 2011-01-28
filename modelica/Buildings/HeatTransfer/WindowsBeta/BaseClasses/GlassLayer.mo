@@ -20,11 +20,11 @@ model GlassLayer "Model for a glass layer of a window assembly"
         iconTransformation(extent={{-120,70},{-100,90}})));
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=293.15, nominal=293.15))
-    "Heat port at surface a"
+    "Heat port at surface a" 
     annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}}, rotation=0)));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=293.15, nominal=293.15))
-    "Heat port at surface b"
+    "Heat port at surface b" 
     annotation (Placement(transformation(extent={{90,-10},{
             110,10}}, rotation=0)));
 
@@ -38,7 +38,7 @@ model GlassLayer "Model for a glass layer of a window assembly"
         origin={0,-110})));
 
   parameter Boolean linearize=false "Set to true to linearize emissive power";
-protected
+//protected
  Real T4_a(min=1E8, unit="K4", start=293.15^4, nominal=1E10)
     "4th power of temperature at surface a";
  Real T4_b(min=1E8, unit="K4", start=293.15^4, nominal=1E10)
@@ -52,8 +52,9 @@ protected
 equation
   // Heat balance of surface node
   // These equations are from Window 6 Technical report, (2.1-14) to (2.1-17)
-  0 = port_a.Q_flow + port_b.Q_flow + QAbs_flow + JIn_a + JIn_b + JOut_a + JOut_b;
-  port_b.T-port_a.T = R/u * (2*port_b.Q_flow+QAbs_flow);
+  0 = port_a.Q_flow + port_b.Q_flow + QAbs_flow + JIn_a  + JIn_b + JOut_a + JOut_b;
+  //port_b.T-port_a.T = R/u * (2*port_b.Q_flow+QAbs_flow);
+  u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-(epsLW_a*JIn_a-E_a));
 
   // Radiosity balance
   T4_a = if linearize then T03 * port_a.T else port_a.T^4;

@@ -8,7 +8,7 @@ record RadiationData "Radiation property of a window"
 
   final parameter Real traRefShaDev[2, 2]={{tauShaSW_a,tauShaSW_b},{rhoShaSW_a,
       rhoShaSW_b}} "Shading device property";
-  final parameter Integer NDIR=11 "Number of incident angles";
+  final parameter Integer NDIR=10 "Number of incident angles";
   final parameter Integer HEM=NDIR + 1 "Index of hemispherical integration";
   final parameter Modelica.SIunits.Angle psi[NDIR]=
       Buildings.HeatTransfer.WindowsBeta.Functions.getAngle(NDIR)

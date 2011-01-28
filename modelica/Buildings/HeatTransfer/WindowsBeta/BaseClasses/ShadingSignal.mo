@@ -2,17 +2,17 @@ within Buildings.HeatTransfer.WindowsBeta.BaseClasses;
 block ShadingSignal
   "Converts the shading signal to be strictly bigger than 0 and smaller than 1"
   extends Modelica.Blocks.Interfaces.SO;
-  parameter Boolean haveShade "Set to true if a shade is present"
+  parameter Boolean haveShade "Set to true if a shade is present" 
     annotation (Evaluate=true);
   Modelica.Blocks.Interfaces.RealInput u if haveShade
-    "Shading control signal, 0: unshaded; 1: fully shaded"
+    "Shading control signal, 0: unshaded; 1: fully shaded" 
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
         rotation=0), iconTransformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput yCom "1-u"
+  Modelica.Blocks.Interfaces.RealOutput yCom "1-u" 
     annotation (Placement(transformation(extent={{100,-70},{120,-50}},
         rotation=0), iconTransformation(extent={{100,-70},{120,-50}})));
 protected
-  constant Real y0 = 1E-8 "Smallest allowed value for y if a shade is present";
+  constant Real y0 = 1E-6 "Smallest allowed value for y if a shade is present";
   constant Real k = 1-2*y0 "Gain for shading signal";
   Modelica.Blocks.Interfaces.RealInput u_in_internal
     "Needed to connect to conditional connector";
