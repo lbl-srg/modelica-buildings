@@ -47,10 +47,10 @@ model Shade
         rotation=90,
         origin={0,-110})));
 
-  Interfaces.RadiosityInflow JIn_air(start=A*0.8*293.15^4)
+  Interfaces.RadiosityInflow JIn_air(start=A*0.8*Modelica.Constants.sigma*293.15^4)
     "Incoming radiosity at the air-side surface of the shade"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
-  Interfaces.RadiosityInflow JIn_glass(start=A*0.8*293.15^4)
+  Interfaces.RadiosityInflow JIn_glass(start=A*0.8*Modelica.Constants.sigma*293.15^4)
     "Incoming radiosity at the glass-side surface of the shade"
     annotation (Placement(transformation(extent={{120,-90},{100,-70}})));
   Interfaces.RadiosityOutflow JOut_air
@@ -231,6 +231,10 @@ of Glazing Systems with Shading Devices.<br>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, by Michael Wetter:<br>
+Corrected bug in start value of radiosity port.
+</li>
 <li>
 January 28 2011, by Michael Wetter:<br>
 Fixed computation of convective heat balance between air, shade and glass.
