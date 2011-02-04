@@ -97,7 +97,7 @@ equation
     // The term 2*Gc is to combine the parallel convective heat transfer resistances,
     // see figure in info section.
     QAbs_flow + epsLW_air*JIn_air + epsLW_glass*JIn_glass
-      = -2*Gc*((air.T-sha.T)+k*(glass.T-sha.T))+E_air+E_glass;
+      = -Gc*(2*(air.T-sha.T)+k*(glass.T-sha.T))+E_air+E_glass;
     // Convective heat flow at air node
     air.Q_flow   = Gc*(2*(air.T-sha.T) + (air.T-glass.T));
     // Convective heat flow at glass node
@@ -233,7 +233,7 @@ of Glazing Systems with Shading Devices.<br>
 <ul>
 <li>
 February 3, by Michael Wetter:<br>
-Corrected bug in start value of radiosity port.
+Corrected bug in start value of radiosity port and in heat balance of shade.
 </li>
 <li>
 January 28 2011, by Michael Wetter:<br>
