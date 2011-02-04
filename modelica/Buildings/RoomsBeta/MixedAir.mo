@@ -51,11 +51,11 @@ model MixedAir "Model of a room in which the air is completely mixed"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume"
     annotation (Placement(transformation(extent={{-10,10},{10,30}}),
-        iconTransformation(extent={{-10,-10},{10,10}})));
+        iconTransformation(extent={{-20,-10},{0,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
     "Heat port for radiative heat gain and radiative temperature"
     annotation (Placement(transformation(extent={{-10,-20},{10,0}}),
-        iconTransformation(extent={{-10,-48},{10,-28}})));
+        iconTransformation(extent={{-20,-48},{0,-28}})));
   ////////////////////////////////////////////////////////////////////////
   // Constructions
   Constructions.Construction conExt[NConExt](
@@ -400,11 +400,6 @@ equation
             -200},{200,200}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-200,-200},{200,200}}), graphics={
-        Rectangle(
-          extent={{-100,160},{124,-100}},
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
         Text(
           extent={{-104,210},{84,242}},
           lineColor={0,0,255},
@@ -419,103 +414,32 @@ equation
           extent={{-212,176},{-136,144}},
           lineColor={0,0,127},
           textString="u"),
-        Rectangle(
-          extent={{80,100},{100,-160}},
-          lineColor={135,135,135},
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{100,100},{148,170},{148,-92},{100,-160},{100,100}},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-        Polygon(
-          points={{-140,100},{-100,160},{-100,-100},{-140,-160},{-140,100}},
+        Text(
+          extent={{-14,-170},{44,-196}},
           lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Line(
-          points={{-140,-160},{80,-160}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-100,160},{120,160}},
-          color={0,0,0},
-          smooth=Smooth.None),
-        Polygon(
-          points={{-160,100},{-110,170},{-92,170},{-140,100},{-160,100}},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-        Polygon(
-          points={{-140,-160},{-100,-100},{80,-100},{80,-160},{-140,-160}},
-          smooth=Smooth.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-        Polygon(
-          points={{80,100},{130,170},{148,170},{100,100},{80,100}},
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid,
-          pattern=LinePattern.None),
-        Polygon(
-          points={{-92,170},{132,170},{122,160},{-100,160},{-92,170}},
-          pattern=LinePattern.None,
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{140,118},{112,84},{112,-54},{140,-18},{140,118}},
-          pattern=LinePattern.None,
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{136,104},{116,78},{116,-42},{136,-14},{136,104}},
-          pattern=LinePattern.None,
-          smooth=Smooth.None,
-          fillColor={170,213,255},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
-        Polygon(
-          points={{128,100},{126,98},{126,-32},{128,-28},{128,100}},
-          pattern=LinePattern.None,
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{100,-174},{148,-102},{148,-92},{100,-160},{100,-174}},
-          pattern=LinePattern.None,
-          smooth=Smooth.None,
           fillColor={61,61,61},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-106,112},{-134,78},{-134,-60},{-106,-24},{-106,112}},
-          pattern=LinePattern.None,
-          smooth=Smooth.None,
-          fillColor={135,135,135},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{-110,98},{-130,72},{-130,-48},{-110,-20},{-110,98}},
-          pattern=LinePattern.None,
-          smooth=Smooth.None,
-          fillColor={170,213,255},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
-        Polygon(
-          points={{-118,94},{-120,92},{-120,-38},{-118,-34},{-118,94}},
+          textString="boundary"),
+        Rectangle(
+          extent={{-160,-170},{140,140}},
+          lineColor={95,95,95},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+          Rectangle(
+          extent={{-140,120},{120,-150}},
           pattern=LinePattern.None,
-          smooth=Smooth.None,
-          fillColor={135,135,135},
+          lineColor={117,148,176},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Sphere),
+        Rectangle(
+          extent={{120,60},{140,-80}},
+          lineColor={95,95,95},
+          fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-160,100},{-140,-160}},
-          lineColor={135,135,135},
-          fillColor={135,135,135},
+          extent={{126,60},{134,-80}},
+          lineColor={95,95,95},
+          fillColor={170,213,255},
           fillPattern=FillPattern.Solid),
         Text(
           extent={{-60,12},{-22,-10}},
@@ -534,19 +458,7 @@ equation
           lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
-          textString="surface"),
-        Text(
-          extent={{-14,-170},{44,-196}},
-          lineColor={0,0,0},
-          fillColor={61,61,61},
-          fillPattern=FillPattern.Solid,
-          textString="boundary"),
-        Rectangle(
-          extent={{-160,-160},{100,-174}},
-          pattern=LinePattern.None,
-          lineColor={0,0,0},
-          fillColor={61,61,61},
-          fillPattern=FillPattern.Solid)}),
+          textString="surface")}),
     preferedView="info",
     Documentation(info="<html>
 <p>The package <b>Buildings.RoomsBeta</b> contains models for heat transfer 

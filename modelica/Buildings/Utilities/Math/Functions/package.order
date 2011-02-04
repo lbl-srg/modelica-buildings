@@ -1,6 +1,7 @@
 bicubic
 biquadratic
 polynomial
+powerLinearized
 quadraticLinear
 regNonZeroPower
 smoothExponential
@@ -9,5 +10,6 @@ smoothMax
 smoothMin
 smoothLimit
 spliceFunction
+trapezoidalIntegration
 Examples
 BaseClasses

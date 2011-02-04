@@ -75,7 +75,7 @@ model MixedAirFreeResponse "Free response of room model"
     nSurBou=1,
     surBou(each A=6*3, each epsLW=0.9, each epsSW=0.9, each til=Types.Tilt.Wall,
            each conMod = conMod),
-    linearizeRadiation = true,
+    linearizeRadiation = false,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.73268921998722) "Room model"
@@ -137,7 +137,7 @@ equation
       smooth=Smooth.None));
 
   connect(weaDat.weaBus, roo.weaBus) annotation (Line(
-      points={{180,150},{190,150},{190,58.1},{82.1,58.1}},
+      points={{180,150},{190,150},{190,57.9},{83.9,57.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -146,7 +146,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSoi.port, roo.surf_conBou)  annotation (Line(
-      points={{100,-10},{72,-10},{72,24}},
+      points={{100,-10},{72,-10},{72,22}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TBou.port,conOut. port_b) annotation (Line(
@@ -162,7 +162,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.ports[1], boundary.ports[1]) annotation (Line(
-      points={{51,37.8},{34,37.8},{34,10},{20,10}},
+      points={{51,30},{34,30},{34,10},{20,10}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},

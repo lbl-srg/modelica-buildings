@@ -31,9 +31,11 @@ protected
   final parameter Real M[NTot,NTot](min=0, max=1, fixed=false)
     "Incidence matrix, with elements of 1 if surfaces can see each other, or zero otherwise";
 
-  Modelica.SIunits.HeatFlowRate J[NTot](max=0, start=A .* 0.8*7385154648, nominal=10*419)
+  Modelica.SIunits.HeatFlowRate J[NTot](max=0, start=A.*0.8*Modelica.Constants.sigma*293.15^4,
+     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity leaving the surface";
-  Modelica.SIunits.HeatFlowRate G[NTot](min=0, start=A .* 0.8*7385154648, nominal=10*419)
+  Modelica.SIunits.HeatFlowRate G[NTot](min=0, start=A.*0.8*Modelica.Constants.sigma*293.15^4,
+     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity entering the surface";
   constant Real T40(unit="K4") = 293.15^4 "Nominal temperature";
   Modelica.SIunits.Temperature TOpa[NOpa](each start=293.15, each nominal=293.15)
@@ -47,7 +49,6 @@ protected
   final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"
  annotation(Evaluate=true);
   Modelica.SIunits.HeatFlowRate sumEBal "Sum of energy balance, should be zero";
-
 initial equation
   // The next loops build the array epsOpa, AOpa and kOpa that simplify
   // the model equations.
@@ -190,18 +191,10 @@ equation
     TOpa[i+NConExt+2*NConPar+NConBou+NSurBou]            = conExtWin[i].T;
     TOpa[i+NConExt+2*NConPar+NConBou+NConExtWin+NSurBou] = conExtWinFra[i].T;
   end for;
-  // 4th power of temperature
-  if linearizeRadiation then
-    T4Opa = T03 .* TOpa;
-  else
-    T4Opa = TOpa.^4;
-  end if;
   // Incoming radiosity at each surface
-  // is equal Modelica.SIunits.HeatFlowRateto the negative of the outgoing radiosity of
+  // is equal to the negative of the outgoing radiosity of
   // all other surfaces times the view factor
-  for j in 1:NTot loop
-    G[j] = -sum(J[i] * F[i,j] for i in 1:NTot);
-  end for;
+  G = -transpose(F)*J;
   // Outgoing radiosity
   // Opaque surfaces.
   // If kOpa[j]=epsLW[j]*A[j] < 1E-28, then A < 1E-20 and the surface is
@@ -210,6 +203,13 @@ equation
   for j in 1:NOpa loop
     T4Opa[j] = if (kOpa[j] > 1E-28) then (-J[j]-rhoOpa[j] * G[j])/kOpa[j] else T40;
   end for;
+
+  // 4th power of temperature
+  if linearizeRadiation then
+    TOpa = T4Opa./T03;
+  else
+    TOpa = Buildings.Utilities.Math.Functions.powerLinearized(x=T4Opa, x0=243.15^4, n=0.25);
+  end if;
   // Assign radiosity that comes from window
   // and that leaves window.
   // J < 0 because it leaves the surface
@@ -373,6 +373,10 @@ cannot see each other.
 </html>",
 revisions="<html>
 <ul>
+<li>
+Feb. 3 2011, by Michael Wetter:<br>
+Corrected bug in start value of radiosity, reformulated equations to get
+smaller system of coupled equations.
 <li>
 Dec. 1 2010, by Michael Wetter:<br>
 First implementation.
