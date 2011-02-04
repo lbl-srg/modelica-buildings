@@ -16,7 +16,8 @@ model LongWaveRadiationGainDistribution
     final datConExtWin = datConExtWin,
     final datConPar = datConPar,
     final datConBou = datConBou,
-    final surBou = surBou)
+    final surBou = surBou,
+    haveShade=true)
     "Distribution for long wave radiative heat gains (e.g., due to equipment and people)"
     annotation (Placement(transformation(extent={{-30,0},{10,40}})));
 protected

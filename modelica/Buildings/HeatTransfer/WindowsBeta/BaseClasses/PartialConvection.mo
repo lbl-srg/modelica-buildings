@@ -37,7 +37,7 @@ partial model PartialConvection
     "Set to true if this side of the model has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
 
-  Modelica.Blocks.Interfaces.RealInput uSha
+  Modelica.Blocks.Interfaces.RealInput uSha if windowHasShade
     "Input connector, used to scale the surface area to take into account an operable shading device, 0: unshaded; 1: fully shaded"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
         iconTransformation(extent={{-116,72},{-100,88}})));

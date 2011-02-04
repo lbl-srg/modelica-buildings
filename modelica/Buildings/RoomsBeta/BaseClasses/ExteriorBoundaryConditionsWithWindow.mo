@@ -47,7 +47,8 @@ model ExteriorBoundaryConditionsWithWindow
     "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
 
-  Modelica.Blocks.Interfaces.RealInput uSha[nCon](min=0, max=1)
+  Modelica.Blocks.Interfaces.RealInput uSha[nCon](min=0, max=1) if
+       windowHasShade
     "Control signal for the shading device, 0: unshaded; 1: fully shaded"
     annotation (Placement(transformation(extent={{-340,80},{-300,120}}),
         iconTransformation(extent={{-340,80},{-300,120}})));

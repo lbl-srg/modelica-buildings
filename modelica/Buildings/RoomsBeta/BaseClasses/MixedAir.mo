@@ -111,14 +111,14 @@ protected
     final conMod=datConBou.conMod,
     final hFixed=datConBou.hFixed) if
        haveConBou "Convective heat transfer"
-    annotation (Placement(transformation(extent={{120,-150},{100,-130}})));
+    annotation (Placement(transformation(extent={{120,-170},{100,-150}})));
   HeatTransfer.Convection convSurBou[nSurBou](
     final A=ASurBou,
     final til =  surBou.til,
     final conMod=surBou.conMod,
     final hFixed=surBou.hFixed) if
        haveSurBou "Convective heat transfer"
-    annotation (Placement(transformation(extent={{120,-210},{100,-190}})));
+    annotation (Placement(transformation(extent={{122,-230},{102,-210}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExt(final m=
         nConExt) if
        haveConExt
@@ -166,7 +166,7 @@ protected
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={50,-140})));
+        origin={50,-160})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConSurBou(final m=
         nSurBou) if
        haveSurBou
@@ -174,11 +174,11 @@ protected
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={50,-200})));
+        origin={52,-220})));
 public
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume"
-    annotation (Placement(transformation(extent={{-252,-10},{-232,10}})));
+    annotation (Placement(transformation(extent={{-250,-10},{-230,10}})));
 
   final parameter Modelica.SIunits.TransmissionCoefficient tauLWSha_air[NConExtWin]=
     datConExtWin.glaSys.shade.tauLW_a
@@ -237,7 +237,8 @@ public
     final isFloorConPar_b=isFloorConPar_b,
     final isFloorConBou=isFloorConBou,
     final isFloorSurBou=isFloorSurBou,
-    final tauGla=tauGlaSW) "Short wave radiative heat exchange"
+    final tauGla=tauGlaSW) if
+       haveConExtWin "Short wave radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
   LongWaveRadiationGainDistribution lonWavRadGai(
@@ -250,7 +251,8 @@ public
     final datConExtWin = datConExtWin,
     final datConPar = datConPar,
     final datConBou = datConBou,
-    final surBou = surBou)
+    final surBou = surBou,
+    final haveShade=haveShade)
     "Distribution for long wave radiative heat gains (e.g., due to equipment and people)"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   LongWaveRadiationExchange lonWavRadExc(
@@ -264,7 +266,7 @@ public
     final datConPar = datConPar,
     final datConBou = datConBou,
     final surBou = surBou,
-    linearizeRadiation = linearizeRadiation)
+    final linearizeRadiation = linearizeRadiation)
     "Long wave radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
@@ -272,38 +274,36 @@ public
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-280,80},{-240,120}})));
 
-  Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin](each min=0, each max=1)
+  Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin](each min=0, each max=1) if
+       haveShade
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-280,160},{-240,200}}),
         iconTransformation(extent={{-280,162},{-240,202}})));
 
   Modelica.Blocks.Interfaces.RealInput QAbsSWSha_flow[NConExtWin](
-    final unit="W", quantity="Power") "Solar radiation absorbed by shade"
+    final unit="W", quantity="Power") if
+       haveConExtWin "Solar radiation absorbed by shade"
     annotation (Placement(transformation(extent={{-280,-220},{-240,-180}})));
   Modelica.Blocks.Interfaces.RealInput JInConExtWin[NConExtWin](final unit="W",
-      quantity="Power")
+      quantity="Power") if haveConExtWin
     "Solar radiation transmitted from the outside through the glazing system"
     annotation (Placement(transformation(extent={{-280,-120},{-240,-80}}),
         iconTransformation(extent={{-280,-120},{-240,-80}})));
 
-  Modelica.Blocks.Interfaces.RealOutput HOutConExtWin[NConExtWin](unit="W/m2")
-    "Outgoing short wave radiation that strikes window"
+  Modelica.Blocks.Interfaces.RealOutput HOutConExtWin[NConExtWin](unit="W/m2") if
+       haveConExtWin "Outgoing short wave radiation that strikes window"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-200,-250})));
 
   HeatGain heaGai(redeclare package Medium = Medium, final AFlo=AFlo)
     "Model to convert internal heat gains"
-    annotation (Placement(transformation(extent={{-218,90},{-198,110}})));
+    annotation (Placement(transformation(extent={{-220,90},{-200,110}})));
 protected
-  Buildings.HeatTransfer.Radiosity.Constant zerJ1(
-                                        k=0) if
-     not haveConExtWin "Radiosity signal, only needed if no window is present"
-    annotation (Placement(transformation(extent={{-60,198},{-40,218}})));
-  Buildings.HeatTransfer.Radiosity.Constant zerJ2(
-                                        k=0) if
-     not haveConExtWin "Radiosity signal, only needed if no window is present"
-    annotation (Placement(transformation(extent={{-60,160},{-40,180}})));
+  RadiationAdapter radiationAdapter
+    annotation (Placement(transformation(extent={{-220,120},{-200,140}})));
+  Modelica.Blocks.Math.Add add
+    annotation (Placement(transformation(extent={{-180,110},{-160,130}})));
 public
   RadiationTemperature radTem(
     final nConExt=nConExt,
@@ -318,14 +318,9 @@ public
     final surBou=surBou,
     final haveShade=haveShade) "Radiative temperature of the room"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput TRad(unit="K", displayUnit="degC")
-    "Radiative temperature" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-140,-250}), iconTransformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-120,-250})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
+    "Heat port for radiative heat gain and radiative temperature"
+    annotation (Placement(transformation(extent={{-250,-50},{-230,-30}})));
 equation
   connect(convConExt.solid, conExt)
                                    annotation (Line(
@@ -344,11 +339,11 @@ equation
       smooth=Smooth.None));
   connect(convConBou.solid, conBou)
                                    annotation (Line(
-      points={{120,-140},{160,-140},{160,-160},{242,-160}},
+      points={{120,-160},{242,-160}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convSurBou.solid, conSurBou) annotation (Line(
-      points={{120,-200},{154,-200},{154,-220},{241,-220}},
+      points={{122,-220},{241,-220}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convConExt.fluid, theConConExt.port_a)
@@ -368,11 +363,11 @@ equation
       smooth=Smooth.None));
   connect(convConBou.fluid, theConConBou.port_a)
                                                 annotation (Line(
-      points={{100,-140},{60,-140}},
+      points={{100,-160},{60,-160}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convSurBou.fluid, theConSurBou.port_a) annotation (Line(
-      points={{100,-200},{60,-200}},
+      points={{102,-220},{62,-220}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theConConExt.port_b,vol. heatPort) annotation (Line(
@@ -392,37 +387,38 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(theConConBou.port_b,vol. heatPort) annotation (Line(
-      points={{40,-140},{20,-140},{20,-200},{10,-200}},
+      points={{40,-160},{20,-160},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theConSurBou.port_b,vol. heatPort) annotation (Line(
-      points={{40,-200},{10,-200}},
+      points={{42,-220},{20,-220},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(vol.heatPort, heatPort) annotation (Line(
+  connect(vol.heatPort, heaPorAir)
+                                  annotation (Line(
       points={{10,-200},{20,-200},{20,-90},{-150,-90},{-150,0},{-200,0},{-200,
-          5.55112e-16},{-242,5.55112e-16}},
+          5.55112e-16},{-240,5.55112e-16}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convConWin.JOutUns, JOutUns)
                                       annotation (Line(
-      points={{119,126},{130,126},{130,160},{250,160}},
+      points={{119,126},{196,126},{196,160},{250,160}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(JInUns, convConWin.JInUns)
                                     annotation (Line(
-      points={{248,144},{190,144},{190,124},{119,124}},
+      points={{248,144},{200,144},{200,124},{119,124}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(convConWin.JOutSha, JOutSha)
                                       annotation (Line(
-      points={{119,112},{134,112},{134,60},{250,60}},
+      points={{119,112},{200,112},{200,60},{250,60}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(convConWin.JInSha, JInSha)
                                     annotation (Line(
-      points={{119,110},{132,110},{132,40},{250,40}},
+      points={{119,110},{196,110},{196,40},{250,40}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -436,28 +432,26 @@ equation
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, lonWavRadExc.conExtWinFra) annotation (Line(
-      points={{242,5.55112e-16},{180,5.55112e-16},{180,10},{-79.9167,10}},
+      points={{242,5.55112e-16},{192,5.55112e-16},{192,10},{-79.9167,10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, lonWavRadExc.conPar_a) annotation (Line(
-      points={{242,-60},{172,-60},{172,7.5},{-79.9167,7.5}},
+      points={{242,-60},{188,-60},{188,7.5},{-79.9167,7.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_b, lonWavRadExc.conPar_b) annotation (Line(
-      points={{242,-100},{166,-100},{166,-26},{-8,-26},{-8,5.83333},{-79.9167,
+      points={{242,-100},{184,-100},{184,6},{180,6},{180,5.83333},{-79.9167,
           5.83333}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(conBou, lonWavRadExc.conBou) annotation (Line(
-      points={{242,-160},{160,-160},{160,-34},{-12,-34},{-12,3.33333},{-79.9167,
-          3.33333}},
+      points={{242,-160},{180,-160},{180,4},{-79.9167,4},{-79.9167,3.33333}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(conSurBou, lonWavRadExc.conSurBou) annotation (Line(
-      points={{241,-220},{154,-220},{154,-40},{-16,-40},{-16,0.833333},{
-          -79.9583,0.833333}},
+      points={{241,-220},{176,-220},{176,0},{-79.9583,0},{-79.9583,0.833333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(lonWavRadExc.JOutConExtWin, convConWin.JInRoo)
@@ -509,16 +503,12 @@ equation
           -260,180}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(lonWavRadGai.Q_flow, heaGai.QRad_flow) annotation (Line(
-      points={{-100.833,-30},{-130,-30},{-130,106},{-197,106}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(heaGai.QCon_flow,vol. heatPort) annotation (Line(
-      points={{-198,100},{-150,100},{-150,-90},{20,-90},{20,-200},{10,-200}},
+      points={{-200,100},{-150,100},{-150,-90},{20,-90},{20,-200},{10,-200}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaGai.qGai_flow, qGai_flow) annotation (Line(
-      points={{-220,100},{-260,100}},
+      points={{-222,100},{-260,100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(convConExtWin.fluid, theConConExtWin.port_a)
@@ -540,7 +530,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaGai.QLat_flow,vol. ports[nPorts+1]) annotation (Line(
-      points={{-198,94},{-180,94},{-180,-220},{-2,-220},{-2,-210},{-7.77156e-16,
+      points={{-200,94},{-180,94},{-180,-220},{-2,-220},{-2,-210},{-7.77156e-16,
           -210}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -567,16 +557,8 @@ equation
       smooth=Smooth.None));
   connect(convConWin.glaSha, glaSha)
                                     annotation (Line(
-      points={{118,116},{180,116},{180,80},{242,80}},
+      points={{118,116},{216,116},{216,80},{242,80}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(zerJ1.JOut, JOutUns[1]) annotation (Line(
-      points={{-39,208},{-20,208},{-20,160},{250,160}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(zerJ2.JOut, lonWavRadExc.JInConExtWin[1]) annotation (Line(
-      points={{-39,170},{-30,170},{-30,13.3333},{-79.5833,13.3333}},
-      color={0,127,0},
       smooth=Smooth.None));
 
   connect(conExt, shoWavRadExc.conExt) annotation (Line(
@@ -584,23 +566,23 @@ equation
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, shoWavRadExc.conExtWinFra) annotation (Line(
-      points={{242,5.55112e-16},{180,5.55112e-16},{180,50},{-79.9167,50}},
+      points={{242,5.55112e-16},{192,5.55112e-16},{192,50},{-79.9167,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, shoWavRadExc.conPar_a) annotation (Line(
-      points={{242,-60},{172,-60},{172,47.5},{-79.9167,47.5}},
+      points={{242,-60},{188,-60},{188,48},{-79.9167,48},{-79.9167,47.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_b, shoWavRadExc.conPar_b) annotation (Line(
-      points={{242,-100},{166,-100},{166,44},{-79.9167,44},{-79.9167,45.8333}},
+      points={{242,-100},{184,-100},{184,44},{-79.9167,44},{-79.9167,45.8333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conBou, shoWavRadExc.conBou) annotation (Line(
-      points={{242,-160},{160,-160},{160,42},{-79.9167,42},{-79.9167,43.3333}},
+      points={{242,-160},{180,-160},{180,42},{-79.9167,42},{-79.9167,43.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conSurBou, shoWavRadExc.conSurBou) annotation (Line(
-      points={{241,-220},{154,-220},{154,40.8333},{-79.9583,40.8333}},
+      points={{241,-220},{176,-220},{176,40.8333},{-79.9583,40.8333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conExtWin, shoWavRadExc.conExtWin) annotation (Line(
@@ -609,7 +591,7 @@ equation
       smooth=Smooth.None));
   connect(QAbsSWSha_flow, convConWin.QAbs_flow)
                                                annotation (Line(
-      points={{-260,-200},{-210,-200},{-210,88},{108,88},{108,107}},
+      points={{-260,-200},{-210,-200},{-210,80},{108,80},{108,107}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shoWavRadExc.JInConExtWin, JInConExtWin) annotation (Line(
@@ -622,7 +604,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(uSha, radTem.uSha) annotation (Line(
-      points={{-260,180},{-220,180},{-220,148},{-110,148},{-110,-62.5},{
+      points={{-260,180},{-220,180},{-220,148},{-120,148},{-120,-62.5},{
           -100.833,-62.5}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -661,24 +643,39 @@ equation
       smooth=Smooth.None));
 
   connect(radTem.glaUns, glaUns) annotation (Line(
-      points={{-80,-65},{-44,-65},{-44,-64},{-8,-64},{-8,-42},{212,-42},{212,120},
-          {242,120}},
+      points={{-80,-65},{-8,-65},{-8,-32},{212,-32},{212,120},{242,120}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(radTem.glaSha, glaSha) annotation (Line(
-      points={{-80,-66.6667},{-42,-66.6667},{-42,-66},{-4,-66},{-4,-46},{216,
-          -46},{216,80},{242,80}},
+      points={{-80,-66.6667},{-4,-66.6667},{-4,-36},{216,-36},{216,80},{242,80}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convConWin.sha, radTem.sha) annotation (Line(
-      points={{104.8,108},{104,108},{104,80},{-20,80},{-20,-68.4167},{-80,
+      points={{104.8,108},{104,108},{104,-40},{0,-40},{0,-68},{-80,-68},{-80,
           -68.4167}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(radTem.TRad, TRad) annotation (Line(
-      points={{-100.417,-77.6667},{-170,-77.6667},{-170,-228},{-140,-228},{-140,
-          -250}},
+  connect(radTem.TRad, radiationAdapter.TRad) annotation (Line(
+      points={{-100.417,-77.6667},{-232,-77.6667},{-232,130},{-222,130}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(radiationAdapter.rad, heaPorRad)
+                                     annotation (Line(
+      points={{-210.2,120},{-210,120},{-210,114},{-226,114},{-226,-40},{-240,-40}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(radiationAdapter.QRad_flow, add.u1) annotation (Line(
+      points={{-199,130},{-190,130},{-190,126},{-182,126}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heaGai.QRad_flow, add.u2) annotation (Line(
+      points={{-199,106},{-190,106},{-190,114},{-182,114}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(add.y, lonWavRadGai.Q_flow) annotation (Line(
+      points={{-159,120},{-130,120},{-130,-30},{-100.833,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,

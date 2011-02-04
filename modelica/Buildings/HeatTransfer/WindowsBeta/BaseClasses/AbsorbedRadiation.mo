@@ -123,9 +123,9 @@ algorithm
   // Glass: absorbed diffusive radiation from exterior and interior sources
   //**************************************************************
   for i in 1:N loop
-    absRad[NoShade, i + 1] := AWin*(1 - uSha)*(HDif*coeAbsEx[NoShade, i, HEM +
+    absRad[NoShade, i + 1] := AWin*(1 - uSha_internal)*(HDif*coeAbsEx[NoShade, i, HEM +
       1] + HRoo*coeAbsIn[NoShade, i]);
-    absRad[Shade, i + 1] := AWin*uSha*(HDif*coeAbsEx[Shade, i, HEM + 1] + HRoo*
+    absRad[Shade, i + 1] := AWin*uSha_internal*(HDif*coeAbsEx[Shade, i, HEM + 1] + HRoo*
       coeAbsIn[Shade, i]);
   end for;
 
@@ -136,11 +136,11 @@ algorithm
   // direct radiation: 1. direct absorption;
   // diffusive radiation: 1. direct absorption 2. absorption from back reflection
   if haveExteriorShade then
-    absRad[Shade, 1] := AWin*uSha*coeAbsDevExtIrrExtSha*(HDif + HDir + HDif*
+    absRad[Shade, 1] := AWin*uSha_internal*coeAbsDevExtIrrExtSha*(HDif + HDir + HDif*
       radDat.traRefShaDev[1, 1]*radDat.traRef[2, 1, N, HEM]);
     // Interior Shading Device: diffusive radiation from both interior and exterior
   elseif haveInteriorShade then
-    absRad[Shade, N + 2] := AWin*uSha*(HDif*radDat.devAbsExtIrrIntShaDev[HEM]
+    absRad[Shade, N + 2] := AWin*uSha_internal*(HDif*radDat.devAbsExtIrrIntShaDev[HEM]
        + HRoo*coeAbsDevIntIrrIntSha);
   end if;
 
@@ -166,7 +166,7 @@ algorithm
         coeAbsEx[NoShade, i, k2],
         y1d,
         y2d);
-      absRad[NoShade, i + 1] := absRad[NoShade, i + 1] + AWin*HDir*(1 - uSha)*
+      absRad[NoShade, i + 1] := absRad[NoShade, i + 1] + AWin*HDir*(1 - uSha_internal)*
         tmpNoSha;
 
       // Glass with shading: add absorbed direct radiation
@@ -180,7 +180,7 @@ algorithm
         coeAbsEx[Shade, i, k2],
         y1d,
         y2d);
-      absRad[Shade, i + 1] := absRad[Shade, i + 1] + AWin*HDir*uSha*tmpSha;
+      absRad[Shade, i + 1] := absRad[Shade, i + 1] + AWin*HDir*uSha_internal*tmpSha;
     end for;
 
     // Interior shading device: add absorbed direct radiation
@@ -195,7 +195,7 @@ algorithm
         coeAbsDevExtIrrIntSha[k2],
         y1d,
         y2d);
-      absRad[Shade, N + 2] := absRad[Shade, N + 2] + AWin*HDir*uSha*tmpSha;
+      absRad[Shade, N + 2] := absRad[Shade, N + 2] + AWin*HDir*uSha_internal*tmpSha;
     end if;
 
     // Exterior shading device: add absorbed reflection of direct radiation from exterior source
@@ -210,7 +210,7 @@ algorithm
         coeRefExtPan1[k2],
         y1d,
         y2d);
-      absRad[Shade, 1] := absRad[Shade, 1] + AWin*HDir*uSha*
+      absRad[Shade, 1] := absRad[Shade, 1] + AWin*HDir*uSha_internal*
         coeAbsDevExtIrrExtSha*tmpNoSha;
     end if;
   end if;
@@ -287,6 +287,10 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2010, by Michael Wetter:<br>
+Made connector <code>uSha</code> a conditional connector.
+</li>
 <li>
 December 15, 2010, by Wangda Zuo:<br>
 Separate transmittance and absorbance.

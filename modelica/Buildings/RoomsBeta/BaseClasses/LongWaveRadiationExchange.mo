@@ -5,12 +5,12 @@ model LongWaveRadiationExchange
 
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
-  HeatTransfer.Interfaces.RadiosityOutflow JOutConExtWin[NConExtWin]
-    "Outgoing radiosity that connects to non-frame part of the window"
-    annotation (Placement(transformation(extent={{240,110},{260,130}})));
   HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin]
     "Incoming radiosity that connects to non-frame part of the window"
     annotation (Placement(transformation(extent={{260,70},{240,90}})));
+  HeatTransfer.Interfaces.RadiosityOutflow JOutConExtWin[NConExtWin]
+    "Outgoing radiosity that connects to non-frame part of the window"
+    annotation (Placement(transformation(extent={{240,110},{260,130}})));
 
 protected
   final parameter Integer NOpa = NConExt+2*NConExtWin+2*NConPar+NConBou+NSurBou
@@ -47,6 +47,7 @@ protected
   final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"
  annotation(Evaluate=true);
   Modelica.SIunits.HeatFlowRate sumEBal "Sum of energy balance, should be zero";
+
 initial equation
   // The next loops build the array epsOpa, AOpa and kOpa that simplify
   // the model equations.
@@ -163,6 +164,14 @@ initial equation
   end for;
 ////////////////////////////////////////////////////////////////////
 equation
+  // If the room has no window, then the incoming radiosity from the window
+  // is not connected. In this situation, we set it to zero.
+  // This approach is easier than using a conditional connector, since
+  // this port carries a flow variable, and hence the sign of the radiosity
+  // would change in a connect statement.
+  if (cardinality(JInConExtWin) == 0) then
+    JInConExtWin = fill(0, NConExtWin);
+  end if;
   // Assign temperature of opaque surfaces
   for i in 1:NConExt loop
     TOpa[i] = conExt[i].T;

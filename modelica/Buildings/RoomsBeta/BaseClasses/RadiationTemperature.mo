@@ -24,7 +24,8 @@ model RadiationTemperature "Radiative temperature of the room"
     annotation (Placement(transformation(extent={{-280,160},{-240,200}}),
         iconTransformation(extent={{-280,160},{-240,200}})));
 
-  Modelica.Blocks.Interfaces.RealOutput TRad "Radiative temperature"
+  Modelica.Blocks.Interfaces.RealOutput TRad(min=0, unit="K", displayUnit="degC")
+    "Radiative temperature"
     annotation (Placement(transformation(extent={{-240,-190},{-260,-170}}),
         iconTransformation(extent={{-240,-194},{-260,-174}})));
 

@@ -226,24 +226,6 @@ equation
           lineColor={0,0,0},
           fillColor={191,0,0},
           fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-70,254},{-52,140}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Polygon(
-          points={{2,208},{4,208},{6,204},{8,198},{8,194},{6,188},{0,184},{-4,180},
-              {-12,178},{-16,182},{-22,188},{-24,198},{-22,204},{-20,208},{-18,210},
-              {-16,212},{-12,214},{-8,214},{-2,212},{2,208}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{34,254},{52,140}},
-          lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
         Polygon(
           visible = glaSys.haveInteriorShade,
           points={{48,60},{48,-40},{116,-104},{116,-4},{48,60}},
@@ -345,7 +327,56 @@ equation
           visible = glaSys.haveExteriorShade,
           points={{-292,-260},{-60,-260}},
           color={160,0,0},
-          smooth=Smooth.None)}),
+          smooth=Smooth.None),
+        Rectangle(
+          extent={{-62,270},{-44,156}},
+          lineColor={0,0,0},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward),
+        Rectangle(
+          extent={{42,270},{60,156}},
+          lineColor={0,0,0},
+          fillColor={192,192,192},
+          fillPattern=FillPattern.Backward),
+        Rectangle(
+          extent={{8,276},{68,76}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-48,276},{8,76}},
+          lineColor={0,0,0},
+          fillColor={183,183,121},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-72,276},{-48,76}},
+          lineColor={0,0,0},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-48,276},{-62,290},{-10,290},{8,276},{-48,276}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={183,183,121},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-72,276},{-80,290},{-62,290},{-48,276},{-72,276}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{8,276},{-10,290},{48,290},{68,276},{8,276}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-80,290},{-80,98},{-72,76},{-72,276},{-80,290}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid)}),
     Documentation(revisions="<html>
 <ul>
 <li>

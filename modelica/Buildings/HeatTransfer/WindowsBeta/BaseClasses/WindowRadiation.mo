@@ -65,8 +65,8 @@ protected
     "Flag, true if the window has a shade";
 equation
   if noShade then
-    assert(uSha < 1E-6, "Window has no shade, but control signal is non-zero.\n"
-       + "  Received uSha = " + realString(uSha));
+    assert(uSha_internal < 1E-6, "Window has no shade, but control signal is non-zero.\n"
+       + "  Received uSha_internal = " + realString(uSha_internal));
   end if;
   connect(HDif, tra.HDif) annotation (Line(
       points={{-120,80},{-80,80},{-80,58},{-41.5,58}},
@@ -210,6 +210,10 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2010, by Michael Wetter:<br>
+Made connector <code>uSha</code> a conditional connector.
+</li>
 <li>
 January 4, 2011, by Michael Wetter:<br>
 Added assert statement to check that <code>uSha=0</code> if no shade is present.

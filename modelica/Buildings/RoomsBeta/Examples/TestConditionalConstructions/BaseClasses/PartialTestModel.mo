@@ -21,7 +21,7 @@ partial model PartialTestModel
     final nSurBou=nSurBou,
     AFlo=20,
     hRoo=2.7,
-    linearizeRadiation = true ,
+    linearizeRadiation = true,
     lat=0.73268921998722) "Room model"
     annotation (Placement(transformation(extent={{44,-36},{84,4}})));
 
@@ -43,11 +43,6 @@ partial model PartialTestModel
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   BoundaryConditions.WeatherData.Reader weaDat(filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Sources.Constant uSha(k=0)
-    "Control signal for the shading device"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Blocks.Routing.Replicator replicator(nout=max(1,nConExtWin))
-    annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveExteriorShade=false,
@@ -76,14 +71,6 @@ equation
       points={{80,70},{90,70},{90,2.1},{80.1,2.1}},
       color={255,204,51},
       thickness=0.5,
-      smooth=Smooth.None));
-  connect(uSha.y, replicator.u) annotation (Line(
-      points={{-59,70},{-22,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(roo.uSha, replicator.y) annotation (Line(
-      points={{42,2.66454e-15},{20,2.66454e-15},{20,70},{1,70}},
-      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,160}}),

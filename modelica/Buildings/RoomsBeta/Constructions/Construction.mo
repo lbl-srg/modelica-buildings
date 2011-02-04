@@ -15,23 +15,44 @@ model Construction "Model for an opaque construction that has no window"
           fillColor={191,0,0},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-70,254},{-52,140}},
+          extent={{0,260},{60,60}},
           lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward),
-        Polygon(
-          points={{2,208},{4,208},{6,204},{8,198},{8,194},{6,188},{0,184},{-4,180},
-              {-12,178},{-16,182},{-22,188},{-24,198},{-22,204},{-20,208},{-18,210},
-              {-16,212},{-12,214},{-8,214},{-2,212},{2,208}},
-          lineColor={0,0,0},
-          smooth=Smooth.None,
-          fillColor={215,215,215},
+          fillColor={135,135,135},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{34,254},{52,140}},
+          extent={{-56,260},{0,60}},
           lineColor={0,0,0},
-          fillColor={192,192,192},
-          fillPattern=FillPattern.Backward)}),
+          fillColor={183,183,121},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-80,260},{-56,60}},
+          lineColor={0,0,0},
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-56,260},{-70,274},{-18,274},{0,260},{-56,260}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={183,183,121},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-80,260},{-88,274},{-70,274},{-56,260},{-80,260}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{0,260},{-18,274},{40,274},{60,260},{0,260}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-88,274},{-88,82},{-80,60},{-80,260},{-88,274}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid)}),
     Documentation(
     info="<html>
 This model is used to compute heat transfer through opaque constructions inside the 

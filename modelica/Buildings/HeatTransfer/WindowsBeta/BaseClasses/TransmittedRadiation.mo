@@ -68,8 +68,8 @@ equation
   // Window: transmitted radiation for diffusive radiation from exterior sources
   //**************************************************************
 algorithm
-  QTraUns_flow := AWin*HDif*(1 - uSha)*coeTraWinExtIrr[NoShade, HEM + 1];
-  QTraSha_flow := AWin*HDif*uSha*coeTraWinExtIrr[Shade, HEM + 1];
+  QTraUns_flow := AWin*HDif*(1 - uSha_internal)*coeTraWinExtIrr[NoShade, HEM + 1];
+  QTraSha_flow := AWin*HDif*uSha_internal*coeTraWinExtIrr[Shade, HEM + 1];
 
   //**************************************************************
   // Glass, Device: add absorbed radiation (angular part) from exterior sources
@@ -94,7 +94,7 @@ algorithm
       coeTraWinExtIrr[NoShade, k2],
       y1d,
       y2d);
-    QTraUns_flow := QTraUns_flow + AWin*HDir*(1 - uSha)*tmpNoSha;
+    QTraUns_flow := QTraUns_flow + AWin*HDir*(1 - uSha_internal)*tmpNoSha;
 
     // Window shaded parts: add transmitted radiation for angular radiation
     y1d := (coeTraWinExtIrr[Shade, k1 + 1] - coeTraWinExtIrr[Shade, k1 - 1])/2;
@@ -107,7 +107,7 @@ algorithm
       coeTraWinExtIrr[Shade, k2],
       y1d,
       y2d);
-    QTraSha_flow := QTraSha_flow + AWin*HDir*uSha*tmpSha;
+    QTraSha_flow := QTraSha_flow + AWin*HDir*uSha_internal*tmpSha;
   end if;
 
   // Assign quantities to output connectors
@@ -147,6 +147,10 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2010, by Michael Wetter:<br>
+Made connector <code>uSha</code> a conditional connector.
+</li>
 <li>
 December 15, 2010, by Wangda Zuo:<br>
 Separate transmittance and absorbance models from the window radiation model.

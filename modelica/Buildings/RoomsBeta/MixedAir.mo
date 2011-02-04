@@ -39,7 +39,10 @@ model MixedAir "Model of a room in which the air is completely mixed"
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={-200,-60},
-        rotation=90)));
+        rotation=90), iconTransformation(
+        extent={{-40,-10},{40,10}},
+        rotation=90,
+        origin={-150,-100})));
   parameter Modelica.SIunits.Angle lat "Latitude";
   final parameter Modelica.SIunits.Volume V=AFlo*hRoo "Volume";
   parameter Modelica.SIunits.Area AFlo "Floor area";
@@ -47,9 +50,12 @@ model MixedAir "Model of a room in which the air is completely mixed"
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
     "Heat port to air volume"
-    annotation (Placement(transformation(extent={{-212,30},{-192,50}}),
-        iconTransformation(extent={{-212,32},{-192,52}})));
-
+    annotation (Placement(transformation(extent={{-10,10},{10,30}}),
+        iconTransformation(extent={{-10,-10},{10,10}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
+    "Heat port for radiative heat gain and radiative temperature"
+    annotation (Placement(transformation(extent={{-10,-20},{10,0}}),
+        iconTransformation(extent={{-10,-48},{10,-28}})));
   ////////////////////////////////////////////////////////////////////////
   // Constructions
   Constructions.Construction conExt[NConExt](
@@ -61,7 +67,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     T_b_start=datConExt.T_b_start) if
        haveConExt
     "Heat conduction through exterior construction that have no window"
-    annotation (Placement(transformation(extent={{54,114},{24,144}})));
+    annotation (Placement(transformation(extent={{66,102},{20,148}})));
 
   Constructions.ConstructionWithWindow conExtWin[NConExtWin](
     A=datConExtWin.A,
@@ -86,7 +92,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     T_b_start=datConPar.T_b_start) if
        haveConPar
     "Heat conduction through partitions that have both sides inside the thermal zone"
-    annotation (Placement(transformation(extent={{24,-86},{4,-66}})));
+    annotation (Placement(transformation(extent={{40,-102},{2,-64}})));
 
   Constructions.Construction conBou[NConBou](
     A=datConBou.A,
@@ -97,7 +103,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     T_b_start=datConBou.T_b_start) if
        haveConBou
     "Heat conduction through opaque constructions that have the boundary conditions of the other side exposed"
-    annotation (Placement(transformation(extent={{24,-136},{4,-116}})));
+    annotation (Placement(transformation(extent={{38,-154},{-2,-114}})));
 
   parameter Boolean linearizeRadiation = true
     "Set to true to linearize emissive power";
@@ -106,20 +112,20 @@ model MixedAir "Model of a room in which the air is completely mixed"
   // Models for boundary conditions
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_conBou[nConBou] if
        haveConBou "Heat port at surface b of construction conBou"
-    annotation (Placement(transformation(extent={{50,-170},{70,-150}}),
-        iconTransformation(extent={{50,-170},{70,-150}})));
+    annotation (Placement(transformation(extent={{50,-190},{70,-170}}),
+        iconTransformation(extent={{50,-190},{70,-170}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_surBou[nSurBou] if
        haveSurBou "Heat port of surface that is connected to the room air"
     annotation (Placement(transformation(extent={{-70,-150},{-50,-130}}),
         iconTransformation(extent={{-48,-150},{-28,-130}})));
 
   Modelica.Blocks.Interfaces.RealInput uSha[nConExtWin](each min=0, each max=1) if
-       haveConExtWin
+       haveShade
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-240,160},{-200,200}}),
         iconTransformation(extent={{-240,140},{-200,180}})));
 
-  Modelica.Blocks.Interfaces.RealInput qGai_flow[3]
+  Modelica.Blocks.Interfaces.RealInput qGai_flow[3](unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}})));
   BaseClasses.ExteriorBoundaryConditions bouConExt(
@@ -133,7 +139,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final epsSW=datConExt.layers.epsSW_a) if
        haveConExt
     "Exterior boundary conditions for constructions without a window"
-    annotation (Placement(transformation(extent={{116,114},{146,144}})));
+    annotation (Placement(transformation(extent={{116,116},{146,146}})));
 
   BaseClasses.ExteriorBoundaryConditionsWithWindow bouConExtWin(
     final nCon=nConExtWin,
@@ -175,55 +181,47 @@ model MixedAir "Model of a room in which the air is completely mixed"
 
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{170,170},{190,190}}),
-        iconTransformation(extent={{148,168},{174,194}})));
+        iconTransformation(extent={{166,166},{192,192}})));
 
-  Modelica.Blocks.Sources.Constant zer(final k=0) if
-       not haveConExtWin
-    "Outputs zero. This block is needed to send a signal to the shading connector if no window is used in the room model"
-    annotation (Placement(transformation(extent={{-200,120},{-180,140}})));
-
-  Modelica.Blocks.Interfaces.RealOutput TRad(unit="K", displayUnit="degC")
-    "Radiative temperature"
-    annotation (Placement(transformation(extent={{200,10},{220,30}})));
+protected
+  final parameter Boolean haveShade=
+    datConExtWin[1].glaSys.haveExteriorShade or datConExtWin[1].glaSys.haveInteriorShade
+    "Set to true if the windows have a shade";
 equation
-  connect(air.heatPort, heaPorAir) annotation (Line(
-      points={{-138.067,50},{-180,50},{-180,40},{-202,40}},
-      color={191,0,0},
-      smooth=Smooth.None));
-
   connect(air.conExtWin, conExtWin.opa_b)
                                     annotation (Line(
       points={{-122,56},{-56,56},{-56,71},{25.9,71}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(air.conPar_b, conPar.opa_b) annotation (Line(
-      points={{-121.933,46.6667},{-48,46.6667},{-48,-69.3333},{3.93333,-69.3333}},
+      points={{-121.933,46.6667},{-42,46.6667},{-42,-70},{1.87333,-70},{1.87333,
+          -70.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(air.conPar_a, conPar.opa_a) annotation (Line(
-      points={{-121.933,48},{-40,48},{-40,-54},{40,-54},{40,-69.3333},{24,
-          -69.3333}},
+      points={{-121.933,48},{-40,48},{-40,-54},{40,-54},{40,-70.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conBou.opa_a, surf_conBou) annotation (Line(
-      points={{24,-119.333},{60,-119.333},{60,-160}},
+      points={{38,-120.667},{60,-120.667},{60,-180}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(air.conBou, conBou.opa_b) annotation (Line(
-      points={{-121.933,44.6667},{-52,44.6667},{-52,-119.333},{3.93333,-119.333}},
+      points={{-121.933,44.6667},{-52,44.6667},{-52,-120.667},{-2.13333,
+          -120.667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(surf_surBou, air.conSurBou) annotation (Line(
-      points={{-60,-140},{-60,22},{-121.967,22},{-121.967,42.6667}},
+      points={{-60,-140},{-60,42.6667},{-121.967,42.6667}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(uSha, air.uSha)
                     annotation (Line(
-      points={{-220,180},{-168,180},{-168,56.0667},{-138.667,56.0667}},
+      points={{-220,180},{-160,180},{-160,56.0667},{-138.667,56.0667}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(qGai_flow, air.qGai_flow) annotation (Line(
-      points={{-220,100},{-172,100},{-172,53.3333},{-138.667,53.3333}},
+      points={{-220,100},{-180,100},{-180,53.3333},{-138.667,53.3333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(air.JOutUns, conExtWin.JInUns_b)
@@ -323,11 +321,12 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExt.opa_b, air.conExt) annotation (Line(
-      points={{23.9,139},{-106,139},{-106,60},{-122,60},{-122,57.3333}},
+      points={{19.8467,140.333},{-106,140.333},{-106,60},{-122,60},{-122,
+          57.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conExt.opa_a, bouConExt.opa_a)      annotation (Line(
-      points={{54,139},{116,139}},
+      points={{66,140.333},{86,141},{116,141}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaBus, bouConExtWin.weaBus)    annotation (Line(
@@ -336,13 +335,9 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus, bouConExt.weaBus) annotation (Line(
-      points={{180,180},{180,130},{142.15,130},{142.15,130.05}},
+      points={{180,180},{180,130},{142.15,130},{142.15,132.05}},
       color={255,204,51},
       thickness=0.5,
-      smooth=Smooth.None));
-  connect(air.uSha[1], zer.y) annotation (Line(
-      points={{-138.667,56.0667},{-168,56.0667},{-168,130},{-179,130}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(ports, air.ports) annotation (Line(
       points={{-200,-60},{-130,-60},{-130,42.0667}},
@@ -354,19 +349,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(bouConExtWin.inc, conExtWinRad.incAng) annotation (Line(
-      points={{146.5,70},{172,70},{172,-40},{20,-40},{20,-11},{38.5,-11}},
+      points={{146.5,70},{154,70},{154,18},{20,18},{20,-11},{38.5,-11}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bouConExtWin.HDir, conExtWinRad.HDir) annotation (Line(
-      points={{146.5,67},{170,67},{170,-28},{22,-28},{22,-6},{38.5,-6}},
+      points={{146.5,67},{152,67},{152,16},{22,16},{22,-6},{38.5,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bouConExtWin.HDif, conExtWinRad.HDif) annotation (Line(
-      points={{146.5,64},{168,64},{168,-26},{24,-26},{24,-2},{38.5,-2}},
+      points={{146.5,64},{150,64},{150,14},{24,14},{24,-2},{38.5,-2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(uSha, conExtWinRad.uSha) annotation (Line(
-      points={{-220,180},{-168,180},{-168,-34},{49.8,-34},{49.8,-21.6}},
+      points={{-220,180},{-160,180},{-160,-36},{49.8,-36},{49.8,-21.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(air.HOutConExtWin, conExtWinRad.HRoo) annotation (Line(
@@ -374,57 +369,48 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWinRad.QTra_flow, air.JInConExtWin) annotation (Line(
-      points={{61,-18},{72,-18},{72,-46},{-152,-46},{-152,46.6667},{-138.667,
+      points={{61,-18},{72,-18},{72,-38},{-152,-38},{-152,46.6667},{-138.667,
           46.6667}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWinRad.QAbsIntSha_flow, air.QAbsSWSha_flow) annotation (Line(
-      points={{61,-13},{76,-13},{76,-48},{-154,-48},{-154,43.3333},{-138.667,
+      points={{61,-13},{76,-13},{76,-40},{-154,-40},{-154,43.3333},{-138.667,
           43.3333}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWin.QAbsSha_flow, conExtWinRad.QAbsGlaSha_flow) annotation (
       Line(
-      points={{37,45},{37,14},{76,14},{76,-9},{61,-9}},
+      points={{37,45},{37,40},{76,40},{76,-9},{61,-9}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWinRad.QAbsGlaUns_flow, conExtWin.QAbsUns_flow) annotation (
       Line(
-      points={{61,-5},{70,-5},{70,10},{45,10},{45,45}},
+      points={{61,-5},{74,-5},{74,38},{45,38},{45,45}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zer.y, air.JInConExtWin[1]) annotation (Line(
-      points={{-179,130},{-168,130},{-168,46},{-138.667,46},{-138.667,46.6667}},
-      color={0,0,127},
+  connect(air.heaPorAir, heaPorAir) annotation (Line(
+      points={{-138,50},{-164,50},{-164,20},{5.55112e-16,20}},
+      color={191,0,0},
       smooth=Smooth.None));
-  connect(zer.y, air.QAbsSWSha_flow[1]) annotation (Line(
-      points={{-179,130},{-168,130},{-168,43.3333},{-138.667,43.3333}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(air.TRad, TRad) annotation (Line(
-      points={{-134,41.6667},{-134,20},{210,20}},
-      color={0,0,127},
+  connect(air.heaPorRad, heaPorRad) annotation (Line(
+      points={{-138,48.6667},{-166,48.6667},{-166,-10},{5.55112e-16,-10}},
+      color={191,0,0},
       smooth=Smooth.None));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
             -200},{200,200}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-200,-200},{200,200}}), graphics={
+        Rectangle(
+          extent={{-100,160},{124,-100}},
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
         Text(
           extent={{-104,210},{84,242}},
           lineColor={0,0,255},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="%name"),
-        Rectangle(
-          extent={{-160,160},{160,-160}},
-          lineColor={135,135,135},
-          fillColor={175,175,175},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-140,140},{140,-140}},
-          lineColor={135,135,135},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-214,114},{-138,82}},
           lineColor={0,0,127},
@@ -432,7 +418,135 @@ equation
         Text(
           extent={{-212,176},{-136,144}},
           lineColor={0,0,127},
-          textString="u")}),
+          textString="u"),
+        Rectangle(
+          extent={{80,100},{100,-160}},
+          lineColor={135,135,135},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{100,100},{148,170},{148,-92},{100,-160},{100,100}},
+          smooth=Smooth.None,
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Polygon(
+          points={{-140,100},{-100,160},{-100,-100},{-140,-160},{-140,100}},
+          lineColor={0,0,0},
+          smooth=Smooth.None,
+          fillColor={215,215,215},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-140,-160},{80,-160}},
+          color={0,0,255},
+          smooth=Smooth.None),
+        Line(
+          points={{-100,160},{120,160}},
+          color={0,0,0},
+          smooth=Smooth.None),
+        Polygon(
+          points={{-160,100},{-110,170},{-92,170},{-140,100},{-160,100}},
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Polygon(
+          points={{-140,-160},{-100,-100},{80,-100},{80,-160},{-140,-160}},
+          smooth=Smooth.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Polygon(
+          points={{80,100},{130,170},{148,170},{100,100},{80,100}},
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Polygon(
+          points={{-92,170},{132,170},{122,160},{-100,160},{-92,170}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{140,118},{112,84},{112,-54},{140,-18},{140,118}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{136,104},{116,78},{116,-42},{136,-14},{136,104}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Polygon(
+          points={{128,100},{126,98},{126,-32},{128,-28},{128,100}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{100,-174},{148,-102},{148,-92},{100,-160},{100,-174}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-106,112},{-134,78},{-134,-60},{-106,-24},{-106,112}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{-110,98},{-130,72},{-130,-48},{-110,-20},{-110,98}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid,
+          lineColor={0,0,0}),
+        Polygon(
+          points={{-118,94},{-120,92},{-120,-38},{-118,-34},{-118,94}},
+          pattern=LinePattern.None,
+          smooth=Smooth.None,
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-160,100},{-140,-160}},
+          lineColor={135,135,135},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-60,12},{-22,-10}},
+          lineColor={0,0,0},
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid,
+          textString="air"),
+        Text(
+          extent={{-72,-22},{-22,-50}},
+          lineColor={0,0,0},
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid,
+          textString="radiation"),
+        Text(
+          extent={{-104,-124},{-54,-152}},
+          lineColor={0,0,0},
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid,
+          textString="surface"),
+        Text(
+          extent={{-14,-170},{44,-196}},
+          lineColor={0,0,0},
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid,
+          textString="boundary"),
+        Rectangle(
+          extent={{-160,-160},{100,-174}},
+          pattern=LinePattern.None,
+          lineColor={0,0,0},
+          fillColor={61,61,61},
+          fillPattern=FillPattern.Solid)}),
     preferedView="info",
     Documentation(info="<html>
 <p>The package <b>Buildings.RoomsBeta</b> contains models for heat transfer 
@@ -591,8 +705,9 @@ Exterior constructions that have a window. Each construction of this type needs 
 Within the same room, all windows can either have a shade or have no shade. 
 Individual windows within the same room can have either an interior shade or an exterior shade, but not both.
 Each window has its own control signal for the shade. This signal is exposed by the port <code>uSha</code>, which
-has the same dimension as the number of windows. 
-A value of <code>0</code> means that the shade is open, and <code>1</code> means that the shade is closed.
+has the same dimension as the number of windows. The values for <code>uSha</code> must be between 
+<code>0</code> and <code>1</code>. Set <code>uSha=0</code> to open the shade, and <code>uSha=1</code>
+to close the shade.
 </td>
 </tr>
 <tr>
@@ -740,8 +855,8 @@ Next, the declaration
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConExtWin(layers={matLayExt}, A={4*3},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              glaSys={glaSys},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              AWin={2*2},</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              fFra={0.1},</span></p>
-<p style" + "=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              til={Types.Tilt.Wall},</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0p" + "x; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              fFra={0.1},</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              til={Types.Tilt.Wall},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              azi={Types.Azimuth.S}),</span></p>
 
 </pre>

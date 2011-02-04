@@ -162,7 +162,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.ports[1], boundary.ports[1]) annotation (Line(
-      points={{46,34},{34,34},{34,10},{20,10}},
+      points={{51,37.8},{34,37.8},{34,10},{20,10}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},

@@ -2,8 +2,10 @@ within Buildings.RoomsBeta.BaseClasses;
 model LongWaveRadiationGainDistribution
   "Long-wave radiative heat gain distribution between the room facing surfaces"
   extends Buildings.RoomsBeta.BaseClasses.PartialSurfaceInterface;
+  parameter Boolean haveShade "Set to true if a shade is present";
 
-  Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin](each min=0, each max=1)
+  Modelica.Blocks.Interfaces.RealInput uSha[NConExtWin](each min=0, each max=1) if
+       haveShade
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-280,160},{-240,200}}),
         iconTransformation(extent={{-280,160},{-240,200}})));
@@ -63,13 +65,14 @@ protected
     "Sum of emissivity times area of all constructions including windows";
 
  Buildings.HeatTransfer.WindowsBeta.BaseClasses.ShadingSignal shaSig[NConExtWin](
-      each final haveShade=true)
+      each final haveShade=haveShade)
     "Block to constrain the shading control signal to be strictly within (0, 1) if a shade is present";
 initial equation
   sumAEpsNoWin = sum(AEpsConExt)+sum(AEpsConExtWinOpa)+sum(AEpsConExtWinFra)
                 +sum(AEpsConPar_a)+sum(AEpsConPar_b)+sum(AEpsConBou)+sum(AEpsSurBou);
 equation
   connect(uSha, shaSig.u);
+
   sumAEps      = sumAEpsNoWin + sum(AEpsConExtWinUns) + sum(AEpsConExtWinSha);
 
   // Long-wave radiative heat flow

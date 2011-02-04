@@ -26,7 +26,7 @@ partial block PartialRadiation
     final rhoShaSW_b=rhoShaSW_b)
     "Optical properties of window for different irradiation angles" annotation (
      Evaluate=true, Placement(transformation(extent={{60,20},{80,40}})));
-  Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1)
+  Modelica.Blocks.Interfaces.RealInput uSha(min=0, max=1) if haveShade
     "Control signal for shading (0: unshaded; 1: fully shaded)" annotation (
       Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -50,13 +50,21 @@ partial block PartialRadiation
         transformation(extent={{-140,20},{-100,60}}),iconTransformation(extent=
             {{-130,25},{-100,55}})));
 
+protected
+  Modelica.Blocks.Interfaces.RealInput uSha_internal(min=0, max=1)
+    "Control signal for shading (0: unshaded; 1: fully shaded)";
 initial equation
-  /* Current model assumes that the window only has either interior or exterior shading.
-     Warn user if it has both interior and exterior shading working at the same time. 
+  /* Current model assumes that the window only has either an interior or exterior shade.
+     Warn user if it has an interior and exterior shade. 
      Allowing both shades at the same time would require rewriting part of the model. */
   assert(not (haveExteriorShade and haveInteriorShade),
-    "Window radiation model does not support exterior and interior shade at the same time.");
-
+    "Window radiation model does not support an exterior and interior shade at the same time.");
+equation
+  // Connect statement for conditionally removed connector uSha
+  connect(uSha, uSha_internal);
+  if (not haveShade) then
+    uSha_internal = 0;
+  end if;
   annotation (
     Documentation(info="<html>
 The model calculates short-wave absorbance on the window. 
@@ -73,6 +81,10 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2010, by Michael Wetter:<br>
+Made connector <code>uSha</code> a conditional connector.
+</li>
 <li>
 December 16, 2010, by Wangda Zuo:<br>
 First implementation.
