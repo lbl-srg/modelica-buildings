@@ -16,6 +16,7 @@ algorithm
   X_w := x_w/(1 + x_w);
   annotation (
     smoothOrder=5,
+    Inline=true,
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>

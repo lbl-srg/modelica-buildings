@@ -67,5 +67,5 @@ April 14, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"),  smoothOrder=2, derivative=BaseClasses.der_regNonZeroPower);
+</html>"), Inline=true, smoothOrder=2, derivative=BaseClasses.der_regNonZeroPower);
 end regNonZeroPower;

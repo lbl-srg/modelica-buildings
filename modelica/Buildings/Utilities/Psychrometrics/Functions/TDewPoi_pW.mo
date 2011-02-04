@@ -49,5 +49,5 @@ First implementation.
             100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
-    smoothOrder=1);
+        Inline=true);
 end TDewPoi_pW;

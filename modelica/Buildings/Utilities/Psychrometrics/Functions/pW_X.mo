@@ -15,6 +15,7 @@ algorithm
   x_w := X_w/(1 - X_w);
   p_w := p*x_w/(0.62198 + x_w);
   annotation (
+    Inline=true,
     derivative=BaseClasses.der_pW_X,
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),

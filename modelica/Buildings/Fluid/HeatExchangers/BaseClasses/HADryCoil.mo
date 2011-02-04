@@ -50,18 +50,18 @@ model HADryCoil "Sensible convective heat transfer model for air to water coil"
   parameter Modelica.SIunits.Temperature T0_a=
           Modelica.SIunits.Conversions.from_degC(20) "Air temperature"
           annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Boolean waterSideFlowDependent = true
+  parameter Boolean waterSideFlowDependent=true
     "Set to false to make water-side hA independent of mass flow rate"
-    annotation(Dialog(tab="Advanced", group="Modeling detail"));
+    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
   parameter Boolean airSideFlowDependent = true
     "Set to false to make air-side hA independent of mass flow rate"
-    annotation(Dialog(tab="Advanced", group="Modeling detail"));
+    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
   parameter Boolean waterSideTemperatureDependent = true
     "Set to false to make water-side hA independent of temperature"
-    annotation(Dialog(tab="Advanced", group="Modeling detail"));
+    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
   parameter Boolean airSideTemperatureDependent = true
     "Set to false to make air-side hA independent of temperature"
-    annotation(Dialog(tab="Advanced", group="Modeling detail"));
+    annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
 protected
   Real x_a(min=0)
     "Factor for air side temperature dependent variation of heat transfer coefficient";
@@ -86,14 +86,14 @@ equation
   x_a = if airSideTemperatureDependent then
          1 + 4.769E-3 * (T_2-T0_a) else
               1;
-  if ( waterSideFlowDependent == true) then
+  if waterSideFlowDependent then
     hA_1 = x_w * hA_nominal_w
                * Buildings.Utilities.Math.Functions.regNonZeroPower(fm_w, n_w, 0.1);
   else
     hA_1 = x_w * hA_nominal_w;
   end if;
 
-  if ( airSideFlowDependent == true) then
+  if airSideFlowDependent then
     hA_2 = x_a * hA_nominal_a
                * Buildings.Utilities.Math.Functions.regNonZeroPower(fm_a, n_a, 0.1);
   else

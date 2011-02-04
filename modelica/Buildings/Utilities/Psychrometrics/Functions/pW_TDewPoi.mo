@@ -53,6 +53,7 @@ First implementation.
             100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
+    Inline=true,
     smoothOrder=1,
     derivative=BaseClasses.der_pW_TDewPoi);
 end pW_TDewPoi;

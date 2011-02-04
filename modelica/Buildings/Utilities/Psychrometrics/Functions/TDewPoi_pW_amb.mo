@@ -1,7 +1,8 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 function TDewPoi_pW_amb
   "Function to compute the dew point temperature of moist air for a given water vapor partial pressure"
-  extends Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb;
+  extends
+    Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb;
 
   input Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
   output Modelica.SIunits.Temperature T "Dew point temperature";
@@ -10,6 +11,7 @@ algorithm
   T := (Modelica.Math.log(p_w) - a1)/a2;
   annotation (
     inverse(p_w=pW_TDewPoi_amb(T)),
+    Inline=true,
     derivative=BaseClasses.der_TDewPoi_pW_amb,
     Documentation(info="<html>
 <p>
