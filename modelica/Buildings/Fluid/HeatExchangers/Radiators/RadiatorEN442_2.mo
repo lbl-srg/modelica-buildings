@@ -49,9 +49,6 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
   Modelica.SIunits.HeatFlowRate QRad_flow
     "Heat input into the water due to radiative heat transfer with room";
   Modelica.SIunits.HeatFlowRate Q_flow "Heat input into the water";
-  parameter Modelica.SIunits.TemperatureDifference deltaT=0.1
-    "Temperature difference used for smoothing of heat transfer coefficient"
-    annotation (Dialog(tab="Advanced"));
 public
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPortCon
     "Heat port for convective heat transfer with room air temperature"
