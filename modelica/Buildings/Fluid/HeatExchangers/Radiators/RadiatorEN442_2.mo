@@ -98,24 +98,14 @@ protected
    Modelica.SIunits.TemperatureDifference[nEle] dTRad
     "Temperature difference for radiative heat transfer";
    parameter Modelica.SIunits.ThermalConductance UA_nominaln = Q_flow_nominal /dT_nominal^n/nEle;
-   Modelica.SIunits.ThermalConductance[nEle] UACon
-    "Thermal conductance between radiator and room for convective heat transfer";
-   Modelica.SIunits.ThermalConductance[nEle] UARad
-    "Thermal conductance between radiator and room for radiative heat transfer";
-
 equation
-  for i in 1:nEle loop
-     dTCon[i] = heatPortCon.T - vol[i].medium.T;
-     dTRad[i] = heatPortRad.T - vol[i].medium.T;
-     UACon[i] = (1-fraRad)  * UA_nominaln *
-                Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTCon[i], n=n-1, delta=deltaT);
-     UARad[i] = fraRad      * UA_nominaln *
-                Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTRad[i], n=n-1, delta=deltaT);
-     preHeaFloCon[i].Q_flow = UACon[i] * dTCon[i];
-     preHeaFloRad[i].Q_flow = UARad[i] * dTRad[i];
-  end for;
-  QCon_flow = sum(preHeaFloCon[i].Q_flow for i in 1:nEle);
-  QRad_flow = sum(preHeaFloRad[i].Q_flow for i in 1:nEle);
+  dTCon = heatPortCon.T .- vol.medium.T;
+  dTRad = heatPortRad.T .- vol.medium.T;
+  preHeaFloCon.Q_flow = sign(dTCon) .* (1-fraRad) .* UA_nominaln .* abs(dTCon).^n;
+  preHeaFloRad.Q_flow = sign(dTCon) .* fraRad     .* UA_nominaln .* abs(dTRad).^n;
+
+  QCon_flow = sum(preHeaFloCon.Q_flow);
+  QRad_flow = sum(preHeaFloRad.Q_flow);
   Q_flow = QCon_flow + QRad_flow;
   heatPortCon.Q_flow = QCon_flow;
   heatPortRad.Q_flow = QRad_flow;
@@ -143,7 +133,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   for i in 1:nEle-1 loop
-
     connect(vol[i].ports[2], vol[i+1].ports[1]) annotation (Line(
         points={{3,5.55112e-16},{2,5.55112e-16},{2,1.11022e-15},{1,1.11022e-15},
             {1,5.55112e-16},{-1,5.55112e-16}},
@@ -230,6 +219,10 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 4, 2011 by Michael Wetter:<br>
+Simplified implementation.
+</li>
 <li>
 January 30, 2009 by Michael Wetter:<br>
 First implementation.
