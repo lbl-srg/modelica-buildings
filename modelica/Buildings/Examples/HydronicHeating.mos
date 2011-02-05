@@ -3,7 +3,7 @@ simulateModel("Buildings.Examples.HydronicHeating", stopTime=stopTime, method="r
 
 createPlot(id = 5,
  position = {10, 30, 719, 536},
- y = {"roo1.T", "roo2.T", "weaBus.TDryBul"},
+ y = {"TRoo1.T", "TRoo2.T", "weaBus.TDryBul"},
  range = {0, 180000.0, 22.0, 18.0},
  autoscale = true,
  autoerase = true,
