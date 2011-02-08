@@ -33,7 +33,9 @@ However, there is no mass exchange with the medium other than through the port
 <p>
 For media that do provide water as a species, use the model
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir\">
-Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a>.
+Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a> to add
+or subtract moisture using a signal that is connected to the port
+<code>mWat_flow</code> and <code>TWat</code>.
 </p>
 </html>", revisions="<html>
 <ul>

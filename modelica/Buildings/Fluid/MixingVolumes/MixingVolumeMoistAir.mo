@@ -57,17 +57,20 @@ and latent and sensible heat can be exchanged.
 This model represents the same physics as 
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>, but in addition, it allows
-adding (or subtracting) water in liquid phase, which causes a change in 
-enthalpy and species concentration. 
-The water flow rate is assumed to be added or extracted at the
-temperature of the input port <tt>TWat</tt>, or 
+adding or subtracting water in liquid phase.
+The mass flow rate of the added or subtracted water is
+specified at the port <code>mWat_flow</code>.
+The water flow rate is assumed to be added or subtracted at the
+temperature of the input port <code>TWat</code>, or 
 if this port is not connected, at the medium default temperature as
-defined by <tt>Medium.T_default</tt>.
+defined by <code>Medium.T_default</code>.
+Adding water causes a change in 
+enthalpy and species concentration in the volume. 
 </p>
 <p>
 Note that this model can only be used with medium models that include water
 as a substance. In particular, the medium model needs to implement the function
-<tt>enthalpyOfLiquid(T)</tt> and the integer variable <tt>Water</tt> that
+<code>enthalpyOfLiquid(T)</code> and the integer variable <code>Water</code> that
 contains the index to the water substance. For medium that do not provide this
 functionality, use
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolumeDryAir\">
