@@ -201,6 +201,11 @@ Buildings.Examples.HydronicHeating</a>.
 Fixed bug in energy balance of 
 <a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">
 Buildings.Fluid.Chillers.Carnot</a>.
+</li>
+<li>
+Revised the package 
+<a href=\"modelica://Buildings.Fluid.Sensors\">Buildings.Fluid.Sensors</a>.
+</li>
 </ul>
 </p>
 </html>
@@ -1142,6 +1147,10 @@ User's Guides that can be accessed by the following links:
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Fluid.Movers</a>
    </td>
    <td valign=\"top\">Library with fans and pumps.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">Fluid.Sensors</a>
+   </td>
+   <td valign=\"top\">Library with sensors.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.HeatTransfer.UsersGuide\">HeatTransfer</a>
    </td>
