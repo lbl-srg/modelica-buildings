@@ -38,7 +38,7 @@ equation
 
   // Relative pressure
   p_rel = port_a.p - port_b.p;
-  annotation (
+  annotation (defaultComponentName="senRelPre",
     Icon(graphics={
         Line(points={{-100,0},{-70,0}}, color={0,127,255}),
         Line(points={{70,0},{100,0}}, color={0,127,255}),

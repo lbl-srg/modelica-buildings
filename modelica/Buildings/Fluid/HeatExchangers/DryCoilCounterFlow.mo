@@ -73,13 +73,19 @@ protected
     "Set to false to compute sensible heat transfer only"
     annotation (Dialog(tab="Heat transfer"));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(redeclare package Medium
-      = Medium1) "Temperature sensor" annotation (Placement(transformation(
+      = Medium1,
+    allowFlowReversal=allowFlowReversal1,
+    m_flow_nominal=m1_flow_nominal) "Temperature sensor"
+                                      annotation (Placement(transformation(
           extent={{-58,54},{-48,66}}, rotation=0)));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_1(redeclare package Medium =
         Medium1) "Mass flow rate sensor" annotation (Placement(transformation(
           extent={{-80,54},{-68,66}}, rotation=0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_2(redeclare package Medium
-      = Medium2) "Temperature sensor" annotation (Placement(transformation(
+      = Medium2,
+    final allowFlowReversal=allowFlowReversal2,
+    m_flow_nominal=m2_flow_nominal) "Temperature sensor"
+                                      annotation (Placement(transformation(
           extent={{58,-66},{44,-54}}, rotation=0)));
   Buildings.Fluid.Sensors.MassFlowRate masFloSen_2(redeclare package Medium =
         Medium2) "Mass flow rate sensor" annotation (Placement(transformation(

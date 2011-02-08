@@ -3,10 +3,12 @@ model RelativeHumidity "Ideal one port relative humidity sensor"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
 
-  Modelica.Blocks.Interfaces.RealOutput phi "Relative humidity in port medium"
+  Modelica.Blocks.Interfaces.RealOutput phi(unit="1", min=0)
+    "Relative humidity in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
 
+protected
   Medium.BaseProperties med "Medium state at dry bulb temperature";
 
 equation

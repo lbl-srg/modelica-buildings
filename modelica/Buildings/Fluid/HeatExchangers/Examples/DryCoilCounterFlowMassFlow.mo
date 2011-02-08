@@ -5,8 +5,8 @@ model DryCoilCounterFlowMassFlow
     Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow(
     sou_1(nPorts=1),
     sin_1(nPorts=1),
-    sin_2(nPorts=1),
-    sou_2(nPorts=1));
+    sou_2(nPorts=1),
+    sin_2(nPorts=1));
 
   DryCoilCounterFlow hex(
     redeclare package Medium1 = Medium1,
@@ -26,6 +26,9 @@ model DryCoilCounterFlowMassFlow
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
+  Sensors.RelativeHumidityTwoPort senRelHum(         redeclare package Medium
+      = Medium2, m_flow_nominal=m2_flow_nominal)
+    annotation (Placement(transformation(extent={{20,14},{0,34}})));
 equation
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(
       points={{18,62},{28,62},{28,36},{40,36}},
@@ -35,19 +38,19 @@ equation
       points={{60,36},{90,36},{90,60},{120,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sin_2.ports[1], hex.port_b2) annotation (Line(
-      points={{-22,24},{40,24}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(hex.port_a2, sou_2.ports[1]) annotation (Line(
       points={{60,24},{118,24}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senRelHum.port, hex.port_b2) annotation (Line(
-      points={{10,-16},{10,-20},{40,-20},{40,24}},
+  connect(senRelHum.port_a, hex.port_b2) annotation (Line(
+      points={{20,24},{40,24}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {200,200}}),       graphics), Commands(file=
+  connect(senRelHum.port_b, sin_2.ports[1]) annotation (Line(
+      points={{-5.55112e-16,24},{-22,24}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+            -100},{200,200}}), graphics), Commands(file=
           "DryCoilCounterFlowMassFlow.mos" "run"));
 end DryCoilCounterFlowMassFlow;

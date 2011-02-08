@@ -17,7 +17,8 @@ model RelativeTemperature "Ideal relative temperature sensor"
 
   Modelica.Blocks.Interfaces.RealOutput T_rel(final quantity="Temperature",
                                               final unit = "K", displayUnit = "degC", min=0)
-    "Relative temperature signal"                                                                               annotation (Placement(
+    "Relative temperature signal"
+     annotation (Placement(
         transformation(
         origin={0,-90},
         extent={{10,-10},{-10,10}},
@@ -38,7 +39,7 @@ equation
   // Relative temperature
   T_rel = Medium.temperature(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow))) -
           Medium.temperature(Medium.setState_phX(port_b.p, inStream(port_b.h_outflow), inStream(port_b.Xi_outflow)));
-  annotation (
+  annotation (defaultComponentName="senRelTem",
     Icon(graphics={
         Line(points={{-100,0},{-70,0}}, color={0,127,255}),
         Line(points={{70,0},{100,0}}, color={0,127,255}),

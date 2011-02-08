@@ -2,6 +2,13 @@ within Buildings.Fluid.Sensors;
 model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
   extends Modelica.Icons.RotationalSensor;
+  parameter Medium.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate, used for regularization near zero flow"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
+    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
+    annotation(Dialog(group="Advanced"));
+
   Modelica.Blocks.Interfaces.RealOutput C
     "Trace substance of the passing fluid"
     annotation (Placement(transformation(
@@ -9,10 +16,6 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
         extent={{10,-10},{-10,10}},
         rotation=270)));
   parameter String substanceName = "CO2" "Name of trace substance";
-  parameter Medium.MassFlowRate m_flow_small(min=0) = system.m_flow_small
-    "For bi-directional flow, trace substance is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
-    annotation(Dialog(tab="Advanced"));
-
 protected
   parameter Integer ind(fixed=false)
     "Index of species in vector of auxiliary substances";
@@ -30,9 +33,9 @@ equation
   if allowFlowReversal then
      C = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.C_outflow[ind], port_a.C_outflow[ind], m_flow_small);
   else
-     C = port_b.C_outflow[ind];
+     C = inStream(port_b.C_outflow[ind]);
   end if;
-annotation (defaultComponentName="traceSubstance",
+annotation (defaultComponentName="senTraSub",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

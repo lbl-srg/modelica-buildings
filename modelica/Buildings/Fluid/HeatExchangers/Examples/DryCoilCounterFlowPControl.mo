@@ -59,7 +59,7 @@ model DryCoilCounterFlowPControl
     m_flow_nominal=m1_flow_nominal)
                      annotation (Placement(transformation(extent={{90,50},{110,
             70}}, rotation=0)));
-  Buildings.Fluid.Sensors.TemperatureDryBulbDynamic temSen(redeclare package
+  Buildings.Fluid.Sensors.TemperatureDynamicTwoPort temSen(redeclare package
       Medium = Medium2, m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{20,10},{0,30}}, rotation=0)));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
@@ -103,9 +103,10 @@ model DryCoilCounterFlowPControl
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=60)
     annotation (Placement(transformation(extent={{-30,100},{-10,120}})));
-  Buildings.Fluid.Sensors.RelativeHumidity senRelHum(redeclare package Medium
-      = Medium2)
-    annotation (Placement(transformation(extent={{20,-20},{40,0}})));
+  Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
+                                                     redeclare package Medium
+      = Medium2, m_flow_nominal=m2_flow_nominal)
+    annotation (Placement(transformation(extent={{50,10},{30,30}})));
   Modelica.Blocks.Sources.Ramp TWat(
     height=30,
     offset=T_a1_nominal,
@@ -131,10 +132,6 @@ equation
       smooth=Smooth.None));
   connect(sou_2.ports[1], hex.port_a2) annotation (Line(
       points={{120,20},{80,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(hex.port_b2, temSen.port_a) annotation (Line(
-      points={{60,20},{20,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(temSen.port_b, res_2.port_a) annotation (Line(
@@ -165,10 +162,6 @@ equation
       points={{10,31},{10,80},{-20,80},{-20,98}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senRelHum.port, hex.port_b2) annotation (Line(
-      points={{30,-20},{30,-26},{60,-26},{60,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(TWat.y, sou_1.T_in) annotation (Line(
       points={{-75,64},{-42,64}},
       color={0,0,127},
@@ -176,6 +169,14 @@ equation
   connect(limPID.y, val.y) annotation (Line(
       points={{-9,110},{40,110},{40,68}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(hex.port_b2, senRelHum.port_a) annotation (Line(
+      points={{60,20},{50,20}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(senRelHum.port_b, temSen.port_a) annotation (Line(
+      points={{30,20},{20,20}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}}), graphics), Commands(file=

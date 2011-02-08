@@ -9,6 +9,12 @@ model SensibleEnthalpyFlowRate
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases
       annotation (choicesAllMatching = true);
+  parameter Medium.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate, used for regularization near zero flow"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
+    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
+    annotation(Dialog(group="Advanced"));
 
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Sensible enthalpy flow rate, positive if from port_a to port_b"
@@ -16,10 +22,10 @@ model SensibleEnthalpyFlowRate
         origin={0,110},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  Medium.MassFraction XiActual[Medium.nXi] "Medium mass fraction in port_a";
-  Medium.ThermodynamicState sta "Medium properties in port_a";
 
 protected
+  Medium.MassFraction XiActual[Medium.nXi] "Medium mass fraction in port_a";
+  Medium.SpecificEnthalpy hActual "Medium enthalpy in port_a";
   parameter Integer i_w(min=1, fixed=false) "Index for water substance";
 initial algorithm
   i_w :=1;
@@ -30,14 +36,19 @@ initial algorithm
     end for;
 equation
   if allowFlowReversal then
-     XiActual = actualStream(port_a.Xi_outflow);
-     sta = Medium.setState_phX(port_a.p, actualStream(port_a.h_outflow), XiActual);
+     XiActual = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
+                 port_b.Xi_outflow,
+                 port_a.Xi_outflow, m_flow_small);
+     hActual = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
+                 port_b.h_outflow,
+                 port_a.h_outflow, m_flow_small);
   else
      XiActual = port_b.Xi_outflow;
-     sta = Medium.setState_phX(port_b.p, port_b.h_outflow, XiActual);
+     hActual = port_b.h_outflow;
   end if;
-     H_flow = port_a.m_flow * (1-XiActual[i_w]) * Medium.enthalpyOfNonCondensingGas(Medium.temperature(sta));
-annotation (
+  H_flow = port_a.m_flow * (1-XiActual[i_w]) * Medium.enthalpyOfNonCondensingGas(
+      Medium.temperature(Medium.setState_phX(port_a.p, hActual, XiActual)));
+annotation (defaultComponentName="senEntFlo",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics),
   Icon(graphics={

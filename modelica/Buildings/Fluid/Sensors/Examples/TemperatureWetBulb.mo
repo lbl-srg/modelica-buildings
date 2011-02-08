@@ -1,5 +1,5 @@
 within Buildings.Fluid.Sensors.Examples;
-model WetBulbTemperature
+model TemperatureWetBulb
   import Buildings;
 
  package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model"
@@ -16,8 +16,8 @@ model WetBulbTemperature
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{74,10},{54,30}}, rotation=0)));
-  Buildings.Fluid.Sensors.TemperatureWetBulb senWetBul(redeclare package Medium
-      =        Medium) "Wet bulb temperature sensor"
+  Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort senWetBul(redeclare package
+      Medium = Medium, m_flow_nominal=10) "Wet bulb temperature sensor"
     annotation (Placement(transformation(extent={{0,10},{20,30}},  rotation=0)));
   Buildings.Fluid.Sources.MassFlowSource_T massFlowRate(            redeclare
       package Medium = Medium, m_flow=1,
@@ -89,7 +89,7 @@ equation
             -100},{100,100}}),
                         graphics),
                          Commands(file=
-            "WetBulbTemperature.mos" "run"),
+            "TemperatureWetBulb.mos" "run"),
     Documentation(info="<html>
 This examples is a unit test for the wet bulb sensor.
 The problem setup is such that the moisture concentration and
@@ -107,4 +107,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end WetBulbTemperature;
+end TemperatureWetBulb;

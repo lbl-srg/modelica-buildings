@@ -9,7 +9,7 @@ model Pressure "Ideal pressure sensor"
           rotation=0)));
 equation
   p = port.p;
-  annotation (
+  annotation (defaultComponentName="senPre",
   Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

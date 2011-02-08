@@ -264,8 +264,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.None));
   connect(res_11.port_b, hea1.port_a)
-                                     annotation (Line(points={{-80,96},{-68,96},
-          {-54,96}},
+                                     annotation (Line(points={{-80,96},{-54,96}},
                  color={0,127,255}));
   connect(u.y, hea1.u)
                       annotation (Line(points={{-127,184},{-64,184},{-64,102},{

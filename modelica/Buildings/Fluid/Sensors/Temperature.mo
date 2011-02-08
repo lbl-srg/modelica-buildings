@@ -11,7 +11,7 @@ model Temperature "Ideal one port temperature sensor"
 
 equation
   T = Medium.temperature(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
-annotation (defaultComponentName="temperature",
+annotation (defaultComponentName="senTem",
     Documentation(info="<HTML>
 <p>
 This component monitors the temperature of the fluid passing its port. 

@@ -5,12 +5,12 @@ model SpecificEnthalpy "Ideal one port specific enthalpy sensor"
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg")
     "Specific enthalpy in port medium"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}},
-          rotation=0)));
+    annotation (defaultComponentName="senSpeEnt",
+        Placement(transformation(extent={{100,-10},{120,10}}, rotation=0)));
 
 equation
   h_out = inStream(port.h_outflow);
-annotation (defaultComponentName="specificEnthalpy",
+annotation (defaultComponentName="senEnt",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

@@ -1,0 +1,1 @@
+simulateModel("Buildings.Fluid.Sensors.Examples.TemperatureWetBulb", method="dassl", resultFile="TemperatureWetBulb");

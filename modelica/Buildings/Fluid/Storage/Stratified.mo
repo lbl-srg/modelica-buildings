@@ -64,15 +64,16 @@ model Stratified "Model of a stratified tank for thermal energy storage"
         Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer)
     "Tank segment"            annotation (Placement(transformation(extent={{6,-16},
             {26,4}},       rotation=0)));
-  Sensors.EnthalpyFlowRate hA_flow(redeclare package Medium = Medium)
-    "Enthalpy flow rate at port a"
-    annotation (Placement(transformation(extent={{-62,-90},{-42,-70}},rotation=
+  Sensors.EnthalpyFlowRate hA_flow(redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal) "Enthalpy flow rate at port a"
+    annotation (Placement(transformation(extent={{-60,-90},{-40,-70}},rotation=
             0)));
-  Sensors.EnthalpyFlowRate[nSeg-1] hVol_flow(redeclare package Medium = Medium)
+  Sensors.EnthalpyFlowRate[nSeg-1] hVol_flow(redeclare package Medium = Medium,
+      each m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{-20,-50},{0,-30}},  rotation=
             0)));
-  Sensors.EnthalpyFlowRate hB_flow(redeclare package Medium = Medium)
-    "Enthalpy flow rate at port b"
+  Sensors.EnthalpyFlowRate hB_flow(redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal) "Enthalpy flow rate at port b"
     annotation (Placement(transformation(extent={{50,-90},{70,-70}}, rotation=0)));
   BaseClasses.Buoyancy buo(
     redeclare package Medium = Medium,
@@ -154,13 +155,13 @@ public
     annotation (Placement(transformation(extent={{46,20},{58,32}})));
 equation
   connect(hA_flow.port_b, vol[1].ports[1])
-                                     annotation (Line(points={{-42,-80},{-42,
-          -80},{14,-80},{14,-16},{16,-16}},       color={0,127,255}));
+                                     annotation (Line(points={{-40,-80},{-40,-80},
+          {14,-80},{14,-16},{16,-16}},            color={0,127,255}));
   connect(vol[nSeg].ports[2], hB_flow.port_a)
-                                        annotation (Line(points={{16,-16},{14,
-          -16},{14,-80},{50,-80}},                          color={0,127,255}));
+                                        annotation (Line(points={{16,-16},{14,-16},
+          {14,-80},{50,-80}},                               color={0,127,255}));
   connect(hB_flow.port_b, port_b)
-                             annotation (Line(points={{70,-80},{82,-80},{82,
+                             annotation (Line(points={{70,-80},{80,-80},{80,
           5.55112e-16},{100,5.55112e-16}},   color={0,127,255}));
   for i in 1:(nSeg-1) loop
 
@@ -174,7 +175,7 @@ equation
   end for;
   connect(port_a, hA_flow.port_a)
                              annotation (Line(points={{-100,5.55112e-16},{-80,
-          5.55112e-16},{-80,-80},{-62,-80}},                    color={0,127,
+          5.55112e-16},{-80,-80},{-60,-80}},                    color={0,127,
           255}));
   connect(buo.heatPort, vol.heatPort)    annotation (Line(
       points={{-40,60},{6,60},{6,-6}},

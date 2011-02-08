@@ -1,5 +1,5 @@
 within Buildings.Fluid.Sensors.Examples;
-model DryBulbTemperature
+model TemperatureDryBulb
 
 // package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" annotation 1;
  package Medium = Modelica.Media.Air.MoistAir;
@@ -39,7 +39,7 @@ model DryBulbTemperature
     annotation (Placement(transformation(extent={{0,60},{20,80}},    rotation=0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSteSta(
                                                redeclare package Medium =
-        Medium) "Steady state temperature sensor"
+        Medium, m_flow_nominal=2) "Steady state temperature sensor"
     annotation (Placement(transformation(extent={{0,-2},{20,18}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
@@ -49,11 +49,11 @@ model DryBulbTemperature
     period=30) "Mass flow rate"
                  annotation (Placement(transformation(extent={{-100,60},{-80,80}},
           rotation=0)));
-  Buildings.Fluid.Sensors.TemperatureDryBulbDynamic temDyn(
+  Buildings.Fluid.Sensors.TemperatureDynamicTwoPort temDyn(
     redeclare package Medium = Medium,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    m_flow_nominal=1,
-    T_start=293.15)
+    T_start=293.15,
+    m_flow_nominal=2)
     annotation (Placement(transformation(extent={{30,-2},{50,18}})));
 equation
   connect(TDryBul.y, masFloRat.T_in)    annotation (Line(points={{-79,30},{-60,30},
@@ -69,7 +69,7 @@ equation
   connect(temSteSta.T, firOrd.u) annotation (Line(points={{10,19},{10,40},{-20,
           40},{-20,70},{-2,70}},   color={0,0,127}));
   connect(masFloRat.ports[1], temSteSta.port_a) annotation (Line(
-      points={{-16,8},{0,8}},
+      points={{-16,8},{-5.55112e-16,8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(firOrd.y, assertEquality.u1) annotation (Line(
@@ -96,7 +96,7 @@ equation
             -100},{100,100}}),
                         graphics),
                          Commands(file=
-            "DryBulbTemperature.mos" "run"),
+            "TemperatureDryBulb.mos" "run"),
     Documentation(info="<html>
 This examples is a unit test for the dynamic dry bulb temperature sensor.
 </html>", revisions="<html>
@@ -107,4 +107,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DryBulbTemperature;
+end TemperatureDryBulb;

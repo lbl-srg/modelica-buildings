@@ -1,5 +1,5 @@
 within Buildings.Fluid.Sensors;
-model TemperatureWetBulb "Ideal wet bulb temperature sensor"
+model TemperatureWetBulbTwoPort "Ideal wet bulb temperature sensor"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 
   Modelica.Blocks.Interfaces.RealOutput T(
@@ -14,12 +14,15 @@ model TemperatureWetBulb "Ideal wet bulb temperature sensor"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1e-4
-    "For bi-directional flow, specific enthalpy is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
+  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
+    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
     annotation(Dialog(tab="Advanced"));
 protected
-  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulMod(redeclare package
-      Medium = Medium) "Block for wet bulb temperature";
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulMod(redeclare
+      package Medium =
+               Medium) "Block for wet bulb temperature";
   Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
   Medium.MassFraction Xi[Medium.nXi]
     "Species vector, needed because indexed argument for the operator inStream is not supported";
@@ -27,7 +30,7 @@ protected
 equation
 
   if allowFlowReversal then
-    h  = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow, port_a.h_outflow, m_flow_small);
+    h  = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow,  port_a.h_outflow,  m_flow_small);
     Xi = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.Xi_outflow, port_a.Xi_outflow, m_flow_small);
   else
     h = port_b.h_outflow;
@@ -38,7 +41,7 @@ equation
   wetBulMod.Xi = Xi;
   wetBulMod.p  = port_a.p;
   T = wetBulMod.TWetBul;
-annotation (
+annotation (defaultComponentName="senWetBul",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
           graphics),
@@ -100,4 +103,4 @@ First implementation based on
 </li>
 </ul>
 </html>"));
-end TemperatureWetBulb;
+end TemperatureWetBulbTwoPort;

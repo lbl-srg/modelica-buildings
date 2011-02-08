@@ -57,7 +57,8 @@ model WetCoilDiscretizedPControl
                  annotation (Placement(transformation(extent={{140,80},{160,100}},
           rotation=0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium =
-        Medium2) annotation (Placement(transformation(extent={{40,-26},{20,-6}},
+        Medium2, m_flow_nominal=m2_flow_nominal)
+                 annotation (Placement(transformation(extent={{40,-26},{20,-6}},
           rotation=0)));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
     redeclare package Medium = Medium1,

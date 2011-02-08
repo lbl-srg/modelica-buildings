@@ -9,8 +9,9 @@ model SpecificEntropy "Ideal one port specific entropy sensor"
           rotation=0)));
 
 equation
-  s = Medium.specificEntropy(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
-annotation (defaultComponentName="specificEntropy",
+  s = Medium.specificEntropy(Medium.setState_phX(port.p,
+          inStream(port.h_outflow), inStream(port.Xi_outflow)));
+annotation (defaultComponentName="senSpeEnt",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

@@ -9,8 +9,10 @@ model VolumeFlowRate "Ideal sensor for volume flow rate"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = system.m_flow_small
-    "For bi-directional flow, density is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
+  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
+    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
     annotation(Dialog(tab="Advanced"));
 
 protected
@@ -29,7 +31,7 @@ equation
      rho_b_inflow = d;
   end if;
   V_flow = port_a.m_flow/d;
-annotation (
+annotation (defaultComponentName="senVolFlo",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.Sensors.Examples.DryBulbTemperature", stopTime=60, method="dassl", resultFile="DryBulbTemperature");
+simulateModel("Buildings.Fluid.Sensors.Examples.TemperatureDryBulb", stopTime=60, method="dassl", resultFile="TemperatureDryBulb");
 createPlot(id = 4,
  position = {75, 70, 578, 282},
  y = {"firOrd.y", "sen.T"},
@@ -8,7 +8,7 @@ createPlot(id = 4,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "DryBulbTemperature.mat",
+ filename = "TemperatureDryBulb.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 

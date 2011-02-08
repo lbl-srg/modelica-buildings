@@ -1,5 +1,5 @@
 within Buildings.Fluid.Sensors;
-model TemperatureDryBulbDynamic "Ideal temperature sensor"
+model TemperatureDynamicTwoPort "Ideal temperature sensor"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 
   parameter Modelica.SIunits.Time tau(min=0) = 10 "Time constant";
@@ -26,11 +26,11 @@ model TemperatureDryBulbDynamic "Ideal temperature sensor"
   parameter Modelica.SIunits.Temperature T_start=Medium.T_default
     "Initial or guess value of output (= state)"
     annotation (Dialog(group="Initialization"));
-// temporarily made public for testing of large model protected
+  Medium.Temperature TMed "Medium temperature to which sensor is exposed";
+protected
   Medium.Temperature T_a_inflow "Temperature of inflowing fluid at port_a";
   Medium.Temperature T_b_inflow
     "Temperature of inflowing fluid at port_b or T_a_inflow, if uni-directional flow";
-  Medium.Temperature TMed "Medium to which sensor is exposed";
 initial equation
   if initType == Modelica.Blocks.Types.Init.SteadyState then
     der(T) = 0;
@@ -49,7 +49,7 @@ equation
      T_b_inflow = TMed;
   end if;
   der(T)  = (TMed-T)/tau;
-annotation (
+annotation (defaultComponentName="senTem",
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
           graphics),
@@ -116,4 +116,4 @@ First implementation based on
 </li>
 </ul>
 </html>");
-end TemperatureDryBulbDynamic;
+end TemperatureDynamicTwoPort;

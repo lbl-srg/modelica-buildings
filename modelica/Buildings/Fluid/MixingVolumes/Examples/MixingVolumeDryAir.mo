@@ -47,7 +47,8 @@ model MixingVolumeDryAir
              annotation (Placement(transformation(extent={{80,10},{100,30}},
           rotation=0)));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium
-      = Medium) "Enthalpy flow rate" annotation (Placement(transformation(
+      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+                                     annotation (Placement(transformation(
           extent={{40,10},{60,30}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res21(
     redeclare each package Medium = Medium,
@@ -67,7 +68,8 @@ model MixingVolumeDryAir
     annotation (Placement(transformation(extent={{152,40},{172,60}},   rotation=
            0)));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium
-      = Medium) "Enthalpy flow rate" annotation (Placement(transformation(
+      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+                                     annotation (Placement(transformation(
           extent={{40,-90},{60,-70}}, rotation=0)));
     Modelica.Blocks.Sources.Constant zero(k=0)
       annotation (Placement(transformation(extent={{-40,-20},{-20,0}},
@@ -93,19 +95,19 @@ equation
           {50,-40},{140,-40},{140,44},{150,44}},
                                     color={0,0,127}));
   connect(res11.port_b, vol1.ports[1]) annotation (Line(
-      points={{-20,20},{-6,20},{-6,20},{8,20}},
+      points={{-20,20},{8,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(entFloRat1.port_a, vol1.ports[2]) annotation (Line(
-      points={{40,20},{28,20},{28,20},{12,20}},
+      points={{40,20},{12,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res21.port_b, vol2.ports[1]) annotation (Line(
-      points={{-20,-80},{-5,-80},{-5,-78},{10,-78}},
+      points={{-20,-80},{8,-80}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol2.ports[2], entFloRat2.port_a) annotation (Line(
-      points={{10,-82},{25,-82},{25,-80},{40,-80}},
+      points={{12,-80},{40,-80}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(zero.y, vol2.mWat_flow) annotation (Line(

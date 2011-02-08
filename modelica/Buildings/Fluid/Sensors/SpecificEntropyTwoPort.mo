@@ -2,6 +2,13 @@ within Buildings.Fluid.Sensors;
 model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
   extends Modelica.Icons.RotationalSensor;
+  parameter Medium.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate, used for regularization near zero flow"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
+    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
+    annotation(Dialog(group="Advanced"));
+
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")
     "Specific entropy of the passing fluid"
@@ -9,10 +16,6 @@ model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = system.m_flow_small
-    "For bi-directional flow, specific entropy is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
-    annotation(Dialog(tab="Advanced"));
-
 protected
   Medium.SpecificEntropy s_a_inflow
     "Specific entropy of inflowing fluid at port_a";
@@ -28,7 +31,7 @@ equation
      s_a_inflow = s;
      s_b_inflow = s;
   end if;
-annotation (defaultComponentName="specificEntropy",
+annotation (defaultComponentName="senSpeEnt",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

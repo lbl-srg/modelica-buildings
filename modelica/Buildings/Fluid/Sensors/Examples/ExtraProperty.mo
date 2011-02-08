@@ -60,12 +60,12 @@ model ExtraProperty
     "Pressure sensor" annotation (Placement(transformation(extent={{20,120},{40,
             140}}, rotation=0)));
 equation
-  connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{-30,-4},
-          {0,-4}},                                            color={0,0,127}));
+  connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{
+          -5.55112e-16,-4},{-5.55112e-16,-4}},                color={0,0,127}));
   connect(m_flow.y, gain.u) annotation (Line(points={{-59,-4},{-50,-4},{-50,-44},
           {-42,-44}}, color={0,0,127}));
-  connect(gain.y, mSin.m_flow_in) annotation (Line(points={{-19,-44},{-9.5,-44},
-          {0,-44}},
+  connect(gain.y, mSin.m_flow_in) annotation (Line(points={{-19,-44},{
+          -5.55112e-16,-44},{-5.55112e-16,-44}},
         color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{121,100},{121,100},{
           139.8,100}},           color={0,0,127}));

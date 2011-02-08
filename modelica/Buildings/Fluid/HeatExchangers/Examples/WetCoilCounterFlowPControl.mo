@@ -59,7 +59,7 @@ model WetCoilCounterFlowPControl
     m_flow_nominal=m1_flow_nominal)
                      annotation (Placement(transformation(extent={{90,50},{110,
             70}}, rotation=0)));
-  Buildings.Fluid.Sensors.TemperatureDryBulbDynamic temSen(redeclare package
+  Buildings.Fluid.Sensors.TemperatureDynamicTwoPort temSen(redeclare package
       Medium = Medium2, m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{20,10},{0,30}}, rotation=0)));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(

@@ -3,6 +3,7 @@ model LatentEnthalpyFlowRate
   "Ideal enthalphy flow rate sensor that outputs the latent enthalpy flow rate only"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
   extends Modelica.Icons.RotationalSensor;
+
   // redeclare Medium with a more restricting base class. This improves the error
   // message if a user selects a medium that does not contain the function
   // enthalpyOfLiquid(.)
@@ -10,17 +11,24 @@ model LatentEnthalpyFlowRate
       Modelica.Media.Interfaces.PartialCondensingGases
       annotation (choicesAllMatching = true);
 
+  parameter Medium.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate, used for regularization near zero flow"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
+    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
+    annotation(Dialog(group="Advanced"));
+
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Latent enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
         origin={0,110},
         extent={{-10,-10},{10,10}},
         rotation=90)));
+
+protected
   Medium.MassFraction XiActual[Medium.nXi] "Medium mass fraction in port_a";
   Medium.SpecificEnthalpy hActual "Medium enthalpy in port_a";
   Medium.ThermodynamicState sta "Medium properties in port_a";
-
-protected
   parameter Integer i_w(min=1, fixed=false) "Index for water substance";
 initial algorithm
   i_w :=1;
@@ -31,20 +39,23 @@ initial algorithm
     end for;
 equation
   if allowFlowReversal then
-     XiActual = actualStream(port_a.Xi_outflow);
-     hActual = actualStream(port_a.h_outflow);
-     sta = Medium.setState_phX(port_a.p, hActual, XiActual);
+     XiActual = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
+                 port_b.Xi_outflow,
+                 port_a.Xi_outflow, m_flow_small);
+     hActual = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
+                 port_b.h_outflow,
+                 port_a.h_outflow, m_flow_small);
   else
      XiActual = port_b.Xi_outflow;
      hActual = port_b.h_outflow;
-     sta = Medium.setState_phX(port_b.p, port_b.h_outflow, XiActual);
   end if;
-     // Compute H_flow as difference between total enthalpy and enthalpy on non-condensing gas.
-     // This is needed to compute the liquid vs. gas fraction of water, using the equations
-     // provided by the medium model
-     H_flow = port_a.m_flow * (hActual -
-       (1-XiActual[i_w]) * Medium.enthalpyOfNonCondensingGas(Medium.temperature(sta)));
-annotation (
+  sta = Medium.setState_phX(port_a.p, hActual, XiActual);
+  // Compute H_flow as difference between total enthalpy and enthalpy on non-condensing gas.
+  // This is needed to compute the liquid vs. gas fraction of water, using the equations
+  // provided by the medium model
+  H_flow = port_a.m_flow * (hActual -
+     (1-XiActual[i_w]) * Medium.enthalpyOfNonCondensingGas(Medium.temperature(sta)));
+annotation (defaultComponentName="senLatEnt",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics),
   Icon(graphics={

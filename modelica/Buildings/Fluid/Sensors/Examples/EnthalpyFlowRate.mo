@@ -4,7 +4,7 @@ model EnthalpyFlowRate "Test model for enthalpy flow rate"
 
   package Medium = Modelica.Media.Air.SimpleAir;
   Buildings.Fluid.Sensors.EnthalpyFlowRate senH_flow(redeclare package Medium
-      = Medium) "Sensor for enthalpy flow rate"
+      = Medium, m_flow_nominal=2) "Sensor for enthalpy flow rate"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));
   Buildings.Fluid.Sources.MassFlowSource_h sou(
     use_m_flow_in=true,
@@ -30,7 +30,8 @@ model EnthalpyFlowRate "Test model for enthalpy flow rate"
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(redeclare package Medium
-      = Medium) annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+      = Medium, m_flow_nominal=2)
+                annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Fluid.Sensors.MassFlowRate senM_flow(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{28,-20},{48,0}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality
@@ -43,7 +44,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, sou.h_in) annotation (Line(
-      points={{-79,-6},{-62,-6}},
+      points={{-79,-6},{-70.5,-6},{-70.5,-6},{-62,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const1.y, sin.h_in) annotation (Line(
@@ -55,7 +56,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(senH_flow.port_b, senH.port_a) annotation (Line(
-      points={{-10,-10},{0,-10}},
+      points={{-10,-10},{-5.55112e-16,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senH.port_b, senM_flow.port_a) annotation (Line(

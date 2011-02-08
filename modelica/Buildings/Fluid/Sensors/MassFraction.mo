@@ -27,7 +27,7 @@ initial algorithm
 equation
   XiVec = inStream(port.Xi_outflow);
   X = if ind > Medium.nXi then (1-sum(XiVec)) else XiVec[ind];
-annotation (defaultComponentName="massFraction",
+annotation (defaultComponentName="senMasFra",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),     graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

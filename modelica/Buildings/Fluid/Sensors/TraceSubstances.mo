@@ -37,7 +37,7 @@ equation
   // Buildings.Examples.VAVSystemCTControl.mo
   // if we set C = CVec[ind];
   C = s*CVec;
-annotation (defaultComponentName="traceSubstance",
+annotation (defaultComponentName="senTraSub",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),     graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

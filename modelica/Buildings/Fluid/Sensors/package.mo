@@ -22,7 +22,7 @@ model the time constant of the sensor).
 <li><i>22 Dec 2008</i>
     by R&uuml;diger Franke
     <ul>
-    <li>flow sensors based on Interfaces.PartialTwoPort</li>
+    <li>flow sensors based on Modelica.Fluid.Interfaces.PartialTwoPort</li>
     <li>adapted documentation to stream connectors, i.e. less need for two port sensors</li>
     </ul>
 <li><i>4 Dec 2008</i>

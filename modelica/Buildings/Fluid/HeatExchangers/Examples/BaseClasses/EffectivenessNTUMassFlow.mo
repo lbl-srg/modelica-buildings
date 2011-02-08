@@ -55,9 +55,6 @@ partial model EffectivenessNTUMassFlow
     annotation (Placement(transformation(extent={{150,-42},{170,-22}})));
   Modelica.Blocks.Sources.Constant const1(k=T_a2_nominal)
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
-  Buildings.Fluid.Sensors.RelativeHumidity senRelHum(redeclare package Medium
-      = Medium2)
-    annotation (Placement(transformation(extent={{0,-16},{20,4}})));
   Modelica.Blocks.Math.Gain mWat_flow(k=m1_flow_nominal) "Water mass flow rate"
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.Blocks.Sources.TimeTable mWatGai(

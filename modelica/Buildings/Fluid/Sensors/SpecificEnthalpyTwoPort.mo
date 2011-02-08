@@ -2,6 +2,13 @@ within Buildings.Fluid.Sensors;
 model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
   extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
   extends Modelica.Icons.RotationalSensor;
+  parameter Medium.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate, used for regularization near zero flow"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
+    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
+    annotation(Dialog(group="Advanced"));
+
   Modelica.Blocks.Interfaces.RealOutput h_out(final quantity="SpecificEnergy",
                                               final unit="J/kg")
     "Specific enthalpy of the passing fluid"
@@ -10,17 +17,15 @@ model SpecificEnthalpyTwoPort "Ideal two port sensor for the specific enthalpy"
         extent={{10,-10},{-10,10}},
         rotation=270)));
 
-  parameter Medium.MassFlowRate m_flow_small(min=0) = system.m_flow_small
-    "For bi-directional flow, specific enthalpy is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
-    annotation(Dialog(tab="Advanced"));
-
 equation
   if allowFlowReversal then
-     h_out = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow, port_a.h_outflow, m_flow_small);
+    h_out = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
+                 port_b.h_outflow,
+                 port_a.h_outflow, m_flow_small);
   else
-     h_out = port_b.h_outflow;
+    h_out = port_b.h_outflow;
   end if;
-annotation (defaultComponentName="specificEnthalpy",
+annotation (defaultComponentName="senSpeEnt",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

@@ -12,7 +12,7 @@ model MassFlowRate "Ideal sensor for mass flow rate"
 
 equation
   m_flow = port_a.m_flow;
-annotation (
+annotation (defaultComponentName="senMasFlo",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

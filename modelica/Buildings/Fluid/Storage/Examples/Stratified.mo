@@ -7,9 +7,9 @@ model Stratified "Test model for stratified tank"
     redeclare package Medium = Medium,
     hTan=3,
     dIns=0.3,
-    VTan=5,
-    m_flow_nominal=10,
-    nSeg=10) "Tank"            annotation (Placement(transformation(extent={{-20,0},{0,
+    nSeg=10,
+    m_flow_nominal=0.1,
+    VTan=3) "Tank"             annotation (Placement(transformation(extent={{-20,0},{0,
             20}}, rotation=0)));
     Modelica.Blocks.Sources.TimeTable TWat(table=[0,273.15 + 40; 3600,273.15 +
         40; 3600,273.15 + 20; 7200,273.15 + 20]) "Water temperature"
@@ -33,29 +33,31 @@ model Stratified "Test model for stratified tank"
     from_dp=true,
     redeclare package Medium = Medium,
     dp_nominal=5000,
-    m_flow_nominal=10)
+    m_flow_nominal=0.1)
              annotation (Placement(transformation(extent={{36,0},{56,20}},
           rotation=0)));
   Buildings.Fluid.Storage.StratifiedEnhanced tanEnh(
     redeclare package Medium = Medium,
     hTan=3,
     dIns=0.3,
-    VTan=5,
-    m_flow_nominal=10,
-    nSeg=10) "Tank"            annotation (Placement(transformation(extent={{-18,-38},
+    nSeg=10,
+    m_flow_nominal=0.1,
+    VTan=3) "Tank"             annotation (Placement(transformation(extent={{-18,-38},
             {2,-18}}, rotation=0)));
     FixedResistances.FixedResistanceDpM res_2(
     from_dp=true,
     redeclare package Medium = Medium,
     dp_nominal=5000,
-    m_flow_nominal=10)
+    m_flow_nominal=0.1)
              annotation (Placement(transformation(extent={{38,-38},{58,-18}},
           rotation=0)));
   Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow(redeclare package Medium
-      = Medium) "Enthalpy flow rate" annotation (Placement(transformation(
+      = Medium, m_flow_nominal=0.1) "Enthalpy flow rate"
+                                     annotation (Placement(transformation(
           extent={{6,2},{22,18}},  rotation=0)));
   Buildings.Fluid.Sensors.EnthalpyFlowRate HOut_flow1(redeclare package Medium
-      = Medium) "Enthalpy flow rate" annotation (Placement(transformation(
+      = Medium, m_flow_nominal=0.1) "Enthalpy flow rate"
+                                     annotation (Placement(transformation(
           extent={{18,-36},{34,-20}},rotation=0)));
   Modelica.Blocks.Continuous.Integrator dH
     "Differenz in enthalpy (should be zero at steady-state)"

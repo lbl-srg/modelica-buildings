@@ -10,7 +10,7 @@ model Density "Ideal one port density sensor"
 
 equation
   d = Medium.density(Medium.setState_phX(port.p, inStream(port.h_outflow), inStream(port.Xi_outflow)));
-annotation (defaultComponentName="density",
+annotation (defaultComponentName="senDen",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),     graphics),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),

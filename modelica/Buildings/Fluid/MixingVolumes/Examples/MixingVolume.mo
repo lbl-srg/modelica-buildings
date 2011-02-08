@@ -72,10 +72,12 @@ model MixingVolume
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality
     annotation (Placement(transformation(extent={{160,72},{180,92}},rotation=0)));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat(redeclare package Medium
-      = Medium) "Enthalpy flow rate" annotation (Placement(transformation(
+      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+                                     annotation (Placement(transformation(
           extent={{40,50},{60,70}}, rotation=0)));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat1(redeclare package Medium
-      = Medium) "Enthalpy flow rate" annotation (Placement(transformation(
+      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+                                     annotation (Placement(transformation(
           extent={{40,0},{60,20}},  rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
     redeclare package Medium = Medium,
@@ -103,7 +105,8 @@ model MixingVolume
     annotation (Placement(transformation(extent={{156,10},{176,30}},   rotation=
            0)));
   Buildings.Fluid.Sensors.EnthalpyFlowRate entFloRat2(redeclare package Medium
-      = Medium) "Enthalpy flow rate" annotation (Placement(transformation(
+      = Medium, m_flow_nominal=2) "Enthalpy flow rate"
+                                     annotation (Placement(transformation(
           extent={{40,-92},{60,-72}}, rotation=0)));
     Modelica.Blocks.Sources.Constant zero(k=0)
       annotation (Placement(transformation(extent={{-40,-30},{-20,-10}},
