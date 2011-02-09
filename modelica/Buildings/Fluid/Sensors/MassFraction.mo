@@ -4,7 +4,8 @@ model MassFraction "Ideal one port mass fraction sensor"
   extends Modelica.Icons.RotationalSensor;
   parameter String substanceName = "water" "Name of species substance";
 
-  Modelica.Blocks.Interfaces.RealOutput X "Mass fraction in port medium"
+  Modelica.Blocks.Interfaces.RealOutput X(min=0, max=1)
+    "Mass fraction in port medium"
     annotation (Placement(transformation(extent={{100,-10},{120,10}},
           rotation=0)));
 

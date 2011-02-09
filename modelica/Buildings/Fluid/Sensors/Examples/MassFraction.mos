@@ -1,9 +1,8 @@
 simulateModel("Buildings.Fluid.Sensors.Examples.MassFraction", method="dassl", resultFile="MassFraction");
-
 removePlots();
 createPlot(id = 9,
  position = {86, 95, 400, 269},
- y = {"vol.medium.Xi[1]", "masFra.X"},
+ y = {"vol.medium.Xi[1]", "senMasFra1.X", "senMasFra2.X"},
  range = {0, 1, 0.022, 0.008},
  autoscale = true,
  autoerase = true,
