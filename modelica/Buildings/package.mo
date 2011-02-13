@@ -264,6 +264,13 @@ Added model
 Buildings.Controls.SetPoints.Table</a>
 that allows the specification of a floating setpoint using a table of values.
 </li>
+<li>
+Revised model
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2\">
+Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</a>.
+The new version has exactly the same nominal power during the simulation as specified 
+by the parameters. This also required a change in the parameters.
+</li>
 </ul>
 </p>
 </html>
