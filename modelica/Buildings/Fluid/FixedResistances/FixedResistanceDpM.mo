@@ -13,6 +13,7 @@ model FixedResistanceDpM
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true, Dialog(enable = not use_dh and not linearized));
 initial equation
+ assert(m_flow_nominal > 0, "m_flow_nominal must be positive. Check parameters.");
  if ( m_flow_turbulent > m_flow_nominal) then
    Modelica.Utilities.Streams.print("Warning: In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent."
            + "\n"
