@@ -69,7 +69,7 @@ model RoomVAV "Model for CO2 emitted by people"
   Modelica.Blocks.Math.Gain gaiCO2(k=8.18E-6) "CO2 emission per person"
     annotation (extent=[-140,-70; -120,-50], Placement(transformation(extent={{-138,
             -70},{-118,-50}})));
-  Buildings.Fluid.Sensors.Conversions.MassFractionVolumeFraction volFraCO2(
+  Fluid.Sensors.Conversions.To_VolumeFraction volFraCO2(
                                                    MMMea=Modelica.Media.
         IdealGases.Common.SingleGasesData.CO2.MM) "CO2 volume fraction"
     annotation (extent=[40,20; 60,40], Placement(transformation(extent={{60,20},
@@ -96,11 +96,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(senCO2.C, volFraCO2.m) annotation (Line(
-      points={{37,30},{59.8,30}},
+      points={{37,30},{59,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(volFraCO2.V, con.u) annotation (Line(
-      points={{80.2,30},{98,30}},
+      points={{81,30},{98,30}},
       color={0,0,255},
       smooth=Smooth.None));
   connect(con.y, yDam) annotation (Line(
