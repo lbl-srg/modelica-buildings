@@ -1,12 +1,6 @@
 within Buildings.Fluid.Sensors;
 model TemperatureTwoPort "Ideal two port temperature sensor"
-  extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
-  parameter Medium.MassFlowRate m_flow_nominal(min=0)
-    "Nominal mass flow rate, used for regularization near zero flow"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
-    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
-    annotation(Dialog(group="Advanced"));
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 
   Modelica.Blocks.Interfaces.RealOutput T( final quantity="Temperature",
                                            final unit="K",

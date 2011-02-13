@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sensors;
 model RelativeHumidity "Ideal one port relative humidity sensor"
-  extends Modelica.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
 
   Modelica.Blocks.Interfaces.RealOutput phi(unit="1", min=0)

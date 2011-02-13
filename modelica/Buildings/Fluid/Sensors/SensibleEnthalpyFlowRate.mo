@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors;
 model SensibleEnthalpyFlowRate
   "Ideal enthalphy flow rate sensor that outputs the sensible enthalpy flow rate only"
-  extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor;
   extends Modelica.Icons.RotationalSensor;
   // redeclare Medium with a more restricting base class. This improves the error
   // message if a user selects a medium that does not contain the function
@@ -9,13 +9,6 @@ model SensibleEnthalpyFlowRate
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases
       annotation (choicesAllMatching = true);
-  parameter Medium.MassFlowRate m_flow_nominal(min=0)
-    "Nominal mass flow rate, used for regularization near zero flow"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
-    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
-    annotation(Dialog(group="Advanced"));
-
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Sensible enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(

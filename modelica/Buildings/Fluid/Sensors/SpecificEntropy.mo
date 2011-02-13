@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sensors;
 model SpecificEntropy "Ideal one port specific entropy sensor"
-  extends Modelica.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")

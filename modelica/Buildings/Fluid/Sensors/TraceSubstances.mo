@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sensors;
 model TraceSubstances "Ideal one port trace substances sensor"
-  extends Modelica.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor;
   extends Modelica.Icons.RotationalSensor;
   parameter String substanceName = "CO2" "Name of trace substance";
 

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors;
 model LatentEnthalpyFlowRate
   "Ideal enthalphy flow rate sensor that outputs the latent enthalpy flow rate only"
-  extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor;
   extends Modelica.Icons.RotationalSensor;
 
   // redeclare Medium with a more restricting base class. This improves the error
@@ -10,13 +10,6 @@ model LatentEnthalpyFlowRate
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases
       annotation (choicesAllMatching = true);
-
-  parameter Medium.MassFlowRate m_flow_nominal(min=0)
-    "Nominal mass flow rate, used for regularization near zero flow"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
-    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
-    annotation(Dialog(group="Advanced"));
 
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Latent enthalpy flow rate, positive if from port_a to port_b"

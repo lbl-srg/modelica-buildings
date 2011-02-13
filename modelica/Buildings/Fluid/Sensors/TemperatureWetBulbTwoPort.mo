@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sensors;
 model TemperatureWetBulbTwoPort "Ideal wet bulb temperature sensor"
-  extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 
   Modelica.Blocks.Interfaces.RealOutput T(
     start=Medium.T_default,
@@ -14,11 +14,6 @@ model TemperatureWetBulbTwoPort "Ideal wet bulb temperature sensor"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
-  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
-    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
-    annotation(Dialog(tab="Advanced"));
 protected
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulMod(redeclare
       package Medium =

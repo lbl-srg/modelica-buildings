@@ -2,6 +2,7 @@ within Buildings.Fluid.Sensors.Conversions;
 model MassFractionVolumeFraction
   "Model to convert between mass fraction and volume fraction"
   extends Buildings.BaseClasses.BaseIcon;
+  // fixme: change to RealInput and RealOutput
   ObsoleteModelica3.Blocks.Interfaces.RealSignal m "Mass fraction"
     annotation (Placement(transformation(extent={{-112,-10},{-92,10}}, rotation=
            0)));

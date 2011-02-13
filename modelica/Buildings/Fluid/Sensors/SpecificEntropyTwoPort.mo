@@ -1,13 +1,7 @@
 within Buildings.Fluid.Sensors;
 model SpecificEntropyTwoPort "Ideal two port sensor for the specific entropy"
-  extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor;
   extends Modelica.Icons.RotationalSensor;
-  parameter Medium.MassFlowRate m_flow_nominal(min=0)
-    "Nominal mass flow rate, used for regularization near zero flow"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
-    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
-    annotation(Dialog(group="Advanced"));
 
   Modelica.Blocks.Interfaces.RealOutput s(final quantity="SpecificEntropy",
                                           final unit="J/(kg.K)")

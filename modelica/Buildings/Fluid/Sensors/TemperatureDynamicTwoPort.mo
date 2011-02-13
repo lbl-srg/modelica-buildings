@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sensors;
 model TemperatureDynamicTwoPort "Ideal temperature sensor"
-  extends Modelica.Fluid.Sensors.BaseClasses.PartialFlowSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor;
 
   parameter Modelica.SIunits.Time tau(min=0) = 10 "Time constant";
   Modelica.Blocks.Interfaces.RealOutput T( final quantity="Temperature",
@@ -13,12 +13,6 @@ model TemperatureDynamicTwoPort "Ideal temperature sensor"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-
-  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
-    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
-    annotation(Dialog(tab="Advanced"));
 
   parameter Modelica.Blocks.Types.Init initType = Modelica.Blocks.Types.Init.NoInit
     "Type of initialization (InitialState and InitialOutput are identical)"
