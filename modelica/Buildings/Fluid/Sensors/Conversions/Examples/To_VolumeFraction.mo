@@ -12,9 +12,9 @@ model To_VolumeFraction "Example problem for conversion model"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
   Buildings.Controls.Continuous.LimPID limPID(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=60,
-    k=10,
-    reverseAction=true)
+    reverseAction=true,
+    Ti=600,
+    k=2)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Fluid.Sensors.TraceSubstances senCO2(redeclare package Medium =
         Medium, substanceName="CO2") "CO2 sensor"

@@ -39,11 +39,13 @@ model ExtraProperty
     use_m_flow_in=true,
     nPorts=2)   annotation (Placement(transformation(extent={{0,-62},{20,-42}},
           rotation=0)));
-  Conversions.MassFractionVolumeFraction masFraSou(MMMea=Modelica.Media.
+  Buildings.Fluid.Sensors.Conversions.To_VolumeFraction masFraSou(
+                                                   MMMea=Modelica.Media.
         IdealGases.Common.SingleGasesData.CO2.MM)
     annotation (Placement(transformation(extent={{140,90},{160,110}},  rotation=
            0)));
-  Conversions.MassFractionVolumeFraction masFraVol(MMMea=Modelica.Media.
+  Buildings.Fluid.Sensors.Conversions.To_VolumeFraction masFraVol(
+                                                   MMMea=Modelica.Media.
         IdealGases.Common.SingleGasesData.CO2.MM)
     annotation (Placement(transformation(extent={{140,50},{160,70}}, rotation=0)));
   Buildings.Fluid.Sensors.RelativePressure dp(
@@ -68,8 +70,8 @@ equation
           -5.55112e-16,-44},{-5.55112e-16,-44}},
         color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{121,100},{121,100},{
-          139.8,100}},           color={0,0,127}));
-  connect(senVol.C, masFraVol.m) annotation (Line(points={{121,60},{139.8,60}},
+          139,100}},             color={0,0,127}));
+  connect(senVol.C, masFraVol.m) annotation (Line(points={{121,60},{139,60}},
         color={0,0,127}));
   connect(dp.p_rel, assertEquality.u1) annotation (Line(points={{110,-19},{110,
           -19},{110,-72},{134,-72}}, color={0,0,127}));
