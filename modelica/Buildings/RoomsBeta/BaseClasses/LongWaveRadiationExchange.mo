@@ -39,7 +39,7 @@ protected
     "Radiosity entering the surface";
   constant Real T40(unit="K4") = 293.15^4 "Nominal temperature";
   Modelica.SIunits.Temperature TOpa[NOpa](each start=293.15, each nominal=293.15)
-    "Tmperature of opaque surfaces";
+    "Temperature of opaque surfaces";
   Real T4Opa[NOpa](each unit="K4", each start=T40, each nominal=293.15^4)
     "Forth power of temperature of opaque surfaces";
   Modelica.SIunits.HeatFlowRate Q_flow[NTot] "Heat flow rate at surfaces";

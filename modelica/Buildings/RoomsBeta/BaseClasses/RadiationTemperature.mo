@@ -56,13 +56,13 @@ protected
   final parameter Modelica.SIunits.Area epsTauASha[NWin](fixed=false)
     "Product of area times glass emissivity times shade transmittance";
   Modelica.SIunits.Temperature TOpa[NOpa](each start=293.15, each nominal=293.15)
-    "Tmperature of opaque surfaces";
+    "Temperature of opaque surfaces";
   Modelica.SIunits.Temperature TGlaUns[NWin](each start=293.15, each nominal=293.15)
-    "Tmperature of unshaded part of glass";
+    "Temperature of unshaded part of glass";
   Modelica.SIunits.Temperature TGlaSha[NWin](each start=293.15, each nominal=293.15)
-    "Tmperature of shaded part of glass";
+    "Temperature of shaded part of glass";
   Modelica.SIunits.Temperature TSha[NWin](each start=293.15, each nominal=293.15)
-    "Tmperature of shade";
+    "Temperature of shade";
   // Internal connectors, used because of the conditionally removed connectors
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns_internal[NConExtWin]
     "Heat port that connects to room-side surface of unshaded glass";
