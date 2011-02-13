@@ -13,7 +13,7 @@ public
   constant Modelica.SIunits.HeatFlux HMin=0.0001 "Minimum value for radiation";
 equation
   // Modelica Table will interpolate data when it reads the weather data file.
-  // It can generate negative value due to the interplotaion.
+  // It can generate negative value due to the interpolation.
   HOut = Buildings.Utilities.Math.Functions.smoothMax(
     x1=HIn,
     x2=HMin,
@@ -24,7 +24,7 @@ equation
 <p>
 This component ensures that the radiation is not smaller than 0.
 It also converts the weather data from <code>Wh/m2</code>,
-which is the units used in the Typical Meteorological Year weather format,
+which is the unit used in the Typical Meteorological Year weather format,
 to <code>W/m2</code>.
 </p>
 </HTML>
