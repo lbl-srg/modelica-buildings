@@ -150,7 +150,7 @@ Defines prescribed values for boundary conditions:
 </ul>
 <p>If <tt>use_p_in</tt> is false (default option), the <tt>p</tt> parameter
 is used as boundary pressure, and the <tt>p_in</tt> input connector is disabled; if <tt>use_p_in</tt> is true, then the <tt>p</tt> parameter is ignored, and the value provided by the input connector is used instead.</p> 
-<p>The same thing goes for the specific enthalpy and composition</p>
+<p>The same applies to the temperature, composition and trace substances.</p>
 <p>
 Note, that boundary temperature,
 mass fractions and trace substances have only an effect if the mass flow

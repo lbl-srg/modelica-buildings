@@ -169,7 +169,7 @@ Models an ideal flow source, with prescribed values of flow rate, temperature an
 </ul>
 <p>If <tt>use_m_flow_in</tt> is false (default option), the <tt>m_flow</tt> parameter
 is used as boundary pressure, and the <tt>m_flow_in</tt> input connector is disabled; if <tt>use_m_flow_in</tt> is true, then the <tt>m_flow</tt> parameter is ignored, and the value provided by the input connector is used instead.</p> 
-<p>The same thing goes for the temperature and composition</p>
+<p>The same applies to the temperature, composition and trace substances.</p>
 <p>
 Note, that boundary temperature,
 mass fractions and trace substances have only an effect if the mass flow

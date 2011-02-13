@@ -1,13 +1,13 @@
 within Buildings.Fluid.Sensors.Conversions;
-model MassFractionVolumeFraction
+model To_VolumeFraction
   "Model to convert between mass fraction and volume fraction"
   extends Buildings.BaseClasses.BaseIcon;
   // fixme: change to RealInput and RealOutput
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal m "Mass fraction"
-    annotation (Placement(transformation(extent={{-112,-10},{-92,10}}, rotation=
+  Modelica.Blocks.Interfaces.RealInput m "Mass fraction"
+    annotation (Placement(transformation(extent={{-120,-10},{-100,10}},rotation=
            0)));
-  ObsoleteModelica3.Blocks.Interfaces.RealSignal V "Volume fraction"
-    annotation (Placement(transformation(extent={{92,-10},{112,10}}, rotation=0)));
+  Modelica.Blocks.Interfaces.RealOutput V "Volume fraction"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}},rotation=0)));
 
  parameter Modelica.SIunits.MolarMass MMMea "Molar mass of measured substance";
  parameter Modelica.SIunits.MolarMass MMBul=Modelica.Media.IdealGases.Common.SingleGasesData.Air.MM
@@ -56,7 +56,7 @@ This component converts mass fraction to volume fraction for an ideal gas.
 The default value for the parameter <tt>MMBul</tt>
 assumes that the bulk medium is air. 
 The model assumes that the concentration
-of the measured specy is small enough to be neglected in the molar mass
+of the measured substance is small enough to be neglected in the molar mass
 of the mixture.
 </p>
 </HTML>
@@ -64,9 +64,14 @@ of the mixture.
 revisions="<html>
 <ul>
 <li>
+February 13, 2011 by Michael Wetter:<br>
+Changed connectors from the obsolete <code>RealSignal</code>
+to <code>RealInput</code> and <code>RealOutput</code>.
+</li>
+<li>
 September 22, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
 </html>"));
-end MassFractionVolumeFraction;
+end To_VolumeFraction;
