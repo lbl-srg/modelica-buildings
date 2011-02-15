@@ -4,8 +4,7 @@ block DiffusePerez
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
   parameter Real rho=0.2 "Ground reflectance";
-  parameter Modelica.SIunits.Angle til(displayUnit="deg")
-    "Surface tilt angle";
+  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt angle";
   Modelica.Blocks.Interfaces.RealInput briCof1 "Brightening Coeffcient F1"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
   Modelica.Blocks.Interfaces.RealInput briCof2 "Brightening Coeffcient F2"
@@ -39,11 +38,11 @@ protected
 equation
   a = Buildings.Utilities.Math.Functions.smoothMax(
     0,
-    Modelica.Math.cos(zen),
+    Modelica.Math.cos(incAng),
     0.01);
   b = Buildings.Utilities.Math.Functions.smoothMax(
     bMin,
-    Modelica.Math.cos(incAng),
+    Modelica.Math.cos(zen),
     0.01);
   HDifTil = HDifHor*(0.5*(1 - briCof1)*(1 + Modelica.Math.cos(til)) +
     briCof1*a/b + briCof2*Modelica.Math.sin(til)) + HGloHor*0.5*rho*(1 -
