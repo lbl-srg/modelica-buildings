@@ -6,7 +6,7 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
 
  parameter Integer nRoo = 2 "Number of rooms";
  parameter Modelica.SIunits.Volume VRoo = 4*6*3 "Volume of one room";
- parameter Modelica.SIunits.Power Q_flow_nominal = 2000
+ parameter Modelica.SIunits.Power Q_flow_nominal = 2200
     "Nominal power of heating plant";
  // Due to the night setback, in which the radiator do not provide heat input into the room,
  // we scale the design power of the radiator loop
@@ -167,7 +167,7 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     m_flow_nominal=mRad_flow_nominal) "Pressure drop of supply and return pipe"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={260,50})));
+        origin={260,30})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRoo2
     annotation (Placement(transformation(extent={{480,216},{500,236}})));
   Modelica.Blocks.Sources.Constant dpSet(k=dp_nominal) "Pressure set point"
@@ -307,7 +307,7 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
       m_flow_nominal=mRad_flow_nominal)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={260,80})));
+        origin={260,60})));
   Buildings.Controls.SetPoints.HotWaterTemperatureReset heaCha(
     dTOutHeaBal=0,
     use_TRoo_in=true,
@@ -338,19 +338,19 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
   Buildings.Fluid.FixedResistances.FixedResistanceDpM resRoo1(
     redeclare package Medium = Medium,
     dp_nominal=dpRoo_nominal,
-    m_flow_nominal=mRad_flow_nominal/nRoo)
-    "Resistance of pipe leg that serves the room"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    m_flow_nominal=mRad_flow_nominal/nRoo,
+    from_dp=false) "Resistance of pipe leg that serves the room"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={330,400})));
+        origin={404,360})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM resRoo2(
     redeclare package Medium = Medium,
     dp_nominal=dpRoo_nominal,
-    m_flow_nominal=mRad_flow_nominal/nRoo)
-    "Resistance of pipe leg that serves the room"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    m_flow_nominal=mRad_flow_nominal/nRoo,
+    from_dp=false) "Resistance of pipe leg that serves the room"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={330,128})));
+        origin={402,100})));
   Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{480,358},{500,378}})));
   Modelica.Blocks.Logical.Switch swi "Switch to select set point"
@@ -673,14 +673,6 @@ equation
       points={{500,484},{550,484},{550,518}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(resRoo2.port_b, val2.port_a) annotation (Line(
-      points={{340,128},{360,128}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(resRoo1.port_b, val1.port_a) annotation (Line(
-      points={{340,400},{360,400}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(off.outPort[1], T1.inPort) annotation (Line(
       points={{480,-4.6},{480,-16}},
       color={0,0,0},
@@ -706,7 +698,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaBus, roo1.weaBus) annotation (Line(
-      points={{-40,360},{430,360},{430,502},{393.9,502},{393.9,501.9}},
+      points={{-40,360},{196,360},{196,340},{430,340},{430,502},{393.9,502},{
+          393.9,501.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -723,7 +716,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaBus, roo2.weaBus) annotation (Line(
-      points={{-40,360},{430,360},{430,244},{405.9,244},{405.9,243.9}},
+      points={{-40,360},{196,360},{196,340},{430,340},{430,244},{405.9,244},{
+          405.9,243.9}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -808,14 +802,6 @@ equation
       points={{220,60},{220,70}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(temSup.port_b, resRoo2.port_a) annotation (Line(
-      points={{220,90},{220,128},{320,128}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(temSup.port_b, resRoo1.port_a) annotation (Line(
-      points={{220,90},{220,400},{320,400}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pumOn.outPort[1], T3.inPort) annotation (Line(
       points={{480,-44.6},{480,-56}},
       color={0,0,0},
@@ -864,24 +850,16 @@ equation
       points={{352,-74},{380,-74},{380,20},{550,20},{550,-40},{537.2,-40}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(temRet.port_a, rad2.port_b) annotation (Line(
-      points={{260,90},{260,100},{420,100},{420,128},{412,128}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(temRet.port_a, rad1.port_b) annotation (Line(
-      points={{260,90},{260,380},{420,380},{420,400},{412,400}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(temRet.port_b, resSup.port_a) annotation (Line(
-      points={{260,70},{260,60}},
+      points={{260,50},{260,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(resSup.port_b, res4.port_a) annotation (Line(
-      points={{260,40},{260,-12}},
+      points={{260,20},{260,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(resSup.port_b, thrWayVal.port_3) annotation (Line(
-      points={{260,40},{260,-1.68051e-18},{230,-1.68051e-18}},
+      points={{260,20},{260,-1.68051e-18},{230,-1.68051e-18}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaCha.TOut) annotation (Line(
@@ -959,8 +937,32 @@ equation
       points={{501,340},{518,340},{518,362},{536,362}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,-200},
-            {620,600}}),       graphics),
+  connect(rad1.port_b, resRoo1.port_a) annotation (Line(
+      points={{412,400},{420,400},{420,360},{414,360}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(rad2.port_b, resRoo2.port_a) annotation (Line(
+      points={{412,128},{420,128},{420,100},{412,100}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(temSup.port_b, val1.port_a) annotation (Line(
+      points={{220,90},{220,400},{360,400}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(resRoo1.port_b, temRet.port_a) annotation (Line(
+      points={{394,360},{260,360},{260,70}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(temSup.port_b, val2.port_a) annotation (Line(
+      points={{220,90},{220,128},{360,128}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(resRoo2.port_b, temRet.port_a) annotation (Line(
+      points={{392,100},{260,100},{260,70}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,
+            -200},{620,600}}), graphics),
 Documentation(info="<html>
 <p>
 This example demonstrates the implementation of a building that has the following properties:</p>
