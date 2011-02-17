@@ -16,21 +16,22 @@ public
 algorithm
   solTim := locTim + equTim "Our unit is s in stead of h in (A.4.3)";
 
-  if solTim > 86400 then
-    solTim := solTim - 86400;
-  elseif  solTim < 0 then
-    solTim := solTim + 86400;
-  end if "Limit 0 <= solTim <= 86400";
-
   annotation (
     defaultComponentName="solTim",
     Documentation(info="<HTML>
 <p>
-This component compute the local solar time.
+This component computes the local solar time.
 </p>
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+Feb. 16, 2010, by Michael Wetter:<br>
+Removed section that limits solar time to 
+<code>0 &le; solTim &le; 86400</code> as this triggers
+events, and is not needed because solar time is used in
+trigonometric functions only.
+</li>
 <li>
 May 13, 2010, by Wangda Zuo:<br>
 First implementation.
