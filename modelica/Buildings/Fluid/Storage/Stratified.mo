@@ -19,18 +19,18 @@ model Stratified "Model of a stratified tank for thermal energy storage"
   parameter Types.Dynamics energyDynamics=system.energyDynamics
     "Formulation of energy balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  parameter Types.Dynamics massDynamics=system.massDynamics
+  parameter Types.Dynamics massDynamics=energyDynamics
     "Formulation of mass balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
 
   // Initialization
-  parameter Medium.AbsolutePressure p_start = system.p_start
+  parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
   parameter Boolean use_T_start = true "= true, use T_start, otherwise h_start"
     annotation(Dialog(tab = "Initialization"), Evaluate=true);
   parameter Medium.Temperature T_start=
-    if use_T_start then system.T_start else Medium.temperature_phX(p_start,h_start,X_start)
+    if use_T_start then 293.15 else Medium.temperature_phX(p_start,h_start,X_start)
     "Start value of temperature"
     annotation(Dialog(tab = "Initialization", enable = use_T_start));
   parameter Medium.SpecificEnthalpy h_start=
@@ -263,6 +263,10 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 18, 2011, by Michael Wetter:<br>
+Changed default start values for temperature and pressure.
+</li>
 <li>
 October 25, 2009 by Michael Wetter:<br>
 Changed computation of heat transfer through top (and bottom) of tank. Now,
