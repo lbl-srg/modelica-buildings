@@ -236,7 +236,7 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     l={0.01,0.01},
     tau=10,
     m_flow_nominal=mRad_flow_nominal,
-    dynamicBalance=false) "Three-way valve"
+    dynamicBalance=true) "Three-way valve"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
