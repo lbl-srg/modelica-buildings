@@ -19,13 +19,14 @@ model SplitterFixedResistanceDpM
          ReC=ReC[3], dh=dh[3],
          linearized=linearized, deltaM=deltaM));
 
-
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
-       annotation(Evaluate=true, Dialog(enable = not linearized));
+    annotation(Evaluate=true, Dialog(enable = not linearized));
   parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal(each min=0)
-    "Mass flow rate"                                                annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure[3] dp_nominal(each min=0) "Pressure"
-                                                      annotation(Dialog(group = "Nominal condition"));
+    "Mass flow rate" annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.Pressure[3] dp_nominal(each min=0, each
+      displayUnit = "Pa")
+    "Pressure"
+    annotation(Dialog(group = "Nominal condition"));
   parameter Real deltaM(min=0) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Dialog(enable = not use_dh and not linearized));
