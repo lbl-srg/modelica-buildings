@@ -33,22 +33,26 @@ protected
   Medium.BaseProperties dryBul "Medium state at dry bulb temperature";
   Medium.BaseProperties wetBul(Xi(nominal=0.01*ones(Medium.nXi)))
     "Medium state at wet bulb temperature";
- parameter Integer i_w(min=1, fixed=false) "Index for water substance";
+ parameter Real s[Medium.nX](fixed=false)
+    "Vector with zero everywhere except where water is";
 initial algorithm
-  i_w :=1;
-    for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
-        i_w :=i;
+
+    for i in 1:Medium.nX loop
+      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                            string2="Water", caseSensitive=false) then
+        s[i] :=1;
+      else
+        s[i] :=0;
       end if;
     end for;
-
+  assert(abs(1-sum(s)) < 1E-5, "Did not find medium species 'water' in the medium model. Change medium model.");
 equation
   dryBul.p = p;
   dryBul.T = TDryBul;
   dryBul.Xi = Xi;
   wetBul.phi = 1;
   wetBul.p = dryBul.p;
-  wetBul.h = dryBul.h + (wetBul.X[i_w] - dryBul.X[i_w])
+  wetBul.h = dryBul.h + s * (wetBul.X - dryBul.X)
          * Medium.enthalpyOfLiquid(dryBul.T);
   TWetBul = wetBul.T;
 annotation (
@@ -113,6 +117,14 @@ For a use of this model, see for example
 ",
 revisions="<html>
 <ul>
+<li>
+February 22, 2011 by Michael Wetter:<br>
+Changed the code sections that obtain the water concentration. The old version accessed
+the water concentration using the index of the vector <code>X</code>.
+However, Dymola 7.4 cannot differentiate the function if vector elements are accessed
+using their index. In the new implementation, an inner product is used to access the vector element.
+In addition, the medium substance name is searched using a case insensitive search.
+</li>
 <li>
 February 17, 2010 by Michael Wetter:<br>
 Renamed block from <code>WetBulbTemperature</code> to <code>TWetBul_TDryBulXi</code>

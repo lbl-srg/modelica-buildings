@@ -1,11 +1,11 @@
 Functions
-Tdp_pW
-pW_Tdp
 X_pW
 pW_X
 X_pTphi
+TDewPoi_pW
 ToDryAir
 ToTotalAir
-Twb_TdbXi
+TWetBul_TDryBulXi
+pW_TDewPoi
 Examples
 BaseClasses
