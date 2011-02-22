@@ -94,12 +94,12 @@ and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature
 </ul>
 <li>
 Names of models, blocks and packages should start with an upper-case letter and be a
-noun or a noun with combination of adjectives and nouns.
+noun or a noun with a combination of adjectives and nouns.
 Use camel-case notation to combine multiple words, such as <code>HeatTransfer</code>
 </li>
 <li>
 Parameter and variables names are usually a character, such as <code>T</code>
-for temperature and <code>P</code> for pressure, or a combination of the first three
+for temperature and <code>p</code> for pressure, or a combination of the first three
 characters of a word, such as <code>higPreSetPoi</code> for high pressure set point.
 </li>
 <li>
