@@ -22,15 +22,20 @@ protected
   Modelica.SIunits.AbsolutePressure psat "Saturation pressure";
  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
  parameter Integer i_nw(min=1, fixed=false) "Index for non-water substance";
-
+ parameter Boolean found(fixed=false) "Flag, used for error checking";
 initial algorithm
+  found:=false;
   i_w :=1;
     for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
+      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], 
+                                            string2="water",
+                                            caseSensitive=false) then
         i_w :=i;
+        found:=true;
       end if;
     end for;
   i_nw := if i_w == 1 then 2 else 1;
+  assert(found, "Did not find medium species 'water' in the medium model. Change medium model.");
 algorithm
   psat := Medium.saturationPressure(T);
   X[i_w] := phi*k/(k*phi+p_in_internal/psat-phi);
@@ -49,6 +54,10 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 22, by Michael Wetter:<br>
+Improved the code that searches for the index of 'water' in the medium model.
+</li>
 <li>
 February 17, 2010 by Michael Wetter:<br>
 Renamed block from <code>MassFraction_pTphi</code> to <code>X_pTphi</code>

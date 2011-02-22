@@ -19,14 +19,19 @@ model SensibleEnthalpyFlowRate
 protected
   Medium.MassFraction XiActual[Medium.nXi] "Medium mass fraction in port_a";
   Medium.SpecificEnthalpy hActual "Medium enthalpy in port_a";
-  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
+  parameter Integer i_w(fixed=false) "Index for water substance";
 initial algorithm
-  i_w :=1;
+  i_w :=-1;
     for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "Water") then
+      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                            string2="Water",
+                                            caseSensitive=false) then
         i_w :=i;
       end if;
     end for;
+  assert(i_w > 0, "Substance 'water' is not present in medium '"
+                  + Medium.mediumName + "'.\n"
+                  + "Change medium model to one that has 'water' as a substance.");
 equation
   if allowFlowReversal then
      XiActual = Modelica.Fluid.Utilities.regStep(port_a.m_flow,
@@ -79,6 +84,10 @@ The sensor is ideal, i.e., it does not influence the fluid.
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+February 22, by Michael Wetter:<br>
+Improved code that searches for index of 'water' in the medium model.
+</li>
 <li>
 September 9, 2009 by Michael Wetter:<br>
 First implementation based on enthalpy sensor of Modelica.Fluid.

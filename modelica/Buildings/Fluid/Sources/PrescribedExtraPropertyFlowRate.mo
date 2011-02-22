@@ -28,13 +28,15 @@ protected
                 Dialog(enable = Medium.nC > 0));
 initial algorithm
   for i in 1:Medium.nC loop
-    if ( Modelica.Utilities.Strings.isEqual(Medium.extraPropertiesNames[i], substanceName)) then
+    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i], 
+                                            string2=substanceName,
+                                            caseSensitive=false)) then
       C_in_internal[i] := 1;
     else
       C_in_internal[i] := 0;
     end if;
   end for;
-  assert(sum(C_in_internal) > 0, "Trace substance '" + substanceName + "' is not present in medium '"
+  assert(sum(C_in_internal) > 1E-4, "Trace substance '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check source parameter and medium model.");
 equation
@@ -57,6 +59,10 @@ carbon dioxide concentration is typically so small that it need not be added to 
 room mass balance.
 </html>", revisions="<html>
 <ul>
+<li>
+February 22, by Michael Wetter:<br>
+Improved code that searches for the index of the trace substance in the medium model.
+</li>
 <li>
 September 18, 2008 by Michael Wetter:<br>
 First implementation.

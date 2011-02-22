@@ -16,7 +16,9 @@ initial algorithm
   i_w:= -1;
   if cardinality(mWat_flow) > 0 then
   for i in 1:Medium.nXi loop
-    if ( Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "water")) then
+      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], 
+                                            string2="Water",
+                                            caseSensitive=false) then
       i_w := i;
       s[i] :=1;
     else
@@ -78,6 +80,10 @@ Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 22, by Michael Wetter:<br>
+Improved the code that searches for the index of 'water' in the medium model.
+</li>
 <li>
 May 29, 2010 by Michael Wetter:<br>
 Rewrote computation of index of water substance.

@@ -9,34 +9,27 @@ model TraceSubstances "Ideal one port trace substances sensor"
           rotation=0)));
 
 protected
-  parameter Integer ind(fixed=false)
-    "Index of species in vector of auxiliary substances"
-    annotation(Evaluate=true);
   parameter Real s[Medium.nC](fixed=false)
     "Vector with zero everywhere except where species is";
-  Medium.ExtraProperty CVec[Medium.nC](
-      quantity=Medium.extraPropertiesNames)
-    "Trace substances vector, needed because indexed argument for the operator inStream is not supported";
 initial algorithm
-  ind:= -1;
   for i in 1:Medium.nC loop
-    if ( Modelica.Utilities.Strings.isEqual(Medium.extraPropertiesNames[i], substanceName)) then
-      ind := i;
+    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
+                                            string2=substanceName,
+                                            caseSensitive=false)) then
       s[i] :=1;
     else
       s[i] :=0;
     end if;
   end for;
-  assert(ind > 0, "Trace substance '" + substanceName + "' is not present in medium '"
+  assert(abs(1-sum(s)) < 1E-4, "Trace substance '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check sensor parameter and medium model.");
 equation
-  CVec = inStream(port.C_outflow);
   // We obtain the species concentration with a vector multiplication
   // because Dymola 7.3 cannot find the derivative in the model
   // Buildings.Examples.VAVSystemCTControl.mo
   // if we set C = CVec[ind];
-  C = s*CVec;
+  C = s*inStream(port.C_outflow);
 annotation (defaultComponentName="senTraSub",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),     graphics),
@@ -60,6 +53,10 @@ The sensor is ideal, i.e. it does not influence the fluid.
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+February 22, by Michael Wetter:<br>
+Improved code that searches for index of trace substance in medium model.
+</li>
 <li>
 March 22, 2010 by Michael Wetter:<br>
 Changed assignment for <code>C</code> so that Dymola 7.4 can find

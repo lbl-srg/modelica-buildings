@@ -11,23 +11,27 @@ model TraceSubstancesTwoPort "Ideal two port sensor for trace substance"
         rotation=270)));
   parameter String substanceName = "CO2" "Name of trace substance";
 protected
-  parameter Integer ind(fixed=false)
-    "Index of species in vector of auxiliary substances";
+  parameter Real s[Medium.nC](fixed=false)
+    "Vector with zero everywhere except where species is";
+
 initial algorithm
-  ind:= -1;
   for i in 1:Medium.nC loop
-    if ( Modelica.Utilities.Strings.isEqual(Medium.extraPropertiesNames[i], substanceName)) then
-      ind := i;
+    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i], 
+                                            string2=substanceName,
+                                            caseSensitive=false)) then
+      s[i] :=1;
+    else
+      s[i] :=0;
     end if;
   end for;
-  assert(ind > 0, "Trace substance '" + substanceName + "' is not present in medium '"
+  assert(abs(1-sum(s))<1E-4, "Trace substance '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check sensor parameter and medium model.");
 equation
   if allowFlowReversal then
-     C = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.C_outflow[ind], port_a.C_outflow[ind], m_flow_small);
+     C = Modelica.Fluid.Utilities.regStep(port_a.m_flow, s*port_b.C_outflow, s*port_a.C_outflow, m_flow_small);
   else
-     C = inStream(port_b.C_outflow[ind]);
+     C = s*inStream(port_b.C_outflow);
   end if;
 annotation (defaultComponentName="senTraSub",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
@@ -47,5 +51,12 @@ This component monitors the trace substance of the passing fluid.
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 </HTML>
-"));
+", revisions="<html>
+<ul>
+<li>
+February 22, by Michael Wetter:<br>
+Improved code that searches for index of trace substance in medium model.
+</li>
+</ul>
+</html>"));
 end TraceSubstancesTwoPort;

@@ -20,7 +20,9 @@ protected
 initial algorithm
   ind:= -1;
   for i in 1:Medium.nX loop
-    if ( Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], substanceName)) then
+    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                            string2=substanceName,
+                                            caseSensitive=false)) then
       ind := i;
     end if;
   end for;
@@ -58,6 +60,10 @@ The sensor is ideal, i.e. it does not influence the fluid.
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+February 22, by Michael Wetter:<br>
+Improved code that searches for index of the substance name in the medium model.
+</li>
 <li>
 Feb. 8, 2011 by Michael Wetter:<br>
 First implementation.

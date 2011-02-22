@@ -35,26 +35,21 @@ protected
  //   "Species concentration (water vapor only)";
 
 protected
-  parameter Integer i_w(min=1, fixed=false) "Index for water substance";
   parameter Real s[Medium.nX](fixed=false)
     "Vector with zero everywhere except where water vapor is";
 initial algorithm
-  i_w:= -1;
-  s[1] := 0;
-  if Medium.nXi > 0 then
-  for i in 1:Medium.nXi loop
-    if ( Modelica.Utilities.Strings.isEqual(Medium.substanceNames[i], "water")) then
-      i_w := i;
-      s[i+1] :=1;
+  for i in 1:Medium.nX loop
+    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+                                            string2="water",
+                                            caseSensitive=false)) then
+      s[i] :=1;
     else
-      s[i+1] :=0;
+      s[i] :=0;
     end if;
    end for;
-    assert(i_w > 0, "Substance 'water' is not present in medium '"
-         + Medium.mediumName + "'.\n"
-         + "Check medium model.");
-    end if;
-
+   assert(abs(1-sum(s)) < 1E-4, "Substance 'water' is not present in medium '"
+                  + Medium.mediumName + "'.\n"
+                  + "Change medium model to one that has 'water' as a substance.");
 equation
   QRad_flow = qGai_flow[1]*AFlo;
   QCon_flow.Q_flow = qGai_flow[2]*AFlo;
@@ -69,7 +64,7 @@ equation
 
   QLat_flow.C_outflow  = fill(0, Medium.nC);
   QLat_flow.h_outflow  = h_fg;
-  QLat_flow.Xi_outflow = {s[i] for i in 2:Medium.nX};
+  QLat_flow.Xi_outflow = s[1:Medium.nXi];
   QLat_flow.m_flow     = if (h_fg > 0) then
                            -qGai_flow[3]*AFlo/h_fg else
                             0;
@@ -153,6 +148,10 @@ between the surfaces, require access to the area and emissivity of the surface m
 </html>",
         revisions="<html>
 <ul>
+<li>
+February 22, by Michael Wetter:<br>
+Improved the code that searches for the index of 'water' in the medium model.
+</li>
 <li>
 June 8 2010, by Michael Wetter:<br>
 First implementation.
