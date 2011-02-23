@@ -7,10 +7,10 @@ package GlazingSystems
     parameter Integer nLay(min=1, fixed=true) "Number of glass layers"
       annotation (Evaluate=true);
     parameter Boolean haveExteriorShade = false
-      "Set to true if window has exterior shade (at surface a)"
+      "Set to true if window has an exterior shade (at surface a)"
       annotation (Evaluate=true);
     parameter Boolean haveInteriorShade = false
-      "Set to true if window has interior shade (at surface b)"
+      "Set to true if window has an interior shade (at surface b)"
       annotation (Evaluate=true);
     final parameter Boolean windowHasShade = haveExteriorShade or haveInteriorShade
       "Set to true if the window has an exterior or an interior shade";
@@ -28,9 +28,9 @@ package GlazingSystems
     parameter Modelica.SIunits.CoefficientOfHeatTransfer UFra
       "U-value of frame";
     parameter Modelica.SIunits.Emissivity epsLWFra=0.8
-      "Long wave emissivity of window frame";
+      "Long-wave emissivity of window frame";
     parameter Modelica.SIunits.Emissivity epsSWFra=0.5
-      "Long wave emissivity of window frame";
+      "Short-wave emissivity of window frame";
     final parameter Boolean haveShade = haveInteriorShade or haveExteriorShade
       "Parameter that is true if the construction has a shade";
 

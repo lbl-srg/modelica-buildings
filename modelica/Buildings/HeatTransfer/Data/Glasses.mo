@@ -1,25 +1,75 @@
 within Buildings.HeatTransfer.Data;
 package Glasses "Package with thermophysical properties for window glas"
-
   record Generic "Thermal properties of window glass"
       extends Modelica.Icons.Record;
    parameter Modelica.SIunits.Length x=0.003 "Thickness";
    parameter Modelica.SIunits.ThermalConductivity k=1 "Thermal conductivity";
    parameter Modelica.SIunits.TransmissionCoefficient tauSW = 0.6
-      "Solar infrared transimittance. It is tauSol in WINDOW5.";
+      "Solar transmittance";
    parameter Modelica.SIunits.ReflectionCoefficient rhoSW_a = 0.075
-      "Solar infrared reflectance of surface a (usually outside-facing surface). It is Rsol1 in WINDOW5.";
+      "Solar reflectance of surface a (usually outside-facing surface)";
    parameter Modelica.SIunits.ReflectionCoefficient rhoSW_b = 0.075
-      "Solar infrared reflectance of surface b (usually room-facing surface). It is Rsol2 in WINDOW5.";
+      "Solar reflectance of surface b (usually room-facing surface)";
    parameter Modelica.SIunits.TransmissionCoefficient tauLW = 0
-      "Long-wave infrared transmissivity of glass. It is Tir in WINDOW5.";
+      "Long-wave transmissivity of glass";
    parameter Modelica.SIunits.Emissivity epsLW_a = 0.84
-      "Long-wave infrared emissivity of surface a (usually outside-facing surface). It is Emis1 in WINDOW5.";
+      "Long-wave emissivity of surface a (usually outside-facing surface)";
    parameter Modelica.SIunits.Emissivity epsLW_b = 0.84
-      "Long-wave infrared emissivity of surface b (usually room-facing surface). It is Emis2 in WINDOW5.";
-
+      "Long-wave emissivity of surface b (usually room-facing surface)";
     annotation (Documentation(info="<html>
 This record implements thermophysical properties for window glas.
+</p>
+<p>
+The table below compares the data of this record with the variables used in the WINDOW 5 output file.
+</p>
+<p>
+Note that
+<ul>
+<li>the surface <code>a</code> is usually the outside-facing surface, and the surface
+<code>b</code> is usually the room-facing surface.
+</li>
+<li>by the term <i>short-wave</i>, we mean the whole solar spectrum.
+Data in the short-wave spectrum are used for computing solar heat gains.
+</li>
+<li>by the term <i>long-wave</i> (or <i>infrared</i>), we mean the infrared spectrum. 
+Data in the long-wave spectrum are used for thermal radiation that is emitted by surfaces that are 
+around room or ambient temperature.
+</li>
+<li>WINDOW 5 uses spectral data in the calculation of optical properties of window systems, 
+whereas the model in this library uses averages over the whole solar or infrared spectrum.
+</li>
+</ul>
+</p>
+<p>
+<table border=\"1\">
+<thead>
+ <tr>
+   <th>Buildings library variable name</th>
+   <th>WINDOW 5 variable name</th>
+ </tr>
+</thead>
+<tbody>
+<tr>
+  <td>tauSW</td>  <td>Tsol</td>
+</tr>
+<tr>
+  <td>rhoSW_a</td>  <td>Rsol1</td>
+</tr>
+<tr>
+  <td>rhoSW_b</td>  <td>Rsol2</td>
+</tr>
+<tr>
+  <td>tauLW</td>  <td>Tir</td>
+</tr>
+<tr>
+  <td>epsLW_a</td>  <td>Emis1</td>
+</tr>
+<tr>
+  <td>epsLW_b</td>  <td>Emis2</td>
+</tr>
+</tbody>
+</table>
+
 </html>",
   revisions="<html>
 <ul>
@@ -58,7 +108,6 @@ First implementation.
       tauLW=0,
       epsLW_a=0.84,
       epsLW_b=0.84) "Generic Clear Glass 3.048mm. Manufacturer: Generic.";
-
   record ID103 =   Buildings.HeatTransfer.Data.Glasses.Generic (
       x=0.0057,
       k=1.0,
