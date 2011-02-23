@@ -21,7 +21,7 @@
 #
 # MWetter@lbl.gov                            2011-02-23
 #######################################################
-import os, string, fnmatch, pwd, os.path, sys
+import os, string, fnmatch, os.path, sys
 import tempfile, shutil
 import multiprocessing
 # --------------------------
@@ -59,36 +59,36 @@ def isExecutable(program):
 # as the first string on the first or second line
 # If 'key' is found, increase the counter
 def checkKey(key, fileName, counter):
-        filObj=file(fileName)
+    filObj=open(fileName, 'r')
+    filTex=filObj.readline()
+    # Strip white spaces so we can test strpos for zero.
+    # This test returns non-zero for partial classes.
+    filTex.strip()
+    strpos=filTex.find("within")
+    if strpos == 0:
+        # first line is "within ...
+        # get second line
         filTex=filObj.readline()
-	# Strip white spaces so we can test strpos for zero.
-        # This test returns non-zero for partial classes.
         filTex.strip()
-        strpos=filTex.find("within")
-        if strpos == 0:
-            # first line is "within ...
-            # get second line
-            filTex=filObj.readline()
-            filTex.strip()
-        strpos=filTex.find(key)
-        if strpos == 0:
-            counter += 1;
-        filObj.close()
-        return counter
+    strpos=filTex.find(key)
+    if strpos == 0:
+        counter += 1;
+    filObj.close()
+    return counter
 
 # --------------------------
 def getUnitTests(listOfTests, libDir):
     for root, dirs, files in os.walk(libDir):
-        pos=string.find(root, 'svn')
+        pos=root.find('svn')
         # skip svn folders
         if pos == -1:
             for filNam in files:
                 # find .mos files
-                pos=string.find(filNam, '.mos')
+                pos=filNam.find('.mos')
                 if pos > -1:
                     # find files that contain simulate command
                     filFulNam=os.path.join(root, filNam)
-                    filObj=file(filFulNam)
+                    filObj=open(filFulNam, 'r')
                     filTex=filObj.read()
                     strpos=filTex.find("simulate")
                     if strpos > -1:
@@ -109,13 +109,17 @@ def runSimulation(worDir):
                                    stderr=logFil,
                                    shell=False, 
                                    cwd=os.path.join(worDir, "Buildings") ).wait()
+
         print worDir , " had exit code ", retcode
         logFil.close()
         if retcode != 0:
-            print >>sys.stderr, "Child was terminated by signal", -retcode
-    except OSError, e:
-        print >>sys.stderr, "Execution of ", command, " failed:", e
-
+            print "Child was terminated by signal", retcode
+            return retcode
+        else:
+            return 0
+    except OSError as e:
+        print "Execution of ", command, " failed:", e
+        
 # --------------------------
 def checkSimulationError(errorFile):
     import os.path
@@ -127,11 +131,11 @@ def checkSimulationError(errorFile):
 		    i=i+1
     fil.close() #Closes the file (read session)
     if (i>0):
-	    print >> sys.stderr, "*** Error: Unit tests had", i, "error(s)."
-	    print >> sys.stderr, "    Search 'unitTests.log' for 'false' to see details."
+	    print "*** Error: Unit tests had", i, "error(s)."
+	    print "    Search 'unitTests.log' for 'false' to see details."
 	    return 1
     else:
-	    print >> sys.stdout, "Unit tests completed successfully."
+	    print "Unit tests completed successfully."
 	    return 0
 
 		
@@ -141,22 +145,22 @@ def countClasses(dir):
     iBlo=0
     iFun=0
     for root, dirs, files in os.walk(LIBHOME):
-        pos=string.find(root, 'svn')
+        pos=root.find('svn')
         # skip svn folders
         if pos == -1:
             for filNam in files:
                 # find .mo files
-                pos=string.find(filNam, '.mo')
-                posExa=string.find(root, 'Examples')
+                pos=filNam.find('.mo')
+                posExa=root.find('Examples')
                 if pos > -1 and posExa == -1:
                      # find classes that are not partial
                     filFulNam=os.path.join(root, filNam)
                     iMod = checkKey("model", filFulNam, iMod)
                     iBlo = checkKey("block", filFulNam, iBlo)
                     iFun = checkKey("function", filFulNam, iFun)
-    print "Number of models   : %d" % iMod
-    print "          blocks   : %d" % iBlo
-    print "          functions: %d" % iFun
+    print "Number of models   : ", str(iMod)
+    print "          blocks   : ", str(iBlo)
+    print "          functions: ", str(iFun)
       
 # --------------------------
 # Write the script that runs all example problems, and
@@ -165,17 +169,15 @@ def writeRunscript(temDirNam, iPro, NPRO):
     listOfTests = []
     getUnitTests(listOfTests, os.path.join(temDirNam, "Buildings"))
 
-    userName=pwd.getpwuid(os.getuid())[4]
-    userName=userName.split(',')[0]
     runFil=open(os.path.join(temDirNam, "Buildings", "runAll.mos"), 'w')
-    runFil.write("// File autogenerated by " + userName + " for process " 
+    runFil.write("// File autogenerated for process " 
                  + str(iPro+1) + " of " + str(NPRO) + "\n")
     runFil.write("// Do not edit.\n")
     runFil.write("openModel(\"package.mo\");\n")
     runFil.write("Modelica.Utilities.Files.remove(\"unitTests.log\");\n")
     # Write unit tests for this process
-    pSta=iPro*len(listOfTests)/NPRO
-    pEnd=(iPro+1)*len(listOfTests)/NPRO
+    pSta=int(round(iPro*len(listOfTests)/NPRO))
+    pEnd=int(round((iPro+1)*len(listOfTests)/NPRO))
     print "Making unit tests ", pSta, " to ", pEnd
     for i in range(pSta-1,pEnd-1):
         runFil.write(listOfTests[i])
@@ -184,12 +186,12 @@ def writeRunscript(temDirNam, iPro, NPRO):
     runFil.write("exit\n")
     runFil.close()
     if iPro == 0:
-        print "Generated %d unit tests.\n" % len(listOfTests)
+        print "Generated ", len(listOfTests), " unit tests.\n"
 
 #####################################################################################
 # Check if executable is on the path
 if not isExecutable(MODELICA_EXE):
-	sys.stderr.write("Error: Did not find executable '" + MODELICA_EXE + "'\n")
+	print "Error: Did not find executable '", MODELICA_EXE, "'."
 	exit(3)
 
 # Check current working directory
