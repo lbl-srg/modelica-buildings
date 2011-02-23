@@ -16,7 +16,8 @@
 #   an error message.
 #
 # If no errors occurred during the unit tests, then
-# this script return 0. Otherwise, it returns non-zero.
+# this script returns 0. Otherwise, it returns a
+# non-zero exit value.
 #
 # MWetter@lbl.gov                            2011-02-23
 #######################################################
