@@ -11,7 +11,8 @@
 #
 # Michael Wetter, LBNL                                     2009-09-29
 #####################################################################
-ORI=( TApp0 \
+ORI=(\
+TApp0 \
 TAirInWB0 \
 TRan0 \
 mWat0_flow \
@@ -24,8 +25,12 @@ Tdb \
 Twb \
 Tdp \
 conTemDew \
+TemperatureDryBulbDynamic \
+TemperatureWetBulb \
+MassFractionVolumeFraction \
 )
-NEW=(TApp_nominal \
+NEW=(\
+TApp_nominal \
 TAirInWB_nominal \
 TRan_nominal \
 mWat_flow_nominal \
@@ -38,6 +43,9 @@ TDryBul \
 TWetBul \
 TDewPoi \
 conTemDewPoi \
+TemperatureDynamicTwoPort \
+TemperatureWetBulbTwoPort \
+to_VolumeFraction
 )
 
 # Number of strings to replace
