@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations;
 function yorkCalc "Cooling tower performance correlation for YorkCalc model"
 
-  input Modelica.SIunits.Temperature TRan
+  input Modelica.SIunits.TemperatureDifference TRan
     "Range temperature (water in - water out)"
       annotation (Dialog(group="Nominal condition"));
   input Modelica.SIunits.Temperature TWetBul "Air wet-bulb inlet temperature";
@@ -10,7 +10,7 @@ function yorkCalc "Cooling tower performance correlation for YorkCalc model"
   input Modelica.SIunits.MassFraction FRAir
     "Ratio actual over design air mass flow ratio";
 
-  output Modelica.SIunits.Temperature TApp "Approach temperature";
+  output Modelica.SIunits.TemperatureDifference TApp "Approach temperature";
 
 protected
   Modelica.SIunits.Conversions.NonSIunits.Temperature_degC TWetBul_degC
