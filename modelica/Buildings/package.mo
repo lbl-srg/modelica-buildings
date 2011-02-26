@@ -168,6 +168,15 @@ Buildings.Utilities.IO.WeatherData</a>
 with models to read weather data in the TMY3 format.
 </li>
 <li>
+Revised the package 
+<a href=\"modelica://Buildings.Fluid.Sensors\">Buildings.Fluid.Sensors</a>.
+</li>
+<li>
+Revised the package 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers\">
+Buildings.Fluid.HeatExchangers.CoolingTowers</a>.
+</li>
+<li>
 In 
 <a href=\"modelica://Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
 Buildings.Fluid.Interfaces.PartialStaticFourPortHeatMassTransfer</a>
@@ -203,8 +212,9 @@ Fixed bug in energy balance of
 Buildings.Fluid.Chillers.Carnot</a>.
 </li>
 <li>
-Revised the package 
-<a href=\"modelica://Buildings.Fluid.Sensors\">Buildings.Fluid.Sensors</a>.
+Fixed bug in efficiency curves in package 
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </li>
 </ul>
 </p>
@@ -1187,10 +1197,10 @@ Library.
 The figure below shows a section of the schematic view of the model 
 <a href=\"modelica://Buildings.Examples.HydronicHeating\">
 Buildings.Examples.HydronicHeating</a>.
-In the lower part of the figure, there is a dynamic model of a boiler, a pump and a stratified energy storage tank. Based on the temperatures of the storage tank, a finite state machine switches the boiler on and off. 
-The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a simplified room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
+In the lower part of the figure, there is a dynamic model of a boiler, a pump and a stratified energy storage tank. Based on the temperatures of the storage tank, a finite state machine switches the boiler and its pump on and off. 
+The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
 </p>
-<p>
+<p align=\"center\">
 <img src=\"../Images/UsersGuide/HydronicHeating.png\" border=\"1\">
 </p>
 <p>

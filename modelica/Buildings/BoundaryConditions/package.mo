@@ -1,16 +1,12 @@
 within Buildings;
-package BoundaryConditions "Provides boundary conditions"
-
-
-
-
+package BoundaryConditions "Package with models for boundary conditions"
 
 annotation (preferedView="info",
 Documentation(info="<html>
-This package contains models to compute boundary conditions such as solar irradiation
-and sky temperature.
-Models to read weather data can be found in the package
-<a href=\"modelica:Buildings.BoundaryConditions.WeatherData\">
-Buildings.BoundaryConditions.WeatherData</a>.
+This package contains models to compute boundary conditions such as weather data. 
+For models that set boundary conditions for fluid flow systems, 
+see
+<a href=\"modelica://Buildings.Fluid.Sources\">
+Buildings.Fluid.Sources</a>.
 </html>"));
 end BoundaryConditions;
