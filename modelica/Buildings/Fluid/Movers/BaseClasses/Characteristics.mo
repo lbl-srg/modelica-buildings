@@ -4,8 +4,8 @@ package Characteristics "Functions for fan or pump characteristics"
   partial function baseFlow "Base class for fan or pump flow characteristics"
     extends Modelica.Icons.Function;
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
-    input Real r_N "Relative revolution, r_N=N/N_nominal";
-    output Modelica.SIunits.Pressure dp(displayUnit="Pa")
+    input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
+    output Modelica.SIunits.Pressure dp(min=0, displayUnit="Pa")
       "Fan or pump total pressure";
   end baseFlow;
 
@@ -13,23 +13,26 @@ package Characteristics "Functions for fan or pump characteristics"
     "Base class for fan or pump power consumption characteristics"
     extends Modelica.Icons.Function;
     input Modelica.SIunits.VolumeFlowRate V_flow "Volumetric flow rate";
-    input Real r_N "Relative revolution, r_N=N/N_nominal";
+    input Real r_N(unit="1") "Relative revolution, r_N=N/N_nominal";
     output Modelica.SIunits.Power consumption "Power consumption";
   end basePower;
 
   partial function baseEfficiency "Base class for efficiency characteristics"
     extends Modelica.Icons.Function;
-    input Real r_V "Volumetric flow rate divided by nominal flow rate";
-    output Real eta "Efficiency";
+    input Real r_V(unit="1")
+      "Volumetric flow rate divided by nominal flow rate";
+    output Real eta(min=0, unit="1") "Efficiency";
   end baseEfficiency;
 
   function linearFlow "Linear flow characteristic"
     extends baseFlow;
 
     input Modelica.SIunits.VolumeFlowRate V_flow_nominal[2]
-      "Volume flow rate for two operating points (single fan or pump)" annotation(Dialog);
-    input Modelica.SIunits.Pressure dp_nominal[2](displayUnit="Pa")
-      "Fan or pump total pressure for two operating points"                               annotation(Dialog);
+      "Volume flow rate for two operating points (single fan or pump)"
+      annotation(Dialog);
+    input Modelica.SIunits.Pressure dp_nominal[2](each min=0, each displayUnit="Pa")
+      "Fan or pump total pressure for two operating points"
+      annotation(Dialog);
     /* Linear system to determine the coefficients:
   dp_nominal[1] = c[1] + V_flow_nominal[1]*c[2];
   dp_nominal[2] = c[1] + V_flow_nominal[2]*c[2];
@@ -44,10 +47,12 @@ package Characteristics "Functions for fan or pump characteristics"
 
   function quadraticFlow "Quadratic flow characteristic"
     extends baseFlow;
-    input Modelica.SIunits.VolumeFlowRate V_flow_nominal[3]
-      "Volume flow rate for three operating points (single fan or pump)" annotation(Dialog);
-    input Modelica.SIunits.Pressure dp_nominal[3](displayUnit="Pa")
-      "Fan or pump total pressure for three operating points"                               annotation(Dialog);
+    input Modelica.SIunits.VolumeFlowRate V_flow_nominal[3](each min=0)
+      "Volume flow rate for three operating points (single fan or pump)"
+      annotation(Dialog);
+    input Modelica.SIunits.Pressure dp_nominal[3](each min=0, each displayUnit="Pa")
+      "Fan or pump total pressure for three operating points"
+      annotation(Dialog);
   protected
     Real V_flow_nominal2[3] = {V_flow_nominal[1]^2,V_flow_nominal[2]^2, V_flow_nominal[3]^2}
       "Squared nominal flow rates";
@@ -66,10 +71,12 @@ package Characteristics "Functions for fan or pump characteristics"
 
   function polynomialFlow "Polynomial flow characteristic"
     extends baseFlow;
-    input Modelica.SIunits.VolumeFlowRate V_flow_nominal[:]
-      "Volume flow rate for N operating points (single fan or pump)" annotation(Dialog);
-    input Modelica.SIunits.Pressure dp_nominal[:](displayUnit="Pa")
-      "Fan or pump total pressure for N operating points"                               annotation(Dialog);
+    input Modelica.SIunits.VolumeFlowRate V_flow_nominal[:](each min=0)
+      "Volume flow rate for N operating points (single fan or pump)"
+      annotation(Dialog);
+    input Modelica.SIunits.Pressure dp_nominal[:](each min=0, each displayUnit="Pa")
+      "Fan or pump total pressure for N operating points"
+      annotation(Dialog);
   protected
     Integer N = size(V_flow_nominal,1) "Number of nominal operating points";
     Real V_flow_nominal_pow[N,N] = {{V_flow_nominal[i]^(j-1) for j in 1:N} for i in 1:N}
@@ -84,16 +91,18 @@ package Characteristics "Functions for fan or pump characteristics"
   algorithm
     // Flow equation (example N=3): dp  = c[1] + V_flow*c[2] + V_flow^2*c[3];
     // Note: the implementation is numerically efficient only for low values of N
-    dp := sum(r_N^(N-i)*V_flow^(i-1)*c[i] for i in 1:N);
+    dp := r_N^(N-1)*c[1] + sum(r_N^(N-i)*V_flow^(i-1)*c[i] for i in 2:N-1) + V_flow^(N-1)*c[N];
     annotation(smoothOrder=100);
   end polynomialFlow;
 
   function linearPower "Linear power consumption characteristic"
     extends basePower;
     input Modelica.SIunits.VolumeFlowRate V_flow_nominal[2]
-      "Volume flow rate for two operating points (single fan or pump)"   annotation(Dialog);
+      "Volume flow rate for two operating points (single fan or pump)"
+      annotation(Dialog);
     input Modelica.SIunits.Power P_nominal[2]
-      "Power consumption for two operating points"                             annotation(Dialog);
+      "Power consumption for two operating points"
+      annotation(Dialog);
     /* Linear system to determine the coefficients:
   P_nominal[1] = c[1] + V_flow_nominal[1]*c[2];
   P_nominal[2] = c[1] + V_flow_nominal[2]*c[2];
@@ -108,9 +117,11 @@ package Characteristics "Functions for fan or pump characteristics"
   function quadraticPower "Quadratic power consumption characteristic"
     extends basePower;
     input Modelica.SIunits.VolumeFlowRate V_flow_nominal[3]
-      "Volume flow rate for three operating points (single fan or pump)" annotation(Dialog);
+      "Volume flow rate for three operating points (single fan or pump)"
+      annotation(Dialog);
     input Modelica.SIunits.Power P_nominal[3]
-      "Power consumption for three operating points"                           annotation(Dialog);
+      "Power consumption for three operating points"
+      annotation(Dialog);
   protected
     Real V_flow_nominal2[3] = {V_flow_nominal[1]^2,V_flow_nominal[2]^2, V_flow_nominal[3]^2}
       "Squared nominal flow rates";
@@ -128,9 +139,11 @@ package Characteristics "Functions for fan or pump characteristics"
   function polynomialPower "Polynomial power consumption characteristic"
     extends basePower;
     input Modelica.SIunits.VolumeFlowRate V_flow_nominal[:]
-      "Volume flow rate for N operating points (single fan or pump)" annotation(Dialog);
+      "Volume flow rate for N operating points (single fan or pump)"
+      annotation(Dialog);
     input Modelica.SIunits.Power P_nominal[:]
-      "Power consumption for N operating points"                                       annotation(Dialog);
+      "Power consumption for N operating points"
+      annotation(Dialog);
   protected
     Integer N = size(V_flow_nominal,1) "Number of nominal operating points";
     Real V_flow_nominal_pow[N,N] = {{V_flow_nominal[i]^(j-1) for j in 1:N} for i in 1:N}
@@ -145,22 +158,24 @@ package Characteristics "Functions for fan or pump characteristics"
   algorithm
     // Efficiency equation (example N=3): W  = c[1] + V_flow*c[2] + V_flow^2*c[3];
     // Note: the implementation is numerically efficient only for low values of N
-    consumption := sum(r_N^(N-i+1)*V_flow^(i-1)*c[i] for i in 1:N);
+    consumption := r_N^N*c[1] + sum(r_N^(N-i+1)*V_flow^(i-1)*c[i] for i in 2:N);
   end polynomialPower;
 
   function constantEfficiency "Constant efficiency characteristic"
      extends baseEfficiency;
-     input Real eta_nominal(min=0, max=1) "Nominal efficiency" annotation(Dialog);
+     input Real eta_nominal(min=0, unit="1") "Nominal efficiency"
+     annotation(Dialog);
   algorithm
     eta := eta_nominal;
   end constantEfficiency;
 
   function linearEfficiency "Linear efficiency characteristic"
     extends baseEfficiency;
-    input Real r_V[2]
+    input Real r_V_nominal[2](each unit="1")
       "Volumetric flow rate divided by nominal flow rate for two operating points (single fan or pump)"
-                                                                                                      annotation(Dialog);
-    input Real eta_nominal[2](min=0, max=1) "Nominal efficiency" annotation(Dialog);
+      annotation(Dialog);
+    input Real eta_nominal[2](each min=0, each unit="1") "Nominal efficiency"
+      annotation(Dialog);
     /* Linear system to determine the coefficients:
   eta_nominal[1] = c[1] + V_flow_nominal[1]*c[2];
   eta_nominal[2] = c[1] + V_flow_nominal[2]*c[2];
@@ -175,11 +190,12 @@ package Characteristics "Functions for fan or pump characteristics"
 
   function quadraticEfficiency "Quadratic efficiency characteristic"
     extends baseEfficiency;
-    input Real r_V[2]
+    input Real r_V_nominal[3](each unit="1")
       "Volumetric flow rate divided by nominal flow rate for three operating points (single fan or pump)"
-                                                                                                        annotation(Dialog);
-    input Real eta_nominal[3](min=0, max=1)
-      "Nominal efficiency for three operating points"                                       annotation(Dialog);
+      annotation(Dialog);
+    input Real eta_nominal[3](each min=0, each unit="1")
+      "Nominal efficiency for three operating points"
+      annotation(Dialog);
   protected
     Real r_V_nominal2[3] = {r_V_nominal[1]^2,r_V_nominal[2]^2, r_V_nominal[3]^2}
       "Squared nominal flow rates";
@@ -197,11 +213,12 @@ package Characteristics "Functions for fan or pump characteristics"
 
   function polynomialEfficiency "Polynomial efficiency characteristic"
     extends baseEfficiency;
-    input Real r_V[2]
+    input Real r_V_nominal[:](each unit="1")
       "Volumetric flow rate divided by nominal flow rate for N operating points (single fan or pump)"
-                                                                                                    annotation(Dialog);
-    input Real eta_nominal[:](min=0, max=1)
-      "Nominal efficiency for N operating points"                                       annotation(Dialog);
+      annotation(Dialog);
+    input Real eta_nominal[:](each min=0, each unit="1")
+      "Nominal efficiency for N operating points"
+      annotation(Dialog);
   protected
     Integer N = size(r_V_nominal,1) "Number of nominal operating points";
     Real r_V_nominal_pow[N,N] = {{r_V_nominal[i]^(j-1) for j in 1:N} for i in 1:N}
@@ -216,7 +233,7 @@ package Characteristics "Functions for fan or pump characteristics"
   algorithm
     // Efficiency equation (example N=3): eta  = c[1] + r_V*c[2] + r_V^2*c[3];
     // Note: the implementation is numerically efficient only for low values of N
-    eta := sum(r_V^(i-1)*c[i] for i in 1:N);
+    eta := c[1] + sum(r_V^(i-1)*c[i] for i in 2:N);
   end polynomialEfficiency;
 
   function solve "Wrapper for Modelica.Math.Matrices.solve"
@@ -256,7 +273,7 @@ First implementation.
     b:=Modelica.Math.Matrices.solve(A,xder-Ader*Modelica.Math.Matrices.solve(A,x));
   end der_solve;
 
-  package Examples "Examples to test implemenation of derivative function"
+  package Examples "Examples to test implementation of derivative function"
     import Buildings;
     extends Buildings.BaseClasses.BaseIconExamples;
     model LinearFlowDerivativeCheck
@@ -344,7 +361,27 @@ First implementation.
     end QuadraticFlowDerivativeCheck;
   end Examples;
   annotation (Documentation(info="<html>
-<p>This package is similar to 
+<p>
+This package implements performance curves for fans and pumps.
+</p>
+<p>
+The following performance curves are implemented:
+<pre>
+ dp =f(V_flow, r_N, {V_flow_nominal, dp_nominal})
+ P  =f(V_flow, r_N, {V_flow_nominal, dp_nominal})
+ eta=f(r_V,         {r_V_nominal, eta_nominal})
+</pre>
+where
+<code>dp</code> is the pressure raise, 
+<code>P</code> is the power consumption,
+<code>eta</code> is the efficiency,
+<code>V_flow</code> is the volume flow rate,
+<code>r_N=N/N_nominal</code> is the normalized revolution
+and the quantities in curly brackets are points used to parameterize the curves.
+Each curve can be a constant, a linear function, a quadratic function or a polynomial
+of arbitrary order.
+</p>
+<p>The package is similar to 
 <a href=\"Modelica:Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics\">
 Modelica.Fluid.Machines.BaseClasses.PumpCharacteristics</a>, with the following exceptions:
 <ul>
@@ -364,7 +401,7 @@ for a quadratic performance curve,
 <pre>
   dp = r_N^2 * f(V_flow/r_N) 
      = r_N^2 * ( c1 + c2 * V_flow/r_N + c3 * (V_flow/r_N)^2) 
-     = r_N^2 * c1 + r_N * c2 * V_flow + c3 * V_flow^2
+     = r_N^2 * c1 + r_N * c2 * V_flow + c3 * V_flow^2.
 </pre>
 Since <code>f(V_flow/r_N) = c1 + c2 * V_flow/r_N + c3 * (V_flow/r_N)^2</code> is
 singular for <code>r_N=0</code>, we redefined this function as
@@ -373,7 +410,9 @@ singular for <code>r_N=0</code>, we redefined this function as
      = r_N^2 * c1 + r_N * c2 * V_flow + c3 * V_flow^2
 </code>
 which allows computing <code>dp</code> for <code>r_N=0</code>.
-However, note that performance curves that have a higher order than 2, the model is still singular.
+Note, however, that the model of the Buildings library, as well as the 
+model of Modelica.Fluid, is still singular for <code>r_N=0</code>
+for performance curves that have a higher order than 2.
 </li>
 <li>
 This package also contains higher order functions for power consumption and efficiency.
@@ -382,6 +421,13 @@ This package also contains higher order functions for power consumption and effi
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 25, 2011, by Michael Wetter:<br>
+Fixed wrong variable names and dimensions in efficiency functions.
+In the previous version, some function could not be used due to a syntax
+error.
+Updated the package documentation.
+</li>
 <li>
 October 28, 2009, by Michael Wetter:<br>
 Added Wrapper function <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.solve\">

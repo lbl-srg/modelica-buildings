@@ -12,13 +12,13 @@ partial model PowerInterface
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Characteristics"));
   replaceable function motorEfficiency =
-    Characteristics.constantEfficiency(eta_nominal = 0.9) constrainedby
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.constantEfficiency(eta_nominal = 0.7) constrainedby
     Characteristics.baseEfficiency "Efficiency vs. normalized volume flow rate"
     annotation(Dialog(group="Characteristics"),
                enable = not use_powerCharacteristic,
                choicesAllMatching=true);
   replaceable function hydraulicEfficiency =
-    Characteristics.constantEfficiency(eta_nominal = 0.9) constrainedby
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.constantEfficiency(eta_nominal = 0.7) constrainedby
     Characteristics.baseEfficiency "Efficiency vs. normalized volume flow rate"
     annotation(Dialog(group="Characteristics"),
                enable = not use_powerCharacteristic,

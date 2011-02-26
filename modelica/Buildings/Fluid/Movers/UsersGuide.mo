@@ -11,6 +11,9 @@ are used for both devices. The models are parameterized by
 performance curves that compute pressure rise, 
 electrical power draw or efficiency as a function 
 of the flow rate.
+These performance curves are described in
+<a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics\">
+Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 </p>
 <p>
 The models

@@ -7,7 +7,7 @@ partial model FlowMachineInterface
 
   // Characteristics
   replaceable function flowCharacteristic =
-      Characteristics.baseFlow
+      Buildings.Fluid.Movers.BaseClasses.Characteristics.baseFlow
     "Total pressure vs. V_flow characteristic at nominal speed"
     annotation(Dialog(group="Characteristics"), choicesAllMatching=true);
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
@@ -15,7 +15,7 @@ partial model FlowMachineInterface
     annotation(Dialog(group="Characteristics"));
 
   replaceable function powerCharacteristic =
-        Characteristics.quadraticPower (
+        Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticPower (
        V_flow_nominal={0,0,0},P_nominal={0,0,0})
     "Power consumption vs. V_flow at nominal speed and density"
     annotation(Dialog(group="Characteristics", enable = use_powerCharacteristic),
@@ -25,7 +25,7 @@ partial model FlowMachineInterface
   Modelica.SIunits.Density rho "Medium density";
   Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N(min=0, start = N_nominal)
     "Shaft rotational speed";
-  Real r_N(min=0, start=1) "Ratio N/N_nominal";
+  Real r_N(min=0, start=1, unit="1") "Ratio N/N_nominal";
 
 initial equation
   // Equation to compute V_flow_max
