@@ -1,7 +1,8 @@
 within Buildings.Fluid.Sensors;
 model MassFlowRate "Ideal sensor for mass flow rate"
-  extends Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor(final
-      m_flow_nominal =                                                              0);
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor(
+    final m_flow_nominal = 0,
+    final m_flow_small = 0);
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput m_flow(quantity="MassFlowRate",
                                                final unit="kg/s")
