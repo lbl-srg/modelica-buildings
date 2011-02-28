@@ -1,4 +1,4 @@
-within Buildings.Examples.BaseClasses;
+within Buildings.Examples.VAVCO2.BaseClasses;
 model RoomLeakage "Room leakage model"
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium =

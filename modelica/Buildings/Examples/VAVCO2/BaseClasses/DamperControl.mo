@@ -1,4 +1,4 @@
-within Buildings.Examples.BaseClasses;
+within Buildings.Examples.VAVCO2.BaseClasses;
 block DamperControl "Local loop controller for damper"
   extends Modelica.Blocks.Interfaces.SISO;
   parameter Real CO2Set = 700E-6 "CO2 set point in volume fraction";

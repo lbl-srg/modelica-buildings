@@ -1,4 +1,4 @@
-within Buildings.Examples.BaseClasses;
+within Buildings.Examples.VAVCO2.BaseClasses;
 model RoomVAV "Model for CO2 emitted by people"
 
   replaceable package Medium =

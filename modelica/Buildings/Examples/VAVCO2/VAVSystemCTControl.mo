@@ -1,10 +1,8 @@
-within Buildings.Examples;
+within Buildings.Examples.VAVCO2;
 model VAVSystemCTControl
   "VAV system model of MIT building with continuous time control for static pressure reset"
 
- // package Medium = Buildings.Media.IdealGases.SimpleAir(extraPropertiesNames={"CO2"});
  package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
- //package Medium = Buildings.Media.GasesPTDecoupled.MoistAir(extraPropertiesNames={"CO2"});
 
  parameter Modelica.SIunits.MassFlowRate mMIT_flow = roo.m0Tot_flow
     "Nominal mass flow rate of MIT system model as in ASHRAE 825-RP";
@@ -52,7 +50,7 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM res57(
   redeclare package Medium = Medium)
     annotation (extent=[54,-80; 74,-60], style(thickness=2),
     Placement(transformation(extent={{68,-80},{48,-60}})));
-BaseClasses.Suite roo(redeclare package Medium = Medium, scaM_flow=scaM_flow)
+Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Medium, scaM_flow=scaM_flow)
     annotation (extent=[198,-92; 302,20], Placement(transformation(extent={{206,-92},
             {310,20}})));
 Fluid.Actuators.Dampers.MixingBox mixBox(
@@ -77,7 +75,7 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
         -18,2],  style(thickness=2),
     Placement(transformation(extent={{-38,-74},{-18,-54}})));
   inner Modelica.Fluid.System system
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 
    Buildings.Controls.Continuous.LimPID PID(
     Ti=60,
@@ -183,7 +181,20 @@ equation
             -100},{350,150}}), graphics),
 Documentation(info="<html>
 <p>
-<b>Information for Windows users:</b>
+This examples demonstrates the implementation of CO<sub>2</sub> control
+for a variable air volume flow system.
+Each room has a CO<sub>2</sub> source. Depending on the CO<sub>2</sub>
+concentrations, the air damper in the room open or close.
+The supply and return fans are controlled to provide a constant static
+pressure.
+</p>
+<p>
+Note that this example does not control the room temperature and 
+the heat flow through the building envelope. It only implements the 
+CO<sub>2</sub> transfer.
+</p>
+<h4>Information for Windows users:</h4>
+<p>
 This example uses the Radau solver. 
 For Dymola 7.4, Microsoft Visual C++ Express 2010 does
 not work with the Radau solver.
@@ -195,8 +206,7 @@ To avoid this problem, use another compiler, such as Visual C++ 2008.
       file="run1DayCTControl.mos" "run",
       file="plotRooACH.mos" "plotRooACH",
       file="plotFan.mos" "plotFan",
-      file="plotCO2.mos" "plotCO2",
-      file="plotPCon.mos" "plotPCon"),
+      file="plotCO2.mos" "plotCO2"),
     experiment(
       StopTime=86400,
       Tolerance=1e-005,

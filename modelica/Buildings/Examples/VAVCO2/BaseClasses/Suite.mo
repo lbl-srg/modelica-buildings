@@ -1,4 +1,4 @@
-within Buildings.Examples.BaseClasses;
+within Buildings.Examples.VAVCO2.BaseClasses;
 model Suite "Model of a suite consisting of five rooms of the MIT system model"
 
   replaceable package Medium =
