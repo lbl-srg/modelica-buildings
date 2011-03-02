@@ -16,16 +16,18 @@ algorithm
                                            a=b, x=x);
   annotation (Documentation(info="<html>
 This function computes the first derivative of a polynomial of arbitrary order.
-The original polynomial has the form
-<pre>
-  y = a1 + a2 * x + a3 * x^2 + ...
-</pre>
-This function computes new coefficients
-<pre>
-   b1 = a2, b2 = 2*a3, ...
-</pre>
+The original polynomial has the form<br>
+<p align=\"center\" style=\"font-style:italic;\">
+  y = a<sub>1</sub> + a<sub>2</sub> x + a<sub>3</sub> x<sup>2</sup> + ...
+</p>
+<p>
+This function computes new coefficients<br>
+<p align=\"center\" style=\"font-style:italic;\">
+   b<sub>1</sub> = a<sub>2</sub>, b<sub>2</sub> = 2 a<sub>3</sub>, ...
+</p>
+<p>
 and then calls recursively
-<a href=\"modelica://Buildings.Utilities.Math.polynomial\">
+<a href=\"modelica://Buildings.Utilities.Math.Functions.polynomial\">
 Buildings.Utilities.Math.polynomial</a>
 </html>"),
 revisions="<html>

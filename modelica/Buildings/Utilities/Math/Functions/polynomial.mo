@@ -15,16 +15,21 @@ algorithm
   annotation (smoothOrder=999, Documentation(info="<html>
 This function computes a polynomial of arbitrary order.
 The polynomial has the form
-<pre>
-  y = a1 + a2 * x + a3 * x^2 + ...
-</pre>
+<p align=\"center\" style=\"font-style:italic;\">
+  y = a<sub>1</sub> + a<sub>2</sub> x + a<sub>3</sub> x<sup>2</sup> + ...
+</p>
 </html>"),
 revisions="<html>
 <ul>
+<li>
+March 2, by Michael Wetter:<br>
+Removed redundant <code>smoothOrder</code> annotation.
+</li>
 <li>
 February 29, 2009 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>",   smoothOrder=2, derivative=BaseClasses.der_polynomial);
+</html>",
+derivative=Buildings.Utilities.Math.Functions.BaseClasses.der_polynomial);
 end polynomial;
