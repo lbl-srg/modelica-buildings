@@ -3,7 +3,8 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
     sensibleOnly1 = true,
     sensibleOnly2 = true);
-  parameter Real eps(min=0, max=1) = 0.8 "Heat exchanger effectiveness";
+  parameter Real eps(start=0.8, min=0, max=1, unit="1")
+    "Heat exchanger effectiveness";
 equation
   // transfered heat
   Q1_flow = eps * QMax_flow;
