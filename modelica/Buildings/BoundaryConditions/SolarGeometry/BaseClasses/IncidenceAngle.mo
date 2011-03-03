@@ -26,10 +26,9 @@ protected
   Real lat_c=Modelica.Math.cos(lat);
   Real lat_s=Modelica.Math.sin(lat);
 equation
-  incAng = Modelica.Math.acos(Modelica.Math.cos(til)*(dec_c*sol_c*lat_c +
-    dec_s*lat_s) + Modelica.Math.sin(til)*(Modelica.Math.sin(azi)*dec_c*
-    sol_s + Modelica.Math.cos(azi)*(dec_c*sol_c*lat_s - dec_s*lat_c)))
-    "(A.4.13)";
+  incAng = Modelica.Math.acos(Modelica.Math.cos(til)*(dec_c*sol_c*lat_c + dec_s
+    *lat_s) + Modelica.Math.sin(til)*(Modelica.Math.sin(azi)*dec_c*sol_s +
+    Modelica.Math.cos(azi)*(dec_c*sol_c*lat_s - dec_s*lat_c))) "(A.4.13)";
   annotation (
     defaultComponentName="incAng",
     Documentation(info="<HTML>
@@ -52,7 +51,8 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
             100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={Text(
+            100}}), graphics={
+        Text(
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255}),

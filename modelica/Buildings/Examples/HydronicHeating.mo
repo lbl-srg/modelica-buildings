@@ -375,8 +375,9 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     "Pressure set point to switch pump off"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
-    "File reader that reads weather data"
+        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    lon=-1.4421267797069,
+    timZon=-21600) "File reader that reads weather data"
     annotation (Placement(transformation(extent={{-80,330},{-60,350}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-50,330},{-30,350}})));

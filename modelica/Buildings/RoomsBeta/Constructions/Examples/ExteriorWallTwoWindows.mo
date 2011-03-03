@@ -68,7 +68,9 @@ model ExteriorWallTwoWindows
         rotation=270,
         origin={-110,20})));
   BoundaryConditions.WeatherData.Reader weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    lon=-1.4421267797069,
+    timZon=-21600)
     annotation (Placement(transformation(extent={{100,60},{120,80}})));
   Modelica.Blocks.Sources.Constant TRoo(k=273.15 + 20) "Room air temperature"
     annotation (Placement(transformation(extent={{-190,10},{-170,30}})));

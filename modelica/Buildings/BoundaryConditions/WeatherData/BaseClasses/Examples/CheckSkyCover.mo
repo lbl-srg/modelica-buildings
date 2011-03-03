@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckSkyCover "Test model for checking sky cover"
   import Buildings;
-
 public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover
     cheTotSkyCov "Check total sky cover"
@@ -11,9 +10,6 @@ public
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Utilities.SimulationTime simTim "Generate simulation time"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime timCon
-    "Convert simulation time to calendar time"
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     tableOnFile=true,
@@ -24,12 +20,10 @@ protected
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-
+public
+  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
+    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
-  connect(timCon.calTim, datRea.u) annotation (Line(
-      points={{-39,10},{-22,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(datRea.y[17], cheTotSkyCov.nIn) annotation (Line(
       points={{1,10},{10,10},{10,30},{18,30}},
       color={0,0,127},
@@ -38,9 +32,13 @@ equation
       points={{1,10},{10,10},{10,-10},{18,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, timCon.simTim) annotation (Line(
+  annotation (Diagram(graphics), Commands(file="CheckSkyCover.mos" "run"));
+  connect(simTim.y, conTim.simTim) annotation (Line(
       points={{-79,10},{-62,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Commands(file="CheckSkyCover.mos" "run"));
+  connect(conTim.calTim, datRea.u) annotation (Line(
+      points={{-39,10},{-22,10}},
+      color={0,0,127},
+      smooth=Smooth.None));
 end CheckSkyCover;

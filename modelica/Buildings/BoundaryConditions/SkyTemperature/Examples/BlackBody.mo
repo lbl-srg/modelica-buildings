@@ -3,7 +3,9 @@ model BlackBody "Test model for black body sky temperature"
   import Buildings;
 
   Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    lon=-1.4421267797069,
+    timZon=-21600)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.SkyTemperature.BlackBody TBlaSky
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
@@ -12,9 +14,8 @@ model BlackBody "Test model for black body sky temperature"
           extent={{0,0},{2,2}})));
 equation
 
-
   connect(weaBus, weaDat.weaBus) annotation (Line(
-      points={{10,10},{-20.2,10}},
+      points={{10,10},{-20,10}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(

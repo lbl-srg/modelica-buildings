@@ -1,12 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model SolarAzimuth "Test model for zenith angle"
   parameter Modelica.SIunits.Angle lat= 0.2 "Latitude";
-  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarTime solTim
-    annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.EquationOfTime eqnTim
-    annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
-  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.LocalTime locTim
-    annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
     solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
@@ -14,54 +8,27 @@ model SolarAzimuth "Test model for zenith angle"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth solAzi(lat=lat)
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
-  Utilities.SimulationTime simTim
-    annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
+  WeatherData.Reader weaDat(
+    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    lon=-1.5293932423067,
+    timZon=-21600)
+    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+  WeatherData.Bus weaBus
+    annotation (Placement(transformation(extent={{-54,0},{-34,20}})));
 equation
-  connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(
-      points={{-39,10},{-30,10},{-30,-4},{-22,-4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solTim.solTim, solHouAng.solTim) annotation (Line(
-      points={{1,-10},{18,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(zen.zen, solAzi.zen) annotation (Line(
       points={{81,50},{90,50},{90,26},{98,26}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(locTim.locTim, solTim.locTim) annotation (Line(
-      points={{-39,-30},{-30,-30},{-30,-15.4},{-22,-15.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solTim.solTim, solAzi.solTim) annotation (Line(
-      points={{1,-10},{10,-10},{10,-38},{90,-38},{90,14},{98,14}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(decAng.decAng, zen.decAng) annotation (Line(
-      points={{-39,50},{8,50},{8,55.4},{58,55.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(
       points={{41,-10},{48,-10},{48,45.2},{58,45.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(simTim.y, eqnTim.nDay) annotation (Line(
-      points={{-79,10},{-62,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(simTim.y, decAng.nDay) annotation (Line(
-      points={{-79,10},{-70,10},{-70,50},{-62,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(simTim.y, locTim.cloTim) annotation (Line(
-      points={{-79,10},{-70,10},{-70,-30},{-62,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(decAng.decAng, solAzi.decAng) annotation (Line(
-      points={{-39,50},{8,50},{8,20},{98,20}},
+      points={{1,50},{20,50},{20,20},{98,20}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -70,4 +37,40 @@ equation
     Commands(file="SolarAzimuth.mos" "run"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{150,
             100}})));
+  connect(decAng.decAng, zen.decAng) annotation (Line(
+      points={{1,50},{20,50},{20,55.4},{58,55.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, weaBus) annotation (Line(
+      points={{-60,10},{-44,10}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(weaBus.cloTim, decAng.nDay) annotation (Line(
+      points={{-44,10},{-28,10},{-28,50},{-22,50}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
+      points={{-44,10},{-28,10},{-28,-10},{18,-10}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(weaBus.solTim, solAzi.solTim) annotation (Line(
+      points={{-44,10},{-28,10},{-28,-28},{92,-28},{92,14},{98,14}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
 end SolarAzimuth;

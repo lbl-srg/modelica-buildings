@@ -1,7 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model ConvertRadiation "Test model for convert radiation"
   import Buildings;
-
 public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
     cheGloRad "Check global horizontal radiation"
@@ -12,7 +11,7 @@ public
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime timCon
-    "Convert simmulation tiem to calendar time"
+    "Convert simmulation time to calendar time"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
@@ -24,7 +23,6 @@ protected
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-
 equation
   connect(timCon.calTim, datRea.u) annotation (Line(
       points={{-39,10},{-22,10}},

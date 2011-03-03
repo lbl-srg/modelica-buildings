@@ -6,8 +6,7 @@ model TransmittedRadiation
   parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";
   parameter Modelica.SIunits.Angle til=1.5707963267949 "Surface tilt";
 
-  BoundaryConditions.SolarIrradiation.DirectTiltedSurface
-    HDirTil(
+  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=til,
     lat=lat,
     azi=azi)
@@ -15,11 +14,13 @@ model TransmittedRadiation
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-38,0},{-18,20}})));
   BoundaryConditions.WeatherData.Reader weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    lon=-1.4421267797069,
+    timZon=-21600)
     annotation (Placement(transformation(extent={{-70,0},{-50,20}})));
 
-  BoundaryConditions.SolarIrradiation.DiffuseIsotropic
-    HDifTilIso(til=til)
+  BoundaryConditions.SolarIrradiation.DiffuseIsotropic HDifTilIso(
+               til=til)
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Blocks.Sources.Constant shaCon(k=if (glaSys.haveShade) then 0.5 else
               0)

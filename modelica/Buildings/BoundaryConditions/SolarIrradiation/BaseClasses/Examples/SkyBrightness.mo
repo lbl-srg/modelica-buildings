@@ -9,7 +9,9 @@ model SkyBrightness "Test model for sky brightness"
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.SkyBrightness
     skyBri annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
+    lon=-1.4421267797069,
+    timZon=-21600)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{-22,-20},{-2,0}}), iconTransformation(extent={{
@@ -39,16 +41,16 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.cloTim, zen.cloTim) annotation (Line(
-      points={{-12,-10},{-12,12},{-40,12},{-40,30},{-32,30}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   annotation (
     Diagram(graphics),
     Commands(file="SkyBrightness.mos" "run"),
     Icon(graphics));
+  connect(zen.weaBus, weaBus) annotation (Line(
+      points={{-30.2,30},{-34,30},{-34,10},{-12,10},{-12,-10}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
 end SkyBrightness;

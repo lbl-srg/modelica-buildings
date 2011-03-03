@@ -9,7 +9,9 @@ model SkyClearness "Test model for sky clearness"
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 
   Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    lon=-1.4421267797069,
+    timZon=-21600)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-2,20},{18,40}})));
@@ -44,8 +46,8 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
 
-  connect(weaBus.cloTim, zen.cloTim) annotation (Line(
-      points={{8,30},{8,10},{-48,10},{-48,-10},{-42,-10}},
+  connect(weaBus, zen.weaBus) annotation (Line(
+      points={{8,30},{8,12},{-54,12},{-54,-10},{-40.2,-10}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(

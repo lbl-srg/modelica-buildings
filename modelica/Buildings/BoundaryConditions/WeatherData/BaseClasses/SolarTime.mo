@@ -1,4 +1,4 @@
-within Buildings.BoundaryConditions.SolarGeometry.BaseClasses;
+within Buildings.BoundaryConditions.WeatherData.BaseClasses;
 block SolarTime "Solar time"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public

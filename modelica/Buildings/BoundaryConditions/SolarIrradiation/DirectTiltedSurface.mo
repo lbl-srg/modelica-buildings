@@ -1,6 +1,5 @@
 within Buildings.BoundaryConditions.SolarIrradiation;
-block DirectTiltedSurface
-  "Direct solar irradiation on a tilted surface"
+block DirectTiltedSurface "Direct solar irradiation on a tilted surface"
   import Buildings;
   extends
     Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.PartialSolarIrradiation;
@@ -32,14 +31,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(weaBus.cloTim, incAng.cloTim) annotation (Line(
-      points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-20},{-51.8,-20}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   connect(weaBus.HDirNor, HDirTil.HDirNor) annotation (Line(
       points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,12},{-4,12}},
       color={255,204,51},
@@ -86,4 +77,12 @@ First implementation.
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255})}));
+  connect(weaBus, incAng.weaBus) annotation (Line(
+      points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-19.6},{-50,-19.6}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
 end DirectTiltedSurface;

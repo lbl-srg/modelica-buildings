@@ -23,9 +23,9 @@ protected
     lat=lat,
     azi=azi,
     til=til)
-    annotation (Placement(transformation(extent={{-90,-96},{-80,-86}})));
+    annotation (Placement(transformation(extent={{-86,-96},{-76,-86}})));
   SolarGeometry.ZenithAngle zen(lat=lat)
-    annotation (Placement(transformation(extent={{-88,-48},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-86,-44},{-78,-36}})));
 equation
   connect(relAirMas.relAirMas, skyBri.relAirMas) annotation (Line(
       points={{-43.6,-44},{-34,-44},{-34,-50.4},{-30.8,-50.4}},
@@ -40,24 +40,24 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(incAng.y, HDifTil.incAng) annotation (Line(
-      points={{-79.5,-91},{34,-91},{34,-14},{41.8,-14},{41.8,-14.7}},
+      points={{-75.5,-91},{34,-91},{34,-14},{41.8,-14},{41.8,-14.7}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zen.y, skyCle.zen) annotation (Line(
-      points={{-79.6,-44},{-70,-44},{-70,17.6},{-52.8,17.6}},
+      points={{-77.6,-40},{-70,-40},{-70,17.6},{-52.8,17.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zen.y, relAirMas.zen) annotation (Line(
-      points={{-79.6,-44},{-52.8,-44}},
+      points={{-77.6,-40},{-66,-40},{-66,-44},{-52.8,-44}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(zen.y, briCoe.zen) annotation (Line(
-      points={{-79.6,-44},{-70,-44},{-70,-64},{-10,-64},{-10,-34},{1.2,-34},{
+      points={{-77.6,-40},{-70,-40},{-70,-64},{-10,-64},{-10,-34},{1.2,-34},{
           1.2,-32.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDifTil.zen, zen.y) annotation (Line(
-      points={{41.8,-8.4},{26,-8.4},{26,-80},{-70,-80},{-70,-44},{-79.6,-44}},
+      points={{41.8,-8.4},{26,-8.4},{26,-80},{-70,-80},{-70,-40},{-77.6,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.HGloHor, skyCle.HGloHor) annotation (Line(
@@ -108,27 +108,19 @@ equation
       points={{10.4,-28.4},{16,-28.4},{16,4.2},{41.8,4.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.cloTim, incAng.cloTim) annotation (Line(
-      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-91},{-90.9,-91}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(weaBus.cloTim, zen.cloTim) annotation (Line(
-      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-44},{-88.8,-44}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   connect(HDifTil.HDifTil, H) annotation (Line(
-      points={{90.1,-6.60583e-16},{96.05,-6.60583e-16},{96.05,4.44089e-16},{110,
-          4.44089e-16}},
+      points={{90.1,-6.60583e-16},{96.05,-6.60583e-16},{96.05,5.55112e-16},{110,
+          5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(weaBus, incAng.weaBus) annotation (Line(
+      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-90.8},{-86,-90.8}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation (
     defaultComponentName="HDifTil",
     Documentation(info="<HTML>
@@ -172,4 +164,12 @@ First implementation.
           textString="%name",
           lineColor={0,0,255})}),
     DymolaStoredErrors);
+  connect(weaBus, zen.weaBus) annotation (Line(
+      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-40},{-86.08,-40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
 end DiffusePerez;

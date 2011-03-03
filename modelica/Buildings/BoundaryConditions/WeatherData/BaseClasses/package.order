@@ -6,5 +6,8 @@ CheckWindSpeed
 ConvertRadiation
 ConvertRelativeHumidity
 ConvertTemperature
+EquationOfTime
+LocalCivilTime
 ConvertTime
+SolarTime
 Examples

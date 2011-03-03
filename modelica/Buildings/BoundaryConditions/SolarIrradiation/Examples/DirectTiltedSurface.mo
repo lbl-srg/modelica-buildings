@@ -4,20 +4,21 @@ model DirectTiltedSurface
   import Buildings;
   parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
   Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
+    lon=-1.4421267797069,
+    timZon=-21600)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (
       Placement(transformation(extent={{1,-1},{21,21}}), iconTransformation(
           extent={{20,20},{21,21}})));
-  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface
-    HDirTil(
+  Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     til=1.5707963267949,
     lat=0.72483523835325,
     azi=0.78539816339745)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-20.2,10},{11,10}},
+      points={{-20,10},{11,10}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
