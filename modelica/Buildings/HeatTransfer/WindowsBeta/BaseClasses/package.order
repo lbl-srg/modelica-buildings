@@ -17,4 +17,5 @@ convectionVerticalCavity
 convectionHorizontalCavity
 nusseltHorizontalCavityEnhanced
 nusseltHorizontalCavityReduced
+smoothInterpolation
 Examples

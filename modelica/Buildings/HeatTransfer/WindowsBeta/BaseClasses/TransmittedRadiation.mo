@@ -15,8 +15,7 @@ block TransmittedRadiation "Transmitted radiation through window"
     "Transmitted solar radiation through shaded part of window";
 
 protected
-  Integer k1;
-  Integer k2;
+  Integer k=1;
   Real x;
   final parameter Integer NDIR=radDat.NDIR;
   final parameter Integer HEM=radDat.HEM;
@@ -27,8 +26,8 @@ protected
   final parameter Real coeTraWinExtIrr[2, radDat.HEM + 2](fixed=false);
   Real tmpNoSha;
   Real tmpSha;
-  Real y1d;
-  Real y2d;
+  Real incAng2;
+
 initial algorithm
   //**************************************************************
   // Assign coefficients.
@@ -36,7 +35,6 @@ initial algorithm
   // with 2 dummy variable for interpolation.
   //**************************************************************
   // Glass
-  //for i in 1:N loop
   for j in 1:HEM loop
     // Properties for glass without shading
     coeTraWinExtIrr[NoShade, j + 1] := radDat.traRef[1, 1, N, j];
@@ -55,7 +53,6 @@ initial algorithm
     coeTraWinExtIrr[k, 1] := coeTraWinExtIrr[k, 2];
     coeTraWinExtIrr[k, HEM + 2] := coeTraWinExtIrr[k, HEM + 1];
   end for;
-  //end for;
 
   //**************************************************************
   // Glass: transmissivity for interior irradiation
@@ -68,47 +65,29 @@ equation
   // Window: transmitted radiation for diffusive radiation from exterior sources
   //**************************************************************
 algorithm
-  QTraUns_flow := AWin*HDif*(1 - uSha_internal)*coeTraWinExtIrr[NoShade, HEM + 1];
+  QTraUns_flow := AWin*HDif*(1 - uSha_internal)*coeTraWinExtIrr[NoShade, HEM +
+    1];
   QTraSha_flow := AWin*HDif*uSha_internal*coeTraWinExtIrr[Shade, HEM + 1];
 
   //**************************************************************
   // Glass, Device: add absorbed radiation (angular part) from exterior sources
   //**************************************************************
-  if incAng < 0.5*Modelica.Constants.pi then
-    x := 2*(NDIR - 1)*abs(incAng)/Modelica.Constants.pi
-      "x=(index-1)*incAng/(0.5pi), 0<=x<=NDIR";
-    x := x + 2;
-    k1 := integer(x) "2<=k<=NDIR+2=HEM+1";
-    k2 := k1 + 1 "3<=k2<=NDIR+3=HEM+2";
+  // Use min() instead of if() to avaoid event
+  incAng2 := min(incAng, 0.5*Modelica.Constants.pi);
+  x := 2*(NDIR - 1)*abs(incAng2)/Modelica.Constants.pi
+    "x=(index-1)*incAng/(0.5pi), 0<=x<=NDIR-1";
+  x := x + 2;
 
-    // Window unshaded parts: add transmitted radiation for angular radiation
-    y1d := (coeTraWinExtIrr[NoShade, k1 + 1] - coeTraWinExtIrr[NoShade, k1 - 1])
-      /2;
-    y2d := (coeTraWinExtIrr[NoShade, k2 + 1] - coeTraWinExtIrr[NoShade, k2 - 1])
-      /2;
-    tmpNoSha := Modelica.Fluid.Utilities.cubicHermite(
-      x,
-      k1,
-      k2,
-      coeTraWinExtIrr[NoShade, k1],
-      coeTraWinExtIrr[NoShade, k2],
-      y1d,
-      y2d);
-    QTraUns_flow := QTraUns_flow + AWin*HDir*(1 - uSha_internal)*tmpNoSha;
+  // Window unshaded parts: add transmitted radiation for angular radiation
+  tmpNoSha :=
+    Buildings.HeatTransfer.WindowsBeta.BaseClasses.smoothInterpolation({
+    coeTraWinExtIrr[NoShade, k] for k in 1:(HEM + 2)}, x);
+  QTraUns_flow := QTraUns_flow + AWin*HDir*(1 - uSha_internal)*tmpNoSha;
 
-    // Window shaded parts: add transmitted radiation for angular radiation
-    y1d := (coeTraWinExtIrr[Shade, k1 + 1] - coeTraWinExtIrr[Shade, k1 - 1])/2;
-    y2d := (coeTraWinExtIrr[Shade, k2 + 1] - coeTraWinExtIrr[Shade, k2 - 1])/2;
-    tmpSha := Modelica.Fluid.Utilities.cubicHermite(
-      x,
-      k1,
-      k2,
-      coeTraWinExtIrr[Shade, k1],
-      coeTraWinExtIrr[Shade, k2],
-      y1d,
-      y2d);
-    QTraSha_flow := QTraSha_flow + AWin*HDir*uSha_internal*tmpSha;
-  end if;
+  // Window shaded parts: add transmitted radiation for angular radiation
+  tmpSha := Buildings.HeatTransfer.WindowsBeta.BaseClasses.smoothInterpolation(
+    {coeTraWinExtIrr[Shade, k] for k in 1:(HEM + 2)}, x);
+  QTraSha_flow := QTraSha_flow + AWin*HDir*uSha_internal*tmpSha;
 
   // Assign quantities to output connectors
   QTra_flow := QTraUns_flow + QTraSha_flow;
@@ -147,6 +126,10 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2011, by Wangda Zuo:<br>
+Remove the if-statement and integrer() function that can trigger events.
+</li>
 <li>
 February 2, 2010, by Michael Wetter:<br>
 Made connector <code>uSha</code> a conditional connector.

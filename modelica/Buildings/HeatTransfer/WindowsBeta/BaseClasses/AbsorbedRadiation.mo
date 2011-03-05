@@ -35,8 +35,7 @@ block AbsorbedRadiation "Absorbed radiation by window"
       absRad[2,N+2]: interior shading device)";
 
 protected
-  Integer k1;
-  Integer k2;
+  Integer k=1;
   Real x;
   final parameter Integer NDIR=radDat.NDIR;
   final parameter Integer HEM=radDat.HEM;
@@ -60,8 +59,7 @@ protected
     "Absorptivity of exterior shading device for interior radiation";
   Real tmpNoSha;
   Real tmpSha;
-  Real y1d;
-  Real y2d;
+  Real incAng2;
 
 initial algorithm
   //**************************************************************
@@ -111,8 +109,6 @@ initial algorithm
   coeAbsDevExtIrrIntSha[1] := coeAbsDevExtIrrIntSha[2];
   coeAbsDevExtIrrIntSha[HEM + 2] := coeAbsDevExtIrrIntSha[HEM + 1];
 
-equation
-  // Dummy variables for shading device
 algorithm
   absRad[NoShade, 1] := 0.0;
   absRad[NoShade, N + 2] := 0.0;
@@ -123,10 +119,10 @@ algorithm
   // Glass: absorbed diffusive radiation from exterior and interior sources
   //**************************************************************
   for i in 1:N loop
-    absRad[NoShade, i + 1] := AWin*(1 - uSha_internal)*(HDif*coeAbsEx[NoShade, i, HEM +
-      1] + HRoo*coeAbsIn[NoShade, i]);
-    absRad[Shade, i + 1] := AWin*uSha_internal*(HDif*coeAbsEx[Shade, i, HEM + 1] + HRoo*
-      coeAbsIn[Shade, i]);
+    absRad[NoShade, i + 1] := AWin*(1 - uSha_internal)*(HDif*coeAbsEx[NoShade,
+      i, HEM + 1] + HRoo*coeAbsIn[NoShade, i]);
+    absRad[Shade, i + 1] := AWin*uSha_internal*(HDif*coeAbsEx[Shade, i, HEM + 1]
+       + HRoo*coeAbsIn[Shade, i]);
   end for;
 
   //**************************************************************
@@ -136,84 +132,58 @@ algorithm
   // direct radiation: 1. direct absorption;
   // diffusive radiation: 1. direct absorption 2. absorption from back reflection
   if haveExteriorShade then
-    absRad[Shade, 1] := AWin*uSha_internal*coeAbsDevExtIrrExtSha*(HDif + HDir + HDif*
-      radDat.traRefShaDev[1, 1]*radDat.traRef[2, 1, N, HEM]);
+    absRad[Shade, 1] := AWin*uSha_internal*coeAbsDevExtIrrExtSha*(HDif + HDir
+       + HDif*radDat.traRefShaDev[1, 1]*radDat.traRef[2, 1, N, HEM]);
     // Interior Shading Device: diffusive radiation from both interior and exterior
   elseif haveInteriorShade then
-    absRad[Shade, N + 2] := AWin*uSha_internal*(HDif*radDat.devAbsExtIrrIntShaDev[HEM]
-       + HRoo*coeAbsDevIntIrrIntSha);
+    absRad[Shade, N + 2] := AWin*uSha_internal*(HDif*radDat.devAbsExtIrrIntShaDev[
+      HEM] + HRoo*coeAbsDevIntIrrIntSha);
   end if;
 
   //**************************************************************
   // Glass, Device: add absorbed direct radiation from exterior sources
   //**************************************************************
-  if incAng < 0.5*Modelica.Constants.pi then
-    x := 2*(NDIR - 1)*abs(incAng)/Modelica.Constants.pi
-      "x=(index-1)*incAng/(0.5pi), 0<=x<=NDIR";
-    x := x + 2;
-    k1 := integer(x) "2<=k<=NDIR+2=HEM+1";
-    k2 := k1 + 1 "3<=k2<=NDIR+3=HEM+2";
+  // Use min() instead of if() to avaoid event
+  incAng2 := min(incAng, 0.5*Modelica.Constants.pi);
 
-    for i in 1:N loop
-      // Glass without shading: Add absorbed direct radiation
-      y1d := (coeAbsEx[NoShade, i, k1 + 1] - coeAbsEx[NoShade, i, k1 - 1])/2;
-      y2d := (coeAbsEx[NoShade, i, k2 + 1] - coeAbsEx[NoShade, i, k2 - 1])/2;
-      tmpNoSha := Modelica.Fluid.Utilities.cubicHermite(
-        x,
-        k1,
-        k2,
-        coeAbsEx[NoShade, i, k1],
-        coeAbsEx[NoShade, i, k2],
-        y1d,
-        y2d);
-      absRad[NoShade, i + 1] := absRad[NoShade, i + 1] + AWin*HDir*(1 - uSha_internal)*
-        tmpNoSha;
+  x := 2*(NDIR - 1)*abs(incAng2)/Modelica.Constants.pi
+    "x=(index-1)*incAng/(0.5pi), 0<=x<=NDIR";
+  x := x + 2;
 
-      // Glass with shading: add absorbed direct radiation
-      y1d := (coeAbsEx[Shade, i, k1 + 1] - coeAbsEx[Shade, i, k1 - 1])/2;
-      y2d := (coeAbsEx[Shade, i, k2 + 1] - coeAbsEx[Shade, i, k2 - 1])/2;
-      tmpSha := Modelica.Fluid.Utilities.cubicHermite(
-        x,
-        k1,
-        k2,
-        coeAbsEx[Shade, i, k1],
-        coeAbsEx[Shade, i, k2],
-        y1d,
-        y2d);
-      absRad[Shade, i + 1] := absRad[Shade, i + 1] + AWin*HDir*uSha_internal*tmpSha;
-    end for;
+  for i in 1:N loop
+    // Glass without shading: Add absorbed direct radiation
+    tmpNoSha :=
+      Buildings.HeatTransfer.WindowsBeta.BaseClasses.smoothInterpolation({
+      coeAbsEx[NoShade, i, k] for k in 1:(HEM + 2)}, x);
+    absRad[NoShade, i + 1] := absRad[NoShade, i + 1] + AWin*HDir*(1 -
+      uSha_internal)*tmpNoSha;
 
-    // Interior shading device: add absorbed direct radiation
-    if haveInteriorShade then
-      y1d := (coeAbsDevExtIrrIntSha[k1 + 1] - coeAbsDevExtIrrIntSha[k1 - 1])/2;
-      y2d := (coeAbsDevExtIrrIntSha[k2 + 1] - coeAbsDevExtIrrIntSha[k2 - 1])/2;
-      tmpSha := Modelica.Fluid.Utilities.cubicHermite(
-        x,
-        k1,
-        k2,
-        coeAbsDevExtIrrIntSha[k1],
-        coeAbsDevExtIrrIntSha[k2],
-        y1d,
-        y2d);
-      absRad[Shade, N + 2] := absRad[Shade, N + 2] + AWin*HDir*uSha_internal*tmpSha;
-    end if;
+    // Glass with shading: add absorbed direct radiation
+    tmpSha :=
+      Buildings.HeatTransfer.WindowsBeta.BaseClasses.smoothInterpolation({
+      coeAbsEx[Shade, i, k] for k in 1:(HEM + 2)}, x);
+    absRad[Shade, i + 1] := absRad[Shade, i + 1] + AWin*HDir*uSha_internal*
+      tmpSha;
+  end for;
 
-    // Exterior shading device: add absorbed reflection of direct radiation from exterior source
-    if haveExteriorShade then
-      y1d := (coeRefExtPan1[k1 + 1] - coeRefExtPan1[k1 - 1])/2;
-      y2d := (coeRefExtPan1[k2 + 1] - coeRefExtPan1[k2 - 1])/2;
-      tmpNoSha := Modelica.Fluid.Utilities.cubicHermite(
-        x,
-        k1,
-        k2,
-        coeRefExtPan1[k1],
-        coeRefExtPan1[k2],
-        y1d,
-        y2d);
-      absRad[Shade, 1] := absRad[Shade, 1] + AWin*HDir*uSha_internal*
-        coeAbsDevExtIrrExtSha*tmpNoSha;
-    end if;
+  // Interior shading device: add absorbed direct radiation
+  if haveInteriorShade then
+    tmpSha :=
+      Buildings.HeatTransfer.WindowsBeta.BaseClasses.smoothInterpolation({
+      coeAbsDevExtIrrIntSha[k] for k in 1:(HEM + 2)}, x);
+    absRad[Shade, N + 2] := absRad[Shade, N + 2] + AWin*HDir*uSha_internal*
+      tmpSha;
   end if;
+
+  // Exterior shading device: add absorbed reflection of direct radiation from exterior source
+  if haveExteriorShade then
+    tmpNoSha :=
+      Buildings.HeatTransfer.WindowsBeta.BaseClasses.smoothInterpolation({
+      coeRefExtPan1[k] for k in 1:(HEM + 2)}, x);
+    absRad[Shade, 1] := absRad[Shade, 1] + AWin*HDir*uSha_internal*
+      coeAbsDevExtIrrExtSha*tmpNoSha;
+  end if;
+
   // Assign quantities to output connectors
   QAbsExtSha_flow := absRad[2, 1];
   QAbsIntSha_flow := absRad[2, N + 2];
@@ -287,6 +257,10 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+March 4, 2011, by Wangda Zuo:<br>
+Remove the if-statement and integrer() function that can trigger events.
+</li>
 <li>
 February 2, 2010, by Michael Wetter:<br>
 Made connector <code>uSha</code> a conditional connector.
