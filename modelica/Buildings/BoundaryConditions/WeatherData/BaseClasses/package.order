@@ -10,4 +10,7 @@ EquationOfTime
 LocalCivilTime
 ConvertTime
 SolarTime
+getHeaderElementTMY3
+getLongitudeTMY3
+getTimeZoneTMY3
 Examples

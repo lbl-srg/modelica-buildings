@@ -7,5 +7,7 @@ ConvertRadiation
 ConvertRelativeHumidity
 ConvertTemperature
 EquationOfTime
+GetHeaderElement
 LocalCivilTime
 SolarTime
+

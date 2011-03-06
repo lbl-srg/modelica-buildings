@@ -1,0 +1,1 @@
+simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.GetHeaderElement", resultFile="GetHeaderElement");
