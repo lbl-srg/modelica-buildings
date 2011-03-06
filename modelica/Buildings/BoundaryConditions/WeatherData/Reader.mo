@@ -4,8 +4,12 @@ public
   parameter String filNam "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Open weather file for reading")));
-  parameter Modelica.SIunits.Angle lon(displayUnit="deg") "Longitude";
-  parameter Modelica.SIunits.Time timZon(displayUnit="h") "Time zone";
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(filNam)
+    "Longitude";
+  parameter Modelica.SIunits.Time timZon(displayUnit="h")=
+    Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
+    "Time zone";
   Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
             190,-10},{210,10}}), iconTransformation(extent={{190,-10},{210,10}})));
 protected
@@ -273,6 +277,34 @@ equation
       points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-150},{-122,-150}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(simTim.y, conTim.simTim) annotation (Line(
+      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-30},{-122,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conTim.calTim, datRea.u) annotation (Line(
+      points={{-99,-30},{-82,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(simTim.y, eqnTim.nDay) annotation (Line(
+      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-110},{-122,-110}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(
+      points={{-99,-110},{-88,-110},{-88,-124},{-82,-124}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(locTim.locTim, solTim.locTim) annotation (Line(
+      points={{-99,-150},{-88,-150},{-88,-135.4},{-82,-135.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(solTim.solTim, weaBus.solTim) annotation (Line(
+      points={{-59,-130},{-48,-130},{-48,-152},{180,-152},{180,5.55112e-16},{
+          200,5.55112e-16}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
@@ -342,7 +374,30 @@ equation
           thickness=1)}),
     Documentation(info="<HTML>
 <p>
-This component reads the weather data.
+This component reads TMY3 weather data.
+The parameter 
+<code>lon</code> is the longitude of the weather station, and 
+the parameter <code>timZone</code> is the time zone
+relative to Greenwich Mean Time. 
+These parameters can be obtained from the header in the TMY3 
+weather data file.
+For example, for San Francisco, CA, the TMY3 
+weather data file
+<a href=\"modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos\">
+Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos</a>
+has the header
+</p>
+<p>
+<pre>
+#LOCATION,San Francisco Intl Ap,CA,USA,TMY3,724940,37.62,-122.40,-8.0,2.0
+</pre>
+</p>
+<p>
+Thus, enter the parameters
+<table>
+<tr><td>lon </td><td>=</td><td> -122.40*Modelica.Constants.pi/180</td></tr>
+<tr><td>timZon </td><td>=</td><td> -8*3600</td></tr>
+</table>
 </p>
 </HTML>
 ", revisions="<html>
@@ -447,32 +502,4 @@ First implementation.
           color={255,0,0},
           smooth=Smooth.None,
           thickness=1)}));
-  connect(simTim.y, conTim.simTim) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-30},{-122,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conTim.calTim, datRea.u) annotation (Line(
-      points={{-99,-30},{-82,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(simTim.y, eqnTim.nDay) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-110},{-122,-110}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(
-      points={{-99,-110},{-88,-110},{-88,-124},{-82,-124}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(locTim.locTim, solTim.locTim) annotation (Line(
-      points={{-99,-150},{-88,-150},{-88,-135.4},{-82,-135.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solTim.solTim, weaBus.solTim) annotation (Line(
-      points={{-59,-130},{-48,-130},{-48,-152},{180,-152},{180,5.55112e-16},{
-          200,5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
 end Reader;
