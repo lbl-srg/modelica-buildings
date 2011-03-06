@@ -121,6 +121,14 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  connect(weaBus, zen.weaBus) annotation (Line(
+      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-40},{-86.08,-40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation (
     defaultComponentName="HDifTil",
     Documentation(info="<HTML>
@@ -164,12 +172,4 @@ First implementation.
           textString="%name",
           lineColor={0,0,255})}),
     DymolaStoredErrors);
-  connect(weaBus, zen.weaBus) annotation (Line(
-      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-40},{-86.08,-40}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
 end DiffusePerez;

@@ -45,6 +45,22 @@ equation
       points={{-19,-40},{20,-40},{20,-4.8},{38,-4.8}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(weaBus.cloTim, decAng.nDay) annotation (Line(
+      points={{-100,4},{-80,4},{-80,40},{-42,40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
+      points={{-100,4},{-80,4},{-80,-40},{-42,-40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation (
     defaultComponentName="incAng",
     Documentation(info="<HTML>
@@ -73,20 +89,4 @@ First implementation.
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255})}));
-  connect(weaBus.cloTim, decAng.nDay) annotation (Line(
-      points={{-100,4},{-80,4},{-80,40},{-42,40}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
-      points={{-100,4},{-80,4},{-80,-40},{-42,-40}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
 end IncidenceAngle;

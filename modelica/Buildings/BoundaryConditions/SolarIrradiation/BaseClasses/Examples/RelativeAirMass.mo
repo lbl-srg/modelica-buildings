@@ -14,10 +14,10 @@ equation
       points={{1,10},{18,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Commands(file="RelativeAirMass.mos" "run"));
   connect(weaDat.weaBus, zen.weaBus) annotation (Line(
       points={{-40,10},{-20.2,10}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
+  annotation (Diagram(graphics), Commands(file="RelativeAirMass.mos" "run"));
 end RelativeAirMass;

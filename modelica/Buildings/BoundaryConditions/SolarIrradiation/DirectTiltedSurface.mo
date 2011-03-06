@@ -49,6 +49,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
+  connect(weaBus, incAng.weaBus) annotation (Line(
+      points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-19.6},{-50,-19.6}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation (
     defaultComponentName="HDirTil",
     Documentation(info="<HTML>
@@ -77,12 +85,4 @@ First implementation.
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255})}));
-  connect(weaBus, incAng.weaBus) annotation (Line(
-      points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-19.6},{-50,-19.6}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
 end DirectTiltedSurface;

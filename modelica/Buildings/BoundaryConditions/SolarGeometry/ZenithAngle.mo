@@ -34,6 +34,22 @@ equation
           1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(weaBus.cloTim, decAng.nDay) annotation (Line(
+      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,40},{-22,40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
+      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,-40},{-22,-40}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation (
     defaultComponentName="zen",
     Documentation(info="<HTML>
@@ -58,20 +74,4 @@ First implementation.
           extent={{-150,110},{150,150}},
           textString="%name",
           lineColor={0,0,255})}));
-  connect(weaBus.cloTim, decAng.nDay) annotation (Line(
-      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,40},{-22,40}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
-  connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
-      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,-40},{-22,-40}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
 end ZenithAngle;

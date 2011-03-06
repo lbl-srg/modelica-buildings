@@ -39,10 +39,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (
-    Diagram(graphics),
-    Commands(file="SkyBrightness.mos" "run"),
-    Icon(graphics));
   connect(zen.weaBus, weaBus) annotation (Line(
       points={{-30.2,30},{-34,30},{-34,10},{-12,10},{-12,-10}},
       color={255,204,51},
@@ -51,4 +47,8 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  annotation (
+    Diagram(graphics),
+    Commands(file="SkyBrightness.mos" "run"),
+    Icon(graphics));
 end SkyBrightness;
