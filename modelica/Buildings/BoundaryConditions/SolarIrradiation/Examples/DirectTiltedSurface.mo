@@ -3,10 +3,8 @@ model DirectTiltedSurface
   "Test model for direct solar irradiation on a tilted surface"
   import Buildings;
   parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
-  Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-    lon=-1.4421267797069,
-    timZon=-21600)
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (
       Placement(transformation(extent={{1,-1},{21,21}}), iconTransformation(

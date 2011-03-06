@@ -76,8 +76,8 @@ from weather data.
 </p>
 <p>
 To use this model, connect weather data from
-<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.Reader\">
-Buildings.BoundaryConditions.WeatherData.Reader</a> to the port
+<a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a> to the port
 <code>weaBus</code> of this model. 
 This will cause the medium of this model to be
 at the pressure that is obtained from the weather file, and any flow that

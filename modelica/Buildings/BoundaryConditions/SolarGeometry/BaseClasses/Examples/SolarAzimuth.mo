@@ -11,10 +11,8 @@ model SolarAzimuth "Test model for zenith angle"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth solAzi(lat=lat)
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
-  WeatherData.Reader weaDat(
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-    lon=-1.5293932423067,
-    timZon=-21600)
+  WeatherData.ReaderTMY3 weaDat(
+    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-54,0},{-34,20}})));
@@ -31,12 +29,6 @@ equation
       points={{1,50},{20,50},{20,20},{98,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{150,
-            100}}), graphics),
-    Commands(file="SolarAzimuth.mos" "run"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{150,
-            100}})));
   connect(decAng.decAng, zen.decAng) annotation (Line(
       points={{1,50},{20,50},{20,55.4},{58,55.4}},
       color={0,0,127},
@@ -73,4 +65,10 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{150,
+            100}}), graphics),
+    Commands(file="SolarAzimuth.mos" "run"),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{150,
+            100}})));
 end SolarAzimuth;

@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData;
-block Reader "Read the requested weather data "
+block ReaderTMY3 "Reader for TMY3 weather data "
 public
   parameter String filNam "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
@@ -379,29 +379,17 @@ The parameter
 <code>lon</code> is the longitude of the weather station, and 
 the parameter <code>timZone</code> is the time zone
 relative to Greenwich Mean Time. 
-These parameters can be obtained from the header in the TMY3 
-weather data file.
-For example, for San Francisco, CA, the TMY3 
-weather data file
-<a href=\"modelica://Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos\">
-Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos</a>
-has the header
-</p>
-<p>
-<pre>
-#LOCATION,San Francisco Intl Ap,CA,USA,TMY3,724940,37.62,-122.40,-8.0,2.0
-</pre>
-</p>
-<p>
-Thus, enter the parameters
-<table>
-<tr><td>lon </td><td>=</td><td> -122.40*Modelica.Constants.pi/180</td></tr>
-<tr><td>timZon </td><td>=</td><td> -8*3600</td></tr>
-</table>
+By default, the reader obtains values for these parameters 
+by scanning the TMY3 weather data file.
 </p>
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+March 5, 2011, by Michael Wetter:<br>
+Changed implementation to obtain longitude and time zone directly
+from weather file.
+</li>
 <li>
 June 25, 2010, by Wangda Zuo:<br>
 First implementation.
@@ -502,4 +490,4 @@ First implementation.
           color={255,0,0},
           smooth=Smooth.None,
           thickness=1)}));
-end Reader;
+end ReaderTMY3;

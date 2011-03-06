@@ -10,10 +10,8 @@ model IncidenceAngle "Test model for incidence angle"
     lat=0,
     azi=0,
     til=90) annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Buildings.BoundaryConditions.WeatherData.Reader weaDat(
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-    lon=-1.5293932423067,
-    timZon=-21600)
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-46,-10},{-26,10}})));
@@ -26,7 +24,6 @@ equation
       points={{21,-30},{28,-30},{28,-4.8},{38,-4.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Commands(file="IncidenceAngle.mos" "run"));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-60,5.82867e-16},{-48,5.82867e-16},{-48,5.55112e-16},{-36,
           5.55112e-16}},
@@ -52,4 +49,5 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  annotation (Diagram(graphics), Commands(file="IncidenceAngle.mos" "run"));
 end IncidenceAngle;

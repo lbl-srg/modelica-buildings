@@ -5,10 +5,8 @@ model DiffusePerez
   parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
   parameter Modelica.SIunits.Angle azi=0.3 "Azi angle";
   parameter Modelica.SIunits.Angle til=0.5 "Tilted angle";
-  Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
-    lon=-1.4421267797069,
-    timZon=-21600)
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
         transformation(extent={{1,-1},{21,21}}), iconTransformation(extent={{20,

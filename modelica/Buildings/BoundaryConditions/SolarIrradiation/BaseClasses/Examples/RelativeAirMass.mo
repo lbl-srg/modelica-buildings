@@ -6,10 +6,8 @@ model RelativeAirMass "Test model for relative air mass"
   Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=
         0.34906585039887)
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
-        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos",
-    lon=-1.4421267797069,
-    timZon=-21600)
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
   connect(zen.y, relAirMas.zen) annotation (Line(

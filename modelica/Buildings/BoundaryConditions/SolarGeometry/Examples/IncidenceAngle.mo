@@ -6,10 +6,8 @@ model IncidenceAngle "Test model for solar incidence angle"
     azi=0.3,
     til=0.5) "The location is Chicago"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Buildings.BoundaryConditions.WeatherData.Reader weaDat(
-    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-    lon=-1.5293932423067,
-    timZon=-21600)
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+    filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
   connect(weaDat.weaBus, incAng.weaBus) annotation (Line(

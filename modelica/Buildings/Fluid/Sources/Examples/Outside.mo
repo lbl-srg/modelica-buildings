@@ -5,10 +5,8 @@ model Outside "Test model for source and sink with outside weather data"
   Buildings.Fluid.Sources.Outside bou(redeclare package Medium = Medium, nPorts=
        1) "Model with outside conditions"
     annotation (Placement(transformation(extent={{-50,20},{-30,40}})));
-  Buildings.BoundaryConditions.WeatherData.Reader weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-    lon=-1.5293932423067,
-    timZon=-21600)
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   MassFlowSource_T sin(redeclare package Medium = Medium, m_flow=-1,
     nPorts=1) "Sink"

@@ -69,11 +69,9 @@ model Window "Test model for the window"
   Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic HDifTilIso(
                til=til)
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
-  Buildings.BoundaryConditions.WeatherData.Reader weaDat(
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
                                                         filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-    lon=-1.4421267797069,
-    timZon=-21600)
+        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Modelica.Blocks.Math.Gain HRoo(k=0.1) "Short-wave irradiation from room"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
