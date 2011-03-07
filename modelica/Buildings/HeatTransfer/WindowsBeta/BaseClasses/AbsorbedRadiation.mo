@@ -143,7 +143,7 @@ algorithm
   //**************************************************************
   // Glass, Device: add absorbed direct radiation from exterior sources
   //**************************************************************
-  // Use min() instead of if() to avaoid event
+  // Use min() instead of if() to avoid event
   incAng2 := min(incAng, 0.5*Modelica.Constants.pi);
 
   x := 2*(NDIR - 1)*abs(incAng2)/Modelica.Constants.pi
@@ -259,7 +259,7 @@ Dissertation. University of California at Berkeley. 2004.
 <ul>
 <li>
 March 4, 2011, by Wangda Zuo:<br>
-Remove the if-statement and integrer() function that can trigger events.
+Remove the if-statement and integer function that can trigger events.
 </li>
 <li>
 February 2, 2010, by Michael Wetter:<br>
