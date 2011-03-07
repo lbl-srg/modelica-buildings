@@ -22,7 +22,7 @@ This component converts the simulation time to calendar time in a scale of 1 yea
 <ul>
 <li>
 February 27, 2011, by Wangda Zuo:<br>
-Rename the componet.
+Renamed the component.
 </li>
 <li>
 July 08, 2010, by Wangda Zuo:<br>
