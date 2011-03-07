@@ -1,4 +1,4 @@
-simulateModel("Buildings.RoomsBeta.Examples.TestConditionalConstructions.OnlyExteriorWallNoWindow", stopTime=86400, method="dassl", resultFile="OnlyExteriorWallNoWindow");
+simulateModel("Buildings.RoomsBeta.Examples.TestConditionalConstructions.OnlyExteriorWallNoWindow", stopTime=86400, method="radau", resultFile="OnlyExteriorWallNoWindow");
 removePlots();
 createPlot(id = 1,
  position = {15, 10, 400, 280},

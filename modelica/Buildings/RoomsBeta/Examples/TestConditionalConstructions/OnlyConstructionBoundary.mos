@@ -1,4 +1,4 @@
-simulateModel("Buildings.RoomsBeta.Examples.TestConditionalConstructions.OnlyConstructionBoundary", stopTime=86400, method="dassl", resultFile="OnlyConstructionBoundary");
+simulateModel("Buildings.RoomsBeta.Examples.TestConditionalConstructions.OnlyConstructionBoundary", stopTime=86400, method="radau", resultFile="OnlyConstructionBoundary");
 removePlots();
 createPlot(id = 1,
  position = {15, 10, 400, 280},

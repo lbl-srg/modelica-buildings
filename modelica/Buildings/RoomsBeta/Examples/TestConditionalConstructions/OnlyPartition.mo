@@ -11,5 +11,9 @@ model OnlyPartition "Test model for room model"
     each til=Types.Tilt.Floor,
     each azi=Types.Azimuth.W)));
 
-   annotation(Commands(file="OnlyPartition.mos" "run"));
+   annotation(Commands(file="OnlyPartition.mos" "run"),
+    experiment(
+      StopTime=172800,
+      Tolerance=1e-05,
+      Algorithm="Radau"));
 end OnlyPartition;

@@ -16,10 +16,14 @@ model OnlyConstructionBoundary "Test model for room model"
         origin={110,-70})));
 equation
   connect(TBou1.port, roo.surf_conBou) annotation (Line(
-      points={{100,-70},{70,-70},{70,-32}},
+      points={{100,-70},{70,-70},{70,-34}},
       color={191,0,0},
       smooth=Smooth.None));
    annotation(Commands(file="OnlyConstructionBoundary.mos" "run"),
       Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            200,160}}), graphics));
+            200,160}}), graphics),
+    experiment(
+      StopTime=172800,
+      Tolerance=1e-05,
+      Algorithm="Radau"));
 end OnlyConstructionBoundary;

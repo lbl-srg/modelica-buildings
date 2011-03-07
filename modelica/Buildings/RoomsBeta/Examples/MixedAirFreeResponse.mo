@@ -180,5 +180,9 @@ December 14, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    experiment(
+      StopTime=172800,
+      Tolerance=1e-05,
+      Algorithm="Radau"));
 end MixedAirFreeResponse;
