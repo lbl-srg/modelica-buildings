@@ -4,94 +4,88 @@ public
   parameter String filNam "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Open weather file for reading")));
-  final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
+  parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(filNam)
     "Longitude";
-  final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
+  parameter Modelica.SIunits.Time timZon(displayUnit="h")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
   Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
             190,-10},{210,10}}), iconTransformation(extent={{190,-10},{210,10}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
-    final tableOnFile=true,
-    final tableName="tab1",
-    final fileName=filNam,
-    final columns=2:30,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    "Data reader"
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=filNam,
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    columns={2,3,4,5,6,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,
+        30}) "Data reader"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTemperature
-    conTemDryBul "Converts unit for dry bulb temperature "
+    conTemDryBul "Convert unit for dry bulb temperature "
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTemperature
-    conTemDewPoi "Converts unit for dew point temperature"
+    conTemDewPoi "Convert unit for dew point temperature"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity
     conHum annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  BaseClasses.CheckPressure chePre "Checks the air pressure"
+  BaseClasses.CheckPressure chePre
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  BaseClasses.CheckSkyCover cheTotSkyCov "Checks the total sky cover"
+  BaseClasses.CheckSkyCover cheTotSkyCov "Check total sky cover"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  BaseClasses.CheckSkyCover cheOpaSkyCov "Checks the opaque sky cover"
+  BaseClasses.CheckSkyCover cheOpaSkyCov "Check opaque sky cover"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
-    cheGloHorRad "Checks the global horizontal radiation"
+    cheGloHorRad "Check global horizontal radiation"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
-    cheDifHorRad "Checks the diffuse horizontal radiation"
+    cheDifHorRad "Check diffuse horizontal radiation"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
-    cheDirNorRad "Checks the direct normal radiation"
+    cheDirNorRad "Check direct normal radiation"
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
-  BaseClasses.CheckCeilingHeight cheCeiHei "Checks the ceiling height"
+  BaseClasses.CheckCeilingHeight cheCeiHei
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  BaseClasses.CheckWindSpeed cheWinSpe "Checks the wind speed"
+public
+  BaseClasses.CheckWindSpeed cheWinSpe
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  BaseClasses.ConvertRadiation cheRadHor "Check horizontal radiation"
+  BaseClasses.ConvertRadiation cheRadHor "check horizontal radiation"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
-  BaseClasses.CheckWindDirection cheWinDir "Checks the wind direction"
+  BaseClasses.CheckWindDirection cheWinDir
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
-  SkyTemperature.BlackBody TBlaSky "Checks the sky black-body temperature"
+  SkyTemperature.BlackBody TBlaSky
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
-  Utilities.SimulationTime simTim "Simulation time"
+  Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
   Modelica.Blocks.Math.Add add
-    "Adds 30 minutes to time to shift weather data reader"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Modelica.Blocks.Sources.Constant con30mins(k=1800)
-    "Constant used to shift weather data reader"
     annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(
-      lon=lon, timZon=timZon) "Local civil time"
-    annotation (Placement(transformation(extent={{-120,-180},{-100,-160}})));
+      lon=lon, timZon=timZon)
+    annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
+protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea1(
-    final tableOnFile=true,
-    final tableName="tab1",
-    final fileName=filNam,
-    final columns=2:30,
-    final smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
-    "Data reader"
+    tableOnFile=true,
+    tableName="tab1",
+    fileName=filNam,
+    smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative,
+    columns=8:11) "Data reader"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1
-    "Converts simulation time to calendar time"
     annotation (Placement(transformation(extent={{-110,20},{-90,40}})));
-  Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
-    "Converts simulation time to calendar time"
+  BaseClasses.ConvertTime conTim
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
-  BaseClasses.EquationOfTime eqnTim "Equation of time"
-    annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
-  BaseClasses.SolarTime solTim "Solar time"
-    annotation (Placement(transformation(extent={{-80,-160},{-60,-140}})));
+  BaseClasses.EquationOfTime eqnTim
+    annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
+  BaseClasses.SolarTime solTim
+    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
+  Utilities.Psychrometrics.TWetBul_TDryBulXi tWetBul_TDryBulXi(
+                                      redeclare package Medium =
+        Buildings.Media.PerfectGases.MoistAir)
+    annotation (Placement(transformation(extent={{140,10},{160,30}})));
 equation
-  connect(datRea.y[1], conTemDryBul.TemC) annotation (Line(
-      points={{-59,-30},{-14,-30},{-14,110},{-2,110}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(datRea.y[2], conTemDewPoi.TemC) annotation (Line(
-      points={{-59,-30},{-14,-30},{-14,90},{58,90}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(conTemDryBul.TemK, weaBus.TDryBul) annotation (Line(
       points={{21,110},{116,110},{116,5.55112e-16},{200,5.55112e-16}},
       color={0,0,127},
@@ -106,10 +100,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(datRea.y[3], conHum.relHumIn) annotation (Line(
-      points={{-59,-30},{-14,-30},{-14,70},{-2,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(conHum.relHumOut, weaBus.relHum) annotation (Line(
       points={{21,70},{116,70},{116,5.55112e-16},{200,5.55112e-16}},
       color={0,0,127},
@@ -117,10 +107,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(datRea.y[4], chePre.PIn) annotation (Line(
-      points={{-59,-30},{-14,-30},{-14,50},{58,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
       points={{81,50},{116,50},{116,5.55112e-16},{200,5.55112e-16}},
       color={0,0,127},
@@ -128,10 +114,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(datRea.y[17], cheTotSkyCov.nIn) annotation (Line(
-      points={{-59,-30},{-2,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(cheTotSkyCov.nOut, weaBus.nTot) annotation (Line(
       points={{21,-30},{116,-30},{116,5.55112e-16},{200,5.55112e-16}},
       color={0,0,127},
@@ -139,10 +121,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(datRea.y[18], cheOpaSkyCov.nIn) annotation (Line(
-      points={{-59,-30},{-28,-30},{-28,-50},{58,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(cheOpaSkyCov.nOut, weaBus.nOpa) annotation (Line(
       points={{81,-50},{116,-50},{116,5.55112e-16},{200,5.55112e-16}},
       color={0,0,127},
@@ -171,10 +149,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(datRea.y[20], cheCeiHei.ceiHeiIn) annotation (Line(
-      points={{-59,-30},{-14,-30},{-14,-110},{-2,-110}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(cheCeiHei.ceiHeiOut, weaBus.celHei) annotation (Line(
       points={{21,-110},{116,-110},{116,5.55112e-16},{200,5.55112e-16}},
       color={0,0,127},
@@ -182,10 +156,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(datRea.y[16], cheWinSpe.winSpeIn) annotation (Line(
-      points={{-59,-30},{-14,-30},{-14,-130},{58,-130}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(cheWinSpe.winSpeOut, weaBus.winSpe) annotation (Line(
       points={{81,-130},{116,-130},{116,5.55112e-16},{200,5.55112e-16}},
       color={0,0,127},
@@ -200,10 +170,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(datRea.y[15], cheWinDir.nIn) annotation (Line(
-      points={{-59,-30},{-14,-30},{-14,150},{-2,150}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(cheWinDir.nOut, weaBus.winDir) annotation (Line(
       points={{21,150},{116,150},{116,5.55112e-16},{200,5.55112e-16}},
       color={0,0,127},
@@ -250,19 +216,19 @@ equation
       points={{-159,70},{-150,70},{-150,36},{-142,36}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(datRea1.y[7], cheRadHor.HIn) annotation (Line(
+  connect(datRea1.y[1], cheRadHor.HIn) annotation (Line(
       points={{-59,30},{-28,30},{-28,130},{58,130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(datRea1.y[9], cheDirNorRad.HIn) annotation (Line(
+  connect(datRea1.y[3], cheDirNorRad.HIn) annotation (Line(
       points={{-59,30},{28,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(datRea1.y[8], cheGloHorRad.HIn) annotation (Line(
+  connect(datRea1.y[2], cheGloHorRad.HIn) annotation (Line(
       points={{-59,30},{-28,30},{-28,-70},{-2,-70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(datRea1.y[10], cheDifHorRad.HIn) annotation (Line(
+  connect(datRea1.y[4], cheDifHorRad.HIn) annotation (Line(
       points={{-59,30},{-28,30},{-28,-90},{58,-90}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -275,7 +241,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(simTim.y, locTim.cloTim) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-170},{-122,-170}},
+      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-150},{-122,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(simTim.y, conTim.simTim) annotation (Line(
@@ -287,24 +253,80 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(simTim.y, eqnTim.nDay) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-130},{-122,-130}},
+      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-110},{-122,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(
-      points={{-99,-130},{-88,-130},{-88,-144},{-82,-144}},
+      points={{-99,-110},{-88,-110},{-88,-124},{-82,-124}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(locTim.locTim, solTim.locTim) annotation (Line(
-      points={{-99,-170},{-88,-170},{-88,-155.4},{-82,-155.4}},
+      points={{-99,-150},{-88,-150},{-88,-135.4},{-82,-135.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solTim.solTim, weaBus.solTim) annotation (Line(
-      points={{-59,-150},{180,-150},{180,5.55112e-16},{200,5.55112e-16}},
+      points={{-59,-130},{-48,-130},{-48,-152},{180,-152},{180,5.55112e-16},{
+          200,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(conTemDryBul.TemK, tWetBul_TDryBulXi.TDryBul) annotation (Line(
+      points={{21,110},{116,110},{116,28},{139,28}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conHum.relHumOut, tWetBul_TDryBulXi.Xi[1]) annotation (Line(
+      points={{21,70},{116,70},{116,20},{139,20}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(chePre.POut, tWetBul_TDryBulXi.p) annotation (Line(
+      points={{81,50},{116,50},{116,12},{139,12}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
+      points={{161,20},{180,20},{180,5.55112e-16},{200,5.55112e-16}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(datRea.y[11], cheWinDir.nIn) annotation (Line(
+      points={{-59,-30},{-12,-30},{-12,150},{-2,150}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(datRea.y[1], conTemDryBul.TemC) annotation (Line(
+      points={{-59,-30},{-12,-30},{-12,110},{-2,110}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(datRea.y[2], conTemDewPoi.TemC) annotation (Line(
+      points={{-59,-30},{-12,-30},{-12,90},{58,90}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(datRea.y[3], conHum.relHumIn) annotation (Line(
+      points={{-59,-30},{-12,-30},{-12,70},{-2,70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(datRea.y[13], cheTotSkyCov.nIn) annotation (Line(
+      points={{-59,-30},{-2,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(datRea.y[14], cheOpaSkyCov.nIn) annotation (Line(
+      points={{-59,-30},{-12,-30},{-12,-50},{58,-50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(datRea.y[12], cheWinSpe.winSpeIn) annotation (Line(
+      points={{-59,-30},{-12,-30},{-12,-130},{58,-130}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(datRea.y[4], chePre.PIn) annotation (Line(
+      points={{-59,-30},{-12,-30},{-12,50},{58,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(datRea.y[16], cheCeiHei.ceiHeiIn) annotation (Line(
+      points={{-59,-30},{-12,-30},{-12,-110},{-2,-110}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
@@ -381,10 +403,21 @@ the parameter <code>timZone</code> is the time zone
 relative to Greenwich Mean Time. 
 By default, the reader obtains values for these parameters 
 by scanning the TMY3 weather data file.
+<br>
+<br>
+The radiation data in TMY3 weather data is hourly averaged data. For instance, the horizontal radiation data at 9am is an average of radiation from 8am to 9am. 
+To get a more accurate representation of radiation at 9am, we can move the time forward for 30 minutes and interpolate using averaged data of 8-9am and 9-10am.   
+</p>
+<p align=\"center\">
+<img src=\"../Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\">
 </p>
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+March 7, 2011, by Wangda Zuo:<br>
+Add wet bulb temperature; Change reader to read only needed columns; Add explanation for 30 minutes shift for radiation data.  
+</li>
 <li>
 March 5, 2011, by Michael Wetter:<br>
 Changed implementation to obtain longitude and time zone directly
@@ -396,8 +429,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-200},{200,
-            200}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-200},{200,200}}),
+                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
             200}}), graphics={Ellipse(
           extent={{-24,34},{42,-30}},
