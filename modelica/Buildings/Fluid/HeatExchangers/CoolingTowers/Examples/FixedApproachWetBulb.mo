@@ -4,5 +4,5 @@ model FixedApproachWetBulb
     Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
     redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach tow);
   annotation(Diagram(graphics),
-                      Commands(file="FixedApproachDryBulb.mos" "run"));
+                      Commands(file="FixedApproachWetBulb.mos" "run"));
 end FixedApproachWetBulb;

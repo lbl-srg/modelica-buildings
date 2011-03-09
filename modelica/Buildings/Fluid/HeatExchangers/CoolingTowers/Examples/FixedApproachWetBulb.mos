@@ -5,7 +5,7 @@ simulateModel("Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.FixedApproa
 removePlots();
 createPlot(id = 8,
  position = {5, 1, 695, 498},
- y = {"tow.TWatIn_degC", "tow.TWatOut_degC", "tow.TAirIn_degC", "tow.TAirInWB_degC", "tow.TAirOut_degC"},
+ y = {"tow.sta_a.T", "tow.sta_b.T", "tow.TAir"},
  range = {0, 1, 45.0, 20.0},
  autoscale = true,
  autoerase = true,
@@ -29,7 +29,7 @@ createPlot(id = 8,
  bottomTitleType = 1);
 createPlot(id = 8,
  position = {5, 1, 695, 160},
- y = {"tow.m1_flow"},
+ y = {"tow.m_flow"},
  range = {0, 1, 1500.0, (-500.0)},
  autoscale = true,
  autoerase = true,

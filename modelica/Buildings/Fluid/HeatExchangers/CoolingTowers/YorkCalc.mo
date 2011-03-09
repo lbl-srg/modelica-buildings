@@ -1,8 +1,10 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
-  extends
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticTwoPortCoolingTower;
+  extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer(sensibleOnly=true,
+  final show_T = true);
+  extends Buildings.BaseClasses.BaseIcon;
+
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15+25.55
     "Design inlet air wet bulb temperature"
       annotation (Dialog(group="Nominal condition"));
@@ -27,6 +29,11 @@ model YorkCalc
     "Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)";
   parameter Real fraFreCon(min=0, max=1) = 0.125
     "Fraction of tower capacity in free convection regime";
+
+  Modelica.Blocks.Interfaces.RealInput TAir(min=0, unit="K")
+    "Entering air wet bulb temperature"
+     annotation (Placement(transformation(
+          extent={{-140,20},{-100,60}}, rotation=0)));
 
   Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.BoundsYorkCalc bou
     "Bounds for correlation";
@@ -76,17 +83,17 @@ initial equation
   + "\n   You need to choose a different function for fanRelPow."
   + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
 equation
-  // range temperature
+  // Range temperature
   TRan = Medium.temperature(sta_a) - Medium.temperature(sta_b);
-  // fractional mass flow rates
+  // Fractional mass flow rates
   FRWat = m_flow/mRef_flow;
   FRAir = y;
 
   TAppCor = Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
                TRan=TRan, TWetBul=TAir,
                FRWat=FRWat, FRAir=max(FRWat/bou.liqGasRat_max, FRAir));
-  dTMax = TWatIn_degC - TAirIn_degC;
-  TAppFreCon = (1-fraFreCon) * ( TWatIn_degC-TAirIn_degC)  + fraFreCon *
+  dTMax = Medium.temperature(sta_a) - TAir;
+  TAppFreCon = (1-fraFreCon) * dTMax  + fraFreCon *
                Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.yorkCalc(
                    TRan=TRan, TWetBul=TAir, FRWat=FRWat, FRAir=1);
 
@@ -98,25 +105,51 @@ equation
                                                  neg=[TAppFreCon, 0],
                                                  x=y-yMin+yMin/20,
                                                  deltax=yMin/20);
-  TWatOut_degC = TAppAct + TAirIn_degC;
+  Medium.temperature(sta_b) = TAppAct + TAir;
+
+  // No mass added or remomved from water stream
+  mXi_flow     = zeros(Medium.nXi);
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Text(
-          extent={{-56,14},{56,-106}},
-          lineColor={255,255,255},
-          fillColor={0,127,0},
-          fillPattern=FillPattern.Solid,
-          textString="York"),
-        Text(
-          extent={{-102,108},{-68,70}},
+          extent={{-102,110},{-68,72}},
           lineColor={0,0,127},
           textString="yFan"),
         Rectangle(
           extent={{-100,82},{-70,78}},
           lineColor={0,0,127},
           fillColor={0,0,127},
-          fillPattern=FillPattern.Solid)}),
-                          Diagram(coordinateSystem(preserveAspectRatio=false,
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-70,86},{70,-80}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={95,95,95},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-104,70},{-70,32}},
+          lineColor={0,0,127},
+          textString="TWB"),
+        Rectangle(
+          extent={{-100,41},{-70,38}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-100,5},{101,-5}},
+          lineColor={0,0,255},
+          pattern=LinePattern.None,
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-56,12},{56,-108}},
+          lineColor={255,255,255},
+          fillColor={0,127,0},
+          fillPattern=FillPattern.Solid,
+          textString="York")}),
+                          Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-100,-100},{100,100}}),
                                   graphics),
     Documentation(info="<html>
@@ -189,6 +222,10 @@ control law to compute the input signal <code>y</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 8, 2011, by Michael Wetter:<br>
+Removed base class and unused variables.
+</li>
 <li>
 February 25, 2011, by Michael Wetter:<br>
 Revised implementation to facilitate scaling the model to different nominal sizes.
