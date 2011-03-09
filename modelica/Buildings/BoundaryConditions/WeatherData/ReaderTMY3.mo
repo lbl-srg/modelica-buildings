@@ -396,27 +396,42 @@ equation
           thickness=1)}),
     Documentation(info="<HTML>
 <p>
-This component reads TMY3 weather data.
-The parameter 
-<code>lon</code> is the longitude of the weather station, and 
-the parameter <code>timZone</code> is the time zone
-relative to Greenwich Mean Time. 
-By default, the reader obtains values for these parameters 
-by scanning the TMY3 weather data file.
-<br>
-<br>
-The radiation data in TMY3 weather data is hourly averaged data. For instance, the horizontal radiation data at 9am is an average of radiation from 8am to 9am. 
-To get a more accurate representation of radiation at 9am, we can move the time forward for 30 minutes and interpolate using averaged data of 8-9am and 9-10am.   
+This component reads TMY3 weather data (Wilcox and Marion, 2008).
+</p>
+<p>
+To read weather data from the TMY3 weather data file, there are
+two data readers in this model. One data reader obtains all data
+except solar radiation, and the other data reader reads only the
+solar radiation data, shifted by <i>30</i> minutes.
+The reason for this time shift is as follows:
+The TMY3 weather data file contains for solar radiation the 
+\"...radiation received
+on a horizontal surface during
+the 60-minute period ending at
+the timestamp.\"
+
+Thus, as the figure below shows, a more accurate interpolation is obtained if 
+time is shifted by <i>30</i> minutes prior to reading the weather data.   
 </p>
 <p align=\"center\">
 <img src=\"../Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\">
+</p>
+<h4>References</h4>
+<p>
+<ul>
+<li>
+Wilcox S. and W. Marion. <i>Users Manual for TMY3 Data Sets</i>. 
+Technical Report, NREL/TP-581-43156, revised May 2008.
+</li>
+</ul>
 </p>
 </HTML>
 ", revisions="<html>
 <ul>
 <li>
 March 7, 2011, by Wangda Zuo:<br>
-Add wet bulb temperature; Change reader to read only needed columns; Add explanation for 30 minutes shift for radiation data.  
+Added wet bulb temperature. Changed reader to read only needed columns. 
+Added explanation for 30 minutes shift for radiation data.  
 </li>
 <li>
 March 5, 2011, by Michael Wetter:<br>
