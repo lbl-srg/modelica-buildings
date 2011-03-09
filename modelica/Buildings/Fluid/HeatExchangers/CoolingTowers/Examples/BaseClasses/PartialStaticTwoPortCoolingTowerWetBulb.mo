@@ -2,7 +2,8 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses;
 model PartialStaticTwoPortCoolingTowerWetBulb
   "Partial test model for cooling tower with wet bulb temperature as potential for heat transfer"
   import Buildings;
-  extends PartialStaticTwoPortCoolingTower;
+  extends PartialStaticTwoPortCoolingTower(redeclare
+      Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach tow);
  package Medium_A = Buildings.Media.PerfectGases.MoistAir;
     Modelica.Blocks.Sources.Constant Xi(k=0.01) "Water vapor concentration"
       annotation (Placement(transformation(extent={{-92,40},{-72,60}},

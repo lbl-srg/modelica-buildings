@@ -9,9 +9,8 @@ partial model PartialStaticTwoPortCoolingTower
   Modelica.Blocks.Sources.Constant TWat(k=273.15 + 35) "Water temperature"
     annotation (Placement(transformation(extent={{-100,-60},{-80,-40}},
           rotation=0)));
-  replaceable
-    Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.PartialStaticTwoPortCoolingTower
-    tow(   redeclare package Medium = Medium_W, m_flow_nominal=mWat_flow_nominal,
+  replaceable FixedApproach tow(
+           redeclare package Medium = Medium_W, m_flow_nominal=mWat_flow_nominal,
     dp_nominal=10) "Cooling tower"
     annotation (Placement(transformation(extent={{-18,-60},{2,-40}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_1(             T=283.15, redeclare
