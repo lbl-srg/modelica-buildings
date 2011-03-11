@@ -24,44 +24,44 @@ protected
         30}) "Data reader"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTemperature
-    conTemDryBul "Convert unit for dry bulb temperature "
+    conTemDryBul "Converts unit for dry bulb temperature "
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTemperature
-    conTemDewPoi "Convert unit for dew point temperature"
+    conTemDewPoi "Converts unit for dew point temperature"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity
     conHum
     "Converts the relative humidity from percentage to [0, 1] and constrains it to [0, 1]"
      annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  BaseClasses.CheckPressure chePre "Check the air pressure"
+  BaseClasses.CheckPressure chePre "Checks the air pressure"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  BaseClasses.CheckSkyCover cheTotSkyCov "Check the total sky cover"
+  BaseClasses.CheckSkyCover cheTotSkyCov "Checks the total sky cover"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  BaseClasses.CheckSkyCover cheOpaSkyCov "Check the opaque sky cover"
+  BaseClasses.CheckSkyCover cheOpaSkyCov "Checks the opaque sky cover"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
-    cheGloHorRad "Check the global horizontal radiation"
+    cheGloHorRad "Checks the global horizontal radiation"
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
-    cheDifHorRad "Check the diffuse horizontal radiation"
+    cheDifHorRad "Checks the diffuse horizontal radiation"
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
-    cheDirNorRad "Check the direct normal radiation"
+    cheDirNorRad "Checks the direct normal radiation"
     annotation (Placement(transformation(extent={{30,20},{50,40}})));
-  BaseClasses.CheckCeilingHeight cheCeiHei "Check the ceiling height"
+  BaseClasses.CheckCeilingHeight cheCeiHei "Checks the ceiling height"
     annotation (Placement(transformation(extent={{0,-120},{20,-100}})));
-  BaseClasses.CheckWindSpeed cheWinSpe "Check the wind speed"
+  BaseClasses.CheckWindSpeed cheWinSpe "Checks the wind speed"
     annotation (Placement(transformation(extent={{60,-140},{80,-120}})));
-  BaseClasses.ConvertRadiation cheRadHor "check the horizontal radiation"
+  BaseClasses.ConvertRadiation cheRadHor "Checks the horizontal radiation"
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
-  BaseClasses.CheckWindDirection cheWinDir "Check the wind direction"
+  BaseClasses.CheckWindDirection cheWinDir "Checks the wind direction"
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
-  SkyTemperature.BlackBody TBlaSky "Check the sky black-body temperature"
+  SkyTemperature.BlackBody TBlaSky "Checks the sky black-body temperature"
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
   Utilities.SimulationTime simTim "Simulation time"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
   Modelica.Blocks.Math.Add add
-    "Add 30 minutes to time to shift weather data reader"
+    "Adds 30 minutes to time to shift weather data reader"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Modelica.Blocks.Sources.Constant con30mins(k=1800)
     "Constant used to shift weather data reader"
@@ -79,9 +79,9 @@ protected
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
 
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim1
-    "Convert simulation time to calendar time"
+    "Converts simulation time to calendar time"
     annotation (Placement(transformation(extent={{-110,20},{-90,40}})));
-  BaseClasses.ConvertTime conTim "Convert simulation time to calendar time"
+  BaseClasses.ConvertTime conTim "Converts simulation time to calendar time"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   BaseClasses.EquationOfTime eqnTim "Equation of time"
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
@@ -90,6 +90,7 @@ protected
   Utilities.Psychrometrics.TWetBul_TDryBulXi tWetBul_TDryBulXi(
                                       redeclare package Medium =
         Buildings.Media.PerfectGases.MoistAir)
+    "Computes the wet bulb temperature"
     annotation (Placement(transformation(extent={{140,10},{160,30}})));
 equation
   connect(conTemDryBul.TemK, weaBus.TDryBul) annotation (Line(
