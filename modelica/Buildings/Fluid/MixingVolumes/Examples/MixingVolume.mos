@@ -2,7 +2,7 @@
 // Plot commands
 simulateModel("Buildings.Fluid.MixingVolumes.Examples.MixingVolume",
    stopTime=2,
-   resultFile="MixingVolume.mat");
+   resultFile="MixingVolume");
 createPlot(id = 3,
  position = {22, 17, 827, 354},
  y = {"vol.medium.T_degC", "res1.medium_a.T_degC", "res2.medium_b.T_degC", 
@@ -13,7 +13,7 @@ createPlot(id = 3,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "MixingVolume.mat",
+ filename = "MixingVolume",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 3,
