@@ -1,5 +1,5 @@
 within Buildings.Utilities.Math.Functions;
-function trapezoidalIntegration "Integration by using trapezoidal rule"
+function trapezoidalIntegration "Integration using the trapezoidal rule"
   input Integer N "Number of integrand points";
   input Real[:] f "Integrands";
   input Real deltaX "Width of interval for Trapezoidal integration";
@@ -16,7 +16,7 @@ algorithm
   result := result*deltaX/2;
   annotation (Documentation(info="<html>
 <p>
-This function computes an definite integral by using Trapezoidal integration.
+This function computes a definite integral using the trapezoidal rule.
 </p>
 </html>", revisions="<html>
 <ul>

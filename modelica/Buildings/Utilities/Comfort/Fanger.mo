@@ -361,7 +361,7 @@ rather than computing it in model, added model to UTC library.
 </li>
 <li><i>March 03, 2005</i>
        Michael Wetter and Sorin Costiner:<br>
-       Implemented first version.
+       First implementation.
 </li>
 </ul>
 </html>"), Icon(graphics={

@@ -141,9 +141,9 @@ The occupancy is defined by a time schedule of the form
 <pre>
   occupancy = 3600*{7, 12, 14, 19}
 </pre>
-This indicates that the occupancy is from <tt>7:00</tt> until <tt>12:00</tt>
-and from <tt>14:00</tt> to <tt>19:00</tt>. This will be repeated periodically.
-The parameters <tt>startTime<tt> and <tt>endTime</tt> define the periodicity.
+This indicates that the occupancy is from <i>7:00</i> until <i>12:00</i>
+and from <i>14:00</i> to <i>19:00</i>. This will be repeated periodically.
+The parameters <code>startTime<code> and <code>endTime</code> define the periodicity.
 </p>
 </html>", revisions="<html>
 <ul>

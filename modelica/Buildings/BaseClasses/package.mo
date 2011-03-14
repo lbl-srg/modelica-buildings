@@ -5,6 +5,6 @@ package BaseClasses "Package with base classes for Buildings library"
 
   annotation (Documentation(info="<html>
 This package contains base classes that are used by various models
-in the <tt>Buildings</tt> library.
+in the <code>Buildings</code> library.
 </html>"));
 end BaseClasses;

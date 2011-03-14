@@ -30,15 +30,15 @@ Model for a heat exchanger with constant effectiveness.
 </p>
 <p>
 This model transfers heat in the amount of 
-<pre>
-  Q = Q_max * eps,
-</pre>
-where <tt>eps</tt> is a constant effectiveness and 
-<tt>Q_max</tt> is the maximum heat that can be transferred.
+<p align=\"center\" style=\"font-style:italic;\">
+  Q = Q<sub>max</sub> &epsilon;,
+</p>
+where <i>&epsilon;</i> is a constant effectiveness and 
+<i>Q<sub>max</sub></i> is the maximum heat that can be transferred.
 </p>
 <p>
-In the region <tt>mK_flow_small > abs(mK_flow) > mK_flow_small/2</tt>, for <tt>K = 1</tt> or
-<tt>2</tt>, the effectivness <tt>eps</tt> is transitioned from 
+In the region <code>mK_flow_small > abs(mK_flow) > mK_flow_small/2</code>, for <code>K = 1</code> or
+<code>2</code>, the effectivness <code>eps</code> is transitioned from 
 its user-specified value to 0. This improves the numerical robustness near
 zero flow.
 </p>

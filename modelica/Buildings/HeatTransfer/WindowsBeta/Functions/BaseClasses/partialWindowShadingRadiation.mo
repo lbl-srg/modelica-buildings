@@ -18,7 +18,7 @@ protected
     "Reflectance of the interior shading device";
   annotation (preferedView="info",
   Documentation(info="<html>
-This is a partial function that is used to implement the radiation funcitons for windows. It defines basic input variables and constants. 
+This is a partial function that is used to implement the radiation functions for windows. It defines basic input variables and parameters. 
 </html>", revisions="<html>
 <ul>
 <li>

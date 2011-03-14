@@ -177,5 +177,13 @@ is from the boundary into the port. If mass is flowing from
 the port into the boundary, the boundary definitions,
 with exception of boundary flow rate, do not have an effect.
 </p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+September 29, 2009, by Michael Wetter:<br>
+First implementation. 
+</li>
+</ul>
 </html>"));
 end MassFlowSource_T;

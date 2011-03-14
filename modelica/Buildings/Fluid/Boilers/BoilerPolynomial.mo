@@ -145,19 +145,19 @@ equation
 This is a model of a boiler that computes the heat transferred
 to the medium based on an input control signal.
 The efficiency of the boiler can be computed using polynomials
-in the control signal <tt>y</tt> and
-the boiler temperature <tt>T</tt>.
+in the control signal <code>y</code> and
+the boiler temperature <code>T</code>.
 </p>
 <p>
-The parameter <tt>Q_flow_nominal</tt> is the power transferred to the fluid
-for <tt>y=1</tt> and, if the efficiency depends on temperature, 
-for <tt>T=T0</tt>.
+The parameter <code>Q_flow_nominal</code> is the power transferred to the fluid
+for <code>y=1</code> and, if the efficiency depends on temperature, 
+for <code>T=T0</code>.
 </p>
 <p>
-Optionally, the port <tt>heatPort</tt> can be connected to a heat port
+Optionally, the port <code>heatPort</code> can be connected to a heat port
 outside of this model to impose a boundary condition in order to
-model heat losses to the ambient. When using this <tt>heatPort</tt>,
-make sure that the efficiency curve <tt>effCur</tt>
+model heat losses to the ambient. When using this <code>heatPort</code>,
+make sure that the efficiency curve <code>effCur</code>
 does not already account for this heat loss.
 </p>
 <p>

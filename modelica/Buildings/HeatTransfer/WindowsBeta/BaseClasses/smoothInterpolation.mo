@@ -29,7 +29,7 @@ algorithm
     Inline=true,
     Documentation(info="<html>
 <p>
-Function to do interpolation without triggerring events.
+Function to interpolate within a data array without triggerring events.
 </p>
 </html>", revisions="<html>
 <ul>

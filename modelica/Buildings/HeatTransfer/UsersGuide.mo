@@ -2,7 +2,7 @@ within Buildings.HeatTransfer;
 package UsersGuide "User's Guide"
 
   annotation (DocumentationClass=true, Documentation(info="<html>
-The package <b>Buildings.HeatTransfer</b> consists of models
+The package <code>Buildings.HeatTransfer</code> consists of models
 for heat transfer.
 The models have the same interface as models of the package
 <a href=\"Modelica:Modelica.Thermal.HeatTransfer\">Modelica.Thermal.HeatTransfer</a>.
@@ -38,17 +38,15 @@ for heat conduction through a single layer of material.
 If the material's specific heat capacity is non-zero, then the model
 solves the Fourier equation
 </p>
-<pre>
-  dT       k      d^2 T
- ---- =  ----- * -------
-  dt     rho*c    dx^2
-</pre>
-<p>
-If <tt>rho*c=0</tt>, then the model computes steady-state heat conduction
+<p align=\"center\" style=\"font-style:italic;\">
+dT &frasl; dt = k &frasl; (&rho; c) d<sup>2</sup>T &frasl; dx<sup>2</sup>
 </p>
-<pre>
-  Q_flow = A* k * (T_a-T_b)
-</pre>
+<p>
+If <i>&rho; c=0</i>, then the model computes steady-state heat conduction
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  Q = A k  (T<sub>a</sub>-T<sub>b</sub>)
+</p>
 <p>
 The boundary conditions for
 this model are the temperatures and heat flow rates at the material interface.
@@ -60,7 +58,7 @@ is then used to construct the heat conductor
 <a href=\"modelica://Buildings.HeatTransfer.ConductorMultiLayer\"\\>
 Buildings.HeatTransfer.ConductorMultiLayer</a>
 that has multiple layers of material. 
-Some layers may be computed transient (if <tt>rho*c &gt; 0</tt>)
+Some layers may be computed transient (if <i>&rho; c &gt; 0</i>)
 and others are computed steady-state.
 The boundary conditions for
 this model are its surface temperatures and heat flow rates.
@@ -93,9 +91,10 @@ and that provide options for predefined data that may be used as-is or
 adjusted for a particular building.
 </p>
 <p>
-Suppose we want to model a construction with a surface area of <tt>20 m2</tt> 
-that consists of a <tt>0.1 m</tt> insulation and
-<tt>0.2 m</tt> concrete. This can be accomplished as follows.
+Suppose we want to model a construction with a surface area of 
+<i>20 m<sup>2</sup></i> 
+that consists of a <i>0.1 m</i> insulation and
+<i>0.2 m</i> concrete. This can be accomplished as follows.
 </p>
 
 <h5>Definition of Materials</h5>
@@ -119,7 +118,7 @@ Therefore, the declaration for an exterior wall with insulation at the outside i
      wall(nLay=2, material={insulation,concrete});
 </pre>
 <p>
-(Note that <tt>nLay</tt> must be set to the number of layers to allow
+(Note that <code>nLay</code> must be set to the number of layers to allow
 a Modelica translator to know how many layers there are prior to translating
 the model.) 
 </p>
@@ -161,7 +160,7 @@ Both definitions are identical.
 <h5>Definition of Construction with Convective Heat Transfer Coefficients</h5>
 <p>
 If we want to use a construction that includes convective heat transfer coefficients, 
-and that conists of the material <tt>floor</tt> defined above,
+and that conists of the material <code>floor</code> defined above,
 we can define
 </p>
 <pre>
@@ -170,8 +169,9 @@ we can define
     layers = floor);
 </pre>
 <p>
-In the above example, <tt>carpet</tt> is the material near <tt>port_a</tt> and 
-<tt>concrete</tt> is the material near <tt>port_b</tt>. 
+In the above example, <code>carpet</code> is the material near 
+<code>port_a</code> and 
+<code>concrete</code> is the material near <code>port_b</code>. 
 </p>
 <p>
 Alternatively, the layers of materials can be defined directly when 
@@ -190,16 +190,18 @@ For example,
         Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor);
 </pre>
 <p>
-This defines a floor with <tt>10 m2</tt> area. It will be initialized at
+This defines a floor with <i>10 m<sup>2</sup></i> area. 
+It will be initialized at
 steady-state. For the layers of materials, we used 
-one layer of <tt>Concrete200</tt>, and redefined
-its thickness to <tt>x=0.3</tt> meters. We also changed the number
+one layer of <code>Concrete200</code>, and redefined
+its thickness to <i>x=0.3 m</i>. We also changed the number
 of state variables that are used for the spatial discretization
-of the term <tt>d^2T/dx^2</tt> when solving the transient 
+of the term <i>d<sup>2</sup>T &frasl; dx<sup>2</sup></i> 
+when solving the transient 
 heat conduction in this layer of material.
 To compute the convective heat transfer, we chose  
 to use buoyancy-driven equations for the floor 
-(which is at surface b and hence assigned to <tt>qCon_b_flow</tt>) 
+(which is at surface b and hence assigned to <code>qCon_b_flow</code>) 
 and the ceiling, which is at surface a.
 </p>
 

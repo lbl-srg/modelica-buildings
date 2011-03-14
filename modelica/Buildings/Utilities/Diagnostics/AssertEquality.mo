@@ -16,8 +16,8 @@ equation
 Documentation(info="<html>
 <p>
 Model that triggers an assert if 
-<tt>|u1-u2| > threShold</tt>
-and <tt>t > t0</tt>.
+<i>|u1-u2| &gt; threShold</i>
+and <i>t &gt; t<sub>0</sub></i>.
 </p>
 </html>",
 revisions="<html>

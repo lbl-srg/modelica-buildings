@@ -220,36 +220,33 @@ with temperatures in the same way as the Carnot efficiency changes.
 The COP at the nominal conditions can be specified by a parameter, or
 it can be computed by the model based on the Carnot effectiveness, in which
 case
-<pre>
-  COP_nominal = etaCar * COPCar
- 
-                             TEva
-              = etaCar * -----------,
-                          TCon-TEva
-</pre>
-where <tt>TEva</tt> is the evaporator temperature and <tt>TCon</tt> is
-the condenser temperature.
-On the Advanced tab, a user can specify what temperature should
-be used as the evaporator (or condenser) temperature. The options
-are the temperature of the fluid volume, of <tt>port_a</tt>, of
-<tt>port_b</tt>, or the average temperature of <tt>port_a</tt> and
-<tt>port_b</tt>.
+<p align=\"center\" style=\"font-style:italic;\">
+  COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
+= &eta;<sub>car</sub> T<sub>eva</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>)
+</p>
+where <i>T<sub>eva</sub></i> is the evaporator temperature 
+and <i>T<sub>con</sub></i> is the condenser temperature.
+On the <code>Advanced</code> tab, a user can specify the temperature that
+will be used as the evaporator (or condenser) temperature. The options
+are the temperature of the fluid volume, of <code>port_a</code>, of
+<code>port_b</code>, or the average temperature of <code>port_a</code> and
+<code>port_b</code>.
 </p>
 <p>
 The chiller COP is computed as the product
-<pre>
-  COP = etaCar * COPCar * etaPL,
-</pre>
-where <tt>etaCar</tt> is the Carnot effectiveness, 
-<tt>COPCar</tt> is the Carnot efficiency and
-<tt>etaPL</tt> is a polynomial in the control signal <tt>y</tt>
-that can be used to take into account a change in COP at part load 
+<p align=\"center\" style=\"font-style:italic;\">
+  COP = &eta;<sub>car</sub> COP<sub>car</sub> &eta;<sub>PL</sub>,
+</p>
+where <i>&eta;<sub>car</sub></i> is the Carnot effectiveness, 
+<i>COP<sub>car</sub></i> is the Carnot efficiency and
+<i>&eta;<sub>PL</sub></i> is a polynomial in the control signal <i>y</i>
+that can be used to take into account a change in <i>COP</i> at part load 
 conditions.
 </p>
 <p>
-On the Assumptions tag, the model can be parametrized to compute a transient
+On the <code>Assumptions</code> tag, the model can be parametrized to compute a transient
 or steady-state response.
-The transient response of the boiler is computed using a first
+The transient response of the model is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>

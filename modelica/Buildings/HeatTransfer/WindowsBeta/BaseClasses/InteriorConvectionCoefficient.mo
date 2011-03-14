@@ -19,9 +19,9 @@ equation
 Model for the convective heat transfer coefficient at the room-facing surface of a window.
 The computation is according to TARCOG 2006, which specifies the convection
 coefficient as
-<pre>
-  h = 4 <i>W/(m2*K)</i>.
-</pre>
+<p align=\"center\" style=\"font-style:italic;\">
+  h = 4 W &frasl; (m<sup>2</sup> K).
+</i>
 </p>
 <h4>References</h4>
 <p>

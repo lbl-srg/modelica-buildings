@@ -20,4 +20,12 @@ connector RadiosityInflow = flow input Real(min=0, unit="W", nominal=419)
         fillPattern=FillPattern.Solid)}),
   Documentation(info="<html>
 The nominal value is set to <i>&sigma; T<sup>4</sup> = &sigma; 293.15<sup>4</sup> = 419</i>.
+</html>",
+revisions="<html>
+<ul>
+<li>
+September 3, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
 </html>"));

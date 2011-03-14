@@ -44,7 +44,23 @@ package OpaqueConstructions
             extent={{-36,42},{4,-92}},
             lineColor={0,0,0},
             fillColor={255,255,255},
-            fillPattern=FillPattern.Backward)}));
+            fillPattern=FillPattern.Backward)}),
+Documentation(info="<html>
+Generic record with material definitions for constructions
+with one or more layers of material.
+By convention, <code>layer[1]</code> is facing the outside, and the last
+layer is facing the room-side.
+This is the same convention as is used in EnergyPlus and in Window 6.
+</html>",
+revisions="<html>
+<ul>
+<li>
+November 16, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
+
   end Generic;
 
   record Insulation100Concrete200 =
@@ -62,10 +78,19 @@ package OpaqueConstructions
     "Construction with 200mm concrete";
 
   annotation (Documentation(info="<html>
-This package contains material definitions for constructions
+Package with material definitions for constructions
 with one or more layers of material.
-By convention, layer[1] is facing the outside, and the last
+By convention, <code>layer[1]</code> is facing the outside, and the last
 layer is facing the room-side.
 This is the same convention as is used in EnergyPlus and in Window 6.
+</html>",
+revisions="<html>
+<ul>
+<li>
+November 16, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
 </html>"));
+
 end OpaqueConstructions;

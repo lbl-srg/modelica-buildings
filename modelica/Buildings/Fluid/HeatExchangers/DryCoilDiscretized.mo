@@ -321,19 +321,19 @@ equation
     Documentation(info="<html>
 <p>
 Model of a discretized coil with no water vapor condensation.
-The coil consists of <tt>nReg</tt> registers
-that are perpendicular to the air flow path. Each register consists of <tt>nPipPar</tt>
-parallel pipes, and each pipe can be divided into <tt>nPipSeg</tt> pipe segments along
+The coil consists of <code>nReg</code> registers
+that are perpendicular to the air flow path. Each register consists of <code>nPipPar</code>
+parallel pipes, and each pipe can be divided into <code>nPipSeg</code> pipe segments along
 the pipe length. Thus, the smallest element of the coil consists of a pipe 
 segment. Each pipe segment is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 Each element has a state variable for the metal. Depending
-on the value of the boolean parameters <tt>steadyState_1</tt> and
-<tt>steadyState_2</tt>, the fluid states are modeled dynamically or in steady
+on the value of the boolean parameters <code>steadyState_1</code> and
+<code>steadyState_2</code>, the fluid states are modeled dynamically or in steady
 state.
-If the parameter <tt>steadyStateDuctConnection</tt> is set the <tt>false</tt>, then
-a mixing volume of length <tt>dl</tt> is added to the duct connection. This can
+If the parameter <code>steadyStateDuctConnection</code> is set the <code>false</code>, then
+a mixing volume of length <code>dl</code> is added to the duct connection. This can
 help reducing the dimension of the nonlinear system of equations.
 </p>
 <p>
@@ -345,7 +345,7 @@ Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil</a>.
 </p>
 <p>
 In this model, the water (or liquid) flow path
-needs to be connected to <tt>port_a1</tt> and <tt>port_b1</tt>, and
+needs to be connected to <code>port_a1</code> and <code>port_b1</code>, and
 the air flow path need to be connected to the other two ports.
 </p>
 <p>

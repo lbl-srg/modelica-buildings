@@ -13,10 +13,12 @@ algorithm
 
   annotation (smoothOrder=999, Documentation(info="<html>
 This function computes
-<pre>
-  y =   a1 + a2 * x1 + a3 *x1^2 
-     + (a4 + a5 * x1 + a6 *x1^2) * x2
-</pre>
+<p align=\"center\" style=\"font-style:italic;\">
+  y =   a<sub>1</sub> + a<sub>2</sub>  x<sub>1</sub> 
+        + a<sub>3</sub> x<sub>1</sub><sup>2</sup> 
+        + (a<sub>4</sub> + a<sub>5</sub>  x<sub>1</sub> 
+        + a<sub>6</sub> x<sub>1</sub><sup>2</sup>)  x<sub>2</sub>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

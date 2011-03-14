@@ -133,7 +133,8 @@ equation
     defaultComponentName="HDifTil",
     Documentation(info="<HTML>
 <p>
-This component computes the hemispherical diffuse irradiation on a tilted surface by using an anisotropic model proposed by Perez. 
+This component computes the hemispherical diffuse irradiation on a tilted surface using an anisotropic 
+sky model proposed by Perez. 
 For a definition of the parameters, see the 
 <a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
 </p>

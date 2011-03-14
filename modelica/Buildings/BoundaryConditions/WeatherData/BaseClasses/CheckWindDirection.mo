@@ -28,7 +28,7 @@ equation
     defaultComponentName="cheWinDir",
     Documentation(info="<HTML>
 <p>
-This component constrains the interpolated wind direction between 0 and 360 degree.
+This component constrains the interpolated wind direction between <i>0</i> and <i>360</i> degree.
 </p>
 </HTML>
 ", revisions="<html>

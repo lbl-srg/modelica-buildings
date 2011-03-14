@@ -236,7 +236,7 @@ This is a model of a stratified storage tank.
 The tank uses several volumes to model the stratification.
 Heat conduction is modeled between the volumes through the fluid,
 and between the volumes and the ambient.
-The port <tt>heaPorVol</tt> may be used to connect a temperature sensor
+The port <code>heaPorVol</code> may be used to connect a temperature sensor
 that measures the fluid temperature of an individual volume. It may also
 be used to add heat to individual volumes.
 </p>
@@ -250,10 +250,10 @@ The heat ports outside the tank insulation can be
 used to specify an ambient temperature.
 Leave these ports unconnected to force adiabatic boundary conditions.
 Note, however, that all heat conduction elements through the tank wall (but not the top and bottom) are connected to the 
-heat port <tt>heaPorSid</tt>. Thus, not connecting
-<tt>heaPorSid</tt> means an adiabatic boundary condition in the sense 
-that <tt>heaPorSid.Q_flow = 0</tt>. This, however, still allows heat to flow
-through the tank walls, modelled by <tt>conWal</tt>, from one fluid volume
+heat port <code>heaPorSid</code>. Thus, not connecting
+<code>heaPorSid</code> means an adiabatic boundary condition in the sense 
+that <code>heaPorSid.Q_flow = 0</code>. This, however, still allows heat to flow
+through the tank walls, modelled by <code>conWal</code>, from one fluid volume
 to another one.
 </p>
 <p>

@@ -234,7 +234,7 @@ The absorbed radiation by glass includes:</p>
 the absorbed radiation by unshaded part (diffusive part): <code>AWin*(1-uSha)*(HDif*alphaEx(HEM)+HRoo*alphaIn(HEM))</code>
 </li>
 <li>
-the absorbed radiation by unshaded part (angualr part from exterior source): <code>AWin*(1-uSha)*HDir*alphaEx(IncAng)</code>
+the absorbed radiation by unshaded part (angular part from exterior source): <code>AWin*(1-uSha)*HDir*alphaEx(IncAng)</code>
 </li>
 <li>
 the absorbed radiaiton by shaded part (diffusive part): <code>AWin*uSha*(HDif*alphaExSha(HEM)+HRoo*alphaInSha(HEM))</code>

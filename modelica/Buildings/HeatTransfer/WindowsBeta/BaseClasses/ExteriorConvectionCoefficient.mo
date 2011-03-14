@@ -25,9 +25,9 @@ equation
 Model for the convective heat transfer coefficient at the outside of a window.
 The computation is according to TARCOG 2006, which specifies the convection
 coefficient as
-<pre>
-  h = 4+4*v
-</pre>
+<p align=\"center\" style=\"font-style:italic;\">
+  h = 4+4 v
+</p>
 where <i>v</i> is the wind speed in <i>m/s</i> and
 <i>h</i> is the convective heat transfer coefficient in <i>W/(m2*K)</i>.
 </p>

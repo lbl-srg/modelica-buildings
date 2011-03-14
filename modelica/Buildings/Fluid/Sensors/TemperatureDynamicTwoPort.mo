@@ -104,8 +104,9 @@ use 0 Kelvin as the lower value of the ordinate.
 revisions="<html>
 <ul>
 <li>
-September 10, 2008 by Michael Wetter:<br>
-First implementation based on 
+September 10, 2008, by Michael Wetter:<br>
+First implementation.
+Implementation is based on 
 <a href=\"modelica://Buildings.Fluid.Sensors.Temperature\">Buildings.Fluid.Sensors.Temperature</a>.
 </li>
 </ul>

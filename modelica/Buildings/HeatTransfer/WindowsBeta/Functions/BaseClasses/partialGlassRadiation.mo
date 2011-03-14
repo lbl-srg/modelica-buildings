@@ -11,7 +11,7 @@ protected
 
   annotation (preferedView="info",
   Documentation(info="<html>
-This is a partial function that is used to implement the radiation funcitons for windows. It defines basic input variables and constants. 
+This is a partial function that is used to implement the radiation functions for windows. It defines basic input variables and constants.
 </html>", revisions="<html>
 <ul>
 <li>

@@ -2,7 +2,10 @@ within Buildings.BoundaryConditions.SkyTemperature;
 block BlackBody "Calculate black body sky temperature"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
-  parameter Integer calTSky=0 " 0: Use radHor; 1: Use TDry, TDewPoi and nOpa";
+// fixme: why is calTSky by default set to 0? Shouldn't it be left empty?
+// Is the room model using calTSky=1, since TSky is used for the long-wave radiation exchange,
+// and hence should not depend on the horizontal (short-wave) irradiation
+  parameter Integer calTSky(min=0, max=1)=0 " 0: Use radHor; 1: Use TDry, TDewPoi and nOpa";
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     final quantity="Temperature",
     final unit="K",
@@ -30,7 +33,7 @@ algorithm
   if calTSky == 1 then
     TBlaSky := (radHor/Modelica.Constants.sigma)^0.25;
   else
-    TDewPoiK := min(TDryBul, TDewPoi);
+    TDewPoiK := min(TDryBul, TDewPoi); // fixme: use smoothMin
     nOpa10 := 10*nOpa
       "Input nOpa is scaled to [0,1] instead of [0,10] in formula";
     epsSky := (0.787 + 0.764*Modelica.Math.log(-TDewPoiK/Modelica.Constants.T_zero))*(1 + 0.0224*nOpa10 -
@@ -41,7 +44,11 @@ algorithm
     defaultComponentName="TBlaSky",
     Documentation(info="<HTML>
 <p>
-This component computes the black-body sky temperature. When calTSky = 0, it uses horizontal irradiation. Otherwise, it uses dry buld temperature, dew point temperature and opaque sky cover.
+This component computes the black-body sky temperature.
+</p>
+<p>
+For <code>calTSky = 0</code>, the model uses horizontal irradiation. 
+Otherwise, it uses dry buld temperature, dew point temperature and opaque sky cover.
 </p>
 </HTML>
 ", revisions="<html>

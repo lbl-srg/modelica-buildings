@@ -46,5 +46,23 @@ record ParameterFluid "Parameter declaration for fluid model"
        quantity=Medium.extraPropertiesNames) = fill(1E-2, Medium.nC)
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
+annotation (
+Documentation(
+info="<html>
+<p>
+Base class that defines the parameters that are needed 
+to model fluid systems inside the room model.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+June 4, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"
+));
 
 end ParameterFluid;
+

@@ -28,33 +28,34 @@ algorithm
    a3 := (yPP_d - 12 * a1 * delta2)/2;
    a5 := (y_d - delta2 * (a3 + delta2 * a1));
    y := a5 + x2 * (a3 + x2 * a1);
-   assert(a5>0, "delta is too small for this exponent n");
+   assert(a5>0, "Delta is too small for this exponent.");
   end if;
   annotation (
     Documentation(info="<html>
 <p>
-Function that approximates <tt>y=|x|^n</tt> where <tt>n>0</tt> so that
+Function that approximates <i>y=|x|<sup>n</sup></i> where <i>n &gt; 0</i> 
+so that
 <ul>
-<li><tt>y(0)</tt> is not equal to zero.
-<li><tt>dy/dx</tt> is bounded and continuous everywhere.
+<li><i>y(0)</i> is not equal to zero.
+<li><i>dy/dx</i> is bounded and continuous everywhere.
 </ul>
 </p>
 <p>
-This function replaces <tt>y=|x|^n</tt> in the interval
-<tt>-delta...+delta</tt> by a 4-th order polynomial that has the same
-function value, first and second derivative at <tt>x=+/-delta</tt>.
+This function replaces <i>y=|x|<sup>n</sup></i> in the interval
+<i>-&delta;...+&delta;</i> by a 4-th order polynomial that has the same
+function value and the first and second derivative at <i>x=&pm; &delta;</i>.
 </p>
 <p>
 A typical use of this function is to replace the 
 function for the convective heat transfer
 coefficient for forced or free convection that is of the form 
-<tt>h=c * |dT|^n</tt> for some constant <tt>c</tt> and exponent 
-<tt>0 &le; n &le; 1</tt>. 
+<i>h=c |dT|<sup>n</sup></i> for some constant <i>c</i> and exponent 
+<i>0 &le; n &le; 1</i>. 
 By using this function, the original function
 that has an infinite derivative near zero and that takes on zero
 at the origin is replaced by a function with a bounded derivative and 
 a non-zero value at the origin. Physically, 
-the region <tt>-delta...+delta</tt> may be interpreted as the region
+the region <i>-&delta;...+&delta;</i> may be interpreted as the region
 where heat conduction dominates convection in the boundary layer.
 </p>
 <p>

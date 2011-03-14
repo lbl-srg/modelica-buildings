@@ -84,16 +84,17 @@ between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
 revisions="<html>
 <ul>
 <li>
-February 18, 2010 by Michael Wetter:<br>
+February 18, 2010, by Michael Wetter:<br>
 Revised model to use new block for computing the wet bulb temperature.
 </li>
 <li>
-September 10, 2008 by Michael Wetter:<br>
+September 10, 2008, by Michael Wetter:<br>
 Renamed output port to have the same interfaces as the dry bulb temperature sensor.
 </li>
 <li>
-May 5, 2008 by Michael Wetter:<br>
-First implementation based on 
+May 5, 2008, by Michael Wetter:<br>
+First implementation.
+Implementation is based on 
 <a href=\"modelica://Buildings.Fluid.Sensors.Temperature\">Buildings.Fluid.Sensors.Temperature</a>.
 </li>
 </ul>

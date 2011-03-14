@@ -26,14 +26,15 @@ equation
    annotation (Documentation(info="<html>
 This model is an air damper with flow coefficient that is an exponential function 
 of the opening angle. The model is as in ASHRAE 825-RP.
-A control signal of <tt>y=0</tt> means the damper is closed, and <tt>y=1</tt> means the damper 
+A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper 
 is open. This is opposite of the implementation of ASHRAE 825-RP, but used here
 for consistency within this library.
 </p>
 <p>
-For <tt>yL &lt; y &lt; yU</tt>, the damper characteristics is <pre>
-  k = exp(a+b*(1-y)).
-</pre>
+For <code>yL &lt; y &lt; yU</code>, the damper characteristics is
+<p align=\"center\" style=\"font-style:italic;\">
+  k = exp(a+b (1-y)).
+</p>
 Outside this range, the damper characteristic is defined by a quadratic polynomial that
 matches the damper resistance at <code>y=0</code> and <code>y=yL</code> or <code>y=yU</code> and 
 <code>y=1</code>, respectively. In addition, the polynomials are such that <code>k(y)</code> is

@@ -28,4 +28,21 @@ algorithm
    a3 := (yPP_d - 12 * a1 * delta2)/2;
    der_2_y := 12*a1*x2+2*a3;
   end if;
+annotation (
+Documentation(
+info="<html>
+<p>
+Implementation of the second derivative of the function
+<a href=\"modelica://Buildings.Utilities.Math.Functions.regNonZeroPower\">
+Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+April 9, 2009, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end der_2_regNonZeroPower;

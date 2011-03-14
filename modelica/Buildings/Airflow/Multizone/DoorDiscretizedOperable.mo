@@ -72,18 +72,21 @@ equation
 Documentation(info="<html>
 <p>
 This model describes the bi-directional air flow through an open door.
-<P>
+</p>
+<p>
 To compute the bi-directional flow, 
 the door is discretize along the height coordinate, and uses
 an orifice equation to compute the flow for each compartment.
-<P>
+</p>
+<p>
 The door can be either open or closed, depending on the input signal
-<code>y</code>.
-Set <code>y=0</code> if the door is closed, and <code>y=1</code>
+<i>y</i>.
+Set <i>y=0</i> if the door is closed, and <i>y=1</i>
 if the door is open.
 Use the model 
-<code>Buildings.Airflow.Multizone.Crack</code> for a door
-that is always closed.
+<a href=\"modelica://Buildings.Airflow.Multizone.Crack\">
+Buildings.Airflow.Multizone.Crack
+</a> for a door that is always closed.
 </html>",
 revisions="<html>
 <ul>

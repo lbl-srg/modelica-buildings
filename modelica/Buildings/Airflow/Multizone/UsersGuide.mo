@@ -2,7 +2,7 @@ within Buildings.Airflow.Multizone;
 package UsersGuide "User's Guide"
 
   annotation (DocumentationClass=true, Documentation(info="<html>
-The package <b>Buildings.Airflow.Multizone</b> contains models for 
+The package <code>Buildings.Airflow.Multizone</code> contains models for 
 multizone airflow and contaminant transport.
 </p>
 <p>

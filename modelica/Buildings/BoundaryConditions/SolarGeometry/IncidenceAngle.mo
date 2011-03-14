@@ -65,7 +65,7 @@ equation
     defaultComponentName="incAng",
     Documentation(info="<HTML>
 <p>
-This component computes the incidence angle of direct solar radiation on a tilted surface.
+This component computes the solar incidence angle on a tilted surface.
 For a definition of the parameters, see the 
 <a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
 </p>

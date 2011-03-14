@@ -156,28 +156,28 @@ The model can be used with the following three configurations, which are
 controlled by the setting of the parameter <code>densitySelection</code>:
 <ul>
 <li>
-<b>top</b>:
+<code>top</code>:
 Use this setting to use the density from the volume that is connected
 to <code>port_a</code>. 
 </li>
 <li>
-<b>bottom</b>:
+<code>bottom</code>:
 Use this setting to use the density from the volume that is connected
 to <code>port_b</code>. 
 </li>
 <li>
-<b>actual</b>:
+<code>actual</code>:
 Use this setting to use the density based on the actual flow direction. 
 </li>
 </ul>
 </p>
 <p>
-The settings <b>top</b> and <b>bottom</b>
+The settings <code>top</code> and <code>bottom</code>
 should be used when rooms or different floors of a building are 
 connected since multizone airflow models assume that each floor is completely mixed.
 For these two seetings, this model will compute the pressure between the center of the room
 and an opening that is at height <code>h</code> relative to the center of the room.
-The setting <b>actual</b> may be used to model a chimney in which
+The setting <code>actual</code> may be used to model a chimney in which
 a column of air will change its density based on the flow direction.
 </p>
 <p>

@@ -25,8 +25,8 @@ See this model for details.
 </p>
 <p>
 This model can only be used with medium models that
-implement the function <tt>enthalpyOfLiquid</tt> and that contain
-an integer variable <tt>Water</tt> whose value is the element number where
+implement the function <code>enthalpyOfLiquid</code> and that contain
+an integer variable <code>Water</code> whose value is the element number where
 the water vapor is stored in the species concentration vector. Examples for
 such media are
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
@@ -38,7 +38,7 @@ Modelica.Media.Air.MoistAir</a>.
 <ul>
 <li>
 September 10, 2008 by Michael Wetter:<br>
-Added values for <tt>stateSelect</tt> attributes.
+Added values for <code>stateSelect</code> attributes.
 </li>
 <li>
 August 13, 2008 by Michael Wetter:<br>

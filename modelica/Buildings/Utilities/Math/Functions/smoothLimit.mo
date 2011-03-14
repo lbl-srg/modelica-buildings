@@ -15,8 +15,8 @@ algorithm
   y := Buildings.Utilities.Math.Functions.smoothMin(y,u-deltaX,cor);
   annotation (Documentation(info="<html>
 <p>
-Once continuously differentiable approximation to the <tt>limit(.,.)</tt> function.
-The output is bounded to [0,1].
+Once continuously differentiable approximation to the <code>limit(.,.)</code> function.
+The output is bounded to be in <i>[0, 1]</i>.
 </p>
 </html>", revisions="<html>
 <ul>

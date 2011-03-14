@@ -353,7 +353,7 @@ quantities are constant.
 <ul>
 <li>
 January 13, 2010, by Michael Wetter:<br>
-Added function <tt>enthalpyOfNonCondensingGas</tt> and its derivative.
+Added function <code>enthalpyOfNonCondensingGas</code> and its derivative.
 </li>
 <li>
 January 13, 2010, by Michael Wetter:<br>
@@ -361,21 +361,21 @@ Fixed implementation of derivative functions.
 </li>
 <li>
 August 28, 2008, by Michael Wetter:<br>
-Referenced <tt>spliceFunction</tt> from package 
+Referenced <code>spliceFunction</code> from package 
 <a href=\"modelica://Buildings.Utilities.Math\">Buildings.Utilities.Math</a>
 to avoid duplicate code.
 </li>
 <li>
 August 21, 2008, by Michael Wetter:<br>
-Replaced <tt>d*pStp = p*dStp</tt> by
-<tt>d/dStp = p/pStp</tt> to indicate that division by 
-<tt>dStp</tt> and <tt>pStp</tt> is allowed.
+Replaced <code>d*pStp = p*dStp</code> by
+<code>d/dStp = p/pStp</code> to indicate that division by 
+<code>dStp</code> and <code>pStp</code> is allowed.
 </li>
 <li>
 August 22, 2008, by Michael Wetter:<br>
 Changed function 
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir.density\">
-density</a> so that it uses <tt>rho=p/pStd*rhoStp</tt>
+density</a> so that it uses <code>rho=p/pStd*rhoStp</code>
 instead of the ideal gas law.
 </li>
 <li>

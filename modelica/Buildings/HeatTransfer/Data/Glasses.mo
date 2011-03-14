@@ -17,6 +17,7 @@ package Glasses "Package with thermophysical properties for window glas"
    parameter Modelica.SIunits.Emissivity epsLW_b = 0.84
       "Long-wave emissivity of surface b (usually room-facing surface)";
     annotation (Documentation(info="<html>
+<p>
 This record implements thermophysical properties for window glas.
 </p>
 <p>
@@ -127,5 +128,13 @@ it depends on the glass thickness, the glass thickness is a parameter
 that is set for all glass layers.
 This configuration is different from the records fo gas properties, 
 which do not yet set the value for the thickness of the gas gap.
+</html>",
+revisions="<html>
+<ul>
+<li>
+September 9, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
 </html>"));
 end Glasses;

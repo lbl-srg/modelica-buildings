@@ -80,7 +80,7 @@ air, which are typically at different pressures.
 <li>
 September 19, 2008 by Michael Wetter:<br>
 Added equations for the mass balance of extra species flow,
-i.e., <tt>C</tt> and <tt>mC_flow</tt>.
+i.e., <code>C</code> and <code>mC_flow</code>.
 </li>
 <li>
 March 11, 2008, by Michael Wetter:<br>

@@ -57,7 +57,7 @@ equation
         Line(points={{56,10},{76,20}}, color={191,0,0}),
         Line(points={{56,30},{76,20}}, color={191,0,0})}),
     Documentation(info="<html>
-This is a partial model for a convective heat transfer model.
+Partial model for a convective heat transfer model.
 </html>", revisions="<html>
 <ul>
 <li>

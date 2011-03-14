@@ -123,28 +123,36 @@ equation
     Documentation(info="<html>
 <p>
 Element of a heat exchanger with dynamics on the fluids and the solid. 
-The <tt>hA</tt> value for both fluids is an input.
+The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid.
 <p>
-The heat capacity <tt>C</tt> of the metal is assigned as follows.
+The heat capacity <i>C</i> of the metal is assigned as follows.
 Suppose the metal temperature is governed by
-<pre>
-     dT
-  C ---- = hA_1 (T_1 - T) + hA_2 (T_2 - T)
-     dt
-</pre>
-where <tt>hA</tt> are the convective heat transfer coefficients that also take
+<p align=\"center\" style=\"font-style:italic;\">
+  C dT &frasl; dt = (hA)<sub>1</sub> (T<sub>1</sub> - T)
+  + (hA)<sub>2</sub> (T<sub>2</sub> - T)
+</p>
+where <i>hA</i> are the convective heat transfer coefficients times 
+heat transfer area that also take
 into account heat conduction in the heat exchanger fins and
-<tt>T_1</tt> and <tt>T_2</tt> are the medium temperatures.
-Assuming <tt>hA_1=hA_2</tt>, this equation can be rewritten as
-<pre>
-     dT
-  C ---- = 2 UA_nominal ( (T_1 - T) + (T_2 - T) )
-     dt
-</pre>
-where <tt>UA_nominal</tt> is the <tt>UA</tt> value at nominal condition. 
-Hence we set the heat capacity of the metal to <tt>C = 2 * UA_nominal * tau_m</tt>.
+<i>T<sub>1</sub></i> and <i>T<sub>2</sub></i> are the medium temperatures.
+Assuming <i>(hA)<sub>1</sub>=(hA)<sub>2</sub></i>, 
+this equation can be rewritten as
+<p align=\"center\" style=\"font-style:italic;\">
+  C dT &frasl; dt =
+  2 (UA)<sub>0</sub> ( (T<sub>1</sub> - T) + (T<sub>2</sub> - T) )
+
+</p>
+where <i>(UA)<sub>0</sub></i> is the <i>UA</i> value at nominal conditions. 
+Hence we set the heat capacity of the metal 
+to
+<p align=\"center\" style=\"font-style:italic;\">
+C = 2 (UA)<sub>0</sub> &tau;<sub>m</sub>
+</p>
+where <i>&tau;<sub>m</sub></i> is the time constant that the metal
+of the heat exchanger has if the metal is approximated by a lumped
+thermal mass.
 </p>
 </html>",
 revisions="<html>

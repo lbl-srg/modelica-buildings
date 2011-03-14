@@ -20,7 +20,8 @@ equation
     defaultComponentName="chePre",
     Documentation(info="<HTML>
 <p>
-This component ensures that the interpolated pressure is between 31,000 Pa and 120,000 Pa.
+This component ensures that the interpolated pressure is between <i>31,000</i> Pa and <i>120,000</i> Pa.
+<!-- fixme: Describe why lower bound is 31000 Pa. -->
 </p>
 </HTML>
 ", revisions="<html>

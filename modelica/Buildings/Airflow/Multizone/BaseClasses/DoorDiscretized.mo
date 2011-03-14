@@ -91,14 +91,16 @@ equation
     Documentation(info="<html>
 <p>
 This is a partial model for the bi-directional air flow through a door.
-<P>
-
+</p>
+<p>
 To compute the bi-directional flow, 
 the door is discretize along the height coordinate, and uses
 an orifice equation to compute the flow for each compartment.
-<P>
+</p>
+<p>
 The compartment area <code>dA</code> is a variable, which allows
 using the model for a door that can be open or closed.
+</p>
 </html>",
 revisions="<html>
 <ul>

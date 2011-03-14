@@ -47,7 +47,7 @@ Function that computes the pressure drop of flow elements as
   dp = 1/k^2 * sign(m_flow) m_flow^2
 </pre>
 with regularization near the origin.
-The variable <tt>m_flow_turbulent</tt> determines the location of the regularization.
+The variable <code>m_flow_turbulent</code> determines the location of the regularization.
 </p>
 </html>"),
 revisions="<html>

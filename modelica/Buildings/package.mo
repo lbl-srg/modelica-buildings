@@ -298,7 +298,7 @@ that can lead to wrong simulation results):
   <tr><td colspan=\"2\"><b>Buildings.Fluid.Storage.</b></td></tr>
   <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
   Buildings.Fluid.Storage.StratifiedEnhanced</a></td>
-      <td valign=\"top\">The model <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt>
+      <td valign=\"top\">The model <code>Buildings.Fluid.Storage.BaseClasses.Stratifier</code>
       had a sign error that lead to a wrong energy balance.
       The model that was affected by this error is
       <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
@@ -310,8 +310,8 @@ that can lead to wrong simulation results):
       <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
         Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>. This model
       uses a third-order upwind scheme to reduce the numerical dissipation instead of the
-      correction term that was used in <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt>.
-      The model <tt>Buildings.Fluid.Storage.BaseClasses.Stratifier</tt> has been removed since it
+      correction term that was used in <code>Buildings.Fluid.Storage.BaseClasses.Stratifier</code>.
+      The model <code>Buildings.Fluid.Storage.BaseClasses.Stratifier</code> has been removed since it
       also led to significant overshoot in temperatures when the stratification was pronounced.
       </td>
   </tr>
@@ -499,7 +499,7 @@ In <a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
 Buildings.Media.GasesPTDecoupled.MoistAir</a> and in
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
 Buildings.Media.PerfectGases.MoistAir</a>, added function
-<tt>enthalpyOfNonCondensingGas</tt> and its derivative.
+<code>enthalpyOfNonCondensingGas</code> and its derivative.
 <li>
 In <a href=\"modelica://Buildings.Media\">
 Buildings.Media</a>, 
@@ -620,7 +620,7 @@ Buildings.Utilities.Psychrometrics.HumidityRatio_pWat.mo</a>
 and
 <a href=\"modelica://Buildings.Utilities.Psychrometrics.VaporPressure_X.mo\">
 Buildings.Utilities.Psychrometrics.VaporPressure_X.mo</a>
-because the old model used <tt>RealInput</tt> ports, which are obsolete
+because the old model used <code>RealInput</code> ports, which are obsolete
 in Modelica 3.0.
 </li>
 <li>
@@ -655,7 +655,7 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </li>
 <li>
 Renamed 
-<tt>Buildings.Fluid.HeatExchangers.HeaterCoolerIdeal</tt> to
+<code>Buildings.Fluid.HeatExchangers.HeaterCoolerIdeal</code> to
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed\">
 Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a>
 to have the same nomenclatures as is used for
@@ -669,7 +669,7 @@ Buildings.Fluid/Actuators/BaseClasses/PartialDamperExponential</a>,
 added option to compute linearization near zero based on 
 the fraction of nominal flow instead of the Reynolds number.
 This was set as the default, as it leads most reliably to a model 
-parametrization that leads to a derivative <tt>d m_flow/d p</tt> 
+parametrization that leads to a derivative <code>d m_flow/d p</code> 
 near the origin that is not too steep for a Newton-based solver.
 </li>
 <li>
@@ -677,7 +677,7 @@ In damper and VAV box models, added optional parameters
 to allow specifying the nominal face velocity instead of the area.
 </li>
 <li>
-Set nominal attribute for pressure drop <tt>dp</tt> in 
+Set nominal attribute for pressure drop <code>dp</code> in 
 <a href=\"modelica://Buildings.Fluid.BaseClasses.PartialResistance\"</a>
 Buildings.Fluid.BaseClasses.PartialResistance</a> and in its
 child classes.
@@ -737,7 +737,7 @@ Buildings.Fluid.HeatExchangers.Radiators</a>.
 </li>
 <li>
 Changed valve models in <a href=\"modelica://Buildings.Fluid.Actuators.Valves\">
-Buildings.Fluid.Actuators.Valves</a> so that <tt>Kv</tt> or <tt>Cv</tt> can
+Buildings.Fluid.Actuators.Valves</a> so that <code>Kv</code> or <code>Cv</code> can
 be used as the flow coefficient (in [m3/h] or [USG/min]).
 </li>
 </ul>
@@ -801,7 +801,7 @@ Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>.
 In the original implementation, initial states of fluid volumes can be far away from
 the steady-state value because of an inconsistent implementation of the the enthalpy
 and internal energy.
-When the <tt>Buildings</tt> library is upgraded to
+When the <code>Buildings</code> library is upgraded to
 to Modelica 3.0.0, it should be safe to remove this bug fix.
 </li>
 <li>
@@ -812,8 +812,8 @@ dynamically, or in steady-state.
 </li>
 <li>
 The damper with exponential opening characteristic has been revised to allow control signals
-over the whole range between <tt>0</tt> and <tt>1</tt>. This was in earlier versions restricted.
-In the same model, a bug was fixed that caused the flow to be largest for <tt>y=0</tt>, i.e., when the damper is closed.
+over the whole range between <code>0</code> and <code>1</code>. This was in earlier versions restricted.
+In the same model, a bug was fixed that caused the flow to be largest for <code>y=0</code>, i.e., when the damper is closed.
 </li>
 <li>
 Additional models for psychrometric equations have been added. The new models contain equations
@@ -835,10 +835,10 @@ inside the volume. The condensate is removed from the volume in its liquid phase
 
       annotation (Documentation(info="<html>
 New in this version are models for two and three way valves.
-In addition, the <tt>Fluids</tt> package has been slightly revised.
-The package <tt>Fluid.BaseClasses</tt> has been added because in
+In addition, the <code>Fluids</code> package has been slightly revised.
+The package <code>Fluid.BaseClasses</code> has been added because in
 the previous version, partial models for fixed resistances 
-where part of the <tt>Actuator</tt> package.
+where part of the <code>Actuator</code> package.
 </p>
 </html>
 "));
@@ -1131,7 +1131,7 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
   end Copyright;
 
   annotation (DocumentationClass=true, Documentation(info="<html>
-Package <b>Buildings</b> is a free package for modeling building energy and control systems. 
+Package <code>Buildings</code> is a free package for modeling building energy and control systems. 
 Many models are based on models from the package
 <a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a> and use
 the same ports to ensure compatibility with models from that library.
@@ -1186,7 +1186,7 @@ annotation (preferedView="info",
       version="0.11.0",
       uses(Modelica(version="3.1")),
       Documentation(info="<html>
-The <b>Buildings</b> library is a free library
+The <code>Buildings</code> library is a free library
 for modeling building energy and control systems. 
 Many models are based on models from the package
 <code>Modelica.Fluid</code> and use

@@ -2,7 +2,7 @@ within Buildings.Utilities.Psychrometrics.Functions.BaseClasses;
 function der_pW_TDewPoi "Derivative of function pW_TDewPoi"
 
   input Modelica.SIunits.Temperature T "Dew point temperature";
-  input Real dT;
+  input Real dT "Temperature differential";
   output Real dp_w "Differential of water vapor partial pressure";
 protected
   constant Real C8=-5.800226E3;

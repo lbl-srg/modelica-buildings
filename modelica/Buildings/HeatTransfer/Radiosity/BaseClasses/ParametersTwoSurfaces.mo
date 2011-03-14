@@ -25,4 +25,20 @@ initial equation
     "Emissivity, reflectivity and transmissivity of surface a do not add up to one. Check parameters.");
     assert(abs(1-epsLW_b-rhoLW_b-tauLW) < Modelica.Constants.eps,
     "Emissivity, reflectivity and transmissivity of surface b do not add up to one. Check parameters.");
+
+annotation (
+Documentation(
+info="<html>
+<p>
+Parameters that are used for classes with two surfaces.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+August 23, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end ParametersTwoSurfaces;

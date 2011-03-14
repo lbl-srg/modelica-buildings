@@ -88,10 +88,10 @@ The model defines the flow rate where the linearization near the origin occurs.
 The model also defines parameters that are used by different air damper
 models.
 </p><p>
-This model does not assign <tt>k=kDam</tt> because the model
+This model does not assign <code>k=kDam</code> because the model
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.VAVBoxExponential\">
 VAVBoxExponential</a> consists of a fixed resistance and a resistance due to the
-air damper. If <tt>k</tt> would be assigned here, then this partial model could not
+air damper. If <code>k</code> would be assigned here, then this partial model could not
 be used as a base class for 
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.VAVBoxExponential\">
 VAVBoxExponential</a>.
@@ -118,9 +118,9 @@ if the parameter is disabled but not specified.
 </li>
 <li>
 March 23, 2009 by Michael Wetter:<br>
-Added option to specify <tt>deltaM</tt> for smoothing.
+Added option to specify <code>deltaM</code> for smoothing.
 This is the default setting, as it most reliably leads to a 
-derivative <tt>dm/dp</tt> that is not too steep for the solver
+derivative <code>dm/dp</code> that is not too steep for the solver
 near the origin.
 </li>
 <li>

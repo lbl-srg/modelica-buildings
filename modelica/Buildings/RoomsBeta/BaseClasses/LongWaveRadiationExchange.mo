@@ -374,11 +374,11 @@ cannot see each other.
 revisions="<html>
 <ul>
 <li>
-Feb. 3 2011, by Michael Wetter:<br>
+Feb. 3, 2011, by Michael Wetter:<br>
 Corrected bug in start value of radiosity, reformulated equations to get
 smaller system of coupled equations.
 <li>
-Dec. 1 2010, by Michael Wetter:<br>
+Dec. 1, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

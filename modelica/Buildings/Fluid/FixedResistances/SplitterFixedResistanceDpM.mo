@@ -62,7 +62,7 @@ model SplitterFixedResistanceDpM
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Model of a flow splitter (or mixer) with a fixed resistance in each flow leg.
+Model of a flow splitter or mixer with a fixed resistance in each flow leg.
 </p>
 </html>"),
 revisions="<html>

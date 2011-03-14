@@ -40,8 +40,7 @@ algorithm
   end for;
   annotation (Documentation(info="<html>
 <p>
-Block whose output is equal to the number of inputs
-that exceed a threshold.
+Block that outputs the number of inputs that exceed a threshold.
 </p>
 <p>
 This model may be used to check how many rooms

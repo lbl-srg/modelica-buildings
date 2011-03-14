@@ -254,6 +254,10 @@ In <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.s
 setState_psX</a>, replaced
 <code>reference_T</code> with <code>T0</code> because enthalpy is defined as zero at <code>T0</code>.
 </li>
+<li>
+January 12, 2011, by Michael Wetter:<br>
+First implementation.
+</li>
 </ul>
 </html>"));
 end PartialSimpleIdealGasMedium;

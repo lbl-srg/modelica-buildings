@@ -58,18 +58,18 @@ Modelica.Fluid</a> and are described in
 Buildings.Fluid.Actuators.BaseClasses.ValveParameters</a>.
 <p>
 In contrast to the model in <a href=\"modelica://Modelica.Fluid\">
-Modelica.Fluid</a>, this model uses the parameter <tt>Kv_SI</tt>,
+Modelica.Fluid</a>, this model uses the parameter <code>Kv_SI</code>,
 which is the flow coefficient in SI units, i.e., 
-it is the ratio between mass flow rate in <tt>kg/s</tt> and square root 
-of pressure drop in <tt>Pa</tt>.
+it is the ratio between mass flow rate in <code>kg/s</code> and square root 
+of pressure drop in <code>Pa</code>.
 </p><p>
-To prevent the derivative <tt>d/dP (m_flow)</tt> to be infinite near
+To prevent the derivative <code>d/dP (m_flow)</code> to be infinite near
 the origin, this model linearizes the pressure drop vs. flow relation
 ship. The region in which it is linearized is parameterized by 
 <pre>m_small_flow = deltaM * Kv_SI * sqrt(dp_nominal)
 </pre>
-Because the parameterization contains <tt>Kv_SI</tt>, the values for
-<tt>deltaM</tt> and <tt>dp_nominal</tt> need not be changed if the valve size
+Because the parameterization contains <code>Kv_SI</code>, the values for
+<code>deltaM</code> and <code>dp_nominal</code> need not be changed if the valve size
 changes.
 </p>
 <p>
@@ -81,7 +81,7 @@ each valve opening characteristics has different parameters.
 <li>
 February 18, 2009 by Michael Wetter:<br>
 Implemented parameterization of flow coefficient as in 
-<tt>Modelica.Fluid</tt>.
+<code>Modelica.Fluid</code>.
 <li>
 August 15, 2008 by Michael Wetter:<br>
 Set valve leakage to nonzero value.

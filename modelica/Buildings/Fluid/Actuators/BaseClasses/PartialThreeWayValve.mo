@@ -108,14 +108,14 @@ with different opening characteristics, such as linear, equal percentage
 or quick opening. The three way valve model consists of a mixer where 
 valves are placed in two of the flow legs. The third flow leg
 has no friction. 
-The flow coefficient <tt>Kv_SI</tt> for flow from <tt>port_1 -> port_2</tt> is
-a parameter and the flow coefficient for flow from <tt>port_3 -> port_2</tt>
+The flow coefficient <code>Kv_SI</code> for flow from <code>port_1 -> port_2</code> is
+a parameter and the flow coefficient for flow from <code>port_3 -> port_2</code>
 is computed as<pre>
          Kv_SI(port_1 -> port_2)
   fraK = ----------------------
          Kv_SI(port_3 -> port_2)
 </pre> 
-where <tt>fraK</tt> is a parameter.
+where <code>fraK</code> is a parameter.
 </p><p>
 Since this model uses two way valves to construct a three way valve, see 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">

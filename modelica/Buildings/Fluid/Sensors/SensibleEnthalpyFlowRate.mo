@@ -90,7 +90,8 @@ Improved code that searches for index of 'water' in the medium model.
 </li>
 <li>
 September 9, 2009 by Michael Wetter:<br>
-First implementation based on enthalpy sensor of Modelica.Fluid.
+First implementation.
+Implementation is based on enthalpy sensor of <code>Modelica.Fluid</code>.
 </li>
 </ul>
 </html>"));

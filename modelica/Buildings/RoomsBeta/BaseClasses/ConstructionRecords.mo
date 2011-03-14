@@ -37,5 +37,22 @@ record ConstructionRecords "Data records for construction data"
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
             {100,100}})),       Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-200,-200},{100,100}})));
+          extent={{-200,-200},{100,100}})),
+Documentation(
+info="<html>
+<p>
+Record that defines the number of constructions that are
+used in the room model.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+January 14, 2011, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"
+));
+
 end ConstructionRecords;

@@ -180,7 +180,7 @@ equation
 Register of a heat exchanger with dynamics on the fluids and the solid. 
 The register represents one array of pipes that are perpendicular to the
 air stream.
-The <tt>hA</tt> value for both fluids is an input.
+The <i>hA</i> value for both fluids is an input.
 The driving force for the heat transfer is the temperature difference
 between the fluid volumes and the solid in each heat exchanger element.
 </p>

@@ -2,6 +2,20 @@ within Buildings.HeatTransfer.Data;
 package OpaqueSurfaces
   "Package with thermophysical properties for opaque surfaces"
 
+annotation (
+preferedView="info",
+Documentation(info="<html>
+Package with records for opaque surfaces.
+</html>",
+  revisions="<html>
+<ul>
+<li>
+November 16, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
+
   record Generic "Thermal properties of opaque surfaces"
       extends Modelica.Icons.Record;
    parameter Modelica.SIunits.Area A "Area";
@@ -18,7 +32,7 @@ This record implements thermophysical properties for opaque surfaces.
   revisions="<html>
 <ul>
 <li>
-Nove. 16 2010, by Michael Wetter:<br>
+November 16, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
@@ -34,8 +48,4 @@ First implementation.
   record White=Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic (epsLW=0.0,
         epsSW=0.0) "White surface with epsLW=0.0, epsSW=0.0";
 
-  annotation(preferedView="info",
-            Documentation(info="<html>
-This package implements thermophysical properties for window shades.
-</html>"));
 end OpaqueSurfaces;

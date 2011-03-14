@@ -8,7 +8,8 @@ algorithm
  y := spliceFunction(1, 0, x, delta);
  annotation (Documentation(info="<html>
 <p>
-Once Lipschitz continuously differentiable approximation to the <tt>Heaviside(.,.)</tt> function.
+Once Lipschitz continuously differentiable approximation to the 
+<code>Heaviside(.,.)</code> function.
 </p>
 </html>", revisions="<html>
 <ul>

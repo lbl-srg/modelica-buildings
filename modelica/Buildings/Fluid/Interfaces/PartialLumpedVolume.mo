@@ -161,15 +161,15 @@ initial equation
     Documentation(info="<html>
 <p>Interface and base class for an ideally mixed fluid volume with the ability to store mass and energy. 
 An extending class must specify an equation for
-<b>Qb_flow</b>, e.g. convective or latent heat flow rate across the boundary.
+<code>Qb_flow</code>, e.g. convective or latent heat flow rate across the boundary.
 </p>
-The component volume <b>fluidVolume</b> is an input that needs to be set in the extending class to complete the model. </pre>
+The component volume <code>fluidVolume</code> is an input that needs to be set in the extending class to complete the model. </pre>
 <p>Further source terms must be defined by an extending class for fluid flow across the segment boundary: </p>
 <p><ul>
-<li><b>Hb_flow</b>, enthalpy flow,</li>
-<li><b>mb_flow</b>, mass flow,</li>
-<li><b>mbXi_flow</b>, substance mass flow, and</li>
-<li><b>mbC_flow</b>, trace substance mass flow.</li>
+<li><code>Hb_flow</code>, enthalpy flow,</li>
+<li><code>mb_flow</code>, mass flow,</li>
+<li><code>mbXi_flow</code>, substance mass flow, and</li>
+<li><code>mbC_flow</code>, trace substance mass flow.</li>
 </ul></p>
 <p>
 <b>Note:</b> This model is similar to 

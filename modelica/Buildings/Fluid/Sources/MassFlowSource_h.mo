@@ -167,8 +167,8 @@ Models an ideal flow source, with prescribed values of flow rate, temperature an
 <li> Prescribed specific enthalpy.</li>
 <li> Boundary composition (only for multi-substance or trace-substance flow).</li>
 </ul>
-<p>If <tt>use_m_flow_in</tt> is false (default option), the <tt>m_flow</tt> parameter
-is used as boundary pressure, and the <tt>m_flow_in</tt> input connector is disabled; if <tt>use_m_flow_in</tt> is true, then the <tt>m_flow</tt> parameter is ignored, and the value provided by the input connector is used instead.</p> 
+<p>If <code>use_m_flow_in</code> is false (default option), the <code>m_flow</code> parameter
+is used as boundary pressure, and the <code>m_flow_in</code> input connector is disabled; if <code>use_m_flow_in</code> is true, then the <code>m_flow</code> parameter is ignored, and the value provided by the input connector is used instead.</p> 
 <p>The same applies to the temperature, composition and trace substances.</p>
 <p>
 Note, that boundary temperature,
@@ -177,5 +177,15 @@ is from the boundary into the port. If mass is flowing from
 the port into the boundary, the boundary definitions,
 with exception of boundary flow rate, do not have an effect.
 </p>
-</html>"));
+</html>",
+revisions="<html>
+<ul>
+<li>
+September 29, 2009, by Michael Wetter:<br>
+First implementation. 
+Implemenation is based on <code>Modelica.Fluid</code>.
+</li>
+</ul>
+</html>"
+));
 end MassFlowSource_h;

@@ -13,9 +13,9 @@ package Functions "Functions for heat transfer package"
           "Convective heat flux from solid to fluid";
       annotation (Documentation(info=
                                    "<html>
-This is a partial function that is used to implement the convective heat flux
-as <tt>q_flow = f(dT)</tt>,
-where <tt>dT</tt> is the solid temperature minus the fluid temperature.
+Partial function that is used to implement the convective heat flux
+as <code>q_flow = f(dT)</code>,
+where <code>dT</code> is the solid temperature minus the fluid temperature.
 </html>",     revisions="<html>
 <ul>
 <li>
@@ -38,10 +38,10 @@ First implementation.
     annotation (Documentation(info=
                                  "<html>
 This function computes the convective heat transfer coefficient as
-<tt>h=hCon</tt>, where <tt>hCon=3</tt> is a default input argument.
-The convective convective heat flux is then
-<tt>q_flow = h * dT</tt>,
-where <tt>dT</tt> is the solid temperature minus the fluid temperature.
+<code>h=hCon</code>, where <code>hCon=3</code> is a default input argument.
+The convective convective heat flux is
+<code>q_flow = h * dT</code>,
+where <code>dT</code> is the solid temperature minus the fluid temperature.
 </html>",   revisions="<html>
 <ul>
 <li>
@@ -62,10 +62,10 @@ First implementation.
     "<html>
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a wall as
-<tt>h=1.3*|dT|^0.3333</tt>,
-where <tt>dT</tt> is the solid temperature minus the fluid temperature.
+<code>h=1.3*|dT|^0.3333</code>,
+where <code>dT</code> is the solid temperature minus the fluid temperature.
 The convective convective heat flux is then
-<tt>q_flow = h * dT</tt>.
+<code>q_flow = h * dT</code>.
 </html>",
     revisions="<html>
 <ul>
@@ -88,13 +88,13 @@ First implementation.
     "<html>
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a floor as
-<tt>h=k*|dT|^0.3333</tt>,
+<code>h=k*|dT|^0.3333</code>,
 where 
-<tt>k=1.51</tt> if the floor is warmer than the fluid,
-or <tt>k=0.76</tt> otherwise, and where
-<tt>dT</tt> is the solid temperature minus the fluid temperature.
+<code>k=1.51</code> if the floor is warmer than the fluid,
+or <code>k=0.76</code> otherwise, and where
+<code>dT</code> is the solid temperature minus the fluid temperature.
 The convective convective heat flux is then
-<tt>q_flow = h * dT</tt>.
+<code>q_flow = h * dT</code>.
 </html>",
     revisions="<html>
 <ul>
@@ -117,13 +117,13 @@ First implementation.
     "<html>
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a ceiling as
-<tt>h=k*|dT|^0.3333</tt>,
+<code>h=k*|dT|^0.3333</code>,
 where 
-<tt>k=1.51</tt> if the fluid is warmer than the ceiling,
-or <tt>k=0.76</tt> otherwise, and where
-<tt>dT</tt> is the solid temperature minus the fluid temperature.
+<code>k=1.51</code> if the fluid is warmer than the ceiling,
+or <code>k=0.76</code> otherwise, and where
+<code>dT</code> is the solid temperature minus the fluid temperature.
 The convective convective heat flux is then
-<tt>q_flow = h * dT</tt>.
+<code>q_flow = h * dT</code>.
 </html>",
     revisions="<html>
 <ul>
@@ -158,7 +158,7 @@ The parameter <code>RaMin</code> is used to transition
 to a lower limit for the Raleigh number.
 This is helpful to avoid a Raleigh number of zero or
 to avoid an expression for a convection coefficient that
-has an infinite derivative near zero, i.e., if <i>h=f(Ra^(1/2))</i>.
+has an infinite derivative near zero, i.e., if <i>h=f(Ra<sup>(1/2)</sup>)</i>.
 </html>",
     revisions="<html>
 <ul>

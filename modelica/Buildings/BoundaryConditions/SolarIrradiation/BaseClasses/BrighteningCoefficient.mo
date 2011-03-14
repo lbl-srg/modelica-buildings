@@ -115,7 +115,7 @@ equation
     defaultComponentName="briCoe",
     Documentation(info="<HTML>
 <p>
-This component computes circumsolar and horizon brightening coeffcients.
+This component computes the circumsolar and horizon brightening coefficients.
 </p>
 </HTML>
 ", revisions="<html>

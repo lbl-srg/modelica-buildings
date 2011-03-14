@@ -59,7 +59,8 @@ Improved the code that searches for the index of the substance in the medium mod
 </li>
 <li>
 April 7, 2009 by Michael Wetter:<br>
-First implementation based on enthalpy sensor of Modelica.Fluid.
+First implementation.
+Implementation is based on enthalpy sensor of <code>Modelica.Fluid</code>.
 </li>
 </ul>
 </html>"));

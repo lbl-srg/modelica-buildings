@@ -28,15 +28,17 @@ package BaseClasses "Base classes for package Data"
       annotation (Dialog(tab="Advanced"));
     annotation (preferedView="info",
     Documentation(info="<html>
-This is the base record for materials that declares the thermal properties. 
+Base record for materials that declares the thermal properties. 
 </p>
 <p>
 The specific heat capacity can be zero, in which case the material
 will be modeled as a thermal resistor that does not store energy.
 </p>
 <p>
-Note that the thermal resistance is in units of <tt>m2*K/W</tt> and not <tt>K/W</tt>
-because this record does not have the surface area as a parameter. The surface area
+Note that the thermal resistance is in units of 
+<i>m<sup>2</sup> K &frasl; W</i> and not <i>K &frasl; W</i>
+because this record does not have the surface area as a parameter. 
+The surface area
 will be defined in the model of the construction that uses this material.
 This allows use of the same material in walls, floors
 and ceilings of different surface area.
@@ -46,7 +48,7 @@ and ceilings of different surface area.
 <ul>
 <li>
 June 3 2010, by Michael Wetter:<br>
-Implemented adaptive computation of number of states based on a reference construction of 0.2 m concrete.
+Implemented adaptive computation of number of states based on a reference construction of <i>0.2 m</i> concrete.
 </li>
 <li>
 March 6 2010, by Michael Wetter:<br>

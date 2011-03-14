@@ -33,7 +33,7 @@ equation
     defaultComponentName="incAng",
     Documentation(info="<HTML>
 <p>
-This component computes the solar incidence angle on a tilted surface by using solar hour angle and declination angle as input.
+This component computes the solar incidence angle on a tilted surface using the solar hour angle and the declination angle as input.
 </p>
 </HTML>
 ", revisions="<html>

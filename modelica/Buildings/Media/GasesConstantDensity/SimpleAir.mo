@@ -169,9 +169,9 @@ quantities are constant.
 <ul>
 <li>
 August 21, 2008, by Michael Wetter:<br>
-Replaced <tt>d*pStp = p*dStp</tt> by
-<tt>d/dStp = p/pStp</tt> to indicate that division by 
-<tt>dStp</tt> and <tt>pStp</tt> is allowed.
+Replaced <code>d*pStp = p*dStp</code> by
+<code>d/dStp = p/pStp</code> to indicate that division by 
+<code>dStp</code> and <code>pStp</code> is allowed.
 </li>
 <li>
 March 19, 2008, by Michael Wetter:<br>

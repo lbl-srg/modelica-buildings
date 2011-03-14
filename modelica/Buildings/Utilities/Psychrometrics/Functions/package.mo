@@ -1,8 +1,6 @@
 within Buildings.Utilities.Psychrometrics;
 package Functions "Package with psychrometric functions"
 
-
-
   annotation (preferedView="info", Documentation(info="<html>
 This package contains functions for psychrometric calculations.
 </p>

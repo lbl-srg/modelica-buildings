@@ -37,7 +37,7 @@ algorithm
     defaultComponentName="solAzi",
     Documentation(info="<HTML>
 <p>
-This component computes the azimuth angle of sun.
+This component computes the solar azimuth angle.
 </p>
 </HTML>
 ", revisions="<html>

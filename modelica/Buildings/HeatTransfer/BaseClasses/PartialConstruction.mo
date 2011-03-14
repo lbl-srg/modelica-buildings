@@ -27,7 +27,7 @@ model PartialConstruction
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>
-This is a partial model for constructions and multi-layer heat conductors.
+Partial model for constructions and multi-layer heat conductors.
 </html>", revisions="<html>
 <ul>
 <li>

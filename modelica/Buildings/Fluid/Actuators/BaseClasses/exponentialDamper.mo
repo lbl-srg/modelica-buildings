@@ -32,11 +32,11 @@ The function is used by the model
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.Exponential\">
 Dampers.Exponential</a>.
 </p><p>
-For <tt>yL &lt; y &lt; yU</tt>, the damper characteristics is 
+For <code>yL &lt; y &lt; yU</code>, the damper characteristics is 
 </p>
-<pre>
-  k = exp(a+b*(1-y)).
-</pre>
+<p align=\"center\" style=\"font-style:italic;\">
+  k = exp(a+b (1-y)).
+</p>
 <p>
 Outside this range, the damper characteristic is defined by a quadratic polynomial.
 </p>

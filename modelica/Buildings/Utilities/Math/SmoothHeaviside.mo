@@ -51,7 +51,7 @@ equation
                                                 Diagram(graphics),
 Documentation(info="<html>
 <p>
-Once Lipschitz continuously differentiable approximation to the <tt>Heaviside(.,.)</tt> function.
+Once Lipschitz continuously differentiable approximation to the <i>Heaviside(.,.)</i> function.
 </p>
 </html>",
 revisions="<html>

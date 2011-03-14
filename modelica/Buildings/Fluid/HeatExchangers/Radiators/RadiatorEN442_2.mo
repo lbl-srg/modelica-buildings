@@ -303,7 +303,7 @@ nominal heating power, nominal temperatures, fraction radiant to total heat tran
 and exponent for heat transfer.
 </p>
 <p>
-The parameter <tt>energyDynamics</tt> (in the Assumptions tab),
+The parameter <code>energyDynamics</code> (in the Assumptions tab),
 determines whether the model computes the dynamic or the steady-state response.
 For the transient response, heat storage is computed using a 
 finite volume approach for the 

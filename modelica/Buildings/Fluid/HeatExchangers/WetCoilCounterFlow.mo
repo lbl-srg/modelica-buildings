@@ -27,13 +27,13 @@ equation
 Model of a discretized coil with water vapor condensation.
 The coil consists of two flow paths which are, at the design flow direction,
 in opposite direction to model a counterflow heat exchanger.
-The flow paths are discretized into <tt>nEle</tt> elements. 
+The flow paths are discretized into <code>nEle</code> elements. 
 Each element is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 Each element has a state variable for the metal. Depending
-on the value of the boolean parameters <tt>steadyState_1</tt> and
-<tt>steadyState_2</tt>, the fluid states are modeled dynamically or in steady
+on the value of the boolean parameters <code>steadyState_1</code> and
+<code>steadyState_2</code>, the fluid states are modeled dynamically or in steady
 state.
 </p>
 <p>
@@ -45,7 +45,7 @@ Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil</a>.
 </p>
 <p>
 In this model, the water (or liquid) flow path
-needs to be connected to <tt>port_a1</tt> and <tt>port_b1</tt>, and
+needs to be connected to <code>port_a1</code> and <code>port_b1</code>, and
 the air flow path needs to be connected to the other two ports.
 </p>
 <p>
@@ -56,8 +56,8 @@ Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange</a>.
 </p>
 <p>
 This model can only be used with medium models that
-implement the function <tt>enthalpyOfLiquid</tt> and that contain
-an integer variable <tt>Water</tt> whose value is the element number where
+implement the function <code>enthalpyOfLiquid</code> and that contain
+an integer variable <code>Water</code> whose value is the element number where
 the water vapor is stored in the species concentration vector. Examples for
 such media are
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">

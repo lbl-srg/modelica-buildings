@@ -45,7 +45,8 @@ Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 <ul>
 <li>
 April 9, 2008 by Michael Wetter:<br>
-First implementation based on enthalpy sensor of <code>Modelica.Fluid</code>.
+First implementation.
+Implementation is based on enthalpy sensor of <code>Modelica.Fluid</code>.
 </li>
 </ul>
 </html>"));

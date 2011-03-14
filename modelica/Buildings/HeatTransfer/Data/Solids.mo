@@ -1,6 +1,27 @@
 within Buildings.HeatTransfer.Data;
 package Solids
   "Package with solid material, characterized by thermal conductance, density and specific heat capacity"
+
+annotation (
+Documentation(
+info="<html>
+<p>
+Package with records for solid materials.
+The material is characterized by its 
+thermal conductivity, mass density and specific
+heat capacity.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+September 9, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"
+));
+
   record Generic "Thermal properties of solids with heat storage"
       extends Buildings.HeatTransfer.Data.BaseClasses.Material(final R=x/k);
   end Generic;

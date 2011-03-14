@@ -209,13 +209,13 @@ equation
 Model of a discretized coil without water vapor condensation.
 The coil consists of two flow paths which are, at the design flow direction,
 in opposite direction to model a counterflow heat exchanger.
-The flow paths are discretized into <tt>nEle</tt> elements. 
+The flow paths are discretized into <code>nEle</code> elements. 
 Each element is modeled by an instance of
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HexElement\">
 Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 Each element has a state variable for the metal. Depending
-on the value of the boolean parameters <tt>steadyState_1</tt> and
-<tt>steadyState_2</tt>, the fluid states are modeled dynamically or in steady
+on the value of the boolean parameters <code>steadyState_1</code> and
+<code>steadyState_2</code>, the fluid states are modeled dynamically or in steady
 state.
 </p>
 <p>

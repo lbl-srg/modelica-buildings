@@ -184,16 +184,16 @@ equation
 <p>
 Model of a heat exchanger without humidity condensation. 
 This model transfers heat in the amount of 
-<pre>
-  Q_flow = QMax_flow * eps,
-  eps = f(NTU, Z, flowRegime),
-</pre>
+<p align=\"center\" style=\"font-style:italic;\">
+  Q = Q<sub>max</sub>  &epsilon;<br>
+  &epsilon = f(NTU, Z, flowRegime),
+</p>
 where
-<tt>QMax_flow</tt> is the maximum heat that can be transferred,
-<tt>eps</tt> is the heat transfer effectiveness, 
-<tt>NTU</tt> is the Number of Transfer Units,
-<tt>Z</tt> is the ratio of minimum to maximum capacity flow rate and
-<tt>flowRegime</tt> is the heat exchanger flow regime.
+<i>Q<sub>max</sub></i> is the maximum heat that can be transferred,
+<i>&epsilon;</i> is the heat transfer effectiveness, 
+<i>NTU</i> is the Number of Transfer Units,
+<i>Z</i> is the ratio of minimum to maximum capacity flow rate and
+<i>flowRegime</i> is the heat exchanger flow regime.
 such as
 parallel flow, cross flow or counter flow.
 </p>

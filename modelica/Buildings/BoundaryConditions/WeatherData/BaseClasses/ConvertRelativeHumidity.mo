@@ -24,7 +24,7 @@ equation
     defaultComponentName="conHum",
     Documentation(info="<HTML>
 <p>
-This component converts the relative humidity to a range of [0, 1].
+This component converts the relative humidity from percentage to a range of <i>[0, 1]</i>.
 Input is the relative humidity in percentage, as this is the data
 format that is used in the Typical Meteorological Year weather data.
 </p>

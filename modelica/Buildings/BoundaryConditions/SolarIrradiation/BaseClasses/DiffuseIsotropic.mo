@@ -29,7 +29,10 @@ equation
     defaultComponentName="HDifTilIso",
     Documentation(info="<HTML>
 <p>
-This component computes the Hemispherical diffuse irradiation on a tilted surface by using an isotropic model. It is the summation of diffuse solar irradiation and radiation reflected by the ground.
+This component computes the hemispherical diffuse irradiation on a tilted surface.
+The irradiation is composed of the diffuse horizontal solar irradiation and the irradiation
+that has been reflected by the ground. Both components are adjusted to take into account
+the tilt of the receiving surface.
 </p>
 <h4>References</h4>
 P. Ineichen, R. Perez and R. Seals (1987).

@@ -132,8 +132,8 @@ This record allows specifying materials that store energy, and material
 that are a thermal conductor only with no heat storage.
 </p>
 <p>
-To obtain the surface temperature of the construction, use <tt>port_a.T</tt> (or <tt>port_b.T</tt>)
-and not the variable <tt>T[1]</tt> because there is a thermal resistance between the surface
+To obtain the surface temperature of the construction, use <code>port_a.T</code> (or <code>port_b.T</code>)
+and not the variable <code>T[1]</code> because there is a thermal resistance between the surface
 and the temperature state.
 </p>
 </html>", revisions="<html>

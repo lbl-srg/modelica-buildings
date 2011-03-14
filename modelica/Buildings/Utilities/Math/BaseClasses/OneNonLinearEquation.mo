@@ -200,8 +200,9 @@ provide a package in the following way:
 <ul>
 <li>
 February 12, 2010, by Michael Wetter:<br>
-First implementation, based on 
-<a href=\"Modelica:Modelica.Media.Common.OneNonLinearEquation\">
+First implementation.
+Implementation is based on 
+<a href=\"modelica://Modelica.Media.Common.OneNonLinearEquation\">
 Modelica.Media.Common.OneNonLinearEquation</a>.
 This package is implemented to change the interface for the function
 <code>f_nonlinear</code>.

@@ -65,7 +65,7 @@ The details of the coefficients are explained in the
         "Cross flow, stream 1 unmixed, stream 2 mixed")
     "Enumeration for heat exchanger construction"
   annotation(Documentation(info="<html>
- Enumeration to define the heat exchanger construction.
+ Enumeration that defines the heat exchanger construction.
 </p>
 <p>
 The following heat exchanger configurations are available in this enumeration:
@@ -84,12 +84,21 @@ Note that for a given heat exchanger, the
  flow rates change, then the 
  <a href=\"modelica://Buildings.Fluid.Types.HeatExchangerFlowRegime>
  HeatExchangerFlowRegime</a> may change. For example,
- a counter flow heat exchanger has <tt>HeatExchangerConfiguration=CounterFlow</tt>,
+ a counter flow heat exchanger has <code>HeatExchangerConfiguration=CounterFlow</code>,
  but the <a href=\"modelica://Buildings.Fluid.Types.HeatExchangerFlowRegime>
  HeatExchangerFlowRegime</a> can change to parallel flow if one of the two capacity flow rates reverts
  its direction.
  </p>
-</html>"));
+</html>",
+revisions="<html>
+<ul>
+<li>
+February 18, 2009, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"
+));
 
   type HeatExchangerFlowRegime = enumeration(
       ParallelFlow "Parallel flow",

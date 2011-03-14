@@ -91,7 +91,7 @@ the mass flow rate at the fluid port is equal to zero.
         revisions="<html>
 <ul>
 <li>
-June 9 2010, by Michael Wetter:<br>
+June 9, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

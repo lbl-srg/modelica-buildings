@@ -63,7 +63,7 @@ equation
           lineColor={0,0,255})}),
     Documentation(info="<html>
 <p>
-Model <b>FixedBoundary</b> defines constant values for boundary conditions:
+This model defines constant values for boundary conditions:
 </p>
 <ul>
 <li> Boundary pressure or boundary density.</li>
@@ -77,5 +77,15 @@ is from the Boundary into the port. If mass is flowing from
 the port into the boundary, the boundary definitions,
 with exception of boundary pressure, do not have an effect.
 </p>
-</html>"));
+</html>",
+revisions="<html>
+<ul>
+<li>
+September 29, 2009, by Michael Wetter:<br>
+First implementation.
+Implementation is based on <code>Modelica.Fluid</code>.
+</li>
+</ul>
+</html>"
+));
 end FixedBoundary;

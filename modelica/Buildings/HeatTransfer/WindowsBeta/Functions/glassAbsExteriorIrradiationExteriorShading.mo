@@ -10,7 +10,7 @@ function glassAbsExteriorIrradiationExteriorShading
     "Angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading";
 
 protected
-  Real c;
+  Real c "Intermediate variable";
 
 algorithm
   for iD in 1:HEM loop

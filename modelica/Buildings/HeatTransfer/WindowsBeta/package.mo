@@ -1,12 +1,6 @@
 within Buildings.HeatTransfer;
 package WindowsBeta "Package with models for windows"
 
-
-
-
-
-
-
   annotation (
 preferedView="info", Documentation(info="<html>
 <p>

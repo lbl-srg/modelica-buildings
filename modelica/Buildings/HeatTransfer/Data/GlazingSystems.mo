@@ -35,7 +35,7 @@ package GlazingSystems
       "Parameter that is true if the construction has a shade";
 
     annotation (Documentation(info="<html>
-This record implements thermophysical properties for glazing systems.
+Generic record that implements thermophysical properties for glazing systems.
 </html>",
   revisions="<html>
 <ul>
@@ -67,7 +67,18 @@ First implementation.
       UFra=1.4,
       final nLay=3)
     "Triple pane, clear glass 3mm, air 12.7, clear glass 3mm, air 12.7, clear glass 3mm";
-annotation (Documentation(info="<html>
-This package implements thermophysical properties for glazing systems.
+
+annotation (preferedView="info",
+Documentation(info="<html>
+Package with generic records that implement thermophysical properties for glazing systems.
+</html>",
+  revisions="<html>
+<ul>
+<li>
+Sep. 3 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
 </html>"));
+
 end GlazingSystems;

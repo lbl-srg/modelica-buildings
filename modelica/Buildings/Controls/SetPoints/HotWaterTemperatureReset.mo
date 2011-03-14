@@ -72,12 +72,12 @@ by a parameter, or it can be an input to the model. The latter allows
 to use this model with systems that have night set back.
 </p>
 <p>
-The parameter <tt>dTOutHeaBal</tt> can be used to shift the heating curve to account
+The parameter <code>dTOutHeaBal</code> can be used to shift the heating curve to account
 for the fact that solar heat gains and heat gains from equipment and people 
 make up for some of the transmission losses. 
 For example, in energy efficient houses, the heating may not be switched on above 
 12 degree Celsius, even if a room temperature of 20 degree is required.
-In such a situation, set <tt>dTOutHeaBal=20-12=8</tt> Kelvin to 
+In such a situation, set <code>dTOutHeaBal=20-12=8</code> Kelvin to 
 shift the heating curve.
 </p>
 </html>", revisions="<html>

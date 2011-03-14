@@ -55,23 +55,23 @@ which have been adapted from the valve implementation
 in <a href=\"modelica://Modelica.Fluid\">
 Modelica.Fluid</a>
 to specify the valve flow coefficient in fully open conditions:
-<ul><li><tt>CvData = Buildings.Fluid.Types.CvTypes.Av</tt>: the flow coefficient is given by the metric <tt>Av</tt> coefficient (m^2).
-<li><tt>CvData = Buildings.Fluid.Types.CvTypes.Kv</tt>: the flow coefficient is given by the metric <tt>Kv</tt> coefficient (m^3/h).
-<li><tt>CvData = Buildings.Fluid.Types.CvTypes.Cv</tt>: the flow coefficient is given by the US <tt>Cv</tt> coefficient (USG/min).
-<li><tt>CvData = Buildings.Fluid.Types.CvTypes.OpPoint</tt>: the flow is computed from the nominal operating point specified by <tt>dp_nominal</tt> and <tt>m_flow_nominal</tt>.
+<ul><li><code>CvData = Buildings.Fluid.Types.CvTypes.Av</code>: the flow coefficient is given by the metric <code>Av</code> coefficient (m^2).
+<li><code>CvData = Buildings.Fluid.Types.CvTypes.Kv</code>: the flow coefficient is given by the metric <code>Kv</code> coefficient (m^3/h).
+<li><code>CvData = Buildings.Fluid.Types.CvTypes.Cv</code>: the flow coefficient is given by the US <code>Cv</code> coefficient (USG/min).
+<li><code>CvData = Buildings.Fluid.Types.CvTypes.OpPoint</code>: the flow is computed from the nominal operating point specified by <code>dp_nominal</code> and <code>m_flow_nominal</code>.
 </ul>
 </p>
 <p>
-The treatment of parameters <b>Kv</b> and <b>Cv</b> is
+The treatment of parameters <code>Kv</code> and <code>Cv</code> is
 explained in detail in the 
 <a href=\"modelica://Modelica.Fluid.UsersGuide.ComponentDefinition.ValveCharacteristics\">Users Guide</a>.
 </p>
 <p>
 In contrast to the model in <a href=\"modelica://Modelica.Fluid\">
-Modelica.Fluid</a>, this model uses the parameter <tt>Kv_SI</tt>,
+Modelica.Fluid</a>, this model uses the parameter <code>Kv_SI</code>,
 which is the flow coefficient in SI units, i.e., 
-it is the ratio between mass flow rate in <tt>kg/s</tt> and square root 
-of pressure drop in <tt>Pa</tt>.
+it is the ratio between mass flow rate in <code>kg/s</code> and square root 
+of pressure drop in <code>Pa</code>.
 </p>
 </html>", revisions="<html>
 <ul>

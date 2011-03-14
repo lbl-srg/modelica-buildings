@@ -57,7 +57,8 @@ equation
 <p>
 This component transports fluid between its two ports, without
 storing mass or energy. It is based on 
-<tt>Modelica.Fluid.Interfaces.PartialTwoPortTransport</tt> but it does
+<a href=\"modelica://Modelica.Fluid.Interfaces.PartialTwoPortTransport\">
+Modelica.Fluid.Interfaces.PartialTwoPortTransport</a> but it does
 use a different implementation for handling reverse flow because
 in this component, mass flow rate can be added or removed from
 the medium.
@@ -65,9 +66,9 @@ the medium.
 Depending on the parameter settings, this component computes
 pressure drop due to flow friction.
 The pressure drop is defined by a quadratic function that goes through
-the point <tt>(m_flow_nominal, dp_nominal)</tt>. At <tt>|m_flow| &lt; deltaM * m_flow_nominal</tt>,
+the point <code>(m_flow_nominal, dp_nominal)</code>. At <code>|m_flow| &lt; deltaM * m_flow_nominal</code>,
 the pressure drop vs. flow relation is linearized.
-If the parameter <tt>linearizeFlowResistance</tt> is set to true,
+If the parameter <code>linearizeFlowResistance</code> is set to true,
 then the whole pressure drop vs. flow resistance curve is linearized.
 </p>
 <p>

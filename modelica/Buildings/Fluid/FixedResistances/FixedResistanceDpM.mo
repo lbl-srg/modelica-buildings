@@ -45,8 +45,10 @@ equation
                       graphics),
                        Documentation(info="<html>
 <p>
-This is a model of a resistance with a fixed flow coefficient <tt>k = m_flow/sqrt(dP)</tt>.
-<p>
+This is a model of a resistance with a fixed flow coefficient 
+<p align=\"center\" style=\"font-style:italic;\">
+k = m &frasl; 
+&radic;<span style=\"text-decoration:overline;\">&Delta;P</span>.
 </p>
 Near the origin, the square root relation is regularized to ensure that the derivative is bounded.
 </p>

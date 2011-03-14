@@ -6,7 +6,7 @@ equation
 annotation (
 Documentation(info="<html>
 <p>
-Outputs the average of the vector.
+This function outputs the average of the vector.
 </p>
 </html>",
 revisions="<html>

@@ -11,14 +11,16 @@ equation
 Documentation(info="<html>
 <p>
 This block computes
-<pre>
- y = a1 + a2 * x1 + a3 * x1^2 
-        + a4 * x2 + a5 * x2^2 
-        + a6 * x1 * x2 
-        + a7 * x1^3
-        + a8 * x2^3 
-        + a9 * x1^2 * x2 + a10 * x1 * x2^2
-</pre>
+<p align=\"center\" style=\"font-style:italic;\">
+ y = a<sub>1</sub> 
+    + a<sub>2</sub>  x<sub>1</sub> + a<sub>3</sub>  x<sub>1</sub><sup>2</sup> 
+    + a<sub>4</sub>  x<sub>2</sub> + a<sub>5</sub>  x<sub>2</sub><sup>2</sup> 
+    + a<sub>6</sub>  x<sub>1</sub>  x<sub>2</sub> 
+    + a<sub>7</sub>  x<sub>1</sub>^3
+    + a<sub>8</sub>  x<sub>2</sub>^3 
+    + a<sub>9</sub>  x<sub>1</sub><sup>2</sup>  x<sub>2</sub> 
+    + a<sub>1</sub>0  x<sub>1</sub>  x<sub>2</sub><sup>2</sup>
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

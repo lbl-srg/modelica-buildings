@@ -31,4 +31,22 @@ algorithm
         Modelica.Math.cosh(Modelica.Math.tan(scaledX))*Modelica.Math.cos(
         scaledX))^2;
     end if;
+annotation (
+Documentation(
+info="<html>
+<p>
+Implementation of the first derivative of the function
+<a href=\"modelica://Buildings.Utilities.Math.Functions.spliceFunction\">
+Buildings.Utilities.Math.Functions.spliceFunction</a>.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+April 7, 2009, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"
+));
 end der_spliceFunction;

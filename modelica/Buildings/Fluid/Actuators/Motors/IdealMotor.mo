@@ -74,11 +74,11 @@ equation
           6.10623e-016},{94,-88},{-80,-88},{-80,-8}}, color={0,0,127}));
    annotation (Documentation(info="<html>
 Ideal actuator motor model with hysteresis and finite actuation speed.
-If the current actuator position <tt>y</tt> is below (or above) the
-input signal <tt>u</tt> by an amount bigger than the hysteresis
-<tt>delta</tt>, then the position <tt>y</tt> is increased (decreased)
-until it reaches <tt>u</tt>.
-The output <tt>y</tt> is bounded between <tt>0</tt> and <tt>1</tt>.
+If the current actuator position <code>y</code> is below (or above) the
+input signal <code>u</code> by an amount bigger than the hysteresis
+<code>delta</code>, then the position <code>y</code> is increased (decreased)
+until it reaches <code>u</code>.
+The output <code>y</code> is bounded between <code>0</code> and <code>1</code>.
 </p>
 <p>
 <b>Note:</b> This model can introduce state events which increase the computation time.
@@ -87,10 +87,10 @@ The output <tt>y</tt> is bounded between <tt>0</tt> and <tt>1</tt>.
 <ul>
 <li>
 September 8, 2008 by Michael Wetter:<br>
-Added to instance <tt>int</tt> the attribute 
-<tt>y(stateSelect=StateSelect.always)</tt>. Without this attribute,
+Added to instance <code>int</code> the attribute 
+<code>y(stateSelect=StateSelect.always)</code>. Without this attribute,
 the model <a href=\"modelica://Buildings.Fluid.Examples.TwoWayValves\">
-Buildings.Fluid.Examples.TwoWayValves</a> sets <tt>y=3</tt>
+Buildings.Fluid.Examples.TwoWayValves</a> sets <code>y=3</code>
 which is consistent with this model.
 </li>
 <li>

@@ -14,7 +14,7 @@ equation
           textString="dX=%deltaX%")}),        Diagram(graphics),
 Documentation(info="<html>
 <p>
-Once continuously differentiable approximation to the <tt>max(.,.)</tt> function.
+Once continuously differentiable approximation to the <i>max(.,.)</i> function.
 </p>
 </html>",
 revisions="<html>

@@ -38,7 +38,7 @@ equation
     Documentation(info="<html>
 <p>
 Model of a pipe with no flow resistance and no heat loss.
-This model can be used to replace a <tt>replaceable</tt> pipe model
+This model can be used to replace a <code>replaceable</code> pipe model
 in flow legs in which no friction should be modeled, such as
 in the outlet port of a three way valve.
 </p>

@@ -39,10 +39,12 @@ equation
         Line(points={{-78,-34},{-58,-34},{-58,-78},{-28,-78},{-28,-34},{40,-34},
               {40,-78},{68,-78}}, color={255,0,255})}),
     Documentation(info="<html>
-Block that records the time that has elapsed since its input signal switched to false.
 <p>
+Block that records the time that has elapsed since its input signal switched to false.
 </p>
+<p>
 At the beginning of the simulation, this block outputs the time that has elapsed since the start of the simulation. Afterwards, whenever its input switches to false, the timer is reset.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

@@ -167,10 +167,10 @@ Block of a controller for set point tracking with a hysteresis element that swit
 controller on and off.
 </p>
 <p>
-If the controller is off, and the control error becomes larger than <tt>eOn</tt>, then
-the controller switches to on and remains on until the control error is smaller than <tt>eOff</tt>.
+If the controller is off, and the control error becomes larger than <code>eOn</code>, then
+the controller switches to on and remains on until the control error is smaller than <code>eOff</code>.
 When the controller is on, the set point tracking can be done using a P-, PI-, or PID-controller.
-In its off-mode, the control output is zero. Thus, the parameters <tt>yMin</tt> and <tt>yMax</tt> are
+In its off-mode, the control output is zero. Thus, the parameters <code>yMin</code> and <code>yMax</code> are
 used to constrain the output of the controller during its on mode only. This can be used, for 
 example, to modulate a device between 0.3 and 1.0, and switch it to off when the control error
 is small enough.

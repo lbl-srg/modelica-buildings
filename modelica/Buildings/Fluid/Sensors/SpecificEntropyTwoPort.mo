@@ -43,5 +43,13 @@ This component monitors the specific entropy of the passing fluid.
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 </HTML>
-"));
+",
+revisions="<html>
+<ul>
+<li>
+September 29, 2009, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SpecificEntropyTwoPort;

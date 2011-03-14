@@ -29,8 +29,8 @@ This model approximates a transport delay using a first order differential equat
 <p>
 The model consists of a mixing volume with two ports. The size of the
 mixing volume is such that at the nominal mass flow rate 
-<tt>m_flow_nominal</tt>,
-the time constant of the volume is equal to the parameter <tt>tau</tt>.
+<code>m_flow_nominal</code>,
+the time constant of the volume is equal to the parameter <code>tau</code>.
 </p>
 <p>
 The heat flux connector is optional, it need not be connnected.
@@ -39,17 +39,18 @@ The heat flux connector is optional, it need not be connnected.
 revisions="<html>
 <ul>
 <li>
-September 24 by Michael Wetter:<br>
-Changed base class from <tt>Modelica.Fluid</tt> to <tt>Buildings</tt> library.
-This was done to track the auxiliary species flow <tt>mC_flow</tt>.
+September 24, 2008, by Michael Wetter:<br>
+Changed base class from <code>Modelica.Fluid</code> to <code>Buildings</code> library.
+This was done to track the auxiliary species flow <code>mC_flow</code>.
 </li>
 <li>
-September 4 by Michael Wetter:<br>
-Fixed bug in assignment of parameter <tt>sta0</tt>. The earlier implementation
+September 4, 2008, by Michael Wetter:<br>
+Fixed bug in assignment of parameter <code>sta0</code>. 
+The earlier implementation
 required temperature to be a state, which is not always the case.
 </li>
 <li>
-March 17 by Michael Wetter:<br>
+March 17, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

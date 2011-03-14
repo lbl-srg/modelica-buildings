@@ -43,5 +43,15 @@ This component monitors the density of the fluid flowing from port_a to port_b.
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 </HTML>
-"));
+",
+revisions="<html>
+<ul>
+<li>
+September 29, 2009, by Michael Wetter:<br>
+First implementation.
+Implementation is based on <code>Modelica.Fluid</code>.
+</li>
+</ul>
+</html>"
+));
 end DensityTwoPort;

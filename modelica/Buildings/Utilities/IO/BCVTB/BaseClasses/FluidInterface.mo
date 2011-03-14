@@ -115,5 +115,21 @@ equation
           extent={{-26,30},{-18,22}},
           lineColor={255,0,0},
           fillColor={255,0,0},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+Documentation(
+info="<html>
+<p>
+This is a partial model that is used to construct models for
+interfacing fluid flow systems with the BCVTB interface.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+September 11, 2009, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"
+));
 end FluidInterface;

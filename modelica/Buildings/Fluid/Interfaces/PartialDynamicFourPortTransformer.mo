@@ -141,9 +141,9 @@ equation
 <p>
 This component transports two fluid streams between four ports. 
 It provides the basic model for implementing a dynamic heat exchanger.
-It is used by <tt>HeatExchangers.BaseClasses.HexElement<tt>.
+It is used by <code>HeatExchangers.BaseClasses.HexElement</code>.
 The variable names follow the conventions used in 
-<tt>Modelica.Fluid.HeatExchangers.BasicHX</tt>.
+<code>Modelica.Fluid.HeatExchangers.BasicHX</code>.
 </p>
 </html>", revisions="<html>
 <ul>
@@ -153,7 +153,7 @@ Added model to compute flow friction.
 </li>
 <li>
 September 10, 2008 by Michael Wetter:<br>
-Added <tt>stateSelect=StateSelect.always</tt> for temperature of volume 1.
+Added <code>stateSelect=StateSelect.always</code> for temperature of volume 1.
 </li>
 <li>
 Changed temperature sensor from Celsius to Kelvin.
@@ -161,8 +161,8 @@ Unit conversion should be made during output
 processing.
 <li>
 August 5, 2008, by Michael Wetter:<br>
-Replaced instances of <tt>Delays.DelayFirstOrder</tt> with instances of
-<tt>MixingVolumes.MixingVolume</tt>. This allows to extract liquid for a condensing cooling
+Replaced instances of <code>Delays.DelayFirstOrder</code> with instances of
+<code>MixingVolumes.MixingVolume</code>. This allows to extract liquid for a condensing cooling
 coil model.
 </li>
 <li>

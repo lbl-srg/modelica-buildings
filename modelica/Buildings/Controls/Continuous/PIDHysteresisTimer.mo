@@ -239,7 +239,7 @@ The controller is similar to
 Buildings.Controls.Continuous.PIDHysteresis</a> but in addition, 
 it has a timer that prevents the controller from switching to on
 too fast. When the controller switches off, the timer starts and
-avoids the controller from switching on until <tt>minOffTime</tt> seconds elapsed.
+avoids the controller from switching on until <code>minOffTime</code> seconds elapsed.
 </html>", revisions="<html>
 <ul>
 <li>

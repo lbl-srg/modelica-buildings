@@ -61,7 +61,7 @@ equation
     defaultComponentName="HDirTil",
     Documentation(info="<HTML>
 <p>
-This component computes the direct solar irradiation on a tilted surface by using the weather data as input.
+This component computes the direct solar irradiation on a tilted surface.
 For a definition of the parameters, see the 
 <a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
 </p>

@@ -44,15 +44,15 @@ Documentation(info="<html>
 Model for an ideal heater or cooler with prescribed heat flow rate to the medium.
 </p>
 <p>
-This model adds heat in the amount of <tt>Q_flow = u Q_flow_nominal</tt> to the medium.
-The input signal <tt>u</tt> and the nominal heat flow rate <tt>Q_flow_nominal</tt> 
+This model adds heat in the amount of <code>Q_flow = u Q_flow_nominal</code> to the medium.
+The input signal <code>u</code> and the nominal heat flow rate <code>Q_flow_nominal</code> 
 can be positive or negative.
 </p>
 <p>
-Note that for non-zero <tt>Q_flow</tt>,
+Note that for non-zero <code>Q_flow</code>,
 if the mass flow rate tends to zero, the temperature difference over this 
 component tends to infinity.
-Hence, using a proper control for <tt>u</tt> is essential when using this component.
+Hence, using a proper control for <code>u</code> is essential when using this component.
 </p>
 </html>",
 revisions="<html>

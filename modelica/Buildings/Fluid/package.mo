@@ -5,7 +5,7 @@ package Fluid "Package with models for fluid flow systems"
 package UsersGuide "User's Guide"
 
   annotation (DocumentationClass=true, Documentation(info="<html>
-The package <b>Buildings.Fluid</b> consists of models
+The package <code>Buildings.Fluid</code> consists of models
 for pressure driven mass flow rate and for heat and moisture
 exchange in fluid flow networks.
 </p>
@@ -14,7 +14,7 @@ The models have the same interface as models of the package
 <a href=\"Modelica:Modelica.Fluid\">Modelica.Fluid</a>, 
 but have in general a simpler set of parameters that may be better 
 suited if the models are used in early design of building systems. 
-For example, in addition to the detailed pipe model from <b>Modelica.Fluid</b>, 
+For example, in addition to the detailed pipe model from <code>Modelica.Fluid</code>, 
 this package also contains models for which a user has to specify 
 the mass flow and pressure drop at a nominal flow rate, 
 which is typically more readily available prior to the detailed 

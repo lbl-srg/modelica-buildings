@@ -3,7 +3,7 @@ function getLongitudeTMY3 "Gets the longitude from a TMY3 weather data file"
  input String filNam "Name of weather data file"
  annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
-            "Open weather file for reading")));
+            "Select weather file")));
  output Modelica.SIunits.Angle lon "Longitude from the weather file";
 protected
  Integer nexInd "Next index, used for error handling";

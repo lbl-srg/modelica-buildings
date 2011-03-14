@@ -4,7 +4,7 @@ function getHeaderElementTMY3
  input String filNam "Name of weather data file"
  annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
-            "Open weather file for reading")));
+            "Select weather file")));
  input String start "Start of the string that contains the elements";
  input String name = "longitude"
     "Name of data element, used in error reporting";

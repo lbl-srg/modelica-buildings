@@ -163,25 +163,29 @@ the convective sensible heat transfer coefficient and the mass transfer coeffici
 <p>
 Using the Lewis number which is defined as the ratio between the heat and mass
 diffusion coefficients, one can obtain the ratio between convection 
-heat transfer coefficient <tt>h</tt> in (W/(m^2*K)) and
-mass transfer coefficient <tt>h_m</tt> in (m/s) as follows:
-<pre>
-  h
- --- = rho * c_p * Le^(1-n),
+heat transfer coefficient <i>h</i> in (W/(m^2*K)) and
+mass transfer coefficient <i>h<sub>m</sub></i> in (m/s) as follows:
+<p align=\"center\" style=\"font-style:italic;\">
+  h &frasl; h<sub>m</sub> = &rho;  c<sub>p</sub>  Le<sup>(1-n)</sup>,
  h_m
-</pre>
-where <tt>rho</tt> is the mass density,
-<tt>c_p</tt> is the specific heat capacity
-of the bulk medium and <tt>n</tt> is a coefficient from the boundary layer analysis, which
-is typically <tt>n=1/3</tt>.
-From this equation, we can compute the water vapor mass flow rate <tt>n_A</tt> in (kg/s) as
-<pre>
-  n_A = (Gc) / c_p / Le^(1-n) * (X_s - X_inf),
-</pre>
-where <tt>Gc</tt> is the sensible heat conductivity in (W/K) and <tt>X_s</tt> and 
-<tt>X_inf</tt> are the water vapor mass per unit volume in the boundary layer and in the 
-bulk of the medium. In this model, <tt>X_s</tt> is the saturation water vapor pressure
-corresponding to the temperature <tt>T_sur</tt> which is an input.
+</p>
+where <i>&rho;</i> is the mass density,
+<i>c<sub>p</sub></i> is the specific heat capacity
+of the bulk medium and <i>n</i> is a coefficient from the boundary layer analysis, which
+is typically <i>n=1/3</i>.
+From this equation, we can compute the water vapor mass flow rate 
+<i>n<sub>A</sub></i> in (kg/s) as
+<p align=\"center\" style=\"font-style:italic;\">
+  n<sub>A</sub> = G<sub>c</sub> &frasl; (c<sub>p</sub> Le<sup>(1-n)</sup>)
+  (X<sub>s</sub> - X<sub>&#8734;</sub>),
+</p>
+where <i>G<sub>c</sub></i> is the sensible heat conductivity in (W/K) and 
+<i>X<sub>s</sub></i> and 
+<i>X<sub>&#8734;</sub></i> are the water vapor mass per unit volume 
+in the boundary layer and in the 
+bulk of the medium. In this model, 
+<i>X<sub>s</sub></i> is the saturation water vapor pressure
+corresponding to the temperature <i>T<sub>sur</sub></i> which is an input.
 </p>
 </html>", revisions="<html>
 <ul>

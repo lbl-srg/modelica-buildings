@@ -1,10 +1,5 @@
 within Buildings.BoundaryConditions;
 package WeatherData "Weather data reader"
-
-
-
-
-
   annotation (preferedView="info",
 Documentation(info="<html>
 This package contains models to read weather data. It also contains

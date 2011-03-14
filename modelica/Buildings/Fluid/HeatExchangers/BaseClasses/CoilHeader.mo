@@ -37,7 +37,7 @@ equation
                       graphics),
 Documentation(info="<html>
 <p>
-Header for a heat exchanger coil.</p>
+Header for a heat exchanger coil.
 </p>
 <p>
 This model connects the flow between its ports without

@@ -122,7 +122,8 @@ It is used by
 <a href=\"modelica://Buildings.Fluid.Boilers.BoilerPolynomial\">
 Buildings.Fluid.Boilers.BoilerPolynomial</a>.
 The variable names follow the conventions used in 
-<tt>Modelica.Fluid.HeatExchangers.BasicHX</tt>.
+<a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
+Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>

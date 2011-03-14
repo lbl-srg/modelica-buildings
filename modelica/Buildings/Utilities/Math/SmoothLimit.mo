@@ -13,8 +13,8 @@ equation
           textString="smoothLimit()")}),        Diagram(graphics),
 Documentation(info="<html>
 <p>
-Once continuously differentiable approximation to the <tt>limit(.,.)</tt> function.
-The output is bounded to [0,1].
+Once continuously differentiable approximation to the <i>limit(.,.)</i> function.
+The output is bounded to be in <i>[0, 1]</i>.
 </p>
 </html>",
 revisions="<html>

@@ -43,9 +43,9 @@ The function is used by the model
 <a href=\"modelica://Buildings.Fluid.Actuators.TwoWayValveEqualPercentage\">
 TwoWayValveEqualPercentage</a>.
 </p><p>
-For <tt>y &lt; delta/2</tt>, the valve characteristics is linear. For <tt> y &gt; 3*delta/2</tt>
+For <code>y &lt; delta/2</code>, the valve characteristics is linear. For <code> y &gt; 3*delta/2</code>
 the valve characteristics is equal percentage. In between, a cubic spline is used to ensure
-that the valve characteristics is once continuously differentiable with respect to <tt>y</tt>.
+that the valve characteristics is once continuously differentiable with respect to <code>y</code>.
 </p>
 </html>",
 revisions="<html>

@@ -28,13 +28,24 @@ equation
   port_b.C_outflow = inStream(port_a.C_outflow);
   annotation (Documentation(info="<html>
 <p>
-Partial component to model a <b>sensor</b> that measures any intensive properties
+Partial component to model a sensor that measures any intensive properties
 of a flow, e.g., to get temperature or density in the flow
-between fluid connectors.<br>
+between fluid connectors.</p>
+<p>
 The model includes zero-volume balance equations. Sensor models inheriting from
 this partial class should add a medium instance to calculate the measured property.
 </p>
-</html>"),
+</html>",
+revisions="<html>
+<ul>
+<li>
+February 12, 2011, by Michael Wetter:<br>
+First implementation.
+Implementation is based on <code>Modelica.Fluid</code>.
+</li>
+</ul>
+</html>"
+),
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

@@ -14,7 +14,7 @@ in general not enough information available that would warrant a more
 detailed pressure drop calculation.
 If a more detailed computation of the flow resistance is needed,
 then a user can use models from the 
-<tt>Modelica.Fluid</tt> library.
+<code>Modelica.Fluid</code> library.
 </html>", revisions="<html>
 <ul>
 <li>

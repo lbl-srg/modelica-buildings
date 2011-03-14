@@ -27,7 +27,7 @@ heat transfer coefficient.</p>
   revisions="<html>
 <ul>
 <li>
-November 30 2010, by Michael Wetter:<br>
+November 30, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

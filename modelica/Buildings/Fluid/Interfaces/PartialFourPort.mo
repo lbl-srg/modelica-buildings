@@ -77,7 +77,7 @@ partial model PartialFourPort "Partial model with four ports"
     Documentation(info="<html>
 <p>
 This partial model defines an interface for components with two ports. 
-The treatment of the design flow direction and of flow reversal are predefined based on the parameter <tt><b>allowFlowReversal</b></tt>.
+The treatment of the design flow direction and of flow reversal are predefined based on the parameter <code>allowFlowReversal</code>.
 </p>
 <p>
 This partial model is identical to 

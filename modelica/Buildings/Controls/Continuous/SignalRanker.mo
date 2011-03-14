@@ -20,8 +20,8 @@ algorithm
   end for;
   annotation (Documentation(info="<html>
 <p>
-Block that sorts the input signal <tt>u[:]</tt> such that the output
-signal satisfies <tt>y[i] >= y[i+1]</tt> for all <tt>i=1, ..., nin-1</tt>.
+Block that sorts the input signal <code>u[:]</code> such that the output
+signal satisfies <code>y[i] >= y[i+1]</code> for all <code>i=1, ..., nin-1</code>.
 </p>
 <p>
 This block may for example be used in a variable air volume flow

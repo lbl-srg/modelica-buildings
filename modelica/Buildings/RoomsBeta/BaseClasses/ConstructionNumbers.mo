@@ -47,4 +47,22 @@ protected
     "Flag to conditionally remove components";
   final parameter Boolean haveSurBou = nSurBou > 0
     "Flag to conditionally remove components";
+annotation (
+Documentation(
+info="<html>
+<p>
+Record that defines the number of constructions that are 
+used in the room model.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+January 14, 2011, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"
+));
+
 end ConstructionNumbers;

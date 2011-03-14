@@ -19,9 +19,13 @@ equation
     Documentation(info="<HTML>
 <p>
 This component converts the clock time to local civil time. 
-The parameter <code>timZon</code> represents the time zone of the facility  (relative to Greenwich Mean Time or the 0th meridian). Time zones west of  GMT (e.g. North America) are represented as negative; east of GMT as  positive. Non-whole hours can be represented in decimal (e.g. 6:30 is  6.5).
-<br>
-The formula is based on Michael Wetter's thesis (A4.1): locTim = greTim + (lon*180/pi)*86400/360 = cloTim - timZon + lon*43200/pi 
+The parameter <code>timZon</code> represents the time zone of the facility  (relative to Greenwich Mean Time or the 0th meridian). Time zones west of GMT (e.g. North America) are represented as negative; 
+east of GMT as positive. Fraction of hours are represented in decimals (e.g. for <i>6:30</i>, use <i>6.5</i>).
+</p>
+<p>
+The formula is based on Michael Wetter's thesis (A4.1):<pre>
+  locTim = greTim + (lon*180/pi)*86400/360 = cloTim - timZon + lon*43200/pi 
+</pre>
 </p>
 </HTML>
 ", revisions="<html>

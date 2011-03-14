@@ -10,5 +10,22 @@ algorithm
  for i in 2 : size(c,1) loop
    y := y + x^(i-1) * c[i];
  end for;
-  annotation(smoothOrder=5);
+annotation (smoothOrder=5,
+Documentation(
+info="<html>
+<p>
+Function that computes
+<p align=\"center\" style=\"font-style:italic;\">
+ y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1<sup>
+</p>
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+April 28, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end polynomial;

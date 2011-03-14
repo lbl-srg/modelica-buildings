@@ -28,7 +28,7 @@ equation
 
    annotation (Documentation(info="<html>
 <p>
-Model of two resistance in series. One resistance has a fixed flow coefficient, the
+Model of two resistances in series. One resistance has a fixed flow coefficient, the
 other resistance is an air damper whose flow coefficient is an exponential function of the opening angle.
 </p>
 <p>

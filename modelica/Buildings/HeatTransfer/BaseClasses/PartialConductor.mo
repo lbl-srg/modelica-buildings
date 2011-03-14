@@ -22,7 +22,7 @@ equation
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>
-This is a partial model for single layer and multi layer heat conductors.
+Partial model for single layer and multi layer heat conductors.
 The heat conductor can be steady-state or transient.
 </html>", revisions="<html>
 <ul>

@@ -153,6 +153,7 @@ equation
                        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                             graphics),
+     extent=[40,-10; 60,10],
     Documentation(info="<html>
 <p>
 Partial model for flow resistances with three ports such as a 
@@ -170,10 +171,6 @@ March 23 2010, by Michael Wetter:<br>
 Changed start values from <code>system.p_start</code> or (code <code>T_start</code>)
 to <code>Medium.p_default</code>.
 </li>
-</ul>
-</html>"),
-revisions="<html>
-<ul>
 <li>
 September 18, 2008 by Michael Wetter:<br>
 Replaced splitter model with a fluid port since the 
@@ -184,5 +181,5 @@ June 11, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>",                                                                                                   extent=[40,-10; 60,10]);
+</html>"));
 end PartialThreeWayResistance;

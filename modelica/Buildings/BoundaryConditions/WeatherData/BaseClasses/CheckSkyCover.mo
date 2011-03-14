@@ -21,7 +21,7 @@ equation
     defaultComponentName="cheSkyCov",
     Documentation(info="<HTML>
 <p>
-This component constrains the interpolated sky cover between 0 and 10.
+This component constrains the interpolated sky cover between <i>0</i> and <i>10</i>.
 </p>
 </HTML>
 ", revisions="<html>

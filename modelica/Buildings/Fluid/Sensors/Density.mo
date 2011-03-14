@@ -30,8 +30,18 @@ annotation (defaultComponentName="senDen",
 This component monitors the density of the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
-<p>If using the one port sensor please read the <a href = Buildings.Fluid.Sensors>Information</a>  first.</p>
- 
+<p>If using the one port sensor, read the 
+<a href=\"modelica://Buildings.Fluid.Sensors\">Information</a> first.</p>
 </HTML>
-"));
+",
+revisions="<html>
+<ul>
+<li>
+September 29, 2009, by Michael Wetter:<br>
+First implementation.
+Implementation is based on <code>Modelica.Fluid</code>.
+</li>
+</ul>
+</html>"
+));
 end Density;

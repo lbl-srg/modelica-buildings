@@ -78,14 +78,14 @@ This model transfers heat and moisture in the amount of
   Q = epsS * Q_max,
   m = epsL * mWat_max,
 </pre>
-where <tt>epsS</tt> and <tt>epsL</tt> are constant effectiveness 
+where <code>epsS</code> and <code>epsL</code> are constant effectiveness 
 for the sensible and latent heat transfer,  
-<tt>Q_max</tt> is the maximum heat that can be transferred and
-<tt>mWat_max</tt> is the maximum moisture that can be transferred.
+<code>Q_max</code> is the maximum heat that can be transferred and
+<code>mWat_max</code> is the maximum moisture that can be transferred.
 </p>
 <p>
-In the region <tt>mK_flow_small > abs(mK_flow) > mK_flow_small/2</tt>, for <tt>K = 1</tt> or
-<tt>2</tt>, the effectivness <tt>epsS</tt> and <tt>epsL</tt> are transitioned from 
+In the region <code>mK_flow_small > abs(mK_flow) > mK_flow_small/2</code>, for <code>K = 1</code> or
+<code>2</code>, the effectivness <code>epsS</code> and <code>epsL</code> are transitioned from 
 their user-specified value to 0. This improves the numerical robustness near
 zero flow.
 </p>
@@ -97,7 +97,7 @@ instead of this model.
 </p>
 <p>
 This model can only be used with medium models that define the integer constant
-<tt>Water</tt> which needs to be equal to the index of the water mass fraction 
+<code>Water</code> which needs to be equal to the index of the water mass fraction 
 in the species vector.
 </p>
 </html>",

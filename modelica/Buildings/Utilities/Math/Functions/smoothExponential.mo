@@ -27,14 +27,15 @@ algorithm
     annotation (smoothOrder=1, Documentation(info="<html>
 <p>
 Function to provide a once continuously differentiable approximation 
-to <tt>exp(- |x| )</tt>
-in the interval <tt>|x| < delta</tt> for some positive <tt>delta</tt>
+to <i>exp(- |x| )</i>
+in the interval <i>|x| < &delta;</i> for some positive <i>&delta;</i>
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
 October 30, 2008, by Michael Wetter:<br>
-First implementation to reduce chattering in 
+First implementation.
+Implemented to reduce chattering in 
 <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.Stratifier\"</a>
 Buildings.Fluid.Storage.BaseClasses.Stratifier</a>.
 </li>

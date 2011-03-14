@@ -27,14 +27,15 @@ if x < xMin then
     end for;
   end if;
   annotation (Documentation(info="<html>
-For <tt>x</tt> between the bounds <tt>xMin &lt; x &lt; xMax</tt>,
+For <i>x</i> between the bounds <i>x<sub>min</sub> &lt; x &lt; x<sub>max</sub></i>,
 this function defines a polynomial 
-<pre>
-   y = c1 + c2 * x + ... + cN * x^(N-1)
-</pre>
-where <tt>N &gt; 1</tt> and <tt>xMin, xMax</tt> are parameters.
-For <tt>x &lt; xMin</tt> and <tt>x &gt; xMax</tt>,
-the polynomial is replaced with a linear function
+<p align=\"center\" style=\"font-style:italic;\">
+ y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1<sup>
+</p>
+where <i>N &gt; 1</i> and <i>x<sub>min</sub>, x<sub>max</sub></i> 
+are parameters.
+For <i>x &lt; x<sub>min</sub></i> and <i>x &gt; x<sub>max</sub></i>,
+the polynomial is replaced by a linear function
 in such a way that the first derivative is continuous everywhere. 
 </html>", revisions="<html>
 <ul>

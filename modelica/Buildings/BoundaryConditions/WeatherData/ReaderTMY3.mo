@@ -4,7 +4,7 @@ block ReaderTMY3 "Reader for TMY3 weather data "
 public
   parameter String filNam "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
-            "Open weather file for reading")));
+            "Select weather file")));
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(filNam)
     "Longitude";

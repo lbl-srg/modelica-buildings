@@ -27,9 +27,9 @@ This helps breaking algebraic loops, but the system gets stiff.
 The compressibility is defined by the constant <code>kappa_const</code>.
 If <code>kappa_const=0</code>, then the density is constant. Otherwise,
 the density is
-<pre>
-  rho(p) = rho(p0) * ( 1 + kappa_const * (p-p0))
-</pre>
+<p align=\"center\" style=\"font-style:italic;\">
+  &rho;(p) = &rho;(p0)  ( 1 + &kappa;<sub>const</sub>  (p-p<sub>0</sub>))
+</i>
 This equation is implemented in the base class
 <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleMedium\">
 Buildings.Media.Interfaces.PartialSimpleMedium</a>.

@@ -24,7 +24,7 @@ equation
     Documentation(info="<HTML>
 <p>
 This component computes the zenith angle, which is the angle between the earth surface normal and the sun's beam. 
-It needs the solar hour angle and declination angle as input.
+Input are the solar hour angle and the declination angle.
 </p>
 </HTML>
 ", revisions="<html>

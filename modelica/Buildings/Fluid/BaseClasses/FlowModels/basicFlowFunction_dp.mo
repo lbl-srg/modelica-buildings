@@ -51,7 +51,7 @@ Function that computes the pressure drop of flow elements as
   m_flow = sign(dp) * k * sqrt(|dp|),
 </pre>
 with regularization near the origin.
-The variable <tt>m_flow_turbulent</tt> determines the location of the regularization.
+The variable <code>m_flow_turbulent</code> determines the location of the regularization.
 </p>
 </html>", revisions="<html>
 <ul>
