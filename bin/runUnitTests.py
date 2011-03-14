@@ -10,7 +10,9 @@
 # - runs these unit tests,
 # - collects the dymola log files from each process,
 # - writes the combined log file 'unitTests.log'
-#   in the current directory, and
+#   in the current directory, 
+# - checks the md5sum of the .mat files versus the number
+#   that is stored in Resources/md5sum, and
 # - exits with the message 
 #    'Unit tests completed successfully.' or with
 #   an error message.
@@ -119,7 +121,59 @@ def runSimulation(worDir):
             return 0
     except OSError as e:
         print "Execution of ", command, " failed:", e
-        
+
+# --------------------------
+# Check md5 sum of .mat files versus the ones from the library home folder.
+# If they differ, ask the user whether to accept the differences.
+# If there is no md5 sum in the library home folder, ask the user whether it
+# should be generated.
+def checkMD5Sum(worDir):
+    import hashlib
+    for filNam in os.listdir(os.path.join(worDir, "Buildings")):
+        # find .mat files
+        pos=filNam.find('.mat')
+        if pos > -1:
+            # Compute md5 sum of new unit test result
+            fulFilNam=os.path.join(worDir, "Buildings", filNam)
+            print "==== getting md5sum of ", fulFilNam
+            fMat = open(fulFilNam,'rb')
+            md5 = hashlib.md5()
+            md5.update(fMat.read())
+            md5New = md5.hexdigest()
+            fMat.close()
+                
+            # check if .mat already exists in library
+            md5FilOld = os.path.join(LIBHOME, "Resources", "md5sum", filNam) + ".md5"
+            if os.path.exists(md5FilOld):  # md5 file exists. Check if the md5 sum changed
+                fMD5 = open(md5FilOld, 'r')
+                md5Old = fMD5.readline()
+                md5Old = md5Old[:-1] # remove carriage return
+                fMD5.close()
+                if md5New != md5Old:
+                    print "*** Warning: md5sum changed in ", filNam
+                    print "    Old md5sum: ", md5Old
+                    print "    New md5sum: ", md5New
+                    ans = "-"
+                    while ans != "n" and ans != "y":
+                        ans = raw_input("    Accept new file and update md5 sum in library? [y,n]")
+                    if ans == "y":
+                        # Write md5 sum to new file
+                        fMD5 = open(md5FilOld, 'w')
+                        fMD5.write(md5New + "\n")
+                        fMD5.close()
+                        print "Updated md5 sum in ", md5FilOld
+            else: # md5 does not exist.
+                print "*** Warning: md5 sum does not yet exist for ", filNam
+                ans = "-"
+                while ans != "n" and ans != "y":
+                    ans = raw_input("    Create new file in library? [y,n]")
+                if ans == "y":
+                    # Write md5 sum to new file
+                    fMD5 = open(md5FilOld, 'w')
+                    fMD5.write(md5New + "\n")
+                    fMD5.close()
+                    print "Wrote ", md5FilOld
+
 # --------------------------
 def checkSimulationError(errorFile):
     import os.path
@@ -231,9 +285,13 @@ for d in temDirNam:
     logFil.write(data)
 logFil.close()
 
-# Delete temporary directories
+# Check md5sum
 for d in temDirNam:
-    shutil.rmtree(d)
+    checkMD5Sum(d)
+
+# Delete temporary directories
+## fixme for d in temDirNam:
+## fixme     shutil.rmtree(d)
 
 # Check for errors
 retVal=checkSimulationError("unitTests.log")

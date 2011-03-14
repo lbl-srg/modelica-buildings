@@ -1,1 +1,1 @@
-simulateModel("Buildings.Media.GasesConstantDensity.Examples.TestMoistAir", method="dassl", resultFile="TestMoistAir");
+simulateModel("Buildings.Media.GasesConstantDensity.Examples.TestMoistAir", method="dassl", resultFile="TestMoistAirConDen");

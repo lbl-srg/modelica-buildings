@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.Examples.ConstantEffectiveness", stopTime=360, method="dassl", tolerance=1e-05, resultFile="ConstantEffectiveness");
+simulateModel("Buildings.Fluid.HeatExchangers.Examples.ConstantEffectiveness", stopTime=360, method="dassl", tolerance=1e-05, resultFile="ConstantEffectivenessHex");
 
 createPlot(id = 5,
  position = {39, -2, 802, 524},
@@ -9,7 +9,7 @@ createPlot(id = 5,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "ConstantEffectiveness.mat",
+ filename = "ConstantEffectivenessHex.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 5,

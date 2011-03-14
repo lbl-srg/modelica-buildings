@@ -1,1 +1,1 @@
-simulateModel("Buildings.Media.PerfectGases.Examples.TestMoistAir", method="dassl", resultFile="TestMoistAir");
+simulateModel("Buildings.Media.PerfectGases.Examples.TestMoistAir", method="dassl", resultFile="TestMoistAirPerGas");

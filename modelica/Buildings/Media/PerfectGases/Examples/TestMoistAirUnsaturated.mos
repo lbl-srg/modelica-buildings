@@ -1,1 +1,1 @@
-simulateModel("Buildings.Media.PerfectGases.Examples.TestMoistAirUnsaturated", method="dassl", resultFile="TestMoistAirUnsaturated");
+simulateModel("Buildings.Media.PerfectGases.Examples.TestMoistAirUnsaturated", method="dassl", resultFile="TestMoistAirUnsaturatedPerGas");
