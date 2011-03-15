@@ -87,11 +87,6 @@ protected
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   BaseClasses.SolarTime solTim "Solar time"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
-  Utilities.Psychrometrics.TWetBul_TDryBulXi tWetBul_TDryBulXi(
-                                      redeclare package Medium =
-        Buildings.Media.PerfectGases.MoistAir)
-    "Computes the wet bulb temperature"
-    annotation (Placement(transformation(extent={{140,10},{160,30}})));
 equation
   connect(conTemDryBul.TemK, weaBus.TDryBul) annotation (Line(
       points={{21,110},{116,110},{116,5.55112e-16},{200,5.55112e-16}},
@@ -279,25 +274,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(conTemDryBul.TemK, tWetBul_TDryBulXi.TDryBul) annotation (Line(
-      points={{21,110},{116,110},{116,28},{139,28}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conHum.relHumOut, tWetBul_TDryBulXi.Xi[1]) annotation (Line(
-      points={{21,70},{116,70},{116,20},{139,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(chePre.POut, tWetBul_TDryBulXi.p) annotation (Line(
-      points={{81,50},{116,50},{116,12},{139,12}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
-      points={{161,20},{180,20},{180,5.55112e-16},{200,5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(datRea.y[11], cheWinDir.nIn) annotation (Line(
       points={{-59,-30},{-12,-30},{-12,150},{-2,150}},
       color={0,0,127},
@@ -441,6 +417,10 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+March 15, 2011, by Wangda Zuo:<br>
+Delete the wet bulb temperature since it may cause numericla problem.
+</li>
 <li>
 March 7, 2011, by Wangda Zuo:<br>
 Added wet bulb temperature. Changed reader to read only needed columns. 
