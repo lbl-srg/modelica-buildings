@@ -175,8 +175,8 @@ flow between its heat ports is
 where
 <i>A</i> is the cross sectional area,
 <i>x</i> is the layer thickness,
-<i>T<sub>a</sub> is the temperature at port a and
-<i>T<sub>b</sub> is the temperature at port b.
+<i>T<sub>a</sub></i> is the temperature at port a and
+<i>T<sub>b</sub></i> is the temperature at port b.
 </p>
 </html>",
 revisions="<html>
