@@ -5,24 +5,16 @@ model PartialStaticTwoPortCoolingTowerWetBulb
   extends PartialStaticTwoPortCoolingTower(redeclare
       Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach tow);
  package Medium_A = Buildings.Media.PerfectGases.MoistAir;
-    Modelica.Blocks.Sources.Constant Xi(k=0.01) "Water vapor concentration"
-      annotation (Placement(transformation(extent={{-92,40},{-72,60}},
-                                                                     rotation=0)));
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulTem(
                                                         redeclare package
       Medium = Medium_A) "Model for wet bulb temperature"
     annotation (Placement(transformation(extent={{-20,40},{0,60}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PAtm(k=101325) "Atmospheric pressure"
-      annotation (Placement(transformation(extent={{-60,20},{-40,40}}, rotation=
-           0)));
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
+        "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+    annotation (Placement(transformation(extent={{-74,40},{-54,60}})));
 equation
-  connect(PAtm.y, wetBulTem.p)
-    annotation (Line(points={{-39,30},{-30,30},{-30,42},{-21,42}},
-                                                 color={0,0,127}));
-  connect(Xi.y, wetBulTem.Xi[1]) annotation (Line(
-      points={{-71,50},{-21,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(wetBulTem.TWetBul, tow.TAir) annotation (Line(
       points={{1,50},{10,50},{10,-10},{-28,-10},{-28,-46},{-20,-46}},
       color={0,0,127},
@@ -32,4 +24,28 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
+  connect(weaDat.weaBus, weaBus) annotation (Line(
+      points={{-80,50},{-64,50}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(weaBus.relHum, wetBulTem.Xi[1]) annotation (Line(
+      points={{-64,50},{-21,50}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(weaBus.pAtm, wetBulTem.p) annotation (Line(
+      points={{-64,50},{-50,50},{-50,42},{-21,42}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
 end PartialStaticTwoPortCoolingTowerWetBulb;
