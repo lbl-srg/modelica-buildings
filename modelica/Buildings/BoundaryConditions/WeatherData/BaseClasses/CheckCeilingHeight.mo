@@ -19,11 +19,11 @@ equation
 
   annotation (
     defaultComponentName="cheCeiHei",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component ensures that the ceiling height is at least <i>0</i> meters.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

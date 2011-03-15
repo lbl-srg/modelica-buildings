@@ -52,13 +52,13 @@ equation
       extent={{-6,3},{-6,3}}));
   annotation (
     defaultComponentName="zen",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the zenith angle, which is the angle between the earth surface normal and the sun's beam.
 For a definition of the parameters, see the 
 <a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

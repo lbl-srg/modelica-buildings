@@ -18,11 +18,11 @@ algorithm
 
   annotation (
     defaultComponentName="solTim",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the local solar time.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

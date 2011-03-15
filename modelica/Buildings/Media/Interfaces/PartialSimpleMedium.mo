@@ -57,14 +57,14 @@ required from medium model \""   + mediumName + "\".
     MM = MM_const;
     state.T = T;
     state.p = p;
-        annotation (Documentation(info="<HTML>
+        annotation (Documentation(info="<html>
 <p>
 This is the most simple incompressible medium model, where
 specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium
 quantities are assumed to be constant.
 </p>
-</HTML>"));
+</html>"));
   end BaseProperties;
 
   redeclare function setState_pTX

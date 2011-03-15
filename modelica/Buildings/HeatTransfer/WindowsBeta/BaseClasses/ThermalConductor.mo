@@ -51,12 +51,12 @@ equation
           extent={{-80,50},{80,20}},
           lineColor={0,0,0},
           textString="dT = port_a.T - port_b.T")}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This is a model for transport of heat without storing it.
 It is identical to the thermal conductor from the Modelica Standard Library,
 except that it adds an input signal <code>u</code>.
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

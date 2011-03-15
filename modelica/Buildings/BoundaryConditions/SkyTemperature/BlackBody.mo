@@ -42,7 +42,7 @@ algorithm
   end if;
   annotation (
     defaultComponentName="TBlaSky",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the black-body sky temperature.
 </p>
@@ -50,7 +50,7 @@ This component computes the black-body sky temperature.
 For <code>calTSky = 0</code>, the model uses horizontal irradiation. 
 Otherwise, it uses dry buld temperature, dew point temperature and opaque sky cover.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

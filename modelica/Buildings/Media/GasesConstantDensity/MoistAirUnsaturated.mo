@@ -387,7 +387,7 @@ replaceable function der_enthalpyOfNonCondensingGas
 algorithm
   der_h := der_enthalpyOfDryAir(T, der_T);
 end der_enthalpyOfNonCondensingGas;
-  annotation (preferedView="info", Documentation(info="<HTML>
+  annotation (preferedView="info", Documentation(info="<html>
 This is a medium model that is identical to 
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir\">
 Buildings.Media.GasesConstantDensity.MoistAir</a>,  but 
@@ -409,7 +409,7 @@ thermo-fluid systems.
 This new formulation often leads to smaller systems of nonlinear equations 
 because it allows to invert the function <code>T_phX</code> analytically.
 </p>
-</HTML>", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 January 27, 2010, by Michael Wetter:<br>

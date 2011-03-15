@@ -16,7 +16,7 @@ equation
 
   annotation (
     defaultComponentName="locTim",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component converts the clock time to local civil time. 
 The parameter <code>timZon</code> represents the time zone of the facility  (relative to Greenwich Mean Time or the 0th meridian). Time zones west of GMT (e.g. North America) are represented as negative; 
@@ -27,7 +27,7 @@ The formula is based on Michael Wetter's thesis (A4.1):<pre>
   locTim = greTim + (lon*180/pi)*86400/360 = cloTim - timZon + lon*43200/pi 
 </pre>
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

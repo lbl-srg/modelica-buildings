@@ -63,13 +63,13 @@ equation
       extent={{-6,3},{-6,3}}));
   annotation (
     defaultComponentName="incAng",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the solar incidence angle on a tilted surface.
 For a definition of the parameters, see the 
 <a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

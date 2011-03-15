@@ -29,6 +29,6 @@ revisions="<html>
        Implemented first version.
 </li>
 </ul>
-</HTML>"),
+</html>"),
     Diagram(graphics));
 end ZonalFlow_m_flow;

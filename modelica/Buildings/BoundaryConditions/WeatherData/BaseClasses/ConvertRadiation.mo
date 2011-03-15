@@ -20,14 +20,14 @@ equation
     deltaX=HMin/10);
   annotation (
     defaultComponentName="conRad",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component ensures that the radiation is not smaller than 0.
 It also converts the weather data from <code>Wh/m2</code>,
 which is the unit used in the Typical Meteorological Year weather format,
 to <code>W/m2</code>.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

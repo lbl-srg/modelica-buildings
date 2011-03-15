@@ -63,14 +63,14 @@ equation
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid)}),
     Diagram(graphics),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 The relative temperature \"T(port_a) - T(port_b)\" is determined between
 the two ports of this component and is provided as output signal. The
 sensor should be connected in parallel with other equipment, no flow
 through the sensor is allowed.
 </p>
-</HTML>
+</html>
 ",
 revisions="<html>
 <ul>

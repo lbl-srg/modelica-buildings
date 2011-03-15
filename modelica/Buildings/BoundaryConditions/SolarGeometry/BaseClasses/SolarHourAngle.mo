@@ -15,12 +15,12 @@ equation
     "Our unit is s instead of h in (A4.6)";
   annotation (
     defaultComponentName="solHouAng",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the solar hour angle, which is defined as the angle between the circle that passes through an observer, the north pole and the south pole, 
 and the circle that passes through the sun, the north and the south pole.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

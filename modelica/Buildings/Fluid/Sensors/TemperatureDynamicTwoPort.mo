@@ -83,13 +83,13 @@ annotation (defaultComponentName="senTem",
           color={0,0,0},
           thickness=0.5),
         Line(points={{0,100},{0,50}}, color={0,0,127})}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component monitors the temperature of the medium in the flow
 between fluid ports. The sensor does not influence the fluid. Its output
 is computed using a first order differential equation.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <html>
 <ul>

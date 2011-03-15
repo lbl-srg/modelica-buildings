@@ -13,11 +13,11 @@ record Bounds "Coefficient data record for properties of cooling tower model"
   Modelica.SIunits.MassFraction FRWat_max "Maximum water flow ratio";
   Modelica.SIunits.MassFraction liqGasRat_max "Maximum liquid to gas ratio";
 
- annotation (Documentation(info="<HTML>
+ annotation (Documentation(info="<html>
 <p>
 This data record contains the bounds for the cooling tower correlations.
 </p>
-</HTML>"), revisions="<html>
+</html>"), revisions="<html>
 <ul>
 <li>
 May 16, 2008 by Michael Wetter:<br>

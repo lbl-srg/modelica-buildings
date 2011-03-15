@@ -86,12 +86,12 @@ equation
             100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This model describes a fan or pump that takes as an input
 the head or the mass flow rate.
 </p>
-</HTML>",
+</html>",
       revisions="<html>
 <ul>
 <li>

@@ -19,11 +19,11 @@ algorithm
   HDirTil := max(0, Modelica.Math.cos(incAng)*HDirNor);
   annotation (
     defaultComponentName="HDirTil",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the direct solar irradiation on a tilted surface.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

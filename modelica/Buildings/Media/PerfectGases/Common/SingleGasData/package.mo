@@ -12,11 +12,11 @@ constant PerfectGases.Common.DataRecord H2O(
    cp =   1860);
 
 
-  annotation (Documentation(preferedView="info", info="<HTML>
+  annotation (Documentation(preferedView="info", info="<html>
 <p>
 This package contains the coefficients for perfect gases.
 </p>
-</HTML>"), revisions="<html>
+</html>"), revisions="<html>
 <ul>
 <li>
 May 12, 2008 by Michael Wetter:<br>

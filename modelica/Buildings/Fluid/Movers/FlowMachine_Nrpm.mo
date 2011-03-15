@@ -21,7 +21,7 @@ equation
               "N_in [rpm]")}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
 the actual volume flow rate divided by the maximum flow rate and the relative
@@ -36,7 +36,7 @@ See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 User's Guide</a> for more information.
 </p>
-</HTML>",
+</html>",
       revisions="<html>
 <ul>
 <li>

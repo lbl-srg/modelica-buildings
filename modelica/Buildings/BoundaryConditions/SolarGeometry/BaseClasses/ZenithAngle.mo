@@ -21,12 +21,12 @@ equation
     decAng)) "(A4.8)";
   annotation (
     defaultComponentName="zen",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the zenith angle, which is the angle between the earth surface normal and the sun's beam. 
 Input are the solar hour angle and the declination angle.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

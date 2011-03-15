@@ -401,7 +401,7 @@ equation
           color={255,0,0},
           smooth=Smooth.None,
           thickness=1)}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component reads TMY3 weather data (Wilcox and Marion, 2008). 
 The parameter 
@@ -438,7 +438,7 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </li>
 </ul>
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>
@@ -498,11 +498,11 @@ First implementation.
           smooth=Smooth.None,
           thickness=1)}),
     defaultComponentName="weaDat",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component reads the weather data.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

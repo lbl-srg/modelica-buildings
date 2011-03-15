@@ -424,7 +424,7 @@ Temperature is computed from pressure, specific enthalpy and composition via num
 </html>"));
 end T_phX;
 
-  annotation (preferedView="info", Documentation(info="<HTML>
+  annotation (preferedView="info", Documentation(info="<html>
 <p>
 This is a medium model that is similar to 
 <a href=\"Modelica:Modelica.Media.Air.MoistAir\">
@@ -448,7 +448,7 @@ and constant volume are both constant (Bower 1998).
 <h4>References</h4>
 Bower, William B. <i>A primer in fluid mechanics: Dynamics of flows in one
 space dimension</i>. CRC Press. 1998.
-</HTML>", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 February 22, 2010, by Michael Wetter:<br>

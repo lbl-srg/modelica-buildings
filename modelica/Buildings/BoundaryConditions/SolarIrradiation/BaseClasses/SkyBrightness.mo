@@ -17,7 +17,7 @@ equation
     0.025);
   annotation (
     defaultComponentName="skyBri",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the sky brightness.
 </p>
@@ -25,7 +25,7 @@ This component computes the sky brightness.
 R. Perez, P. Ineichen, R. Seals, J. Michalsky and R. Stewart (1990).
 <i>Modeling Dyalight Availability and Irradiance Componets From Direct and Global Irradiance</i>,
 Solar Energy, 44(5):271-289.
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

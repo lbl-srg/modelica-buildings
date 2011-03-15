@@ -57,7 +57,7 @@ annotation (defaultComponentName="senEntFlo",
           extent={{180,151},{20,99}},
           lineColor={0,0,0},
           textString="HS_flow")}),
-  Documentation(info="<HTML>
+  Documentation(info="<html>
 <p>
 This component monitors the <i>sensible</i> enthalphy flow rate of the medium in the flow
 between fluid ports. In particular, if the enthalpy flow rate is
@@ -81,7 +81,7 @@ Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 <p>
 The sensor is ideal, i.e., it does not influence the fluid.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

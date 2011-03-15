@@ -131,7 +131,7 @@ equation
       extent={{-6,3},{-6,3}}));
   annotation (
     defaultComponentName="HDifTil",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the hemispherical diffuse irradiation on a tilted surface using an anisotropic 
 sky model proposed by Perez. 
@@ -156,7 +156,7 @@ R. Perez, P. Ineichen, R. Seals, J. Michalsky and R. Stewart (1990).
 Solar Energy, 44(5):271-289.
 </li>
 </ul>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

@@ -74,12 +74,12 @@ annotation (defaultComponentName="senWetBul",
           color={0,0,0},
           thickness=0.5),
         Line(points={{0,100},{0,50}}, color={0,0,127})}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component monitors the wet bulb temperature of the medium in the flow
 between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
 </p>
-</HTML>
+</html>
 ",
 revisions="<html>
 <ul>

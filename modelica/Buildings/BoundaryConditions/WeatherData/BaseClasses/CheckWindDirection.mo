@@ -26,11 +26,11 @@ equation
     delta/10);
   annotation (
     defaultComponentName="cheWinDir",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component constrains the interpolated wind direction between <i>0</i> and <i>360</i> degree.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

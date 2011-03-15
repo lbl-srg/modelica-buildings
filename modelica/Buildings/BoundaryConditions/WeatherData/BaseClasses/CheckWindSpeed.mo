@@ -21,11 +21,11 @@ equation
 
   annotation (
     defaultComponentName="cheWinSpe",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component ensures that the wind speed is non-negative.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

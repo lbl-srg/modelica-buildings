@@ -65,12 +65,12 @@ annotation (defaultComponentName="senTem",
           extent={{94,122},{0,92}},
           lineColor={0,0,0},
           textString="T")}),
-  Documentation(info="<HTML>
+  Documentation(info="<html>
 <p>
 This component monitors the temperature of the passing fluid. 
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
-</HTML>
+</html>
 ",
 revisions="<html>
 <ul>

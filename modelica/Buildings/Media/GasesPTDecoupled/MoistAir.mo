@@ -321,7 +321,7 @@ function T_phX "Compute temperature from specific enthalpy and mass fraction"
   extends Buildings.Media.PerfectGases.MoistAir.T_phX;
 end T_phX;
 
-  annotation (preferedView="info", Documentation(info="<HTML>
+  annotation (preferedView="info", Documentation(info="<html>
 <p>
 This is a medium model that is identical to 
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
@@ -335,7 +335,7 @@ temperature and density.
 This new formulation often leads to smaller systems of nonlinear equations 
 because pressure and temperature are decoupled, at the expense of accuracy.
 </p>
-</HTML>", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 January 13, 2010, by Michael Wetter:<br>

@@ -11,11 +11,11 @@ expandable connector Bus "Data bus that stores weather data"
           lineThickness=0.5)}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component is an expandable connector that is used to implement a bus that contains the weather data.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

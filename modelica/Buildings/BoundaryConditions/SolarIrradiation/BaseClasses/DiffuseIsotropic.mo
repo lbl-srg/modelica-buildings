@@ -27,7 +27,7 @@ equation
   HDifTil = 0.5*HDifHor*(1 + til_c) + 0.5*HGloHor*rho*(1 - til_c);
   annotation (
     defaultComponentName="HDifTilIso",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the hemispherical diffuse irradiation on a tilted surface.
 The irradiation is composed of the diffuse horizontal solar irradiation and the irradiation
@@ -38,7 +38,7 @@ the tilt of the receiving surface.
 P. Ineichen, R. Perez and R. Seals (1987).
 <i>The Importance of Correct Albedo Determination for Adequately Modeling Energy Received by Tilted Surface</i>,
 Solar Energy, 39(4): 301-305.
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

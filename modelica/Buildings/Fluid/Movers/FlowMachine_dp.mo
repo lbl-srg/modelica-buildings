@@ -8,7 +8,7 @@ equation
     "dp_in cannot be negative. Obtained dp_in = " + realString(dp_in));
 
   annotation (defaultComponentName="fan",
-  Documentation(info="<HTML>
+  Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed head.
 The input connector provides the difference between 
@@ -22,7 +22,7 @@ See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 User's Guide</a> for more information.
 </p>
-</HTML>",
+</html>",
       revisions="<html>
 <ul>
 <li>

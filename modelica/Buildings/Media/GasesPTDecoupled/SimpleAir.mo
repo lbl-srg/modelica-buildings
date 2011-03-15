@@ -148,7 +148,7 @@ package SimpleAir
  algorithm
     s := cp_const*Modelica.Math.log(state.T/T0);// - R_gas*Modelica.Math.log(state.p/reference_p);
  end specificEntropy;
-  annotation (preferedView="info", Documentation(info="<HTML>
+  annotation (preferedView="info", Documentation(info="<html>
 <p>
 This medium model is identical to 
 <a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
@@ -170,7 +170,7 @@ specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium
 quantities are constant.
 </p>
-</HTML>", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 August 21, 2008, by Michael Wetter:<br>

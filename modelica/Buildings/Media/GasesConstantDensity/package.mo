@@ -2,7 +2,7 @@ within Buildings.Media;
 package GasesConstantDensity "Package with models for gases where pressure and temperature are independent of each other"
 
 
-  annotation (preferedView="info", Documentation(info="<HTML>
+  annotation (preferedView="info", Documentation(info="<html>
 <p>
 Medium models in this package use a constant mass density.
 <p>
@@ -12,7 +12,7 @@ The drawback is that the dimensionality of the coupled
 nonlinear equation system is typically larger for flow
 networks.
 </p>
-</HTML>", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 March 19, 2008, by Michael Wetter:<br>

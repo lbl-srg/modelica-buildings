@@ -13,11 +13,11 @@ record BoundsYorkCalc
      FRWat_max =    1.25,
      liqGasRat_max = 8);
 
- annotation (Documentation(info="<HTML>
+ annotation (Documentation(info="<html>
 <p>
 This data record contains the bounds for the YorkCalc cooling tower correlations.
 </p>
-</HTML>"), revisions="<html>
+</html>"), revisions="<html>
 <ul>
 <li>
 May 16, 2008 by Michael Wetter:<br>

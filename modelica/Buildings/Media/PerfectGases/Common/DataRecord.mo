@@ -9,11 +9,11 @@ record DataRecord "Coefficient data record for properties of perfect gases"
     "Specific heat capacity at constant pressure";
   Modelica.SIunits.SpecificHeatCapacity cv = cp - R
     "Specific heat capacity at constant volume";
-  annotation (Documentation(preferedView="info", info="<HTML>
+  annotation (Documentation(preferedView="info", info="<html>
 <p>
 This data record contains the coefficients for perfect gases.
 </p>
-</HTML>"), revisions=
+</html>"), revisions=
         "<html>
 <ul>
 <li>

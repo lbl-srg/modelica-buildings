@@ -62,14 +62,14 @@ equation
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid)}),
     Diagram(graphics),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 The relative pressure \"port_a.p - port_b.p\" is determined between
 the two ports of this component and is provided as output signal. The
 sensor should be connected in parallel with other equipment, no flow
 through the sensor is allowed.
 </p>
-</HTML>
+</html>
 ",
 revisions="<html>
 <ul>

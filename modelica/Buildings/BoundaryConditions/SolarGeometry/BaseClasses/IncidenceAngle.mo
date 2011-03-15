@@ -31,11 +31,11 @@ equation
     Modelica.Math.cos(azi)*(dec_c*sol_c*lat_s - dec_s*lat_c))) "(A.4.13)";
   annotation (
     defaultComponentName="incAng",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the solar incidence angle on a tilted surface using the solar hour angle and the declination angle as input.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

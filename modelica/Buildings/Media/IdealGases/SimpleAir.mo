@@ -10,7 +10,7 @@ This package is identical to
 Modelica.Media.Air.SimpleAir</a> except for the minimum fluid temperature.
 The package is here for convenience so that all medium models that are typically used
 with the <code>Buildings</code> library are at a central location.
-</HTML>",
+</html>",
         revisions="<html>
 <ul>
 <li>

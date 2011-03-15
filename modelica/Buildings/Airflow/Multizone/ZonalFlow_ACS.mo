@@ -66,6 +66,6 @@ revisions="<html>
        Implemented first version.
 </li>
 </ul>
-</HTML>"),
+</html>"),
     Diagram(graphics));
 end ZonalFlow_ACS;

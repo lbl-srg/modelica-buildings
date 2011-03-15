@@ -180,7 +180,7 @@ equation
           extent={{-48,-84},{70,-102}},
           lineColor={0,0,255},
           textString="depending on the value of dynamicBalance.")}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>This is the base model for fans and pumps.
 It provides an interface
 between the equations that compute head and power consumption,
@@ -201,7 +201,7 @@ The setting <code>addPowerToMedium=false</code> is physically incorrect
 (since the flow work, the flow friction and the fan heat do not increase
 the enthalpy of the medium), but this setting does in some cases lead to simpler equations.
 </p>
-</HTML>",
+</html>",
       revisions="<html>
 <ul>
 <li>

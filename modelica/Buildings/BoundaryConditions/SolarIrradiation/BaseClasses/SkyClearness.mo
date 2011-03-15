@@ -34,11 +34,11 @@ algorithm
     0.1));
   annotation (
     defaultComponentName="skyCle",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the sky clearness.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

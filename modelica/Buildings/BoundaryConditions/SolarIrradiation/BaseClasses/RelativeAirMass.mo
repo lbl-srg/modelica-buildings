@@ -22,7 +22,7 @@ equation
   relAirMas = 1/(Modelica.Math.cos(zenLim) + 0.15*(93.9 - zenDeg)^(-1.253));
   annotation (
     defaultComponentName="relAirMas",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the relative air mass for sky brightness.
 </p>
@@ -30,7 +30,7 @@ This component computes the relative air mass for sky brightness.
 R. Perez (1999).
 <i>Fortran Function irrpz.f</i>,
 Emailed by R. Perez to F.C. Winkelmann on May 21, 1999.<br>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

@@ -69,5 +69,5 @@ revisions="<html>
        Implemented first version.
 </li>
 </ul>
-</HTML>"));
+</html>"));
 end ZonalFlow;

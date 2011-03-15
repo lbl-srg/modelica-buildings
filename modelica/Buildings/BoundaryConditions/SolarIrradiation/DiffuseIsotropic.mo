@@ -35,7 +35,7 @@ equation
       smooth=Smooth.None));
   annotation (
     defaultComponentName="HDifTilIso",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the hemispherical diffuse irradiation on a tilted surface using an isotropic model. 
 The irradiation is a sum composed of diffuse solar irradiation and radiation reflected by the ground.
@@ -46,7 +46,7 @@ For a definition of the parameters, see the
 P. Ineichen, R. Perez and R. Seals (1987).
 <i>The Importance of Correct Albedo Determination for Adequately Modeling Energy Received by Tilted Surface</i>,
 Solar Energy, 39(4): 301-305.
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

@@ -13,11 +13,11 @@ equation
   calTim = simTim - integer(simTim/31536000)*31536000;
   annotation (
     defaultComponentName="conTim",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component converts the simulation time to calendar time in a scale of 1 year (365 days).
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

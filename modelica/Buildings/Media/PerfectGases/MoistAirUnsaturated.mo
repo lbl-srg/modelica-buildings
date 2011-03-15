@@ -425,7 +425,7 @@ is independent of the pressure.
 </html>"));
 end T_phX;
 
-  annotation (preferedView="info", Documentation(info="<HTML>
+  annotation (preferedView="info", Documentation(info="<html>
 <p>
 This is a medium model that is similar to 
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
@@ -443,7 +443,7 @@ with a continuous derivative. This allows obtaining an analytic
 expression for the Jacobian, and therefore simplifies the computation
 of initial conditions that can be numerically challenging for 
 thermo-fluid systems.
-</HTML>", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 January 27, 2010, by Michael Wetter:<br>

@@ -23,13 +23,13 @@ equation
 
   annotation (
     defaultComponentName="conTem",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component converts the temperature from Celsius to Kelvin.
 If the temperature is outside <code>TMin</code> and <code>TMax</code>, 
 the simulation will stop with an error.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

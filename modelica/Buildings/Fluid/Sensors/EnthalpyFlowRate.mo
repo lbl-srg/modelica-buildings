@@ -30,7 +30,7 @@ annotation (defaultComponentName="senEntFlo",
           extent={{180,151},{20,99}},
           lineColor={0,0,0},
           textString="H_flow")}),
-  Documentation(info="<HTML>
+  Documentation(info="<html>
 <p>
 This component monitors the enthalphy flow rate of the medium in the flow
 between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
@@ -40,7 +40,7 @@ For a sensor that measures the latent enthalpy flow rate, use
 <a href=\"modelica://Buildings.Fluid.Sensors.LatentEnthalpyFlowRate\">
 Buildings.Fluid.Sensors.LatentEnthalpyFlowRate</a>.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

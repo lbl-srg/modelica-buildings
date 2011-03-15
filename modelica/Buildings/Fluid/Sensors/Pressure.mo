@@ -28,12 +28,12 @@ equation
           extent={{151,-20},{57,-50}},
           lineColor={0,0,0},
           textString="p")}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component monitors the absolute pressure at its fluid port. The sensor is 
 ideal, i.e., it does not influence the fluid.
 </p>
-</HTML>
+</html>
 ",
 revisions="<html>
 <ul>

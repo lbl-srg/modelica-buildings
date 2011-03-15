@@ -24,7 +24,7 @@ equation
               "y_in [0, 1]")}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}), graphics),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.
 The input connector provides the normalized rotational speed (between 0 and 1).
@@ -41,7 +41,7 @@ See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 User's Guide</a> for more information.
 </p>
-</HTML>",
+</html>",
       revisions="<html>
 <ul>
 <li>

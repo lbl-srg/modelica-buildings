@@ -35,11 +35,11 @@ algorithm
   end if "(A4.9a and b)";
   annotation (
     defaultComponentName="solAzi",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the solar azimuth angle.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

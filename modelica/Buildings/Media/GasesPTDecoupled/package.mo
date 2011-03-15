@@ -2,7 +2,7 @@ within Buildings.Media;
 package GasesPTDecoupled "Package with models for gases where pressure and temperature are independent of each other"
 
 
-  annotation (preferedView="info", Documentation(info="<HTML>
+  annotation (preferedView="info", Documentation(info="<html>
 <p>
 Medium models in this package use the gas law
 <i>d/d<sub>stp</sub> = p/p<sub>stp</sub></i> where 
@@ -14,7 +14,7 @@ temperature and density instead of the ideal gas law
 This new formulation often leads to smaller systems of nonlinear equations 
 because pressure and temperature are decoupled, at the expense of accuracy.
 </p>
-</HTML>", revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 March 19, 2008, by Michael Wetter:<br>

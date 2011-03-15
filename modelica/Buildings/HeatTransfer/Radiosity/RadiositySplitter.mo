@@ -20,7 +20,7 @@ equation
   JOut_2 = - (1-u)* JIn;
   annotation (
     Documentation(info="
-<HTML>
+<html>
 <p>
 This blocks splits the incoming radiosity into two fluxes according to
 <p align=\"center\" style=\"font-style:italic;\">
@@ -35,7 +35,7 @@ This block may be used to split the radiosity flux into a fraction that
 strikes the shaded part of a window, and a fraction that strikes the
 non-shaded part.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

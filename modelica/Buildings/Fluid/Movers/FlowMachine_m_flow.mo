@@ -5,7 +5,7 @@ model FlowMachine_m_flow
   final control_m_flow=true);
   annotation (defaultComponentName="fan",
   Documentation(
-   info="<HTML>
+   info="<html>
 <p>
 This model describes a fan or pump with prescribed mass flow rate.
 The efficiency of the device is computed based
@@ -17,7 +17,7 @@ See the
 <a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
 User's Guide</a> for more information.
 </p>
-</HTML>",
+</html>",
       revisions="<html>
 <ul>
 <li>

@@ -19,11 +19,11 @@ equation
     Modelica.Math.sin(Bt)) "Our unit is s instead of min in (A.4.2a)";
   annotation (
     defaultComponentName="eqnTim",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the difference between solar noon and noon of local civic time.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

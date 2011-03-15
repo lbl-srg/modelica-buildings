@@ -25,14 +25,14 @@ annotation (defaultComponentName="senDen",
           lineColor={0,0,0},
           textString="d"),
         Line(points={{70,0},{100,0}}, color={0,0,127})}),
-  Documentation(info="<HTML>
+  Documentation(info="<html>
 <p>
 This component monitors the density of the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
 <p>If using the one port sensor, read the 
 <a href=\"modelica://Buildings.Fluid.Sensors\">Information</a> first.</p>
-</HTML>
+</html>
 ",
 revisions="<html>
 <ul>

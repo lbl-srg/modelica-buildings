@@ -113,11 +113,11 @@ equation
   F2 = F21 + F22*skyBri + F23*zen;
   annotation (
     defaultComponentName="briCoe",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the circumsolar and horizon brightening coefficients.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

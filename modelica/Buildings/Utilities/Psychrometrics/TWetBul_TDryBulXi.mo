@@ -105,7 +105,7 @@ annotation (
           extent={{62,22},{92,-22}},
           lineColor={0,0,127},
           textString="TWetBul")}),
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 Given a moist are medium model, this component computes the states 
 of the medium at its wet bulb temperature.
@@ -113,7 +113,7 @@ of the medium at its wet bulb temperature.
 For a use of this model, see for example
 <a href=\"modelica://Buildings.Fluid.Sensors.WetBulbTemperature\">Buildings.Fluid.Sensors.WetBulbTemperature</a>
 </p>
-</HTML>
+</html>
 ",
 revisions="<html>
 <ul>

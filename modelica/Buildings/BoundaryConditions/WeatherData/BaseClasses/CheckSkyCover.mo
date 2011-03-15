@@ -19,11 +19,11 @@ equation
     delta/10)/10;
   annotation (
     defaultComponentName="cheSkyCov",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component constrains the interpolated sky cover between <i>0</i> and <i>10</i>.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

@@ -13,11 +13,11 @@ partial block PartialSolarIrradiation
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
   annotation (
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This is a partial model that is used to implement the direct and diffuse irradiation.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>

@@ -38,12 +38,12 @@ annotation (defaultComponentName="senVolFlo",
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
         Line(points={{70,0},{100,0}}, color={0,128,255})}),
-  Documentation(info="<HTML>
+  Documentation(info="<html>
 <p>
 This component monitors the volume flow rate flowing from port_a to port_b. 
 The sensor is ideal, i.e. it does not influence the fluid.
 </p>
-</HTML>
+</html>
 ",
 revisions="<html>
 <ul>

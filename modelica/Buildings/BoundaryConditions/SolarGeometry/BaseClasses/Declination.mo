@@ -16,11 +16,11 @@ equation
     "(A4.5)";
   annotation (
     defaultComponentName="decAng",
-    Documentation(info="<HTML>
+    Documentation(info="<html>
 <p>
 This component computes the angle between the equatorial plane and the solar beam.
 </p>
-</HTML>
+</html>
 ", revisions="<html>
 <ul>
 <li>
