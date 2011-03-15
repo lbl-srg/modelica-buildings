@@ -1,11 +1,12 @@
 within Buildings.BoundaryConditions.SkyTemperature;
 block BlackBody "Calculate black body sky temperature"
   extends Modelica.Blocks.Interfaces.BlockIcon;
-public
 // fixme: why is calTSky by default set to 0? Shouldn't it be left empty?
 // Is the room model using calTSky=1, since TSky is used for the long-wave radiation exchange,
 // and hence should not depend on the horizontal (short-wave) irradiation
-  parameter Integer calTSky(min=0, max=1)=0 " 0: Use radHor; 1: Use TDry, TDewPoi and nOpa";
+public
+  parameter Integer calTSky(min=0, max=1)=0
+    " 0: Use radHor; 1: Use TDry, TDewPoi and nOpa";
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     final quantity="Temperature",
     final unit="K",
@@ -23,7 +24,7 @@ public
     displayUnit="degC",
     final unit="K") "Black-body sky temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput radHor "Horizontal radiation"
+  Modelica.Blocks.Interfaces.RealInput radHor "Horizontal infrared irradiation"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
   Modelica.SIunits.Temperature TDewPoiK;
@@ -33,7 +34,7 @@ algorithm
   if calTSky == 1 then
     TBlaSky := (radHor/Modelica.Constants.sigma)^0.25;
   else
-    TDewPoiK := min(TDryBul, TDewPoi); // fixme: use smoothMin
+    TDewPoiK := Buildings.Utilities.Math.Functions.smoothMin(TDryBul, TDewPoi, 0.1);
     nOpa10 := 10*nOpa
       "Input nOpa is scaled to [0,1] instead of [0,10] in formula";
     epsSky := (0.787 + 0.764*Modelica.Math.log(-TDewPoiK/Modelica.Constants.T_zero))*(1 + 0.0224*nOpa10 -
@@ -53,6 +54,10 @@ Otherwise, it uses dry buld temperature, dew point temperature and opaque sky co
 </html>
 ", revisions="<html>
 <ul>
+<li>
+March 15, 2011, by Wangda Zuo:<br>
+Use smoothMin() instead of min(). 
+</li>
 <li>
 June 1, 2010, by Wangda Zuo:<br>
 First implementation.
