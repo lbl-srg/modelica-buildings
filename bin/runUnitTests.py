@@ -26,6 +26,8 @@
 import os, string, fnmatch, os.path, sys
 import tempfile, shutil
 import multiprocessing
+import getopt
+
 # --------------------------
 # Global settings
 LIBHOME=os.path.abspath(".")
@@ -38,7 +40,15 @@ NPRO=multiprocessing.cpu_count()
 ##    NPRO=multiprocessing.cpu_count()-2
 ##else:
 ##    NPRO=multiprocessing.cpu_count()
-print "Using ", NPRO, " of ", multiprocessing.cpu_count(), " processors to run unit tests."
+
+def usage():
+    print "runUnitTests.py [-b|-h|--help]"
+    print ""
+    print "  Runs the unit tests."
+    print ""
+    print "  -b         Batch mode, without user interaction"
+    print "  -h, --help Print this help"
+    print ""
 
 # --------------------------
 # Check if argument is an executable
@@ -127,7 +137,7 @@ def runSimulation(worDir):
 # If they differ, ask the user whether to accept the differences.
 # If there is no md5 sum in the library home folder, ask the user whether it
 # should be generated.
-def checkMD5Sum(worDir):
+def checkMD5Sum(worDir, batch):
     import hashlib
     for filNam in os.listdir(os.path.join(worDir, "Buildings")):
         # find .mat files
@@ -152,7 +162,10 @@ def checkMD5Sum(worDir):
                     print "*** Warning: md5sum changed in ", filNam
                     print "    Old md5sum: ", md5Old
                     print "    New md5sum: ", md5New
-                    ans = "-"
+                    if batch:
+                        ans = "n"
+                    else:
+                        ans = "-"
                     while ans != "n" and ans != "y":
                         ans = raw_input("    Accept new file and update md5 sum in library? [y,n]")
                     if ans == "y":
@@ -163,7 +176,10 @@ def checkMD5Sum(worDir):
                         print "Updated md5 sum in ", md5FilOld
             else: # md5 does not exist.
                 print "*** Warning: md5 sum does not yet exist for ", filNam
-                ans = "-"
+                if batch:
+                    ans = "n"
+                else:
+                    ans = "-"
                 while ans != "n" and ans != "y":
                     ans = raw_input("    Create new file in library? [y,n]")
                 if ans == "y":
@@ -242,6 +258,27 @@ def writeRunscript(temDirNam, iPro, NPRO):
         print "Generated ", len(listOfTests), " unit tests.\n"
 
 #####################################################################################
+# Process command line arguments
+try:
+    opts, args=getopt.getopt(sys.argv[1:], "hb", ["help", "batch"])
+except getopt.GetoptError, err:
+    print str(err)
+    usage()
+    sys.exit(2)
+batch=False
+for o, a in opts:
+    if (o == "-b" or o == "--batch"):
+        batch=True
+        print "Running in batch mode."
+    elif (o == "-h" or o == "--help"):
+        usage()
+        sys.exit()
+    else:
+        assert False, "unhandled option"
+
+
+print "Using ", NPRO, " of ", multiprocessing.cpu_count(), " processors to run unit tests."
+
 # Check if executable is on the path
 if not isExecutable(MODELICA_EXE):
 	print "Error: Did not find executable '", MODELICA_EXE, "'."
@@ -286,7 +323,7 @@ logFil.close()
 
 # Check md5sum
 for d in temDirNam:
-    checkMD5Sum(d)
+    checkMD5Sum(d, batch)
 
 # Delete temporary directories
 ## fixme for d in temDirNam:
