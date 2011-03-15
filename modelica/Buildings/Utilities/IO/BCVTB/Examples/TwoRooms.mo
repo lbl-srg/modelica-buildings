@@ -151,7 +151,7 @@ Every 60 seconds, measured temperatures and control signals for the heat flow ra
 exchanged between Dymola and the Building Controls Virtual Test Bed.
 </p>
 <p>
-This model is implemented in <tt>bcvtb\\examples\\dymola-room</tt>.
+This model is implemented in <code>bcvtb\\examples\\dymola-room</code>.
 </html>", revisions="<html>
 <ul>
 <li>

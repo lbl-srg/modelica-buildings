@@ -20,13 +20,13 @@ Dew point temperature calculation for moist air between <i>0 degC</i> and <i>30 
 </p>
 <p>
 The correlation used in this model is valid for dew point temperatures between 
-<tt>0 degC</tt> and <tt>30 degC</tt>. It is an approximation to the correlation from 2005
+<code>0 degC</code> and <code>30 degC</code>. It is an approximation to the correlation from 2005
 ASHRAE Handbook, p. 6.2, which is valid in a wider range of temperatures and implemented
 in
 <a href=\"modelica:Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi\">
 Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi</a>.
 The approximation error of this simplified function is below 5% for a 
-temperature of <tt>0 degC</tt> to <tt>30 degC</tt>.
+temperature of <code>0 degC</code> to <code>30 degC</code>.
 The benefit of this simpler function is that it can be inverted analytically,
 whereas the other function requires a numerical solution.
 </p>

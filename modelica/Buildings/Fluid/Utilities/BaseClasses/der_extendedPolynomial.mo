@@ -31,7 +31,7 @@ if x < xMin then
 <p>
 This function is the derivative of  
 <a href=\"modelica://Buildings.Fluid.Utilities.extendedPolynomial\">
-extendedPolynomial</a> with respect to <tt>x</tt>.
+extendedPolynomial</a> with respect to <code>x</code>.
 </p>
 </html>", revisions="<html>
 <ul>

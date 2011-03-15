@@ -18,7 +18,7 @@ Dew point temperature calculation for moist air above freezing temperature.
 </p>
 <p>
 The correlation used in this model is valid for dew point temperatures between 
-<tt>0 degC</tt> and <tt>200 degC</tt>. It is the correlation from 2005
+<code>0 degC</code> and <code>200 degC</code>. It is the correlation from 2005
 ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
 Peppers has been used, but this equation yielded about 15 Kelvin lower dew point 
 temperatures.

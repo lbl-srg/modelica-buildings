@@ -86,25 +86,25 @@ Model for an air humidifier or dehumidifier.
 </p>
 <p>
 This model adds (or removes) moisture from the air stream.
-The amount of exchanged moisture is equal to <tt>m_flow = u * m_flow_nominal</tt>.
-The input signal <tt>u</tt> and the nominal moisture flow rate added to the air stream <tt>m_flow_nominal</tt> can be positive or negative.
-If the product <tt>u * m_flow_nominal</tt> is positive, then moisture is added
+The amount of exchanged moisture is equal to <code>m_flow = u * m_flow_nominal</code>.
+The input signal <code>u</code> and the nominal moisture flow rate added to the air stream <code>m_flow_nominal</code> can be positive or negative.
+If the product <code>u * m_flow_nominal</code> is positive, then moisture is added
 to the air stream, otherwise it is removed.
 </p>
 <p>
-<p>If the connector <tt>T_in</tt> is left unconnected, the value
-set by the parameter <tt>T</tt> is used for temperature of the water that is 
+<p>If the connector <code>T_in</code> is left unconnected, the value
+set by the parameter <code>T</code> is used for temperature of the water that is 
 added to the air stream.
 </p>
 <p>
-Note that for non-zero <tt>m_flow</tt>, 
+Note that for non-zero <code>m_flow</code>, 
 if the mass flow rate tends to zero, then the moisture difference over this 
 component tends to infinity.
-Hence, using a proper control for <tt>u</tt> is essential when using this component.
+Hence, using a proper control for <code>u</code> is essential when using this component.
 </p>
 <p>
 This model can only be used with medium models that define the integer constant
-<tt>Water</tt> which needs to be equal to the index of the water mass fraction 
+<code>Water</code> which needs to be equal to the index of the water mass fraction 
 in the species vector.
 </p>
 </html>",

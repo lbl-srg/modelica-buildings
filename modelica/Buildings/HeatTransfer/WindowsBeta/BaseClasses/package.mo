@@ -5,6 +5,6 @@ package BaseClasses "Package with base classes for WindowsBeta package"
 
   annotation (Documentation(info="<html>
 This package contains base classes that are used to construct models
-in the <tt>Buildings.HeatTransfer.WindowsBeta</tt> package.
+in the <code>Buildings.HeatTransfer.WindowsBeta</code> package.
 </html>"));
 end BaseClasses;

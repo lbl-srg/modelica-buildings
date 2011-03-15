@@ -123,7 +123,7 @@ Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>.
 <li>
 September 18, 2008, by Michael Wetter:<br>
 Added equations for the mass balance of extra species flow,
-i.e., <tt>C</tt> and <tt>mC_flow</tt>.
+i.e., <code>C</code> and <code>mC_flow</code>.
 </li>
 <li>
 July 20, 2007 by Michael Wetter:<br>

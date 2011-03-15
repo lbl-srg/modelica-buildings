@@ -59,7 +59,7 @@ the region <i>-&delta;...+&delta;</i> may be interpreted as the region
 where heat conduction dominates convection in the boundary layer.
 </p>
 <p>
-See the package <tt>Examples</tt> for the graph.
+See the package <code>Examples</code> for the graph.
 </p>
 </html>", revisions="<html>
 <ul>

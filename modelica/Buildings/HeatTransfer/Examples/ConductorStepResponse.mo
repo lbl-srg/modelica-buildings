@@ -127,7 +127,7 @@ This example illustrates modeling of multi-layer materials. It also tests if the
 multi-layer material computes the same heat transfer with its boundary condition 
 as two instances of a single layer material. 
 The insulation and the brick are computed using transient heat conduction.
-The <tt>assert</tt> block will stop the simulation if the heat exchange with the boundary
+The <code>assert</code> block will stop the simulation if the heat exchange with the boundary
 condition differs.
 </html>", revisions="<html>
 <ul>

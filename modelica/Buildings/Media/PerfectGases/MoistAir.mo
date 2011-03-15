@@ -105,7 +105,7 @@ required from medium model \""     + mediumName + "\".");
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
-the implementation of <tt>T_phX</tt> provided by this package as opposed to the 
+the implementation of <code>T_phX</code> provided by this package as opposed to the 
 implementation provided by its parent package.
 </html>"));
   end setState_phX;
@@ -465,7 +465,7 @@ Fixed bug that lead to run-time error in <code>T_phX</code>.
 </li>
 <li>
 January 13, 2010, by Michael Wetter:<br>
-Added function <tt>enthalpyOfNonCondensingGas</tt> and its derivative.
+Added function <code>enthalpyOfNonCondensingGas</code> and its derivative.
 </li>
 <li>
 January 13, 2010, by Michael Wetter:<br>
@@ -477,7 +477,7 @@ Added annotation for analytic derivative for functions
 <code>saturationPressureLiquid</code> and <code>sublimationPressureIce</code>.
 <li>
 August 28, 2008, by Michael Wetter:<br>
-Referenced <tt>spliceFunction</tt> from package 
+Referenced <code>spliceFunction</code> from package 
 <a href=\"modelica://Buildings.Utilities.Math\">Buildings.Utilities.Math</a>
 to avoid duplicate code.
 </li>

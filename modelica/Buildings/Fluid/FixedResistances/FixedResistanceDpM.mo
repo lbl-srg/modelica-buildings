@@ -56,7 +56,7 @@ Near the origin, the square root relation is regularized to ensure that the deri
 <ul>
 <li>
 May 30, 2008 by Michael Wetter:<br>
-Added parameters <tt>use_dh</tt> and <tt>deltaM</tt> for easier parameterization.
+Added parameters <code>use_dh</code> and <code>deltaM</code> for easier parameterization.
 </li>
 <li>
 July 20, 2007 by Michael Wetter:<br>

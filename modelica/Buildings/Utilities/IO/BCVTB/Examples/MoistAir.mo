@@ -318,7 +318,7 @@ The component <code>bouBCVTB</code> models the boundary between the domain that 
 system (in Modelica) and the room response (in EnergyPlus).
 </p>
 <p>
-This model is implemented in <tt>bcvtb\\examples\\dymolaEPlusXY-singleZone</tt>,
+This model is implemented in <code>bcvtb\\examples\\dymolaEPlusXY-singleZone</code>,
 where <code>XY</code> denotes the EnergyPlus version number.
 </html>", revisions="<html>
 <ul>

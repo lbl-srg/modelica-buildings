@@ -241,8 +241,8 @@ quantities are assumed to be constant.
 This package is identical to <a href=\"Modelica:Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>
 except that the functions.
-<tt>density</tt>,
-<tt>specificEntropy</tt> and <tt>setState_dTX</tt> are declared as <tt>replaceable</tt>.
+<code>density</code>,
+<code>specificEntropy</code> and <code>setState_dTX</code> are declared as <code>replaceable</code>.
 This is required for the implementation of 
 <a href=\"modelica://Buildings.Media.GasesPTDecoupled.SimpleAir\">
 Buildings.Media.GasesPTDecoupled.SimpleAir</a>.

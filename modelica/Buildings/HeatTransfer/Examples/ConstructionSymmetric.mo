@@ -125,7 +125,7 @@ equation
 This example test the construction model. The boundary condition 
 at both surfaces are identical. Thus, the model on top and the composite
 model on the bottom should give identical results.
-The <tt>assert</tt> block will stop the simulation if the heat exchange with the boundary
+The <code>assert</code> block will stop the simulation if the heat exchange with the boundary
 condition differs.
 </html>", revisions="<html>
 <ul>

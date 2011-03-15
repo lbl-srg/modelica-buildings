@@ -31,7 +31,7 @@ Renamed block from <code>HumidityRatio_pWat</code> to <code>X_pW</code>.
 </li>
 <li>
 April 14, 2009 by Michael Wetter:<br>
-Converted model to block because <tt>RealInput</tt> are obsolete in Modelica 3.0.
+Converted model to block because <code>RealInput</code> are obsolete in Modelica 3.0.
 </li>
 <li>
 August 7, 2008 by Michael Wetter:<br>

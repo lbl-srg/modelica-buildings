@@ -118,7 +118,7 @@ Changed computation of density, which was needed due to changes in its base clas
 </li>
 <li>
 March 11, 2008, by Michael Wetter:<br>
-Changed to new base class <tt>PartialTwoPortTransformer</tt>.
+Changed to new base class <code>PartialTwoPortTransformer</code>.
 </li>
 <li>
 October 18, 2007, by Michael Wetter:<br>

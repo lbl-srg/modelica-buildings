@@ -49,7 +49,7 @@ to break algebraic equation systems (at the expense of stiffness).
 </li>
 <li>
 September 4, 2008, by Michael Wetter:<br>
-Added implementation for partial function <tt>specificInternalEnergy</tt>.
+Added implementation for partial function <code>specificInternalEnergy</code>.
 </li>
 <li>
 March 19, 2008, by Michael Wetter:<br>

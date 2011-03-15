@@ -106,7 +106,7 @@ required from medium model \""     + mediumName + "\".");
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
-the implementation of <tt>T_phX</tt> provided by this package as opposed to the 
+the implementation of <code>T_phX</code> provided by this package as opposed to the 
 implementation provided by its parent package.
 </html>"));
   end setState_phX;
@@ -134,7 +134,7 @@ This function declares the first derivative of
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir.saturationPressureLiquid\">
 Buildings.Media.GasesConstantDensity.MoistAir.saturationPressureLiquid</a>.
 It is required since otherwise, Dymola 7.3 cannot find the derivative of the inherited function 
-<tt>saturationPressureLiquid</tt>.
+<code>saturationPressureLiquid</code>.
 </html>"));
 
   function sublimationPressureIce =

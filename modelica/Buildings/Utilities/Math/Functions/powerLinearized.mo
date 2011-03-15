@@ -34,7 +34,7 @@ function is defined everywhere. This can help solving the initialization problem
 when a solver may be far from a solution and hence <i>T4 &lt; 0</i>.
 </p>
 <p>
-See the package <tt>Examples</tt> for the graph.
+See the package <code>Examples</code> for the graph.
 </p>
 </html>", revisions="<html>
 <ul>

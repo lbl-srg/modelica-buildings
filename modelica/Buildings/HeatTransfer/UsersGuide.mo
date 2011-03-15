@@ -129,7 +129,7 @@ Alternatively, to model the insulation in steady-state, we can set its heat capa
   Buildings.HeatTransfer.Data.Solids.InsulationBoard insulation(c=0, x=0.1, nStaRef=4);
 </pre>
 <p>
-Instead of specifying a material with specific heat capacity and setting <tt>c=0</tt>,
+Instead of specifying a material with specific heat capacity and setting <code>c=0</code>,
 materials from the library 
 <a href=\"modelica://Buildings.HeatTransfer.Data.Resistances\">
 Buildings.HeatTransfer.Data.Resistances</a> can be used. 

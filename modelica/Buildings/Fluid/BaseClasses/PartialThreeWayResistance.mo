@@ -175,7 +175,7 @@ to <code>Medium.p_default</code>.
 September 18, 2008 by Michael Wetter:<br>
 Replaced splitter model with a fluid port since the 
 splitter model in Modelica.Fluid 1.0 beta does not transport
-<tt>mC_flow</tt>.
+<code>mC_flow</code>.
 <li>
 June 11, 2008 by Michael Wetter:<br>
 First implementation.

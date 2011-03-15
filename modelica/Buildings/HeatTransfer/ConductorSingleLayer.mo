@@ -126,7 +126,7 @@ that computes transient or steady-state heat conductions.
 If the material is a record that extends
 <a href=\"modelica://Buildings.HeatTransfer.Data.Solids\">
 Buildings.HeatTransfer.Data.Solids</a> and its
-specific heat capacity (as defined by the record <tt>material.c</tt>)
+specific heat capacity (as defined by the record <code>material.c</code>)
 is non-zero, then this model computes <i>transient</i> heat conduction, i.e., it
 computes a numerical approximation to the solution of the heat equation
 </p>
@@ -149,12 +149,12 @@ temperature and heat flow rate of the heat heat ports.
 </p>
 <p>
 To spatially discretize the heat equation, the construction is 
-divided into compartments with <tt>material.nSta &ge; 1</tt> state variables. 
+divided into compartments with <code>material.nSta &ge; 1</code> state variables. 
 The state variables are connected to each other through thermal conductors. 
 There is also a thermal conductor
 between the surfaces and the outermost state variables. Thus, to obtain
-the surface temperature, use <tt>port_a.T</tt> (or <tt>port_b.T</tt>)
-and not the variable <tt>T[1]</tt>.
+the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)
+and not the variable <code>T[1]</code>.
 Each compartment has the same material properties.
 To build multi-layer constructions,
 use
@@ -162,7 +162,7 @@ use
 Buildings.HeatTransfer.ConductorMultiLayer</a> instead of this model.
 </p>
 <p>
-If <tt>material.c=0</tt>, or if the material extends
+If <code>material.c=0</code>, or if the material extends
 <a href=\"modelica://Buildings.HeatTransfer.Data.Resistances\">
 Buildings.HeatTransfer.Data.Resistances</a>, 
 then steady-state heat conduction is computed. In this situation, the heat

@@ -99,7 +99,7 @@ equation
     Documentation(info="<html>
 This example tests if two conductors in series computes the same heat transfer
 as one conductor with twice the thickness.
-The <tt>assert</tt> block will stop the simulation if the heat exchange with the boundary
+The <code>assert</code> block will stop the simulation if the heat exchange with the boundary
 condition differs.
 </html>", revisions="<html>
 <ul>

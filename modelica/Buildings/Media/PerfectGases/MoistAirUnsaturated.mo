@@ -112,7 +112,7 @@ required from medium model \""     + mediumName + "\".");
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
-the implementation of <tt>T_phX</tt> provided by this package as opposed to the 
+the implementation of <code>T_phX</code> provided by this package as opposed to the 
 implementation provided by <a href=\"Buildings.Media.PerfectGases.MoistAir.setState_pTX\">
 Buildings.Media.PerfectGases.MoistAir.setState_pTX</a>.
 </html>"));
@@ -438,7 +438,7 @@ Buildings.Media.PerfectGases.MoistAir</a> instead of this one.
 <p>
 This medium model has been added to allow an explicit computation of
 the function 
-<tt>T_phX</tt> so that it is once differentiable in <tt>h</tt>
+<code>T_phX</code> so that it is once differentiable in <code>h</code>
 with a continuous derivative. This allows obtaining an analytic
 expression for the Jacobian, and therefore simplifies the computation
 of initial conditions that can be numerically challenging for 
@@ -447,7 +447,7 @@ thermo-fluid systems.
 <ul>
 <li>
 January 27, 2010, by Michael Wetter:<br>
-Added function <tt>enthalpyOfNonCondensingGas</tt> and its derivative.
+Added function <code>enthalpyOfNonCondensingGas</code> and its derivative.
 </li>
 <li>
 January 27, 2010, by Michael Wetter:<br>

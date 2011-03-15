@@ -126,7 +126,7 @@ of the modeller. Increase nPorts to add an additional port.
 
   annotation (
     Documentation(info="<html>
-Model for an ideally mixed fluid volume with <tt>nP</tt> ports and the ability 
+Model for an ideally mixed fluid volume with <code>nP</code> ports and the ability 
 to store mass and energy. The volume is fixed. 
 <p>
 This model represents the same physics as 
@@ -136,7 +136,7 @@ it allows to connect signals for the water exchanged with the volume.
 The model is partial in order to allow a submodel that can be used with media
 that contain water as a substance, and a submodel that can be used with dry air.
 Having separate models is required because calls to the medium property function
-<tt>enthalpyOfLiquid</tt> results in a linker error if a medium such as 
+<code>enthalpyOfLiquid</code> results in a linker error if a medium such as 
 <a href=\"Modelica:Modelica.Media.Air.SimpleAir\">Modelica.Media.Air.SimpleAir</a>
 is used that does not implement this function.
 </p>

@@ -25,10 +25,10 @@ equation
 <p>
 Block to compute the humidity ratio for a given water vapor partial pressure.
 </p>
-<p>If <tt>use_p_in</tt> is false (default option), the <tt>p</tt> parameter
+<p>If <code>use_p_in</code> is false (default option), the <code>p</code> parameter
 is used as atmospheric pressure, 
-and the <tt>p_in</tt> input connector is disabled; 
-if <tt>use_p_in</tt> is true, then the <tt>p</tt> parameter is ignored, 
+and the <code>p_in</code> input connector is disabled; 
+if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored, 
 and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
@@ -39,7 +39,7 @@ Renamed block from <code>HumidityRatio_pWat</code> to <code>X_pW</code>.
 </li>
 <li>
 April 14, 2009 by Michael Wetter:<br>
-Converted model to block because <tt>RealInput</tt> are obsolete in Modelica 3.0.
+Converted model to block because <code>RealInput</code> are obsolete in Modelica 3.0.
 </li>
 <li>
 August 7, 2008 by Michael Wetter:<br>

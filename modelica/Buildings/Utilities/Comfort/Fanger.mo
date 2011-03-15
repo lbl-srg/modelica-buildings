@@ -346,7 +346,7 @@ http://me.hku.hk/msc-courses/MEBS6006/index.html</a>
 </html>", revisions="<html>
 <ul>
 <li><i>July 14, 2010</i>, by Michael Wetter:<br/>
-Merged models into <tt>Buildings</tt> library.
+Merged models into <code>Buildings</code> library.
 Fixed bug in computation of lower value for <code>hCon</code>.
 The original implementation lead to too high a lower value.
 </li>

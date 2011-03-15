@@ -93,13 +93,13 @@ equation
 This model prints to a file or the terminal at a fixed sample interval.
 </p>
 <p>
-The parameter <tt>configuration</tt> controls the printing as follows:
+The parameter <code>configuration</code> controls the printing as follows:
 </p>
 <table border=\"1\">
-<tr><td><tt>configuration</tt></td><td>configuration</td></tr>
-<tr><td><tt>1</tt></td> <td>print at sample times only</td></tr>
-<tr><td><tt>2</tt></td> <td>print at sample times and at end of simulation</td></tr>
-<tr><td><tt>3</tt></td> <td>print at end of simulation only</td></tr>
+<tr><td><code>configuration</code></td><td>configuration</td></tr>
+<tr><td><code>1</code></td> <td>print at sample times only</td></tr>
+<tr><td><code>2</code></td> <td>print at sample times and at end of simulation</td></tr>
+<tr><td><code>3</code></td> <td>print at end of simulation only</td></tr>
  </table>
 </html>", revisions="<html>
 <ul>
