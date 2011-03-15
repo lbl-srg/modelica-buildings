@@ -135,7 +135,6 @@ def checkMD5Sum(worDir):
         if pos > -1:
             # Compute md5 sum of new unit test result
             fulFilNam=os.path.join(worDir, "Buildings", filNam)
-            print "==== getting md5sum of ", fulFilNam
             fMat = open(fulFilNam,'rb')
             md5 = hashlib.md5()
             md5.update(fMat.read())
