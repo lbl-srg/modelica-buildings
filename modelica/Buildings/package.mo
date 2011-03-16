@@ -1141,7 +1141,7 @@ Many models are based on models from the package
 the same ports to ensure compatibility with models from that library.
 </p><p>
 The web page for this library is
-<a href=\"https://gaia.lbl.gov/bir\">https://gaia.lbl.gov/bir</a>. 
+<a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>. 
 We welcome contributions from different users to further advance this library, 
 whether it is through collaborative model development, through model use and testing
 or through requirements definition or by providing feedback regarding the model applicability
