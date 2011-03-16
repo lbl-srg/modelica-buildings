@@ -21,7 +21,6 @@ equation
     Documentation(info="<html>
 <p>
 This component ensures that the interpolated pressure is between <i>31,000</i> Pa and <i>120,000</i> Pa.
-<!-- fixme: Describe why lower bound is 31000 Pa. -->
 </p>
 </html>
 ", revisions="<html>
