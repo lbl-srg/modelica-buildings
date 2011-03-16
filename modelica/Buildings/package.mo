@@ -611,7 +611,7 @@ Added the package
 <a href=\"modelica://Buildings.Utilities.IO.BCVTB\">
 Buildings.Utilities.IO.BCVTB</a>
 which contains an interface to the 
-<a href=\"https://gaia.lbl.gov/bcvtb\">Building Controls Virtual Test Bed.</a>
+<a href=\"http://simulationresearch.lbl.gov/bcvtb\">Building Controls Virtual Test Bed.</a>
 <li> 
 Updated license to Modelica License 2.
 <li>
