@@ -83,7 +83,7 @@ equation
           textString="HLat")}),
     Documentation(info="<html>
 This model allows interfacing to the 
-<a href=\"https://gaia.lbl.gov/bcvtb\">Building Controls Virtual Test Bed</a>
+<a href=\"http://simulationresearch.lbl.gov/bcvtb\">Building Controls Virtual Test Bed</a>
 an air-conditioning system
 that uses a medium model with water vapor concentration.
 </p>

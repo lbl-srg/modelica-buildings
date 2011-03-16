@@ -269,7 +269,7 @@ algorithm
           textString="tS=%samplePeriod%")}),
     Documentation(info="<html>
 Block that exchanges data with the 
-<a href=\"https://gaia.lbl.gov/bcvtb\">Building Controls Virtual Test Bed</a> (BCVTB).
+<a href=\"http://simulationresearch.lbl.gov/bcvtb\">Building Controls Virtual Test Bed</a> (BCVTB).
 <p>
 At the start of the simulation, this block establishes a socket connection
 using the Berkeley Software Distribution socket (BSD socket).
