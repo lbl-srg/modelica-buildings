@@ -19,7 +19,7 @@ unless the sensor is directly connected to the port of a volume
 in the package
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>.
-fixme: add reference
+<!-- fixme: add reference -->
 </p>
 <p>
 For quantities that do not depend on the flow direction,
