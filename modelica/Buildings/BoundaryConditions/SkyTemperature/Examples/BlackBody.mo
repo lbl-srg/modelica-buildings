@@ -5,7 +5,7 @@ model BlackBody "Test model for black body sky temperature"
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Buildings.BoundaryConditions.SkyTemperature.BlackBody TBlaSky
+  Buildings.BoundaryConditions.SkyTemperature.BlackBody TBlaSky(calTSky=0)
     annotation (Placement(transformation(extent={{40,0},{60,20}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus annotation (
       Placement(transformation(extent={{0,0},{20,20}}), iconTransformation(

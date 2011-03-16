@@ -56,7 +56,8 @@ protected
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
   BaseClasses.CheckWindDirection cheWinDir "Checks the wind direction"
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
-  SkyTemperature.BlackBody TBlaSky "Checks the sky black-body temperature"
+  SkyTemperature.BlackBody TBlaSky(calTSky=0)
+    "Checks the sky black-body temperature"
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
   Utilities.SimulationTime simTim "Simulation time"
     annotation (Placement(transformation(extent={{-180,-10},{-160,10}})));
