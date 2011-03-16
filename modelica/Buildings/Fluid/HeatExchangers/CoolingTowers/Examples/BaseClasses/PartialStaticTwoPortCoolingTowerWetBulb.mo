@@ -23,7 +23,6 @@ equation
       points={{-39,90},{-30,90},{-30,58},{-21,58}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
   connect(weaDat.weaBus, weaBus) annotation (Line(
       points={{-80,50},{-64,50}},
       color={255,204,51},
@@ -48,4 +47,5 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  annotation (Diagram(graphics));
 end PartialStaticTwoPortCoolingTowerWetBulb;
