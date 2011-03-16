@@ -124,6 +124,10 @@ its class name ends with the string <code>Beta</code>.
   class Version_0_11_0 "Version 0.11.0"
 
   annotation (Documentation(info="<html>
+<p>
+<b>Note:</b> The packages whose name ends with <code>Beta</code>
+are still being validated.
+</p>
 <ul>
 <li>
 Added the package 
@@ -870,7 +874,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">
-Version 0.11.0 </a>(xxxxx fixme, 2010)</li>
+Version 0.11.0 </a>(March 16, 2011)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">
 Version 0.10.0 </a>(July 30, 2010)</li>
