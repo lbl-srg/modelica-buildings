@@ -946,7 +946,8 @@ The development of the Buildings library is organized by<br>
 <p>
   The <a href=\"modelica://Buildings.Airflow.Multizone\">package for multizone airflow modeling</a>
   and the <a href=\"modelica://Buildings.Utilities.Comfort.Fanger\">model for thermal comfort</a>
-  was contributed by the United Technologies Research Center.
+  was contributed by the United Technologies Research Center, which also contributed to the
+  validation of the <a href=\"modelica://Buildings.RoomsBeta.MixedAir\">room heat transfer model</a>.
 </p>
 </html>
 "));
