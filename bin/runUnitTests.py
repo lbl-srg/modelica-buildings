@@ -326,8 +326,8 @@ for d in temDirNam:
     checkMD5Sum(d, batch)
 
 # Delete temporary directories
-## fixme for d in temDirNam:
-## fixme     shutil.rmtree(d)
+for d in temDirNam:
+    shutil.rmtree(d)
 
 # Check for errors
 retVal=checkSimulationError("unitTests.log")
