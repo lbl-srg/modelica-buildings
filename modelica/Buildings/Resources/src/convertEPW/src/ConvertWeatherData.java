@@ -50,7 +50,7 @@ public class ConvertWeatherData{
     }
    
     simtime = 24 * (simtime+(time[2]-1));// days to hours
-    simtime = 60 * (simtime+(time[3]-1)); // hours to minutes
+    simtime = 60 * (simtime+time[3]); // hours to minutes
     simtime = 60 * (simtime+time[4]);// minutes to seconds
         
     return Double.toString(simtime);
@@ -71,8 +71,9 @@ public class ConvertWeatherData{
    
     out = new FileOutputStream(filename);
     p = new PrintStream( out );
-       
-    for(int i=0; i<myArr.lastIndexOf("End of myArr"); i++) 
+
+    // do not write data at t = 31536000s since we duplicate data at t = 0s
+    for(int i=0; i<myArr.lastIndexOf("End of myArr")-1; i++) 
         p.println(myArr.get(i));  // write data line by line
         
     p.close();    
@@ -161,10 +162,11 @@ public class ConvertWeatherData{
     Scanner lineTokenizer;    
     Scanner console;  
     String tmp, tmp2;
+    String timeString;
     String[] preData = new String[30];    
 		String[] missData = new String[30];
     int lineNum;    // line number in .epw file
-    int[] time = new int[5];
+    int[] time = new int[5]; 
 		int i;
 
  		missData[1] = "99.9";
@@ -227,7 +229,8 @@ public class ConvertWeatherData{
       }
 	    
       // convert the time in seconds    
-      tmp = getSimulationTime(time) + "\t";
+      timeString = getSimulationTime(time);
+      tmp = timeString + "\t";
       
       // skip the flag for data quality        
       if (lineTokenizer.hasNext()) {
@@ -349,7 +352,15 @@ public class ConvertWeatherData{
         }      
       } 
      
+      // Use the data at first recorded time for time equal to 0s 
+      if (lineNum == 9)	{ 
+				tmp = tmp.replaceFirst(timeString, "0.0");
+				myArr.add(tmp);  
+        tmp = tmp.replaceFirst("0.0", timeString);
+			}
+
       myArr.add(tmp);     // add one line
+
       lineTokenizer.close(); // discard this line  
       lineNum++; 
       
