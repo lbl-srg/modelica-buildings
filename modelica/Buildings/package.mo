@@ -874,7 +874,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">
-Version 0.11.0 </a>(March 16, 2011)</li>
+Version 0.11.0 </a>(March 17, 2011)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">
 Version 0.10.0 </a>(July 30, 2010)</li>
@@ -899,7 +899,6 @@ Version 0.5.0 </a>(February 19, 2009)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">
 Version 0.4.0 </a>(October 31, 2008)</li>
-<li> 
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">
 Version 0.3.0 </a>(September 30, 2008)</li>
