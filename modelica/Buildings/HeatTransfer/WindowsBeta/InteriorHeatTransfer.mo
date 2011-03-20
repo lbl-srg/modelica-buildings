@@ -53,7 +53,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),
-           Documentation(info="<html>
+defaultComponentName="intHeaTra",
+Documentation(info="<html>
 <p>
 Model for the convective heat transfer between a window shade, a window surface
 and the room air.

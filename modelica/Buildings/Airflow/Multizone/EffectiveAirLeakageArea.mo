@@ -64,6 +64,7 @@ model EffectiveAirLeakageArea "Effective air leakage area"
           pattern=LinePattern.None,
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid)}),
+defaultComponentName="lea",
 Documentation(info="<html>
 <p>
 This model describes the one-directional pressure driven

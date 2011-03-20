@@ -49,7 +49,8 @@ equation
           smooth=Smooth.None,
           origin={18,26},
           rotation=90)}),
-           Documentation(info="<html>
+defaultComponentName="sur",
+Documentation(info="<html>
 Model for the emissive power of an opaque surface. 
 </html>", revisions="<html>
 <ul>

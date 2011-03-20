@@ -85,7 +85,8 @@ equation
         extent={{-150,142},{150,102}},
         textString="%name",
         lineColor={0,0,255})}),
-           Documentation(info="<html>
+defaultComponentName="radOut",
+Documentation(info="<html>
 Model for the long-wave radiosity balance of the outdoor environment.
 The computation is according to TARCOG 2006.
 </p>

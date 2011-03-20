@@ -180,6 +180,7 @@ equation
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid)}),
     preferedView="info",
+defaultComponentName="hex",
     Documentation(info="<html>
 <p>
 Model of a heat exchanger without humidity condensation. 

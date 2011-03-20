@@ -43,7 +43,8 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
-                       Documentation(info="<html>
+defaultComponentName="res",
+Documentation(info="<html>
 <p>
 This is a model of a resistance with a fixed flow coefficient 
 <p align=\"center\" style=\"font-style:italic;\">

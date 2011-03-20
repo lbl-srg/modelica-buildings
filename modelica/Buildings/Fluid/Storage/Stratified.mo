@@ -230,7 +230,9 @@ equation
       points={{52,20},{52,-2.22045e-16},{56,-2.22045e-16}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="tan",
+Documentation(info="<html>
 <p>
 This is a model of a stratified storage tank.
 The tank uses several volumes to model the stratification.

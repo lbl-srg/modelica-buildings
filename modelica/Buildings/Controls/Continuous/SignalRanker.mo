@@ -18,7 +18,9 @@ algorithm
   for i in 1:nin-1 loop
     assert(y[i] >= y[i+1], "Error in sorting algorithm.");
   end for;
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="sigRan",
+Documentation(info="<html>
 <p>
 Block that sorts the input signal <code>u[:]</code> such that the output
 signal satisfies <code>y[i] >= y[i+1]</code> for all <code>i=1, ..., nin-1</code>.

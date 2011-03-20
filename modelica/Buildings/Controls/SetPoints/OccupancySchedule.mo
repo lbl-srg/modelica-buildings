@@ -128,7 +128,8 @@ algorithm
           textString="occupied")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
-    Documentation(info="<html>
+defaultComponentName="occSch",
+Documentation(info="<html>
 <p>
 This model outputs whether the building is currently occupied,
 and how long it will take until the next time when the building 

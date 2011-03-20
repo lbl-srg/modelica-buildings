@@ -16,6 +16,7 @@ block pW_TDewPoi
 equation
  p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);
     annotation (
+    defaultComponentName="pWat",
     Documentation(info="<html>
 <p>
 Block to compute the water vapor pressure for a given dew point temperature.

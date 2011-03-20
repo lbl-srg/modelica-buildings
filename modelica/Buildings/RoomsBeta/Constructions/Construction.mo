@@ -3,7 +3,9 @@ model Construction "Model for an opaque construction that has no window"
   extends Buildings.RoomsBeta.Constructions.BaseClasses.PartialConstruction(
     final AOpa=A);
 
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
+  annotation (
+defaultComponentName="conOpa",
+Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
             {300,300}},
         initialScale=0.1), graphics),
                           Icon(coordinateSystem(preserveAspectRatio=true,

@@ -5,6 +5,7 @@ model TwoWayLinear "Two way valve with linear flow characteristics"
 equation
   phi = l + y * (1 - l);
 annotation (
+defaultComponentName="val",
 Documentation(info="<html>
 <p>
 Two way valve with linear opening characteristic.

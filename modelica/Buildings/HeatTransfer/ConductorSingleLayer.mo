@@ -118,6 +118,7 @@ equation
           extent={{8,-68},{86,-98}},
           lineColor={0,0,255},
           textString="%nSta")}),
+defaultComponentName="lay",
     Documentation(info="<html>
 This is a model of a heat conductor for a single material
 that computes transient or steady-state heat conductions.

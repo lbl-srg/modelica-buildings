@@ -214,7 +214,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="y")}), Diagram(graphics),
-    Documentation(info="<html>
+defaultComponentName="chi",
+Documentation(info="<html>
 This is model of a chiller whose coefficient of performance (COP) changes
 with temperatures in the same way as the Carnot efficiency changes.
 The COP at the nominal conditions can be specified by a parameter, or

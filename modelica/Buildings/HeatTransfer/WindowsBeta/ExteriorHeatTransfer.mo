@@ -75,6 +75,7 @@ equation
           extent={{-94,-72},{-52,-88}},
           lineColor={0,0,127},
           textString="f_clr")}),
+defaultComponentName="extHeaTra",
            Documentation(info="<html>
 <p>
 Model for the convective heat transfer between a window shade, a window surface

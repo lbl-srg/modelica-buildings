@@ -39,6 +39,7 @@ equation
           extent={{-122,106},{-78,78}},
           lineColor={0,0,255},
           textString="u")}),
+defaultComponentName="hea",
 Documentation(info="<html>
 <p>
 Model for an ideal heater or cooler with prescribed heat flow rate to the medium.

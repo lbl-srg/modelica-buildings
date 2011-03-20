@@ -24,6 +24,7 @@ equation
           lineColor={255,255,255},
           textString="eps=%eps")}),
           preferedView="info",
+defaultComponentName="hex",
 Documentation(info="<html>
 <p>
 Model for a heat exchanger with constant effectiveness.

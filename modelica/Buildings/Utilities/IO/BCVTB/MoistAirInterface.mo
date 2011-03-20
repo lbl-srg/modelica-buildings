@@ -81,7 +81,8 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
           textString="HLat")}),
-    Documentation(info="<html>
+defaultComponentName="airInt",
+Documentation(info="<html>
 This model allows interfacing to the 
 <a href=\"http://simulationresearch.lbl.gov/bcvtb\">Building Controls Virtual Test Bed</a>
 an air-conditioning system

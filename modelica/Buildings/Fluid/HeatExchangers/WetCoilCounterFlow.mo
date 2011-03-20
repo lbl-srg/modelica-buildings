@@ -22,6 +22,7 @@ equation
   Q2_flow = QSen2_flow + QLat2_flow;
   Q2_flow*SHR = QSen2_flow;
  annotation (
+defaultComponentName="cooCoi",
     Documentation(info="<html>
 <p>
 Model of a discretized coil with water vapor condensation.

@@ -152,7 +152,8 @@ equation
                           Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-100,-100},{100,100}}),
                                   graphics),
-    Documentation(info="<html>
+defaultComponentName="cooTow",
+Documentation(info="<html>
 <p>
 Model for a steady state cooling tower with variable speed fan using the York calculation for the
 approach temperature at off-design conditions.

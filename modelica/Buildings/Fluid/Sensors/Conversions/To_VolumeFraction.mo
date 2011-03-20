@@ -50,6 +50,7 @@ equation
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid)}),
+defaultComponentName="toVolFra",
 Documentation(info="<html>
 <p>
 This component converts mass fraction to volume fraction for an ideal gas.

@@ -64,7 +64,9 @@ equation
           + ((TSup_nominal+TRet_nominal)/2-TRoo_in_internal) * qRel^(1/m)
           + (TSup_nominal-TRet_nominal)/2 * qRel;
  TRet = TSup - qRel * (TSup_nominal-TRet_nominal);
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="hotWatRes",
+Documentation(info="<html>
 This block computes the set point temperatures for the
 supply and return temperature of a heating system.
 The set point for the room air temperature can either be specified

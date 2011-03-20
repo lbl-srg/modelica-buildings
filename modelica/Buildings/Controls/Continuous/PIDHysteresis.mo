@@ -161,7 +161,8 @@ equation
         Line(points={{-42,68},{-42,34}}, color={0,0,0}),
         Line(points={{12,68},{12,34}}, color={0,0,0}),
         Line(points={{-60,34},{12,34}}, color={0,0,0})}),
-    Documentation(info="<html>
+defaultComponentName="conPID",
+Documentation(info="<html>
 <p>
 Block of a controller for set point tracking with a hysteresis element that switches the
 controller on and off.

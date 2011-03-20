@@ -194,6 +194,7 @@ equation
   // PPD (64)
   PPD = 1 - 0.95*Modelica.Math.exp(-(0.03353*PMV^4 + 0.2179*PMV^2));
   annotation (
+defaultComponentName="com",
     Documentation(info="<html>
 Thermal comfort model according to Fanger, as described in
 the ASHRAE Fundamentals (1997).

@@ -228,7 +228,9 @@ equation
         Line(points={{-80,84},{-80,-84}}, color={192,192,192}),
         Line(points={{-80,-76},{-48,-76},{-48,30},{2,40},{54,-42},{54,-76},{64,
               -76}}, color={0,0,127})}),
-    Documentation(info="<html>
+    Documentation(
+defaultComponentName="conPID",
+info="<html>
 <p>
 Block of a controller for set point tracking with a hysteresis element that switches the controller on and off, and a timer that prevents the
 controller to short cycle.

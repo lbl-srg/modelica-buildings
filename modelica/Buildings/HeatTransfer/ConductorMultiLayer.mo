@@ -118,6 +118,7 @@ equation
           lineColor={0,0,0},
           fillColor={95,95,95},
           fillPattern=FillPattern.Forward)}),
+    defaultComponentName="heaCon",
     Documentation(info="<html>
 This is a model of a heat conductor with multiple material layers and energy storage.
 The construction has at least one material layer, and each layer has

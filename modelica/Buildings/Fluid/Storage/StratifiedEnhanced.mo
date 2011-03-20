@@ -34,7 +34,9 @@ equation
           -60,-40}},       color={0,127,255}));
   connect(mTan_flow.y, str.m_flow) annotation (Line(points={{-73,-32},{-68.5,
           -32},{-68.5,-31.8},{-62,-31.8}}, color={0,0,127}));
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="tan",
+Documentation(info="<html>
 <p>
 This is a model of a stratified storage tank for thermal energy storage.
 The model is identical to

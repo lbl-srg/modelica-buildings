@@ -13,6 +13,7 @@ initial equation
 equation
   phi = Buildings.Fluid.Actuators.BaseClasses.equalPercentage(y, R, l, delta0);
 annotation (
+defaultComponentName="val",
 Documentation(info="<html>
 <p>
 Two way valve with an equal percentage valve opening characteristic.

@@ -34,6 +34,7 @@ initial equation
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
           textString="A=%A")}),
+defaultComponentName="ori",
 Documentation(info="<html>
 <p>
 This model describes the mass flow rate and pressure difference relation

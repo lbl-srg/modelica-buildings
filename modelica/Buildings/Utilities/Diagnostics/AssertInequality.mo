@@ -16,7 +16,9 @@ equation
           textString="u1 > u2")}),            Diagram(coordinateSystem(
           preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
                                                       graphics),
-Documentation(info="<html>
+Documentation(
+defaultComponentName="assIne",
+info="<html>
 <p>
 Model that triggers an assert if 
 <i>u1 > u2 - threShold</i>

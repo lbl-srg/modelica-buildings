@@ -14,6 +14,7 @@ block ToDryAir
 equation
   XiDry = XiTotalAir / (1-XiTotalAir);
     annotation (
+    defaultComponentName="toDryAir",
     Documentation(info="<html>
 <p>
 Block that converts humidity concentration from [kg/kg total air] to [kg/kg dry air].

@@ -146,7 +146,8 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None,
           lineColor={0,0,0})}),
-    Documentation(info="<html>
+defaultComponentName="col",
+Documentation(info="<html>
 <p>
 This model describes the pressure difference of a vertical medium
 column. It can be used to model the pressure difference caused by 

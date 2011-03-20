@@ -51,6 +51,7 @@ equation
   X_w = s*medium.Xi;
   annotation (Diagram(graphics),
                        Icon(graphics),
+defaultComponentName="vol",
 Documentation(info="<html>
 Model for an ideally mixed fluid volume and the ability 
 to store mass and energy. The volume is fixed, 

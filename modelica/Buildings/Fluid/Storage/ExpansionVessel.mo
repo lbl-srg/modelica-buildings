@@ -85,7 +85,8 @@ equation
           extent={{-148,98},{152,138}},
           textString="%name",
           lineColor={0,0,255})}), Diagram(graphics),
-    Documentation(info="<html>
+defaultComponentName="exp",
+Documentation(info="<html>
 <p>
 This is a model of a pressure expansion vessel. The vessel has a fixed total volume. A fraction of the volume is occupied by a fixed mass of gas, and the other fraction is occupied by the liquid that flows through the port.
 The pressure <code>p</code> in the vessel is<pre>

@@ -141,7 +141,8 @@ equation
           points={{100,80},{80,80},{80,20},{6,20}},
           color={0,0,127},
           smooth=Smooth.None)}),
-    Documentation(info="<html>
+defaultComponentName="boi",
+Documentation(info="<html>
 This is a model of a boiler that computes the heat transferred
 to the medium based on an input control signal.
 The efficiency of the boiler can be computed using polynomials

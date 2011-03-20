@@ -92,6 +92,7 @@ equation
         Line(points={{56,-10},{76,-20}}, color={191,0,0}),
         Line(points={{56,10},{76,20}}, color={191,0,0}),
         Line(points={{56,30},{76,20}}, color={191,0,0})}),
+    defaultComponentName="con",
     Documentation(info="<html>
 This is a model for a convective heat transfer.
 The model can be configured to use various functions

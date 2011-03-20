@@ -45,6 +45,7 @@ equation
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                   graphics),
+defaultComponentName="cooTow",
     Documentation(info="<html>
 <p>
 Model for a steady state cooling tower with constant approach temperature.

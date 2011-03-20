@@ -50,13 +50,19 @@ equation
   medium.T = Medium.T_default;
   medium.Xi = Medium.X_default[1:Medium.nXi];
   ports.C_outflow = fill(C_in_internal, nPorts);
-  annotation (Documentation(info="<html>
-This model adds a mass flow rate to the port for an auxiliary
-medium that does not take part in the mass balance of the medium
-model. Instead, this mass transfer is tracked separately. A typical
-use of this source is to add carbon dioxide to a room, since the 
-carbon dioxide concentration is typically so small that it need not be added to the
-room mass balance.
+  annotation (
+defaultComponentName="souTraSub",
+Documentation(info="<html>
+This model can be used to inject trace substances into a system.
+The model adds a mass flow rate to its port with a
+trace substance concentration of <i>1</i>.
+</p>
+<p>
+A typical use of this model is to add carbon dioxide to room air, since the 
+carbon dioxide concentration is typically so small that it need not be 
+added to the room mass balance, and since the mass flow rate can be
+made small compared to the room volume if the medium that leaves this
+component has a carbon dioxide concentration of <i>1</i>.
 </html>", revisions="<html>
 <ul>
 <li>

@@ -69,6 +69,7 @@ equation
           pattern=LinePattern.None,
           fillColor={255,128,0},
           fillPattern=FillPattern.Solid)}),
+defaultComponentName="doo",
 Documentation(info="<html>
 <p>
 This model describes the bi-directional air flow through an open door.

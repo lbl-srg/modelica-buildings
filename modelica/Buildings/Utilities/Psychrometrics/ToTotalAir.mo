@@ -19,6 +19,7 @@ equation
   XiTotalAir = XiDry / (1+XiDry);
   XNonVapor = 1 - XiTotalAir;
     annotation (
+    defaultComponentName="toTotAir",
     Documentation(info="<html>
 <p>
 Block that converts humidity concentration from [kg/kg dry air] to [kg/kg total air].

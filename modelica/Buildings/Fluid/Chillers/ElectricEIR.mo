@@ -132,6 +132,7 @@ equation
           smooth=Smooth.None,
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid)}),
+defaultComponentName="chi",
 Documentation(info="<html>
 <p>
 Model of an electric chiller, based on the DOE-2.1 chiller model and

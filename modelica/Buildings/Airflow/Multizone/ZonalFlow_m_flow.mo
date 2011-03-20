@@ -12,7 +12,9 @@ equation
   port_a1.m_flow = mAB_flow;
   port_a2.m_flow = mBA_flow;
 
-  annotation (Icon(graphics),        Documentation(info="<html>
+  annotation (Icon(graphics),
+defaultComponentName="floExc",
+Documentation(info="<html>
 <p>
 This model computes the air exchange between volumes.
 </p>

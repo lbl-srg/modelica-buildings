@@ -12,7 +12,9 @@ block LimPID
     "Set to true for throttling the water flow rate through a cooling coil controller";
 protected
   parameter Real revAct = if reverseAction then -1 else 1;
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="conPID",
+Documentation(info="<html>
 This model is identical to 
 <a href=\"Modelica:Modelica.Blocks.Continuous.LimPID\">
 Modelica.Blocks.Continuous.LimPID</a> except

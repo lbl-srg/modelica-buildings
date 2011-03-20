@@ -318,6 +318,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
  annotation (
+defaultComponentName="heaCoi",
     Documentation(info="<html>
 <p>
 Model of a discretized coil with no water vapor condensation.

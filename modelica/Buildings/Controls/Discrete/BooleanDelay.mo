@@ -13,6 +13,7 @@ algorithm
   annotation (Icon(graphics={Line(points={{-72,-48},{-46,-48},{-46,-6},{-20,-6},
               {-20,18},{0,18},{0,58},{24,58},{24,14},{44,14},{44,-6},{50,-6},{
               50,-6},{68,-6}})}),
+defaultComponentName="del",
 Documentation(
 info="<html>
 <p>

@@ -333,6 +333,7 @@ equation
           extent={{-124,-164},{-34,-204}},
           lineColor={0,0,127},
           textString="QAbsUns")}),
+    defaultComponentName="win",
     Documentation(info="<html>
 <h4>Overview</h4>
 This is a model for a window system. The equations are similar to the

@@ -18,6 +18,7 @@ equation
   X_w = Buildings.Utilities.Psychrometrics.Functions.X_pW(p_w=p_w, p=p_in_internal);
   x_w = X_w/(1-X_w);
   annotation (
+defaultComponentName="humRat",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
             graphics),

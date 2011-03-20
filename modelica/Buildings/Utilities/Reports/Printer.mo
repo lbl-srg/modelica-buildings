@@ -88,7 +88,8 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
-                            Documentation(info="<html>
+defaultComponentName="pri",
+Documentation(info="<html>
 <p>
 This model prints to a file or the terminal at a fixed sample interval.
 </p>

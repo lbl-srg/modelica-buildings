@@ -110,6 +110,7 @@ annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100}
                        Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-100,-100},{100,100}}),
                                graphics),
+defaultComponentName="mov",
     Documentation(revisions="<html>
 <ul>
 <li>

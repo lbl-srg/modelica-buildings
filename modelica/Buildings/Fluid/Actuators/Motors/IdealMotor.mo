@@ -72,7 +72,9 @@ equation
           6.10623e-016},{93.5,5.55112e-016},{110,5.55112e-016}}, color={0,0,127}));
   connect(int.y, feeBac.u2) annotation (Line(points={{81,6.10623e-016},{94,
           6.10623e-016},{94,-88},{-80,-88},{-80,-8}}, color={0,0,127}));
-   annotation (Documentation(info="<html>
+   annotation (
+defaultComponentName="mot",
+Documentation(info="<html>
 Ideal actuator motor model with hysteresis and finite actuation speed.
 If the current actuator position <code>y</code> is below (or above) the
 input signal <code>u</code> by an amount bigger than the hysteresis

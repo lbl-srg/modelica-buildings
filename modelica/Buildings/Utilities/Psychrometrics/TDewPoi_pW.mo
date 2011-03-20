@@ -18,6 +18,7 @@ block TDewPoi_pW
 equation
  p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);
     annotation (
+    defaultComponentName="dewPoi",
     Documentation(info="<html>
 <p>
 Dew point temperature calculation for moist air above freezing temperature.

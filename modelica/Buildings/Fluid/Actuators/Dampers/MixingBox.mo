@@ -301,7 +301,8 @@ equation
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
-    Documentation(revisions="<html>
+defaultComponentName="eco",
+Documentation(revisions="<html>
 <ul>
 <li>
 February 23, 2010 by Michael Wetter:<br>

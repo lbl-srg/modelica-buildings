@@ -54,7 +54,8 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="%%")}),
-    Documentation(info="<html>
+defaultComponentName="val",
+Documentation(info="<html>
 <p>
 Three way valve with equal percentage characteristics
 between <code>port_1</code> and <code>port_2</code> 

@@ -80,6 +80,7 @@ equation
           pattern=LinePattern.None,
           fillColor={255,0,0},
           fillPattern=FillPattern.Solid)}),
+defaultComponentName="hum",
 Documentation(info="<html>
 <p>
 Model for an air humidifier or dehumidifier.

@@ -199,7 +199,8 @@ equation
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={0,128,255})}),
-    Documentation(info="<html>
+defaultComponentName="col",
+Documentation(info="<html>
 <p>
 This model contains a completely mixed fluid volume and
 models that take into account the pressure difference of 

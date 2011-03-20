@@ -377,7 +377,8 @@ equation
           smooth=Smooth.None,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid)}),
-    Documentation(revisions="<html>
+defaultComponentName="conWin",
+Documentation(revisions="<html>
 <ul>
 <li>
 December 6 2010, by Michael Wetter:<br>

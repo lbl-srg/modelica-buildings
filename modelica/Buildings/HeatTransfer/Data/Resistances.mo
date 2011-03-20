@@ -20,6 +20,7 @@ package Resistances "Package with thermal resistances"
             extent={{-98,-72},{96,-94}},
             lineColor={0,0,255},
             textString="R=%R")}),
+defaultComponentName="mat",
                 Documentation(info="<html>
 Generic record for thermal properties of
 heat resistances.

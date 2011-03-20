@@ -22,6 +22,7 @@ protected
           extent={{-72,22},{68,-18}},
           lineColor={0,0,0},
           textString="tau=%tau")}),
+defaultComponentName="del",
     Documentation(info="<html>
 <p>
 This model approximates a transport delay using a first order differential equations.

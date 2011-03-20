@@ -19,6 +19,7 @@ equation
           extent={{-152,102},{148,142}},
           textString="%name",
           lineColor={0,0,255})}),
+defaultComponentName="vol",
 Documentation(info="<html>
 Model for an ideally mixed fluid volume and the ability 
 to store mass and energy. The volume is fixed, 

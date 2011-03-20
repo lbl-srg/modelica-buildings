@@ -40,7 +40,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="tab",
+Documentation(info="<html>
 This block can be used to schedule a set-point by using piecewise linear functions.
 For example, the instances
 <pre>

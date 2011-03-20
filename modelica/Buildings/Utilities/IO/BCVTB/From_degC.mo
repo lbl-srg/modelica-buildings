@@ -15,6 +15,7 @@ block From_degC "Converts Celsius to Kelvin"
 equation
   Celsius = Modelica.SIunits.Conversions.to_degC(Kelvin);
 annotation (
+defaultComponentName="froDegC",
 Documentation(info="<html>
 <p>
 Converts the input from Kelvin to degree Celsius.

@@ -8,6 +8,7 @@ protected
 equation
   phi = l + Modelica.Fluid.Utilities.regPow(y, alpInv, delta0) * (1 - l);
 annotation (
+defaultComponentName="val",
 Documentation(info="<html>
 <p>
 Two way valve with a power function for the valve opening characteristic.

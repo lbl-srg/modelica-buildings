@@ -38,7 +38,9 @@ algorithm
       end if;
     end if;
   end for;
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="numReq",
+Documentation(info="<html>
 <p>
 Block that outputs the number of inputs that exceed a threshold.
 </p>

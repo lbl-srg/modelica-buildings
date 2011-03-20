@@ -23,6 +23,7 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),
             graphics),
+    defaultComponentName="pWat",
     Documentation(info="<html>
 <p>
 Block to compute the water vapor partial pressure for a given humidity ratio.

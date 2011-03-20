@@ -4,6 +4,7 @@ block Min "Minimum element of a vector"
 equation
  y = min(u);
 annotation (
+defaultComponentName="min",
 Documentation(info="<html>
 <p>
 Outputs the minimum of the vector.

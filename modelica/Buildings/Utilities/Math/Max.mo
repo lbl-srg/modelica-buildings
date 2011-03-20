@@ -3,7 +3,7 @@ block Max "Maximum element of a vector"
   extends Modelica.Blocks.Interfaces.MISO;
 equation
  y = max(u);
-annotation (
+annotation (defaultComponentName="max",
 Documentation(info="<html>
 <p>
 Outputs the minimum of the vector.

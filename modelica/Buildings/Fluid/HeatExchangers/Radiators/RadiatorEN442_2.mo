@@ -259,6 +259,7 @@ equation
           points={{66,60},{66,-60}},
           color={0,0,0},
           smooth=Smooth.None)}),
+    defaultComponentName="rad",
     Documentation(info="<html>
 This is a model of a radiator that can be used as a dynamic or steady-state model.
 The required parameters are data that are typically available from

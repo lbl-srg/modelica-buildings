@@ -38,6 +38,7 @@ equation
           fillPattern=FillPattern.Solid),
         Line(points={{-78,-34},{-58,-34},{-58,-78},{-28,-78},{-28,-34},{40,-34},
               {40,-78},{68,-78}}, color={255,0,255})}),
+defaultComponentName="offTim",
     Documentation(info="<html>
 <p>
 Block that records the time that has elapsed since its input signal switched to false.

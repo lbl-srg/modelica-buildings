@@ -204,7 +204,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Documentation(info="<html>
+defaultComponentName="heaCoi",
+Documentation(info="<html>
 <p>
 Model of a discretized coil without water vapor condensation.
 The coil consists of two flow paths which are, at the design flow direction,

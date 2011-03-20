@@ -105,6 +105,7 @@ annotation (
           extent={{62,22},{92,-22}},
           lineColor={0,0,127},
           textString="TWetBul")}),
+    defaultComponentName="wetBul",
     Documentation(info="<html>
 <p>
 Given a moist are medium model, this component computes the states 

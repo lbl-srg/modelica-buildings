@@ -108,7 +108,9 @@ of the modeller. Increase nPorts to add an additional port.
       color={191,0,0},
       smooth=Smooth.None));
 
-  annotation (Documentation(info="<html>
+  annotation (
+defaultComponentName="vol",
+Documentation(info="<html>
 This model represents an instantaneously mixed volume. 
 Potential and kinetic energy at the port are neglected,
 and there is no pressure drop at the ports.

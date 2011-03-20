@@ -9,6 +9,7 @@ equation
   kVal = CD*dA*sqrt(2/rhoAve);
   annotation (Diagram(graphics),
                        Icon(graphics),
+defaultComponentName="doo",
 Documentation(info="<html>
 <p>
 This model describes the bi-directional air flow through an open door.

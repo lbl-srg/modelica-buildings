@@ -19,6 +19,7 @@ equation
   JOut_1 = - u    * JIn;
   JOut_2 = - (1-u)* JIn;
   annotation (
+defaultComponentName="radSpl",
     Documentation(info="
 <html>
 <p>

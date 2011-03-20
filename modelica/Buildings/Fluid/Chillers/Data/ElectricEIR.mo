@@ -16,7 +16,9 @@ package ElectricEIR "Performance data for chiller ElectricEIR"
       "Maximum value for entering condenser temperature"
       annotation (Dialog(group="Performance curves"));
 
-    annotation (Documentation(info="<html>
+    annotation (
+defaultComponentName="per",
+Documentation(info="<html>
 This record is used as a template for performance data
 for the chiller model
 <a href=\"Buildings.Fluid.Chillers.ElectricEIR\">

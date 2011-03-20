@@ -90,7 +90,8 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="yMin")}),
-    Documentation(revisions="<html>
+defaultComponentName="eco",
+Documentation(revisions="<html>
 <ul>
 <li>
 February 24, 2010 by Michael Wetter:<br>

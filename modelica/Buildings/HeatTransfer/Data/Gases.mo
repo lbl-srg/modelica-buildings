@@ -37,7 +37,9 @@ First implementation.
 
       constant Modelica.SIunits.Pressure P0 = 101325 "Normal pressure";
 
-    annotation (Documentation(info="<html>
+    annotation (
+defaultComponentName="gas",
+Documentation(info="<html>
 Generic record for thermophysical properties for window
 gas fills.
 The implementation is according to 

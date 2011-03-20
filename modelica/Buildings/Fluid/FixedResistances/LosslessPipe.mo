@@ -35,6 +35,7 @@ equation
           extent={{-104,-50},{18,-116}},
           lineColor={0,0,255},
           textString="dp_nominal=0")}),
+defaultComponentName="pip",
     Documentation(info="<html>
 <p>
 Model of a pipe with no flow resistance and no heat loss.

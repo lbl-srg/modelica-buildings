@@ -68,6 +68,7 @@ equation
           lineColor={255,255,255},
           textString="epsL=%epsL")}),
           preferedView="info",
+defaultComponentName="masExc",
 Documentation(info="<html>
 <p>
 Model for a heat and moisture exchanger with constant effectiveness.

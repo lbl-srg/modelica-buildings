@@ -23,7 +23,9 @@ initial algorithm
 
 equation
   k = kDam "flow coefficient for resistance base model";
-   annotation (Documentation(info="<html>
+   annotation (
+defaultComponentName="dam",
+Documentation(info="<html>
 This model is an air damper with flow coefficient that is an exponential function 
 of the opening angle. The model is as in ASHRAE 825-RP.
 A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper 

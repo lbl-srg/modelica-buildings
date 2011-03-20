@@ -129,6 +129,7 @@ equation
           extent={{-98,-68},{98,-90}},
           lineColor={0,0,255},
           textString="A=%A")}),
+    defaultComponentName="conOpa",
     Documentation(info="<html>
 This is a model for a construction that does not transmit light.
 The construction can consist of one or more layers of material. Inside

@@ -43,7 +43,8 @@ equation
                        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                             graphics),
-    Documentation(info="<html>
+defaultComponentName="val",
+Documentation(info="<html>
 <p>
 Three way valve with linear opening characteristic.
 </p><p>

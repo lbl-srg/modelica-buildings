@@ -68,6 +68,7 @@ equation
           fillColor={135,135,135},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None)}),
+defaultComponentName="radInd",
     Documentation(info="<html>
 Model for the indoor emissive power that hits a window.
 The computation is according to TARCOG 2006.

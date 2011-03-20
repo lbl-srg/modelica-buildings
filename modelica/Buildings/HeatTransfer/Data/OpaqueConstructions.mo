@@ -45,6 +45,7 @@ package OpaqueConstructions
             lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Backward)}),
+defaultComponentName="opaCon",
 Documentation(info="<html>
 Generic record with material definitions for constructions
 with one or more layers of material.

@@ -1,10 +1,10 @@
 within Buildings.HeatTransfer;
-package BaseClasses "Package with base classes for HeatTransfer package"
+package BaseClasses "Package with base classes for Buildings.HeatTransfer"
   extends Modelica.Fluid.Icons.BaseClassLibrary;
-
-
-  annotation (Documentation(info="<html>
-This package contains base classes that are used by various models
-in the <code>Buildings.HeatTransfer</code> package.
+annotation (preferedView="info", Documentation(info="<html>
+<p>
+This package contains base classes that are used to construct the models in
+<a href=\"modelica://Buildings.HeatTransfer\">Buildings.HeatTransfer</a>.
+</p>
 </html>"));
 end BaseClasses;

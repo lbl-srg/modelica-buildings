@@ -16,7 +16,9 @@ package Glasses "Package with thermophysical properties for window glas"
       "Long-wave emissivity of surface a (usually outside-facing surface)";
    parameter Modelica.SIunits.Emissivity epsLW_b = 0.84
       "Long-wave emissivity of surface b (usually room-facing surface)";
-    annotation (Documentation(info="<html>
+    annotation (
+defaultComponentName="gla",
+Documentation(info="<html>
 <p>
 This record implements thermophysical properties for window glas.
 </p>

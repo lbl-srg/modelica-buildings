@@ -1,7 +1,7 @@
 within Buildings.BaseClasses;
 partial class BaseIconExamples "Icon for Examples packages"
 
-  annotation (             Icon(coordinateSystem(
+  annotation(Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
         grid={1,1}), graphics={
@@ -19,6 +19,20 @@ partial class BaseIconExamples "Icon for Examples packages"
           points={{100,70},{100,-80},{80,-100},{80,50},{100,70}},
           lineColor={0,0,0},
           fillColor={179,179,119},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+          Documentation(
+info="<html>
+<p>
+Basic class that provides an icon for the <code>Examples</code> packages.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+April 28, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 
 end BaseIconExamples;

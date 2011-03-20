@@ -3,7 +3,7 @@ block Average "Average of a vector"
   extends Modelica.Blocks.Interfaces.MISO;
 equation
  y = sum(u)/nin;
-annotation (
+annotation (defaultComponentName="ave",
 Documentation(info="<html>
 <p>
 This function outputs the average of the vector.

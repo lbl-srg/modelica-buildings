@@ -10,6 +10,7 @@ model WetCoilDiscretized
     temSen_1(m_flow_nominal=m1_flow_nominal),
     temSen_2(m_flow_nominal=m2_flow_nominal));
  annotation (
+defaultComponentName="cooCoi",
     Documentation(info="<html>
 <p>
 Model of a discretized coil with humidity condensation.

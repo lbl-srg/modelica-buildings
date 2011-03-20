@@ -460,6 +460,7 @@ equation
           fillPattern=FillPattern.Solid,
           textString="surface")}),
     preferedView="info",
+    defaultComponentName="roo",
     Documentation(info="<html>
 <p>The package <b>Buildings.RoomsBeta</b> contains models for heat transfer 
 through the building envelope.</p>

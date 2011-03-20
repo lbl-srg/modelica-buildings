@@ -60,6 +60,7 @@ model SplitterFixedResistanceDpM
           lineColor={0,0,127},
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid)}),
+defaultComponentName="spl",
     Documentation(info="<html>
 <p>
 Model of a flow splitter or mixer with a fixed resistance in each flow leg.

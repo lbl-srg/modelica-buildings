@@ -34,7 +34,9 @@ package GlazingSystems
     final parameter Boolean haveShade = haveInteriorShade or haveExteriorShade
       "Parameter that is true if the construction has a shade";
 
-    annotation (Documentation(info="<html>
+    annotation (
+defaultComponentName="glaSys",
+Documentation(info="<html>
 Generic record that implements thermophysical properties for glazing systems.
 </html>",
   revisions="<html>

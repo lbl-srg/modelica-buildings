@@ -26,7 +26,9 @@ First implementation.
    final parameter Boolean isFloor=til > 2.74889125 and til < 3.53428875
       "Flag, true if construction is a floor" annotation (Evaluate=true);
 
-    annotation (Documentation(info="<html>
+    annotation (
+defaultComponentName="opaSur",
+Documentation(info="<html>
 This record implements thermophysical properties for opaque surfaces.
 </html>",
   revisions="<html>

@@ -44,7 +44,9 @@ equation
           extent={{-92,108},{16,66}},
           lineColor={0,0,127},
           textString=
-               "ACS = %ACS")}),      Documentation(info="<html>
+               "ACS = %ACS")}),
+defaultComponentName="floExc",
+Documentation(info="<html>
 <p>
 This model computes the air exchange between volumes.
 </p>

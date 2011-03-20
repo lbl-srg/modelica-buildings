@@ -26,7 +26,9 @@ equation
    k = if noEvent(kDam>Modelica.Constants.eps) then sqrt(1/(1/kResSqu + 1/kDam^2)) else 0
     "flow coefficient for resistance base model";
 
-   annotation (Documentation(info="<html>
+   annotation (
+defaultComponentName="vavDam",
+Documentation(info="<html>
 <p>
 Model of two resistances in series. One resistance has a fixed flow coefficient, the
 other resistance is an air damper whose flow coefficient is an exponential function of the opening angle.
