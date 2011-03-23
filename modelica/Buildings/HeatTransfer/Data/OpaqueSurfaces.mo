@@ -5,7 +5,15 @@ package OpaqueSurfaces
 annotation (
 preferedView="info",
 Documentation(info="<html>
+<p>
 Package with records for opaque surfaces.
+</p>
+<p>
+The parameter <code>epsLW</code>
+is used to compute long-wave heat radiation (in the infrared spectrum).
+The parameter <code>epsSW</code>
+is used to compute short-wave heat radiation (in the solar spectrum).
+</p>
 </html>",
   revisions="<html>
 <ul>
@@ -29,7 +37,15 @@ First implementation.
     annotation (
 defaultComponentName="opaSur",
 Documentation(info="<html>
+<p>
 This record implements thermophysical properties for opaque surfaces.
+</p>
+<p>
+The parameter <code>epsLW</code>
+is used to compute long-wave heat radiation (in the infrared spectrum).
+The parameter <code>epsSW</code>
+is used to compute short-wave heat radiation (in the solar spectrum).
+</p>
 </html>",
   revisions="<html>
 <ul>

@@ -52,6 +52,13 @@ with one or more layers of material.
 By convention, <code>layer[1]</code> is facing the outside, and the last
 layer is facing the room-side.
 This is the same convention as is used in EnergyPlus and in Window 6.
+</p>
+<p>
+The parameters <code>epsLW_a</code> and <code>epsLW_b</code>
+are used to compute long-wave heat radiation (in the infrared spectrum).
+The parameters <code>epsSW_a</code> and <code>epsSW_b</code>
+are used to compute short-wave heat radiation (in the solar spectrum).
+</p>
 </html>",
 revisions="<html>
 <ul>
@@ -78,12 +85,22 @@ First implementation.
           Solids.Concrete(x=0.2)}, final nLay=1)
     "Construction with 200mm concrete";
 
-  annotation (Documentation(info="<html>
+  annotation (preferedView="info",
+Documentation(info="<html>
+<p>
 Package with material definitions for constructions
 with one or more layers of material.
 By convention, <code>layer[1]</code> is facing the outside, and the last
 layer is facing the room-side.
 This is the same convention as is used in EnergyPlus and in Window 6.
+</p>
+<p>
+The parameters <code>epsLW_a</code> and <code>epsLW_b</code>
+are used to compute long-wave heat radiation (in the infrared spectrum).
+The parameters <code>epsSW_a</code> and <code>epsSW_b</code>
+are used to compute short-wave heat radiation (in the solar spectrum).
+</p>
+
 </html>",
 revisions="<html>
 <ul>
