@@ -2,8 +2,8 @@ within Buildings.Fluid.Utilities;
 function extendedPolynomial
   "Polynomial that is linearly extended at user specified values"
   extends Modelica.Icons.Function;
-  input Real[:] c "Polynomial coefficients";
   input Real x "x value";
+  input Real[:] c "Polynomial coefficients";
   input Real xMin "Minimum x value for polynomial";
   input Real xMax "Maximum x value for polynomial";
   output Real y "y value";
@@ -40,8 +40,12 @@ in such a way that the first derivative is continuous everywhere.
 </html>", revisions="<html>
 <ul>
 <li>
+March 23, 2011 by Michael Wetter:<br>
+Changed order of argument list to make <code>x</code> the first argument.
+</li>
+<li>
 September 11, 2007 by Michael Wetter:<br>
-Fixed error in computing the polynomial outside of <code>xMin</code> and <code>xMax</code>.
+Fixed error in computing the polynomial outside of <code>xMin</code> and <code>xMax</code>.</li>
 <li>
 July 19, 2007 by Michael Wetter:<br>
 First implementation.

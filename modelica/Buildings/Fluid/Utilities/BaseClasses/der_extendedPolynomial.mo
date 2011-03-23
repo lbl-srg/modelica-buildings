@@ -2,8 +2,8 @@ within Buildings.Fluid.Utilities.BaseClasses;
 function der_extendedPolynomial
   "Polynomial that is linearly extended at user specified values"
   extends Modelica.Icons.Function;
-  input Real[:] c "Polynomial coefficients";
   input Real x "x value";
+  input Real[:] c "Polynomial coefficients";
   input Real xMin "Minimum x value for polynomial";
   input Real xMax "Maximum x value for polynomial";
   input Real der_x;
@@ -35,6 +35,10 @@ extendedPolynomial</a> with respect to <code>x</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 23, 2011 by Michael Wetter:<br>
+Changed order of argument list to make <code>x</code> the first argument.
+</li>
 <li>
 June 16, 2008 by Michael Wetter:<br>
 First implementation.
