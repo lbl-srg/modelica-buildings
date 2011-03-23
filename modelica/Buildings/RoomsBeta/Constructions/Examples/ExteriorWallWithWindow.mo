@@ -43,6 +43,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     haveExteriorShade={glaSys.haveExteriorShade},
     haveInteriorShade={glaSys.haveInteriorShade},
     lat=0.73268921998722,
+    conMod={Buildings.RoomsBeta.Types.ConvectionModel.Fixed},
     til={Buildings.RoomsBeta.Types.Tilt.Wall})
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));

@@ -16,6 +16,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
     AOpa={1},
     epsSW={0.5},
     lat=0.73268921998722,
+    conMod={Buildings.RoomsBeta.Types.ConvectionModel.Temperature},
     til={Buildings.RoomsBeta.Types.Tilt.Wall})
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{74,-14},{114,26}})));
