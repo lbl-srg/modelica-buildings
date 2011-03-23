@@ -11,12 +11,13 @@ model ExtendedPolynomialDerivativeCheck
 initial equation
    y=x;
 equation
-  x=Buildings.Fluid.Utilities.extendedPolynomial(c, time, xMin, xMax);
+  x=Buildings.Fluid.Utilities.extendedPolynomial(
+      x=time, c=c, xMin=xMin, xMax=xMax);
   der(y)=der(x);
   assert(abs(x-y) < 1E-2, "Model has an error");
 
  annotation(Diagram(graphics),
-                     Commands(file="ExtendedPolynomialDerivativeCheck.mos" "run"),
+    Commands(file="ExtendedPolynomialDerivativeCheck.mos" "run"),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -25,6 +26,10 @@ is not correct, the model will stop with an assert statement.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 23, 2011 by Michael Wetter:<br>
+Changed order of argument list to make <code>x</code> the first argument.
+</li>
 <li>
 April 14, 2008, by Michael Wetter:<br>
 First implementation.
