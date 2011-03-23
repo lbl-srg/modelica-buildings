@@ -50,7 +50,7 @@ model ExteriorWallTwoWindows
     haveExteriorShade={glaSys1.haveExteriorShade, glaSys2.haveExteriorShade},
     haveInteriorShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade},
     lat=0.73268921998722,
-    conMod={Buildings.RoomsBeta.Types.ConvectionModel.Fixed},
+    conMod={Buildings.RoomsBeta.Types.ConvectionModel.Fixed, Buildings.RoomsBeta.Types.ConvectionModel.Fixed},
     til={Buildings.RoomsBeta.Types.Tilt.Wall,Buildings.RoomsBeta.Types.Tilt.Wall},
     azi={0,0})
     "Exterior boundary conditions for constructions without a window"
