@@ -19,8 +19,7 @@ model ExteriorBoundaryConditions
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a opa_a[nCon]
     "Heat port at surface a of opaque construction"
     annotation (Placement(transformation(extent={{-310,190},{-290,210}})));
-  parameter Types.ConvectionModel[nCon] conMod=
-   {Buildings.RoomsBeta.Types.ConvectionModel.Fixed for i in 1:nCon}
+  parameter Types.ConvectionModel[nCon] conMod
     "Convective heat transfer model";
   HeatTransfer.Convection conOpa[nCon](final A=AOpa,
     final conMod=conMod,
@@ -197,6 +196,10 @@ Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 </html>",
         revisions="<html>
 <ul>
+<li>
+March 23, 2011, by Michael Wetter:<br>
+Removed default value for convection model.
+</li>
 <li>
 November 23, 2010, by Michael Wetter:<br>
 First implementation.

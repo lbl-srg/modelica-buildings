@@ -135,6 +135,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final til=datConExt.til,
     final azi=datConExt.azi,
     linearizeRadiation = linearizeRadiation,
+    conMod=datConExt.conMod,
     final epsLW=datConExt.layers.epsLW_a,
     final epsSW=datConExt.layers.epsSW_a) if
        haveConExt
@@ -150,6 +151,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final AWin=datConExtWin.AWin,
     final fFra=datConExtWin.fFra,
     linearizeRadiation = linearizeRadiation,
+    conMod=datConExtWin.conMod,
     final epsLW=datConExtWin.layers.epsLW_a,
     final epsLWSha_air={datConExtWin[i].glaSys.shade.epsLW_a for i in 1:nConExtWin},
     final epsLWSha_glass={datConExtWin[i].glaSys.shade.epsLW_b for i in 1:nConExtWin},
@@ -506,6 +508,7 @@ which consists of several sub-models.
 </ol>
 </p>
 <h4>Model instantiation</h4>
+<!-- fixme: Add description for how to set convection model. -->
 <p>The next paragraphs describe how to instantiate a room model.
 To instantiate a room model, 
 <ol>
@@ -826,7 +829,7 @@ The declaration
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    linearizeRadiation = true ,</span></p>
 
 </pre>
-causes the equations for radiative and convective heat transfer to be linearized. This can
+causes the equations for radiative heat transfer to be linearized. This can
 reduce computing time at the expense of accuracy.
 </p>
 <p>
@@ -848,6 +851,10 @@ sets the latitude of the building which needs to correspond with the latitude of
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 23, 2011, by Michael Wetter:<br>
+Propagated convection model to exterior boundary condition models.
+</li>
 <li>
 December 14, 2010, by Michael Wetter:<br>
 First implementation.
