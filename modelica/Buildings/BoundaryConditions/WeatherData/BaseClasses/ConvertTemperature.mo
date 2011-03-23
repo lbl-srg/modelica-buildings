@@ -3,11 +3,15 @@ block ConvertTemperature
   "Converts the temperature unit from Celsius to Kelvin and checks the validity of data"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
-  Modelica.Blocks.Interfaces.RealInput TemC(final quantity="Temperature",
-      final unit="degC") "Temperature in Celsius"
+  Modelica.Blocks.Interfaces.RealInput TemC(
+      final quantity="Temperature",
+      final unit="degC",
+      displayUnit="degC") "Temperature in Celsius"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealOutput TemK(final quantity="Temperature",
-      final unit="K") "Temperature in Kelvin"
+  Modelica.Blocks.Interfaces.RealOutput TemK(
+      final quantity="Temperature",
+      final unit="K",
+      displayUnit="degC") "Temperature in Kelvin"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
   constant Modelica.SIunits.Temperature TMin=273.15 - 70
@@ -32,6 +36,10 @@ the simulation will stop with an error.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+March 23, 2011, by Michael Wetter:<br>
+Set <code>displayUnit</code> argument for temperature output signal.
+</li>
 <li>
 July 08, 2010, by Wangda Zuo:<br>
 First implementation.
