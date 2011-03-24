@@ -33,7 +33,6 @@ import getopt
 LIBHOME=os.path.abspath(".")
 MODELICA_EXE='dymola'
 NPRO=multiprocessing.cpu_count()
-NPRO=1
 
 
 # Number of processors used to run the unit tests
