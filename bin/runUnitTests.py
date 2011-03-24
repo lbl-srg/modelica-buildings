@@ -33,6 +33,9 @@ import getopt
 LIBHOME=os.path.abspath(".")
 MODELICA_EXE='dymola'
 NPRO=multiprocessing.cpu_count()
+NPRO=1
+
+
 # Number of processors used to run the unit tests
 ##if multiprocessing.cpu_count() >= 16:
 ##    NPRO=multiprocessing.cpu_count()-4
@@ -54,8 +57,15 @@ def usage():
 # Check if argument is an executable
 def isExecutable(program):
     import os
+    import platform
+
     def is_exe(fpath):
         return os.path.exists(fpath) and os.access(fpath, os.X_OK)
+
+    # Add .exe, which is needed on Windows 7 to test existence
+    # of the program
+    if platform.system() == "Windows":
+        program=program + ".exe"
 
     if is_exe(program):
         return True
@@ -99,13 +109,13 @@ def getUnitTests(listOfTests, libDir):
                 pos=filNam.find('.mos')
                 if pos > -1:
                     # find files that contain simulate command
-                    filFulNam=os.path.join(root, filNam)
-                    filObj=open(filFulNam, 'r')
+                    filRelNam=os.path.join(root[len(libDir)+1:], filNam)
+                    filObj=open(filRelNam, 'r')
                     filTex=filObj.read()
                     strpos=filTex.find("simulate")
                     if strpos > -1:
                         listOfTests.append("RunScript(\""
-                                           + os.path.join(root, filNam) 
+                                           + filRelNam
                                            + "\");\n")
                     filObj.close()
 
@@ -114,8 +124,8 @@ def runSimulation(worDir):
     import sys
     import subprocess
     try:
-        print "Starting ", MODELICA_EXE, " in ", worDir
-        logFil = open(os.path.join(worDir, "stdout.log"), 'w')
+        logFilNam=os.path.join(worDir, 'stdout.log')
+        logFil = open(logFilNam, 'w')
         retcode = subprocess.Popen(args=[MODELICA_EXE, "runAll.mos", "/nowindow"], 
                                    stdout=logFil,
                                    stderr=logFil,
@@ -230,7 +240,7 @@ def countClasses(dir):
     print "Number of models   : ", str(iMod)
     print "          blocks   : ", str(iBlo)
     print "          functions: ", str(iFun)
-      
+
 # --------------------------
 # Write the script that runs all example problems, and
 # that searches for errors
@@ -307,10 +317,12 @@ for iPro in range(NPRO):
     writeRunscript(temDirNam[iPro], iPro, NPRO)    
     
 # Start all unit tests in parallel
-if __name__ == '__main__':
+if __name__ == '__main__' and NPRO > 1:
     from multiprocessing import Pool
     po = Pool(NPRO)
     po.map(runSimulation, temDirNam)
+else:
+    runSimulation(temDirNam[0])
 
 # Concatenate output files into one file
 logFil=open('unitTests.log', 'w')
