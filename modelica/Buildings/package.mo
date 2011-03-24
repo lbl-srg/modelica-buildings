@@ -121,6 +121,24 @@ its class name ends with the string <code>Beta</code>.
 
   package ReleaseNotes "Release notes"
 
+  class Version_0_11_1 "Version 0.11.1"
+
+  annotation (Documentation(info="<html>
+<p>
+<b>Note:</b> The packages whose name ends with <code>Beta</code>
+are still being validated.
+</p>
+<ul>
+<li>
+xxxx
+</li>
+</ul>
+</p>
+</html>
+"));
+  end Version_0_11_1;
+
+
   class Version_0_11_0 "Version 0.11.0"
 
   annotation (Documentation(info="<html>
@@ -873,6 +891,9 @@ on the Buildings library
 </p>
 <ul>
 <li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_1\">
+Version 0.11.1 </a>(fixme, 2011)</li>
+<li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">
 Version 0.11.0 </a>(March 17, 2011)</li>
 <li> 
@@ -1187,7 +1208,7 @@ end UsersGuide;
 
 
 annotation (preferedView="info",
-      version="0.11.0",
+      version="0.11.1",
       uses(Modelica(version="3.1")),
       Documentation(info="<html>
 The <code>Buildings</code> library is a free library
