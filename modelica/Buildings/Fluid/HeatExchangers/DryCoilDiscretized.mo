@@ -146,7 +146,7 @@ public
     annotation (Dialog(group="Nominal condition"));
 
 protected
-  BaseClasses.CoilHeader hea1[nReg/2](
+  BaseClasses.CoilHeader hea1[div(nReg,2)](
       redeclare each final package Medium = Medium1,
       each final nPipPar = nPipPar,
       each final mStart_flow_a=mStart_flow_a1,
@@ -156,7 +156,7 @@ protected
         origin={50,6},
         extent={{-10,-10},{10,10}},
         rotation=180)));
-  BaseClasses.CoilHeader hea2[nReg/2-1](
+  BaseClasses.CoilHeader hea2[div(nReg,2)-1](
       redeclare each final package Medium = Medium1,
       each final nPipPar = nPipPar,
       each final mStart_flow_a=mStart_flow_a1,
@@ -262,19 +262,19 @@ equation
   for i in 1:2:nReg loop
 
   // header after first hex register
-    connect(hexReg[i].port_b1, hea1[(i+1)/2].port_a)
+    connect(hexReg[i].port_b1, hea1[div((i+1),2)].port_a)
                                           annotation (Line(points={{10,16},{70,
             16},{70,6},{60,6}}, color={0,127,255}));
-    connect(hea1[(i+1)/2].port_b, hexReg[i+1].port_b1)
+    connect(hea1[div((i+1),2)].port_b, hexReg[i+1].port_b1)
         annotation (Line(points={{40,6},{36,6},{36,10},{10,10},{10,16}}, color=
             {0,127,255}));
   end for;
   // header after 2nd hex register
   for i in 2:2:(nReg-1) loop
-    connect(hexReg[i].port_a1, hea2[i/2].port_a)
+    connect(hexReg[i].port_a1, hea2[div(i,2)].port_a)
       annotation (Line(points={{-10,16},{-64,16},{-64,8},{-60,8}}, color={0,127,
             255}));
-    connect(hea2[i/2].port_b, hexReg[i+1].port_a1)
+    connect(hea2[div(i,2)].port_b, hexReg[i+1].port_a1)
       annotation (Line(points={{-40,8},{-34,8},{-34,12},{-10,12},{-10,16}},
           color={0,127,255}));
   end for;
@@ -357,6 +357,12 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 24, 2011, by Michael Wetter:<br>
+Replaced integer division <code>nReg/2</code> by <code>div(nReg,2)</code>
+when instantiating an array of models as the former leads to a syntax error
+in Dymola 7.4 FD01.
+</li>
 <li>
 May 28, 2010, by Michael Wetter:<br>
 Fixed bug in assigning pressure drops that led to too high a resistances.
