@@ -2,7 +2,8 @@ within Buildings.HeatTransfer.Examples;
 model ConstructionSymmetric
   "Test model for a construction with the same boundary condition on both sides"
   import Buildings;
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA
+  extends Modelica.Icons.Example;
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Modelica.Blocks.Sources.Step step(
     offset=293.15,
@@ -18,7 +19,7 @@ model ConstructionSymmetric
   Buildings.HeatTransfer.Convection conv(A=10,
   til=Buildings.RoomsBeta.Types.Tilt.Wall) "Convective heat transfer"
     annotation (Placement(transformation(extent={{20,40},{0,60}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Buildings.HeatTransfer.Convection conv1(A=10,
   til=Buildings.RoomsBeta.Types.Tilt.Wall) "Convective heat transfer"
@@ -31,9 +32,9 @@ model ConstructionSymmetric
     til=Buildings.RoomsBeta.Types.Tilt.Wall)
     "Model of the construction with convective heat transfer"
     annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA2
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA2
     annotation (Placement(transformation(extent={{-60,-50},{-40,-30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA3
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA3
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo1
     annotation (Placement(transformation(extent={{-26,14},{-14,26}})));

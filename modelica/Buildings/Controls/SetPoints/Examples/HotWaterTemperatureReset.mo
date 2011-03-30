@@ -1,5 +1,6 @@
 within Buildings.Controls.SetPoints.Examples;
 model HotWaterTemperatureReset "Test model for the heating curve"
+  extends Modelica.Icons.Example; 
   Buildings.Controls.SetPoints.HotWaterTemperatureReset heaCur(
     m=1,
     TSup_nominal=333.15,

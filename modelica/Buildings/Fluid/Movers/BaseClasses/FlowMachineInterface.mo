@@ -13,6 +13,11 @@ partial model FlowMachineInterface
   parameter Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm
     N_nominal = 1500 "Nominal rotational speed for flow characteristic"
     annotation(Dialog(group="Characteristics"));
+  parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal
+    "Nominal volume flow rate, used for homotopy";
+
+  parameter Boolean useHomotopy = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   replaceable function powerCharacteristic =
         Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticPower (
@@ -27,23 +32,50 @@ partial model FlowMachineInterface
     "Shaft rotational speed";
   Real r_N(min=0, start=1, unit="1") "Ratio N/N_nominal";
 
+protected
+  constant Real delta = 0.01 "Constant used in finite difference approximation to derivative";
 initial equation
   // Equation to compute V_flow_max
   0 = flowCharacteristic(V_flow=V_flow_max, r_N=1);
 
 equation
   r_N = N/N_nominal;
-  dpMachine = flowCharacteristic(V_flow=VMachine_flow, r_N=r_N);
+  // For the homotopy method, we approximate dpMachine by a finite difference equation 
+  // that is linear in VMachine_flow, and that goes linearly to 0 as r_N goes to 0.
+  if useHomotopy then
+     dpMachine = homotopy(actual=flowCharacteristic(V_flow=VMachine_flow, r_N=r_N),
+                          simplified=r_N*
+                              (flowCharacteristic(V_flow=V_flow_nominal, r_N=1)
+                               +(VMachine_flow-V_flow_nominal)*
+                                (flowCharacteristic(V_flow=(1+delta)*V_flow_nominal, r_N=1)
+                                -flowCharacteristic(V_flow=(1-delta)*V_flow_nominal, r_N=1))
+                                 /(2*delta*V_flow_nominal)));
+
+   else
+     dpMachine = flowCharacteristic(V_flow=VMachine_flow, r_N=r_N);
+   end if;
 
   // Power consumption
   if use_powerCharacteristic then
-    PEle = (rho/rho_nominal)*powerCharacteristic(V_flow=VMachine_flow, r_N=r_N);
+    // For the homotopy, we want PEle/V_flow to be bounded as V_flow -> 0 to avoid a very high medium 
+    // temperature near zero flow.
+    if useHomotopy then
+      PEle = homotopy(actual=powerCharacteristic(V_flow=VMachine_flow, r_N=r_N),
+                      simplified=VMachine_flow/V_flow_nominal*powerCharacteristic(V_flow=V_flow_nominal, r_N=1));
+    else
+      PEle = (rho/rho_nominal)*powerCharacteristic(V_flow=VMachine_flow, r_N=r_N);
+    end if;
     // In this configuration, we only now the total power consumption.
     // Hence, we assign the efficiency in equal parts to the motor and the hydraulic losses
     etaMot = sqrt(eta);
   else
-    etaHyd = hydraulicEfficiency(r_V=r_V);
-    etaMot = motorEfficiency(r_V=r_V);
+    if useHomotopy then
+      etaHyd = homotopy(actual=hydraulicEfficiency(r_V=r_V), simplified=hydraulicEfficiency(r_V=1));
+      etaMot = homotopy(actual=motorEfficiency(r_V=r_V),     simplified=motorEfficiency(r_V=r_V));
+    else
+      etaHyd = hydraulicEfficiency(r_V=r_V);
+      etaMot = motorEfficiency(r_V=r_V);
+    end if;
   end if;
 
   annotation (
@@ -78,6 +110,10 @@ Use
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 28 2011, by Michael Wetter:<br>
+Added <code>homotopy</code> operator.
+</li>
 <li>
 March 23 2010, by Michael Wetter:<br>
 First implementation.

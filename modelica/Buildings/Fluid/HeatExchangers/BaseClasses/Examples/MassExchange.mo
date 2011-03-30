@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model MassExchange "Test model for latent heat exchange"
-   package Medium = Buildings.Media.PerfectGases.MoistAir;
+  extends Modelica.Icons.Example;
+  package Medium = Buildings.Media.PerfectGases.MoistAir;
   Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange masExc(redeclare
       package Medium =
                Medium) "Model for mass exchange"

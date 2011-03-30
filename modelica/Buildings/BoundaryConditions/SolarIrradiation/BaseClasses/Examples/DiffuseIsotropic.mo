@@ -1,6 +1,7 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples;
 model DiffuseIsotropic
   "Test model for diffuse solar irradiation on a tilted surface by using isotropic model"
+  extends Modelica.Icons.Example;
   import Buildings;
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseIsotropic
     HDifTilIso(til=1.5707963267949)

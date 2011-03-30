@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Examples;
 model SmoothLimit "Test model for smooth limit"
   import Buildings;
+  extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Sine sine(freqHz=8)
     annotation (Placement(transformation(extent={{-40,0},{-20,20}},  rotation=0)));
   Buildings.Utilities.Math.SmoothLimit smoLim(

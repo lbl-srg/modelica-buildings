@@ -81,10 +81,10 @@ public
     "heat capacity of radiator metal"
     annotation (Placement(transformation(extent={{-50,12},{-30,32}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preHeaFloCon
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preHeaFloCon
     "Heat input into radiator from convective heat transfer"
     annotation (Placement(transformation(extent={{-48,-48},{-28,-28}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preHeaFloRad
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow[nEle] preHeaFloRad
     "Heat input into radiator from radiative heat transfer"
     annotation (Placement(transformation(extent={{-48,-70},{-28,-50}})));
 

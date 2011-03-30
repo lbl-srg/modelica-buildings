@@ -1,5 +1,6 @@
 within Buildings.RoomsBeta.Examples.TestConditionalConstructions;
 model OnlyPartition "Test model for room model"
+  extends Modelica.Icons.Example;
   extends BaseClasses.PartialTestModel(
    nConExt=0,
    nConExtWin=0,

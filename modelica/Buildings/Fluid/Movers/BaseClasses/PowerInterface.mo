@@ -74,10 +74,6 @@ heat dissipation of fans and pumps. It is used by the model
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 </p>
-<p>
-If <code>addHeatToMedium = false</code>, then no heat will be added to the medium.
-This can lead to simpler equations.
-</p>
 </html>",
       revisions="<html>
 <ul>

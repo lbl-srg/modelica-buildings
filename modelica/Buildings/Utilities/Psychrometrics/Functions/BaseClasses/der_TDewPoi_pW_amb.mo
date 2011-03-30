@@ -1,6 +1,7 @@
 within Buildings.Utilities.Psychrometrics.Functions.BaseClasses;
 function der_TDewPoi_pW_amb "Derivative of function TDewPoi_pW_amb"
-  extends Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb;
+  extends
+    Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb;
 
   input Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
   input Real dp_w "Differential of water vapor partial pressure";

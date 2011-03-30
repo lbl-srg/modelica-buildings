@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions.Examples;
 model SpliceFunction
+  extends Modelica.Icons.Example;
 
   Real y "Function value";
 equation

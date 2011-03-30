@@ -2,6 +2,7 @@ within Buildings.HeatTransfer.WindowsBeta.BaseClasses.Examples;
 model TransmittedRadiation
   "Test model for transmitted radiation through window"
   import Buildings;
+  extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Angle lat=0.34906585039887 "Latitude";
   parameter Modelica.SIunits.Angle azi=0 "Surface azimuth";
   parameter Modelica.SIunits.Angle til=1.5707963267949 "Surface tilt";

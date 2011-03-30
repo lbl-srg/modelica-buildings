@@ -1,6 +1,7 @@
 within Buildings.RoomsBeta.BaseClasses.Examples;
 model LongWaveRadiationGainDistribution
   "Test model for long-wave radiation gain"
+  extends Modelica.Icons.Example;
   extends
     Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses.PartialLongWaveRadiation;
   import Buildings;

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Actuators.Examples;
 model TwoWayValvesMotor
-
- package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  extends Modelica.Icons.Example;
+  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valLin(
     redeclare package Medium = Medium,
@@ -52,7 +52,7 @@ equation
   connect(PSin.y, sin.p_in) annotation (Line(points={{81,70},{86,70},{86,-2},{
           72,-2}}, color={0,0,127}));
   connect(PSou.y, sou.p_in)
-    annotation (Line(points={{-79,-2},{-74.5,-2},{-62,-2}},
+    annotation (Line(points={{-79,-2},{-62,-2},{-62,-2}},
                                                  color={0,0,127}));
   connect(ySet.y, mot.u)
     annotation (Line(points={{-79,70},{-62,70}}, color={0,0,127}));
@@ -66,15 +66,15 @@ equation
           {10,34},{10,28}},
                     color={0,0,127}));
   connect(sou.ports[1], valLin.port_a) annotation (Line(
-      points={{-40,-7.33333},{-20,-7.33333},{-20,20},{0,20}},
+      points={{-40,-7.33333},{-20,-7.33333},{-20,20},{-5.55112e-16,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], valQui.port_a) annotation (Line(
-      points={{-40,-10},{0,-10}},
+      points={{-40,-10},{-5.55112e-16,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[3], valEqu.port_a) annotation (Line(
-      points={{-40,-12.6667},{-20,-12.6667},{-20,-40},{0,-40}},
+      points={{-40,-12.6667},{-20,-12.6667},{-20,-40},{-5.55112e-16,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valLin.port_b, sin.ports[1]) annotation (Line(

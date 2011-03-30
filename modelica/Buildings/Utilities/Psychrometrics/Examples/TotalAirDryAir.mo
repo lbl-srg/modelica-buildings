@@ -1,6 +1,7 @@
 within Buildings.Utilities.Psychrometrics.Examples;
 model TotalAirDryAir
   "Unit test for conversion of humidity per total air and dry air mass"
+  extends Modelica.Icons.Example;
    package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model"
            annotation (choicesAllMatching = true);
     Modelica.Blocks.Sources.Ramp XHum(

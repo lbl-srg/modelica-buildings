@@ -6,7 +6,12 @@ model TwoWayQuickOpening "Two way valve with linear flow characteristics"
 protected
    parameter Real alpInv = 1/alp;
 equation
-  phi = l + Modelica.Fluid.Utilities.regPow(y, alpInv, delta0) * (1 - l);
+  if useHomotopy then
+     phi = homotopy(actual=l + Modelica.Fluid.Utilities.regPow(y, alpInv, delta0) * (1 - l),
+                    simplified=l + y * (1 - l));
+  else
+     phi = l + Modelica.Fluid.Utilities.regPow(y, alpInv, delta0) * (1 - l);
+  end if;
 annotation (
 defaultComponentName="val",
 Documentation(info="<html>
@@ -22,6 +27,10 @@ as the leakage flow or regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 25, 2011, by Michael Wetter:<br>
+Added homotopy method.
+</li>
 <li>
 June 3, 2008 by Michael Wetter:<br>
 First implementation.

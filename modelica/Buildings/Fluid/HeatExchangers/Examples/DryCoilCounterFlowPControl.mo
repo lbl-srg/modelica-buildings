@@ -2,6 +2,7 @@ within Buildings.Fluid.HeatExchangers.Examples;
 model DryCoilCounterFlowPControl
   "Model that demonstrates use of a heat exchanger without condensation and with feedback control"
   import Buildings;
+  extends Modelica.Icons.Example;
   package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
   package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
   //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;

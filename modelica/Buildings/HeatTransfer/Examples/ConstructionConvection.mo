@@ -2,14 +2,15 @@ within Buildings.HeatTransfer.Examples;
 model ConstructionConvection
   "Test model for a construction with different film coefficients"
   import Buildings;
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA
+  extends Modelica.Icons.Example;
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Step step(
     offset=293.15,
     startTime=43200,
     height=20)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Buildings.HeatTransfer.ConstructionOpaque const(
     steadyStateInitial=true,
@@ -22,13 +23,13 @@ model ConstructionConvection
         rotation=0,
         origin={0,10})));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TB1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TB1
     annotation (Placement(transformation(extent={{-10,-40},{10,-20}})));
   Modelica.Blocks.Sources.Constant Tb(k=293.15 + 30)
     annotation (Placement(transformation(extent={{-50,-70},{-30,-50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA4
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA4
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA5
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA5
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Buildings.HeatTransfer.ConstructionOpaque wall(
     steadyStateInitial=true,
@@ -63,11 +64,11 @@ model ConstructionConvection
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={120,10})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TB2
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TB2
     annotation (Placement(transformation(extent={{30,-40},{50,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TB3
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TB3
     annotation (Placement(transformation(extent={{70,-40},{90,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TB4
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TB4
     annotation (Placement(transformation(extent={{110,-40},{130,-20}})));
 equation
   connect(step.y, TA.T) annotation (Line(
@@ -147,7 +148,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    experiment(StopTime=86400),
-    experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,100}})));
+    experiment(StopTime=86400));
 end ConstructionConvection;

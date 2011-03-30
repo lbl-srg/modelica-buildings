@@ -1,5 +1,6 @@
 within Buildings.RoomsBeta.Examples.TestConditionalConstructions;
 model OnlyExteriorWallNoWindow "Test model for room model"
+  extends Modelica.Icons.Example;
   extends BaseClasses.PartialTestModel(
    nConExt=1,
    nConExtWin=0,

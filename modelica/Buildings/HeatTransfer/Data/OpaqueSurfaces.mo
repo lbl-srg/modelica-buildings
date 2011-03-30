@@ -1,8 +1,8 @@
 within Buildings.HeatTransfer.Data;
 package OpaqueSurfaces
   "Package with thermophysical properties for opaque surfaces"
-
-annotation (
+    extends Modelica.Icons.MaterialPropertiesPackage;
+  annotation (
 preferedView="info",
 Documentation(info="<html>
 <p>

@@ -1,5 +1,6 @@
 within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolumeMoistAir
+  extends Modelica.Icons.Example;
   import Buildings;
 
 // package Medium = Buildings.Media.PerfectGases.MoistAir;
@@ -20,7 +21,7 @@ model MixingVolumeMoistAir
   Modelica.Blocks.Sources.Constant XSet(k=0.005)
     "Set point for water mass fraction" annotation (Placement(transformation(
           extent={{-80,-60},{-60,-40}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{36,120},{56,140}}, rotation=0)));
   Modelica.Blocks.Sources.Constant TSet(k=273.15 + 20)
     "Set point for temperature" annotation (Placement(transformation(extent={{
@@ -103,7 +104,7 @@ equation
          {0,0,127}));
   connect(mOut_flow.m_flow, dM_flow.u1) annotation (Line(points={{94,11},{94,36},
           {138,36}},       color={0,0,127}));
-  connect(mIn_flow.m_flow, dM_flow.u2) annotation (Line(points={{16,11},{16,20},
+  connect(mIn_flow.m_flow, dM_flow.u2) annotation (Line(points={{16,11},{16,11},
           {16,24},{138,24}},                 color={0,0,127}));
   connect(gai.y, preHeaFlo.Q_flow)
     annotation (Line(points={{23,130},{36,130}}, color={0,0,127}));
@@ -118,11 +119,13 @@ equation
   connect(vol1.X_w, humRat.X_w) annotation (Line(points={{72,6},{80,6},{80,
           -134},{-28,-134},{-28,-110},{-21,-110}}, color={0,0,127}));
   connect(sou.ports[1], mIn_flow.port_a) annotation (Line(
-      points={{-20,0},{6,0}},
+      points={{-20,6.66134e-16},{-13.5,6.66134e-16},{-13.5,1.27676e-15},{-7,
+          1.27676e-15},{-7,6.10623e-16},{6,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(mOut_flow.port_b, sin.ports[1]) annotation (Line(
-      points={{104,0},{117,0},{117,1.33227e-015},{130,1.33227e-015}},
+      points={{104,6.10623e-16},{117,6.10623e-16},{117,1.55431e-15},{130,
+          1.55431e-15}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heatFlowSensor.port_b, vol1.heatPort) annotation (Line(
@@ -134,15 +137,17 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(mIn_flow.port_b, vol1.ports[1]) annotation (Line(
-      points={{26,0},{42,0},{42,0},{58,0}},
+      points={{26,6.10623e-16},{42,6.10623e-16},{42,-5.55112e-16},{58,
+          -5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(mOut_flow.port_a, vol1.ports[2]) annotation (Line(
-      points={{84,0},{71,0},{71,0},{62,0}},
+      points={{84,6.10623e-16},{71,6.10623e-16},{71,-5.55112e-16},{62,
+          -5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(PI.y, gai.u) annotation (Line(
-      points={{-19,130},{0,130}},
+      points={{-19,130},{-6.66134e-16,130}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(humRat.p_w, dewPoi.p_w) annotation (Line(

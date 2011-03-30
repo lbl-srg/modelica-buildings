@@ -28,7 +28,7 @@ protected
                 Dialog(enable = Medium.nC > 0));
 initial algorithm
   for i in 1:Medium.nC loop
-    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i], 
+    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.extraPropertiesNames[i],
                                             string2=substanceName,
                                             caseSensitive=false)) then
       C_in_internal[i] := 1;

@@ -11,7 +11,12 @@ initial equation
                + "  Must have l < 1/R = " + realString(1/R));
 
 equation
-  phi = Buildings.Fluid.Actuators.BaseClasses.equalPercentage(y, R, l, delta0);
+  if useHomotopy then
+     phi = homotopy(actual=Buildings.Fluid.Actuators.BaseClasses.equalPercentage(y, R, l, delta0),
+                    simplified=l + y * (1 - l));
+  else
+     phi = Buildings.Fluid.Actuators.BaseClasses.equalPercentage(y, R, l, delta0);
+  end if;
 annotation (
 defaultComponentName="val",
 Documentation(info="<html>
@@ -26,6 +31,10 @@ as the leakage flow or regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 25, 2011, by Michael Wetter:<br>
+Added homotopy method.
+</li>
 <li>
 June 5, 2008 by Michael Wetter:<br>
 First implementation.

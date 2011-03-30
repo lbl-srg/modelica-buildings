@@ -1,8 +1,9 @@
 within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolumeDryAir
   import Buildings;
+  extends Modelica.Icons.Example;
 
- package Medium = Modelica.Media.Air.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50))
+ package Medium = Buildings.Media.IdealGases.SimpleAir(T_min=Modelica.SIunits.Conversions.from_degC(-50))
     "Medium in the component";
 
     Modelica.Blocks.Sources.Ramp P(

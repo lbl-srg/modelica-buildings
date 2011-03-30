@@ -1,6 +1,7 @@
 within Buildings.HeatTransfer.Data;
 package Gases "Package with thermophysical properties for window fill gases"
-    annotation (Documentation(info="<html>
+    extends Modelica.Icons.MaterialPropertiesPackage;
+  annotation (Documentation(info="<html>
 Package with records for thermophysical properties for window
 gas fills.
 The implementation is according to 

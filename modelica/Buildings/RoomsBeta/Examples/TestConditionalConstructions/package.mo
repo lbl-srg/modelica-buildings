@@ -1,5 +1,6 @@
 within Buildings.RoomsBeta.Examples;
 package TestConditionalConstructions "Package that tests if constructions can be conditionally removed"
+  extends Modelica.Icons.ExamplesPackage;
 annotation (Documentation(info="<html>
 The thermal zone model 
 <a href=\"Buildings.RoomsBeta.MixedAir\">Buildings.RoomsBeta.MixedAir</a>

@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model Declination "Test model for declination"
+  extends Modelica.Icons.Example;
   import Buildings;
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"

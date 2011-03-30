@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Examples;
 model Biquadratic "Test model for biquadratic function"
   import Buildings;
+  extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Constant x1(k=1)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=0)));
   Modelica.Blocks.Sources.Constant x2(k=2)

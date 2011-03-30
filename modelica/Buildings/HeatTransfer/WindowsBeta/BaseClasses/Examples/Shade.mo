@@ -1,6 +1,7 @@
 within Buildings.HeatTransfer.WindowsBeta.BaseClasses.Examples;
 model Shade "Test model for exterior shade heat transfer"
   import Buildings;
+  extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Area A=1 "Window surface area";
   parameter Boolean linearize = true "Set to true to linearize emissive power";
 
@@ -23,7 +24,7 @@ model Shade "Test model for exterior shade heat transfer"
   Buildings.HeatTransfer.Radiosity.OpaqueSurface radOut(A=A, epsLW=0.8,
     linearize=false) "Model for outside radiosity"
     annotation (Placement(transformation(extent={{-104,-72},{-84,-52}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRadOut
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TRadOut
     "Outside radiative temperature"
     annotation (Placement(transformation(extent={{-114,-100},{-94,-80}})));
 
@@ -32,7 +33,7 @@ model Shade "Test model for exterior shade heat transfer"
     annotation (Placement(transformation(extent={{102,-62},{82,-42}})));
   Modelica.Blocks.Sources.Constant TRoo(k=293.15) "Room temperature"
     annotation (Placement(transformation(extent={{160,-80},{140,-60}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRadRoo
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TRadRoo
     "Room radiative temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -56,10 +57,10 @@ model Shade "Test model for exterior shade heat transfer"
   Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaOut
     "Radiosity that strikes shading device"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirOut
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirOut
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirRoo
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirRoo
     "Room-side air temperature"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=180,
@@ -136,7 +137,7 @@ equation
       color={0,127,0},
       smooth=Smooth.None));
   connect(TAirOut.port, extSha.air) annotation (Line(
-      points={{-100,20},{-0.2,20}},
+      points={{-100,20},{-5.55112e-16,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TAirOut.T, TOut.y) annotation (Line(
@@ -144,15 +145,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TAirRoo.port, extSha.glass) annotation (Line(
-      points={{100,20},{20,20}},
+      points={{100,20},{19.4,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TAirRoo.port, extNonSha.glass) annotation (Line(
-      points={{100,20},{80,20},{80,-52},{22,-52}},
+      points={{100,20},{80,20},{80,-52},{21.4,-52}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TAirOut.port, extNonSha.air) annotation (Line(
-      points={{-100,20},{-20,20},{-20,-52},{1.8,-52}},
+      points={{-100,20},{-20,20},{-20,-52},{2,-52}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TAirRoo.T, TRoo.y) annotation (Line(
@@ -202,8 +203,7 @@ equation
   annotation (Commands(file="Shade.mos" "run"),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -160},{160,160}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-160,-160},{160,160}})),
+                      graphics),
     Documentation(info="<html>
 This model tests the shading device. Note that the temperature of the shading device changes
 slightly as the shade control signal changes (i.e., as the shade is lowered). 

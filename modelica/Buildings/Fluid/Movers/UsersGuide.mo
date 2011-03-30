@@ -1,6 +1,6 @@
 within Buildings.Fluid.Movers;
 package UsersGuide "User's Guide"
-
+  extends Modelica.Icons.Info;
   annotation (DocumentationClass=true, Documentation(info="<html>
 <p>This package contains models that can be used for fans and pumps. 
 </p>

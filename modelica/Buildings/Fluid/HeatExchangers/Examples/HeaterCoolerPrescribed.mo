@@ -2,6 +2,7 @@ within Buildings.Fluid.HeatExchangers.Examples;
 model HeaterCoolerPrescribed
   "Model that tests a heat exchanger model with reverse flow"
   import Buildings;
+  extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
  //package Medium = Modelica.Media.Air.MoistAir;

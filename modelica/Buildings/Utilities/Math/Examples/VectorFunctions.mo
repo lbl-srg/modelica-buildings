@@ -1,5 +1,7 @@
 within Buildings.Utilities.Math.Examples;
 model VectorFunctions "Test model for functions that take a vector as argument"
+  extends Modelica.Icons.Example;
+
   Buildings.Utilities.Math.Min minVec(
                    nin=3)
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));

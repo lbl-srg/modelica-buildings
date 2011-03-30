@@ -1,5 +1,6 @@
 within Buildings.Fluid.Storage.Examples;
 model StratifiedLoadingUnloading "Test model for stratified tank"
+  extends Modelica.Icons.Example;
   import Buildings;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";

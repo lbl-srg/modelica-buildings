@@ -1,5 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model ReverseBuoyancy3Zones
+  extends Modelica.Icons.Example; 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
   Buildings.Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,

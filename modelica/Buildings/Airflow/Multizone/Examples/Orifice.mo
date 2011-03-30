@@ -1,5 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model Orifice
+  extends Modelica.Icons.Example; 
 
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
   Buildings.Airflow.Multizone.Orifice ori(redeclare package Medium = Medium, A=

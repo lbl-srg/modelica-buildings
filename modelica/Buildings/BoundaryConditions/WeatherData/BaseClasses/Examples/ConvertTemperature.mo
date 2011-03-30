@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model ConvertTemperature "Test model for converting temperature"
+  extends Modelica.Icons.Example;
   import Buildings;
 public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTemperature

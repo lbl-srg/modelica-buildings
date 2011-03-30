@@ -1,10 +1,9 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine
+  extends Modelica.Icons.Example;
   import Buildings;
 
    package Medium = Buildings.Media.IdealGases.SimpleAir;
-  //  package Medium =  Buildings.Media.PerfectGases.MoistAir;
-  //package Medium = Modelica.Media.Air.SimpleAir;
     Modelica.Blocks.Sources.Ramp P(
     height=-1500,
     offset=101325,

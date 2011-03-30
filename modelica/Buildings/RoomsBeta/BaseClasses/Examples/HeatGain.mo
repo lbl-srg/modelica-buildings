@@ -1,6 +1,8 @@
 within Buildings.RoomsBeta.BaseClasses.Examples;
 model HeatGain "Test model for the HeatGain model"
   import Buildings;
+  extends Modelica.Icons.Example;
+
   package MediumA = Buildings.Media.GasesPTDecoupled.MoistAir "Medium model";
 
   Buildings.RoomsBeta.BaseClasses.HeatGain heatGain(redeclare package Medium =
@@ -23,7 +25,7 @@ model HeatGain "Test model for the HeatGain model"
   Buildings.Fluid.Sources.Boundary_pT boundary(          redeclare package
       Medium = MediumA, nPorts=1)
     annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature fixedTemperature(T=273.15)
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));

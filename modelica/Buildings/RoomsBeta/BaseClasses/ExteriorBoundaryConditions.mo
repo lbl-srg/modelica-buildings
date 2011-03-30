@@ -20,10 +20,15 @@ model ExteriorBoundaryConditions
     "Heat port at surface a of opaque construction"
     annotation (Placement(transformation(extent={{-310,190},{-290,210}})));
   parameter Types.ConvectionModel[nCon] conMod
-    "Convective heat transfer model";
+    "Convective heat transfer model for opaque part of the construction";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer[nCon] hFixed=3*ones(nCon)
+    "Constant convection coefficient for opaque part of the wall"
+    annotation (Dialog(enable=(conMod == Buildings.RoomsBeta.Types.ConvectionModel.fixed)));
+
   HeatTransfer.Convection conOpa[nCon](final A=AOpa,
     final conMod=conMod,
-    final til=til) "Convection model for opaque part of the wall"
+    final til=til,
+    final hFixed=hFixed) "Convection model for opaque part of the wall"
     annotation (Placement(transformation(extent={{-180,180},{-140,220}})));
 
   SkyRadiationExchange skyRadExc(
@@ -37,7 +42,7 @@ model ExteriorBoundaryConditions
     annotation (Placement(transformation(extent={{234,32},{254,52}}),
         iconTransformation(extent={{192,-10},{254,52}})));
 protected
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirConExt[
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirConExt[
     nCon] "Outside air temperature for exterior constructions"
     annotation (Placement(transformation(extent={{8,180},{-32,220}})));
   Modelica.Blocks.Routing.Replicator repConExt(nout=nCon) "Signal replicator"
@@ -59,8 +64,7 @@ public
     final k1=epsSW .* AOpa,
     final k2=epsSW .* AOpa) "Total solar irradiation"
     annotation (Placement(transformation(extent={{40,100},{20,120}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow solHeaGaiConExt[nCon](
-     each final alpha=0, each final T_ref=293.15)
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow solHeaGaiConExt[nCon]
     "Total solar heat gain of the surface"
     annotation (Placement(transformation(extent={{0,100},{-20,120}})));
 
@@ -196,6 +200,10 @@ Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 </html>",
         revisions="<html>
 <ul>
+<li>
+March 28, 2011, by Michael Wetter:<br>
+Propaged parameter <code>hFixed</code> to top-level of the model.
+</li>
 <li>
 March 23, 2011, by Michael Wetter:<br>
 Removed default value for convection model.

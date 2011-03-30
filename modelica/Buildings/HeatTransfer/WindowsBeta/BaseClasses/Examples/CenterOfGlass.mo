@@ -1,6 +1,7 @@
 within Buildings.HeatTransfer.WindowsBeta.BaseClasses.Examples;
 model CenterOfGlass "Test model for center of glas heat transfer"
   import Buildings;
+  extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Area A=1 "Window surface area";
   parameter Boolean linearize = false "Set to true to linearize emissive power";
 
@@ -15,12 +16,12 @@ model CenterOfGlass "Test model for center of glas heat transfer"
     duration=1,
     offset=0.05) "Control signal for shade"
     annotation (Placement(transformation(extent={{-160,100},{-140,120}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirOut
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirOut
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-120,-40},{-100,-20}})));
   Modelica.Blocks.Sources.Constant TOut(k=273.15) "Outside temperature"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirRoo
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirRoo
     "Room temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -31,7 +32,7 @@ model CenterOfGlass "Test model for center of glas heat transfer"
     annotation (Placement(transformation(extent={{100,-140},{80,-120}})));
   Modelica.Blocks.Sources.Constant TRoo(k=293.15) "Room temperature"
     annotation (Placement(transformation(extent={{158,-20},{138,0}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRadRoo
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TRadRoo
     "Room radiative temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -243,8 +244,7 @@ equation
     annotation (Commands(file="CenterOfGlass.mos" "run"),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-160},
             {160,160}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-160,-160},{160,160}})),
+                      graphics),
     Documentation(info="<html>
 This model tests the heat transfer for the center of the glass, with and without a shading device.
 </html>"));

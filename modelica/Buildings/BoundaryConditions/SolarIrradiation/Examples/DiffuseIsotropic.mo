@@ -1,6 +1,7 @@
 within Buildings.BoundaryConditions.SolarIrradiation.Examples;
 model DiffuseIsotropic
   "Test model for diffuse solar irradiation on a tilted surface using the isotropic model"
+  extends Modelica.Icons.Example;
   import Buildings;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")

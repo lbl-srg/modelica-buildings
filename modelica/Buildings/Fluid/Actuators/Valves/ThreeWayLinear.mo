@@ -8,6 +8,7 @@ model ThreeWayLinear "Three way valve with linear characteristics"
       dp_nominal=dp_nominal,
       from_dp=from_dp,
       linearized=linearized[1],
+      useHomotopy=useHomotopy,
       m_flow_nominal=m_flow_nominal,
       CvData=CvData,
       Kv_SI=Kv_SI,
@@ -21,6 +22,7 @@ model ThreeWayLinear "Three way valve with linear characteristics"
       dp_nominal=dp_nominal,
       from_dp=from_dp,
       linearized=linearized[2],
+      useHomotopy=useHomotopy,
       m_flow_nominal=m_flow_nominal,
       CvData=CvData,
       Kv_SI=fraK*Kv_SI,
@@ -66,6 +68,10 @@ the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 25, 2011, by Michael Wetter:<br>
+Added homotopy method.
+</li>
 <li>
 June 16, 2008 by Michael Wetter:<br>
 First implementation.

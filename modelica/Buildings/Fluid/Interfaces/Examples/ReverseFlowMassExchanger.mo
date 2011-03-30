@@ -2,6 +2,7 @@ within Buildings.Fluid.Interfaces.Examples;
 model ReverseFlowMassExchanger
   "Model that tests the reverse flow for a mass exchanger"
   import Buildings;
+  extends Modelica.Icons.Example;
 package Medium = Modelica.Media.Air.MoistAir;
   Buildings.Utilities.Diagnostics.AssertEquality assTem(threShold=1E-8,
       startTime=0)
@@ -335,6 +336,5 @@ August 19, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-400,-200},{200,200}})));
+</html>"));
 end ReverseFlowMassExchanger;

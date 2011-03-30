@@ -26,6 +26,11 @@ partial model PartialDynamicTwoPortTransformer
 
   parameter Modelica.SIunits.Time tau = 300 "Time constant at nominal flow"
      annotation (Dialog(group="Nominal condition"));
+
+  // Advanced
+  parameter Boolean useHomotopy = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=system.energyDynamics
     "Formulation of energy balance"
@@ -85,6 +90,7 @@ public
     final show_V_flow=show_V_flow,
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
+    final useHomotopy=useHomotopy,
     final dp_nominal=dp_nominal) "Pressure drop model"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation
@@ -127,6 +133,10 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 25, 2011, by Michael Wetter:<br>
+Added homotopy operator.
+</li>
 <li>
 March 21, 2010 by Michael Wetter:<br>
 Changed pressure start value from <code>system.p_start</code>

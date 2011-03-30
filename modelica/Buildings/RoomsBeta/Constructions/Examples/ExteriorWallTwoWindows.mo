@@ -2,6 +2,7 @@ within Buildings.RoomsBeta.Constructions.Examples;
 model ExteriorWallTwoWindows
   "Test model for an exterior wall with two windows, one having a shade, the other not"
   import Buildings;
+  extends Modelica.Icons.Example;
   parameter Integer nCon = 2 "Number of constructions";
   parameter Modelica.SIunits.Area A[:]={3*10, 3*10}
     "Heat transfer area of wall and window";
@@ -55,7 +56,7 @@ model ExteriorWallTwoWindows
     azi={0,0})
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature
+  Buildings.HeatTransfer.Sources.PrescribedTemperature
     prescribedTemperature
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   HeatTransfer.Convection con[nCon](A=A - AWin,
@@ -277,7 +278,6 @@ equation
     Commands(file="ExteriorWallTwoWindows.mos" "run"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
             100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,100}})),
     Documentation(info="<html>
 This model tests the exterior construction with windows.
 </html>"));

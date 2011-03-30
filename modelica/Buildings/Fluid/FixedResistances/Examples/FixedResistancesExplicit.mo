@@ -1,6 +1,7 @@
 within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistancesExplicit "Test of multiple resistances in series"
   import Buildings;
+  extends Modelica.Icons.Example;
 
  package Medium = Modelica.Media.Air.SimpleAir;
   Buildings.Fluid.Sources.Boundary_ph sou(             redeclare package Medium
@@ -130,19 +131,19 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 equation
   connect(res.port_b, res1.port_a) annotation (Line(
-      points={{0,100},{20,100}},
+      points={{5.55112e-16,100},{20,100}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res3.port_b, res2.port_a) annotation (Line(
-      points={{0,60},{20,60}},
+      points={{5.55112e-16,60},{20,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res4.port_b, res5.port_a) annotation (Line(
-      points={{0,-10},{20,-10}},
+      points={{5.55112e-16,-10},{20,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res7.port_b, res6.port_a) annotation (Line(
-      points={{0,-50},{20,-50}},
+      points={{5.55112e-16,-50},{20,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[1], res.port_a) annotation (Line(
@@ -226,7 +227,5 @@ equation
 This model tests whether inverse functions are being used by the code
 translator. In Dymola 7.2, there should only be one non-linear equation system
 in one variable after the symbolic manipulations.
-</html>"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
-            160}})));
+</html>"));
 end FixedResistancesExplicit;

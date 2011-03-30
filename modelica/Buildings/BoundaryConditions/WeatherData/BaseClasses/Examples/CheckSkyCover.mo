@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model CheckSkyCover "Test model for checking sky cover"
+  extends Modelica.Icons.Example;
   import Buildings;
 public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover

@@ -1,6 +1,7 @@
 within Buildings.Airflow.Multizone.Examples;
 model ChimneyShaftWithVolume
   "Test model that demonstrates the chimney effect with a shaft that contains an air volume"
+  extends Modelica.Icons.Example; 
   import Buildings;
   package Medium = Modelica.Media.Air.SimpleAir;
 
@@ -55,7 +56,7 @@ model ChimneyShaftWithVolume
         origin={40,-49},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
     "Prescribed heat flow" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,

@@ -1,5 +1,6 @@
 within Buildings.Fluid.Actuators.Examples;
 model MixingBox
+  extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.GasesConstantDensity.SimpleAir
     "Medium in the component"

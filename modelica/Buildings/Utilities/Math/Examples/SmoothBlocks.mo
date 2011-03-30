@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Examples;
 model SmoothBlocks
+  extends Modelica.Icons.Example;
   SmoothMax smoMax(deltaX=0.5) annotation (Placement(transformation(extent={{
             -20,40},{0,60}}, rotation=0)));
   Modelica.Blocks.Math.Max max annotation (Placement(transformation(extent={{

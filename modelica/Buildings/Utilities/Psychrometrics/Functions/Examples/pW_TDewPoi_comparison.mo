@@ -1,6 +1,7 @@
 within Buildings.Utilities.Psychrometrics.Functions.Examples;
 model pW_TDewPoi_comparison
   "Model to test the approximation for pW_TDewPoi and its inverse function"
+  extends Modelica.Icons.Example;
 
   Modelica.SIunits.Temperature T "Dew point temperature";
   Modelica.SIunits.Temperature TInv "Dew point temperature";

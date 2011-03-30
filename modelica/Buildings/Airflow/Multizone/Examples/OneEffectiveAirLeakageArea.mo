@@ -1,5 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model OneEffectiveAirLeakageArea
+  extends Modelica.Icons.Example; 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Fluid.MixingVolumes.MixingVolume volA(
@@ -17,7 +18,7 @@ model OneEffectiveAirLeakageArea
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(extent={{28,-10},{48,10}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{-8,-10},{12,10}}, rotation=0)));
   Modelica.Blocks.Sources.Sine Sine1(freqHz=1/3600) annotation (Placement(
         transformation(extent={{-80,-10},{-60,10}}, rotation=0)));

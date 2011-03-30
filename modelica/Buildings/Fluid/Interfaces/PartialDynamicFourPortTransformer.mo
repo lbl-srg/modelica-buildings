@@ -48,6 +48,10 @@ partial model PartialDynamicFourPortTransformer
      if vol2.use_HeatTransfer then sum(vol2.heatPort.Q_flow) else 0
     "Heat flow rate into medium 2";
 
+  // Advanced
+  parameter Boolean useHomotopy = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=system.energyDynamics
     "Formulation of energy balance"
@@ -83,6 +87,7 @@ public
     final show_V_flow=show_V_flow,
     final from_dp=from_dp1,
     final linearized=linearizeFlowResistance1,
+    final useHomotopy=useHomotopy,
     final dp_nominal=dp1_nominal,
     final dh=1,
     final ReC=4000) "Pressure drop model for fluid 1"
@@ -99,6 +104,7 @@ public
     final show_V_flow=show_V_flow,
     final from_dp=from_dp2,
     final linearized=linearizeFlowResistance2,
+    final useHomotopy=useHomotopy,
     final dp_nominal=dp2_nominal,
     final dh=1,
     final ReC=4000) "Pressure drop model for fluid 2"
@@ -147,6 +153,10 @@ The variable names follow the conventions used in
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 25, 2011, by Michael Wetter:<br>
+Added homotopy operator.
+</li>
 <li>
 April 13, 2009, by Michael Wetter:<br>
 Added model to compute flow friction.

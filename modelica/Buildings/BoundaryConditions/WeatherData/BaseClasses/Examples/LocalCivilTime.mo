@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model LocalCivilTime "Test model for calculate local civil time"
+  extends Modelica.Icons.Example;
   import Buildings;
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));

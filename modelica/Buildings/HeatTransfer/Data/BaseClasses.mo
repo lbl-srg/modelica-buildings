@@ -1,6 +1,7 @@
 within Buildings.HeatTransfer.Data;
 package BaseClasses "Base classes for package Data"
-  extends Modelica.Fluid.Icons.BaseClassLibrary;
+  extends Modelica.Icons.BasesPackage;
+
   record Material "Thermal properties of materials w/o storage"
     extends Modelica.Icons.Record;
     parameter Modelica.SIunits.Length x "Material thickness";

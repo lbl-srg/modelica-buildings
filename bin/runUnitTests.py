@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 #######################################################
 # Script that runs all unit tests.
 #
@@ -25,9 +25,9 @@
 #######################################################
 import os, string, fnmatch, os.path, sys
 import tempfile, shutil
-import multiprocessing
 import getopt
-
+import multiprocessing
+import time
 # --------------------------
 # Global settings
 LIBHOME=os.path.abspath(".")
@@ -146,7 +146,7 @@ def runSimulation(worDir):
 # If they differ, ask the user whether to accept the differences.
 # If there is no md5 sum in the library home folder, ask the user whether it
 # should be generated.
-def checkMD5Sum(worDir, batch):
+def checkMD5Sum(worDir, ans):
     import hashlib
     for filNam in os.listdir(os.path.join(worDir, "Buildings")):
         # find .mat files
@@ -159,6 +159,10 @@ def checkMD5Sum(worDir, batch):
             md5.update(fMat.read())
             md5New = md5.hexdigest()
             fMat.close()
+
+            # Reset answer, unless it is set to Y or N
+            if not (ans == "Y" or ans == "N"):
+                ans = "-"
                 
             # check if .mat already exists in library
             md5FilOld = os.path.join(LIBHOME, "Resources", "md5sum", filNam) + ".md5"
@@ -171,13 +175,10 @@ def checkMD5Sum(worDir, batch):
                     print "*** Warning: md5sum changed in ", filNam
                     print "    Old md5sum: ", md5Old
                     print "    New md5sum: ", md5New
-                    if batch:
-                        ans = "n"
-                    else:
-                        ans = "-"
-                    while ans != "n" and ans != "y":
-                        ans = raw_input("    Accept new file and update md5 sum in library? [y,n]")
-                    if ans == "y":
+                    while not (ans == "n" or ans == "y" or ans == "Y" or ans == "N"):
+                        print "    Accept new file and update md5 sum in library?"
+                        ans = raw_input("    Enter: y(yes), n(no), Y(yes for all), N(no for all): ")
+                    if ans == "y" or ans == "Y":
                         # Write md5 sum to new file
                         fMD5 = open(md5FilOld, 'w')
                         fMD5.write(md5New + "\n")
@@ -185,18 +186,16 @@ def checkMD5Sum(worDir, batch):
                         print "Updated md5 sum in ", md5FilOld
             else: # md5 does not exist.
                 print "*** Warning: md5 sum does not yet exist for ", filNam
-                if batch:
-                    ans = "n"
-                else:
-                    ans = "-"
-                while ans != "n" and ans != "y":
-                    ans = raw_input("    Create new file in library? [y,n]")
-                if ans == "y":
+                while not (ans == "n" or ans == "y" or ans == "Y" or ans == "N"):
+                    print "    Create new file in library?"
+                    ans = raw_input("    Enter: y(yes), n(no), Y(yes for all), N(no for all): ")
+                if ans == "y" or ans == "Y":
                     # Write md5 sum to new file
                     fMD5 = open(md5FilOld, 'w')
                     fMD5.write(md5New + "\n")
                     fMD5.close()
                     print "Wrote ", md5FilOld
+    return ans
 
 # --------------------------
 def checkSimulationError(errorFile):
@@ -256,7 +255,7 @@ def writeRunscript(temDirNam, iPro, NPRO):
     # Write unit tests for this process
     pSta=int(round(iPro*len(listOfTests)/NPRO))
     pEnd=int(round((iPro+1)*len(listOfTests)/NPRO))
-    print "Making unit tests ", pSta, " to ", pEnd
+    print "Making unit tests ", pSta, " to ", pEnd, " for processor ", iPro
     for i in range(pSta-1,pEnd-1):
         runFil.write(listOfTests[i])
     runFil.write("// Save log file\n")
@@ -266,81 +265,99 @@ def writeRunscript(temDirNam, iPro, NPRO):
     if iPro == 0:
         print "Generated ", len(listOfTests), " unit tests.\n"
 
+# Return list temporary directories that will be used to run the unit tests
+def getTemporaryDirectories(nPro):
+    # List of temporary directories for running the tests
+    temDirNam = []
+
+    # Make temporary directory, copy library into the directory and 
+    # write run scripts to directory
+    for iPro in range(NPRO):
+        print "Calling parallel loop for iPro=", iPro, " NPRO=", NPRO
+        temDirNam.append( tempfile.mkdtemp(prefix='tmp-Buildings-'+ str(iPro) +  "-"))
+        shutil.copytree(".." + os.sep + "Buildings", 
+                        os.path.join(temDirNam[iPro], "Buildings"), 
+                        symlinks=False, 
+                        ignore=shutil.ignore_patterns('.svn', '.mat'))
+        writeRunscript(temDirNam[iPro], iPro, NPRO)    
+    return temDirNam
+
+#####################################################################################    
 #####################################################################################
-# Process command line arguments
-try:
-    opts, args=getopt.getopt(sys.argv[1:], "hb", ["help", "batch"])
-except getopt.GetoptError, err:
-    print str(err)
-    usage()
-    sys.exit(2)
-batch=False
-for o, a in opts:
-    if (o == "-b" or o == "--batch"):
-        batch=True
-        print "Running in batch mode."
-    elif (o == "-h" or o == "--help"):
+# Main routine
+if __name__ == '__main__':
+    from multiprocessing import Pool
+    # Start timer
+    startTime=time.time()
+    # Process command line arguments
+    try:
+        opts, args=getopt.getopt(sys.argv[1:], "hb", ["help", "batch"])
+    except getopt.GetoptError, err:
+        print str(err)
         usage()
-        sys.exit()
-    else:
-        assert False, "unhandled option"
+        sys.exit(2)
+    
+    batch=False
+    for o, a in opts:
+        if (o == "-b" or o == "--batch"):
+            batch=True
+            print "Running in batch mode."
+        elif (o == "-h" or o == "--help"):
+            usage()
+            sys.exit()
+        else:
+            assert False, "unhandled option"
 
-
-print "Using ", NPRO, " of ", multiprocessing.cpu_count(), " processors to run unit tests."
-
-# Check if executable is on the path
-if not isExecutable(MODELICA_EXE):
+    # Check if executable is on the path
+    if not isExecutable(MODELICA_EXE):
 	print "Error: Did not find executable '", MODELICA_EXE, "'."
 	exit(3)
 
-# Check current working directory
-curDir=os.path.split(os.path.abspath("."))[1]
-if curDir != "Buildings":
-    print "*** This script must be run from the Buildings directory."
-    print "*** Exit with error. Did not do anything."
-    exit(2)
+    # Check current working directory
+    curDir=os.path.split(os.path.abspath("."))[1]
+    if curDir != "Buildings":
+        print "*** This script must be run from the Buildings directory."
+        print "*** Exit with error. Did not do anything."
+        exit(2)
 
-# Count number of classes
-countClasses(".")    
-# List of temporary directories for running the tests
-temDirNam = []
+    print "Using ", NPRO, " of ", multiprocessing.cpu_count(), " processors to run unit tests."
+    # Count number of classes
+    countClasses(".")    
 
-# Make temporary directory, copy library into the directory and 
-# write run scripts to directory
-for iPro in range(NPRO):
-    temDirNam.append( tempfile.mkdtemp(prefix='tmp-Buildings-') )
-    shutil.copytree(".." + os.sep + "Buildings", 
-                    os.path.join(temDirNam[iPro], "Buildings"), 
-                    symlinks=False, 
-                    ignore=shutil.ignore_patterns('.svn', '.mat'))
-    writeRunscript(temDirNam[iPro], iPro, NPRO)    
-    
-# Start all unit tests in parallel
-if __name__ == '__main__' and NPRO > 1:
-    from multiprocessing import Pool
-    po = Pool(NPRO)
-    po.map(runSimulation, temDirNam)
-else:
-    runSimulation(temDirNam[0])
+    # Run simulations
+    temDirNam=getTemporaryDirectories(NPRO)
+    if NPRO > 1:
+        po = Pool(NPRO)
+        po.map(runSimulation, temDirNam)
+    else:
+        runSimulation(temDirNam[0])
 
-# Concatenate output files into one file
-logFil=open('unitTests.log', 'w')
-for d in temDirNam:
-    file=open(os.path.join(d, 'Buildings', 'unitTests.log'),'r')
-    data=file.read()
-    file.close()
-    logFil.write(data)
-logFil.close()
+    # Concatenate output files into one file
+        logFil=open('unitTests.log', 'w')
+        for d in temDirNam:
+            file=open(os.path.join(d, 'Buildings', 'unitTests.log'),'r')
+            data=file.read()
+            file.close()
+            logFil.write(data)
+        logFil.close()
 
-# Check md5sum
-for d in temDirNam:
-    checkMD5Sum(d, batch)
+    # Check md5sum
+    if batch:
+        ans = "N"
+    else:
+        ans = "-"
+    for d in temDirNam:
+        ans = checkMD5Sum(d, ans)
 
-# Delete temporary directories
-for d in temDirNam:
-    shutil.rmtree(d)
+    # Delete temporary directories
+    for d in temDirNam:
+        shutil.rmtree(d)
 
-# Check for errors
-retVal=checkSimulationError("unitTests.log")
+    # Check for errors
+    retVal=checkSimulationError("unitTests.log")
 
-exit(retVal)
+    # Print time
+    elapsedTime=time.time()-startTime;
+    print "Execution time = %.3f s" % elapsedTime
+
+    exit(retVal)

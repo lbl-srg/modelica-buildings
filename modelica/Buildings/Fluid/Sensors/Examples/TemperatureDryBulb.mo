@@ -1,5 +1,6 @@
 within Buildings.Fluid.Sensors.Examples;
 model TemperatureDryBulb
+  extends Modelica.Icons.Example;
 
 // package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" annotation 1;
  package Medium = Modelica.Media.Air.MoistAir;

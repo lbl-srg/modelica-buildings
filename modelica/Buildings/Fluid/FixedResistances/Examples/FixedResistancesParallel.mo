@@ -1,9 +1,9 @@
 within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistancesParallel
   import Buildings;
+  extends Modelica.Icons.Example;
 
- package Medium =
-        Buildings.Media.ConstantPropertyLiquidWater;
+ package Medium = Buildings.Media.ConstantPropertyLiquidWater;
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{66,76},{86,96}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp P(
@@ -61,8 +61,8 @@ equation
           82,46}}, color={0,0,127}));
   connect(P.y, sou1.p_in) annotation (Line(points={{-79,80},{-74,80},{-74,46},{
           -72,46}}, color={0,0,127}));
-  connect(res2.port_b, masFlo2.port_a) annotation (Line(points={{-8,0},{-4,
-          -3.36456e-022},{-4,0},{0,0}},
+  connect(res2.port_b, masFlo2.port_a) annotation (Line(points={{-8,6.10623e-16},
+          {-4,-3.36456e-22},{-4,6.10623e-16},{-5.55112e-16,6.10623e-16}},
                           color={0,127,255}));
   connect(res1.port_b, masFlo1.port_a)
     annotation (Line(points={{-8,40},{20,40}},color={0,127,255}));
@@ -71,7 +71,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou1.ports[2], res2.port_a) annotation (Line(
-      points={{-50,36},{-38,36},{-38,0},{-28,0}},
+      points={{-50,36},{-38,36},{-38,6.10623e-16},{-28,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin1.ports[1], masFlo1.port_b) annotation (Line(
@@ -79,7 +79,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sin1.ports[2], masFlo2.port_b) annotation (Line(
-      points={{60,36},{52,36},{52,0},{20,0}},
+      points={{60,36},{52,36},{52,6.10623e-16},{20,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(masFlo2.m_flow, assEqu.u1) annotation (Line(

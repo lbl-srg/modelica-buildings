@@ -34,18 +34,40 @@ equation
 
   // Pressure drop calculation
   if computeFlowResistance then
-   if from_dp then
-      m_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-         dp=dp, k=m_flow_nominal/sqrt(dp_nominal), m_flow_turbulent=deltaM * m_flow_nominal,
-         linearized=linearizeFlowResistance);
-   else
-      dp = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-         m_flow=m_flow, k=m_flow_nominal/sqrt(dp_nominal), m_flow_turbulent=deltaM * m_flow_nominal,
-         linearized=linearizeFlowResistance);
-   end if;
-  else
+    if useHomotopy then
+      if from_dp then
+        m_flow = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                    dp=dp, 
+                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    m_flow_turbulent=deltaM * m_flow_nominal,
+                                    linearized=linearizeFlowResistance),
+                          simplified=m_flow_nominal*dp/dp_nominal);
+      else
+        dp = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                    m_flow=m_flow, 
+                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    m_flow_turbulent=deltaM * m_flow_nominal,
+                                    linearized=linearizeFlowResistance),
+                      simplified=dp_nominal*m_flow/m_flow_nominal);
+      end if;
+    else // do not use homotopy
+      if from_dp then
+        m_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                    dp=dp, 
+                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    m_flow_turbulent=deltaM * m_flow_nominal,
+                                    linearized=linearizeFlowResistance);
+      else
+        dp = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                    m_flow=m_flow, 
+                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    m_flow_turbulent=deltaM * m_flow_nominal,
+                                    linearized=linearizeFlowResistance);
+      end if;
+    end if; // useHomotopy 
+  else // do not compute flow resistance
     dp = 0;
-  end if;
+  end if; // computeFlowResistance
 
   annotation (
     preferedView="info",
@@ -84,6 +106,10 @@ the energy and mass balances need to be added, such as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2011, by Michael Wetter:<br>
+Added <code>homotopy</code> operator.
+</li>
 <li>
 August 19, 2010, by Michael Wetter:<br>
 Fixed bug in energy and moisture balance that affected results if a component

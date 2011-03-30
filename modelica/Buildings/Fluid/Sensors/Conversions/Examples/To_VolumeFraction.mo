@@ -1,5 +1,6 @@
 within Buildings.Fluid.Sensors.Conversions.Examples;
 model To_VolumeFraction "Example problem for conversion model"
+  extends Modelica.Icons.Example;
   import Buildings;
   package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
 
@@ -147,8 +148,7 @@ equation
   annotation (
   Commands(file="To_VolumeFraction.mos" "run"),
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
-            100}}),   graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-200,-100},{200,100}})),
+            100}}),   graphics),
     Documentation(info="<html>
 This example demonstrates the modeling of a room with one person and CO<sub>2</sub> control.
 The room has a volume of <i>4*4*2.7 m<sup>3</sub></i>, and the CO<sub>2</sub> inflow is from 

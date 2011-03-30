@@ -1,5 +1,6 @@
 within Buildings.Fluid.Sensors.Examples;
 model ExtraProperty
+  extends Modelica.Icons.Example;
   import Buildings;
  package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
 
@@ -113,10 +114,8 @@ equation
       points={{-59,40},{-4.1,40}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{180,180}}),
-                        graphics),
-                         Commands(file=
+    annotation (Commands(file=
             "ExtraProperty.mos" "run"),
-              Diagram, Coordsys(extent=[-100,-100; 180,180]));
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{180,
+            180}})));
 end ExtraProperty;

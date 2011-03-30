@@ -1,6 +1,7 @@
 within Buildings.Fluid.Actuators.Examples;
 model ValveParameterization
   "Model to test and illustrate different parameterization for valves"
+  extends Modelica.Icons.Example;
   import Buildings;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
@@ -83,18 +84,18 @@ model ValveParameterization
 equation
   connect(y.y, valOPPoi.y)
                          annotation (Line(
-      points={{-39,70},{-20,70},{-20,54},{0,54},{0,48}},
+      points={{-39,70},{-20,70},{-20,54},{6.66134e-16,54},{6.66134e-16,48}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(PSou.y, sou.p_in)
     annotation (Line(points={{-79,26},{-74.5,26},{-74.5,8},{-72,8}},
                                                  color={0,0,127}));
   connect(y.y, valKv.y)  annotation (Line(
-      points={{-39,70},{-20,70},{-20,14},{0,14},{0,8}},
+      points={{-39,70},{-20,70},{-20,14},{6.66134e-16,14},{6.66134e-16,8}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(valKv.port_a, sou.ports[2])  annotation (Line(
-      points={{-10,0},{-30,0},{-30,1},{-50,1}},
+      points={{-10,6.10623e-16},{-30,6.10623e-16},{-30,1},{-50,1}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[3], valCv.port_a) annotation (Line(
@@ -102,7 +103,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y, valCv.y) annotation (Line(
-      points={{-39,70},{-20,70},{-20,-26},{0,-26},{0,-32}},
+      points={{-39,70},{-20,70},{-20,-26},{6.66134e-16,-26},{6.66134e-16,-32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[1], valOPPoi.port_a) annotation (Line(
@@ -114,7 +115,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(valKv.port_b, senM_flowKv.port_a) annotation (Line(
-      points={{10,0},{20,0}},
+      points={{10,6.10623e-16},{12.5,6.10623e-16},{12.5,1.22125e-15},{15,
+          1.22125e-15},{15,6.10623e-16},{20,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valCv.port_b, senM_flowCv.port_a) annotation (Line(
@@ -126,7 +128,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(senM_flowKv.port_b, sin.ports[2]) annotation (Line(
-      points={{40,0},{50,0},{50,1},{60,1}},
+      points={{40,6.10623e-16},{50,6.10623e-16},{50,1},{60,1}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senM_flowOpPoi.port_b, sin.ports[1]) annotation (Line(
@@ -147,7 +149,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y,valFlu. opening) annotation (Line(
-      points={{-39,70},{-20,70},{-20,-68},{0,-68},{0,-72}},
+      points={{-39,70},{-20,70},{-20,-68},{6.66134e-16,-68},{6.66134e-16,-72}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senM_flowOpPoi.m_flow, equ1.u1) annotation (Line(

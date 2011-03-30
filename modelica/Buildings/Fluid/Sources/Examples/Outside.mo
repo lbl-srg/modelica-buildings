@@ -1,5 +1,6 @@
 within Buildings.Fluid.Sources.Examples;
 model Outside "Test model for source and sink with outside weather data"
+  extends Modelica.Icons.Example;
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Medium model for air";
   Buildings.Fluid.Sources.Outside bou(redeclare package Medium = Medium, nPorts=

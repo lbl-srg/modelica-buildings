@@ -65,10 +65,10 @@ model Carnot
   Modelica.SIunits.Temperature TEva
     "Evaporator temperature used to compute efficiency";
 protected
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
   Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)

@@ -27,7 +27,7 @@ initial algorithm
   found:=false;
   i_w :=1;
     for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], 
+      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="water",
                                             caseSensitive=false) then
         i_w :=i;

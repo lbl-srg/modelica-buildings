@@ -1,8 +1,6 @@
 within Buildings.Fluid.Delays.Examples;
 model Delay
-
-// package Medium = Buildings.Media.ConstantPropertyLiquidWater;
-// package Medium = Buildings.Media.IdealGases.SimpleAir;
+  extends Modelica.Icons.Example; 
 // We set X_default to a small enough value to avoid saturation at the medium temperature
 // that is used in this model.
  package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated(X_default={0.001, 0.999});

@@ -275,10 +275,10 @@ First implementation.
 
   package Examples "Examples to test implementation of derivative function"
     import Buildings;
-    extends Buildings.BaseClasses.BaseIconExamples;
+    extends Modelica.Icons.ExamplesPackage;
     model LinearFlowDerivativeCheck
       "Model to check implementation of derivative function"
-
+      extends Modelica.Icons.Example;
       Real x;
       Real y;
       constant Real timeToFlow(unit="m3/s2")=1
@@ -320,7 +320,7 @@ First implementation.
 
     model QuadraticFlowDerivativeCheck
       "Model to check implementation of derivative function"
-
+      extends Modelica.Icons.Example;
       Real x;
       Real y;
       constant Real timeToFlow(unit="m3/s2")=1

@@ -1,6 +1,7 @@
 within Buildings.Fluid.Sources.Examples;
 model PrescribedExtraPropertyFlow
- package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
+  extends Modelica.Icons.Example;
+  package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
  // package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir;
 
   MixingVolumes.MixingVolume vol(
@@ -190,6 +191,5 @@ equation
             -100},{180,180}}),
                         graphics),
                          Commands(file=
-            "PrescribedExtraPropertyFlow.mos" "run"),
-              Diagram, Coordsys(extent=[-100,-100; 180,180]));
+            "PrescribedExtraPropertyFlow.mos" "run"));
 end PrescribedExtraPropertyFlow;

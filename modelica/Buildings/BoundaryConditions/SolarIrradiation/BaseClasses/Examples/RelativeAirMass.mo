@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples;
 model RelativeAirMass "Test model for relative air mass"
+  extends Modelica.Icons.Example;
   import Buildings;
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass
     relAirMas annotation (Placement(transformation(extent={{20,0},{40,20}})));

@@ -1,11 +1,12 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorSingleLayer "Test model for heat conductor"
+  extends Modelica.Icons.Example;
   import Buildings;
   Buildings.HeatTransfer.ConductorSingleLayer con(A=1, material=concrete200)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Sources.Step step(
     height=10,
@@ -15,10 +16,10 @@ model ConductorSingleLayer "Test model for heat conductor"
   Buildings.HeatTransfer.ConductorSingleLayer con1(
     A=1, material=concrete100)
            annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB1(
+  Buildings.HeatTransfer.Sources.FixedTemperature TB1(
                                                             T=293.15)
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.HeatTransfer.ConductorSingleLayer con2(
     A=1, material=concrete100)

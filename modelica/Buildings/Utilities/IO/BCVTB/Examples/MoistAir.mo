@@ -2,6 +2,7 @@ within Buildings.Utilities.IO.BCVTB.Examples;
 model MoistAir
   "Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room"
   import Buildings;
+  extends Modelica.Icons.Example;
 // package Medium = Modelica.Media.Air.MoistAir;
   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 
@@ -275,12 +276,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSup.T, to_degC.Kelvin) annotation (Line(
-      points={{327,68},{330,68},{330,67.6},{358,67.6}},
+      points={{327,68},{330,68},{330,68},{358,68}},
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(to_degC.Celsius, mul.u5[1]) annotation (Line(
-      points={{381,67.8},{392,67.8},{392,-6.66134e-16},{418,-6.66134e-16}},
+      points={{381,68},{392,68},{392,-6.66134e-16},{418,-6.66134e-16}},
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -304,8 +305,6 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{460,200}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{460,
-            200}})),
     Documentation(info="<html>
 This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.
 </p>

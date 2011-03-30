@@ -1,6 +1,7 @@
 within Buildings.HeatTransfer.WindowsBeta.Examples;
 model Window "Test model for the window"
   import Buildings;
+  extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Area A=1 "Window surface area";
   parameter Real fFra=0.2
     "Fraction of frame, = frame area divided by total area";
@@ -13,7 +14,7 @@ model Window "Test model for the window"
     fFra=fFra,
     glaSys=glaSys,
     linearize=linearize,
-    til=til)
+    til=til) "Window"
     annotation (Placement(transformation(extent={{82,70},{122,110}})));
   Buildings.HeatTransfer.WindowsBeta.InteriorHeatTransfer intCon(A=A, fFra=fFra,
     linearizeRadiation=linearize,
@@ -41,10 +42,10 @@ model Window "Test model for the window"
   Modelica.Blocks.Sources.Ramp uSha(duration=0.5, startTime=0.25)
     "Shading control signal"
     annotation (Placement(transformation(extent={{-90,120},{-70,140}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOuts
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TOuts
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRAir
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TRAir
     "Room air temperature"
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
   Modelica.Blocks.Sources.Constant fClr(k=0) "Fraction of sky that is clear"
@@ -52,7 +53,7 @@ model Window "Test model for the window"
   Buildings.HeatTransfer.Radiosity.IndoorRadiosity indRad(A=A)
     "Model for indoor radiosity"
     annotation (Placement(transformation(extent={{188,80},{168,100}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=0)
+  Buildings.HeatTransfer.Sources.FixedHeatFlow fixedHeatFlow(Q_flow=0)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={178,48})));
@@ -268,7 +269,5 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}}),
                       graphics),
-  Commands(file=
-          "Window.mos" "run"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,200}})));
+  Commands(file="Window.mos" "run"));
 end Window;

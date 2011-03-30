@@ -1,5 +1,6 @@
 within Buildings.Utilities.Psychrometrics.Examples;
 model TWetBul_TDryBulXi
+  extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model"
            annotation (choicesAllMatching = true);

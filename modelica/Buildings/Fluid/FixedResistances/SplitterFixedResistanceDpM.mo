@@ -1,23 +1,39 @@
 within Buildings.Fluid.FixedResistances;
 model SplitterFixedResistanceDpM
   "Flow splitter with fixed resistance at each port"
+    extends Buildings.BaseClasses.BaseIcon;
     extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
     mDyn_flow_nominal = sum(m_flow_nominal[:]/3),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
          redeclare package Medium=Medium,
-         from_dp=from_dp, m_flow_nominal=m_flow_nominal[1], dp_nominal=dp_nominal[1],
-         ReC=ReC[1], dh=dh[1],
-         linearized=linearized, deltaM=deltaM),
+            from_dp=from_dp, 
+            final m_flow_nominal=m_flow_nominal[1], 
+            final dp_nominal=dp_nominal[1],
+            final ReC=ReC[1], 
+            final dh=dh[1],
+            linearized=linearized, 
+            useHomotopy=useHomotopy,
+            deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
          redeclare package Medium=Medium,
-         from_dp=from_dp, m_flow_nominal=m_flow_nominal[2], dp_nominal=dp_nominal[2],
-         ReC=ReC[2], dh=dh[2],
-         linearized=linearized, deltaM=deltaM),
+            from_dp=from_dp, 
+            final m_flow_nominal=m_flow_nominal[2], 
+            final dp_nominal=dp_nominal[2],
+            final ReC=ReC[2], 
+            final dh=dh[2],
+            linearized=linearized, 
+            useHomotopy=useHomotopy,
+            deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
          redeclare package Medium=Medium,
-         from_dp=from_dp, m_flow_nominal=m_flow_nominal[3], dp_nominal=dp_nominal[3],
-         ReC=ReC[3], dh=dh[3],
-         linearized=linearized, deltaM=deltaM));
+            from_dp=from_dp, 
+            final m_flow_nominal=m_flow_nominal[3], 
+            final dp_nominal=dp_nominal[3],
+            final ReC=ReC[3], 
+            final dh=dh[3],
+            linearized=linearized, 
+            useHomotopy=useHomotopy,
+            deltaM=deltaM));
 
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
     annotation(Evaluate=true, Dialog(enable = not linearized));
@@ -39,6 +55,9 @@ model SplitterFixedResistanceDpM
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
+  parameter Boolean useHomotopy = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   annotation (Diagram(graphics),
                        Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={

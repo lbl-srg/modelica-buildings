@@ -3,6 +3,7 @@ ConductorSingleLayer
 ConductorMultiLayer
 Convection
 ConstructionOpaque
+Sources
 Surface
 WindowsBeta
 Radiosity

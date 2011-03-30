@@ -1,5 +1,6 @@
 within Buildings.Media.PerfectGases.Examples;
 model MoistAirUnsaturatedDerivativeCheck
+  extends Modelica.Icons.Example;
 
    package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
 

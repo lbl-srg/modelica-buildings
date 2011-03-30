@@ -1,10 +1,10 @@
 within Buildings.Fluid.MixingVolumes.Examples;
 model MixingVolume
   import Buildings;
+  extends Modelica.Icons.Example;
 
-// package Medium = Buildings.Media.IdealGases.SimpleAir;
- package Medium = Buildings.Media.PerfectGases.MoistAir;
- //  package Medium = Modelica.Media.Air.MoistAir;
+  package Medium = Buildings.Media.PerfectGases.MoistAir;
+
     Modelica.Blocks.Sources.Ramp P(
     duration=0.5,
     startTime=0.5,

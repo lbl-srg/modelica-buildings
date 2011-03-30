@@ -1,6 +1,7 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorSteadyStateTransient "Test model for heat conductor"
   import Buildings;
+  extends Modelica.Icons.Example;
 
   Buildings.HeatTransfer.Data.Solids.Brick brick(x=0.12, nStaRef=4)
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
@@ -19,9 +20,9 @@ model ConductorSteadyStateTransient "Test model for heat conductor"
   Buildings.HeatTransfer.ConductorSingleLayer con(
     A=2, material=brick) annotation (Placement(transformation(extent={{20,20},{40,40}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
 
   Modelica.Blocks.Sources.Step step(
@@ -32,16 +33,16 @@ model ConductorSteadyStateTransient "Test model for heat conductor"
   Buildings.HeatTransfer.ConductorSingleLayer con1(
     A=2, material=insul)
          annotation (Placement(transformation(extent={{20,-20},{40,0}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB1(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB1(T=293.15)
     annotation (Placement(transformation(extent={{100,-20},{80,0}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
   Buildings.HeatTransfer.ConductorSingleLayer con2(
     A=2, material=brick)
              annotation (Placement(transformation(extent={{50,-20},{70,0}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA2
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA2
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB2(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB2(T=293.15)
     annotation (Placement(transformation(extent={{100,-60},{80,-40}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo1
     annotation (Placement(transformation(extent={{0,-16},{12,-4}})));

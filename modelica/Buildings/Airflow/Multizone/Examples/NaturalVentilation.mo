@@ -1,5 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model NaturalVentilation
+  extends Modelica.Icons.Example; 
 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
@@ -44,7 +45,7 @@ model NaturalVentilation
     nPorts=2) annotation (Placement(transformation(extent={{75,-20},{95,0}},
           rotation=0)));
 
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{-49,-20},{-29,0}}, rotation=0)));
   Modelica.Blocks.Sources.Step q_flow(
     height=-100,

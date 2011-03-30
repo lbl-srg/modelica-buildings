@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Correlations.Examples;
 model YorkCalc "Example for yorkCalc correlation"
+  extends Modelica.Icons.Example;
 
   parameter Modelica.SIunits.TemperatureDifference TRan = 5.56
     "Range temperature (water in - water out)";

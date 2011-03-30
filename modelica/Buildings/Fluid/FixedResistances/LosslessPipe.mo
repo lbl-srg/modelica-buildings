@@ -30,7 +30,7 @@ equation
           extent={{-100,50},{100,-48}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255}),
+          fillColor={217,236,256}),
         Text(
           extent={{-104,-50},{18,-116}},
           lineColor={0,0,255},

@@ -186,6 +186,5 @@ First implementation.
 Implemenation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"
-));
+</html>"));
 end MassFlowSource_h;

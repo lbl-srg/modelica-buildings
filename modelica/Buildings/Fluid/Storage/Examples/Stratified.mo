@@ -1,5 +1,6 @@
 within Buildings.Fluid.Storage.Examples;
 model Stratified "Test model for stratified tank"
+  extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
@@ -74,16 +75,16 @@ model Stratified "Test model for stratified tank"
     amplitude=10,
     offset=273.15 + 20) annotation (Placement(transformation(extent={{-90,62},{
             -70,82}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBCSid2
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCSid2
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,50},{-28,62}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBCSid1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCSid1
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,84},{-28,96}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBCTop1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCTop1
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,66},{-28,78}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBCTop2
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TBCTop2
     "Boundary condition for tank" annotation (Placement(transformation(extent={
             {-40,32},{-28,44}}, rotation=0)));
   inner Modelica.Fluid.System system

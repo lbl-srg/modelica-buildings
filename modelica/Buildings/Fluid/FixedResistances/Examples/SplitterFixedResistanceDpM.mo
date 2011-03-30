@@ -1,5 +1,6 @@
 within Buildings.Fluid.FixedResistances.Examples;
 model SplitterFixedResistanceDpM
+  extends Modelica.Icons.Example;
 
  package Medium = Modelica.Media.Air.SimpleAir;
 

@@ -10,17 +10,16 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"                                annotation(Dialog(group = "Nominal condition"));
+  parameter Boolean useHomotopy = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
-    annotation(Evaluate=true, Dialog(tab="Advanced"), choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Real k(unit="") "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   Medium.MassFlowRate m_flow_turbulent
     "Turbulent flow if |m_flow| >= m_flow_turbulent, not a parameter because k can be a function of time"
      annotation(Evaluate=true);
-
-//  Modelica.SIunits.Pressure dp_turbulent
-//    "Turbulent flow if |dp| >= dp_small, not a parameter because k can be a function of time";
 
 protected
   parameter Medium.ThermodynamicState sta0=
@@ -37,23 +36,29 @@ protected
 equation
   // Pressure drop calculation
   if computeFlowResistance then
-    if from_dp then
-      m_flow=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
-    else
-      dp=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
-    end if;
-/* homotopy is not yet supported in Dymola 7.4 with Modelica 3.1
-    if from_dp then
-      m_flow=homotopy(actual=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized),
-                      simplified=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent, linearized=true));
-    else
-      dp=homotopy(actual=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized),
-                  simplified=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=true));
-    end if;
-*/
+    if useHomotopy then
+      if from_dp then
+        m_flow=homotopy(actual=FlowModels.basicFlowFunction_dp(dp=dp, k=k,
+                                   m_flow_turbulent=m_flow_turbulent,
+                                   linearized=linearized),
+                        simplified=m_flow_nominal*dp/dp_nominal);
+      else
+        dp=homotopy(actual=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
+                                   m_flow_turbulent=m_flow_turbulent,
+                                   linearized=linearized),
+                    simplified=dp_nominal*m_flow/m_flow_nominal);
+      end if;
+    else // do not use homotopy
+      if from_dp then
+        m_flow=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
+      else
+        dp=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
+      end if;
+    end if; // useHomotopy
   else
     dp = 0;
-  end if;
+  end if;  // computeFlowResistance
+
   // Isenthalpic state transformation (no storage and no loss of energy)
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
@@ -102,6 +107,10 @@ i.e., using a regularized implementation of the equation
 </html>", revisions="<html>
 <ul>
 <li>
+March 23, 2011 by Michael Wetter:<br>
+Added homotopy operator.
+</li>
+<li>
 March 30, 2010 by Michael Wetter:<br>
 Changed base classes to allow easier initialization.
 </li>
@@ -113,6 +122,10 @@ First implementation.
 </html>"),
 revisions="<html>
 <ul>
+<li>
+March 27, 2011, by Michael Wetter:<br>
+Added <code>homotopy</code> operator.
+</li>
 <li>
 April 13, 2009, by Michael Wetter:<br>
 Extracted pressure drop computation and implemented it in the

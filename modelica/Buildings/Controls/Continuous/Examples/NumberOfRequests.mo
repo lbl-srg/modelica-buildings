@@ -1,5 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
 model NumberOfRequests "Example model"
+  extends Modelica.Icons.Example; 
   Buildings.Controls.Continuous.NumberOfRequests numReq(
     nin=2,
     threShold=0,

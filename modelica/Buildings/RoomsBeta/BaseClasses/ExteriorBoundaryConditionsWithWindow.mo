@@ -90,8 +90,7 @@ model ExteriorBoundaryConditionsWithWindow
      final k2=fFra .* epsSWFra .* AWin)
     "Total solar irradiation on window frame"
     annotation (Placement(transformation(extent={{40,60},{20,80}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow solHeaGaiConWin[nCon](
-     each final alpha=0, each final T_ref=293.15)
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow solHeaGaiConWin[nCon]
     "Total solar heat gain of the window frame"
     annotation (Placement(transformation(extent={{0,60},{-20,80}})));
   Modelica.Blocks.Interfaces.RealOutput HDir[nCon](
@@ -109,7 +108,7 @@ model ExteriorBoundaryConditionsWithWindow
     annotation (Placement(transformation(extent={{300,170},{320,190}})));
 
 protected
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirConExtWin[
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirConExtWin[
     nCon] "Outside air temperature for window constructions"
     annotation (Placement(transformation(extent={{160,-90},{120,-50}})));
   Modelica.Blocks.Routing.Replicator repConExtWin(final nout=nCon)

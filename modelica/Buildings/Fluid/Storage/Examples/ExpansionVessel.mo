@@ -1,5 +1,6 @@
 within Buildings.Fluid.Storage.Examples;
 model ExpansionVessel "Test model for expansion vessel"
+  extends Modelica.Icons.Example;
   import Buildings;
 
  package Medium = Modelica.Media.Water.WaterIF97OnePhase_ph "Medium model";
@@ -21,21 +22,24 @@ model ExpansionVessel "Test model for expansion vessel"
     period=3600,
     offset=293.15)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature preTem
+  Buildings.HeatTransfer.Sources.PrescribedTemperature preTem
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
   connect(pulse.y, preTem.T) annotation (Line(
-      points={{-59,0},{-42,0}},
+      points={{-59,6.10623e-16},{-54.75,6.10623e-16},{-54.75,1.27676e-15},{
+          -50.5,1.27676e-15},{-50.5,6.66134e-16},{-42,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preTem.port, theCon.port_a) annotation (Line(
-      points={{-20,0},{0,0}},
+      points={{-20,6.10623e-16},{-15,6.10623e-16},{-15,1.22125e-15},{-10,
+          1.22125e-15},{-10,6.10623e-16},{-5.55112e-16,6.10623e-16}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theCon.port_b, vol.heatPort) annotation (Line(
-      points={{20,0},{30,0}},
+      points={{20,6.10623e-16},{22.5,6.10623e-16},{22.5,1.22125e-15},{25,
+          1.22125e-15},{25,6.10623e-16},{30,6.10623e-16}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(vol.ports[1], expVes.port_a) annotation (Line(

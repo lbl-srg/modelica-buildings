@@ -1,6 +1,7 @@
 within Buildings.HeatTransfer.WindowsBeta.BaseClasses.Examples;
 model GlassLayer "Test model for glass layer heat transfer"
   import Buildings;
+  extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Area A=1 "Window surface area";
   parameter Boolean linearize = false "Set to true to linearize emissive power";
 
@@ -13,12 +14,12 @@ model GlassLayer "Test model for glass layer heat transfer"
     linearize=linearize,
     epsLW_b=0.5) "Model for fraction of window that has a shade"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirOut
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirOut
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-110,-40},{-90,-20}})));
   Modelica.Blocks.Sources.Constant TOut(k=273.15) "Outside temperature"
     annotation (Placement(transformation(extent={{-160,-40},{-140,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TAirRoo
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirRoo
     "Room temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -26,7 +27,7 @@ model GlassLayer "Test model for glass layer heat transfer"
   Buildings.HeatTransfer.Radiosity.OpaqueSurface radOut(A=A, epsLW=0.8,
     linearize=false) "Model for outside radiosity"
     annotation (Placement(transformation(extent={{-98,-70},{-78,-48}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRadOut
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TRadOut
     "Outside radiative temperature"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
@@ -35,7 +36,7 @@ model GlassLayer "Test model for glass layer heat transfer"
     annotation (Placement(transformation(extent={{102,-60},{82,-40}})));
   Modelica.Blocks.Sources.Constant TRoo(k=293.15) "Room temperature"
     annotation (Placement(transformation(extent={{160,10},{140,30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRadRoo
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TRadRoo
     "Room radiative temperature" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -249,8 +250,7 @@ equation
     annotation (Commands(file="GlassLayer.mos" "run"),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -160},{160,160}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-160,-160},{160,160}})),
+                      graphics),
     Documentation(info="<html>
 This model tests one glas layer.
 </html>"));

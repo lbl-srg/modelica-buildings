@@ -2,6 +2,7 @@ within Buildings.BoundaryConditions.SolarIrradiation.Examples;
 model DirectTiltedSurface
   "Test model for direct solar irradiation on a tilted surface"
   import Buildings;
+  extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Angle lat=37/180*Modelica.Constants.pi "Latitude";
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")

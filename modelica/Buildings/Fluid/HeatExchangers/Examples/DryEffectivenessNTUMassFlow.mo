@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model DryEffectivenessNTUMassFlow
   "Model of epsilon-NTU dry coil that tests variable mass flow rates"
+  extends Modelica.Icons.Example;
   import Buildings;
   extends
     Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow(

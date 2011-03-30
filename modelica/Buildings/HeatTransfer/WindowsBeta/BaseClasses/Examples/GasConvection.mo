@@ -1,6 +1,7 @@
 within Buildings.HeatTransfer.WindowsBeta.BaseClasses.Examples;
 model GasConvection "Test problem for convection in the gas layer"
   import Buildings;
+  extends Modelica.Icons.Example;
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.GasConvection conVer(
     A=1,
     linearize=false,
@@ -12,10 +13,10 @@ model GasConvection "Test problem for convection in the gas layer"
     offset=283.15,
     height=20) "Boundary condition for temperature"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature T_a1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature T_a1
     "Exterior-side temperature"
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T_b1(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature T_b1(T=293.15)
     "Room-side temperature"
                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -31,10 +32,10 @@ model GasConvection "Test problem for convection in the gas layer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={10,-30})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature T_a2
+  Buildings.HeatTransfer.Sources.PrescribedTemperature T_a2
     "Exterior-side temperature"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T_b2(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature T_b2(T=293.15)
     "Room-side temperature"
                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -49,10 +50,10 @@ model GasConvection "Test problem for convection in the gas layer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,-110})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature T_a3
+  Buildings.HeatTransfer.Sources.PrescribedTemperature T_a3
     "Exterior-side temperature"
     annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T_b3(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature T_b3(T=293.15)
     "Room-side temperature"
                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -119,7 +120,5 @@ equation
       smooth=Smooth.None));
   annotation (Commands(file="GasConvection.mos" "run"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-140},{100,
-            100}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-140},{100,
-            100}})));
+            100}}), graphics));
 end GasConvection;

@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions.Examples;
 model RegNonZeroPowerDerivative_2_Check
+  extends Modelica.Icons.Example;
 
  parameter Real n=0.33 "Exponent";
  parameter Real delta = 0.1 "Abscissa value where transition occurs";

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Actuators.Examples;
 model TwoWayValves
-
- package Medium = Buildings.Media.ConstantPropertyLiquidWater;
+  extends Modelica.Icons.Example;
+  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valLin(
     redeclare package Medium = Medium,
@@ -67,15 +67,15 @@ equation
       color={0,0,127},
       pattern=LinePattern.None));
   connect(sou.ports[1], valLin.port_a) annotation (Line(
-      points={{-50,-7.33333},{-27,-7.33333},{-27,20},{0,20}},
+      points={{-50,-7.33333},{-27,-7.33333},{-27,20},{-5.55112e-16,20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valQui.port_a, sou.ports[2]) annotation (Line(
-      points={{0,-10},{-50,-10}},
+      points={{-5.55112e-16,-10},{-50,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valEqu.port_a, sou.ports[3]) annotation (Line(
-      points={{0,-40},{-26,-40},{-26,-12.6667},{-50,-12.6667}},
+      points={{-5.55112e-16,-40},{-26,-40},{-26,-12.6667},{-50,-12.6667}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valLin.port_b, sin.ports[1]) annotation (Line(

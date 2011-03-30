@@ -1,13 +1,14 @@
 within Buildings.HeatTransfer.Examples;
 model Convection "Test model for convective heat transfer coefficients"
   import Buildings;
+  extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp step(
     duration=1,
     startTime=0,
     height=10,
     offset=293.15 - 5)
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.HeatTransfer.Convection conCon(A=1,
   til=Buildings.RoomsBeta.Types.Tilt.Wall)    annotation (Placement(
@@ -23,13 +24,13 @@ model Convection "Test model for convective heat transfer coefficients"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={10,10})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA2
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA2
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA3
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA3
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA4
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA4
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.HeatTransfer.Convection conHorFluTop(
     A=1,
@@ -49,11 +50,11 @@ model Convection "Test model for convective heat transfer coefficients"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={90,10})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB1(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB1(T=293.15)
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB2(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB2(T=293.15)
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB3(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB3(T=293.15)
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
 equation
   connect(conCon.solid, TB.port) annotation (Line(

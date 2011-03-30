@@ -1,5 +1,6 @@
 within Buildings.RoomsBeta.BaseClasses.Examples;
 model RadiationTemperature "Test model for the radiation temperature"
+  extends Modelica.Icons.Example;
   extends
     Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses.PartialLongWaveRadiation;
   import Buildings;
@@ -31,19 +32,19 @@ protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conSha[NConExtWin](
       each G=100) "Heat conductor"
     annotation (Placement(transformation(extent={{20,-190},{40,-170}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouGlaUns[NConExtWin](
+  Buildings.HeatTransfer.Sources.FixedTemperature bouGlaUns[NConExtWin](
       each T=293.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-120})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouGlaSha[NConExtWin](
+  Buildings.HeatTransfer.Sources.FixedTemperature bouGlaSha[NConExtWin](
       each T=293.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-150})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouSha[NConExtWin](
+  Buildings.HeatTransfer.Sources.FixedTemperature bouSha[NConExtWin](
       each T=293.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

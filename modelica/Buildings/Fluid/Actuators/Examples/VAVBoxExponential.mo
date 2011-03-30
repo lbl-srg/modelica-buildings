@@ -1,5 +1,6 @@
 within Buildings.Fluid.Actuators.Examples;
 model VAVBoxExponential
+  extends Modelica.Icons.Example; 
 
  package Medium = Modelica.Media.Air.SimpleAir;
 

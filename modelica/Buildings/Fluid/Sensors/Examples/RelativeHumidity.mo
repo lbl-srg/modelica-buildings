@@ -1,8 +1,9 @@
 within Buildings.Fluid.Sensors.Examples;
 model RelativeHumidity "Test model for relative humidity sensor"
+  extends Modelica.Icons.Example;
   import Buildings;
 
- package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model"
+  package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model"
            annotation (choicesAllMatching = true);
 
   Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium

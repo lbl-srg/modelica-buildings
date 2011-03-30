@@ -78,10 +78,10 @@ protected
     "Temperature of fluid leaving evaporator";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_small = QEva_flow_nominal*1E-9
     "Small value for heat flow rate or power, used to avoid division by zero";
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloEva
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,-50},{-19,-30}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFloCon
     "Prescribed heat flow rate"
     annotation (Placement(transformation(extent={{-39,30},{-19,50}})));
   Modelica.Blocks.Sources.RealExpression QEva_flow_in(y=QEva_flow)

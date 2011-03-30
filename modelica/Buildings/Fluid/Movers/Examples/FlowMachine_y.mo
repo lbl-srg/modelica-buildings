@@ -1,6 +1,7 @@
 within Buildings.Fluid.Movers.Examples;
 model FlowMachine_y
   import Buildings;
+  extends Modelica.Icons.Example;
  extends Buildings.Fluid.Movers.Examples.BaseClasses.FlowMachine_ZeroFlow(
     gain(k=1),
     redeclare Buildings.Fluid.Movers.FlowMachine_y floMacSta(
@@ -31,8 +32,6 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}}), graphics),
     Commands(file="FlowMachine_y.mos" "run"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
-            160}})),
     Documentation(info="<html>
 This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
 </html>", revisions="<html>

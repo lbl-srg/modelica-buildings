@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.SkyTemperature.Examples;
 model BlackBody "Test model for black body sky temperature"
+  extends Modelica.Icons.Example;
   import Buildings;
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=

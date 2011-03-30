@@ -1,8 +1,8 @@
 within Buildings.HeatTransfer.Data;
 package Solids
   "Package with solid material, characterized by thermal conductance, density and specific heat capacity"
-
-annotation (
+    extends Modelica.Icons.MaterialPropertiesPackage;
+  annotation (
 Documentation(
 info="<html>
 <p>

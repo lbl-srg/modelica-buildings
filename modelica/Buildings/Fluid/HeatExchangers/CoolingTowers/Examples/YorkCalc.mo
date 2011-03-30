@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model YorkCalc
+  extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
     redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc tow, TOut(

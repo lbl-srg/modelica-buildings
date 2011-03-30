@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions.Examples;
 model SpliceFunctionDerivativeCheck
+  extends Modelica.Icons.Example;
 
   Real x;
   Real y;

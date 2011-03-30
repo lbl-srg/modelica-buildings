@@ -1,6 +1,7 @@
 within Buildings.Fluid.Movers.Examples;
 model ControlledFlowMachineDynamic
-extends Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine(
+  extends Modelica.Icons.Example;
+  extends Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine(
     fan4(dynamicBalance=true),
     fan1(dynamicBalance=true),
     fan2(dynamicBalance=true),
@@ -8,8 +9,9 @@ extends Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine(
   annotation (
     Commands(file="ControlledFlowMachineDynamic.mos" "run"),
     Documentation(info="<html>
-This example demonstrates the use of the flow model with four different configuration.
+This example demonstrates the use of the flow model with four different configurations.
 At steady-state, all flow models have the same mass flow rate and pressure difference.
-</html>"));
+</html>"),
+Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160, 160}}), graphics));
 
 end ControlledFlowMachineDynamic;

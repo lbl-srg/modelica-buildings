@@ -1,9 +1,9 @@
 within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistance
   import Buildings;
+  extends Modelica.Icons.Example;
 
- package Medium =
-        Buildings.Media.ConstantPropertyLiquidWater;
+ package Medium = Buildings.Media.ConstantPropertyLiquidWater;
     Modelica.Blocks.Sources.Constant PAtm(k=101325)
       annotation (Placement(transformation(extent={{66,76},{86,96}}, rotation=0)));
     Modelica.Blocks.Sources.Ramp P(

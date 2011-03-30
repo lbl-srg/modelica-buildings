@@ -1,6 +1,6 @@
 within Buildings.Fluid.MixingVolumes.Examples;
-model MixingVolumeInitialization
-
+model MixingVolumeInitialization "Test model for mixing volume initialization"
+  extends Modelica.Icons.Example;
  package Medium = Modelica.Media.Air.SimpleAir;
  //package Medium = Buildings.Media.PerfectGases.MoistAir;
  //package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir;

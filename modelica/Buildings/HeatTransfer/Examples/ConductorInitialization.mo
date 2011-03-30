@@ -1,9 +1,10 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorInitialization "Test model for heat conductor initialization"
+  extends Modelica.Icons.Example;
   import Buildings;
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB(T=303.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB(T=303.15)
     annotation (Placement(transformation(extent={{80,20},{60,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.HeatTransfer.Data.OpaqueConstructions.Generic compositeWall(
       material={insulation,brick}, final nLay=2)
@@ -42,19 +43,19 @@ model ConductorInitialization "Test model for heat conductor initialization"
     T_b_start=298.15)
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB1(T=303.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB1(T=303.15)
     annotation (Placement(transformation(extent={{80,-10},{60,10}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB2(T=303.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB2(T=303.15)
     annotation (Placement(transformation(extent={{80,-60},{60,-40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA2
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA2
     annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB3(T=303.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB3(T=303.15)
     annotation (Placement(transformation(extent={{80,-90},{60,-70}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA3
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA3
     annotation (Placement(transformation(extent={{-60,-90},{-40,-70}})));
   Modelica.Blocks.Sources.Step step(
     height=10,

@@ -1,5 +1,7 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples;
 model FixedApproachDryBulb
+  "Test model for cooling tower with fixed approach temperature"
+  extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTower(
     redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach tow);

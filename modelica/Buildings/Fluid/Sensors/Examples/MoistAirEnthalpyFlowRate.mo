@@ -1,6 +1,7 @@
 within Buildings.Fluid.Sensors.Examples;
 model MoistAirEnthalpyFlowRate
   "Test model for sensible and latent enthalpy flow rate"
+  extends Modelica.Icons.Example;
   import Buildings;
 
   package Medium = Modelica.Media.Air.MoistAir;

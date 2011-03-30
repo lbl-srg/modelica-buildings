@@ -1,6 +1,6 @@
 within Buildings.HeatTransfer.Data;
 package Resistances "Package with thermal resistances"
-
+    extends Modelica.Icons.MaterialPropertiesPackage;
   record Generic "Thermal properties of heat resistances"
       extends Buildings.HeatTransfer.Data.BaseClasses.Material(
       final c=0,

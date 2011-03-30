@@ -1,13 +1,14 @@
 within Buildings.HeatTransfer.Radiosity.Examples;
 model OpaqueSurface "Test model for indoor source as an opaque surface"
   import Buildings;
+  extends Modelica.Icons.Example;
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T2(T=303.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature T2(T=303.15)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
   Buildings.HeatTransfer.Radiosity.OpaqueSurface bod1( epsLW=0.3, A=1)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature T1(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature T1(T=293.15)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Buildings.HeatTransfer.Radiosity.OpaqueSurface bod2( epsLW=0.3, A=1)
     annotation (Placement(transformation(extent={{60,20},{40,40}})));

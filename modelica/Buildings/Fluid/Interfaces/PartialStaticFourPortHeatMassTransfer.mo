@@ -54,33 +54,77 @@ equation
   // Pressure drop calculation
   // Medium 1
   if computeFlowResistance1 then
-   if from_dp1 then
-      m1_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-         dp=dp1, k=m1_flow_nominal/sqrt(dp1_nominal), m_flow_turbulent=deltaM1 * m1_flow_nominal,
-         linearized=linearizeFlowResistance1);
-   else
-      dp1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-         m_flow=m1_flow, k=m1_flow_nominal/sqrt(dp1_nominal), m_flow_turbulent=deltaM1 * m1_flow_nominal,
-         linearized=linearizeFlowResistance1);
-   end if;
-  else
+    if useHomotopy then
+      if from_dp1 then
+        m1_flow = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                    dp=dp1, 
+                                    k=m1_flow_nominal/sqrt(dp1_nominal), 
+                                    m_flow_turbulent=deltaM1 * m1_flow_nominal,
+                                    linearized=linearizeFlowResistance1),
+                          simplified=m1_flow_nominal*dp1/dp1_nominal);
+      else
+        dp1 = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                    m_flow=m1_flow, 
+                                    k=m1_flow_nominal/sqrt(dp1_nominal), 
+                                    m_flow_turbulent=deltaM1 * m1_flow_nominal,
+                                    linearized=linearizeFlowResistance1),
+                      simplified=dp1_nominal*m1_flow/m1_flow_nominal);
+      end if;
+    else // do not use homotopy
+      if from_dp1 then
+        m1_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                    dp=dp1, 
+                                    k=m1_flow_nominal/sqrt(dp1_nominal), 
+                                    m_flow_turbulent=deltaM1 * m1_flow_nominal,
+                                    linearized=linearizeFlowResistance1);
+      else
+        dp1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                    m_flow=m1_flow,
+                                    k=m1_flow_nominal/sqrt(dp1_nominal), 
+                                    m_flow_turbulent=deltaM1 * m1_flow_nominal,
+                                    linearized=linearizeFlowResistance1);
+      end if;
+    end if; // useHomotopy 
+  else // do not compute flow resistance
     dp1 = 0;
-  end if;
+  end if; // computeFlowResistance
 
   // Medium 2
   if computeFlowResistance2 then
-   if from_dp2 then
-      m2_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-         dp=dp2, k=m2_flow_nominal/sqrt(dp2_nominal), m_flow_turbulent=deltaM2 * m2_flow_nominal,
-         linearized=linearizeFlowResistance2);
-   else
-      dp2 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-         m_flow=m2_flow, k=m2_flow_nominal/sqrt(dp2_nominal), m_flow_turbulent=deltaM2 * m2_flow_nominal,
-         linearized=linearizeFlowResistance2);
-   end if;
-  else
+    if useHomotopy then
+      if from_dp2 then
+        m2_flow = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                    dp=dp2, 
+                                    k=m2_flow_nominal/sqrt(dp2_nominal), 
+                                    m_flow_turbulent=deltaM2 * m2_flow_nominal,
+                                    linearized=linearizeFlowResistance2),
+                          simplified=m2_flow_nominal*dp2/dp2_nominal);
+      else
+        dp2 = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                    m_flow=m2_flow, 
+                                    k=m2_flow_nominal/sqrt(dp2_nominal), 
+                                    m_flow_turbulent=deltaM2 * m2_flow_nominal,
+                                    linearized=linearizeFlowResistance2),
+                      simplified=dp2_nominal*m2_flow/m2_flow_nominal);
+      end if;
+    else // do not use homotopy
+      if from_dp2 then
+        m2_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                                    dp=dp2, 
+                                    k=m2_flow_nominal/sqrt(dp2_nominal), 
+                                    m_flow_turbulent=deltaM2 * m2_flow_nominal,
+                                    linearized=linearizeFlowResistance2);
+      else
+        dp2 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                                    m_flow=m2_flow, 
+                                    k=m2_flow_nominal/sqrt(dp2_nominal), 
+                                    m_flow_turbulent=deltaM2 * m2_flow_nominal,
+                                    linearized=linearizeFlowResistance2);
+      end if;
+    end if; // useHomotopy 
+  else // do not compute flow resistance
     dp2 = 0;
-  end if;
+  end if; // computeFlowResistance
 
   annotation (
     preferedView="info",
@@ -101,6 +145,10 @@ for how to use this partial model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2011, by Michael Wetter:<br>
+Added <code>homotopy</code> operator.
+</li>
 <li>
 August 19, 2010, by Michael Wetter:<br>
 Fixed bug in energy and moisture balance that affected results if a component

@@ -1,9 +1,10 @@
 within Buildings.HeatTransfer.Examples;
 model ConductorMultiLayer "Test model for heat conductor"
+  extends Modelica.Icons.Example;
   import Buildings;
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TA
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TA
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Sources.Step step(
     height=10,

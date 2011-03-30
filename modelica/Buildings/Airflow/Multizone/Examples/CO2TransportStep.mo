@@ -1,5 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
+  extends Modelica.Icons.Example; 
 
   package Medium = Modelica.Media.Air.SimpleAir(extraPropertiesNames={"CO2"});
 
@@ -136,13 +137,13 @@ model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-180,200},{-160,220}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TTop(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TTop(T=293.15)
     "Fixed temperature"
     annotation (Placement(transformation(extent={{-80,120},{-60,140}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TWes(T=298.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TWes(T=298.15)
     "Fixed temperature"
     annotation (Placement(transformation(extent={{-140,-30},{-120,-10}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TEas(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TEas(T=293.15)
     "Fixed temperature"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Fluid.Sensors.TraceSubstances CO2SenTop(redeclare package Medium = Medium)

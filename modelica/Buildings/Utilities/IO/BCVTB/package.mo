@@ -1,8 +1,10 @@
 within Buildings.Utilities.IO;
 package BCVTB "Package with functions to communicate with the Building Controls Virtual Test Bed"
+  extends Modelica.Icons.VariantsPackage;
 
 
 package UsersGuide "User's Guide"
+  extends Modelica.Icons.Information;
 annotation (DocumentationClass=true, Documentation(info="<html>
 This package contains an interface to the 
 <a href=\"http://simulationresearch.lbl.gov/bcvtb\">Building Controls Virtual Test Bed</a>

@@ -1,8 +1,7 @@
 within Buildings.Media;
 package GasesConstantDensity "Package with models for gases where pressure and temperature are independent of each other"
-
-
-  annotation (preferedView="info", Documentation(info="<html>
+  extends Modelica.Icons.MaterialPropertiesPackage;
+annotation (preferedView="info", Documentation(info="<html>
 <p>
 Medium models in this package use a constant mass density.
 <p>

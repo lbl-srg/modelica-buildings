@@ -1,5 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model OneOpenDoor
+  extends Modelica.Icons.Example; 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOpen dooOpe(redeclare package
@@ -21,7 +22,7 @@ model OneOpenDoor
     use_HeatTransfer=true,
     nPorts=4) annotation (Placement(transformation(extent={{60,60},{80,80}},
           rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{14,60},{34,80}}, rotation=0)));
   Modelica.Blocks.Sources.Sine heaSou(freqHz=1/3600) annotation (Placement(
         transformation(extent={{-60,60},{-40,80}}, rotation=0)));

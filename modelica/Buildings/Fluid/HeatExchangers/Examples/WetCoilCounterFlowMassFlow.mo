@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.Examples;
 model WetCoilCounterFlowMassFlow
   "Model of a cooling coil that tests variable mass flow rates"
+  extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.HeatExchangers.Examples.BaseClasses.EffectivenessNTUMassFlow(
     sou_1(nPorts=1),

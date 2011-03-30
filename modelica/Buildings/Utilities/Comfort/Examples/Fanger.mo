@@ -1,5 +1,6 @@
 within Buildings.Utilities.Comfort.Examples;
 model Fanger "Test of Comfort Model"
+  extends Modelica.Icons.Example;
 
   Buildings.Utilities.Comfort.Fanger theCom(
     use_vAir_in=true,

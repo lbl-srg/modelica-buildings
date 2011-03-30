@@ -1,5 +1,6 @@
 within Buildings.Media.PerfectGases.Common;
 package SingleGasData "Package with data records for single gases"
+  extends Modelica.Icons.MaterialPropertiesPackage;
  constant PerfectGases.Common.DataRecord Air(
    name = Modelica.Media.IdealGases.Common.SingleGasesData.Air.name,
    R =    Modelica.Media.IdealGases.Common.SingleGasesData.Air.R,

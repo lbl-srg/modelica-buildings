@@ -1,6 +1,6 @@
 within Buildings.RoomsBeta.BaseClasses.Examples;
 package BaseClasses "Package with base classes for Buildings.RoomsBeta.BaseClasses.Examples"
-  extends Modelica.Fluid.Icons.BaseClassLibrary;
+  extends Modelica.Icons.BasesPackage;
 annotation (preferedView="info", Documentation(info="<html>
 <p>
 This package contains base classes that are used to construct the models in

@@ -1,5 +1,6 @@
 within Buildings.Fluid.Actuators.BaseClasses.Examples;
 model EqualPercentageDerivativeCheck
+  extends Modelica.Icons.Example;
 
  parameter Real R = 50 "Rangeability";
  parameter Real delta = 0.01 "Value where transition occurs";

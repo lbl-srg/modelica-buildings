@@ -1,5 +1,6 @@
 within Buildings.RoomsBeta.Examples;
 model MixedAirFreeResponse "Free response of room model"
+  extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Medium model";
 
@@ -97,12 +98,12 @@ model MixedAirFreeResponse "Free response of room model"
     annotation (Placement(transformation(extent={{-20,90},{0,110}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=max(1,nConExtWin))
     annotation (Placement(transformation(extent={{10,90},{30,110}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T=283.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T=283.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={110,-10})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
@@ -168,7 +169,6 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {200,200}}),
                       graphics), Commands(file="MixedAirFreeResponse.mos" "run"),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,200}})),
     Documentation(info="<html>
 This model illustrates the use of the room model
 <a href=\"modelica://Buildings.RoomsBeta.MixedAir\">

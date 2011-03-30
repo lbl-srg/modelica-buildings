@@ -1,6 +1,7 @@
 within Buildings.Examples;
 model HydronicHeating "Model of a hydronic heating system with energy storage"
-  package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
+  extends Modelica.Icons.Example;
+ package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Medium model for air";
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
@@ -145,7 +146,7 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,540},{-60,560}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAmb(T=288.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TAmb(T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
   Fluid.Movers.FlowMachine_y pumRad(
@@ -171,7 +172,7 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRoo2
     annotation (Placement(transformation(extent={{480,216},{500,236}})));
   Modelica.Blocks.Sources.Constant dpSet(k=dp_nominal) "Pressure set point"
-    annotation (Placement(transformation(extent={{60,140},{80,160}})));
+    annotation (Placement(transformation(extent={{40,140},{60,160}})));
   Controls.Continuous.PIDHysteresisTimer conPum(
     Ti=60,
     yMax=1,
@@ -180,7 +181,7 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     Td=60,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     yMin=0.05) "Controller for pump"
-    annotation (Placement(transformation(extent={{140,100},{160,120}})));
+    annotation (Placement(transformation(extent={{120,100},{140,120}})));
   Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -365,24 +366,24 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
         1) "Expansion vessel"
     annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
   Buildings.Utilities.Math.Max maxYVal(nin=2) "Maximum radiator valve position"
-    annotation (Placement(transformation(extent={{20,100},{40,120}})));
+    annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Modelica.Blocks.Logical.Hysteresis hysPum(           uLow=0.01, uHigh=0.5)
     "Hysteresis for pump"
-    annotation (Placement(transformation(extent={{60,100},{80,120}})));
+    annotation (Placement(transformation(extent={{40,100},{60,120}})));
   Modelica.Blocks.Logical.Switch swiPum "Pump switch"
-    annotation (Placement(transformation(extent={{100,100},{120,120}})));
+    annotation (Placement(transformation(extent={{80,100},{100,120}})));
   Modelica.Blocks.Sources.Constant dpSetOff(k=0)
     "Pressure set point to switch pump off"
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos") 
+        "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "File reader that reads weather data"
     annotation (Placement(transformation(extent={{-80,330},{-60,350}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-50,330},{-30,350}})));
   Modelica.Blocks.Continuous.FirstOrder delRadPum(T=10)
     "Delay element for the transient response of the pump"
-    annotation (Placement(transformation(extent={{180,100},{200,120}})));
+    annotation (Placement(transformation(extent={{150,100},{170,120}})));
   Modelica_StateGraph2.Step off(
     nOut=1,
     initialStep=true,
@@ -505,6 +506,9 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
   Modelica.Blocks.Sources.Constant TOutSwi(k=16 + 293.15)
     "Outside air temperature to switch heating on or off"
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=10, uMin=0.01)
+    "Limiter to ensure a small flow rate even if pump is off."
+    annotation (Placement(transformation(extent={{180,100},{200,120}})));
 equation
   connect(TAmb.port,boi. heatPort) annotation (Line(
       points={{-20,-90},{-10,-90},{-10,-112.8}},
@@ -521,7 +525,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpSen.p_rel, conPum.u_m) annotation (Line(
-      points={{183,50},{150,50},{150,98}},
+      points={{183,50},{130,50},{130,98}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(val1.port_b, rad1.port_a) annotation (Line(
@@ -547,7 +551,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b,pumBoi. port_a) annotation (Line(
-      points={{5.55112e-16,-120},{60,-120}},
+      points={{0,-120},{60,-120}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.heaPorVol[1], tanTemTop.port) annotation (Line(
@@ -571,8 +575,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, conVal.u_s) annotation (Line(
-      points={{101,1.22125e-15},{110,1.22125e-15},{110,6.66134e-16},{138,
-          6.66134e-16}},
+      points={{101,0},{110,0},{110,0},{138,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tan.port_b, boi.port_a) annotation (Line(
@@ -625,47 +628,42 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(maxYVal.y, hysPum.u) annotation (Line(
-      points={{41,110},{58,110}},
+      points={{21,110},{38,110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hysPum.y, swiPum.u2) annotation (Line(
-      points={{81,110},{98,110}},
+      points={{61,110},{78,110}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(dpSet.y, swiPum.u1) annotation (Line(
-      points={{81,150},{88,150},{88,118},{98,118}},
+      points={{61,150},{68,150},{68,118},{78,118}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dpSetOff.y, swiPum.u3) annotation (Line(
-      points={{81,70},{88,70},{88,102},{98,102}},
+      points={{61,70},{68,70},{68,102},{78,102}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(swiPum.y, conPum.u_s) annotation (Line(
-      points={{121,110},{138,110}},
+      points={{101,110},{118,110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conRoo1.y, maxYVal.u[1]) annotation (Line(
-      points={{561,510},{580,510},{580,420},{160,420},{160,240},{0,240},{0,112},
-          {10,110},{18,109}},
+      points={{561,510},{580,510},{580,420},{160,420},{160,240},{-20,240},{-20,
+          109},{-2,109}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conRoo2.y, maxYVal.u[2]) annotation (Line(
-      points={{561,250},{580,250},{580,150},{160,150},{160,240},{0,240},{0,111},
-          {18,111}},
+      points={{561,250},{580,250},{580,150},{160,150},{160,240},{-20,240},{-20,
+          111},{-2,111}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(conVal.y, thrWayVal.y) annotation (Line(
-      points={{161,6.10623e-16},{185.5,6.10623e-16},{185.5,1.15598e-15},{212,
-          1.15598e-15}},
+      points={{161,0},{185.5,0},{185.5,4.89859e-016},{212,4.89859e-016}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPum.y, delRadPum.u) annotation (Line(
-      points={{161,110},{178,110}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(delRadPum.y, pumRad.y) annotation (Line(
-      points={{201,110},{204,110},{204,50},{210,50}},
+      points={{141,110},{148,110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaPum.y, pumBoi.y)
@@ -800,7 +798,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(swi.y, heaCha.TRoo_in)     annotation (Line(
-      points={{661,380},{680,380},{680,150},{250,150},{250,240},{30,240},{30,
+      points={{661,380},{680,380},{680,150},{160,150},{160,240},{-20,240},{-20,
           -12},{78.1,-12}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -865,11 +863,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(resSup.port_b, thrWayVal.port_3) annotation (Line(
-      points={{260,20},{260,-1.68051e-18},{230,-1.68051e-18}},
+      points={{260,20},{260,-6.12323e-016},{230,-6.12323e-016}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaCha.TOut) annotation (Line(
-      points={{-40,340},{-40,0},{20,0},{20,1.22125e-15},{78,1.22125e-15}},
+      points={{-40,340},{-40,0},{20,0},{20,0},{78,0}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -895,8 +893,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, lesThr.u1) annotation (Line(
-      points={{101,1.22125e-15},{110,1.22125e-15},{110,-80},{300,-80},{300,-100},
-          {380,-100},{380,-112},{398,-112}},
+      points={{101,0},{110,0},{110,-80},{300,-80},{300,-100},{380,-100},{380,
+          -112},{398,-112}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaBoi.y, boi.y) annotation (Line(
@@ -1000,6 +998,14 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
+  connect(limiter.y, pumRad.y) annotation (Line(
+      points={{201,110},{210,110},{210,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(delRadPum.y, limiter.u) annotation (Line(
+      points={{171,110},{178,110}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,
             -200},{700,600}}), graphics),
 Documentation(info="<html>
@@ -1072,7 +1078,5 @@ To avoid this problem, use another compiler, such as Visual C++ 2008.
       StopTime=172800,
       Tolerance=1e-006,
       Algorithm="radau"),
-    experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-120,-200},{700,
-            600}})));
+    experimentSetupOutput);
 end HydronicHeating;

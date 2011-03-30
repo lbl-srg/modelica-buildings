@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model EquationOfTime "Test model for equation of time"
+  extends Modelica.Icons.Example;
   import Buildings;
   Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));

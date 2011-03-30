@@ -14,7 +14,7 @@ model PartialLongWaveRadiation
   datConPar(each A=1));
 
 protected
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConExt[NConExt](each T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature bouConExt[NConExt](each T=293.15)
     "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -42,42 +42,42 @@ protected
         100) "Heat conductor"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
 protected
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConExtWin[
+  Buildings.HeatTransfer.Sources.FixedTemperature bouConExtWin[
     NConExtWin](each T=293.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,60})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConExtWinFra[
+  Buildings.HeatTransfer.Sources.FixedTemperature bouConExtWinFra[
     NConExtWin](each T=293.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,30})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConPar_a[NConPar](each T=
+  Buildings.HeatTransfer.Sources.FixedTemperature bouConPar_a[NConPar](each T=
        293.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,0})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConPar_b[NConPar](each T=
+  Buildings.HeatTransfer.Sources.FixedTemperature bouConPar_b[NConPar](each T=
        293.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,-30})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouConBou[NConBou](each T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature bouConBou[NConBou](each T=293.15)
     "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={90,-60})));
 
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature bouSurBou[NSurBou](each T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature bouSurBou[NSurBou](each T=293.15)
     "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},

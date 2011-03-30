@@ -1,5 +1,6 @@
 within Buildings.Fluid.Actuators.Examples;
 model ThreeWayValves
+  extends Modelica.Icons.Example; 
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater
     "Medium in the component";

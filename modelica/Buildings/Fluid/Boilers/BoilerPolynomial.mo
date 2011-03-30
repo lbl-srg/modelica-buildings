@@ -61,7 +61,7 @@ public
                                           annotation (Placement(
         transformation(extent={{100,70},{120,90}}, rotation=0)));
 public
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{-43,-40},{-23,-20}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));

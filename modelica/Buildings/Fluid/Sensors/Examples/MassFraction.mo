@@ -1,9 +1,9 @@
 within Buildings.Fluid.Sensors.Examples;
 model MassFraction
-
+  extends Modelica.Icons.Example;
   import Buildings;
 
- package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
+  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated
     "Medium model";
 
   Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium

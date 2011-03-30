@@ -1,5 +1,6 @@
 within Buildings.Controls.Discrete.Examples;
 model BooleanDelay "Example model"
+  extends Modelica.Icons.Example; 
   Buildings.Controls.Discrete.BooleanDelay del annotation (Placement(
         transformation(extent={{0,-20},{20,0}}, rotation=0)));
   Modelica.Blocks.Sources.BooleanPulse booleanPulse(period=0.25)

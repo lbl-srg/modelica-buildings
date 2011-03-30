@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples;
 model SkyBrightness "Test model for sky brightness"
+  extends Modelica.Icons.Example;
   import Buildings;
   Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.RelativeAirMass
     relAirMas annotation (Placement(transformation(extent={{10,20},{30,40}})));

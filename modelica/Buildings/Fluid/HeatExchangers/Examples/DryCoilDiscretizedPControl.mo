@@ -2,6 +2,7 @@ within Buildings.Fluid.HeatExchangers.Examples;
 model DryCoilDiscretizedPControl
   "Model that demonstrates use of a finite volume model of a heat exchanger without condensation and with feedback control"
   import Buildings;
+  extends Modelica.Icons.Example;
 
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
  //package Medium2 = Buildings.Media.PerfectGases.MoistAir;

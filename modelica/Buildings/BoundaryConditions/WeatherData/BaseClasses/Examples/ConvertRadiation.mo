@@ -1,7 +1,8 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
 model ConvertRadiation "Test model for convert radiation"
+  extends Modelica.Icons.Example;
   import Buildings;
-public
+
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
     cheGloRad "Check global horizontal radiation"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));

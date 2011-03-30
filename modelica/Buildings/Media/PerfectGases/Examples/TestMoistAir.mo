@@ -1,5 +1,6 @@
 within Buildings.Media.PerfectGases.Examples;
 model TestMoistAir
+  extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium =
           Buildings.Media.PerfectGases.MoistAir);

@@ -1,5 +1,6 @@
 within Buildings.Media.PerfectGases.Examples;
 model MoistAirComparison
+  extends Modelica.Icons.Example;
 
    package PerfectMedium = Buildings.Media.PerfectGases.MoistAir;
    package IdealMedium =   Modelica.Media.Air.MoistAir;

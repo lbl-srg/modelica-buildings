@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Data;
 package GlazingSystems
   "Package with thermophysical properties for glazing systems"
-
+    extends Modelica.Icons.MaterialPropertiesPackage;
   record Generic "Thermal properties of glazing systems"
       extends Modelica.Icons.Record;
     parameter Integer nLay(min=1, fixed=true) "Number of glass layers"

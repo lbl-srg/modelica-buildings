@@ -1,5 +1,10 @@
 within Buildings;
 package BoundaryConditions "Package with models for boundary conditions"
+  extends Modelica.Icons.Package;
+
+
+
+
 
 annotation (preferedView="info",
 Documentation(info="<html>

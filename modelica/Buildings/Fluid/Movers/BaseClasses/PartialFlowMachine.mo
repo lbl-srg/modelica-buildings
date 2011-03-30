@@ -91,7 +91,7 @@ protected
                             final addPowerToMedium=addPowerToMedium) if not dynamicBalance
     "Source for static model, this changes the pressure in the medium and adds heat"
     annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow prePow if (dynamicBalance and addPowerToMedium)
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if (dynamicBalance and addPowerToMedium)
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-68,0},{-48,20}})));
 
@@ -199,7 +199,8 @@ and hence the outlet enthalpy is higher than the inlet enthalpy if the
 flow device is operating.
 The setting <code>addPowerToMedium=false</code> is physically incorrect
 (since the flow work, the flow friction and the fan heat do not increase
-the enthalpy of the medium), but this setting does in some cases lead to simpler equations.
+the enthalpy of the medium), but this setting does in some cases lead to simpler equations
+and more robust simulation, in particular if the mass flow is equal to zero.
 </p>
 </html>",
       revisions="<html>

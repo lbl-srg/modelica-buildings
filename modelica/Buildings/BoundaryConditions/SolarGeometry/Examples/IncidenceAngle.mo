@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.Examples;
 model IncidenceAngle "Test model for solar incidence angle"
+  extends Modelica.Icons.Example;
   import Buildings;
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
     lat=0.73097781993588,

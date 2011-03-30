@@ -1,10 +1,7 @@
 within Buildings.Fluid.Sensors;
 package UsersGuide "User's Guide"
-
+  extends Modelica.Icons.Info;
   annotation (DocumentationClass=true, Documentation(info="<html>
-<p>This package contains models of sensors
-</p>
-<h4>Model description</h4>
 <p>
 This package contains models of sensors.
 There are models with one and with two fluid ports.
@@ -19,7 +16,9 @@ unless the sensor is directly connected to the port of a volume
 in the package
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>.
-<!-- fixme: add reference -->
+For an explanation, see
+<a href=\"modelica:Modelica.Fluid.Examples.Explanatory.MeasuringTemperature\">
+Modelica.Fluid.Examples.Explanatory.MeasuringTemperature</a>.
 </p>
 <p>
 For quantities that do not depend on the flow direction,

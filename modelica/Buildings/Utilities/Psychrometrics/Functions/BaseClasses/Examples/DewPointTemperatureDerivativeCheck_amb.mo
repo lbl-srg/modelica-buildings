@@ -1,6 +1,7 @@
 within Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples;
 model DewPointTemperatureDerivativeCheck_amb
   "Model to test correct implementation of derivative"
+  extends Modelica.Icons.Example;
 
   Real x;
   Real y;

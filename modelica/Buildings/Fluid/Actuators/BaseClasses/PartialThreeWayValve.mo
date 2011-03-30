@@ -132,6 +132,10 @@ First implementation.
 revisions="<html>
 <ul>
 <li>
+March 25, 2011, by Michael Wetter:<br>
+Added homotopy method.
+</li>
+<li>
 June 16, 2008 by Michael Wetter:<br>
 First implementation.
 </li>

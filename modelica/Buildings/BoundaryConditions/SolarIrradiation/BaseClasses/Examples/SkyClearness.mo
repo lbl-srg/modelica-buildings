@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.Examples;
 model SkyClearness "Test model for sky clearness"
+  extends Modelica.Icons.Example;
   import Buildings;
 
   Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=

@@ -1,5 +1,6 @@
 within Buildings.Utilities.Math.Functions.Examples;
 model RegNonZeroPower
+  extends Modelica.Icons.Example;
   Real y "Function value";
 equation
   y=Buildings.Utilities.Math.Functions.regNonZeroPower(

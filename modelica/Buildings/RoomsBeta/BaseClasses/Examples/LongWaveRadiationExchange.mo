@@ -1,5 +1,6 @@
 within Buildings.RoomsBeta.BaseClasses.Examples;
 model LongWaveRadiationExchange "Test model for long-wave radiation exchange"
+  extends Modelica.Icons.Example;
   extends
     Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses.PartialLongWaveRadiation;
   import Buildings;

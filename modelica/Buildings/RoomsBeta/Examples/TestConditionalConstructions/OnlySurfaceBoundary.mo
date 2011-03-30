@@ -1,5 +1,6 @@
 within Buildings.RoomsBeta.Examples.TestConditionalConstructions;
 model OnlySurfaceBoundary "Test model for room model"
+  extends Modelica.Icons.Example;
   extends BaseClasses.PartialTestModel(
    nConExt=0,
    nConExtWin=0,
@@ -8,7 +9,7 @@ model OnlySurfaceBoundary "Test model for room model"
    nSurBou=1,
    roo(
     surBou(each A=15, each epsLW=0.9, each epsSW=0.9, each til=Types.Tilt.Floor)));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,

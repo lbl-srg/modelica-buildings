@@ -1,5 +1,6 @@
 within Buildings.Fluid.Utilities.Examples;
 model ExtendedPolynomialDerivativeCheck
+  extends Modelica.Icons.Example;
 
   parameter Real[:] c={0.1162,1.5404,-1.4825,0.7664,-0.1971}
     "Polynomial coefficients";

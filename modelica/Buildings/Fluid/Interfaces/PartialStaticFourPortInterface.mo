@@ -25,6 +25,8 @@ partial model PartialStaticFourPortInterface
   parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*m2_flow_nominal
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
+  parameter Boolean useHomotopy = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Diagnostics
   parameter Boolean show_V_flow = false
@@ -35,17 +37,11 @@ partial model PartialStaticFourPortInterface
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 
 public
-  Modelica.SIunits.VolumeFlowRate V1_flow=
-      m1_flow/Modelica.Fluid.Utilities.regStep(m1_flow,
-                  Medium1.density(state_a1_inflow),
-                  Medium1.density(state_b1_inflow),
-                  m1_flow_small) if show_V_flow
+  Modelica.SIunits.VolumeFlowRate V1_flow=m1_flow/Medium.density(sta_a1) 
+     if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a1 to port_b1)";
-  Modelica.SIunits.VolumeFlowRate V2_flow=
-      m2_flow/Modelica.Fluid.Utilities.regStep(m2_flow,
-                  Medium2.density(state_a2_inflow),
-                  Medium2.density(state_b2_inflow),
-                  m2_flow_small) if show_V_flow
+  Modelica.SIunits.VolumeFlowRate V2_flow=m2_flow/Medium.density(sta_a2) 
+     if show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a2 to port_b2)";
 
   Medium1.MassFlowRate m1_flow(start=0)
@@ -57,17 +53,51 @@ public
   Modelica.SIunits.Pressure dp2(start=0, displayUnit="Pa")
     "Pressure difference between port_a2 and port_b2";
 
-  Medium1.ThermodynamicState sta_a1=
-      Medium1.setState_phX(port_a1.p, actualStream(port_a1.h_outflow), actualStream(port_a1.Xi_outflow)) if
+
+  Medium1.ThermodynamicState sta_a1=if useHomotopy then
+      Medium1.setState_phX(port_a1.p, 
+         homotopy(actual=actualStream(port_a1.h_outflow),
+                  simplified=inStream(port_a1.h_outflow)),
+         homotopy(actual=actualStream(port_a1.Xi_outflow),
+                  simplified=inStream(port_a1.Xi_outflow)))
+    else
+      Medium1.setState_phX(port_a1.p, 
+                           actualStream(port_a1.h_outflow), 
+                           actualStream(port_a1.Xi_outflow)) if
          show_T "Medium properties in port_a1";
-  Medium1.ThermodynamicState sta_b1=
+
+  Medium1.ThermodynamicState sta_b1=if useHomotopy then
+      Medium1.setState_phX(port_b1.p, 
+          homotopy(actual=actualStream(port_b1.h_outflow),
+                   simplified=port_b1.h_outflow),
+          homotopy(actual=actualStream(port_b1.Xi_outflow),
+                   simplified=port_b1.Xi_outflow))
+    else
       Medium1.setState_phX(port_b1.p, actualStream(port_b1.h_outflow), actualStream(port_b1.Xi_outflow)) if
          show_T "Medium properties in port_b1";
-  Medium2.ThermodynamicState sta_a2=
-      Medium2.setState_phX(port_a2.p, actualStream(port_a2.h_outflow), actualStream(port_a2.Xi_outflow)) if
+
+  Medium2.ThermodynamicState sta_a2=if useHomotopy then
+      Medium2.setState_phX(port_b2.p, 
+          homotopy(actual=actualStream(port_b2.h_outflow),
+                   simplified=port_b2.h_outflow),
+          homotopy(actual=actualStream(port_b2.Xi_outflow),
+                   simplified=port_b2.Xi_outflow))
+    else
+      Medium2.setState_phX(port_a2.p, 
+                           actualStream(port_a2.h_outflow), 
+                           actualStream(port_a2.Xi_outflow)) if
          show_T "Medium properties in port_a2";
-  Medium2.ThermodynamicState sta_b2=
-      Medium2.setState_phX(port_b2.p, actualStream(port_b2.h_outflow), actualStream(port_b2.Xi_outflow)) if
+
+  Medium2.ThermodynamicState sta_b2=if useHomotopy then
+      Medium2.setState_phX(port_b2.p, 
+          homotopy(actual=actualStream(port_b2.h_outflow),
+                   simplified=port_b2.h_outflow),
+          homotopy(actual=actualStream(port_b2.Xi_outflow),
+                   simplified=port_b2.Xi_outflow))
+    else
+      Medium2.setState_phX(port_b2.p, 
+                           actualStream(port_b2.h_outflow), 
+                           actualStream(port_b2.Xi_outflow)) if
          show_T "Medium properties in port_b2";
 
 protected
@@ -113,6 +143,10 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2011 by Michael Wetter:<br>
+Added <code>homotopy</code> operator.
+</li>
 <li>
 March 21, 2010 by Michael Wetter:<br>
 Changed pressure start value from <code>system.p_start</code>

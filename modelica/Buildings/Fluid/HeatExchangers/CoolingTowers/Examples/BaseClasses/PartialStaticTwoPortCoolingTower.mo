@@ -1,5 +1,7 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses;
 partial model PartialStaticTwoPortCoolingTower
+  "Base class for test models of cooling towers"
+
  package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
 
   parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.15

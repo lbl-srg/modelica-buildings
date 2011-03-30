@@ -1,5 +1,6 @@
 within Buildings.HeatTransfer.Data;
 package Glasses "Package with thermophysical properties for window glas"
+    extends Modelica.Icons.MaterialPropertiesPackage;
   record Generic "Thermal properties of window glass"
       extends Modelica.Icons.Record;
    parameter Modelica.SIunits.Length x=0.003 "Thickness";

@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer.Data;
 package OpaqueConstructions
   "Package with opaque constructions for floors, walls, etc."
-
+    extends Modelica.Icons.MaterialPropertiesPackage;
   record Generic "Thermal properties of opaque constructions"
     parameter Integer nLay(min=1, fixed=true) "Number of layers";
     parameter Solids.Generic material[nLay]

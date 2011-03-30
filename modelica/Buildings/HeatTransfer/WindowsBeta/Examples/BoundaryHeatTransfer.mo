@@ -2,6 +2,7 @@ within Buildings.HeatTransfer.WindowsBeta.Examples;
 model BoundaryHeatTransfer
   "Test model for the heat transfer at the window boundary condition"
   import Buildings;
+  extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Area A=1 "Window surface area";
   parameter Real fFra=0.2
     "Fraction of frame, = frame area divided by total area";
@@ -32,10 +33,10 @@ model BoundaryHeatTransfer
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Modelica.Blocks.Sources.Constant vWin(k=1) "Wind speed"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOuts
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TOuts
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRAir
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TRAir
     "Room air temperature"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.Constant fClr(k=0) "Fraction of sky that is clear"
@@ -69,13 +70,13 @@ public
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.ShadingSignal shaSig(haveShade=true)
     "Conversion for shading signal"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRAir1
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TRAir1
     "Room air temperature"
     annotation (Placement(transformation(extent={{60,30},{80,50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRAir2
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TRAir2
     "Room air temperature"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TRAir3
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TRAir3
     "Room air temperature"
     annotation (Placement(transformation(extent={{60,-26},{80,-6}})));
   Modelica.Blocks.Sources.Constant QAbsSW_flow(k=0) "Absorbed solar radiation"
@@ -168,7 +169,5 @@ equation
       points={{-46,-35},{-46,-90},{-79,-90}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
-  Commands(file=
-          "BoundaryHeatTransfer.mos" "run"));
+  annotation (Commands(file="BoundaryHeatTransfer.mos" "run"));
 end BoundaryHeatTransfer;

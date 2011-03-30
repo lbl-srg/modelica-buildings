@@ -1,5 +1,6 @@
 within Buildings.Utilities.Psychrometrics.Functions.Examples;
 model pW_X "Model to test pW_X and its inverse function"
+  extends Modelica.Icons.Example;
 
   Modelica.SIunits.MassFraction X "Mass fraction";
   Modelica.SIunits.MassFraction XInv "Mass fraction";

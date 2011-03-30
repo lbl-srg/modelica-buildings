@@ -103,6 +103,9 @@ equation
 Model of a fictious pipe that is used as a base class
 for a pressure source or to prescribe a mass flow rate.
 Optionally, power can be added to the enthalpy balance of the medium.
+If <code>addPowerToMedium = false</code>, then no power will be added to the medium.
+This can lead to simpler equations and more robust simulation, in particular
+if the mass flow rate is zero.
 </p>
 <p>
 Note that for fans and pumps with dynamic balance,

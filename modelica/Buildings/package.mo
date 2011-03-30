@@ -3,9 +3,10 @@ package Buildings "Library with models for building energy and control systems"
 
 
 package UsersGuide "User's Guide"
+  extends Modelica.Icons.Information;
 
   class Conventions "Conventions"
-
+    extends Modelica.Icons.Information;
     annotation (Documentation(info="<html>
 This library follows the conventions of the 
 <a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>, which are as follows:
@@ -120,8 +121,10 @@ its class name ends with the string <code>Beta</code>.
   end Conventions;
 
   package ReleaseNotes "Release notes"
+    extends Modelica.Icons.ReleaseNotes;
 
   class Version_0_11_1 "Version 0.11.1"
+    extends Modelica.Icons.ReleaseNotes;
 
   annotation (Documentation(info="<html>
 <p>
@@ -130,7 +133,10 @@ are still being validated.
 </p>
 <ul>
 <li>
-xxxx
+Updated library to Modelica 3.2.
+</li>
+<li>
+Added <code>homotopy</code> operator.
 </li>
 </ul>
 </p>
@@ -140,7 +146,7 @@ xxxx
 
 
   class Version_0_11_0 "Version 0.11.0"
-
+    extends Modelica.Icons.ReleaseNotes;
   annotation (Documentation(info="<html>
 <p>
 <b>Note:</b> The packages whose name ends with <code>Beta</code>
@@ -245,7 +251,7 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
   end Version_0_11_0;
 
   class Version_0_10_0 "Version 0.10.0"
-
+    extends Modelica.Icons.ReleaseNotes;
   annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -310,7 +316,7 @@ by the parameters. This also required a change in the parameters.
   end Version_0_10_0;
 
   class Version_0_9_1 "Version 0.9.1"
-
+    extends Modelica.Icons.ReleaseNotes;
   annotation (Documentation(info="<html>
 The following <b style=\"color:red\">critical error</b> has been fixed (i.e. error
 that can lead to wrong simulation results):
@@ -343,7 +349,7 @@ that can lead to wrong simulation results):
   end Version_0_9_1;
 
   class Version_0_9_0 "Version 0.9.0"
-
+    extends Modelica.Icons.ReleaseNotes;
   annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -460,7 +466,7 @@ pressure drop and height.
   end Version_0_9_0;
 
   class Version_0_8_0 "Version 0.8.0"
-
+    extends Modelica.Icons.ReleaseNotes;
               annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -596,8 +602,8 @@ and hence to the flow splitter and to the three-way valves. This often breaks al
 "));
   end Version_0_8_0;
 
-    class Version_0_7_0 "Version 0.7.0"
-
+  class Version_0_7_0 "Version 0.7.0"
+    extends Modelica.Icons.ReleaseNotes;
               annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -618,10 +624,10 @@ Virtual Test Bed.
 </p>
 </html>
 "));
-    end Version_0_7_0;
+  end Version_0_7_0;
 
   class Version_0_6_0 "Version 0.6.0"
-
+    extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -730,7 +736,7 @@ convention used in Modelica.Fluid 1.0.
   end Version_0_6_0;
 
   class Version_0_5_0 "Version 0.5.0"
-
+    extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -769,7 +775,7 @@ be used as the flow coefficient (in [m3/h] or [USG/min]).
   end Version_0_5_0;
 
   class Version_0_4_0 "Version 0.4.0"
-
+    extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -792,7 +798,7 @@ The package contains models that facilitate reporting.
   end Version_0_4_0;
 
   class Version_0_3_0 "Version 0.3.0"
-
+    extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
 <ul>
 <li>
@@ -854,7 +860,7 @@ inside the volume. The condensate is removed from the volume in its liquid phase
   end Version_0_3_0;
 
   class Version_0_2_0 "Version 0.2.0"
-
+    extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
 New in this version are models for two and three way valves.
 In addition, the <code>Fluids</code> package has been slightly revised.
@@ -867,7 +873,7 @@ where part of the <code>Actuator</code> package.
   end Version_0_2_0;
 
   class Version_0_1_0 "Version 0.1.0"
-
+    extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
 <p>First release of the library.
 </p>
@@ -935,7 +941,7 @@ Version 0.1.0 </a>(May 27, 2008)</li>
   end ReleaseNotes;
 
   class Contact "Contact"
-
+    extends Modelica.Icons.Contact;
     annotation (Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Contact</font></h4>
 <p>
@@ -954,7 +960,7 @@ The development of the Buildings library is organized by<br>
   end Contact;
 
   class Acknowledgements "Acknowledgements"
-
+    extends Modelica.Icons.Information;
     annotation (Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Acknowledgements</font></h4>
 <p>
@@ -975,7 +981,7 @@ The development of the Buildings library is organized by<br>
   end Acknowledgements;
 
   class License "Modelica License 2"
-
+    extends Modelica.Icons.Information;
     annotation (Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>The Modelica License 2</font></h4>
 <p>
@@ -1139,7 +1145,7 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
   end License;
 
   class Copyright "Copyright"
-
+    extends Modelica.Icons.Information;
     annotation (Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Copyright</font></h4>
 <p>
@@ -1209,7 +1215,7 @@ end UsersGuide;
 
 annotation (preferedView="info",
       version="0.11.1",
-      uses(Modelica(version="3.1")),
+      uses(Modelica(version="3.2")),
       Documentation(info="<html>
 The <code>Buildings</code> library is a free library
 for modeling building energy and control systems. 

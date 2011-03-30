@@ -2,6 +2,7 @@ within Buildings.Utilities.IO.BCVTB.Examples;
 model TwoRooms
   "Thermal model of two rooms that will be linked to the BCVTB which models the controls"
   import Buildings;
+  extends Modelica.Icons.Example;
   parameter Modelica.SIunits.Time tau = 2*3600 "Room time constant";
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nom = 100 "Nominal heat flow";
   parameter Modelica.SIunits.ThermalConductance UA = Q_flow_nom / 20
@@ -13,10 +14,10 @@ model TwoRooms
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UA1(G=UA)
     "Heat transmission of room"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut1(T=278.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TOut1(T=278.15)
     "Outside air temperature"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Q_flow_1
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow Q_flow_1
     "Heat input into the room"
     annotation (Placement(transformation(extent={{42,20},{62,40}})));
   Modelica.Blocks.Math.Gain GaiQ_flow_nom1(k=Q_flow_nom)
@@ -28,10 +29,10 @@ model TwoRooms
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor C2(C=2*tau*UA, T(start=
           TStart, fixed=true)) "Heat capacity of room"
     annotation (Placement(transformation(extent={{70,-28},{90,-8}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TOut2(T=278.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TOut2(T=278.15)
     "Outside air temperature"
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Q_flow_2
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow Q_flow_2
     "Heat input into the room"
     annotation (Placement(transformation(extent={{44,-80},{64,-60}})));
   Modelica.Blocks.Math.Gain GaiQ_flow_nom2(k=Q_flow_nom)
@@ -136,9 +137,6 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{240,100}}), graphics),
     experiment(StopTime=21600),
-    experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{240,
-            100}})),
     Documentation(info="<html>
 This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.
 </p>

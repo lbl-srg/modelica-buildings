@@ -1,5 +1,6 @@
 within Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model SolarHourAngle "Test model for solar hour angle"
+  extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
     solHouAng "Solar hour Angle"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));

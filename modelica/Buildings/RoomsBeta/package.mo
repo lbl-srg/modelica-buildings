@@ -1,7 +1,6 @@
 within Buildings;
 package RoomsBeta "Package with models for rooms"
-
-
+  extends Modelica.Icons.UnderConstruction;
 annotation (
 preferedView="info", Documentation(info="<html>
 <p>

@@ -13,6 +13,8 @@ partial model PartialStaticTwoPortInterface
   parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
+  parameter Boolean useHomotopy = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Diagnostics
    parameter Boolean show_V_flow = false
@@ -31,12 +33,28 @@ partial model PartialStaticTwoPortInterface
   Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
     "Pressure difference between port_a and port_b";
 
-  Medium.ThermodynamicState sta_a=
-      Medium.setState_phX(port_a.p, actualStream(port_a.h_outflow), actualStream(port_a.Xi_outflow)) if
-         show_T or show_V_flow "Medium properties in port_a";
-  Medium.ThermodynamicState sta_b=
-      Medium.setState_phX(port_b.p, actualStream(port_b.h_outflow), actualStream(port_b.Xi_outflow)) if
-         show_T "Medium properties in port_b";
+  Medium.ThermodynamicState sta_a=if useHomotopy then
+      Medium.setState_phX(port_a.p, 
+                          homotopy(actual=actualStream(port_a.h_outflow), 
+                                   simplified=inStream(port_a.h_outflow)),
+                          homotopy(actual=actualStream(port_a.Xi_outflow),
+                                   simplified=inStream(port_a.Xi_outflow)))
+    else
+      Medium.setState_phX(port_a.p, 
+                          actualStream(port_a.h_outflow), 
+                          actualStream(port_a.Xi_outflow)) 
+      if show_T or show_V_flow "Medium properties in port_a";
+  Medium.ThermodynamicState sta_b=if useHomotopy then
+      Medium.setState_phX(port_b.p, 
+                          homotopy(actual=actualStream(port_b.h_outflow),
+                                   simplified=port_b.h_outflow),
+                          homotopy(actual=actualStream(port_b.Xi_outflow),
+	                           simplified=port_b.Xi_outflow))
+    else
+      Medium.setState_phX(port_b.p, 
+                          actualStream(port_b.h_outflow), 
+                          actualStream(port_b.Xi_outflow)) 
+       if show_T "Medium properties in port_b";
 
 equation
   // Design direction of mass flow rate
@@ -71,6 +89,10 @@ Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2011 by Michael Wetter:<br>
+Added <code>homotopy</code> operator.
+</li>
 <li>
 March 21, 2010 by Michael Wetter:<br>
 Changed pressure start value from <code>system.p_start</code>

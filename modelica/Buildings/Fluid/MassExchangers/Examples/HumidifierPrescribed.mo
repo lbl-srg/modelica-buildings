@@ -1,6 +1,7 @@
 within Buildings.Fluid.MassExchangers.Examples;
 model HumidifierPrescribed
   import Buildings;
+  extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
  parameter Modelica.SIunits.MassFlowRate mWat_flow_nominal = 0.001

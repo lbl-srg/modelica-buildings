@@ -1,6 +1,7 @@
 within Buildings.Utilities.Math.Functions.Examples;
 model PowerLinearized
   "Test problem for function that linearizes y=x^n below some threshold"
+  extends Modelica.Icons.Example;
   Real T4(start=300^4) "Temperature raised to 4-th power";
   Real T "Temperature";
   Real TExact "Temperature";

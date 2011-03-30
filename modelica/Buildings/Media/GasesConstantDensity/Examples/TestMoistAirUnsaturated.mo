@@ -1,5 +1,6 @@
 within Buildings.Media.GasesConstantDensity.Examples;
 model TestMoistAirUnsaturated
+  extends Modelica.Icons.Example;
   extends Modelica.Media.Examples.Tests.Components.PartialTestModel(
      redeclare package Medium =
           Buildings.Media.GasesConstantDensity.MoistAirUnsaturated);

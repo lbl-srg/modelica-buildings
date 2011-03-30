@@ -1,6 +1,7 @@
 within Buildings.HeatTransfer.Radiosity.Examples;
 model OutdoorRadiosity "Test model for outdoor radiosity"
   import Buildings;
+  extends Modelica.Icons.Example;
   Buildings.HeatTransfer.Radiosity.OpaqueSurface sur(A=A, epsLW=1)
     "Receiving surface"
     annotation (Placement(transformation(extent={{76,-20},{56,0}})));
@@ -8,7 +9,7 @@ model OutdoorRadiosity "Test model for outdoor radiosity"
     "Outdoor radiosity model"
     annotation (Placement(transformation(extent={{-40,-22},{-20,-2}})));
   parameter Modelica.SIunits.Area A=1 "Area of receiving surface";
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAirOut(T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TAirOut(T=293.15)
     "Outside air temperature"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
   Modelica.Blocks.Sources.Ramp f_clr(duration=1)

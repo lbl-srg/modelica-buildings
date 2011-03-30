@@ -1,5 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model OneDoor
+  extends Modelica.Icons.Example; 
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
 
   Buildings.Fluid.MixingVolumes.MixingVolume volH(

@@ -18,10 +18,10 @@ partial model PartialLumpedVolume "Lumped volume with mass and energy balance"
   parameter Types.Dynamics massDynamics=system.massDynamics
     "Formulation of mass balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  parameter Types.Dynamics substanceDynamics=energyDynamics
+  parameter Types.Dynamics substanceDynamics=massDynamics
     "Formulation of substance balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
-  parameter Types.Dynamics traceDynamics=energyDynamics
+  parameter Types.Dynamics traceDynamics=massDynamics
     "Formulation of trace substance balance"
     annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
 
@@ -186,6 +186,12 @@ a differential equation, while modeling the total mass balance as a steady-state
 equation.
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2011 by Michael Wetter:<br>
+Changed default value for <code>substanceDynamics</code> and
+<code>traceDynamics</code> from <code>energyDynamics</code>
+to <code>massDynamics</code>.
+</li>
 <li>
 September 28, 2010 by Michael Wetter:<br>
 Changed array index for nominal value of <code>Xi</code>.

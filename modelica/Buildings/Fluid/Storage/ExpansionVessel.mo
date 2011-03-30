@@ -102,6 +102,12 @@ Optionally, a heat port can be activated by setting <code>use_HeatTransfer=true<
 This heat port connects directly to the liquid. The gas does not participate in the energy 
 balance.
 </p>
+<p>
+The expansion vessel needs to be used in closed loops that contain
+water to set a reference pressure and, for liquids where the
+density is modeled as a function of temperature, to allow for
+the thermal expansion of the liquid.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

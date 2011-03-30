@@ -12,11 +12,10 @@ public
 protected
   Real zenLim;
   Real zenDeg;
-
 equation
   zenLim = Buildings.Utilities.Math.Functions.smoothMin(
-    zen, 
-    Modelica.Constants.pi/2, 
+    zen,
+    Modelica.Constants.pi/2,
     0.01);
   zenDeg = zenLim*180/Modelica.Constants.pi;
   relAirMas = 1/(Modelica.Math.cos(zenLim) + 0.15*(93.9 - zenDeg)^(-1.253));

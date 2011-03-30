@@ -1,5 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
 model PIDHysteresis "Example model"
+  extends Modelica.Icons.Example; 
   import Buildings;
 
   Buildings.Controls.Continuous.PIDHysteresis con(
@@ -14,7 +15,7 @@ model PIDHysteresis "Example model"
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap(C=1000000, T(start=
          313.15, fixed=true))
     annotation (Placement(transformation(extent={{38,30},{58,50}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TBC
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TBC
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=20)
     annotation (Placement(transformation(extent={{38,60},{58,80}})));
@@ -22,7 +23,7 @@ model PIDHysteresis "Example model"
     annotation (Placement(transformation(extent={{-12,20},{8,40}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
     annotation (Placement(transformation(extent={{70,20},{90,40}})));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow Q_flow
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow Q_flow
     annotation (Placement(transformation(extent={{16,20},{36,40}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=1/86400,

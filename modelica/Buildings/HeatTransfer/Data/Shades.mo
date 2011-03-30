@@ -1,6 +1,6 @@
 within Buildings.HeatTransfer.Data;
 package Shades "Package with thermophysical properties for window shades"
-
+    extends Modelica.Icons.MaterialPropertiesPackage;
   record Generic "Thermal properties of window shades"
       extends Modelica.Icons.Record;
    parameter Modelica.SIunits.TransmissionCoefficient tauSW_a=0.1

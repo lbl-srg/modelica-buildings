@@ -1,5 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model OpenDoors
+  extends Modelica.Icons.Example; 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAB(
@@ -23,7 +24,7 @@ model OpenDoors
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
       Placement(transformation(extent={{40,40},{60,60}}, rotation=0)));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow PrescribedHeatFlow1
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow PrescribedHeatFlow1
     annotation (Placement(transformation(extent={{4,40},{24,60}}, rotation=0)));
   Modelica.Blocks.Sources.Sine Sine1(freqHz=1/3600) annotation (Placement(
         transformation(extent={{-68,40},{-48,60}}, rotation=0)));

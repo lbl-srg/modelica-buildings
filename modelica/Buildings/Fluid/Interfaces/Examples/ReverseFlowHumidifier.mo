@@ -2,6 +2,7 @@ within Buildings.Fluid.Interfaces.Examples;
 model ReverseFlowHumidifier
   "Model that tests the reverse flow for a humidifier"
   import Buildings;
+  extends Modelica.Icons.Example;
 package Medium = Modelica.Media.Air.MoistAir;
   Buildings.Utilities.Diagnostics.AssertEquality assTem(threShold=1E-8)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"

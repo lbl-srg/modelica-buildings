@@ -1,8 +1,7 @@
 within Buildings.Media;
 package GasesPTDecoupled "Package with models for gases where pressure and temperature are independent of each other"
-
-
-  annotation (preferedView="info", Documentation(info="<html>
+  extends Modelica.Icons.MaterialPropertiesPackage;
+annotation (preferedView="info", Documentation(info="<html>
 <p>
 Medium models in this package use the gas law
 <i>d/d<sub>stp</sub> = p/p<sub>stp</sub></i> where 

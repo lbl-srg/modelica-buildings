@@ -1,5 +1,6 @@
 within Buildings.Utilities.Reports.Examples;
 model Printer "Test model for printer"
+  extends Modelica.Icons.Example;
   Buildings.Utilities.Reports.Printer pri1(
     header="time ramp",
     nin=2)                       annotation (Placement(transformation(extent={{-20,40},

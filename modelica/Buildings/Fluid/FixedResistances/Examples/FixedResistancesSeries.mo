@@ -1,5 +1,6 @@
 within Buildings.Fluid.FixedResistances.Examples;
 model FixedResistancesSeries "Test of multiple resistances in series"
+  extends Modelica.Icons.Example;
 
  package Medium = Modelica.Media.Air.SimpleAir;
 
@@ -38,7 +39,7 @@ model FixedResistancesSeries "Test of multiple resistances in series"
 equation
   for i in 1:nRes-1 loop
   connect(res[i].port_b, res[i+1].port_a) annotation (Line(points={{20,30},{26,
-            30},{26,10},{-8,10},{-8,30},{0,30}},             color={0,127,255}));
+            30},{26,10},{-8,10},{-8,30},{-5.55112e-16,30}},  color={0,127,255}));
   end for;
   connect(PAtm.y, sin.p_in) annotation (Line(points={{61,70},{70,70},{70,38},{
           58,38}}, color={0,0,127}));
@@ -49,7 +50,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[1], res[1].port_a) annotation (Line(
-      points={{-20,30},{0,30}},
+      points={{-20,30},{-5.55112e-16,30}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
