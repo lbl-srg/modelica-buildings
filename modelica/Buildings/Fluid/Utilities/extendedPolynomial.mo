@@ -40,6 +40,10 @@ in such a way that the first derivative is continuous everywhere.
 </html>", revisions="<html>
 <ul>
 <li>
+March 30, 2011 by Michael Wetter:<br>
+Added keyword <code>zeroDerivative</code>.
+</li>
+<li>
 March 23, 2011 by Michael Wetter:<br>
 Changed order of argument list to make <code>x</code> the first argument.
 </li>
@@ -51,5 +55,7 @@ July 19, 2007 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"),      smoothOrder=1, derivative=BaseClasses.der_extendedPolynomial);
+</html>"),
+smoothOrder=1, 
+derivative(zeroDerivative=c, zeroDerivative=xMin, zeroDerivative=xMax)=BaseClasses.der_extendedPolynomial);
 end extendedPolynomial;

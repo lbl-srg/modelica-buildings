@@ -7,9 +7,6 @@ function der_equalPercentage
   input Real l(min=0, max=1) "Valve leakage, l=Cv(y=0)/Cvs";
   input Real delta "Range of significant deviation from equal percentage law";
   input Real der_y "Derivative of valve opening signal";
-  input Real der_R;
-  input Real der_l;
-  input Real der_delta;
   output Real der_phi
     "Derivative of ratio actual to nominal mass flow rate, dphi/dy";
 protected
@@ -49,6 +46,11 @@ TwoWayValveEqualPercentage</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 30, 2011 by Michael Wetter:<br>
+Removed inputs for which no derivative is implemented from the argument list, and added
+<code>zeroDerivative</code> keyword in function that calls this function.
+</li>
 <li>
 February 4, 2010 by Michael Wetter:<br>
 Fixed implementation of derivative function.
