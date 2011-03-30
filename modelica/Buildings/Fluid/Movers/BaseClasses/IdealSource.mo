@@ -64,8 +64,13 @@ equation
 
   // Energy balance (no storage)
   if addPowerToMedium then
-    port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -P_internal;
-    port_b.m_flow*port_b.h_outflow + port_a.m_flow*inStream(port_a.h_outflow) = -P_internal;
+    if noEvent(abs(port_a.m_flow)>Modelica.Constants.small) then
+      port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -P_internal;
+      port_b.m_flow*port_b.h_outflow + port_a.m_flow*inStream(port_a.h_outflow) = -P_internal;
+    else
+      port_a.h_outflow = inStream(port_b.h_outflow);
+      port_b.h_outflow = inStream(port_a.h_outflow);
+    end if;
   else
     port_a.h_outflow = inStream(port_b.h_outflow);
     port_b.h_outflow = inStream(port_a.h_outflow);
@@ -116,6 +121,10 @@ adding heat to the volume, and flow work to this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 29, 2011, by Michael Wetter:<br>
+Changed energy balance to avoid a division by zero if <code>m_flow=0</code>.
+</li>
 <li>
 July 27, 2010 by Michael Wetter:<br>
 Redesigned model to fix bug in medium balance.

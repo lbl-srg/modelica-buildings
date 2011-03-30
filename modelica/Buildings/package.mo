@@ -138,6 +138,16 @@ Updated library to Modelica 3.2.
 <li>
 Added <code>homotopy</code> operator.
 </li>
+<li>
+Changed base classes
+<a href=\"modelica://Buildings.Interfaces/PartialStaticTwoPortHeatMassTransfer.mo\">
+Buildings.Interfaces/PartialStaticTwoPortHeatMassTransfer.mo</a>,
+<a href=\"modelica://Buildings.Interfaces/PartialStaticFourPortHeatMassTransfer.mo\">
+Buildings.Interfaces/PartialStaticFourPortHeatMassTransfer.mo</a> and
+<a href=\"modelica://Buildings.Movers/BaseClasses/IdealSource.mo\">
+Buildings.Movers/BaseClasses/IdealSource.mo</a>
+to avoid a division by zero at zero mass flow rate.
+</li>
 </ul>
 </p>
 </html>
@@ -176,7 +186,7 @@ Buildings.Fluid.Chillers</a>, added the chiller models
 Buildings.Fluid.Chillers.ElectricReformulatedEIR</a>
 and
 <a href=\"modelica://Buildings.Fluid.Chillers.ElectricEIR\">
-Buildings.Fluid.Chillers.ElectricEIR</a>, and added
+Buildings.Fluid.Cphillers.ElectricEIR</a>, and added
 the package 
 <a href=\"modelica://Buildings.Fluid.Chillers.Data\">
 Buildings.Fluid.Chillers.Data</a>

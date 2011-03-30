@@ -21,10 +21,21 @@ protected
     "Set to true if sensible exchange only for medium 2";
 equation
   // Energy balance (no storage, no heat loss/gain).
-  port_a1.m_flow*port_a1.h_outflow + port_b1.m_flow*inStream(port_b1.h_outflow) = -Q1_flow;
-  port_b1.m_flow*port_b1.h_outflow + port_a1.m_flow*inStream(port_a1.h_outflow) = -Q1_flow;
-  port_a2.m_flow*port_a2.h_outflow + port_b2.m_flow*inStream(port_b2.h_outflow) = -Q2_flow;
-  port_b2.m_flow*port_b2.h_outflow + port_a2.m_flow*inStream(port_a2.h_outflow) = -Q2_flow;
+  if noEvent(abs(port_a1.m_flow)>Modelica.Constants.small) then
+    port_a1.m_flow*port_a1.h_outflow + port_b1.m_flow*inStream(port_b1.h_outflow) = -Q1_flow;
+    port_b1.m_flow*port_b1.h_outflow + port_a1.m_flow*inStream(port_a1.h_outflow) = -Q1_flow;
+  else
+    port_a1.h_outflow = inStream(port_b1.h_outflow);
+    port_b1.h_outflow = inStream(port_a1.h_outflow);
+  end if;
+    
+  if noEvent(abs(port_a2.m_flow)>Modelica.Constants.small) then
+    port_a2.m_flow*port_a2.h_outflow + port_b2.m_flow*inStream(port_b2.h_outflow) = -Q2_flow;
+    port_b2.m_flow*port_b2.h_outflow + port_a2.m_flow*inStream(port_a2.h_outflow) = -Q2_flow;
+  else
+    port_a2.h_outflow = inStream(port_b2.h_outflow);
+    port_b2.h_outflow = inStream(port_a2.h_outflow);
+  end if;
 
   // Mass balance (no storage)
   port_a1.m_flow + port_b1.m_flow = -sum(mXi1_flow);
@@ -34,15 +45,26 @@ equation
     port_a1.Xi_outflow = inStream(port_b1.Xi_outflow);
     port_b1.Xi_outflow = inStream(port_a1.Xi_outflow);
   else
-    port_a1.m_flow*port_a1.Xi_outflow + port_b1.m_flow*inStream(port_b1.Xi_outflow) = -mXi1_flow;
-    port_b1.m_flow*port_b1.Xi_outflow + port_a1.m_flow*inStream(port_a1.Xi_outflow) = -mXi1_flow;
+    if noEvent(abs(port_a1.m_flow)>Modelica.Constants.small) then
+      port_a1.m_flow*port_a1.Xi_outflow + port_b1.m_flow*inStream(port_b1.Xi_outflow) = -mXi1_flow;
+      port_b1.m_flow*port_b1.Xi_outflow + port_a1.m_flow*inStream(port_a1.Xi_outflow) = -mXi1_flow;
+    else
+      port_a1.Xi_outflow = inStream(port_b1.Xi_outflow);
+      port_b1.Xi_outflow = inStream(port_a1.Xi_outflow);
+    end if;
   end if;
+
   if sensibleOnly2 then
     port_a2.Xi_outflow = inStream(port_b2.Xi_outflow);
     port_b2.Xi_outflow = inStream(port_a2.Xi_outflow);
   else
-    port_a2.m_flow*port_a2.Xi_outflow + port_b2.m_flow*inStream(port_b2.Xi_outflow) = -mXi2_flow;
-    port_b2.m_flow*port_b2.Xi_outflow + port_a2.m_flow*inStream(port_a2.Xi_outflow) = -mXi2_flow;
+    if noEvent(abs(port_a2.m_flow)>Modelica.Constants.small) then
+      port_a2.m_flow*port_a2.Xi_outflow + port_b2.m_flow*inStream(port_b2.Xi_outflow) = -mXi2_flow;
+      port_b2.m_flow*port_b2.Xi_outflow + port_a2.m_flow*inStream(port_a2.Xi_outflow) = -mXi2_flow;
+    else
+      port_a2.Xi_outflow = inStream(port_b2.Xi_outflow);
+      port_b2.Xi_outflow = inStream(port_a2.Xi_outflow);
+    end if;
   end if;
 
   // Transport of trace substances
@@ -145,6 +167,10 @@ for how to use this partial model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2011, by Michael Wetter:<br>
+Changed energy and mass balance to avoid a division by zero if <code>m_flow=0</code>.
+</li>
 <li>
 March 27, 2011, by Michael Wetter:<br>
 Added <code>homotopy</code> operator.
