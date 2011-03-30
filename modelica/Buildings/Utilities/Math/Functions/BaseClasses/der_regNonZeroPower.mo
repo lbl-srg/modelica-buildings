@@ -27,7 +27,7 @@ algorithm
    a3 := (yPP_d - 12 * a1 * delta2)/2;
    der_y := x * ( 4 * a1 * x * x + 2 * a3);
   end if;
- annotation(derivative=BaseClasses.der_2_regNonZeroPower,
+ annotation(derivative(zeroDerivative=n, zeroDerivative=delta)=BaseClasses.der_2_regNonZeroPower,
 Documentation(
 info="<html>
 <p>
@@ -38,6 +38,10 @@ Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 30, 2011, by Michael Wetter:<br>
+Added <code>zeroDerivative</code> keyword.
+</li>
 <li>
 April 9, 2009, by Michael Wetter:<br>
 First implementation.

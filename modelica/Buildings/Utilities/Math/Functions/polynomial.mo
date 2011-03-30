@@ -1,7 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function polynomial "Polynomial function"
- input Real a[:] "Coefficients";
  input Real x "Independent variable";
+ input Real a[:] "Coefficients";
  output Real y "Result";
 protected
  parameter Integer n = size(a, 1)-1;
@@ -12,7 +12,7 @@ algorithm
      xp[i+1] :=xp[i]*x;
   end for;
   y :=a*xp;
-  annotation (smoothOrder=999, Documentation(info="<html>
+  annotation (Documentation(info="<html>
 This function computes a polynomial of arbitrary order.
 The polynomial has the form
 <p align=\"center\" style=\"font-style:italic;\">
@@ -21,6 +21,10 @@ The polynomial has the form
 </html>"),
 revisions="<html>
 <ul>
+<li>
+March 30, 2011, by Michael Wetter:<br>
+Added <code>zeroDerivative</code> keyword.
+</li>
 <li>
 March 2, by Michael Wetter:<br>
 Removed redundant <code>smoothOrder</code> annotation.
@@ -31,5 +35,6 @@ First implementation.
 </li>
 </ul>
 </html>",
-derivative=Buildings.Utilities.Math.Functions.BaseClasses.der_polynomial);
+smoothOrder=999, 
+derivative(zeroDerivative=a)=Buildings.Utilities.Math.Functions.BaseClasses.der_polynomial);
 end polynomial;

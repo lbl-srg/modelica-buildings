@@ -1,5 +1,5 @@
 within Buildings.Utilities.Math.Functions.BaseClasses;
-function der_spliceFunction
+function der_spliceFunction "Derivative of splice function"
     input Real pos;
     input Real neg;
     input Real x;
