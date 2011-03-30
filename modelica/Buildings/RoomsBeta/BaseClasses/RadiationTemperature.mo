@@ -150,7 +150,7 @@ equation
   end for;
   // Compute radiative temperature
   if haveShade then
-    TRad = (epsAOpa * TOpa
+    TRad = (sum(epsAOpa[i] * TOpa[i] for i in 1:NOpa)
         + sum(
       ( uSha_internal[i] * (epsASha[i] * TSha[i] + epsTauASha[i] * TGlaSha[i]) +
       (1-uSha_internal[i]) * epsAGla[i] * TGlaUns[i])
@@ -159,7 +159,7 @@ equation
       ( uSha_internal[i] * (epsASha[i] + epsTauASha[i]) + (1-uSha_internal[i]) * epsAGla[i])
         for i in 1:NConExtWin));
       else
-    TRad = (sum(epsAOpa * TOpa) + sum(epsAGla * TGlaUns)) / (sum(epsAOpa) + sum(epsAGla));
+    TRad = (sum(epsAOpa[i] * TOpa[i] for i in 1:NOpa) + sum(epsAGla .* TGlaUns)) / (sum(epsAOpa) + sum(epsAGla));
   end if;
 
   // Assign heat exchange to connectors
@@ -249,6 +249,10 @@ where
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 29 2011, by Michael Wetter:<br>
+Rewrote sum for the radiation temperature.
+</li>
 <li>
 Jan. 18 2011, by Michael Wetter:<br>
 First implementation.
