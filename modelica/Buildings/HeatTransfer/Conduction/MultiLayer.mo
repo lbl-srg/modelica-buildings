@@ -9,7 +9,7 @@ model MultiLayer
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
 protected
-  ConductorSingleLayer[nLay] lay(
+  Buildings.HeatTransfer.Conduction.SingleLayer[nLay] lay(
    each final A=A,
    material = layers.material,
    T_a_start = _T_a_start,

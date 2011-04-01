@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Conduction.BaseClasses;
-model PartialConstruction
-  "Partial model for multi-layer constructions"
+model PartialConstruction "Partial model for multi-layer constructions"
   extends Buildings.BaseClasses.BaseIcon;
   parameter Modelica.SIunits.Area A "Heat transfer area";
 

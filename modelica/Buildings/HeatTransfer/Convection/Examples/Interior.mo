@@ -109,7 +109,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics), Commands(file=
-          "InteriorConvection.mos" "run"),
+          "Interior.mos" "run"),
     Documentation(info="<html>
 This example tests the convective heat transfer models.
 </html>", revisions="<html>

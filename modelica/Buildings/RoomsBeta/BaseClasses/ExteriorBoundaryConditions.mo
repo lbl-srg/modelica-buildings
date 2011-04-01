@@ -28,7 +28,7 @@ model ExteriorBoundaryConditions
     annotation (Dialog(group="Convective heat transfer",
                        enable=(conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
 
-  // The convection coefficients are not final to allow a user to individually 
+  // The convection coefficients are not final to allow a user to individually
   // assign them.
   HeatTransfer.Convection.Exterior conOpa[nCon](
     final A=AOpa,
@@ -154,6 +154,28 @@ equation
       points={{79,90},{60,90},{60,104},{42,104}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(repConExt2.u, weaBus.winDir) annotation (Line(
+      points={{182,230},{244,230},{244,42}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(repConExt1.u, weaBus.winSpe) annotation (Line(
+      points={{132,210},{244,210},{244,42}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(repConExt1.y, conOpa.v) annotation (Line(
+      points={{109,210},{-194,210},{-194,200},{-184,200}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(repConExt2.y, conOpa.dir) annotation (Line(
+      points={{159,230},{-200,230},{-200,190},{-184,190}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
             {300,300}},
         initialScale=0.1), graphics),
@@ -227,26 +249,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-  connect(repConExt2.u, weaBus.winDir) annotation (Line(
-      points={{182,230},{244,230},{244,42}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(repConExt1.u, weaBus.winSpe) annotation (Line(
-      points={{132,210},{244,210},{244,42}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(repConExt1.y, conOpa.v) annotation (Line(
-      points={{109,210},{-194,210},{-194,200},{-184,200}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(repConExt2.y, conOpa.dir) annotation (Line(
-      points={{159,230},{-200,230},{-200,190},{-184,190}},
-      color={0,0,127},
-      smooth=Smooth.None));
 end ExteriorBoundaryConditions;

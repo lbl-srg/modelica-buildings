@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Convection;
-model Exterior
-  "Model for a exterior (outside) convective heat transfer"
+model Exterior "Model for a exterior (outside) convective heat transfer"
   extends Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection;
 
   parameter Buildings.HeatTransfer.Types.ExteriorConvection conMod=
@@ -50,14 +49,18 @@ equation
     // the product hCon*dT is differentiable at zero with
     // a continuous first derivative
     if isCeiling then
-       qN_flow = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling(dT=dT);
+       qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(
+                                                                             dT=dT);
     elseif isFloor then
-       qN_flow = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor(dT=dT);
+       qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(
+                                                                           dT=dT);
     else
-       qN_flow = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.wall(dT=dT);
+       qN_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(
+                                                                          dT=dT);
     end if;
     // Forced convection
-    W = Buildings.HeatTransfer.Functions.windDirectionModifier(azi=azi, dir=dir);
+    W = Buildings.HeatTransfer.Convection.Functions.windDirectionModifier(
+                                                               azi=azi, dir=dir);
     hF = 2.537 * W * R * 2 / A^(0.25) *
          Buildings.Utilities.Math.Functions.regNonZeroPower(x=v, n=0.5, delta=0.5);
     qF_flow = hF*dT;

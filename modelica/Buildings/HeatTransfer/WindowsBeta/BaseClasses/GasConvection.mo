@@ -60,7 +60,7 @@ initial equation
   assert(isVertical or isHorizontal, "Only vertical and horizontal windows are implemented.");
 initial equation
   // Computations that are used in the linearized model only
-  Ra0 = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.raleigh(
+  Ra0 = Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh(
     x=gas.x,
     rho=Buildings.HeatTransfer.Data.Gases.density(gas, T0),
     c_p=Buildings.HeatTransfer.Data.Gases.specificHeatCapacity(gas, T0),
@@ -82,7 +82,7 @@ equation
     hCon=hCon0;
     q_flow = hCon0 * dT;
   else
-    Ra = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.raleigh(
+    Ra = Buildings.HeatTransfer.Convection.Functions.HeatFlux.raleigh(
       x=gas.x,
       rho=Buildings.HeatTransfer.Data.Gases.density(gas, T_m),
       c_p=Buildings.HeatTransfer.Data.Gases.specificHeatCapacity(gas, T_m),

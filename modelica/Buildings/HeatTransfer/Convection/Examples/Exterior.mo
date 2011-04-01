@@ -152,7 +152,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(preserveAspectRatio=true, coordinateSystem(extent={{-100,-100},
             {140,180}}),       graphics), Commands(file=
-          "ExteriorConvection.mos" "run"),
+          "Exterior.mos" "run"),
     Documentation(info="<html>
 This example tests the convective heat transfer models for exterior surfaces.
 From <i>t=0...3600</i> seconds, the wind traverses from North to West to South to East and back to

@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Convection;
-model Interior
-  "Model for a interior (room-side) convective heat transfer"
+model Interior "Model for a interior (room-side) convective heat transfer"
   extends Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection;
 
   parameter Buildings.HeatTransfer.Types.InteriorConvection conMod=
@@ -16,11 +15,11 @@ equation
     // the product hCon*dT is differentiable at zero with
     // a continuous first derivative
     if isCeiling then
-       q_flow = Buildings.HeatTransfer.Convection.Functions.ConvectiveHeatFlux.ceiling(dT=dT);
+       q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(          dT=dT);
     elseif isFloor then
-       q_flow = Buildings.HeatTransfer.Convection.Functions.ConvectiveHeatFlux.floor(dT=dT);
+       q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(          dT=dT);
     else
-       q_flow = Buildings.HeatTransfer.Convection.Functions.ConvectiveHeatFlux.wall(dT=dT);
+       q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(          dT=dT);
     end if;
   end if;
 
