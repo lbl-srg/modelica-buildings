@@ -148,6 +148,10 @@ Buildings.Interfaces/PartialStaticFourPortHeatMassTransfer.mo</a> and
 Buildings.Movers/BaseClasses/IdealSource.mo</a>
 to avoid a division by zero at zero mass flow rate.
 </li>
+<li>
+Restructured package <a href=\"modelica://Buildings.HeatTransfer\">
+Buildings.HeatTransfer</a>.
+</li>
 </ul>
 </p>
 </html>
