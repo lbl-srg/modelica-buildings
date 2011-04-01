@@ -3,7 +3,5 @@ ConductorSteadyStateTransient
 ConductorSingleLayer
 ConductorMultiLayer
 ConductorInitialization
-ConstructionSymmetric
-ConstructionConvection
 ExteriorConvection
 InteriorConvection

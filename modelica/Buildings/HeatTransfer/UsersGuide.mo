@@ -64,14 +64,6 @@ The boundary conditions for
 this model are its surface temperatures and heat flow rates.
 </p>
 <p>
-The model 
-<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\"\\>
-Buildings.HeatTransfer.Conduction.MultiLayer</a>
-is then used to build the construction
-<a href=\"modelica://Buildings.HeatTransfer.ConstructionOpaque\"\\>
-Buildings.HeatTransfer.ConstructionOpaque</a> that consists
-of <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\"\\>
-Buildings.HeatTransfer.Conduction.SingleLayer</a> with a model for convective heat transfer at each side.
 To model convective heat transfer, instances of the model
 <a href=\"modelica://Buildings.HeatTransfer.Convection\"\\>
 Buildings.HeatTransfer.Convection</a> are used, which allow
@@ -156,73 +148,6 @@ or
 <p>
 Both definitions are identical.
 </p>
-
-<h5>Definition of Construction with Convective Heat Transfer Coefficients</h5>
-<p>
-If we want to use a construction that includes convective heat transfer coefficients, 
-and that conists of the material <code>floor</code> defined above,
-we can define
-</p>
-<pre>
-  Buildings.HeatTransfer.ConstructionOpaque floorConstruction(
-    A=10,
-    layers = floor);
-</pre>
-<p>
-In the above example, <code>carpet</code> is the material near 
-<code>port_a</code> and 
-<code>concrete</code> is the material near <code>port_b</code>. 
-</p>
-<p>
-Alternatively, the layers of materials can be defined directly when 
-instanciating the model that computes the heat conduction. 
-For example,
-<pre>
-  Buildings.HeatTransfer.ConstructionOpaque floorConstruction(
-    A=10,
-    steadyStateInitial=true,
-    redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200
-      layers(
-        material={Data.Solids.Concrete(x=0.30, nStaRef=4)}),
-    redeclare function qCon_a_flow = 
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling,
-    redeclare function qCon_b_flow = 
-        Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor);
-</pre>
-<p>
-This defines a floor with <i>10 m<sup>2</sup></i> area. 
-It will be initialized at
-steady-state. For the layers of materials, we used 
-one layer of <code>Concrete200</code>, and redefined
-its thickness to <i>x=0.3 m</i>. We also changed the number
-of state variables that are used for the spatial discretization
-of the term <i>d<sup>2</sup>T &frasl; dx<sup>2</sup></i> 
-when solving the transient 
-heat conduction in this layer of material.
-To compute the convective heat transfer, we chose  
-to use buoyancy-driven equations for the floor 
-(which is at surface b and hence assigned to <code>qCon_b_flow</code>) 
-and the ceiling, which is at surface a.
-</p>
-
-<h5>Definition of Construction without Convective Heat Transfer Coefficients</h5>
-<p>
-If we are interested in modeling heat transfer through the construction
-without taking into account the convective heat transfer, we can define a construction model as
-</p>
-<pre>
-  Buildings.HeatTransfer.Conduction.MultiLayer conMul(A=20, layers=wall)
-    \"Construction with 20 m2 area\";
-</pre>
-<p>
-Since there is already a predefined construction with the same material
-thickness in the library, we could have used the following identical definition:
-</p>
-<pre>
-  Buildings.HeatTransfer.Conduction.MultiLayer wall(A=20,
-    redeclare 
-      Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 layers);
-</pre>
 </html>"));
 
 end UsersGuide;
