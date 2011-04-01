@@ -1,0 +1,26 @@
+// Conversion script for AirConditioning library
+//  from: ver 1.2, 050601
+//  to:   ver 1.3, 050930
+clear
+
+convertClear();
+
+convertClass("Buildings.HeatTransfer.ConductorMultiLayer",
+             "Buildings.HeatTransfer.Conduction.MultiLayer");
+convertClass("Buildings.HeatTransfer.ConductorSingleLayer",
+             "Buildings.HeatTransfer.Conduction.SingleLayer");
+convertClass("Buildings.Rooms.Types",
+             "Buildings.HeatTransfer.Types");
+convertClass("Buildings.HeatTransfer.InteriorConvection",
+             "Buildings.HeatTransfer.Convection.Interior");
+convertClass("Buildings.HeatTransfer.ExteriorConvection",
+             "Buildings.HeatTransfer.Convection.Exterior");
+convertClass("Buildings.HeatTransfer.ConductorSingleLayer",
+             "Buildings.HeatTransfer.Conduction.SingleLayer");
+convertClass("Buildings.HeatTransfer.ConductorMultiLayer",
+             "Buildings.HeatTransfer.Conduction.MultiLayer");
+
+
+
+
+
