@@ -3,8 +3,7 @@ partial model PartialConvection "Partial model for heat convection"
   extends Buildings.BaseClasses.BaseIcon;
   parameter Modelica.SIunits.Area A "Heat transfer area";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
-    "Constant convection coefficient"
-    annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.fixed)));
+    "Constant convection coefficient";
   Modelica.SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
   Modelica.SIunits.HeatFlux q_flow "Convective heat flux from solid -> fluid";
   Modelica.SIunits.TemperatureDifference dT(start=0) "= solid.T - fluid.T";

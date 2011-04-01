@@ -18,6 +18,9 @@ package OpaqueConstructions
       "Short wave emissivity of surface a (usually outside-facing surface)";
    parameter Modelica.SIunits.Emissivity epsSW_b=0.5
       "Short wave emissivity of surface b (usually room-facing surface)";
+   parameter Buildings.HeatTransfer.Types.SurfaceRoughness roughness_a=
+      Buildings.HeatTransfer.Types.SurfaceRoughness.Medium
+      "Exterior surface roughness";
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
               -100},{100,100}}), graphics={
@@ -46,8 +49,7 @@ package OpaqueConstructions
             fillColor={255,255,255},
             fillPattern=FillPattern.Backward)}),
       defaultComponentName="opaCon",
-      Documentation(info=
-                   "<html>
+      Documentation(info="<html>
 Generic record with material definitions for constructions
 with one or more layers of material.
 By convention, <code>layer[1]</code> is facing the outside, and the last
@@ -59,6 +61,13 @@ The parameters <code>epsLW_a</code> and <code>epsLW_b</code>
 are used to compute long-wave heat radiation (in the infrared spectrum).
 The parameters <code>epsSW_a</code> and <code>epsSW_b</code>
 are used to compute short-wave heat radiation (in the solar spectrum).
+</p>
+<p>
+The parameter <code>roughness_a</code> is used if the convective heat transfer
+coefficient of the exterior surface is computed based on the wind-speed, wind-direction
+and temperature difference. See
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Exterior\">
+Buildings.HeatTransfer.Convection.Exterior</a>.
 </p>
 </html>", revisions=
           "<html>

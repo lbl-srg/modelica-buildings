@@ -122,14 +122,13 @@ model MixedAir "Model of a room in which the air is completely mixed"
                        enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
   parameter Buildings.HeatTransfer.Types.ExteriorConvection extConMod=
-  Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_3
+  Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model for exterior facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hExtFixed=10.0
     "Constant convection coefficient for exterior facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer",
                        enable=(conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
-
 
   ////////////////////////////////////////////////////////////////////////
   // Models for boundary conditions
@@ -152,7 +151,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}})));
 
-  // Reassign the tilt since a construction that is declared as a ceiling of the 
+  // Reassign the tilt since a construction that is declared as a ceiling of the
   // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditions bouConExt(
     final nCon=nConExt,
@@ -169,7 +168,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{116,116},{146,146}})));
 
-  // Reassign the tilt since a construction that is declared as a ceiling of the 
+  // Reassign the tilt since a construction that is declared as a ceiling of the
   // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditionsWithWindow bouConExtWin(
     final nCon=nConExtWin,

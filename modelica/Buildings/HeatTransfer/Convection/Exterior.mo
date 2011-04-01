@@ -3,9 +3,12 @@ model Exterior "Model for a exterior (outside) convective heat transfer"
   extends Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection;
 
   parameter Buildings.HeatTransfer.Types.ExteriorConvection conMod=
-    Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_3
+    Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model"
   annotation(Evaluate=true);
+  parameter Buildings.HeatTransfer.Types.SurfaceRoughness roughness=
+    Buildings.HeatTransfer.Types.SurfaceRoughness.Medium "Surface roughness"
+    annotation (Dialog(enable=(conMod <> Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
 
   Modelica.Blocks.Interfaces.RealInput v(unit="m/s") "Wind speed"
@@ -23,17 +26,17 @@ protected
    parameter Real R(fixed=false) "Surface roughness";
    Real W(min=0.5, max=1) "Wind direction modifier";
 initial equation
-  if (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_1) then
+  if (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.VeryRough) then
     R=2.17;
-  elseif (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_2) then
+  elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.Rough) then
     R=1.67;
-  elseif (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_3) then
+  elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.Medium) then
     R=1.52;
-  elseif (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_4) then
+  elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.MediumSmooth) then
     R=1.13;
-  elseif (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_5) then
+  elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth) then
     R=1.11;
-  elseif (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_6) then
+  elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.VerySmooth) then
     R=1.00;
   else
     R=0;
@@ -120,15 +123,21 @@ the heat transfer coefficient:
 </p>
 <p>
 <ol>
-<li><p>If <code>conMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed</code>, then
+<li><p>If <code>conMod=
+<a href=\"modelica://Buildings.HeatTransfer.Types.ExteriorConvection\">
+Buildings.HeatTransfer.Types.ExteriorConvection.Fixed</a>
+</code>, then
 the convective heat transfer coefficient is set to the value specified by the parameter
 <code>hFixed</code>.
 </p>
 </li>
 <li>
 <p>
-If <code>conMod=Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_x</code>,
-where <code>x = 1, 2, 3, 4, 5, 6</code>, then the convective heat transfer coefficient is
+If <code>conMod=
+<a href=\"modelica://Buildings.HeatTransfer.Types.ExteriorConvection\">
+Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind</a>
+</code>,
+then the convective heat transfer coefficient is
 computed based on wind speed, wind direction and temperature difference.
 </p>
 <p>
@@ -162,7 +171,10 @@ We make the simplified assumption that the surface is square, and hence we set
  h<sub>f</sub> = 2.537 W R &radic;( 4 v &frasl; &radic;(A) )
 </p>
 <p>
-The coefficients for the surface roughness are
+The surface roughness is specified by the parameter <code>surfaceRoughness</code>
+which has to be set to a type of
+<a href=\"modelica://Buildings.HeatTransfer.Types.SurfaceRoughness\">
+Buildings.HeatTransfer.Types.SurfaceRoughness</a>.The coefficients for the surface roughness are
 </p>
 <p>
 <table border=\"1\">
@@ -171,12 +183,12 @@ The coefficients for the surface roughness are
 <th><i>R</i></th>
 <th>Example material</th>
 </tr>
-<tr><td>1 (very rough)</td>   <td>2.17</td>  <td>Stucco</td></tr>
-<tr><td>2 (rough)</td>        <td>1.67</td>  <td>Brick</td></tr>
-<tr><td>3 (medium rough)</td> <td>1.52</td>  <td>Concrete</td></tr>
-<tr><td>4 (medium smooth)</td><td>1.13</td>  <td>Clear pine</td></tr>
-<tr><td>5 (smooth)</td>       <td>1.11</td>  <td>Smooth plaster</td></tr>
-<tr><td>6 (very smooth)</td>  <td>1.00</td>  <td>Glass</td></tr>
+<tr><td>VeryRough</td>   <td>2.17</td>  <td>Stucco</td></tr>
+<tr><td>Rough</td>        <td>1.67</td>  <td>Brick</td></tr>
+<tr><td>MediumRough</td> <td>1.52</td>  <td>Concrete</td></tr>
+<tr><td>MediumSmooth</td><td>1.13</td>  <td>Clear pine</td></tr>
+<tr><td>Smooth</td>       <td>1.11</td>  <td>Smooth plaster</td></tr>
+<tr><td>VerySmooth</td>  <td>1.00</td>  <td>Glass</td></tr>
 </tr>
 </table>
 </p>

@@ -1,19 +1,48 @@
 within Buildings.HeatTransfer;
 package Types "Package with type definitions"
 
+  type SurfaceRoughness = enumeration(
+      VeryRough "Very rough",
+      Rough "Rough",
+      Medium "Medium rough",
+      MediumSmooth "Medium smooth",
+      Smooth "Smooth",
+      VerySmooth "Very smooth") "Enumeration defining the surface roughness"
+  annotation (Documentation(info="<html>
+<p>
+This enumeration is used to define the surface roughness
+which may be used to compute the convective heat transfer coefficients of 
+building construction.
+</p>
+<p>
+The surface roughness will be used to compute the
+wind-driven convective heat transfer coefficient in 
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Exterior\">
+Buildings.HeatTransfer.Convection.Exterior</a>.
+The possible surface roughness are
+</p>
+<p>
+<table border=\"1\">
+<tr>
+<th>Roughness index</th>
+<th>Example material</th>
+</tr>
+<tr><td>VeryRough</td>     <td>Stucco</td></tr>
+<tr><td>Rough</td>         <td>Brick</td></tr>
+<tr><td>MediumRough</td>   <td>Concrete</td></tr>
+<tr><td>MediumSmooth</td>  <td>Clear pine</td></tr>
+<tr><td>Smooth</td>        <td>Smooth plaster</td></tr>
+<tr><td>VerySmooth</td>    <td>Glass</td></tr>
+</tr>
+</table>
+
+</p>
+</html>"), Evaluate=true);
+
   type ExteriorConvection = enumeration(
       Fixed "Fixed coefficient (a user-specified parameter is used)",
-      SimpleCombined_1
-        "Wind speed and temperature dependent, very rough surface",
-      SimpleCombined_2 "Wind speed and temperature dependent, rough surface",
-      SimpleCombined_3
-        "Wind speed and temperature dependent, medium rough surface",
-      SimpleCombined_4
-        "Wind speed and temperature dependent, medium smooth surface",
-      SimpleCombined_5 "Wind speed and temperature dependent, smooth surface",
-      SimpleCombined_6
-        "Wind speed and temperature dependent, very smooth surface")
-    "Enumeration defining the convective heat transfer model for interior surfaces"
+      TemperatureWind "Wind speed and temperature dependent")
+    "Enumeration defining the convective heat transfer model for exterior surfaces"
   annotation (Documentation(info="<html>
 <p>
 This enumeration is used to set the function

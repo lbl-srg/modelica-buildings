@@ -20,7 +20,7 @@ model ExteriorBoundaryConditions
     "Heat port at surface a of opaque construction"
     annotation (Placement(transformation(extent={{-310,190},{-290,210}})));
   parameter Buildings.HeatTransfer.Types.ExteriorConvection conMod=
-  Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_3
+  Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model for opaque part of the constructions"
     annotation (Dialog(group="Convective heat transfer"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=10.0
