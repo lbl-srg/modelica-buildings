@@ -39,7 +39,7 @@ initial equation
   elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.VerySmooth) then
     R=1.00;
   else
-    R=0;
+    R=1.00;
   end if;
 equation
   if (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed) then
