@@ -23,7 +23,7 @@ model ConstructionWithWindow
     annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{140,80},
             {160,100}})));
 
-  HeatTransfer.ConductorMultiLayer opa(
+  HeatTransfer.Conduction.MultiLayer opa(
     final A=AOpa,
     final layers=layers,
     final steadyStateInitial=steadyStateInitial,
@@ -394,8 +394,8 @@ The model consists of the following two main submodels:
 <ul>
 <li>
 The instance <code>opa</code>, which uses the model 
-<a href=\"modelica://Buildings.HeatTransfer.ConductorMultiLayer\">
-Buildings.HeatTransfer.ConductorMultiLayer</a> to compute
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
+Buildings.HeatTransfer.Conduction.MultiLayer</a> to compute
 the heat transfer through the opaque part of the construction.
 This model uses the record <code>layers</code> to access the material properties
 of the opaque construction.

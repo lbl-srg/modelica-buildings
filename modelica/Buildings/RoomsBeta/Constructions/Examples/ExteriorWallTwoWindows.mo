@@ -58,7 +58,7 @@ model ExteriorWallTwoWindows
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
-  Buildings.HeatTransfer.InteriorConvection con[
+  Buildings.HeatTransfer.Convection.Interior con[
                               nCon](A=A - AWin,
     til={Buildings.HeatTransfer.Types.Tilt.Wall,
          Buildings.HeatTransfer.Types.Tilt.Wall}) "Model for heat convection"

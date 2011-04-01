@@ -71,7 +71,7 @@ model MixedAir "Model for room air that is completely mixed"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-238})));
 
-  Buildings.HeatTransfer.InteriorConvection convConExt[
+  Buildings.HeatTransfer.Convection.Interior convConExt[
                                      NConExt](
     final A=AConExt,
     final til =  datConExt.til,
@@ -79,7 +79,7 @@ model MixedAir "Model for room air that is completely mixed"
     each hFixed=hFixed) if
        haveConExt "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,210},{100,230}})));
-  Buildings.HeatTransfer.InteriorConvection convConExtWin[
+  Buildings.HeatTransfer.Convection.Interior convConExtWin[
                                         NConExtWin](
     final A=AConExtWinOpa,
     final til =  datConExtWin.til,
@@ -101,8 +101,7 @@ model MixedAir "Model for room air that is completely mixed"
     annotation (Placement(transformation(extent={{98,108},{118,128}})));
   // For conPar_a, we use for the tilt pi-tilt since it is the
   // surface that is on the other side of the construction
-  // This is similar as in Buildings.HeatTransfer.ConstructionOpaque
-  Buildings.HeatTransfer.InteriorConvection convConPar_a[
+  Buildings.HeatTransfer.Convection.Interior convConPar_a[
                                        nConPar](
     final A=AConPar,
     final til=Modelica.Constants.pi .- datConPar.til,
@@ -110,7 +109,7 @@ model MixedAir "Model for room air that is completely mixed"
     each hFixed=hFixed) if
        haveConPar "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,-70},{100,-50}})));
-  Buildings.HeatTransfer.InteriorConvection convConPar_b[
+  Buildings.HeatTransfer.Convection.Interior convConPar_b[
                                        nConPar](
     final A=AConPar,
     final til =  datConPar.til,
@@ -118,7 +117,7 @@ model MixedAir "Model for room air that is completely mixed"
     each hFixed=hFixed) if
        haveConPar "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,-110},{100,-90}})));
-  Buildings.HeatTransfer.InteriorConvection convConBou[
+  Buildings.HeatTransfer.Convection.Interior convConBou[
                                      nConBou](
     final A=AConBou,
     final til =  datConBou.til,
@@ -126,7 +125,7 @@ model MixedAir "Model for room air that is completely mixed"
     each hFixed=hFixed) if
        haveConBou "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,-170},{100,-150}})));
-  Buildings.HeatTransfer.InteriorConvection convSurBou[
+  Buildings.HeatTransfer.Convection.Interior convSurBou[
                                      nSurBou](
     final A=ASurBou,
     final til =  surBou.til,

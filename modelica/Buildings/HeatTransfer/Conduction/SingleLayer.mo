@@ -1,6 +1,6 @@
-within Buildings.HeatTransfer;
-model ConductorSingleLayer "Model for single layer heat conductance"
-  extends Buildings.HeatTransfer.BaseClasses.PartialConductor(
+within Buildings.HeatTransfer.Conduction;
+model SingleLayer "Model for single layer heat conductance"
+  extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
    final R=if (material.R == 0) then material.x/material.k/A else material.R/A);
    // if material.R == 0, then the material specifies material.k, and this model specifies x
    // For resistances, material.k need not be specified, and hence we use material.R
@@ -194,4 +194,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ConductorSingleLayer;
+end SingleLayer;

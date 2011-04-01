@@ -23,7 +23,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
     annotation (Placement(transformation(extent={{74,-14},{114,26}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
-  Buildings.HeatTransfer.InteriorConvection con[
+  Buildings.HeatTransfer.Convection.Interior con[
                               1](A={3*10}, til={Buildings.HeatTransfer.Types.Tilt.Wall})
     "Model for heat convection"
     annotation (Placement(transformation(extent={{-20,10},{-40,30}})));

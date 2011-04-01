@@ -50,7 +50,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  Buildings.HeatTransfer.InteriorConvection con[
+  Buildings.HeatTransfer.Convection.Interior con[
                               1](A=A - AWin, til={Buildings.HeatTransfer.Types.Tilt.Wall})
     "Model for heat convection"
     annotation (Placement(transformation(extent={{-20,20},{-40,40}})));

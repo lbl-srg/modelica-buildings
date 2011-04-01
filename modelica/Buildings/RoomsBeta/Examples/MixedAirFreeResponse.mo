@@ -102,7 +102,7 @@ model MixedAirFreeResponse "Free response of room model"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={150,-50})));
-  HeatTransfer.ConductorMultiLayer conOut[nSurBou](
+  HeatTransfer.Conduction.MultiLayer conOut[nSurBou](
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers,
     each A=6*4) "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{100,-60},{120,-40}})));

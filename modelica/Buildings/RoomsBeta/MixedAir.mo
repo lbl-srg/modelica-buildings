@@ -507,8 +507,8 @@ The room models the following physical processes:
 <li>
 Transient or steady-state heat conduction through opaque surfaces, using
 the model
-<a href=\"modelica://Buildings.HeatTransfer.ConductorMultiLayer\">
-Buildings.HeatTransfer.ConductorMultiLayer</a>
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
+Buildings.HeatTransfer.Conduction.MultiLayer</a>
 </li>
 <li>
 Heat transfer through glazing system, taking into account
@@ -531,15 +531,15 @@ for the exterior and interior heat transfer.
 Convective heat transfer between the room air and room-facing surfaces using
 either a temperature-dependent heat transfer coefficient,
 or using a constant heat transfer coefficient, as described in
-<a href=\"modelica://Buildings.HeatTransfer.InteriorConvection\">
-Buildings.HeatTransfer.InteriorConvection</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Interior\">
+Buildings.HeatTransfer.Convection.Interior</a>.
 </li>
 <li>
 Convective heat transfer between the outside air and outside-facing surfaces using
 either a wind-speed, wind-direction and temperature-dependent heat transfer coefficient,
 or using a constant heat transfer coefficient, as described in
-<a href=\"modelica://Buildings.HeatTransfer.ExteriorConvection\">
-Buildings.HeatTransfer.ExteriorConvection</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Exterior\">
+Buildings.HeatTransfer.Convection.Exterior</a>.
 </li>
 <li>
 Short-wave and long-wave heat transfer between the room enclosing surfaces,

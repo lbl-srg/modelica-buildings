@@ -42,7 +42,7 @@ public
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
 
 public
-  HeatTransfer.ConductorMultiLayer opa(
+  HeatTransfer.Conduction.MultiLayer opa(
     final A=AOpa,
     final layers=layers,
     final steadyStateInitial=steadyStateInitial,

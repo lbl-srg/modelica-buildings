@@ -399,7 +399,7 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={330,216})));
-  HeatTransfer.ConductorMultiLayer parWal(A=4*3, layers=matLayPar)
+  HeatTransfer.Conduction.MultiLayer parWal(A=4*3, layers=matLayPar)
     "Partition wall between the two rooms" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

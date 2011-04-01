@@ -1,12 +1,12 @@
-within Buildings.HeatTransfer;
-model ConductorMultiLayer
+within Buildings.HeatTransfer.Conduction;
+model MultiLayer
   "Model for heat conductance through a solid with multiple material layers"
-  extends Buildings.HeatTransfer.BaseClasses.PartialConductor(
+  extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
    final R=sum(lay[:].R));
   Modelica.SIunits.Temperature T[sum(nSta)] "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[sum(nSta)+nLay]
     "Heat flow rate from state i to i+1";
-  extends Buildings.HeatTransfer.BaseClasses.PartialConstruction;
+  extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
 protected
   ConductorSingleLayer[nLay] lay(
@@ -145,4 +145,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ConductorMultiLayer;
+end MultiLayer;

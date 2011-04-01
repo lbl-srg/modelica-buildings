@@ -30,7 +30,7 @@ model ExteriorBoundaryConditions
 
   // The convection coefficients are not final to allow a user to individually 
   // assign them.
-  HeatTransfer.ExteriorConvection conOpa[nCon](
+  HeatTransfer.Convection.Exterior conOpa[nCon](
     final A=AOpa,
     final til=til,
     final azi=azi,

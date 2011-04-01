@@ -14,7 +14,7 @@ model OnlySurfaceBoundary "Test model for room model"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={130,-70})));
-  HeatTransfer.ConductorMultiLayer conOut[nSurBou](each A=15, redeclare
+  HeatTransfer.Conduction.MultiLayer conOut[nSurBou](each A=15, redeclare
       Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers)
     "Construction that is modeled outside of room"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));

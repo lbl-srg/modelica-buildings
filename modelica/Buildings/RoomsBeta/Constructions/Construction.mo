@@ -62,8 +62,8 @@ room model.
 The model uses the record <code>layers</code> to access the material properties
 of the opaque construction. The heat transfer is computed in the instance
 <code>opa</code>, which uses the model 
-<a href=\"modelica://Buildings.HeatTransfer.ConductorMultiLayer\">
-Buildings.HeatTransfer.ConductorMultiLayer</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
+Buildings.HeatTransfer.Conduction.MultiLayer</a>.
 </html>",
 revisions="<html>
 <ul>
