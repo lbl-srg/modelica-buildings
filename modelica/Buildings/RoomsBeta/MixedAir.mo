@@ -551,7 +551,6 @@ which consists of several sub-models.
 </ol>
 </p>
 <h4>Model instantiation</h4>
-<!-- fixme: Add description for how to set convection model. -->
 <p>The next paragraphs describe how to instantiate a room model.
 To instantiate a room model, 
 <ol>
