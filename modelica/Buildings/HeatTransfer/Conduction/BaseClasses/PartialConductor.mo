@@ -1,5 +1,5 @@
-within Buildings.HeatTransfer.BaseClasses;
-partial model PartialConductor "Model for heat conductor"
+within Buildings.HeatTransfer.Conduction.BaseClasses;
+partial model PartialConductor "Partial model for heat conductor"
   extends Buildings.BaseClasses.BaseIcon;
   parameter Modelica.SIunits.Area A "Heat transfer area";
   final parameter Modelica.SIunits.CoefficientOfHeatTransfer U = UA/A

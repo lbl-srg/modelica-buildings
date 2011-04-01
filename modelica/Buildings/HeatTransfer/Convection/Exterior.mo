@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer;
-model ExteriorConvection
+model Exterior
   "Model for a exterior (outside) convective heat transfer"
-  extends Buildings.HeatTransfer.BaseClasses.PartialConvection;
+  extends Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection;
 
   parameter Buildings.HeatTransfer.Types.ExteriorConvection conMod=
     Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_3
@@ -136,8 +136,8 @@ and the wind-driven forced convection coefficient <i>h<sub>f</sub></i>,
  h<sub>t</sub> = h<sub>n</sub> + h<sub>f</sub>
 </p>
 The free convection coefficient <i>h<sub>n</sub></i> is computed in the same way as in 
-<a href=\"modelica://Buildings.HeatTransfer.InteriorConvection\">
-Buildings.HeatTransfer.InteriorConvection</a>.
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Interior\">
+Buildings.HeatTransfer.Convection.Interior</a>.
 The forced convection coefficient <i>h<sub>f</i> 
 is computed based on a correlation by Sparrow, Ramsey, and Mass
 (1979), which is 
@@ -198,4 +198,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ExteriorConvection;
+end Exterior;

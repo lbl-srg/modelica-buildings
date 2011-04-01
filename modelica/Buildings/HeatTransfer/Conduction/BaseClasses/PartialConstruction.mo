@@ -1,6 +1,6 @@
-within Buildings.HeatTransfer.BaseClasses;
+within Buildings.HeatTransfer.Conduction.BaseClasses;
 model PartialConstruction
-  "Partial model for constructions with and without convective heat transfer coefficient"
+  "Partial model for multi-layer constructions"
   extends Buildings.BaseClasses.BaseIcon;
   parameter Modelica.SIunits.Area A "Heat transfer area";
 

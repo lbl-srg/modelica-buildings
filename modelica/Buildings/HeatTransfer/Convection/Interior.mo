@@ -1,7 +1,7 @@
-within Buildings.HeatTransfer;
-model InteriorConvection
+within Buildings.HeatTransfer.Convection;
+model Interior
   "Model for a interior (room-side) convective heat transfer"
-  extends Buildings.HeatTransfer.BaseClasses.PartialConvection;
+  extends Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection;
 
   parameter Buildings.HeatTransfer.Types.InteriorConvection conMod=
     Buildings.HeatTransfer.Types.InteriorConvection.Fixed
@@ -16,11 +16,11 @@ equation
     // the product hCon*dT is differentiable at zero with
     // a continuous first derivative
     if isCeiling then
-       q_flow = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling(dT=dT);
+       q_flow = Buildings.HeatTransfer.Convection.Functions.ConvectiveHeatFlux.ceiling(dT=dT);
     elseif isFloor then
-       q_flow = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor(dT=dT);
+       q_flow = Buildings.HeatTransfer.Convection.Functions.ConvectiveHeatFlux.floor(dT=dT);
     else
-       q_flow = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.wall(dT=dT);
+       q_flow = Buildings.HeatTransfer.Convection.Functions.ConvectiveHeatFlux.wall(dT=dT);
     end if;
   end if;
 
@@ -86,18 +86,18 @@ The convective heat flux is computed using
 <ol>
 <li>
 for floors the function 
-<a href=\"modelica://Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor\">
-Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor</a>
+<a href=\"modelica://Buildings.HeatTransfer.Convection.Functions.ConvectiveHeatFlux.floor\">
+Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.floor</a>
 </li>
 <li>
 for ceilings the function
-<a href=\"modelica://Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling\">
-Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling</a>
+<a href=\"modelica://Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.ceiling\">
+Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.ceiling</a>
 </li>
 <li>
 for walls the function
-<a href=\"modelica://Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.wall\">
-Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.wall</a>
+<a href=\"modelica://Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall\">
+Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall</a>
 </li>
 </ol>
 </li>
@@ -109,4 +109,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end InteriorConvection;
+end Interior;
