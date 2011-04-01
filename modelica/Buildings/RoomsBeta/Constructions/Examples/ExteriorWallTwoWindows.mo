@@ -31,7 +31,7 @@ model ExteriorWallTwoWindows
     A=A,
     AWin=AWin,
     fFra=fFra,
-    til={Buildings.RoomsBeta.Types.Tilt.Wall,Buildings.RoomsBeta.Types.Tilt.Wall})
+    til={Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall})
     "Construction of an exterior wall without a window"
     annotation (Placement(transformation(extent={{0,-30},{60,30}})));
   Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditionsWithWindow
@@ -51,8 +51,8 @@ model ExteriorWallTwoWindows
     haveExteriorShade={glaSys1.haveExteriorShade, glaSys2.haveExteriorShade},
     haveInteriorShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade},
     lat=0.73268921998722,
-    conMod=Buildings.RoomsBeta.Types.InteriorConvection.Fixed,
-    til={Buildings.RoomsBeta.Types.Tilt.Wall,Buildings.RoomsBeta.Types.Tilt.Wall},
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,
+    til={Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall},
     azi={0,0})
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
@@ -60,8 +60,8 @@ model ExteriorWallTwoWindows
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
   Buildings.HeatTransfer.InteriorConvection con[
                               nCon](A=A - AWin,
-    til={Buildings.RoomsBeta.Types.Tilt.Wall,
-         Buildings.RoomsBeta.Types.Tilt.Wall}) "Model for heat convection"
+    til={Buildings.HeatTransfer.Types.Tilt.Wall,
+         Buildings.HeatTransfer.Types.Tilt.Wall}) "Model for heat convection"
     annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=2)
     "Thermal collector to link a vector of models to a single model"

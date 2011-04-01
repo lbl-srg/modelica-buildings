@@ -8,9 +8,9 @@ model ExteriorConvection "Test model for exterior heat transfer coefficients"
     annotation (Placement(transformation(extent={{120,40},{100,60}})));
   Buildings.HeatTransfer.ExteriorConvection nor(
     A=1,
-    azi=Buildings.RoomsBeta.Types.Azimuth.N,
-    til=Buildings.RoomsBeta.Types.Tilt.Wall,
-    conMod=Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_3)
+    azi=Buildings.HeatTransfer.Types.Azimuth.N,
+    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_3)
     "North-facing wall"                       annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -18,9 +18,9 @@ model ExteriorConvection "Test model for exterior heat transfer coefficients"
         origin={30,30})));
   Buildings.HeatTransfer.ExteriorConvection wes(
     A=1,
-    azi=Buildings.RoomsBeta.Types.Azimuth.W,
-    til=Buildings.RoomsBeta.Types.Tilt.Wall,
-    conMod=Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_3)
+    azi=Buildings.HeatTransfer.Types.Azimuth.W,
+    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_3)
     "West facing wall"                                         annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -36,9 +36,9 @@ model ExteriorConvection "Test model for exterior heat transfer coefficients"
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Buildings.HeatTransfer.ExteriorConvection sou(
     A=1,
-    azi=Buildings.RoomsBeta.Types.Azimuth.S,
-    til=Buildings.RoomsBeta.Types.Tilt.Wall,
-    conMod=Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_3)
+    azi=Buildings.HeatTransfer.Types.Azimuth.S,
+    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_3)
     "South facing wall"                         annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -46,9 +46,9 @@ model ExteriorConvection "Test model for exterior heat transfer coefficients"
         origin={30,-30})));
   Buildings.HeatTransfer.ExteriorConvection eas(
     A=1,
-    azi=Buildings.RoomsBeta.Types.Azimuth.E,
-    til=Buildings.RoomsBeta.Types.Tilt.Wall,
-    conMod=Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_3)
+    azi=Buildings.HeatTransfer.Types.Azimuth.E,
+    til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    conMod=Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_3)
     "East facing wall"                          annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

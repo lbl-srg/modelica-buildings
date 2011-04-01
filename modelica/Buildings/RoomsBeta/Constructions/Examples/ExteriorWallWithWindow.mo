@@ -44,14 +44,14 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     haveExteriorShade={glaSys.haveExteriorShade},
     haveInteriorShade={glaSys.haveInteriorShade},
     lat=0.73268921998722,
-    conMod=Buildings.RoomsBeta.Types.InteriorConvection.Fixed,
-    til={Buildings.RoomsBeta.Types.Tilt.Wall})
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,
+    til={Buildings.HeatTransfer.Types.Tilt.Wall})
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
   Buildings.HeatTransfer.InteriorConvection con[
-                              1](A=A - AWin, til={Buildings.RoomsBeta.Types.Tilt.Wall})
+                              1](A=A - AWin, til={Buildings.HeatTransfer.Types.Tilt.Wall})
     "Model for heat convection"
     annotation (Placement(transformation(extent={{-20,20},{-40,40}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=1)

@@ -47,11 +47,11 @@ model ConductorStepResponse "Test model for heat conductor"
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-8)
     annotation (Placement(transformation(extent={{60,-100},{80,-80}})));
   Buildings.HeatTransfer.InteriorConvection conv1(
-                                          A=2, til=Buildings.RoomsBeta.Types.Tilt.Wall)
+                                          A=2, til=Buildings.HeatTransfer.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-20},{-30,0}})));
   Buildings.HeatTransfer.InteriorConvection conv2(
-                                          A=2, til=Buildings.RoomsBeta.Types.Tilt.Wall)
+                                          A=2, til=Buildings.HeatTransfer.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-60},{-30,-40}})));
 equation

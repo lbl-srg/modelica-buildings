@@ -3,13 +3,13 @@ model InteriorConvection
   "Model for a interior (room-side) convective heat transfer"
   extends Buildings.HeatTransfer.BaseClasses.PartialConvection;
 
-  parameter Buildings.RoomsBeta.Types.InteriorConvection conMod=
-    Buildings.RoomsBeta.Types.InteriorConvection.Fixed
+  parameter Buildings.HeatTransfer.Types.InteriorConvection conMod=
+    Buildings.HeatTransfer.Types.InteriorConvection.Fixed
     "Convective heat transfer model"
   annotation(Evaluate=true);
 
 equation
-  if (conMod == Buildings.RoomsBeta.Types.InteriorConvection.Fixed) then
+  if (conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed) then
     q_flow = hFixed * dT;
   else
     // Even if hCon is a step function with a step at zero,
@@ -70,16 +70,16 @@ the heat transfer coefficient:
 </p>
 <p>
 <ol>
-<li><p>If <code>conMod=<a href=\"modelica://Buildings.RoomsBeta.Types.InteriorConvection\">
-Buildings.RoomsBeta.Types.InteriorConvection.Fixed</a></code>, then
+<li><p>If <code>conMod=<a href=\"modelica://Buildings.HeatTransfer.Types.InteriorConvection\">
+Buildings.HeatTransfer.Types.InteriorConvection.Fixed</a></code>, then
 the convective heat transfer coefficient is set to the value specified by the parameter
 <code>hFixed</code>.
 </p>
 </li>
 </li>
 <p>
-If <code>conMod=<a href=\"modelica://Buildings.RoomsBeta.Types.InteriorConvection\">
-Buildings.RoomsBeta.Types.InteriorConvection.Temperature</a></code>, then
+If <code>conMod=<a href=\"modelica://Buildings.HeatTransfer.Types.InteriorConvection\">
+Buildings.HeatTransfer.Types.InteriorConvection.Temperature</a></code>, then
 the convective heat tranfer coefficient is a function of the temperature difference.
 The convective heat flux is computed using
 </p>

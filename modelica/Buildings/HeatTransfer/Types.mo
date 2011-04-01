@@ -1,4 +1,4 @@
-within Buildings.RoomsBeta;
+within Buildings.HeatTransfer;
 package Types "Package with type definitions"
 
   type ExteriorConvection = enumeration(
@@ -42,7 +42,7 @@ heat transfer coefficient for interior (room-side facing) surfaces.</p>
 <p>
  Enumeration to define the tilt of a surface for the room model.
   For example, for a construction that is a floor, use
- <code>Buildings.RoomsBeta.Types.Tilt.Floor</code>.
+ <code>Buildings.HeatTransfer.Types.Tilt.Floor</code>.
 </p>
 </html>",
   revisions="<html>
@@ -70,7 +70,7 @@ First implementation.
  Enumeration to define the azimuth of a surface for the room model.
  For example, if an exterior wall is South oriented, i.e., its outside-facing
 surface is towards South, use 
- <code>Buildings.RoomsBeta.Types.Azimuth.S</code>.
+ <code>Buildings.HeatTransfer.Types.Azimuth.S</code>.
 </p>
 </html>",
   revisions="<html>

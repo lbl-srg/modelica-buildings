@@ -4,7 +4,7 @@ partial model PartialConvection "Model for heat convection"
   parameter Modelica.SIunits.Area A "Heat transfer area";
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
     "Constant convection coefficient"
-    annotation (Dialog(enable=(conMod == Buildings.RoomsBeta.Types.InteriorConvection.fixed)));
+    annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.fixed)));
   Modelica.SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
   Modelica.SIunits.HeatFlux q_flow "Convective heat flux from solid -> fluid";
   Modelica.SIunits.TemperatureDifference dT(start=0) "= solid.T - fluid.T";
@@ -16,7 +16,7 @@ partial model PartialConvection "Model for heat convection"
             {110,10}},         rotation=0)));
 
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
-    annotation (Dialog(enable= not (conMod == Buildings.RoomsBeta.Types.InteriorConvection.fixed)));
+    annotation (Dialog(enable= not (conMod == Buildings.HeatTransfer.Types.InteriorConvection.fixed)));
 
 protected
   final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt"

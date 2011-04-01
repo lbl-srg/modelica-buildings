@@ -4,15 +4,15 @@ model ConstructionOpaque
   extends Buildings.BaseClasses.BaseIcon;
   extends Buildings.HeatTransfer.BaseClasses.PartialConstruction;
 
-  parameter Buildings.RoomsBeta.Types.InteriorConvection conMod=
-    Buildings.RoomsBeta.Types.InteriorConvection.Fixed
+  parameter Buildings.HeatTransfer.Types.InteriorConvection conMod=
+    Buildings.HeatTransfer.Types.InteriorConvection.Fixed
     "Convective heat transfer model"
   annotation(Evaluate=true);
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
     "Constant convection coefficient"
-    annotation (Dialog(enable=(conMod == Buildings.RoomsBeta.Types.InteriorConvection.fixed)));
+    annotation (Dialog(enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.fixed)));
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
-    annotation (Dialog(enable= not (conMod == Buildings.RoomsBeta.Types.InteriorConvection.fixed)));
+    annotation (Dialog(enable= not (conMod == Buildings.HeatTransfer.Types.InteriorConvection.fixed)));
 
   parameter Modelica.SIunits.Area A "Heat transfer area";
 
@@ -149,8 +149,8 @@ Buildings.HeatTransfer.Functions.ConvectiveHeatFlux</a>.
 <p>
 The model has a parameter <code>til</code> that is used as the surface tilt.
 Because in the room model
-<a href=\"modelica://Buildings.RoomsBeta\">
-Buildings.RoomsBeta</a>, the surface <code>a</code> faces the exterior and 
+<a href=\"modelica://Buildings.HeatTransfer\">
+Buildings.HeatTransfer</a>, the surface <code>a</code> faces the exterior and 
 the surface <code>b</code> faces the room air, the parameter <code>til</code>
 is used as follows:
 <table border=\"1\">
@@ -160,11 +160,11 @@ is used as follows:
 <th>Surface b</th>
 </tr>
 <tr>
-<td><code>Buildings.RoomsBeta.Types.Tilt.Ceiling</code></td>
+<td><code>Buildings.HeatTransfer.Types.Tilt.Ceiling</code></td>
 <td>floor (facing the exterior)</td>
 <td>ceiling (facing the room)</td>
 <tr>
-<td><code>Buildings.RoomsBeta.Types.Tilt.Floor</code></td>
+<td><code>Buildings.HeatTransfer.Types.Tilt.Floor</code></td>
 <td>ceiling (facing the exterior)</td>
 <td>floor (facing the room)</td>
 </tr>

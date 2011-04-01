@@ -9,7 +9,7 @@ model OnlyExteriorWallNoWindow "Test model for room model"
    nSurBou=0,
    roo(
     datConExt(layers={matLayExt}, each A=10,
-           each til=Types.Tilt.Floor, each azi=Types.Azimuth.W)));
+           each til=Buildings.HeatTransfer.Types.Tilt.Floor, each azi=Buildings.HeatTransfer.Types.Azimuth.W)));
    annotation(Commands(file="OnlyExteriorWallNoWindow.mos" "run"),
     experiment(
       StopTime=172800,

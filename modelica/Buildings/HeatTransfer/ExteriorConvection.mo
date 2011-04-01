@@ -3,8 +3,8 @@ model ExteriorConvection
   "Model for a exterior (outside) convective heat transfer"
   extends Buildings.HeatTransfer.BaseClasses.PartialConvection;
 
-  parameter Buildings.RoomsBeta.Types.ExteriorConvection conMod=
-    Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_3
+  parameter Buildings.HeatTransfer.Types.ExteriorConvection conMod=
+    Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_3
     "Convective heat transfer model"
   annotation(Evaluate=true);
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
@@ -24,23 +24,23 @@ protected
    parameter Real R(fixed=false) "Surface roughness";
    Real W(min=0.5, max=1) "Wind direction modifier";
 initial equation
-  if (conMod == Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_1) then
+  if (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_1) then
     R=2.17;
-  elseif (conMod == Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_2) then
+  elseif (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_2) then
     R=1.67;
-  elseif (conMod == Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_3) then
+  elseif (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_3) then
     R=1.52;
-  elseif (conMod == Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_4) then
+  elseif (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_4) then
     R=1.13;
-  elseif (conMod == Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_5) then
+  elseif (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_5) then
     R=1.11;
-  elseif (conMod == Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_6) then
+  elseif (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_6) then
     R=1.00;
   else
     R=0;
   end if;
 equation
-  if (conMod == Buildings.RoomsBeta.Types.ExteriorConvection.Fixed) then
+  if (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed) then
     qN_flow = hFixed * dT;
     W = 0;
     hF = 0;
@@ -117,14 +117,14 @@ the heat transfer coefficient:
 </p>
 <p>
 <ol>
-<li><p>If <code>conMod=Buildings.RoomsBeta.Types.ExteriorConvection.Fixed</code>, then
+<li><p>If <code>conMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed</code>, then
 the convective heat transfer coefficient is set to the value specified by the parameter
 <code>hFixed</code>.
 </p>
 </li>
 <li>
 <p>
-If <code>conMod=Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_x</code>,
+If <code>conMod=Buildings.HeatTransfer.Types.ExteriorConvection.SimpleCombined_x</code>,
 where <code>x = 1, 2, 3, 4, 5, 6</code>, then the convective heat transfer coefficient is
 computed based on wind speed, wind direction and temperature difference.
 </p>

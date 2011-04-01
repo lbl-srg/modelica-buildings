@@ -6,7 +6,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
   Buildings.RoomsBeta.Constructions.Construction conExt[1](
     A={10*3},
     layers={extConMat},
-    til={Buildings.RoomsBeta.Types.Tilt.Wall})
+    til={Buildings.HeatTransfer.Types.Tilt.Wall})
     "Construction of an exterior wall without a window"
     annotation (Placement(transformation(extent={{2,-30},{62,30}})));
   Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditions bouConExt(
@@ -17,14 +17,14 @@ model ExteriorWall "Test model for an exterior wall without a window"
     AOpa={1},
     epsSW={0.5},
     lat=0.73268921998722,
-    conMod=Buildings.RoomsBeta.Types.InteriorConvection.Temperature,
-    til={Buildings.RoomsBeta.Types.Tilt.Wall})
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    til={Buildings.HeatTransfer.Types.Tilt.Wall})
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{74,-14},{114,26}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.HeatTransfer.InteriorConvection con[
-                              1](A={3*10}, til={Buildings.RoomsBeta.Types.Tilt.Wall})
+                              1](A={3*10}, til={Buildings.HeatTransfer.Types.Tilt.Wall})
     "Model for heat convection"
     annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol(m=1)

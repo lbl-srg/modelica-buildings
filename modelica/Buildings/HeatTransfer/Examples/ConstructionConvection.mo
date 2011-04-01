@@ -17,7 +17,7 @@ model ConstructionConvection
     A=10,
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200
       layers,
-    conMod=Buildings.RoomsBeta.Types.InteriorConvection.Fixed,
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,
     til=0) "Model of the construction with convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -36,8 +36,8 @@ model ConstructionConvection
     A=10,
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200
       layers,
-    conMod=Buildings.RoomsBeta.Types.InteriorConvection.Temperature,
-    til=Buildings.RoomsBeta.Types.Tilt.Wall)
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    til=Buildings.HeatTransfer.Types.Tilt.Wall)
     "Model of the construction with convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -47,8 +47,8 @@ model ConstructionConvection
     A=10,
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200
       layers,
-    conMod=Buildings.RoomsBeta.Types.InteriorConvection.Temperature,
-    til=Buildings.RoomsBeta.Types.Tilt.Floor)
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    til=Buildings.HeatTransfer.Types.Tilt.Floor)
     "Model of the construction with convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
@@ -58,8 +58,8 @@ model ConstructionConvection
     A=10,
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Concrete200
       layers,
-    conMod=Buildings.RoomsBeta.Types.InteriorConvection.Temperature,
-    til=Buildings.RoomsBeta.Types.Tilt.Ceiling)
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    til=Buildings.HeatTransfer.Types.Tilt.Ceiling)
     "Model of the construction with convective heat transfer"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,

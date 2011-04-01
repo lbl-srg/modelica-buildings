@@ -99,10 +99,10 @@ This is the base class that is used to model opaque constructions in the room mo
 </p>
 <p>
 The surface azimuth is defined in 
-<a href=\"modelica://Buildings.RoomsBeta.Types.Azimuth\">
-Buildings.RoomsBeta.Types.Azimuth</a>
-and the surface tilt is defined in <a href=\"modelica://Buildings.RoomsBeta.Types.Tilt\">
-Buildings.RoomsBeta.Types.Tilt</a>
+<a href=\"modelica://Buildings.HeatTransfer.Types.Azimuth\">
+Buildings.HeatTransfer.Types.Azimuth</a>
+and the surface tilt is defined in <a href=\"modelica://Buildings.HeatTransfer.Types.Tilt\">
+Buildings.HeatTransfer.Types.Tilt</a>
 </p>
 </html>", revisions="<html>
 <ul>

@@ -12,15 +12,15 @@ model InteriorConvection "Test model for convective heat transfer coefficients"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.HeatTransfer.InteriorConvection conCon(
                                            A=1,
-  til=Buildings.RoomsBeta.Types.Tilt.Wall)    annotation (Placement(
+  til=Buildings.HeatTransfer.Types.Tilt.Wall)    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,10})));
   Buildings.HeatTransfer.InteriorConvection conVer(
                                            A=1,
-  til=Buildings.RoomsBeta.Types.Tilt.Wall,
-  conMod=Buildings.RoomsBeta.Types.InteriorConvection.Temperature)
+  til=Buildings.HeatTransfer.Types.Tilt.Wall,
+  conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature)
                                                                annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -36,8 +36,8 @@ model InteriorConvection "Test model for convective heat transfer coefficients"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.HeatTransfer.InteriorConvection conHorFluTop(
     A=1,
-    til=Buildings.RoomsBeta.Types.Tilt.Floor,
-    conMod=Buildings.RoomsBeta.Types.InteriorConvection.Temperature)
+    til=Buildings.HeatTransfer.Types.Tilt.Floor,
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature)
     "Convection model with fluid on top"        annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -45,8 +45,8 @@ model InteriorConvection "Test model for convective heat transfer coefficients"
         origin={50,10})));
   Buildings.HeatTransfer.InteriorConvection conHorSolTop(
     A=1,
-    til=Buildings.RoomsBeta.Types.Tilt.Ceiling,
-    conMod=Buildings.RoomsBeta.Types.InteriorConvection.Temperature)
+    til=Buildings.HeatTransfer.Types.Tilt.Ceiling,
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature)
     "Convection model with solid on top"        annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},

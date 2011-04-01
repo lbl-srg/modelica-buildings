@@ -11,14 +11,14 @@ model MixedAir "Model for room air that is completely mixed"
   parameter Modelica.SIunits.Area AFlo "Floor area";
   parameter Modelica.SIunits.Length hRoo "Average room height";
 
-  parameter Buildings.RoomsBeta.Types.InteriorConvection conMod=
-  Buildings.RoomsBeta.Types.InteriorConvection.Temperature
+  parameter Buildings.HeatTransfer.Types.InteriorConvection conMod=
+  Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3.0
     "Constant convection coefficient for opaque constructions"
     annotation (Dialog(group="Convective heat transfer",
-                       enable=(conMod == Buildings.RoomsBeta.Types.InteriorConvection.Fixed)));
+                       enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
 
   final parameter Boolean isFloorConExt[NConExt]=
     datConExt.isFloor "Flag to indicate if floor for exterior constructions";

@@ -8,7 +8,7 @@ model OnlySurfaceBoundary "Test model for room model"
    nConBou=0,
    nSurBou=1,
    roo(
-    surBou(each A=15, each epsLW=0.9, each epsSW=0.9, each til=Types.Tilt.Floor)));
+    surBou(each A=15, each epsLW=0.9, each epsSW=0.9, each til=Buildings.HeatTransfer.Types.Tilt.Floor)));
   Buildings.HeatTransfer.Sources.FixedTemperature TBou[nSurBou](each T=288.15)
     "Boundary condition for construction" annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
