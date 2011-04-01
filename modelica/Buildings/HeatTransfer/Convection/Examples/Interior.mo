@@ -1,5 +1,5 @@
-within Buildings.HeatTransfer.Examples;
-model InteriorConvection "Test model for convective heat transfer coefficients"
+within Buildings.HeatTransfer.Convection.Examples;
+model Interior "Test model for convective heat transfer coefficients"
   import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp step(
@@ -120,4 +120,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end InteriorConvection;
+end Interior;

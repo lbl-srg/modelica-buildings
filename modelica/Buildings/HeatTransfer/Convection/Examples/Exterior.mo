@@ -1,5 +1,5 @@
-within Buildings.HeatTransfer.Examples;
-model ExteriorConvection "Test model for exterior heat transfer coefficients"
+within Buildings.HeatTransfer.Convection.Examples;
+model Exterior "Test model for exterior heat transfer coefficients"
   import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Constant T1(k=290.15)
@@ -166,4 +166,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ExteriorConvection;
+end Exterior;
