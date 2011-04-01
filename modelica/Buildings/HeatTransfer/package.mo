@@ -1,6 +1,6 @@
 within Buildings;
 package HeatTransfer "Package with heat transfer models"
-  extends Modelica.Icons.VariantsPackage;
+  extends Modelica.Icons.Package;
 
 
 annotation (preferedView="info", Documentation(info="<html>
