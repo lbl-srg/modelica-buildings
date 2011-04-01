@@ -4,5 +4,6 @@ ConductorSingleLayer
 ConductorMultiLayer
 ConductorInitialization
 ConstructionSymmetric
-Convection
 ConstructionConvection
+ExteriorConvection
+InteriorConvection

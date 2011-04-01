@@ -13,21 +13,18 @@ model GlassLayer "Model for a glass layer of a window assembly"
     "Long wave emissivity of surface b (usually outside-facing surface)";
   parameter Modelica.SIunits.Emissivity tauLW
     "Long wave transmittance of glass";
-
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port_a(T(start=293.15, nominal=293.15))
-    "Heat port at surface a" 
+    "Heat port at surface a"
     annotation (Placement(transformation(extent={{-110,-10},
             {-90,10}}, rotation=0)));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b(T(start=293.15, nominal=293.15))
-    "Heat port at surface b" 
+    "Heat port at surface b"
     annotation (Placement(transformation(extent={{90,-10},{
             110,10}}, rotation=0)));
-
   Modelica.Blocks.Interfaces.RealInput QAbs_flow(unit="W", quantity="Power")
     "Solar radiation absorbed by glass" annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
@@ -36,7 +33,6 @@ model GlassLayer "Model for a glass layer of a window assembly"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,-110})));
-
   parameter Boolean linearize=false "Set to true to linearize emissive power";
 //protected
  Real T4_a(min=1E8, unit="K4", start=293.15^4, nominal=1E10)
@@ -55,7 +51,6 @@ equation
   0 = port_a.Q_flow + port_b.Q_flow + QAbs_flow + JIn_a  + JIn_b + JOut_a + JOut_b;
   //port_b.T-port_a.T = R/u * (2*port_b.Q_flow+QAbs_flow);
   u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-(epsLW_a*JIn_a-E_a));
-
   // Radiosity balance
   T4_a = if linearize then T03 * port_a.T else port_a.T^4;
   T4_b = if linearize then T03 * port_b.T else port_b.T^4;
@@ -68,7 +63,6 @@ equation
   // other surface.
   -JOut_a = E_a + rhoLW_a * JIn_a + tauLW * JIn_b;
   -JOut_b = E_b + rhoLW_b * JIn_b + tauLW * JIn_a;
-
   annotation (Diagram(graphics),
     Icon(graphics={
         Rectangle(

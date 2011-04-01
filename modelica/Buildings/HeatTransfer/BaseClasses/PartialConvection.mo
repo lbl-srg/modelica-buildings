@@ -2,7 +2,11 @@ within Buildings.HeatTransfer.BaseClasses;
 partial model PartialConvection "Model for heat convection"
   extends Buildings.BaseClasses.BaseIcon;
   parameter Modelica.SIunits.Area A "Heat transfer area";
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
+    "Constant convection coefficient"
+    annotation (Dialog(enable=(conMod == Buildings.RoomsBeta.Types.InteriorConvection.fixed)));
   Modelica.SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
+  Modelica.SIunits.HeatFlux q_flow "Convective heat flux from solid -> fluid";
   Modelica.SIunits.TemperatureDifference dT(start=0) "= solid.T - fluid.T";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a solid
                               annotation (Placement(transformation(extent={{-110,
@@ -10,14 +14,27 @@ partial model PartialConvection "Model for heat convection"
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b fluid
                               annotation (Placement(transformation(extent={{90,-10},
             {110,10}},         rotation=0)));
+
+  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
+    annotation (Dialog(enable= not (conMod == Buildings.RoomsBeta.Types.InteriorConvection.fixed)));
+
+protected
+  final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt"
+    annotation (Evaluate=true);
+  final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt"
+    annotation (Evaluate=true);
+  final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
+    "Flag, true if the surface is a ceiling"
+    annotation (Evaluate=true);
+  final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
+    "Flag, true if the surface is a floor"
+    annotation (Evaluate=true);
+
 equation
   dT = solid.T - fluid.T;
   solid.Q_flow = Q_flow;
   fluid.Q_flow = -Q_flow;
-  // Even if hCon is a step function with a step at zero,
-  // the product hCon*dT is differentiable at zero with
-  // a continuous first derivative
-  Q_flow = A*qCon_flow();
+  Q_flow = A*q_flow;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={

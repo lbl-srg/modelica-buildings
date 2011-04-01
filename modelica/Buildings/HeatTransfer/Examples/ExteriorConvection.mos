@@ -1,0 +1,15 @@
+simulateModel("Buildings.HeatTransfer.Examples.ExteriorConvection", stopTime=3600, numberOfIntervals=5000, method="dassl", resultFile="ExteriorConvection");
+
+createPlot(id = 1,
+ position = {75, 4, 650, 386},
+ y = {"nor.hF", "wes.hF", "sou.hF", "eas.hF"},
+ range = {0, 3600.0, 11.5, 5.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "ExteriorConvection.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+

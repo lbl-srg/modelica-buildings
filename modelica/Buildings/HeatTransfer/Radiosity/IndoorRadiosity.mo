@@ -5,27 +5,24 @@ model IndoorRadiosity "Model for indoor radiosity"
     final epsLW=1,
     final tauLW=0,
     final rhoLW=0);
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port of this surface" 
+    "Heat port of this surface"
     annotation (Placement(transformation(extent={{-10,-108},{10,-88}}),
         iconTransformation(extent={{-2,-108},{18,-88}})));
 protected
   final parameter Real T03(
     min=0,
-    unit="K3") = T0^3 "3rd power of temperature T0" 
+    unit="K3") = T0^3 "3rd power of temperature T0"
  annotation(Evaluate=true);
   Real T4(
     min=1E8,
     start=293.15^4,
     nominal=1E10,
     unit="K4") "4th power of temperature";
-
 equation
   T4 = if linearize then T03*heatPort.T else heatPort.T^4;
   JOut = -A*Modelica.Constants.sigma*T4;
   0 = heatPort.Q_flow + JIn + JOut;
-
   annotation (
     Diagram(graphics),
     Icon(graphics={

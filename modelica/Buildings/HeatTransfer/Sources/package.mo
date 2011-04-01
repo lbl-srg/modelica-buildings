@@ -1,13 +1,14 @@
+within Buildings.HeatTransfer;
 package Sources "Thermal sources"
 extends Modelica.Icons.SourcesPackage;
 
-  model FixedTemperature 
-    "Fixed temperature boundary condition in Kelvin"
+
+  model FixedTemperature "Fixed temperature boundary condition in Kelvin"
 
     parameter Modelica.SIunits.Temperature T "Fixed temperature at port";
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
               -10},{110,10}}, rotation=0)));
-  equation 
+  equation
     port.T = T;
     annotation (
       Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
@@ -68,14 +69,15 @@ i.e., it defines a fixed temperature as a boundary condition.
             fillPattern=FillPattern.Solid)}));
   end FixedTemperature;
 
-  model PrescribedTemperature 
-    "Variable temperature boundary condition in Kelvin"
+
+  model PrescribedTemperature
+  "Variable temperature boundary condition in Kelvin"
 
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
               -10},{110,10}}, rotation=0)));
     Modelica.Blocks.Interfaces.RealInput T annotation (Placement(transformation(
             extent={{-140,-20},{-100,20}}, rotation=0)));
-  equation 
+  equation
     port.T = T;
     annotation (
       Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
@@ -135,12 +137,13 @@ as required to keep the temperature at the specified value.
             fillPattern=FillPattern.Solid)}));
   end PrescribedTemperature;
 
+
   model FixedHeatFlow "Fixed heat flow boundary condition"
-    parameter Modelica.SIunits.HeatFlowRate Q_flow 
-      "Fixed heat flow rate at port";
+    parameter Modelica.SIunits.HeatFlowRate Q_flow
+    "Fixed heat flow rate at port";
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
               -10},{110,10}}, rotation=0)));
-  equation 
+  equation
     port.Q_flow = -Q_flow;
     annotation (
       Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
@@ -226,6 +229,7 @@ Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a>.
 </html>"));
   end FixedHeatFlow;
 
+
   model PrescribedHeatFlow "Prescribed heat flow boundary condition"
     Modelica.Blocks.Interfaces.RealInput Q_flow
           annotation (Placement(transformation(
@@ -234,7 +238,7 @@ Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a>.
           rotation=180)));
     Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port annotation (Placement(transformation(extent={{90,
               -10},{110,10}}, rotation=0)));
-  equation 
+  equation
     port.Q_flow = -Q_flow;
     annotation (
       Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
@@ -327,6 +331,8 @@ Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>.
             fillColor={191,0,0},
             fillPattern=FillPattern.Solid)}));
   end PrescribedHeatFlow;
+
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics),   Documentation(info="<html>
 This package is identical to

@@ -2,48 +2,26 @@ within Buildings.HeatTransfer.Data;
 package Solids
   "Package with solid material, characterized by thermal conductance, density and specific heat capacity"
     extends Modelica.Icons.MaterialPropertiesPackage;
-  annotation (
-Documentation(
-info="<html>
-<p>
-Package with records for solid materials.
-The material is characterized by its 
-thermal conductivity, mass density and specific
-heat capacity.
-</p>
-</html>",
-revisions="<html>
-<ul>
-<li>
-September 9, 2010, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"
-));
 
   record Generic "Thermal properties of solids with heat storage"
       extends Buildings.HeatTransfer.Data.BaseClasses.Material(final R=x/k);
-annotation (
-defaultComponentName="mat",
-Documentation(
-info="<html>
+    annotation (defaultComponentName="mat", Documentation(info=
+     "<html>
 <p>
 Generic record for solid materials.
 The material is characterized by its 
 thermal conductivity, mass density and specific
 heat capacity.
 </p>
-</html>",
-revisions="<html>
+</html>", revisions=
+          "<html>
 <ul>
 <li>
 September 9, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"
-));
+</html>"));
   end Generic;
 
   record Brick = Buildings.HeatTransfer.Data.Solids.Generic (
@@ -66,4 +44,22 @@ First implementation.
       k=0.12,
       d=540,
       c=1210) "Plywood (k=0.12)";
+  annotation (
+Documentation(
+info="<html>
+<p>
+Package with records for solid materials.
+The material is characterized by its 
+thermal conductivity, mass density and specific
+heat capacity.
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+September 9, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Solids;

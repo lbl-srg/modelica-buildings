@@ -1,44 +1,15 @@
 within Buildings.HeatTransfer;
-model Convection "Model for a convective heat transfer"
-  extends Buildings.BaseClasses.BaseIcon;
-  parameter Buildings.RoomsBeta.Types.ConvectionModel conMod=
-    Buildings.RoomsBeta.Types.ConvectionModel.Fixed
+model InteriorConvection
+  "Model for a interior (room-side) convective heat transfer"
+  extends Buildings.HeatTransfer.BaseClasses.PartialConvection;
+
+  parameter Buildings.RoomsBeta.Types.InteriorConvection conMod=
+    Buildings.RoomsBeta.Types.InteriorConvection.Fixed
     "Convective heat transfer model"
   annotation(Evaluate=true);
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
-    "Constant convection coefficient"
-    annotation (Dialog(enable=(conMod == Buildings.RoomsBeta.Types.ConvectionModel.fixed)));
-  parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
-    annotation (Dialog(enable= not (conMod == Buildings.RoomsBeta.Types.ConvectionModel.fixed)));
-
-  parameter Modelica.SIunits.Area A "Heat transfer area";
-
-  Modelica.SIunits.HeatFlux q_flow "Convective heat flux from solid -> fluid";
-  Modelica.SIunits.HeatFlowRate Q_flow "Heat flow rate from solid -> fluid";
-  Modelica.SIunits.TemperatureDifference dT(start=0) "= solid.T - fluid.T";
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a solid
-                              annotation (Placement(transformation(extent={{-110,
-            -10},{-90,10}},      rotation=0)));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b fluid
-                              annotation (Placement(transformation(extent={{90,-10},
-            {110,10}},         rotation=0)));
-protected
-  final parameter Real cosTil=Modelica.Math.cos(til) "Cosine of window tilt"
-    annotation (Evaluate=true);
-  final parameter Real sinTil=Modelica.Math.sin(til) "Sine of window tilt"
-    annotation (Evaluate=true);
-  final parameter Boolean isCeiling = abs(sinTil) < 10E-10 and cosTil > 0
-    "Flag, true if the surface is a ceiling"
-    annotation (Evaluate=true);
-  final parameter Boolean isFloor = abs(sinTil) < 10E-10 and cosTil < 0
-    "Flag, true if the surface is a floor"
-    annotation (Evaluate=true);
 
 equation
-  dT = solid.T - fluid.T;
-  solid.Q_flow = Q_flow;
-  fluid.Q_flow = -Q_flow;
-  if (conMod == Buildings.RoomsBeta.Types.ConvectionModel.Fixed) then
+  if (conMod == Buildings.RoomsBeta.Types.InteriorConvection.Fixed) then
     q_flow = hFixed * dT;
   else
     // Even if hCon is a step function with a step at zero,
@@ -52,7 +23,6 @@ equation
        q_flow = Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.wall(dT=dT);
     end if;
   end if;
-  Q_flow = A*q_flow;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),       graphics), Icon(coordinateSystem(
@@ -94,12 +64,43 @@ equation
         Line(points={{56,30},{76,20}}, color={191,0,0})}),
     defaultComponentName="con",
     Documentation(info="<html>
-This is a model for a convective heat transfer.
-The model can be configured to use various functions
-from the package
-<a href=\"modelica://Buildings.HeatTransfer.Functions.ConvectiveHeatFlux\">
-Buildings.HeatTransfer.Functions.ConvectiveHeatFlux</a>
-to compute the convective heat transfer.
+This is a model for a convective heat transfer for interior, room-facing surfaces.
+The parameter <code>conMod</code> determines the model that is used to compute
+the heat transfer coefficient:
+</p>
+<p>
+<ol>
+<li><p>If <code>conMod=<a href=\"modelica://Buildings.RoomsBeta.Types.InteriorConvection\">
+Buildings.RoomsBeta.Types.InteriorConvection.Fixed</a></code>, then
+the convective heat transfer coefficient is set to the value specified by the parameter
+<code>hFixed</code>.
+</p>
+</li>
+</li>
+<p>
+If <code>conMod=<a href=\"modelica://Buildings.RoomsBeta.Types.InteriorConvection\">
+Buildings.RoomsBeta.Types.InteriorConvection.Temperature</a></code>, then
+the convective heat tranfer coefficient is a function of the temperature difference.
+The convective heat flux is computed using
+</p>
+<ol>
+<li>
+for floors the function 
+<a href=\"modelica://Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor\">
+Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.floor</a>
+</li>
+<li>
+for ceilings the function
+<a href=\"modelica://Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling\">
+Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.ceiling</a>
+</li>
+<li>
+for walls the function
+<a href=\"modelica://Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.wall\">
+Buildings.HeatTransfer.Functions.ConvectiveHeatFlux.wall</a>
+</li>
+</ol>
+</li>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -108,4 +109,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Convection;
+end InteriorConvection;

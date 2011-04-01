@@ -4,15 +4,15 @@ model ConstructionOpaque
   extends Buildings.BaseClasses.BaseIcon;
   extends Buildings.HeatTransfer.BaseClasses.PartialConstruction;
 
-  parameter Buildings.RoomsBeta.Types.ConvectionModel conMod=
-    Buildings.RoomsBeta.Types.ConvectionModel.Fixed
+  parameter Buildings.RoomsBeta.Types.InteriorConvection conMod=
+    Buildings.RoomsBeta.Types.InteriorConvection.Fixed
     "Convective heat transfer model"
   annotation(Evaluate=true);
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
     "Constant convection coefficient"
-    annotation (Dialog(enable=(conMod == Buildings.RoomsBeta.Types.ConvectionModel.fixed)));
+    annotation (Dialog(enable=(conMod == Buildings.RoomsBeta.Types.InteriorConvection.fixed)));
   parameter Modelica.SIunits.Angle til(displayUnit="deg") "Surface tilt"
-    annotation (Dialog(enable= not (conMod == Buildings.RoomsBeta.Types.ConvectionModel.fixed)));
+    annotation (Dialog(enable= not (conMod == Buildings.RoomsBeta.Types.InteriorConvection.fixed)));
 
   parameter Modelica.SIunits.Area A "Heat transfer area";
 
@@ -44,13 +44,15 @@ model ConstructionOpaque
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b surf_b
     "Heat port at surface b"                                                          annotation (Placement(transformation(extent={{10,30},
             {30,50}}, rotation=0), iconTransformation(extent={{44,54},{64,74}})));
-  Convection con_a(final A=A,
+  Buildings.HeatTransfer.InteriorConvection con_a(
+                   final A=A,
     final conMod=conMod,
     final hFixed=hFixed,
     final til=Modelica.Constants.pi - til)
     "Convective heat transfer at surface a"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
-  Convection con_b(final A=A,
+  Buildings.HeatTransfer.InteriorConvection con_b(
+                   final A=A,
     final conMod=conMod,
     final hFixed=hFixed,
     final til=til) "Convective heat transfer at surface b"

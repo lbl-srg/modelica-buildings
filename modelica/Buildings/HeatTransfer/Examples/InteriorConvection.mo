@@ -1,5 +1,5 @@
 within Buildings.HeatTransfer.Examples;
-model Convection "Test model for convective heat transfer coefficients"
+model InteriorConvection "Test model for convective heat transfer coefficients"
   import Buildings;
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp step(
@@ -10,15 +10,17 @@ model Convection "Test model for convective heat transfer coefficients"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.HeatTransfer.Convection conCon(A=1,
+  Buildings.HeatTransfer.InteriorConvection conCon(
+                                           A=1,
   til=Buildings.RoomsBeta.Types.Tilt.Wall)    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,10})));
-  Buildings.HeatTransfer.Convection conVer(A=1,
+  Buildings.HeatTransfer.InteriorConvection conVer(
+                                           A=1,
   til=Buildings.RoomsBeta.Types.Tilt.Wall,
-  conMod=Buildings.RoomsBeta.Types.ConvectionModel.Temperature)
+  conMod=Buildings.RoomsBeta.Types.InteriorConvection.Temperature)
                                                                annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -32,19 +34,19 @@ model Convection "Test model for convective heat transfer coefficients"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA4
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  Buildings.HeatTransfer.Convection conHorFluTop(
+  Buildings.HeatTransfer.InteriorConvection conHorFluTop(
     A=1,
     til=Buildings.RoomsBeta.Types.Tilt.Floor,
-    conMod=Buildings.RoomsBeta.Types.ConvectionModel.Temperature)
+    conMod=Buildings.RoomsBeta.Types.InteriorConvection.Temperature)
     "Convection model with fluid on top"        annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,10})));
-  Buildings.HeatTransfer.Convection conHorSolTop(
+  Buildings.HeatTransfer.InteriorConvection conHorSolTop(
     A=1,
     til=Buildings.RoomsBeta.Types.Tilt.Ceiling,
-    conMod=Buildings.RoomsBeta.Types.ConvectionModel.Temperature)
+    conMod=Buildings.RoomsBeta.Types.InteriorConvection.Temperature)
     "Convection model with solid on top"        annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -107,7 +109,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics), Commands(file=
-          "Convection.mos" "run"),
+          "InteriorConvection.mos" "run"),
     Documentation(info="<html>
 This example tests the convective heat transfer models.
 </html>", revisions="<html>
@@ -118,4 +120,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Convection;
+end InteriorConvection;

@@ -11,6 +11,15 @@ model MixedAir "Model for room air that is completely mixed"
   parameter Modelica.SIunits.Area AFlo "Floor area";
   parameter Modelica.SIunits.Length hRoo "Average room height";
 
+  parameter Buildings.RoomsBeta.Types.InteriorConvection conMod=
+  Buildings.RoomsBeta.Types.InteriorConvection.Temperature
+    "Convective heat transfer model for opaque constructions"
+    annotation (Dialog(group="Convective heat transfer"));
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3.0
+    "Constant convection coefficient for opaque constructions"
+    annotation (Dialog(group="Convective heat transfer",
+                       enable=(conMod == Buildings.RoomsBeta.Types.InteriorConvection.Fixed)));
+
   final parameter Boolean isFloorConExt[NConExt]=
     datConExt.isFloor "Flag to indicate if floor for exterior constructions";
   final parameter Boolean isFloorConExtWin[NConExtWin]=
@@ -61,19 +70,21 @@ model MixedAir "Model for room air that is completely mixed"
       redeclare each final package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},
       origin={0,-238})));
-protected
-  HeatTransfer.Convection convConExt[NConExt](
+
+  Buildings.HeatTransfer.InteriorConvection convConExt[
+                                     NConExt](
     final A=AConExt,
     final til =  datConExt.til,
-    final conMod=datConExt.conMod,
-    final hFixed=datConExt.hFixed) if
+    each conMod=conMod,
+    each hFixed=hFixed) if
        haveConExt "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,210},{100,230}})));
-  HeatTransfer.Convection convConExtWin[NConExtWin](
+  Buildings.HeatTransfer.InteriorConvection convConExtWin[
+                                        NConExtWin](
     final A=AConExtWinOpa,
     final til =  datConExtWin.til,
-    final conMod=datConExtWin.conMod,
-    final hFixed=datConExtWin.hFixed) if
+    each conMod=conMod,
+    each hFixed=hFixed) if
        haveConExtWin "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,170},{100,190}})));
   HeatTransfer.WindowsBeta.InteriorHeatTransfer convConWin[NConExtWin](
@@ -91,34 +102,39 @@ protected
   // For conPar_a, we use for the tilt pi-tilt since it is the
   // surface that is on the other side of the construction
   // This is similar as in Buildings.HeatTransfer.ConstructionOpaque
-  HeatTransfer.Convection convConPar_a[nConPar](
+  Buildings.HeatTransfer.InteriorConvection convConPar_a[
+                                       nConPar](
     final A=AConPar,
     final til=Modelica.Constants.pi .- datConPar.til,
-    final conMod=datConPar.conMod,
-    final hFixed=datConPar.hFixed) if
+    each conMod=conMod,
+    each hFixed=hFixed) if
        haveConPar "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,-70},{100,-50}})));
-  HeatTransfer.Convection convConPar_b[nConPar](
+  Buildings.HeatTransfer.InteriorConvection convConPar_b[
+                                       nConPar](
     final A=AConPar,
     final til =  datConPar.til,
-    final conMod=datConPar.conMod,
-    final hFixed=datConPar.hFixed) if
+    each conMod=conMod,
+    each hFixed=hFixed) if
        haveConPar "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,-110},{100,-90}})));
-  HeatTransfer.Convection convConBou[nConBou](
+  Buildings.HeatTransfer.InteriorConvection convConBou[
+                                     nConBou](
     final A=AConBou,
     final til =  datConBou.til,
-    final conMod=datConBou.conMod,
-    final hFixed=datConBou.hFixed) if
+    each conMod=conMod,
+    each hFixed=hFixed) if
        haveConBou "Convective heat transfer"
     annotation (Placement(transformation(extent={{120,-170},{100,-150}})));
-  HeatTransfer.Convection convSurBou[nSurBou](
+  Buildings.HeatTransfer.InteriorConvection convSurBou[
+                                     nSurBou](
     final A=ASurBou,
     final til =  surBou.til,
-    final conMod=surBou.conMod,
-    final hFixed=surBou.hFixed) if
+    each conMod=conMod,
+    each hFixed=hFixed) if
        haveSurBou "Convective heat transfer"
     annotation (Placement(transformation(extent={{122,-230},{102,-210}})));
+protected
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theConConExt(final m=
         nConExt) if
        haveConExt

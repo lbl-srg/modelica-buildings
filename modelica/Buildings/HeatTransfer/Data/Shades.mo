@@ -20,9 +20,7 @@ package Shades "Package with thermophysical properties for window shades"
    parameter Modelica.SIunits.TransmissionCoefficient tauLW_b=0
       "Long wave transmissivity of surface b (surface that faces the glass)";
 
-    annotation (
-defaultComponentName="sha",
-Documentation(info=
+    annotation (defaultComponentName="sha", Documentation(info=
                                "<html>
 Records that implements thermophysical properties for window shades.
 </html>",

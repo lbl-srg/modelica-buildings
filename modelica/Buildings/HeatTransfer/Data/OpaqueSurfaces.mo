@@ -2,27 +2,6 @@ within Buildings.HeatTransfer.Data;
 package OpaqueSurfaces
   "Package with thermophysical properties for opaque surfaces"
     extends Modelica.Icons.MaterialPropertiesPackage;
-  annotation (
-preferedView="info",
-Documentation(info="<html>
-<p>
-Package with records for opaque surfaces.
-</p>
-<p>
-The parameter <code>epsLW</code>
-is used to compute long-wave heat radiation (in the infrared spectrum).
-The parameter <code>epsSW</code>
-is used to compute short-wave heat radiation (in the solar spectrum).
-</p>
-</html>",
-  revisions="<html>
-<ul>
-<li>
-November 16, 2010, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
 
   record Generic "Thermal properties of opaque surfaces"
       extends Modelica.Icons.Record;
@@ -34,9 +13,8 @@ First implementation.
    final parameter Boolean isFloor=til > 2.74889125 and til < 3.53428875
       "Flag, true if construction is a floor" annotation (Evaluate=true);
 
-    annotation (
-defaultComponentName="opaSur",
-Documentation(info="<html>
+    annotation (defaultComponentName="opaSur", Documentation(info=
+                   "<html>
 <p>
 This record implements thermophysical properties for opaque surfaces.
 </p>
@@ -66,4 +44,25 @@ First implementation.
   record White=Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic (epsLW=0.0,
         epsSW=0.0) "White surface with epsLW=0.0, epsSW=0.0";
 
+  annotation (
+preferedView="info",
+Documentation(info="<html>
+<p>
+Package with records for opaque surfaces.
+</p>
+<p>
+The parameter <code>epsLW</code>
+is used to compute long-wave heat radiation (in the infrared spectrum).
+The parameter <code>epsSW</code>
+is used to compute short-wave heat radiation (in the solar spectrum).
+</p>
+</html>",
+  revisions="<html>
+<ul>
+<li>
+November 16, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end OpaqueSurfaces;

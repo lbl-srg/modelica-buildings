@@ -1,10 +1,10 @@
 UsersGuide
 ConductorSingleLayer
 ConductorMultiLayer
-Convection
+ExteriorConvection
+InteriorConvection
 ConstructionOpaque
 Sources
-Surface
 WindowsBeta
 Radiosity
 Data

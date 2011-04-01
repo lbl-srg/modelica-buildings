@@ -32,6 +32,8 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final AFlo=AFlo,
     final hRoo=hRoo,
     final linearizeRadiation = linearizeRadiation,
+    final conMod=intConMod,
+    final hFixed=hIntFixed,
     tauGlaSW={0.6 for i in 1:NConExtWin}) "Air volume"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
@@ -109,6 +111,27 @@ model MixedAir "Model of a room in which the air is completely mixed"
     "Set to true to linearize emissive power";
 
   ////////////////////////////////////////////////////////////////////////
+  // Convection
+  parameter Buildings.RoomsBeta.Types.InteriorConvection intConMod=
+  Buildings.RoomsBeta.Types.InteriorConvection.Temperature
+    "Convective heat transfer model for room-facing surfaces of opaque constructions"
+    annotation (Dialog(group="Convective heat transfer"));
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hIntFixed=3.0
+    "Constant convection coefficient for room-facing surfaces of opaque constructions"
+    annotation (Dialog(group="Convective heat transfer",
+                       enable=(conMod == Buildings.RoomsBeta.Types.InteriorConvection.Fixed)));
+
+  parameter Buildings.RoomsBeta.Types.ExteriorConvection extConMod=
+  Buildings.RoomsBeta.Types.ExteriorConvection.SimpleCombined_3
+    "Convective heat transfer model for exterior facing surfaces of opaque constructions"
+    annotation (Dialog(group="Convective heat transfer"));
+  parameter Modelica.SIunits.CoefficientOfHeatTransfer hExtFixed=10.0
+    "Constant convection coefficient for exterior facing surfaces of opaque constructions"
+    annotation (Dialog(group="Convective heat transfer",
+                       enable=(conMod == Buildings.RoomsBeta.Types.ExteriorConvection.Fixed)));
+
+
+  ////////////////////////////////////////////////////////////////////////
   // Models for boundary conditions
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_conBou[nConBou] if
        haveConBou "Heat port at surface b of construction conBou"
@@ -128,30 +151,37 @@ model MixedAir "Model of a room in which the air is completely mixed"
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}})));
+
+  // Reassign the tilt since a construction that is declared as a ceiling of the 
+  // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditions bouConExt(
     final nCon=nConExt,
     final AOpa=datConExt.A,
     final lat=lat,
-    final til=datConExt.til,
+    final til=Modelica.Constants.pi * ones(nConExt) - datConExt.til,
     final azi=datConExt.azi,
     linearizeRadiation = linearizeRadiation,
-    conMod=datConExt.conMod,
+    final conMod=extConMod,
+    final hFixed=hExtFixed,
     final epsLW=datConExt.layers.epsLW_a,
     final epsSW=datConExt.layers.epsSW_a) if
        haveConExt
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{116,116},{146,146}})));
 
+  // Reassign the tilt since a construction that is declared as a ceiling of the 
+  // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditionsWithWindow bouConExtWin(
     final nCon=nConExtWin,
     final lat=lat,
-    final til=datConExtWin.til,
+    final til=Modelica.Constants.pi * ones(nConExtWin) - datConExtWin.til,
     final azi=datConExtWin.azi,
     final AOpa=datConExtWin.AOpa,
     final AWin=datConExtWin.AWin,
     final fFra=datConExtWin.fFra,
     linearizeRadiation = linearizeRadiation,
-    conMod=datConExtWin.conMod,
+    final conMod=extConMod,
+    final hFixed=hExtFixed,
     final epsLW=datConExtWin.layers.epsLW_a,
     final epsLWSha_air={datConExtWin[i].glaSys.shade.epsLW_a for i in 1:nConExtWin},
     final epsLWSha_glass={datConExtWin[i].glaSys.shade.epsLW_b for i in 1:nConExtWin},
@@ -493,9 +523,23 @@ for the glass assembly, the models
 <a href=\"modelica://Buildings.HeatTransfer.WindowsBeta.ExteriorHeatTransfer\">
 Buildings.HeatTransfer.WindowsBeta.ExteriorHeatTransfer</a>
 and
-<a href=\"modelica://Buildings.HeatTransfer.WindowsBeta.ExteriorHeatTransfer\">
-Buildings.HeatTransfer.WindowsBeta.ExteriorHeatTransfer</a>
+<a href=\"modelica://Buildings.HeatTransfer.WindowsBeta.InteriorHeatTransfer\">
+Buildings.HeatTransfer.WindowsBeta.InteriorHeatTransfer</a>
 for the exterior and interior heat transfer.
+</li>
+<li>
+Convective heat transfer between the room air and room-facing surfaces using
+either a temperature-dependent heat transfer coefficient,
+or using a constant heat transfer coefficient, as described in
+<a href=\"modelica://Buildings.HeatTransfer.InteriorConvection\">
+Buildings.HeatTransfer.InteriorConvection</a>.
+</li>
+<li>
+Convective heat transfer between the outside air and outside-facing surfaces using
+either a wind-speed, wind-direction and temperature-dependent heat transfer coefficient,
+or using a constant heat transfer coefficient, as described in
+<a href=\"modelica://Buildings.HeatTransfer.ExteriorConvection\">
+Buildings.HeatTransfer.ExteriorConvection</a>.
 </li>
 <li>
 Short-wave and long-wave heat transfer between the room enclosing surfaces,

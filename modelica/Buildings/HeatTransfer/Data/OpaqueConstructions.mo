@@ -45,8 +45,9 @@ package OpaqueConstructions
             lineColor={0,0,0},
             fillColor={255,255,255},
             fillPattern=FillPattern.Backward)}),
-defaultComponentName="opaCon",
-Documentation(info="<html>
+      defaultComponentName="opaCon",
+      Documentation(info=
+                   "<html>
 Generic record with material definitions for constructions
 with one or more layers of material.
 By convention, <code>layer[1]</code> is facing the outside, and the last
@@ -59,8 +60,8 @@ are used to compute long-wave heat radiation (in the infrared spectrum).
 The parameters <code>epsSW_a</code> and <code>epsSW_b</code>
 are used to compute short-wave heat radiation (in the solar spectrum).
 </p>
-</html>",
-revisions="<html>
+</html>", revisions=
+          "<html>
 <ul>
 <li>
 November 16, 2010, by Michael Wetter:<br>

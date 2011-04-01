@@ -16,12 +16,14 @@ model ConstructionSymmetric
         material={Data.Solids.Brick(x=0.12, nStaRef=5)}),
     A=10)
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.HeatTransfer.Convection conv(A=10,
+  Buildings.HeatTransfer.InteriorConvection conv(
+                                         A=10,
   til=Buildings.RoomsBeta.Types.Tilt.Wall) "Convective heat transfer"
     annotation (Placement(transformation(extent={{20,40},{0,60}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.HeatTransfer.Convection conv1(A=10,
+  Buildings.HeatTransfer.InteriorConvection conv1(
+                                          A=10,
   til=Buildings.RoomsBeta.Types.Tilt.Wall) "Convective heat transfer"
     annotation (Placement(transformation(extent={{20,10},{0,30}})));
   Buildings.HeatTransfer.ConstructionOpaque conMod(

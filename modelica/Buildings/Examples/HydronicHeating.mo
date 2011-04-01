@@ -4,7 +4,6 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
  package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
     "Medium model for air";
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
-
  parameter Integer nRoo = 2 "Number of rooms";
  parameter Modelica.SIunits.Volume VRoo = 4*6*3 "Volume of one room";
  parameter Modelica.SIunits.Power Q_flow_nominal = 2200
@@ -29,19 +28,13 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     "Pressure difference of pipe (without valve)";
  parameter Modelica.SIunits.Pressure dpVal_nominal = 1000
     "Pressure difference of valve";
-
  parameter Modelica.SIunits.Pressure dpRoo_nominal = 6000
     "Pressure difference of flow leg that serves a room";
  parameter Modelica.SIunits.Pressure dpThrWayVal_nominal = 6000
     "Pressure difference of three-way valve";
  parameter Modelica.SIunits.Pressure dp_nominal = dpPip_nominal + dpVal_nominal + dpRoo_nominal
     "Pressure difference of loop";
-
   // Room model
-  parameter Buildings.RoomsBeta.Types.ConvectionModel conMod=
-    Buildings.RoomsBeta.Types.ConvectionModel.Fixed
-    "Convective heat transfer model"
-  annotation(Evaluate=true);
   HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
     "Construction material for exterior walls"
     annotation (Placement(transformation(extent={{460,560},{480,580}})));
@@ -61,7 +54,6 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     haveInteriorShade=false,
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{580,560},{600,580}})));
-
   RoomsBeta.MixedAir roo1(
     redeclare package Medium = MediumA,
     AFlo=6*4,
@@ -75,23 +67,20 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
       AWin={3*2, 2*2},
       each fFra=0.1,
       til={Buildings.RoomsBeta.Types.Tilt.Wall, Buildings.RoomsBeta.Types.Tilt.Wall},
-      azi={Buildings.RoomsBeta.Types.Azimuth.W, Buildings.RoomsBeta.Types.Azimuth.S},
-      each conMod=conMod),
+      azi={Buildings.RoomsBeta.Types.Azimuth.W, Buildings.RoomsBeta.Types.Azimuth.S}),
     nConPar=2,
     datConPar(
       layers={matLayFlo, matLayPar},
       A={6*4, 6*3/2},
       til={Buildings.RoomsBeta.Types.Tilt.Floor, Buildings.RoomsBeta.Types.Tilt.Wall},
-      azi={Buildings.RoomsBeta.Types.Azimuth.N, Buildings.RoomsBeta.Types.Azimuth.N},
-      each conMod=conMod),
+      azi={Buildings.RoomsBeta.Types.Azimuth.N, Buildings.RoomsBeta.Types.Azimuth.N}),
     nConBou=0,
     nSurBou=1,
     surBou(
       each A=4*3,
       each epsLW=0.9,
       each epsSW=0.9,
-      each til=Buildings.RoomsBeta.Types.Tilt.Wall,
-      each conMod=conMod),
+      each til=Buildings.RoomsBeta.Types.Tilt.Wall),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=3,
     lat=0.73268921998722,
@@ -110,29 +99,25 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
       AWin={2*2, 2*2},
       each fFra=0.1,
       til={Buildings.RoomsBeta.Types.Tilt.Wall, Buildings.RoomsBeta.Types.Tilt.Wall},
-      azi={Buildings.RoomsBeta.Types.Azimuth.E, Buildings.RoomsBeta.Types.Azimuth.S},
-      each conMod=conMod),
+      azi={Buildings.RoomsBeta.Types.Azimuth.E, Buildings.RoomsBeta.Types.Azimuth.S}),
     nConPar=2,
     datConPar(
       layers={matLayFlo, matLayPar},
       A={6*4, 6*3/2},
       til={Buildings.RoomsBeta.Types.Tilt.Floor, Buildings.RoomsBeta.Types.Tilt.Wall},
-      azi={Buildings.RoomsBeta.Types.Azimuth.N, Buildings.RoomsBeta.Types.Azimuth.N},
-      each conMod=conMod),
+      azi={Buildings.RoomsBeta.Types.Azimuth.N, Buildings.RoomsBeta.Types.Azimuth.N}),
     nConBou=0,
     nSurBou=1,
     surBou(
       each A=4*3,
       each epsLW=0.9,
       each epsSW=0.9,
-      each til=Buildings.RoomsBeta.Types.Tilt.Wall,
-      each conMod=conMod),
+      each til=Buildings.RoomsBeta.Types.Tilt.Wall),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.73268921998722,
     linearizeRadiation=true,
     nPorts=3) "Room model"
     annotation (Placement(transformation(extent={{368,206},{408,246}})));
-
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
@@ -161,7 +146,6 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,50})));
-
   Buildings.Fluid.FixedResistances.FixedResistanceDpM resSup(
     redeclare package Medium = Medium,
     dp_nominal=dpPip_nominal,
@@ -317,7 +301,6 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     TRet_nominal=TRet_nominal,
     TOut_nominal=258.15)
     annotation (Placement(transformation(extent={{80,-16},{100,4}})));
-
   Controls.SetPoints.OccupancySchedule occSch1(occupancy=3600*{7,8,10,11,11.5,
         15,19,21}) "Occupancy schedule"
     annotation (Placement(transformation(extent={{300,556},{320,576}})));
@@ -403,13 +386,11 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     use_firePort=false,
     delayedTransition=false)
     annotation (Placement(transformation(extent={{476,-104},{484,-96}})));
-
   Buildings.Fluid.Sources.Outside out(
     redeclare package Medium = MediumA,
     use_C_in=false,
     nPorts=4) "Outside air conditions"
     annotation (Placement(transformation(extent={{80,470},{100,490}})));
-
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpFac4(
     from_dp=false,
     redeclare package Medium = MediumA,
@@ -480,7 +461,6 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     annotation (Placement(transformation(extent={{524,-46},{536,-34}})));
   Modelica.Blocks.Math.BooleanToReal booToReaBoi "Signal converter for boiler"
     annotation (Placement(transformation(extent={{352,-50},{332,-30}})));
-
   Modelica.Blocks.Math.MatrixGain gai1(K=[35; 70; 30])
     "Gain to convert from occupancy (per person) to radiant, convective and latent heat in [W/m2] "
     annotation (Placement(transformation(extent={{380,550},{400,570}})));
@@ -551,7 +531,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b,pumBoi. port_a) annotation (Line(
-      points={{0,-120},{60,-120}},
+      points={{5.55112e-16,-120},{60,-120}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.heaPorVol[1], tanTemTop.port) annotation (Line(
@@ -575,7 +555,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, conVal.u_s) annotation (Line(
-      points={{101,0},{110,0},{110,0},{138,0}},
+      points={{101,1.22125e-15},{110,1.22125e-15},{110,6.66134e-16},{138,
+          6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tan.port_b, boi.port_a) annotation (Line(
@@ -614,7 +595,6 @@ equation
       points={{281,550},{290,550},{290,282},{338,282}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(swi.y, conRoo1.u_s)     annotation (Line(
       points={{661,380},{680,380},{680,540},{520,540},{520,510},{538,510}},
       color={0,0,127},
@@ -657,9 +637,9 @@ equation
           111},{-2,111}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(conVal.y, thrWayVal.y) annotation (Line(
-      points={{161,0},{185.5,0},{185.5,4.89859e-016},{212,4.89859e-016}},
+      points={{161,6.10623e-16},{185.5,6.10623e-16},{185.5,1.15598e-15},{212,
+          1.15598e-15}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPum.y, delRadPum.u) annotation (Line(
@@ -863,11 +843,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(resSup.port_b, thrWayVal.port_3) annotation (Line(
-      points={{260,20},{260,-6.12323e-016},{230,-6.12323e-016}},
+      points={{260,20},{260,-1.68051e-18},{230,-1.68051e-18}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaCha.TOut) annotation (Line(
-      points={{-40,340},{-40,0},{20,0},{20,0},{78,0}},
+      points={{-40,340},{-40,0},{20,0},{20,1.22125e-15},{78,1.22125e-15}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -893,8 +873,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, lesThr.u1) annotation (Line(
-      points={{101,0},{110,0},{110,-80},{300,-80},{300,-100},{380,-100},{380,
-          -112},{398,-112}},
+      points={{101,1.22125e-15},{110,1.22125e-15},{110,-80},{300,-80},{300,-100},
+          {380,-100},{380,-112},{398,-112}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaBoi.y, boi.y) annotation (Line(

@@ -2,10 +2,8 @@ within Buildings.HeatTransfer.WindowsBeta.BaseClasses;
 record RadiationData "Radiation property of a window"
   extends Modelica.Icons.Record;
   extends Buildings.HeatTransfer.WindowsBeta.BaseClasses.RadiationBaseData;
-
   final parameter Real glass[3, N]={tauGlaSW,rhoGlaSW_a,rhoGlaSW_b}
     "Glass solar transmissivity, solar reflectivity at surface a and b, at normal incident angle";
-
   final parameter Real traRefShaDev[2, 2]={{tauShaSW_a,tauShaSW_b},{rhoShaSW_a,
       rhoShaSW_b}} "Shading device property";
   final parameter Integer NDIR=10 "Number of incident angles";

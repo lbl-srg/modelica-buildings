@@ -42,10 +42,6 @@ model MixedAirFreeResponse "Free response of room model"
     "Number of surface that are connected to constructions that are modeled inside the room";
   parameter Integer nSurBou = 1
     "Number of surface that are connected to the room air volume";
-  parameter Buildings.RoomsBeta.Types.ConvectionModel conMod=
-    Buildings.RoomsBeta.Types.ConvectionModel.Fixed
-    "Convective heat transfer model"
-  annotation(Evaluate=true);
 
   Buildings.RoomsBeta.MixedAir roo(
     redeclare package Medium = MediumA,
@@ -55,27 +51,25 @@ model MixedAirFreeResponse "Free response of room model"
     datConExt(layers={matLayRoo, matLayExt},
            A={6*4, 6*3},
            til={Types.Tilt.Ceiling, Types.Tilt.Wall},
-           azi={Types.Azimuth.S, Types.Azimuth.W},
-           each conMod = conMod),
+           azi={Types.Azimuth.S, Types.Azimuth.W}),
     nConExtWin=nConExtWin,
     datConExtWin(layers={matLayExt}, A={4*3},
               glaSys={glaSys},
               AWin={4*2},
               fFra={0.1},
               til={Types.Tilt.Wall},
-              azi={Types.Azimuth.S},
-              each conMod = conMod),
+              azi={Types.Azimuth.S}),
     nConPar=1,
     datConPar(layers={matLayPar}, each A=10,
-           each til=Types.Tilt.Wall,
-           each conMod = conMod),
+           each til=Types.Tilt.Wall),
     nConBou=1,
     datConBou(layers={matLayFlo}, each A=6*4,
-           each til=Types.Tilt.Floor,
-           each conMod = conMod),
+           each til=Types.Tilt.Floor),
     nSurBou=1,
-    surBou(each A=6*3, each epsLW=0.9, each epsSW=0.9, each til=Types.Tilt.Wall,
-           each conMod = conMod),
+    surBou(each A=6*3, 
+           each epsLW=0.9, 
+           each epsSW=0.9, 
+           each til=Types.Tilt.Wall),
     linearizeRadiation = false,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,

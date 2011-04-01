@@ -1,14 +1,35 @@
 within Buildings.RoomsBeta;
 package Types "Package with type definitions"
-  type ConvectionModel = enumeration(
+
+  type ExteriorConvection = enumeration(
       Fixed "Fixed coefficient (a user-specified parameter is used)",
-      Temperature "Temperature dependent")
-    "Enumeration defining the convective heat transfer model"
+      SimpleCombined_1
+        "Wind speed and temperature dependent, very rough surface",
+      SimpleCombined_2 "Wind speed and temperature dependent, rough surface",
+      SimpleCombined_3
+        "Wind speed and temperature dependent, medium rough surface",
+      SimpleCombined_4
+        "Wind speed and temperature dependent, medium smooth surface",
+      SimpleCombined_5 "Wind speed and temperature dependent, smooth surface",
+      SimpleCombined_6
+        "Wind speed and temperature dependent, very smooth surface")
+    "Enumeration defining the convective heat transfer model for interior surfaces"
   annotation (Documentation(info="<html>
 <p>
 This enumeration is used to set the function
 that is used to compute the convective
-heat transfer coefficient.</p>
+heat transfer coefficient for exterior (outside-side facing) surfaces.</p>
+</html>"), Evaluate=true);
+
+  type InteriorConvection = enumeration(
+      Fixed "Fixed coefficient (a user-specified parameter is used)",
+      Temperature "Temperature dependent")
+    "Enumeration defining the convective heat transfer model for interior surfaces"
+  annotation (Documentation(info="<html>
+<p>
+This enumeration is used to set the function
+that is used to compute the convective
+heat transfer coefficient for interior (room-side facing) surfaces.</p>
 </html>"), Evaluate=true);
 
   package Tilt "Enumeration for surface tilt"
@@ -47,7 +68,8 @@ First implementation.
     Documentation(info="<html>
 <p>
  Enumeration to define the azimuth of a surface for the room model.
- For example, if an exterior wall is south oriented, use 
+ For example, if an exterior wall is South oriented, i.e., its outside-facing
+surface is towards South, use 
  <code>Buildings.RoomsBeta.Types.Azimuth.S</code>.
 </p>
 </html>",

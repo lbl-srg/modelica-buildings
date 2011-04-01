@@ -6,13 +6,6 @@ record PartialParameterConstruction "Partial record for constructions"
     annotation(Dialog(group="Opaque construction"),
                Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{146,258},
             {166,278}})));
-  parameter Buildings.RoomsBeta.Types.ConvectionModel conMod=
-    Buildings.RoomsBeta.Types.ConvectionModel.Fixed
-    "Convective heat transfer model"
-  annotation(Evaluate=true);
-  parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=3
-    "Constant convection coefficient"
-    annotation (Dialog(enable=(conMod == Buildings.RoomsBeta.Types.ConvectionModel.fixed)));
   parameter Modelica.SIunits.Angle til "Surface tilt";
   parameter Modelica.SIunits.Angle azi "Surface azimuth";
   final parameter Boolean isFloor=til > 2.74889125 and til < 3.53428875
