@@ -32,8 +32,8 @@ Buildings.HeatTransfer.Data.OpaqueConstructions</a>).
 This layer definition is then used in models that compute the heat conduction.
 Like the materials, these models are assembled hierarchically.
 The simplest model is
-<a href=\"modelica://Buildings.HeatTransfer.ConductorSingleLayer\"\\>
-Buildings.HeatTransfer.ConductorSingleLayer</a>
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\"\\>
+Buildings.HeatTransfer.Conduction.SingleLayer</a>
 for heat conduction through a single layer of material.
 If the material's specific heat capacity is non-zero, then the model
 solves the Fourier equation
@@ -52,11 +52,11 @@ The boundary conditions for
 this model are the temperatures and heat flow rates at the material interface.
 </p>
 <p>
-The model <a href=\"modelica://Buildings.HeatTransfer.ConductorSingleLayer\"\\>
-Buildings.HeatTransfer.ConductorSingleLayer</a>
+The model <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\"\\>
+Buildings.HeatTransfer.Conduction.SingleLayer</a>
 is then used to construct the heat conductor 
-<a href=\"modelica://Buildings.HeatTransfer.ConductorMultiLayer\"\\>
-Buildings.HeatTransfer.ConductorMultiLayer</a>
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\"\\>
+Buildings.HeatTransfer.Conduction.MultiLayer</a>
 that has multiple layers of material. 
 Some layers may be computed transient (if <i>&rho; c &gt; 0</i>)
 and others are computed steady-state.
@@ -65,13 +65,13 @@ this model are its surface temperatures and heat flow rates.
 </p>
 <p>
 The model 
-<a href=\"modelica://Buildings.HeatTransfer.ConductorMultiLayer\"\\>
-Buildings.HeatTransfer.ConductorMultiLayer</a>
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\"\\>
+Buildings.HeatTransfer.Conduction.MultiLayer</a>
 is then used to build the construction
 <a href=\"modelica://Buildings.HeatTransfer.ConstructionOpaque\"\\>
 Buildings.HeatTransfer.ConstructionOpaque</a> that consists
-of <a href=\"modelica://Buildings.HeatTransfer.ConductorSingleLayer\"\\>
-Buildings.HeatTransfer.ConductorSingleLayer</a> with a model for convective heat transfer at each side.
+of <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\"\\>
+Buildings.HeatTransfer.Conduction.SingleLayer</a> with a model for convective heat transfer at each side.
 To model convective heat transfer, instances of the model
 <a href=\"modelica://Buildings.HeatTransfer.Convection\"\\>
 Buildings.HeatTransfer.Convection</a> are used, which allow
@@ -211,7 +211,7 @@ If we are interested in modeling heat transfer through the construction
 without taking into account the convective heat transfer, we can define a construction model as
 </p>
 <pre>
-  Buildings.HeatTransfer.ConductorMultiLayer conMul(A=20, layers=wall)
+  Buildings.HeatTransfer.Conduction.MultiLayer conMul(A=20, layers=wall)
     \"Construction with 20 m2 area\";
 </pre>
 <p>
@@ -219,7 +219,7 @@ Since there is already a predefined construction with the same material
 thickness in the library, we could have used the following identical definition:
 </p>
 <pre>
-  Buildings.HeatTransfer.ConductorMultiLayer wall(A=20,
+  Buildings.HeatTransfer.Conduction.MultiLayer wall(A=20,
     redeclare 
       Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 layers);
 </pre>

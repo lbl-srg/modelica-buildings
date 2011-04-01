@@ -10,14 +10,14 @@ model InteriorConvection "Test model for convective heat transfer coefficients"
     annotation (Placement(transformation(extent={{-100,70},{-80,90}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.HeatTransfer.InteriorConvection conCon(
+  Buildings.HeatTransfer.Convection.Interior conCon(
                                            A=1,
   til=Buildings.HeatTransfer.Types.Tilt.Wall)    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-30,10})));
-  Buildings.HeatTransfer.InteriorConvection conVer(
+  Buildings.HeatTransfer.Convection.Interior conVer(
                                            A=1,
   til=Buildings.HeatTransfer.Types.Tilt.Wall,
   conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature)
@@ -34,7 +34,7 @@ model InteriorConvection "Test model for convective heat transfer coefficients"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA4
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
-  Buildings.HeatTransfer.InteriorConvection conHorFluTop(
+  Buildings.HeatTransfer.Convection.Interior conHorFluTop(
     A=1,
     til=Buildings.HeatTransfer.Types.Tilt.Floor,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature)
@@ -43,7 +43,7 @@ model InteriorConvection "Test model for convective heat transfer coefficients"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,10})));
-  Buildings.HeatTransfer.InteriorConvection conHorSolTop(
+  Buildings.HeatTransfer.Convection.Interior conHorSolTop(
     A=1,
     til=Buildings.HeatTransfer.Types.Tilt.Ceiling,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature)

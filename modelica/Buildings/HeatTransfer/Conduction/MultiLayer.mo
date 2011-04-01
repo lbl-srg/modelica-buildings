@@ -123,8 +123,8 @@ equation
 This is a model of a heat conductor with multiple material layers and energy storage.
 The construction has at least one material layer, and each layer has
 at least one temperature node. The layers are modeled using an instance of 
-<a href=\"Buildings.HeatTransfer.ConductorSingleLayer\">
-Buildings.HeatTransfer.ConductorSingleLayer</a>.
+<a href=\"Buildings.HeatTransfer.Conduction.SingleLayer\">
+Buildings.HeatTransfer.Conduction.SingleLayer</a>.
 </p>
 The construction material is defined by a record of the package
 <a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\">

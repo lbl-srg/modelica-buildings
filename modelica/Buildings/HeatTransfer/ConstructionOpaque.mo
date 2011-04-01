@@ -2,7 +2,7 @@ within Buildings.HeatTransfer;
 model ConstructionOpaque
   "Model for an opaque construction such as a wall, floor or ceiling"
   extends Buildings.BaseClasses.BaseIcon;
-  extends Buildings.HeatTransfer.BaseClasses.PartialConstruction;
+  extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
 
   parameter Buildings.HeatTransfer.Types.InteriorConvection conMod=
     Buildings.HeatTransfer.Types.InteriorConvection.Fixed
@@ -44,14 +44,14 @@ model ConstructionOpaque
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b surf_b
     "Heat port at surface b"                                                          annotation (Placement(transformation(extent={{10,30},
             {30,50}}, rotation=0), iconTransformation(extent={{44,54},{64,74}})));
-  Buildings.HeatTransfer.InteriorConvection con_a(
+  Buildings.HeatTransfer.Convection.Interior con_a(
                    final A=A,
     final conMod=conMod,
     final hFixed=hFixed,
     final til=Modelica.Constants.pi - til)
     "Convective heat transfer at surface a"
     annotation (Placement(transformation(extent={{-60,-10},{-80,10}})));
-  Buildings.HeatTransfer.InteriorConvection con_b(
+  Buildings.HeatTransfer.Convection.Interior con_b(
                    final A=A,
     final conMod=conMod,
     final hFixed=hFixed,
@@ -172,10 +172,10 @@ is used as follows:
 </p>
 <p>
 To compute heat conduction in the solid, this model uses an instance of
-<a href=\"modelica://Buildings.HeatTransfer.ConductorMultiLayer\">
-Buildings.HeatTransfer.ConductorMultiLayer</a>.
-See <a href=\"modelica://Buildings.HeatTransfer.ConductorMultiLayer\">
-Buildings.HeatTransfer.ConductorMultiLayer</a> for how to define constructions
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
+Buildings.HeatTransfer.Conduction.MultiLayer</a>.
+See <a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
+Buildings.HeatTransfer.Conduction.MultiLayer</a> for how to define constructions
 that can be used with this model.
 The convective heat transfer is
 computed using the model

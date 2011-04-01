@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Examples;
 model ConductorSingleLayer "Test model for heat conductor"
   extends Modelica.Icons.Example;
   import Buildings;
-  Buildings.HeatTransfer.ConductorSingleLayer con(A=1, material=concrete200)
+  Buildings.HeatTransfer.Conduction.SingleLayer con(A=1, material=concrete200)
          annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{80,0},{60,20}})));
@@ -13,14 +13,14 @@ model ConductorSingleLayer "Test model for heat conductor"
     offset=293.15,
     startTime=3600)
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Buildings.HeatTransfer.ConductorSingleLayer con1(
+  Buildings.HeatTransfer.Conduction.SingleLayer con1(
     A=1, material=concrete100)
            annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB1(      T=293.15)
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
-  Buildings.HeatTransfer.ConductorSingleLayer con2(
+  Buildings.HeatTransfer.Conduction.SingleLayer con2(
     A=1, material=concrete100)
            annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo2
@@ -33,10 +33,10 @@ model ConductorSingleLayer "Test model for heat conductor"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
   Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nStaRef=4)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Buildings.HeatTransfer.InteriorConvection conv1(      A=1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
+  Buildings.HeatTransfer.Convection.Interior conv1(      A=1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-12,0},{-32,20}})));
-  Buildings.HeatTransfer.InteriorConvection conv2(      A=1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
+  Buildings.HeatTransfer.Convection.Interior conv2(      A=1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-12,-40},{-32,-20}})));
 equation

@@ -15,19 +15,19 @@ model ConductorInitialization "Test model for heat conductor initialization"
   Buildings.HeatTransfer.Data.Solids.InsulationBoard insulation(x=0.05, nStaRef=2)
     annotation (Placement(transformation(extent={{-20,72},{0,92}})));
 
-  Buildings.HeatTransfer.ConductorMultiLayer conS1(
+  Buildings.HeatTransfer.Conduction.MultiLayer conS1(
     A=2,
     steadyStateInitial=true,
     layers=compositeWall)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Buildings.HeatTransfer.ConductorSingleLayer conS2(
+  Buildings.HeatTransfer.Conduction.SingleLayer conS2(
     A=2,
     steadyStateInitial=true,
     material=brick)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 
-  Buildings.HeatTransfer.ConductorMultiLayer conD1(
+  Buildings.HeatTransfer.Conduction.MultiLayer conD1(
     A=2,
     steadyStateInitial=false,
     layers=compositeWall,
@@ -35,7 +35,7 @@ model ConductorInitialization "Test model for heat conductor initialization"
     T_b_start=298.15)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
 
-  Buildings.HeatTransfer.ConductorSingleLayer conD2(
+  Buildings.HeatTransfer.Conduction.SingleLayer conD2(
     A=2,
     material=brick,
     steadyStateInitial=false,

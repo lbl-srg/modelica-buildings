@@ -1,4 +1,4 @@
-within Buildings.HeatTransfer;
+within Buildings.HeatTransfer.Convection;
 model Exterior
   "Model for a exterior (outside) convective heat transfer"
   extends Buildings.HeatTransfer.Convection.BaseClasses.PartialConvection;

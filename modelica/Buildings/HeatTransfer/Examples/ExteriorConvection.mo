@@ -6,7 +6,7 @@ model ExteriorConvection "Test model for exterior heat transfer coefficients"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
     annotation (Placement(transformation(extent={{120,40},{100,60}})));
-  Buildings.HeatTransfer.ExteriorConvection nor(
+  Buildings.HeatTransfer.Convection.Exterior nor(
     A=1,
     azi=Buildings.HeatTransfer.Types.Azimuth.N,
     til=Buildings.HeatTransfer.Types.Tilt.Wall,
@@ -16,7 +16,7 @@ model ExteriorConvection "Test model for exterior heat transfer coefficients"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,30})));
-  Buildings.HeatTransfer.ExteriorConvection wes(
+  Buildings.HeatTransfer.Convection.Exterior wes(
     A=1,
     azi=Buildings.HeatTransfer.Types.Azimuth.W,
     til=Buildings.HeatTransfer.Types.Tilt.Wall,
@@ -34,7 +34,7 @@ model ExteriorConvection "Test model for exterior heat transfer coefficients"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA4
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
-  Buildings.HeatTransfer.ExteriorConvection sou(
+  Buildings.HeatTransfer.Convection.Exterior sou(
     A=1,
     azi=Buildings.HeatTransfer.Types.Azimuth.S,
     til=Buildings.HeatTransfer.Types.Tilt.Wall,
@@ -44,7 +44,7 @@ model ExteriorConvection "Test model for exterior heat transfer coefficients"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={30,-30})));
-  Buildings.HeatTransfer.ExteriorConvection eas(
+  Buildings.HeatTransfer.Convection.Exterior eas(
     A=1,
     azi=Buildings.HeatTransfer.Types.Azimuth.E,
     til=Buildings.HeatTransfer.Types.Tilt.Wall,

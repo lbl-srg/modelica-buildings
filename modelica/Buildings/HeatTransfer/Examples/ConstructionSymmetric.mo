@@ -10,19 +10,19 @@ model ConstructionSymmetric
     startTime=43200,
     height=20)
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
-  Buildings.HeatTransfer.ConductorMultiLayer con(
+  Buildings.HeatTransfer.Conduction.MultiLayer con(
     steadyStateInitial=true,
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers(
         material={Data.Solids.Brick(x=0.12, nStaRef=5)}),
     A=10)
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
-  Buildings.HeatTransfer.InteriorConvection conv(
+  Buildings.HeatTransfer.Convection.Interior conv(
                                          A=10,
   til=Buildings.HeatTransfer.Types.Tilt.Wall) "Convective heat transfer"
     annotation (Placement(transformation(extent={{20,40},{0,60}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Buildings.HeatTransfer.InteriorConvection conv1(
+  Buildings.HeatTransfer.Convection.Interior conv1(
                                           A=10,
   til=Buildings.HeatTransfer.Types.Tilt.Wall) "Convective heat transfer"
     annotation (Placement(transformation(extent={{20,10},{0,30}})));

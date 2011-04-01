@@ -159,8 +159,8 @@ and not the variable <code>T[1]</code>.
 Each compartment has the same material properties.
 To build multi-layer constructions,
 use
-<a href=\"Buildings.HeatTransfer.ConductorMultiLayer\">
-Buildings.HeatTransfer.ConductorMultiLayer</a> instead of this model.
+<a href=\"Buildings.HeatTransfer.Conduction.MultiLayer\">
+Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 </p>
 <p>
 If <code>material.c=0</code>, or if the material extends
