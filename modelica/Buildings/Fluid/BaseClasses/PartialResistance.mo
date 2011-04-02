@@ -10,7 +10,7 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"                                annotation(Dialog(group = "Nominal condition"));
-  parameter Boolean useHomotopy = true "= true, use homotopy method"
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -36,7 +36,7 @@ protected
 equation
   // Pressure drop calculation
   if computeFlowResistance then
-    if useHomotopy then
+    if homotopyInitialization then
       if from_dp then
         m_flow=homotopy(actual=FlowModels.basicFlowFunction_dp(dp=dp, k=k,
                                    m_flow_turbulent=m_flow_turbulent,
@@ -54,7 +54,7 @@ equation
       else
         dp=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
       end if;
-    end if; // useHomotopy
+    end if; // homotopyInitialization
   else
     dp = 0;
   end if;  // computeFlowResistance

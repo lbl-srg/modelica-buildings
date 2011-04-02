@@ -11,7 +11,7 @@ initial equation
                + "  Must have l < 1/R = " + realString(1/R));
 
 equation
-  if useHomotopy then
+  if homotopyInitialization then
      phi = homotopy(actual=Buildings.Fluid.Actuators.BaseClasses.equalPercentage(y, R, l, delta0),
                     simplified=l + y * (1 - l));
   else

@@ -25,7 +25,7 @@ partial model PartialStaticFourPortInterface
   parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*m2_flow_nominal
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Boolean useHomotopy = true "= true, use homotopy method"
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Diagnostics
@@ -54,7 +54,7 @@ public
     "Pressure difference between port_a2 and port_b2";
 
 
-  Medium1.ThermodynamicState sta_a1=if useHomotopy then
+  Medium1.ThermodynamicState sta_a1=if homotopyInitialization then
       Medium1.setState_phX(port_a1.p, 
          homotopy(actual=actualStream(port_a1.h_outflow),
                   simplified=inStream(port_a1.h_outflow)),
@@ -66,7 +66,7 @@ public
                            actualStream(port_a1.Xi_outflow)) if
          show_T "Medium properties in port_a1";
 
-  Medium1.ThermodynamicState sta_b1=if useHomotopy then
+  Medium1.ThermodynamicState sta_b1=if homotopyInitialization then
       Medium1.setState_phX(port_b1.p, 
           homotopy(actual=actualStream(port_b1.h_outflow),
                    simplified=port_b1.h_outflow),
@@ -76,7 +76,7 @@ public
       Medium1.setState_phX(port_b1.p, actualStream(port_b1.h_outflow), actualStream(port_b1.Xi_outflow)) if
          show_T "Medium properties in port_b1";
 
-  Medium2.ThermodynamicState sta_a2=if useHomotopy then
+  Medium2.ThermodynamicState sta_a2=if homotopyInitialization then
       Medium2.setState_phX(port_b2.p, 
           homotopy(actual=actualStream(port_b2.h_outflow),
                    simplified=port_b2.h_outflow),
@@ -88,7 +88,7 @@ public
                            actualStream(port_a2.Xi_outflow)) if
          show_T "Medium properties in port_a2";
 
-  Medium2.ThermodynamicState sta_b2=if useHomotopy then
+  Medium2.ThermodynamicState sta_b2=if homotopyInitialization then
       Medium2.setState_phX(port_b2.p, 
           homotopy(actual=actualStream(port_b2.h_outflow),
                    simplified=port_b2.h_outflow),

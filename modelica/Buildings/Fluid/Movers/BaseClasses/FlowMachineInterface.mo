@@ -16,7 +16,7 @@ partial model FlowMachineInterface
   parameter Modelica.SIunits.VolumeFlowRate V_flow_nominal
     "Nominal volume flow rate, used for homotopy";
 
-  parameter Boolean useHomotopy = true "= true, use homotopy method"
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   replaceable function powerCharacteristic =
@@ -42,7 +42,7 @@ equation
   r_N = N/N_nominal;
   // For the homotopy method, we approximate dpMachine by a finite difference equation 
   // that is linear in VMachine_flow, and that goes linearly to 0 as r_N goes to 0.
-  if useHomotopy then
+  if homotopyInitialization then
      dpMachine = homotopy(actual=flowCharacteristic(V_flow=VMachine_flow, r_N=r_N),
                           simplified=r_N*
                               (flowCharacteristic(V_flow=V_flow_nominal, r_N=1)
@@ -59,7 +59,7 @@ equation
   if use_powerCharacteristic then
     // For the homotopy, we want PEle/V_flow to be bounded as V_flow -> 0 to avoid a very high medium 
     // temperature near zero flow.
-    if useHomotopy then
+    if homotopyInitialization then
       PEle = homotopy(actual=powerCharacteristic(V_flow=VMachine_flow, r_N=r_N),
                       simplified=VMachine_flow/V_flow_nominal*powerCharacteristic(V_flow=V_flow_nominal, r_N=1));
     else
@@ -69,7 +69,7 @@ equation
     // Hence, we assign the efficiency in equal parts to the motor and the hydraulic losses
     etaMot = sqrt(eta);
   else
-    if useHomotopy then
+    if homotopyInitialization then
       etaHyd = homotopy(actual=hydraulicEfficiency(r_V=r_V), simplified=hydraulicEfficiency(r_V=1));
       etaMot = homotopy(actual=motorEfficiency(r_V=r_V),     simplified=motorEfficiency(r_V=r_V));
     else

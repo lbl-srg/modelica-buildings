@@ -28,7 +28,7 @@ partial model PartialDynamicTwoPortTransformer
      annotation (Dialog(group="Nominal condition"));
 
   // Advanced
-  parameter Boolean useHomotopy = true "= true, use homotopy method"
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Assumptions
@@ -90,7 +90,7 @@ public
     final show_V_flow=show_V_flow,
     final from_dp=from_dp,
     final linearized=linearizeFlowResistance,
-    final useHomotopy=useHomotopy,
+    final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dp_nominal) "Pressure drop model"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 equation

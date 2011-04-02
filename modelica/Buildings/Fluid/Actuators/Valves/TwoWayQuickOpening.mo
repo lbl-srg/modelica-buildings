@@ -6,7 +6,7 @@ model TwoWayQuickOpening "Two way valve with linear flow characteristics"
 protected
    parameter Real alpInv = 1/alp;
 equation
-  if useHomotopy then
+  if homotopyInitialization then
      phi = homotopy(actual=l + Modelica.Fluid.Utilities.regPow(y, alpInv, delta0) * (1 - l),
                     simplified=l + y * (1 - l));
   else

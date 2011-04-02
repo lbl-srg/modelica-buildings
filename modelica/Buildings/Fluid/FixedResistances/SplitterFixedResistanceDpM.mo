@@ -12,7 +12,7 @@ model SplitterFixedResistanceDpM
             final ReC=ReC[1], 
             final dh=dh[1],
             linearized=linearized, 
-            useHomotopy=useHomotopy,
+            homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
          redeclare package Medium=Medium,
@@ -22,7 +22,7 @@ model SplitterFixedResistanceDpM
             final ReC=ReC[2], 
             final dh=dh[2],
             linearized=linearized, 
-            useHomotopy=useHomotopy,
+            homotopyInitialization=homotopyInitialization,
             deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
          redeclare package Medium=Medium,
@@ -32,7 +32,7 @@ model SplitterFixedResistanceDpM
             final ReC=ReC[3], 
             final dh=dh[3],
             linearized=linearized, 
-            useHomotopy=useHomotopy,
+            homotopyInitialization=homotopyInitialization,
             deltaM=deltaM));
 
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
@@ -55,7 +55,7 @@ model SplitterFixedResistanceDpM
   parameter Boolean linearized = false
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
-  parameter Boolean useHomotopy = true "= true, use homotopy method"
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   annotation (Diagram(graphics),

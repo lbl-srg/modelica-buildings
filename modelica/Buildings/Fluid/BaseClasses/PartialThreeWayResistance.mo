@@ -29,20 +29,20 @@ partial model PartialThreeWayResistance
   parameter Boolean from_dp = true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Boolean useHomotopy = true "= true, use homotopy method"
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   replaceable Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface res1(redeclare
-      package Medium = Medium, allowFlowReversal=true, useHomotopy=useHomotopy)
+      package Medium = Medium, allowFlowReversal=true, homotopyInitialization=homotopyInitialization)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=
             0)));
   replaceable Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface res2(redeclare
-      package Medium = Medium, allowFlowReversal=true, useHomotopy=useHomotopy)
+      package Medium = Medium, allowFlowReversal=true, homotopyInitialization=homotopyInitialization)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(extent={{60,-10},{40,10}}, rotation=0)));
   replaceable Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface res3(redeclare
-      package Medium = Medium, allowFlowReversal=true, useHomotopy=useHomotopy)
+      package Medium = Medium, allowFlowReversal=true, homotopyInitialization=homotopyInitialization)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(
         origin={0,-50},

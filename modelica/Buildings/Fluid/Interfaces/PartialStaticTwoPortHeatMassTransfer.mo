@@ -45,7 +45,7 @@ equation
 
   // Pressure drop calculation
   if computeFlowResistance then
-    if useHomotopy then
+    if homotopyInitialization then
       if from_dp then
         m_flow = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
                                     dp=dp, 
@@ -75,7 +75,7 @@ equation
                                     m_flow_turbulent=deltaM * m_flow_nominal,
                                     linearized=linearizeFlowResistance);
       end if;
-    end if; // useHomotopy 
+    end if; // homotopyInitialization 
   else // do not compute flow resistance
     dp = 0;
   end if; // computeFlowResistance

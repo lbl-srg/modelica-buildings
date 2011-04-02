@@ -49,7 +49,7 @@ partial model PartialDynamicFourPortTransformer
     "Heat flow rate into medium 2";
 
   // Advanced
-  parameter Boolean useHomotopy = true "= true, use homotopy method"
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   // Assumptions
@@ -87,7 +87,7 @@ public
     final show_V_flow=show_V_flow,
     final from_dp=from_dp1,
     final linearized=linearizeFlowResistance1,
-    final useHomotopy=useHomotopy,
+    final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dp1_nominal,
     final dh=1,
     final ReC=4000) "Pressure drop model for fluid 1"
@@ -104,7 +104,7 @@ public
     final show_V_flow=show_V_flow,
     final from_dp=from_dp2,
     final linearized=linearizeFlowResistance2,
-    final useHomotopy=useHomotopy,
+    final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dp2_nominal,
     final dh=1,
     final ReC=4000) "Pressure drop model for fluid 2"
