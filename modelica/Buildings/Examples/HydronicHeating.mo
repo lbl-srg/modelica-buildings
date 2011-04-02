@@ -83,8 +83,10 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
       each til=Buildings.HeatTransfer.Types.Tilt.Wall),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=3,
+    linearizeRadiation=true,
     lat=0.73268921998722,
-    linearizeRadiation=true) "Room model"
+    extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)
+    "Room model"
     annotation (Placement(transformation(extent={{356,464},{396,504}})));
   RoomsBeta.MixedAir roo2(
     redeclare package Medium = MediumA,
@@ -114,9 +116,11 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
       each epsSW=0.9,
       each til=Buildings.HeatTransfer.Types.Tilt.Wall),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    lat=0.73268921998722,
     linearizeRadiation=true,
-    nPorts=3) "Room model"
+    nPorts=3,
+    lat=0.73268921998722,
+    extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)
+    "Room model"
     annotation (Placement(transformation(extent={{368,206},{408,246}})));
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
     a={0.9},
@@ -366,7 +370,9 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     annotation (Placement(transformation(extent={{-50,330},{-30,350}})));
   Modelica.Blocks.Continuous.FirstOrder delRadPum(T=10)
     "Delay element for the transient response of the pump"
-    annotation (Placement(transformation(extent={{150,100},{170,120}})));
+    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
+        rotation=180,
+        origin={150,50})));
   Modelica_StateGraph2.Step off(
     nOut=1,
     initialStep=true,
@@ -486,9 +492,21 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
   Modelica.Blocks.Sources.Constant TOutSwi(k=16 + 293.15)
     "Outside air temperature to switch heating on or off"
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=10, uMin=0.01)
+  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=10, uMin=0.02)
     "Limiter to ensure a small flow rate even if pump is off."
     annotation (Placement(transformation(extent={{180,100},{200,120}})));
+  Modelica.Blocks.Continuous.FirstOrder delTRoo1(
+    initType=Modelica.Blocks.Types.Init.SteadyState,
+    y(unit="K"),
+    T=120,
+    y_start=293.15) "First order element to emulate sensor delay"
+    annotation (Placement(transformation(extent={{512,474},{532,494}})));
+  Modelica.Blocks.Continuous.FirstOrder delTRoo2(
+    initType=Modelica.Blocks.Types.Init.SteadyState,
+    y(unit="K"),
+    T=120,
+    y_start=293.15) "First order element to emulate sensor delay"
+    annotation (Placement(transformation(extent={{514,216},{534,236}})));
 equation
   connect(TAmb.port,boi. heatPort) annotation (Line(
       points={{-20,-90},{-10,-90},{-10,-112.8}},
@@ -503,10 +521,6 @@ equation
                                      annotation (Line(
       points={{192,40},{220,40}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(dpSen.p_rel, conPum.u_m) annotation (Line(
-      points={{183,50},{130,50},{130,98}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(val1.port_b, rad1.port_a) annotation (Line(
       points={{380,400},{392,400}},
@@ -531,7 +545,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b,pumBoi. port_a) annotation (Line(
-      points={{5.55112e-16,-120},{60,-120}},
+      points={{0,-120},{60,-120}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.heaPorVol[1], tanTemTop.port) annotation (Line(
@@ -555,20 +569,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, conVal.u_s) annotation (Line(
-      points={{101,1.22125e-15},{110,1.22125e-15},{110,6.66134e-16},{138,
-          6.66134e-16}},
+      points={{101,0},{110,0},{110,0},{138,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tan.port_b, boi.port_a) annotation (Line(
       points={{248,-120},{260,-120},{260,-152},{-28,-152},{-28,-120},{-20,-120}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(tan.port_a, thrWayVal.port_1) annotation (Line(
-      points={{208,-120},{200,-120},{200,-60},{220,-60},{220,-10}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res3.port_b, tan.port_a) annotation (Line(
-      points={{140,-120},{208,-120}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(occSch1.occupied, switch1.u2) annotation (Line(
@@ -638,25 +643,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conVal.y, thrWayVal.y) annotation (Line(
-      points={{161,6.10623e-16},{185.5,6.10623e-16},{185.5,1.15598e-15},{212,
-          1.15598e-15}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conPum.y, delRadPum.u) annotation (Line(
-      points={{141,110},{148,110}},
+      points={{161,0},{185.5,0},{185.5,4.89859e-016},{212,4.89859e-016}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaPum.y, pumBoi.y)
                                 annotation (Line(
       points={{329,-74},{70,-74},{70,-110}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TRoo2.T, conRoo2.u_m) annotation (Line(
-      points={{500,226},{550,226},{550,238}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TRoo1.T, conRoo1.u_m) annotation (Line(
-      points={{500,484},{550,484},{550,498}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(off.outPort[1], T1.inPort) annotation (Line(
@@ -843,11 +835,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(resSup.port_b, thrWayVal.port_3) annotation (Line(
-      points={{260,20},{260,-1.68051e-18},{230,-1.68051e-18}},
+      points={{260,20},{260,-6.12323e-016},{230,-6.12323e-016}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaCha.TOut) annotation (Line(
-      points={{-40,340},{-40,0},{20,0},{20,1.22125e-15},{78,1.22125e-15}},
+      points={{-40,340},{-40,0},{20,0},{20,0},{78,0}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -873,8 +865,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, lesThr.u1) annotation (Line(
-      points={{101,1.22125e-15},{110,1.22125e-15},{110,-80},{300,-80},{300,-100},
-          {380,-100},{380,-112},{398,-112}},
+      points={{101,0},{110,0},{110,-80},{300,-80},{300,-100},{380,-100},{380,
+          -112},{398,-112}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaBoi.y, boi.y) annotation (Line(
@@ -982,9 +974,41 @@ equation
       points={{201,110},{210,110},{210,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(delRadPum.y, limiter.u) annotation (Line(
-      points={{171,110},{178,110}},
+  connect(TRoo1.T, delTRoo1.u) annotation (Line(
+      points={{500,484},{510,484}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(delTRoo1.y, conRoo1.u_m) annotation (Line(
+      points={{533,484},{550,484},{550,498}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TRoo2.T, delTRoo2.u) annotation (Line(
+      points={{500,226},{512,226}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(delTRoo2.y, conRoo2.u_m) annotation (Line(
+      points={{535,226},{550,226},{550,238}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conPum.y, limiter.u) annotation (Line(
+      points={{141,110},{178,110}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dpSen.p_rel, delRadPum.u) annotation (Line(
+      points={{183,50},{162,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(delRadPum.y, conPum.u_m) annotation (Line(
+      points={{139,50},{130,50},{130,98}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(res3.port_b, tan.port_a) annotation (Line(
+      points={{140,-120},{208,-120}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res3.port_b, thrWayVal.port_1) annotation (Line(
+      points={{140,-120},{180,-120},{180,-60},{220,-60},{220,-10}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,
             -200},{700,600}}), graphics),
