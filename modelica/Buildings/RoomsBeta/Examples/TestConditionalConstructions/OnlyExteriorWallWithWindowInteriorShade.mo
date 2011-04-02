@@ -29,6 +29,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
    annotation(Commands(file="OnlyExteriorWallWithWindowInteriorShade.mos" "run"),
+   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+            200,160}}), graphics),
     experiment(
       StopTime=172800,
       Tolerance=1e-05,

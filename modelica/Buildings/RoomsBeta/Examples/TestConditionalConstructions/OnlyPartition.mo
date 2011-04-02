@@ -13,6 +13,8 @@ model OnlyPartition "Test model for room model"
     each azi=Buildings.HeatTransfer.Types.Azimuth.W)));
 
    annotation(Commands(file="OnlyPartition.mos" "run"),
+   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
+            200,160}}), graphics),
     experiment(
       StopTime=172800,
       Tolerance=1e-05,
