@@ -1,6 +1,6 @@
 within Buildings.RoomsBeta.BaseClasses;
-model LongWaveRadiationExchange
-  "Long-wave radiation heat exchange between the room facing surfaces"
+model InfraredRadiationExchange
+  "Infrared radiation heat exchange between the room facing surfaces"
   extends Buildings.RoomsBeta.BaseClasses.PartialSurfaceInterface;
 
   parameter Boolean linearizeRadiation
@@ -18,7 +18,7 @@ protected
   final parameter Integer NWin = NConExtWin "Number of window surfaces";
   final parameter Integer NTot = NOpa + NWin "Total number of surfaces";
   final parameter Real epsOpa[NOpa](min=0, max=1, fixed=false)
-    "Emissivity of opaque surfaces";
+    "Absorptivity of opaque surfaces";
   final parameter Real rhoOpa[NOpa](min=0, max=1, fixed=false)
     "Reflectivity of opaque surfaces";
   final parameter Modelica.SIunits.Area AOpa[NOpa](fixed=false)
@@ -197,7 +197,7 @@ equation
   G = -transpose(F)*J;
   // Outgoing radiosity
   // Opaque surfaces.
-  // If kOpa[j]=epsLW[j]*A[j] < 1E-28, then A < 1E-20 and the surface is
+  // If kOpa[j]=absIR[j]*A[j] < 1E-28, then A < 1E-20 and the surface is
   // from a dummy construction. In this situation, we set T40=293.15^4 to
   // avoid a singularity.
   for j in 1:NOpa loop
@@ -246,7 +246,7 @@ equation
   sumEBal = sum(conExt.Q_flow)+sum(conPar_a.Q_flow)+sum(conPar_b.Q_flow)
     +sum(conBou.Q_flow)+sum(conSurBou.Q_flow)+sum(conExtWin.Q_flow)+sum(conExtWinFra.Q_flow)
     +(sum(JInConExtWin)+sum(JOutConExtWin));
-  assert(abs(sumEBal) < 1E-1, "Program error: Energy is not conserved in LongWaveRadiationExchange."
+  assert(abs(sumEBal) < 1E-1, "Program error: Energy is not conserved in InfraredRadiationExchange."
    + "\n  Sum of all energy is " + realString(sumEBal));
   annotation (
 preferedView="info",
@@ -288,7 +288,7 @@ Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,
 Documentation(
 info="<html>
 <p>
-This model computes the long-wave radiative heat transfer between the interior
+This model computes the infrared radiative heat transfer between the interior
 surfaces of a room. Each opaque surface emits radiation according to
 <p/>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -302,7 +302,7 @@ is the Stefan-Boltzmann constant,
 <i>A<sup>i</sup> </i>
 is the surface area,
 <i>&epsilon;<sup>i</sup> </i>
-is the emissivity in the infrared spectrum, and
+is the absorptivity in the infrared spectrum, and
 <i>T<sup>i</sup></i>
 is the surface temperature.
 If the parameter <code>linearizeRadidation</code> is set to <code>true</code>,
@@ -383,4 +383,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end LongWaveRadiationExchange;
+end InfraredRadiationExchange;

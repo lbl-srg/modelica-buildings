@@ -6,11 +6,11 @@ model OpaqueSurface "Test model for indoor source as an opaque surface"
   Buildings.HeatTransfer.Sources.FixedTemperature T2(T=303.15)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 
-  Buildings.HeatTransfer.Radiosity.OpaqueSurface bod1( epsLW=0.3, A=1)
+  Buildings.HeatTransfer.Radiosity.OpaqueSurface bod1( absIR=0.3, A=1)
     annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Buildings.HeatTransfer.Sources.FixedTemperature T1(T=293.15)
     annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
-  Buildings.HeatTransfer.Radiosity.OpaqueSurface bod2( epsLW=0.3, A=1)
+  Buildings.HeatTransfer.Radiosity.OpaqueSurface bod2( absIR=0.3, A=1)
     annotation (Placement(transformation(extent={{60,20},{40,40}})));
 equation
   connect(T1.port, bod1.heatPort) annotation (Line(

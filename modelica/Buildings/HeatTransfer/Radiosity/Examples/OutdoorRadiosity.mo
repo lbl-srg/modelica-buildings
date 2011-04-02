@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Radiosity.Examples;
 model OutdoorRadiosity "Test model for outdoor radiosity"
   import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.HeatTransfer.Radiosity.OpaqueSurface sur(A=A, epsLW=1)
+  Buildings.HeatTransfer.Radiosity.OpaqueSurface sur(A=A, absIR=1)
     "Receiving surface"
     annotation (Placement(transformation(extent={{76,-20},{56,0}})));
   Buildings.HeatTransfer.Radiosity.OutdoorRadiosity outRad(A=A, F_sky=0.5)

@@ -26,13 +26,13 @@ model AbsorbedRadiation "Test model for absorbed radiation by windows"
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.AbsorbedRadiation winAbs(
     AWin=1,
     N=glaSys.nLay,
-    tauGlaSW=glaSys.glass.tauSW,
-    rhoGlaSW_a=glaSys.glass.rhoSW_a,
-    rhoGlaSW_b=glaSys.glass.rhoSW_b,
-    tauShaSW_a=glaSys.shade.tauSW_a,
-    tauShaSW_b=glaSys.shade.tauSW_b,
-    rhoShaSW_a=glaSys.shade.rhoSW_a,
-    rhoShaSW_b=glaSys.shade.rhoSW_b,
+    tauGlaSol=glaSys.glass.tauSol,
+    rhoGlaSol_a=glaSys.glass.rhoSol_a,
+    rhoGlaSol_b=glaSys.glass.rhoSol_b,
+    tauShaSol_a=glaSys.shade.tauSol_a,
+    tauShaSol_b=glaSys.shade.tauSol_b,
+    rhoShaSol_a=glaSys.shade.rhoSol_a,
+    rhoShaSol_b=glaSys.shade.rhoSol_b,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));

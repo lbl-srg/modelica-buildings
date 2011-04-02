@@ -1,22 +1,22 @@
 within Buildings.HeatTransfer.WindowsBeta.BaseClasses;
 model Shade
-  "Model for long-wave radiative heat balance of a layer that may or may not have a shade"
+  "Model for infrared radiative heat balance of a layer that may or may not have a shade"
 
   parameter Modelica.SIunits.Area A "Heat transfer area";
-  parameter Modelica.SIunits.Emissivity epsLW_air
-    "Long wave emissivity of surface that faces air";
-  parameter Modelica.SIunits.Emissivity epsLW_glass
-    "Long wave emissivity of surface that faces glass";
-  parameter Modelica.SIunits.TransmissionCoefficient tauLW_air
-    "Long wave transmissivity of shade for radiation coming from the exterior or the room";
-  parameter Modelica.SIunits.TransmissionCoefficient tauLW_glass
-    "Long wave transmissivity of shade for radiation coming from the glass";
+  parameter Modelica.SIunits.Emissivity absIR_air
+    "Infrared absorptivity of surface that faces air";
+  parameter Modelica.SIunits.Emissivity absIR_glass
+    "Infrared absorptivity of surface that faces glass";
+  parameter Modelica.SIunits.TransmissionCoefficient tauIR_air
+    "Infrared transmissivity of shade for radiation coming from the exterior or the room";
+  parameter Modelica.SIunits.TransmissionCoefficient tauIR_glass
+    "Infrared transmissivity of shade for radiation coming from the glass";
   parameter Boolean thisSideHasShade
     "Set to true if this side of the window has a shade";
-  final parameter Modelica.SIunits.ReflectionCoefficient rhoLW_air=1-epsLW_air-tauLW_air
-    "Long wave reflectivity of surface that faces air";
-  final parameter Modelica.SIunits.ReflectionCoefficient rhoLW_glass=1-epsLW_glass-tauLW_glass
-    "Long wave reflectivity of surface that faces glass";
+  final parameter Modelica.SIunits.ReflectionCoefficient rhoIR_air=1-absIR_air-tauIR_air
+    "Infrared reflectivity of surface that faces air";
+  final parameter Modelica.SIunits.ReflectionCoefficient rhoIR_glass=1-absIR_glass-tauIR_glass
+    "Infrared reflectivity of surface that faces glass";
   parameter Boolean linearize = false "Set to true to linearize emissive power"
   annotation (Evaluate=true);
   parameter Modelica.SIunits.Temperature T0=293.15
@@ -84,19 +84,19 @@ protected
 equation
   if thisSideHasShade then
   // Radiosities that are outgoing from the surface, which are
-  // equal to the long-wave emissivity plus the reflected incoming
+  // equal to the infrared absorptivity plus the reflected incoming
   // radiosity plus the radiosity that is transmitted from the
   // other surface.
     T4 = if linearize then T03 * sha.T else (sha.T)^4;
-    E_air   = u * A * epsLW_air   * Modelica.Constants.sigma * T4;
-    E_glass = u * A * epsLW_glass * Modelica.Constants.sigma * T4;
+    E_air   = u * A * absIR_air   * Modelica.Constants.sigma * T4;
+    E_glass = u * A * absIR_glass * Modelica.Constants.sigma * T4;
     // Radiosity outgoing from shade towards air side and glass side
-    JOut_air   = - E_air   - tauLW_glass * JIn_glass - rhoLW_air*JIn_air;
-    JOut_glass = - E_glass - tauLW_air   * JIn_air   - rhoLW_glass*JIn_glass;
+    JOut_air   = - E_air   - tauIR_glass * JIn_glass - rhoIR_air*JIn_air;
+    JOut_glass = - E_glass - tauIR_air   * JIn_air   - rhoIR_glass*JIn_glass;
     // Heat balance of shade
     // The term 2*Gc is to combine the parallel convective heat transfer resistances,
     // see figure in info section.
-    QAbs_flow + epsLW_air*JIn_air + epsLW_glass*JIn_glass
+    QAbs_flow + absIR_air*JIn_air + absIR_glass*JIn_glass
       = -Gc*(2*(air.T-sha.T)+k*(glass.T-sha.T))+E_air+E_glass;
     // Convective heat flow at air node
     air.Q_flow   = Gc*(2*(air.T-sha.T) + (air.T-glass.T));
@@ -196,11 +196,11 @@ equation
           fillPattern=FillPattern.Solid)}),
     Documentation(info="<html>
 <p>
-Model for the convective and the long-wave radiative heat balance 
+Model for the convective and the infrared radiative heat balance 
 of a shade that is in the outside or the room-side of a window.
 </p>
 <p>
-The input port <code>QAbs_flow</code> needs to be connected to the short-wave radiation 
+The input port <code>QAbs_flow</code> needs to be connected to the solar radiation 
 that is absorbed by the shade.
 </p>
 <p>

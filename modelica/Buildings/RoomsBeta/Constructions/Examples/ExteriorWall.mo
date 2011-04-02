@@ -12,10 +12,10 @@ model ExteriorWall "Test model for an exterior wall without a window"
   Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditions bouConExt(
     nCon=1,
     linearizeRadiation = false,
-    epsLW={0.5},
+    absIR={0.5},
     azi={0},
     AOpa={1},
-    epsSW={0.5},
+    absSol={0.5},
     lat=0.73268921998722,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     til={Buildings.HeatTransfer.Types.Tilt.Wall})

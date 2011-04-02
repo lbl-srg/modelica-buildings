@@ -8,10 +8,10 @@ model Shade "Test model for exterior shade heat transfer"
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.Shade extSha(
     A=A,
     linearize=false,
-    epsLW_air=0.3,
-    epsLW_glass=0.3,
-    tauLW_air=0.3,
-    tauLW_glass=0.3,
+    absIR_air=0.3,
+    absIR_glass=0.3,
+    tauIR_air=0.3,
+    tauIR_glass=0.3,
     thisSideHasShade=true) "Model of exterior shade"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Modelica.Blocks.Sources.Ramp uSha(
@@ -21,14 +21,14 @@ model Shade "Test model for exterior shade heat transfer"
     annotation (Placement(transformation(extent={{-160,70},{-140,90}})));
   Modelica.Blocks.Sources.Constant TOut(k=273.15) "Outside temperature"
     annotation (Placement(transformation(extent={{-160,-100},{-140,-80}})));
-  Buildings.HeatTransfer.Radiosity.OpaqueSurface radOut(A=A, epsLW=0.8,
+  Buildings.HeatTransfer.Radiosity.OpaqueSurface radOut(A=A, absIR=0.8,
     linearize=false) "Model for outside radiosity"
     annotation (Placement(transformation(extent={{-104,-72},{-84,-52}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TRadOut
     "Outside radiative temperature"
     annotation (Placement(transformation(extent={{-114,-100},{-94,-80}})));
 
-  Buildings.HeatTransfer.Radiosity.OpaqueSurface radIn(A=A, epsLW=0.8,
+  Buildings.HeatTransfer.Radiosity.OpaqueSurface radIn(A=A, absIR=0.8,
     linearize=false) "Model for inside radiosity"
     annotation (Placement(transformation(extent={{102,-62},{82,-42}})));
   Modelica.Blocks.Sources.Constant TRoo(k=293.15) "Room temperature"
@@ -38,8 +38,8 @@ model Shade "Test model for exterior shade heat transfer"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={112,-70})));
-  Modelica.Blocks.Sources.Constant QSW_shade(k=0)
-    "Short-wave heat flow absorbed by shade"
+  Modelica.Blocks.Sources.Constant QSol_shade(k=0)
+    "Solar heat flow absorbed by shade"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaInt
     "Radiosity that strikes shading device"
@@ -49,10 +49,10 @@ model Shade "Test model for exterior shade heat transfer"
     A=A,
     linearize=false,
     thisSideHasShade=false,
-    epsLW_air=0,
-    epsLW_glass=0,
-    tauLW_air=0.3,
-    tauLW_glass=0.3) "Model for fraction of window that has no shade"
+    absIR_air=0,
+    absIR_glass=0,
+    tauIR_air=0.3,
+    tauIR_glass=0.3) "Model for fraction of window that has no shade"
     annotation (Placement(transformation(extent={{2,-62},{22,-42}})));
   Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaOut
     "Radiosity that strikes shading device"
@@ -116,7 +116,7 @@ equation
       points={{-39,-16},{-30,-16},{-30,-56},{1,-56}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(QSW_shade.y, extSha.QAbs_flow) annotation (Line(
+  connect(QSol_shade.y, extSha.QAbs_flow) annotation (Line(
       points={{-19,110},{-10,110},{-10,0},{10,0},{10,9}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -160,7 +160,7 @@ equation
       points={{122,20},{132,20},{132,-70},{139,-70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QSW_shade.y, extNonSha.QAbs_flow) annotation (Line(
+  connect(QSol_shade.y, extNonSha.QAbs_flow) annotation (Line(
       points={{-19,110},{-10,110},{-10,-70},{12,-70},{12,-63}},
       color={0,0,127},
       smooth=Smooth.None));

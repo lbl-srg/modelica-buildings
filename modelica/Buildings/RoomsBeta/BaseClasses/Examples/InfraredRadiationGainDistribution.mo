@@ -1,12 +1,12 @@
 within Buildings.RoomsBeta.BaseClasses.Examples;
-model LongWaveRadiationGainDistribution
-  "Test model for long-wave radiation gain"
+model InfraredRadiationGainDistribution
+  "Test model for infrared radiation gain"
   extends Modelica.Icons.Example;
   extends
-    Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses.PartialLongWaveRadiation;
+    Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation;
   import Buildings;
 
-  Buildings.RoomsBeta.BaseClasses.LongWaveRadiationGainDistribution
+  Buildings.RoomsBeta.BaseClasses.InfraredRadiationGainDistribution
     lonWavRadGai(
     nConExt=nConExt,
     nConExtWin=nConExtWin,
@@ -19,7 +19,7 @@ model LongWaveRadiationGainDistribution
     final datConBou = datConBou,
     final surBou = surBou,
     haveShade=true)
-    "Distribution for long wave radiative heat gains (e.g., due to equipment and people)"
+    "Distribution for infrared radiative heat gains (e.g., due to equipment and people)"
     annotation (Placement(transformation(extent={{-30,0},{10,40}})));
 protected
   Modelica.Blocks.Sources.Constant QRad_flow(k=1) "Radiative heat gain"
@@ -66,5 +66,5 @@ equation
       points={{-59,50},{-40,50},{-40,35},{-31.6667,35}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Commands(file="LongWaveRadiationGainDistribution.mos" "run"));
-end LongWaveRadiationGainDistribution;
+  annotation (Diagram(graphics), Commands(file="InfraredRadiationGainDistribution.mos" "run"));
+end InfraredRadiationGainDistribution;

@@ -8,8 +8,8 @@ package OpaqueSurfaces
    parameter Modelica.SIunits.Area A "Area";
    parameter Modelica.SIunits.Angle til
       "Surface tilt (0: ceiling, pi/2: wall, pi: floor";
-   parameter Modelica.SIunits.Emissivity epsLW=0.84 "Long wave emissivity";
-   parameter Modelica.SIunits.Emissivity epsSW=0.84 "Short wave emissivity";
+   parameter Modelica.SIunits.Emissivity absIR=0.84 "Infrared absorptivity";
+   parameter Modelica.SIunits.Emissivity absSol=0.84 "Solar absorptivity";
    final parameter Boolean isFloor=til > 2.74889125 and til < 3.53428875
       "Flag, true if construction is a floor" annotation (Evaluate=true);
 
@@ -19,10 +19,10 @@ package OpaqueSurfaces
 This record implements thermophysical properties for opaque surfaces.
 </p>
 <p>
-The parameter <code>epsLW</code>
-is used to compute long-wave heat radiation (in the infrared spectrum).
-The parameter <code>epsSW</code>
-is used to compute short-wave heat radiation (in the solar spectrum).
+The parameter <code>absIR</code>
+is used to compute infrared heat radiation (in the infrared spectrum).
+The parameter <code>absSol</code>
+is used to compute solar heat radiation (in the solar spectrum).
 </p>
 </html>",
   revisions="<html>
@@ -35,14 +35,14 @@ First implementation.
 </html>"));
   end Generic;
 
-  record Black=Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic (epsLW=1.0,
-        epsSW=1.0) "Black surface with epsLW=1.0, epsSW=1.0";
+  record Black=Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic (absIR=1.0,
+        absSol=1.0) "Black surface with absIR=1.0, absSol=1.0";
 
-  record Gray=Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic (epsLW=0.5,
-        epsSW=0.5) "Gray surface with epsLW=0.5, epsSW=0.5";
+  record Gray=Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic (absIR=0.5,
+        absSol=0.5) "Gray surface with absIR=0.5, absSol=0.5";
 
-  record White=Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic (epsLW=0.0,
-        epsSW=0.0) "White surface with epsLW=0.0, epsSW=0.0";
+  record White=Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic (absIR=0.0,
+        absSol=0.0) "White surface with absIR=0.0, absSol=0.0";
 
   annotation (
 preferedView="info",
@@ -51,10 +51,10 @@ Documentation(info="<html>
 Package with records for opaque surfaces.
 </p>
 <p>
-The parameter <code>epsLW</code>
-is used to compute long-wave heat radiation (in the infrared spectrum).
-The parameter <code>epsSW</code>
-is used to compute short-wave heat radiation (in the solar spectrum).
+The parameter <code>absIR</code>
+is used to compute infrared heat radiation (in the infrared spectrum).
+The parameter <code>absSol</code>
+is used to compute solar heat radiation (in the solar spectrum).
 </p>
 </html>",
   revisions="<html>

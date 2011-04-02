@@ -11,10 +11,10 @@ model ExteriorBoundaryConditions
     "Areas of exterior constructions (excluding the window area)";
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
-  parameter Modelica.SIunits.Emissivity epsLW[nCon]
-    "Long wave emissivity of building surface";
-  parameter Modelica.SIunits.Emissivity epsSW[nCon]
-    "Short wave emissivity of building surface";
+  parameter Modelica.SIunits.Emissivity absIR[nCon]
+    "Infrared absorptivity of building surface";
+  parameter Modelica.SIunits.Emissivity absSol[nCon]
+    "Solar absorptivity of building surface";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a opa_a[nCon]
     "Heat port at surface a of opaque construction"
@@ -41,9 +41,9 @@ model ExteriorBoundaryConditions
   SkyRadiationExchange skyRadExc(
     final n=nCon,
     each final A=AOpa,
-    each final epsLW=epsLW,
+    each final absIR=absIR,
     vieFacSky={(Modelica.Constants.pi - til[i])./Modelica.Constants.pi for i in 1:nCon})
-    "Long-wave radiative heat exchange with sky"
+    "Infrared radiative heat exchange with sky"
     annotation (Placement(transformation(extent={{-140,240},{-180,280}})));
   BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{234,32},{254,52}}),
@@ -61,8 +61,8 @@ model ExteriorBoundaryConditions
     final azi=azi) "Diffuse solar irradiation"
     annotation (Placement(transformation(extent={{100,80},{80,100}})));
   Modelica.Blocks.Math.Add HTotConExt[nCon](
-    final k1=epsSW .* AOpa,
-    final k2=epsSW .* AOpa) "Total solar irradiation"
+    final k1=absSol .* AOpa,
+    final k2=absSol .* AOpa) "Total solar irradiation"
     annotation (Placement(transformation(extent={{40,100},{20,120}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow solHeaGaiConExt[nCon]
     "Total solar heat gain of the surface"
@@ -211,7 +211,7 @@ This model computes the boundary conditions for the outside-facing surface of
 opaque constructions.
 </p>
 <p>
-The model computes the long-wave, short-wave, and convective heat exchange
+The model computes the infrared, solar, and convective heat exchange
 between these surfaces and the exterior temperature and the sky temperature.
 Input into this model are weather data that may be obtained from
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData\">

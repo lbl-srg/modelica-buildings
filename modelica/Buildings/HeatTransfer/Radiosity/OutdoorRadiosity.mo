@@ -87,7 +87,7 @@ equation
         lineColor={0,0,255})}),
 defaultComponentName="radOut",
 Documentation(info="<html>
-Model for the long-wave radiosity balance of the outdoor environment.
+Model for the infrared radiosity balance of the outdoor environment.
 The computation is according to TARCOG 2006.
 </p>
 <h4>References</h4>

@@ -143,7 +143,7 @@ must have at least one element, unless the whole array
 is conditionally removed if its size is zero.
 However, conditionally removing the surface models does not work in this
 situation since some models, such as for computing the radiative heat exchange
-between the surfaces, require access to the area and emissivity of the surface models.
+between the surfaces, require access to the area and absorptivity of the surface models.
 
 </html>",
         revisions="<html>

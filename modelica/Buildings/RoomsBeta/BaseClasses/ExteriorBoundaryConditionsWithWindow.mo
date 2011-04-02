@@ -10,29 +10,29 @@ model ExteriorBoundaryConditionsWithWindow
     final fFra=fFra,
     each final linearizeRadiation = linearizeRadiation,
     final F_sky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i in 1:nCon},
-    final epsLWSha_air=epsLWSha_air,
-    final epsLWSha_glass=epsLWSha_glass,
-    final tauLWSha_air=tauLWSha_air,
-    final tauLWSha_glass=tauLWSha_glass,
+    final absIRSha_air=absIRSha_air,
+    final absIRSha_glass=absIRSha_glass,
+    final tauIRSha_air=tauIRSha_air,
+    final tauIRSha_glass=tauIRSha_glass,
     final haveExteriorShade=haveExteriorShade,
     final haveInteriorShade=haveInteriorShade)
     "Exterior convection of the window"
     annotation (Placement(transformation(extent={{20,-120},{-40,-60}})));
-  parameter Modelica.SIunits.Emissivity epsSWFra[nCon]
-    "Short wave emissivity of window frame";
+  parameter Modelica.SIunits.Emissivity absSolFra[nCon]
+    "Solar absorptivity of window frame";
 
-  parameter Modelica.SIunits.Emissivity epsLWSha_air[nCon]
-    "Long wave emissivity of shade surface that faces air"
+  parameter Modelica.SIunits.Emissivity absIRSha_air[nCon]
+    "Infrared absorptivity of shade surface that faces air"
         annotation (Dialog(group="Shading"));
-  parameter Modelica.SIunits.Emissivity epsLWSha_glass[nCon]
-    "Long wave emissivity of shade surface that faces glass"
+  parameter Modelica.SIunits.Emissivity absIRSha_glass[nCon]
+    "Infrared absorptivity of shade surface that faces glass"
     annotation (Dialog(group="Shading"));
 
-  parameter Modelica.SIunits.TransmissionCoefficient tauLWSha_air[nCon]
-    "Long wave transmissivity of shade for radiation coming from the exterior or the room"
+  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_air[nCon]
+    "Infrared transmissivity of shade for radiation coming from the exterior or the room"
     annotation (Dialog(group="Shading"));
-  parameter Modelica.SIunits.TransmissionCoefficient tauLWSha_glass[nCon]
-    "Long wave transmissivity of shade for radiation coming from the glass"
+  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_glass[nCon]
+    "Infrared transmissivity of shade for radiation coming from the glass"
     annotation (Dialog(group="Shading"));
 
   parameter Boolean haveExteriorShade[nCon]
@@ -86,8 +86,8 @@ model ExteriorBoundaryConditionsWithWindow
                        rotation=0), iconTransformation(extent={{-310,-270},{-290,
             -250}})));
   Modelica.Blocks.Math.Add HTotConExtWinFra[nCon](
-     final k1=fFra .* epsSWFra .* AWin,
-     final k2=fFra .* epsSWFra .* AWin)
+     final k1=fFra .* absSolFra .* AWin,
+     final k2=fFra .* absSolFra .* AWin)
     "Total solar irradiation on window frame"
     annotation (Placement(transformation(extent={{40,60},{20,80}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow solHeaGaiConWin[nCon]
@@ -122,7 +122,7 @@ protected
     annotation (Placement(transformation(extent={{140,-22},{120,-2}})));
 
 public
-  Modelica.Blocks.Interfaces.RealInput QAbsSWSha_flow[nCon](
+  Modelica.Blocks.Interfaces.RealInput QAbsSolSha_flow[nCon](
     final unit="W", quantity="Power") "Solar radiation absorbed by shade"
     annotation (Placement(transformation(extent={{-340,40},{-300,80}})));
 equation
@@ -226,7 +226,7 @@ equation
       points={{42,76},{66,76},{66,130},{79,130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conExtWin.QAbs_flow, QAbsSWSha_flow) annotation (Line(
+  connect(conExtWin.QAbs_flow, QAbsSolSha_flow) annotation (Line(
       points={{-10,-123},{-10,-140},{-160,-140},{-160,60},{-320,60}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -255,7 +255,7 @@ This model computes the boundary conditions for the outside-facing surface of
 opaque constructions and of windows.
 </p>
 <p>
-The model computes the long-wave, short-wave, and convective heat exchange
+The model computes the infrared, solar, and convective heat exchange
 between these surfaces and the exterior temperature and the sky temperature.
 Input into this model are weather data that may be obtained from
 <a href=\"modelica://Buildings.BoundaryConditions.WeatherData\">

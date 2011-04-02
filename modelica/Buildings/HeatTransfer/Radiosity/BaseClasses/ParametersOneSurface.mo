@@ -1,10 +1,10 @@
 within Buildings.HeatTransfer.Radiosity.BaseClasses;
 model ParametersOneSurface "Parameters that are used to model one surface"
-  parameter Modelica.SIunits.Emissivity epsLW "Long wave emissivity";
-  parameter Modelica.SIunits.ReflectionCoefficient rhoLW
-    "Long wave reflectivity";
-  parameter Modelica.SIunits.TransmissionCoefficient tauLW
-    "Long wave transmissivity";
+  parameter Modelica.SIunits.Emissivity absIR "Infrared absorptivity";
+  parameter Modelica.SIunits.ReflectionCoefficient rhoIR
+    "Infrared reflectivity";
+  parameter Modelica.SIunits.TransmissionCoefficient tauIR
+    "Infrared transmissivity";
   parameter Boolean linearize=false "Set to true to linearize emissive power"
     annotation (Evaluate=true);
   parameter Modelica.SIunits.Temperature T0=293.15
@@ -15,8 +15,8 @@ protected
  annotation(Evaluate=true);
 
 initial equation
-  assert(abs(1-epsLW-rhoLW-tauLW) < Modelica.Constants.eps,
-    "Emissivity, reflectivity and transmissivity do not add up to one. Check parameters.");
+  assert(abs(1-absIR-rhoIR-tauIR) < Modelica.Constants.eps,
+    "Absorptivity, reflectivity and transmissivity do not add up to one. Check parameters.");
 
 annotation (
 Documentation(

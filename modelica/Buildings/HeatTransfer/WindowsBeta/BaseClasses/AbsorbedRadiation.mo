@@ -191,7 +191,7 @@ algorithm
   QAbsGlaSha_flow[:] := absRad[2, 2:N + 1];
   annotation (
     Documentation(info="<html>
-The model calculates absorbed short-wave radiation on the window. 
+The model calculates absorbed solar radiation on the window. 
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 </p>
 <p>

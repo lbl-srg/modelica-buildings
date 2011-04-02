@@ -35,7 +35,7 @@ model MixedAir "Model for room air that is completely mixed"
     surBou.isFloor
     "Flag to indicate if floor for constructions that are modeled outside of this room";
 
-  parameter Modelica.SIunits.Emissivity tauGlaSW[NConExtWin]
+  parameter Modelica.SIunits.Emissivity tauGlaSol[NConExtWin]
     "Transmissivity of window";
 
   Fluid.MixingVolumes.MixingVolume vol(V=AFlo*hRoo,
@@ -93,10 +93,10 @@ model MixedAir "Model for room air that is completely mixed"
     final haveExteriorShade=haveExteriorShade,
     final haveInteriorShade=haveInteriorShade,
     final A=AConExtWinGla + AConExtWinFra,
-    final epsLWSha_air=epsConExtWinSha,
-    final epsLWSha_glass=epsConExtWinUns,
-    final tauLWSha_air=tauLWSha_air,
-    final tauLWSha_glass=tauLWSha_glass) if
+    final absIRSha_air=epsConExtWinSha,
+    final absIRSha_glass=epsConExtWinUns,
+    final tauIRSha_air=tauIRSha_air,
+    final tauIRSha_glass=tauIRSha_glass) if
        haveConExtWin "Model for convective heat transfer at window"
     annotation (Placement(transformation(extent={{98,108},{118,128}})));
   // For conPar_a, we use for the tilt pi-tilt since it is the
@@ -195,14 +195,14 @@ public
     "Heat port to air volume"
     annotation (Placement(transformation(extent={{-250,-10},{-230,10}})));
 
-  final parameter Modelica.SIunits.TransmissionCoefficient tauLWSha_air[NConExtWin]=
-    datConExtWin.glaSys.shade.tauLW_a
-    "Long wave transmissivity of shade for radiation coming from the exterior or the room"
+  final parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_air[NConExtWin]=
+    datConExtWin.glaSys.shade.tauIR_a
+    "Infrared transmissivity of shade for radiation coming from the exterior or the room"
     annotation (Dialog(group="Shading"));
-        final parameter Modelica.SIunits.TransmissionCoefficient tauLWSha_glass[
+        final parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_glass[
                                                                           NConExtWin]=
-    datConExtWin.glaSys.shade.tauLW_b
-    "Long wave transmissivity of shade for radiation coming from the glass"
+    datConExtWin.glaSys.shade.tauIR_b
+    "Infrared transmissivity of shade for radiation coming from the glass"
     annotation (Dialog(group="Shading"));
 
   final parameter Boolean haveExteriorShade[NConExtWin]=
@@ -252,11 +252,11 @@ public
     final isFloorConPar_b=isFloorConPar_b,
     final isFloorConBou=isFloorConBou,
     final isFloorSurBou=isFloorSurBou,
-    final tauGla=tauGlaSW) if
-       haveConExtWin "Short wave radiative heat exchange"
+    final tauGla=tauGlaSol) if
+       haveConExtWin "Solar radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
-  LongWaveRadiationGainDistribution lonWavRadGai(
+  InfraredRadiationGainDistribution lonWavRadGai(
     final nConExt=nConExt,
     final nConExtWin=nConExtWin,
     final nConPar=nConPar,
@@ -268,9 +268,9 @@ public
     final datConBou = datConBou,
     final surBou = surBou,
     final haveShade=haveShade)
-    "Distribution for long wave radiative heat gains (e.g., due to equipment and people)"
+    "Distribution for infrared radiative heat gains (e.g., due to equipment and people)"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  LongWaveRadiationExchange lonWavRadExc(
+  InfraredRadiationExchange lonWavRadExc(
     final nConExt=nConExt,
     final nConExtWin=nConExtWin,
     final nConPar=nConPar,
@@ -282,7 +282,7 @@ public
     final datConBou = datConBou,
     final surBou = surBou,
     final linearizeRadiation = linearizeRadiation)
-    "Long wave radiative heat exchange"
+    "Infrared radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3]
@@ -295,7 +295,7 @@ public
     annotation (Placement(transformation(extent={{-280,160},{-240,200}}),
         iconTransformation(extent={{-280,162},{-240,202}})));
 
-  Modelica.Blocks.Interfaces.RealInput QAbsSWSha_flow[NConExtWin](
+  Modelica.Blocks.Interfaces.RealInput QAbsSolSha_flow[NConExtWin](
     final unit="W", quantity="Power") if
        haveConExtWin "Solar radiation absorbed by shade"
     annotation (Placement(transformation(extent={{-280,-220},{-240,-180}})));
@@ -306,7 +306,7 @@ public
         iconTransformation(extent={{-280,-120},{-240,-80}})));
 
   Modelica.Blocks.Interfaces.RealOutput HOutConExtWin[NConExtWin](unit="W/m2") if
-       haveConExtWin "Outgoing short wave radiation that strikes window"
+       haveConExtWin "Outgoing solar radiation that strikes window"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-200,-250})));
@@ -604,7 +604,7 @@ equation
       points={{240,180},{166,180},{166,57.5},{-80,57.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(QAbsSWSha_flow, convConWin.QAbs_flow)
+  connect(QAbsSolSha_flow, convConWin.QAbs_flow)
                                                annotation (Line(
       points={{-260,-200},{-210,-200},{-210,80},{108,80},{108,107}},
       color={0,0,127},
@@ -763,31 +763,31 @@ the model
 Buildings.RoomsBeta.BaseClasses.HeatGain</a>.
 </li>
 <li>
-The radiant heat gains in the long-wave spectrum are also a user
+The radiant heat gains in the infrared spectrum are also a user
 input. They are distributed to the room enclosing surfaces using
 the model
-<a href=\"modelica://Buildings.RoomsBeta.BaseClasses.LongWaveRadiationGainDistribution\">
-Buildings.RoomsBeta.BaseClasses.LongWaveRadiationGainDistribution</a>.
+<a href=\"modelica://Buildings.RoomsBeta.BaseClasses.InfraredRadiationGainDistribution\">
+Buildings.RoomsBeta.BaseClasses.InfraredRadiationGainDistribution</a>.
 </li>
 <li>
-The long-wave radiative heat exchange between the room enclosing
+The infrared radiative heat exchange between the room enclosing
 surfaces is modeled in
-<a href=\"modelica://Buildings.RoomsBeta.BaseClasses.LongWaveRadiationExchange\">
-Buildings.RoomsBeta.BaseClasses.LongWaveRadiationExchange</a>.
-This model takes into account the emissivity of the surfaces and
+<a href=\"modelica://Buildings.RoomsBeta.BaseClasses.InfraredRadiationExchange\">
+Buildings.RoomsBeta.BaseClasses.InfraredRadiationExchange</a>.
+This model takes into account the absorptivity of the surfaces and
 the surface area. However, the view factors are assumed to be 
 proportional to the area of the receiving surface, without taking
 into account the location of the surfaces.
 </li>
 <li>
-The short wave radiation exchange is modeled in
+The solar radiation exchange is modeled in
 <a href=\"modelica://Buildings.RoomsBeta.BaseClasses.ShortWaveRadiationExchange\">
 Buildings.RoomsBeta.BaseClasses.ShortWaveRadiationExchange</a>.
 The assumptions in this model is that all solar radiation
 first hits the floor, and is then partially absorbed and partially reflected by the floor.
 The reflectance are diffuse, and the reflected radiation is distributed
 in proportion to the product of the receiving areas times their
-short wave emissivity.
+solar absorptivity.
 </li>
 </ol>
 </p>

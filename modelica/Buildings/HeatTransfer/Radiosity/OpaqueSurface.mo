@@ -2,7 +2,7 @@ within Buildings.HeatTransfer.Radiosity;
 model OpaqueSurface "Model for an opaque surface"
   extends Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface;
   extends Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface(
-   final tauLW=1-rhoLW-epsLW, final rhoLW=1-epsLW);
+   final tauIR=1-rhoIR-absIR, final rhoIR=1-absIR);
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port of this surface"
@@ -16,7 +16,7 @@ protected
 
 equation
   T4 = if linearize then T03 * heatPort.T else heatPort.T^4;
-  0 = JOut + A * epsLW * Modelica.Constants.sigma * T4 + rhoLW*JIn;
+  0 = JOut + A * absIR * Modelica.Constants.sigma * T4 + rhoIR*JIn;
   0 = heatPort.Q_flow + JIn + JOut;
 
   annotation (Diagram(graphics), Icon(graphics={

@@ -179,7 +179,7 @@ a multi-zone building model.
 Added the package
 <a href=\"modelica://Buildings.HeatTransfer.WindowsBeta\">
 Buildings.HeatTransfer.WindowsBeta</a>
-to compute heat transfer (short-wave radiation, long-wave radiation,
+to compute heat transfer (solar radiation, infrared radiation,
 convection and conduction) through glazing systems.
 </li>
 <li>

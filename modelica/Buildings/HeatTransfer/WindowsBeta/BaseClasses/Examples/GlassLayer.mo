@@ -7,12 +7,12 @@ model GlassLayer "Test model for glass layer heat transfer"
 
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.GlassLayer sha(
     A=A,
-    epsLW_a=0.5,
-    tauLW=0.2,
+    absIR_a=0.5,
+    tauIR=0.2,
     x=0.015,
     k=1,
     linearize=linearize,
-    epsLW_b=0.5) "Model for fraction of window that has a shade"
+    absIR_b=0.5) "Model for fraction of window that has a shade"
     annotation (Placement(transformation(extent={{0,30},{20,50}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TAirOut
     "Outside air temperature"
@@ -24,14 +24,14 @@ model GlassLayer "Test model for glass layer heat transfer"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={110,20})));
-  Buildings.HeatTransfer.Radiosity.OpaqueSurface radOut(A=A, epsLW=0.8,
+  Buildings.HeatTransfer.Radiosity.OpaqueSurface radOut(A=A, absIR=0.8,
     linearize=false) "Model for outside radiosity"
     annotation (Placement(transformation(extent={{-98,-70},{-78,-48}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TRadOut
     "Outside radiative temperature"
     annotation (Placement(transformation(extent={{-120,-80},{-100,-60}})));
 
-  Buildings.HeatTransfer.Radiosity.OpaqueSurface radIn(A=A, epsLW=0.8,
+  Buildings.HeatTransfer.Radiosity.OpaqueSurface radIn(A=A, absIR=0.8,
     linearize=false) "Model for inside radiosity"
     annotation (Placement(transformation(extent={{102,-60},{82,-40}})));
   Modelica.Blocks.Sources.Constant TRoo(k=293.15) "Room temperature"
@@ -42,7 +42,7 @@ model GlassLayer "Test model for glass layer heat transfer"
         rotation=180,
         origin={114,-60})));
   Modelica.Blocks.Sources.Constant QAbs_flow(k=0)
-    "Absorbed short-wave heat flow"
+    "Absorbed solar heat flow"
     annotation (Placement(transformation(extent={{-60,74},{-40,94}})));
   Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaInt
     "Radiosity that strikes shading device"
@@ -50,12 +50,12 @@ model GlassLayer "Test model for glass layer heat transfer"
 
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.GlassLayer nonSha(
     A=A,
-    epsLW_a=0.5,
-    tauLW=0.2,
+    absIR_a=0.5,
+    tauIR=0.2,
     x=0.015,
     k=1,
     linearize=linearize,
-    epsLW_b=0.5) "Model for fraction of window that has no shade"
+    absIR_b=0.5) "Model for fraction of window that has no shade"
     annotation (Placement(transformation(extent={{0,-100},{20,-80}})));
   Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaOut
     "Radiosity that strikes shading device"

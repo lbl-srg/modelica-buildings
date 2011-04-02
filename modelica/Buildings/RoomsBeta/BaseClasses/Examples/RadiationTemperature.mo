@@ -2,7 +2,7 @@ within Buildings.RoomsBeta.BaseClasses.Examples;
 model RadiationTemperature "Test model for the radiation temperature"
   extends Modelica.Icons.Example;
   extends
-    Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses.PartialLongWaveRadiation;
+    Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation;
   import Buildings;
 
   Buildings.RoomsBeta.BaseClasses.RadiationTemperature radTem(

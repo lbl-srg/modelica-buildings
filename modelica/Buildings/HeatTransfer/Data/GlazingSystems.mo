@@ -27,10 +27,10 @@ package GlazingSystems
       Dialog(enable=haveInteriorShade or haveExteriorShade));
     parameter Modelica.SIunits.CoefficientOfHeatTransfer UFra
       "U-value of frame";
-    parameter Modelica.SIunits.Emissivity epsLWFra=0.8
-      "Long-wave emissivity of window frame";
-    parameter Modelica.SIunits.Emissivity epsSWFra=0.5
-      "Short-wave emissivity of window frame";
+    parameter Modelica.SIunits.Emissivity absIRFra=0.8
+      "Infrared absorptivity of window frame";
+    parameter Modelica.SIunits.Emissivity absSolFra=0.5
+      "Solar absorptivity of window frame";
     final parameter Boolean haveShade = haveInteriorShade or haveExteriorShade
       "Parameter that is true if the construction has a shade";
 

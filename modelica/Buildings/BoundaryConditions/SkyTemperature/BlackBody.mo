@@ -25,7 +25,7 @@ block BlackBody "Calculate black body sky temperature"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
   Modelica.SIunits.Temperature TDewPoiK "Dewpoint temperature";
-  Modelica.SIunits.Emissivity epsSky "Black-body emissivity of sky";
+  Modelica.SIunits.Emissivity epsSky "Black-body absorptivity of sky";
   Real nOpa10(min=0, max=10) "Opaque sky cover";
 algorithm
   if calTSky == 1 then

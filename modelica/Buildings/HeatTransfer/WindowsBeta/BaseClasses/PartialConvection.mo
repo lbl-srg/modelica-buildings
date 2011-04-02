@@ -6,18 +6,18 @@ partial model PartialConvection
   final parameter Modelica.SIunits.Area AFra = fFra * A "Frame area";
   final parameter Modelica.SIunits.Area AGla = A-AFra "Glass area";
 
-  parameter Modelica.SIunits.Emissivity epsLWSha_air
-    "Long wave emissivity of shade surface that faces air"
+  parameter Modelica.SIunits.Emissivity absIRSha_air
+    "Infrared absorptivity of shade surface that faces air"
         annotation (Dialog(group="Shading"));
-  parameter Modelica.SIunits.Emissivity epsLWSha_glass
-    "Long wave emissivity of shade surface that faces glass"
+  parameter Modelica.SIunits.Emissivity absIRSha_glass
+    "Infrared absorptivity of shade surface that faces glass"
     annotation (Dialog(group="Shading"));
 
-  parameter Modelica.SIunits.TransmissionCoefficient tauLWSha_air
-    "Long wave transmissivity of shade for radiation coming from the exterior or the room"
+  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_air
+    "Infrared transmissivity of shade for radiation coming from the exterior or the room"
     annotation (Dialog(group="Shading"));
-  parameter Modelica.SIunits.TransmissionCoefficient tauLWSha_glass
-    "Long wave transmissivity of shade for radiation coming from the glass"
+  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_glass
+    "Infrared transmissivity of shade for radiation coming from the glass"
     annotation (Dialog(group="Shading"));
 
   parameter Boolean linearizeRadiation
@@ -80,10 +80,10 @@ public
     final thisSideHasShade = thisSideHasShade,
     final A=AGla,
     final linearize=linearizeRadiation,
-    final epsLW_air=if thisSideHasShade then epsLWSha_air else 0,
-    final epsLW_glass=if thisSideHasShade then epsLWSha_glass else 0,
-    final tauLW_air=if thisSideHasShade then tauLWSha_air else 1,
-    final tauLW_glass=if thisSideHasShade then tauLWSha_glass else 1) if
+    final absIR_air=if thisSideHasShade then absIRSha_air else 0,
+    final absIR_glass=if thisSideHasShade then absIRSha_glass else 0,
+    final tauIR_air=if thisSideHasShade then tauIRSha_air else 1,
+    final tauIR_glass=if thisSideHasShade then tauIRSha_glass else 1) if
        windowHasShade "Heat balance of shade"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Interfaces.RadiosityOutflow JOutUns
@@ -297,7 +297,7 @@ Convective heat transfer is modeled between the heat port <code>air</code>
 and the shade, if present, the glass and the frame.
 If the parameter <code>haveShade</code> is set to <code>true</code>, then a shade 
 is present and the input port <code>QAbs_flow</code> needs to be connected to 
-a model that computes the short-wave radiation that is absorbed by the shade.
+a model that computes the solar radiation that is absorbed by the shade.
 If <code>haveShade=true</code>, then the model <code>shade</code> and the 
 connectors <code>QAbs_flow</code>, <code>glaSha</code>, 
 <code>JInSha</code> and <code>JOutSha</code> are removed.

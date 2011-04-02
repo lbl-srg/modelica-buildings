@@ -23,18 +23,18 @@ model WindowRadiation "Test model for window radiation"
   Modelica.Blocks.Sources.Constant shaCon(k=if (glaSys.haveShade) then 0.5 else
               0)
     annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
-  Modelica.Blocks.Math.Gain HRoo(k=0.1) "Short-wave irradiation from room"
+  Modelica.Blocks.Math.Gain HRoo(k=0.1) "Solar irradiation from room"
     annotation (Placement(transformation(extent={{20,-40},{40,-20}})));
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.WindowRadiation winRad(
     AWin=1,
     N=glaSys.nLay,
-    tauGlaSW=glaSys.glass.tauSW,
-    rhoGlaSW_a=glaSys.glass.rhoSW_a,
-    rhoGlaSW_b=glaSys.glass.rhoSW_b,
-    tauShaSW_a=glaSys.shade.tauSW_a,
-    tauShaSW_b=glaSys.shade.tauSW_b,
-    rhoShaSW_a=glaSys.shade.rhoSW_a,
-    rhoShaSW_b=glaSys.shade.rhoSW_b,
+    tauGlaSol=glaSys.glass.tauSol,
+    rhoGlaSol_a=glaSys.glass.rhoSol_a,
+    rhoGlaSol_b=glaSys.glass.rhoSol_b,
+    tauShaSol_a=glaSys.shade.tauSol_a,
+    tauShaSol_b=glaSys.shade.tauSol_b,
+    rhoShaSol_a=glaSys.shade.rhoSol_a,
+    rhoShaSol_b=glaSys.shade.rhoSol_b,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));

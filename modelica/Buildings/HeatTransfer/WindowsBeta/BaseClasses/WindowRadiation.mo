@@ -36,26 +36,26 @@ block WindowRadiation "Calculation radiation for window"
 
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.TransmittedRadiation tra(
     final N=N,
-    final tauGlaSW=tauGlaSW,
-    final rhoGlaSW_a=rhoGlaSW_a,
-    final rhoGlaSW_b=rhoGlaSW_b,
-    final tauShaSW_a=tauShaSW_a,
-    final rhoShaSW_a=rhoShaSW_a,
-    final rhoShaSW_b=rhoShaSW_b,
+    final tauGlaSol=tauGlaSol,
+    final rhoGlaSol_a=rhoGlaSol_a,
+    final rhoGlaSol_b=rhoGlaSol_b,
+    final tauShaSol_a=tauShaSol_a,
+    final rhoShaSol_a=rhoShaSol_a,
+    final rhoShaSol_b=rhoShaSol_b,
     final haveExteriorShade=haveExteriorShade,
     final haveInteriorShade=haveInteriorShade,
     final AWin=AWin,
-    final tauShaSW_b=tauShaSW_b)
+    final tauShaSol_b=tauShaSol_b)
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.AbsorbedRadiation abs(
     final N=N,
-    final tauGlaSW=tauGlaSW,
-    final rhoGlaSW_a=rhoGlaSW_a,
-    final rhoGlaSW_b=rhoGlaSW_b,
-    final tauShaSW_a=tauShaSW_a,
-    final tauShaSW_b=tauShaSW_b,
-    final rhoShaSW_a=rhoShaSW_a,
-    final rhoShaSW_b=rhoShaSW_b,
+    final tauGlaSol=tauGlaSol,
+    final rhoGlaSol_a=rhoGlaSol_a,
+    final rhoGlaSol_b=rhoGlaSol_b,
+    final tauShaSol_a=tauShaSol_a,
+    final tauShaSol_b=tauShaSol_b,
+    final rhoShaSol_a=rhoShaSol_a,
+    final rhoShaSol_b=rhoShaSol_b,
     final haveExteriorShade=haveExteriorShade,
     final haveInteriorShade=haveInteriorShade,
     final AWin=AWin)
@@ -126,7 +126,7 @@ equation
       smooth=Smooth.None));
   annotation (
     Documentation(info="<html>
-The model calculates short-wave radiation through the window. 
+The model calculates solar radiation through the window. 
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 </p>
 <p>

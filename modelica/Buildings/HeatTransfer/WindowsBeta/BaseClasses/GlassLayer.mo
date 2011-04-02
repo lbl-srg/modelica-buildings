@@ -2,17 +2,17 @@ within Buildings.HeatTransfer.WindowsBeta.BaseClasses;
 model GlassLayer "Model for a glass layer of a window assembly"
   extends Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces;
   extends Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersTwoSurfaces(
-    final rhoLW_a=1-epsLW_a-tauLW,
-    final rhoLW_b=1-epsLW_b-tauLW);
+    final rhoIR_a=1-absIR_a-tauIR,
+    final rhoIR_b=1-absIR_b-tauIR);
   parameter Modelica.SIunits.Length x "Material thickness";
   parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
   parameter Modelica.SIunits.Area A "Heat transfer area";
-  parameter Modelica.SIunits.Emissivity epsLW_a
-    "Long wave emissivity of surface a (usually room-facing surface)";
-  parameter Modelica.SIunits.Emissivity epsLW_b
-    "Long wave emissivity of surface b (usually outside-facing surface)";
-  parameter Modelica.SIunits.Emissivity tauLW
-    "Long wave transmittance of glass";
+  parameter Modelica.SIunits.Emissivity absIR_a
+    "Infrared absorptivity of surface a (usually room-facing surface)";
+  parameter Modelica.SIunits.Emissivity absIR_b
+    "Infrared absorptivity of surface b (usually outside-facing surface)";
+  parameter Modelica.SIunits.Emissivity tauIR
+    "Infrared transmittance of glass";
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
@@ -50,19 +50,19 @@ equation
   // These equations are from Window 6 Technical report, (2.1-14) to (2.1-17)
   0 = port_a.Q_flow + port_b.Q_flow + QAbs_flow + JIn_a  + JIn_b + JOut_a + JOut_b;
   //port_b.T-port_a.T = R/u * (2*port_b.Q_flow+QAbs_flow);
-  u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-(epsLW_a*JIn_a-E_a));
+  u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-(absIR_a*JIn_a-E_a));
   // Radiosity balance
   T4_a = if linearize then T03 * port_a.T else port_a.T^4;
   T4_b = if linearize then T03 * port_b.T else port_b.T^4;
   // Emissive power
-  E_a = u * A * epsLW_a * Modelica.Constants.sigma * T4_a;
-  E_b = u * A * epsLW_b * Modelica.Constants.sigma * T4_b;
+  E_a = u * A * absIR_a * Modelica.Constants.sigma * T4_a;
+  E_b = u * A * absIR_b * Modelica.Constants.sigma * T4_b;
   // Radiosities that are outgoing from the surface, which are
-  // equal to the long-wave emissivity plus the reflected incoming
+  // equal to the infrared absorptivity plus the reflected incoming
   // radiosity plus the radiosity that is transmitted from the
   // other surface.
-  -JOut_a = E_a + rhoLW_a * JIn_a + tauLW * JIn_b;
-  -JOut_b = E_b + rhoLW_b * JIn_b + tauLW * JIn_a;
+  -JOut_a = E_a + rhoIR_a * JIn_a + tauIR * JIn_b;
+  -JOut_b = E_b + rhoIR_b * JIn_b + tauIR * JIn_a;
   annotation (Diagram(graphics),
     Icon(graphics={
         Rectangle(
@@ -90,11 +90,11 @@ equation
           textString="u")}),
     Documentation(info="<html>
 Model of a single layer of window glass. The input port <code>QAbs_flow</code>
-needs to be connected to the short-wave radiation that is absorbed
+needs to be connected to the solar radiation that is absorbed
 by the glass pane.
 The model computes the heat conduction between the two glass surfaces.
 The heat flow <code>QAbs_flow</code> is added at the center of the glass.
-The model also computes the long-wave radiative heat balance using an instance
+The model also computes the infrared radiative heat balance using an instance
 of the model
 <a href=\"Buildings.HeatTransfer.Radiosity.WindowPane\">
 Buildings.HeatTransfer.Radiosity.WindowPane</a>.

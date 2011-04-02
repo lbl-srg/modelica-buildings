@@ -1,1 +1,1 @@
-simulateModel("Buildings.RoomsBeta.BaseClasses.Examples.LongWaveRadiationExchange", method="dassl", resultFile="LongWaveRadiationExchange");
+simulateModel("Buildings.RoomsBeta.BaseClasses.Examples.InfraredRadiationExchange", method="dassl", resultFile="InfraredRadiationExchange");

@@ -6,7 +6,7 @@ package Radiosity "Package with models for radiosity transfer"
 annotation (Documentation(info="<html>
 <p>
 This package provides component models for the
-long-wave radiative heat exchange of window assemblies.
+infrared radiative heat exchange of window assemblies.
 The models are according to TARCOG 2006.
 </p>
 <h4>References</h4>

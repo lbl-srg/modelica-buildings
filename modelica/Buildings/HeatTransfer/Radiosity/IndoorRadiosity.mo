@@ -2,9 +2,9 @@ within Buildings.HeatTransfer.Radiosity;
 model IndoorRadiosity "Model for indoor radiosity"
   extends Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface;
   extends Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface(
-    final epsLW=1,
-    final tauLW=0,
-    final rhoLW=0);
+    final absIR=1,
+    final tauIR=0,
+    final rhoIR=0);
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port of this surface"
     annotation (Placement(transformation(extent={{-10,-108},{10,-88}}),

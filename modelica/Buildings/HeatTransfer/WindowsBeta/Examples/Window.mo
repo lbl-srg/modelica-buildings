@@ -18,20 +18,20 @@ model Window "Test model for the window"
     annotation (Placement(transformation(extent={{82,70},{122,110}})));
   Buildings.HeatTransfer.WindowsBeta.InteriorHeatTransfer intCon(A=A, fFra=fFra,
     linearizeRadiation=linearize,
-    epsLWSha_air=glaSys.shade.epsLW_a,
-    epsLWSha_glass=glaSys.shade.epsLW_b,
-    tauLWSha_air=glaSys.shade.tauLW_a,
-    tauLWSha_glass=glaSys.shade.tauLW_b,
+    absIRSha_air=glaSys.shade.absIR_a,
+    absIRSha_glass=glaSys.shade.absIR_b,
+    tauIRSha_air=glaSys.shade.tauIR_a,
+    tauIRSha_glass=glaSys.shade.tauIR_b,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     "Room-side convective heat transfer"
     annotation (Placement(transformation(extent={{158,82},{138,102}})));
   Buildings.HeatTransfer.WindowsBeta.ExteriorHeatTransfer extCon(A=A, fFra=fFra,
     linearizeRadiation=linearize,
-    epsLWSha_air=glaSys.shade.epsLW_a,
-    epsLWSha_glass=glaSys.shade.epsLW_b,
-    tauLWSha_air=glaSys.shade.tauLW_a,
-    tauLWSha_glass=glaSys.shade.tauLW_b,
+    absIRSha_air=glaSys.shade.absIR_a,
+    absIRSha_glass=glaSys.shade.absIR_b,
+    tauIRSha_air=glaSys.shade.tauIR_a,
+    tauIRSha_glass=glaSys.shade.tauIR_b,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade,
     F_sky=0.5) "Exterior convective heat transfer"
@@ -74,18 +74,18 @@ model Window "Test model for the window"
                                                         filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
-  Modelica.Blocks.Math.Gain HRoo(k=0.1) "Short-wave irradiation from room"
+  Modelica.Blocks.Math.Gain HRoo(k=0.1) "Solar irradiation from room"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.WindowRadiation winRad(
     AWin=1,
     N=glaSys.nLay,
-    tauGlaSW=glaSys.glass.tauSW,
-    rhoGlaSW_a=glaSys.glass.rhoSW_a,
-    rhoGlaSW_b=glaSys.glass.rhoSW_b,
-    tauShaSW_a=glaSys.shade.tauSW_a,
-    tauShaSW_b=glaSys.shade.tauSW_b,
-    rhoShaSW_a=glaSys.shade.rhoSW_a,
-    rhoShaSW_b=glaSys.shade.rhoSW_b,
+    tauGlaSol=glaSys.glass.tauSol,
+    rhoGlaSol_a=glaSys.glass.rhoSol_a,
+    rhoGlaSol_b=glaSys.glass.rhoSol_b,
+    tauShaSol_a=glaSys.shade.tauSol_a,
+    tauShaSol_b=glaSys.shade.tauSol_b,
+    rhoShaSol_a=glaSys.shade.rhoSol_a,
+    rhoShaSol_b=glaSys.shade.rhoSol_b,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     annotation (Placement(transformation(extent={{100,-20},{120,0}})));

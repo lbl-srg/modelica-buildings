@@ -39,15 +39,15 @@ model ExteriorWallTwoWindows
     nCon=2,
     linearizeRadiation = false,
     fFra=fFra,
-    epsLW={extConMat.epsLW_a, extConMat.epsLW_a},
+    absIR={extConMat.absIR_a, extConMat.absIR_a},
     AOpa=A - AWin,
-    epsSW={extConMat.epsSW_a, extConMat.epsSW_a},
+    absSol={extConMat.absSol_a, extConMat.absSol_a},
     AWin=AWin,
-    epsSWFra={glaSys1.epsSWFra, glaSys2.epsSWFra},
-    epsLWSha_air={glaSys1.shade.epsLW_a, glaSys2.shade.epsLW_a},
-    epsLWSha_glass={glaSys1.shade.epsLW_b, glaSys2.shade.epsLW_b},
-    tauLWSha_air={glaSys1.shade.tauLW_a, glaSys2.shade.tauLW_a},
-    tauLWSha_glass={glaSys1.shade.tauLW_b, glaSys2.shade.tauLW_b},
+    absSolFra={glaSys1.absSolFra, glaSys2.absSolFra},
+    absIRSha_air={glaSys1.shade.absIR_a, glaSys2.shade.absIR_a},
+    absIRSha_glass={glaSys1.shade.absIR_b, glaSys2.shade.absIR_b},
+    tauIRSha_air={glaSys1.shade.tauIR_a, glaSys2.shade.tauIR_a},
+    tauIRSha_glass={glaSys1.shade.tauIR_b, glaSys2.shade.tauIR_b},
     haveExteriorShade={glaSys1.haveExteriorShade, glaSys2.haveExteriorShade},
     haveInteriorShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade},
     lat=0.73268921998722,
@@ -81,10 +81,10 @@ model ExteriorWallTwoWindows
   HeatTransfer.WindowsBeta.InteriorHeatTransfer intCon[nCon](
     A=AWin,
     fFra=fFra,
-    epsLWSha_air={glaSys1.shade.epsLW_a, glaSys2.shade.epsLW_a},
-    epsLWSha_glass={glaSys1.shade.epsLW_b, glaSys2.shade.epsLW_b},
-    tauLWSha_air={glaSys1.shade.tauLW_a, glaSys2.shade.tauLW_a},
-    tauLWSha_glass={glaSys1.shade.tauLW_b, glaSys2.shade.tauLW_b},
+    absIRSha_air={glaSys1.shade.absIR_a, glaSys2.shade.absIR_a},
+    absIRSha_glass={glaSys1.shade.absIR_b, glaSys2.shade.absIR_b},
+    tauIRSha_air={glaSys1.shade.tauIR_a, glaSys2.shade.tauIR_a},
+    tauIRSha_glass={glaSys1.shade.tauIR_b, glaSys2.shade.tauIR_b},
     haveExteriorShade={glaSys1.haveExteriorShade, glaSys2.haveExteriorShade},
     haveInteriorShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade},
     each linearizeRadiation = linearizeRadiation)
@@ -270,7 +270,7 @@ equation
       points={{-59,-50},{-30,-50},{-30,-31}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QTra.y, bouConExt.QAbsSWSha_flow) annotation (Line(
+  connect(QTra.y, bouConExt.QAbsSolSha_flow) annotation (Line(
       points={{41,50},{48,50},{48,10},{80.6667,10}},
       color={0,0,127},
       smooth=Smooth.None));

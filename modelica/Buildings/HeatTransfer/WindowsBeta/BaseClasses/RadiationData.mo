@@ -2,10 +2,10 @@ within Buildings.HeatTransfer.WindowsBeta.BaseClasses;
 record RadiationData "Radiation property of a window"
   extends Modelica.Icons.Record;
   extends Buildings.HeatTransfer.WindowsBeta.BaseClasses.RadiationBaseData;
-  final parameter Real glass[3, N]={tauGlaSW,rhoGlaSW_a,rhoGlaSW_b}
+  final parameter Real glass[3, N]={tauGlaSol,rhoGlaSol_a,rhoGlaSol_b}
     "Glass solar transmissivity, solar reflectivity at surface a and b, at normal incident angle";
-  final parameter Real traRefShaDev[2, 2]={{tauShaSW_a,tauShaSW_b},{rhoShaSW_a,
-      rhoShaSW_b}} "Shading device property";
+  final parameter Real traRefShaDev[2, 2]={{tauShaSol_a,tauShaSol_b},{rhoShaSol_a,
+      rhoShaSol_b}} "Shading device property";
   final parameter Integer NDIR=10 "Number of incident angles";
   final parameter Integer HEM=NDIR + 1 "Index of hemispherical integration";
   final parameter Modelica.SIunits.Angle psi[NDIR]=
@@ -112,7 +112,7 @@ record RadiationData "Radiation property of a window"
       HEM)
     "Hemiperical absorptivity of an interior shading device for interior irradiation";
   annotation (Documentation(info="<html>
-Record that computes the short-wave radiation data for glazing system.
+Record that computes the solar radiation data for glazing system.
 </html>", revisions="<html>
 <ul>
 <li>

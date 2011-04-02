@@ -1,6 +1,6 @@
 within Buildings.RoomsBeta.BaseClasses;
 partial model PartialSurfaceInterface
-  "Partial model that is used for long-wave radiation balance"
+  "Partial model that is used for infrared radiation balance"
   import Buildings;
   extends Buildings.RoomsBeta.BaseClasses.ConstructionRecords;
 
@@ -51,25 +51,25 @@ protected
   final parameter Modelica.SIunits.Area ASurBou[NSurBou] = surBou.A
     "Area of surface models of constructions that are modeled outside of this room";
 
-  final parameter Modelica.SIunits.Emissivity epsConExt[NConExt] = datConExt.layers.epsLW_b
-    "Emissivity of exterior constructions";
-  final parameter Modelica.SIunits.Emissivity epsConExtWinOpa[NConExtWin] = datConExtWin.layers.epsLW_b
-    "Emissivity of opaque part of exterior constructions that contain a window";
+  final parameter Modelica.SIunits.Emissivity epsConExt[NConExt] = datConExt.layers.absIR_b
+    "Absorptivity of exterior constructions";
+  final parameter Modelica.SIunits.Emissivity epsConExtWinOpa[NConExtWin] = datConExtWin.layers.absIR_b
+    "Absorptivity of opaque part of exterior constructions that contain a window";
   final parameter Modelica.SIunits.Emissivity epsConExtWinUns[NConExtWin]=
-    {(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].epsLW_b) for i in 1:NConExtWin}
-    "Emissivity of unshaded part of window constructions";
-  final parameter Modelica.SIunits.Emissivity epsConExtWinSha[NConExtWin] = datConExtWin.glaSys.shade.epsLW_a
-    "Emissivity of shaded part of window constructions";
-  final parameter Modelica.SIunits.Emissivity epsConExtWinFra[NConExtWin] = datConExtWin.glaSys.epsLWFra
-    "Emissivity of window frame";
-  final parameter Modelica.SIunits.Emissivity epsConPar_a[NConPar] = datConPar.layers.epsLW_a
-    "Emissivity of partition constructions surface a";
-  final parameter Modelica.SIunits.Emissivity epsConPar_b[NConPar] = datConPar.layers.epsLW_b
-    "Emissivity of partition constructions surface b";
-  final parameter Modelica.SIunits.Emissivity epsConBou[NConBou] = datConBou.layers.epsLW_b
-    "Emissivity of constructions with exterior boundary conditions exposed to outside of room model";
-  final parameter Modelica.SIunits.Emissivity epsSurBou[NSurBou] = surBou.epsLW
-    "Emissivity of surface models of constructions that are modeled outside of this room";
+    {(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) for i in 1:NConExtWin}
+    "Absorptivity of unshaded part of window constructions";
+  final parameter Modelica.SIunits.Emissivity epsConExtWinSha[NConExtWin] = datConExtWin.glaSys.shade.absIR_a
+    "Absorptivity of shaded part of window constructions";
+  final parameter Modelica.SIunits.Emissivity epsConExtWinFra[NConExtWin] = datConExtWin.glaSys.absIRFra
+    "Absorptivity of window frame";
+  final parameter Modelica.SIunits.Emissivity epsConPar_a[NConPar] = datConPar.layers.absIR_a
+    "Absorptivity of partition constructions surface a";
+  final parameter Modelica.SIunits.Emissivity epsConPar_b[NConPar] = datConPar.layers.absIR_b
+    "Absorptivity of partition constructions surface b";
+  final parameter Modelica.SIunits.Emissivity epsConBou[NConBou] = datConBou.layers.absIR_b
+    "Absorptivity of constructions with exterior boundary conditions exposed to outside of room model";
+  final parameter Modelica.SIunits.Emissivity epsSurBou[NSurBou] = surBou.absIR
+    "Absorptivity of surface models of constructions that are modeled outside of this room";
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,
             -240},{240,240}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
@@ -113,7 +113,7 @@ protected
         Documentation(info="<html>
 This partial model is used as a base class for models that need to exchange
 heat with room-facing surfaces. It defines parameters for the surface area,
-the emissivity, and the products of area times emissivity.
+the absorptivity, and the products of area times absorptivity.
 </p>
 <p>
 There are also parameters that contain the number of constructions,

@@ -1,6 +1,6 @@
 within Buildings.RoomsBeta.BaseClasses;
 model ShortWaveRadiationExchange
-  "Short-wave radiation heat exchange between the room facing surfaces"
+  "Solar radiation heat exchange between the room facing surfaces"
   extends Buildings.RoomsBeta.BaseClasses.PartialSurfaceInterface;
   parameter Boolean isFloorConExt[NConExt]
     "Flag to indicate if floor for exterior constructions";
@@ -19,22 +19,22 @@ model ShortWaveRadiationExchange
     "Transmissivity of window";
 
   Modelica.Blocks.Interfaces.RealOutput HOutConExtWin[NConExtWin](unit="W/m2")
-    "Outgoing short wave radiation that strikes window per unit area"
+    "Outgoing solar radiation that strikes window per unit area"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
   Modelica.Blocks.Interfaces.RealInput JInConExtWin[NConExtWin](unit="W")
-    "Short-wave radiation transmitted by window per unit area"
+    "Solar radiation transmitted by window per unit area"
     annotation (Placement(transformation(extent={{260,70},{240,90}})));
   Modelica.SIunits.HeatFlowRate JOutConExtWin[NConExtWin]
-    "Outgoing Short-wave radiation that strikes the window";
+    "Outgoing solar radiation that strikes the window";
 
   Modelica.SIunits.HeatFlowRate HTot
     "Total solar radiation that enters the room";
 
 protected
   final parameter Real k1(unit="1", fixed=false)
-    "Intermediate variable for gain for short wave radiation distribution";
+    "Intermediate variable for gain for solar radiation distribution";
   final parameter Real k2(fixed=false)
-    "Intermediate variable for gain for short wave radiation distribution";
+    "Intermediate variable for gain for solar radiation distribution";
   Modelica.SIunits.HeatFlowRate Q_flow[NTot]
     "Total solar radiation that is absorbed by the surfaces (or transmitted back through the glass)";
   final parameter Integer NOpa = NConExt+2*NConExtWin+2*NConPar+NConBou+NSurBou
@@ -44,13 +44,13 @@ protected
   final parameter Boolean isFlo[NTot](fixed=false)
     "Flag, true if a surface is a floor";
   final parameter Real eps[NTot](min=0, max=1, fixed=false)
-    "Short wave emissivity";
+    "Solar absorptivity";
   final parameter Real tau[NTot](min=0, max=1, fixed=false)
-    "Short wave transmissivity";
+    "Solar transmissivity";
   final parameter Modelica.SIunits.Area AFlo(fixed=false) "Total floor area";
   final parameter Modelica.SIunits.Area A[NTot](fixed=false) "Surface areas";
   final parameter Real k[NTot](unit="1", fixed=false)
-    "Gain for short wave radiation distribution";
+    "Gain for solar radiation distribution";
 
 initial equation
   // The next loops builds arrays that simplify
@@ -96,8 +96,8 @@ initial equation
   // Window glass
   for i in 1:NConExtWin loop
     // We simplify and assume that the shaded and unshaded part of the window
-    // have the same short wave absorbtance.
-    // This simplification allows lumping the short-wave distribution into
+    // have the same solar absorbtance.
+    // This simplification allows lumping the solar distribution into
     // a parameter.
     eps[i+NConExt+2*NConPar+NConBou+NSurBou+2*NConExtWin] = epsConExtWinUns[i];
     isFlo[i+NConExt+2*NConPar+NConBou+NSurBou+2*NConExtWin] = isFloorConExtWin[i];
@@ -111,7 +111,7 @@ initial equation
   //  AOpa[1: NConExtWin] AOpa[1: NConExtWin] AGla[1: NConExtWin]]
   // since NWin=NConExtWin.
 
-  // Short wave transmissivity
+  // Solar transmissivity
   for i in 1:NOpa loop
     tau[i] = 0;
   end for;
@@ -157,7 +157,7 @@ initial equation
      "    Revise the model parameters.");
   // Test whether the distribution factors add up to one
   assert(abs(1-sum(k)) < 1E-5,
-     "Program error: Sum of short-wave distribution factors in room is not equal to one. k=" + realString(sum(k)));
+     "Program error: Sum of solar distribution factors in room is not equal to one. k=" + realString(sum(k)));
 
 ////////////////////////////////////////////////////////////////////
 equation
@@ -226,7 +226,7 @@ Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},
           fillPattern=FillPattern.Solid)}),
         Documentation(info="<html>
 <p>
-This model computes the distribution of the short-wave radiation gain
+This model computes the distribution of the solar radiation gain
 to the room surfaces.
 Let 
 <i>N<sup>w</sup></i> 
@@ -235,7 +235,7 @@ denote the number of windows,
 the number of floor elements and
 <i>N<sup>n</sup></i> 
 the number of non-floor elements such as ceiling, wall and window elements.
-Input to the model are the short-wave radiosities 
+Input to the model are the solar radiosities 
 <i>J<sup>i</sup>, i &isin; {1, &hellip; , N<sup>w</sup>}</i>,
 that were transmitted through the window.
 The total incoming solar radiation is therefore
@@ -285,7 +285,7 @@ is set to be equal to the heat flow rate at the heat port.
 For the glass of the windows, the heat flow rate 
 <i>Q<sup>i</sup></i> is set to the radiosity
 <i>J<sub>out</sub><sup>i</sup></i>
-that will strike the glass or the window shade as diffuse short-wave
+that will strike the glass or the window shade as diffuse solar
 radiation.
 </html>",
         revisions="<html>

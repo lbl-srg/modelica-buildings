@@ -11,10 +11,10 @@ model BoundaryHeatTransfer
 
   Buildings.HeatTransfer.WindowsBeta.ExteriorHeatTransfer extCon(A=A, fFra=fFra,
     linearizeRadiation=linearizeRadiation,
-    epsLWSha_air=glaSys.shade.epsLW_a,
-    epsLWSha_glass=glaSys.shade.epsLW_b,
-    tauLWSha_air=glaSys.shade.tauLW_a,
-    tauLWSha_glass=glaSys.shade.tauLW_b,
+    absIRSha_air=glaSys.shade.absIR_a,
+    absIRSha_glass=glaSys.shade.absIR_b,
+    tauIRSha_air=glaSys.shade.tauIR_a,
+    tauIRSha_glass=glaSys.shade.tauIR_b,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade,
     F_sky=0.5) "Exterior convective heat transfer"

@@ -1,6 +1,6 @@
 within Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses;
-model PartialLongWaveRadiation
-  "Partial model to test long-wave radiation inside the room"
+model PartialInfraredRadiation
+  "Partial model to test infrared radiation inside the room"
   extends Buildings.RoomsBeta.BaseClasses.ConstructionRecords(
   nConExt=1,
   nConExtWin=1,
@@ -115,4 +115,4 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics));
-end PartialLongWaveRadiation;
+end PartialInfraredRadiation;

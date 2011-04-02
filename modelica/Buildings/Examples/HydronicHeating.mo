@@ -78,8 +78,8 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     nSurBou=1,
     surBou(
       each A=4*3,
-      each epsLW=0.9,
-      each epsSW=0.9,
+      each absIR=0.9,
+      each absSol=0.9,
       each til=Buildings.HeatTransfer.Types.Tilt.Wall),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nPorts=3,
@@ -112,8 +112,8 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     nSurBou=1,
     surBou(
       each A=4*3,
-      each epsLW=0.9,
-      each epsSW=0.9,
+      each absIR=0.9,
+      each absSol=0.9,
       each til=Buildings.HeatTransfer.Types.Tilt.Wall),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     linearizeRadiation=true,

@@ -19,9 +19,9 @@ model CenterOfGlass "Model for center of glass of a window construction"
     each final A=A,
     final x[:]=glaSys.glass.x,
     final k[:]=glaSys.glass.k,
-    final epsLW_a[:]=glaSys.glass.epsLW_a,
-    final epsLW_b[:]=glaSys.glass.epsLW_a,
-    final tauLW[:]=glaSys.glass.tauLW,
+    final absIR_a[:]=glaSys.glass.absIR_a,
+    final absIR_b[:]=glaSys.glass.absIR_a,
+    final tauIR[:]=glaSys.glass.tauIR,
     each final linearize=linearize) "Window glass layer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.HeatTransfer.WindowsBeta.BaseClasses.GasConvection gas[glaSys.nLay-1](
@@ -173,7 +173,7 @@ Buildings.HeatTransfer.WindowsBeta.BaseClasses.Shade</a>.
 </li>
 <li>
 an array of models <code>glass</code> for the heat conduction and the 
-long-wave radiative heat balance of the glass layers.
+infrared radiative heat balance of the glass layers.
 There can be an arbitrary number of glass layers, which are all modeled using 
 instances of
 <a href=\"modelica://Buildings.HeatTransfer.WindowsBeta.BaseClasses.GlassLayer\">

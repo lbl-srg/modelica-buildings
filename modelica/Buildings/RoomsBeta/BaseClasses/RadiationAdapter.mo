@@ -22,8 +22,8 @@ This model can be used as a thermal adapter in situations where the temperature
 and the heat flow rate are computed in separate models. 
 For example, this thermal adapter is used in the room model, which computes
 the distribution of radiative heat gains (such as due to a radiator) in
-<a href=\"modelica://Buildings.RoomsBeta.BaseClasses.LongWaveRadiationGainDistribution\">
-Buildings.RoomsBeta.BaseClasses.LongWaveRadiationGainDistribution</a>
+<a href=\"modelica://Buildings.RoomsBeta.BaseClasses.InfraredRadiationGainDistribution\">
+Buildings.RoomsBeta.BaseClasses.InfraredRadiationGainDistribution</a>
 and computes the the radiative temperature in
 <a href=\"modelica://Buildings.RoomsBeta.BaseClasses.RadiationTemperature\">
 Buildings.RoomsBeta.BaseClasses.RadiationTemperature</a>.
@@ -61,7 +61,7 @@ must have at least one element, unless the whole array
 is conditionally removed if its size is zero.
 However, conditionally removing the surface models does not work in this
 situation since some models, such as for computing the radiative heat exchange
-between the surfaces, require access to the area and emissivity of the surface models.
+between the surfaces, require access to the area and absorptivity of the surface models.
 
 </html>",
         revisions="<html>

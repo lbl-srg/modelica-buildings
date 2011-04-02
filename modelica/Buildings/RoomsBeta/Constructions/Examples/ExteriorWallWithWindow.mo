@@ -31,16 +31,16 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     nCon=1,
     linearizeRadiation = linearizeRadiation,
     fFra=fFra,
-    epsLW={extConMat.epsLW_a},
+    absIR={extConMat.absIR_a},
     azi={0},
     AOpa=A - AWin,
-    epsSW={extConMat.epsSW_a},
+    absSol={extConMat.absSol_a},
     AWin=AWin,
-    epsSWFra={glaSys.epsSWFra},
-    epsLWSha_air={glaSys.shade.epsLW_a},
-    epsLWSha_glass={glaSys.shade.epsLW_b},
-    tauLWSha_air={glaSys.shade.tauLW_a},
-    tauLWSha_glass={glaSys.shade.tauLW_b},
+    absSolFra={glaSys.absSolFra},
+    absIRSha_air={glaSys.shade.absIR_a},
+    absIRSha_glass={glaSys.shade.absIR_b},
+    tauIRSha_air={glaSys.shade.tauIR_a},
+    tauIRSha_glass={glaSys.shade.tauIR_b},
     haveExteriorShade={glaSys.haveExteriorShade},
     haveInteriorShade={glaSys.haveInteriorShade},
     lat=0.73268921998722,
@@ -72,10 +72,10 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
   HeatTransfer.WindowsBeta.InteriorHeatTransfer intCon[1](
     A=AWin,
     fFra=fFra,
-    epsLWSha_air={glaSys.shade.epsLW_a},
-    epsLWSha_glass={glaSys.shade.epsLW_b},
-    tauLWSha_air={glaSys.shade.tauLW_a},
-    tauLWSha_glass={glaSys.shade.tauLW_b},
+    absIRSha_air={glaSys.shade.absIR_a},
+    absIRSha_glass={glaSys.shade.absIR_b},
+    tauIRSha_air={glaSys.shade.tauIR_a},
+    tauIRSha_glass={glaSys.shade.tauIR_b},
     haveExteriorShade={glaSys.haveExteriorShade},
     haveInteriorShade={glaSys.haveInteriorShade},
     each linearizeRadiation = linearizeRadiation)
@@ -243,7 +243,7 @@ equation
       points={{-37,-50},{-30,-50},{-30,-31}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(QTra.y, bouConExt.QAbsSWSha_flow[1]) annotation (Line(
+  connect(QTra.y, bouConExt.QAbsSolSha_flow[1]) annotation (Line(
       points={{61,50},{68,50},{68,10},{80.6667,10}},
       color={0,0,127},
       smooth=Smooth.None));

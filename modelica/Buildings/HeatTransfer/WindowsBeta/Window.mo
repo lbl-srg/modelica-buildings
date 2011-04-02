@@ -410,13 +410,13 @@ and no interior shade, then the model <code>glaSha</code> will be removed.
 </p>
 <p>
 The models <code>glaUns</code> and <code>glaSha</code> 
-compute the short-wave radiation that is absorbed by each 
-glass pane and the short-wave radiation that is transitted 
+compute the solar radiation that is absorbed by each 
+glass pane and the solar radiation that is transitted 
 through the window as a function of the solar incidence angle.
 They then compute a heat balance that takes into account heat conduction through the glass,
 heat convection through the gas layer,
-and long-wave radiation from the exterior and the room through the glass and gas layers.
-The long-wave radiative heat exchange is computed using a radiosity balance.
+and infrared radiation from the exterior and the room through the glass and gas layers.
+The infrared radiative heat exchange is computed using a radiosity balance.
 Heat conduction through the frame is computed using a heat flow path that is parallel to the 
 glazing system, i.e., there is no heat exchange between the frame 
 and the glazing layer.

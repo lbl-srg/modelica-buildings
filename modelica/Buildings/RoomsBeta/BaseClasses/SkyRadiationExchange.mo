@@ -6,8 +6,8 @@ model SkyRadiationExchange
   parameter Integer n(min=1) "Number of constructions";
    parameter Modelica.SIunits.Area A[n] "Area of exterior constructions";
   parameter Real vieFacSky[n](min=0, max=1) "View factor to sky (=1 for roofs)";
-  parameter Modelica.SIunits.Emissivity epsLW[n]
-    "Long wave emissivity of building surface";
+  parameter Modelica.SIunits.Emissivity absIR[n]
+    "Infrared absorptivity of building surface";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port[n] "Heat port"
     annotation (Placement(transformation(extent={{90,-2},{110,18}})));
   Modelica.Blocks.Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
@@ -22,7 +22,7 @@ model SkyRadiationExchange
     annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
         iconTransformation(extent={{-140,20},{-100,60}})));
 protected
-  parameter Real k[n](unit="W/K4") = {4*A[i]*Modelica.Constants.sigma*epsLW[i] for i in 1:n}
+  parameter Real k[n](unit="W/K4") = {4*A[i]*Modelica.Constants.sigma*absIR[i] for i in 1:n}
     "Constant for radiative heat exchange";
   Modelica.SIunits.Temperature TEnv[n] "Environment temperature";
   Real TBlaSky4(unit="K4") "Auxiliary variable for radiative heat exchange";
@@ -84,9 +84,9 @@ equation
         Text(
           extent={{86,52},{136,6}},
           lineColor={0,0,127},
-          textString="QLW_flow")}),
+          textString="QIR_flow")}),
         Documentation(info = "<html>
-This model computes the long-wave radiative heat flow 
+This model computes the infrared radiative heat flow 
 between exterior building surfaces and the ambient. The ambient consists
 of the sky black-body radiation and the outdoor temperature 
 (which is used as an approximation to the surface temperature of

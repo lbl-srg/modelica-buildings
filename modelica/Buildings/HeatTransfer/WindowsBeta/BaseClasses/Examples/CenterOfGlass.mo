@@ -27,7 +27,7 @@ model CenterOfGlass "Test model for center of glas heat transfer"
         rotation=180,
         origin={110,-10})));
 
-  Buildings.HeatTransfer.Radiosity.OpaqueSurface radIn(A=A, epsLW=0.8,
+  Buildings.HeatTransfer.Radiosity.OpaqueSurface radIn(A=A, absIR=0.8,
     linearize=false) "Model for inside radiosity"
     annotation (Placement(transformation(extent={{100,-140},{80,-120}})));
   Modelica.Blocks.Sources.Constant TRoo(k=293.15) "Room temperature"

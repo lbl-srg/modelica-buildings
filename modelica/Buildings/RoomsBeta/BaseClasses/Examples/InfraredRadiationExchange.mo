@@ -1,11 +1,11 @@
 within Buildings.RoomsBeta.BaseClasses.Examples;
-model LongWaveRadiationExchange "Test model for long-wave radiation exchange"
+model InfraredRadiationExchange "Test model for infrared radiation exchange"
   extends Modelica.Icons.Example;
   extends
-    Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses.PartialLongWaveRadiation;
+    Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation;
   import Buildings;
 
-  Buildings.RoomsBeta.BaseClasses.LongWaveRadiationExchange lonWavRadGai(
+  Buildings.RoomsBeta.BaseClasses.InfraredRadiationExchange lonWavRadGai(
     nConExt=nConExt,
     nConExtWin=nConExtWin,
     nConPar=nConPar,
@@ -17,7 +17,7 @@ model LongWaveRadiationExchange "Test model for long-wave radiation exchange"
     final datConBou = datConBou,
     final surBou = surBou,
     linearizeRadiation = true)
-    "Distribution for long wave radiative heat gains (e.g., due to equipment and people)"
+    "Distribution for infrared radiative heat gains (e.g., due to equipment and people)"
     annotation (Placement(transformation(extent={{-30,0},{10,40}})));
   Buildings.HeatTransfer.Radiosity.Constant radSou[NConExtWin](each k=-10)
     "Radiosity source for window"
@@ -57,5 +57,5 @@ equation
       points={{-59,80},{20,80},{20,26.6667},{10.8333,26.6667}},
       color={0,127,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Commands(file="LongWaveRadiationExchange.mos" "run"));
-end LongWaveRadiationExchange;
+  annotation (Diagram(graphics), Commands(file="InfraredRadiationExchange.mos" "run"));
+end InfraredRadiationExchange;

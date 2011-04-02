@@ -1,6 +1,6 @@
 within Buildings.RoomsBeta.BaseClasses;
-model LongWaveRadiationGainDistribution
-  "Long-wave radiative heat gain distribution between the room facing surfaces"
+model InfraredRadiationGainDistribution
+  "Infrared radiative heat gain distribution between the room facing surfaces"
   extends Buildings.RoomsBeta.BaseClasses.PartialSurfaceInterface;
   parameter Boolean haveShade "Set to true if a shade is present";
 
@@ -21,48 +21,48 @@ model LongWaveRadiationGainDistribution
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
 protected
   Real fraConExt[NConExt] = AEpsConExt/sumAEps
-    "Fraction of long wave radiant heat gain absorbed by exterior constructions";
+    "Fraction of infrared radiant heat gain absorbed by exterior constructions";
   Real fraConExtWinOpa[NConExtWin] = AEpsConExtWinOpa/sumAEps
-    "Fraction of long wave radiant heat gain absorbed by opaque part of exterior constructions that have a window";
+    "Fraction of infrared radiant heat gain absorbed by opaque part of exterior constructions that have a window";
   Real fraConExtWinGla[NConExtWin] = (AEpsConExtWinSha + AEpsConExtWinUns)/sumAEps
-    "Fraction of long wave radiant heat gain absorbed by opaque part of glass constructions that have a window";
+    "Fraction of infrared radiant heat gain absorbed by opaque part of glass constructions that have a window";
   Real fraConExtWinFra[NConExtWin] = AEpsConExtWinFra/sumAEps
-    "Fraction of long wave radiant heat gain absorbed by window frame of exterior constructions that have a window";
+    "Fraction of infrared radiant heat gain absorbed by window frame of exterior constructions that have a window";
 
   Real fraConPar_a[NConPar] = AEpsConPar_a/sumAEps
-    "Fraction of long wave radiant heat gain absorbed by partition constructions surface a";
+    "Fraction of infrared radiant heat gain absorbed by partition constructions surface a";
   Real fraConPar_b[NConPar] = AEpsConPar_b/sumAEps
-    "Fraction of long wave radiant heat gain absorbed by partition constructions surface b";
+    "Fraction of infrared radiant heat gain absorbed by partition constructions surface b";
   Real fraConBou[NConBou] = AEpsConBou/sumAEps
-    "Fraction of long wave radiant heat gain absorbed by constructions with exterior boundary conditions exposed to outside of room model";
+    "Fraction of infrared radiant heat gain absorbed by constructions with exterior boundary conditions exposed to outside of room model";
   Real fraSurBou[NSurBou] = AEpsSurBou/sumAEps
-    "Fraction of long wave radiant heat gain absorbed by surface models of constructions that are modeled outside of this room";
+    "Fraction of infrared radiant heat gain absorbed by surface models of constructions that are modeled outside of this room";
 
  parameter Real AEpsConExt[NConExt] = {AConExt[i]*epsConExt[i] for i in 1:NConExt}
-    "Emissivity times area of exterior constructions";
+    "Absorptivity times area of exterior constructions";
  parameter Real AEpsConExtWinOpa[NConExtWin] = {AConExtWinOpa[i]*epsConExtWinOpa[i] for i in 1:NConExtWin}
-    "Emissivity times area of opaque part of exterior constructions that contain a window";
+    "Absorptivity times area of opaque part of exterior constructions that contain a window";
  Real AEpsConExtWinUns[NConExtWin] = {shaSig[i].yCom * AConExtWinGla[i]*epsConExtWinUns[i]
      for i in 1:NConExtWin}
-    "Emissivity times area of unshaded window constructions";
+    "Absorptivity times area of unshaded window constructions";
  Real AEpsConExtWinSha[NConExtWin] = {shaSig[i].y    * AConExtWinGla[i]*epsConExtWinSha[i]
     for i in 1:NConExtWin}
-    "Emissivity times area of shaded window constructions";
+    "Absorptivity times area of shaded window constructions";
  parameter Real AEpsConExtWinFra[NConExtWin] = {AConExtWinFra[i]*epsConExtWinFra[i] for i in 1:NConExtWin}
-    "Emissivity times area of window frame";
+    "Absorptivity times area of window frame";
  parameter Real AEpsConPar_a[NConPar] = {AConPar[i]*epsConPar_a[i] for i in 1:NConPar}
-    "Emissivity times area of partition constructions surface a";
+    "Absorptivity times area of partition constructions surface a";
  parameter Real AEpsConPar_b[NConPar] = {AConPar[i]*epsConPar_b[i] for i in 1:NConPar}
-    "Emissivity times area of partition constructions surface b";
+    "Absorptivity times area of partition constructions surface b";
  parameter Real AEpsConBou[NConBou] = {AConBou[i]*epsConBou[i] for i in 1:NConBou}
-    "Emissivity times area of constructions with exterior boundary conditions exposed to outside of room model";
+    "Absorptivity times area of constructions with exterior boundary conditions exposed to outside of room model";
  parameter Real AEpsSurBou[NSurBou] = {ASurBou[i]*epsSurBou[i] for i in 1:NSurBou}
-    "Emissivity times area of surface models of constructions that are modeled outside of this room";
+    "Absorptivity times area of surface models of constructions that are modeled outside of this room";
 
  parameter Real sumAEpsNoWin(fixed=false)
-    "Sum of emissivity times area of all constructions except for windows";
+    "Sum of absorptivity times area of all constructions except for windows";
  Real sumAEps
-    "Sum of emissivity times area of all constructions including windows";
+    "Sum of absorptivity times area of all constructions including windows";
 
  Buildings.HeatTransfer.WindowsBeta.BaseClasses.ShadingSignal shaSig[NConExtWin](
       each final haveShade=haveShade)
@@ -75,7 +75,7 @@ equation
 
   sumAEps      = sumAEpsNoWin + sum(AEpsConExtWinUns) + sum(AEpsConExtWinSha);
 
-  // Long-wave radiative heat flow
+  // Infrared radiative heat flow
   conExt.Q_flow    = -fraConExt*Q_flow;
   conExtWin.Q_flow = -fraConExtWinOpa*Q_flow;
   conPar_a.Q_flow  = -fraConPar_a*Q_flow;
@@ -83,7 +83,7 @@ equation
   conBou.Q_flow    = -fraConBou*Q_flow;
   conSurBou.Q_flow    = -fraSurBou*Q_flow;
   // This model makes the simplification that the shade, the glass and the frame have
-  // the same emissivity in the infrared region
+  // the same absorptivity in the infrared region
   JOutConExtWin        = -fraConExtWinGla*Q_flow;
   conExtWinFra.Q_flow  = -fraConExtWinFra*Q_flow;
   // Check for conservation of energy
@@ -94,9 +94,9 @@ equation
   annotation (
 preferedView="info",
 Documentation(info = "<html>
-This model computes the distribution of the long-wave radiant heat gain
+This model computes the distribution of the infrared radiant heat gain
 to the room surfaces. 
-The long-wave radiant heat gain <i>Q</i> is an input to this model.
+The infrared radiant heat gain <i>Q</i> is an input to this model.
 It is distributed to the individual surfaces according to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
@@ -152,4 +152,4 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
             240}}),
             graphics));
-end LongWaveRadiationGainDistribution;
+end InfraredRadiationGainDistribution;

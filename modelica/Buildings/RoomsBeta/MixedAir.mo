@@ -34,7 +34,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final linearizeRadiation = linearizeRadiation,
     final conMod=intConMod,
     final hFixed=hIntFixed,
-    tauGlaSW={0.6 for i in 1:NConExtWin}) "Air volume"
+    tauGlaSol={0.6 for i in 1:NConExtWin}) "Air volume"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
 
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
@@ -162,8 +162,8 @@ model MixedAir "Model of a room in which the air is completely mixed"
     linearizeRadiation = linearizeRadiation,
     final conMod=extConMod,
     final hFixed=hExtFixed,
-    final epsLW=datConExt.layers.epsLW_a,
-    final epsSW=datConExt.layers.epsSW_a) if
+    final absIR=datConExt.layers.absIR_a,
+    final absSol=datConExt.layers.absSol_a) if
        haveConExt
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{116,116},{146,146}})));
@@ -181,15 +181,15 @@ model MixedAir "Model of a room in which the air is completely mixed"
     linearizeRadiation = linearizeRadiation,
     final conMod=extConMod,
     final hFixed=hExtFixed,
-    final epsLW=datConExtWin.layers.epsLW_a,
-    final epsLWSha_air={datConExtWin[i].glaSys.shade.epsLW_a for i in 1:nConExtWin},
-    final epsLWSha_glass={datConExtWin[i].glaSys.shade.epsLW_b for i in 1:nConExtWin},
-    final tauLWSha_air={datConExtWin[i].glaSys.shade.tauLW_a for i in 1:nConExtWin},
-    final tauLWSha_glass={datConExtWin[i].glaSys.shade.tauLW_b for i in 1:nConExtWin},
+    final absIR=datConExtWin.layers.absIR_a,
+    final absIRSha_air={datConExtWin[i].glaSys.shade.absIR_a for i in 1:nConExtWin},
+    final absIRSha_glass={datConExtWin[i].glaSys.shade.absIR_b for i in 1:nConExtWin},
+    final tauIRSha_air={datConExtWin[i].glaSys.shade.tauIR_a for i in 1:nConExtWin},
+    final tauIRSha_glass={datConExtWin[i].glaSys.shade.tauIR_b for i in 1:nConExtWin},
     final haveExteriorShade={datConExtWin[i].glaSys.haveExteriorShade for i in 1:nConExtWin},
     final haveInteriorShade={datConExtWin[i].glaSys.haveInteriorShade for i in 1:nConExtWin},
-    final epsSW=datConExtWin.layers.epsSW_a,
-    final epsSWFra=datConExtWin.glaSys.epsSWFra) if
+    final absSol=datConExtWin.layers.absSol_a,
+    final absSolFra=datConExtWin.glaSys.absSolFra) if
        haveConExtWin
     "Exterior boundary conditions for constructions with a window"
     annotation (Placement(transformation(extent={{116,46},{146,76}})));
@@ -197,17 +197,17 @@ model MixedAir "Model of a room in which the air is completely mixed"
   HeatTransfer.WindowsBeta.BaseClasses.WindowRadiation conExtWinRad[NConExtWin](
      final AWin=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
      final N=datConExtWin.glaSys.nLay,
-     final tauGlaSW=datConExtWin.glaSys.glass.tauSW,
-     final rhoGlaSW_a=datConExtWin.glaSys.glass.rhoSW_a,
-     final rhoGlaSW_b=datConExtWin.glaSys.glass.rhoSW_b,
-     final tauShaSW_a=datConExtWin.glaSys.shade.tauSW_a,
-     final tauShaSW_b=datConExtWin.glaSys.shade.tauSW_b,
-     final rhoShaSW_a=datConExtWin.glaSys.shade.rhoSW_a,
-     final rhoShaSW_b=datConExtWin.glaSys.shade.rhoSW_b,
+     final tauGlaSol=datConExtWin.glaSys.glass.tauSol,
+     final rhoGlaSol_a=datConExtWin.glaSys.glass.rhoSol_a,
+     final rhoGlaSol_b=datConExtWin.glaSys.glass.rhoSol_b,
+     final tauShaSol_a=datConExtWin.glaSys.shade.tauSol_a,
+     final tauShaSol_b=datConExtWin.glaSys.shade.tauSol_b,
+     final rhoShaSol_a=datConExtWin.glaSys.shade.rhoSol_a,
+     final rhoShaSol_b=datConExtWin.glaSys.shade.rhoSol_b,
      final haveExteriorShade=datConExtWin.glaSys.haveExteriorShade,
      final haveInteriorShade=datConExtWin.glaSys.haveInteriorShade) if
         haveConExtWin
-    "Model for short wave radiation through shades and window"
+    "Model for solar radiation through shades and window"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
 
   BoundaryConditions.WeatherData.Bus weaBus
@@ -374,7 +374,7 @@ equation
       points={{-200,-60},{-130,-60},{-130,42.0667}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(bouConExtWin.QAbsSWSha_flow, conExtWinRad.QAbsExtSha_flow)
+  connect(bouConExtWin.QAbsSolSha_flow, conExtWinRad.QAbsExtSha_flow)
     annotation (Line(
       points={{115,64},{100,64},{100,-1},{61,-1}},
       color={0,0,127},
@@ -404,7 +404,7 @@ equation
           46.6667}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conExtWinRad.QAbsIntSha_flow, air.QAbsSWSha_flow) annotation (Line(
+  connect(conExtWinRad.QAbsIntSha_flow, air.QAbsSolSha_flow) annotation (Line(
       points={{61,-13},{76,-13},{76,-40},{-154,-40},{-154,43.3333},{-138.667,
           43.3333}},
       color={0,0,127},
@@ -498,7 +498,7 @@ through the building envelope.</p>
 <p>The model <a href=\"modelica:Buildings.RoomsBeta.MixedAir\">Buildings.RoomsBeta.MixedAir</a> is 
 a model of a room with completely mixed air.
 The room can have any number of constructions and surfaces that participate in the 
-heat exchange through convection, conduction, long-wave radiation and short-wave radiation.</p>
+heat exchange through convection, conduction, infrared radiation and solar radiation.</p>
 <h4>Physical description</h4>
 <p>
 The room models the following physical processes:
@@ -511,8 +511,8 @@ Buildings.HeatTransfer.Conduction.MultiLayer</a>
 </li>
 <li>
 Heat transfer through glazing system, taking into account
-short-wave radiation, long-wave radiation, heat conduction and heat convection.
-The short-wave radiation is modeled using
+solar radiation, infrared radiation, heat conduction and heat convection.
+The solar radiation is modeled using
 <a href=\"modelica://Buildings.HeatTransfer.WindowsBeta.BaseClasses.WindowRadiation\">
 Buildings.HeatTransfer.WindowsBeta.BaseClasses.WindowRadiation</a>.
 The overall heat transfer is modeled using the model
@@ -541,7 +541,7 @@ or using a constant heat transfer coefficient, as described in
 Buildings.HeatTransfer.Convection.Exterior</a>.
 </li>
 <li>
-Short-wave and long-wave heat transfer between the room enclosing surfaces,
+Solar and infrared heat transfer between the room enclosing surfaces,
 and temperature, pressure and species changes inside the room volume.
 These effects are modeled and described in 
 <a href=\"modelica://Buildings.RoomsBeta.BaseClasses.MixedAir\">
@@ -680,8 +680,8 @@ modConPar
 </td>
 <td>
 Interior constructions such as partitions within a room. Both surfaces of this construction are inside the room model
-and participate in the long-wave and short-wave radiation balance. 
-Since the view factor between these surfaces is zero, there is no long-wave radiation from one surface to the other
+and participate in the infrared and solar radiation balance. 
+Since the view factor between these surfaces is zero, there is no infrared radiation from one surface to the other
 of the same construction.
 </td>
 </tr>
@@ -698,7 +698,7 @@ modConBou
 <td>
 Constructions that expose the other boundary conditions of the other surface to the outside of this room model.
 The heat conduction through these constructions is modeled in this room model. 
-The surface at the port <code>opa_b</code> is connected to the models for convection, long-wave and short-wave radiation exchange 
+The surface at the port <code>opa_b</code> is connected to the models for convection, infrared and solar radiation exchange 
 with this room model and with the other surfaces of this room model.
 The surface at the port <code>opa_a</code> is connected to the port <code>surf_conBou</code> of this room model. This could be used, for example,
 to model a floor inside this room and connect to other side of this floor model to a model that computes heat transfer in the soil.
@@ -716,7 +716,7 @@ surBou
 </td>
 <td>
 Opaque surfaces of this room model whose heat transfer through the construction is modeled outside of this room model.
-This object is modeled using a data record that contains the area, short-wave and long-wave emissivities and surface tilt.
+This object is modeled using a data record that contains the area, solar and infrared emissivities and surface tilt.
 The surface then participates in the convection and radiation heat balance of the room model. The heat flow rate and temperature
 of this surface are exposed at the heat port <code>surf_surBou</code>.
 An application of this object may be to connect the port <code>surf_surBou</code> of this room model with the port
@@ -753,7 +753,7 @@ With these constructions, we may define a room as follows: </p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConBou(layers={matLayFlo}, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*4,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Buildings.HeatTransfer.Types.Tilt.Floor),</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nSurBou=1,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    surBou(</span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*3, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsLW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsSW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Buildings.HeatTransfer.Types.Tilt.Wall),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    surBou(</span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*3, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">absIR=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">absSol=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Buildings.HeatTransfer.Types.Tilt.Wall),</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    linearizeRadiation = true ,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    lat=0.73268921998722) </span><span style=\" font-family:'Courier New,courier'; color:#006400;\">\"Room model\"</span></p>
@@ -852,14 +852,14 @@ room model (through the connector <code>surf_conBou</code>).
 The declaration
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nSurBou=1,</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    surBou(</span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*3, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsLW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">epsSW=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Buildings.HeatTransfer.Types.Tilt.Wall),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    surBou(</span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*3, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">absIR=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">absSol=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Buildings.HeatTransfer.Types.Tilt.Wall),</span></p>
 
 </pre>
 is used to instantiate a model for a surface that is in this room. 
-The surface has an area of <i>6*3 m<sup>2</sup></i>, emissivity in the long-wave and the short-wave
+The surface has an area of <i>6*3 m<sup>2</sup></i>, absorptivity in the infrared and the solar
 spectrum of <i>0.9</i> and it is a wall.
-The room model will compute long-wave radiative heat exchange, short-wave radiative heat gains
-and long-wave radiative heat gains of this surface. The surface temperature and 
+The room model will compute infrared radiative heat exchange, solar radiative heat gains
+and infrared radiative heat gains of this surface. The surface temperature and 
 heat flow rate are exposed by this room model at the heat port 
 <code>surf_surBou</code>. 
 A model builder may use this construct

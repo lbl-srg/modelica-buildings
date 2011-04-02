@@ -10,14 +10,14 @@ package OpaqueConstructions
    final parameter Real R(unit="m2.K/W")=sum(material[:].R)
       "Thermal resistance per unit area";
 
-   parameter Modelica.SIunits.Emissivity epsLW_a=0.9
-      "Long wave emissivity of surface a (usually outside-facing surface)";
-   parameter Modelica.SIunits.Emissivity epsLW_b=0.9
-      "Long wave emissivity of surface b (usually room-facing surface)";
-   parameter Modelica.SIunits.Emissivity epsSW_a=0.5
-      "Short wave emissivity of surface a (usually outside-facing surface)";
-   parameter Modelica.SIunits.Emissivity epsSW_b=0.5
-      "Short wave emissivity of surface b (usually room-facing surface)";
+   parameter Modelica.SIunits.Emissivity absIR_a=0.9
+      "Infrared absorptivity of surface a (usually outside-facing surface)";
+   parameter Modelica.SIunits.Emissivity absIR_b=0.9
+      "Infrared absorptivity of surface b (usually room-facing surface)";
+   parameter Modelica.SIunits.Emissivity absSol_a=0.5
+      "Solar absorptivity of surface a (usually outside-facing surface)";
+   parameter Modelica.SIunits.Emissivity absSol_b=0.5
+      "Solar absorptivity of surface b (usually room-facing surface)";
    parameter Buildings.HeatTransfer.Types.SurfaceRoughness roughness_a=
       Buildings.HeatTransfer.Types.SurfaceRoughness.Medium
       "Exterior surface roughness";
@@ -57,10 +57,10 @@ layer is facing the room-side.
 This is the same convention as is used in EnergyPlus and in Window 6.
 </p>
 <p>
-The parameters <code>epsLW_a</code> and <code>epsLW_b</code>
-are used to compute long-wave heat radiation (in the infrared spectrum).
-The parameters <code>epsSW_a</code> and <code>epsSW_b</code>
-are used to compute short-wave heat radiation (in the solar spectrum).
+The parameters <code>absIR_a</code> and <code>absIR_b</code>
+are used to compute infrared heat radiation (in the infrared spectrum).
+The parameters <code>absSol_a</code> and <code>absSol_b</code>
+are used to compute solar heat radiation (in the solar spectrum).
 </p>
 <p>
 The parameter <code>roughness_a</code> is used if the convective heat transfer
@@ -105,10 +105,10 @@ layer is facing the room-side.
 This is the same convention as is used in EnergyPlus and in Window 6.
 </p>
 <p>
-The parameters <code>epsLW_a</code> and <code>epsLW_b</code>
-are used to compute long-wave heat radiation (in the infrared spectrum).
-The parameters <code>epsSW_a</code> and <code>epsSW_b</code>
-are used to compute short-wave heat radiation (in the solar spectrum).
+The parameters <code>absIR_a</code> and <code>absIR_b</code>
+are used to compute infrared heat radiation (in the infrared spectrum).
+The parameters <code>absSol_a</code> and <code>absSol_b</code>
+are used to compute solar heat radiation (in the solar spectrum).
 </p>
 
 </html>",

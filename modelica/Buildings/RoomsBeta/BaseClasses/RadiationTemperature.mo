@@ -38,23 +38,23 @@ protected
   final parameter Modelica.SIunits.Area AGla[NWin] = datConExtWin.AGla
     "Surface area of opaque surfaces";
   final parameter Real epsGla[NWin](min=0, max=1)=
-    {datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].epsLW_b for i in 1:NWin}
-    "Emissivity of glass";
+    {datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b for i in 1:NWin}
+    "Absorptivity of glass";
   final parameter Real epsSha[NWin](min=0, max=1)=
-    {datConExtWin[i].glaSys.shade.epsLW_a for i in 1:NWin}
-    "Emissivity of shade";
+    {datConExtWin[i].glaSys.shade.absIR_a for i in 1:NWin}
+    "Absorptivity of shade";
   final parameter Real tauSha[NWin](min=0, max=1)=
     {(if datConExtWin[i].glaSys.haveInteriorShade then
-      datConExtWin[i].glaSys.shade.tauLW_a else 1) for i in 1:NWin}
+      datConExtWin[i].glaSys.shade.tauIR_a else 1) for i in 1:NWin}
     "Transmissivity of shade";
   final parameter Modelica.SIunits.Area epsAOpa[NOpa](fixed=false)
-    "Product of area times emissivity of opaque surfaces";
+    "Product of area times absorptivity of opaque surfaces";
   final parameter Modelica.SIunits.Area epsAGla[NWin](fixed=false)
-    "Product of area times emissivity of window surfaces";
+    "Product of area times absorptivity of window surfaces";
   final parameter Modelica.SIunits.Area epsASha[NWin](fixed=false)
-    "Product of area times emissivity of window shade";
+    "Product of area times absorptivity of window shade";
   final parameter Modelica.SIunits.Area epsTauASha[NWin](fixed=false)
-    "Product of area times glass emissivity times shade transmittance";
+    "Product of area times glass absorptivity times shade transmittance";
   Modelica.SIunits.Temperature TOpa[NOpa](each start=293.15, each nominal=293.15)
     "Temperature of opaque surfaces";
   Modelica.SIunits.Temperature TGlaUns[NWin](each start=293.15, each nominal=293.15)
@@ -220,11 +220,11 @@ computed as
 where 
 <i>T<sub>rad</sub></i> is the radiative temperature of the room,
 <i>A<sup>i</sup></i> are the surface areas of the room,
-<i>&epsilon;<sup>i</sup></i> are the long-wave emissivities of the surfaces, and
+<i>&epsilon;<sup>i</sup></i> are the infrared emissivities of the surfaces, and
 <i>T<sup>i</sup></i> are the surface temperatures.
 <p>
 If a the windows have a shade, then the equation is modified to take the actual shaded and non-shaded
-surface area into account. In this situation, the shaded part of a window has a long-wave radiative power
+surface area into account. In this situation, the shaded part of a window has a infrared radiative power
 of 
 <p align=\"center\" style=\"font-style:italic;\">
  E = A &nbsp; ( u &nbsp; &epsilon;<sub>s</sub> &nbsp; T<sub>s</sub> + 
@@ -233,10 +233,10 @@ of
 where
 <i>A</i> is the surface area of the glass,
 <i>u</i> is the control signal of the shade,
-<i>&epsilon;<sub>s</sub></i> is the long-wave emissivity of the shade,
+<i>&epsilon;<sub>s</sub></i> is the infrared absorptivity of the shade,
 <i>T<sub>s</sub></i> is the temperature of the shade,
-<i>&epsilon;<sub>g</sub></i> is the long-wave emissivity of the glass,
-<i>&tau;<sub>s</sub></i> is the long-wave transmittance of the shade, and
+<i>&epsilon;<sub>g</sub></i> is the infrared absorptivity of the glass,
+<i>&tau;<sub>s</sub></i> is the infrared transmittance of the shade, and
 <i>T<sub>gs</sub></i> is the glass temperature behind the shade.
 <br>
 For the unshaded part of the window, the radiative power is

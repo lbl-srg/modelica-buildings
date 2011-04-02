@@ -69,7 +69,7 @@ model To_VolumeFraction "Example problem for conversion model"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubPeo(m_flow_nominal=0.1,
       redeclare package Medium = Medium)
-    "CO2 concentration in emission from people"
+    "CO2 concentration in absorptance from people"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubFre(m_flow_nominal=0.1,
       redeclare package Medium = Medium)
