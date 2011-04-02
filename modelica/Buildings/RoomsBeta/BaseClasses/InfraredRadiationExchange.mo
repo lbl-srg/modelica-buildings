@@ -5,6 +5,9 @@ model InfraredRadiationExchange
 
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin]
     "Incoming radiosity that connects to non-frame part of the window"
     annotation (Placement(transformation(extent={{260,70},{240,90}})));
@@ -208,7 +211,13 @@ equation
   if linearizeRadiation then
     TOpa = T4Opa./T03;
   else
-    TOpa = Buildings.Utilities.Math.Functions.powerLinearized(x=T4Opa, x0=243.15^4, n=0.25);
+    if homotopyInitialization then
+      TOpa = homotopy(actual=Buildings.Utilities.Math.Functions.powerLinearized(x=T4Opa, x0=243.15^4, n=0.25),
+		      simplified=T4Opa./T03);
+    else
+      TOpa = Buildings.Utilities.Math.Functions.powerLinearized(x=T4Opa, x0=243.15^4, n=0.25);
+    end if;
+
   end if;
   // Assign radiosity that comes from window
   // and that leaves window.
@@ -373,6 +382,10 @@ cannot see each other.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 2, 2011 by Michael Wetter:<br>
+Added <code>homotopy</code> operator.
+</li>
 <li>
 Feb. 3, 2011, by Michael Wetter:<br>
 Corrected bug in start value of radiosity, reformulated equations to get

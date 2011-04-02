@@ -13,6 +13,7 @@ model GlassLayer "Model for a glass layer of a window assembly"
     "Infrared absorptivity of surface b (usually outside-facing surface)";
   parameter Modelica.SIunits.Emissivity tauIR
     "Infrared transmittance of glass";
+
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
     annotation (Placement(transformation(extent={{-140,50},{-100,90}}),
@@ -34,7 +35,9 @@ model GlassLayer "Model for a glass layer of a window assembly"
         rotation=90,
         origin={0,-110})));
   parameter Boolean linearize=false "Set to true to linearize emissive power";
-//protected
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+protected
  Real T4_a(min=1E8, unit="K4", start=293.15^4, nominal=1E10)
     "4th power of temperature at surface a";
  Real T4_b(min=1E8, unit="K4", start=293.15^4, nominal=1E10)
@@ -52,8 +55,18 @@ equation
   //port_b.T-port_a.T = R/u * (2*port_b.Q_flow+QAbs_flow);
   u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-(absIR_a*JIn_a-E_a));
   // Radiosity balance
-  T4_a = if linearize then T03 * port_a.T else port_a.T^4;
-  T4_b = if linearize then T03 * port_b.T else port_b.T^4;
+  if linearize then
+    T4_a = T03 * port_a.T;
+    T4_b = T03 * port_b.T;
+  else
+    if homotopyInitialization then
+      T4_a = homotopy(actual=port_a.T^4, simplified=T03*port_a.T);
+      T4_b = homotopy(actual=port_b.T^4, simplified=T03*port_b.T);
+    else
+      T4_a = port_a.T^4;
+      T4_b = port_b.T^4;
+    end if;
+  end if;
   // Emissive power
   E_a = u * A * absIR_a * Modelica.Constants.sigma * T4_a;
   E_b = u * A * absIR_b * Modelica.Constants.sigma * T4_b;
@@ -101,6 +114,10 @@ Buildings.HeatTransfer.Radiosity.WindowPane</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 2, 2011 by Michael Wetter:<br>
+Added <code>homotopy</code> operator.
+</li>
 <li>
 August 18 2010, by Michael Wetter:<br>
 First implementation.

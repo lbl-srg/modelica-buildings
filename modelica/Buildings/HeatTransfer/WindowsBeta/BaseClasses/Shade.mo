@@ -19,6 +19,9 @@ model Shade
     "Infrared reflectivity of surface that faces glass";
   parameter Boolean linearize = false "Set to true to linearize emissive power"
   annotation (Evaluate=true);
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   parameter Modelica.SIunits.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer"
     annotation (Dialog(enable=linearize), Evaluate=true);
@@ -87,7 +90,16 @@ equation
   // equal to the infrared absorptivity plus the reflected incoming
   // radiosity plus the radiosity that is transmitted from the
   // other surface.
-    T4 = if linearize then T03 * sha.T else (sha.T)^4;
+    if linearize then
+      T4 = T03 * sha.T;
+    else
+      if homotopyInitialization then
+	T4 = homotopy(actual=(sha.T)^4, simplified=T03 * sha.T);
+      else
+	T4 = (sha.T)^4;
+      end if;
+    end if;
+
     E_air   = u * A * absIR_air   * Modelica.Constants.sigma * T4;
     E_glass = u * A * absIR_glass * Modelica.Constants.sigma * T4;
     // Radiosity outgoing from shade towards air side and glass side
@@ -231,6 +243,10 @@ of Glazing Systems with Shading Devices.<br>
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+April 2, 2011 by Michael Wetter:<br>
+Added <code>homotopy</code> operator.
+</li>
 <li>
 February 3, by Michael Wetter:<br>
 Corrected bug in start value of radiosity port and in heat balance of shade.

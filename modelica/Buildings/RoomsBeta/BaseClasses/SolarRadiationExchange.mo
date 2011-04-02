@@ -1,5 +1,5 @@
 within Buildings.RoomsBeta.BaseClasses;
-model ShortWaveRadiationExchange
+model SolarRadiationExchange
   "Solar radiation heat exchange between the room facing surfaces"
   extends Buildings.RoomsBeta.BaseClasses.PartialSurfaceInterface;
   parameter Boolean isFloorConExt[NConExt]
@@ -296,4 +296,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end ShortWaveRadiationExchange;
+end SolarRadiationExchange;

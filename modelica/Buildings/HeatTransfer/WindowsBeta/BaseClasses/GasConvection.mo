@@ -55,6 +55,8 @@ protected
     "Convective heat transfer coefficient";
   parameter Real Nu0(fixed=false, min=0) "Nusselt number";
   parameter Real Ra0(fixed=false, min=0) "Raleigh number";
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
 
 initial equation
   assert(isVertical or isHorizontal, "Only vertical and horizontal windows are implemented.");
@@ -105,7 +107,12 @@ equation
        q_flow=0;
     end if; // isVertical or isHorizontal
   end if; // linearize
-  Q_flow = u*A*q_flow;
+  if homotopyInitialization then
+    Q_flow = u*A*homotopy(actual=q_flow,
+                          simplified=hCon0*dT);
+  else
+    Q_flow = u*A*q_flow;
+  end if;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),       graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
@@ -182,6 +189,10 @@ of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </html>", revisions="<html>
 <ul>
+<li>
+April 2, 2011 by Michael Wetter:<br>
+Added <code>homotopy</code> operator.
+</li>
 <li>
 August 18 2010, by Michael Wetter:<br>
 First implementation.

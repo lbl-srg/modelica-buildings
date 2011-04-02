@@ -235,7 +235,7 @@ public
      haveConExtWin "Outgoing radiosity that connects to unshaded part of glass"
     annotation (Placement(transformation(extent={{240,150},{260,170}})));
 
-  ShortWaveRadiationExchange shoWavRadExc(
+  SolarRadiationExchange solRadExc(
     final nConExt=nConExt,
     final nConExtWin=nConExtWin,
     final nConPar=nConPar,
@@ -256,7 +256,7 @@ public
        haveConExtWin "Solar radiative heat exchange"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 
-  InfraredRadiationGainDistribution lonWavRadGai(
+  InfraredRadiationGainDistribution irRadGai(
     final nConExt=nConExt,
     final nConExtWin=nConExtWin,
     final nConPar=nConPar,
@@ -270,7 +270,7 @@ public
     final haveShade=haveShade)
     "Distribution for infrared radiative heat gains (e.g., due to equipment and people)"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
-  InfraredRadiationExchange lonWavRadExc(
+  InfraredRadiationExchange irRadExc(
     final nConExt=nConExt,
     final nConExtWin=nConExtWin,
     final nConPar=nConPar,
@@ -442,77 +442,77 @@ equation
       points={{-260,180},{-220,180},{-220,148},{90,148},{90,126},{97.2,126}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conExt, lonWavRadExc.conExt) annotation (Line(
+  connect(conExt, irRadExc.conExt) annotation (Line(
       points={{240,220},{160,220},{160,19.1667},{-80,19.1667}},
       color={190,0,0},
       smooth=Smooth.None));
-  connect(conExtWinFra, lonWavRadExc.conExtWinFra) annotation (Line(
+  connect(conExtWinFra, irRadExc.conExtWinFra) annotation (Line(
       points={{242,5.55112e-16},{192,5.55112e-16},{192,10},{-79.9167,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conPar_a, lonWavRadExc.conPar_a) annotation (Line(
+  connect(conPar_a, irRadExc.conPar_a) annotation (Line(
       points={{242,-60},{188,-60},{188,7.5},{-79.9167,7.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conPar_b, lonWavRadExc.conPar_b) annotation (Line(
+  connect(conPar_b, irRadExc.conPar_b) annotation (Line(
       points={{242,-100},{184,-100},{184,6},{180,6},{180,5.83333},{-79.9167,
           5.83333}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(conBou, lonWavRadExc.conBou) annotation (Line(
+  connect(conBou, irRadExc.conBou) annotation (Line(
       points={{242,-160},{180,-160},{180,4},{-79.9167,4},{-79.9167,3.33333}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(conSurBou, lonWavRadExc.conSurBou) annotation (Line(
+  connect(conSurBou, irRadExc.conSurBou) annotation (Line(
       points={{241,-220},{176,-220},{176,0},{-79.9583,0},{-79.9583,0.833333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(lonWavRadExc.JOutConExtWin, convConWin.JInRoo)
+  connect(irRadExc.JOutConExtWin, convConWin.JInRoo)
                                                         annotation (Line(
       points={{-79.5833,15},{86,15},{86,110},{98,110}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(convConWin.JOutRoo, lonWavRadExc.JInConExtWin)
+  connect(convConWin.JOutRoo, irRadExc.JInConExtWin)
                                                         annotation (Line(
       points={{97.6,114},{84,114},{84,13.3333},{-79.5833,13.3333}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(lonWavRadGai.JOutConExtWin, convConWin.JInRoo)
+  connect(irRadGai.JOutConExtWin, convConWin.JInRoo)
                                                         annotation (Line(
       points={{-79.5833,-25},{86,-25},{86,110},{98,110}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(lonWavRadGai.conExt, lonWavRadExc.conExt) annotation (Line(
+  connect(irRadGai.conExt, irRadExc.conExt) annotation (Line(
       points={{-80,-20.8333},{-80,-20},{-58,-20},{-58,19.1667},{-80,19.1667}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(lonWavRadGai.conExtWinFra, lonWavRadExc.conExtWinFra) annotation (Line(
+  connect(irRadGai.conExtWinFra, irRadExc.conExtWinFra) annotation (Line(
       points={{-79.9167,-30},{-54,-30},{-54,10},{-79.9167,10}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(lonWavRadGai.conPar_a, lonWavRadExc.conPar_a) annotation (Line(
+  connect(irRadGai.conPar_a, irRadExc.conPar_a) annotation (Line(
       points={{-79.9167,-32.5},{-52,-32.5},{-52,7.5},{-79.9167,7.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(lonWavRadGai.conPar_b, lonWavRadExc.conPar_b) annotation (Line(
+  connect(irRadGai.conPar_b, irRadExc.conPar_b) annotation (Line(
       points={{-79.9167,-34.1667},{-50,-34.1667},{-50,5.83333},{-79.9167,
           5.83333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(lonWavRadGai.conBou, lonWavRadExc.conBou) annotation (Line(
+  connect(irRadGai.conBou, irRadExc.conBou) annotation (Line(
       points={{-79.9167,-36.6667},{-54,-36.6667},{-54,-36},{-48,-36},{-48,
           3.33333},{-79.9167,3.33333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(lonWavRadGai.conSurBou, lonWavRadExc.conSurBou) annotation (Line(
+  connect(irRadGai.conSurBou, irRadExc.conSurBou) annotation (Line(
       points={{-79.9583,-39.1667},{-46,-39.1667},{-46,0.833333},{-79.9583,
           0.833333}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(lonWavRadGai.uSha, uSha)
+  connect(irRadGai.uSha, uSha)
                              annotation (Line(
       points={{-100.833,-22.5},{-120,-22.5},{-120,148},{-220,148},{-220,180},{
           -260,180}},
@@ -536,11 +536,11 @@ equation
       points={{120,180},{240,180}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conExtWin, lonWavRadExc.conExtWin) annotation (Line(
+  connect(conExtWin, irRadExc.conExtWin) annotation (Line(
       points={{240,180},{166,180},{166,17.5},{-80,17.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(lonWavRadExc.conExtWin, lonWavRadGai.conExtWin) annotation (Line(
+  connect(irRadExc.conExtWin, irRadGai.conExtWin) annotation (Line(
       points={{-80,17.5},{-56,17.5},{-56,-22.5},{-80,-22.5}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -576,31 +576,31 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(conExt, shoWavRadExc.conExt) annotation (Line(
+  connect(conExt, solRadExc.conExt) annotation (Line(
       points={{240,220},{160,220},{160,59.1667},{-80,59.1667}},
       color={190,0,0},
       smooth=Smooth.None));
-  connect(conExtWinFra, shoWavRadExc.conExtWinFra) annotation (Line(
+  connect(conExtWinFra, solRadExc.conExtWinFra) annotation (Line(
       points={{242,5.55112e-16},{192,5.55112e-16},{192,50},{-79.9167,50}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conPar_a, shoWavRadExc.conPar_a) annotation (Line(
+  connect(conPar_a, solRadExc.conPar_a) annotation (Line(
       points={{242,-60},{188,-60},{188,48},{-79.9167,48},{-79.9167,47.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conPar_b, shoWavRadExc.conPar_b) annotation (Line(
+  connect(conPar_b, solRadExc.conPar_b) annotation (Line(
       points={{242,-100},{184,-100},{184,44},{-79.9167,44},{-79.9167,45.8333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conBou, shoWavRadExc.conBou) annotation (Line(
+  connect(conBou, solRadExc.conBou) annotation (Line(
       points={{242,-160},{180,-160},{180,42},{-79.9167,42},{-79.9167,43.3333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conSurBou, shoWavRadExc.conSurBou) annotation (Line(
+  connect(conSurBou, solRadExc.conSurBou) annotation (Line(
       points={{241,-220},{176,-220},{176,40.8333},{-79.9583,40.8333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conExtWin, shoWavRadExc.conExtWin) annotation (Line(
+  connect(conExtWin, solRadExc.conExtWin) annotation (Line(
       points={{240,180},{166,180},{166,57.5},{-80,57.5}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -609,12 +609,12 @@ equation
       points={{-260,-200},{-210,-200},{-210,80},{108,80},{108,107}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shoWavRadExc.JInConExtWin, JInConExtWin) annotation (Line(
+  connect(solRadExc.JInConExtWin, JInConExtWin) annotation (Line(
       points={{-79.5833,53.3333},{-74,53.3333},{-74,70},{-220,70},{-220,-100},{
           -260,-100}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(shoWavRadExc.HOutConExtWin,HOutConExtWin)  annotation (Line(
+  connect(solRadExc.HOutConExtWin,HOutConExtWin)  annotation (Line(
       points={{-79.5833,55},{-70,55},{-70,76},{-200,76},{-200,-250}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -623,35 +623,35 @@ equation
           -100.833,-62.5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(lonWavRadExc.conExt, radTem.conExt) annotation (Line(
+  connect(irRadExc.conExt, radTem.conExt) annotation (Line(
       points={{-80,19.1667},{-58,19.1667},{-58,-60.8333},{-80,-60.8333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(lonWavRadExc.conExtWin, radTem.conExtWin) annotation (Line(
+  connect(irRadExc.conExtWin, radTem.conExtWin) annotation (Line(
       points={{-80,17.5},{-56,17.5},{-56,-62.5},{-80,-62.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(lonWavRadExc.conExtWinFra, radTem.conExtWinFra) annotation (Line(
+  connect(irRadExc.conExtWinFra, radTem.conExtWinFra) annotation (Line(
       points={{-79.9167,10},{-54,10},{-54,-70},{-79.9167,-70}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(lonWavRadExc.conPar_a, radTem.conPar_a) annotation (Line(
+  connect(irRadExc.conPar_a, radTem.conPar_a) annotation (Line(
       points={{-79.9167,7.5},{-52,7.5},{-52,-72.5},{-79.9167,-72.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(lonWavRadExc.conPar_b, radTem.conPar_b) annotation (Line(
+  connect(irRadExc.conPar_b, radTem.conPar_b) annotation (Line(
       points={{-79.9167,5.83333},{-50,5.83333},{-50,-74.1667},{-79.9167,
           -74.1667}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(lonWavRadExc.conBou, radTem.conBou) annotation (Line(
+  connect(irRadExc.conBou, radTem.conBou) annotation (Line(
       points={{-79.9167,3.33333},{-48,3.33333},{-48,-76.6667},{-79.9167,
           -76.6667}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(lonWavRadExc.conSurBou, radTem.conSurBou) annotation (Line(
+  connect(irRadExc.conSurBou, radTem.conSurBou) annotation (Line(
       points={{-79.9583,0.833333},{-46,0.833333},{-46,-79.1667},{-79.9583,
           -79.1667}},
       color={191,0,0},
@@ -689,7 +689,7 @@ equation
       points={{-199,106},{-190,106},{-190,114},{-182,114}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add.y, lonWavRadGai.Q_flow) annotation (Line(
+  connect(add.y, irRadGai.Q_flow) annotation (Line(
       points={{-159,120},{-130,120},{-130,-30},{-100.833,-30}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -781,8 +781,8 @@ into account the location of the surfaces.
 </li>
 <li>
 The solar radiation exchange is modeled in
-<a href=\"modelica://Buildings.RoomsBeta.BaseClasses.ShortWaveRadiationExchange\">
-Buildings.RoomsBeta.BaseClasses.ShortWaveRadiationExchange</a>.
+<a href=\"modelica://Buildings.RoomsBeta.BaseClasses.SolarRadiationExchange\">
+Buildings.RoomsBeta.BaseClasses.SolarRadiationExchange</a>.
 The assumptions in this model is that all solar radiation
 first hits the floor, and is then partially absorbed and partially reflected by the floor.
 The reflectance are diffuse, and the reflected radiation is distributed

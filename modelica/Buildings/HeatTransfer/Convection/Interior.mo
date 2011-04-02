@@ -6,7 +6,10 @@ model Interior "Model for a interior (room-side) convective heat transfer"
     Buildings.HeatTransfer.Types.InteriorConvection.Fixed
     "Convective heat transfer model"
   annotation(Evaluate=true);
-
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+protected
+  constant Modelica.SIunits.Temperature dT0 = 2 "Initial temperature used in homotopy method";
 equation
   if (conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed) then
     q_flow = hFixed * dT;
@@ -14,13 +17,27 @@ equation
     // Even if hCon is a step function with a step at zero,
     // the product hCon*dT is differentiable at zero with
     // a continuous first derivative
-    if isCeiling then
-       q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(          dT=dT);
-    elseif isFloor then
-       q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(          dT=dT);
+    if homotopyInitialization then
+      if isCeiling then
+         q_flow = homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT),
+                    simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT0));
+      elseif isFloor then
+         q_flow = homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT),
+                    simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT0));
+      else
+         q_flow = homotopy(actual=Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT),
+                    simplified=dT/dT0*Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT0));
+      end if;
     else
-       q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(          dT=dT);
+      if isCeiling then
+         q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.ceiling(dT=dT);
+      elseif isFloor then
+         q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.floor(dT=dT);
+      else
+         q_flow = Buildings.HeatTransfer.Convection.Functions.HeatFlux.wall(dT=dT);
+      end if;
     end if;
+
   end if;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
@@ -102,6 +119,10 @@ Buildings.HeatTransfer.Functions.Convection.ConvectiveHeatFlux.wall</a>
 </li>
 </html>", revisions="<html>
 <ul>
+<li>
+April 2, 2011 by Michael Wetter:<br>
+Added <code>homotopy</code> operator.
+</li>
 <li>
 March 10 2010, by Michael Wetter:<br>
 First implementation.
