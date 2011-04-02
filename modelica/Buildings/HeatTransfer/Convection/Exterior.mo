@@ -39,12 +39,12 @@ initial equation
   elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.VerySmooth) then
     R=1.00;
   else
-    R=1.00;
+    R=0;
   end if;
 equation
   if (conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed) then
     qN_flow = hFixed * dT;
-    W = 0;
+    W = 1;
     hF = 0;
     qF_flow = 0;
   else
