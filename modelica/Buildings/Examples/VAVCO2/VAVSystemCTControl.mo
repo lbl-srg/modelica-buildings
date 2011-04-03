@@ -82,11 +82,11 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     Ti=60,
     yMax=1,
     yMin=0,
-    initType=Modelica.Blocks.Types.InitPID.InitialState,
     Td=60,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     k=0.1,
-    y_start=1) "Controller for supply fan"
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    y_start=0.5) "Controller for supply fan"
             annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Modelica.Blocks.Sources.Constant const(k=120)
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
@@ -97,7 +97,8 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
         Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow (
           V_flow_nominal={0,11.08,14.9}, dp_nominal={1508,743,100}),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    dynamicBalance=true)
+    dynamicBalance=true,
+    homotopyInitialization=true)
     annotation (Placement(transformation(extent={{92,-18},{108,-2}})));
   Fluid.Movers.FlowMachine_y fan56(
     redeclare package Medium = Medium,
@@ -106,7 +107,8 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
         Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
           V_flow_nominal={2.676,11.05}, dp_nominal={600,100}),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
-    dynamicBalance=true)
+    dynamicBalance=true,
+    homotopyInitialization=true)
     annotation (Placement(transformation(extent={{108,-78},{92,-62}})));
   Fluid.Sensors.VolumeFlowRate senVolFloSup(redeclare package Medium = Medium,
       m_flow_nominal=mMIT_flow) "Volume flow rate of supply fan"
@@ -119,11 +121,10 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     yMax=1,
     yMin=0,
     Td=60,
-    y_start=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1/mMIT_flow,
-    initType=Modelica.Blocks.Types.InitPID.SteadyState)
-    "Controller for return fan"
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    y_start=0.5) "Controller for return fan"
             annotation (Placement(transformation(extent={{120,80},{140,100}})));
 equation
   connect(PAtm.y, bouIn.p_in) annotation (Line(
