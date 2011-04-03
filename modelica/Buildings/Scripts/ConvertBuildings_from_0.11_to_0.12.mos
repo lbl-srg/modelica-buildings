@@ -1,6 +1,6 @@
-// Conversion script for AirConditioning library
-//  from: ver 1.2, 050601
-//  to:   ver 1.3, 050930
+// Conversion script for Buildings library
+//  from: Version 0.11.0
+//  to:   Version 0.12.0
 clear
 
 convertClear();
