@@ -6,15 +6,15 @@ model FixedResistanceDpM
        annotation(Evaluate=true, Dialog(enable = not linearized));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
        annotation(Evaluate=true, Dialog(enable = use_dh and not linearized));
-  parameter Real ReC=4000
+  parameter Real ReC(min=0)=4000
     "Reynolds number where transition to turbulent starts"
        annotation(Evaluate=true, Dialog(enable = use_dh and not linearized));
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true, Dialog(enable = not use_dh and not linearized));
 initial equation
- assert(m_flow_nominal > 0, "m_flow_nominal must be positive. Check parameters.");
- if ( m_flow_turbulent > m_flow_nominal) then
+ assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
+ if ( m_flow_turbulent > m_flow_nominal_pos) then
    Modelica.Utilities.Streams.print("Warning: In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent."
            + "\n"
            + "  m_flow_nominal = " + realString(m_flow_nominal) + "\n"
@@ -30,11 +30,11 @@ equation
  if computeFlowResistance then
    m_flow_turbulent = if use_dh then
                       eta_nominal*dh/4*Modelica.Constants.pi*ReC else
-                      deltaM * m_flow_nominal;
+                      deltaM * m_flow_nominal_pos;
     if linearized then
-     k = m_flow_nominal / dp_nominal / conv2;
+     k = m_flow_nominal_pos / dp_nominal_pos / conv2;
     else
-     k = m_flow_nominal / sqrt(dp_nominal);
+     k = m_flow_nominal_pos / sqrt(dp_nominal_pos);
     end if;
   else
       m_flow_turbulent = 0;

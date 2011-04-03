@@ -3,7 +3,7 @@ model SplitterFixedResistanceDpM
   "Flow splitter with fixed resistance at each port"
     extends Buildings.BaseClasses.BaseIcon;
     extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
-    mDyn_flow_nominal = sum(m_flow_nominal[:]/3),
+    mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
          redeclare package Medium=Medium,
             from_dp=from_dp, 
@@ -37,11 +37,10 @@ model SplitterFixedResistanceDpM
 
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
     annotation(Evaluate=true, Dialog(enable = not linearized));
-  parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal(each min=0)
-    "Mass flow rate" annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure[3] dp_nominal(each min=0, each
-      displayUnit = "Pa")
-    "Pressure"
+  parameter Modelica.SIunits.MassFlowRate[3] m_flow_nominal
+    "Mass flow rate. Set negative at outflowing ports." annotation(Dialog(group = "Nominal condition"));
+  parameter Modelica.SIunits.Pressure[3] dp_nominal(each displayUnit = "Pa")
+    "Pressure. Set negative at outflowing ports."
     annotation(Dialog(group = "Nominal condition"));
   parameter Real deltaM(min=0) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
@@ -49,7 +48,7 @@ model SplitterFixedResistanceDpM
 
   parameter Modelica.SIunits.Length[3] dh={1, 1, 1} "Hydraulic diameter"
     annotation(Dialog(enable = use_dh and not linearized));
-  parameter Real[3] ReC={4000, 4000, 4000}
+  parameter Real[3] ReC(each min=0)={4000, 4000, 4000}
     "Reynolds number where transition to turbulent starts"
       annotation(Dialog(enable = use_dh and not linearized));
   parameter Boolean linearized = false

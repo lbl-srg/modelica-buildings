@@ -19,10 +19,10 @@ partial model PartialStaticFourPortInterface
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
 
-  parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*m1_flow_nominal
+  parameter Medium1.MassFlowRate m1_flow_small(min=0) = 1E-4*abs(m1_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
-  parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*m2_flow_nominal
+  parameter Medium2.MassFlowRate m2_flow_small(min=0) = 1E-4*abs(m2_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"

@@ -1,14 +1,16 @@
 within Buildings.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface(
-     show_T=false, show_V_flow=false);
+     show_T=false, show_V_flow=false, 
+     m_flow(start=m_flow_nominal, nominal=m_flow_nominal_pos),
+     dp(start=dp_nominal, nominal=dp_nominal_pos));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate"
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp_nominal(min=0, displayUnit="Pa")
+  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"                                annotation(Dialog(group = "Nominal condition"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
@@ -17,7 +19,7 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
   Real k(unit="") "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  Medium.MassFlowRate m_flow_turbulent
+  Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
     "Turbulent flow if |m_flow| >= m_flow_turbulent, not a parameter because k can be a function of time"
      annotation(Evaluate=true);
 
@@ -30,9 +32,16 @@ protected
     "Initial value for solver for specific enthalpy";           //specificEnthalpy(sta0)
  constant Real conv(unit="m.s2/kg") = 1 "Factor, needed to satisfy unit check";
  constant Real conv2 = sqrt(conv) "Factor, needed to satisfy unit check";
- final parameter Boolean computeFlowResistance=(dp_nominal > Modelica.Constants.eps)
+ final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
     "Flag to enable/disable computation of flow resistance"
    annotation(Evaluate=true);
+protected
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal) "Absolute value of nominal flow rate";
+  final parameter Modelica.SIunits.Pressure dp_nominal_pos = abs(dp_nominal) "Absolute value of nominal pressure";
+initial equation
+  if computeFlowResistance then
+    assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
+  end if;
 equation
   // Pressure drop calculation
   if computeFlowResistance then
@@ -41,12 +50,12 @@ equation
         m_flow=homotopy(actual=FlowModels.basicFlowFunction_dp(dp=dp, k=k,
                                    m_flow_turbulent=m_flow_turbulent,
                                    linearized=linearized),
-                        simplified=m_flow_nominal*dp/dp_nominal);
+                        simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
       else
         dp=homotopy(actual=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
                                    m_flow_turbulent=m_flow_turbulent,
                                    linearized=linearized),
-                    simplified=dp_nominal*m_flow/m_flow_nominal);
+                    simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
       end if;
     else // do not use homotopy
       if from_dp then
@@ -106,6 +115,13 @@ i.e., using a regularized implementation of the equation
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 2, 2011 by Michael Wetter:<br>
+Added <code>m_flow_nominal_pos</code> and <code>dp_nominal_pos</code> to allow
+providing negative nominal values which will be used, for example, to set start
+values of flow splitters which may have negative flow rates and pressure drop
+at the initial condition.
+</li>
 <li>
 March 23, 2011 by Michael Wetter:<br>
 Added homotopy operator.
