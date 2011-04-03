@@ -11,6 +11,9 @@ partial model PowerInterface
   parameter Boolean motorCooledByFluid = true
     "If true, then motor heat is added to fluid stream"
     annotation(Dialog(group="Characteristics"));
+  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
+    annotation(Evaluate=true, Dialog(tab="Advanced"));
+
   replaceable function motorEfficiency =
     Buildings.Fluid.Movers.BaseClasses.Characteristics.constantEfficiency(eta_nominal = 0.7) constrainedby
     Characteristics.baseEfficiency "Efficiency vs. normalized volume flow rate"
@@ -59,9 +62,14 @@ equation
   QThe_flow +  WFlo = if motorCooledByFluid then PEle else WHyd;
   // At m_flow = 0, the solver may still obtain positive values for QThe_flow.
   // The next statement sets the heat input into the medium to zero for very small flow rates.
-  Q_flow = Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
+  if homotopyInitialization then
+    Q_flow = homotopy(actual=Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
+                       x=abs(VMachine_flow)-2*delta_V_flow, deltax=delta_V_flow),
+                     simplified=0);
+  else
+    Q_flow = Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
                        x=abs(VMachine_flow)-2*delta_V_flow, deltax=delta_V_flow);
-
+  end if;
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics),
