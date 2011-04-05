@@ -139,18 +139,14 @@ Updated library to Modelica 3.2.
 Added <code>homotopy</code> operator.
 </li>
 <li>
-Changed base classes
-<a href=\"modelica://Buildings.Interfaces/PartialStaticTwoPortHeatMassTransfer.mo\">
-Buildings.Interfaces/PartialStaticTwoPortHeatMassTransfer.mo</a>,
-<a href=\"modelica://Buildings.Interfaces/PartialStaticFourPortHeatMassTransfer.mo\">
-Buildings.Interfaces/PartialStaticFourPortHeatMassTransfer.mo</a> and
-<a href=\"modelica://Buildings.Movers/BaseClasses/IdealSource.mo\">
-Buildings.Movers/BaseClasses/IdealSource.mo</a>
-to avoid a division by zero at zero mass flow rate.
-</li>
-<li>
 Restructured package <a href=\"modelica://Buildings.HeatTransfer\">
 Buildings.HeatTransfer</a>.
+</li>
+<li>
+Rewrote the models in <a href=\"modelica://Buildings.Fluid.Actuators\">
+Buildings.Fluid.Actuators</a> to avoid having the flow coefficient
+<code>k</code> as an algebraic variable.
+This increases robustness.
 </li>
 </ul>
 </p>

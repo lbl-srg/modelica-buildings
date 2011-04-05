@@ -1,21 +1,21 @@
 within Buildings.Fluid.BaseClasses.FlowModels.Examples;
 model TestFlowFunctions "Test model for flow functions"
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
 
  Modelica.SIunits.MassFlowRate m1_flow;
  Modelica.SIunits.MassFlowRate m2_flow;
  Modelica.SIunits.Pressure dp1;
  Modelica.SIunits.Pressure dp2;
- Modelica.SIunits.Pressure p1_nominal=2;
+ Modelica.SIunits.Pressure p1_nominal=101325;
  Modelica.SIunits.Time dTime= 1;
  Modelica.SIunits.Pressure p1 "Boundary condition";
  parameter Modelica.SIunits.Pressure p2 = 101325 "Boundary condition";
  parameter Boolean linearized=false;
- parameter Boolean from_dp = false;
+ parameter Boolean from_dp = true;
  parameter Real k = 0.5;
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = 1 "Nominal flow rate";
 equation
-  p1 = p1_nominal + time/dTime * 20;
+  p1 = p1_nominal + (time-0.5)/dTime * 20;
   m1_flow = m2_flow;
   p2-p1 = dp1 + dp2;
   if from_dp then
@@ -26,6 +26,7 @@ equation
   dp2=FlowModels.basicFlowFunction_m_flow(m_flow=m2_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3, linearized=linearized);
 
   end if;
+  assert(abs(dp1-dp2) < 1E-5, "Error in implementation.");
 annotation (Commands(file="TestFlowFunctions.mos" "run"),
               Documentation(info="<html>
 This model test the inverse functions. When translating this model in 
