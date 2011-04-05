@@ -5,7 +5,8 @@ function wall "Free convection, wall"
 algorithm
   q_flow := sign(dT)*1.3*abs(dT)^1.3333;
 
-annotation (Documentation(info=
+annotation (smoothOrder=1,
+Documentation(info=
 "<html>
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a wall as

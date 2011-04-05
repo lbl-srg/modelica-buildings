@@ -12,7 +12,7 @@
 # - writes the combined log file 'unitTests.log'
 #   in the current directory, 
 # - checks the md5sum of the .mat files versus the number
-#   that is stored in Resources/md5sum, and
+#   that is stored in Buildings/../md5sum, and
 # - exits with the message 
 #    'Unit tests completed successfully.' or with
 #   an error message.
@@ -165,7 +165,7 @@ def checkMD5Sum(worDir, ans):
                 ans = "-"
                 
             # check if .mat already exists in library
-            md5FilOld = os.path.join(LIBHOME, "Resources", "md5sum", filNam) + ".md5"
+            md5FilOld = os.path.join(LIBHOME, "..", "md5sum", filNam) + ".md5"
             if os.path.exists(md5FilOld):  # md5 file exists. Check if the md5 sum changed
                 fMD5 = open(md5FilOld, 'r')
                 md5Old = fMD5.readline()

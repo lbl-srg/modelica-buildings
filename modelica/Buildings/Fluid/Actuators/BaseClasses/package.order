@@ -1,9 +1,11 @@
-der_equalPercentage
-equalPercentage
-exponentialDamper
 PartialActuator
 PartialDamperExponential
 PartialThreeWayValve
 PartialTwoWayValve
 ValveParameters
+equalPercentage
+exponentialDamper
+exponentialDamper_dp
+exponentialDamper_m_flow
+der_equalPercentage
 Examples

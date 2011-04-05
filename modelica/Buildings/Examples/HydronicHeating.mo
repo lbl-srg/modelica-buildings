@@ -492,9 +492,6 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
   Modelica.Blocks.Sources.Constant TOutSwi(k=16 + 293.15)
     "Outside air temperature to switch heating on or off"
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
-  Modelica.Blocks.Nonlinear.Limiter limiter(uMax=10, uMin=0.02)
-    "Limiter to ensure a small flow rate even if pump is off."
-    annotation (Placement(transformation(extent={{180,100},{200,120}})));
   Modelica.Blocks.Continuous.FirstOrder delTRoo1(
     initType=Modelica.Blocks.Types.Init.SteadyState,
     y(unit="K"),
@@ -970,10 +967,6 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(limiter.y, pumRad.y) annotation (Line(
-      points={{201,110},{210,110},{210,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TRoo1.T, delTRoo1.u) annotation (Line(
       points={{500,484},{510,484}},
       color={0,0,127},
@@ -988,10 +981,6 @@ equation
       smooth=Smooth.None));
   connect(delTRoo2.y, conRoo2.u_m) annotation (Line(
       points={{535,226},{550,226},{550,238}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conPum.y, limiter.u) annotation (Line(
-      points={{141,110},{178,110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dpSen.p_rel, delRadPum.u) annotation (Line(
@@ -1009,6 +998,10 @@ equation
   connect(res3.port_b, thrWayVal.port_1) annotation (Line(
       points={{140,-120},{180,-120},{180,-60},{220,-60},{220,-10}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(conPum.y, pumRad.y) annotation (Line(
+      points={{141,110},{204,110},{204,50},{210,50}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,
             -200},{700,600}}), graphics),

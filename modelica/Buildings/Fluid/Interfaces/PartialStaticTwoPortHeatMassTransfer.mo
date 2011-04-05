@@ -14,14 +14,8 @@ protected
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
 equation
   // Energy balance (no storage, no heat loss/gain)
-  if noEvent(abs(port_a.m_flow)>Modelica.Constants.small) then
-    port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -Q_flow;
-    port_b.m_flow*port_b.h_outflow + port_a.m_flow*inStream(port_a.h_outflow) = -Q_flow;
-  else
-    port_a.h_outflow = inStream(port_b.h_outflow);
-    port_b.h_outflow = inStream(port_a.h_outflow);
-  end if;
-
+  port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -Q_flow;
+  port_b.m_flow*port_b.h_outflow + port_a.m_flow*inStream(port_a.h_outflow) = -Q_flow;
 
   // Mass balance (no storage)
   port_a.m_flow + port_b.m_flow = -sum(mXi_flow);
@@ -31,13 +25,8 @@ equation
     port_a.Xi_outflow = inStream(port_b.Xi_outflow);
     port_b.Xi_outflow = inStream(port_a.Xi_outflow);
   else
-    if noEvent(abs(port_a.m_flow)>Modelica.Constants.small) then
-      port_a.m_flow*port_a.Xi_outflow + port_b.m_flow*inStream(port_b.Xi_outflow) = -mXi_flow;
-      port_b.m_flow*port_b.Xi_outflow + port_a.m_flow*inStream(port_a.Xi_outflow) = -mXi_flow;
-    else
-      port_a.Xi_outflow = inStream(port_b.Xi_outflow);
-      port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-    end if;
+    port_a.m_flow*port_a.Xi_outflow + port_b.m_flow*inStream(port_b.Xi_outflow) = -mXi_flow;
+    port_b.m_flow*port_b.Xi_outflow + port_a.m_flow*inStream(port_a.Xi_outflow) = -mXi_flow;
   end if;
   // Transport of trace substances
   port_a.C_outflow = inStream(port_b.C_outflow);
@@ -117,10 +106,6 @@ the energy and mass balances need to be added, such as
 </p>
 </html>", revisions="<html>
 <ul>
-<li>
-March 29, 2011, by Michael Wetter:<br>
-Changed energy and mass balance to avoid a division by zero if <code>m_flow=0</code>.
-</li>
 <li>
 March 27, 2011, by Michael Wetter:<br>
 Added <code>homotopy</code> operator.

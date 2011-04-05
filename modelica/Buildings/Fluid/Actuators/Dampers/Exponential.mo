@@ -2,7 +2,8 @@ within Buildings.Fluid.Actuators.Dampers;
 model Exponential "Air damper with exponential opening characteristics"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
   final dp_nominal=(m_flow_nominal/kDam_nominal)^2,
-  dp(nominal=10));
+  dp(nominal=10),
+  final kFixed=0);
 protected
    parameter Real kDam_nominal(fixed=false)
     "Flow coefficient for damper, k=m_flow/sqrt(dp), with unit=(kg*m)^(1/2)";
@@ -21,8 +22,6 @@ initial algorithm
    kDam_nominal :=sqrt(2*rho_nominal)*A/kThetaSqRt_nominal
     "flow coefficient for resistance base model, kDam=k=m_flow/sqrt(dp)";
 
-equation
-  k = kDam "flow coefficient for resistance base model";
    annotation (
 defaultComponentName="dam",
 Documentation(info="<html>

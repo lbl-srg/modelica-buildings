@@ -1,16 +1,16 @@
 within Buildings.Fluid.Actuators.Dampers;
 model VAVBoxExponential
   "VAV box with a fixed resistance plus a damper model withe exponential characteristics"
-  extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential;
-  import SI = Modelica.SIunits;
+  extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
+  dp(nominal=dp_nominal),
+  final kFixed=sqrt(kResSqu));
 
-  parameter SI.MassFlowRate m_flow_nominal "Mass flow rate" annotation(Dialog(group = "Nominal Condition"));
   parameter Boolean dp_nominalIncludesDamper = true
     "set to true if dp_nominal includes the pressure loss of the open damper"
                                               annotation(Dialog(group = "Nominal condition"));
 
 protected
-  parameter SI.Pressure dpDamOpe_nominal = k1*m_flow_nominal^2/2/Medium.density(sta0)/A^2
+  parameter Modelica.SIunits.Pressure dpDamOpe_nominal = k1*m_flow_nominal^2/2/Medium.density(sta0)/A^2
     "Pressure drop of fully open damper at nominal flow rate";
   parameter Real kResSqu(unit="kg.m", fixed=false)
     "Resistance coefficient for fixed resistance element";
@@ -22,9 +22,6 @@ initial equation
          "Wrong parameters in damper model: dp_nominal < dpDamOpe_nominal"
           + "\n  dp_nominal = "       + realString(dp_nominal)
           + "\n  dpDamOpe_nominal = " + realString(dpDamOpe_nominal));
-equation
-   k = if noEvent(kDam>Modelica.Constants.eps) then sqrt(1/(1/kResSqu + 1/kDam^2)) else 0
-    "flow coefficient for resistance base model";
 
    annotation (
 defaultComponentName="vavDam",
@@ -72,7 +69,7 @@ First implementation.
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-98,22},{102,-24}},
+          extent={{-100,22},{100,-24}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),

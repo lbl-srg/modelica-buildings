@@ -12,7 +12,7 @@
 # Michael Wetter, LBNL                                     2009-09-29
 #####################################################################
 ORI=(\
-Rooms\.Types \
+RoomsBeta\.Types \
 HeatTransfer\.InteriorConvection \
 HeatTransfer\.ExteriorConvection \
 HeatTransfer\.ConductorSingleLayer \

@@ -9,7 +9,8 @@ model RoomVAV "Model for CO2 emitted by people"
     A=ADam,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1E2,
-    from_dp=true)
+    from_dp=true,
+    allowFlowReversal=false)
     annotation (extent=[-10,60; 10,80], rotation=270);
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
@@ -86,10 +87,12 @@ model RoomVAV "Model for CO2 emitted by people"
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=20,
-    from_dp=true)  annotation (Placement(transformation(
+    from_dp=true,
+    allowFlowReversal=false)
+                   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={0,-28})));
+        origin={0,-30})));
 equation
   connect(gaiCO2.y, sou.m_flow_in) annotation (Line(
       points={{-117,-60},{-102.1,-60}},
@@ -112,8 +115,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(ple.ports[1], portRet) annotation (Line(
-      points={{4.44089e-16,-62},{4.44089e-16,-83.5},{1.27676e-15,-83.5},{
-          1.27676e-15,-109},{5.55112e-16,-109},{5.55112e-16,-160}},
+      points={{0,-62},{0,-83.5},{1.27676e-015,-83.5},{1.27676e-015,-109},{0,
+          -109},{0,-160}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(nPeo, gaiCO2.u) annotation (Line(
@@ -125,40 +128,36 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(portSup, vav.port_a) annotation (Line(
-      points={{5.55112e-16,160},{5.55112e-16,80},{2.44753e-15,80}},
+      points={{0,160},{0,80},{1.83697e-015,80}},
       color={0,127,255},
       smooth=Smooth.None));
 
   connect(portRoo1, vol.ports[1]) annotation (Line(
-      points={{-160,5.55112e-16},{-80,5.55112e-16},{-80,-5.55112e-16},{-3.33333,
-          -5.55112e-16}},
+      points={{-160,0},{-80,0},{-80,0},{-3.33333,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vav.port_b, vol.ports[2]) annotation (Line(
-      points={{-1.22629e-15,60},{0,60},{0,40},{-22,40},{-22,-5.55112e-16},{-2,
-          -5.55112e-16}},
+      points={{-1.83697e-015,60},{0,60},{0,40},{-22,40},{-22,0},{-2,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senCO2.port, vol.ports[3]) annotation (Line(
-      points={{26,20},{26,-5.55112e-16},{-0.666667,-5.55112e-16}},
+      points={{26,20},{26,0},{-0.666667,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(portRoo2, vol.ports[4]) annotation (Line(
-      points={{160,5.55112e-16},{80,5.55112e-16},{80,-5.55112e-16},{0.666667,
-          -5.55112e-16}},
+      points={{160,0},{80,0},{80,0},{0.666667,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[1], vol.ports[5]) annotation (Line(
-      points={{-80,-60},{-40,-60},{-40,-5.55112e-16},{2,-5.55112e-16}},
+      points={{-80,-60},{-40,-60},{-40,0},{2,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpPle.port_a, vol.ports[6]) annotation (Line(
-      points={{2.44753e-15,-18},{3.33333,-18},{3.33333,-5.55112e-16}},
+      points={{1.83697e-015,-20},{3.33333,-18},{3.33333,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpPle.port_b, ple.ports[2]) annotation (Line(
-      points={{-1.22629e-15,-38},{-1.22629e-15,-47},{7.21645e-16,-47},{
-          7.21645e-16,-58}},
+      points={{-1.83697e-015,-40},{-1.83697e-015,-47},{0,-47},{0,-58}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (

@@ -10,8 +10,30 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
   Real phi "Ratio actual to nominal mass flow rate, phi=Cv(y)/Cv(y=1)";
 
 equation
- m_flow_turbulent = deltaM * m_flow_nominal;
- k = phi * Kv_SI;
+ m_flow_turbulent = deltaM * abs(m_flow_nominal);
+
+ if homotopyInitialization then
+   if from_dp then
+       m_flow=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=phi*Kv_SI,
+                              m_flow_turbulent=m_flow_turbulent,
+                              linearized=linearized),
+                              simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+   else
+       dp=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=phi*Kv_SI,
+                              m_flow_turbulent=m_flow_turbulent,
+                              linearized=linearized),
+                              simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+   end if;
+ else // do not use homotopy
+   if from_dp then
+     m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=phi*Kv_SI, 
+                              m_flow_turbulent=m_flow_turbulent, linearized=linearized);
+   else
+     dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=phi*Kv_SI, 
+                              m_flow_turbulent=m_flow_turbulent, linearized=linearized);
+   end if;
+ end if; // homotopyInitialization
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Polygon(
@@ -66,7 +88,7 @@ of pressure drop in <code>Pa</code>.
 To prevent the derivative <code>d/dP (m_flow)</code> to be infinite near
 the origin, this model linearizes the pressure drop vs. flow relation
 ship. The region in which it is linearized is parameterized by 
-<pre>m_small_flow = deltaM * Kv_SI * sqrt(dp_nominal)
+<pre>m_turbulent_flow = deltaM * m_flow_nominal
 </pre>
 Because the parameterization contains <code>Kv_SI</code>, the values for
 <code>deltaM</code> and <code>dp_nominal</code> need not be changed if the valve size
@@ -93,6 +115,10 @@ First implementation.
 </html>"),
 revisions="<html>
 <ul>
+<li>
+April 4, 2011 by Michael Wetter:<br>
+Revised implementation to use new base class for actuators.
+</li>
 <li>
 June 3, 2008 by Michael Wetter:<br>
 First implementation.

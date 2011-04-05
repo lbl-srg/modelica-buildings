@@ -34,21 +34,24 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM res31(
                                                dp_nominal=0.546,
   m_flow_nominal=scaM_flow*1,
   dh=sqrt(scaM_flow)*1,
-  redeclare package Medium = Medium)
+  redeclare package Medium = Medium,
+    allowFlowReversal=false)
     annotation (extent=[50,-20; 70,0],style(thickness=2),
     Placement(transformation(extent={{50,-20},{70,0}})));
 Buildings.Fluid.FixedResistances.FixedResistanceDpM res33(
   dp_nominal=0.164,
   dh=sqrt(scaM_flow)*1,
   m_flow_nominal=scaM_flow*1,
-  redeclare package Medium = Medium)
+  redeclare package Medium = Medium,
+    allowFlowReversal=false)
     annotation (extent=[144,-20; 164,0],style(thickness=2),
     Placement(transformation(extent={{170,-20},{190,0}})));
 Buildings.Fluid.FixedResistances.FixedResistanceDpM res57(
                                                dp_nominal=0.118000,
   m_flow_nominal=scaM_flow*1,
   dh=sqrt(scaM_flow)*1,
-  redeclare package Medium = Medium)
+  redeclare package Medium = Medium,
+    allowFlowReversal=false)
     annotation (extent=[54,-80; 74,-60], style(thickness=2),
     Placement(transformation(extent={{68,-80},{48,-60}})));
 Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Medium, scaM_flow=scaM_flow)
@@ -64,7 +67,8 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
   mRec_flow_nominal=scaM_flow*1,
   mExh_flow_nominal=scaM_flow*1,
   redeclare package Medium = Medium,
-    dpExh_nominal=0.467) "mixing box"
+    dpExh_nominal=0.467,
+    allowFlowReversal=true) "mixing box"
                             annotation (extent=[8,-72; 28,-52],  style(
         thickness=2),
     Placement(transformation(extent={{10,-72},{30,-52}})));
@@ -98,7 +102,8 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
           V_flow_nominal={0,11.08,14.9}, dp_nominal={1508,743,100}),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     dynamicBalance=true,
-    homotopyInitialization=true)
+    homotopyInitialization=true,
+    allowFlowReversal=false)
     annotation (Placement(transformation(extent={{92,-18},{108,-2}})));
   Fluid.Movers.FlowMachine_y fan56(
     redeclare package Medium = Medium,
@@ -108,23 +113,27 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
           V_flow_nominal={2.676,11.05}, dp_nominal={600,100}),
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial,
     dynamicBalance=true,
-    homotopyInitialization=true)
+    homotopyInitialization=true,
+    allowFlowReversal=false)
     annotation (Placement(transformation(extent={{108,-78},{92,-62}})));
   Fluid.Sensors.VolumeFlowRate senVolFloSup(redeclare package Medium = Medium,
-      m_flow_nominal=mMIT_flow) "Volume flow rate of supply fan"
+      m_flow_nominal=mMIT_flow,
+    allowFlowReversal=false) "Volume flow rate of supply fan"
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Fluid.Sensors.VolumeFlowRate senVolFloSup1(redeclare package Medium = Medium,
-      m_flow_nominal=mMIT_flow) "Volume flow rate of supply fan"
+      m_flow_nominal=mMIT_flow,
+    allowFlowReversal=false) "Volume flow rate of supply fan"
     annotation (Placement(transformation(extent={{156,-80},{136,-60}})));
    Buildings.Controls.Continuous.LimPID conRetFan(
     Ti=60,
     yMax=1,
     yMin=0,
     Td=60,
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1/mMIT_flow,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
-    y_start=0.5) "Controller for return fan"
+    y_start=0.5,
+    controllerType=Modelica.Blocks.Types.SimpleController.P)
+    "Controller for return fan"
             annotation (Placement(transformation(extent={{120,80},{140,100}})));
 equation
   connect(PAtm.y, bouIn.p_in) annotation (Line(
@@ -166,7 +175,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(res33.port_b, roo.port_aSup) annotation (Line(
-      points={{190,-10},{186,-10},{186,-9.86667},{206,-9.86667}},
+      points={{190,-10},{192,-10},{192,-9.86667},{206,-9.86667}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(conSupFan.y, fan32.y)

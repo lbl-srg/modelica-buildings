@@ -174,13 +174,15 @@ equation
   dTCon = heatPortCon.T .- vol.medium.T;
   dTRad = heatPortRad.T .- vol.medium.T;
   if homotopyInitialization then   
-    preHeaFloCon.Q_flow = homotopy(actual=sign(dTCon) .* (1-fraRad) .* UAEle .* abs(dTCon).^n,
+    preHeaFloCon.Q_flow = homotopy(actual=(1-fraRad) .* UAEle .* dTCon .* 
+                                          Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTCon, n=n-1, delta=0.05),
                                    simplified= (1-fraRad) .* UAEle .* abs(dTCon_nominal).^(n-1) .* dTCon);
-    preHeaFloRad.Q_flow = homotopy(actual=sign(dTCon) .* fraRad     .* UAEle .* abs(dTRad).^n,
+    preHeaFloRad.Q_flow = homotopy(actual=fraRad     .* UAEle .* dTRad .* 
+                                          Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTRad, n=n-1, delta=0.05),
                                    simplified=fraRad .* UAEle .* abs(dTRad_nominal).^(n-1) .* dTRad);
   else
-    preHeaFloCon.Q_flow = sign(dTCon) .* (1-fraRad) .* UAEle .* abs(dTCon).^n;
-    preHeaFloRad.Q_flow = sign(dTCon) .* fraRad     .* UAEle .* abs(dTRad).^n;
+    preHeaFloCon.Q_flow = (1-fraRad) .* UAEle .* dTCon .* Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTCon, n=n-1, delta=0.05);
+    preHeaFloRad.Q_flow = fraRad     .* UAEle .* dTRad .* Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTRad, n=n-1, delta=0.05);
   end if;
 
   QCon_flow = sum(preHeaFloCon.Q_flow);
@@ -326,6 +328,14 @@ with one plate of water carying fluid, and a height of 0.42 meters.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 4, 2011 by Michael Wetter:<br>
+Changed the implementation to use
+<a href=\"modelica://Buildings.Utilities.Math.Functions.regNonZeroPower\">
+Buildings.Utilities.Math.Functions.regNonZeroPower</a>.
+This allows formulating the model without any non-differentiable function
+inside the equation section.
+</li>
 <li>
 April 2, 2011 by Michael Wetter:<br>
 Added <code>homotopy</code> operator.
