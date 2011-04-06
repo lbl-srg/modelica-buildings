@@ -3,7 +3,6 @@ model MoistAir
   "Model with interfaces for media with moist air that will be linked to the BCVTB which models the response of the room"
   import Buildings;
   extends Modelica.Icons.Example;
-// package Medium = Modelica.Media.Air.MoistAir;
   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 
   parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_nominal=
