@@ -60,6 +60,5 @@ First implementation.
         Text(
           extent={{-96,-44},{-44,-60}},
           lineColor={0,0,127},
-          textString="locTim")}),
-    DymolaStoredErrors);
+          textString="locTim")}));
 end SolarTime;
