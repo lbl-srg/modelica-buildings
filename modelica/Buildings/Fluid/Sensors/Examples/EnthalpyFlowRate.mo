@@ -3,7 +3,7 @@ model EnthalpyFlowRate "Test model for enthalpy flow rate"
   extends Modelica.Icons.Example;
   import Buildings;
 
-  package Medium = Modelica.Media.Air.SimpleAir;
+  package Medium = Buildings.Media.IdealGases.SimpleAir;
   Buildings.Fluid.Sensors.EnthalpyFlowRate senH_flow(redeclare package Medium
       = Medium, m_flow_nominal=2) "Sensor for enthalpy flow rate"
     annotation (Placement(transformation(extent={{-30,-20},{-10,0}})));

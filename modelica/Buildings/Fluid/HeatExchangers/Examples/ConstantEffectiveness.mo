@@ -5,11 +5,6 @@ model ConstantEffectiveness
   extends Modelica.Icons.Example;
 
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium2 = Modelica.Media.Air.MoistAir;
-// package Medium2 = Buildings.Media.PerfectGases.MoistAir;
-//package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
-
- //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
  package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
   Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2,

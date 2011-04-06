@@ -2,7 +2,7 @@ within Buildings.Airflow.Multizone.Examples;
 model CO2TransportStep "Model that transport CO2 through buoyancy driven flow"
   extends Modelica.Icons.Example; 
 
-  package Medium = Modelica.Media.Air.SimpleAir(extraPropertiesNames={"CO2"});
+  package Medium = Buildings.Media.IdealGases.SimpleAir(extraPropertiesNames={"CO2"});
 
   Buildings.Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,

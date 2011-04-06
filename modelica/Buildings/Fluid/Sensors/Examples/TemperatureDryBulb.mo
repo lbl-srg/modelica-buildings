@@ -2,10 +2,10 @@ within Buildings.Fluid.Sensors.Examples;
 model TemperatureDryBulb
   extends Modelica.Icons.Example;
 
-// package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model" annotation 1;
- package Medium = Modelica.Media.Air.MoistAir;
-  Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
-      = Medium,
+// package Medium =  annotation 1;
+ package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model";
+  Buildings.Fluid.Sources.Boundary_pT sin(
+    redeclare package Medium = Medium,
     nPorts=1,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{90,-2},{70,18}}, rotation=0)));

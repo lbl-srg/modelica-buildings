@@ -3,7 +3,7 @@ model ChimneyShaftWithVolume
   "Test model that demonstrates the chimney effect with a shaft that contains an air volume"
   extends Modelica.Icons.Example; 
   import Buildings;
-  package Medium = Modelica.Media.Air.SimpleAir;
+  package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Fluid.MixingVolumes.MixingVolume roo(
     nPorts=3,

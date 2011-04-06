@@ -2,7 +2,7 @@ within Buildings.Fluid.Actuators.Examples;
 model VAVBoxExponential
   extends Modelica.Icons.Example; 
 
- package Medium = Modelica.Media.Air.SimpleAir;
+ package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Fluid.Actuators.Dampers.Exponential dam(
          redeclare package Medium = Medium, A=1.8,

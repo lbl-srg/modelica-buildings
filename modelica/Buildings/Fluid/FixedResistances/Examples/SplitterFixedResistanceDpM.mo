@@ -2,7 +2,7 @@ within Buildings.Fluid.FixedResistances.Examples;
 model SplitterFixedResistanceDpM
   extends Modelica.Icons.Example;
 
- package Medium = Modelica.Media.Air.SimpleAir;
+ package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM spl(
     m_flow_nominal={1,2,3},

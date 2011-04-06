@@ -4,7 +4,7 @@ model MoistAirEnthalpyFlowRate
   extends Modelica.Icons.Example;
   import Buildings;
 
-  package Medium = Modelica.Media.Air.MoistAir;
+  package Medium = Buildings.Media.PerfectGases.MoistAir;
   Buildings.Fluid.Sensors.EnthalpyFlowRate senH_flow(redeclare package Medium
       = Medium, m_flow_nominal=1) "Sensor for enthalpy flow rate"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));

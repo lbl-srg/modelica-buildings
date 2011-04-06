@@ -3,15 +3,15 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
   import Buildings;
   extends Modelica.Icons.Example;
 
- package Medium = Modelica.Media.Air.SimpleAir;
-  Buildings.Fluid.Sources.Boundary_ph sou(             redeclare package Medium
-      =        Medium,
+ package Medium = Buildings.Media.IdealGases.SimpleAir;
+  Buildings.Fluid.Sources.Boundary_ph sou(
+   redeclare package Medium = Medium,
     nPorts=1,
     p(displayUnit="Pa") = 101335,
     use_p_in=true)                    annotation (Placement(transformation(
           extent={{-60,90},{-40,110}},rotation=0)));
-  Buildings.Fluid.Sources.Boundary_ph sin(             redeclare package Medium
-      =        Medium,
+  Buildings.Fluid.Sources.Boundary_ph sin(
+    redeclare package Medium = Medium,
     nPorts=1,
     use_p_in=false,
     p=101325)                         annotation (Placement(transformation(

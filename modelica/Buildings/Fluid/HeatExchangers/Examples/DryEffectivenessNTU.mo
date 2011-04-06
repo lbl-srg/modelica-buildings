@@ -5,14 +5,7 @@ model DryEffectivenessNTU
   extends Modelica.Icons.Example;
 
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium2 = Modelica.Media.Air.MoistAir;
-// package Medium2 = Buildings.Media.PerfectGases.MoistAir;
-//package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
-
- //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
-// package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
-   package Medium2 = Buildings.Media.IdealGases.SimpleAir;
- //package Medium2 = Medium1;
+ package Medium2 = Buildings.Media.IdealGases.SimpleAir;
 
  parameter Modelica.SIunits.SpecificHeatCapacity cp1=
  Medium1.specificHeatCapacityCp(

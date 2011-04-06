@@ -5,8 +5,7 @@ model HeaterCoolerPrescribed
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
- //package Medium = Modelica.Media.Air.MoistAir;
- //package Medium = Modelica.Media.Air.SimpleAir;
+
   Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea1(
                                                          redeclare package
       Medium =
