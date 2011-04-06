@@ -6,15 +6,15 @@ model MoistAir
 // package Medium = Modelica.Media.Air.MoistAir;
   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_nominal
-    = 259.2*6/1.2/3600 "Nominal mass flow rate";
+  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_nominal=
+      259.2*6/1.2/3600 "Nominal mass flow rate";
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=200,
     from_dp=false,
     allowFlowReversal=false)
-    annotation (Placement(transformation(extent={{278,62},{298,82}})));
+    annotation (Placement(transformation(extent={{280,62},{300,82}})));
   Buildings.Fluid.Sources.Boundary_pT sou(
     nPorts=2,
     redeclare package Medium = Medium,
@@ -38,7 +38,8 @@ model MoistAir
     nPorts=2,
     redeclare package Medium = Medium,
     m_flow=0,
-    use_m_flow_in=false)
+    use_m_flow_in=false,
+    m_flow_nominal=m_flow_nominal)
     annotation (Placement(transformation(extent={{204,-4},{224,16}})));
   Buildings.Fluid.MassExchangers.HumidifierPrescribed hum(
     m_flow_nominal=m_flow_nominal,
@@ -57,12 +58,14 @@ model MoistAir
     from_dp=false,
     allowFlowReversal=false) "Heat exchanger"
     annotation (Placement(transformation(extent={{192,62},{212,82}})));
-  Buildings.Fluid.Sensors.Temperature TRet(redeclare package Medium = Medium)
-    "Return air temperature"
-    annotation (Placement(transformation(extent={{310,-40},{330,-20}})));
-  Buildings.Fluid.Sensors.MassFraction Xi_w(redeclare package Medium = Medium)
-    "Measured air humidity"
-    annotation (Placement(transformation(extent={{282,-20},{302,0}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort
+                                      TRet(redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal) "Return air temperature"
+    annotation (Placement(transformation(extent={{320,-60},{340,-40}})));
+  Buildings.Fluid.Sensors.MassFractionTwoPort
+                                       Xi_w(redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal) "Measured air humidity"
+    annotation (Placement(transformation(extent={{290,-60},{310,-40}})));
   Modelica.Blocks.Sources.Constant XSet(k=0.005) "Set point for humidity"
     annotation (Placement(transformation(extent={{180,150},{200,170}})));
   Modelica.Blocks.Sources.Constant TRooSetNig(k=273.15 + 16)
@@ -101,14 +104,16 @@ model MoistAir
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
   Modelica.Blocks.Routing.Multiplex5 mul
     annotation (Placement(transformation(extent={{420,0},{440,20}})));
-  Buildings.Fluid.Sensors.Temperature TSup(redeclare package Medium = Medium)
-    "Supply air temperature"
-    annotation (Placement(transformation(extent={{310,58},{330,78}})));
+  Buildings.Fluid.Sensors.TemperatureTwoPort
+                                      TSup(redeclare package Medium = Medium,
+      m_flow_nominal=m_flow_nominal) "Supply air temperature"
+    annotation (Placement(transformation(extent={{310,62},{330,82}})));
   Buildings.Fluid.Movers.FlowMachine_y fan(redeclare package Medium = Medium,
       redeclare function flowCharacteristic =
         Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
           V_flow_nominal={0,m_flow_nominal/1.2}, dp_nominal={2*400,400}),
-    m_flow_nominal=m_flow_nominal)
+    m_flow_nominal=m_flow_nominal,
+    dynamicBalance=false)
     annotation (Placement(transformation(extent={{140,62},{160,82}})));
   Modelica.Blocks.Sources.Constant yFan(k=1) "Fan control signal"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
@@ -135,20 +140,8 @@ model MoistAir
   Buildings.Utilities.IO.BCVTB.From_degC from_degC1
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
 equation
-  connect(dp1.port_b, bouBCVTB.ports[1]) annotation (Line(
-      points={{298,72},{310,72},{310,8},{223.8,8}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(dp2.port_a, bouBCVTB.ports[2]) annotation (Line(
-      points={{252,-50},{240,-50},{240,4},{223.8,4}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(dp1.port_a, hum.port_b) annotation (Line(
-      points={{278,72},{260,72}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(Xi_w.port, dp2.port_b) annotation (Line(
-      points={{292,-20},{292,-50},{272,-50}},
+      points={{280,72},{260,72}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hex.port_b, hum.port_a) annotation (Line(
@@ -156,7 +149,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(TRet.T, PIDHea.u_m) annotation (Line(
-      points={{327,-30},{348,-30},{348,120},{150,120},{150,148}},
+      points={{330,-39},{330,-30},{348,-30},{348,120},{150,120},{150,148}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(PIDHea.y, hex.u) annotation (Line(
@@ -201,16 +194,8 @@ equation
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
-  connect(TSup.port, dp1.port_b) annotation (Line(
-      points={{320,58},{320,42},{310,42},{310,72},{298,72}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(dp2.port_b, TRet.port) annotation (Line(
-      points={{272,-50},{320,-50},{320,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(Xi_w.X, PIDHum.u_m) annotation (Line(
-      points={{303,-10},{340,-10},{340,140},{230,140},{230,148}},
+      points={{300,-39},{300,-20},{340,-20},{340,140},{230,140},{230,148}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fan.port_b, hex.port_a) annotation (Line(
@@ -221,18 +206,13 @@ equation
       points={{140,72},{116,72}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(dp2.port_b, sou.ports[2])  annotation (Line(
-      points={{272,-50},{320,-50},{320,-70},{130,-70},{130,68},{116,68}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(perToRel.y, bouBCVTB.phi) annotation (Line(
-      points={{43,6.10623e-16},{100,6.10623e-16},{100,5.55112e-16},{202,
-          5.55112e-16}},
+      points={{43,0},{202,0}},
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(deMultiplex2_1.y4[1], perToRel.u) annotation (Line(
-      points={{-19,21},{-8,21},{-8,6.66134e-16},{20,6.66134e-16}},
+      points={{-19,21},{-8,21},{-8,0},{20,0}},
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -276,12 +256,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSup.T, to_degC.Kelvin) annotation (Line(
-      points={{327,68},{330,68},{330,68},{358,68}},
+      points={{320,83},{320,90},{352,90},{352,68},{358,68}},
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(to_degC.Celsius, mul.u5[1]) annotation (Line(
-      points={{381,68},{392,68},{392,-6.66134e-16},{418,-6.66134e-16}},
+      points={{381,68},{392,68},{392,0},{418,0}},
       color={0,127,0},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -303,6 +283,30 @@ equation
       points={{21,89.8},{40,89.8},{40,66},{48,66}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(dp2.port_b, Xi_w.port_a) annotation (Line(
+      points={{272,-50},{290,-50}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(Xi_w.port_b, TRet.port_a) annotation (Line(
+      points={{310,-50},{320,-50}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TRet.port_b, sou.ports[2]) annotation (Line(
+      points={{340,-50},{350,-50},{350,-72},{128,-72},{128,68},{116,68}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(dp1.port_b, TSup.port_a) annotation (Line(
+      points={{300,72},{310,72}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TSup.port_b, bouBCVTB.ports[1]) annotation (Line(
+      points={{330,72},{334,72},{334,8},{223.8,8}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(dp2.port_a, bouBCVTB.ports[2]) annotation (Line(
+      points={{252,-50},{240,-50},{240,4},{223.8,4}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{460,200}}), graphics),
     Documentation(info="<html>
@@ -322,7 +326,11 @@ where <code>XY</code> denotes the EnergyPlus version number.
 </html>", revisions="<html>
 <ul>
 <li>
-January 21, by Michael Wetter:<br>
+April 5, 2011, by Michael Wetter:<br>
+Changed sensor models from one-port sensors to two port sensors.
+</li>
+<li>
+January 21, 2010 by Michael Wetter:<br>
 Changed model to include fan instead of having flow driven by two reservoirs at 
 different pressure.
 </li>

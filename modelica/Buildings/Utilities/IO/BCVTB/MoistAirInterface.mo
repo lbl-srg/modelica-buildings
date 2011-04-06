@@ -8,9 +8,9 @@ model MoistAirInterface
     "Latent enthalpy flow rate, positive if flow into the component"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate senEntFloRat[nPorts](
-      redeclare package Medium = Medium) "Sensible enthalpy flow rates"
+    redeclare final package Medium = Medium,
+    each final m_flow_nominal=m_flow_nominal) "Sensible enthalpy flow rates"
     annotation (Placement(transformation(extent={{40,-10},{20,10}})));
-public
   Modelica.Blocks.Math.Sum sumHSen_flow(nin=nPorts)
     "Sum of sensible enthalpy flow rates"
     annotation (Placement(transformation(extent={{20,30},{40,50}})));
@@ -114,6 +114,10 @@ needs to be converted. The conversion can be done with the model
 Buildings.Utilities.Psychrometrics.ToTotalAir</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+April 5, 2011, by Michael Wetter:<br>
+Added nominal values that are needed by the sensor.
+</li>
 <li>
 September 10, 2009, by Michael Wetter:<br>
 First implementation.

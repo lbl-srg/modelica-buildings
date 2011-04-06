@@ -25,8 +25,16 @@ partial model FluidInterface
     annotation (Evaluate = true,
                 Dialog(enable = not use_m_flow_in));
 
-  Buildings.Fluid.Sensors.EnthalpyFlowRate totEntFloRat[nPorts](redeclare
-      package Medium = Medium)
+  parameter Medium.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate, used for regularization near zero flow"
+    annotation(Dialog(group = "Nominal condition"));
+  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*m_flow_nominal
+    "For bi-directional flow, temperature is regularized in the region |m_flow| < m_flow_small (m_flow_small > 0 required)"
+    annotation(Dialog(group="Advanced"));
+
+  Buildings.Fluid.Sensors.EnthalpyFlowRate totEntFloRat[nPorts](
+    redeclare final package Medium = Medium,
+    each final m_flow_nominal=m_flow_nominal)
     "Total enthalpy flow rate (sensible plus latent)"
     annotation (Placement(transformation(extent={{0,-10},{-20,10}})));
   Modelica.Fluid.Interfaces.FluidPorts_b ports[
@@ -123,6 +131,10 @@ interfacing fluid flow systems with the BCVTB interface.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 5, 2011, by Michael Wetter:<br>
+Added nominal values that are needed by the sensor.
+</li>
 <li>
 September 11, 2009, by Michael Wetter:<br>
 First implementation.
