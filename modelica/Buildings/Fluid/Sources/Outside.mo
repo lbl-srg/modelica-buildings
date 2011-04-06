@@ -4,7 +4,7 @@ model Outside
   extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
   parameter Medium.ExtraProperty C[Medium.nC](
        quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
     "Fixed values of trace substances"

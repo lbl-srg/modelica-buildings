@@ -16,7 +16,7 @@ block HotWaterTemperatureReset
 
   parameter Boolean use_TRoo_in = false
     "Get the room temperature set point from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
   parameter Modelica.SIunits.Temperature TRoo = 293.15
     "Fixed value of room air temperature set point"
     annotation (Evaluate = true,

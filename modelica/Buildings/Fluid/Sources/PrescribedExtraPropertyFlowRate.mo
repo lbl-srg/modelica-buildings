@@ -6,7 +6,7 @@ model PrescribedExtraPropertyFlowRate
   parameter String substanceName = "CO2" "Name of trace substance";
   parameter Boolean use_m_flow_in = false
     "Get the trace substance mass flow rate from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
 
   parameter Medium.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"

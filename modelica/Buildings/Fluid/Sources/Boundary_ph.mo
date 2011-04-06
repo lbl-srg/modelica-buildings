@@ -4,16 +4,16 @@ model Boundary_ph
   extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_p_in = false
     "Get the pressure from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
   parameter Boolean use_h_in= false
     "Get the specific enthalpy from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
   parameter Boolean use_X_in = false
     "Get the composition from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
   parameter Medium.AbsolutePressure p = Medium.p_default
     "Fixed value of pressure"
     annotation (Evaluate = true,

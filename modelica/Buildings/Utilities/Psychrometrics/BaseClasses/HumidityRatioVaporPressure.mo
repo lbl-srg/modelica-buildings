@@ -3,7 +3,7 @@ partial block HumidityRatioVaporPressure
   "Humidity ratio for given water vapor pressure"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   parameter Boolean use_p_in = true "Get the pressure from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
 
   parameter Modelica.SIunits.Pressure p = 101325 "Fixed value of pressure"
     annotation (Evaluate = true,

@@ -4,16 +4,16 @@ model MassFlowSource_T
   extends Modelica.Fluid.Sources.BaseClasses.PartialSource;
   parameter Boolean use_m_flow_in = false
     "Get the mass flow rate from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
   parameter Boolean use_T_in= false
     "Get the temperature from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
   parameter Boolean use_X_in = false
     "Get the composition from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
   parameter Boolean use_C_in = false
     "Get the trace substances from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
   parameter Medium.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Evaluate = true,

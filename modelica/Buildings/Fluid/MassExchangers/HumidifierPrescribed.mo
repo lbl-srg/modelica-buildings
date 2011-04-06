@@ -6,7 +6,7 @@ model HumidifierPrescribed
 
   parameter Boolean use_T_in= false
     "Get the temperature from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true));
+    annotation(Evaluate=true, HideResult=true);
 
   parameter Modelica.SIunits.Temperature T = 293.15
     "Temperature of water that is added to the fluid stream (used if use_T_in=false)"

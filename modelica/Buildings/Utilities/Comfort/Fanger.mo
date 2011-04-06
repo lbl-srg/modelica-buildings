@@ -17,19 +17,19 @@ extends Buildings.BaseClasses.BaseIcon;
 
   parameter Boolean use_vAir_in=false
     "Get the air velocity from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true),
+    annotation(Evaluate=true, HideResult=true,
     Dialog(group="Conditional inputs"));
   parameter Boolean use_M_in= false
     "Get the metabolic rate from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true),
+    annotation(Evaluate=true, HideResult=true,
     Dialog(group="Conditional inputs"));
   parameter Boolean use_ICl_in= true
     "Get the clothing insulation from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true),
+    annotation(Evaluate=true, HideResult=true,
     Dialog(group="Conditional inputs"));
   parameter Boolean use_pAir_in= false
     "Get the air pressure from the input connector"
-    annotation(Evaluate=true, HideResult=true, choices(__Dymola_checkBox=true),
+    annotation(Evaluate=true, HideResult=true,
     Dialog(group="Conditional inputs"));
 
   parameter Modelica.SIunits.Velocity vAir= 0.05 "Fixed value for air velocity"
