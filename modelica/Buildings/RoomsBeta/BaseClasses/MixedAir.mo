@@ -7,7 +7,7 @@ model MixedAir "Model for room air that is completely mixed"
 
   // Port definitions
   parameter Integer nPorts=0 "Number of fluid ports of this model"
-    annotation(Evaluate=true, Dialog(__Dymola_connectorSizing=true, tab="General",group="Ports"));
+    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   parameter Modelica.SIunits.Area AFlo "Floor area";
   parameter Modelica.SIunits.Length hRoo "Average room height";
 

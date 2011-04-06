@@ -6,8 +6,8 @@ partial model PartialMixingVolumeWaterPort
 
 // declarations similar than in PartialLumpedVolumePorts from Modelica.Fluid
   // Port definitions
-  parameter Integer nPorts(min=1)=1 "Number of ports"
-    annotation(Evaluate=true, Dialog(__Dymola_connectorSizing=true, tab="General",group="Ports"));
+  parameter Integer nPorts=0 "Number of ports"
+    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
   Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid outlets"
     annotation (Placement(transformation(extent={{-40,-10},{40,10}},

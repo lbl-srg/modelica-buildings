@@ -8,7 +8,7 @@ partial model FluidInterface
       Modelica.Media.Interfaces.PartialMedium "Medium model within the source"
      annotation (choicesAllMatching=true);
 
-  parameter Integer nPorts=1 "Number of ports" annotation(Dialog(__Dymola_connectorSizing=true));
+  parameter Integer nPorts=0 "Number of ports" annotation(Dialog(connectorSizing=true));
   Modelica.Blocks.Interfaces.RealInput m_flow_in if     use_m_flow_in
     "Prescribed mass flow rate"
     annotation (Placement(transformation(extent={{-120,60},{-80,100}},
@@ -62,12 +62,10 @@ equation
     bou.m_flow_in = m_flow;
   end if;
 
-  for i in 1:nPorts loop
-  connect(totEntFloRat[i].port_b, bou.ports[i]) annotation (Line(
+  connect(totEntFloRat.port_b, bou.ports) annotation (Line(
       points={{-20,0},{-40,0}},
       color={0,127,255},
       smooth=Smooth.None));
-  end for;
   connect(sumHTot_flow.u, totEntFloRat.H_flow)
                                          annotation (Line(
       points={{-2,80},{-10,80},{-10,11}},

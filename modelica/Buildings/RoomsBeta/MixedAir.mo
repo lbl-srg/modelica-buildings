@@ -3,7 +3,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
   extends Buildings.RoomsBeta.BaseClasses.ParameterFluid;
   extends Buildings.RoomsBeta.BaseClasses.ConstructionRecords;
   parameter Integer nPorts=0 "Number of ports"
-    annotation(Evaluate=true, Dialog(__Dymola_connectorSizing=true, tab="General",group="Ports"));
+    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
 
   Buildings.RoomsBeta.BaseClasses.MixedAir air(
     final nConExt=nConExt,
