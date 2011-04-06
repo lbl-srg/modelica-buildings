@@ -2,10 +2,8 @@ within Buildings.Controls.SetPoints;
 model Table
   "Model for a set point that is interpolated based on a user-specified table"
   extends Modelica.Blocks.Interfaces.SISO;
-  parameter Real table[:,2]=fill(
-      0.0,
-      0,
-      2) "Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])";
+  parameter Real table[:,2]=fill(0.0, 1, 2) 
+    "Table matrix ( e.g., table=[u1, y1; u2, y2; u3, y3])";
 
   parameter Real offset=0 "Offset of output signal";
 
@@ -29,14 +27,12 @@ protected
     annotation (Placement(transformation(extent={{-20,-10},{2,10}})));
 equation
   connect(u, tab.u[1]) annotation (Line(
-      points={{-120,1.11022e-15},{-71,1.11022e-15},{-71,6.66134e-16},{-22.2,
-          6.66134e-16}},
+      points={{-120,0},{-70,0},{-70,0},{-22,0}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(tab.y[1], y) annotation (Line(
-      points={{3.1,5.55112e-16},{53.55,5.55112e-16},{53.55,5.55112e-16},{110,
-          5.55112e-16}},
+      points={{3.1,0},{53.55,0},{53.55,0},{110,0}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -75,6 +71,10 @@ Note that the first column must be strictly increasing.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 5, 2011, by Michael Wetter:<br>
+Fixed wrong table declaration.
+</li>
 <li>
 July 13, 2010, by Michael Wetter:<br>
 First implementation.
