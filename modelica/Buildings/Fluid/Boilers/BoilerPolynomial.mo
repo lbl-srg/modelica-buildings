@@ -1,11 +1,6 @@
 within Buildings.Fluid.Boilers;
 model BoilerPolynomial
   "Boiler with efficiency curve described by a polynomial of the temperature"
-  // For the preDro(m_flow(nominal)), we use a constant specific heat capacity.
-  // Otherwise, the nominal attribute won't be set by Dymola 7.1 because
-  // cp_nominal is a non-literal value.
-  // Since only the order of magnitude should be correct, using a constant
-  // value for cp suffices.
   extends Interfaces.PartialDynamicTwoPortTransformer(
     m_flow_nominal=Q_flow_nominal/dT_nominal/cp_nominal, final tau=0,
     vol(final V =   VWat));
