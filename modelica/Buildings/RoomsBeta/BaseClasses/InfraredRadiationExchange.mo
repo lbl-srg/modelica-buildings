@@ -213,7 +213,7 @@ equation
   else
     if homotopyInitialization then
       TOpa = homotopy(actual=Buildings.Utilities.Math.Functions.powerLinearized(x=T4Opa, x0=243.15^4, n=0.25),
-		      simplified=T4Opa./T03);
+        simplified=T4Opa./T03);
     else
       TOpa = Buildings.Utilities.Math.Functions.powerLinearized(x=T4Opa, x0=243.15^4, n=0.25);
     end if;

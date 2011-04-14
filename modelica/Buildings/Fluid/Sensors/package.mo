@@ -1,6 +1,7 @@
 within Buildings.Fluid;
 package Sensors "Package with sensor models"
   extends Modelica.Icons.SensorsPackage;
+
 annotation (preferedView="info",
 Documentation(info="<html>
 <p align = justify>

@@ -37,15 +37,15 @@ equation
     if homotopyInitialization then
       if from_dp then
         m_flow = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                    dp=dp, 
-                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    dp=dp,
+                                    k=m_flow_nominal/sqrt(dp_nominal),
                                     m_flow_turbulent=deltaM * m_flow_nominal,
                                     linearized=linearizeFlowResistance),
                           simplified=m_flow_nominal*dp/dp_nominal);
       else
         dp = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                    m_flow=m_flow, 
-                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    m_flow=m_flow,
+                                    k=m_flow_nominal/sqrt(dp_nominal),
                                     m_flow_turbulent=deltaM * m_flow_nominal,
                                     linearized=linearizeFlowResistance),
                       simplified=dp_nominal*m_flow/m_flow_nominal);
@@ -53,18 +53,18 @@ equation
     else // do not use homotopy
       if from_dp then
         m_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                    dp=dp, 
-                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    dp=dp,
+                                    k=m_flow_nominal/sqrt(dp_nominal),
                                     m_flow_turbulent=deltaM * m_flow_nominal,
                                     linearized=linearizeFlowResistance);
       else
         dp = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                    m_flow=m_flow, 
-                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    m_flow=m_flow,
+                                    k=m_flow_nominal/sqrt(dp_nominal),
                                     m_flow_turbulent=deltaM * m_flow_nominal,
                                     linearized=linearizeFlowResistance);
       end if;
-    end if; // homotopyInitialization 
+    end if; // homotopyInitialization
   else // do not compute flow resistance
     dp = 0;
   end if; // computeFlowResistance

@@ -8,11 +8,12 @@ package BaseClasses "Base classes for package Data"
     parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
     parameter Modelica.SIunits.SpecificHeatCapacity c "Specific heat capacity";
     parameter Modelica.SIunits.Density d "Mass density";
-    parameter Real R(unit="m2.K/W")
+    parameter Real R( unit="m2.K/W")
       "Thermal resistance of a unit area of material";
+
     parameter Integer nStaRef(min=0) = 3
       "Number of state variables in a reference material of 0.2 m concrete";
-    parameter Integer nSta(min=1)=max(1, integer(ceil(nStaReal)))
+    parameter Integer nSta(min=1)= max(1, integer(ceil(nStaReal)))
       "Actual number of state variables in material"
       annotation(Evaluate=true, Dialog(tab="Advanced"));
     parameter Boolean steadyState= (c == 0 or d == 0)
@@ -92,4 +93,73 @@ First implementation.
             textString="c=%c")}));
 
   end Material;
+
+  record CircularMaterial "Thermal properties of materials w/o storage"
+    extends Modelica.Icons.Record;
+
+    parameter Modelica.SIunits.ThermalConductivity k "Thermal conductivity";
+    parameter Modelica.SIunits.SpecificHeatCapacity c "Specific heat capacity";
+    parameter Modelica.SIunits.Density d "Mass density";
+    parameter Modelica.SIunits.Radius r_a "internal radius";
+    parameter Modelica.SIunits.Radius r_b "external radius";
+
+    parameter Integer nSt "Actual number of state variables in material"
+      annotation(Evaluate=true, Dialog(tab="Advanced"));
+    parameter Boolean steadyState= (c == 0 or d == 0)
+      "Flag, if true, then material is computed using steady-state heat conduction"
+      annotation(Evaluate=true);
+
+   annotation (preferedView="info",
+    Documentation(info="<html>
+Base record for materials, used in circular geometry, that declares the thermal properties. 
+</p>
+<p>
+The specific heat capacity can be zero, in which case the material
+will be modeled as a thermal resistor that does not store energy.
+</p>
+<p>
+</p>
+</html>",
+  revisions="<html>
+<ul>
+<li>
+April 2011, by Pierre Vigouroux:<br>
+
+<li>
+April 12 2011, by Pierre Vigouroux:<br>
+First implementation.
+</li>
+</ul>
+</html>"),   Icon(graphics={
+          Text(
+            extent={{-96,20},{-14,10}},
+            lineColor={0,0,0},
+            textString="r_a=%r_a"),
+          Text(
+            extent={{22,36},{82,12}},
+            lineColor={0,0,0},
+            textString="k=%k"),
+          Text(
+            extent={{-96,-80},{-12,-90}},
+            lineColor={0,0,0},
+            textString="r_b=%r_b"),
+          Rectangle(
+            visible=(c == 0),
+            extent={{0,0},{100,-100}},
+            lineColor={0,0,0},
+            fillColor={255,170,170},
+            fillPattern=FillPattern.Solid),
+          Line(points={{-100,-50},{100,-50}}, color={0,0,0}),
+          Text(
+            visible=not (c == 0),
+            extent={{8,-8},{86,-40}},
+            lineColor={0,0,0},
+            textString="d=%d"),
+          Text(
+            visible=not (c == 0),
+            extent={{10,-56},{88,-88}},
+            lineColor={0,0,0},
+            textString="c=%c")}));
+
+  end CircularMaterial;
 end BaseClasses;

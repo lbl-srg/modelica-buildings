@@ -3,9 +3,6 @@ package WeatherData "Weather data reader"
   extends Modelica.Icons.VariantsPackage;
 
 
-
-
-
 annotation (preferedView="info",
 Documentation(info="<html>
 This package contains models to read weather data. It also contains

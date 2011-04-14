@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model OpenDoors
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAB(

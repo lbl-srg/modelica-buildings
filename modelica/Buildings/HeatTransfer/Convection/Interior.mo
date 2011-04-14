@@ -9,7 +9,8 @@ model Interior "Model for a interior (room-side) convective heat transfer"
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 protected
-  constant Modelica.SIunits.Temperature dT0 = 2 "Initial temperature used in homotopy method";
+  constant Modelica.SIunits.Temperature dT0 = 2
+    "Initial temperature used in homotopy method";
 equation
   if (conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed) then
     q_flow = hFixed * dT;

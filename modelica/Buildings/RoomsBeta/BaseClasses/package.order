@@ -1,11 +1,8 @@
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
 HeatGain
-LongWaveRadiationExchange
 RadiationAdapter
 RadiationTemperature
-LongWaveRadiationGainDistribution
-ShortWaveRadiationExchange
 MixedAir
 PartialSurfaceInterface
 SkyRadiationExchange
@@ -14,6 +11,8 @@ ConstructionRecords
 ParameterConstructionWithWindow
 ParameterConstruction
 ParameterFluid
-ParameterInteriorSurface
 PartialParameterConstruction
 Examples
+InfraredRadiationExchange
+InfraredRadiationGainDistribution
+SolarRadiationExchange

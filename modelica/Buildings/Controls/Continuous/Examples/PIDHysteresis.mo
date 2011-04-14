@@ -1,6 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
 model PIDHysteresis "Example model"
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   import Buildings;
 
   Buildings.Controls.Continuous.PIDHysteresis con(

@@ -1,14 +1,15 @@
 within Buildings.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface(
-     show_T=false, show_V_flow=false, 
+     show_T=false, show_V_flow=false,
      m_flow(start=m_flow_nominal, nominal=m_flow_nominal_pos),
      dp(start=dp_nominal, nominal=dp_nominal_pos));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate"
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"                                annotation(Dialog(group = "Nominal condition"));
@@ -36,8 +37,10 @@ protected
     "Flag to enable/disable computation of flow resistance"
    annotation(Evaluate=true);
 protected
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal) "Absolute value of nominal flow rate";
-  final parameter Modelica.SIunits.Pressure dp_nominal_pos = abs(dp_nominal) "Absolute value of nominal pressure";
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
+    "Absolute value of nominal flow rate";
+  final parameter Modelica.SIunits.Pressure dp_nominal_pos = abs(dp_nominal)
+    "Absolute value of nominal pressure";
 initial equation
   if computeFlowResistance then
     assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Boilers.Examples;
 model BoilerPolynomial "Test model"
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
  parameter Modelica.SIunits.Power Q_flow_nominal = 3000 "Nominal power";
  parameter Modelica.SIunits.Temperature dT_nominal = 20
@@ -36,8 +36,7 @@ model BoilerPolynomial "Test model"
     dp_nominal=dp_nominal,
     T_start=293.15) "Boiler"
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TAmb1(
-                                                              T=288.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TAmb1(      T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-30,28},{-10,48}})));
   Buildings.Fluid.Boilers.BoilerPolynomial fur2(
@@ -51,8 +50,7 @@ model BoilerPolynomial "Test model"
     dp_nominal=dp_nominal,
     T_start=293.15) "Boiler"
     annotation (Placement(transformation(extent={{-12,-70},{8,-50}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TAmb2(
-                                                              T=288.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TAmb2(      T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T=0.1)

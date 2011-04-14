@@ -89,16 +89,15 @@ Note that for a given heat exchanger, the
  HeatExchangerFlowRegime</a> can change to parallel flow if one of the two capacity flow rates reverts
  its direction.
  </p>
-</html>",
-revisions="<html>
+</html>", revisions=
+          "<html>
 <ul>
 <li>
 February 18, 2009, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"
-));
+</html>"));
 
   type HeatExchangerFlowRegime = enumeration(
       ParallelFlow "Parallel flow",

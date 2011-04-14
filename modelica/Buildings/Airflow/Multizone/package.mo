@@ -1,6 +1,7 @@
 within Buildings.Airflow;
 package Multizone "Package with models for multizone airflow and contaminant transport"
   extends Modelica.Icons.VariantsPackage;
+
 annotation (preferedView="info", Documentation(info="<html>
 This package provides
 models to compute the airflow and contaminant transport between different rooms and between

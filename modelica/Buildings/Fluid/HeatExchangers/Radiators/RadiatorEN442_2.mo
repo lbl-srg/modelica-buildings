@@ -173,11 +173,11 @@ initial equation
 equation
   dTCon = heatPortCon.T .- vol.medium.T;
   dTRad = heatPortRad.T .- vol.medium.T;
-  if homotopyInitialization then   
-    preHeaFloCon.Q_flow = homotopy(actual=(1-fraRad) .* UAEle .* dTCon .* 
+  if homotopyInitialization then
+    preHeaFloCon.Q_flow = homotopy(actual=(1-fraRad) .* UAEle .* dTCon .*
                                           Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTCon, n=n-1, delta=0.05),
                                    simplified= (1-fraRad) .* UAEle .* abs(dTCon_nominal).^(n-1) .* dTCon);
-    preHeaFloRad.Q_flow = homotopy(actual=fraRad     .* UAEle .* dTRad .* 
+    preHeaFloRad.Q_flow = homotopy(actual=fraRad     .* UAEle .* dTRad .*
                                           Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTRad, n=n-1, delta=0.05),
                                    simplified=fraRad .* UAEle .* abs(dTRad_nominal).^(n-1) .* dTRad);
   else

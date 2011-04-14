@@ -25,7 +25,6 @@ February 16, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"
-));
+</html>"));
 
 end Internal;

@@ -34,27 +34,27 @@ partial model PartialStaticTwoPortInterface
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=if homotopyInitialization then
-      Medium.setState_phX(port_a.p, 
-                          homotopy(actual=actualStream(port_a.h_outflow), 
+      Medium.setState_phX(port_a.p,
+                          homotopy(actual=actualStream(port_a.h_outflow),
                                    simplified=inStream(port_a.h_outflow)),
                           homotopy(actual=actualStream(port_a.Xi_outflow),
                                    simplified=inStream(port_a.Xi_outflow)))
     else
-      Medium.setState_phX(port_a.p, 
-                          actualStream(port_a.h_outflow), 
-                          actualStream(port_a.Xi_outflow)) 
-      if show_T or show_V_flow "Medium properties in port_a";
+      Medium.setState_phX(port_a.p,
+                          actualStream(port_a.h_outflow),
+                          actualStream(port_a.Xi_outflow)) if
+         show_T or show_V_flow "Medium properties in port_a";
   Medium.ThermodynamicState sta_b=if homotopyInitialization then
-      Medium.setState_phX(port_b.p, 
+      Medium.setState_phX(port_b.p,
                           homotopy(actual=actualStream(port_b.h_outflow),
                                    simplified=port_b.h_outflow),
                           homotopy(actual=actualStream(port_b.Xi_outflow),
-	                           simplified=port_b.Xi_outflow))
+                            simplified=port_b.Xi_outflow))
     else
-      Medium.setState_phX(port_b.p, 
-                          actualStream(port_b.h_outflow), 
-                          actualStream(port_b.Xi_outflow)) 
-       if show_T "Medium properties in port_b";
+      Medium.setState_phX(port_b.p,
+                          actualStream(port_b.h_outflow),
+                          actualStream(port_b.Xi_outflow)) if
+          show_T "Medium properties in port_b";
 
 equation
   // Design direction of mass flow rate

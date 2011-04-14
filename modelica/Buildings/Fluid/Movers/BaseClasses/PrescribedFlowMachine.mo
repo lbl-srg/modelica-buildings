@@ -7,7 +7,7 @@ partial model PrescribedFlowMachine
       souSta(final control_m_flow=false));
 
   extends Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface(
-    V_flow_nominal=m_flow_nominal/rho_nominal,				  
+    V_flow_nominal=m_flow_nominal/rho_nominal,
     V_flow_max(start=V_flow_nominal),
     final rho_nominal = Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default));
 

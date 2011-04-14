@@ -3,8 +3,8 @@ block CheckCeilingHeight
   "Ensures that the ceiling height is above a lower bound"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 public
-  Modelica.Blocks.Interfaces.RealInput ceiHeiIn(final quantity="Height", final unit
-      =    "m") "Input ceiling height"
+  Modelica.Blocks.Interfaces.RealInput ceiHeiIn(final quantity="Height", final unit=
+           "m") "Input ceiling height"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput ceiHeiOut(final quantity="Height",
       final unit="m") "Ceiling height"

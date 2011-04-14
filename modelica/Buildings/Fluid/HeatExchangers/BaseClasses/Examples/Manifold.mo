@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model Manifold "Test model for coil manifold"
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
  parameter Integer nPipPar = 3 "Number of parallel pipes";
  parameter Integer nPipSeg = 4 "Number of pipe segments";
     Modelica.Blocks.Sources.Constant POut(k=101325)

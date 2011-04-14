@@ -41,20 +41,17 @@ equation
     end for;
   end for;
   connect(port_a, lay[1].port_a) annotation (Line(
-      points={{-100,5.55112e-16},{-60,5.55112e-16},{-60,6.10623e-16},{-20,
-          6.10623e-16}},
+      points={{-100,0},{-60,0},{-60,0},{-20,0}},
       color={191,0,0},
       smooth=Smooth.None));
   for i in 1:nLay-1 loop
   connect(lay[i].port_b, lay[i+1].port_a) annotation (Line(
-      points={{5.55112e-16,6.10623e-16},{20,6.10623e-16},{20,-20},{-40,-20},{
-            -40,6.10623e-16},{-20,6.10623e-16}},
+      points={{0,0},{20,0},{20,-20},{-40,-20},{-40,0},{-20,0}},
       color={191,0,0},
       smooth=Smooth.None));
   end for;
   connect(lay[nLay].port_b, port_b) annotation (Line(
-      points={{5.55112e-16,6.10623e-16},{49,6.10623e-16},{49,5.55112e-16},{100,
-          5.55112e-16}},
+      points={{0,0},{49,0},{49,0},{100,0}},
       color={191,0,0},
       smooth=Smooth.None));
 

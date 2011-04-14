@@ -27,8 +27,7 @@ First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"
-),
+</html>"),
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
                         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),

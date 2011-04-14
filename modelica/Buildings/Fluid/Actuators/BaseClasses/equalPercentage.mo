@@ -59,7 +59,7 @@ June 5, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"),   
-smoothOrder=1, 
+</html>"),
+smoothOrder=1,
 derivative(zeroDerivative=R, zeroDerivative=l, zeroDerivative=delta)=der_equalPercentage);
 end equalPercentage;

@@ -1,6 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
 model SignalRanker "Example model"
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Sine sine(freqHz=2)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}}, rotation=0)));
   Modelica.Blocks.Sources.Pulse pulse(period=0.25)

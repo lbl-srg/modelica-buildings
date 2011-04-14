@@ -21,8 +21,8 @@ algorithm
     end if;
     out := pos*y + (1 - y)*neg;
     annotation (
-smoothOrder=1, 
-derivative=BaseClasses.der_spliceFunction, 
+smoothOrder=1,
+derivative=BaseClasses.der_spliceFunction,
 Documentation(info="<html>
 <p>
 Function to provide a once continuously differentialbe transition between 
