@@ -154,7 +154,6 @@ This increases robustness.
 "));
   end Version_0_11_1;
 
-
   class Version_0_11_0 "Version 0.11.0"
     extends Modelica.Icons.ReleaseNotes;
   annotation (Documentation(info="<html>
