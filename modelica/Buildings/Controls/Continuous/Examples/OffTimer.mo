@@ -1,6 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
 model OffTimer "Example model"
-  extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example; 
   import Buildings;
 
   Modelica.Blocks.Sources.BooleanPulse booleanPulse(period=0.2)

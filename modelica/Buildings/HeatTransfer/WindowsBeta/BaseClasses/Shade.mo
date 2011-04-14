@@ -94,9 +94,9 @@ equation
       T4 = T03 * sha.T;
     else
       if homotopyInitialization then
- T4 = homotopy(actual=(sha.T)^4, simplified=T03 * sha.T);
+	T4 = homotopy(actual=(sha.T)^4, simplified=T03 * sha.T);
       else
- T4 = (sha.T)^4;
+	T4 = (sha.T)^4;
       end if;
     end if;
 

@@ -56,6 +56,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-smoothOrder=1,
+smoothOrder=1, 
 derivative(zeroDerivative=c, zeroDerivative=xMin, zeroDerivative=xMax)=BaseClasses.der_extendedPolynomial);
 end extendedPolynomial;

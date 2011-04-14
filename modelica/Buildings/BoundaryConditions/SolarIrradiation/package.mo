@@ -2,7 +2,6 @@ within Buildings.BoundaryConditions;
 package SolarIrradiation "Package with models to compute solar irradition"
   extends Modelica.Icons.VariantsPackage;
 
-
 annotation (preferedView="info",
 Documentation(info="<html>
 This package contains models to compute the solar irradiation

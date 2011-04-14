@@ -1,7 +1,6 @@
 within Buildings.Controls;
 package Continuous "Package with models for discrete time controls"
   extends Modelica.Icons.VariantsPackage;
-
 annotation (preferedView="info", Documentation(info="<html>
 This package contains components models for continuous time controls.
 For additional models, see also 

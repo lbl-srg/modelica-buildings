@@ -41,7 +41,8 @@ model GlassLayer "Test model for glass layer heat transfer"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={114,-60})));
-  Modelica.Blocks.Sources.Constant QAbs_flow(k=0) "Absorbed solar heat flow"
+  Modelica.Blocks.Sources.Constant QAbs_flow(k=0)
+    "Absorbed solar heat flow"
     annotation (Placement(transformation(extent={{-60,74},{-40,94}})));
   Buildings.HeatTransfer.Radiosity.RadiositySplitter radShaInt
     "Radiosity that strikes shading device"

@@ -11,7 +11,8 @@ model GlassLayer "Model for a glass layer of a window assembly"
     "Infrared absorptivity of surface a (usually room-facing surface)";
   parameter Modelica.SIunits.Emissivity absIR_b
     "Infrared absorptivity of surface b (usually outside-facing surface)";
-  parameter Modelica.SIunits.Emissivity tauIR "Infrared transmittance of glass";
+  parameter Modelica.SIunits.Emissivity tauIR
+    "Infrared transmittance of glass";
 
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"

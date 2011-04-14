@@ -16,7 +16,7 @@ initial algorithm
   i_w:= -1;
   if cardinality(mWat_flow) > 0 then
   for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
+      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], 
                                             string2="Water",
                                             caseSensitive=false) then
       i_w := i;

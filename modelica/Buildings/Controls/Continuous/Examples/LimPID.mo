@@ -1,6 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
 model LimPID "Example model"
-  extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example; 
   import Buildings;
 
   Modelica.Blocks.Sources.Pulse pulse(period=0.25)

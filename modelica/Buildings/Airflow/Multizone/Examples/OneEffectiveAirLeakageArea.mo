@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model OneEffectiveAirLeakageArea
-  extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example; 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Fluid.MixingVolumes.MixingVolume volA(

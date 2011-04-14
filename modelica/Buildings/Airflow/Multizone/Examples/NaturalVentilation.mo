@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model NaturalVentilation
-  extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example; 
 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 

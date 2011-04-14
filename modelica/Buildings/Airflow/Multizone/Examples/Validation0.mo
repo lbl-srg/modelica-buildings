@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model Validation0
-  extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example; 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Fluid.MixingVolumes.MixingVolume volEas(

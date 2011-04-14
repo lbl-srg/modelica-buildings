@@ -74,7 +74,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(assertEquality.u2, heaFlo1.Q_flow) annotation (Line(
-      points={{18,-76},{0,-76},{0,4},{0,4}},
+      points={{18,-76},{0,-76},{0,4},{-1.88738e-16,4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TA.port, conv1.fluid) annotation (Line(

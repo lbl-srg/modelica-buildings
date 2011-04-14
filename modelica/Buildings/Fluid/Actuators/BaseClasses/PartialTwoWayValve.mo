@@ -26,10 +26,10 @@ equation
    end if;
  else // do not use homotopy
    if from_dp then
-     m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=phi*Kv_SI,
+     m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=phi*Kv_SI, 
                               m_flow_turbulent=m_flow_turbulent, linearized=linearized);
    else
-     dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=phi*Kv_SI,
+     dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=phi*Kv_SI, 
                               m_flow_turbulent=m_flow_turbulent, linearized=linearized);
    end if;
  end if; // homotopyInitialization

@@ -1,7 +1,6 @@
 within Buildings.Fluid.Actuators;
 package Motors "Package with motor models for valves and dampers"
   extends Modelica.Icons.VariantsPackage;
-
 annotation (preferedView="info", Documentation(info="<html>
 This package contains components models for motors that may be
 used with the actuator models in

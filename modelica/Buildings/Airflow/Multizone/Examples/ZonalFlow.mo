@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model ZonalFlow
-  extends Modelica.Icons.Example;
+  extends Modelica.Icons.Example; 
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
   parameter Modelica.SIunits.Volume volA=100 "Volume of room A";
   parameter Modelica.SIunits.Volume volB=1 "Volume of room B";
