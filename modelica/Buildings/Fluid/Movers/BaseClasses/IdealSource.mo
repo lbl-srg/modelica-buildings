@@ -43,8 +43,11 @@ protected
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput P_internal
     "Needed to connect to conditional connector";
-
+  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
 equation
+  // Regularization of m_flow around the origin to avoid a division by zero
+  m_flowInv = Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
+
   // Ideal control
   if control_m_flow then
     m_flow = m_flow_internal;
@@ -64,8 +67,10 @@ equation
 
   // Energy balance (no storage)
   if addPowerToMedium then
-    port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -P_internal;
-    port_b.m_flow*port_b.h_outflow + port_a.m_flow*inStream(port_a.h_outflow) = -P_internal;
+    port_b.h_outflow = inStream(port_a.h_outflow) + P_internal * m_flowInv;
+    port_a.h_outflow = inStream(port_b.h_outflow) - P_internal * m_flowInv;
+//    port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -P_internal;
+//    port_b.m_flow*port_b.h_outflow + port_a.m_flow*inStream(port_a.h_outflow) = -P_internal;
   else
     port_a.h_outflow = inStream(port_b.h_outflow);
     port_b.h_outflow = inStream(port_a.h_outflow);
@@ -116,6 +121,10 @@ adding heat to the volume, and flow work to this model.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 18, 2011 by Michael Wetter:<br>
+Rewrote energy balance to avoid a division by zero.
+</li>
 <li>
 July 27, 2010 by Michael Wetter:<br>
 Redesigned model to fix bug in medium balance.

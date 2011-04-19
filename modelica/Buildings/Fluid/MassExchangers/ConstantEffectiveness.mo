@@ -3,7 +3,12 @@ model ConstantEffectiveness
   "Heat and moisture exchanger with constant effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
   sensibleOnly1=false,
-  sensibleOnly2=false);
+  sensibleOnly2=false,
+  Q1_flow = epsS * QMax_flow,
+  Q2_flow = -Q1_flow,
+  mXi1_flow = {if ( i == Medium1.Water) then mWat_flow else 0 for i in 1:Medium1.nXi},
+  mXi2_flow = {if ( i == Medium2.Water) then -mWat_flow else 0 for i in 1:Medium2.nXi});
+
   parameter Real epsS(min=0, max=1) = 0.8
     "Sensible heat exchanger effectiveness";
   parameter Real epsL(min=0, max=1) = 0.8 "Latent heat exchanger effectiveness";
@@ -17,10 +22,6 @@ model ConstantEffectiveness
     "Maximum water flow rate from medium 2 to medium 1";
 
 equation
-  // transfered heat
-  Q1_flow = epsS * QMax_flow;
-  // no heat loss to ambient
-  0 = Q1_flow + Q2_flow;
   // Definitions for effectiveness model
   X_w_in1 = Modelica.Fluid.Utilities.regStep(m1_flow,
                   state_a1_inflow.X[Medium1.Water],
@@ -34,13 +35,6 @@ equation
                             smooth(1, gai2 * abs(m2_flow)))) * (X_w_in2 - X_w_in1);
   mWat_flow = epsL * mMax_flow;
 
-  for i in 1:Medium1.nXi loop
-     mXi1_flow[i] = if ( i == Medium1.Water) then mWat_flow else 0;
-  end for;
-
-  for i in 1:Medium2.nXi loop
-     mXi2_flow[i] = if ( i == Medium2.Water) then -mWat_flow else 0;
-  end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

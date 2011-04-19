@@ -4,13 +4,13 @@ model ReverseFlowHumidifier
   import Buildings;
   extends Modelica.Icons.Example;
 package Medium = Buildings.Media.PerfectGases.MoistAir;
-  Buildings.Utilities.Diagnostics.AssertEquality assTem(threShold=1E-8)
+  Buildings.Utilities.Diagnostics.AssertEquality assTem(threShold=0.01)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assEnt(threShold=1E-8)
+  Buildings.Utilities.Diagnostics.AssertEquality assEnt(threShold=0.5)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,-30},{100,-10}})));
-  Buildings.Utilities.Diagnostics.AssertEquality assMas(threShold=1E-8)
+  Buildings.Utilities.Diagnostics.AssertEquality assMas(threShold=1E-5)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
 
@@ -95,8 +95,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(u2.y, humBac.u)         annotation (Line(
-      points={{-79.4,60},{-70,60},{-70,12},{-24,12},{-24,1.22125e-15},{-30,
-          1.22125e-15}},
+      points={{-79.4,60},{-70,60},{-70,12},{-24,12},{-24,0},{-30,0}},
       color={0,0,127},
       smooth=Smooth.None));
 

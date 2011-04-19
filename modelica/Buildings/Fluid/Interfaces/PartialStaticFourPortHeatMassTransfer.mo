@@ -1,5 +1,5 @@
 within Buildings.Fluid.Interfaces;
-partial model PartialStaticFourPortHeatMassTransfer
+model PartialStaticFourPortHeatMassTransfer
   "Partial model transporting two fluid streams between four ports without storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialStaticFourPortInterface;
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
@@ -7,126 +7,57 @@ partial model PartialStaticFourPortHeatMassTransfer
    final computeFlowResistance2=(dp2_nominal > Modelica.Constants.eps));
   import Modelica.Constants;
 
-  Modelica.SIunits.HeatFlowRate Q1_flow "Heat transfered into the medium 1";
-  Medium1.MassFlowRate mXi1_flow[Medium1.nXi]
+  input Modelica.SIunits.HeatFlowRate Q1_flow
+    "Heat transfered into the medium 1";
+  input Medium1.MassFlowRate mXi1_flow[Medium1.nXi]
     "Mass flow rates of independent substances added to the medium 1";
-  Modelica.SIunits.HeatFlowRate Q2_flow "Heat transfered into the medium 2";
-  Medium2.MassFlowRate mXi2_flow[Medium2.nXi]
+  input Modelica.SIunits.HeatFlowRate Q2_flow
+    "Heat transfered into the medium 2";
+  input Medium2.MassFlowRate mXi2_flow[Medium2.nXi]
     "Mass flow rates of independent substances added to the medium 2";
 
-protected
   constant Boolean sensibleOnly1
     "Set to true if sensible exchange only for medium 1";
   constant Boolean sensibleOnly2
     "Set to true if sensible exchange only for medium 2";
+protected
+  Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer bal1(
+    final sensibleOnly = sensibleOnly1,
+    redeclare final package Medium=Medium1,
+    final m_flow_nominal = m1_flow_nominal,
+    final dp_nominal = dp1_nominal,
+    final allowFlowReversal = allowFlowReversal1,
+    final m_flow_small = m1_flow_small,
+    final homotopyInitialization = homotopyInitialization,
+    final show_V_flow = false,
+    final show_T = false,
+    final from_dp = from_dp1,
+    final linearizeFlowResistance = linearizeFlowResistance1,
+    final deltaM = deltaM1,
+    final Q_flow = Q1_flow,
+    final mXi_flow = mXi1_flow)
+    "Model for heat, mass, species, trace substance and pressure balance of stream 1";
+  Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer bal2(
+    final sensibleOnly = sensibleOnly2,
+    redeclare final package Medium=Medium2,
+    final m_flow_nominal = m2_flow_nominal,
+    final dp_nominal = dp2_nominal,
+    final allowFlowReversal = allowFlowReversal2,
+    final m_flow_small = m2_flow_small,
+    final homotopyInitialization = homotopyInitialization,
+    final show_V_flow = false,
+    final show_T = false,
+    final from_dp = from_dp2,
+    final linearizeFlowResistance = linearizeFlowResistance2,
+    final deltaM = deltaM2,
+    final Q_flow = Q2_flow,
+    final mXi_flow = mXi2_flow)
+    "Model for heat, mass, species, trace substance and pressure balance of stream 2";
 equation
-  // Energy balance (no storage, no heat loss/gain).
-  port_a1.m_flow*port_a1.h_outflow + port_b1.m_flow*inStream(port_b1.h_outflow) = -Q1_flow;
-  port_b1.m_flow*port_b1.h_outflow + port_a1.m_flow*inStream(port_a1.h_outflow) = -Q1_flow;
-    
-  port_a2.m_flow*port_a2.h_outflow + port_b2.m_flow*inStream(port_b2.h_outflow) = -Q2_flow;
-  port_b2.m_flow*port_b2.h_outflow + port_a2.m_flow*inStream(port_a2.h_outflow) = -Q2_flow;
-
-  // Mass balance (no storage)
-  port_a1.m_flow + port_b1.m_flow = -sum(mXi1_flow);
-  port_a2.m_flow + port_b2.m_flow = -sum(mXi2_flow);
-
-  if sensibleOnly1 then
-    port_a1.Xi_outflow = inStream(port_b1.Xi_outflow);
-    port_b1.Xi_outflow = inStream(port_a1.Xi_outflow);
-  else
-    port_a1.m_flow*port_a1.Xi_outflow + port_b1.m_flow*inStream(port_b1.Xi_outflow) = -mXi1_flow;
-    port_b1.m_flow*port_b1.Xi_outflow + port_a1.m_flow*inStream(port_a1.Xi_outflow) = -mXi1_flow;
-  end if;
-
-  if sensibleOnly2 then
-    port_a2.Xi_outflow = inStream(port_b2.Xi_outflow);
-    port_b2.Xi_outflow = inStream(port_a2.Xi_outflow);
-  else
-    port_a2.m_flow*port_a2.Xi_outflow + port_b2.m_flow*inStream(port_b2.Xi_outflow) = -mXi2_flow;
-    port_b2.m_flow*port_b2.Xi_outflow + port_a2.m_flow*inStream(port_a2.Xi_outflow) = -mXi2_flow;
-  end if;
-
-  // Transport of trace substances
-  port_a1.C_outflow = inStream(port_b1.C_outflow);
-  port_b1.C_outflow = inStream(port_a1.C_outflow);
-  port_a2.C_outflow = inStream(port_b2.C_outflow);
-  port_b2.C_outflow = inStream(port_a2.C_outflow);
-
-  // Pressure drop calculation
-  // Medium 1
-  if computeFlowResistance1 then
-    if homotopyInitialization then
-      if from_dp1 then
-        m1_flow = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                    dp=dp1, 
-                                    k=m1_flow_nominal/sqrt(dp1_nominal), 
-                                    m_flow_turbulent=deltaM1 * m1_flow_nominal,
-                                    linearized=linearizeFlowResistance1),
-                          simplified=m1_flow_nominal*dp1/dp1_nominal);
-      else
-        dp1 = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                    m_flow=m1_flow, 
-                                    k=m1_flow_nominal/sqrt(dp1_nominal), 
-                                    m_flow_turbulent=deltaM1 * m1_flow_nominal,
-                                    linearized=linearizeFlowResistance1),
-                      simplified=dp1_nominal*m1_flow/m1_flow_nominal);
-      end if;
-    else // do not use homotopy
-      if from_dp1 then
-        m1_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                    dp=dp1, 
-                                    k=m1_flow_nominal/sqrt(dp1_nominal), 
-                                    m_flow_turbulent=deltaM1 * m1_flow_nominal,
-                                    linearized=linearizeFlowResistance1);
-      else
-        dp1 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                    m_flow=m1_flow,
-                                    k=m1_flow_nominal/sqrt(dp1_nominal), 
-                                    m_flow_turbulent=deltaM1 * m1_flow_nominal,
-                                    linearized=linearizeFlowResistance1);
-      end if;
-    end if; // homotopyInitialization 
-  else // do not compute flow resistance
-    dp1 = 0;
-  end if; // computeFlowResistance
-
-  // Medium 2
-  if computeFlowResistance2 then
-    if homotopyInitialization then
-      if from_dp2 then
-        m2_flow = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                    dp=dp2, 
-                                    k=m2_flow_nominal/sqrt(dp2_nominal), 
-                                    m_flow_turbulent=deltaM2 * m2_flow_nominal,
-                                    linearized=linearizeFlowResistance2),
-                          simplified=m2_flow_nominal*dp2/dp2_nominal);
-      else
-        dp2 = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                    m_flow=m2_flow, 
-                                    k=m2_flow_nominal/sqrt(dp2_nominal), 
-                                    m_flow_turbulent=deltaM2 * m2_flow_nominal,
-                                    linearized=linearizeFlowResistance2),
-                      simplified=dp2_nominal*m2_flow/m2_flow_nominal);
-      end if;
-    else // do not use homotopy
-      if from_dp2 then
-        m2_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                    dp=dp2, 
-                                    k=m2_flow_nominal/sqrt(dp2_nominal), 
-                                    m_flow_turbulent=deltaM2 * m2_flow_nominal,
-                                    linearized=linearizeFlowResistance2);
-      else
-        dp2 = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                    m_flow=m2_flow, 
-                                    k=m2_flow_nominal/sqrt(dp2_nominal), 
-                                    m_flow_turbulent=deltaM2 * m2_flow_nominal,
-                                    linearized=linearizeFlowResistance2);
-      end if;
-    end if; // homotopyInitialization 
-  else // do not compute flow resistance
-    dp2 = 0;
-  end if; // computeFlowResistance
+  connect(bal1.port_a, port_a1);
+  connect(bal1.port_b, port_b1);
+  connect(bal2.port_a, port_a2);
+  connect(bal2.port_b, port_b2);
 
   annotation (
     preferedView="info",
@@ -147,6 +78,10 @@ for how to use this partial model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2011, by Michael Wetter:<br>
+Changed energy and mass balance to avoid a division by zero if <code>m_flow=0</code>.
+</li>
 <li>
 March 27, 2011, by Michael Wetter:<br>
 Added <code>homotopy</code> operator.

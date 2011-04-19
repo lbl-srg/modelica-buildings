@@ -1,5 +1,5 @@
 within Buildings.Fluid.Interfaces;
-partial model PartialStaticTwoPortHeatMassTransfer
+model PartialStaticTwoPortHeatMassTransfer
   "Partial model transporting fluid between two ports without storing mass or energy"
   extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface(
   showDesignFlowDirection = false);
@@ -7,45 +7,73 @@ partial model PartialStaticTwoPortHeatMassTransfer
     final computeFlowResistance=(dp_nominal > Modelica.Constants.eps));
   import Modelica.Constants;
 
-  Modelica.SIunits.HeatFlowRate Q_flow "Heat transfered into the medium";
-  Medium.MassFlowRate mXi_flow[Medium.nXi]
+  input Modelica.SIunits.HeatFlowRate Q_flow "Heat transfered into the medium";
+  input Medium.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
-protected
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
+protected
+  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
 equation
-  // Energy balance (no storage, no heat loss/gain)
-  port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -Q_flow;
-  port_b.m_flow*port_b.h_outflow + port_a.m_flow*inStream(port_a.h_outflow) = -Q_flow;
-
-  // Mass balance (no storage)
-  port_a.m_flow + port_b.m_flow = -sum(mXi_flow);
-
-  // Species balance, mXi_flow is ignored by this model
+  // Regularization of m_flow around the origin to avoid a division by zero
+/*  m_flowInv = smooth(2, if (abs(port_a.m_flow) > m_flow_small/1E3) then 
+      1/port_a.m_flow
+      else 
+      Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3));
+ */
+ m_flowInv = Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
+  //////////////////////////////////////////////////////////////////////////////////////////
+  // Energy balance and mass balance
   if sensibleOnly then
+    // Mass balance
+    port_a.m_flow = -port_b.m_flow;
+    // Energy balance
+    port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
+    port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+
+    // Transport of species
     port_a.Xi_outflow = inStream(port_b.Xi_outflow);
     port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-  else
-    port_a.m_flow*port_a.Xi_outflow + port_b.m_flow*inStream(port_b.Xi_outflow) = -mXi_flow;
-    port_b.m_flow*port_b.Xi_outflow + port_a.m_flow*inStream(port_a.Xi_outflow) = -mXi_flow;
-  end if;
-  // Transport of trace substances
-  port_a.C_outflow = inStream(port_b.C_outflow);
-  port_b.C_outflow = inStream(port_a.C_outflow);
 
+    // Transport of trace substances
+    port_a.C_outflow = inStream(port_b.C_outflow);
+    port_b.C_outflow = inStream(port_a.C_outflow);
+
+  else
+    // Mass balance (no storage)
+    port_a.m_flow + port_b.m_flow = -sum(mXi_flow);
+
+    // Energy balance.
+    // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
+    // at both ports. Since mXi_flow << m_flow, the error is small.
+    port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
+    port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+
+    // Transport of species
+    for i in 1:Medium.nXi loop
+      port_b.Xi_outflow[i] = inStream(port_a.Xi_outflow[i]) + mXi_flow[i] * m_flowInv;
+      port_a.Xi_outflow[i] = inStream(port_b.Xi_outflow[i]) - mXi_flow[i] * m_flowInv;
+    end for;
+    // Transport of trace substances
+    for i in 1:Medium.nC loop
+      port_a.m_flow*port_a.C_outflow[i] = -port_b.m_flow*inStream(port_b.C_outflow[i]);
+      port_b.m_flow*port_b.C_outflow[i] = -port_a.m_flow*inStream(port_a.C_outflow[i]);
+    end for;
+  end if; // sensibleOnly
+  //////////////////////////////////////////////////////////////////////////////////////////
   // Pressure drop calculation
   if computeFlowResistance then
     if homotopyInitialization then
       if from_dp then
         m_flow = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                    dp=dp, 
-                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    dp=dp,
+                                    k=m_flow_nominal/sqrt(dp_nominal),
                                     m_flow_turbulent=deltaM * m_flow_nominal,
                                     linearized=linearizeFlowResistance),
                           simplified=m_flow_nominal*dp/dp_nominal);
       else
         dp = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                    m_flow=m_flow, 
-                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    m_flow=m_flow,
+                                    k=m_flow_nominal/sqrt(dp_nominal),
                                     m_flow_turbulent=deltaM * m_flow_nominal,
                                     linearized=linearizeFlowResistance),
                       simplified=dp_nominal*m_flow/m_flow_nominal);
@@ -53,18 +81,18 @@ equation
     else // do not use homotopy
       if from_dp then
         m_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                    dp=dp, 
-                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    dp=dp,
+                                    k=m_flow_nominal/sqrt(dp_nominal),
                                     m_flow_turbulent=deltaM * m_flow_nominal,
                                     linearized=linearizeFlowResistance);
       else
         dp = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                    m_flow=m_flow, 
-                                    k=m_flow_nominal/sqrt(dp_nominal), 
+                                    m_flow=m_flow,
+                                    k=m_flow_nominal/sqrt(dp_nominal),
                                     m_flow_turbulent=deltaM * m_flow_nominal,
                                     linearized=linearizeFlowResistance);
       end if;
-    end if; // homotopyInitialization 
+    end if; // homotopyInitialization
   else // do not compute flow resistance
     dp = 0;
   end if; // computeFlowResistance
@@ -106,6 +134,10 @@ the energy and mass balances need to be added, such as
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2011, by Michael Wetter:<br>
+Changed energy and mass balance to avoid a division by zero if <code>m_flow=0</code>.
+</li>
 <li>
 March 27, 2011, by Michael Wetter:<br>
 Added <code>homotopy</code> operator.

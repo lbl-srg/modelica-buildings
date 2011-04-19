@@ -2,7 +2,9 @@ within Buildings.Fluid.MassExchangers;
 model HumidifierPrescribed
   "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction"
   extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer(
-     sensibleOnly = false);
+     sensibleOnly = false,
+     Q_flow = Medium.enthalpyOfLiquid(T_in_internal) * mWat_flow,
+     mXi_flow = {if ( i == Medium.Water) then  mWat_flow else 0 for i in 1:Medium.nXi});
 
   parameter Boolean use_T_in= false
     "Get the temperature from the input connector"
@@ -36,10 +38,6 @@ equation
   end if;
 
   mWat_flow = u * mWat_flow_nominal;
-  Q_flow = Medium.enthalpyOfLiquid(T_in_internal) * mWat_flow;
-  for i in 1:Medium.nXi loop
-     mXi_flow[i] = if ( i == Medium.Water) then  mWat_flow else 0;
-  end for;
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(

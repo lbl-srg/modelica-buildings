@@ -2,17 +2,16 @@ within Buildings.Fluid.HeatExchangers;
 model ConstantEffectiveness "Heat exchanger with constant effectiveness"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
     sensibleOnly1 = true,
-    sensibleOnly2 = true);
+    sensibleOnly2 = true,
+    Q1_flow = eps * QMax_flow,
+    Q2_flow = -Q1_flow,
+    mXi1_flow = zeros(Medium1.nXi),
+    mXi2_flow = zeros(Medium2.nXi));
+
   parameter Real eps(start=0.8, min=0, max=1, unit="1")
     "Heat exchanger effectiveness";
 equation
-  // transfered heat
-  Q1_flow = eps * QMax_flow;
-  // no heat loss to ambient
-  0 = Q1_flow + Q2_flow;
-  // no mass exchange
-  mXi1_flow = zeros(Medium1.nXi);
-  mXi2_flow = zeros(Medium2.nXi);
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={Rectangle(
           extent={{-70,78},{70,-82}},

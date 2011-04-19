@@ -2,7 +2,11 @@ within Buildings.Fluid.HeatExchangers;
 model DryEffectivenessNTU
   "Heat exchanger with effectiveness - NTU relation and no moisture condensation"
   extends Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness(
-      sensibleOnly1=true, sensibleOnly2=true);
+      sensibleOnly1=true, sensibleOnly2=true,
+      Q1_flow = eps*QMax_flow,
+      Q2_flow = -Q1_flow,
+      mXi1_flow = zeros(Medium1.nXi),
+      mXi2_flow = zeros(Medium2.nXi));
   import con = Buildings.Fluid.Types.HeatExchangerConfiguration;
   import flo = Buildings.Fluid.Types.HeatExchangerFlowRegime;
 
@@ -134,6 +138,7 @@ initial equation
   UA_nominal = NTU_nominal*CMin_flow_nominal;
 
 equation
+  assert(abs(Q1_flow+Q2_flow)<1E-10, "Error in solver. Fixme");
   // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
   if (configuration == con.ParallelFlow) then
     flowRegime = if (C1_flow*C2_flow >= 0) then flo.ParallelFlow else flo.CounterFlow;
@@ -164,13 +169,6 @@ equation
     CMin_flow_nominal=CMin_flow_nominal,
     CMax_flow_nominal=CMax_flow_nominal,
     delta=delta);
-  // transfered heat. QMax_flow is maximum heat transfered into medium
-  Q1_flow = eps*QMax_flow;
-  // no heat loss to ambient
-  0 = Q1_flow + Q2_flow;
-  // no mass exchange
-  mXi1_flow = zeros(Medium1.nXi);
-  mXi2_flow = zeros(Medium2.nXi);
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Rectangle(
