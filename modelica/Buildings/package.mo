@@ -148,6 +148,12 @@ Buildings.Fluid.Actuators</a> to avoid having the flow coefficient
 <code>k</code> as an algebraic variable.
 This increases robustness.
 </li>
+<li>
+Rewrote energy, species and trace substance balance in 
+<a href=\"modelica://Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer\">
+Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer</a>
+to better handle zero mass flow rate.
+</li>
 </ul>
 </p>
 </html>
