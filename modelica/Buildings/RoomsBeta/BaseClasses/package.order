@@ -1,12 +1,12 @@
 ExteriorBoundaryConditions
 ExteriorBoundaryConditionsWithWindow
 HeatGain
-LongWaveRadiationExchange
+InfraredRadiationExchange
+InfraredRadiationGainDistribution
+MixedAir
 RadiationAdapter
 RadiationTemperature
-LongWaveRadiationGainDistribution
 ShortWaveRadiationExchange
-MixedAir
 PartialSurfaceInterface
 SkyRadiationExchange
 ConstructionNumbers
