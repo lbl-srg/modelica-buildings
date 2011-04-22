@@ -21,6 +21,9 @@ package MoistAirUnsaturated
         Buildings.Media.PerfectGases.Common.SingleGasData.H2O;
   import SI = Modelica.SIunits;
 
+  constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
+  constant Density dStp = 1.2 "Fluid density at pressure pStp";
+
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
@@ -46,8 +49,6 @@ package MoistAirUnsaturated
     MassFraction x_sat
       "Steam water mass content of saturation boundary in kg_water/kg_dryair";
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-   constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
-   constant Density dStp = 1.2 "Fluid density at pressure pStp";
   equation
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
