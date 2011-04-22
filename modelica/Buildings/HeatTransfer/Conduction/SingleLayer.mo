@@ -9,7 +9,8 @@ model SingleLayer "Model for single layer heat conductance"
   // if the convection coefficient is a function of temperature.
   Modelica.SIunits.Temperature T[nSta](start=
      {T_a_start+(T_b_start-T_a_start) * UA *
-        sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i) for i in 1:nSta})
+        sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i) for i in 1:nSta},
+      each nominal = 300)
     "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
     "Heat flow rate from state i to i+1";
@@ -59,11 +60,11 @@ equation
     port_a.Q_flow = +Q_flow[1];
     port_b.Q_flow = -Q_flow[nSta+1];
 
-    Q_flow[1]      = UAnSta2 * (port_a.T-T[1]);
-    Q_flow[nSta+1] = UAnSta2 * (T[nSta] -port_b.T);
+    port_a.T-T[1] = Q_flow[1]/UAnSta2;
+    T[nSta] -port_b.T = Q_flow[nSta+1]/UAnSta2;
     for i in 2:nSta loop
        // Q_flow[i] is heat flowing from (i-1) to (i)
-       Q_flow[i] = UAnSta * (T[i-1]-T[i]);
+       T[i-1]-T[i] = Q_flow[i]/UAnSta;
     end for;
     if material.steadyState then
       der_T = zeros(nSta);

@@ -3,7 +3,7 @@ model MultiLayer
   "Model for heat conductance through a solid with multiple material layers"
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor(
    final R=sum(lay[:].R));
-  Modelica.SIunits.Temperature T[sum(nSta)] "Temperature at the states";
+  Modelica.SIunits.Temperature T[sum(nSta)](each nominal = 300) "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[sum(nSta)+nLay]
     "Heat flow rate from state i to i+1";
   extends Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction;
