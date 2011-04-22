@@ -6,18 +6,17 @@ model InfraredRadiationGainDistribution
     Buildings.RoomsBeta.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation;
   import Buildings;
 
-  Buildings.RoomsBeta.BaseClasses.InfraredRadiationGainDistribution
-    lonWavRadGai(
+  Buildings.RoomsBeta.BaseClasses.InfraredRadiationGainDistribution irRadGai(
     nConExt=nConExt,
     nConExtWin=nConExtWin,
     nConPar=nConPar,
     nConBou=nConBou,
     nSurBou=nSurBou,
-    final datConExt = datConExt,
-    final datConExtWin = datConExtWin,
-    final datConPar = datConPar,
-    final datConBou = datConBou,
-    final surBou = surBou,
+    final datConExt=datConExt,
+    final datConExtWin=datConExtWin,
+    final datConPar=datConPar,
+    final datConBou=datConBou,
+    final surBou=surBou,
     haveShade=true)
     "Distribution for infrared radiative heat gains (e.g., due to equipment and people)"
     annotation (Placement(transformation(extent={{-30,0},{10,40}})));
@@ -29,40 +28,40 @@ protected
     "Outputs zero. This block is needed to send a signal to the shading connector if no window is used in the room model"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
 equation
-  connect(conConExt.port_a, lonWavRadGai.conExt) annotation (Line(
+  connect(conConExt.port_a, irRadGai.conExt)     annotation (Line(
       points={{40,90},{30,90},{30,38.3333},{10,38.3333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conConExtWin.port_a, lonWavRadGai.conExtWin) annotation (Line(
+  connect(conConExtWin.port_a, irRadGai.conExtWin)     annotation (Line(
       points={{40,60},{30,60},{30,35},{10,35}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conConExtWinFra.port_a, lonWavRadGai.conExtWinFra) annotation (Line(
+  connect(conConExtWinFra.port_a, irRadGai.conExtWinFra)     annotation (Line(
       points={{40,30},{30,30},{30,20},{10.1667,20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conConPar_a.port_a, lonWavRadGai.conPar_a) annotation (Line(
-      points={{40,6.10623e-16},{32,6.10623e-16},{32,15},{10.1667,15}},
+  connect(conConPar_a.port_a, irRadGai.conPar_a)     annotation (Line(
+      points={{40,0},{32,0},{32,15},{10.1667,15}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conConPar_b.port_a, lonWavRadGai.conPar_b) annotation (Line(
+  connect(conConPar_b.port_a, irRadGai.conPar_b)     annotation (Line(
       points={{40,-30},{30,-30},{30,11.6667},{10.1667,11.6667}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conConBou.port_a, lonWavRadGai.conBou) annotation (Line(
+  connect(conConBou.port_a, irRadGai.conBou)     annotation (Line(
       points={{40,-60},{28,-60},{28,6.66667},{10.1667,6.66667}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conSurBou.port_a, lonWavRadGai.conSurBou) annotation (Line(
+  connect(conSurBou.port_a, irRadGai.conSurBou)     annotation (Line(
       points={{40,-90},{24,-90},{24,1.66667},{10.0833,1.66667}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(QRad_flow.y, lonWavRadGai.Q_flow) annotation (Line(
+  connect(QRad_flow.y, irRadGai.Q_flow)     annotation (Line(
       points={{-59,10},{-40,10},{-40,20},{-31.6667,20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zer.y, lonWavRadGai.uSha) annotation (Line(
+  connect(zer.y, irRadGai.uSha)     annotation (Line(
       points={{-59,50},{-40,50},{-40,35},{-31.6667,35}},
       color={0,0,127},
       smooth=Smooth.None));
