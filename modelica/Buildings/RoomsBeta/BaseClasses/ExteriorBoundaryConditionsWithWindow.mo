@@ -80,7 +80,8 @@ model ExteriorBoundaryConditionsWithWindow
        windowHasShade "Heat port at shaded glass of exterior-facing surface"
     annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}, rotation=0),
         iconTransformation(extent={{-310,-130},{-290,-110}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra[nCon]
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra[nCon](T(each nominal=
+          300, each start=283.15))
     "Heat port at frame of exterior-facing surface"                                   annotation (Placement(transformation(extent={{-310,
             -270},{-290,-250}},
                        rotation=0), iconTransformation(extent={{-310,-270},{-290,
@@ -199,7 +200,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(HTotConExtWinFra.y, solHeaGaiConWin.Q_flow) annotation (Line(
-      points={{19,70},{5.55112e-16,70}},
+      points={{19,70},{0,70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solHeaGaiConWin.port, fra) annotation (Line(
