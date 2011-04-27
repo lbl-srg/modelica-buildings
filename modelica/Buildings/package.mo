@@ -131,6 +131,27 @@ its class name ends with the string <code>Beta</code>.
 <b>Note:</b> The packages whose name ends with <code>Beta</code>
 are still being validated.
 </p>
+The following <b style=\"color:red\">critical error</b> has been fixed (i.e. error
+that can lead to wrong simulation results):
+</p>
+<p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <tr><td colspan=\"2\"><b>Buildings.RoomsBeta</b></td></tr>
+  <tr><td valign=\"top\"><a href=\"modelica://Buildings.RoomsBeta.BaseClasses.InfraredRadiationExchange\">
+  Buildings.RoomsBeta.BaseClasses.InfraredRadiationExchange</a></td>
+      <td valign=\"top\">The model <code>Buildings.RoomsBeta.BaseClasses.InfraredRadiationExchange</code>
+      had an error in the view factor approximation. 
+      The error caused too much radiosity to flow from large to small surfaces because the law of reciprocity 
+      for view factors was not satisfied. This led to low surface temperatures if a surface had a large area 
+      compared to other surfaces.
+      The bug has been fixed by rewriting the view factor calculation.
+      </td>
+  </tr>
+</table>
+</p>
+<p>
+The following improvements and additions have been made:
+</p>
 <ul>
 <li>
 Updated library to Modelica 3.2.
