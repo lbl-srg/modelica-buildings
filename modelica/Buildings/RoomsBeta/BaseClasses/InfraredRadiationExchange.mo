@@ -134,7 +134,7 @@ equation
   // this port carries a flow variable, and hence the sign of the radiosity
   // would change in a connect statement.
   if (cardinality(JInConExtWin) == 0) then
-    JInConExtWin = zeros(1);
+    JInConExtWin = zeros(NConExtWin);
   end if;
 
   // Assign temperature of opaque surfaces
