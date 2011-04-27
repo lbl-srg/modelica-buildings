@@ -175,6 +175,16 @@ Rewrote energy, species and trace substance balance in
 Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer</a>
 to better handle zero mass flow rate.
 </li>
+<li>
+Implemented functions <code>enthalpyOfCondensingGas</code> and <code>saturationPressure</code>
+in single substance media 
+to allow use of the room model with media that do not contain water vapor.
+</li>
+<li>
+Revised <a href=\"modelica://Buildings.Fluid.Sources.Outside\">
+Buildings.Fluid.Sources.Outside</a>
+to allow use of the room model with media that do not contain water vapor.
+</li>
 </ul>
 </p>
 </html>

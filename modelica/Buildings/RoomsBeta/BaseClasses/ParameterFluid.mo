@@ -4,7 +4,7 @@ record ParameterFluid "Parameter declaration for fluid model"
   import Modelica.Fluid.Types.Dynamics;
 
   replaceable package Medium =
-    Modelica.Media.Interfaces.PartialCondensingGases "Medium in the component"
+    Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
   // Assumptions

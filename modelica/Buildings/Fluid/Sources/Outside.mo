@@ -18,10 +18,20 @@ model Outside
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-120,-18},{-80,22}})));
 protected
+  final parameter Boolean singleSubstance = ( Medium.nX == 1)
+    "True if single substance medium";
+  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(
+    redeclare package Medium = Medium) if
+       not singleSubstance "Block to compute water vapor concentration";
+  Modelica.Blocks.Interfaces.RealInput X_in_internal[Medium.nX]
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput T_in_internal
+    "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput p_in_internal
+    "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput C_in_internal[Medium.nC]
     "Needed to connect to conditional connector";
-  Buildings.Utilities.Psychrometrics.X_pTphi x_pTphi(redeclare package Medium
-      =        Medium) "Block to compute water vapor concentration";
+
 equation
   // Check medium properties
   Modelica.Fluid.Utilities.checkBoundary(Medium.mediumName, Medium.substanceNames,
@@ -32,16 +42,24 @@ equation
   if not use_C_in then
     C_in_internal = C;
   end if;
+  // Connections to input. This is required to obtain the data from
+  // the weather bus in case that the component x_pTphi is conditionally removed
+  connect(weaBus.pAtm, p_in_internal);
+  connect(weaBus.TDryBul, T_in_internal);
 
   // Connections to compute species concentration
   connect(weaBus.pAtm, x_pTphi.p_in);
   connect(weaBus.TDryBul, x_pTphi.T);
   connect(weaBus.relHum, x_pTphi.phi);
 
+  connect(X_in_internal, x_pTphi.X);
+  if singleSubstance then
+    X_in_internal = zeros(Medium.nX);
+  end if;
   // Assign medium properties
-  medium.p = x_pTphi.p_in;
-  medium.T = x_pTphi.T;
-  medium.Xi = x_pTphi.X[1:Medium.nXi];
+  medium.p = p_in_internal;
+  medium.T = T_in_internal;
+  medium.Xi = X_in_internal[1:Medium.nXi];
   ports.C_outflow = fill(C_in_internal, nPorts);
   annotation (defaultComponentName="out",
     Icon(coordinateSystem(
@@ -101,6 +119,10 @@ can only be used with a medium model for moist air.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 27, 2011 by Michael Wetter:<br>
+Revised implementation to allow medium model that do not have water vapor.
+</li>
 <li>
 Feb. 9, 2011 by Michael Wetter:<br>
 First implementation.

@@ -1,7 +1,7 @@
 within Buildings.Examples;
 model HydronicHeating "Model of a hydronic heating system with energy storage"
   extends Modelica.Icons.Example;
- package MediumA = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
+ package MediumA = Buildings.Media.GasesConstantDensity.SimpleAir
     "Medium model for air";
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
  parameter Integer nRoo = 2 "Number of rooms";

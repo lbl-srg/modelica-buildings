@@ -143,6 +143,45 @@ package SimpleAir
  algorithm
     s := cp_const*Modelica.Math.log(state.T/T0);// - R_gas*Modelica.Math.log(state.p/reference_p);
  end specificEntropy;
+
+replaceable function enthalpyOfCondensingGas
+    "Enthalpy of steam per unit mass of steam"
+  extends Modelica.Icons.Function;
+  input Temperature T "temperature";
+  output SpecificEnthalpy h "steam enthalpy";
+algorithm
+  h := 0;
+  annotation (Documentation(info="<html>
+Dummy function that returns <code>0</code>.
+</html>", revisions="<html>
+<ul>
+<li>
+April 27, 2011, by Michael Wetter:<br>
+First implementation to allow using the room model with a medium that does not contain water vapor.
+</li>
+</ul>
+</html>"));
+end enthalpyOfCondensingGas;
+
+replaceable function saturationPressure
+    "Return saturation pressure of condensing fluid"
+  extends Modelica.Icons.Function;
+  input Temperature Tsat "saturation temperature";
+  output AbsolutePressure psat "saturation pressure";
+algorithm
+  psat := 0;
+  annotation (Documentation(info="<html>
+Dummy function that returns <code>0</code>.
+</html>", revisions="<html>
+<ul>
+<li>
+April 27, 2011, by Michael Wetter:<br>
+First implementation to allow using the room model with a medium that does not contain water vapor.
+</li>
+</ul>
+</html>"));
+end saturationPressure;
+
   annotation (preferedView="info", Documentation(info="<html>
 <p>
 This medium model is similar to 
@@ -167,6 +206,11 @@ quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 27, 2011, by Michael Wetter:<br>
+Added function <code>enthalpyOfCondensingGas</code>, which returns <code>0</code>,
+to allow using the room model with a medium that does not contain water vapor.
+</li>
 <li>
 August 21, 2008, by Michael Wetter:<br>
 Replaced <code>d*pStp = p*dStp</code> by

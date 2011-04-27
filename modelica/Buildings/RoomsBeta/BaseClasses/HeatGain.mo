@@ -3,7 +3,7 @@ model HeatGain "Model to convert internal heat gain signals"
   extends Buildings.BaseClasses.BaseIcon;
 
   replaceable package Medium =
-     Modelica.Media.Interfaces.PartialCondensingGases "Medium in the component"
+     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
       annotation (choicesAllMatching = true);
 
   parameter Modelica.SIunits.Area AFlo "Floor area";
@@ -47,7 +47,7 @@ initial algorithm
       s[i] :=0;
     end if;
    end for;
-   assert(abs(1-sum(s)) < 1E-4, "Substance 'water' is not present in medium '"
+   assert(Medium.nX == 1 or abs(1-sum(s)) < 1E-4, "Substance 'water' is not present in medium '"
                   + Medium.mediumName + "'.\n"
                   + "Change medium model to one that has 'water' as a substance.");
 equation
@@ -90,6 +90,10 @@ the mass flow rate at the fluid port is equal to zero.
 </html>",
         revisions="<html>
 <ul>
+<li>
+April 27, 2011, by Michael Wetter:<br>
+Changed assert statement to allow use of model for media without water vapor.
+</li>
 <li>
 June 9, 2010, by Michael Wetter:<br>
 First implementation.
