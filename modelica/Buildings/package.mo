@@ -944,8 +944,8 @@ on the Buildings library
 </p>
 <ul>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_1\">
-Version 0.11.1 </a>(fixme, 2011)</li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">
+Version 0.12.0 </a>(May 6, 2011)</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">
 Version 0.11.0 </a>(March 17, 2011)</li>
