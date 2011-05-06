@@ -123,7 +123,7 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_0_11_1 "Version 0.11.1"
+  class Version_0_12_0 "Version 0.12.0"
     extends Modelica.Icons.ReleaseNotes;
 
   annotation (Documentation(info="<html>
@@ -189,7 +189,7 @@ to allow use of the room model with media that do not contain water vapor.
 </p>
 </html>
 "));
-  end Version_0_11_1;
+  end Version_0_12_0;
 
 
   class Version_0_11_0 "Version 0.11.0"
@@ -1261,7 +1261,7 @@ end UsersGuide;
 
 
 annotation (preferedView="info",
-      version="0.11.1",
+      version="0.12.0",
       uses(Modelica(version="3.2")),
       Documentation(info="<html>
 The <code>Buildings</code> library is a free library
