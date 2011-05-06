@@ -15,8 +15,7 @@ INVALID_IN_ALL=["fixme", "import \"", "<h1", "<h2", "<h3", "todo", "xxx", "tt>"]
 # List of invalid strings in .mos files
 INVALID_IN_MOS=["=false", "= false"]
 # List of strings that are required in .mo files, except in Examples
-# fixme: currently not tested REQUIRED_IN_MO=["documentation"]
-REQUIRED_IN_MO=[]
+REQUIRED_IN_MO=["documentation"]
 
 #########################################################
 def reportError(message):
