@@ -138,7 +138,6 @@ initial equation
   UA_nominal = NTU_nominal*CMin_flow_nominal;
 
 equation
-  assert(abs(Q1_flow+Q2_flow)<1E-10, "Error in solver. Fixme");
   // Assign the flow regime for the given heat exchanger configuration and capacity flow rates
   if (configuration == con.ParallelFlow) then
     flowRegime = if (C1_flow*C2_flow >= 0) then flo.ParallelFlow else flo.CounterFlow;
