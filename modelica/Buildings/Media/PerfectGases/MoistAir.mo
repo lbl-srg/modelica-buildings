@@ -428,26 +428,9 @@ end T_phX;
 <p>
 This is a medium model that is similar to 
 <a href=\"Modelica:Modelica.Media.Air.MoistAir\">
-Modelica.Media.Air.MoistAir</a> but 
+Modelica.Media.Air.MoistAir</a> but it is a perfect gas, i.e., 
 it has a constant specific heat capacity.
-</p><p>
-In particular, the medium is <i>thermally perfect</i>, i.e., 
-<ul>
-<li>
-it is in thermodynamic equilibrium,
-</li><li>
-it is chemically not reacting, and
-</li><li>
-internal energy and enthalpy are functions of the temperature only.
-</li>
-</ul>
-In addition, the gas is <i>calorically perfect</i>, i.e., the
-specific heat capacities at constant pressure
-and constant volume are both constant (Bower 1998).
 </p>
-<h4>References</h4>
-Bower, William B. <i>A primer in fluid mechanics: Dynamics of flows in one
-space dimension</i>. CRC Press. 1998.
 </html>", revisions="<html>
 <ul>
 <li>

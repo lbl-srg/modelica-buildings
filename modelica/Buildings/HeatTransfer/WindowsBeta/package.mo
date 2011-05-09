@@ -1,8 +1,6 @@
 within Buildings.HeatTransfer;
 package WindowsBeta "Package with models for windows"
   extends Modelica.Icons.UnderConstruction;
-
-
   annotation (
 preferedView="info", Documentation(info="<html>
 <p>
