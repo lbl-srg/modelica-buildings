@@ -56,7 +56,7 @@ Buildings.Controls.SetPoints.Table tabConExt(constantExtrapolation=true,
 will cause the following output:
 </p>
 <p>
-<img src=\"modelica://Buildings/Images/Controls/SetPoints/Table.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Table.png\" border=\"1\">
 </p>
 <p>
 For the default setting <code>constantExtrapolation=true</code>, the

@@ -1279,7 +1279,7 @@ In the lower part of the figure, there is a dynamic model of a boiler, a pump an
 The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Images/UsersGuide/HydronicHeating.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/UsersGuide/HydronicHeating.png\" border=\"1\">
 </p>
 <p>
 The web page for this library is

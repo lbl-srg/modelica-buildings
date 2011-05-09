@@ -41,5 +41,5 @@ First implementation.
             100}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Bitmap(extent={{-56,52},{62,-42}}, fileName=
-              "modelica://Buildings/Images/Utilities/IO/WeatherData/BaseClasses/RelativeHumidity.png")}));
+              "modelica://Buildings/Resources/Images/Utilities/IO/WeatherData/BaseClasses/RelativeHumidity.png")}));
 end ConvertRelativeHumidity;

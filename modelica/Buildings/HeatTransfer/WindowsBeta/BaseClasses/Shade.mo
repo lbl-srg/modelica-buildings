@@ -220,7 +220,7 @@ The convective heat balance is based on the model described by Wright (2008), wh
 be shown as a convective heat resistance model as follows:
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Images/HeatTransfer/Windows/BaseClasses/convection.png\" border=\"1\"/>
+<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/convection.png\" border=\"1\"/>
 </p>
 <p>
 Wright (2008) reports that if the shading layer is far enough from the window,

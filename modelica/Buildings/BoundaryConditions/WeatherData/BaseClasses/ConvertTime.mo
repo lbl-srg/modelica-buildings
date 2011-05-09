@@ -43,5 +43,5 @@ First implementation.
           lineColor={0,0,127},
           textString="calTim"),
         Bitmap(extent={{-50,60},{52,-60}}, fileName=
-              "modelica://Buildings/Images/Utilities/IO/WeatherData/BaseClasses/calendar.png")}));
+              "modelica://Buildings/Resources/Images/Utilities/IO/WeatherData/BaseClasses/calendar.png")}));
 end ConvertTime;

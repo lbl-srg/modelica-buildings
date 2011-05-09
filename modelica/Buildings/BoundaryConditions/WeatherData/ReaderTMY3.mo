@@ -404,7 +404,7 @@ Thus, as the figure below shows, a more accurate interpolation is obtained if
 time is shifted by <i>30</i> minutes prior to reading the weather data.   
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\">
 </p>
 <h4>References</h4>
 <p>
