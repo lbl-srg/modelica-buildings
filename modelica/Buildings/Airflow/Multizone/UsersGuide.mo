@@ -48,7 +48,7 @@ and airflow network programs.
 </p>
 <p>
 Michael Wetter.
-<a href=\"../Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">
+<a href=\"modelica://Buildings/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">
 Multizone Airflow Model in Modelica.</a>
 Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006.
 </html>"));
