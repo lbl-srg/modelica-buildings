@@ -10,8 +10,8 @@ dateModified = "2011-05-09 14:38:50Z",
 revisionId="$Id::                                       $",
 uses(Modelica(version="3.2")),
 conversion(
- noneFromVersion="3.2",
- from(version="0.12.0", script="modelica://Modelica/Resources/Scripts/Dymola/ConvertModelica_from_0.12.0_to_0.13.mos")),
+ from(version="0.12.0", 
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertModelica_from_0.12.0_to_0.13.mos")),
 Documentation(info="<html>
 The <code>Buildings</code> library is a free library
 for modeling building energy and control systems. 
