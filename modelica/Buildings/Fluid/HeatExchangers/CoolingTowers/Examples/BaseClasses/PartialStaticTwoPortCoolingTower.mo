@@ -31,8 +31,9 @@ partial model PartialStaticTwoPortCoolingTower
     Modelica.Blocks.Sources.Constant PWatIn(k=101335)
       annotation (Placement(transformation(extent={{-100,-20},{-80,0}},
           rotation=0)));
-  Modelica.Blocks.Sources.Sine TOut(amplitude=10, offset=293.15)
-    "Outside air temperature" annotation (Placement(transformation(extent={{-60,
+  Modelica.Blocks.Sources.Sine TOut(amplitude=10, offset=293.15,
+    freqHz=1) "Outside air temperature"
+                              annotation (Placement(transformation(extent={{-60,
             80},{-40,100}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));

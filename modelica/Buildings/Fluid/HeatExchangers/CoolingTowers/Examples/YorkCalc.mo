@@ -3,8 +3,7 @@ model YorkCalc
   extends Modelica.Icons.Example;
   extends
     Buildings.Fluid.HeatExchangers.CoolingTowers.Examples.BaseClasses.PartialStaticTwoPortCoolingTowerWetBulb(
-    redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc tow, TOut(
-        freqHz=1));
+    redeclare Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc tow);
 
   Modelica.Blocks.Sources.Ramp y(
     height=-1,
