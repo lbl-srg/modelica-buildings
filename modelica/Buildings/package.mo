@@ -2,7 +2,7 @@ within ;
 package Buildings "Library with models for building energy and control systems"
 
 annotation (
-version="0.13 dev",
+version="0.13",
 versionBuild=0,
 versionDate="2011-XX-XX",
 uses(Modelica(version="3.2")),
