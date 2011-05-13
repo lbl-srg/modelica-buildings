@@ -1,7 +1,14 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model FixedApproach "Cooling tower with constant approach temperature"
   extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer(sensibleOnly=true,
-  final show_T = true);
+  final show_T = true,
+  final Q_flow = m_flow * (Medium.specificEnthalpy(
+                             Medium.setState_pTX(
+                                p=port_b.p,
+                                T=TAir+TAppAct,
+                                X=inStream(port_b.Xi_outflow)))
+                             -inStream(port_a.h_outflow)),
+   final mXi_flow = zeros(Medium.nXi));
   extends Buildings.BaseClasses.BaseIcon;
   parameter Modelica.SIunits.TemperatureDifference TApp(min=0, displayUnit="K") = 2
     "Approach temperature difference";
@@ -9,14 +16,11 @@ model FixedApproach "Cooling tower with constant approach temperature"
     "Entering air dry or wet bulb temperature"
      annotation (Placement(transformation(
           extent={{-140,20},{-100,60}}, rotation=0)));
+  Modelica.SIunits.TemperatureDifference TAppAct(min=0, nominal=1, displayUnit="K")
+    "Actual approach temperature";
 equation
- Q_flow = m_flow * (Medium.specificEnthalpy(
-                       Medium.setState_pTX(
-                       p=port_b.p,
-                       T=TAir+TApp,
-                       X=inStream(port_b.Xi_outflow)))-inStream(port_a.h_outflow));
- // No mass added or remomved from water stream
- mXi_flow     = zeros(Medium.nXi);
+  TAppAct=TApp;
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                    graphics={
@@ -59,6 +63,10 @@ model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 12, 2011, by Michael Wetter:<br>
+Added binding equations for <code>Q_flow</code> and <code>mXi_flow</code>.
+</li>
 <li>
 March 8, 2011, by Michael Wetter:<br>
 Removed base class and unused variables.

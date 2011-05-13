@@ -1,8 +1,16 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
-  extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer(sensibleOnly=true,
-  final show_T = true);
+  extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer(
+    final sensibleOnly=true,
+    final show_T = true,
+    final Q_flow = m_flow * (Medium.specificEnthalpy(
+                               Medium.setState_pTX(
+                                 p=port_b.p,
+                                 T=TAir+TAppAct,
+                                 X=inStream(port_b.Xi_outflow)))
+                                -inStream(port_a.h_outflow)),
+    final mXi_flow = zeros(Medium.nXi));
   extends Buildings.BaseClasses.BaseIcon;
 
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15+25.55
@@ -105,10 +113,6 @@ equation
                                                  neg=[TAppFreCon, 0],
                                                  x=y-yMin+yMin/20,
                                                  deltax=yMin/20);
-  Medium.temperature(sta_b) = TAppAct + TAir;
-
-  // No mass added or remomved from water stream
-  mXi_flow     = zeros(Medium.nXi);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
@@ -193,7 +197,7 @@ is the nominal water flow rate.
 In the forced convection mode, the actual fan power is 
 computed as <code>PFan=fanRelPow(y) * PFan_nominal</code>, where
 the default value for the fan relative power consumption at part load is
-<code>fanRelPow(y)=y^3</code>.
+<code>fanRelPow(y)=y<sup>3</sup></code>.
 In the free convection mode, the fan power consumption is zero.
 For numerical reasons, the transition of fan power from the part load mode
 to zero power consumption in the free convection mode occurs in the range 
@@ -223,6 +227,10 @@ control law to compute the input signal <code>y</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 12, 2011, by Michael Wetter:<br>
+Added binding equations for <code>Q_flow</code> and <code>mXi_flow</code>.
+</li>
 <li>
 March 8, 2011, by Michael Wetter:<br>
 Removed base class and unused variables.
