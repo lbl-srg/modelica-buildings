@@ -114,6 +114,6 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(graphics),
-    Commands(file="OpenDoors.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OpenDoors.mos" "Simulate and plot"),
     Diagram);
 end OpenDoors;

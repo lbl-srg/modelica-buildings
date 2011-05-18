@@ -11,7 +11,6 @@ equation
   connect(ySet.y, mot.u)
     annotation (Line(points={{-59,30},{-22,30}}, color={0,0,127}));
   annotation (Diagram(graphics),
-                       Commands(file=
-          "IdealMotor.mos" "run"),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Motors/Examples/IdealMotor.mos" "Simulate and plot"),
               Diagram);
 end IdealMotor;

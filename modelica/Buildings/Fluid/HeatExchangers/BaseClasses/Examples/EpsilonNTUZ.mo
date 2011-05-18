@@ -21,7 +21,7 @@ equation
      diff[conf]    = epsilon[conf] - eps[conf];
      assert(abs(diff[conf]) < 1E-10, "Check model implementation for bugs.");
   end for;
-  annotation(Commands(file="EpsilonNTUZ.mos" "run"), Documentation(info="<html>
+  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/EpsilonNTUZ.mos" "Simulate and plot"), Documentation(info="<html>
 Model to test the implementation of the epsilon-NTU functions and their inverse functions.
 </html>"));
 end EpsilonNTUZ;

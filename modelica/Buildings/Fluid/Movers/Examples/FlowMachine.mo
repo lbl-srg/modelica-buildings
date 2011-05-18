@@ -116,7 +116,6 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                         graphics),
-                         Commands(file=
-            "FlowMachine.mos" "run"),
+            __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/FlowMachine.mos" "Simulate and plot"),
               Diagram);
 end FlowMachine;

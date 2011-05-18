@@ -58,5 +58,5 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
-                    graphics), Commands(file="VectorFunctions.mos" "run"));
+                    graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/VectorFunctions.mos" "Simulate and plot"));
 end VectorFunctions;

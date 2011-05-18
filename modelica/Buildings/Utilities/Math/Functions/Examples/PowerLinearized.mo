@@ -13,5 +13,5 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      Commands(file="PowerLinearized.mos" "run"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PowerLinearized.mos" "Simulate and plot"));
 end PowerLinearized;

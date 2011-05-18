@@ -115,8 +115,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-          Commands(file=
-          "RadiatorEN442_2.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Radiators/Examples/RadiatorEN442_2.mos" "Simulate and plot"),
     experiment(StopTime=3600),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),

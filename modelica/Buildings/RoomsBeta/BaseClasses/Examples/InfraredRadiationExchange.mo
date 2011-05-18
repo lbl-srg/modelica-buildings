@@ -57,5 +57,5 @@ equation
       points={{-59,80},{20,80},{20,26.6667},{10.8333,26.6667}},
       color={0,127,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Commands(file="InfraredRadiationExchange.mos" "run"));
+  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/RoomsBeta/BaseClasses/Examples/InfraredRadiationExchange.mos" "Simulate and plot"));
 end InfraredRadiationExchange;

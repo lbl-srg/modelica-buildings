@@ -14,5 +14,5 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      Commands(file="InverseXRegularized.mos" "run"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/InverseXRegularized.mos" "Simulate and plot"));
 end InverseXRegularized;

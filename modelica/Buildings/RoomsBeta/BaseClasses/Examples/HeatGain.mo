@@ -106,6 +106,6 @@ equation
       points={{72,-70},{90,-70},{90,-6},{80,-6}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),Commands(file=
-            "HeatGain.mos" "run"));
+  annotation (Diagram(graphics),
+              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/RoomsBeta/BaseClasses/Examples/HeatGain.mos" "Simulate and plot"));
 end HeatGain;

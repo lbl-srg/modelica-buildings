@@ -16,5 +16,5 @@ equation
           -20,-42}},
                  color={0,0,127}));
   annotation(Diagram(graphics),
-                      Commands(file="YorkCalc.mos" "run"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/YorkCalc.mos" "Simulate and plot"));
 end YorkCalc;

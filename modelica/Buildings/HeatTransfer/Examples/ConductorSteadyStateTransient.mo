@@ -123,8 +123,8 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Commands(file=
-          "ConductorSteadyStateTransient.mos" "run"),
+            -100},{100,100}}), graphics), 
+            __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSteadyStateTransient.mos" "Simulate and plot"),
     Documentation(info="<html>
 This example illustrates modeling of multi-layer materials. It also tests if the 
 multi-layer material computes the same heat transfer with its boundary condition 

@@ -24,7 +24,7 @@ equation
       points={{-2,-30},{-19,-30}},
       color={255,0,255},
       smooth=Smooth.None));
- annotation (Commands(file="OffTimer.mos" "run"),
+ annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/OffTimer.mos" "Simulate and plot"),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics));
 end OffTimer;

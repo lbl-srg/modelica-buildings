@@ -14,7 +14,7 @@ equation
  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                     graphics),
-                     Commands(file="PolynomialDerivativeCheck.mos" "run"),
+                     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/PolynomialDerivativeCheck.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative

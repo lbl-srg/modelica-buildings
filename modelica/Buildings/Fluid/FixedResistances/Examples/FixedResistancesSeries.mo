@@ -56,8 +56,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                       graphics),
-                       Commands(file=
-          "FixedResistancesSeries.mos" "run"),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesSeries.mos" "Simulate and plot"),
     Diagram(Text(
         extent=[-20,58; 30,44],
         style(color=3, rgbcolor={0,0,255}),

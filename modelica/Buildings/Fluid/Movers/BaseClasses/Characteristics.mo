@@ -296,7 +296,7 @@ First implementation.
      annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                 -100},{100,100}}),
                         graphics),
-                         Commands(file="LinearFlowDerivativeCheck.mos" "run"),
+                         __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/LinearFlowDerivativeCheck.mos" "run"),
         Documentation(info="<html>
 <p>
 This example checks whether the function derivative
@@ -338,7 +338,7 @@ First implementation.
      annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                 -100},{100,100}}),
                         graphics),
-                         Commands(file="QuadraticFlowDerivativeCheck.mos" "run"),
+                         __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/BaseClasses/QuadraticFlowDerivativeCheck.mos" "run"),
         Documentation(info="<html>
 <p>
 This example checks whether the function derivative

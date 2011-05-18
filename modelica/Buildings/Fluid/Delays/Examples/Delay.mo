@@ -68,6 +68,5 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                         graphics),
-                         Commands(file=
-            "Delay.mos" "run"));
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Delays/Examples/Delay.mos" "Simulate and plot"));
 end Delay;

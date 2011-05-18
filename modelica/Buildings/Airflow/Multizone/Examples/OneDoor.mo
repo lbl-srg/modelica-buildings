@@ -68,5 +68,5 @@ equation
       points={{8,-66},{48,-66},{48,42}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Commands(file="OneDoor.mos" "run"), Diagram(graphics));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneDoor.mos" "Simulate and plot"), Diagram(graphics));
 end OneDoor;

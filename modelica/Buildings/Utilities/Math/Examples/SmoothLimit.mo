@@ -18,5 +18,5 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),
                      graphics),
-                      Commands(file="SmoothLimit.mos" "run"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothLimit.mos" "Simulate and plot"));
 end SmoothLimit;

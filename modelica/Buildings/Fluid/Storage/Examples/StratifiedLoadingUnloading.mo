@@ -88,7 +88,7 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),
                      graphics),
-                      Commands(file="StratifiedLoadingUnloading.mos" "run"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedLoadingUnloading.mos" "Simulate and plot"),
     Documentation(info="<html>
 This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization

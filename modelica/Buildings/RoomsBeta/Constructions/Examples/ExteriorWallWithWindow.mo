@@ -248,7 +248,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Commands(file="ExteriorWallWithWindow.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/RoomsBeta/Constructions/Examples/ExteriorWallWithWindow.mos" "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
             100}}), graphics),
     Documentation(info="<html>

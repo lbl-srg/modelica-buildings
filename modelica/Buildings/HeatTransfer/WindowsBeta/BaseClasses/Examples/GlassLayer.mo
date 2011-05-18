@@ -247,7 +247,7 @@ equation
       points={{-99,110},{40,110},{40,104},{58,104}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Commands(file="GlassLayer.mos" "run"),
+    annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/WindowsBeta/BaseClasses/Examples/GlassLayer.mos" "Simulate and plot"),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -160},{160,160}}),
                       graphics),

@@ -28,7 +28,7 @@ equation
       points={{42,2.66454e-15},{20,2.66454e-15},{20,70},{1,70}},
       color={0,0,127},
       smooth=Smooth.None));
-   annotation(Commands(file="OnlyExteriorWallWithWindowInteriorShade.mos" "run"),
+   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/RoomsBeta/Examples/TestConditionalConstructions/OnlyExteriorWallWithWindowInteriorShade.mos" "Simulate and plot"),
    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}}), graphics),
     experiment(

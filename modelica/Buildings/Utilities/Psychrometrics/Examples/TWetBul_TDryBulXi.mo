@@ -50,8 +50,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                         graphics),
-                         Commands(file=
-            "TWetBul_TDryBulXi.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/TWetBul_TDryBulXi.mos" "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the wet bulb computation.
 The problem setup is such that the moisture concentration and

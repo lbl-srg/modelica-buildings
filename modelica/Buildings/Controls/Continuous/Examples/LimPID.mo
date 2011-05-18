@@ -90,5 +90,5 @@ equation
  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      Commands(file="LimPID.mos" "run"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPID.mos" "Simulate and plot"));
 end LimPID;

@@ -72,7 +72,7 @@ equation
  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      Commands(file="PIDHysteresis.mos" "run"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresis.mos" "Simulate and plot"),
     experiment(StopTime=86400),
     experimentSetupOutput,
               Diagram);

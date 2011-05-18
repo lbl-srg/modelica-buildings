@@ -69,5 +69,5 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{150,
             100}}), graphics),
-    Commands(file="SolarAzimuth.mos" "run"));
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/SolarAzimuth.mos" "Simulate and plot"));
 end SolarAzimuth;

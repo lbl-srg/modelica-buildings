@@ -45,5 +45,5 @@ equation
       points={{-11,-2},{-20,-2},{-20,58},{-77,58}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Commands(file="ZonalFlow.mos" "run"), Diagram(graphics));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ZonalFlow.mos" "Simulate and plot"), Diagram(graphics));
 end ZonalFlow;

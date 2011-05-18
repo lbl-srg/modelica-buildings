@@ -241,7 +241,7 @@ equation
       points={{-139,-110},{-4,-110},{-4,20},{10,20},{10,29}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Commands(file="CenterOfGlass.mos" "run"),
+    annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/WindowsBeta/BaseClasses/Examples/CenterOfGlass.mos" "Simulate and plot"),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-160},
             {160,160}}),
                       graphics),

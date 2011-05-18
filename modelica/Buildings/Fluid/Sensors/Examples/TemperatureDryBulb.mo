@@ -96,8 +96,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                         graphics),
-                         Commands(file=
-            "TemperatureDryBulb.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureDryBulb.mos" "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the dynamic dry bulb temperature sensor.
 </html>", revisions="<html>

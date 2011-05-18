@@ -248,11 +248,11 @@ Microsoft Visual C++ Express is not officialy supported by Dymola 7.4 and it can
 the model to the Radau solver. 
 To avoid this problem, use another compiler, such as Visual C++ 2008. 
 </p>
-</html>"),              Commands(
-      file="run1DayCTControl.mos" "run",
-      file="plotRooACH.mos" "plotRooACH",
-      file="plotFan.mos" "plotFan",
-      file="plotCO2.mos" "plotCO2"),
+</html>"),            
+     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVCO2/run1DayCTControl.mos" "Run",
+      file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVCO2/plotRooACH.mos" "Plot room air change per hour",
+      file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVCO2/plotFan.mos" "Plot fan",
+      file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVCO2/plotCO2.mos" "Plot CO2"),
     experiment(
       StopTime=86400,
       Tolerance=1e-005,

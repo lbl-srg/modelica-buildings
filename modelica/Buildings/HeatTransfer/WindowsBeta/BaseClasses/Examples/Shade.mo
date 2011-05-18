@@ -200,7 +200,7 @@ equation
       points={{-89,80},{68,80},{68,-18},{62,-18}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Commands(file="Shade.mos" "run"),
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/WindowsBeta/BaseClasses/Examples/Shade.mos" "Simulate and plot"),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
             -160},{160,160}}),
                       graphics),

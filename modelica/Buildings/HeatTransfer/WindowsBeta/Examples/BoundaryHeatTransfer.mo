@@ -169,5 +169,5 @@ equation
       points={{-46,-35},{-46,-90},{-79,-90}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Commands(file="BoundaryHeatTransfer.mos" "run"));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/WindowsBeta/Examples/BoundaryHeatTransfer.mos" "Simulate and plot"));
 end BoundaryHeatTransfer;

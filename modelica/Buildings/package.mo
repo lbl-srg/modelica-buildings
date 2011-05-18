@@ -1,53 +1,13 @@
 within ;
 package Buildings "Library with models for building energy and control systems"
 
-annotation (
-version="0.13",
-versionBuild=0,
-versionDate="2011-XX-XX",
-uses(Modelica(version="3.2")),
-conversion(
- from(version="0.12.0", 
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertModelica_from_0.12.0_to_0.13.mos")),
-dateModified = "$Date$",
-revisionId="$Id:: package.mo 2369 2011-05-10 00:35:26Z #$",
-preferredView="info",
-Documentation(info="<html>
-The <code>Buildings</code> library is a free library
-for modeling building energy and control systems. 
-Many models are based on models from the package
-<code>Modelica.Fluid</code> and use
-the same ports to ensure compatibility with the Modelica Standard
-Library.
-</p>
-<p>
-The figure below shows a section of the schematic view of the model 
-<a href=\"modelica://Buildings.Examples.HydronicHeating\">
-Buildings.Examples.HydronicHeating</a>.
-In the lower part of the figure, there is a dynamic model of a boiler, a pump and a stratified energy storage tank. Based on the temperatures of the storage tank, a finite state machine switches the boiler and its pump on and off. 
-The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
-</p>
-<p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/UsersGuide/HydronicHeating.png\" border=\"1\">
-</p>
-<p>
-The web page for this library is
-<a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>. 
-Contributions from different users to further advance this library are
-welcomed.
-Contributions may not only be in the form of model development, but also
-through model use, model testing,
-requirements definition or providing feedback regarding the model applicability
-to solve specific problems.
-</p>
-</html>"));
-
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
   class Conventions "Conventions"
     extends Modelica.Icons.Information;
     annotation (Documentation(info="<html>
+<p>
 This library follows the conventions of the 
 <a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>, which are as follows:
 </p>
@@ -156,12 +116,122 @@ To indicate that a class (i.e., a package, model, block etc.) has not been exten
 its class name ends with the string <code>Beta</code>.
 </li>
 </ol>
+</p>
 </html>
 "));
   end Conventions;
 
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
+
+  class Version_0_13 "Version 0.13"
+    extends Modelica.Icons.ReleaseNotes;
+
+     annotation (Documentation(info="<html>
+<p>
+Version 0.13 is backward compatible to version 0.12, i.e., models developed with
+versions 0.12 will work without any changes also with version 0.13.
+</p>
+<p>
+The following <b style=\"color:blue\">new libraries</b> have been added:
+</p>
+
+<table border=\"1\" cellspacing=0 cellpadding=2>
+<tr><td valign=\"top\"><a href=\"modelica://xxx\">xxx</a></td>
+    <td valign=\"top\">
+    This is a xxx.
+    </td></tr>
+</table>
+
+<p><br>
+The following <b style=\"color:blue\">new components</b> have been added
+to <b style=\"color:blue\">existing</b> libraries:
+</p>
+
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.xxx</b></td></tr>
+<tr><td valign=\"top\">xxx
+                      </td>
+    <td valign=\"top\"> xxxx. </td> </tr>
+</table>
+
+<p><br>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">backward compatible</b> way:
+</p>
+
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxxx</b></td></tr>
+<tr><td valign=\"top\"> xxx<br>
+                      xxx </td>
+    <td valign=\"top\"> xxx.</td></tr>
+</table>
+
+<p><br>
+The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+that can lead to wrong simulation results):
+</p>
+
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>xxxx.</b></td></tr>
+<tr><td valign=\"top\"> xxx </td>
+    <td valign=\"top\"> xxx.</td></tr>
+
+</table>
+
+<p><br>
+The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+that do <b style=\"color:red\">not</b> lead to wrong simulation results, but, e.g.,
+units are wrong or errors in documentation):
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b></td></tr>
+<tr><td valign=\"top\"> xxxx<br>
+                        xxxx<br>
+    </td>
+</table>
+
+<p><br>
+The following
+<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+have been fixed:
+</p>
+
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>xxx</b></td></tr>
+<tr><td valign=\"top\">
+    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/xxx\">#xxx</a></td>
+    <td valign=\"top\">xxxx.</td>
+</tr>
+
+</table>
+
+<p>
+Note:
+</p>
+<ul>
+<li> 
+The version number scheme has been changed. It is now identical to the one used by the Modelica Standard Library.
+Versions are identified with two numbers <code>x.y</code> and a build number. The first official
+release of each version has the build number <code>1</code>. For each released bug fix, 
+the build number is incremented.
+See 
+<a href=\"modelica://Modelica.UsersGuide.ReleaseNotes.VersionManagement\">
+Modelica.UsersGuide.ReleaseNotes.VersionManagement</a> for details. 
+</li>
+<li>
+To allow adding scripts for multiple simulation environments,
+all scripts have been moved to the directory <code>Buildings/Resources/Scripts/Dymola</code> and the annotation that
+generates the entry in the <code>Command</code> pull down menu has been changed to 
+<code>__Dymola_Commands(file=...</code>
+</li>
+</ul>
+</p>
+</html>"));
+  end Version_0_13;
 
   class Version_0_12_0 "Version 0.12.0"
     extends Modelica.Icons.ReleaseNotes;
@@ -230,7 +300,6 @@ to allow use of the room model with media that do not contain water vapor.
 </html>
 "));
   end Version_0_12_0;
-
 
   class Version_0_11_0 "Version 0.11.0"
     extends Modelica.Icons.ReleaseNotes;
@@ -340,6 +409,7 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
   class Version_0_10_0 "Version 0.10.0"
     extends Modelica.Icons.ReleaseNotes;
   annotation (Documentation(info="<html>
+<p>
 <ul>
 <li>
 Added package 
@@ -405,6 +475,7 @@ by the parameters. This also required a change in the parameters.
   class Version_0_9_1 "Version 0.9.1"
     extends Modelica.Icons.ReleaseNotes;
   annotation (Documentation(info="<html>
+<p>
 The following <b style=\"color:red\">critical error</b> has been fixed (i.e. error
 that can lead to wrong simulation results):
 </p>
@@ -431,6 +502,7 @@ that can lead to wrong simulation results):
       </td>
   </tr>
 </table>
+</p>
 </html>
 "));
   end Version_0_9_1;
@@ -438,6 +510,7 @@ that can lead to wrong simulation results):
   class Version_0_9_0 "Version 0.9.0"
     extends Modelica.Icons.ReleaseNotes;
   annotation (Documentation(info="<html>
+<p>
 <ul>
 <li>
 Added the following heat exchanger models
@@ -555,6 +628,7 @@ pressure drop and height.
   class Version_0_8_0 "Version 0.8.0"
     extends Modelica.Icons.ReleaseNotes;
               annotation (Documentation(info="<html>
+<p>
 <ul>
 <li>
 In 
@@ -692,6 +766,7 @@ and hence to the flow splitter and to the three-way valves. This often breaks al
   class Version_0_7_0 "Version 0.7.0"
     extends Modelica.Icons.ReleaseNotes;
               annotation (Documentation(info="<html>
+<p>
 <ul>
 <li>
 Updated library from Modelica_Fluid to Modelica.Fluid 1.0
@@ -716,6 +791,7 @@ Virtual Test Bed.
   class Version_0_6_0 "Version 0.6.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
+<p>
 <ul>
 <li>
 Added the package
@@ -825,6 +901,7 @@ convention used in Modelica.Fluid 1.0.
   class Version_0_5_0 "Version 0.5.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
+<p>
 <ul>
 <li>
 Updated library to Modelica.Fluid 1.0.
@@ -864,6 +941,7 @@ be used as the flow coefficient (in [m3/h] or [USG/min]).
   class Version_0_4_0 "Version 0.4.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
+<p>
 <ul>
 <li>
 Added package <a href=\"modelica://Buildings.Fluid.Storage\">
@@ -887,6 +965,7 @@ The package contains models that facilitate reporting.
   class Version_0_3_0 "Version 0.3.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
+<p>
 <ul>
 <li>
 Added package <a href=\"modelica://Buildings.Fluid.Sources\">Buildings.Fluid.Sources</a>.
@@ -949,6 +1028,7 @@ inside the volume. The condensate is removed from the volume in its liquid phase
   class Version_0_2_0 "Version 0.2.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
+<p>
 New in this version are models for two and three way valves.
 In addition, the <code>Fluids</code> package has been slightly revised.
 The package <code>Fluid.BaseClasses</code> has been added because in
@@ -962,7 +1042,8 @@ where part of the <code>Actuator</code> package.
   class Version_0_1_0 "Version 0.1.0"
     extends Modelica.Icons.ReleaseNotes;
       annotation (Documentation(info="<html>
-<p>First release of the library.
+<p>
+First release of the library.
 </p>
 <p>This version contains basic models for modeling building HVAC systems.
 It also contains new medium models in the package
@@ -979,10 +1060,15 @@ to the medium properties.
   end Version_0_1_0;
 
     annotation (Documentation(info="<html>
+<p>
 This section summarizes the changes that have been performed
 on the Buildings library
 </p>
 <ul>
+<li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_13\">
+Version 0.13 </a>(xxxx, 2011)</li>
+</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">
 Version 0.12.0 </a>(May 6, 2011)</li>
@@ -1023,6 +1109,7 @@ Version 0.2.0 </a>(June 17, 2008)</li>
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">
 Version 0.1.0 </a>(May 27, 2008)</li>
 </ul>
+</p>
 </html>
 "));
   end ReleaseNotes;
@@ -1226,6 +1313,7 @@ For images, add a \"readme.txt\" file to the directories where the images are st
 <p>
 In these cases, save a copy of the Modelica License 2 in one directory of the distribution, e.g., 
 <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2-standalone.html</a> in directory <strong>&lt;library&gt;/help/documentation/ModelicaLicense2.html</strong>. 
+</p>
 </html>
 "));
 
@@ -1249,7 +1337,8 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
   end Copyright;
 
   annotation (DocumentationClass=true, Documentation(info="<html>
-Package <code>Buildings</code> is a free package for modeling building energy and control systems. 
+<p>
+The <code>Buildings</code> library is a free open-source library for modeling of building energy and control systems. 
 Many models are based on models from the package
 <a href=\"modelica://Modelica.Fluid\">Modelica.Fluid</a> and use
 the same ports to ensure compatibility with models from that library.
@@ -1296,8 +1385,50 @@ User's Guides that can be accessed by the following links:
    <td valign=\"top\">Library for reading weather data.</td>
 </tr>
 </table>
+</p>
 </html>"));
 end UsersGuide;
 
 
+annotation (
+version="0.13",
+versionBuild=0,
+versionDate="2011-XX-XX",
+uses(Modelica(version="3.2")),
+conversion(
+ from(version="0.12.0",
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertModelica_from_0.12.0_to_0.13.mos")),
+dateModified = "$Date$",
+revisionId="$Id:: package.mo 2369 2011-05-10 00:35:26Z #$",
+preferredView="info",
+Documentation(info="<html>
+<p>
+The <code>Buildings</code> library is a free library
+for modeling building energy and control systems. 
+Many models are based on models from the package
+<code>Modelica.Fluid</code> and use
+the same ports to ensure compatibility with the Modelica Standard
+Library.
+</p>
+<p>
+The figure below shows a section of the schematic view of the model 
+<a href=\"modelica://Buildings.Examples.HydronicHeating\">
+Buildings.Examples.HydronicHeating</a>.
+In the lower part of the figure, there is a dynamic model of a boiler, a pump and a stratified energy storage tank. Based on the temperatures of the storage tank, a finite state machine switches the boiler and its pump on and off. 
+The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/UsersGuide/HydronicHeating.png\" border=\"1\">
+</p>
+<p>
+The web page for this library is
+<a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>. 
+Contributions from different users to further advance this library are
+welcomed.
+Contributions may not only be in the form of model development, but also
+through model use, model testing,
+requirements definition or providing feedback regarding the model applicability
+to solve specific problems.
+</p>
+</html>"));
 end Buildings;

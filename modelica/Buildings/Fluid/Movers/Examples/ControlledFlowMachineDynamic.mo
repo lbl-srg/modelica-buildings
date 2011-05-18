@@ -7,7 +7,7 @@ model ControlledFlowMachineDynamic
     fan2(dynamicBalance=true),
     fan3(dynamicBalance=true));
   annotation (
-    Commands(file="ControlledFlowMachineDynamic.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ControlledFlowMachineDynamic.mos" "Simulate and plot"),
     Documentation(info="<html>
 This example demonstrates the use of the flow model with four different configurations.
 At steady-state, all flow models have the same mass flow rate and pressure difference.

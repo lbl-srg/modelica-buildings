@@ -84,7 +84,7 @@ equation
       points={{21,64},{38,64}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Commands(file="EnthalpyFlowRate.mos" "run"), Diagram(
+    annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos" "Simulate and plot"), Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
         graphics),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,

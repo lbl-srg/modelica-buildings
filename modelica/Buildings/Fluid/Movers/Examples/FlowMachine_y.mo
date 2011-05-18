@@ -31,7 +31,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}}), graphics),
-    Commands(file="FlowMachine_y.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/FlowMachine_y.mos" "Simulate and plot"),
     Documentation(info="<html>
 This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
 </html>", revisions="<html>

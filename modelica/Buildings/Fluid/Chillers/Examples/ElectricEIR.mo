@@ -6,5 +6,5 @@ model ElectricEIR "Test model for chiller electric EIR"
       redeclare Buildings.Fluid.Chillers.ElectricEIR chi(per=per), redeclare
       Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes
       per);
-  annotation (Commands(file="ElectricEIR.mos" "run"));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/ElectricEIR.mos" "Simulate and plot"));
 end ElectricEIR;

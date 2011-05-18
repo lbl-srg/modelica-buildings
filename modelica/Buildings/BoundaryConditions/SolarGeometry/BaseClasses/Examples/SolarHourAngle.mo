@@ -28,5 +28,5 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  annotation (Diagram(graphics), Commands(file="SolarHourAngle.mos" "run"));
+  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/SolarHourAngle.mos" "Simulate and plot"));
 end SolarHourAngle;

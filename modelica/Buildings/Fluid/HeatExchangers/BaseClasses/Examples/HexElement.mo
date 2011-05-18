@@ -150,7 +150,7 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      Commands(file="HexElement.mos" "run"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HexElement.mos" "Simulate and plot"),
     experimentSetupOutput,
               Diagram);
 end HexElement;

@@ -12,5 +12,5 @@ equation
       points={{-19,10},{-2,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Commands(file="LocalCivilTime.mos" "run"));
+  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/LocalCivilTime.mos" "Simulate and plot"));
 end LocalCivilTime;

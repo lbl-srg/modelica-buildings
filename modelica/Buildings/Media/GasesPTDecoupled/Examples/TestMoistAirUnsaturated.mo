@@ -8,7 +8,7 @@ model TestMoistAirUnsaturated
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
             -100,-100},{100,100}}),
                           graphics),
-                           Commands(file="TestMoistAirUnsaturated.mos" "run"),
+                           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/GasesPTDecoupled/Examples/TestMoistAirUnsaturated.mos" "Simulate and plot"),
     Documentation(preferedView="info", info="<html>
 This is a simple test for the medium model. It uses the test model described in
 <a href=\"Modelica:Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium\">

@@ -162,7 +162,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {200,200}}),
-                      graphics), Commands(file="MixedAirFreeResponse.mos" "run"),
+                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/RoomsBeta/Examples/MixedAirFreeResponse.mos" "Simulate and plot"),
     Documentation(info="<html>
 This model illustrates the use of the room model
 <a href=\"modelica://Buildings.RoomsBeta.MixedAir\">

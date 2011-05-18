@@ -35,6 +35,6 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      Commands(file="Printer.mos" "run"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Reports/Examples/Printer.mos" "Simulate and plot"),
               Diagram);
 end Printer;

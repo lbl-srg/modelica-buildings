@@ -111,5 +111,5 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      Commands(file="ConstantEffectiveness.mos" "run"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/ConstantEffectiveness.mos" "Simulate and plot"));
 end ConstantEffectiveness;

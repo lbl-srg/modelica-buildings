@@ -27,7 +27,7 @@ equation
 
   end if;
   assert(abs(dp1-dp2) < 1E-5, "Error in implementation.");
-annotation (Commands(file="TestFlowFunctions.mos" "run"),
+annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/TestFlowFunctions.mos" "Simulate and plot"),
               Documentation(info="<html>
 This model test the inverse functions. When translating this model in 
 Dymola 7.2, there should be no numerical solution be required to solve

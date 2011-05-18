@@ -21,5 +21,5 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),
                      graphics),
-                      Commands(file="Biquadratic.mos" "run"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Biquadratic.mos" "Simulate and plot"));
 end Biquadratic;

@@ -247,5 +247,5 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      Commands(file="DryEffectivenessNTU.mos" "run"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTU.mos" "Simulate and plot"));
 end DryEffectivenessNTU;

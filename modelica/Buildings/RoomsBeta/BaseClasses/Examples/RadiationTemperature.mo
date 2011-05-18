@@ -110,5 +110,5 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
             {100,100}}),
-                      graphics), Commands(file="RadiationTemperature.mos" "run"));
+                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/RoomsBeta/BaseClasses/Examples/RadiationTemperature.mos" "Simulate and plot"));
 end RadiationTemperature;

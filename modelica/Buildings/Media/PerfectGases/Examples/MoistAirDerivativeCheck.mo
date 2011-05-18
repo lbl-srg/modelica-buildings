@@ -32,7 +32,7 @@ equation
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics),
-                       Commands(file="MoistAirDerivativeCheck.mos" "run"),
+                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/PerfectGases/Examples/MoistAirDerivativeCheck.mos" "Simulate and plot"),
       Documentation(info="<html>
 <p>
 This example checks whether the function derivative

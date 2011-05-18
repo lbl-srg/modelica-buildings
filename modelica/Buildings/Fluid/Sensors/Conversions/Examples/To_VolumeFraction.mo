@@ -146,7 +146,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-  Commands(file="To_VolumeFraction.mos" "run"),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos" "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
             100}}),   graphics),
     Documentation(info="<html>

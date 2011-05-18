@@ -609,7 +609,7 @@ equation
           extent={{-198,-4},{-6,-38}},
           lineColor={0,0,255},
           textString="Same models as above, but flow is reversed")}),
-                      Commands(file="HumidifierPrescribed.mos" "run"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/HumidifierPrescribed.mos" "Simulate and plot"),
 Documentation(info="<html>
 <p>
 Model that tests the basic class that is used for the humidifier model.

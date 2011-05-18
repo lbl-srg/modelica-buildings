@@ -72,5 +72,5 @@ equation
           6.10623e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Commands(file="OneEffectiveAirLeakageArea.mos" "run"));
+  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneEffectiveAirLeakageArea.mos" "Simulate and plot"));
 end OneEffectiveAirLeakageArea;

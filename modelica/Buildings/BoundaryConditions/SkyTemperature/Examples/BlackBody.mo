@@ -44,6 +44,6 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(graphics),
-    Commands(file="BlackBody.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SkyTemperature/Examples/BlackBody.mos" "Simulate and plot"),
     Icon(graphics));
 end BlackBody;

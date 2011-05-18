@@ -2,7 +2,7 @@ stopTime=7*24*3600;
 simulateModel("Buildings.Examples.HydronicHeating", stopTime=stopTime, method="radau", tolerance=1e-6, resultFile="HydronicHeating");
 createPlot(id = 5,
  position = {10, 30, 719, 536},
- y = {"TRoo1.T", "TRoo2.T", "weaBus.TDryBul"},
+ y = {"roo1.air.vol.medium.T", "roo1.air.vol.medium.T", "weaBus.TDryBul"},
  range = {0, 180000.0, 22.0, 18.0},
  autoscale = true,
  autoerase = true,

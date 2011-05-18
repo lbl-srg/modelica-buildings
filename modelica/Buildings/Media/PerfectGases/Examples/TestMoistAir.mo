@@ -8,7 +8,7 @@ model TestMoistAir
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
             -100,-100},{100,100}}),
                           graphics),
-                           Commands(file="TestMoistAir.mos" "run"),
+                           __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/PerfectGases/Examples/TestMoistAir.mos" "Simulate and plot"),
     Documentation(preferedView="info", info="<html>
 This is a simple test for the medium model. It uses the test model described in
 <a href=\"Modelica:Modelica.Media.UsersGuide.MediumDefinition.TestOfMedium\">

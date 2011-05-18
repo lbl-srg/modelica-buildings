@@ -188,8 +188,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{180,180}}),
-                        graphics),
-                         Commands(file=
-            "PrescribedExtraPropertyFlow.mos" "run"));
+            -100},{180,180}}), graphics),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/PrescribedExtraPropertyFlow.mos" "Simulate and plot"));
 end PrescribedExtraPropertyFlow;

@@ -171,8 +171,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                         graphics),
-                         Commands(file=
-            "ValveParameterization.mos" "run"),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/ValveParameterization.mos" "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Test model for two way valves. This model tests the

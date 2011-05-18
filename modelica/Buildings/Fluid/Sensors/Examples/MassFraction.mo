@@ -61,8 +61,7 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                         graphics),
-                         Commands(file=
-            "MassFraction.mos" "run"),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos" "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the mass fraction sensor.
 </html>", revisions="<html>

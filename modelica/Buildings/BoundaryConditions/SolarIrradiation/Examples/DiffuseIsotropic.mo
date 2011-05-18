@@ -33,6 +33,6 @@ equation
 
   annotation (
     Diagram(graphics),
-    Commands(file="DiffuseIsotropic.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DiffuseIsotropic.mos" "Simulate and plot"),
     Icon(graphics));
 end DiffuseIsotropic;

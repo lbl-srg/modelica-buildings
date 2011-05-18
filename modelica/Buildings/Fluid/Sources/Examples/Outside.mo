@@ -43,5 +43,5 @@ equation
       points={{30,30},{40,30}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Commands(file="Outside.mos" "run"), Diagram(graphics));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside.mos" "Simulate and plot"), Diagram(graphics));
 end Outside;

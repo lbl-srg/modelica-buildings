@@ -163,5 +163,5 @@ equation
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{200,200}}), graphics),
-                      Commands(file="DryCoilDiscretizedPControl.mos" "run"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilDiscretizedPControl.mos" "Simulate and plot"));
 end DryCoilDiscretizedPControl;

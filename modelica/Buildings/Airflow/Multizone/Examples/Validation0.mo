@@ -97,6 +97,6 @@ equation
           extent={{-52,60},{48,-88}},
           lineColor={0,0,0},
           lineThickness=1)}),
-    Commands(file="Validation0.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation0.mos" "Simulate and plot"),
     Diagram);
 end Validation0;

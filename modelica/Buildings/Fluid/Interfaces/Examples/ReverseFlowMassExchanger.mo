@@ -311,7 +311,7 @@ equation
       points={{28,30},{0,30},{0,34},{-30,34}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation(Commands(file="ReverseFlowMassExchanger.mos" "run"),
+  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos" "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-200},{200,
             200}}), graphics),
     Documentation(info="<html>

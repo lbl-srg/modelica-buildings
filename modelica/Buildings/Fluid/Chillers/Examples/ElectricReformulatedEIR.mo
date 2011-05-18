@@ -8,6 +8,6 @@ model ElectricReformulatedEIR
       redeclare
       Buildings.Fluid.Chillers.Data.ElectricReformulatedEIR.ReformEIRChiller_McQuay_WSC_471kW_5_89COP_Vanes
       per);
-  annotation (Commands(file="ElectricReformulatedEIR.mos" "run"), Diagram(
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/ElectricReformulatedEIR.mos" "Simulate and plot"), Diagram(
         graphics));
 end ElectricReformulatedEIR;

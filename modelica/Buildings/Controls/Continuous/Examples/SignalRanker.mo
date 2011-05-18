@@ -21,6 +21,6 @@ equation
  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      Commands(file="SignalRanker.mos" "run"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/SignalRanker.mos" "Simulate and plot"),
               Diagram);
 end SignalRanker;

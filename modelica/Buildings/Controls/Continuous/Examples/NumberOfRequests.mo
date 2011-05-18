@@ -18,6 +18,6 @@ equation
  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      Commands(file="NumberOfRequests.mos" "run"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/NumberOfRequests.mos" "Simulate and plot"),
               Diagram);
 end NumberOfRequests;

@@ -165,7 +165,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),
                       graphics),
-    Commands(file="ChimneyShaftWithVolume.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ChimneyShaftWithVolume.mos" "Simulate and plot"),
     experiment(
       StopTime=3600,
       Tolerance=1e-06,

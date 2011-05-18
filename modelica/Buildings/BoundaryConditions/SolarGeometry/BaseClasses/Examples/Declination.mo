@@ -12,5 +12,5 @@ equation
       points={{1,10},{18,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), Commands(file="Declination.mos" "run"));
+  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/Declination.mos" "Simulate and plot"));
 end Declination;

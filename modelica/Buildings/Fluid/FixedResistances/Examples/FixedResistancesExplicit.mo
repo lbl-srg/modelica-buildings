@@ -221,8 +221,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{160,160}}),
                       graphics),
-                       Commands(file=
-          "FixedResistancesExplicit.mos" "run"),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesExplicit.mos" "Simulate and plot"),
     Documentation(info="<html>
 This model tests whether inverse functions are being used by the code
 translator. In Dymola 7.2, there should only be one non-linear equation system

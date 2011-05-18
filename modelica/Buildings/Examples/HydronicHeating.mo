@@ -1069,8 +1069,8 @@ Microsoft Visual C++ Express is not officialy supported by Dymola 7.4 and it can
 the model to the Radau solver. 
 To avoid this problem, use another compiler, such as Visual C++ 2008. 
 </p>
-</html>"),Commands(file=
-          "HydronicHeating.mos" "run"),
+</html>"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicHeating.mos" "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-006,

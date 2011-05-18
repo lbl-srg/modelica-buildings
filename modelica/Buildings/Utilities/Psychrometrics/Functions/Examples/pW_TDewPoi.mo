@@ -13,5 +13,5 @@ equation
   TInv = Buildings.Utilities.Psychrometrics.Functions.TDewPoi_pW(p_w);
   dT = T - TInv;
   assert(abs(dT) < 10E-12, "Error in function implementation.");
-  annotation (Commands(file="pW_TDewPoi.mos" "run"));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_TDewPoi.mos" "Simulate and plot"));
 end pW_TDewPoi;

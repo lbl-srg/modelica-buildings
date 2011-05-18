@@ -118,7 +118,7 @@ equation
       points={{-59,70},{-10,70},{-10,-126},{2,-126},{2,-121}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Commands(file="GasConvection.mos" "run"),
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/WindowsBeta/BaseClasses/Examples/GasConvection.mos" "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-140},{100,
             100}}), graphics));
 end GasConvection;

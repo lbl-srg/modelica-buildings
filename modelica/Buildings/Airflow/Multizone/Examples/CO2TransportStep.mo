@@ -298,7 +298,7 @@ equation
           extent={{-160,160},{152,49}},
           lineColor={135,135,135},
           lineThickness=1)}),
-    Commands(file="CO2TransportStep.mos" "run"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/CO2TransportStep.mos" "Simulate and plot"),
     Diagram,
     experiment(
       StopTime=86400,

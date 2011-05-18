@@ -47,10 +47,10 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-  Commands(file="ExpansionVessel.mos" "run"),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/ExpansionVessel.mos" "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}),  graphics),
-                      Commands(file="Stratified.mos" "run"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/Stratified.mos" "Simulate and plot"),
     Documentation(info="<html>
 This model tests a pressure expansion vessel. The medium model that is used in this
 example changes its density as a function of temperature.

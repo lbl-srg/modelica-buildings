@@ -156,6 +156,5 @@ equation
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -160},{180,160}}),      graphics),
-                         Commands(file=
-            "MixingVolumeMoistAir.mos" "run"));
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos" "Simulate and plot"));
 end MixingVolumeMoistAir;

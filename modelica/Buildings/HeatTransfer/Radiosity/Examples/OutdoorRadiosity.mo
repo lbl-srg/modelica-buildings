@@ -28,6 +28,6 @@ equation
       points={{-60,10},{-50,10},{-50,-6},{-40,-6}},
       color={191,0,0},
       smooth=Smooth.None));
-    annotation(Commands(file="OutdoorRadiosity.mos" "run"),
+    annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Radiosity/Examples/OutdoorRadiosity.mos" "Simulate and plot"),
               Diagram(graphics));
 end OutdoorRadiosity;
