@@ -1,0 +1,12 @@
+LibraryInfoMenuSeparator(
+	category = "libraries",
+	pos = 3000);
+LibraryInfoMenuCommand(
+	category = "libraries",
+	text = "Buildings 0.13",
+	reference = "Buildings",
+	isModel = true,
+	description = "Buildings",
+	version = "0.13",
+	ModelicaVersion = ">=3.2",
+	pos = 4000);
