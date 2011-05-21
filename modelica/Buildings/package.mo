@@ -1149,6 +1149,10 @@ The development of the Buildings library is organized by<br>
   was contributed by the United Technologies Research Center, which also contributed to the
   validation of the <a href=\"modelica://Buildings.RoomsBeta.MixedAir\">room heat transfer model</a>.
 </p>
+<p>
+We thank Dietmar Winkler from Telemark University College for the various feedback that 
+helped improving the organization and structure of the library.
+</p>
 </html>
 "));
 
