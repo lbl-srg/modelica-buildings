@@ -1,0 +1,17 @@
+// Conversion script for Buildings library
+//  from: Version 0.11.0
+//  to:   Version 0.12.0
+clear
+
+convertClear();
+
+//convertClass("Buildings.HeatTransfer.ConductorMultiLayer",
+//             "Buildings.HeatTransfer.Conduction.MultiLayer");
+
+convertElement({Buildings.Utilities.Reports.Printer,
+                Buildings.Utilities.Reports.printRealArray},
+                "minimumWidth", "minimumLength");
+
+convertElement({Buildings.Utilities.Reports.Printer,
+                Buildings.Utilities.Reports.printRealArray},
+                "precision", "significantDigits");
