@@ -43,8 +43,8 @@ algorithm
     i :=i + 1;
     assert(i < iMax, "Maximum number of iterations exceeded in computing\n"
       + "apparatus dew point for coil at nominal conditions"
-      + "\n  Best known approximation is T_dp = " + realString(T_dp)
-      + "\n  Search step is dT = " + realString(dT));
+      + "\n  Best known approximation is T_dp = " + String(T_dp)
+      + "\n  Search step is dT = " + String(dT));
 
     T :=T_dp - dT;
     // New trial value

@@ -26,7 +26,7 @@ algorithm
    // Check if longitude is valid
    assert(abs(lon) < 2*Modelica.Constants.pi,
        "Wrong value for longitude. Received lon = " +
-       realString(lon) + " (= " + realString(lon*180/Modelica.Constants.pi) + " degrees).");
+       String(lon) + " (= " + String(lon*180/Modelica.Constants.pi) + " degrees).");
 
   annotation (Documentation(info="<html>
 This function returns the longitude of the TMY3 weather data file.

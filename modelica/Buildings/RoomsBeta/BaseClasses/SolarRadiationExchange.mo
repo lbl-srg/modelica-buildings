@@ -157,7 +157,7 @@ initial equation
      "    Revise the model parameters.");
   // Test whether the distribution factors add up to one
   assert(abs(1-sum(k)) < 1E-5,
-     "Program error: Sum of solar distribution factors in room is not equal to one. k=" + realString(sum(k)));
+     "Program error: Sum of solar distribution factors in room is not equal to one. k=" + String(sum(k)));
 
 ////////////////////////////////////////////////////////////////////
 equation

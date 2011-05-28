@@ -1401,7 +1401,7 @@ versionDate="2011-XX-XX",
 uses(Modelica(version="3.2")),
 conversion(
  from(version="0.12.0",
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertModelica_from_0.12.0_to_0.13.mos")),
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12.0_to_0.13.mos")),
 dateModified = "$Date$",
 revisionId="$Id:: package.mo 2369 2011-05-10 00:35:26Z #$",
 preferredView="info",

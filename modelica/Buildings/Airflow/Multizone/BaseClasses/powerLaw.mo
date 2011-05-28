@@ -47,8 +47,8 @@ algorithm
    if (abs(dp)<Modelica.Constants.small) then
       V_flow := 0;
    else
-     V_flow :=k*spliceFunction(
-      spliceFunction(
+     V_flow :=k*Buildings.Utilities.Math.Functions.spliceFunction(
+      Buildings.Utilities.Math.Functions.spliceFunction(
         abs(dp)^m,
         s*dp,
         pTilFor,

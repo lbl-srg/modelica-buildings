@@ -21,9 +21,9 @@ public
 equation
   TemK = TemC - Modelica.Constants.T_zero;
   assert(TemK > TMin, "Temperature out of bounds.\n" + "   TemK = " +
-    realString(TemK));
+    String(TemK));
   assert(TemK < TMax, "Temperature out of bounds.\n" + "   TemK = " +
-    realString(TemK));
+    String(TemK));
 
   annotation (
     defaultComponentName="conTem",

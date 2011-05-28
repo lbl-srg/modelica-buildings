@@ -20,8 +20,8 @@ initial equation
        m_flow_nominal^2 / dp_nominal;
   assert(kResSqu > 0,
          "Wrong parameters in damper model: dp_nominal < dpDamOpe_nominal"
-          + "\n  dp_nominal = "       + realString(dp_nominal)
-          + "\n  dpDamOpe_nominal = " + realString(dpDamOpe_nominal));
+          + "\n  dp_nominal = "       + String(dp_nominal)
+          + "\n  dpDamOpe_nominal = " + String(dpDamOpe_nominal));
 
    annotation (
 defaultComponentName="vavDam",

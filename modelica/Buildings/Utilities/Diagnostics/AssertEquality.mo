@@ -4,10 +4,10 @@ block AssertEquality "Assert when condition is violated"
 equation
   when (time > t0) then
     assert(abs(u1 - u2) < threShold, message + "\n"
-      + "  u1         = " + realString(u1) + "\n"
-      + "  u2         = " + realString(u2) + "\n"
-      + "  abs(u1-u2) = " + realString(abs(u1-u2)) + "\n"
-      + "  threShold  = " + realString(threShold));
+      + "  u1         = " + String(u1) + "\n"
+      + "  u2         = " + String(u2) + "\n"
+      + "  abs(u1-u2) = " + String(abs(u1-u2)) + "\n"
+      + "  threShold  = " + String(threShold));
   end when;
 annotation (
 defaultComponentName="assEqu",

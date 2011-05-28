@@ -123,7 +123,7 @@ initial equation
   // is only one construction
   for i in 1:nTot loop
     assert((abs(1-sum(F[i,j] for j in 1:nTot))) < 1E-10,
-           "Program error: Sum 1 of view factors is " + realString(sum(F[i,j] for j in 1:nTot)));
+           "Program error: Sum 1 of view factors is " + String(sum(F[i,j] for j in 1:nTot)));
   end for;
 
 ////////////////////////////////////////////////////////////////////
@@ -238,7 +238,7 @@ equation
     +sum(conBou.Q_flow)+sum(conSurBou.Q_flow)+sum(conExtWin.Q_flow)+sum(conExtWinFra.Q_flow)
     +(sum(JInConExtWin)+sum(JOutConExtWin));
   assert(abs(sumEBal) < 1E-1, "Program error: Energy is not conserved in InfraredRadiationExchange."
-   + "\n  Sum of all energy is " + realString(sumEBal));
+   + "\n  Sum of all energy is " + String(sumEBal));
   annotation (
 preferedView="info",
 Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,

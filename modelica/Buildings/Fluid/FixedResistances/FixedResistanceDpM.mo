@@ -17,12 +17,12 @@ initial equation
  if ( m_flow_turbulent > m_flow_nominal_pos) then
    Modelica.Utilities.Streams.print("Warning: In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent."
            + "\n"
-           + "  m_flow_nominal = " + realString(m_flow_nominal) + "\n"
-           + "  dh      = " + realString(dh) + "\n"
+           + "  m_flow_nominal = " + String(m_flow_nominal) + "\n"
+           + "  dh      = " + String(dh) + "\n"
            + "  To fix, set dh < " +
-                realString(     4*m_flow_nominal/eta_nominal/Modelica.Constants.pi/ReC) + "\n"
+                String(     4*m_flow_nominal/eta_nominal/Modelica.Constants.pi/ReC) + "\n"
            + "  Suggested value: dh = " +
-                realString(1/10*4*m_flow_nominal/eta_nominal/Modelica.Constants.pi/ReC));
+                String(1/10*4*m_flow_nominal/eta_nominal/Modelica.Constants.pi/ReC));
  end if;
 
 equation

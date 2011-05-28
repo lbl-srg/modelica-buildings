@@ -5,7 +5,7 @@ model FlowMachine_dp
   final control_m_flow = false);
 equation
   assert(dp_in >= -0.1,
-    "dp_in cannot be negative. Obtained dp_in = " + realString(dp_in));
+    "dp_in cannot be negative. Obtained dp_in = " + String(dp_in));
 
   annotation (defaultComponentName="fan",
   Documentation(info="<html>

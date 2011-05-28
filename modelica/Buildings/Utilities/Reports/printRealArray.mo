@@ -3,18 +3,25 @@ function printRealArray "Print string to terminal or file"
   extends Modelica.Icons.Function;
   input Real[:] x "Input to be printed";
   input String fileName="" "File where to print (empty string is the terminal)";
-  input Integer minimumWidth =  1 "Minimum width of result";
-  input Integer precision = 6 "Number of significant digits";
+  input Integer minimumLength =  1 "Minimum width of result";
+  input Integer significantDigits = 6 "Number of significant digits";
   output String outStr="" "String to be printed";
 algorithm
   for i in 1:size(x,1) loop
      outStr :=outStr + "  "
-                     + realString(number=x[i], minimumWidth=minimumWidth,
-                                  precision=precision);
+                     + String(number=x[i],
+                              minimumLength=minimumLength,
+                              significantDigits=significantDigits);
   end for;
   Modelica.Utilities.Streams.print(string=outStr, fileName=fileName);
   annotation (Documentation(revisions="<html>
 <ul>
+<li>
+May 27, 2011 by Michael Wetter:<br>
+Changed parameter <code>precision</code> to <code>significantDigits</code>
+and <code>minimumWidth</code> to <code>minimumLength</code> to use the same 
+terminology as the Modelica Standard Library.
+</li>
 <li>
 October 1, 2008 by Michael Wetter:<br>
 Revised implementation and moved to new package.

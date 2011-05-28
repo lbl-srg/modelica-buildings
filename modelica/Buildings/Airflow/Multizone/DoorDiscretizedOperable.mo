@@ -31,9 +31,9 @@ initial equation
   AClo=CDClo/CDCloRat * LClo * dpCloRat^(0.5-mClo);
 equation
   assert(y           >= 0, "Input error. Opening signal must be between 0 and 1.\n"
-    + "  Received y.signal[1] = " + realString(y));
+    + "  Received y.signal[1] = " + String(y));
   assert(y           <= 1, "Input error. Opening signal must be between 0 and 1.\n"
-    + "  Received y.signal[1] = " + realString(y));
+    + "  Received y.signal[1] = " + String(y));
   fraOpe =y;
   kClo = CDClo * AClo/nCom * sqrt(2/rhoAve);
   kOpe = CDOpe * AOpe/nCom * sqrt(2/rhoAve);

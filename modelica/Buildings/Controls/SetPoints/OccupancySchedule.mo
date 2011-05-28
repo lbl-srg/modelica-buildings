@@ -40,13 +40,13 @@ initial algorithm
    "The parameter \"occupancy\" must have an even number of elements.\n");
  assert(startTime < occupancy[1],
    "The parameter \"startTime\" must be smaller than the first element of \"occupancy\"."
-   + "\n   Received startTime    = " + realString(startTime)
-   + "\n            occupancy[1] = " + realString(occupancy[1]));
+   + "\n   Received startTime    = " + String(startTime)
+   + "\n            occupancy[1] = " + String(occupancy[1]));
  assert(endTime > occupancy[nRow],
    "The parameter \"endTime\" must be greater than the last element of \"occupancy\"."
-   + "\n   Received endTime      = " + realString(endTime)
-   + "\n            occupancy[" + integerString(nRow) +
-     "] = " + realString(occupancy[nRow]));
+   + "\n   Received endTime      = " + String(endTime)
+   + "\n            occupancy[" + String(nRow) +
+     "] = " + String(occupancy[nRow]));
   for i in 1:nRow-1 loop
     assert(occupancy[i] < occupancy[i+1],
       "The elements of the parameter \"occupancy\" must be strictly increasing.");

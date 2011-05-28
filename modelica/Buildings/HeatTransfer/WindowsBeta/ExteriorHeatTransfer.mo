@@ -25,7 +25,7 @@ model ExteriorHeatTransfer
     "View factor from receiving surface to sky";
 equation
   assert(-1E-10<F_sky and 1.00001 > F_sky,
-         "View factor to sky is out of range. F_sky = " + realString(F_sky)
+         "View factor to sky is out of range. F_sky = " + String(F_sky)
          + "\n   Check parameters.");
 
   connect(vWin, conCoeGla.v)

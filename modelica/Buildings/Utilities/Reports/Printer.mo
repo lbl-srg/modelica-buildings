@@ -7,8 +7,8 @@ model Printer "Model that prints values to a file"
   parameter Integer nin=1 "Number of inputs";
   parameter Integer configuration = 1
     "Index for treating final report (see documentation)";
-  parameter Integer minimumWidth =  1 "Minimum width of result";
-  parameter Integer precision = 16 "Number of significant digits";
+  parameter Integer minimumLength =  1 "Minimum length of result string";
+  parameter Integer significantDigits = 16 "Number of significant digits";
   Modelica.Blocks.Interfaces.RealInput x[nin] "Value to be printed"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
           rotation=0)));
@@ -23,16 +23,16 @@ equation
   when {sampleTrigger, initial()} then
       Buildings.Utilities.Reports.printRealArray(
                                       x=x, fileName=fileName,
-                                      minimumWidth=minimumWidth,
-                                      precision=precision);
+                                      minimumLength=minimumLength,
+                                      significantDigits=significantDigits);
   end when;
   end if;
   when terminal() then
     if configuration >= 2 then
        Buildings.Utilities.Reports.printRealArray(
                                       x=x, fileName=fileName,
-                                      minimumWidth=minimumWidth,
-                                      precision=precision);
+                                      minimumLength=minimumLength,
+                                      significantDigits=significantDigits);
    end if;
   end when;
   annotation (Icon(graphics={
@@ -104,6 +104,12 @@ The parameter <code>configuration</code> controls the printing as follows:
  </table>
 </html>", revisions="<html>
 <ul>
+<li>
+May 27, 2011 by Michael Wetter:<br>
+Changed parameter <code>precision</code> to <code>significantDigits</code>
+and <code>minimumWidth</code> to <code>minimumLength</code> to use the same 
+terminology as the Modelica Standard Library.
+</li>
 <li>
 October 1, 2008 by Michael Wetter:<br>
 Revised implementation and moved to new package.

@@ -30,9 +30,9 @@ equation
   when useConstantDensity and initial() then
    assert( abs(1-rho_nominal/((Medium.density(sta_a1_inflow) + Medium.density(sta_a2_inflow))/2))  < 0.2,
     "Wrong density. Densities need to match."
-    + "\n Medium.density(sta_a1) = " + realString(Medium.density(sta_a1_inflow))
-    + "\n Medium.density(sta_a2) = " + realString(Medium.density(sta_a2_inflow))
-    + "\n rho_nominal            = " + realString(rho_nominal));
+    + "\n Medium.density(sta_a1) = " + String(Medium.density(sta_a1_inflow))
+    + "\n Medium.density(sta_a2) = " + String(Medium.density(sta_a2_inflow))
+    + "\n rho_nominal            = " + String(rho_nominal));
   end when;
   V_flow = V * ACS;
   m_flow / V_flow = if useConstantDensity then rho_nominal else (Medium.density(sta_a1_inflow) + Medium.density(sta_a2_inflow))/2;

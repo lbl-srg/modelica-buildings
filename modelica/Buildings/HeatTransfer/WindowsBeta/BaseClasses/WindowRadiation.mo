@@ -66,7 +66,7 @@ protected
 equation
   if noShade then
     assert(uSha_internal < 1E-6, "Window has no shade, but control signal is non-zero.\n"
-       + "  Received uSha_internal = " + realString(uSha_internal));
+       + "  Received uSha_internal = " + String(uSha_internal));
   end if;
   connect(HDif, tra.HDif) annotation (Line(
       points={{-120,80},{-80,80},{-80,58},{-41.5,58}},

@@ -84,10 +84,10 @@ initial equation
   mRef_flow = m_flow_nominal/FRWat0;
   // Check validity of relative fan power consumption at y=yMin and y=1
   assert(fanRelPow(r_V=yMin)>-1E-4, "The fan relative power consumption must be negative for y=0."
-  + "\n   Obtained fanRelPow(0) = " + realString(fanRelPow(r_V=yMin))
+  + "\n   Obtained fanRelPow(0) = " + String(fanRelPow(r_V=yMin))
   + "\n   You need to choose a different function for fanRelPow.");
   assert(abs(1-fanRelPow(r_V=1))<1E-4, "The fan relative power consumption must be one for y=1."
-  + "\n   Obtained fanRelPow(1) = " + realString(fanRelPow(r_V=1))
+  + "\n   Obtained fanRelPow(1) = " + String(fanRelPow(r_V=1))
   + "\n   You need to choose a different function for fanRelPow."
   + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
 equation

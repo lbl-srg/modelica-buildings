@@ -6,9 +6,9 @@ model TwoWayEqualPercentage "Two way valve with linear flow characteristics"
     "Range of significant deviation from equal percentage law";
 initial equation
  assert(l < 1/R, "Wrong parameters in valve model.\n"
-               + "  Rangeability R = " + realString(R) +  "\n"
-               + "  Leakage flow l = " + realString(l) +  "\n"
-               + "  Must have l < 1/R = " + realString(1/R));
+               + "  Rangeability R = " + String(R) +  "\n"
+               + "  Leakage flow l = " + String(l) +  "\n"
+               + "  Must have l < 1/R = " + String(1/R));
 
 equation
   if homotopyInitialization then

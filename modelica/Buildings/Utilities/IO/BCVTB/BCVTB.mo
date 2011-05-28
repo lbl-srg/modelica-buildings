@@ -53,13 +53,13 @@ initial algorithm
      assert(socketFD >= 0, "Socket file descripter for BCVTB must be positive.\n" +
                          "   A negative value indicates that no connection\n" +
                          "   could be established. Check file 'utilSocket.log'.\n" +
-                         "   Received: socketFD = " + integerString(socketFD));
+                         "   Received: socketFD = " + String(socketFD));
    flaRea   := 0;
    uRInt    := zeros(nDblWri);
    uRIntPre := zeros(nDblWri);
    for i in 1:nDblWri loop
      assert(flaDblWri[i]>=0 and flaDblWri[i]<=2,
-        "Parameter flaDblWri out of range for " + integerString(i) + "-th component.");
+        "Parameter flaDblWri out of range for " + String(i) + "-th component.");
      if (flaDblWri[i] == 0) then
         _uStart[i] := uStart[i];               // Current value.
      elseif (flaDblWri[i] == 1) then
@@ -80,7 +80,7 @@ algorithm
   when {sampleTrigger} then
     assert(flaRea == 0, "BCVTB interface attempts to exchange data after Ptolemy reached its final time.\n" +
                         "   Aborting simulation. Check final time in Modelica and in Ptolemy.\n" +
-                        "   Received: flaRea = " + integerString(flaRea));
+                        "   Received: flaRea = " + String(flaRea));
      // Compute value that will be sent to the BCVTB interface
      for i in 1:nDblWri loop
        if (flaDblWri[i] == 0) then
@@ -113,10 +113,10 @@ algorithm
     // Check for valid return flags
     assert(flaRea >= 0, "BCVTB sent a negative flag to Modelica during data transfer.\n" +
                         "   Aborting simulation. Check file 'utilSocket.log'.\n" +
-                        "   Received: flaRea = " + integerString(flaRea));
+                        "   Received: flaRea = " + String(flaRea));
     assert(retVal >= 0, "Obtained negative return value during data transfer with BCVTB.\n" +
                         "   Aborting simulation. Check file 'utilSocket.log'.\n" +
-                        "   Received: retVal = " + integerString(retVal));
+                        "   Received: retVal = " + String(retVal));
 
     // Store current value of integral
     uRIntPre:=uRInt;

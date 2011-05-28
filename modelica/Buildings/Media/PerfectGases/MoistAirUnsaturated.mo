@@ -54,11 +54,11 @@ required from medium model \""     + mediumName + "\".");
     /*
   assert(Xi[Water] < X_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
      + "To model a saturated medium, use 'Buildings.Media.PerfectGases.MoistAir' instead of this medium.\n"
-     + " T         = " + realString(T) + "\n"
-     + " X_sat     = " + realString(X_sat) + "\n"
-     + " Xi[Water] = " + realString(Xi[Water]) + "\n"
-     + " phi       = " + realString(phi) + "\n"
-     + " p         = " + realString(p));
+     + " T         = " + String(T) + "\n"
+     + " X_sat     = " + String(X_sat) + "\n"
+     + " Xi[Water] = " + String(Xi[Water]) + "\n"
+     + " phi       = " + String(phi) + "\n"
+     + " p         = " + String(p));
 */
     MM = 1/(Xi[Water]/MMX[Water]+(1.0-Xi[Water])/MMX[Air]);
 
@@ -358,11 +358,11 @@ algorithm
   /*
   assert(X[Water] < x_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
      + "To model a saturated medium, use 'Buildings.Media.PerfectGases.MoistAir' instead of this medium.\n"
-     + " T         = " + realString(T) + "\n"
-     + " x_sat     = " + realString(x_sat) + "\n"
-     + " X[Water] = "  + realString(X[Water]) + "\n"
-     + " phi       = " + realString(X[Water]/((x_sat)/(1+x_sat))) + "\n"
-     + " p         = " + realString(p));
+     + " T         = " + String(T) + "\n"
+     + " x_sat     = " + String(x_sat) + "\n"
+     + " X[Water] = "  + String(X[Water]) + "\n"
+     + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
+     + " p         = " + String(p));
   */
   hDryAir := (T - 273.15)*dryair.cp;
   h := hDryAir * (1 - X[Water]) +
@@ -411,11 +411,11 @@ algorithm
   /*
   assert(X[Water] < x_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
      + "To model a saturated medium, use 'Buildings.Media.PerfectGases.MoistAir' instead of this medium.\n"
-     + " T         = " + realString(T) + "\n"
-     + " x_sat     = " + realString(x_sat) + "\n"
-     + " X[Water] = " + realString(X[Water]) + "\n"
-     + " phi       = " + realString(X[Water]/((x_sat)/(1+x_sat))) + "\n"
-     + " p         = " + realString(p));
+     + " T         = " + String(T) + "\n"
+     + " x_sat     = " + String(x_sat) + "\n"
+     + " X[Water] = " + String(X[Water]) + "\n"
+     + " phi       = " + String(X[Water]/((x_sat)/(1+x_sat))) + "\n"
+     + " p         = " + String(p));
    */
   annotation(Inline=false, smoothOrder=5,
       Documentation(info="<html>

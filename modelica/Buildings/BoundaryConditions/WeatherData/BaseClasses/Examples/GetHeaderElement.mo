@@ -10,9 +10,9 @@ initial equation
   timeZone = Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(
     filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos");
   assert(abs(timeZone+6*3600) < 1, "Error when parsing time zone, timeZone = "
-    + realString(timeZone));
+    + String(timeZone));
   assert(abs(longitude*180/Modelica.Constants.pi+87.92) < 1,
-      "Error when parsing longitude, longitude = " + realString(longitude));
+      "Error when parsing longitude, longitude = " + String(longitude));
 
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos" "Simulate and plot"));
 end GetHeaderElement;

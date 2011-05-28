@@ -25,7 +25,7 @@ algorithm
    // Check if time zone is valid
    assert(abs(timZon) < 24*3600,
        "Wrong value for time zone. Received timZon = " +
-       realString(timZon) + " (= " + realString(timZon/3600) + " hours).");
+       String(timZon) + " (= " + String(timZon/3600) + " hours).");
 
   annotation (Documentation(info="<html>
 This function returns the time zone of the TMY3 weather data file.

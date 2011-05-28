@@ -15,9 +15,9 @@ algorithm
     a := Z+1;
     assert(eps < 1/a,
       "Invalid input data. eps > 1/(1+Z) is physically not possible for parallel flow." +
-      "\n  Received eps = " + realString(eps) +
-      "\n             Z = " + realString(Z) +
-      "\n       1/(Z+1) = " + realString(1/a));
+      "\n  Received eps = " + String(eps) +
+      "\n             Z = " + String(Z) +
+      "\n       1/(Z+1) = " + String(1/a));
     NTU := -(Modelica.Math.log(1-eps*a))/(a);
   elseif (flowRegime == f.CounterFlow) then// counter flow
    // a is constraining Z since eps is not defined for Z=1.
