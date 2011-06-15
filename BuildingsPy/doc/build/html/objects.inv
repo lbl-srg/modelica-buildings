@@ -1,0 +1,12 @@
+# Sphinx inventory version 1
+# Project: BuildingsPy
+# Version: 0.0
+buildingspy.io mod buildingspy.html
+buildingspy.examples.dymolaplot mod buildingspy.html
+buildingspy.io.outputfile mod buildingspy.html
+buildingspy.io.outputfile.Reader.values method buildingspy.html
+buildingspy.io.outputfile.Reader class buildingspy.html
+buildingspy.io.outputfile.Reader.mean method buildingspy.html
+buildingspy.io.outputfile.Reader.min method buildingspy.html
+buildingspy.io.outputfile.Reader.integral method buildingspy.html
+buildingspy.io.outputfile.Reader.max method buildingspy.html
