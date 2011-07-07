@@ -333,13 +333,13 @@ if __name__ == '__main__':
         runSimulation(temDirNam[0])
 
     # Concatenate output files into one file
-        logFil=open('unitTests.log', 'w')
-        for d in temDirNam:
-            file=open(os.path.join(d, 'Buildings', 'unitTests.log'),'r')
-            data=file.read()
-            file.close()
-            logFil.write(data)
-        logFil.close()
+    logFil=open('unitTests.log', 'w')
+    for d in temDirNam:
+        file=open(os.path.join(d, 'Buildings', 'unitTests.log'),'r')
+        data=file.read()
+        file.close()
+        logFil.write(data)
+    logFil.close()
 
     # Check md5sum
     if batch:
