@@ -11,7 +11,7 @@ import os, string, fnmatch, os.path, sys
 LIBHOME=os.path.abspath(".")
 
 # List of invalid strings
-INVALID_IN_ALL=["fixme", "import \"", "<h1", "<h2", "<h3", "todo", "xxx", "tt>"]
+INVALID_IN_ALL=["fixme", "import \"", "<h1", "<h2", "<h3", "todo", "xxx", "tt>", "realString", "integerString"]
 # List of invalid strings in .mos files
 INVALID_IN_MOS=["=false", "= false"]
 # List of strings that are required in .mo files, except in Examples
