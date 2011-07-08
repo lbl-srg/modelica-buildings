@@ -26,26 +26,35 @@ testForProgram dos2unix
 testForProgram unix2dos
 testForProgram wc
 testForProgram svn
-testForProgram cuta
+testForProgram cut
 
 # Search for svn files with modifications
-TEMDIR=~/tmp2
+
+
+
+TEMDIR="/tmp/tmp-$USER-$(basename $0).$$.tmp"
 mkdir -p $TEMDIR
 convert=false
+
+curDir=`pwd`
 for ff in `svn status`; do 
     if [ $ff == "M" ]; then
 	convert=true
     else
 	if [ $convert == "true" ]; then
+	    # Test conversion in temporary directory
 	    cp -rp $ff $TEMDIR
+	    cd $TEMDIR
 	    echo "Converting $ff"
 	    dos2unix --quiet -k $ff
-	    svn diff $ff > temp1.txt
+	    svn diff $curDir/$ff > temp1.txt
 	    s1=`wc -l temp1.txt | cut -d ' ' -f 1,1`
 	    unix2dos --quiet -k $ff
-	    svn diff $ff > temp2.txt
+	    svn diff $curDir/$ff > temp2.txt
 	    s2=`wc -l temp2.txt | cut -d ' ' -f 1,1`
 #	    echo "Sizes are $s1 $s2"
+	    # Go back to working directory
+	    cd -
 	    if [ $s1 -ge $s2 ]; then
 		echo "$s1 >= $s2"
 	    else
@@ -59,4 +68,4 @@ for ff in `svn status`; do
     fi
 
 done
-rm $TEMDIR
+rm -rf $TEMDIR
