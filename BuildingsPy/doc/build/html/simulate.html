@@ -1,0 +1,436 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Module for running simulations &mdash; BuildingsPy v0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="BuildingsPy v0.0.1 documentation" href="index.html" />
+    <link rel="next" title="buildingspy.io Module for reading output files" href="io.html" />
+    <link rel="prev" title="BuildingsPy’s documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="io.html" title="buildingspy.io Module for reading output files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="BuildingsPy’s documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">BuildingsPy v0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Module for running simulations</a><ul>
+<li><a class="reference external" href="#buildingspy-simulate-classes-for-simulating-a-modelica-model"><tt class="docutils literal"><span class="pre">buildingspy.simulate</span></tt> Classes for simulating a Modelica model</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">BuildingsPy&#8217;s documentation</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="io.html"
+                                  title="next chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">buildingspy.io</span></tt> Module for reading output files</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-buildingspy.simulate.Simulator">
+<h1>Module for running simulations<a class="headerlink" href="#module-buildingspy.simulate.Simulator" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="buildingspy-simulate-classes-for-simulating-a-modelica-model">
+<h2><tt class="xref docutils literal"><span class="pre">buildingspy.simulate</span></tt> Classes for simulating a Modelica model<a class="headerlink" href="#buildingspy-simulate-classes-for-simulating-a-modelica-model" title="Permalink to this headline">¶</a></h2>
+</div>
+<dl class="class">
+<dt id="buildingspy.simulate.Simulator.Simulator">
+<em class="property">class </em><tt class="descclassname">buildingspy.simulate.Simulator.</tt><tt class="descname">Simulator</tt><big>(</big><em>modelName</em>, <em>simulator</em>, <em>outputDirectory='.'</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to simulate a Modelica model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><em>modelName</em> &#8211; The name of the Modelica model.</li>
+<li><em>simulator</em> &#8211; The simulation engine. Currently, the only supported value is <tt class="docutils literal"><span class="pre">dymola</span></tt>.</li>
+<li><em>outputDirectory</em> &#8211; An optional output directory.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If the parameter <tt class="docutils literal"><span class="pre">outputDirectory</span></tt> is specified, then the
+output files and log files will be moved to this directory
+when the simulation is completed.</p>
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.addModelModifier">
+<tt class="descname">addModelModifier</tt><big>(</big><em>modelModifier</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.addModelModifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a model modifier.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>dictionary</em> &#8211; A model modifier.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">buildingspy.simulate.Simulator</span> <span class="kn">import</span> <span class="n">Sim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">Sim</span><span class="p">(</span><span class="s">&quot;myPackage.myModel&quot;</span><span class="p">,</span> <span class="s">&quot;dymola&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">addModelModifier</span><span class="p">(</span><span class="s">&#39;redeclare package MediumA = Buildings.Media.IdealGases.SimpleAir&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>This method adds a model modifier. The modifier is added to the list
+of model parameters. For example, the above statement would yield the 
+command
+<tt class="docutils literal"><span class="pre">simulateModel(myPackage.myModel(redeclare</span> <span class="pre">package</span> <span class="pre">MediumA</span> <span class="pre">=</span> <span class="pre">Buildings.Media.IdealGases.SimpleAir),</span> <span class="pre">startTime=...</span></tt></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.addParameters">
+<tt class="descname">addParameters</tt><big>(</big><em>dictionary</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.addParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds parameter declarations to the simulator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>dictionary</em> &#8211; A dictionary with the parameter values</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">buildingspy.simulate.Simulator</span> <span class="kn">import</span> <span class="n">Sim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">Sim</span><span class="p">(</span><span class="s">&quot;myPackage.myModel&quot;</span><span class="p">,</span> <span class="s">&quot;dymola&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">addParameters</span><span class="p">({</span><span class="s">&#39;PID.k&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s">&#39;valve.m_flow_nominal&#39;</span> <span class="p">:</span> <span class="mf">0.1</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">addParameters</span><span class="p">({</span><span class="s">&#39;PID.t&#39;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">})</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>This will add the three parameters <tt class="docutils literal"><span class="pre">PID.k</span></tt>, <tt class="docutils literal"><span class="pre">valve.m_flow_nominal</span></tt>
+and <tt class="docutils literal"><span class="pre">PID.t</span></tt> to the list of model parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.addPreProcessingStatement">
+<tt class="descname">addPreProcessingStatement</tt><big>(</big><em>command</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.addPreProcessingStatement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a pre-processing statement to the simulation script.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>statement</em> &#8211; A script statement.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">buildingspy.simulate.Simulator</span> <span class="kn">import</span> <span class="n">Sim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">Sim</span><span class="p">(</span><span class="s">&quot;myPackage.myModel&quot;</span><span class="p">,</span> <span class="s">&quot;dymola&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">ProcessingStatement</span><span class="p">(</span><span class="s">&quot;Advanced.StoreProtectedVariables:= true;&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">ProcessingStatement</span><span class="p">(</span><span class="s">&quot;Advanced.GenerateTimers = true;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>This will execute the two statements after the <tt class="docutils literal"><span class="pre">openModel</span></tt> and
+before the <tt class="docutils literal"><span class="pre">simulateModel</span></tt> statement.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.deleteOutputFiles">
+<tt class="descname">deleteOutputFiles</tt><big>(</big><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.deleteOutputFiles" title="Permalink to this definition">¶</a></dt>
+<dd>Deletes the output files of the simulator.</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.getOutputDirectory">
+<tt class="descname">getOutputDirectory</tt><big>(</big><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.getOutputDirectory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a the name of the output directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">The name of the output directory.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.getParameters">
+<tt class="descname">getParameters</tt><big>(</big><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.getParameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of parameters as (key, value)-tuples.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">A list of parameters as (key, value)-tuples.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">buildingspy.simulate.Simulator</span> <span class="kn">import</span> <span class="n">Sim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">Sim</span><span class="p">(</span><span class="s">&quot;myPackage.myModel&quot;</span><span class="p">,</span> <span class="s">&quot;dymola&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">addParameters</span><span class="p">({</span><span class="s">&#39;PID.k&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s">&#39;valve.m_flow_nominal&#39;</span> <span class="p">:</span> <span class="mf">0.1</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">getParameters</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>This will return the list
+<tt class="docutils literal"><span class="pre">[('valve.m_flow_nominal',</span> <span class="pre">0.1),</span> <span class="pre">('PID.k',</span> <span class="pre">1.0)]</span></tt></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.getSimulatorSettings">
+<tt class="descname">getSimulatorSettings</tt><big>(</big><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.getSimulatorSettings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of settings for the parameter as (key, value)-tuples.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Returns:</th><td class="field-body">A list of parameters (key, value) pairs, as 2-tuples.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">buildingspy.simulate.Simulator</span> <span class="kn">import</span> <span class="n">Sim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">=</span><span class="n">Sim</span><span class="p">(</span><span class="s">&quot;myPackage.myModel&quot;</span><span class="p">,</span> <span class="s">&quot;dymola&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">({</span><span class="s">&#39;PID.k&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s">&#39;valve.m_flow_nominal&#39;</span> <span class="p">:</span> <span class="mf">0.1</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">getSimulatorSettings</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>This will return the list
+<tt class="docutils literal"><span class="pre">[('valve.m_flow_nominal',</span> <span class="pre">0.1),</span> <span class="pre">('PID.k',</span> <span class="pre">1.0)]</span></tt></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.printModelAndTime">
+<tt class="descname">printModelAndTime</tt><big>(</big><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.printModelAndTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the current time and the model name to the standard output.</p>
+<p>This method may be used to print logging information.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.setNumberOfIntervals">
+<tt class="descname">setNumberOfIntervals</tt><big>(</big><em>n</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.setNumberOfIntervals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the number of output intervals.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>n</em> &#8211; The number of output intervals.</td>
+</tr>
+</tbody>
+</table>
+<p>The default is unspecified, which defaults by Dymola to 500.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.setResultFile">
+<tt class="descname">setResultFile</tt><big>(</big><em>resultFile</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.setResultFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the name of the result file (without extension).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>resultFile</em> &#8211; The name of the result file (without extension).</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.setSolver">
+<tt class="descname">setSolver</tt><big>(</big><em>solver</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.setSolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the solver.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>solver</em> &#8211; The name of the solver.</td>
+</tr>
+</tbody>
+</table>
+<p>The default solver is <em>radau</em>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.setStartTime">
+<tt class="descname">setStartTime</tt><big>(</big><em>t0</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.setStartTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the start time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>t0</em> &#8211; The start time of the simulation in seconds.</td>
+</tr>
+</tbody>
+</table>
+<p>The default stop time is 1.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.setStopTime">
+<tt class="descname">setStopTime</tt><big>(</big><em>t1</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.setStopTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the start time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>t0</em> &#8211; The start time of the simulation in seconds.</td>
+</tr>
+</tbody>
+</table>
+<p>The default start time is 0.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.setTimeOut">
+<tt class="descname">setTimeOut</tt><big>(</big><em>sec</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.setTimeOut" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the time out after which the simulation will be killed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>sec</em> &#8211; The time out after which the simulation will be killed.</td>
+</tr>
+</tbody>
+</table>
+<p>The default value is -1, which means that the simulation will
+never be killed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.setTolerance">
+<tt class="descname">setTolerance</tt><big>(</big><em>eps</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.setTolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the solver tolerance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>eps</em> &#8211; The solver tolerance.</td>
+</tr>
+</tbody>
+</table>
+<p>The default solver tolerance is 1E-6.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.showProgressBar">
+<tt class="descname">showProgressBar</tt><big>(</big><em>show=True</em><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.showProgressBar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enables or disables the progress bar.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameter:</th><td class="field-body"><em>show</em> &#8211; Set to <em>false</em> to disable the progress bar.</td>
+</tr>
+</tbody>
+</table>
+<p>If this function is not called, then a progress bar will be shown as the simulation runs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="buildingspy.simulate.Simulator.Simulator.simulate">
+<tt class="descname">simulate</tt><big>(</big><big>)</big><a class="headerlink" href="#buildingspy.simulate.Simulator.Simulator.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulates the model.</p>
+<dl class="docutils">
+<dt>This method</dt>
+<dd><ol class="first last arabic simple">
+<li>Deletes dymola output files</li>
+<li>Copies the current directory to a temporary directory.</li>
+<li>Writes a Modelica script to the temporary directory.</li>
+<li>Starts the Modelica simulation environment from the temporary directory.</li>
+<li>Translates and simulates the model.</li>
+<li>Closes the Modelica simulation environment.</li>
+<li>Copies output files and deletes the temporary directory.</li>
+</ol>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="io.html" title="buildingspy.io Module for reading output files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="BuildingsPy’s documentation"
+             >previous</a> |</li>
+        <li><a href="index.html">BuildingsPy v0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, The Regents of the University of California (through Lawrence Berkeley National Laboratory), subject to receipt of any required approvals from U.S. Department of Energy.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+    </div>
+  </body>
+</html>

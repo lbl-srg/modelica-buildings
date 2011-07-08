@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Examples &mdash; BuildingsPy v0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.1',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="BuildingsPy v0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Copyright and License" href="legal.html" />
+    <link rel="prev" title="buildingspy.io Module for reading output files" href="io.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="legal.html" title="Copyright and License"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="io.html" title="buildingspy.io Module for reading output files"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">BuildingsPy v0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="#">Examples</a><ul>
+<li><a class="reference external" href="#running-a-simulation">Running a Simulation</a></li>
+<li><a class="reference external" href="#plotting-of-time-series">Plotting of Time Series</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="io.html"
+                                  title="previous chapter"><tt class="docutils literal"><span class="pre">buildingspy.io</span></tt> Module for reading output files</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="legal.html"
+                                  title="next chapter">Copyright and License</a></p>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-buildingspy.examples.dymola">
+<h1>Examples<a class="headerlink" href="#module-buildingspy.examples.dymola" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="running-a-simulation">
+<h2>Running a Simulation<a class="headerlink" href="#running-a-simulation" title="Permalink to this headline">¶</a></h2>
+<p>This module provides an example that illustrates the
+use of the python to run a Modelica simulation.</p>
+<p>The package <tt class="docutils literal"><span class="pre">buildingspy.simulate</span></tt> provides the class
+<tt class="docutils literal"><span class="pre">Simulator.py</span></tt> that can be used to automate running simulations.
+For example, to run the model 
+<tt class="docutils literal"><span class="pre">Buildings.Controls.Continuous.Examples.PIDHysteresis.mo</span></tt>
+with controller parameters <tt class="docutils literal"><span class="pre">con.eOn</span> <span class="pre">=</span> <span class="pre">1</span></tt> and <tt class="docutils literal"><span class="pre">con.eOn</span> <span class="pre">=</span> <span class="pre">5</span></tt>, use
+the following commands:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+<span class="kn">import</span> <span class="nn">buildingspy.simulate.Simulator</span> <span class="kn">as</span> <span class="nn">si</span> 
+
+<span class="c"># Function to set common parameters and to run the simulation</span>
+<span class="k">def</span> <span class="nf">simulateCase</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">setStopTime</span><span class="p">(</span><span class="mi">86400</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">setTimeOut</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span> <span class="c"># Kill the process if it does not finish in 1 minute</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">showProgressBar</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">printModelAndTime</span><span class="p">()</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">simulate</span><span class="p">()</span>
+
+<span class="c"># Main function</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="c"># Build list of cases to run</span>
+    <span class="n">li</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c"># First model</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="s">&#39;Buildings.Controls.Continuous.Examples.PIDHysteresis&#39;</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">si</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s">&#39;dymola&#39;</span><span class="p">,</span> <span class="s">&#39;case1&#39;</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">addParameters</span><span class="p">({</span><span class="s">&#39;con.eOn&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">})</span>
+    <span class="n">li</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="c"># second model</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">si</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s">&#39;dymola&#39;</span><span class="p">,</span> <span class="s">&#39;case2&#39;</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">addParameters</span><span class="p">({</span><span class="s">&#39;con.eOn&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+    <span class="n">li</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="c"># Run all cases in parallel</span>
+    <span class="n">po</span> <span class="o">=</span> <span class="n">Pool</span><span class="p">()</span>
+    <span class="n">po</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">simulateCase</span><span class="p">,</span> <span class="n">li</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will run the two test cases and store the results in the directories
+<tt class="docutils literal"><span class="pre">case1</span></tt> and <tt class="docutils literal"><span class="pre">case2</span></tt></p>
+</div>
+<div class="section" id="plotting-of-time-series">
+<h2>Plotting of Time Series<a class="headerlink" href="#plotting-of-time-series" title="Permalink to this headline">¶</a></h2>
+<p>This module provides an example that illustrates the
+use of the python to plot results from a Dymola simulation.</p>
+<p>The file <tt class="docutils literal"><span class="pre">plotResult.py</span></tt> illustrates how to plot results from a
+Dymola output file. To run the example, proceed as follows:</p>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">Open a terminal or dos-shell.</p>
+</li>
+<li><p class="first">Set the PYTHONPATH environment variables to the 
+directory <tt class="docutils literal"><span class="pre">`bie/BuildingsPy/buildingspy`</span></tt>, such as</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="k">${</span><span class="nv">PYTHONPATH</span><span class="k">}</span>:../..
+</pre></div>
+</div>
+<p>where the directory <tt class="docutils literal"><span class="pre">../..</span></tt> contains the subdirectory <tt class="docutils literal"><span class="pre">buildingspy</span></tt></p>
+</li>
+<li><p class="first">Type</p>
+<div class="highlight-bash"><div class="highlight"><pre>python plotResult.py
+</pre></div>
+</div>
+</li>
+</ol>
+</blockquote>
+<p>This will execute the script <tt class="docutils literal"><span class="pre">plotResult.py</span></tt>, which contains
+the following instructions:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">buildingspy.io.outputfile</span> <span class="kn">import</span> <span class="n">Reader</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="kn">import</span> <span class="n">figure</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c"># Change fonts to use LaTeX fonts</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rc</span>
+<span class="n">rc</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">,</span> <span class="n">usetex</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">rc</span><span class="p">(</span><span class="s">&#39;font&#39;</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s">&#39;serif&#39;</span><span class="p">)</span>
+
+<span class="c"># Read results</span>
+<span class="n">ofr1</span><span class="o">=</span><span class="n">Reader</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;case1&quot;</span><span class="p">,</span> <span class="s">&quot;PIDHysteresis.mat&quot;</span><span class="p">),</span> <span class="s">&quot;dymola&quot;</span><span class="p">)</span>
+<span class="n">ofr2</span><span class="o">=</span><span class="n">Reader</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;case2&quot;</span><span class="p">,</span> <span class="s">&quot;PIDHysteresis.mat&quot;</span><span class="p">),</span> <span class="s">&quot;dymola&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">time1</span><span class="p">,</span> <span class="n">T1</span><span class="p">)</span> <span class="o">=</span> <span class="n">ofr1</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s">&quot;cap.T&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">time1</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span> <span class="o">=</span> <span class="n">ofr1</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s">&quot;con.y&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">time2</span><span class="p">,</span> <span class="n">T2</span><span class="p">)</span> <span class="o">=</span> <span class="n">ofr2</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s">&quot;cap.T&quot;</span><span class="p">)</span>
+<span class="p">(</span><span class="n">time2</span><span class="p">,</span> <span class="n">y2</span><span class="p">)</span> <span class="o">=</span> <span class="n">ofr2</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s">&quot;con.y&quot;</span><span class="p">)</span>
+
+<span class="c"># Plot figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time1</span><span class="o">/</span><span class="mi">3600</span><span class="p">,</span> <span class="n">T1</span><span class="o">-</span><span class="mf">273.15</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$T_1$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time2</span><span class="o">/</span><span class="mi">3600</span><span class="p">,</span> <span class="n">T2</span><span class="o">-</span><span class="mf">273.15</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$T_2$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;time [h]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;temperature [$^\circ$C]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time1</span><span class="o">/</span><span class="mi">3600</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$y_1$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time2</span><span class="o">/</span><span class="mi">3600</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;$y_2$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">&#39;time [h]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">&#39;y [-]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c"># Save figure to file</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;plot.pdf&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">&#39;plot.png&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The script generates the following plot:</p>
+<a class="reference external image-reference" href="_images/plot.png"><div align="center" class="align-center"><img alt="Plot generated by ``plotResult.py``" class="align-center" src="_images/plot.png" style="width: 800.0px; height: 600.0px;" /></div>
+</a>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="legal.html" title="Copyright and License"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="io.html" title="buildingspy.io Module for reading output files"
+             >previous</a> |</li>
+        <li><a href="index.html">BuildingsPy v0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2011, The Regents of the University of California (through Lawrence Berkeley National Laboratory), subject to receipt of any required approvals from U.S. Department of Energy.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.6.
+    </div>
+  </body>
+</html>

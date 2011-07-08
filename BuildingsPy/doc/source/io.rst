@@ -1,14 +1,7 @@
-BuildingsPy API
-===============
-
 .. automodule:: buildingspy.io 
 .. automodule:: buildingspy.io.outputfile
-
 .. autoclass:: buildingspy.io.outputfile.Reader
-    :members:
+   :members:
 
-Examples
-========
-
-.. automodule:: buildingspy.examples.dymolaplot
-
+.. autoclass:: buildingspy.io.reporter.Reporter
+   :members:
