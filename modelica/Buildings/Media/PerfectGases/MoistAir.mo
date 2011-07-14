@@ -80,7 +80,6 @@ required from medium model \""     + mediumName + "\".");
     x_sat    = k_mair*p_steam_sat/max(100*Modelica.Constants.eps,p - p_steam_sat);
     x_water = Xi[Water]/max(X_air,100*Modelica.Constants.eps);
     phi = p/p_steam_sat*Xi[Water]/(Xi[Water] + k_mair*X_air);
-    annotation(structurallyIncomplete);
   end BaseProperties;
 
   function Xsaturation = Modelica.Media.Air.MoistAir.Xsaturation
