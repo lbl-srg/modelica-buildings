@@ -42,19 +42,17 @@ for ff in `svn status`; do
 	convert=true
     else
 	if [ $convert == "true" ]; then
-	    # Test conversion in temporary directory
-	    cp -rp $ff $TEMDIR
-	    cd $TEMDIR
 	    echo "Converting $ff"
+	    cp -p $curDir/$ff $TEMDIR/$ff
 	    dos2unix --quiet -k $ff
-	    svn diff $curDir/$ff > temp1.txt
-	    s1=`wc -l temp1.txt | cut -d ' ' -f 1,1`
+	    svn diff $ff > $TEMDIR/temp1.txt
+	    s1=`wc -l $TEMDIR/temp1.txt | cut -d ' ' -f 1,1`
+	    # Copy original file back
+	    cp -p $TEMDIR/$ff $curDir/$ff 
 	    unix2dos --quiet -k $ff
-	    svn diff $curDir/$ff > temp2.txt
-	    s2=`wc -l temp2.txt | cut -d ' ' -f 1,1`
+	    svn diff $ff > $TEMDIR/temp2.txt
+	    s2=`wc -l $TEMDIR/temp2.txt | cut -d ' ' -f 1,1`
 #	    echo "Sizes are $s1 $s2"
-	    # Go back to working directory
-	    cd -
 	    if [ $s1 -ge $s2 ]; then
 		echo "$s1 >= $s2"
 	    else
