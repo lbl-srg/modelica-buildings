@@ -19,7 +19,40 @@ class Reader:
 
         self.fileName = fileName
         self.__data__ = DymolaMat(fileName)
-        
+
+    def varNames(self, pattern=None):
+        '''
+           :pattern: A regular expression that will be used to filter the variable names.
+           Scan through all variable names and return the variables 
+           for which ``pattern``, as a regular expression, produces a match.
+           If ``pattern`` is unspecified, all variable names are returned.
+
+           This method searches the variable names using the **search** function
+           from `Python's re module <http://docs.python.org/library/re.html>`_.
+
+           See also http://docs.python.org/howto/regex.html#regex-howto.
+
+           Usage: Type
+              >>> from buildingspy.io.outputfile import Reader
+              >>> r=Reader("PlotDemo.mat", "dymola")
+              >>> r.varNames()         # Returns a list with all variable names
+              >>> r.varNames('const')  # Returns ['const.k', 'const.y']
+              >>> r.varNames('u$')     # Returns all variables whose last character is u
+
+        '''
+        import re
+
+        AllNames = self.__data__.names()
+        if pattern is None:
+            return AllNames
+        else:
+            AllNamesFilt=[]    # Filtered variable names
+            for item in AllNames:
+                if re.search(pattern, item):
+                    AllNamesFilt.append(item)
+            return AllNamesFilt         
+            
+     
     def values(self, varName):
         '''Get the time and data series.
 
