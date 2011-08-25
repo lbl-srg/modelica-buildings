@@ -1,9 +1,8 @@
 within Buildings.Fluid.Boilers;
 model BoilerPolynomial
   "Boiler with efficiency curve described by a polynomial of the temperature"
-  extends Interfaces.PartialDynamicTwoPortTransformer(
-    m_flow_nominal=Q_flow_nominal/dT_nominal/cp_nominal, final tau=0,
-    vol(final V =   VWat));
+  extends Interfaces.TwoPortHeatMassExchanger(
+    final tau=VWat*rho_nominal/m_flow_nominal);
 
   parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
   parameter Modelica.SIunits.Temperature T_nominal = 353.15
@@ -12,17 +11,15 @@ model BoilerPolynomial
   parameter Buildings.Fluid.Types.EfficiencyCurves effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant
     "Curve used to compute the efficiency";
   parameter Real a[:] = {0.9} "Coefficients for efficiency curve";
-  parameter Modelica.SIunits.TemperatureDifference dT_nominal(min=0)
-    "Temperature difference of water loop at nominal load";
   parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
   parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
     "Water volume of boiler"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.Mass mDry =   1.5E-3*Q_flow_nominal if
         not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Mass of boiler that will be lumped to water heat capacity"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
 
   Real eta(min=0) "Boiler efficiency";
 
@@ -38,7 +35,7 @@ protected
   parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=
       Medium.specificHeatCapacityCp(sta_nominal)
     "Specific heat capacity of fluid in boiler" annotation (Evaluate=true);
-protected
+
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA)
     "Overall thermal conductance (if heatPort is connected)"
     annotation (Placement(transformation(extent={{-48,10},{-28,30}})));
@@ -55,11 +52,14 @@ public
                                           final unit = "K", displayUnit = "degC", min=0)
                                           annotation (Placement(
         transformation(extent={{100,70},{120,90}}, rotation=0)));
-public
+protected
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{-43,-40},{-23,-20}})));
   Modelica.Blocks.Sources.RealExpression Q_flow_in(y=QWat_flow)
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen
+    "Temperature of fluid"
+    annotation (Placement(transformation(extent={{0,30},{20,50}})));
 equation
   if effCur ==Buildings.Fluid.Types.EfficiencyCurves.Constant then
     eta  = a[1];
@@ -88,7 +88,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(UAOve.port_a, heatPort) annotation (Line(
-      points={{-48,20},{-52,20},{-52,60},{5.55112e-16,60},{5.55112e-16,72}},
+      points={{-48,20},{-52,20},{-52,60},{0,60},{0,72}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaCapDry.port, vol.heatPort) annotation (Line(
@@ -96,7 +96,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(temSen.T, T) annotation (Line(
-      points={{25,40},{60,40},{60,80},{110,80}},
+      points={{20,40},{60,40},{60,80},{110,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHeaFlo.port, vol.heatPort) annotation (Line(
@@ -106,6 +106,10 @@ equation
   connect(Q_flow_in.y,preHeaFlo. Q_flow) annotation (Line(
       points={{-59,-30},{-43,-30}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(vol.heatPort, temSen.port) annotation (Line(
+      points={{-9,-10},{-16,-10},{-16,40},{0,40}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Icon(graphics={
         Ellipse(
@@ -165,6 +169,21 @@ which are lumped into one state. The boiler outlet temperature is equal to this 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 25, 2011 by Michael Wetter:<br>
+<ul>
+<li>
+Removed parameter <code>dT_nominal</code>, and require instead
+the parameter <code>m_flow_nominal</code> to be set by the user.
+This was needed to avoid a non-literal value for the nominal attribute 
+of the pressure drop model.
+</li>
+<li>
+Changed assignment of parameters in model instantiation, and updated
+model for the new base class that does not have a temperature sensor.
+</li>
+</ul>
+</li>
 <li>
 January 29, 2009 by Michael Wetter:<br>
 First implementation.

@@ -1,6 +1,6 @@
 within Buildings.RoomsBeta.BaseClasses;
 model MixedAir "Model for room air that is completely mixed"
-  extends Buildings.RoomsBeta.BaseClasses.ParameterFluid;
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.RoomsBeta.BaseClasses.PartialSurfaceInterface;
 
   parameter Modelica.SIunits.Volume V "Volume";
@@ -38,22 +38,17 @@ model MixedAir "Model for room air that is completely mixed"
   parameter Modelica.SIunits.Emissivity tauGlaSol[NConExtWin]
     "Transmissivity of window";
 
-  Fluid.MixingVolumes.MixingVolume vol(V=AFlo*hRoo,
+  Buildings.Fluid.MixingVolumes.MixingVolume vol(V=AFlo*hRoo,
     redeclare package Medium = Medium,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
-    final substanceDynamics=substanceDynamics,
-    final traceDynamics=traceDynamics,
     final p_start=p_start,
-    final use_T_start=use_T_start,
     final T_start=T_start,
-    final h_start=h_start,
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final use_HeatTransfer=true,
-    redeclare final model HeatTransfer =
-        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer,
+    final m_flow_nominal = m_flow_nominal,
+    final prescribedHeatFlowRate = true,
     final nPorts=nPorts+1) "Room air volume"
     annotation (Placement(transformation(extent={{10,-210},{-10,-190}})));
   // Heat ports that are needed to connect to the window glass
@@ -219,6 +214,9 @@ public
     "Fraction of window frame divided by total window area";
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
+    "Nominal mass flow rate"
+    annotation(Dialog(group = "Nominal condition"));
   HeatTransfer.Interfaces.RadiosityInflow JInSha[NConExtWin] if
                                        haveShade
     "Incoming radiosity that connects to shaded part of glass"
@@ -411,8 +409,8 @@ equation
       smooth=Smooth.None));
   connect(vol.heatPort, heaPorAir)
                                   annotation (Line(
-      points={{10,-200},{20,-200},{20,-90},{-150,-90},{-150,0},{-200,0},{-200,
-          5.55112e-16},{-240,5.55112e-16}},
+      points={{10,-200},{20,-200},{20,-90},{-150,-90},{-150,0},{-200,0},{-200,0},
+          {-240,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convConWin.JOutUns, JOutUns)
@@ -447,7 +445,7 @@ equation
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, irRadExc.conExtWinFra) annotation (Line(
-      points={{242,5.55112e-16},{192,5.55112e-16},{192,10},{-79.9167,10}},
+      points={{242,0},{192,0},{192,10},{-79.9167,10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, irRadExc.conPar_a) annotation (Line(
@@ -469,18 +467,15 @@ equation
       points={{241,-220},{176,-220},{176,0},{-79.9583,0},{-79.9583,0.833333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadExc.JOutConExtWin, convConWin.JInRoo)
-                                                        annotation (Line(
+  connect(irRadExc.JOutConExtWin, convConWin.JInRoo)    annotation (Line(
       points={{-79.5833,15},{86,15},{86,110},{98,110}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(convConWin.JOutRoo, irRadExc.JInConExtWin)
-                                                        annotation (Line(
+  connect(convConWin.JOutRoo, irRadExc.JInConExtWin)    annotation (Line(
       points={{97.6,114},{84,114},{84,13.3333},{-79.5833,13.3333}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(irRadGai.JOutConExtWin, convConWin.JInRoo)
-                                                        annotation (Line(
+  connect(irRadGai.JOutConExtWin, convConWin.JInRoo)    annotation (Line(
       points={{-79.5833,-25},{86,-25},{86,110},{98,110}},
       color={0,127,0},
       smooth=Smooth.None));
@@ -545,14 +540,12 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaGai.QLat_flow,vol. ports[nPorts+1]) annotation (Line(
-      points={{-200,94},{-180,94},{-180,-220},{-2,-220},{-2,-210},{-7.77156e-16,
-          -210}},
+      points={{-200,94},{-180,94},{-180,-220},{-2,-220},{-2,-210},{0,-210}},
       color={0,127,255},
       smooth=Smooth.None));
   for i in 1:nPorts loop
   connect(ports[i],vol. ports[i]) annotation (Line(
-      points={{2.22045e-15,-238},{0,-238},{0,-220},{-7.77156e-16,-220},{
-            -7.77156e-16,-210}},
+      points={{0,-238},{0,-238},{0,-220},{0,-220},{0,-210}},
       color={0,127,255},
       smooth=Smooth.None));
   end for;
@@ -581,7 +574,7 @@ equation
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, solRadExc.conExtWinFra) annotation (Line(
-      points={{242,5.55112e-16},{192,5.55112e-16},{192,50},{-79.9167,50}},
+      points={{242,0},{192,0},{192,50},{-79.9167,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, solRadExc.conPar_a) annotation (Line(

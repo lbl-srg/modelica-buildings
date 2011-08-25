@@ -77,9 +77,14 @@ required from medium model \""     + mediumName + "\".");
 
     h = specificEnthalpy_pTX(p,T,Xi);
     R = dryair.R*(1 - Xi[Water]) + steam.R*Xi[Water];
-    //
-    u = h - R*T;
-    //    d = p/(R*T);
+
+    // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
+    // u = h-R*T;
+
+    // However, in this medium, the gas law is d=dStp (=constant), from which follows using h=u+pv that
+    // u= h-p*v = h-p/d = h-p/dStp
+    u = h-p/dStp;
+
     d = dStp;// = p/pStp;
     /* Note, u and d are computed under the assumption that the volume of the liquid
          water is neglible with respect to the volume of air and of steam
@@ -124,7 +129,15 @@ implementation provided by its parent package.
 
   redeclare function setState_dTX
     "Thermodynamic state as function of d, T and composition X"
-     extends Buildings.Media.PerfectGases.MoistAir.setState_dTX;
+    extends Modelica.Icons.Function;
+    input Density d "density";
+    input Temperature T "Temperature";
+    input MassFraction X[:]=reference_X "Mass fractions";
+    output ThermodynamicState state "Thermodynamic state";
+  algorithm
+   ModelicaError("The function 'setState_dTX' must not be used in GasesConstantDensity as
+                in this medium model, the pressure cannot be determined from the density.\n");
+    state :=setState_pTX(pStp, T, X);
   end setState_dTX;
 
   redeclare function gasConstant
@@ -174,7 +187,7 @@ end saturationPressure;
    input ThermodynamicState state;
    output Density d "Density";
  algorithm
-  d :=state.p*1.2/101325;
+  d := dStp;
  end density;
 
  redeclare function specificEntropy
@@ -293,7 +306,7 @@ end specificEnthalpy;
 redeclare function extends specificInternalEnergy "Specific internal energy"
   extends Modelica.Icons.Function;
 algorithm
-  u := Buildings.Media.GasesConstantDensity.MoistAirUnsaturated.h_pTX(state.p,state.T,state.X) - gasConstant(state)*state.T;
+  u := Buildings.Media.GasesConstantDensity.MoistAirUnsaturated.h_pTX(state.p,state.T,state.X) - state.p/dStp;
 end specificInternalEnergy;
 
 redeclare function extends specificGibbsEnergy "Specific Gibbs energy"
@@ -411,6 +424,18 @@ because it allows to invert the function <code>T_phX</code> analytically.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 3, 2011, by Michael Wetter:<br>
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+For this medium, the function is <code>u=h-p/dStp</code>.
+</li>
+<li>
+August 2, 2011, by Michael Wetter:<br>
+Fixed error in the function <code>density</code> which returned a non-constant density,
+and added a call to <code>ModelicaError(...)</code> in <code>setState_dTX</code> since this
+function cannot assign the medium pressure based on the density (as density is a constant
+in this model).
+</li>
 <li>
 January 27, 2010, by Michael Wetter:<br>
 Fixed bug in <code>else</code> branch of function <code>setState_phX</code>

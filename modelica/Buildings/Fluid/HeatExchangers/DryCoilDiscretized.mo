@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers;
 model DryCoilDiscretized
   "Coil with discretization along the flow paths and no humidity condensation"
-  extends Fluid.Interfaces.PartialStaticFourPortInterface;
+  extends Fluid.Interfaces.PartialFourPortInterface;
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
     final computeFlowResistance1=true,
     final computeFlowResistance2=true,
@@ -35,13 +35,14 @@ model DryCoilDiscretized
   parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics2=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 2"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister hexReg[nReg](
+    ele(redeclare each Buildings.Fluid.MixingVolumes.MixingVolumeDryAir vol2),
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
     each final allowFlowReversal1=allowFlowReversal1,
@@ -223,13 +224,14 @@ protected
     "Mass flow rate sensor"              annotation (Placement(transformation(
           extent={{82,-66},{70,-54}}, rotation=0)));
 public
+  // fixme: review parameter name ductConnectionDynamics
   parameter Modelica.Fluid.Types.Dynamics ductConnectionDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for duct connection"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics"));
   parameter Modelica.SIunits.Length dl=0.3
     "Length of mixing volume for duct connection"
-    annotation (Dialog(tab = "Assumptions", group="Dynamics", enable=not steadyStateDuctConnection));
+    annotation (Dialog(tab = "Dynamics", enable=not steadyStateDuctConnection));
   parameter Modelica.SIunits.MassFlowRate mStart_flow_a1=m1_flow_nominal
     "Guess value for mass flow rate at port_a1"
     annotation(Dialog(tab="General", group="Initialization"));
@@ -299,7 +301,7 @@ equation
     connect(gai_1.y, hexReg[i].Gc_1) annotation (Line(points={{-1.4,91},{12,91},
             {12,30},{-4,30},{-4,20}}, color={0,0,127}));
     connect(gai_2.y, hexReg[i].Gc_2) annotation (Line(points={{-1.4,67},{14,67},
-            {14,-6},{4,-6},{4,-5.55112e-16}},  color={0,0,127}));
+            {14,-6},{4,-6},{4,0}},             color={0,0,127}));
   end for;
   connect(port_a1, masFloSen_1.port_a) annotation (Line(
       points={{-100,60},{-80,60}},

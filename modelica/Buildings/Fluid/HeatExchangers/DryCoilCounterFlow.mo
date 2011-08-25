@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers;
 model DryCoilCounterFlow
   "Counterflow coil with discretization along the flow paths and without humidity condensation"
-  extends Fluid.Interfaces.PartialStaticFourPortInterface(show_T=true);
+  extends Fluid.Interfaces.PartialFourPortInterface(show_T=true);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
     final computeFlowResistance1=false,
     final computeFlowResistance2=false,
@@ -20,10 +20,10 @@ model DryCoilCounterFlow
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics1=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1"
-    annotation (Evaluate=true,Dialog(tab="Assumptions", group="Dynamics"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics2=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 2"
-    annotation (Evaluate=true,Dialog(tab="Assumptions", group="Dynamics"));
+    annotation (Evaluate=true,Dialog(tab="Dynamics", group="Equations"));
 
   parameter Modelica.SIunits.Time tau1=20
     "Time constant at nominal flow for medium 1"
@@ -100,6 +100,7 @@ protected
   BaseClasses.HexElement ele[nEle](
     redeclare each package Medium1 = Medium1,
     redeclare each package Medium2 = Medium2,
+    redeclare each Buildings.Fluid.MixingVolumes.MixingVolumeDryAir vol2,
     each allowFlowReversal1=allowFlowReversal1,
     each allowFlowReversal2=allowFlowReversal2,
     each tau1=tau1/nEle,
@@ -160,7 +161,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen_1.port_b, ele[1].port_a1) annotation (Line(
-      points={{-48,60},{-30,60},{-30,16},{-5.55112e-16,16}},
+      points={{-48,60},{-30,60},{-30,16},{0,16}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -173,16 +174,16 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(ele[1].port_b2, port_b2) annotation (Line(
-      points={{-5.55112e-16,4},{-30,4},{-30,-60},{-100,-60}},
+      points={{0,4},{-30,4},{-30,-60},{-100,-60}},
       color={0,127,255},
       smooth=Smooth.None));
   for i in 1:nEle - 1 loop
     connect(ele[i].port_b1, ele[i + 1].port_a1) annotation (Line(
-        points={{20,16},{30,16},{30,30},{-10,30},{-10,16},{-5.55112e-16,16}},
+        points={{20,16},{30,16},{30,30},{-10,30},{-10,16},{0,16}},
         color={0,127,255},
         smooth=Smooth.None));
     connect(ele[i].port_a2, ele[i + 1].port_b2) annotation (Line(
-        points={{20,4},{-12,4},{-12,-10},{30,-10},{30,4},{-5.55112e-16,4}},
+        points={{20,4},{-12,4},{-12,-10},{30,-10},{30,4},{0,4}},
         color={0,127,255},
         smooth=Smooth.None));
   end for;
@@ -200,7 +201,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(rep2.y, ele.Gc_2) annotation (Line(
-      points={{18.7,68},{26,68},{26,-6},{14,-6},{14,-5.55112e-16}},
+      points={{18.7,68},{26,68},{26,-6},{14,-6},{14,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

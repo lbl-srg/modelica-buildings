@@ -1,6 +1,5 @@
-translateModel("Buildings.Airflow.Multizone.Examples.OneDoor");
 simulateModel("Buildings.Airflow.Multizone.Examples.OneDoor", stopTime=10, 
- tolerance=1E-4, resultFile="OneDoor");
+ method="radau", tolerance=1e-06, resultFile="OneDoor");
 createPlot(id = 1,
  position = {15, 10, 794, 497},
  y = {"dooOpeClo.vTop", "dooOpeClo.vBot", "dooOpeClo1.vTop", "dooOpeClo1.vBot"},

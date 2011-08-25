@@ -1,7 +1,7 @@
 within Buildings.Fluid.Chillers;
 model ElectricReformulatedEIR
   "Electric chiller based on the DOE-2.1 model, but with performance as a function of condenser leaving instead of entering temperature"
-  extends Buildings.Fluid.Chillers.BaseClasses.PartialElectricSteadyState(
+  extends Buildings.Fluid.Chillers.BaseClasses.PartialElectric(
   final QEva_flow_nominal = per.QEva_flow_nominal,
   final COP_nominal= per.COP_nominal,
   final PLRMax= per.PLRMax,
@@ -189,7 +189,10 @@ The test <pre>
   CR = min(PLR1/per.PRLMin, 1.0);
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
-that a chiller would run if it were to cycle because its load is smaller than the minimal load at which it can operature. Notice that this model does continuously operature even if the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature can therefore be considered as an 
+that a chiller would run if it were to cycle because its load is smaller than 
+the minimal load at which it can operate. 
+Note that this model continuously operates even if the part load ratio is below the minimum part load ratio. 
+Its leaving evaporator and condenser temperature can therefore be considered as an 
 average temperature between the modes where the compressor is off and on.
 </li>
 <li>
@@ -206,13 +209,14 @@ power draw does not change.
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
 <p>
-On the Assumptions tag, the model can be parametrized to compute a transient
+The model can be parametrized to compute a transient
 or steady-state response.
 The transient response of the boiler is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>
 <h4>References</h4>
+<p>
 <ul>
 <li>
 Hydeman, M., N. Webb, P. Sreedharan, and S. Blanc. 2002. Development and Testing of a
@@ -235,6 +239,7 @@ September 17, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
+</p>
 </html>"),
     Diagram(graphics));
 end ElectricReformulatedEIR;

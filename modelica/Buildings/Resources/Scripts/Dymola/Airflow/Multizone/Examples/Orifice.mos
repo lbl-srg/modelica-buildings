@@ -1,7 +1,5 @@
-translateModel("Buildings.Airflow.Multizone.Examples.Orifice");
 simulateModel("Buildings.Airflow.Multizone.Examples.Orifice", stopTime=1, 
-    method="dassl", tolerance=1e-004, resultFile="Orifice");
-
+   method="radau", tolerance=1e-06, resultFile="Orifice");
 
 createPlot(id = 9,
  position = {75, 27, 537, 493},

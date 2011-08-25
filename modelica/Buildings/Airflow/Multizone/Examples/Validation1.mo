@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model Validation1
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
@@ -9,10 +9,7 @@ model Validation1
     T_start=273.15 + 20,
     V=2.5*5*5*1,
     nPorts=5,
-    use_HeatTransfer=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
-                           annotation (Placement(transformation(extent={{80,-20},
+    m_flow_nominal=0.001)  annotation (Placement(transformation(extent={{80,-20},
             {100,0}},   rotation=0)));
 
   Buildings.Airflow.Multizone.Orifice oriOutBot(
@@ -95,10 +92,7 @@ model Validation1
     nPorts=3,
     p_start=101325,
     V=2.5*5*5,
-    use_HeatTransfer=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
-                           annotation (Placement(transformation(extent={{-100,
+    m_flow_nominal=0.001)  annotation (Placement(transformation(extent={{-100,
             -30},{-80,-10}},
                          rotation=0)));
   Modelica.Blocks.Sources.Constant open(k=1) annotation (Placement(
@@ -127,10 +121,7 @@ model Validation1
     T_start=273.15 + 20,
     V=2.5*5*10*1,
     nPorts=2,
-    use_HeatTransfer=true,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
-                           annotation (Placement(transformation(extent={{-20,120},
+    m_flow_nominal=0.001)  annotation (Placement(transformation(extent={{-20,120},
             {0,140}},        rotation=0)));
 
   inner Modelica.Fluid.System system
@@ -255,6 +246,7 @@ equation
           extent={{-160,160},{152,49}},
           lineColor={135,135,135},
           lineThickness=1)}),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation1.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation1.mos"
+        "Simulate and plot"),
     Diagram);
 end Validation1;

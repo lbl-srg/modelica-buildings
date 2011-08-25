@@ -28,7 +28,8 @@ model MixingVolumeInitialization "Test model for mixing volume initialization"
   MixingVolumes.MixingVolume vol1(
     redeclare package Medium = Medium,
     V=0.1,
-    nPorts=2)
+    nPorts=2,
+    m_flow_nominal=2)
     annotation (Placement(transformation(extent={{20,20},{40,40}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
@@ -51,5 +52,6 @@ equation
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeInitialization.mos" "Simulate and plot"));
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeInitialization.mos"
+        "Simulate and plot"));
 end MixingVolumeInitialization;

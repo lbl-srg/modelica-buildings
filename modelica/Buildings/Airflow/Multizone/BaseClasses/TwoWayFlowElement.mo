@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.BaseClasses;
 partial model TwoWayFlowElement "Flow resistance that uses the power law"
-  extends Buildings.Fluid.Interfaces.PartialStaticFourPortInterface(
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
     redeclare final package Medium1 = Medium,
     redeclare final package Medium2 = Medium,
     final allowFlowReversal1=false,

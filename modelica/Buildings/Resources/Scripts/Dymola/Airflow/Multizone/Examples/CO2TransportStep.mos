@@ -1,4 +1,4 @@
-simulateModel("Buildings.Airflow.Multizone.Examples.CO2TransportStep", stopTime=86400, tolerance=1e-05, resultFile="CO2TransportStep");
+simulateModel("Buildings.Airflow.Multizone.Examples.CO2TransportStep", stopTime=86400, method="radau", tolerance=1e-05, resultFile="CO2TransportStep");
 createPlot(id = 1,
  position = {15, 10, 701, 391},
  y = {"volWes.mC[1]", "volEas.mC[1]", "volTop.mC[1]"},

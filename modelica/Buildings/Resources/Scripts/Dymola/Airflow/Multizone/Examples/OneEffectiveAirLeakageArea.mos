@@ -1,6 +1,5 @@
-translateModel("Buildings.Airflow.Multizone.Examples.OneEffectiveAirLeakageArea");
 simulateModel("Buildings.Airflow.Multizone.Examples.OneEffectiveAirLeakageArea", stopTime=7200, 
-    method="dassl", tolerance=1e-003, resultFile="OneEffectiveAirLeakageArea");
+    method="radau", tolerance=1e-06, resultFile="OneEffectiveAirLeakageArea");
 
 removePlots();
 createPlot(id = 4,

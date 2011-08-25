@@ -65,6 +65,7 @@ package Characteristics "Functions for fan or pump characteristics"
       "Coefficients of quadratic total pressure curve";
   algorithm
     // Flow equation: dp  = c[1] + V_flow*c[2] + V_flow^2*c[3];
+    // fixme. Make dp -> 0 ans r_N -> 0
     dp := r_N^2*c[1] + r_N*V_flow*c[2] + V_flow^2*c[3];
     annotation(smoothOrder=100);
   end quadraticFlow;
@@ -91,6 +92,7 @@ package Characteristics "Functions for fan or pump characteristics"
   algorithm
     // Flow equation (example N=3): dp  = c[1] + V_flow*c[2] + V_flow^2*c[3];
     // Note: the implementation is numerically efficient only for low values of N
+    // fixme. Make dp -> 0 ans r_N -> 0
     dp := r_N^(N-1)*c[1] + sum(r_N^(N-i)*V_flow^(i-1)*c[i] for i in 2:N-1) + V_flow^(N-1)*c[N];
     annotation(smoothOrder=100);
   end polynomialFlow;

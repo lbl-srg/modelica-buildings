@@ -2,8 +2,7 @@ simulateModel("Buildings.Fluid.Boilers.Examples.BoilerPolynomial", stopTime=3600
 
 createPlot(id = 1,
  position = {15, 10, 400, 370},
- y = {"fur1.sta_a.T", "fur1.sta_b.T", "fur1.T", "fur2.sta_a.T", "fur2.sta_b.T", 
-"fur2.T"},
+ y = {"fur1.sta_a.T", "fur1.sta_b.T", "fur1.T", "fur2.sta_a.T", "fur2.sta_b.T", "fur2.T"},
  range = {0, 4000.0, 70.0, 10.0},
  autoscale = true,
  autoerase = true,

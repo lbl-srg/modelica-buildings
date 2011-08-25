@@ -1,7 +1,9 @@
 within Buildings.Fluid.MixingVolumes;
 model MixingVolumeDryAir
   "Mixing volume with heat port for latent heat exchange, to be used with dry air"
-  extends BaseClasses.PartialMixingVolumeWaterPort;
+  extends BaseClasses.PartialMixingVolumeWaterPort(
+    steBal(
+    final sensibleOnly = true));
 
 equation
   if cardinality(mWat_flow) == 0 then
@@ -15,10 +17,7 @@ equation
 // Assign output port
   X_w = 0;
   annotation (Diagram(graphics),
-                       Icon(graphics={Text(
-          extent={{-152,102},{148,142}},
-          textString="%name",
-          lineColor={0,0,255})}),
+                       Icon(graphics),
 defaultComponentName="vol",
 Documentation(info="<html>
 Model for an ideally mixed fluid volume and the ability 

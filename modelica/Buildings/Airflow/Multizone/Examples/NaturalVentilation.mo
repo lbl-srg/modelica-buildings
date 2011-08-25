@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model NaturalVentilation
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
@@ -10,8 +10,8 @@ model NaturalVentilation
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 18,
-    use_HeatTransfer=true,
-    nPorts=2)
+    nPorts=2,
+    m_flow_nominal=0.001)
     annotation (Placement(transformation(extent={{0,-20},{20,0}}, rotation=0)));
 
   Buildings.Airflow.Multizone.Orifice oriOutBot(
@@ -42,7 +42,9 @@ model NaturalVentilation
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=1E10,
     T_start=273.15 + 20,
-    nPorts=2) annotation (Placement(transformation(extent={{75,-20},{95,0}},
+    nPorts=2,
+    m_flow_nominal=0.001)
+              annotation (Placement(transformation(extent={{75,-20},{95,0}},
           rotation=0)));
 
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
@@ -62,7 +64,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preHeaFlo.port, volA.heatPort) annotation (Line(
-      points={{-29,-10},{-5.55112e-16,-10}},
+      points={{-29,-10},{0,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(volA.ports[1], oriOutBot.port_a) annotation (Line(
@@ -88,6 +90,7 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
             100}}), graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/NaturalVentilation.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/NaturalVentilation.mos"
+        "Simulate and plot"),
     Diagram);
 end NaturalVentilation;

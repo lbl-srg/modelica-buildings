@@ -3,35 +3,23 @@ function basicFlowFunction_dp "Basic class for flow models"
 
   input Modelica.SIunits.Pressure dp(displayUnit="Pa")
     "Pressure difference between port_a and port_b (= port_a.p - port_b.p)";
-  input Real k(unit="")
+  input Real k(min=0, unit="")
     "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
   input Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0) "Mass flow rate";
-  input Boolean linearized = false
-    "= true, use linear relation between m_flow and dp for any flow rate";
-   output Modelica.SIunits.MassFlowRate m_flow
+  output Modelica.SIunits.MassFlowRate m_flow
     "Mass flow rate in design flow direction";
 protected
   Modelica.SIunits.Pressure dp_turbulent(displayUnit="Pa")
     "Turbulent flow if |dp| >= dp_small, not a parameter because k can be a function of time";
 protected
  Real kSqu(unit="kg.m") "Flow coefficient, kSqu=k^2=m_flow^2/|dp|";
- constant Real conv(unit="m.s2/kg") = 1 "Factor, needed to satisfy unit check";
- constant Real conv2 = sqrt(conv) "Factor, needed to satisfy unit check";
 algorithm
-  // if dp==0, we avoid a computation
-  if (dp == 0 or k==0) then
-      m_flow := 0;
-  else
-     kSqu:=k*k;
-     dp_turbulent :=m_flow_turbulent^2/kSqu;
-     if linearized then
-        m_flow :=k*dp*conv2;
-     else
-        m_flow :=Modelica.Fluid.Utilities.regRoot2(x=dp, x_small=dp_turbulent, k1=kSqu, k2=kSqu);
-     end if;
-  end if;
+ kSqu:=k*k;
+ dp_turbulent :=m_flow_turbulent^2/kSqu;
+ m_flow :=Modelica.Fluid.Utilities.regRoot2(x=dp, x_small=dp_turbulent, k1=kSqu, k2=kSqu);
+
 annotation(LateInline=true,
-           inverse(dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized)),
+           inverse(dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent)),
            smoothOrder=2,
            Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Line(
@@ -47,14 +35,36 @@ annotation(LateInline=true,
 Documentation(info="<html>
 <p>
 Function that computes the pressure drop of flow elements as
-<pre>
-  m_flow = sign(dp) * k * sqrt(|dp|),
-</pre>
+<p align=\"center\" style=\"font-style:italic;\">
+  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+</p>
 with regularization near the origin.
-The variable <code>m_flow_turbulent</code> determines the location of the regularization.
+Therefore, the flow coefficient is
+<p align=\"center\" style=\"font-style:italic;\">
+  k = m &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span> 
+</p>
+The input <code>m_flow_turbulent</code> determines the location of the regularization.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 10, 2011, by Michael Wetter:<br>
+Removed <code>if-then</code> optimization that set <code>m_flow=0</code> if <code>dp=0</code>,
+as this causes the derivative to be discontinuous at <code>dp=0</code>.
+</li>
+<li>
+August 4, 2011, by Michael Wetter:<br>
+Implemented linearized model in this model instead of 
+in the functions
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp\">
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</a>
+and
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow\">
+Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</a>. 
+With the previous implementation, 
+the symbolic processor may not rearrange the equations, which can lead 
+to coupled equations instead of an explicit solution.
+</li>
 <li>
 March 29, 2010 by Michael Wetter:<br>
 Changed implementation to allow <code>k=0</code>, which is
@@ -64,6 +74,13 @@ the case for a closed valve with no leakage
 </html>"),
 revisions="<html>
 <ul>
+<li>
+August 4, 2011, by Michael Wetter:<br>
+Removed option to use a linear function. The linear implementation is now done
+in models that call this function. With the previous implementation, 
+the symbolic processor may not rearrange the equations, which can lead 
+to coupled equations instead of an explicit solution.
+</li>
 <li>
 April 13, 2009, by Michael Wetter:<br>
 First implementation.

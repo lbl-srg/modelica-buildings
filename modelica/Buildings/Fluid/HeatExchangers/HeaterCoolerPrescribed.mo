@@ -1,16 +1,32 @@
 within Buildings.Fluid.HeatExchangers;
 model HeaterCoolerPrescribed "Heater or cooler with prescribed heat flow rate"
-  extends Buildings.Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer(
-    sensibleOnly=true,
-    Q_flow = Q_flow_nominal * u,
-    mXi_flow = zeros(Medium.nXi));
+  extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol);
 
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal
     "Heat flow rate at u=1, positive for heating";
   Modelica.Blocks.Interfaces.RealInput u "Control input"
     annotation (Placement(transformation(
           extent={{-140,40},{-100,80}}, rotation=0)));
-
+protected
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
+    "Prescribed heat flow"
+    annotation (Placement(transformation(extent={{-40,50},{-20,70}})));
+  Modelica.Blocks.Math.Gain gai(k=Q_flow_nominal) "Gain"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+equation
+  connect(u, gai.u) annotation (Line(
+      points={{-120,60},{-82,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gai.y, preHea.Q_flow) annotation (Line(
+      points={{-59,60},{-40,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preHea.port, vol.heatPort) annotation (Line(
+      points={{-20,60},{-9,60},{-9,-10}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -49,19 +65,23 @@ This model adds heat in the amount of <code>Q_flow = u Q_flow_nominal</code> to 
 The input signal <code>u</code> and the nominal heat flow rate <code>Q_flow_nominal</code> 
 can be positive or negative.
 </p>
-<p>
-Note that for non-zero <code>Q_flow</code>,
-if the mass flow rate tends to zero, the temperature difference over this 
-component tends to infinity.
-Hence, using a proper control for <code>u</code> is essential when using this component.
-</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 11, 2011, by Michael Wetter:<br>
+Redeclared fluid volume as final. This prevents the fluid volume model
+to appear in the dialog window.
+</li>
+<li>
+May 24, 2011, by Michael Wetter:<br>
+Changed base class to allow using the model as a dynamic or a steady-state model.
+</li>
 <li>
 April 17, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(graphics));
 end HeaterCoolerPrescribed;

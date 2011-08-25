@@ -21,6 +21,8 @@ model Outside "Test model for source and sink with outside weather data"
   Sensors.MassFractionTwoPort senMasFra(redeclare package Medium = Medium,
       m_flow_nominal=1) "Sensor for mass fraction of water"
     annotation (Placement(transformation(extent={{10,20},{30,40}})));
+  inner Modelica.Fluid.System system(energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
   connect(weaDat.weaBus, bou.weaBus)      annotation (Line(
       points={{-60,30},{-50,30},{-50,30.2}},
@@ -36,12 +38,13 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(senRelHum.port_b, senMasFra.port_a) annotation (Line(
-      points={{5.55112e-16,30},{10,30}},
+      points={{0,30},{10,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senMasFra.port_b, senTem.port_a) annotation (Line(
       points={{30,30},{40,30}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside.mos" "Simulate and plot"), Diagram(graphics));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/Outside.mos"
+        "Simulate and plot"),                                                                                                    Diagram(graphics));
 end Outside;

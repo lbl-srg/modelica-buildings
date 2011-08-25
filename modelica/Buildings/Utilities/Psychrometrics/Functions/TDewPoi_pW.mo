@@ -9,8 +9,7 @@ algorithm
   T := Internal.solve(
     y_zero=p_w,
     x_min=200,
-    x_max=400,
-    f_nonlinear_data={0});
+    x_max=400);
   annotation (
     Documentation(info="<html>
 <p>

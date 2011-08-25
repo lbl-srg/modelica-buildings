@@ -48,8 +48,7 @@ package MoistAirUnsaturated
   equation
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
-200.0 K <= (T ="
-               + String(T) + " K) <= 423.15 K
+200.0 K <= (T =" + String(T) + " K) <= 423.15 K
 required from medium model \""     + mediumName + "\".");
     /*
   assert(Xi[Water] < X_sat/(1 + x_sat), "The medium model '" + mediumName + "' must not be saturated.\n"
@@ -107,7 +106,6 @@ required from medium model \""     + mediumName + "\".");
   state := if size(X,1) == nX then
          ThermodynamicState(p=p,T=T_phX(p,h,X),X=X) else
         ThermodynamicState(p=p,T=T_phX(p,h,X), X=cat(1,X,{1-sum(X)}));
-     //   ThermodynamicState(p=p,T=T_phX(p,h,cat(1,X,{1-sum(X)})), X=cat(1,X,{1-sum(X)}));
     annotation (Documentation(info="<html>
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use

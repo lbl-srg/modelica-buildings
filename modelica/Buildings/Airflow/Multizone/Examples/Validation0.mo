@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model Validation0
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Fluid.MixingVolumes.MixingVolume volEas(
@@ -9,7 +9,9 @@ model Validation0
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 20,
     V=2.5*5*5,
-    nPorts=2) annotation (Placement(transformation(
+    nPorts=2,
+    m_flow_nominal=0.001)
+              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={8,-10})));
@@ -41,7 +43,9 @@ model Validation0
     T_start=273.15 + 10,
     V=1E12,
     p_start=Medium.p_default,
-    nPorts=2) annotation (Placement(transformation(
+    nPorts=2,
+    m_flow_nominal=0.001)
+              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={89,-10})));
@@ -84,7 +88,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(colOutTop.port_b, volOut.ports[2]) annotation (Line(
-      points={{79,10},{79,-12},{79,-12}},
+      points={{79,10},{79,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(colOutTop.port_a, oriOutTop.port_b) annotation (Line(
@@ -97,6 +101,7 @@ equation
           extent={{-52,60},{48,-88}},
           lineColor={0,0,0},
           lineThickness=1)}),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation0.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation0.mos"
+        "Simulate and plot"),
     Diagram);
 end Validation0;

@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model OneDoor
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
 
   Buildings.Fluid.MixingVolumes.MixingVolume volH(
@@ -9,7 +9,8 @@ model OneDoor
     V=2.5*10*10,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=0.01)                                     annotation (
       Placement(transformation(extent={{35,42},{55,62}}, rotation=0)));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(redeclare
       package Medium = Medium, LClo=20*1E-4) "Discretized door" annotation (
@@ -22,7 +23,8 @@ model OneDoor
     V=2.5*10*10,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=0.01)                                     annotation (
       Placement(transformation(extent={{-92,40},{-72,60}}, rotation=0)));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo1(redeclare
       package Medium = Medium, LClo=20*1E-4) "Discretized door" annotation (
@@ -68,5 +70,6 @@ equation
       points={{8,-66},{48,-66},{48,42}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneDoor.mos" "Simulate and plot"), Diagram(graphics));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneDoor.mos"
+        "Simulate and plot"),                                                                                                    Diagram(graphics));
 end OneDoor;

@@ -7,7 +7,8 @@ model ExtraProperty
   MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     V=2*3*3,
-    nPorts=4) "Mixing volume"
+    nPorts=4,
+    m_flow_nominal=1E-6) "Mixing volume"
                           annotation (Placement(transformation(extent={{74,50},
             {94,70}}, rotation=0)));
   inner Modelica.Fluid.System system   annotation (Placement(transformation(
@@ -63,12 +64,12 @@ model ExtraProperty
     "Pressure sensor" annotation (Placement(transformation(extent={{20,120},{40,
             140}}, rotation=0)));
 equation
-  connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{
-          -5.55112e-16,-4},{-5.55112e-16,-4}},                color={0,0,127}));
+  connect(m_flow.y, mSou.m_flow_in) annotation (Line(points={{-59,-4},{0,-4},{0,
+          -4}},                                               color={0,0,127}));
   connect(m_flow.y, gain.u) annotation (Line(points={{-59,-4},{-50,-4},{-50,-44},
           {-42,-44}}, color={0,0,127}));
-  connect(gain.y, mSin.m_flow_in) annotation (Line(points={{-19,-44},{
-          -5.55112e-16,-44},{-5.55112e-16,-44}},
+  connect(gain.y, mSin.m_flow_in) annotation (Line(points={{-19,-44},{0,-44},{0,
+          -44}},
         color={0,0,127}));
   connect(senSou.C, masFraSou.m) annotation (Line(points={{121,100},{121,100},{
           139,100}},             color={0,0,127}));
@@ -115,7 +116,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     annotation (
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/ExtraProperty.mos" "Simulate and plot"),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/ExtraProperty.mos"
+        "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{180,
             180}})));
 end ExtraProperty;

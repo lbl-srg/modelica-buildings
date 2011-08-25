@@ -1,10 +1,12 @@
 within Buildings.RoomsBeta;
 model MixedAir "Model of a room in which the air is completely mixed"
-  extends Buildings.RoomsBeta.BaseClasses.ParameterFluid;
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.RoomsBeta.BaseClasses.ConstructionRecords;
-  parameter Integer nPorts=0 "Number of ports"
-    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-
+  parameter Integer nPorts=0 "Number of ports" annotation (Evaluate=true,
+      Dialog(
+      connectorSizing=true,
+      tab="General",
+      group="Ports"));
   Buildings.RoomsBeta.BaseClasses.MixedAir air(
     final nConExt=nConExt,
     final nConExtWin=nConExtWin,
@@ -16,31 +18,28 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final datConPar=datConPar,
     final datConBou=datConBou,
     final surBou=surBou,
-    redeclare final package Medium=Medium,
+    redeclare final package Medium = Medium,
     final V=V,
     nPorts=nPorts,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
-    final substanceDynamics=energyDynamics,
-    final traceDynamics=energyDynamics,
     final p_start=p_start,
-    final use_T_start=use_T_start,
     final T_start=T_start,
-    final h_start=h_start,
     final X_start=X_start,
     final C_start=C_start,
     final AFlo=AFlo,
     final hRoo=hRoo,
-    final linearizeRadiation = linearizeRadiation,
+    final linearizeRadiation=linearizeRadiation,
     final conMod=intConMod,
     final hFixed=hIntFixed,
+    final m_flow_nominal=m_flow_nominal,
     tauGlaSol={0.6 for i in 1:NConExtWin}) "Air volume"
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
-
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
       redeclare each package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{-40,-10},{40,10}},
-      origin={-200,-60},
+    annotation (Placement(transformation(
+        extent={{-40,-10},{40,10}},
+        origin={-200,-60},
         rotation=90), iconTransformation(
         extent={{-40,-10},{40,10}},
         rotation=90,
@@ -49,15 +48,13 @@ model MixedAir "Model of a room in which the air is completely mixed"
   final parameter Modelica.SIunits.Volume V=AFlo*hRoo "Volume";
   parameter Modelica.SIunits.Area AFlo "Floor area";
   parameter Modelica.SIunits.Length hRoo "Average room height";
-
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorAir
-    "Heat port to air volume"
-    annotation (Placement(transformation(extent={{-10,10},{10,30}}),
-        iconTransformation(extent={{-20,-10},{0,10}})));
+    "Heat port to air volume" annotation (Placement(transformation(extent={{-10,
+            10},{10,30}}), iconTransformation(extent={{-20,-10},{0,10}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heaPorRad
-    "Heat port for radiative heat gain and radiative temperature"
-    annotation (Placement(transformation(extent={{-10,-20},{10,0}}),
-        iconTransformation(extent={{-20,-48},{0,-28}})));
+    "Heat port for radiative heat gain and radiative temperature" annotation (
+      Placement(transformation(extent={{-10,-20},{10,0}}), iconTransformation(
+          extent={{-20,-48},{0,-28}})));
   ////////////////////////////////////////////////////////////////////////
   // Constructions
   Constructions.Construction conExt[NConExt](
@@ -66,11 +63,9 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final layers={datConExt[i].layers for i in 1:NConExt},
     steadyStateInitial=datConExt.steadyStateInitial,
     T_a_start=datConExt.T_a_start,
-    T_b_start=datConExt.T_b_start) if
-       haveConExt
+    T_b_start=datConExt.T_b_start) if haveConExt
     "Heat conduction through exterior construction that have no window"
     annotation (Placement(transformation(extent={{66,102},{20,148}})));
-
   Constructions.ConstructionWithWindow conExtWin[NConExtWin](
     A=datConExtWin.A,
     til=datConExtWin.til,
@@ -80,147 +75,134 @@ model MixedAir "Model of a room in which the air is completely mixed"
     T_b_start=datConExtWin.T_b_start,
     AWin=datConExtWin.AWin,
     fFra=datConExtWin.fFra,
-    glaSys=datConExtWin.glaSys) if
-       haveConExtWin
+    glaSys=datConExtWin.glaSys) if haveConExtWin
     "Heat conduction through exterior construction that have a window"
     annotation (Placement(transformation(extent={{56,46},{26,76}})));
-
   Constructions.Construction conPar[NConPar](
     A=datConPar.A,
     til=datConPar.til,
     final layers={datConPar[i].layers for i in 1:NConPar},
     steadyStateInitial=datConPar.steadyStateInitial,
     T_a_start=datConPar.T_a_start,
-    T_b_start=datConPar.T_b_start) if
-       haveConPar
+    T_b_start=datConPar.T_b_start) if haveConPar
     "Heat conduction through partitions that have both sides inside the thermal zone"
     annotation (Placement(transformation(extent={{40,-102},{2,-64}})));
-
   Constructions.Construction conBou[NConBou](
     A=datConBou.A,
     til=datConBou.til,
     final layers={datConBou[i].layers for i in 1:NConBou},
     steadyStateInitial=datConBou.steadyStateInitial,
     T_a_start=datConBou.T_a_start,
-    T_b_start=datConBou.T_b_start) if
-       haveConBou
+    T_b_start=datConBou.T_b_start) if haveConBou
     "Heat conduction through opaque constructions that have the boundary conditions of the other side exposed"
     annotation (Placement(transformation(extent={{38,-154},{-2,-114}})));
-
-  parameter Boolean linearizeRadiation = true
+  parameter Boolean linearizeRadiation=true
     "Set to true to linearize emissive power";
-
   ////////////////////////////////////////////////////////////////////////
   // Convection
-  parameter Buildings.HeatTransfer.Types.InteriorConvection intConMod=
-  Buildings.HeatTransfer.Types.InteriorConvection.Temperature
+  parameter Buildings.HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hIntFixed=3.0
     "Constant convection coefficient for room-facing surfaces of opaque constructions"
-    annotation (Dialog(group="Convective heat transfer",
-                       enable=(conMod == Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
-
-  parameter Buildings.HeatTransfer.Types.ExteriorConvection extConMod=
-  Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
+    annotation (Dialog(group="Convective heat transfer", enable=(conMod ==
+          Buildings.HeatTransfer.Types.InteriorConvection.Fixed)));
+  parameter Buildings.HeatTransfer.Types.ExteriorConvection extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model for exterior facing surfaces of opaque constructions"
     annotation (Dialog(group="Convective heat transfer"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hExtFixed=10.0
     "Constant convection coefficient for exterior facing surfaces of opaque constructions"
-    annotation (Dialog(group="Convective heat transfer",
-                       enable=(conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
-
+    annotation (Dialog(group="Convective heat transfer", enable=(conMod ==
+          Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0) = V*1.2/3600
+    "Nominal mass flow rate" annotation (Dialog(group="Nominal condition"));
   ////////////////////////////////////////////////////////////////////////
   // Models for boundary conditions
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_conBou[nConBou] if
-       haveConBou "Heat port at surface b of construction conBou"
-    annotation (Placement(transformation(extent={{50,-190},{70,-170}}),
-        iconTransformation(extent={{50,-190},{70,-170}})));
+    haveConBou "Heat port at surface b of construction conBou" annotation (
+      Placement(transformation(extent={{50,-190},{70,-170}}),
+        iconTransformation(extent={{50,-170},{70,-150}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_surBou[nSurBou] if
-       haveSurBou "Heat port of surface that is connected to the room air"
+    haveSurBou "Heat port of surface that is connected to the room air"
     annotation (Placement(transformation(extent={{-70,-150},{-50,-130}}),
         iconTransformation(extent={{-48,-150},{-28,-130}})));
-
   Modelica.Blocks.Interfaces.RealInput uSha[nConExtWin](each min=0, each max=1) if
        haveShade
     "Control signal for the shading device (removed if no shade is present)"
     annotation (Placement(transformation(extent={{-240,160},{-200,200}}),
         iconTransformation(extent={{-240,140},{-200,180}})));
-
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3](unit="W/m2")
     "Radiant, convective and latent heat input into room (positive if heat gain)"
     annotation (Placement(transformation(extent={{-240,80},{-200,120}})));
-
   // Reassign the tilt since a construction that is declared as a ceiling of the
   // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditions bouConExt(
     final nCon=nConExt,
     final AOpa=datConExt.A,
     final lat=lat,
-    final til=Modelica.Constants.pi * ones(nConExt) - datConExt.til,
+    final til=datConExt.til,
     final azi=datConExt.azi,
-    linearizeRadiation = linearizeRadiation,
+    linearizeRadiation=linearizeRadiation,
     final conMod=extConMod,
     final hFixed=hExtFixed,
     final absIR=datConExt.layers.absIR_a,
-    final absSol=datConExt.layers.absSol_a) if
-       haveConExt
+    final absSol=datConExt.layers.absSol_a) if haveConExt
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{116,116},{146,146}})));
-
   // Reassign the tilt since a construction that is declared as a ceiling of the
   // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditionsWithWindow bouConExtWin(
     final nCon=nConExtWin,
     final lat=lat,
-    final til=Modelica.Constants.pi * ones(nConExtWin) - datConExtWin.til,
+    final til=datConExtWin.til,
     final azi=datConExtWin.azi,
     final AOpa=datConExtWin.AOpa,
     final AWin=datConExtWin.AWin,
     final fFra=datConExtWin.fFra,
-    linearizeRadiation = linearizeRadiation,
+    linearizeRadiation=linearizeRadiation,
     final conMod=extConMod,
     final hFixed=hExtFixed,
     final absIR=datConExtWin.layers.absIR_a,
-    final absIRSha_air={datConExtWin[i].glaSys.shade.absIR_a for i in 1:nConExtWin},
-    final absIRSha_glass={datConExtWin[i].glaSys.shade.absIR_b for i in 1:nConExtWin},
-    final tauIRSha_air={datConExtWin[i].glaSys.shade.tauIR_a for i in 1:nConExtWin},
-    final tauIRSha_glass={datConExtWin[i].glaSys.shade.tauIR_b for i in 1:nConExtWin},
-    final haveExteriorShade={datConExtWin[i].glaSys.haveExteriorShade for i in 1:nConExtWin},
-    final haveInteriorShade={datConExtWin[i].glaSys.haveInteriorShade for i in 1:nConExtWin},
+    final absIRSha_air={datConExtWin[i].glaSys.shade.absIR_a for i in 1:
+        nConExtWin},
+    final absIRSha_glass={datConExtWin[i].glaSys.shade.absIR_b for i in 1:
+        nConExtWin},
+    final tauIRSha_air={datConExtWin[i].glaSys.shade.tauIR_a for i in 1:
+        nConExtWin},
+    final tauIRSha_glass={datConExtWin[i].glaSys.shade.tauIR_b for i in 1:
+        nConExtWin},
+    final absIRFra={datConExtWin[i].glaSys.absIRFra for i in 1:nConExtWin},
+    final haveExteriorShade={datConExtWin[i].glaSys.haveExteriorShade for i in
+        1:nConExtWin},
+    final haveInteriorShade={datConExtWin[i].glaSys.haveInteriorShade for i in
+        1:nConExtWin},
     final absSol=datConExtWin.layers.absSol_a,
-    final absSolFra=datConExtWin.glaSys.absSolFra) if
-       haveConExtWin
+    final absSolFra=datConExtWin.glaSys.absSolFra) if haveConExtWin
     "Exterior boundary conditions for constructions with a window"
     annotation (Placement(transformation(extent={{116,46},{146,76}})));
-
   HeatTransfer.WindowsBeta.BaseClasses.WindowRadiation conExtWinRad[NConExtWin](
-     final AWin=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
-     final N=datConExtWin.glaSys.nLay,
-     final tauGlaSol=datConExtWin.glaSys.glass.tauSol,
-     final rhoGlaSol_a=datConExtWin.glaSys.glass.rhoSol_a,
-     final rhoGlaSol_b=datConExtWin.glaSys.glass.rhoSol_b,
-     final tauShaSol_a=datConExtWin.glaSys.shade.tauSol_a,
-     final tauShaSol_b=datConExtWin.glaSys.shade.tauSol_b,
-     final rhoShaSol_a=datConExtWin.glaSys.shade.rhoSol_a,
-     final rhoShaSol_b=datConExtWin.glaSys.shade.rhoSol_b,
-     final haveExteriorShade=datConExtWin.glaSys.haveExteriorShade,
-     final haveInteriorShade=datConExtWin.glaSys.haveInteriorShade) if
-        haveConExtWin
-    "Model for solar radiation through shades and window"
+    final AWin=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
+    final N=datConExtWin.glaSys.nLay,
+    final tauGlaSol=datConExtWin.glaSys.glass.tauSol,
+    final rhoGlaSol_a=datConExtWin.glaSys.glass.rhoSol_a,
+    final rhoGlaSol_b=datConExtWin.glaSys.glass.rhoSol_b,
+    final tauShaSol_a=datConExtWin.glaSys.shade.tauSol_a,
+    final tauShaSol_b=datConExtWin.glaSys.shade.tauSol_b,
+    final rhoShaSol_a=datConExtWin.glaSys.shade.rhoSol_a,
+    final rhoShaSol_b=datConExtWin.glaSys.shade.rhoSol_b,
+    final haveExteriorShade=datConExtWin.glaSys.haveExteriorShade,
+    final haveInteriorShade=datConExtWin.glaSys.haveInteriorShade) if
+    haveConExtWin "Model for solar radiation through shades and window"
     annotation (Placement(transformation(extent={{40,-20},{60,0}})));
-
-  BoundaryConditions.WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{170,170},{190,190}}),
-        iconTransformation(extent={{166,166},{192,192}})));
-
+  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
+        transformation(extent={{170,170},{190,190}}), iconTransformation(extent=
+           {{166,166},{192,192}})));
 protected
-  final parameter Boolean haveShade=
-    datConExtWin[1].glaSys.haveExteriorShade or datConExtWin[1].glaSys.haveInteriorShade
+  final parameter Boolean haveShade=datConExtWin[1].glaSys.haveExteriorShade
+       or datConExtWin[1].glaSys.haveInteriorShade
     "Set to true if the windows have a shade";
 equation
-  connect(air.conExtWin, conExtWin.opa_b)
-                                    annotation (Line(
+  connect(air.conExtWin, conExtWin.opa_b) annotation (Line(
       points={{-122,56},{-56,56},{-56,71},{25.9,71}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -246,8 +228,7 @@ equation
       points={{-60,-140},{-60,42.6667},{-121.967,42.6667}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(uSha, air.uSha)
-                    annotation (Line(
+  connect(uSha, air.uSha) annotation (Line(
       points={{-220,180},{-160,180},{-160,56.0667},{-138.667,56.0667}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -255,98 +236,79 @@ equation
       points={{-220,100},{-180,100},{-180,53.3333},{-138.667,53.3333}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(air.JOutUns, conExtWin.JInUns_b)
-                                        annotation (Line(
+  connect(air.JOutUns, conExtWin.JInUns_b) annotation (Line(
       points={{-121.667,55.3333},{-5.7915,55.3333},{-5.7915,60},{25.5,60}},
       color={0,127,0},
       smooth=Smooth.None));
-
-  connect(conExtWin.JOutUns_b, air.JInUns)
-                                        annotation (Line(
+  connect(conExtWin.JOutUns_b, air.JInUns) annotation (Line(
       points={{25.5,62},{-8,62},{-8,54.8},{-121.733,54.8}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(air.JOutSha, conExtWin.JInSha_b)
-                                        annotation (Line(
+  connect(air.JOutSha, conExtWin.JInSha_b) annotation (Line(
       points={{-121.667,52},{4,52},{4,51},{25.5,51}},
       color={0,127,0},
       smooth=Smooth.None));
-
-  connect(conExtWin.JOutSha_b, air.JInSha)
-                                        annotation (Line(
+  connect(conExtWin.JOutSha_b, air.JInSha) annotation (Line(
       points={{25.5,53},{0,53},{0,51.3333},{-121.667,51.3333}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(air.glaUns, conExtWin.glaUns_b)
-                                       annotation (Line(
+  connect(air.glaUns, conExtWin.glaUns_b) annotation (Line(
       points={{-121.933,54},{-121.933,40},{16,40},{16,57},{26,57}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conExtWin.glaSha_b, air.glaSha)
-                                       annotation (Line(
+  connect(conExtWin.glaSha_b, air.glaSha) annotation (Line(
       points={{26,55},{-4,55},{-4,52.6667},{-121.933,52.6667}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(air.conExtWinFra, conExtWin.fra_b)
-                                       annotation (Line(
+  connect(air.conExtWinFra, conExtWin.fra_b) annotation (Line(
       points={{-121.933,50},{-38,50},{-38,48},{25.9,48}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(uSha, conExtWin.uSha)
-                       annotation (Line(
+  connect(uSha, conExtWin.uSha) annotation (Line(
       points={{-220,180},{86,180},{86,64},{57,64}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(uSha, bouConExtWin.uSha)
-                             annotation (Line(
+  connect(uSha, bouConExtWin.uSha) annotation (Line(
       points={{-220,180},{100,180},{100,66},{115,66}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(bouConExtWin.opa_a, conExtWin.opa_a)
-                                         annotation (Line(
+  connect(bouConExtWin.opa_a, conExtWin.opa_a) annotation (Line(
       points={{116,71},{56,71}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(conExtWin.JInUns_a, bouConExtWin.JOutUns)
-                                              annotation (Line(
+  connect(conExtWin.JInUns_a, bouConExtWin.JOutUns) annotation (Line(
       points={{56.5,62},{94,62},{94,60},{115.5,60}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(bouConExtWin.JInUns, conExtWin.JOutUns_a)
-                                              annotation (Line(
+  connect(bouConExtWin.JInUns, conExtWin.JOutUns_a) annotation (Line(
       points={{115.5,62},{78,62},{78,60},{56.5,60}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(conExtWin.glaUns_a, bouConExtWin.glaUns)
-                                             annotation (Line(
+  connect(conExtWin.glaUns_a, bouConExtWin.glaUns) annotation (Line(
       points={{56,57},{80,57},{80,57},{116,57}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(bouConExtWin.glaSha, conExtWin.glaSha_a)
-                                             annotation (Line(
+  connect(bouConExtWin.glaSha, conExtWin.glaSha_a) annotation (Line(
       points={{116,55},{88,55},{88,55},{56,55}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(conExtWin.JInSha_a, bouConExtWin.JOutSha)
-                                              annotation (Line(
+  connect(conExtWin.JInSha_a, bouConExtWin.JOutSha) annotation (Line(
       points={{56.5,53},{86,53},{86,51},{115.5,51}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(bouConExtWin.JInSha, conExtWin.JOutSha_a)
-                                              annotation (Line(
+  connect(bouConExtWin.JInSha, conExtWin.JOutSha_a) annotation (Line(
       points={{115.5,53},{84,53},{84,51},{56.5,51}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(conExtWin.fra_a, bouConExtWin.fra)
-                                       annotation (Line(
+  connect(conExtWin.fra_a, bouConExtWin.fra) annotation (Line(
       points={{56,48},{116,48}},
       color={191,0,0},
       pattern=LinePattern.None,
@@ -356,11 +318,11 @@ equation
           57.3333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conExt.opa_a, bouConExt.opa_a)      annotation (Line(
+  connect(conExt.opa_a, bouConExt.opa_a) annotation (Line(
       points={{66,140.333},{86,141},{116,141}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(weaBus, bouConExtWin.weaBus)    annotation (Line(
+  connect(weaBus, bouConExtWin.weaBus) annotation (Line(
       points={{180,180},{180,62.05},{142.15,62.05}},
       color={255,204,51},
       thickness=0.5,
@@ -427,10 +389,11 @@ equation
       points={{-138,48.6667},{-166,48.6667},{-166,-10},{5.55112e-16,-10}},
       color={191,0,0},
       smooth=Smooth.None));
-   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -200},{200,200}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-200,-200},{200,200}}), graphics={
+  annotation (
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
+            200}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
+            200}}), graphics={
         Text(
           extent={{-104,210},{84,242}},
           lineColor={0,0,255},
@@ -446,29 +409,29 @@ equation
           lineColor={0,0,127},
           textString="u"),
         Text(
-          extent={{-14,-170},{44,-196}},
+          extent={{-14,-160},{44,-186}},
           lineColor={0,0,0},
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="boundary"),
         Rectangle(
-          extent={{-160,-170},{140,140}},
+          extent={{-160,-160},{160,160}},
           lineColor={95,95,95},
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid),
-          Rectangle(
-          extent={{-140,120},{120,-150}},
+        Rectangle(
+          extent={{-140,138},{140,-140}},
           pattern=LinePattern.None,
           lineColor={117,148,176},
           fillColor={170,213,255},
           fillPattern=FillPattern.Sphere),
         Rectangle(
-          extent={{120,60},{140,-80}},
+          extent={{140,70},{160,-70}},
           lineColor={95,95,95},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{126,60},{134,-80}},
+          extent={{146,70},{154,-70}},
           lineColor={95,95,95},
           fillColor={170,213,255},
           fillPattern=FillPattern.Solid),
@@ -890,9 +853,25 @@ Finally, the declaration
 </pre>
 sets the latitude of the building which needs to correspond with the latitude of the weather data file.
 </p>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
+<li>
+August 9, 2011, by Michael Wetter:<br>
+Fixed bug that caused too high a surface temperature of the window frame.
+The previous version did not compute the infrared radiation exchange between the
+window frame and the sky. This has been corrected by adding the instance
+<code>skyRadExcWin</code> and the parameter <code>absIRFra</code> to the 
+model 
+<a href=\"modelica://Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditionsWithWindow\">
+Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
+This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/36\">ticket 36</a>.
+</li>
+<li>
+August 9, 2011 by Michael Wetter:<br>
+Changed assignment of tilt in instances <code>bouConExt</code> and <code>bouConExtWin</code>.
+This fixes the bug in <a href=\"https://corbu.lbl.gov/trac/bie/ticket/35\">ticket 35</a>
+that led to the wrong solar radiation gain for roofs and floors.
+</li>
 <li>
 March 23, 2011, by Michael Wetter:<br>
 Propagated convection model to exterior boundary condition models.

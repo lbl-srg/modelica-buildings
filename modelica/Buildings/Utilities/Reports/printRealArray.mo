@@ -9,13 +9,23 @@ function printRealArray "Print string to terminal or file"
 algorithm
   for i in 1:size(x,1) loop
      outStr :=outStr + "  "
-                     + String(number=x[i],
+                     + String(x[i],
                               minimumLength=minimumLength,
                               significantDigits=significantDigits);
   end for;
   Modelica.Utilities.Streams.print(string=outStr, fileName=fileName);
-  annotation (Documentation(revisions="<html>
+  annotation (Documentation(info="<html>
+<p>
+Function that prints a real array to an output file.
+</p>
+</html>",
+revisions="<html>
 <ul>
+<li>
+August 16, 2011 by Michael Wetter:<br>
+Removed <code>number</code> attribute in <code>String</code>
+function as this is not according to the Modelica specification.
+</li>
 <li>
 May 27, 2011 by Michael Wetter:<br>
 Changed parameter <code>precision</code> to <code>significantDigits</code>
@@ -31,9 +41,5 @@ September 20, 2007 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>", info="<html>
-<p>
-Function that prints a real array to an output file.
-</p>
 </html>"));
 end printRealArray;

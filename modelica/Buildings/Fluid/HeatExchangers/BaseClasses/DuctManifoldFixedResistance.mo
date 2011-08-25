@@ -42,13 +42,14 @@ model DuctManifoldFixedResistance
     final V=dh*dh*dl,
     final nPorts=1+nPipPar*nPipSeg,
     final energyDynamics=energyDynamics,
-    final massDynamics=energyDynamics)
+    final massDynamics=energyDynamics,
+    m_flow_nominal=m_flow_nominal)
                        annotation (Placement(transformation(extent={{-60,0},{
             -40,20}}, rotation=0)));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 equation
   for i in 1:nPipPar loop
     for j in 1:nPipSeg loop

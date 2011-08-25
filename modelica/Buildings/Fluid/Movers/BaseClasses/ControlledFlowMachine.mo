@@ -3,8 +3,7 @@ model ControlledFlowMachine
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
    final show_V_flow = true,
-   souSta(final control_m_flow=control_m_flow),
-   souDyn(final control_m_flow=control_m_flow));
+   preSou(final control_m_flow=control_m_flow));
 
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
      final use_powerCharacteristic = false,
@@ -39,7 +38,7 @@ protected
 
 public
   Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + dpMachine*
-        V_in_flow) "Heat and work input into medium"
+        VMachine_flow) "Heat and work input into medium"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1) if not control_m_flow
@@ -50,26 +49,10 @@ equation
   etaHyd = hydraulicEfficiency(r_V=r_V);
   etaMot = motorEfficiency(r_V=r_V);
   dpMachine = -dp;
-  VMachine_flow = V_flow;
+  VMachine_flow = -port_b.m_flow/rho_in;
 
-  connect(m_flow_in, souDyn.m_flow_in) annotation (Line(
-      points={{-50,82},{-50,40},{4,40},{4,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(m_flow_in, souSta.m_flow_in) annotation (Line(
-      points={{-50,82},{-50,40},{54,40},{54,-52}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(gain.u, dp_in) annotation (Line(
       points={{22,60},{50,60},{50,82}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, souDyn.dp_in) annotation (Line(
-      points={{-1,60},{-10,60},{-10,44},{16,44},{16,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(gain.y, souSta.dp_in) annotation (Line(
-      points={{-1,60},{-10,60},{-10,44},{66,44},{66,-52}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -77,15 +60,19 @@ equation
       points={{-79,30},{-74,30},{-74,10},{-68,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(PToMedium_flow.y, souSta.P_in) annotation (Line(
-      points={{-79,30},{60,30},{60,-52}},
+  connect(preSou.m_flow_in, m_flow_in) annotation (Line(
+      points={{24,8},{24,40},{-50,40},{-50,82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preSou.dp_in, gain.y) annotation (Line(
+      points={{36,8},{36,44},{-10,44},{-10,60},{-1,60}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
+            100}}),     graphics),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump that takes as an input
@@ -94,6 +81,10 @@ the head or the mass flow rate.
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 25, 2011, by Michael Wetter:<br>
+Revised implementation of energy balance to avoid having to use conditionally removed models.
+</li>
 <li>
 November 11, 2010, by Michael Wetter:<br>
 Changed <code>V_flow_max=m_flow_nominal/rho_nominal;</code> to <code>V_flow_max=m_flow_max/rho_nominal;</code>

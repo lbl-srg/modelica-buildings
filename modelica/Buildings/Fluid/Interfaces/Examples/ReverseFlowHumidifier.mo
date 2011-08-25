@@ -18,7 +18,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     redeclare package Medium = Medium,
     dp_nominal=0,
     m_flow(start=1),
-    show_T=true,
     m_flow_nominal=1,
     T=283.15,
     mWat_flow_nominal=0.1) "Humidifier with backward flow"
@@ -27,7 +26,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
     redeclare package Medium = Medium,
     dp_nominal=0,
     m_flow(start=1),
-    show_T=true,
     m_flow_nominal=1,
     T=283.15,
     mWat_flow_nominal=0.1) "Humidifier with forward flow"
@@ -163,7 +161,8 @@ equation
       points={{41,-50},{60,-50},{60,-56},{78,-56}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowHumidifier.mos" "Simulate and plot"),
+  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowHumidifier.mos"
+        "Simulate and plot"),
     Diagram(graphics),
     Documentation(info="<html>
 This model tests whether the results for a humidifer are

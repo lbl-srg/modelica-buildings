@@ -1,15 +1,12 @@
 within Buildings.Utilities.Psychrometrics.Functions;
 package Internal "Solve f(x, data) for x with given f"
-  extends Buildings.Utilities.Math.BaseClasses.OneNonLinearEquation;
+  extends Modelica.Media.Common.OneNonLinearEquation;
 
   redeclare function extends f_nonlinear
   algorithm
      y := pW_TDewPoi(x);
   end f_nonlinear;
 
-  // Dummy definition has to be added for current Dymola
-  redeclare function extends solve
-  end solve;
 annotation (
 Documentation(
 info="<html>
@@ -20,6 +17,13 @@ partial water vapor concentration.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 10, 2011, by Michael Wetter:<br>
+Changed function to extend from 
+<code>Modelica.Media.Common.OneNonLinearEquation</code>
+instead of 
+<code>Buildings.Utilities.Math.BaseClasses.OneNonLinearEquation</code>.
+</li>
 <li>
 February 17, 2010, by Michael Wetter:<br>
 First implementation.

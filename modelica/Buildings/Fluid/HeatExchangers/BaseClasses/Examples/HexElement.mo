@@ -2,11 +2,11 @@ within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model HexElement
   "Model that tests the basic element that is used to built heat exchanger models"
   import Buildings;
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
  package Medium_W = Buildings.Media.ConstantPropertyLiquidWater;
- package Medium_A = Buildings.Media.PerfectGases.MoistAir;
+ package Medium_A = Buildings.Media.PerfectGases.MoistAirUnsaturated;
   Buildings.Fluid.Sources.Boundary_pT sin_2(
-                                         redeclare package Medium = Medium_A,
+    redeclare package Medium = Medium_A,
     use_p_in=true,
     use_T_in=true,
     T=288.15,
@@ -19,8 +19,8 @@ model HexElement
     offset=101325)
                  annotation (Placement(transformation(extent={{0,-60},{20,-40}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
-      package Medium = Medium_A,
+  Buildings.Fluid.Sources.Boundary_pT sou_2(
+    redeclare package Medium = Medium_A,
     use_p_in=true,
     use_T_in=true,
     T=283.15,
@@ -40,7 +40,7 @@ model HexElement
       annotation (Placement(transformation(extent={{-100,80},{-80,100}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_1(
-                                         redeclare package Medium = Medium_W,
+   redeclare package Medium = Medium_W,
     use_p_in=true,
     T=288.15,
     nPorts=1)             annotation (Placement(transformation(extent={{42,40},
@@ -65,6 +65,7 @@ model HexElement
              annotation (Placement(transformation(extent={{48,-4},{68,16}},
           rotation=0)));
   Buildings.Fluid.HeatExchangers.BaseClasses.HexElement hex(
+    redeclare Buildings.Fluid.MixingVolumes.MixingVolumeDryAir vol2,
     m1_flow_nominal=5,
     m2_flow_nominal=5,
     UA_nominal=9999,
@@ -150,7 +151,8 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HexElement.mos" "Simulate and plot"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HexElement.mos"
+        "Simulate and plot"),
     experimentSetupOutput,
               Diagram);
 end HexElement;

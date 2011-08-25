@@ -1,9 +1,9 @@
 within Buildings.Fluid.Sensors;
 model TemperatureWetBulbTwoPort "Ideal wet bulb temperature sensor"
-  extends Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor;
 
   Modelica.Blocks.Interfaces.RealOutput T(
-    start=Medium.T_default,
+    start=TWetBul_start,
     final quantity="Temperature",
     final unit="K",
     displayUnit = "degC") "Wet bulb temperature in port medium"
@@ -14,16 +14,31 @@ model TemperatureWetBulbTwoPort "Ideal wet bulb temperature sensor"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
+
+  parameter Modelica.SIunits.Temperature TWetBul_start = Medium.T_default
+    "<html>Initial or guess value of <b>wet bulb</b> temperature (used to compute initial output signal))</html>"
+    annotation (Dialog(group="Initialization"));
+
+  Medium.Temperature TMedWetBul(start=TWetBul_start)
+    "Medium wet bulb temperature to which the sensor is exposed";
+
 protected
-  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulMod(redeclare
-      package Medium =
-               Medium) "Block for wet bulb temperature";
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBulMod(
+    redeclare package Medium = Medium) "Block for wet bulb temperature";
   Modelica.SIunits.SpecificEnthalpy h "Specific enthalpy";
   Medium.MassFraction Xi[Medium.nXi]
     "Species vector, needed because indexed argument for the operator inStream is not supported";
-  //Medium.MassFraction X[Medium.nX] "Species vector";
+initial equation
+  // Initialization of wet bulb temperature
+  if dynamic then
+    if initType == Modelica.Blocks.Types.Init.SteadyState then
+      der(T) = 0;
+     elseif initType == Modelica.Blocks.Types.Init.InitialState or
+            initType == Modelica.Blocks.Types.Init.InitialOutput then
+      T = TWetBul_start;
+    end if;
+  end if;
 equation
-
   if allowFlowReversal then
     h  = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.h_outflow,  port_a.h_outflow,  m_flow_small);
     Xi = Modelica.Fluid.Utilities.regStep(port_a.m_flow, port_b.Xi_outflow, port_a.Xi_outflow, m_flow_small);
@@ -35,7 +50,14 @@ equation
   wetBulMod.TDryBul = Medium.T_phX(port_a.p, h, cat(1,Xi,{1-sum(Xi)}));
   wetBulMod.Xi = Xi;
   wetBulMod.p  = port_a.p;
-  T = wetBulMod.TWetBul;
+  TMedWetBul = wetBulMod.TWetBul;
+  // Output signal of sensor
+  if dynamic then
+    der(T) = (TMedWetBul-T)*k/tau;
+  else
+    T = TMedWetBul;
+  end if;
+
 annotation (defaultComponentName="senWetBul",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}),
@@ -78,11 +100,23 @@ annotation (defaultComponentName="senWetBul",
 <p>
 This component monitors the wet bulb temperature of the medium in the flow
 between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
+If the parameter <code>tau</code> is non-zero, then its output
+is computed using a first order differential equation. 
+Setting <code>tau=0</code> is <i>not</i> recommend. See
+<a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
+Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
-",
-revisions="<html>
+", revisions="<html>
+<html>
+<p>
 <ul>
+<li>
+June 3, 2011 by Michael Wetter:<br>
+Revised implementation to add dynamics in such a way that 
+the time constant increases as the mass flow rate tends to zero.
+This significantly improves the numerics.
+</li>
 <li>
 February 18, 2010, by Michael Wetter:<br>
 Revised model to use new block for computing the wet bulb temperature.

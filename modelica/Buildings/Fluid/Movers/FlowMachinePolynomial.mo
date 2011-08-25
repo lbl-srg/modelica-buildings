@@ -1,7 +1,7 @@
 within Buildings.Fluid.Movers;
 model FlowMachinePolynomial
   "Fan or pump with head and efficiency declared by a non-dimensional polynomial"
-  extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface;
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   Modelica.Blocks.Interfaces.RealInput N_in "Prescribed rotational speed"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},   rotation=270,

@@ -4,10 +4,7 @@ model DelayFirstOrder
   extends Buildings.Fluid.MixingVolumes.MixingVolume(final V=V0);
 
   parameter Modelica.SIunits.Time tau = 60 "Time constant at nominal flow"
-     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
-    "Mass flow rate"
-     annotation(Dialog(group = "Nominal condition"));
+    annotation (Dialog(tab="Dynamics", group="Nominal condition"));
 
 protected
    parameter Modelica.SIunits.Volume V0 = m_flow_nominal*tau/rho_nominal

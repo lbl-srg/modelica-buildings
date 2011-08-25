@@ -97,12 +97,12 @@ model WetCoilDiscretizedPControl
     height=10,
     offset=T_a1_nominal)
     annotation (Placement(transformation(extent={{-60,42},{-40,62}})));
-  Buildings.Controls.Continuous.LimPID P1(
-                              k=1,
+  Buildings.Controls.Continuous.LimPID con(
+    k=1,
     Ti=60,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
     Td=60,
-    reverseAction=true)               annotation (Placement(transformation(
+    reverseAction=true) "Controller"  annotation (Placement(transformation(
           extent={{-40,120},{-20,140}}, rotation=0)));
   Buildings.Fluid.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model"
     annotation (Placement(transformation(extent={{0,120},{20,140}},rotation=0)));
@@ -133,15 +133,18 @@ equation
       points={{-39,52},{-26,52}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TSet.y, P1.u_s) annotation (Line(
+  connect(TSet.y, con.u_s)
+                          annotation (Line(
       points={{-59,130},{-42,130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(temSen.T, P1.u_m) annotation (Line(
+  connect(temSen.T, con.u_m)
+                            annotation (Line(
       points={{30,-5},{30,8},{10,8},{10,100},{-30,100},{-30,118}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(P1.y, mot.u) annotation (Line(
+  connect(con.y, mot.u)
+                       annotation (Line(
       points={{-19,130},{-2,130}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -159,5 +162,6 @@ equation
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {200,200}}),       graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretizedPControl.mos" "Simulate and plot"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretizedPControl.mos"
+        "Simulate and plot"));
 end WetCoilDiscretizedPControl;

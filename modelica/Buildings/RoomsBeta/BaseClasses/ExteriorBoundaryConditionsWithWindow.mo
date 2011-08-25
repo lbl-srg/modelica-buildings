@@ -4,23 +4,15 @@ model ExteriorBoundaryConditionsWithWindow
   extends Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditions;
   parameter Modelica.SIunits.Area AWin[nCon] "Areas of window glass and frame";
   parameter Real fFra[nCon](each min=0, each max=1)
-    "Fraction of window frame divided by total window area";
-  HeatTransfer.WindowsBeta.ExteriorHeatTransfer conExtWin[nCon](
-    final A=AWin,
-    final fFra=fFra,
-    each final linearizeRadiation = linearizeRadiation,
-    final F_sky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i in 1:nCon},
-    final absIRSha_air=absIRSha_air,
-    final absIRSha_glass=absIRSha_glass,
-    final tauIRSha_air=tauIRSha_air,
-    final tauIRSha_glass=tauIRSha_glass,
-    final haveExteriorShade=haveExteriorShade,
-    final haveInteriorShade=haveInteriorShade)
-    "Exterior convection of the window"
-    annotation (Placement(transformation(extent={{20,-120},{-40,-60}})));
-  parameter Modelica.SIunits.Emissivity absSolFra[nCon]
-    "Solar absorptivity of window frame";
+    "Fraction of window frame divided by total window area"
+    annotation (Dialog(group="Frame"));
 
+  parameter Modelica.SIunits.Emissivity absSolFra[nCon]
+    "Solar absorptivity of window frame"
+    annotation (Dialog(group="Frame"));
+  parameter Modelica.SIunits.Emissivity absIRFra[nCon]
+    "Infrared absorptivity of window frame"
+    annotation (Dialog(group="Frame"));
   parameter Modelica.SIunits.Emissivity absIRSha_air[nCon]
     "Infrared absorptivity of shade surface that faces air"
         annotation (Dialog(group="Shading"));
@@ -52,6 +44,33 @@ model ExteriorBoundaryConditionsWithWindow
     "Control signal for the shading device, 0: unshaded; 1: fully shaded"
     annotation (Placement(transformation(extent={{-340,80},{-300,120}}),
         iconTransformation(extent={{-340,80},{-300,120}})));
+
+  Modelica.Blocks.Interfaces.RealInput QAbsSolSha_flow[nCon](
+    final unit="W", quantity="Power") "Solar radiation absorbed by shade"
+    annotation (Placement(transformation(extent={{-340,40},{-300,80}})));
+
+  HeatTransfer.WindowsBeta.ExteriorHeatTransfer conExtWin[nCon](
+    final A=AWin,
+    final fFra=fFra,
+    each final linearizeRadiation = linearizeRadiation,
+    final F_sky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i in 1:nCon},
+    final absIRSha_air=absIRSha_air,
+    final absIRSha_glass=absIRSha_glass,
+    final tauIRSha_air=tauIRSha_air,
+    final tauIRSha_glass=tauIRSha_glass,
+    final haveExteriorShade=haveExteriorShade,
+    final haveInteriorShade=haveInteriorShade)
+    "Exterior convection of the window"
+    annotation (Placement(transformation(extent={{20,-120},{-40,-60}})));
+
+  SkyRadiationExchange skyRadExcWin(
+    final n=nCon,
+    each final absIR=absIRFra,
+    vieFacSky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i in
+            1:nCon},
+    each final A=AWin .* fFra)
+    "Infrared radiative heat exchange between window frame and sky"
+    annotation (Placement(transformation(extent={{-140,-282},{-180,-242}})));
   HeatTransfer.Interfaces.RadiosityOutflow JOutUns[nCon]
     "Outgoing radiosity that connects to unshaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-300,-30},{-320,-10}}),
@@ -121,11 +140,6 @@ protected
   Modelica.Blocks.Routing.Replicator repConExtWinVWin(final nout=nCon)
     "Signal replicator"
     annotation (Placement(transformation(extent={{140,-22},{120,-2}})));
-
-public
-  Modelica.Blocks.Interfaces.RealInput QAbsSolSha_flow[nCon](
-    final unit="W", quantity="Power") "Solar radiation absorbed by shade"
-    annotation (Placement(transformation(extent={{-340,40},{-300,80}})));
 equation
   connect(uSha, conExtWin.uSha)
                           annotation (Line(
@@ -159,7 +173,7 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.frame,fra)  annotation (Line(
-      points={{-31,-120},{-31,-260},{-300,-260}},
+      points={{-31,-120},{-31,-220},{-260,-220},{-260,-260},{-300,-260}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TAirConExtWin.port,conExtWin. air) annotation (Line(
@@ -200,11 +214,11 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(HTotConExtWinFra.y, solHeaGaiConWin.Q_flow) annotation (Line(
-      points={{19,70},{0,70}},
+      points={{19,70},{5.55112e-16,70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solHeaGaiConWin.port, fra) annotation (Line(
-      points={{-20,70},{-60,70},{-60,-260},{-300,-260}},
+      points={{-20,70},{-60,70},{-60,-220},{-260,-220},{-260,-260},{-300,-260}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(HDirTil.H, HDir) annotation (Line(
@@ -230,6 +244,26 @@ equation
   connect(conExtWin.QAbs_flow, QAbsSolSha_flow) annotation (Line(
       points={{-10,-123},{-10,-140},{-160,-140},{-160,60},{-320,60}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(skyRadExcWin.TOut, weaBus.TDryBul)
+                                          annotation (Line(
+      points={{-136,-270},{244,-270},{244,42}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(skyRadExcWin.TBlaSky, weaBus.TBlaSky)
+                                             annotation (Line(
+      points={{-136,-254},{244,-254},{244,42}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(skyRadExcWin.port, fra) annotation (Line(
+      points={{-180,-260.4},{-242,-260.4},{-242,-260},{-300,-260}},
+      color={191,0,0},
       smooth=Smooth.None));
   annotation (Icon(graphics={
         Rectangle(
@@ -273,6 +307,14 @@ the model
 Buildings.HeatTransfer.WindowsBeta.ExteriorHeatTransfer</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+August 9, 2011, by Michael Wetter:<br>
+Fixed bug that caused too high a surface temperature of the window frame.
+The previous version did not compute the infrared radiation exchange between the
+window frame and the sky. This has been corrected by adding the instance
+<code>skyRadExcWin</code> and adding the parameter <code>absIRFra</code>.
+This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/36\">ticket 36</a>.
+</li>
 <li>
 November 23, 2010, by Michael Wetter:<br>
 First implementation.

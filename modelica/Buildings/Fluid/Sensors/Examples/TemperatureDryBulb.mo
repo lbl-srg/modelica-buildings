@@ -2,7 +2,6 @@ within Buildings.Fluid.Sensors.Examples;
 model TemperatureDryBulb
   extends Modelica.Icons.Example;
 
-// package Medium =  annotation 1;
  package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model";
   Buildings.Fluid.Sources.Boundary_pT sin(
     redeclare package Medium = Medium,
@@ -31,16 +30,10 @@ model TemperatureDryBulb
           extent={{-100,-20},{-80,0}}, rotation=0)));
   Modelica.Blocks.Math.Feedback feedback annotation (Placement(transformation(
           extent={{-70,-20},{-50,0}}, rotation=0)));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(
-      threShold=0.001, startTime=0)
-    annotation (Placement(transformation(extent={{60,60},{80,80}},   rotation=0)));
-  Modelica.Blocks.Continuous.FirstOrder firOrd(T=10,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=293.15)
-    annotation (Placement(transformation(extent={{0,60},{20,80}},    rotation=0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSteSta(
                                                redeclare package Medium =
-        Medium, m_flow_nominal=2) "Steady state temperature sensor"
+        Medium, m_flow_nominal=2,
+    tau=0) "Steady state temperature sensor"
     annotation (Placement(transformation(extent={{0,-2},{20,18}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
@@ -50,7 +43,7 @@ model TemperatureDryBulb
     period=30) "Mass flow rate"
                  annotation (Placement(transformation(extent={{-100,60},{-80,80}},
           rotation=0)));
-  Buildings.Fluid.Sensors.TemperatureDynamicTwoPort temDyn(
+  Buildings.Fluid.Sensors.TemperatureTwoPort temDyn(
     redeclare package Medium = Medium,
     initType=Modelica.Blocks.Types.Init.InitialState,
     T_start=293.15,
@@ -67,15 +60,9 @@ equation
           -50},{-40,4},{-38,4}},         color={0,0,127}));
   connect(feedback.y, masFloRat.X_in[2])    annotation (Line(points={{-51,-10},
           {-44,-10},{-44,4},{-38,4}},         color={0,0,127}));
-  connect(temSteSta.T, firOrd.u) annotation (Line(points={{10,19},{10,40},{-20,
-          40},{-20,70},{-2,70}},   color={0,0,127}));
   connect(masFloRat.ports[1], temSteSta.port_a) annotation (Line(
       points={{-16,8},{-5.55112e-16,8}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(firOrd.y, assertEquality.u1) annotation (Line(
-      points={{21,70},{44,70},{44,76},{58,76}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow.y, masFloRat.m_flow_in) annotation (Line(
       points={{-79,70},{-58,70},{-58,16},{-36,16}},
@@ -89,14 +76,11 @@ equation
       points={{50,8},{70,8}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(temDyn.T, assertEquality.u2) annotation (Line(
-      points={{40,19},{40,64},{58,64}},
-      color={0,0,127},
-      smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                         graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureDryBulb.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/TemperatureDryBulb.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the dynamic dry bulb temperature sensor.
 </html>", revisions="<html>

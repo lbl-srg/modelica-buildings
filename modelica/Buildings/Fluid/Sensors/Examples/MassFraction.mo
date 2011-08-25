@@ -27,7 +27,8 @@ model MassFraction
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
     V=1,
-    nPorts=3) "Volume"
+    nPorts=3,
+    m_flow_nominal=10) "Volume"
     annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp(
     redeclare package Medium = Medium,
@@ -61,7 +62,8 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                         graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos" "Simulate and plot"),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the mass fraction sensor.
 </html>", revisions="<html>

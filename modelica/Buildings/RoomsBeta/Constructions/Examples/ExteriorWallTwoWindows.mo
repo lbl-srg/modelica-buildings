@@ -50,10 +50,11 @@ model ExteriorWallTwoWindows
     tauIRSha_glass={glaSys1.shade.tauIR_b, glaSys2.shade.tauIR_b},
     haveExteriorShade={glaSys1.haveExteriorShade, glaSys2.haveExteriorShade},
     haveInteriorShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade},
-    lat=0.73268921998722,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,
     til={Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall},
-    azi={0,0})
+    azi={0,0},
+    lat=0.73268921998722,
+    absIRFra={glaSys1.absSolFra,glaSys2.absSolFra})
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
@@ -275,7 +276,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/RoomsBeta/Constructions/Examples/ExteriorWallTwoWindows.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/RoomsBeta/Constructions/Examples/ExteriorWallTwoWindows.mos"
+        "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
             100}}), graphics),
     Documentation(info="<html>

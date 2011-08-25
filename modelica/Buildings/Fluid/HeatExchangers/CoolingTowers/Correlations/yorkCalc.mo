@@ -29,7 +29,10 @@ protected
 
 algorithm
   TWetBul_degC :=Modelica.SIunits.Conversions.to_degC(TWetBul);
-  liqGasRat := FRWat/FRAir;
+  // smoothMax is added to the numerator and denominator so that
+  // liqGasRat -> 1, as both FRWat -> 0 and FRAir -> 0
+  liqGasRat := Buildings.Utilities.Math.Functions.smoothMax(x1=1E-4, x2=FRWat, deltaX=1E-5)/
+               Buildings.Utilities.Math.Functions.smoothMax(x1=1E-4, x2=FRAir, deltaX=1E-5);
   TApp := c[1] +
        c[2] * TWetBul_degC +
        c[3] * TWetBul_degC * TWetBul_degC +
@@ -65,6 +68,10 @@ See <a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.Correlatio
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 12, 2011, by Michael Wetter:<br>
+Added <code>smoothMax</code> function to prevent division by zero.
+</li>
 <li>
 May 14, 2008, by Michael Wetter:<br>
 First implementation.

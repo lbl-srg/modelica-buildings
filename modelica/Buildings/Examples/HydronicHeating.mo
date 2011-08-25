@@ -126,12 +126,10 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     redeclare package Medium = Medium,
-    allowFlowReversal=false,
     dp_nominal=3000,
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=mBoi_flow_nominal,
-    T_start=293.15,
-    dT_nominal=dTBoi_nominal) "Boiler"
+    T_start=293.15) "Boiler"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,540},{-60,560}})));
@@ -143,10 +141,8 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     redeclare function flowCharacteristic =
         Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
           V_flow_nominal=mRad_flow_nominal/1000*{0,2}, dp_nominal=dp_nominal*{2,0}),
-    dynamicBalance=true,
-    tau=10,
     m_flow_nominal=mRad_flow_nominal,
-    allowFlowReversal=false) "Pump that serves the radiators"
+    dynamicBalance=false) "Pump that serves the radiators"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={220,50})));
@@ -231,14 +227,14 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
         rotation=90,
         origin={220,0})));
   Controls.Continuous.LimPID conVal(
-    k=1,
-    Ti=60,
     yMax=1,
     yMin=0,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     xi_start=1,
+    Td=60,
+    Ti=5,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
-    Td=60) "Controller for pump"
+    k=10) "Controller for pump"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Fluid.Storage.Stratified tan(
     m_flow_nominal=mRad_flow_nominal,
@@ -252,13 +248,11 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
     annotation (Placement(transformation(extent={{208,-140},{248,-100}})));
   Fluid.Movers.FlowMachine_y pumBoi(
     redeclare package Medium = Medium,
-    allowFlowReversal=false,
-    dynamicBalance=true,
-    tau=10,
     m_flow_nominal=mBoi_flow_nominal,
     redeclare function flowCharacteristic =
         Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          dp_nominal=5000*{1,2}, V_flow_nominal=mBoi_flow_nominal/1000*{1,0.5}))
+          dp_nominal=5000*{1,2}, V_flow_nominal=mBoi_flow_nominal/1000*{1,0.5}),
+    dynamicBalance=false)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-120})));
@@ -492,18 +486,6 @@ model HydronicHeating "Model of a hydronic heating system with energy storage"
   Modelica.Blocks.Sources.Constant TOutSwi(k=16 + 293.15)
     "Outside air temperature to switch heating on or off"
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
-  Modelica.Blocks.Continuous.FirstOrder delTRoo1(
-    initType=Modelica.Blocks.Types.Init.SteadyState,
-    y(unit="K"),
-    T=120,
-    y_start=293.15) "First order element to emulate sensor delay"
-    annotation (Placement(transformation(extent={{512,474},{532,494}})));
-  Modelica.Blocks.Continuous.FirstOrder delTRoo2(
-    initType=Modelica.Blocks.Types.Init.SteadyState,
-    y(unit="K"),
-    T=120,
-    y_start=293.15) "First order element to emulate sensor delay"
-    annotation (Placement(transformation(extent={{514,216},{534,236}})));
 equation
   connect(TAmb.port,boi. heatPort) annotation (Line(
       points={{-20,-90},{-10,-90},{-10,-112.8}},
@@ -542,7 +524,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b,pumBoi. port_a) annotation (Line(
-      points={{0,-120},{60,-120}},
+      points={{5.55112e-16,-120},{60,-120}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.heaPorVol[1], tanTemTop.port) annotation (Line(
@@ -566,7 +548,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, conVal.u_s) annotation (Line(
-      points={{101,0},{110,0},{110,0},{138,0}},
+      points={{101,1.22125e-15},{110.25,1.22125e-15},{110.25,1.88738e-15},{
+          119.5,1.88738e-15},{119.5,6.66134e-16},{138,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(tan.port_b, boi.port_a) annotation (Line(
@@ -640,7 +623,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conVal.y, thrWayVal.y) annotation (Line(
-      points={{161,0},{185.5,0},{185.5,4.89859e-016},{212,4.89859e-016}},
+      points={{161,6.10623e-16},{185.5,6.10623e-16},{185.5,1.15598e-15},{212,
+          1.15598e-15}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaPum.y, pumBoi.y)
@@ -832,11 +816,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(resSup.port_b, thrWayVal.port_3) annotation (Line(
-      points={{260,20},{260,-6.12323e-016},{230,-6.12323e-016}},
+      points={{260,20},{260,-1.68051e-18},{230,-1.68051e-18}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, heaCha.TOut) annotation (Line(
-      points={{-40,340},{-40,0},{20,0},{20,0},{78,0}},
+      points={{-40,340},{-40,0},{20,0},{20,1.22125e-15},{78,1.22125e-15}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -862,8 +846,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCha.TSup, lesThr.u1) annotation (Line(
-      points={{101,0},{110,0},{110,-80},{300,-80},{300,-100},{380,-100},{380,
-          -112},{398,-112}},
+      points={{101,1.22125e-15},{110,1.22125e-15},{110,-80},{300,-80},{300,-100},
+          {380,-100},{380,-112},{398,-112}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaBoi.y, boi.y) annotation (Line(
@@ -967,22 +951,6 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(TRoo1.T, delTRoo1.u) annotation (Line(
-      points={{500,484},{510,484}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(delTRoo1.y, conRoo1.u_m) annotation (Line(
-      points={{533,484},{550,484},{550,498}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TRoo2.T, delTRoo2.u) annotation (Line(
-      points={{500,226},{512,226}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(delTRoo2.y, conRoo2.u_m) annotation (Line(
-      points={{535,226},{550,226},{550,238}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(dpSen.p_rel, delRadPum.u) annotation (Line(
       points={{183,50},{162,50}},
       color={0,0,127},
@@ -1001,6 +969,14 @@ equation
       smooth=Smooth.None));
   connect(conPum.y, pumRad.y) annotation (Line(
       points={{141,110},{204,110},{204,50},{210,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TRoo1.T, conRoo1.u_m) annotation (Line(
+      points={{500,484},{550,484},{550,498}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TRoo2.T, conRoo2.u_m) annotation (Line(
+      points={{500,226},{550,226},{550,238}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,
@@ -1070,7 +1046,8 @@ the model to the Radau solver.
 To avoid this problem, use another compiler, such as Visual C++ 2008. 
 </p>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicHeating.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicHeating.mos"
+        "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-006,

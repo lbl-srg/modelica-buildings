@@ -2,13 +2,14 @@ within Buildings.Media.GasesConstantDensity;
 package SimpleAir
   "Package with dry air model that decouples pressure and temperature"
   extends Buildings.Media.Interfaces.PartialSimpleIdealGasMedium(
+     ThermoStates = Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables.pT,
+     final singleState = true,
      mediumName="GasesConstantDensity.SimpleAir",
      cp_const=1005.45,
      MM_const=0.0289651159,
      R_gas=Constants.R/0.0289651159,
      eta_const=1.82e-5,
      lambda_const=0.026,
-     final singleState=true,
      T_min=Cv.from_degC(-50),
      T_max=Cv.from_degC(100));
 
@@ -98,7 +99,14 @@ package SimpleAir
 
     // new medium equations
     h = specificEnthalpy_pTX(p,T,X);
-    u = h-R*T;
+
+    // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
+    // u = h-R*T;
+
+    // However, in this medium, the gas law is d=dStp (=constant), from which follows using h=u+pv that
+    // u= h-p*v = h-p/d = h-p/dStp
+    u = h-p/dStp;
+
     R = R_gas;
     //    d = p/(R*T);
     d = dStp;// = p/pStp;
@@ -123,9 +131,11 @@ package SimpleAir
     input Density d "density";
     input Temperature T "Temperature";
     input MassFraction X[:] = fill(0,0) "Mass fractions";
-    output ThermodynamicState state;
+    output ThermodynamicState state "Thermodynamic state";
  algorithm
-    state := ThermodynamicState(p=d/dStp*pStp,T=T);
+   ModelicaError("The function 'setState_dTX' must not be used in GasesConstantDensity as
+                in this medium model, the pressure cannot be determined from the density.\n");
+    state :=setState_pTX(pStp, T, X);
  end setState_dTX;
 
  redeclare function density "return density of ideal gas"
@@ -133,8 +143,16 @@ package SimpleAir
     input ThermodynamicState state "thermodynamic state record";
     output Density d "Density";
  algorithm
-    d := dStp*state.p/pStp;
+    d := dStp;
  end density;
+
+ redeclare function specificInternalEnergy "Return specific internal energy"
+   extends Modelica.Icons.Function;
+   input ThermodynamicState state "thermodynamic state record";
+   output SpecificEnergy u "Specific internal energy";
+ algorithm
+   u := specificEnthalpy(state) - state.p/dStp;
+ end specificInternalEnergy;
 
  redeclare replaceable function specificEntropy "Return specific entropy"
     extends Modelica.Icons.Function;
@@ -155,6 +173,11 @@ algorithm
 Dummy function that returns <code>0</code>.
 </html>", revisions="<html>
 <ul>
+<li>
+August 3, 2011, by Michael Wetter:<br>
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+For this medium, the function is <code>u=h-p/dStp</code>.
+</li>
 <li>
 April 27, 2011, by Michael Wetter:<br>
 First implementation to allow using the room model with a medium that does not contain water vapor.
@@ -206,6 +229,18 @@ quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 3, 2011, by Michael Wetter:<br>
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+For this medium, the function is <code>u=h-p/dStp</code>.
+</li>
+<li>
+August 2, 2011, by Michael Wetter:<br>
+Fixed error in the function <code>density</code> which returned a non-constant density,
+and added a call to <code>ModelicaError(...)</code> in <code>setState_dTX</code> since this
+function cannot assign the medium pressure based on the density (as density is a constant
+in this model).
+</li>
 <li>
 April 27, 2011, by Michael Wetter:<br>
 Added function <code>enthalpyOfCondensingGas</code>, which returns <code>0</code>,

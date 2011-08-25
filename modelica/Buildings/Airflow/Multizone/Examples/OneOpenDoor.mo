@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model OneOpenDoor
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOpen dooOpe(redeclare package
@@ -12,15 +12,18 @@ model OneOpenDoor
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    nPorts=4) annotation (Placement(transformation(extent={{-32,14},{-12,34}},
+    nPorts=4,
+    m_flow_nominal=0.01)
+              annotation (Placement(transformation(extent={{-32,14},{-12,34}},
           rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    use_HeatTransfer=true,
-    nPorts=4) annotation (Placement(transformation(extent={{60,60},{80,80}},
+    nPorts=4,
+    m_flow_nominal=0.01)
+              annotation (Placement(transformation(extent={{60,60},{80,80}},
           rotation=0)));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{14,60},{34,80}}, rotation=0)));
@@ -84,6 +87,11 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneOpenDoor.mos" "Simulate and plot"),
-    Diagram);
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneOpenDoor.mos"
+        "Simulate and plot"),
+    Diagram,
+    experiment(
+      StopTime=3600,
+      Tolerance=1e-05,
+      Algorithm="Radau"));
 end OneOpenDoor;

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Chillers;
 model ElectricEIR "Electric chiller based on the DOE-2.1 model"
-  extends Buildings.Fluid.Chillers.BaseClasses.PartialElectricSteadyState(
+  extends Buildings.Fluid.Chillers.BaseClasses.PartialElectric(
   final QEva_flow_nominal = per.QEva_flow_nominal,
   final COP_nominal= per.COP_nominal,
   final PLRMax= per.PLRMax,
@@ -164,7 +164,8 @@ regression techniques. A detailed description of both techniques can be found in
 Hydeman and Gillespie (2002).
 </p>
 <p>
-The model takes as an input the set point for the leaving chilled water temperature, which is met if the chiller has sufficient capacity.
+The model takes as an input the set point for the leaving chilled water temperature, 
+which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
 The model has three tests on the part load ratio and the cycling ratio:
 <ol>
@@ -180,7 +181,10 @@ The test <pre>
   CR = min(PLR1/per.PRLMin, 1.0);
 </pre>
 computes a cycling ratio. This ratio expresses the fraction of time
-that a chiller would run if it were to cycle because its load is smaller than the minimal load at which it can operature. Notice that this model does continuously operature even if the part load ratio is below the minimum part load ratio. Its leaving evaporator and condenser temperature can therefore be considered as an 
+that a chiller would run if it were to cycle because its load is smaller than the 
+minimal load at which it can operate. 
+Note that this model continuously operates even if the part load ratio is below the minimum part load ratio. 
+Its leaving evaporator and condenser temperature can therefore be considered as an 
 average temperature between the modes where the compressor is off and on.
 </li>
 <li>
@@ -197,7 +201,7 @@ power draw does not change.
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
 </p>
 <p>
-On the Assumptions tag, the model can be parametrized to compute a transient
+The model can be parametrized to compute a transient
 or steady-state response.
 The transient response of the boiler is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.

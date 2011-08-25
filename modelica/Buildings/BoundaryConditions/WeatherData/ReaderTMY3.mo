@@ -1,7 +1,13 @@
 within Buildings.BoundaryConditions.WeatherData;
 block ReaderTMY3 "Reader for TMY3 weather data "
+  import Buildings.BoundaryConditions.Types.DataSource;
+  parameter Buildings.BoundaryConditions.Types.DataSource pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter
+    "Atmosheric pressure"
+    annotation (Evaluate=true, Dialog(group="Data source"));
+  parameter Modelica.SIunits.Pressure pAtm = 101325
+    "Atmospheric pressure (used if pAtmSou=Parameter)"
+      annotation (Evaluate=true, Dialog(group="Data source"));
 
-public
   parameter String filNam "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
@@ -14,6 +20,10 @@ public
   Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
             190,-10},{210,10}}), iconTransformation(extent={{190,-10},{210,10}})));
 
+  Modelica.Blocks.Interfaces.RealInput pAtm_in if
+         (pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    "Input pressure"
+    annotation (Placement(transformation(extent={{-240,160},{-200,200}})));
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
@@ -88,7 +98,21 @@ protected
     annotation (Placement(transformation(extent={{-120,-120},{-100,-100}})));
   BaseClasses.SolarTime solTim "Solar time"
     annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
+  // Conditional connectors
+
+  Modelica.Blocks.Interfaces.RealInput pAtm_in_internal
+    "Needed to connect to conditional connector";
 equation
+
+  if pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
+    pAtm_in_internal = pAtm;
+  elseif pAtmSou == Buildings.BoundaryConditions.Types.DataSource.File then
+    connect(pAtm_in_internal, datRea.y[4]);
+  else
+    connect(pAtm_in, pAtm_in_internal);
+  end if;
+  connect(pAtm_in_internal, chePre.PIn);
+
   connect(conTemDryBul.TemK, weaBus.TDryBul) annotation (Line(
       points={{21,110},{116,110},{116,5.55112e-16},{200,5.55112e-16}},
       color={0,0,127},
@@ -303,10 +327,6 @@ equation
       points={{-59,-30},{-12,-30},{-12,-130},{58,-130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(datRea.y[4], chePre.PIn) annotation (Line(
-      points={{-59,-30},{-12,-30},{-12,50},{58,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(datRea.y[16], cheCeiHei.ceiHeiIn) annotation (Line(
       points={{-59,-30},{-12,-30},{-12,-110},{-2,-110}},
       color={0,0,127},
@@ -389,6 +409,25 @@ By default, the reader obtains values for these parameters
 by scanning the TMY3 weather data file.
 </p>
 <p>
+By default, the atmospheric pressure is set to the parameter <code>pAtm = 101325</code> Pascals.
+The parameter <code>pAtmSou</code> can be used to change the source that is used as the atmospheric pressure.
+The available options are to use the atmospheric pressure from the parameter (default), from the weather file, or 
+from an input connector. The input connector will be enabled if 
+<code>pAtmSou = Buildings.BoundaryConditions.Types.DataSource.Input</code>.
+</p>
+<p>
+<b>Note:</b> In HVAC systems, when the fan is off, changes in atmospheric pressure can cause small air flow rates
+in the duct system due to change in pressure and hence in the mass of air that is stored
+in air volumes (such as in fluid junctions or in the room model). 
+This may increase computing time. Therefore, the default value for the atmospheric pressure
+is set to a constant.
+Furthermore, if the initial pressure of air volumes are different
+from the atmospheric pressure, then fast pressure transients can happen in the first few seconds of the simulation.
+This can cause numerical problems for the solver. To avoid this problem, set the atmospheric pressure to the
+same value as the medium default pressure, which is typically set to the parameter <code>Medium.p_default</code>.
+</p>
+<h4>Implementation</h4>
+<p>
 To read weather data from the TMY3 weather data file, there are
 two data readers in this model. One data reader obtains all data
 except solar radiation, and the other data reader reads only the
@@ -419,8 +458,12 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 ", revisions="<html>
 <ul>
 <li>
+July 20, 2011, by Michael Wetter:<br>
+Added the option to use a constant, an input signal or the weather file as the source
+for the atmospheric pressure.
+</li><li>
 March 15, 2011, by Wangda Zuo:<br>
-Delete the wet bulb temperature since it may cause numericla problem.
+Delete the wet bulb temperature since it may cause numerical problem.
 </li>
 <li>
 March 7, 2011, by Wangda Zuo:<br>

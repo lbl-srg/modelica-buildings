@@ -15,7 +15,8 @@ model To_VolumeFraction "Example problem for conversion model"
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     reverseAction=true,
     Ti=600,
-    k=2)
+    k=2,
+    Td=1)
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.Fluid.Sensors.TraceSubstances senCO2(redeclare package Medium =
         Medium, substanceName="CO2") "CO2 sensor"
@@ -26,7 +27,8 @@ model To_VolumeFraction "Example problem for conversion model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     V=4*4*2.7,
-    C_start={300E-6}*44.009544/28.9651159) "Volume of air"
+    C_start={300E-6}*44.009544/28.9651159,
+    m_flow_nominal=0.1) "Volume of air"
     annotation (Placement(transformation(extent={{90,60},{110,80}})));
   Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate souCO2(
     use_m_flow_in=true,
@@ -68,12 +70,12 @@ model To_VolumeFraction "Example problem for conversion model"
     "Conversion from m3/s to m3/h"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubPeo(m_flow_nominal=0.1,
-      redeclare package Medium = Medium)
-    "CO2 concentration in absorptance from people"
+      redeclare package Medium = Medium,
+    C_start=0) "CO2 concentration in absorptance from people"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubFre(m_flow_nominal=0.1,
-      redeclare package Medium = Medium)
-    "CO2 concentration in fresh air supply"
+      redeclare package Medium = Medium,
+    C_start=0) "CO2 concentration in fresh air supply"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
 equation
 
@@ -146,7 +148,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos" "Simulate and plot"),
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
+        "Simulate and plot"),
   Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
             100}}),   graphics),
     Documentation(info="<html>

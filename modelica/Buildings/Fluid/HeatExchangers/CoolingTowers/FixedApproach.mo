@@ -1,60 +1,37 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model FixedApproach "Cooling tower with constant approach temperature"
-  extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer(sensibleOnly=true,
-  final show_T = true,
-  final Q_flow = m_flow * (Medium.specificEnthalpy(
-                             Medium.setState_pTX(
-                                p=port_b.p,
-                                T=TAir+TAppAct,
-                                X=inStream(port_b.Xi_outflow)))
-                             -inStream(port_a.h_outflow)),
-   final mXi_flow = zeros(Medium.nXi));
-  extends Buildings.BaseClasses.BaseIcon;
+  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
+
   parameter Modelica.SIunits.TemperatureDifference TApp(min=0, displayUnit="K") = 2
     "Approach temperature difference";
   Modelica.Blocks.Interfaces.RealInput TAir(min=0, unit="K")
     "Entering air dry or wet bulb temperature"
      annotation (Placement(transformation(
           extent={{-140,20},{-100,60}}, rotation=0)));
-  Modelica.SIunits.TemperatureDifference TAppAct(min=0, nominal=1, displayUnit="K")
-    "Actual approach temperature";
 equation
   TAppAct=TApp;
+  TAirHT=TAir;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                    graphics={
-        Rectangle(
-          extent={{-70,86},{70,-80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,41},{-70,38}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-104,70},{-70,32}},
+          extent={{-98,70},{-64,32}},
           lineColor={0,0,127},
-          textString="TAir"),
-        Rectangle(
-          extent={{-102,5},{99,-5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          textString="TAir")}),
                           Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}),
                                   graphics),
-defaultComponentName="cooTow",
     Documentation(info="<html>
 <p>
-Model for a steady state cooling tower with constant approach temperature.
+Model for a steady-state or dynamic cooling tower with constant approach temperature.
+The approach temperature is the difference between the leaving water temperature and
+the entering air temperature.
+The entering air temperature is used from the signal <code>TAir</code>. If 
+connected to the a dry-bulb temperature, then a dry cooling tower is modeled.
+If connected to a wet-bulb temperature, then a wet cooling tower is modeled.
 </p><p>
-By connecting a signal that contains either the dry bulb or the wet bulb
+By connecting a signal that contains either the dry-bulb or the wet-bulb
 temperature, this model can be used to estimate the water return temperature
 from a cooling tower. 
 For a more detailed model, use for example the
@@ -63,6 +40,14 @@ model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 12, 2011, by Michael Wetter:<br>
+Introduced common base class for
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>
+and
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach\">Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach</a>
+so that they can be used as replaceable models.
+</li>
 <li>
 May 12, 2011, by Michael Wetter:<br>
 Added binding equations for <code>Q_flow</code> and <code>mXi_flow</code>.

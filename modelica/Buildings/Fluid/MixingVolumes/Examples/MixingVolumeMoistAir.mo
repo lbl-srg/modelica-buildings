@@ -4,14 +4,16 @@ model MixingVolumeMoistAir
   import Buildings;
 
 // package Medium = Buildings.Media.PerfectGases.MoistAir;
-   package Medium = Buildings.Media.GasesPTDecoupled.MoistAir;
-  // package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+ //  package Medium = Buildings.Media.GasesPTDecoupled.MoistAir;
+   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 
   Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol1(
     redeclare package Medium = Medium,
     V=1,
     nPorts=2,
-    use_HeatTransfer=true) "Volume"
+    m_flow_nominal=0.001,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial) 
+    "Volume"
           annotation (Placement(transformation(extent={{50,0},{70,20}},
           rotation=0)));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TSen
@@ -119,13 +121,12 @@ equation
   connect(vol1.X_w, humRat.X_w) annotation (Line(points={{72,6},{80,6},{80,
           -134},{-28,-134},{-28,-110},{-21,-110}}, color={0,0,127}));
   connect(sou.ports[1], mIn_flow.port_a) annotation (Line(
-      points={{-20,6.66134e-16},{-13.5,6.66134e-16},{-13.5,1.27676e-15},{-7,
-          1.27676e-15},{-7,6.10623e-16},{6,6.10623e-16}},
+      points={{-20,0},{-13.5,0},{-13.5,1.27676e-015},{-7,1.27676e-015},{-7,0},{
+          6,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(mOut_flow.port_b, sin.ports[1]) annotation (Line(
-      points={{104,6.10623e-16},{117,6.10623e-16},{117,1.55431e-15},{130,
-          1.55431e-15}},
+      points={{104,0},{117,0},{117,1.33227e-015},{130,1.33227e-015}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(heatFlowSensor.port_b, vol1.heatPort) annotation (Line(
@@ -137,17 +138,15 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(mIn_flow.port_b, vol1.ports[1]) annotation (Line(
-      points={{26,6.10623e-16},{42,6.10623e-16},{42,-5.55112e-16},{58,
-          -5.55112e-16}},
+      points={{26,0},{58,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(mOut_flow.port_a, vol1.ports[2]) annotation (Line(
-      points={{84,6.10623e-16},{71,6.10623e-16},{71,-5.55112e-16},{62,
-          -5.55112e-16}},
+      points={{84,0},{62,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(PI.y, gai.u) annotation (Line(
-      points={{-19,130},{-6.66134e-16,130}},
+      points={{-19,130},{0,130}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(humRat.p_w, dewPoi.p_w) annotation (Line(
@@ -156,5 +155,6 @@ equation
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -160},{180,160}}),      graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos" "Simulate and plot"));
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumeMoistAir.mos"
+        "Simulate and plot"));
 end MixingVolumeMoistAir;

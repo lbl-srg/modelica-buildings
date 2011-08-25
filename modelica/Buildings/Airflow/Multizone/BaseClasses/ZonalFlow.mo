@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.BaseClasses;
 partial model ZonalFlow "Flow across zonal boundaries of a room"
-  extends Buildings.Fluid.Interfaces.PartialStaticFourPortInterface(
+  extends Buildings.Fluid.Interfaces.PartialFourPortInterface(
      redeclare final package Medium1 = Medium,
      redeclare final package Medium2 = Medium,
      final allowFlowReversal1 = false,

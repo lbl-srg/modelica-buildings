@@ -1,67 +1,43 @@
 within Buildings.Fluid.Storage;
 model ExpansionVessel "Pressure expansion vessel with fixed gas cushion"
- extends Buildings.Fluid.Interfaces.PartialLumpedVolume(
-   fluidVolume = VLiq,
-   energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    substanceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    traceDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
-
+ extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
  parameter Modelica.SIunits.Volume VTot
     "Total volume of vessel (water and gas side)";
  parameter Modelica.SIunits.Volume VGas0 = VTot/2 "Initial volume of gas";
 
+//////////////////////////////////////////////////////////////
   Modelica.Fluid.Interfaces.FluidPort_a port_a(redeclare package Medium =
         Medium) "Fluid port"
     annotation (Placement(transformation(extent={{-10,-110},{10,-90}})));
 
-  // Heat transfer through boundary
-  parameter Boolean use_HeatTransfer = false
-    "= true to use the HeatTransfer model"
-      annotation (Dialog(tab="Assumptions", group="Heat transfer"));
   parameter Modelica.SIunits.Pressure pMax = 5E5
     "Maximum pressure before simulation stops with an error";
-  replaceable model HeatTransfer =
-      Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
-        surfaceAreas={4*Modelica.Constants.pi*(3/4*VTot/Modelica.Constants.pi)^(2/3)})
-    constrainedby
-    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer
-    "Wall heat transfer"
-      annotation (Dialog(tab="Assumptions", group="Heat transfer",enable=use_HeatTransfer),choicesAllMatching=true);
-  HeatTransfer heatTransfer(
-    redeclare final package Medium = Medium,
-    final n=1,
-    final states = {medium.state},
-    final use_k = use_HeatTransfer)
-      annotation (Placement(transformation(
-        extent={{-10,-10},{30,30}},
-        rotation=90,
-        origin={-50,-10})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
 
 protected
  Modelica.SIunits.Volume VLiq "Volume of liquid in the vessel";
+  Buildings.Fluid.Interfaces.LumpedVolume vol(
+    redeclare final package Medium = Medium,
+    final nPorts = 1,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final C_nominal=C_nominal,
+    final fluidVolume = VLiq,
+    final Q_flow = 0,
+    final mXi_flow = zeros(Medium.nXi))
+    "Model for mass and energy balance of water in expansion vessel";
+
 equation
-  assert(medium.p < pMax, "Pressure exceeds maximum pressure.\n" +
+  assert(port_a.p < pMax, "Pressure exceeds maximum pressure.\n" +
        "You may need to increase VTot of the ExpansionVessel.");
+
   // Water content and pressure
-  port_a.p * (VTot-fluidVolume) = p_start * VGas0;
-  port_a.p = medium.p;
+  port_a.p * (VTot-VLiq) = p_start * VGas0;
 
-  // Balance equations
-  mb_flow = port_a.m_flow;
-  mbXi_flow = port_a.m_flow * actualStream(port_a.Xi_outflow)
-    "Component mass flow";
-  mbC_flow  = port_a.m_flow * actualStream(port_a.C_outflow)
-    "Trace substance mass flow";
-  Hb_flow   = port_a.m_flow * actualStream(port_a.h_outflow) "Enthalpy flow";
-  Qb_flow   = heatTransfer.Q_flows[1];
-
-  // Outflowing quantities
-  port_a.h_outflow  = medium.h;
-  port_a.Xi_outflow = medium.Xi;
-  port_a.C_outflow  = C;
+  connect(port_a, vol.ports[1]);
    annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={
         Ellipse(
@@ -74,13 +50,6 @@ equation
           fillColor={0,0,127},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Rectangle(
-          visible=use_HeatTransfer,
-          extent={{-90,2},{-80,-2}},
-          pattern=LinePattern.None,
-          fillColor={127,0,0},
-          fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),
         Text(
           extent={{-148,98},{152,138}},
           textString="%name",
@@ -110,6 +79,16 @@ the thermal expansion of the liquid.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 26, 2011 by Michael Wetter:<br>
+Revised model to use new declarations from
+<a href=\"Buildings.Fluid.Interfaces.LumpedVolumeDeclarations\">
+Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</a>.
+</li>
+<li>
+May 25, 2011 by Michael Wetter:<br>
+Revised model due to a change in the fluid volume model.
+</li>
 <li>
 Nov. 4, 2009 by Michael Wetter:<br>
 First implementation.

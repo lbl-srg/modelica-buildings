@@ -3,7 +3,7 @@ model MixingVolume
   import Buildings;
   extends Modelica.Icons.Example;
 
-  package Medium = Buildings.Media.PerfectGases.MoistAir;
+  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
 
     Modelica.Blocks.Sources.Ramp P(
     duration=0.5,
@@ -36,7 +36,8 @@ model MixingVolume
     V=0.1,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=2)
           annotation (Placement(transformation(extent={{0,10},{20,30}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
@@ -84,7 +85,8 @@ model MixingVolume
     V=0.1,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=2)
           annotation (Placement(transformation(extent={{0,-82},{20,-62}},
           rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res21(
@@ -199,5 +201,6 @@ equation
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{180,100}}),      graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolume.mos" "Simulate and plot"));
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolume.mos"
+        "Simulate and plot"));
 end MixingVolume;

@@ -21,7 +21,6 @@ initial algorithm
    assert(kThetaSqRt_nominal>0, "Flow coefficient must be strictly positive.");
    kDam_nominal :=sqrt(2*rho_nominal)*A/kThetaSqRt_nominal
     "flow coefficient for resistance base model, kDam=k=m_flow/sqrt(dp)";
-
    annotation (
 defaultComponentName="dam",
 Documentation(info="<html>
@@ -100,7 +99,12 @@ First implementation.
 </li>
 </ul>
 </html>"), Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
-            {100,100}}), graphics={Polygon(
+            {100,100}}), graphics={
+        Rectangle(
+          extent={{-100,22},{100,-24}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),  Polygon(
           points={{-26,12},{22,54},{22,42},{-26,0},{-26,12}},
           lineColor={0,0,0},
           smooth=Smooth.None,

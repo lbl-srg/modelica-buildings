@@ -17,9 +17,8 @@ partial model PartialElectric
   parameter Modelica.SIunits.MassFlowRate mCon_flow_nominal=
      per.mCon_flow_nominal "Nominal mass flow rate at condenser";
 
-  replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectricSteadyState
-    chi constrainedby
-    Buildings.Fluid.Chillers.BaseClasses.PartialElectricSteadyState(
+  replaceable Buildings.Fluid.Chillers.BaseClasses.PartialElectric
+    chi constrainedby Buildings.Fluid.Chillers.BaseClasses.PartialElectric(
        redeclare package Medium1 = Medium1,
        redeclare package Medium2 = Medium2,
        dp1_nominal=6000,

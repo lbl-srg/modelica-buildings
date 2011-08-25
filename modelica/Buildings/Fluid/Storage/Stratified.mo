@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage;
 model Stratified "Model of a stratified tank for thermal energy storage"
-  extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface;
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface;
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialSimpleMedium;
@@ -17,25 +17,18 @@ model Stratified "Model of a stratified tank for thermal energy storage"
   // Assumptions
   parameter Types.Dynamics energyDynamics=system.energyDynamics
     "Formulation of energy balance"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Types.Dynamics massDynamics=energyDynamics
     "Formulation of mass balance"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   // Initialization
   parameter Medium.AbsolutePressure p_start = Medium.p_default
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
-  parameter Boolean use_T_start = true "= true, use T_start, otherwise h_start"
-    annotation(Dialog(tab = "Initialization"), Evaluate=true);
-  parameter Medium.Temperature T_start=
-    if use_T_start then 293.15 else Medium.temperature_phX(p_start,h_start,X_start)
+  parameter Medium.Temperature T_start=Medium.T_default
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization", enable = use_T_start));
-  parameter Medium.SpecificEnthalpy h_start=
-    if use_T_start then Medium.specificEnthalpy_pTX(p_start, T_start, X_start) else Medium.h_default
-    "Start value of specific enthalpy"
-    annotation(Dialog(tab = "Initialization", enable = not use_T_start));
+    annotation(Dialog(tab = "Initialization"));
   parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
@@ -51,17 +44,13 @@ model Stratified "Model of a stratified tank for thermal energy storage"
     each energyDynamics=energyDynamics,
     each massDynamics=massDynamics,
     each p_start=p_start,
-    each use_T_start=use_T_start,
     each T_start=T_start,
-    each h_start=h_start,
     each X_start=X_start,
     each C_start=C_start,
     each V=VTan/nSeg,
     each nPorts=nPorts,
-    each use_HeatTransfer=true,
-    redeclare each model HeatTransfer =
-        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer)
-    "Tank segment"            annotation (Placement(transformation(extent={{6,-16},
+    each m_flow_nominal = m_flow_nominal) "Tank segment"
+                              annotation (Placement(transformation(extent={{6,-16},
             {26,4}},       rotation=0)));
   Sensors.EnthalpyFlowRate hA_flow(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal) "Enthalpy flow rate at port a"
@@ -190,7 +179,7 @@ equation
   connect(vol[1].heatPort, conTop.port_a)    annotation (Line(points={{6,-6},{6,
           60},{-4,60},{10,60}},              color={191,0,0}));
   connect(vol.heatPort, conWal.port_a)    annotation (Line(points={{6,-6},{6,40},
-          {0,40},{10,40}},               color={191,0,0}));
+          {10,40}},                      color={191,0,0}));
   connect(conBot.port_a, vol[nSeg].heatPort)    annotation (Line(points={{10,20},
           {10,20},{6,20},{6,-6}},
                                color={191,0,0}));
@@ -264,6 +253,10 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 29, 2011, by Michael Wetter:<br>
+Removed <code>use_T_start</code> and <code>h_start</code>.
+</li>
 <li>
 February 18, 2011, by Michael Wetter:<br>
 Changed default start values for temperature and pressure.

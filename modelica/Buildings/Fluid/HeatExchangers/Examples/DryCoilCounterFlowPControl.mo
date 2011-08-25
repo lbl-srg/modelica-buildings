@@ -60,8 +60,8 @@ model DryCoilCounterFlowPControl
     m_flow_nominal=m1_flow_nominal)
                      annotation (Placement(transformation(extent={{90,50},{110,
             70}}, rotation=0)));
-  Buildings.Fluid.Sensors.TemperatureDynamicTwoPort temSen(redeclare package
-      Medium = Medium2, m_flow_nominal=m2_flow_nominal)
+  Buildings.Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium =
+               Medium2, m_flow_nominal=m2_flow_nominal)
     annotation (Placement(transformation(extent={{20,10},{0,30}}, rotation=0)));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = Medium1,
@@ -69,8 +69,8 @@ model DryCoilCounterFlowPControl
         transformation(extent={{30,50},{50,70}}, rotation=0)));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,288.15; 600,288.15; 600,
         298.15; 1200,298.15; 1800,283.15; 2400,283.15; 2400,288.15])
-    "Setpoint temperature" annotation (Placement(transformation(extent={{-60,
-            100},{-40,120}}, rotation=0)));
+    "Setpoint temperature" annotation (Placement(transformation(extent={{-40,90},
+            {-20,110}},      rotation=0)));
   Buildings.Fluid.HeatExchangers.DryCoilCounterFlow hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
@@ -87,7 +87,6 @@ model DryCoilCounterFlowPControl
         T_a2_nominal,
         T_b2_nominal))       annotation (Placement(transformation(extent={{60,
             16},{80,36}}, rotation=0)));
-
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Sources.Constant const(k=0.8)
@@ -97,27 +96,24 @@ model DryCoilCounterFlowPControl
     annotation (Placement(transformation(extent={{150,-42},{170,-22}})));
   Modelica.Blocks.Sources.Constant const1(k=T_a2_nominal)
     annotation (Placement(transformation(extent={{100,-38},{120,-18}})));
-  Buildings.Controls.Continuous.LimPID limPID(
+  Buildings.Controls.Continuous.LimPID con(
     Td=1,
     reverseAction=true,
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=60)
-    annotation (Placement(transformation(extent={{-30,100},{-10,120}})));
-  Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
-                                                     redeclare package Medium
-      = Medium2, m_flow_nominal=m2_flow_nominal)
-    annotation (Placement(transformation(extent={{50,10},{30,30}})));
+    k=0.1,
+    Ti=10) "Controller"
+    annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Modelica.Blocks.Sources.Ramp TWat(
     height=30,
     offset=T_a1_nominal,
     startTime=300,
     duration=2000) "Water temperature, raised to high value at t=3000 s"
-    annotation (Placement(transformation(extent={{-96,54},{-76,74}})));
+    annotation (Placement(transformation(extent={{-80,54},{-60,74}})));
 equation
   connect(hex.port_b1, res_1.port_a) annotation (Line(points={{80,32},{86,32},{
           86,60},{90,60}}, color={0,127,255}));
-  connect(val.port_b, hex.port_a1) annotation (Line(points={{50,60},{52,60},{52,
+  connect(val.port_b, hex.port_a1) annotation (Line(points={{50,60},{54,60},{54,
           32},{60,32}}, color={0,127,255}));
   connect(sou_1.ports[1], val.port_a) annotation (Line(
       points={{-20,60},{30,60}},
@@ -155,31 +151,28 @@ equation
       points={{121,-28},{134,-28},{134,0},{160,0},{160,24},{142,24}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TSet.y, limPID.u_s) annotation (Line(
-      points={{-39,110},{-32,110}},
+  connect(TSet.y, con.u_s)    annotation (Line(
+      points={{-19,100},{-2,100}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(temSen.T, limPID.u_m) annotation (Line(
-      points={{10,31},{10,80},{-20,80},{-20,98}},
+  connect(temSen.T, con.u_m)    annotation (Line(
+      points={{10,31},{10,88}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TWat.y, sou_1.T_in) annotation (Line(
-      points={{-75,64},{-42,64}},
+      points={{-59,64},{-42,64}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(limPID.y, val.y) annotation (Line(
-      points={{-9,110},{40,110},{40,68}},
+  connect(con.y, val.y)    annotation (Line(
+      points={{21,100},{40,100},{40,68}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hex.port_b2, senRelHum.port_a) annotation (Line(
-      points={{60,20},{50,20}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senRelHum.port_b, temSen.port_a) annotation (Line(
-      points={{30,20},{20,20}},
+  connect(temSen.port_a, hex.port_b2) annotation (Line(
+      points={{20,20},{60,20}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{200,200}}), graphics), 
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowPControl.mos" "Simulate and plot"));
+            -100},{200,200}}), graphics),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowPControl.mos"
+        "Simulate and plot"));
 end DryCoilCounterFlowPControl;

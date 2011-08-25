@@ -1,7 +1,7 @@
 within Buildings.Airflow.Multizone.Examples;
 model ChimneyShaftNoVolume
   "Test model that demonstrates the chimney effect with a shaft that does not contain an air volume"
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   import Buildings;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
@@ -12,7 +12,7 @@ model ChimneyShaftNoVolume
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 20,
     redeclare package Medium = Medium,
-    use_HeatTransfer=true,
+    m_flow_nominal=0.05,
     p_start=101325) "Air volume of a room"
                            annotation (Placement(transformation(extent={{-10,-48},
             {10,-28}},   rotation=0)));
@@ -105,7 +105,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.T, con.u_m) annotation (Line(
-      points={{-70,6.10623e-16},{-50,6.10623e-16},{-50,18}},
+      points={{-70,0},{-50,0},{-50,18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.u, con.y) annotation (Line(
@@ -113,7 +113,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, preHea.Q_flow) annotation (Line(
-      points={{-7,30},{2.50304e-15,30},{2.50304e-15,20}},
+      points={{-7,30},{1.83697e-015,30},{1.83697e-015,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sha.port_a, oriChiTop.port_a) annotation (Line(
@@ -129,13 +129,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preHea.port, roo.heatPort) annotation (Line(
-      points={{-1.22629e-15,1.22125e-15},{-1.22629e-15,-20},{-20,-20},{-20,-38},
-          {-10,-38}},
+      points={{-1.83697e-015,0},{-1.83697e-015,-20},{-20,-20},{-20,-38},{-10,
+          -38}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(roo.heatPort, temSen.port) annotation (Line(
-      points={{-10,-38},{-40,-38},{-40,-20},{-96,-20},{-96,6.10623e-16},{-90,
-          6.10623e-16}},
+      points={{-10,-38},{-40,-38},{-40,-20},{-96,-20},{-96,0},{-90,0}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(bou0.ports[1], oriChiTop.port_b)  annotation (Line(
@@ -147,7 +146,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(roo.ports[2], oriChiBot.port_a)  annotation (Line(
-      points={{5.55112e-16,-48},{4,-48},{4,-64},{40,-64},{40,-59}},
+      points={{2.22045e-016,-48},{4,-48},{4,-64},{40,-64},{40,-59}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(oriBot.port_b, staOut1.port_a) annotation (Line(
@@ -165,7 +164,8 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),
                       graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ChimneyShaftNoVolume.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ChimneyShaftNoVolume.mos"
+        "Simulate and plot"),
     experiment(
       StopTime=3600,
       Tolerance=1e-06,

@@ -97,13 +97,6 @@ Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
     millimeters water (mmH20). Therefore, to avoid confusion and to make this model applicable for any medium,
     the model has been changed to use total pressure in Pascals instead of head in meters.
 </li>
-<li><i>Dec 2008</i>
-    by R&uuml;diger Franke:<br>
-    <ul>
-    <li>Replaced simplified mass and energy balances with rigorous formulation (base class PartialLumpedVolume)</li>
-    <li>Introduced optional HeatTransfer model defining Qb_flow</li>
-    <li>Enabled events when the checkValve is operating to support the opening of a discrete valve before port_a</li>
-    </ul></li>
 <li><i>31 Oct 2005</i>
     by <a href=\"mailto:francesco.casella@polimi.it\">Francesco Casella</a>:<br>
        Model added to the Fluid library</li>

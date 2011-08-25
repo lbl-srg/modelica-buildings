@@ -1,21 +1,17 @@
 within Buildings.Fluid.Chillers.BaseClasses;
-partial model PartialElectricSteadyState
+partial model PartialElectric
   "Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus"
-  extends Buildings.Fluid.Interfaces.PartialDynamicFourPortTransformer(
+  extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
    m1_flow_nominal = mCon_flow_nominal,
    m2_flow_nominal = mEva_flow_nominal,
-   h_outflow_b1_start=Medium1.specificEnthalpy_pTX(Medium1.p_default, 273.15+25, Medium1.X_default),
-   h_outflow_b2_start=Medium2.specificEnthalpy_pTX(Medium2.p_default, 273.15+5, Medium2.X_default),
-   vol2(V=m2_flow_nominal*tau2/rho2_nominal, nPorts=2,
-      energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      substanceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      traceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial),
+   T1_start = 273.15+25,
+   T2_start = 273.15+5,
+   redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2(
+      V=m2_flow_nominal*tau2/rho2_nominal,
+      nPorts=2,
+      final prescribedHeatFlowRate=true),
     vol1(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      substanceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      traceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial));
+      final prescribedHeatFlowRate=true));
 
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
@@ -241,25 +237,9 @@ Base class for model of an electric chiller, based on the DOE-2.1 chiller model 
 CoolTools chiller model that are implemented in EnergyPlus as the models
 <code>Chiller:Electric:EIR</code> and <code>Chiller:Electric:ReformulatedEIR</code>.
 </p>
-<p>Models that extend from this base class need to provide
-three functions to predict capacity and power consumption:
-<ul>
-<li>
-A function to predict cooling capacity. The function value needs
-to be assigned to <code>capFunT</code>.
-</li>
-<li>
-A functions to predict power input as a function of temperature.
-The function value needs to be assigned to <code>EIRFunT</code>.
-</li>
-<li>
-A functions to predict power input as a function of part load ratio.
-The function value needs to be assigned to <code>EIRFunPLR</code>.
-</li>
-</ul>
-</p>
 <p>
-The model takes as an input the set point for the leaving chilled water temperature, which is met if the chiller has sufficient capacity.
+The model takes as an input the set point for the leaving chilled water temperature, 
+which is met if the chiller has sufficient capacity.
 Thus, the model has a built-in, ideal temperature control.
 The model has three tests on the part load ratio and the cycling ratio:
 <ol>
@@ -290,6 +270,25 @@ power draw does not change.
 </p>
 <p>
 The electric power only contains the power for the compressor, but not any power for pumps or fans.
+</p>
+<h4>Implementation</h4>
+<p>Models that extend from this base class need to provide
+three functions to predict capacity and power consumption:
+<ul>
+<li>
+A function to predict cooling capacity. The function value needs
+to be assigned to <code>capFunT</code>.
+</li>
+<li>
+A function to predict the power input as a function of temperature.
+The function value needs to be assigned to <code>EIRFunT</code>.
+</li>
+<li>
+A function to predict the power input as a function of the part load ratio.
+The function value needs to be assigned to <code>EIRFunPLR</code>.
+</li>
+</ul>
+</p>
 </html>",
 revisions="<html>
 <ul>
@@ -310,4 +309,4 @@ First implementation.
 </ul>
 </html>"),
     Diagram(graphics));
-end PartialElectricSteadyState;
+end PartialElectric;

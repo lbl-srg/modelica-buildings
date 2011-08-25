@@ -13,7 +13,7 @@ package MoistAir
     "Index of water (in substanceNames, massFractions X, etc.)";
   constant Integer Air=2
     "Index of air (in substanceNames, massFractions X, etc.)";
-  constant Real k_mair =  steam.MM/dryair.MM "ratio of molar weights";
+  constant Real k_mair =  steam.MM/dryair.MM "Ratio of molar weights";
   constant Buildings.Media.PerfectGases.Common.DataRecord dryair=
         Buildings.Media.PerfectGases.Common.SingleGasData.Air;
   constant Buildings.Media.PerfectGases.Common.DataRecord steam=
@@ -34,8 +34,8 @@ package MoistAir
      If other variables are selected as states, static state selection
      is no longer possible and non-linear algebraic equations occur.
       */
-    MassFraction x_water "mass of total water/mass of dry air";
-    Real phi "relative humidity";
+    MassFraction x_water "Mass of total water/mass of dry air";
+    Real phi "Relative humidity";
 
   protected
     constant SI.MolarMass[2] MMX = {steam.MM,dryair.MM}

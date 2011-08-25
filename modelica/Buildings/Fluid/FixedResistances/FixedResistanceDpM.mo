@@ -31,15 +31,11 @@ equation
    m_flow_turbulent = if use_dh then
                       eta_nominal*dh/4*Modelica.Constants.pi*ReC else
                       deltaM * m_flow_nominal_pos;
-    if linearized then
-     k = m_flow_nominal_pos / dp_nominal_pos / conv2;
-    else
-     k = m_flow_nominal_pos / sqrt(dp_nominal_pos);
-    end if;
-  else
-      m_flow_turbulent = 0;
-      k = 0;
-   end if;
+   k = m_flow_nominal_pos / sqrt(dp_nominal_pos);
+ else
+   m_flow_turbulent = 0;
+   k = 0;
+ end if;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),

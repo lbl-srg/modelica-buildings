@@ -1,48 +1,14 @@
 within Buildings.Fluid.MixingVolumes.BaseClasses;
 partial model PartialMixingVolumeWaterPort
   "Partial mixing volume that allows adding or subtracting water vapor"
-  extends Buildings.Fluid.Interfaces.PartialLumpedVolume(fluidVolume = V, m(start=V*rho_nominal, fixed=false),
-      mC(nominal=V*rho_nominal*C_nominal));
-
-// declarations similar than in PartialLumpedVolumePorts from Modelica.Fluid
-  // Port definitions
-  parameter Integer nPorts=0 "Number of ports"
-    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  Modelica.Fluid.Interfaces.FluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium) "Fluid outlets"
-    annotation (Placement(transformation(extent={{-40,-10},{40,10}},
-      origin={0,-100})));
-
-  Medium.EnthalpyFlowRate ports_H_flow[nPorts];
-  Medium.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
-  Medium.MassFlowRate[Medium.nXi] sum_ports_mXi_flow
-    "Substance mass flows through ports";
-  Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts,Medium.nC];
-  Medium.ExtraPropertyFlowRate[Medium.nC] sum_ports_mC_flow
-    "Trace substance mass flows through ports";
-
-  // Heat transfer through boundary
-  parameter Boolean use_HeatTransfer = false
-    "= true to use the HeatTransfer model"
-      annotation (Dialog(tab="Assumptions", group="Heat transfer"));
-  replaceable model HeatTransfer =
-      Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer (
-       surfaceAreas={4*Modelica.Constants.pi*(3/4*V/Modelica.Constants.pi)^(2/3)})
-    constrainedby
-    Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.PartialVesselHeatTransfer
-    "Wall heat transfer"
-      annotation (Dialog(tab="Assumptions", group="Heat transfer",enable=use_HeatTransfer),choicesAllMatching=true);
-  HeatTransfer heatTransfer(
-    redeclare final package Medium = Medium,
-    final n=1,
-    final states = {medium.state},
-    final use_k = use_HeatTransfer)
-      annotation (Placement(transformation(
-        extent={{-10,-10},{30,30}},
-        rotation=90,
-        origin={-50,-10})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if use_HeatTransfer
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
+  extends Buildings.Fluid.MixingVolumes.MixingVolume(
+   steBal(
+    sensibleOnly = false,
+    final Q_flow = Q_flow + HWat_flow,
+    final mXi_flow = mXi_flow),
+   dynBal(
+    final Q_flow = Q_flow + HWat_flow,
+    final mXi_flow = mXi_flow));
 
  // additional declarations
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
@@ -62,67 +28,6 @@ partial model PartialMixingVolumeWaterPort
     "Mass flow rates of independent substances added to the medium";
   Modelica.SIunits.HeatFlowRate HWat_flow
     "Enthalpy flow rate of extracted water";
-   parameter Modelica.SIunits.Volume V "Volume";
-protected
-   parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-     Medium.setState_pTX(
-      T=T_start,
-      p=p_start,
-      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
-                                           annotation (Evaluate=true);
-equation
-   assert(not (energyDynamics<>Modelica.Fluid.Types.Dynamics.SteadyState and
-        massDynamics==Modelica.Fluid.Types.Dynamics.SteadyState) or Medium.singleState,
-          "Bad combination of dynamics options and Medium not conserving mass if fluidVolume is fixed.");
-
-  connect(heatPort, heatTransfer.heatPorts[1]) annotation (Line(
-      points={{-100,5.55112e-16},{-87,5.55112e-16},{-87,2.22045e-15},{-74,
-          2.22045e-15}},
-      color={191,0,0},
-      smooth=Smooth.None));
-//  Wb_flow = 0;
-
-  mb_flow = sum(ports.m_flow) + mWat_flow
-    "eqn. differs from Modelica.Fluid implementation";
-  mbXi_flow = sum_ports_mXi_flow + mXi_flow
-    "eqn. differs from Modelica.Fluid implementation";
-  mbC_flow  = sum_ports_mC_flow;
-  Hb_flow = sum(ports_H_flow) + HWat_flow
-    "eqn. differs from Modelica.Fluid implementation";
-  Qb_flow = heatTransfer.Q_flows[1];
-
-  // Only one connection allowed to a port to avoid unwanted ideal mixing
-  for i in 1:nPorts loop
-    assert(cardinality(ports[i]) <= 1,"
-each ports[i] of volume can at most be connected to one component.
-If two or more connections are present, ideal mixing takes
-place with these connections, which is usually not the intention
-of the modeller. Increase nPorts to add an additional port.
-");
-  end for;
-
-  // Boundary conditions
-  for i in 1:nPorts loop
-    ports[i].p = medium.p;
-  end for;
-  ports.h_outflow = fill(medium.h,   nPorts);
-  ports.Xi_outflow = fill(medium.Xi, nPorts);
-  ports.C_outflow  = fill(C,         nPorts);
-
-  for i in 1:nPorts loop
-    ports_H_flow[i] = ports[i].m_flow * actualStream(ports[i].h_outflow)
-      "Enthalpy flow";
-    ports_mXi_flow[i,:] = ports[i].m_flow * actualStream(ports[i].Xi_outflow)
-      "Component mass flow";
-    ports_mC_flow[i,:]  = ports[i].m_flow * actualStream(ports[i].C_outflow)
-      "Trace substance mass flow";
-  end for;
-  for i in 1:Medium.nXi loop
-    sum_ports_mXi_flow[i] = sum(ports_mXi_flow[:,i]);
-  end for;
-  for i in 1:Medium.nC loop
-    sum_ports_mC_flow[i]  = sum(ports_mC_flow[:,i]);
-  end for;
 
   annotation (
     Documentation(info="<html>

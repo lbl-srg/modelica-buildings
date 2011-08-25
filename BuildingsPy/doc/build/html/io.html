@@ -238,6 +238,36 @@ column is the data series.</td>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="buildingspy.io.outputfile.Reader.varNames">
+<tt class="descname">varNames</tt><big>(</big><em>pattern=None</em><big>)</big><a class="headerlink" href="#buildingspy.io.outputfile.Reader.varNames" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Pattern:</th><td class="field-body">A regular expression that will be used to filter the variable names.</td>
+</tr>
+</tbody>
+</table>
+<p>Scan through all variable names and return the variables 
+for which <tt class="docutils literal"><span class="pre">pattern</span></tt>, as a regular expression, produces a match.
+If <tt class="docutils literal"><span class="pre">pattern</span></tt> is unspecified, all variable names are returned.</p>
+<p>This method searches the variable names using the <strong>search</strong> function
+from <a class="reference external" href="http://docs.python.org/library/re.html">Python&#8217;s re module</a>.</p>
+<p>See also <a class="reference external" href="http://docs.python.org/howto/regex.html#regex-howto">http://docs.python.org/howto/regex.html#regex-howto</a>.</p>
+<dl class="docutils">
+<dt>Usage: Type</dt>
+<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">buildingspy.io.outputfile</span> <span class="kn">import</span> <span class="n">Reader</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">=</span><span class="n">Reader</span><span class="p">(</span><span class="s">&quot;PlotDemo.mat&quot;</span><span class="p">,</span> <span class="s">&quot;dymola&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">varNames</span><span class="p">()</span>         <span class="c"># Returns a list with all variable names</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">varNames</span><span class="p">(</span><span class="s">&#39;const&#39;</span><span class="p">)</span>  <span class="c"># Returns [&#39;const.k&#39;, &#39;const.y&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span><span class="o">.</span><span class="n">varNames</span><span class="p">(</span><span class="s">&#39;u$&#39;</span><span class="p">)</span>     <span class="c"># Returns all variables whose last character is u</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">

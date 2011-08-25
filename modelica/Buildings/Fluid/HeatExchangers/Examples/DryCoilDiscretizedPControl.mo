@@ -106,11 +106,11 @@ model DryCoilDiscretizedPControl
     annotation (Placement(transformation(extent={{12,90},{32,110}},rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  Buildings.Controls.Continuous.LimPID P(
-                              k=1,
+  Buildings.Controls.Continuous.LimPID con(
+    k=1,
     Ti=60,
     controllerType=Modelica.Blocks.Types.SimpleController.P,
-    Td=60)                            annotation (Placement(transformation(
+    Td=60) "Controller"               annotation (Placement(transformation(
           extent={{-20,90},{0,110}},    rotation=0)));
 equation
   connect(PSin_1.y, sin_1.p_in) annotation (Line(points={{161,100},{180,100},{
@@ -149,19 +149,23 @@ equation
       points={{20,20},{4,20}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TSet.y, P.u_s) annotation (Line(
+  connect(TSet.y, con.u_s)
+                         annotation (Line(
       points={{-59,100},{-22,100}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(temSen.T, P.u_m) annotation (Line(
+  connect(temSen.T, con.u_m)
+                           annotation (Line(
       points={{30,31},{30,40},{-10,40},{-10,88}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(P.y, mot.u) annotation (Line(
+  connect(con.y, mot.u)
+                      annotation (Line(
       points={{1,100},{10,100}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{200,200}}), graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilDiscretizedPControl.mos" "Simulate and plot"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilDiscretizedPControl.mos"
+        "Simulate and plot"));
 end DryCoilDiscretizedPControl;

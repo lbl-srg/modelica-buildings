@@ -109,11 +109,11 @@ model CoilRegister "Register for a heat exchanger"
   parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics2=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 2"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   Modelica.Blocks.Interfaces.RealInput Gc_2
     "Signal representing the convective thermal conductance medium 2 in [W/K]"
     annotation (Placement(transformation(

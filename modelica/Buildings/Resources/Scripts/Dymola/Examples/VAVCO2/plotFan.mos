@@ -2,6 +2,7 @@
 // Plot commands
 createPlot(id = 8,
  position = {55, 24, 519, 595},
+ filename = "VAVSystemCTControl.mat",
  y = {"fan32.m_flow", "fan56.m_flow"},
  range = {0, 90000.0, 15.0, -5.0},
  autoscale = true,

@@ -10,7 +10,9 @@ replaceable function enthalpyOfCondensingGas "Enthalpy of steam per unit mass of
 algorithm
   h := 0;
   annotation (Documentation(info="<html>
+<p>
 Dummy function that returns <code>0</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
@@ -29,7 +31,9 @@ replaceable function saturationPressure
 algorithm
   psat := 0;
   annotation (Documentation(info="<html>
+<p>
 Dummy function that returns <code>0</code>.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

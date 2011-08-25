@@ -18,7 +18,6 @@ SpecificEnthalpyTwoPort
 SpecificEntropy
 SpecificEntropyTwoPort
 Temperature
-TemperatureDynamicTwoPort
 TemperatureTwoPort
 TemperatureWetBulbTwoPort
 TraceSubstances

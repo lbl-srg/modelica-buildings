@@ -6,6 +6,7 @@ model SplitterFixedResistanceDpM
     mDyn_flow_nominal = sum(abs(m_flow_nominal[:])/3),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
          redeclare package Medium=Medium,
+            final allowFlowReversal=true,
             from_dp=from_dp, 
             final m_flow_nominal=m_flow_nominal[1], 
             final dp_nominal=dp_nominal[1],
@@ -16,6 +17,7 @@ model SplitterFixedResistanceDpM
             deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
          redeclare package Medium=Medium,
+            final allowFlowReversal=true,
             from_dp=from_dp, 
             final m_flow_nominal=m_flow_nominal[2], 
             final dp_nominal=dp_nominal[2],
@@ -26,6 +28,7 @@ model SplitterFixedResistanceDpM
             deltaM=deltaM),
       redeclare Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
          redeclare package Medium=Medium,
+            final allowFlowReversal=true,
             from_dp=from_dp, 
             final m_flow_nominal=m_flow_nominal[3], 
             final dp_nominal=dp_nominal[3],
@@ -86,6 +89,11 @@ Model of a flow splitter or mixer with a fixed resistance in each flow leg.
 </html>"),
 revisions="<html>
 <ul>
+<li>
+August 4, 2011 by Michael Wetter:<br>
+Added <code>final allowFlowReversal=true</code> to all resistances since it is impractical
+to avoid flow reversal in large flow networks where such a setting may be useful.
+</li>
 <li>
 June 11, 2008 by Michael Wetter:<br>
 Based class on 

@@ -2,7 +2,6 @@ within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialDamperExponential
   "Partial model for air dampers with exponential opening characteristics"
  extends Buildings.Fluid.Actuators.BaseClasses.PartialActuator;
-
  parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
  parameter Real deltaM = 0.3
@@ -15,18 +14,15 @@ partial model PartialDamperExponential
  parameter Modelica.SIunits.Area A=m_flow_nominal/rho_nominal/v_nominal
     "Face area"
    annotation(Dialog(enable=not use_v_nominal));
-
  parameter Boolean roundDuct = false
     "Set to true for round duct, false for square cross section"
    annotation(Dialog(enable=not use_deltaM));
  parameter Real ReC=4000 "Reynolds number where transition to turbulent starts"
    annotation(Dialog(enable=not use_deltaM));
-
  parameter Real a(unit="")=-1.51 "Coefficient a for damper characteristics"
   annotation(Dialog(tab="Damper coefficients"));
  parameter Real b(unit="")=0.105*90 "Coefficient b for damper characteristics"
   annotation(Dialog(tab="Damper coefficients"));
-
  parameter Real yL = 15/90 "Lower value for damper curve"
   annotation(Dialog(tab="Damper coefficients"));
  parameter Real yU = 55/90 "Upper value for damper curve"
@@ -41,13 +37,15 @@ partial model PartialDamperExponential
     "Set to true to use constant density for flow friction"
    annotation (Dialog(tab="Advanced"));
  Medium.Density rho "Medium density";
-
  parameter Real kFixed(unit="")
     "Flow coefficient of fixed resistance that may be in series with damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
+ Real kDam(unit="")
+    "Flow coefficient of damper, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+ Real k(unit="")
+    "Flow coefficient of damper plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
  parameter Medium.Density rho_nominal=Medium.density(sta0)
     "Density, used to compute fluid volume";
-
  parameter Real[3] cL=
     {(Modelica.Math.log(k0) - b - a)/yL^2,
       (-b*yL - 2*Modelica.Math.log(k0) + 2*b + 2*a)/yL,
@@ -57,13 +55,14 @@ protected
     (-b*yU^2 - 2*Modelica.Math.log(k1)*yU - (-2*b - 2*a)*yU - b)/(yU^2 - 2*yU + 1),
     (Modelica.Math.log(k1)*yU^2 + b*yU^2 + (-2*b - 2*a)*yU + b + a)/(yU^2 - 2*yU + 1)}
     "Polynomial coefficients for curve fit for y > yu";
-
  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
  parameter Modelica.SIunits.Area area=
     if use_v_nominal then m_flow_nominal/rho_nominal/v_nominal else A
     "Face velocity used in the computation";
 initial equation
   assert(k0 > k1, "k0 must be bigger than k1.");
+  assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
+
 equation
   rho = if use_constant_density then
          rho_nominal else
@@ -71,31 +70,45 @@ equation
   m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
       eta_nominal*ReC*sqrt(area)*facRouDuc;
 
-  if homotopyInitialization then
-    if from_dp then
-      m_flow=homotopy(
-          actual=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_dp(
-            dp=dp, m_flow_turbulent=m_flow_turbulent, linearized=linearized,
-            y=y, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU, rho=rho, A=area, kFixed=kFixed),
-          simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-    else
-      dp=homotopy(
-          actual=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_m_flow(
-            m_flow=m_flow, m_flow_turbulent=m_flow_turbulent, linearized=linearized,
-            y=y, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU, rho=rho, A=area, kFixed=kFixed),
-            simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-    end if;
-  else // do not use homotopy
-    if from_dp then
-      m_flow=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_dp(
-            dp=dp, m_flow_turbulent=m_flow_turbulent, linearized=linearized,
-            y=y, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU, rho=rho, A=area, kFixed=kFixed);
-    else
-      dp=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper_m_flow(
-            m_flow=m_flow, m_flow_turbulent=m_flow_turbulent, linearized=linearized,
-            y=y, a=a, b=b, cL=cL, cU=cU, yL=yL, yU=yU, rho=rho, A=area, kFixed=kFixed);
-    end if;
-  end if; // homotopyInitialization
+  // flow coefficient, k=m_flow/sqrt(dp)
+  kDam=sqrt(2*rho)*area/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+    y=y,
+    a=a,
+    b=b,
+    cL=cL,
+    cU=cU,
+    yL=yL,
+    yU=yU);
+  k = if (kFixed>Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kDam^2)) else kDam;
+
+  // Pressure drop calculation
+  if linearized then
+    m_flow*m_flow_nominal_pos = k^2*dp;
+  else
+    if homotopyInitialization then
+      if from_dp then
+        m_flow=homotopy(
+           actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                  dp=dp, k=k,
+                  m_flow_turbulent=m_flow_turbulent),
+           simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+      else
+        dp=homotopy(
+           actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                  m_flow=m_flow, k=k,
+                  m_flow_turbulent=m_flow_turbulent),
+           simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+       end if;  // from_dp
+    else // do not use homotopy
+      if from_dp then
+        m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
+                 dp=dp, k=k, m_flow_turbulent=m_flow_turbulent);
+      else
+        dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
+                 m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent);
+      end if;  // from_dp
+    end if; // homotopyInitialization
+  end if; // linearized
 
 annotation(Documentation(info="<html>
 <p>
@@ -110,19 +123,17 @@ models.
 For a description of the opening characteristics and typical parameter values, see the damper model
 <a href=\"modelica://Buildings.Fluid.Actuators.Dampers.Exponential\">
 Exponential</a>.
- 
 </p>
-</html>",revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
-April 4, 2011 by Michael Wetter:<br>
-First implementation.
+August 5, 2011, by Michael Wetter:<br>
+Moved linearized pressure drop equation from the function body to the equation
+section. With the previous implementation, 
+the symbolic processor may not rearrange the equations, which can lead 
+to coupled equations instead of an explicit solution.
 </li>
-</ul>
-</html>"),
-    revisions=
-         "<html>
-<ul>
 <li>
 June 22, 2008 by Michael Wetter:<br>
 Extended range of control signal from 0 to 1 by implementing the function 
@@ -160,5 +171,5 @@ First implementation.
          lineColor={0,0,255},
          pattern=LinePattern.None,
          fillColor={0,0,0},
-         fillPattern=FillPattern.Solid)}));
+         fillPattern=FillPattern.Solid)})));
 end PartialDamperExponential;

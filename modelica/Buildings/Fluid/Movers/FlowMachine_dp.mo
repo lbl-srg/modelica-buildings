@@ -26,6 +26,10 @@ User's Guide</a> for more information.
       revisions="<html>
 <ul>
 <li>
+May 25, 2011, by Michael Wetter:<br>
+Revised implementation of energy balance to avoid having to use conditionally removed models.
+</li>
+<li>
 July 27, 2010, by Michael Wetter:<br>
 Redesigned model to fix bug in medium balance.
 </li>

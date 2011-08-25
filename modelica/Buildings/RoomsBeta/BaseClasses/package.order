@@ -6,7 +6,6 @@ InfraredRadiationGainDistribution
 MixedAir
 RadiationAdapter
 RadiationTemperature
-ShortWaveRadiationExchange
 SolarRadiationExchange
 PartialSurfaceInterface
 SkyRadiationExchange
@@ -14,7 +13,5 @@ ConstructionNumbers
 ConstructionRecords
 ParameterConstructionWithWindow
 ParameterConstruction
-ParameterFluid
-ParameterInteriorSurface
 PartialParameterConstruction
 Examples

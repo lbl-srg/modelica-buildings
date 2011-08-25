@@ -1,10 +1,12 @@
 within Buildings.Media.Interfaces;
 partial package PartialSimpleMedium
-  "Medium model with linear dependency of u, h from temperature. All other quantities, especially density, are constant."
+  "Medium model with linear dependency of u, h from temperature. Most other quantities are constant."
 
-  extends Modelica.Media.Interfaces.PartialPureSubstance(final ThermoStates=
-        Choices.IndependentVariables.pT, final singleState=true,
-        reference_p=p0, p_default=p0);
+  extends Modelica.Media.Interfaces.PartialPureSubstance(
+        final ThermoStates=Choices.IndependentVariables.pT, 
+        final singleState=constantDensity,
+        reference_p=p0, 
+        p_default=p0);
 
   import SI = Modelica.SIunits;
   constant SpecificHeatCapacity cp_const
@@ -33,6 +35,11 @@ partial package PartialSimpleMedium
   constant Modelica.SIunits.AbsolutePressure p0 = 3E5
     "Reference pressure for compressibility and default medium pressure";
 
+protected
+  constant Boolean constantDensity = (kappa_const <= 1E-20)
+    "Flag, true if density is modeled as a constant";
+
+public
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else
                        StateSelect.default),
@@ -51,7 +58,7 @@ required from medium model \""   + mediumName + "\".
     h = specificEnthalpy_pTX(p,T,X);
     u = cv_const*(T-T0);
     // original equation d = d_const;
-    d = if (kappa_const > 1E-20) then d_const * (1+kappa_const*(p-p0)) else d_const;
+    d = if constantDensity then d_const else d_const * (1+kappa_const*(p-p0));
    // d = d_const * (1+kT*(T-T0)/T0); "this gives large coupled equations"
     R = 0;
     MM = MM_const;
@@ -76,7 +83,6 @@ quantities are assumed to be constant.
     output ThermodynamicState state "thermodynamic state record";
   algorithm
     state := ThermodynamicState(p=p,T=T);
-    annotation(Documentation(info="<html></html>"));
   end setState_pTX;
 
   redeclare function setState_phX
@@ -87,8 +93,7 @@ quantities are assumed to be constant.
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "thermodynamic state record";
   algorithm
-    state := ThermodynamicState(p=p,T=T0+h/cp_const);
-    annotation(Documentation(info="<html></html>"));
+    state := ThermodynamicState(p=p,T=temperature_phX(p, h, X));
   end setState_phX;
 
   redeclare replaceable function setState_psX
@@ -101,7 +106,6 @@ quantities are assumed to be constant.
   algorithm
     state := ThermodynamicState(p=p,T=Modelica.Math.exp(s/cp_const + Modelica.Math.log(T0)))
       "here the incompressible limit is used, with cp as heat capacity";
-    annotation(Documentation(info="<html></html>"));
   end setState_psX;
 
   redeclare function setState_dTX
@@ -113,7 +117,6 @@ quantities are assumed to be constant.
     output ThermodynamicState state "thermodynamic state record";
   algorithm
     assert(false,"pressure can not be computed from temperature and density for an incompressible fluid!");
-    annotation(Documentation(info="<html></html>"));
   end setState_dTX;
 
       redeclare function extends setSmoothState
@@ -134,42 +137,36 @@ quantities are assumed to be constant.
 
   algorithm
     eta := eta_const;
-  annotation(Documentation(info="<html></html>"));
   end dynamicViscosity;
 
   redeclare function extends thermalConductivity "Return thermal conductivity"
 
   algorithm
     lambda := lambda_const;
-    annotation (Documentation(info="<html></html>"));
   end thermalConductivity;
 
   redeclare function extends pressure "Return pressure"
 
   algorithm
     p := state.p;
-  annotation(Documentation(info="<html></html>"));
   end pressure;
 
   redeclare function extends temperature "Return temperature"
 
   algorithm
     T := state.T;
-  annotation(Documentation(info="<html></html>"));
   end temperature;
 
   redeclare function extends density "Return density"
 
   algorithm
-    d := d_const;
-  annotation(Documentation(info="<html></html>"));
+    d := if constantDensity then d_const else d_const * (1+kappa_const*(state.p-p0));
   end density;
 
   redeclare function extends specificEnthalpy "Return specific enthalpy"
 
   algorithm
     h := cp_const*(state.T-T0);
-  annotation(Documentation(info="<html></html>"));
   end specificEnthalpy;
 
   redeclare function extends specificHeatCapacityCp
@@ -177,7 +174,6 @@ quantities are assumed to be constant.
 
   algorithm
     cp := cp_const;
-    annotation(Documentation(info="<html></html>"));
   end specificHeatCapacityCp;
 
   redeclare function extends specificHeatCapacityCv
@@ -185,21 +181,18 @@ quantities are assumed to be constant.
 
   algorithm
     cv := cv_const;
-    annotation(Documentation(info="<html></html>"));
   end specificHeatCapacityCv;
 
   redeclare function extends isentropicExponent "Return isentropic exponent"
 
   algorithm
     gamma := cp_const/cv_const;
-    annotation(Documentation(info="<html></html>"));
   end isentropicExponent;
 
   redeclare function extends velocityOfSound "Return velocity of sound "
 
   algorithm
     a := a_const;
-    annotation(Documentation(info="<html></html>"));
   end velocityOfSound;
 
   redeclare function specificEnthalpy_pTX
@@ -211,7 +204,6 @@ quantities are assumed to be constant.
     output SpecificEnthalpy h "Specific enthalpy";
   algorithm
     h := cp_const*(T-T0);
-    annotation(Documentation(info="<html></html>"));
   end specificEnthalpy_pTX;
 
   redeclare function temperature_phX
@@ -223,7 +215,6 @@ quantities are assumed to be constant.
     output Temperature T "Temperature";
   algorithm
     T := T0 + h/cp_const;
-    annotation(Documentation(info="<html></html>"));
   end temperature_phX;
 
   redeclare function density_phX "Return density from p, h, and X or Xi"
@@ -234,7 +225,6 @@ quantities are assumed to be constant.
     output Density d "density";
   algorithm
     d := density(setState_phX(p,h,X));
-    annotation(Documentation(info="<html></html>"));
   end density_phX;
 
   annotation (Documentation(info="<html>
@@ -252,6 +242,15 @@ the density is
 
 </html>", revisions="<html>
 <ul>
+<li>
+August 3, 2011, by Michael Wetter:<br>
+Fixed bug in function <code>density</code>, which always returned <code>d_const</code>, regardless
+of the constant <code>constantDensity</code>.
+</li>
+<li>
+August 1, 2011, by Michael Wetter:<br>
+Fixed bug in assignment of <code>singleState</code>.
+</li>
 <li>
 September 13, 2010, by Michael Wetter:<br>
 Set default values and reference pressure.

@@ -2,8 +2,7 @@ simulateModel("Buildings.Fluid.Chillers.Examples.Carnot", stopTime=3600, method=
 removePlots();
 createPlot(id = 2,
  position = {46, 7, 645, 517},
- y = {"chi.sta_a1.T", "chi.sta_b1.T", "chi.sta_a2.T", "chi.sta_b2.T", "chi.TCon", 
-"chi.TEva"},
+ y = {"chi.sta_a1.T", "chi.sta_b1.T", "chi.sta_a2.T", "chi.sta_b2.T", "chi.TCon", "chi.TEva"},
  range = {0, 3600.0, 40.0, 0},
  autoscale = true,
  autoerase = true,

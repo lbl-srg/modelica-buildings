@@ -2,6 +2,7 @@ within Buildings.Media.GasesPTDecoupled;
 package SimpleAir
   "Package with dry air model that decouples pressure and temperature"
   extends Buildings.Media.Interfaces.PartialSimpleIdealGasMedium(
+     final singleState = false,
      mediumName="GasesPTDecoupled.SimpleAir",
      cp_const=1005.45,
      MM_const=0.0289651159,
@@ -52,8 +53,6 @@ package SimpleAir
     MolarMass MM "Molar mass (of mixture or single fluid)";
     ThermodynamicState state
       "thermodynamic state record for optional functions";
-    parameter Boolean constantDensity = false
-      "= true if the mass density should be constant at dStp";
     parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
       annotation (Evaluate=true, Dialog(tab="Advanced"));
@@ -99,14 +98,15 @@ package SimpleAir
 
     // new medium equations
     h = specificEnthalpy_pTX(p,T,X);
-    u = h-R*T;
+    // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
+    // u = h-R*T;
+
+    // However, in this medium, the gas law is d/dStp=p/pStp, from which follows using h=u+pv that
+    // u= h-p*v = h-p/d = h-pStp/dStp
+    u = h-pStp/dStp;
     R = R_gas;
     //    d = p/(R*T);
-    if constantDensity then
-      d = dStp;
-    else
-      d/dStp = p/pStp;
-    end if;
+    d/dStp = p/pStp;
 
     MM = MM_const;
     state.T = T;
@@ -125,7 +125,7 @@ package SimpleAir
  redeclare function setState_dTX
     "Return thermodynamic state from d, T, and X or Xi"
     extends Modelica.Icons.Function;
-    input Density d "density";
+    input Density d "Density";
     input Temperature T "Temperature";
     input MassFraction X[:] = fill(0,0) "Mass fractions";
     output ThermodynamicState state;
@@ -135,24 +135,33 @@ package SimpleAir
 
  redeclare function density "return density of ideal gas"
     extends Modelica.Icons.Function;
-    input ThermodynamicState state "thermodynamic state record";
+    input ThermodynamicState state "Thermodynamic state record";
     output Density d "Density";
  algorithm
     d := dStp*state.p/pStp;
  end density;
 
+ redeclare function specificInternalEnergy "Return specific internal energy"
+   extends Modelica.Icons.Function;
+   input ThermodynamicState state "thermodynamic state record";
+   output SpecificEnergy u "Specific internal energy";
+ algorithm
+   u := specificEnthalpy(state) - pStp/dStp;
+ end specificInternalEnergy;
+
  redeclare replaceable function specificEntropy "Return specific entropy"
     extends Modelica.Icons.Function;
-    input ThermodynamicState state "thermodynamic state record";
+    input ThermodynamicState state "Thermodynamic state record";
     output SpecificEntropy s "Specific entropy";
  algorithm
     s := cp_const*Modelica.Math.log(state.T/T0);// - R_gas*Modelica.Math.log(state.p/reference_p);
  end specificEntropy;
 
-replaceable function enthalpyOfCondensingGas "Enthalpy of steam per unit mass of steam"
+replaceable function enthalpyOfCondensingGas
+    "Enthalpy of steam per unit mass of steam"
   extends Modelica.Icons.Function;
-  input Temperature T "temperature";
-  output SpecificEnthalpy h "steam enthalpy";
+  input Temperature T "Temperature";
+  output SpecificEnthalpy h "Steam enthalpy";
 algorithm
   h := 0;
   annotation (Documentation(info="<html>
@@ -167,11 +176,11 @@ First implementation to allow using the room model with a medium that does not c
 </html>"));
 end enthalpyOfCondensingGas;
 
-replaceable function saturationPressure 
+replaceable function saturationPressure
     "Return saturation pressure of condensing fluid"
   extends Modelica.Icons.Function;
-  input Temperature Tsat "saturation temperature";
-  output AbsolutePressure psat "saturation pressure";
+  input Temperature Tsat "Saturation temperature";
+  output AbsolutePressure psat "Saturation pressure";
 algorithm
   psat := 0;
   annotation (Documentation(info="<html>
@@ -210,6 +219,11 @@ quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 3, 2011, by Michael Wetter:<br>
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+For this medium, the function is <code>u=h-pStd/dStp</code>.
+</li>
 <li>
 April 27, 2011, by Michael Wetter:<br>
 Added function <code>enthalpyOfCondensingGas</code>, which returns <code>0</code>,

@@ -1,11 +1,8 @@
 within Buildings.Fluid.BaseClasses;
 partial model PartialThreeWayResistance
   "Flow splitter with partial resistance model at each port"
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   outer Modelica.Fluid.System system "System properties";
-
-  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
-    "Fluid medium model"
-      annotation (choicesAllMatching=true);
 
   Modelica.Fluid.Interfaces.FluidPort_a port_1(redeclare package Medium =
         Medium, m_flow(min=if (portFlowDirection_1 == Modelica.Fluid.Types.PortFlowDirection.Entering) then
@@ -32,16 +29,16 @@ partial model PartialThreeWayResistance
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  replaceable Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface res1(redeclare
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res1(redeclare
       package Medium = Medium, allowFlowReversal=true, homotopyInitialization=homotopyInitialization)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=
             0)));
-  replaceable Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface res2(redeclare
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res2(redeclare
       package Medium = Medium, allowFlowReversal=true, homotopyInitialization=homotopyInitialization)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(extent={{60,-10},{40,10}}, rotation=0)));
-  replaceable Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface res3(redeclare
+  replaceable Buildings.Fluid.Interfaces.PartialTwoPortInterface res3(redeclare
       package Medium = Medium, allowFlowReversal=true, homotopyInitialization=homotopyInitialization)
     "Partial model, to be replaced with a fluid component"
     annotation (Placement(transformation(
@@ -61,92 +58,62 @@ protected
    annotation(Dialog(tab="Advanced"));
 
 public
-  Delays.DelayFirstOrder vol(
-    redeclare package Medium = Medium,
-    nPorts=3,
-    use_HeatTransfer=false,
-    tau=tau,
-    m_flow_nominal=mDyn_flow_nominal,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    p_start=p_start,
-    use_T_start=use_T_start,
-    T_start=T_start,
-    h_start=h_start,
-    X_start=X_start,
-    C_start=C_start) if
+  Buildings.Fluid.Delays.DelayFirstOrder vol(
+    redeclare final package Medium = Medium,
+    final nPorts=3,
+    final tau=tau,
+    final m_flow_nominal=mDyn_flow_nominal,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
+    final p_start=p_start,
+    final T_start=T_start,
+    final X_start=X_start,
+    final C_start=C_start,
+    final allowFlowReversal=true,
+    final prescribedHeatFlowRate=false) if
        dynamicBalance "Fluid volume to break algebraic loop"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation (Dialog(tab="Assumptions", group="Dynamics"));
+    annotation (Dialog(tab="Dynamics", group="Equations"));
 
   parameter Modelica.SIunits.Time tau=10
     "Time constant at nominal flow for dynamic energy and momentum balance"
-    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
+    annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
   parameter Modelica.SIunits.MassFlowRate mDyn_flow_nominal
     "Nominal mass flow rate for dynamic momentum and energy balance"
-    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=system.energyDynamics
-    "Formulation of energy balance"
-    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
-  parameter Modelica.Fluid.Types.Dynamics massDynamics=system.massDynamics
-    "Formulation of mass balance"
-    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
-  parameter Modelica.Media.Interfaces.PartialMedium.AbsolutePressure p_start=
-      Medium.p_default "Start value of pressure"
-    annotation (Dialog(tab="Initialization"));
-  parameter Boolean use_T_start=true "= true, use T_start, otherwise h_start"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.Media.Interfaces.PartialMedium.Temperature T_start=if
-      use_T_start then Medium.T_default else Medium.temperature_phX(
-      p_start,
-      h_start,
-      X_start) "Start value of temperature"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy h_start=
-      if use_T_start then Medium.specificEnthalpy_pTX(
-      p_start,
-      T_start,
-      X_start) else Medium.h_default "Start value of specific enthalpy"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFraction X_start[Medium.nX]=
-     Medium.X_default "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.Media.Interfaces.PartialMedium.ExtraProperty C_start[
-    Medium.nC]=fill(0, Medium.nC) "Start value of trace substances"
-    annotation (Dialog(tab="Initialization"));
+    annotation (Dialog(tab="Dynamics", group="Equations", enable=dynamicBalance));
+
 equation
-  connect(port_1, res1.port_a) annotation (Line(points={{-100,5.55112e-16},{
-          -100,6.10623e-16},{-60,6.10623e-16}},                     color={0,
+  connect(port_1, res1.port_a) annotation (Line(points={{-100,0},{-100,0},{-60,0}},
+                                                                    color={0,
           127,255}));
-  connect(res2.port_a, port_2) annotation (Line(points={{60,6.10623e-16},{60,
-          5.55112e-16},{100,5.55112e-16}},                     color={0,127,255}));
-  connect(res3.port_a, port_3) annotation (Line(points={{-1.68051e-18,-60},{
-          -1.68051e-18,-79},{5.55112e-16,-79},{5.55112e-16,-100}},   color={0,
+  connect(res2.port_a, port_2) annotation (Line(points={{60,0},{60,0},{100,0}},
+                                                               color={0,127,255}));
+  connect(res3.port_a, port_3) annotation (Line(points={{-6.12323e-016,-60},{
+          -6.12323e-016,-79},{0,-79},{0,-100}},                      color={0,
           127,255}));
   connect(res1.port_b,vol. ports[1]) annotation (Line(
-      points={{-40,6.10623e-16},{-30.6666,6.10623e-16},{-30.6666,5.55115e-17},{
-          -21.3333,5.55115e-17},{-21.3333,-5.55112e-16},{-2.66667,-5.55112e-16}},
+      points={{-40,0},{-30.6666,0},{-30.6666,5.55115e-017},{-21.3333,
+          5.55115e-017},{-21.3333,0},{-2.66667,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res2.port_b,vol. ports[2]) annotation (Line(
-      points={{40,6.10623e-16},{30,6.10623e-16},{30,5.55115e-17},{20,
-          5.55115e-17},{20,-5.55112e-16},{5.55112e-16,-5.55112e-16}},
+      points={{40,0},{30,0},{30,5.55115e-017},{20,5.55115e-017},{20,0},{
+          2.22045e-016,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res3.port_b,vol. ports[3]) annotation (Line(
-      points={{1.22293e-15,-40},{2.66667,-40},{2.66667,-5.55112e-16}},
+      points={{6.12323e-016,-40},{2.66667,-40},{2.66667,0}},
       color={0,127,255},
       smooth=Smooth.None));
   if not dynamicBalance then
     connect(res1.port_b, res3.port_b) annotation (Line(
-      points={{-40,6.10623e-16},{-20,6.10623e-16},{-20,-40},{1.22293e-15,-40}},
+      points={{-40,0},{-20,0},{-20,-40},{6.12323e-016,-40}},
       color={0,127,255},
       smooth=Smooth.None));
     connect(res1.port_b, res2.port_b) annotation (Line(
-      points={{-40,6.10623e-16},{-20,6.10623e-16},{-20,1.22125e-15},{0,
-            1.22125e-15},{0,6.10623e-16},{40,6.10623e-16}},
+      points={{-40,0},{-20,0},{-20,1.22125e-015},{0,1.22125e-015},{0,0},{40,0}},
       color={0,127,255},
       smooth=Smooth.None));
   end if;

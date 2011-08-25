@@ -30,14 +30,14 @@ testForProgram cut
 
 # Search for svn files with modifications
 
-
-
 TEMDIR="/tmp/tmp-$USER-$(basename $0).$$.tmp"
 mkdir -p $TEMDIR
 convert=false
 
 curDir=`pwd`
-for ff in `svn status`; do 
+# This script does NOT work for recursive 'svn status'
+# Therefore, we use svn status --depth immediates
+for ff in `svn status --depth immediates`; do 
     if [ $ff == "M" ]; then
 	convert=true
     else

@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage;
 model StratifiedEnhanced "Stratified tank model with enhanced discretization"
-  extends Stratified(nPorts=3);
+  extends Stratified(nPorts=3, vol(each prescribedHeatFlowRate=true));
   BaseClasses.ThirdOrderStratifier str(
     redeclare package Medium = Medium,
     nSeg=nSeg,
@@ -15,8 +15,8 @@ equation
                                                         annotation (Line(points={{16,-16},
           {16,-20},{-72,-20},{-72,-40},{-60,-40}},
                  color={0,127,255}));
-  connect(hA_flow.H_flow, str.H_flow[1]) annotation (Line(points={{-52,-69},{
-          -52,-62},{-68,-62},{-68,-48},{-62,-48}},
+  connect(hA_flow.H_flow, str.H_flow[1]) annotation (Line(points={{-50,-69},{-50,
+          -62},{-68,-62},{-68,-48},{-62,-48}},
                                           color={0,0,127}));
   connect(hVol_flow[1:nSeg-1].H_flow, str.H_flow[2:nSeg])   annotation (Line(
         points={{-10,-29},{-10,-26},{-24,-26},{-24,-62},{-68,-62},{-68,-48},{
@@ -27,11 +27,11 @@ equation
                                                   color={0,0,127}));
   connect(str.heatPort, vol.heatPort)    annotation (Line(points={{-40,-40},{
           -32,-40},{-32,10},{6,10},{6,-6}},      color={191,0,0}));
-  connect(port_a, str.fluidPort[1]) annotation (Line(points={{-100,5.55112e-16},
-          {-100,0},{-72,0},{-72,-40},{-60,-40}}, color={0,127,255}));
-  connect(port_b, str.fluidPort[nSeg + 2]) annotation (Line(points={{100,
-          5.55112e-16},{92,5.55112e-16},{80,0},{80,-88},{-72,-88},{-72,-40},{
-          -60,-40}},       color={0,127,255}));
+  connect(port_a, str.fluidPort[1]) annotation (Line(points={{-100,0},{-100,0},{
+          -72,0},{-72,-40},{-60,-40}},           color={0,127,255}));
+  connect(port_b, str.fluidPort[nSeg + 2]) annotation (Line(points={{100,0},{100,
+          0},{80,0},{80,-88},{-72,-88},{-72,-40},{-60,-40}},
+                           color={0,127,255}));
   connect(mTan_flow.y, str.m_flow) annotation (Line(points={{-73,-32},{-68.5,
           -32},{-68.5,-31.8},{-62,-31.8}}, color={0,0,127}));
   annotation (

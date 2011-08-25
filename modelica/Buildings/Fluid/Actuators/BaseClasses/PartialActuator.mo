@@ -1,9 +1,9 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialActuator "Partial model of an actuator"
-    extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface(
+    extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
      show_T=false, show_V_flow=false,
-     m_flow(start=m_flow_nominal, nominal=m_flow_nominal_pos),
-     dp(start=dp_nominal, nominal=dp_nominal_pos));
+     m_flow(start=0, nominal=m_flow_nominal_pos),
+     dp(start=0, nominal=dp_nominal_pos));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -69,7 +69,12 @@ Models that extend this class need to implement an equation for
 </html>", revisions="<html>
 <ul>
 <li>
-April 4 by Michael Wetter:<br>
+August 1, by Michael Wetter:<br>
+Set start values for <code>dp</code> and <code>m_flow</code>
+to zero.
+</li>
+<li>
+April 4, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

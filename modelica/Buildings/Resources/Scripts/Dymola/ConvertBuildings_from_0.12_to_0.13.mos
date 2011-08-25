@@ -8,6 +8,9 @@ convertClear();
 //convertClass("Buildings.HeatTransfer.ConductorMultiLayer",
 //             "Buildings.HeatTransfer.Conduction.MultiLayer");
 
+convertClass("Buildings.Fluid.Sensors.TemperatureDynamicTwoPort",
+             "Buildings.Fluid.Sensors.TemperatureTwoPort");
+
 convertElement({Buildings.Utilities.Reports.Printer,
                 Buildings.Utilities.Reports.printRealArray},
                 "minimumWidth", "minimumLength");

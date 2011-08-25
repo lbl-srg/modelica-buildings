@@ -23,6 +23,7 @@ class Reader:
     def varNames(self, pattern=None):
         '''
            :pattern: A regular expression that will be used to filter the variable names.
+
            Scan through all variable names and return the variables 
            for which ``pattern``, as a regular expression, produces a match.
            If ``pattern`` is unspecified, all variable names are returned.

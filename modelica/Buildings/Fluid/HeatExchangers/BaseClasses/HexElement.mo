@@ -1,13 +1,14 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HexElement "Element of a heat exchanger"
-  extends Buildings.Fluid.Interfaces.PartialDynamicFourPortTransformer(
-    vol1(redeclare package Medium = Medium1,
+  extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
+    vol1(
           V=m1_flow_nominal*tau1/rho1_nominal,
           nPorts=2,
           final energyDynamics=energyDynamics1,
           final massDynamics=energyDynamics1),
-    redeclare Buildings.Fluid.MixingVolumes.MixingVolumeDryAir vol2(
-          redeclare package Medium = Medium2,
+    redeclare
+      Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort
+        vol2(
           nPorts = 2,
           V=m2_flow_nominal*tau2/rho2_nominal,
           final energyDynamics=energyDynamics2,
@@ -15,7 +16,7 @@ model HexElement "Element of a heat exchanger"
   // Note that we MUST declare the value of vol2.V here.
   // Otherwise, if the class of vol2 is redeclared at a higher level,
   // it will overwrite the assignment of V in the base class
-  // PartialDynamicFourPortTransformer, which will cause V=0.
+  // FourPortHeatMassExchanger, which will cause V=0.
   // Assigning the values for vol1 here is optional, but we added
   // it to be consistent in the implementation of vol1 and vol2.
 
@@ -52,11 +53,11 @@ model HexElement "Element of a heat exchanger"
   parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
   parameter Modelica.Fluid.Types.Dynamics energyDynamics2=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 2"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor mas(
                                                   C=C, T(stateSelect=StateSelect.always))
@@ -88,9 +89,8 @@ equation
           -50,30}}, color={0,0,127}));
   connect(Gc_2, con2.Gc) annotation (Line(points={{40,-100},{40,-76},{-34,-76},
           {-34,-4},{-50,-4},{-50,-10}}, color={0,0,127}));
-  connect(temSen.T, masExc.TSur) annotation (Line(points={{28,6.10623e-16},{36,
-          6.10623e-16},{36,-26},{46,-26}},
-                                        color={0,0,127}));
+  connect(temSen.T, masExc.TSur) annotation (Line(points={{28,0},{36,0},{36,-26},
+          {46,-26}},                    color={0,0,127}));
   connect(Gc_2, masExc.Gc) annotation (Line(points={{40,-100},{40,-42},{46,-42}},
         color={0,0,127}));
   connect(masExc.mWat_flow, vol2.mWat_flow) annotation (Line(points={{69,-32},{
@@ -101,11 +101,11 @@ equation
   connect(vol2.X_w, masExc.XInf) annotation (Line(points={{-10,-64},{-20,-64},
           {-20,-34},{46,-34}}, color={0,0,127}));
   connect(con1.solid,mas. port) annotation (Line(points={{-60,20},{-72,20},{-72,
-          -1.68051e-18}},  color={191,0,0}));
+          -6.12323e-016}}, color={191,0,0}));
   connect(con2.solid,mas. port) annotation (Line(points={{-60,-20},{-60,-20.5},
-          {-72,-20.5},{-72,-1.68051e-18}},  color={191,0,0}));
+          {-72,-20.5},{-72,-6.12323e-016}}, color={191,0,0}));
   connect(mas.port,temSen. port)      annotation (Line(points={{-72,
-          -1.68051e-18},{-39,-1.68051e-18},{-39,6.10623e-16},{8,6.10623e-16}},
+          -6.12323e-016},{-39,-6.12323e-016},{-39,0},{8,0}},
                           color={191,0,0}));
   connect(con1.fluid,heaFloSen_1. port_a)
     annotation (Line(points={{-40,20},{-34,20}}, color={191,0,0}));
@@ -158,7 +158,13 @@ thermal mass.
 revisions="<html>
 <ul>
 <li>
-August 12, 2008 by Michael Wetter:<br>
+July 11, 2011, by Michael Wetter:<br>
+Removed assignment of medium in <code>vol1</code> and <code>vol2</code>,
+since this assignment is already done in the base class using the
+<code>final</code> modifier.
+</li>
+<li>
+August 12, 2008, by Michael Wetter:<br>
 Introduced option to compute each medium using a steady state model or
 a dynamic model.
 </li>
@@ -167,8 +173,8 @@ March 25, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
+            {100,100}}),
                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Text(

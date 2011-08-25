@@ -1,16 +1,16 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 package Internal "Solve f(x, data) for x with given f"
-  extends Buildings.Utilities.Math.BaseClasses.OneNonLinearEquation;
+  extends Modelica.Media.Common.OneNonLinearEquation;
 
   redeclare function extends f_nonlinear
   algorithm
-    y := epsilon_ntuZ(x, f_nonlinear_data[1],
-         Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed);
+  assert(x>0, "NTU needs to be strictly positive.
+Received NTU = " + String(x) + "
+         Z   = " + String(p));
+    y := epsilon_ntuZ(NTU=x, Z=p,
+         flowRegime=Buildings.Fluid.Types.HeatExchangerFlowRegime.CrossFlowUnmixed);
   end f_nonlinear;
 
-  // Dummy definition has to be added for current Dymola
-  redeclare function extends solve
-  end solve;
 annotation (
 Documentation(
 info="<html>
@@ -21,11 +21,23 @@ Function that internally solves a scalar equation.
 revisions="<html>
 <ul>
 <li>
+August 10, 2011, by Michael Wetter:
+<ul>
+<li>
+Changed implementation to use
+<code>Modelica.Media.Common.OneNonLinearEquation</code> instead of
+<code>Buildings.Utilities.Math.BaseClasses.OneNonLinearEquation</code>.
+</li>
+<li>
+Added assert statement as <code>epsilon_ntuZ</code> computes <code>NTU^(-0.22)</code>.
+</li>
+</ul>
+</li>
+<li>
 February 16, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"
-));
+</html>"));
 
 end Internal;

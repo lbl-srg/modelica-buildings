@@ -44,6 +44,16 @@ equation
   A = fraOpe*AOpe + (1-fraOpe)*AClo;
   // friction coefficient for power law
   kVal = fraOpe*kOpe + (1-fraOpe)*kClo;
+
+  // orifice equation
+  for i in 1:nCom loop
+    dV_flow[i] = Buildings.Airflow.Multizone.BaseClasses.powerLaw(
+      k=kVal,
+      dp=dpAB[i],
+      m=m,
+      dp_turbulent=dp_turbulent);
+  end for;
+
   annotation (Diagram(graphics),
                        Icon(graphics={
         Text(
@@ -91,6 +101,11 @@ Buildings.Airflow.Multizone.Crack
 </html>",
 revisions="<html>
 <ul>
+<li><i>August 12, 2011</i> by Michael Wetter:<br>
+       Changed model to use the new function 
+       <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
+       Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
+</li>
 <li><i>July 20, 2010</i> by Michael Wetter:<br>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>

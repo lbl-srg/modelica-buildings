@@ -10,7 +10,6 @@ protected
 public
   Buildings.Controls.Continuous.LimPID con(
     yMin=0,
-    initType=Modelica.Blocks.Types.Init.InitialOutput,
     y_start=0.5,
     Ti=1,
     controllerType=Modelica.Blocks.Types.SimpleController.P,

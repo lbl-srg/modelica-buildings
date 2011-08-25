@@ -1,33 +1,24 @@
 within Buildings.Fluid.HeatExchangers.Radiators;
 model RadiatorEN442_2 "Dynamic radiator for space heating"
-   extends Fluid.Interfaces.PartialStaticTwoPortInterface(
+   extends Fluid.Interfaces.PartialTwoPortInterface(
    showDesignFlowDirection = false,
    show_T=true,
    m_flow_nominal=abs(Q_flow_nominal/cp_nominal/(T_a_nominal-T_b_nominal)));
   parameter Integer nEle(min=1) = 5
-    "Number of elements used in the discretization"
-    annotation (Dialog(tab="Assumptions", group="Dynamics"));
+    "Number of elements used in the discretization";
   parameter Real fraRad(min=0, max=1) = 0.35 "Fraction radiant heat transfer";
   // Assumptions
   parameter Modelica.Fluid.Types.Dynamics energyDynamics=system.energyDynamics
     "Formulation of energy balance"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics"));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
  // Initialization
   parameter Medium.AbsolutePressure p_start = system.p_start
     "Start value of pressure"
     annotation(Dialog(tab = "Initialization"));
-  parameter Boolean use_T_start = true "= true, use T_start, otherwise h_start"
-    annotation(Dialog(tab = "Initialization"), Evaluate=true);
-  parameter Medium.Temperature T_start[nEle]=
-    if use_T_start then fill(system.T_start, nEle) else TWat_nominal
+  parameter Medium.Temperature T_start[nEle]=TWat_nominal
     "Start value of temperature"
-    annotation(Dialog(tab = "Initialization", enable = use_T_start));
-  parameter Medium.SpecificEnthalpy h_start[nEle]=
-    if use_T_start then Medium.specificEnthalpy_pTX(p_start, T_start, X_start) else
-           Medium.specificEnthalpy_pTX(Medium.p_default, TWat_nominal, Medium.X_default)
-    "Start value of specific enthalpy"
-    annotation(Dialog(tab = "Initialization", enable = not use_T_start));
+    annotation(Dialog(tab = "Initialization"));
   parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
     "Start value of mass fractions m_i/m"
     annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
@@ -55,11 +46,11 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
   parameter Real n = 1.24 "Exponent for heat transfer";
   parameter Modelica.SIunits.Volume VWat = 5.8E-6*abs(Q_flow_nominal)
     "Water volume of radiator"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Modelica.SIunits.Mass mDry = 0.0263*abs(Q_flow_nominal) if
         not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Dry mass of radiator that will be lumped to water heat capacity"
-    annotation(Evaluate=true, Dialog(tab = "Assumptions", group="Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
+    annotation(Evaluate=true, Dialog(tab = "Dynamics", enable = not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
   Modelica.SIunits.HeatFlowRate QCon_flow
@@ -94,15 +85,11 @@ public
     redeclare each package Medium = Medium,
     each nPorts = 2,
     each V=VWat/nEle,
-    each final use_HeatTransfer=true,
-    redeclare each model HeatTransfer =
-        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer,
+    each final m_flow_nominal = m_flow_nominal,
     each final energyDynamics=energyDynamics,
     each final massDynamics=energyDynamics,
     each final p_start=p_start,
-    each final use_T_start=use_T_start,
     final T_start=T_start,
-    final h_start=h_start,
     each final X_start=X_start,
     each final C_start=C_start) "Volume for fluid stream"
     annotation (Placement(transformation(extent={{-9,0},{11,-20}},
@@ -173,11 +160,11 @@ initial equation
 equation
   dTCon = heatPortCon.T .- vol.medium.T;
   dTRad = heatPortRad.T .- vol.medium.T;
-  if homotopyInitialization then   
-    preHeaFloCon.Q_flow = homotopy(actual=(1-fraRad) .* UAEle .* dTCon .* 
+  if homotopyInitialization then
+    preHeaFloCon.Q_flow = homotopy(actual=(1-fraRad) .* UAEle .* dTCon .*
                                           Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTCon, n=n-1, delta=0.05),
                                    simplified= (1-fraRad) .* UAEle .* abs(dTCon_nominal).^(n-1) .* dTCon);
-    preHeaFloRad.Q_flow = homotopy(actual=fraRad     .* UAEle .* dTRad .* 
+    preHeaFloRad.Q_flow = homotopy(actual=fraRad     .* UAEle .* dTRad .*
                                           Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTRad, n=n-1, delta=0.05),
                                    simplified=fraRad .* UAEle .* abs(dTRad_nominal).^(n-1) .* dTRad);
   else
@@ -204,19 +191,18 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(port_a, vol[1].ports[1]) annotation (Line(
-      points={{-100,5.55112e-16},{-75.25,5.55112e-16},{-75.25,1.11022e-15},{
-          -50.5,1.11022e-15},{-50.5,5.55112e-16},{-1,5.55112e-16}},
+      points={{-100,0},{-75.25,0},{-75.25,1.11022e-015},{-50.5,1.11022e-015},{-50.5,
+          0},{-1,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol[nEle].ports[2], port_b) annotation (Line(
-      points={{3,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,
-          1.11022e-15},{51.5,5.55112e-16},{100,5.55112e-16}},
+      points={{3,0},{27.25,0},{27.25,1.11022e-015},{51.5,1.11022e-015},{51.5,0},
+          {100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   for i in 1:nEle-1 loop
     connect(vol[i].ports[2], vol[i+1].ports[1]) annotation (Line(
-        points={{3,5.55112e-16},{2,5.55112e-16},{2,1.11022e-15},{1,1.11022e-15},
-            {1,5.55112e-16},{-1,5.55112e-16}},
+        points={{3,0},{2,0},{2,1.11022e-015},{1,1.11022e-015},{1,0},{-1,0}},
         color={0,127,255},
         smooth=Smooth.None));
   end for;

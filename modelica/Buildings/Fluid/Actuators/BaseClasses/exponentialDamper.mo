@@ -13,12 +13,17 @@ function exponentialDamper
 
   output Real kThetaSqRt(min=0)
     "Flow coefficient, kThetaSqRT = =sqrt(kTheta) = sqrt(pressure drop/dynamic pressure)";
+protected
+  Real yC(min=0, max=1, unit="")
+    "y constrained to 0 <= y <= 1 to avoid numerical problems";
 algorithm
   if y < yL then
-    kThetaSqRt := sqrt(Modelica.Math.exp(cL[3] + y * (cL[2] + y * cL[1])));
+    yC :=max(0, y);
+    kThetaSqRt := sqrt(Modelica.Math.exp(cL[3] + yC * (cL[2] + yC * cL[1])));
   else
     if (y > yU) then
-      kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + y * (cU[2] + y * cU[1])));
+      yC := min(1, y);
+      kThetaSqRt := sqrt(Modelica.Math.exp(cU[3] + yC * (cU[2] + yC * cU[1])));
     else
       kThetaSqRt := sqrt(Modelica.Math.exp(a+b*(1-y))) "y=0 is closed";
     end if;
@@ -50,11 +55,18 @@ attempts <code>k &lt; 0</code> during the iterative solution procedure.
 revisions="<html>
 <ul>
 <li>
+July 1, 2011 by Michael Wetter:<br>
+Added constraint to control input to avoid using a number outside
+<code>0</code> and <code>1</code> in case that the control input
+has a numerical integration error.
+</li>
+<li>
 April 4, 2010 by Michael Wetter:<br>
 Reformulated implementation. The new implementation computes
 <code>sqrt(kTheta)</code>. This avoid having <code>kTheta</code> in
 the iteration variables, which caused warnings when the solver attempted
 <code>kTheta &lt; 0</code>.
+</li>
 <li>
 June 22, 2008 by Michael Wetter:<br>
 First implementation.

@@ -1,8 +1,9 @@
 within Buildings.Media.Interfaces;
 partial package PartialSimpleIdealGasMedium
-  "Medium model of Ideal gas with constant cp and cv. All other quantities, e.g. transport properties, are constant."
+  "Medium model of Ideal gas with constant cp and cv. All other quantities, e.g., transport properties, are constant."
 
-  extends Modelica.Media.Interfaces.PartialPureSubstance(singleState=false);
+  extends Modelica.Media.Interfaces.PartialPureSubstance(ThermoStates=Choices.IndependentVariables.pT,
+      singleState=false);
 
   import SI = Modelica.SIunits;
   constant SpecificHeatCapacity cp_const
@@ -27,7 +28,10 @@ partial package PartialSimpleIdealGasMedium
   end FluidConstants;
 
   redeclare replaceable model extends BaseProperties(
-          T(stateSelect=StateSelect.prefer)) "Base properties of ideal gas"
+    T(stateSelect=if preferredMediumStates then StateSelect.prefer else
+                       StateSelect.default),
+    p(stateSelect=if preferredMediumStates then StateSelect.prefer else
+                       StateSelect.default)) "Base properties of ideal gas"
   equation
         assert(T >= T_min and T <= T_max, "
 Temperature T (= "   + String(T) + " K) is not
@@ -42,14 +46,14 @@ required from medium model \""   + mediumName + "\".
     MM = MM_const;
     state.T = T;
     state.p = p;
-        annotation (Documentation(info="<html>
+        annotation (Documentation(info="<HTML>
 <p>
 This is the most simple incompressible medium model, where
 specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium
 quantities are assumed to be constant.
 </p>
-</html>"));
+</HTML>"));
   end BaseProperties;
 
   redeclare function setState_pTX
@@ -61,7 +65,6 @@ quantities are assumed to be constant.
     output ThermodynamicState state "thermodynamic state record";
   algorithm
     state := ThermodynamicState(p=p,T=T);
-    annotation(Documentation(info="<html></html>"));
   end setState_pTX;
 
   redeclare function setState_phX
@@ -72,8 +75,7 @@ quantities are assumed to be constant.
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "thermodynamic state record";
   algorithm
-    state := ThermodynamicState(p=p,T=T0+h/cp_const);
-    annotation(Documentation(info="<html></html>"));
+    state := ThermodynamicState(p=p,T=temperature_phX(p, h, X));
   end setState_phX;
 
   redeclare replaceable function setState_psX
@@ -84,9 +86,8 @@ quantities are assumed to be constant.
     input MassFraction X[:]=reference_X "Mass fractions";
     output ThermodynamicState state "thermodynamic state record";
   algorithm
-    state := ThermodynamicState(p=p,T=Modelica.Math.exp(s/cp_const + Modelica.Math.log(T0))
+    state := ThermodynamicState(p=p,T=Modelica.Math.exp(s/cp_const + Modelica.Math.log(reference_T))
                                 + R_gas*Modelica.Math.log(p/reference_p));
-    annotation(Documentation(info="<html></html>"));
   end setState_psX;
 
   redeclare replaceable function setState_dTX
@@ -98,21 +99,32 @@ quantities are assumed to be constant.
     output ThermodynamicState state "thermodynamic state record";
   algorithm
     state := ThermodynamicState(p=d*R_gas*T,T=T);
-    annotation(Documentation(info="<html></html>"));
   end setState_dTX;
+
+      redeclare function extends setSmoothState
+    "Return thermodynamic state so that it smoothly approximates: if x > 0 then state_a else state_b"
+      algorithm
+    state := ThermodynamicState(p=Modelica.Media.Common.smoothStep(
+            x,
+            state_a.p,
+            state_b.p,
+            x_small), T=Modelica.Media.Common.smoothStep(
+            x,
+            state_a.T,
+            state_b.T,
+            x_small));
+      end setSmoothState;
 
   redeclare function extends pressure "Return pressure of ideal gas"
 
   algorithm
     p := state.p;
-    annotation(Documentation(info="<html></html>"));
   end pressure;
 
   redeclare function extends temperature "Return temperature of ideal gas"
 
   algorithm
     T := state.T;
-    annotation(Documentation(info="<html></html>"));
   end temperature;
 
   redeclare replaceable function extends density "Return density of ideal gas"
@@ -124,15 +136,14 @@ quantities are assumed to be constant.
       extends Modelica.Icons.Function;
   algorithm
     h := cp_const*(state.T-T0);
-    annotation(Documentation(info="<html></html>"));
   end specificEnthalpy;
 
-  redeclare function extends specificInternalEnergy
+  redeclare replaceable function extends specificInternalEnergy
     "Return specific internal energy"
     extends Modelica.Icons.Function;
   algorithm
-    u := (cp_const-R_gas)*(state.T-T0);
-    annotation(Documentation(info="<html></html>"));
+    // u := (cp_const-R_gas)*(state.T-T0);
+    u := cp_const*(state.T-T0) - R_gas*state.T;
   end specificInternalEnergy;
 
   redeclare replaceable function extends specificEntropy
@@ -140,14 +151,12 @@ quantities are assumed to be constant.
       extends Modelica.Icons.Function;
   algorithm
     s := cp_const*Modelica.Math.log(state.T/T0) - R_gas*Modelica.Math.log(state.p/reference_p);
-    annotation(Documentation(info="<html></html>"));
   end specificEntropy;
 
   redeclare function extends specificGibbsEnergy "Return specific Gibbs energy"
     extends Modelica.Icons.Function;
   algorithm
     g := cp_const*(state.T-T0) - state.T*specificEntropy(state);
-    annotation(Documentation(info="<html></html>"));
   end specificGibbsEnergy;
 
   redeclare function extends specificHelmholtzEnergy
@@ -155,21 +164,18 @@ quantities are assumed to be constant.
     extends Modelica.Icons.Function;
   algorithm
     f := (cp_const-R_gas)*(state.T-T0) - state.T*specificEntropy(state);
-    annotation(Documentation(info="<html></html>"));
   end specificHelmholtzEnergy;
 
   redeclare function extends dynamicViscosity "Return dynamic viscosity"
 
   algorithm
     eta := eta_const;
-    annotation(Documentation(info="<html></html>"));
   end dynamicViscosity;
 
   redeclare function extends thermalConductivity "Return thermal conductivity"
 
   algorithm
     lambda := lambda_const;
-    annotation(Documentation(info="<html></html>"));
   end thermalConductivity;
 
   redeclare function extends specificHeatCapacityCp
@@ -177,7 +183,6 @@ quantities are assumed to be constant.
 
   algorithm
     cp := cp_const;
-    annotation(Documentation(info="<html></html>"));
   end specificHeatCapacityCp;
 
   redeclare function extends specificHeatCapacityCv
@@ -185,21 +190,18 @@ quantities are assumed to be constant.
 
   algorithm
     cv := cv_const;
-    annotation(Documentation(info="<html></html>"));
   end specificHeatCapacityCv;
 
   redeclare function extends isentropicExponent "Return isentropic exponent"
 
   algorithm
     gamma := cp_const/cv_const;
-    annotation(Documentation(info="<html></html>"));
   end isentropicExponent;
 
   redeclare function extends velocityOfSound "Return velocity of sound "
 
   algorithm
     a := sqrt(cp_const/cv_const*R_gas*state.T);
-    annotation(Documentation(info="<html></html>"));
   end velocityOfSound;
 
   redeclare function specificEnthalpy_pTX
@@ -211,7 +213,6 @@ quantities are assumed to be constant.
     output SpecificEnthalpy h "Specific enthalpy at p, T, X";
   algorithm
     h := cp_const*(T-T0);
-    annotation(Documentation(info="<html></html>"));
   end specificEnthalpy_pTX;
 
   redeclare function temperature_phX
@@ -223,7 +224,6 @@ quantities are assumed to be constant.
     output Temperature T "Temperature";
   algorithm
     T := h/cp_const + T0;
-    annotation(Documentation(info="<html></html>"));
   end temperature_phX;
 
   redeclare function density_phX "Return density from p, h, and X or Xi"
@@ -234,10 +234,78 @@ quantities are assumed to be constant.
     output Density d "density";
   algorithm
     d := density(setState_phX(p,h,X));
-    annotation(Documentation(info="<html></html>"));
   end density_phX;
 
-  annotation (Documentation(info="<html>
+  redeclare function extends isentropicEnthalpy "Return isentropic enthalpy"
+  algorithm
+    /*  s = cp_const*log(refState.T/T0) - R_gas*log(refState.p/reference_p)
+          = cp_const*log(state.T/T0) - R_gas*log(p_downstream/reference_p)
+
+        log(state.T) = log(refState.T) +
+                       (R_gas/cp_const)*(log(p_downstream/reference_p) - log(refState.p/reference_p))
+                     = log(refState.T) + (R_gas/cp_const)*log(p_downstream/refState.p)
+                     = log(refState.T) + log( (p_downstream/refState.p)^(R_gas/cp_const) )
+                     = log( refState.T*(p_downstream/refState.p)^(R_gas/cp_const) )
+        state.T = refstate.T*(p_downstream/refstate.p)^(R_gas/cp_const)
+    */
+    h_is := cp_const*(refState.T*(p_downstream/refState.p)^(R_gas/cp_const) - T0);
+  end isentropicEnthalpy;
+
+  redeclare function extends isobaricExpansionCoefficient
+    "Returns overall the isobaric expansion coefficient beta"
+  algorithm
+    /* beta = 1/v * der(v,T), with v = 1/d, at constant pressure p:
+       v = R*T/p
+       der(v,T) = R/p
+       beta = p/(R*T)*R/p
+            = 1/T
+    */
+
+    beta := 1/state.T;
+  end isobaricExpansionCoefficient;
+
+  redeclare function extends isothermalCompressibility
+    "Returns overall the isothermal compressibility factor"
+  algorithm
+    /* kappa = - 1/v * der(v,p), with v = 1/d at constant temperature T.
+       v = R*T/p
+       der(v,T) = -R*T/p^2
+       kappa = p/(R*T)*R*T/p^2
+             = 1/p
+    */
+    kappa := 1/state.p;
+  end isothermalCompressibility;
+
+  redeclare function extends density_derp_T
+    "Returns the partial derivative of density with respect to pressure at constant temperature"
+  algorithm
+    /*  d = p/(R*T)
+        ddpT = 1/(R*T)
+    */
+    ddpT := 1/(R_gas*state.T);
+  end density_derp_T;
+
+  redeclare function extends density_derT_p
+    "Returns the partial derivative of density with respect to temperature at constant pressure"
+  algorithm
+    /*  d = p/(R*T)
+        ddpT = -p/(R*T^2)
+    */
+    ddTp := -state.p/(R_gas*state.T*state.T);
+  end density_derT_p;
+
+  redeclare function extends density_derX
+    "Returns the partial derivative of density with respect to mass fractions at constant pressure and temperature"
+  algorithm
+    dddX := fill(0,nX);
+  end density_derX;
+
+  redeclare function extends molarMass "Returns the molar mass of the medium"
+  algorithm
+    MM := MM_const;
+  end molarMass;
+  annotation (preferedView="info",
+Documentation(info="<html>
 This package is identical to <a href=\"Modelica:Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>
 except that the functions.
@@ -249,14 +317,28 @@ Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-February 18, 2010, by Michael Wetter:<br>
-In <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleIdealGasMedium.setState_psX\">
-setState_psX</a>, replaced
-<code>reference_T</code> with <code>T0</code> because enthalpy is defined as zero at <code>T0</code>.
+August 2, 2011, by Michael Wetter:<br>
+<ul>
+<li>
+Made a new copy from the Modelica Standard Library since
+the Modelica Standard Library fixed a bug in computing the enthalpy, internal energy
+and the relation <code>h=u+R*T</code>. The bug that was fixed was because in Modelica,
+<code>h</code> and <code>u</code> are not zero at 0 Kelvin, in which case
+<code>u</code> cannot be computed as <code>c_v*T</code>.
 </li>
 <li>
-January 12, 2011, by Michael Wetter:<br>
-First implementation.
+Added <code>final</code> keyword to <code>singleState = false</code> since
+this medium implements density as a function of pressure.
+</li>
+<li>
+Declared functions
+<code>density</code>,
+<code>specificEntropy</code> and <code>setState_dTX</code> as <code>replaceable</code>.
+This is required for the implementation of 
+<a href=\"modelica://Buildings.Media.GasesPTDecoupled.SimpleAir\">
+Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
+</li>
+</ul>
 </li>
 </ul>
 </html>"));

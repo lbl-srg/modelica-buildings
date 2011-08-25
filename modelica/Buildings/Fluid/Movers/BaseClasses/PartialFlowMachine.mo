@@ -1,113 +1,72 @@
 within Buildings.Fluid.Movers.BaseClasses;
 partial model PartialFlowMachine
   "Partial model to interface fan or pump models with the medium"
+  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   import Modelica.Constants;
 
-  extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface(show_T=true,
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(show_T=true,
     port_a(
-      h_outflow(start=h_start),
+      h_outflow(start=h_outflow_start),
       final m_flow(min = if allowFlowReversal then -Constants.inf else 0)),
     port_b(
-      h_outflow(start=h_start),
+      h_outflow(start=h_outflow_start),
       p(start=p_start),
       final m_flow(max = if allowFlowReversal then +Constants.inf else 0)));
 
   Delays.DelayFirstOrder vol(
     redeclare package Medium = Medium,
     tau=tau,
-    energyDynamics=energyDynamics,
-    massDynamics=massDynamics,
-    use_T_start=use_T_start,
+    energyDynamics=if dynamicBalance then energyDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
+    massDynamics=if dynamicBalance then massDynamics else Modelica.Fluid.Types.Dynamics.SteadyState,
     T_start=T_start,
-    h_start=h_start,
     X_start=X_start,
     C_start=C_start,
     m_flow_nominal=m_flow_nominal,
-    use_HeatTransfer=true,
-    redeclare model HeatTransfer =
-        Modelica.Fluid.Vessels.BaseClasses.HeatTransfer.IdealHeatTransfer,
     nPorts=2,
-    p_start=p_start) if
-       dynamicBalance "Fluid volume for dynamic model"
+    p_start=p_start,
+    prescribedHeatFlowRate=true,
+    allowFlowReversal=allowFlowReversal) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
    parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
-    annotation (Evaluate=true, Dialog(tab="Assumptions", group="Dynamics"));
+    annotation (Evaluate=true, Dialog(tab="Dynamics", group="Equations"));
 
   parameter Boolean addPowerToMedium=true
     "Set to false to avoid any power (=heat and flow work) being added to medium (may give simpler equations)";
 
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=
-                     Modelica.Fluid.Types.Dynamics.SteadyStateInitial
-    "Formulation of energy balance (used if dynamicBalance=true)"
-    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
-  final parameter Modelica.Fluid.Types.Dynamics massDynamics=energyDynamics
-    "Formulation of mass balance (used if dynamicBalance=true)"
-    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
-
   parameter Modelica.SIunits.Time tau=1
     "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
-    annotation (Dialog(tab="Assumptions", group="Dynamics", enable=dynamicBalance));
+    annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
 
-  // Parameters for initialization
-  // Initialization
-  parameter Boolean use_T_start=true "= true, use T_start, otherwise h_start"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.Media.Interfaces.PartialMedium.Temperature T_start=if
-      use_T_start then system.T_start else Medium.temperature_phX(
-      p_start,
-      h_start,
-      X_start) "Start value of temperature"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.Media.Interfaces.PartialMedium.SpecificEnthalpy h_start=
-      if use_T_start then Medium.specificEnthalpy_pTX(
-      p_start,
-      T_start,
-      X_start) else Medium.h_default "Start value of inlet specific enthalpy"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFraction X_start[Medium.nX]=
-     Medium.X_default "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.Media.Interfaces.PartialMedium.ExtraProperty C_start[
-    Medium.nC]=fill(0, Medium.nC) "Start value of trace substances"
-    annotation (Dialog(tab="Initialization"));
-  parameter Modelica.SIunits.Pressure p_start = Medium.p_default
-    "Start value of inlet pressure"
-    annotation (Dialog(tab="Initialization"));
   Modelica.SIunits.Density rho_in "Density of inflowing fluid";
-  Modelica.SIunits.VolumeFlowRate V_in_flow
-    "Volume flow rate that flows into the device";
+ // Modelica.SIunits.VolumeFlowRate V_in_flow
+ //   "Volume flow rate that flows into the device";
   // Models
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if dynamicBalance
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
 
 protected
-  IdealSource souDyn(redeclare package Medium =
-                       Medium, final addPowerToMedium=false) if dynamicBalance
-    "Pressure source for dynamic model, this changes the pressure in the medium"
-    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-  Buildings.Fluid.Movers.BaseClasses.IdealSource souSta(
-                            redeclare package Medium = Medium,
-                            final addPowerToMedium=addPowerToMedium) if not dynamicBalance
-    "Source for static model, this changes the pressure in the medium and adds heat"
-    annotation (Placement(transformation(extent={{50,-70},{70,-50}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if (dynamicBalance and addPowerToMedium)
+  Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
+  redeclare package Medium = Medium,
+    allowFlowReversal=allowFlowReversal) "Pressure source"
+    annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
     annotation (Placement(transformation(extent={{-68,0},{-48,20}})));
+
+  parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
+      T=T_start, p=p_start, X=X_start);
+  parameter Modelica.SIunits.SpecificEnthalpy h_outflow_start = Medium.specificEnthalpy(sta_start)
+    "Start value for outflowing enthalpy";
 
 equation
   // For computing the density, we assume that the fan operates in the design flow direction.
   rho_in = Medium.density(
        Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
-  V_in_flow = m_flow/rho_in;
+//  V_in_flow = m_flow/rho_in;
   connect(prePow.port, vol.heatPort) annotation (Line(
       points={{-48,10},{-40,10}},
       color={191,0,0},
-      smooth=Smooth.None));
-
-  connect(souSta.port_b, port_b) annotation (Line(
-      points={{70,-60},{80,-60},{80,5.55112e-16},{100,5.55112e-16}},
-      color={0,127,255},
       smooth=Smooth.None));
 
   connect(vol.heatPort, heatPort) annotation (Line(
@@ -115,22 +74,18 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(port_a, vol.ports[1]) annotation (Line(
-      points={{-100,5.55112e-16},{-52,5.55112e-16},{-52,0},{-32,0},{-32,
-          -5.55112e-16}},
+      points={{-100,5.55112e-16},{-83,5.55112e-16},{-83,4.87687e-22},{-66,
+          4.87687e-22},{-66,-5.55112e-16},{-32,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(souDyn.port_b, port_b) annotation (Line(
-      points={{20,6.10623e-16},{69,6.10623e-16},{69,5.55112e-16},{100,
-          5.55112e-16}},
+  connect(preSou.port_b, port_b) annotation (Line(
+      points={{40,6.10623e-16},{55,6.10623e-16},{55,1.16573e-15},{70,
+          1.16573e-15},{70,5.55112e-16},{100,5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(souSta.port_a, port_a) annotation (Line(
-      points={{50,-60},{-60,-60},{-60,5.55112e-16},{-100,5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(vol.ports[2], souDyn.port_a) annotation (Line(
-      points={{-28,-5.55112e-16},{-15,-5.55112e-16},{-15,6.10623e-16},{
-          -5.55112e-16,6.10623e-16}},
+  connect(vol.ports[2],preSou. port_a) annotation (Line(
+      points={{-28,-5.55112e-16},{-16,-5.55112e-16},{-16,5.55107e-17},{-4,
+          5.55107e-17},{-4,6.10623e-16},{20,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -172,14 +127,7 @@ equation
           fillColor={0,100,199})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}),
-            graphics={Text(
-          extent={{-48,-74},{98,-94}},
-          lineColor={0,0,255},
-          textString="Note that one of the two fluid streams will be removed"),
-          Text(
-          extent={{-48,-84},{70,-102}},
-          lineColor={0,0,255},
-          textString="depending on the value of dynamicBalance.")}),
+            graphics),
     Documentation(info="<html>
 <p>This is the base model for fans and pumps.
 It provides an interface
@@ -205,6 +153,10 @@ and more robust simulation, in particular if the mass flow is equal to zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+May 25, 2011, by Michael Wetter:<br>
+Revised implementation of energy balance to avoid having to use conditionally removed models.
+</li>
 <li>
 July 29, 2010, by Michael Wetter:<br>
 Reduced fan time constant from 10 to 1 second.

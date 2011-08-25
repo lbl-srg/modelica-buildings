@@ -1,7 +1,9 @@
 DoorDiscretized
-powerLaw
 PowerLawResistance
 TwoWayFlowElement
 TwoWayFlowElementBuoyancy
 ZonalFlow
 ErrorControl
+powerLaw
+powerLawFixedM
+Examples

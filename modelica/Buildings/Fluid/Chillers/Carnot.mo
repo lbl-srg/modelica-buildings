@@ -1,17 +1,10 @@
 within Buildings.Fluid.Chillers;
 model Carnot
   "Chiller with performance curve adjusted based on Carnot efficiency"
- extends Interfaces.PartialDynamicFourPortTransformer(final show_T = true,
+ extends Interfaces.FourPortHeatMassExchanger(final show_T = true,
     vol1(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      substanceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      traceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial),
-    vol2(
-      energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      substanceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-      traceDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial));
+      final prescribedHeatFlowRate = true),
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolume vol2);
 
   parameter Buildings.Fluid.Types.EfficiencyInput effInpEva=
     Buildings.Fluid.Types.EfficiencyInput.volume

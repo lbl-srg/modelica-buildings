@@ -2,17 +2,6 @@ within Buildings.Fluid.Movers.BaseClasses;
 model IdealSource
   "Base class for pressure and mass flow source with optional power input"
   extends Modelica.Fluid.Interfaces.PartialTwoPortTransport(final show_V_flow=true);
-  Modelica.Blocks.Interfaces.RealInput P_in if addPowerToMedium
-    "Power added to the medium"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,80}),    iconTransformation(
-        extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,80})));
-
-  parameter Boolean addPowerToMedium
-    "Set to false to avoid any power being added to medium (may give simpler equations)";
 
   // what to control
   parameter Boolean control_m_flow "= false to control dp instead of m_flow"
@@ -41,12 +30,7 @@ protected
     "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput dp_internal
     "Needed to connect to conditional connector";
-  Modelica.Blocks.Interfaces.RealInput P_internal
-    "Needed to connect to conditional connector";
-  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
 equation
-  // Regularization of m_flow around the origin to avoid a division by zero
-  m_flowInv = Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
 
   // Ideal control
   if control_m_flow then
@@ -57,24 +41,12 @@ equation
     m_flow_internal = 0;
   end if;
 
-  if not addPowerToMedium then
-    P_internal = 0;
-  end if;
-
   connect(dp_internal, dp_in);
   connect(m_flow_internal, m_flow_in);
-  connect(P_internal, P_in);
 
   // Energy balance (no storage)
-  if addPowerToMedium then
-    port_b.h_outflow = inStream(port_a.h_outflow) + P_internal * m_flowInv;
-    port_a.h_outflow = inStream(port_b.h_outflow) - P_internal * m_flowInv;
-//    port_a.m_flow*port_a.h_outflow + port_b.m_flow*inStream(port_b.h_outflow) = -P_internal;
-//    port_b.m_flow*port_b.h_outflow + port_a.m_flow*inStream(port_a.h_outflow) = -P_internal;
-  else
-    port_a.h_outflow = inStream(port_b.h_outflow);
-    port_b.h_outflow = inStream(port_a.h_outflow);
-  end if;
+  port_a.h_outflow = inStream(port_b.h_outflow);
+  port_b.h_outflow = inStream(port_a.h_outflow);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
@@ -97,20 +69,11 @@ equation
           visible=control_m_flow,
           extent={{-80,44},{-24,24}},
           lineColor={255,255,255},
-          textString="m"),
-        Text(
-          visible=addPowerToMedium,
-          extent={{-30,44},{26,24}},
-          lineColor={255,255,255},
-          textString="P")}),
+          textString="m")}),
     Documentation(info="<html>
 <p>
 Model of a fictious pipe that is used as a base class
 for a pressure source or to prescribe a mass flow rate.
-Optionally, power can be added to the enthalpy balance of the medium.
-If <code>addPowerToMedium = false</code>, then no power will be added to the medium.
-This can lead to simpler equations and more robust simulation, in particular
-if the mass flow rate is zero.
 </p>
 <p>
 Note that for fans and pumps with dynamic balance,
@@ -122,8 +85,9 @@ adding heat to the volume, and flow work to this model.
 revisions="<html>
 <ul>
 <li>
-April 18, 2011 by Michael Wetter:<br>
-Rewrote energy balance to avoid a division by zero.
+May 25, 2011 by Michael Wetter:<br>
+Removed the option to add power to the medium, as this is dealt with in the volume
+that is used in the mover model.
 </li>
 <li>
 July 27, 2010 by Michael Wetter:<br>

@@ -4,7 +4,8 @@ model ExteriorBoundaryConditions
   parameter Integer nCon(min=1) "Number of exterior constructions"
   annotation (Dialog(group="Exterior constructions"));
   parameter Modelica.SIunits.Angle lat "Latitude";
-  parameter Modelica.SIunits.Angle til[nCon] "Surface tilt";
+  parameter Modelica.SIunits.Angle til[nCon]
+    "Surface tilt (0 if the surface is a roof)";
   parameter Modelica.SIunits.Angle azi[nCon] "Surface azimuth";
 
   parameter Modelica.SIunits.Area AOpa[nCon]
@@ -30,9 +31,11 @@ model ExteriorBoundaryConditions
 
   // The convection coefficients are not final to allow a user to individually
   // assign them.
+  // We reassign the tilt since a roof has been declared in the room model as the
+  // ceiling (of the room)
   HeatTransfer.Convection.Exterior conOpa[nCon](
     final A=AOpa,
-    final til=til,
+    final til=Modelica.Constants.pi*ones(nCon) - til,
     final azi=azi,
     each conMod=conMod,
     each hFixed=hFixed) "Convection model for opaque part of the wall"
@@ -235,6 +238,16 @@ Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 </html>",
         revisions="<html>
 <ul>
+<li>
+August 9, 2011 by Michael Wetter:<br>
+Changed assignment of tilt in instance <code>conOpa</code>.
+This fixes the bug in <a href=\"https://corbu.lbl.gov/trac/bie/ticket/35\">ticket 35</a>
+that led to the wrong solar radiation gain for roofs and floors. 
+(Since the tilt has been changed in the model 
+<a href=\"modelica://Buildings.RoomsBeta.MixedAir\">
+Buildings.RoomsBeta.MixedAir</a> at the place where it makes an instance of this model, 
+the change in the tilt parameter of the convective heat transfer model was required.)
+</li>
 <li>
 March 28, 2011, by Michael Wetter:<br>
 Propaged parameter <code>hFixed</code> to top-level of the model.

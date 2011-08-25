@@ -1,10 +1,8 @@
 within Buildings.Fluid.MassExchangers;
 model HumidifierPrescribed
   "Ideal humidifier or dehumidifier with prescribed water mass flow rate addition or subtraction"
-  extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer(
-     sensibleOnly = false,
-     Q_flow = Medium.enthalpyOfLiquid(T_in_internal) * mWat_flow,
-     mXi_flow = {if ( i == Medium.Water) then  mWat_flow else 0 for i in 1:Medium.nXi});
+  extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol);
 
   parameter Boolean use_T_in= false
     "Get the temperature from the input connector"
@@ -26,18 +24,56 @@ model HumidifierPrescribed
     annotation (Placement(transformation(
           extent={{-140,40},{-100,80}}, rotation=0)));
 protected
-  constant Modelica.SIunits.MassFraction[Medium.nXi] Xi_w = {1}
-    "Mass fraction of water";
-  Modelica.SIunits.MassFlowRate mWat_flow "Water flow rate";
   Modelica.Blocks.Interfaces.RealInput T_in_internal
     "Needed to connect to conditional connector";
+  Modelica.Blocks.Math.Gain gai(k=mWat_flow_nominal) "Gain"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
+    "Prescribed heat flow"
+    annotation (Placement(transformation(extent={{36,68},{56,88}})));
+  Modelica.Blocks.Sources.RealExpression realExpression(y=
+        Medium.enthalpyOfLiquid(T_in_internal))
+    annotation (Placement(transformation(extent={{-96,70},{-20,94}})));
+  Modelica.Blocks.Math.Product pro
+    "Product to compute latent heat added to volume"
+    annotation (Placement(transformation(extent={{0,66},{20,86}})));
+  Modelica.Blocks.Sources.RealExpression realExpression1(y=T_in_internal)
+    annotation (Placement(transformation(extent={{-80,-48},{-52,-24}})));
 equation
+  // Conditional connect statement
   connect(T_in, T_in_internal);
   if not use_T_in then
     T_in_internal = T;
   end if;
 
-  mWat_flow = u * mWat_flow_nominal;
+  connect(u, gai.u) annotation (Line(
+      points={{-120,60},{-82,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gai.y, vol.mWat_flow) annotation (Line(
+      points={{-59,60},{-34,60},{-34,-18},{-11,-18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(realExpression.y, pro.u1)     annotation (Line(
+      points={{-16.2,82},{-2,82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gai.y, pro.u2)     annotation (Line(
+      points={{-59,60},{-34,60},{-34,70},{-2,70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pro.y, preHea.Q_flow)     annotation (Line(
+      points={{21,76},{28,76},{28,78},{36,78}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(preHea.port, vol.heatPort) annotation (Line(
+      points={{56,78},{80,78},{80,60},{-20,60},{-20,-10},{-9,-10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(vol.TWat, realExpression1.y) annotation (Line(
+      points={{-11,-14.8},{-30,-14.8},{-30,-36},{-50.6,-36}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
@@ -96,12 +132,6 @@ set by the parameter <code>T</code> is used for temperature of the water that is
 added to the air stream.
 </p>
 <p>
-Note that for non-zero <code>m_flow</code>, 
-if the mass flow rate tends to zero, then the moisture difference over this 
-component tends to infinity.
-Hence, using a proper control for <code>u</code> is essential when using this component.
-</p>
-<p>
 This model can only be used with medium models that define the integer constant
 <code>Water</code> which needs to be equal to the index of the water mass fraction 
 in the species vector.
@@ -109,6 +139,10 @@ in the species vector.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 24, 2011, by Michael Wetter:<br>
+Changed base class to allow using the model as a dynamic or a steady-state model.
+</li>
 <li>
 April 14, 2010, by Michael Wetter:<br>
 Converted temperature input to a conditional connector.
@@ -118,5 +152,6 @@ April 17, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(graphics));
 end HumidifierPrescribed;

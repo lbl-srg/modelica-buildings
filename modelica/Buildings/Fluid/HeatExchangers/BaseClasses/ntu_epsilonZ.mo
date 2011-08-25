@@ -30,7 +30,10 @@ algorithm
 
   elseif (flowRegime == f.CrossFlowUnmixed) then
     a := 0;
-    NTU := Internal.solve(eps, 1E-20, 1E6, {Z});
+    // The function Internal.solve evaluates epsilon_ntuZ at NTU=x_min-1e-10 and NTU=x_max+1e-10
+    // when it solves iteratively epsilon_ntuZ for ntu
+    // Therefore, we set x_min=1.5*1e-10 to prevent computing NTU^(-0.22)=(-1e-10)^(-0.22).
+    NTU := Internal.solve(y_zero=eps, x_min=1.5*1e-10, x_max=1E6, pressure=Z);
   elseif (flowRegime == f.CrossFlowCMinUnmixedCMaxMixed) then
     // cross flow, (single pass), CMax mixed, CMin unmixed. (Coil with one row.)
    a := smooth(1, if Z > 0.03 then Z else
@@ -68,6 +71,12 @@ This is handled internally and not exposed to the global solver.
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 10, 2011, by Michael Wetter:<br>
+Changed implementation to use 
+<code>Modelica.Media.Common.OneNonLinearEquation</code> instead of
+<code>Buildings.Utilities.Math.BaseClasses.OneNonLinearEquation</code>.
+</li>
 <li>
 February 11, 2010, by Michael Wetter:<br>
 First implementation.

@@ -1,7 +1,9 @@
 within Buildings.Fluid.MixingVolumes;
 model MixingVolumeMoistAir
   "Mixing volume with heat port for latent heat exchange, to be used with media that contain water"
-  extends BaseClasses.PartialMixingVolumeWaterPort;
+  extends BaseClasses.PartialMixingVolumeWaterPort(nPorts(min=2, max=2),
+    steBal(
+    final sensibleOnly = false));
   // redeclare Medium with a more restricting base class. This improves the error
   // message if a user selects a medium that does not contain the function
   // enthalpyOfLiquid(.)
@@ -12,11 +14,12 @@ protected
   parameter Integer i_w(min=1, fixed=false) "Index for water substance";
   parameter Real s[Medium.nXi](fixed=false)
     "Vector with zero everywhere except where species is";
+
 initial algorithm
   i_w:= -1;
   if cardinality(mWat_flow) > 0 then
   for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i], 
+      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="Water",
                                             caseSensitive=false) then
       i_w := i;
@@ -48,7 +51,8 @@ equation
     mXi_flow = mWat_flow * s;
   end if;
 // Medium species concentration
-  X_w = s*medium.Xi;
+  X_w = s * medium.Xi;
+
   annotation (Diagram(graphics),
                        Icon(graphics),
 defaultComponentName="vol",

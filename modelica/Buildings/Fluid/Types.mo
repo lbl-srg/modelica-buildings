@@ -53,7 +53,7 @@ The details of the coefficients are explained in the
   type DynamicsTimeConstants = enumeration(
       Instantaneous "Instantaneous response",
       FirstOrder "First order response")
-    "Enumeration to define the dynamic response based on time constants";
+    "Fixme: Check where this is used. Enumeration to define the dynamic response based on time constants";
 
   type HeatExchangerConfiguration = enumeration(
       ParallelFlow "Parallel flow",

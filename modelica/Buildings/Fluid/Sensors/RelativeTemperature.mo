@@ -67,8 +67,17 @@ equation
 <p>
 The relative temperature \"T(port_a) - T(port_b)\" is determined between
 the two ports of this component and is provided as output signal. The
-sensor should be connected in parallel with other equipment, no flow
-through the sensor is allowed.
+sensor should be connected in parallel with other equipment.
+There is no flow through the sensor.
+</p>
+<p>
+Note that this sensor should only be connected to fluid volumes, such as
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
+Buildings.Fluid.MixingVolumes.MixingVolume</a>. Otherwise, numerical
+problems may occur if one of the mass flow rates are close to zero.
+See
+<a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
+Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
 ",
@@ -80,6 +89,5 @@ First implementation.
 Implementation is based on <code>Modelica.Fluid</code>.
 </li>
 </ul>
-</html>"
-));
+</html>"));
 end RelativeTemperature;

@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model ReverseBuoyancy
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
   Buildings.Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,
@@ -8,7 +8,9 @@ model ReverseBuoyancy
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=2.5*5*5,
     T_start=273.15 + 25,
-    nPorts=5) annotation (Placement(transformation(extent={{-34,-30},{-14,-10}},
+    nPorts=5,
+    m_flow_nominal=0.001)
+              annotation (Placement(transformation(extent={{-34,-30},{-14,-10}},
           rotation=0)));
   Buildings.Airflow.Multizone.Orifice oriOutBot(
     redeclare package Medium = Medium,
@@ -39,7 +41,9 @@ model ReverseBuoyancy
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=1E12,
     T_start=273.15 + 15,
-    nPorts=3) annotation (Placement(transformation(extent={{123,-38},{143,-18}},
+    nPorts=3,
+    m_flow_nominal=0.001)
+              annotation (Placement(transformation(extent={{123,-38},{143,-18}},
           rotation=0)));
   Buildings.Airflow.Multizone.Orifice dummy(
     redeclare package Medium = Medium,
@@ -127,7 +131,9 @@ model ReverseBuoyancy
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=2.5*5*10,
     T_start=273.15 + 21,
-    nPorts=3) annotation (Placement(transformation(extent={{-30,121},{-10,141}},
+    nPorts=3,
+    m_flow_nominal=0.001)
+              annotation (Placement(transformation(extent={{-30,121},{-10,141}},
           rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume volTopWes(
     redeclare package Medium = Medium,
@@ -135,7 +141,9 @@ model ReverseBuoyancy
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 20,
     V=2.5*5*10,
-    nPorts=3) annotation (Placement(transformation(extent={{-110,120},{-90,140}},
+    nPorts=3,
+    m_flow_nominal=0.001)
+              annotation (Placement(transformation(extent={{-110,120},{-90,140}},
           rotation=0)));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeCloTop(
     redeclare package Medium = Medium,
@@ -176,10 +184,10 @@ equation
   connect(colEasInBot.port_b, oriOutBot.port_a) annotation (Line(points={{18,-86},
           {18,-86},{18,-94},{38,-94},{38,-76}}, color={0,127,255}));
   connect(colEasInTop.port_a, oriOutTop.port_a) annotation (Line(points={{9,-10},
-          {15.25,-10},{15.25,0},{23.5,0},{23.5,6.10623e-16},{37,6.10623e-16}},
+          {15.25,-10},{15.25,0},{23.5,0},{23.5,0},{37,0}},
         color={0,127,255}));
-  connect(oriOutTop.port_b, colOutTop.port_a) annotation (Line(points={{57,
-          6.10623e-16},{108,6.10623e-16},{108,-12},{108,-14},{107,-14}}, color=
+  connect(oriOutTop.port_b, colOutTop.port_a) annotation (Line(points={{57,0},{
+          108,0},{108,-12},{108,-14},{107,-14}},                         color=
           {0,127,255}));
   connect(volWes.ports[1], dooOpeClo.port_b2) annotation (Line(
       points={{-153.667,-29},{-153.667,-51},{-61,-51}},
@@ -276,6 +284,7 @@ equation
           extent={{-176,156},{-52,48}},
           lineColor={135,135,135},
           lineThickness=1)}),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ReverseBuoyancy.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ReverseBuoyancy.mos"
+        "Simulate and plot"),
     Diagram);
 end ReverseBuoyancy;

@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model OpenDoors
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAB(
@@ -14,15 +14,16 @@ model OpenDoors
     V=2.5*5*5,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=0.01)                                     annotation (
       Placement(transformation(extent={{-80,0},{-60,20}}, rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
-    use_HeatTransfer=true,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=0.01)                                     annotation (
       Placement(transformation(extent={{40,40},{60,60}}, rotation=0)));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow PrescribedHeatFlow1
     annotation (Placement(transformation(extent={{4,40},{24,60}}, rotation=0)));
@@ -35,7 +36,8 @@ model OpenDoors
     V=2.5*5*5,
     nPorts=4,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=0.01)                                     annotation (
       Placement(transformation(extent={{70,-40},{90,-20}}, rotation=0)));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooAC(
     redeclare package Medium = Medium,
@@ -97,23 +99,24 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(volA.ports[1], dooAC.port_b2) annotation (Line(
-      points={{-73,-5.55112e-16},{-72.6667,-5.55112e-16},{-72,-52},{10,-52}},
+      points={{-73,0},{-72.6667,0},{-72,-52},{10,-52}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volA.ports[2], dooAC.port_a1) annotation (Line(
-      points={{-71,-5.55112e-16},{-71,-40},{10,-40}},
+      points={{-71,0},{-71,-40},{10,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volA.ports[3], dooAB.port_b2) annotation (Line(
-      points={{-69,-5.55112e-16},{-72,-5.55112e-16},{-72,-24},{10,-24}},
+      points={{-69,0},{-72,0},{-72,-24},{10,-24}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volA.ports[4], dooAB.port_a1) annotation (Line(
-      points={{-67,-5.55112e-16},{-67,-12},{10,-12}},
+      points={{-67,0},{-67,-12},{10,-12}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Diagram(graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OpenDoors.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OpenDoors.mos"
+        "Simulate and plot"),
     Diagram);
 end OpenDoors;

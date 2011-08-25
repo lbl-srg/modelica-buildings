@@ -1,6 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model OneEffectiveAirLeakageArea
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Fluid.MixingVolumes.MixingVolume volA(
@@ -8,15 +8,16 @@ model OneEffectiveAirLeakageArea
     V=2.5*5*5,
     nPorts=2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=0.01)                                     annotation (
       Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume volB(
     redeclare package Medium = Medium,
     V=2.5*5*5,
-    use_HeatTransfer=true,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) annotation (
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    m_flow_nominal=0.01)                                     annotation (
       Placement(transformation(extent={{28,-10},{48,10}}, rotation=0)));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHeaFlo
     annotation (Placement(transformation(extent={{-8,-10},{12,10}}, rotation=0)));
@@ -58,8 +59,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(preHeaFlo.port, volB.heatPort) annotation (Line(
-      points={{12,6.10623e-16},{20,6.10623e-16},{20,6.10623e-16},{28,
-          6.10623e-16}},
+      points={{12,6.10623e-16},{16,6.10623e-16},{16,1.22125e-15},{20,
+          1.22125e-15},{20,6.10623e-16},{28,6.10623e-16}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(Gain1.y, preHeaFlo.Q_flow) annotation (Line(
@@ -72,5 +73,10 @@ equation
           6.10623e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneEffectiveAirLeakageArea.mos" "Simulate and plot"));
+  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneEffectiveAirLeakageArea.mos"
+        "Simulate and plot"),
+        experiment(
+      StopTime=7200,
+      Tolerance=1e-05,
+      Algorithm="Radau"));
 end OneEffectiveAirLeakageArea;

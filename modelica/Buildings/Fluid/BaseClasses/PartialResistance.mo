@@ -1,14 +1,15 @@
 within Buildings.Fluid.BaseClasses;
 partial model PartialResistance "Partial model for a hydraulic resistance"
-    extends Buildings.Fluid.Interfaces.PartialStaticTwoPortInterface(
-     show_T=false, show_V_flow=false, 
-     m_flow(start=m_flow_nominal, nominal=m_flow_nominal_pos),
-     dp(start=dp_nominal, nominal=dp_nominal_pos));
+    extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+     show_T=false, show_V_flow=false,
+     m_flow(start=0, nominal=m_flow_nominal_pos),
+     dp(start=0, nominal=dp_nominal_pos));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Nominal mass flow rate"
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
+    "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"                                annotation(Dialog(group = "Nominal condition"));
@@ -28,16 +29,14 @@ protected
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
   parameter Modelica.SIunits.DynamicViscosity eta_nominal=Medium.dynamicViscosity(sta0)
     "Dynamic viscosity, used to compute transition to turbulent flow regime";
-  parameter Modelica.SIunits.SpecificEnthalpy h0=Medium.h_default
-    "Initial value for solver for specific enthalpy";           //specificEnthalpy(sta0)
- constant Real conv(unit="m.s2/kg") = 1 "Factor, needed to satisfy unit check";
- constant Real conv2 = sqrt(conv) "Factor, needed to satisfy unit check";
- final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
+  final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
     "Flag to enable/disable computation of flow resistance"
    annotation(Evaluate=true);
 protected
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal) "Absolute value of nominal flow rate";
-  final parameter Modelica.SIunits.Pressure dp_nominal_pos = abs(dp_nominal) "Absolute value of nominal pressure";
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
+    "Absolute value of nominal flow rate";
+  final parameter Modelica.SIunits.Pressure dp_nominal_pos = abs(dp_nominal)
+    "Absolute value of nominal pressure";
 initial equation
   if computeFlowResistance then
     assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
@@ -45,26 +44,28 @@ initial equation
 equation
   // Pressure drop calculation
   if computeFlowResistance then
-    if homotopyInitialization then
-      if from_dp then
-        m_flow=homotopy(actual=FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                   m_flow_turbulent=m_flow_turbulent,
-                                   linearized=linearized),
-                        simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-      else
-        dp=homotopy(actual=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                   m_flow_turbulent=m_flow_turbulent,
-                                   linearized=linearized),
+    if linearized then
+      m_flow*m_flow_nominal_pos = k^2*dp;
+    else
+      if homotopyInitialization then
+        if from_dp then
+          m_flow=homotopy(actual=FlowModels.basicFlowFunction_dp(dp=dp, k=k,
+                                   m_flow_turbulent=m_flow_turbulent),
+                                   simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+        else
+          dp=homotopy(actual=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
+                                   m_flow_turbulent=m_flow_turbulent),
                     simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-      end if;
-    else // do not use homotopy
-      if from_dp then
-        m_flow=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
-      else
-        dp=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent, linearized=linearized);
-      end if;
-    end if; // homotopyInitialization
-  else
+         end if;  // from_dp
+      else // do not use homotopy
+        if from_dp then
+          m_flow=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent);
+        else
+          dp=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent);
+        end if;  // from_dp
+      end if; // homotopyInitialization
+    end if; // linearized
+  else // do not compute flow resistance
     dp = 0;
   end if;  // computeFlowResistance
 
@@ -109,12 +110,24 @@ The pressure drop is computed by an instance of
 <a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
 Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>,
 i.e., using a regularized implementation of the equation
-<pre>
-  m_flow = sign(dp) * k * sqrt(|dp|).
-</pre>
+<p align=\"center\" style=\"font-style:italic;\">
+  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 5, 2011, by Michael Wetter:<br>
+Moved linearized pressure drop equation from the function body to the equation
+section. With the previous implementation, 
+the symbolic processor may not rearrange the equations, which can lead 
+to coupled equations instead of an explicit solution.
+</li>
+<li>
+June 20, 2011 by Michael Wetter:<br>
+Set start values for <code>m_flow</code> and <code>dp</code> to zero, since
+most HVAC systems start at zero flow. With this change, the start values
+appear in the GUI and can be set by the user.
+</li>
 <li>
 April 2, 2011 by Michael Wetter:<br>
 Added <code>m_flow_nominal_pos</code> and <code>dp_nominal_pos</code> to allow

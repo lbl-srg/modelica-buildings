@@ -2,10 +2,10 @@ within Buildings.Media.GasesPTDecoupled;
 package MoistAir
   "Package with moist air model that decouples pressure and temperature"
   extends Modelica.Media.Interfaces.PartialCondensingGases(
+     final singleState = false,
      mediumName="MoistAirPTDecoupled",
      substanceNames={"water", "air"},
      final reducedX=true,
-     final singleState=false,
      reference_X={0.01,0.99},
      fluidConstants = {Modelica.Media.IdealGases.Common.FluidData.H2O,
                        Modelica.Media.IdealGases.Common.FluidData.N2});
@@ -20,6 +20,9 @@ package MoistAir
   constant Buildings.Media.PerfectGases.Common.DataRecord steam=
         Buildings.Media.PerfectGases.Common.SingleGasData.H2O;
   import SI = Modelica.SIunits;
+
+  constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
+  constant Density dStp = 1.2 "Fluid density at pressure pStp";
 
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
@@ -46,8 +49,7 @@ package MoistAir
     MassFraction x_sat
       "Steam water mass content of saturation boundary in kg_water/kg_dryair";
     AbsolutePressure p_steam_sat "Partial saturation pressure of steam";
-   constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
-   constant Density dStp = 1.2 "Fluid density at pressure pStp";
+
   equation
     assert(T >= 200.0 and T <= 423.15, "
 Temperature T is not in the allowed range
@@ -65,8 +67,14 @@ required from medium model \""     + mediumName + "\".");
 
     h = specificEnthalpy_pTX(p,T,Xi);
     R = dryair.R*(1 - X_steam/(1 - X_liquid)) + steam.R*X_steam/(1 - X_liquid);
-    //
-    u = h - R*T;
+
+    // Equation for ideal gas, from h=u+p*v and R*T=p*v, from which follows that  u = h-R*T.
+    // u = h-R*T;
+
+    // However, in this medium, the gas law is d/dStp=p/pStp, from which follows using h=u+pv that
+    // u= h-p*v = h-p/d = h-pStp/dStp
+    u = h-pStp/dStp;
+
     //    d = p/(R*T);
     d/dStp = p/pStp;
 
@@ -152,7 +160,7 @@ end saturationPressure;
    input ThermodynamicState state;
    output Density d "Density";
  algorithm
-  d :=state.p*1.2/101325;
+  d :=state.p*dStp/pStp;
  end density;
 
  redeclare function specificEntropy
@@ -301,7 +309,7 @@ end specificEnthalpy;
 redeclare function extends specificInternalEnergy "Specific internal energy"
   extends Modelica.Icons.Function;
 algorithm
-  u := h_pTX(state.p,state.T,state.X) - gasConstant(state)*state.T;
+  u := h_pTX(state.p,state.T,state.X) - pStp/dStp;
 end specificInternalEnergy;
 
 redeclare function extends specificGibbsEnergy "Specific Gibbs energy"
@@ -336,6 +344,11 @@ because pressure and temperature are decoupled, at the expense of accuracy.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 3, 2011, by Michael Wetter:<br>
+Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
+For this medium, the function is <code>u=h-pStd/dStp</code>.
+</li>
 <li>
 January 13, 2010, by Michael Wetter:<br>
 Added function <code>enthalpyOfNonCondensingGas</code> and its derivative.

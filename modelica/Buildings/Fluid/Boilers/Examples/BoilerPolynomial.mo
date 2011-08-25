@@ -1,6 +1,6 @@
 within Buildings.Fluid.Boilers.Examples;
 model BoilerPolynomial "Test model"
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
  package Medium = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
  parameter Modelica.SIunits.Power Q_flow_nominal = 3000 "Nominal power";
  parameter Modelica.SIunits.Temperature dT_nominal = 20
@@ -31,28 +31,26 @@ model BoilerPolynomial "Test model"
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     Q_flow_nominal=Q_flow_nominal,
-    dT_nominal=dT_nominal,
+    m_flow_nominal = m_flow_nominal,
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     T_start=293.15) "Boiler"
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TAmb1(
-                                                              T=288.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TAmb1(      T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-30,28},{-10,48}})));
   Buildings.Fluid.Boilers.BoilerPolynomial fur2(
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     Q_flow_nominal=Q_flow_nominal,
-    dT_nominal=dT_nominal,
+    m_flow_nominal = m_flow_nominal,
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal=dp_nominal,
     T_start=293.15) "Boiler"
     annotation (Placement(transformation(extent={{-12,-70},{8,-50}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TAmb2(
-                                                              T=288.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TAmb2(      T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T=0.1)
@@ -98,7 +96,8 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos" "Simulate and plot"),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos"
+        "Simulate and plot"),
     experiment(StopTime=3600),
     experimentSetupOutput,
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

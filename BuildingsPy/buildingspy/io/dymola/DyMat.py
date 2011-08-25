@@ -1,13 +1,12 @@
 #!/usr/bin/env python
+
 import scipy.io
 
 _trans = lambda a: [''.join(s).rstrip() for s in zip(*a)]
 
 
 class DymolaMat:
-    """Access result files from dymola.
-    
-    Acknowledgement: This file has been contributed by Joerg Raedler."""
+    """Access result files from dymola"""
     
     def __init__(self, fileName):
         """open the file, parse contents"""
@@ -15,13 +14,15 @@ class DymolaMat:
         self.mat = scipy.io.loadmat(fileName)
         self._vars = {}
         self._blocks = []
-        names = _trans(self.mat['name'])
-        descr = _trans(self.mat['description'])
+        names = _trans(self.mat['name']) # names
+        descr = _trans(self.mat['description']) # descriptions
         for i in range(len(names)):
-            c = self.mat['dataInfo'][1][i]-1
-            d = self.mat['dataInfo'][0][i]
+            d = self.mat['dataInfo'][0][i] # data block
+            x = self.mat['dataInfo'][1][i]
+            c = abs(x)-1  # column
+            s = cmp(x, 0) # sign
             if c:
-                self._vars[names[i]] = (descr[i], d, c)
+                self._vars[names[i]] = (descr[i], d, c, s)
                 if not d in self._blocks:
                     self._blocks.append(d)
             else:
@@ -54,10 +55,10 @@ class DymolaMat:
 
     def data(self, varName):
         """return the values of a variable"""
-        tmp, d, c = self._vars[varName]
+        tmp, d, c, s = self._vars[varName]
         di = 'data_%d' % (d)
-        dd = self.mat[di][abs(c)]
-        if c < 0:
+        dd = self.mat[di][c]
+        if s < 0:
             dd *= -1
         return dd
 

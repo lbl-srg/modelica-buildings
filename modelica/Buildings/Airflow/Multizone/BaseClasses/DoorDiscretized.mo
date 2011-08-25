@@ -45,12 +45,6 @@ equation
     pA[i] = port_a1.p + rho_a1_inflow*Modelica.Constants.g_n*(hA - (i - 0.5)*dh);
     pB[i] = port_a2.p + rho_a2_inflow*Modelica.Constants.g_n*(hB - (i - 0.5)*dh);
     dpAB[i] = pA[i] - pB[i];
-    // orifice equation
-    dV_flow[i] = Buildings.Airflow.Multizone.BaseClasses.powerLaw(
-      k=kVal,
-      dp=dpAB[i],
-      m=m,
-      dp_turbulent=dp_turbulent);
     v[i] = dV_flow[i]/dA;
     // assignment of net volume flows
     dVAB_flow[i] = dV_flow[i]*
@@ -104,6 +98,11 @@ using the model for a door that can be open or closed.
 </html>",
 revisions="<html>
 <ul>
+<li><i>August 12, 2011</i> by Michael Wetter:<br>
+       Changed model to use the new function 
+       <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
+       Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM</a>.
+</li>
 <li><i>July 20, 2010</i> by Michael Wetter:<br>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>

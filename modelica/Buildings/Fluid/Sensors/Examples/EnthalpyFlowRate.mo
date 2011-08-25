@@ -31,7 +31,8 @@ model EnthalpyFlowRate "Test model for enthalpy flow rate"
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(redeclare package Medium
-      = Medium, m_flow_nominal=2)
+      = Medium, m_flow_nominal=2,
+      tau=0)
                 annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Fluid.Sensors.MassFlowRate senM_flow(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{28,-20},{48,0}})));

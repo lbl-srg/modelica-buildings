@@ -33,23 +33,25 @@ partial model FlowMachineInterface
   Real r_N(min=0, start=1, unit="1") "Ratio N/N_nominal";
 
 protected
-  constant Real delta = 0.01 "Constant used in finite difference approximation to derivative";
+  constant Real delta = 0.05
+    "Constant used in finite difference approximation to derivative";
 initial equation
   // Equation to compute V_flow_max
   0 = flowCharacteristic(V_flow=V_flow_max, r_N=1);
 
 equation
   r_N = N/N_nominal;
-  // For the homotopy method, we approximate dpMachine by a finite difference equation 
+  // For the homotopy method, we approximate dpMachine by a finite difference equation
   // that is linear in VMachine_flow, and that goes linearly to 0 as r_N goes to 0.
   if homotopyInitialization then
+     // works: dpMachine = 0.02*1200*r_N/0.02*(1-VMachine_flow/0.02/V_flow_max)-VMachine_flow/V_flow_max*0.02*1200;
      dpMachine = homotopy(actual=flowCharacteristic(V_flow=VMachine_flow, r_N=r_N),
                           simplified=r_N*
                               (flowCharacteristic(V_flow=V_flow_nominal, r_N=1)
                                +(VMachine_flow-V_flow_nominal)*
                                 (flowCharacteristic(V_flow=(1+delta)*V_flow_nominal, r_N=1)
                                 -flowCharacteristic(V_flow=(1-delta)*V_flow_nominal, r_N=1))
-                                 /(2*delta*V_flow_nominal)));
+                                 /(2*delta*V_flow_nominal)));//-VMachine_flow/V_flow_max*0.02*1200;
 
    else
      dpMachine = flowCharacteristic(V_flow=VMachine_flow, r_N=r_N);
@@ -57,7 +59,7 @@ equation
 
   // Power consumption
   if use_powerCharacteristic then
-    // For the homotopy, we want PEle/V_flow to be bounded as V_flow -> 0 to avoid a very high medium 
+    // For the homotopy, we want PEle/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
     // temperature near zero flow.
     if homotopyInitialization then
       PEle = homotopy(actual=powerCharacteristic(V_flow=VMachine_flow, r_N=r_N),

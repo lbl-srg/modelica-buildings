@@ -4,11 +4,9 @@ model VAVBoxExponential
   extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
   dp(nominal=dp_nominal),
   final kFixed=sqrt(kResSqu));
-
   parameter Boolean dp_nominalIncludesDamper = true
     "set to true if dp_nominal includes the pressure loss of the open damper"
                                               annotation(Dialog(group = "Nominal condition"));
-
 protected
   parameter Modelica.SIunits.Pressure dpDamOpe_nominal = k1*m_flow_nominal^2/2/Medium.density(sta0)/A^2
     "Pressure drop of fully open damper at nominal flow rate";
@@ -22,7 +20,6 @@ initial equation
          "Wrong parameters in damper model: dp_nominal < dpDamOpe_nominal"
           + "\n  dp_nominal = "       + String(dp_nominal)
           + "\n  dpDamOpe_nominal = " + String(dpDamOpe_nominal));
-
    annotation (
 defaultComponentName="vavDam",
 Documentation(info="<html>
@@ -64,12 +61,12 @@ First implementation.
 </html>"), Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={
         Rectangle(
-          extent={{-66,-40},{-34,40}},
-          lineColor={255,255,255},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
           extent={{-100,22},{100,-24}},
+          lineColor={0,0,0},
+          fillPattern=FillPattern.HorizontalCylinder,
+          fillColor={0,127,255}),
+        Rectangle(
+          extent={{-80,40},{80,-40}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={0,127,255}),

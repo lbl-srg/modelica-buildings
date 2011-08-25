@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sensors;
 model VolumeFlowRate "Ideal sensor for volume flow rate"
-  extends Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor;
+  extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(tau=0);
   extends Modelica.Icons.RotationalSensor;
   Modelica.Blocks.Interfaces.RealOutput V_flow(final quantity="VolumeFlowRate",
                                                final unit="m3/s")
@@ -9,22 +9,54 @@ model VolumeFlowRate "Ideal sensor for volume flow rate"
         origin={0,110},
         extent={{10,-10},{-10,10}},
         rotation=270)));
-
+  parameter Medium.Density
+    d_start=Medium.density(Medium.setState_pTX(p_start, T_start, X_start))
+    "Initial or guess value of density"
+    annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.Temperature T_start=Medium.T_default
+    "Temperature used to compute d_start"
+    annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.Pressure p_start=Medium.p_default
+    "Pressure used to compute d_start"
+    annotation (Dialog(group="Initialization"));
+  parameter Modelica.SIunits.MassFraction X_start[Medium.nX]=Medium.X_default
+    "Mass fraction used to compute d_start"
+    annotation (Dialog(group="Initialization"));
+  Medium.Density dMed(start=d_start)
+    "Medium temperature to which the sensor is exposed";
 protected
-  Medium.Density rho_a_inflow "Density of inflowing fluid at port_a";
-  Medium.Density rho_b_inflow
+  Medium.Density d_a_inflow(start=d_start)
+    "Density of inflowing fluid at port_a";
+  Medium.Density d_b_inflow(start=d_start)
     "Density of inflowing fluid at port_b or rho_a_inflow, if uni-directional flow";
-  Medium.Density d "Density of the passing fluid";
+  Medium.Density d(start=d_start) "Density of the passing fluid";
+initial equation
+  if dynamic then
+    if initType == Modelica.Blocks.Types.Init.SteadyState then
+      der(d) = 0;
+     elseif initType == Modelica.Blocks.Types.Init.InitialState or
+           initType == Modelica.Blocks.Types.Init.InitialOutput then
+      d = d_start;
+    end if;
+  end if;
 equation
   if allowFlowReversal then
-     rho_a_inflow = Medium.density(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
-     rho_b_inflow = Medium.density(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow));
-     d = Modelica.Fluid.Utilities.regStep(port_a.m_flow, rho_a_inflow, rho_b_inflow, m_flow_small);
+     d_a_inflow = Medium.density(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
+     d_b_inflow = Medium.density(Medium.setState_phX(port_a.p, port_a.h_outflow, port_a.Xi_outflow));
+     dMed = Modelica.Fluid.Utilities.regStep(port_a.m_flow, d_a_inflow, d_b_inflow, m_flow_small);
   else
-     d = Medium.density(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
-     rho_a_inflow = d;
-     rho_b_inflow = d;
+     dMed = Medium.density(Medium.setState_phX(port_b.p, port_b.h_outflow, port_b.Xi_outflow));
+     d_a_inflow = dMed;
+     d_b_inflow = dMed;
   end if;
+  // Output signal of density sensor that is used to compute
+  // the volume flow rate
+  if dynamic then
+    der(d) = (dMed-d)*k/tau;
+  else
+    d = dMed;
+  end if;
+  // Volume flow rate
   V_flow = port_a.m_flow/d;
 annotation (defaultComponentName="senVolFlo",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
@@ -42,11 +74,23 @@ annotation (defaultComponentName="senVolFlo",
 <p>
 This component monitors the volume flow rate flowing from port_a to port_b. 
 The sensor is ideal, i.e. it does not influence the fluid.
+If the parameter <code>tau</code> is non-zero, then the measured
+density that is used to convert the mass flow rate into
+volumetric flow rate is computed using a first order differential equation. 
+See <a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">
+Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 </p>
 </html>
-",
-revisions="<html>
+", revisions="<html>
+<html>
+<p>
 <ul>
+<li>
+June 3, 2011 by Michael Wetter:<br>
+Revised implementation to add dynamics in such a way that 
+the time constant increases as the mass flow rate tends to zero.
+This significantly improves the numerics.
+</li>
 <li>
 September 29, 2009, by Michael Wetter:<br>
 First implementation.

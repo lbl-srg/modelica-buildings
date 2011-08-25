@@ -1,17 +1,7 @@
 within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
-  extends Fluid.Interfaces.PartialStaticTwoPortHeatMassTransfer(
-    final sensibleOnly=true,
-    final show_T = true,
-    final Q_flow = m_flow * (Medium.specificEnthalpy(
-                               Medium.setState_pTX(
-                                 p=port_b.p,
-                                 T=TAir+TAppAct,
-                                 X=inStream(port_b.Xi_outflow)))
-                                -inStream(port_a.h_outflow)),
-    final mXi_flow = zeros(Medium.nXi));
-  extends Buildings.BaseClasses.BaseIcon;
+  extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
 
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15+25.55
     "Design inlet air wet bulb temperature"
@@ -48,9 +38,6 @@ model YorkCalc
   Modelica.Blocks.Interfaces.RealInput y "Fan control signal"
      annotation (Placement(transformation(
           extent={{-140,60},{-100,100}}, rotation=0)));
-
-  Modelica.SIunits.TemperatureDifference TAppAct(min=0, nominal=1, displayUnit="K")
-    "Actual approach temperature";
 
   Modelica.SIunits.TemperatureDifference TRan(nominal=1, displayUnit="K")
     "Range temperature";
@@ -91,6 +78,8 @@ initial equation
   + "\n   You need to choose a different function for fanRelPow."
   + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
 equation
+  // Air temperature used for the heat transfer
+  TAirHT=TAir;
   // Range temperature
   TRan = Medium.temperature(sta_a) - Medium.temperature(sta_b);
   // Fractional mass flow rates
@@ -116,39 +105,21 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
+        Rectangle(
+          extent={{-100,82},{-80,78}},
+          lineColor={0,0,127},
+          fillColor={0,0,127},
+          fillPattern=FillPattern.Solid),
         Text(
           extent={{-102,110},{-68,72}},
           lineColor={0,0,127},
           textString="yFan"),
-        Rectangle(
-          extent={{-100,82},{-70,78}},
-          lineColor={0,0,127},
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-70,86},{70,-80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
         Text(
           extent={{-104,70},{-70,32}},
           lineColor={0,0,127},
           textString="TWB"),
-        Rectangle(
-          extent={{-100,41},{-70,38}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,5},{101,-5}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
         Text(
-          extent={{-56,12},{56,-108}},
+          extent={{-44,6},{68,-114}},
           lineColor={255,255,255},
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
@@ -156,10 +127,9 @@ equation
                           Diagram(coordinateSystem(preserveAspectRatio=true,
           extent={{-100,-100},{100,100}}),
                                   graphics),
-defaultComponentName="cooTow",
 Documentation(info="<html>
 <p>
-Model for a steady state cooling tower with variable speed fan using the York calculation for the
+Model for a steady-state or dynamic cooling tower with variable speed fan using the York calculation for the
 approach temperature at off-design conditions.
 </p>
 <h4>Thermal performance</h4>
@@ -167,7 +137,9 @@ approach temperature at off-design conditions.
 To compute the thermal performance, this model takes as parameters 
 the approach temperature, the range temperature and the inlet air wet bulb temperature 
 at the design condition. Since the design mass flow rate (of the chiller condenser loop)
-is also a parameter, these parameters define the rejected heat.<br/>
+is also a parameter, these parameters define the rejected heat.
+</p>
+<p>
 For off-design conditions, the model uses the actual range temperature and a polynomial 
 to compute the approach temperature for free convection and for forced convection, i.e.,
 with the fan operating. The polynomial is valid for a York cooling tower.
@@ -227,6 +199,14 @@ control law to compute the input signal <code>y</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 12, 2011, by Michael Wetter:<br>
+Introduced common base class for
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc\">Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc</a>
+and
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach\">Buildings.Fluid.HeatExchangers.CoolingTowers.FixedApproach</a>
+so that they can be used as replaceable models.
+</li>
 <li>
 May 12, 2011, by Michael Wetter:<br>
 Added binding equations for <code>Q_flow</code> and <code>mXi_flow</code>.

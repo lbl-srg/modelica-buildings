@@ -4,7 +4,7 @@ model MoistAirEnthalpyFlowRate
   extends Modelica.Icons.Example;
   import Buildings;
 
-  package Medium = Buildings.Media.PerfectGases.MoistAir;
+  package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
   Buildings.Fluid.Sensors.EnthalpyFlowRate senH_flow(redeclare package Medium
       = Medium, m_flow_nominal=1) "Sensor for enthalpy flow rate"
     annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
@@ -113,7 +113,8 @@ equation
       points={{5.55112e-16,-70},{60,-70}},
       color={0,127,255},
       smooth=Smooth.None));
-    annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos" "Simulate and plot"), Diagram(
+    annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos"
+        "Simulate and plot"),                                                                                                    Diagram(
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
         graphics),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,

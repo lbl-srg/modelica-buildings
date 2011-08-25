@@ -11,6 +11,26 @@ The drawback is that the dimensionality of the coupled
 nonlinear equation system is typically larger for flow
 networks.
 </p>
+<p>
+Note that models in this package implement the equation for the internal energy as
+<p align=\"center\" style=\"font-style:italic;\">
+  u = h - p &frasl; &rho;<sub>stp</sub>,
+</p>
+where 
+<i>u</i> is the internal energy per unit mass,
+<i>h</i> is the enthalpy per unit mass,
+<i>p</i> is the static pressure and
+<i>&rho;<sub>stp</sub></i> is the mass density at standard pressure and temperature.
+The reason for this implementation is that in general,
+<p align=\"center\" style=\"font-style:italic;\">
+  h = u + p v,
+</p>
+from which follows that
+<p align=\"center\" style=\"font-style:italic;\">
+  u = h - p v = h - p &frasl; &rho; = h - p &frasl; &rho;<sub>std</sub>,
+</p>
+because <i>&rho; = &rho;<sub>std</sub></i> in this medium model.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
