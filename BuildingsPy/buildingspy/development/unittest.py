@@ -427,6 +427,7 @@ class Tester:
         
         '''
         import numpy as np
+        import copy
         yI = []
         if self.__isParameter(y):
             yI = y
@@ -444,26 +445,23 @@ class Tester:
             dT = (max(t)-min(t))/float(iMax)
             while t[iMax] <= t[iMax-1]:
                 iMax = iMax-1
-            # Shift t slight in case of multiple equal entries.
+            tNew = copy.deepcopy(t)
+            # Shift tNew slight in case of multiple equal entries.
             # Since the last entry was removed above, the final time is not going to change.
+            tTol = 1E-2*dT # Do not set to 1E-3*dT to avoid round-off errors.
+            tInc = 10.0*tTol
             for i in range(1, iMax):
-                if t[i] <= t[i-1]:
-                    t[i] = t[i-1] + 1E-3*dT
-            if ( (np.isnan(t[0:iMax+1])).any() ):
-                raise ValueError('NaN in input argument t to np.interp().')
-            if ( (np.isnan(y[0:iMax+1])).any() ):
-                raise ValueError('NaN in input argument y to np.interp().')
+                if tNew[i] < tNew[i-1] + tTol:
+                    tNew[i] = tNew[i-1] + tInc
             for i in range(1, iMax):
-                if t[i] < t[i-1] - 1e-4*dT:
+                if tNew[i] < tNew[i-1] + tTol:
                     raise ValueError('Time t is not strictly increasing.')
             for i in range(1, len(tSup)-1):
-                if tSup[i] < tSup[i-1] - 1e-4*dT:
+                if tSup[i] < tSup[i-1] + tTol:
                     raise ValueError('Time tSup is not strictly increasing.')
-            yI=np.interp(tSup, t[0:iMax+1], y[0:iMax+1])
-#        if ( np.isnan(yI[len(yI)-1]) ):
-        if ( (np.isnan(yI)).any() ):
-            print "-------- t", t[0:iMax+1]
-            raise ValueError('NaN in iterpolation.')
+            yI=np.interp(tSup, tNew[0:iMax+1], y[0:iMax+1])
+            if ( (np.isnan(yI)).any() ):
+                raise ValueError('NaN in iterpolation.')
         return yI
 
 
