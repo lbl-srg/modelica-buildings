@@ -78,7 +78,7 @@ class Tester:
         self.__excludeMos=[]
 
         # Number of data points that are used
-        self.__nPoi = 100
+        self.__nPoi = 101
 
         # List of temporary directories that are used to run the simulations.
         self.__temDir = []
@@ -93,6 +93,14 @@ class Tester:
         # in which the matlab file will be generated
         self.__matToDir = dict()
 
+        ''' Dictionary with keys equal to the ``*.mos`` file name, and values
+                 containing a dictionary with keys ``matFil`` and ``y``.
+
+                 The values of ``y`` are a list of the 
+                 form `[[a.x, a.y], [b.x, b.y1, b.y2]]` if the
+                 mos file plots `a.x` versus `a.y` and `b.x` versus `(b.y1, b.y2)`.
+        '''
+        self.__datDic = dict()
 
     def useExistingResults(self, dirs):
         ''' This function allows to use existing results, as opposed to running a simulation.
@@ -255,7 +263,7 @@ class Tester:
 
 
     # --------------------------
-    def __getUnitTests(self, libDir, datDic):
+    def __getUnitTests(self, libDir):
         ''' Return a dictionary with the full name of the ``*.mos`` file as a key,
             and the ``*.mat`` file name as a value.
 
@@ -278,67 +286,9 @@ class Tester:
                         strpos=filTex.find("simulate")
                         filObj.close()
                         if strpos > -1:
-                            res = datDic[filNam] # res is a dictionary of matlab file name and results
+                            res = self.__datDic[filNam] # res is a dictionary of matlab file name and results
                             listOfTests[filNam]={'mosDir': mosDir, 'matFil': res['matFil']}
         return listOfTests
-
-    # --------------------------
-    # --------------------------
-    # Check md5 sum of .mat files versus the ones from the library home folder.
-    # If they differ, ask the user whether to accept the differences.
-    # If there is no md5 sum in the library home folder, ask the user whether it
-    # should be generated.
-    def __checkMD5Sum(self, worDir, ans):
-        import os
-        import hashlib
-        for filNam in os.listdir(os.path.join(worDir, "Buildings")):
-            # find .mat files
-            pos=filNam.find('.mat')
-            if pos > -1:
-                # Compute md5 sum of new unit test result
-                fulFilNam=os.path.join(worDir, "Buildings", filNam)
-                fMat = open(fulFilNam,'rb')
-                md5 = hashlib.md5()
-                md5.update(fMat.read())
-                md5New = md5.hexdigest()
-                fMat.close()
-
-                # Reset answer, unless it is set to Y or N
-                if not (ans == "Y" or ans == "N"):
-                    ans = "-"
-
-                # check if .mat already exists in library
-                md5FilOld = os.path.join(self.__libHome, "..", "md5sum", filNam) + ".md5"
-                if os.path.exists(md5FilOld):  # md5 file exists. Check if the md5 sum changed
-                    fMD5 = open(md5FilOld, 'r')
-                    md5Old = fMD5.readline()
-                    md5Old = md5Old[:-1] # remove carriage return
-                    fMD5.close()
-                    if md5New != md5Old:
-                        print "*** Warning: md5sum changed in ", filNam
-                        print "    Old md5sum: ", md5Old
-                        print "    New md5sum: ", md5New
-                        while not (ans == "n" or ans == "y" or ans == "Y" or ans == "N"):
-                            print "    Accept new file and update md5 sum in library?"
-                            ans = raw_input("    Enter: y(yes), n(no), Y(yes for all), N(no for all): ")
-                        if ans == "y" or ans == "Y":
-                            # Write md5 sum to new file
-                            fMD5 = open(md5FilOld, 'w')
-                            fMD5.write(md5New + "\n")
-                            fMD5.close()
-                            print "Updated md5 sum in ", md5FilOld
-                else: # md5 does not exist.
-                    print "*** Warning: md5 sum does not yet exist for ", filNam
-                    while not (ans == "n" or ans == "y" or ans == "Y" or ans == "N"):
-                        print "    Create new file in library?"
-                        ans = raw_input("    Enter: y(yes), n(no), Y(yes for all), N(no for all): ")
-                    if ans == "y" or ans == "Y":
-                        # Write md5 sum to new file
-                        fMD5 = open(md5FilOld, 'w')
-                        fMD5.write(md5New + "\n")
-                        fMD5.close()
-                        print "Wrote ", md5FilOld
-        return ans
 
     # --------------------------
     # finds the MOS file corresponding to the "fileName" and returns a list 
@@ -349,7 +299,7 @@ class Tester:
         :return: A dictionary with keys equal to the ``*.mos`` file name, and values
                  containing a dictionary with keys ``matFil`` and ``y``.
 
-                 The values of ``y`` is a list of the 
+                 The values of ``y`` are a list of the 
                  form `[[a.x, a.y], [b.x, b.y1, b.y2]]` if the
                  mos file plots `a.x` versus `a.y` and `b.x` versus `(b.y1, b.y2)`.
         '''
@@ -407,10 +357,9 @@ class Tester:
         '''
         Get the simulation results.
 
-        :param worDir: The current working directory.
-        :param fileNam: The result `*.mat` file.
-        :param ploVarNam: The list of variables that are plotted together.
-        :param mosFilNam: The `*.mos` file name (used for reporting only).
+        :param mosFil: The name of the ``*.mos`` file.
+        :param result: The dictionary of ``*.mat`` file and variable names that are to be
+                       compared from this ``*.mat`` file.
 
         Extracts and returns the simulation results from the `*.mat` file as
         a list of dictionaries. Each element of the list contains a dictionary
@@ -419,7 +368,14 @@ class Tester:
         import os
         from buildingspy.io.outputfile import Reader
 
-
+        def extractData(y, step):
+            # Replace the last element with the last element in time,
+            # [::step] may not extract the last time stamp, in which case
+            # the final time changes when the number of event change.
+            r=y[::step]
+            r[len(r)-1] = y[len(y)-1]
+            return r
+            
         # Get the working directory that contains the ".mat" file
         matFil = results['matFil']
         worDir = self.__matToDir[matFil]
@@ -436,22 +392,80 @@ class Tester:
                 for var in pai:
                     try:
                         (time, val) = r.values(var)
-                    except KeyError:
-                        print "*** Warning: ", mosFil, " uses ", var, " which does not exist in result file."
-                    except IndexError:
-                        print "*** Warning: IndexError in DyMat.py when reading ", var, " from ", fulFilNam, "."
-                        print "             Variable will not be used in comparison."
-                    else:
-                        # Number of data point that are compared
+                        # Make time grid to which simulation results
+                        # will be interpolated.
+                        # This reduces the data that need to be stored.
+                        # It also makes it easier to compare accuracy
+                        # in case that a slight change in the location of 
+                        # state events triggered a different output interval grid.
+                        tMin=float(min(time))
+                        tMax=float(max(time))
+                        dTim=tMax-tMin
                         nPoi = min(self.__nPoi, len(val))
-                        step = max(1, round(len(time)/nPoi))
+                        ti = [ tMin+float(i)/(nPoi-1)*dTim for i in range(nPoi) ]
+                    except KeyError:
+                        print "*** Warning: ", mosFil, " uses ", var, " which does not exist ", matFil
+##                    except IndexError:
+##                        print "*** Warning: IndexError in DyMat.py when reading ", var, " from ", fulFilNam, "."
+##                        print "             Variable will not be used in comparison."
+                    else:
                         if (not foundData) and len(time) > 2:
-                            dat['time']=time[::step]
+                            dat['time']=ti
                             foundData = True
-                        dat[var]=val[::step]
+                        dat[var]=self.__interpolate(ti, time, val)
                 if foundData:
                     ret.append(dat)
         return ret
+
+    def __interpolate(self, tSup, t, y):
+        ''' Interpolate (t, y) to support points tSup.
+        
+        :param tSup: Support points.
+        :param t: Time points.
+        :param y: Function values at ``t``.
+        :return: Interpolated values of ``y`` at ``tSup``
+        
+        '''
+        import numpy as np
+        yI = []
+        if self.__isParameter(y):
+            yI = y
+        else:
+            if ( (np.isnan(tSup)).any() ):
+                raise ValueError('NaN in input argument tSup.')
+            if ( (np.isnan(t)).any() ):
+                raise ValueError('NaN in input argument t.')
+            if ( (np.isnan(y)).any() ):
+                raise ValueError('NaN in input argument y.')
+            # Numpy needs t to be strictly increasing, but Dymola may have the same time stamps
+            # more than once. 
+            # If the last points are for the same time stamp, we remove them from the interpolation
+            iMax = len(t)-1
+            dT = (max(t)-min(t))/float(iMax)
+            while t[iMax] <= t[iMax-1]:
+                iMax = iMax-1
+            # Shift t slight in case of multiple equal entries.
+            # Since the last entry was removed above, the final time is not going to change.
+            for i in range(1, iMax):
+                if t[i] <= t[i-1]:
+                    t[i] = t[i-1] + 1E-3*dT
+            if ( (np.isnan(t[0:iMax+1])).any() ):
+                raise ValueError('NaN in input argument t to np.interp().')
+            if ( (np.isnan(y[0:iMax+1])).any() ):
+                raise ValueError('NaN in input argument y to np.interp().')
+            for i in range(1, iMax):
+                if t[i] < t[i-1] - 1e-4*dT:
+                    raise ValueError('Time t is not strictly increasing.')
+            for i in range(1, len(tSup)-1):
+                if tSup[i] < tSup[i-1] - 1e-4*dT:
+                    raise ValueError('Time tSup is not strictly increasing.')
+            yI=np.interp(tSup, t[0:iMax+1], y[0:iMax+1])
+#        if ( np.isnan(yI[len(yI)-1]) ):
+        if ( (np.isnan(yI)).any() ):
+            print "-------- t", t[0:iMax+1]
+            raise ValueError('NaN in iterpolation.')
+        return yI
+
 
     def __areResultsEqual(self, tOld, yOld, tNew, yNew, varNam, filNam):
         ''' Return `True` if the data series are equal within a tolerance.
@@ -472,10 +486,7 @@ class Tester:
         tol=1E-3  #Tolerance
 
         # Interpolate the new variables to the old time stamps
-        if self.__isParameter(yNew):
-            yInt = yNew
-        else:
-            yInt=np.interp(tOld, tNew, yNew)
+        yInt = self.__interpolate(tOld, tNew, yNew)
 
         errAbs=np.zeros(len(yInt))
         errRel=np.zeros(len(yInt))
@@ -484,9 +495,9 @@ class Tester:
         # Compute error for the variable with name varNam
         for i in range(len(yInt)):
             errAbs[i] = abs( yOld[i] - yInt[i] )
-            if ( errAbs[i] == float('NaN') ):
-                raise ValueError('NaN in errAbs ' + varNam + " "  + str(yOld[i]) + "  " + str(yInt[i]))
-            if (abs(yOld[i]) > 1E-3):
+            if np.isnan(errAbs[i]):
+                raise ValueError('NaN in errAbs ' + varNam + " "  + str(yOld[i]) + "  " + str(yInt[i]) + " i, N " + str(i) + " --:" + str(yInt[i-1]) + " ++:", str(yInt[i+1]))
+            if (abs(yOld[i]) > 10*tol):
                 errRel[i] = errAbs[i] / abs( yOld[i] )
             else:
                 errRel[i] = 0
@@ -511,23 +522,23 @@ class Tester:
         '''
         return (len(dataSeries) == 2)
 
-    def __writeReferenceResults(self, refFilNam, dic):
+    def __writeReferenceResults(self, refFilNam, yS):
         ''' Write the reference results.
 
         :param refFilNam: The name of the reference file.
-        :param dic: The data dictionary for the reference files
-        :return: A dictionary with the reference results.
+        :param yS: The data points to be written to the file.
 
         This method writes the results in the form ``key=value``, with one line per entry.
         '''
+        from datetime import date
+
         def format(value):
             return "%.20f" % value
 
-        f=open(refFilNam,'w')
+        f=open(refFilNam, 'w')
         f.write('svn-id=$Id$\n')
-        f.write('last-generated=' + dic['last-generated'] + '\n')
-        res = dic['results']
-        for pai in res:
+        f.write('last-generated=' + str(date.today()) + '\n')
+        for pai in yS:
             for k, v in pai.items():
                 f.write(k + '=')
                 # Use many digits, otherwise truncation errors occur that can be higher
@@ -576,10 +587,21 @@ class Tester:
     # Otherwise, compares the old and new reference data, if the error is more than the tolerance,
     # switches the flag "foundError" to Ture and asks th euser wethe rto accept the new data or not.
     # If the user chooses yes, it switches the flag "updateReferenceData" to Ture.
-    def __compareResults(self, filNam, oldRefFulFilNam, simRes, refFilNam, ans):
+    def __compareResults(self, matFilNam, oldRefFulFilNam, yS, refFilNam, ans):
+        ''' Compares the new and the old results.
+        
+            :param matFilNam: Matlab file name.
+            :param oldRefFilFilNam: File name including path of old reference files.
+            :param yS: A list where each element is a dictionary of variable names and simulation
+                           results that are to be plotted together.
+            :param refFilNam: Name of the file with reference results (used for reporting only.
+            :param ans: A previously entered answer, either ``y``, ``Y``, ``n`` or ``N``.
+            :return: A triple ``(updateReferenceData, foundError, ans)`` where ``updateReferenceData``
+                     and ``foundError`` are booleans, and ``ans`` is ``y``, ``Y``, ``n`` or ``N``.
+
+        '''
         import matplotlib.pyplot as plt
         import numpy
-
         # Reset answer, unless it is set to Y or N
         if not (ans == "Y" or ans == "N"):
             ans = "-"
@@ -589,11 +611,11 @@ class Tester:
 
         #Load the old data (in dictionary format)
         d = self.__readReferenceResults(oldRefFulFilNam)
-        oldDatSam=d['results']
+        yR=d['results']
 
-        if len(oldDatSam) == 0:
+        if len(yR) == 0:
             # The existing reference data has no results.
-            if len(simRes) == 0:
+            if len(yS) == 0:
                 # The simulation has also no results
                 return (updateReferenceData, foundError, ans)
             else:
@@ -608,24 +630,23 @@ class Tester:
             return (updateReferenceData, foundError, ans)
 
         # The old data contains results
-        oldTimSam=oldDatSam.get('time')
+        tR=yR.get('time')
 
 
         # Iterate over the pairs of data that are to be plotted together
         timOfMaxErr = []
-        for pai in simRes:
-            timSam=pai['time']
+        noOldResults = [] # List of variables for which no old results have been found
+        for pai in yS:
+            tS=pai['time']
             if not verifiedTime:
                 verifiedTime = True
 
                 # Check if the first and last time stamp are equal
                 tolTim = 1E-3 # Tolerance for time
-                if (abs(oldTimSam[0] - timSam[0]) > tolTim) or abs(oldTimSam[-1] - timSam[-1]) > tolTim: 
-                    print "***Warning: The simulation time interval in"
-                    print "   file: ", refFilNam
-                    print "   is not consistent with the old one"
-                    print "   Old reference points are for " , oldTimSam[0], ' <= t <= ', oldTimSam[-1]
-                    print "   New reference points are for " , timSam[0], ' <= t <= ', timSam[-1]
+                if (abs(tR[0] - tS[0]) > tolTim) or abs(tR[-1] - tS[-1]) > tolTim: 
+                    print "***Warning: Different simulation time interval in ", refFilNam, " and ", matFilNam
+                    print "   Old reference points are for " , tR[0], ' <= t <= ', tR[len(tR)-1]
+                    print "   New reference points are for " , tS[0], ' <= t <= ', tS[len(tS)-1]
                     foundError = True
                     while not (ans == "n" or ans == "y" or ans == "Y" or ans == "N"):
                         print "    Accept new results and update reference file in library?"
@@ -637,13 +658,12 @@ class Tester:
 
             # The time interval is the same for the stored and the current data.
             # Check the accuracy of the simulation.
-            noOldResults = [] # List of variables for which no old results have been found
             for varNam in pai.keys(): # Iterate over the variable names that are to be plotted together
                 if varNam != 'time':
-                    if oldDatSam.has_key(varNam):
+                    if yR.has_key(varNam):
                         # Check results
-                        (res, timMaxErr) = self.__areResultsEqual(oldTimSam, oldDatSam[varNam], 
-                                                     timSam, pai[varNam], varNam, filNam)
+                        (res, timMaxErr) = self.__areResultsEqual(tR, yR[varNam], 
+                                                     tS, pai[varNam], varNam, matFilNam)
                         if not res:
                             foundError = True
                             timOfMaxErr.append(timMaxErr)
@@ -656,23 +676,21 @@ class Tester:
         # If we found an error, plot the results, and ask the user to accept or reject the new values
         if foundError and not self.__batch:
             print "   Acccept new file and update reference files? (Close plot window to continue.)"
-            for pai in simRes:
+            for pai in yS:
                 for varNam in pai.keys(): # Iterate over the variable names that are to be plotted together
                     if varNam != 'time':
                         if self.__isParameter(pai[varNam]):
-                            t = [min(timSam), max(timSam)]
+                            plt.plot([min(tS), max(tS)], pai[varNam], label='New ' + varNam)
                         else:
-                            t = timSam
-                        plt.plot(t, pai[varNam], label='New ' + varNam)
+                            plt.plot(tS, pai[varNam], label='New ' + varNam)
+                        
 
                         # Test to make sure that this variable has been found in the old results
                         if noOldResults.count(varNam) == 0:
-                            oldVarValSam=oldDatSam[varNam]
-                            if self.__isParameter(oldVarValSam):
-                                t = [min(oldTimSam), max(oldTimSam)]
+                            if self.__isParameter(yR[varNam]):
+                                plt.plot([min(tR), max(tR)], yR[varNam], label='Old ' + varNam)
                             else:
-                                t = oldTimSam
-                            plt.plot(t, oldVarValSam, label='Old ' + varNam)
+                                plt.plot(tR, yR[varNam], label='Old ' + varNam)
 
                 # Plot the location of the maximum error
                 for timMaxErr in timOfMaxErr:
@@ -680,7 +698,7 @@ class Tester:
                 leg = plt.legend(loc='best', fancybox=True)
                 leg.get_frame().set_alpha(0.5) # transparent legend
                 plt.xlabel('time')
-                plt.title(filNam)
+                plt.title(matFilNam)
                 plt.grid(True)
                 plt.show()
             while not (ans == "n" or ans == "y" or ans == "Y" or ans == "N"):
@@ -697,13 +715,13 @@ class Tester:
     # show a warning message containing the "file name" and "path".
     # If there is no .mat file of the reference points in the library home folder,
     # ask the user whether it should be generated.
-    def __checkReferencePoints(self, datDic, ans):
+    def __checkReferencePoints(self, ans):
         import os
         import scipy.io
         import shutil
         from datetime import date
 
-        for k, v in datDic.iteritems():
+        for k, v in self.__datDic.iteritems():
             # k is the name of the matlab file
             # v are the variables that need to be extracted from this matlab file
 
@@ -711,7 +729,7 @@ class Tester:
             refFilNam=k[:len(k)-4] + ".txt" 
 
             # extract reference points from the ".mat" file corresponding to "filNam"
-            simRes=self.__getSimulationResults(k, v)
+            yS=self.__getSimulationResults(k, v)
             # Reset answer, unless it is set to Y or N
             if not (ans == "Y" or ans == "N"):
                 ans = "-"
@@ -727,7 +745,7 @@ class Tester:
             if os.path.exists(oldRefFulFilNam):
                 # compare the new reference data with the old one
                 [updateReferenceData, foundError, ans]=self.__compareResults(
-                    v['matFil'], oldRefFulFilNam, simRes, refFilNam, ans)
+                    v['matFil'], oldRefFulFilNam, yS, refFilNam, ans)
             else:
                 # Reference file does not exist
                 print "*** Warning: Reference file ", refFilNam, " does not yet exist."
@@ -738,8 +756,7 @@ class Tester:
                     updateReferenceData = True
             if updateReferenceData:    # If the reference data of any variable was updated
                 # Make dictionary to save the results and the svn information
-                dic = {'last-generated': str(date.today()), 'results': simRes}
-                self.__writeReferenceResults(oldRefFulFilNam, dic)
+                self.__writeReferenceResults(oldRefFulFilNam, yS)
 
         return ans
 
@@ -885,14 +902,13 @@ class Tester:
         '''
         import multiprocessing
         import sys
-        import time
         import os
         import shutil
+        import time
 
         self.checkPythonModuleAvailability()
 
-##        (mosFilNam, matFil, plotVariables) = self.getDataDictionary()
-        datDic = self.getDataDictionary()
+        self.__datDic = self.getDataDictionary()
 
         retVal = 0
         # Start timer
@@ -916,7 +932,7 @@ class Tester:
         self.printNumberOfClasses(".")    
 
         # Get list of unit tests
-        listOfTests = self.__getUnitTests(os.path.abspath(os.path.join("..", "Buildings")), datDic)
+        listOfTests = self.__getUnitTests(os.path.abspath(os.path.join("..", "Buildings")))
 
         # Run simulations
         if not self.__useExistingResults:
@@ -950,7 +966,7 @@ class Tester:
         else:
             ans = "-"
 
-        ans = self.__checkReferencePoints(datDic, ans)
+        ans = self.__checkReferencePoints(ans)
 
 
         # Delete temporary directories
