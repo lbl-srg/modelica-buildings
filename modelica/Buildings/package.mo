@@ -240,9 +240,12 @@ are used as steady-state models, have been improved.</td>
                      Buildings.Fluid.Movers.FlowMachine_Nrpm<br>
                      Buildings.Fluid.Movers.FlowMachine_dp<br>
                      Buildings.Fluid.Movers.FlowMachine_m_flow</td>
-    <td valign=\"top\">The implementation has been simplified to avoid using two different flow paths
-if the models are configured for steady-state or dynamic simulation.</td></tr>
-
+    <td valign=\"top\">
+                     The implementation of the pressure drop computation as a function
+                     of speed and volume flow rate has been revised to avoid a singularity 
+                     near zero volume flow rate and zero speed.<br/>
+                     The implementation has also been simplified to avoid using two different flow paths
+                     if the models are configured for steady-state or dynamic simulation.</td></tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid.Sensors</b></td></tr>
 <tr><td valign=\"top\">Buildings.Fluid.Sensors.*TwoPort</td>
     <td valign=\"top\">All sensors with two ports, except for the mass flow rate sensor,
