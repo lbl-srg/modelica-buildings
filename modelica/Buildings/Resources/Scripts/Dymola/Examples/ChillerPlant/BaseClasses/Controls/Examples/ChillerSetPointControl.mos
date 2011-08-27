@@ -1,6 +1,5 @@
 stopTime=24*3600;
 simulateModel("Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.ChillerSetPointControl", stopTime=stopTime, method="dassl", tolerance=1e-6, resultFile="ChillerSetPointControl");
-removePlots();
 createPlot(id = 1,
  position = {10, 30, 719, 536},
  y = {"chi.TSet", "TSup.T", "TRet.T"},

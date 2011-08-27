@@ -1,6 +1,5 @@
 stopTime=600;
 simulateModel("Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.RequestCounter", stopTime=stopTime, method="dassl", tolerance=1e-6, resultFile="RequestCounter");
-removePlots();
 createPlot(id = 1,
  position = {10, 30, 719, 536},
  y = {"act1.y", "act2.y", "act3.y"},
