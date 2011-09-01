@@ -716,10 +716,10 @@ class Tester:
                         if noOldResults.count(varNam) == 0:
                             if self.__isParameter(yR[varNam]):
                                 plt.plot([min(tR), max(tR)], yR[varNam], 
-                                         color[iPai] + '--', label='Old ' + varNam)
+                                         color[iPai] + '.', label='Old ' + varNam)
                             else:
                                 plt.plot(tR, yR[varNam], 
-                                         color[iPai] + '--', label='Old ' + varNam)
+                                         color[iPai] + '.', label='Old ' + varNam)
                         # Plot the location of the maximum error
                         if varNam in timOfMaxErr:
                             plt.axvline(x=timOfMaxErr[varNam])
