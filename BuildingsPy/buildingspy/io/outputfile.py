@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from dymat.DyMat import DyMatFile
+from buildingspy.3rdParty.dymat.DyMat import DyMatFile
 
 class Reader:
     """Open the file *fileName* and parse its content.
