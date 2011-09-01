@@ -9,4 +9,5 @@ to report to the standard output and standard error
 streams.
 
 '''
-import dymola.DyMat
+import dymat
+

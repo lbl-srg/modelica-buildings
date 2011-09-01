@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from buildingspy.io.dymola.DyMat import DymolaMat
+from dymat.DyMat import DyMatFile
 
 class Reader:
     """Open the file *fileName* and parse its content.
@@ -18,7 +18,7 @@ class Reader:
             raise ValueError('Argument "format" needs to be set to "dymola".')
 
         self.fileName = fileName
-        self.__data__ = DymolaMat(fileName)
+        self.__data__ = DyMatFile(fileName)
 
     def varNames(self, pattern=None):
         '''
