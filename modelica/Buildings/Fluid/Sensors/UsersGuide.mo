@@ -122,6 +122,9 @@ be <i>V=&tau; &nbsp; m&#775;<sub>0</sub> &frasl; &rho;</i>, where
 </p>
 <h4>Implementation</h4>
 <p>
+The above equation is implemented in such a way that it is differentiable in the mass flow rate.
+</p>
+<p>
 Note that the implementation of the dynamic sensors does not use the model
 <a href=\"modelica://Buildings.Fluid.MixingVolumes\">
 Buildings.Fluid.MixingVolumes</a>.
@@ -134,5 +137,4 @@ problems that steady-state models of sensors cause when flow rates are
 very close to zero.
 </p>
 </html>"));
-
 end UsersGuide;
