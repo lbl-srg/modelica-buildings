@@ -272,7 +272,8 @@ class Tester:
         '''
         import os
         listOfTests = dict()
-        for root, dirs, files in os.walk(libDir):
+        scrDir = os.path.join(libDir, "Resources", "Scripts")
+        for root, dirs, files in os.walk(scrDir):
             pos=root.find('svn')
             # skip svn folders
             if pos == -1:
