@@ -14,8 +14,6 @@ partial model PartialEffectiveness
   Modelica.SIunits.HeatFlowRate QMax_flow
     "Maximum heat flow rate into medium 1";
 protected
-  Real gai1(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
-  Real gai2(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
   parameter Real delta=1E-3 "Parameter used for smoothing";
 
   parameter Modelica.SIunits.SpecificHeatCapacity cp1_default(fixed=false)
@@ -66,20 +64,6 @@ equation
     fra_b1 = 0;
   end if;
 
-  // Compute a gain that goes to zero near zero flow rate.
-  // This is required to smoothen the heat transfer at very small flow rates.
-  // Note that gaiK = 1 for abs(mK_flow) > mK_flow_small
-  gai1 = Modelica.Fluid.Utilities.regStep(
-    abs(m1_flow) - 0.75*m1_flow_small,
-    1,
-    0,
-    0.25*m1_flow_small);
-  gai2 = Modelica.Fluid.Utilities.regStep(
-    abs(m2_flow) - 0.75*m2_flow_small,
-    1,
-    0,
-    0.25*m2_flow_small);
-
   /////////////////////////////////////////////////////////
   // Definitions for heat transfer effectiveness model
   T_in1 = if allowFlowReversal1 then
@@ -102,7 +86,6 @@ equation
   CMin_flow = min(C1_flow, C2_flow);
 
   // QMax_flow is maximum heat transfer into medium 1
-  // We multiply by gai1*gai2 to ensure that if one flow is zero, then QMax_flow = 0
   QMax_flow = CMin_flow*(T_in2 - T_in1);
 
   annotation (
@@ -133,6 +116,10 @@ and <code>QMax_flow &gt; 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 31, 2011, by Michael Wetter:<br>
+Removed unused variables <code>gai1</code> and <code>gai2</code>.
+</li>
 <li>
 February 12, 2010, by Michael Wetter:<br>
 Changed model structure to implement effectiveness-NTU model.

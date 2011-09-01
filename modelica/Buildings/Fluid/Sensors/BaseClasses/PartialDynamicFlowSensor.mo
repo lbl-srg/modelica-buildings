@@ -15,11 +15,15 @@ protected
     "Gain to take flow rate into account for sensor time constant";
   final parameter Boolean dynamic = tau > 1E-10 or tau < -1E-10
     "Flag, true if the sensor is a dynamic sensor";
+  Real mNor_flow "Normalized mass flow rate";
 equation
-  if use_constantK then
+
+  if use_constantK or (not dynamic) then
+    mNor_flow = 1;
     k = 1;
   else
-    k = if dynamic then abs(port_a.m_flow/m_flow_nominal) else 1;
+    mNor_flow = port_a.m_flow/m_flow_nominal;
+    k = Modelica.Fluid.Utilities.regStep(x=port_a.m_flow, y1=mNor_flow, y2=-mNor_flow, x_small=m_flow_small);
   end if;
   annotation (Icon(graphics={
         Line(visible=(tau <> 0),
