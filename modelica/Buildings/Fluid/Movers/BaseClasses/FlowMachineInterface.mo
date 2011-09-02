@@ -55,7 +55,6 @@ equation
   // For the homotopy method, we approximate dpMachine by a finite difference equation
   // that is linear in VMachine_flow, and that goes linearly to 0 as r_N goes to 0.
   if homotopyInitialization then
-     // works: dpMachine = 0.02*1200*r_N/0.02*(1-VMachine_flow/0.02/V_flow_max)-VMachine_flow/V_flow_max*0.02*1200;
      dpMachine = homotopy(actual=flowCharacteristic(V_flow=VMachine_flow, r_N=r_N,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta, delta=delta, cBar=cBar),
                           simplified=r_N*
@@ -66,7 +65,7 @@ equation
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta, delta=delta, cBar=cBar)
                                 -flowCharacteristic(V_flow=(1-delta)*V_flow_nominal, r_N=1,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta, delta=delta, cBar=cBar))
-                                 /(2*delta*V_flow_nominal)));//-VMachine_flow/V_flow_max*0.02*1200;
+                                 /(2*delta*V_flow_nominal)));
 
    else
      dpMachine = flowCharacteristic(V_flow=VMachine_flow, r_N=r_N,
