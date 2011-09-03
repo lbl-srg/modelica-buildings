@@ -52,7 +52,7 @@ initial equation
   flowCharacteristic(V_flow=VDelta_flow, r_N=delta, VDelta_flow=  0, dpDelta=0, delta=0, cBar=zeros(2)) =  delta     *dpDelta+delta^2* cBar[1];
 equation
   r_N = N/N_nominal;
-  // For the homotopy method, we approximate dpMachine by a finite difference equation
+  // For the homotopy method, we approximate dpMachine by an equation
   // that is linear in VMachine_flow, and that goes linearly to 0 as r_N goes to 0.
   if homotopyInitialization then
      dpMachine = homotopy(actual=flowCharacteristic(V_flow=VMachine_flow, r_N=r_N,
