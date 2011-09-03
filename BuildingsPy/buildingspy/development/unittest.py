@@ -108,15 +108,16 @@ class Tester:
         :param dirs: A non-empty list of directories that contain existing results.
 
         This method can be used for testing and debugging. If called, then no simulation is
-        run. Use as
+        run.
+        If the directories 
+        ``['/tmp/tmp-Buildings-0-zABC44', '/tmp/tmp-Buildings-0-zQNS41']``
+        contain previous results, then this method can be used as
 
         >>> import buildingspy.development.unittest as u
         >>> ut = u.Tester()
         >>> ut.useExistingResults(['/tmp/tmp-Buildings-0-zABC44', '/tmp/tmp-Buildings-0-zQNS41'])
         >>> ut.run()
 
-        This method assumes that the directories ``['/tmp/tmp-Buildings-0-zABC44', '/tmp/tmp-Buildings-0-zQNS41']``
-        contain previous results.
         '''
         if len(dirs) == 0:
             raise ValueError("Argument 'dirs' of function 'useExistingResults(dirs)' must have at least one element.")
