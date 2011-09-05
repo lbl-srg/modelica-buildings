@@ -1,1 +1,1 @@
-simulateModel("Buildings.Media.GasesPTDecoupled.Examples.TestSimpleAir", method="dassl", resultFile="TestSimpleAir");
+simulateModel("Buildings.Media.GasesPTDecoupled.Examples.TestSimpleAir", method="dassl", resultFile="GasesPTDecoupledTestSimpleAir");

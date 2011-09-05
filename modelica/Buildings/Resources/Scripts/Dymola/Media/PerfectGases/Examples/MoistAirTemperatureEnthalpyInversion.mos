@@ -1,1 +1,1 @@
-simulateModel("Buildings.Media.PerfectGases.Examples.MoistAirTemperatureEnthalpyInversion", method="dassl", resultFile="MoistAirTemperatureEnthalpyInversion");
+simulateModel("Buildings.Media.PerfectGases.Examples.MoistAirTemperatureEnthalpyInversion", method="dassl", resultFile="PerfectGasesMoistAirTemperatureEnthalpyInversion");

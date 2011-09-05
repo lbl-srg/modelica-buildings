@@ -1,6 +1,4 @@
-simulateModel("Buildings.Fluid.Interfaces.Examples.HumidifierPrescribed", method="dassl", stopTime=3600, tolerance=1e-5, resultFile="HumidifierPrescribed");
-
-removePlots();
+simulateModel("Buildings.Fluid.Interfaces.Examples.HumidifierPrescribed", method="dassl", stopTime=3600, tolerance=1e-5, resultFile="InterfacesHumidifierPrescribed");
 createPlot(id = 1,
  position = {15, 10, 413, 444},
  y = {"hea1.sta_a.T", "hea1.sta_b.T", "hea2.sta_a.T", "hea2.sta_b.T"},
@@ -10,7 +8,7 @@ createPlot(id = 1,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "HumidifierPrescribed.mat",
+ filename = "InterfacesHumidifierPrescribed.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 1,
@@ -58,7 +56,7 @@ createPlot(id = 10,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "HumidifierPrescribed.mat",
+ filename = "InterfacesHumidifierPrescribed.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 10,

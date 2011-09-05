@@ -1,6 +1,4 @@
-simulateModel("Buildings.Fluid.Interfaces.Examples.HeaterCoolerPrescribed", method="dassl", stopTime=3600, resultFile="HeaterCoolerPrescribed");
-
-removePlots();
+simulateModel("Buildings.Fluid.Interfaces.Examples.HeaterCoolerPrescribed", method="dassl", stopTime=3600, resultFile="InterfacesHeaterCoolerPrescribed");
 createPlot(id = 1,
  position = {15, 10, 413, 444},
  y = {"senTem1a.T", "senTem1b.T", "senTem2a.T", "senTem2b.T"},
@@ -10,7 +8,7 @@ createPlot(id = 1,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "HeaterCoolerPrescribed.mat",
+ filename = "InterfacesHeaterCoolerPrescribed.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 1,
@@ -48,7 +46,6 @@ createPlot(id = 3,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
-
 createPlot(id = 10,
  position = {15, 10, 413, 444},
  y = {"senTem4a.T", "senTem5b.T", "senTem5a.T", "senTem6b.T"},
@@ -58,7 +55,7 @@ createPlot(id = 10,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "HeaterCoolerPrescribed.mat",
+ filename = "InterfacesHeaterCoolerPrescribed.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
 createPlot(id = 10,
