@@ -56,6 +56,13 @@ extends Buildings.BaseClasses.BaseIcon;
     "Radiation temperature"       annotation (extent=[-120,50; -100,70],
       Placement(transformation(extent={{-120,50},{-100,70}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
+
+  Modelica.SIunits.Temperature TOpe "Operative temperature";
+  Modelica.SIunits.Temperature TClo "Surface temperature of clothing";
+  Modelica.SIunits.Temperature TSki(
+    min=273.15+20,
+    max=273.15+42) "Skin temperature";
+
   Modelica.Blocks.Interfaces.RealInput phi(min=0, max=1) "Relative humidity"
                                     annotation (extent=[-120,-50; -100,-30],
       Placement(transformation(extent={{-120,10},{-100,30}}),
@@ -82,12 +89,6 @@ extends Buildings.BaseClasses.BaseIcon;
     "Metabolic heat generation in W/m2 (not in met)" annotation (extent=[-120,-12; -100,8],
       Placement(transformation(extent={{-120,-50},{-100,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
-
-  Modelica.SIunits.Temperature TOpe "Operative temperature";
-  Modelica.SIunits.Temperature TClo "Surface temperature of clothing";
-  Modelica.SIunits.Temperature TSki(
-    min=273.15+20,
-    max=273.15+42) "Skin temperature";
 
   Modelica.SIunits.CoefficientOfHeatTransfer hCom(
     min=0,
