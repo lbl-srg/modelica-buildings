@@ -13,8 +13,8 @@ model ExpansionVessel "Pressure expansion vessel with fixed gas cushion"
   parameter Modelica.SIunits.Pressure pMax = 5E5
     "Maximum pressure before simulation stops with an error";
 
-protected
  Modelica.SIunits.Volume VLiq "Volume of liquid in the vessel";
+protected
   Buildings.Fluid.Interfaces.LumpedVolume vol(
     redeclare final package Medium = Medium,
     final nPorts = 1,
