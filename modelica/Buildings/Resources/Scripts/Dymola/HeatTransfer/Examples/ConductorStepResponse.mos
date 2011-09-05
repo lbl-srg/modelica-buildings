@@ -14,7 +14,7 @@ createPlot(id = 1,
 
 createPlot(id = 5,
  position = {459, 32, 400, 280},
- y = {"con.T[1]", "con.T[2]", "con.T[3]", "con.T[4]", "con.T[5]"},
+ y = {"con.T[1]"},
  filename = "ConductorStepResponse.mat",
  autoscale = true,
  autoreplot = true,

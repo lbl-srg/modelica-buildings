@@ -2,7 +2,7 @@ simulateModel("Buildings.Utilities.Math.Functions.Examples.PolynomialDerivativeC
 removePlots();
 createPlot(id = 5,
  position = {45, 33, 639, 463},
- y = {"x", "y", "ex"},
+ y = {"x", "y"},
  autoscale = true,
  autoerase = true,
  autoreplot = true,

@@ -1,7 +1,7 @@
 simulateModel("Buildings.Media.PerfectGases.Examples.MoistAirComparison", method="dassl", resultFile="MoistAirComparison");
 createPlot(id = 1,
  position = {15, 10, 981, 661},
- x = "T_degC",
+ x = "T",
  y = {"hLiqPer", "hLiqIde", "hStePer", "hSteIde", "hAirPer", "hAirIde"},
  range = {0, 100.0, 3000000.0, (-500000.0)},
  autoscale = true,
@@ -14,7 +14,7 @@ createPlot(id = 1,
  bottomTitleType = 1);
 createPlot(id = 1,
  position = {15, 10, 981, 325},
- x = "T_degC",
+ x = "T",
  y = {"errLiq", "errSte", "errAir"},
  autoscale = true,
  autoerase = true,

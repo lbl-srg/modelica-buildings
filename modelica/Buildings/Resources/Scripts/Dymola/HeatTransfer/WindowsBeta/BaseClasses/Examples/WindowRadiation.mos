@@ -5,7 +5,7 @@ simulateModel("Buildings.HeatTransfer.WindowsBeta.BaseClasses.Examples.WindowRad
 removePlots();
 createPlot(id = 1, 
  position = {7, 258, 746, 256},
- y = {"winRad.HDif", "winRad.HDir", "winRad.QTra_flow[1]", "winRad.QTra_flow[2]"},
+ y = {"winRad.HDif", "winRad.HDir", "winRad.QTra_flow"},
  filename = "WindowRadiation.mat",
  autoscale = true,
  autoerase = true,
