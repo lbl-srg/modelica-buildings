@@ -109,39 +109,15 @@ model ReverseBuoyancy3Zones
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
     annotation (Placement(transformation(extent={{-20,79},{0,99}}, rotation=0)));
-  Buildings.Fluid.MixingVolumes.MixingVolume volTopEas(
-    redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    V=2.5*5*10,
-    T_start=273.15 + 21,
-    nPorts=3,
-    m_flow_nominal=0.001)
-              annotation (Placement(transformation(extent={{-40,111},{-20,131}},
-          rotation=0)));
-  Buildings.Fluid.MixingVolumes.MixingVolume volTopWes(
+  Buildings.Fluid.MixingVolumes.MixingVolume volTop(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 20,
-    V=2.5*5*10,
-    nPorts=3,
-    m_flow_nominal=0.001)
-              annotation (Placement(transformation(extent={{-158,120},{-138,140}},
+    m_flow_nominal=0.001,
+    V=2.5*10*10,
+    nPorts=2) annotation (Placement(transformation(extent={{-70,120},{-50,140}},
           rotation=0)));
-  Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeCloTop(
-    redeclare package Medium = Medium,
-    LClo=20*1E-4,
-    wOpe=1,
-    hOpe=2.2,
-    hA=3/2,
-    hB=3/2,
-    CDOpe=0.78,
-    CDClo=0.78,
-    nCom=10,
-    vZer=0.01,
-    dp_turbulent=0.1) "Discretized door" annotation (Placement(transformation(
-          extent={{-63,80},{-43,100}}, rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume volWes(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -163,32 +139,12 @@ equation
       points={{-61,-39},{-108,-39},{-108,-40},{-154,-40},{-154,-27}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(dooOpeCloTop.port_b1, volTopEas.ports[1]) annotation (Line(
-      points={{-43,96},{-32.6667,96},{-32.6667,111}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(dooOpeCloTop.port_a2, volTopEas.ports[2]) annotation (Line(
-      points={{-43,84},{-30,84},{-30,111}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(dooOpeClo.port_b1, volEas.ports[1]) annotation (Line(
       points={{-41,-39},{-25.2,-39},{-25.2,-26}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dooOpeClo.port_a2, volEas.ports[2]) annotation (Line(
       points={{-41,-51},{-23.6,-51},{-23.6,-26}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(colWesTop.port_a, volTopWes.ports[1]) annotation (Line(
-      points={{-120,99},{-120,106},{-150.667,106},{-150.667,120}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(volTopWes.ports[2], dooOpeCloTop.port_b2) annotation (Line(
-      points={{-148,120},{-148,112},{-106,112},{-106,84},{-63,84}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(dooOpeCloTop.port_a1, volTopWes.ports[3]) annotation (Line(
-      points={{-63,96},{-100,96},{-100,116},{-145.333,116},{-145.333,120}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(colWesTop.port_b, oriWesTop.port_a) annotation (Line(
@@ -201,10 +157,6 @@ equation
       smooth=Smooth.None));
   connect(colWesBot.port_b, volWes.ports[3]) annotation (Line(
       points={{-120,11},{-120,-34},{-151.333,-34},{-151.333,-27}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(volTopEas.ports[3], colEasTop.port_a) annotation (Line(
-      points={{-27.3333,111},{-27.3333,99},{-10,99}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(colEasTop.port_b, oriEasTop.port_b) annotation (Line(
@@ -244,20 +196,24 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(colEasInTop.port_a, oriOutTop.port_a) annotation (Line(
-      points={{21,-10},{20,-10},{20,0},{39,0}},
+      points={{21,-10},{20,-10},{20,6.10623e-16},{39,6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(oriOutTop.port_b, colOutTop.port_a) annotation (Line(
-      points={{59,0},{101,0},{101,-10}},
+      points={{59,6.10623e-16},{101,6.10623e-16},{101,-10}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(dooOpeCloTop.y, ope.y) annotation (Line(
-      points={{-64,90},{-72,90},{-72,-13},{-81,-13}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(ope.y, dooOpeClo.y) annotation (Line(
       points={{-81,-13},{-72,-13},{-72,-45},{-62,-45}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(colWesTop.port_a, volTop.ports[1]) annotation (Line(
+      points={{-120,99},{-120,110},{-62,110},{-62,120}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(colEasTop.port_a, volTop.ports[2]) annotation (Line(
+      points={{-10,99},{-10,110},{-58,110},{-58,120}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
@@ -266,6 +222,9 @@ equation
           lineColor={135,135,135},
           lineThickness=1), Rectangle(
           extent={{-176,48},{-52,-96}},
+          lineColor={135,135,135},
+          lineThickness=1), Rectangle(
+          extent={{-176,160},{48,48}},
           lineColor={135,135,135},
           lineThickness=1)}),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ReverseBuoyancy3Zones.mos"
