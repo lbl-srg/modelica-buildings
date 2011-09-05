@@ -6,7 +6,8 @@ model GasConvection "Test problem for convection in the gas layer"
     A=1,
     linearize=false,
     gas=Buildings.HeatTransfer.Data.Gases.Air(x=0.1),
-    til=1.5707963267949) "Model for gas convection in vertical gap"
+    til=Buildings.HeatTransfer.Types.Tilt.Wall)
+    "Model for gas convection in vertical gap"
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Sources.Ramp TBC(
     duration=1,
@@ -28,7 +29,8 @@ model GasConvection "Test problem for convection in the gas layer"
     A=1,
     linearize=false,
     gas=Buildings.HeatTransfer.Data.Gases.Air(x=0.1),
-    til=0) "Model for gas convection in horizontal gap in a ceiling"
+    til=Buildings.HeatTransfer.Types.Tilt.Ceiling)
+    "Model for gas convection in horizontal gap in a ceiling"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
         origin={10,-30})));
@@ -41,11 +43,11 @@ model GasConvection "Test problem for convection in the gas layer"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={50,-50})));
-  Buildings.HeatTransfer.WindowsBeta.BaseClasses.GasConvection conFlor(
+  Buildings.HeatTransfer.WindowsBeta.BaseClasses.GasConvection conFlo(
     A=1,
     linearize=false,
     gas=Buildings.HeatTransfer.Data.Gases.Air(x=0.1),
-    til=1.5707963267949)
+    til=Buildings.HeatTransfer.Types.Tilt.Floor)
     "Model for gas convection in horizontal gap in a floor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -104,21 +106,22 @@ equation
       points={{-59,30},{-55.5,30},{-55.5,-130},{-42,-130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(T_a3.port, conFlor.port_a)
+  connect(T_a3.port, conFlo.port_a)
                                 annotation (Line(
       points={{-20,-130},{10,-130},{10,-120}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conFlor.port_b, T_b3.port)
+  connect(conFlo.port_b, T_b3.port)
                                 annotation (Line(
       points={{10,-100},{10,-90},{40,-90}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(u.y, conFlor.u) annotation (Line(
+  connect(u.y, conFlo.u)  annotation (Line(
       points={{-59,70},{-10,70},{-10,-126},{2,-126},{2,-121}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/WindowsBeta/BaseClasses/Examples/GasConvection.mos" "Simulate and plot"),
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/WindowsBeta/BaseClasses/Examples/GasConvection.mos"
+        "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-140},{100,
             100}}), graphics));
 end GasConvection;
