@@ -89,8 +89,14 @@ will be compared to previous results that are stored in
 If no reference results exist, then they will be created.
 Otherwise, the accuracy of the new results is compared to the
 reference results. If they differ by more than a prescibed
-tolerance, a plot is shown that shows the old data, the new data
-and a vertical line where the biggest error occurs.
+tolerance, a plot such as the one below is shown.</p>
+<div class="figure">
+<a class="reference external image-reference" href="_images/unitTestPlot.png"><img alt="_images/unitTestPlot.png" src="_images/unitTestPlot.png" style="width: 489.0px; height: 415.5px;" /></a>
+<p class="caption">Plot that compares the new results (solid line) of the unit test with the old results (dotted line).
+The blue line indicates the time where the larges error occurs.</p>
+</div>
+<p>In this plot, the vertical line indicates the time where the biggest error 
+occurs.
 The user is then asked to accept or reject the new results.</p>
 <p>To run the unit tests, type</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">buildingspy.development.unittest</span> <span class="kn">as</span> <span class="nn">u</span>

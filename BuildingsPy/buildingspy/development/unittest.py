@@ -52,8 +52,16 @@ class Tester:
     If no reference results exist, then they will be created.
     Otherwise, the accuracy of the new results is compared to the
     reference results. If they differ by more than a prescibed
-    tolerance, a plot is shown that shows the old data, the new data
-    and a vertical line where the biggest error occurs.
+    tolerance, a plot such as the one below is shown.
+
+    .. figure:: img/unitTestPlot.png
+       :scale: 75%
+
+       Plot that compares the new results (solid line) of the unit test with the old results (dotted line).
+       The blue line indicates the time where the largest error occurs.
+
+    In this plot, the vertical line indicates the time where the biggest error 
+    occurs.
     The user is then asked to accept or reject the new results.
 
     To run the unit tests, type

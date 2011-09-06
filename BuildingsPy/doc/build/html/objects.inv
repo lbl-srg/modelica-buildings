@@ -31,7 +31,7 @@ buildingspy.io.reporter.Reporter.logToFile method io.html
 buildingspy.development.unittest.Tester.deleteTemporaryDirectories method development.html
 buildingspy.simulate.Simulator.Simulator.setStartTime method simulate.html
 buildingspy.simulate.Simulator.Simulator.getParameters method simulate.html
-buildingspy.simulate.Simulator.Simulator.setSolver method simulate.html
+buildingspy.simulate.Simulator.Simulator.setResultFile method simulate.html
 buildingspy.development.unittest.Tester.useExistingResults method development.html
 buildingspy.simulate.Simulator.Simulator.setTimeOut method simulate.html
 buildingspy.io.reporter.Reporter.writeError method io.html
@@ -43,6 +43,6 @@ buildingspy.simulate.Simulator.Simulator.deleteOutputFiles method simulate.html
 buildingspy.development.unittest.Tester.setNumberOfThreads method development.html
 buildingspy.simulate.Simulator.Simulator.simulate method simulate.html
 buildingspy.io.reporter.Reporter class io.html
-buildingspy.simulate.Simulator.Simulator.setResultFile method simulate.html
+buildingspy.simulate.Simulator.Simulator.setSolver method simulate.html
 buildingspy.development.unittest.Tester.run method development.html
 buildingspy.simulate.Simulator.Simulator class simulate.html
