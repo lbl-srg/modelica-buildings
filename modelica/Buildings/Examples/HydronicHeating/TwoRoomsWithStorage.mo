@@ -1,5 +1,5 @@
-within Buildings.Examples;
-model HydronicHeating "Model of a hydronic heating system with energy storage"
+within Buildings.Examples.HydronicHeating;
+model TwoRoomsWithStorage "Model of a hydronic heating system with energy storage"
   extends Modelica.Icons.Example;
  package MediumA = Buildings.Media.GasesConstantDensity.SimpleAir
     "Medium model for air";
@@ -1046,11 +1046,11 @@ the model to the Radau solver.
 To avoid this problem, use another compiler, such as Visual C++ 2008. 
 </p>
 </html>"),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicHeating.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicHeating/TwoRoomsWithStorage.mos"
         "Simulate and plot"),
     experiment(
       StopTime=172800,
       Tolerance=1e-006,
       Algorithm="radau"),
     experimentSetupOutput);
-end HydronicHeating;
+end TwoRoomsWithStorage;
