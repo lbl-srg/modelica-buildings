@@ -79,7 +79,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(vol.ports[1], pum.port_a) annotation (Line(
-      points={{27.3333,-120},{-58,-120},{-58,-50},{-40,-50}},
+      points={{27.3333,-120},{-60,-120},{-60,-50},{-40,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(fixHeaFlo.port, vol.heatPort) annotation (Line(
@@ -89,11 +89,6 @@ equation
   connect(vol.heatPort, TVol.port) annotation (Line(
       points={{20,-110},{-80,-110},{-80,-150},{-70,-150}},
       color={191,0,0},
-      smooth=Smooth.None));
-  connect(switch1.y, pum.m_flow_in) annotation (Line(
-      points={{41,-190},{70,-190},{70,-250},{-92,-250},{-92,-30},{-35,-30},{-35,
-          -41.8}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(tow.port_b, vol.ports[2]) annotation (Line(
       points={{44,-50},{60,-50},{60,-120},{30,-120}},
@@ -115,8 +110,13 @@ equation
       points={{-50,-150},{-40,-150},{-40,-184},{-22,-184}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-260},
-            {140,100}}),
+  connect(switch1.y, pum.m_flow_in) annotation (Line(
+      points={{41,-190},{70,-190},{70,-240},{-100,-240},{-100,-30},{-35,-30},{
+          -35,-41.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,
+            -260},{140,100}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-100,-180},{100,100}})));
 end PartialStaticTwoPortCoolingTower;
