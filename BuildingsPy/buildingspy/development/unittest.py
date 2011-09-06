@@ -1039,4 +1039,4 @@ class Tester:
         elapsedTime=time.time()-startTime;
         print "Execution time = %.3f s" % elapsedTime
 
-        exit(retVal)
+        return retVal

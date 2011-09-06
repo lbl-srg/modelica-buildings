@@ -64,4 +64,5 @@ if __name__ == '__main__':
 #    ut.deleteTemporaryDirectories(False)
 #    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
 #    #print ut.getDataDictionary()
-    ut.run()
+    retVal = ut.run()
+    exit(retVal)
