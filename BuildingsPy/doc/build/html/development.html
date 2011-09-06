@@ -44,14 +44,6 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-            <h3><a href="index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="#">Development</a><ul>
-<li><a class="reference external" href="#buildingspy-development-module-for-development-of-the-modelica-library"><tt class="docutils literal"><span class="pre">buildingspy.development</span></tt> Module for development of the Modelica library</a></li>
-</ul>
-</li>
-</ul>
-
             <h4>Previous topic</h4>
             <p class="topless"><a href="examples.html"
                                   title="previous chapter">Examples</a></p>
@@ -81,11 +73,8 @@
             
   <div class="section" id="module-buildingspy.development.unittest">
 <h1>Development<a class="headerlink" href="#module-buildingspy.development.unittest" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="buildingspy-development-module-for-development-of-the-modelica-library">
-<h2><tt class="xref docutils literal"><span class="pre">buildingspy.development</span></tt> Module for development of the Modelica library<a class="headerlink" href="#buildingspy-development-module-for-development-of-the-modelica-library" title="Permalink to this headline">¶</a></h2>
-<p>This module contains the class <em>Tester</em> that can be
-used to run the unit tests of the <cite>Buildings</cite> library.</p>
-</div>
+<p>This module contains the class <em>Tester</em> that runs
+the unit tests of the <cite>Buildings</cite> library.</p>
 <dl class="class">
 <dt id="buildingspy.development.unittest.Tester">
 <em class="property">class </em><tt class="descclassname">buildingspy.development.unittest.</tt><tt class="descname">Tester</tt><a class="headerlink" href="#buildingspy.development.unittest.Tester" title="Permalink to this definition">¶</a></dt>
@@ -159,25 +148,6 @@ all temporary directories will be deleted after the unit tests.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="buildingspy.development.unittest.Tester.getDataDictionary">
-<tt class="descname">getDataDictionary</tt><big>(</big><big>)</big><a class="headerlink" href="#buildingspy.development.unittest.Tester.getDataDictionary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a list of variables that are in the plot command and the associate <tt class="docutils literal"><span class="pre">*.mat</span></tt> file name.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A dictionary with keys equal to the <tt class="docutils literal"><span class="pre">*.mos</span></tt> file name, and values
-containing a dictionary with keys <tt class="docutils literal"><span class="pre">matFil</span></tt> and <tt class="docutils literal"><span class="pre">y</span></tt>.</p>
-<p class="last">The values of <tt class="docutils literal"><span class="pre">y</span></tt> are a list of the 
-form <cite>[[a.x, a.y], [b.x, b.y1, b.y2]]</cite> if the
-mos file plots <cite>a.x</cite> versus <cite>a.y</cite> and <cite>b.x</cite> versus <cite>(b.y1, b.y2)</cite>.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="buildingspy.development.unittest.Tester.getModelicaCommand">
 <tt class="descname">getModelicaCommand</tt><big>(</big><big>)</big><a class="headerlink" href="#buildingspy.development.unittest.Tester.getModelicaCommand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the name of the modelica executable.</p>
@@ -223,6 +193,11 @@ if no error occured,</li>
 </dd></dl>
 
 <dl class="method">
+<dt id="buildingspy.development.unittest.Tester.setDataDictionary">
+<tt class="descname">setDataDictionary</tt><big>(</big><big>)</big><a class="headerlink" href="#buildingspy.development.unittest.Tester.setDataDictionary" title="Permalink to this definition">¶</a></dt>
+<dd>Build the data structures that are needed to parse the output files.</dd></dl>
+
+<dl class="method">
 <dt id="buildingspy.development.unittest.Tester.setNumberOfThreads">
 <tt class="descname">setNumberOfThreads</tt><big>(</big><em>number</em><big>)</big><a class="headerlink" href="#buildingspy.development.unittest.Tester.setNumberOfThreads" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the number of parallel threads that are used to run the unit tests.</p>
@@ -251,15 +226,16 @@ processors of the computer.</p>
 </tbody>
 </table>
 <p>This method can be used for testing and debugging. If called, then no simulation is
-run. Use as</p>
+run.
+If the directories 
+<tt class="docutils literal"><span class="pre">['/tmp/tmp-Buildings-0-zABC44',</span> <span class="pre">'/tmp/tmp-Buildings-0-zQNS41']</span></tt>
+contain previous results, then this method can be used as</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">buildingspy.development.unittest</span> <span class="kn">as</span> <span class="nn">u</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ut</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">Tester</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ut</span><span class="o">.</span><span class="n">useExistingResults</span><span class="p">([</span><span class="s">&#39;/tmp/tmp-Buildings-0-zABC44&#39;</span><span class="p">,</span> <span class="s">&#39;/tmp/tmp-Buildings-0-zQNS41&#39;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ut</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>This method assumes that the directories <tt class="docutils literal"><span class="pre">['/tmp/tmp-Buildings-0-zABC44',</span> <span class="pre">'/tmp/tmp-Buildings-0-zQNS41']</span></tt>
-contain previous results.</p>
 </dd></dl>
 
 </dd></dl>

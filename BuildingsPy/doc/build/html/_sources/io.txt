@@ -1,3 +1,6 @@
+Reading output files
+====================
+
 .. automodule:: buildingspy.io 
 .. automodule:: buildingspy.io.outputfile
 .. autoclass:: buildingspy.io.outputfile.Reader

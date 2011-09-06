@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-#from buildingspy.io.dymola.DyMat import DymolaMat
 
 class Simulator:
     """Class to simulate a Modelica model.

@@ -1,5 +1,4 @@
 '''
-:mod:`buildingspy.simulate` Classes for simulating a Modelica model
-===================================================================
+This module contains the classes *Simulator* that can be
+used to run Modelica simulations using Dymola.
 '''
-#import dymola.DyMat

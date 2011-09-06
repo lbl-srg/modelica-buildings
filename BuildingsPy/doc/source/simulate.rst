@@ -1,5 +1,5 @@
-Module for running simulations
-==============================
+Running simulations
+===================
 
 .. automodule:: buildingspy.simulate 
 .. automodule:: buildingspy.simulate.Simulator

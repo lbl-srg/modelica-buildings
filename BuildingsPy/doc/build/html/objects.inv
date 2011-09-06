@@ -20,6 +20,7 @@ buildingspy.simulate.Simulator.Simulator.setStopTime method simulate.html
 buildingspy.io.reporter.Reporter.writeOutput method io.html
 buildingspy.simulate.Simulator.Simulator.setNumberOfIntervals method simulate.html
 buildingspy.simulate.Simulator.Simulator.printModelAndTime method simulate.html
+buildingspy.development.unittest.Tester.setDataDictionary method development.html
 buildingspy.io.outputfile.Reader.integral method io.html
 buildingspy.io.outputfile.Reader.max method io.html
 buildingspy.simulate.Simulator.Simulator.showProgressBar method simulate.html
@@ -43,6 +44,5 @@ buildingspy.development.unittest.Tester.setNumberOfThreads method development.ht
 buildingspy.simulate.Simulator.Simulator.simulate method simulate.html
 buildingspy.io.reporter.Reporter class io.html
 buildingspy.simulate.Simulator.Simulator.setResultFile method simulate.html
-buildingspy.development.unittest.Tester.getDataDictionary method development.html
 buildingspy.development.unittest.Tester.run method development.html
 buildingspy.simulate.Simulator.Simulator class simulate.html

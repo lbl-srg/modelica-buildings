@@ -66,6 +66,8 @@ class Tester:
     def __init__(self):
         import os
         import multiprocessing
+        import buildingspy.development.data as dat
+
         # --------------------------
         # Class variables
         self.__libHome=os.path.abspath(".")
@@ -89,10 +91,6 @@ class Tester:
         # Flag to use existing results instead of running a simulation
         self.__useExistingResults = False
 
-        # Dictionary with keys being the matlab file name (without path), and value being the directory 
-        # in which the matlab file will be generated
-        self.__matToDir = dict()
-
         ''' Dictionary with keys equal to the ``*.mos`` file name, and values
                  containing a dictionary with keys ``matFil`` and ``y``.
 
@@ -100,7 +98,7 @@ class Tester:
                  form `[[a.x, a.y], [b.x, b.y1, b.y2]]` if the
                  mos file plots `a.x` versus `a.y` and `b.x` versus `(b.y1, b.y2)`.
         '''
-        self.__datDic = dict()
+        self.__data = []
 
     def useExistingResults(self, dirs):
         ''' This function allows to use existing results, as opposed to running a simulation.
@@ -262,54 +260,17 @@ class Tester:
         else:
             False
 
+    def setDataDictionary(self):
+        ''' Build the data structures that are needed to parse the output files.
 
-    # --------------------------
-    def __getUnitTests(self, libDir):
-        ''' Return a dictionary with the full name of the ``*.mos`` file as a key,
-            and the ``*.mat`` file name as a value.
-
-            :return: A dictionary with the full name of the ``*.mos`` file as a key,
-            and the ``*.mat`` file name as a value.
-        '''
-        import os
-        listOfTests = dict()
-        scrDir = os.path.join(libDir, "Resources", "Scripts")
-        for root, dirs, files in os.walk(scrDir):
-            pos=root.find('svn')
-            # skip svn folders
-            if pos == -1:
-                for filNam in files:
-                    # find files that contain simulate command
-                    mosDir = root[len(libDir)+1:]
-                    filRelNam=os.path.join(mosDir, filNam)
-                    if self.__includeFile(filRelNam):
-                        filObj=open(filRelNam, 'r')
-                        filTex=filObj.read()
-                        strpos=filTex.find("simulate")
-                        filObj.close()
-                        if strpos > -1:
-                            res = self.__datDic[filNam] # res is a dictionary of matlab file name and results
-                            listOfTests[filNam]={'mosDir': mosDir, 'matFil': res['matFil']}
-        return listOfTests
-
-    # --------------------------
-    # finds the MOS file corresponding to the "fileName" and returns a list 
-    # of "plotVariables" mentioned in it
-    def getDataDictionary(self):
-        ''' Return a list of variables that are in the plot command and the associate ``*.mat`` file name.
-
-        :return: A dictionary with keys equal to the ``*.mos`` file name, and values
-                 containing a dictionary with keys ``matFil`` and ``y``.
-
-                 The values of ``y`` are a list of the 
-                 form `[[a.x, a.y], [b.x, b.y1, b.y2]]` if the
-                 mos file plots `a.x` versus `a.y` and `b.x` versus `(b.y1, b.y2)`.
         '''
         import os
         import re
+        import copy
+        import buildingspy.development.data as data
 
-        retVal = dict()
-        for root, dirs, files in os.walk(os.path.join(self.__libHome, 'Resources', 'Scripts', 'Dymola')):
+        scrPat = os.path.join(self.__libHome, 'Resources', 'Scripts', 'Dymola')
+        for root, dirs, files in os.walk(scrPat):
             pos=root.find('svn')
             # skip svn folders
             if pos == -1:
@@ -317,22 +278,41 @@ class Tester:
                     # find the desired mos file
                     pos=mosFil.endswith('.mos')
                     if pos > -1 and not mosFil.startswith("ConvertBuildings"):
-                        plotVars = []
                         matFil = ""
+                        dat = data.Data()
+                        dat.setScriptDirectory(root[len(scrPat)+1:])
+                        dat.setScriptFile(mosFil)
+                        dat.mustSimulate(False)
+
                         # open the mos file and read its content.
+                        # Path and name of mos file without 'Resources/Scripts/Dymola'
                         fMOS=open(os.path.join(root, mosFil), 'r')
                         Lines=fMOS.readlines()
                         fMOS.close()
+
                         # Remove white spaces
                         for i in range(len(Lines)):
                             Lines[i] = Lines[i].replace(' ', '')
 
+                        # Check if the file contains the simulate command
+                        if self.__includeFile(os.path.join(root, mosFil)):
+                            for lin in Lines:
+                                if (lin.find("simulate")) > -1:
+                                    dat.mustSimulate(True)
+                                    break
+
+                        plotVars = []
                         for lin in Lines:
                             if 'y={' in lin:
                                 var=re.search('{.*?}', lin).group()
                                 var=var.strip('{}"')
                                 y = var.split('","')
+                                # Replace a[1,1] by a[1, 1], which is required for the
+                                # Reader to be able to read the result.
+                                for i in range(len(y)):
+                                    y[i] = y[i].replace(",", ", ")
                                 plotVars.append(y)
+                        dat.setResultVariables(plotVars)
 
                         # search for the result file
                         for lin in Lines:
@@ -351,17 +331,44 @@ class Tester:
                                     break
                         if len(matFil) == 0:
                             raise  ValueError('Did not find *.mat file in ' + mosFil)
-                        value = {'matFil': matFil, 'y': plotVars}
-                        retVal[mosFil] = value
-        return retVal
+                        dat.setResultFile(matFil)
+                        self.__data.append(dat)
+        self.__checkDataDictionary()
+        return
 
-    def __getSimulationResults(self, mosFil, results):
+
+    def __checkDataDictionary(self):
+        ''' Check if the data used to run the unit tests do not have duplicate ``*.mat`` files.
+
+            Since Dymola writes all ``*.mat`` files to the current working directory,
+            dublicate ``*.mat`` file names would cause a simulation to overwrite the results
+            of a previous simulation. This would make it impossible to compare the results
+            to previously obtained results.
+            
+            If there are dublicate ``*.mat`` file names used, then this method throws
+            a ``ValueError`` exception.
+
+        '''
+        import sys
+        s = set()
+        errMes = ""
+        for data in self.__data:
+            resFil = data.getResultFile()
+            if data.simulateFile():
+                if resFil in s:
+                    errMes += "*** Error: Result file %s is generated by more than one script.\n" \
+                        "           You need to make sure that all scripts use unique result file names.\n" % resFil
+                else:
+                    s.add(resFil)
+        if len(errMes) > 0:
+            raise ValueError(errMes)
+
+
+    def __getSimulationResults(self, data):
         '''
         Get the simulation results.
 
-        :param mosFil: The name of the ``*.mos`` file.
-        :param result: The dictionary of ``*.mat`` file and variable names that are to be
-                       compared from this ``*.mat`` file.
+        :param data: The class that contains the data structure for the simulation results.
 
         Extracts and returns the simulation results from the `*.mat` file as
         a list of dictionaries. Each element of the list contains a dictionary
@@ -380,11 +387,9 @@ class Tester:
             return r
             
         # Get the working directory that contains the ".mat" file
-        matFil = results['matFil']
-        worDir = self.__matToDir[matFil]
-        fulFilNam=os.path.join(worDir, "Buildings", matFil)
+        fulFilNam=os.path.join(data.getResultDirectory(), "Buildings", data.getResultFile())
         ret=[]
-        for pai in results['y']: # pairs of variables that are plotted together
+        for pai in data.getResultVariables(): # pairs of variables that are plotted together
             foundData = False # This ensures that time is in all data series
             dat=dict()
             for var in pai:
@@ -406,11 +411,11 @@ class Tester:
                     ti = [ tMin+float(i)/(nPoi-1)*dTim for i in range(nPoi) ]
                 except IOError as e:
                     sys.stdout.write("*** Warning: Failed to read %s generated by %s.\n" % 
-                                     (fulFilNam, mosFil))
+                                     (fulFilNam, data.getScriptFile()))
                     break
                 except KeyError:
                     sys.stdout.write("*** Warning: %s uses %s which does not exist in %s.\n" %
-                                     (mosFil, var, matFil))
+                                     (data.getScriptFile(), var, data.getResultFile()))
                 else:
                     if (not foundData) and len(time) > 2:
                         dat['time']=ti
@@ -753,23 +758,27 @@ class Tester:
         import shutil
         from datetime import date
 
-        for k, v in self.__datDic.iteritems():
+        #Check if the directory "self.__libHome\\Resources\\ReferenceResults\\Dymola" exists, if not create it.
+        refDir=os.path.join(self.__libHome, 'Resources', 'ReferenceResults', 'Dymola')   
+        if not os.path.exists(refDir):
+            os.makedirs(refDir)               
+
+        for data in self.__data:
             # k is the name of the mos file
             # v are the variables that need to be extracted from this matlab file
 
             # Name of the reference file, which is the same as that matlab file name but with another extension
-            if self.__includeFile(k):
-                refFilNam=k[:len(k)-4] + ".txt" 
+            if self.__includeFile(data.getScriptFile()):
+                # Convert 'aa/bb.mos' to 'aa_bb.txt'
+                mosFulFilNam = os.path.join('Buildings', data.getScriptDirectory(), data.getScriptFile())
+                mosFulFilNam = mosFulFilNam.replace(os.sep, '_')
+                refFilNam=os.path.splitext( mosFulFilNam )[0] + ".txt" 
 
                 # extract reference points from the ".mat" file corresponding to "filNam"
-                yS=self.__getSimulationResults(k, v)
+                yS=self.__getSimulationResults(data)
                 # Reset answer, unless it is set to Y or N
                 if not (ans == "Y" or ans == "N"):
                     ans = "-"
-                #Check if the directory "self.__libHome\\Resources\\ReferenceResults\\Dymola" exists, if not create it.
-                refDir=os.path.join(self.__libHome, 'Resources', 'ReferenceResults', 'Dymola')   
-                if not os.path.exists(refDir):
-                    os.makedirs(refDir)               
 
                 updateReferenceData = False
                 # check if reference results already exists in library
@@ -778,7 +787,7 @@ class Tester:
                 if os.path.exists(oldRefFulFilNam):
                     # compare the new reference data with the old one
                     [updateReferenceData, foundError, ans]=self.__compareResults(
-                        v['matFil'], oldRefFulFilNam, yS, refFilNam, ans)
+                        data.getResultFile(), oldRefFulFilNam, yS, refFilNam, ans)
                 else:
                     # Reference file does not exist
                     print "*** Warning: Reference file ", refFilNam, " does not yet exist."
@@ -790,7 +799,7 @@ class Tester:
                 if updateReferenceData:    # If the reference data of any variable was updated
                     # Make dictionary to save the results and the svn information
                     self.__writeReferenceResults(oldRefFulFilNam, yS)
-            else: # if __includeFile(k):
+            else: # self.__includeFile(data.getScriptFile())
                 print "*** Warning: Output file of ", k ," is excluded from result test."
 
         return ans
@@ -842,14 +851,12 @@ class Tester:
     # --------------------------
     # Write the script that runs all example problems, and
     # that searches for errors
-    def __writeRunscripts(self, listOfTests):
+    def __writeRunscripts(self):
         import os
 
         nUniTes = 0
-        self.__matToDir.clear()
 
-        mosFiles = listOfTests.keys()
-        mosFiles.sort()
+        nTes = len(self.__data)
         for iPro in range(self.__nPro):
             runFil=open(os.path.join(self.__temDir[iPro], "Buildings", "runAll.mos"), 'w')
             runFil.write("// File autogenerated for process " 
@@ -858,23 +865,33 @@ class Tester:
             runFil.write("openModel(\"package.mo\");\n")
             runFil.write("Modelica.Utilities.Files.remove(\"unitTests.log\");\n")
             # Write unit tests for this process
-            pSta=int(round(iPro*len(mosFiles)/self.__nPro))
-            pEnd=int(round((iPro+1)*len(mosFiles)/self.__nPro))
+            pSta=int(round(iPro*nTes/self.__nPro))
+            pEnd=int(round((iPro+1)*nTes/self.__nPro))
 
             for i in range(pSta-1,pEnd-1):
-                mosFil=mosFiles[i]
-                # Write line for run script
-                ent = listOfTests[mosFil]
-                runFil.write("RunScript(\"" + ent['mosDir'] + "/" + mosFil + "\");\n")
-                # Build a dictionary so that we can now in which directory the mat files will be generated
-                # Dictionary with keys being the matlab file name (without path), and value being the directory 
-                # in which the matlab file will be generated
-                self.__matToDir[ ent['matFil'] ] = self.__temDir[iPro]
-                nUniTes = nUniTes + 1
+                # Check if this mos file should be simulated
+                if self.__data[i].simulateFile():
+                    # Write line for run script
+                    runFil.write("RunScript(\"Resources/Scripts/Dymola/" 
+                                 + self.__data[i].getScriptDirectory() + "/" 
+                                 + self.__data[i].getScriptFile() + "\");\n")
+                    self.__data[i].setResultDirectory(self.__temDir[iPro])
+                    nUniTes = nUniTes + 1
             runFil.write("// Save log file\n")
             runFil.write("savelog(\"unitTests.log\");\n")
             runFil.write("exit\n")
             runFil.close()
+        
+        # For files that do not require a simulation, we need to set the path of the result files.
+        for dat in self.__data:
+            if not dat.simulateFile():
+                matFil = dat.getResultFile()
+                for allDat in self.__data:
+                    if allDat.simulateFile():
+                        resFil = allDat.getResultFile()
+                        if resFil == matFil:
+                            dat.setResultDirectory( allDat.getResultDirectory() )
+                            break
 
         print "Generated ", nUniTes, " unit tests.\n"
 
@@ -943,7 +960,7 @@ class Tester:
 
         self.checkPythonModuleAvailability()
 
-        self.__datDic = self.getDataDictionary()
+        self.setDataDictionary()
 
         retVal = 0
         # Start timer
@@ -966,13 +983,10 @@ class Tester:
         # Count number of classes
         self.printNumberOfClasses(".")    
 
-        # Get list of unit tests
-        listOfTests = self.__getUnitTests(os.path.abspath(os.path.join("..", "Buildings")))
-
         # Run simulations
         if not self.__useExistingResults:
             self.__setTemporaryDirectories(self.__nPro)
-        self.__writeRunscripts(listOfTests)
+        self.__writeRunscripts()
         if not self.__useExistingResults:
             if self.__nPro > 1:
                 po = multiprocessing.Pool(self.__nPro)
