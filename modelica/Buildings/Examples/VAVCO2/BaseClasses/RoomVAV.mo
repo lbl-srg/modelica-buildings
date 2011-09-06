@@ -8,8 +8,8 @@ model RoomVAV "Model for CO2 emitted by people"
     A=ADam,
     m_flow_nominal=m_flow_nominal,
     dp_nominal=1E2,
-    from_dp=true,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    from_dp=false)
     annotation (extent=[-10,60; 10,80], rotation=270);
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     redeclare package Medium = Medium,
