@@ -96,13 +96,6 @@ block WSEControl "Control unit for WSE"
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-70,10})));
-  Modelica.Blocks.Continuous.FirstOrder firOrd(T=100)
-    annotation (Placement(transformation(extent={{282,90},{302,110}})));
-  Buildings.Utilities.Math.SmoothLimit smoLim(
-    upper=1,
-    lower=0,
-    deltaX=0.01)
-    annotation (Placement(transformation(extent={{320,90},{340,110}})));
   Modelica.Blocks.Interfaces.RealOutput y1
     "Control signal for valve in the CW loop of WSE" annotation (Placement(
         transformation(extent={{400,270},{420,290}}), iconTransformation(extent=
@@ -226,22 +219,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(booToRea.y, firOrd.u) annotation (Line(
-      points={{263,100},{280,100}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(smoLim.y, y2) annotation (Line(
-      points={{341,100},{354,100},{354,-6},{410,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrd.y, smoLim.u) annotation (Line(
-      points={{303,100},{318,100}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(smoLim.y, kMinU.u) annotation (Line(
-      points={{341,100},{354,100},{354,280},{360.2,280}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(kMinU.y, y1) annotation (Line(
       points={{383,280},{410,280}},
       color={0,0,127},
@@ -261,6 +238,14 @@ equation
   connect(pre1.y, not3.u) annotation (Line(
       points={{213,100},{224,100},{224,-78},{-54,-78},{-54,-60},{-42,-60}},
       color={255,0,255},
+      smooth=Smooth.None));
+  connect(booToRea.y, kMinU.u) annotation (Line(
+      points={{263,100},{320,100},{320,280},{360.2,280}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(booToRea.y, y2) annotation (Line(
+      points={{263,100},{320,100},{320,-6},{410,-6}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
     defaultComponentName="wseCon",
