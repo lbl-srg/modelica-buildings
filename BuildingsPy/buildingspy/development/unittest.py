@@ -199,7 +199,7 @@ class Tester:
 
             If some modules are missing, then an `ImportError` is raised.
         '''
-        requiredModules = ['buildingspy', 'matplotlib.pyplot', 'numpy', 'scipy.io']
+        requiredModules = ['buildingspy', 'matplotlib.pyplot', 'numpy']
         missingModules = []
         for module in requiredModules:
             try:
@@ -761,7 +761,6 @@ class Tester:
     # ask the user whether it should be generated.
     def __checkReferencePoints(self, ans):
         import os
-        import scipy.io
         import shutil
         from datetime import date
 
@@ -864,7 +863,6 @@ class Tester:
         nUniTes = 0
 
         nTes = len(self.__data)
-        print "nPro =", self.__nPro
         for iPro in range(self.__nPro):
 
             runFil=open(os.path.join(self.__temDir[iPro], "Buildings", "runAll.mos"), 'w')
