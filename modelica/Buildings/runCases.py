@@ -25,7 +25,7 @@ def runHydronic(tau, kConstant, useSafeDivision, stopTime, timeOut):
 
     outDes="HydronicHeating-k" + kDes + "-" + str(tau) + "-" + suffix + "-" + safDivDes
 
-    s = si.Simulator('Buildings.Examples.HydronicHeating', 'dymola', os.path.join("..", outDes))
+    s = si.Simulator('Buildings.Examples.HydronicHeating.TwoRoomsWithStorage', 'dymola', os.path.join("..", outDes))
     s.addParameters({'temSup.use_constantK': kConstant, 
                      'temRet.use_constantK': kConstant, 
                      'temSup.tau' : tau,
@@ -36,6 +36,44 @@ def runHydronic(tau, kConstant, useSafeDivision, stopTime, timeOut):
                      'pumBoi.vol.steBal.use_safeDivision': useSafeDivision, 
                      'fanSup.vol.steBal.use_safeDivision': useSafeDivision, 
                      'fanRet.vol.steBal.use_safeDivision': useSafeDivision})
+    s.setStopTime(stopTime)
+    s.setTimeOut(timeOut)
+    s.showProgressBar(False)
+    return s
+
+#################################################################
+def runChillerPlant(tau, kConstant, useSafeDivision, stopTime, timeOut):
+    import buildingspy.simulate.Simulator as si
+    import os
+    if kConstant == "true":
+        kDes = "Con"
+    else:
+        kDes = "Var"
+
+    suffix = str(int(stopTime/(24*3600))) + "d"
+
+    if useSafeDivision == "true":
+        safDivDes = "useSafDiv"
+    else:
+        safDivDes = "noSafDiv"
+
+    outDes="ChillerPlant-k" + kDes + "-" + str(tau) + "-" + suffix + "-" + safDivDes
+
+    s = si.Simulator('Buildings.Examples.ChillerPlant.PrimaryOnlyWithEconomizer', 'dymola', os.path.join("..", outDes))
+    s.addParameters({'TSupAir.use_constantK': kConstant, 
+                     'TWseCHWST.use_constantK': kConstant, 
+                     'TChiCHWST.use_constantK': kConstant, 
+                     'TChiCWST.use_constantK': kConstant, 
+                     'TSupAir.tau': tau, 
+                     'TWseCHWST.tau': tau, 
+                     'TChiCHWST.tau': tau, 
+                     'TChiCWST.tau': tau, 
+                     'wse.bal1.use_safeDivision': useSafeDivision, 
+                     'wse.bal2.use_safeDivision': useSafeDivision,
+                     'pumCW.vol.steBal.use_safeDivision': useSafeDivision, 
+                     'pumCHW.vol.steBal.use_safeDivision': useSafeDivision, 
+                     'fan.vol.steBal.use_safeDivision': useSafeDivision,
+                     'chi.vol1.steBal.use_safeDivision': useSafeDivision})
     s.setStopTime(stopTime)
     s.setTimeOut(timeOut)
     s.showProgressBar(False)
@@ -118,6 +156,12 @@ if __name__ == '__main__':
                 li.append(runHydronic(tau=tau, kConstant=kCon, useSafeDivision=useSafDiv, 
                             stopTime = 365*86400, timeOut = 5*3600))
 
+    for tau in [1, 30, 60]:
+        for kCon in ["true", "false"]:
+            for useSafDiv in ["true", "false"]:
+                li.append(runChillerPlant(tau=tau, kConstant=kCon, 
+                              useSafeDivision=useSafDiv, 
+                              stopTime = 365*86400, timeOut=1*3600))
 
     for tau in [1, 30, 60]:
         for kCon in ["true", "false"]:
@@ -169,7 +213,7 @@ if __name__ == '__main__':
 
 
     # Number of parallel processes
-    nPro = 16
+    nPro = 12
     po = Pool(nPro)
     # Run all cases
     po.map(simulateCase, li)
