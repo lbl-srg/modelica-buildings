@@ -84,8 +84,8 @@ where
 <h4>Implementation</h4>
 <p>
 The rate of heat flow <i>Q<sub>i</sub></i> is obtained from the function
-<a href=\"modelica://Buildings.Fluid.Boreholes.BaseClasses.storeValues\">
-Buildings.Fluid.Boreholes.BaseClasses.storeValues</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues\">
+Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</a>.
 </p>
 <h4>References</h4>
 <p>
