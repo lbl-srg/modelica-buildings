@@ -133,9 +133,10 @@ work with version 0.13.
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\"><a href=\"modelica://xxx\">xxx</a></td>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.Boreholes\">
+  Buildings.Fluid.HeatExchangers.Boreholes</a></td>
     <td valign=\"top\">
-    This is a xxx.
+    This is a library with a model for a borehole heat exchanger.
     </td></tr>
 </table>
 </p>
@@ -155,6 +156,13 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Added a user's guide that describes
                        the main functionality of all base classes.
     </td> </tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b></td></tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Conductor
+                      </td>
+    <td valign=\"top\">Added a model for heat conduction in circular coordinates.
+    </td> </tr>
+
+
 </table>
 </p>
 <p>
@@ -1411,6 +1419,22 @@ The development of the Buildings library is organized by<br>
 <p>
 We thank Dietmar Winkler from Telemark University College for the various feedback that 
 helped improving the organization and structure of the library.
+</p>
+<p>
+The following people have directly contributed to the implementation of the Buildings library
+(many others have contributed by other means than model implementation):
+<ul>
+<li>Brandon M. Hencey, Cornell University, USA
+</li>
+<li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Pierre Vigouroux, Institut National des Sciences Appliquees, France
+</li>
+<li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Wangda Zuo, Lawrence Berkeley National Laboratory, USA
+</li>
+</ul>
 </p>
 </html>
 "));

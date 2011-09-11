@@ -1,0 +1,1 @@
+simulateModel("Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.ExchangeValues", method="dassl", stopTime=1, resultFile="ExchangeValues");

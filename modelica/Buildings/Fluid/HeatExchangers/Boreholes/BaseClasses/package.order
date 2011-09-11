@@ -1,0 +1,14 @@
+BoreholeSegment
+HexInternalElement
+BoreholeResistance
+InterferenceResistance
+PartialBoreholeResistance
+SingleUTubeBoundaryCondition
+ExtendableArray
+boreholeInternalResistance
+boreholeThermalResistance
+exchangeValues
+factorial
+powerSeries
+temperatureDrop
+Examples
