@@ -9,6 +9,7 @@
 // number of elements can be enlarged.
 //
 // Pierre Vigouroux, LBNL                  7/18/2011 
+// svn-id=$Id$
 /////////////////////////////////////////////////////
 void freeArray(void* object)
 { /* Release table storage */
