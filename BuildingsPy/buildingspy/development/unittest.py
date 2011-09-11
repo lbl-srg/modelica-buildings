@@ -273,6 +273,7 @@ class Tester:
         '''
         import os
         import re
+        import sys
         import copy
         import buildingspy.development.data as data
 
@@ -311,7 +312,14 @@ class Tester:
                         plotVars = []
                         for lin in Lines:
                             if 'y={' in lin:
-                                var=re.search('{.*?}', lin).group()
+                                try:
+                                    var=re.search('{.*?}', lin).group()
+                                except AttributeError as e:
+                                    s = "*** Error: %s could not be parsed.\n" % mosFil
+                                    s += "           Make sure that each assignment of the plot command is on one line.\n"
+                                    s += "           Unit tests failed with error.\n"
+                                    sys.stderr.write(s)
+                                    raise
                                 var=var.strip('{}"')
                                 y = var.split('","')
                                 # Replace a[1,1] by a[1, 1], which is required for the
