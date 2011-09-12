@@ -894,7 +894,7 @@ class Tester:
                     nUniTes = nUniTes + 1
             runFil.write("// Save log file\n")
             runFil.write("savelog(\"unitTests.log\");\n")
-            runFil.write("exit\n")
+            runFil.write("Modelica.Utilities.System.exit();\n")
             runFil.close()
         
         # For files that do not require a simulation, we need to set the path of the result files.
