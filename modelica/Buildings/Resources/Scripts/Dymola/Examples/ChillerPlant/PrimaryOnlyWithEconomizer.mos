@@ -1,5 +1,5 @@
 stopTime=14*24*3600;
-simulateModel("Buildings.Examples.ChillerPlant.PrimaryOnlyWithEconomizer", stopTime=stopTime, method="dassl", tolerance=1e-6, resultFile="PrimaryOnlyWithEconomizer");
+simulateModel("Buildings.Examples.ChillerPlant.PrimaryOnlyWithEconomizer", stopTime=stopTime, method="Radau", tolerance=1e-6, resultFile="PrimaryOnlyWithEconomizer");
 createPlot(id = 5,
  position = {10, 30, 719, 536},
  y = {"TSupAir.T", "weaData.tWetBul_TDryBulXi.TWetBul"},
