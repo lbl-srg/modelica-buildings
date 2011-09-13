@@ -32,8 +32,13 @@ model MixingVolume
     "Heat port connected to outflowing medium"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
   // Set nominal attributes where literal values can be used.
+  // The parameter preferredMediumStates is only set to true for the dynamic balances.
+  // Otherwise, Dymola 2012 may differentiate the steady-state model in order to obtain
+  // temperature as a state, because the medium BaseProperties declare
+  // T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
+  // See Dynasim #13596
   Medium.BaseProperties medium(
-    preferredMediumStates=true,
+    preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
     p(start=p_start, nominal=Medium.p_default),
     h(start=Medium.specificEnthalpy_pTX(p_start, T_start, X_start)),
     T(start=T_start, nominal=Medium.T_default),
@@ -213,6 +218,14 @@ Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 13, 2011 by Michael Wetter:<br>
+Changed in declaration of <code>medium</code> the parameter assignment
+<code>preferredMediumStates=true</code> to
+<code>preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)</code>.
+Otherwise, for a steady-state model, Dymola 2012 may differentiate the model to obtain <code>T</code>
+as a state. See ticket Dynasim #13596.
+</li>
 <li>
 July 26, 2011 by Michael Wetter:<br>
 Revised model to use new declarations from

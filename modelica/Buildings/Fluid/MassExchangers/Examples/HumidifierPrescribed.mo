@@ -22,7 +22,8 @@ model HumidifierPrescribed "Model that demonstrates the ideal heater model"
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
     tau=0,
-    mWat_flow_nominal=m_flow_nominal*0.005)
+    mWat_flow_nominal=m_flow_nominal*0.005,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     "Steady-state model of the humidifier"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium

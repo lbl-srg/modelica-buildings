@@ -22,7 +22,8 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
     m_flow_nominal=m_flow_nominal,
     dp_nominal=6000,
     Q_flow_nominal=3000,
-    tau=0) "Steady-state model of the heater"
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Steady-state model of the heater"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem1(redeclare package Medium
       = Medium, m_flow_nominal=m_flow_nominal) "Temperature sensor"

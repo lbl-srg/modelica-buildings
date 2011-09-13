@@ -14,12 +14,8 @@ model TwoPortHeatMassExchanger
     nPorts = 2,
     V=m_flow_nominal*tau/rho_nominal,
     final m_flow_nominal = m_flow_nominal,
-    final energyDynamics=if tau > Modelica.Constants.eps
-                         then energyDynamics else
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
-    final massDynamics=if tau > Modelica.Constants.eps
-                         then massDynamics else
-                         Modelica.Fluid.Types.Dynamics.SteadyState,
+    final energyDynamics=energyDynamics,
+    final massDynamics=massDynamics,
     final p_start=p_start,
     final T_start=T_start,
     final X_start=X_start,
@@ -27,7 +23,8 @@ model TwoPortHeatMassExchanger
                                     annotation (Placement(transformation(extent={{-9,0},{
             11,-20}},         rotation=0)));
 
-  parameter Modelica.SIunits.Time tau = 30 "Time constant at nominal flow"
+  parameter Modelica.SIunits.Time tau = 30
+    "Time constant at nominal flow (if energyDynamics <> SteadyState)"
      annotation (Evaluate=true, Dialog(tab = "Dynamics", group="Nominal condition"));
 
   // Advanced
@@ -81,6 +78,18 @@ public
     final homotopyInitialization=homotopyInitialization,
     final dp_nominal=dp_nominal) "Pressure drop model"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
+initial algorithm
+  assert((energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau > Modelica.Constants.eps,
+"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.
+ Set energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau = " + String(tau) + "\n");
+  assert((massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) or
+          tau > Modelica.Constants.eps,
+"The parameter tau, or the volume of the model from which tau may be derived, is unreasonably small.          
+ Set massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState to model steady-state.
+ Received tau = " + String(tau) + "\n");
+
 equation
   connect(vol.ports[2], port_b) annotation (Line(
       points={{1,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,
@@ -146,6 +155,11 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 13, 2011, by Michael Wetter:<br>
+Changed assignment of <code>vol(mass/energyDynamics=...)</code> as the
+previous assignment caused a non-literal start value that was ignored.
+</li>
 <li>
 July 29, 2011, by Michael Wetter:<br>
 Added start value for outflowing enthalpy.
