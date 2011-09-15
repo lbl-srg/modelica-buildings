@@ -32,16 +32,12 @@ block WSEControl "Control unit for WSE"
     annotation (Placement(transformation(extent={{0,-30},{20,-10}})));
   Modelica.Blocks.Logical.Less less
     annotation (Placement(transformation(extent={{42,-50},{62,-30}})));
-  Modelica.Blocks.Math.UnitConversions.To_degF to_degF
-    annotation (Placement(transformation(extent={{-82,190},{-62,210}})));
   Modelica.Blocks.Interfaces.RealInput TWetBul(
     final quantity="Temperature",
     final unit="K",
     displayUnit="deg") "Wet bulb temperature" annotation (Placement(
         transformation(extent={{-140,40},{-100,80}}), iconTransformation(extent=
            {{-140,40},{-100,80}})));
-  Modelica.Blocks.Math.UnitConversions.To_degF to_degF1
-    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Modelica.Blocks.Interfaces.RealInput towTApp(
     final quantity="Temperature",
     final unit="K",
@@ -61,15 +57,13 @@ block WSEControl "Control unit for WSE"
     "WSE's condenser water supply temperature (water entering WSE)" annotation (
      Placement(transformation(extent={{-140,320},{-100,360}}),
         iconTransformation(extent={{-140,320},{-100,360}})));
-  Modelica.Blocks.Math.UnitConversions.To_degF to_degF3
-    annotation (Placement(transformation(extent={{-80,318},{-60,338}})));
   Modelica.Blocks.Logical.Greater less1
     annotation (Placement(transformation(extent={{0,290},{20,310}})));
   Modelica.Blocks.Sources.Constant cons1(k=1) "cons" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-70,284})));
+        origin={-82,370})));
   Modelica.Blocks.Sources.Constant minEnaTim(k=1200)
     "minium enabled time for heat exchanger"
     annotation (Placement(transformation(extent={{0,318},{20,338}})));
@@ -79,8 +73,8 @@ block WSEControl "Control unit for WSE"
     annotation (Placement(transformation(extent={{60,334},{80,354}})));
   Modelica.Blocks.Logical.And dis "true for disable"
     annotation (Placement(transformation(extent={{100,308},{120,328}})));
-  Modelica.Blocks.Math.Add add1(k1=-1)
-    annotation (Placement(transformation(extent={{-40,268},{-20,288}})));
+  Modelica.Blocks.Math.Add add1(k1=+1)
+    annotation (Placement(transformation(extent={{-52,324},{-32,344}})));
   Modelica.Blocks.Logical.Not not3
     annotation (Placement(transformation(extent={{-40,-70},{-20,-50}})));
   Modelica.Blocks.Logical.And and2
@@ -89,13 +83,6 @@ block WSEControl "Control unit for WSE"
     annotation (Placement(transformation(extent={{242,90},{262,110}})));
   Modelica.Blocks.Logical.Not not1
     annotation (Placement(transformation(extent={{118,50},{138,70}})));
-  Modelica.Blocks.Math.Product pro1
-    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
-  Modelica.Blocks.Sources.Constant cons2(k=1.8) annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-70,10})));
   Modelica.Blocks.Interfaces.RealOutput y1
     "Control signal for valve in the CW loop of WSE" annotation (Placement(
         transformation(extent={{400,270},{420,290}}), iconTransformation(extent=
@@ -125,22 +112,6 @@ equation
       points={{63,-40},{70,-40},{70,52},{78,52}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(wseCHWST, to_degF.u) annotation (Line(
-      points={{-120,200},{-84,200}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(to_degF.y, greater.u1) annotation (Line(
-      points={{-61,200},{26,200},{26,130},{38,130}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TWetBul, to_degF1.u) annotation (Line(
-      points={{-120,60},{-82,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(to_degF1.y, pro.u2) annotation (Line(
-      points={{-59,60},{-50,60},{-50,78},{-42,78}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TWSEApp.y, sum.u[1]) annotation (Line(
       points={{-19,150},{-10,150},{-10,96.6667},{-6.66134e-16,96.6667}},
       color={0,0,127},
@@ -153,24 +124,8 @@ equation
       points={{-59,110},{-54,110},{-54,90},{-42,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(wseCWST, to_degF3.u) annotation (Line(
-      points={{-120,340},{-90,340},{-90,328},{-82,328}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(to_degF3.y, less1.u1) annotation (Line(
-      points={{-59,328},{-30,328},{-30,300},{-2,300}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(cons1.y, add1.u1) annotation (Line(
-      points={{-59,284},{-42,284}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add1.u2, to_degF.y) annotation (Line(
-      points={{-42,272},{-48,272},{-48,200},{-61,200}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(add1.y, less1.u2) annotation (Line(
-      points={{-19,278},{-12,278},{-12,292},{-2,292}},
+      points={{-71,370},{-60,370},{-60,340},{-54,340}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(less1.y, dis.u2) annotation (Line(
@@ -205,19 +160,6 @@ equation
       points={{139,60},{146,60},{146,92},{156,92}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(cons2.y, pro1.u1) annotation (Line(
-      points={{-59,10},{-54,10},{-54,16},{-42,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(towTApp, pro1.u2) annotation (Line(
-      points={{-120,-40},{-66,-40},{-66,-8},{-50,-8},{-50,4},{-42,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(pro1.y, sum.u[3]) annotation (Line(
-      points={{-19,10},{-12,10},{-12,8},{-10,8},{-10,99.3333},{-6.66134e-16,
-          99.3333}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
   connect(kMinU.y, y1) annotation (Line(
       points={{383,280},{410,280}},
@@ -245,6 +187,31 @@ equation
       smooth=Smooth.None));
   connect(booToRea.y, y2) annotation (Line(
       points={{263,100},{320,100},{320,-6},{410,-6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TWetBul, pro.u2) annotation (Line(
+      points={{-120,60},{-74,60},{-74,78},{-42,78}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(wseCHWST, greater.u1) annotation (Line(
+      points={{-120,200},{20,200},{20,130},{38,130}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(wseCWST, add1.u2) annotation (Line(
+      points={{-120,340},{-78,340},{-78,328},{-54,328}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(add1.y, less1.u1) annotation (Line(
+      points={{-31,334},{-18,334},{-18,300},{-2,300}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(wseCHWST, less1.u2) annotation (Line(
+      points={{-120,200},{-20,200},{-20,292},{-2,292}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(towTApp, sum.u[3]) annotation (Line(
+      points={{-120,-40},{-48,-40},{-48,56},{-10,56},{-10,99.3333},{
+          -6.66134e-16,99.3333}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -292,12 +259,13 @@ The WSE is disabled when
 where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for the WSE, 
 <i>T<sub>WetBul</sub></i> is the wet bulb temperature, <i>T<sub>TowApp</sub></i> is the cooling tower approach, <i>T<sub>WSEApp</sub></i> is the approach for the WSE, <i>T<sub>WSE_CHWRT</sub></i> is the chilled water return temperature for the WSE, and <i>T<sub>WSE_CWST</sub></i> is the condenser water return temperature for the WSE.
 </p> 
-<p>
-<b>Note:</b> The formulas use temperature in Fahrenheit. The input and output data for the WSE control unit are in SI units. The WSE control component internally converts the data between SI units and IP units.
-</p>
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+September 12, 2011, by Wangda Zuo:<br>
+Delete the first order continuous block and reformat the model for SI units. 
+</li>
 <li>
 July 20, 2011, by Wangda Zuo:<br>
 Add comments, redefine variables names, and merge to library. 
