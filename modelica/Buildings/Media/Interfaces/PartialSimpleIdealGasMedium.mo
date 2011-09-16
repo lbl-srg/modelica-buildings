@@ -27,11 +27,8 @@ partial package PartialSimpleIdealGasMedium
   redeclare record extends FluidConstants "fluid constants"
   end FluidConstants;
 
-  redeclare replaceable model extends BaseProperties(
-    T(stateSelect=if preferredMediumStates then StateSelect.prefer else
-                       StateSelect.default),
-    p(stateSelect=if preferredMediumStates then StateSelect.prefer else
-                       StateSelect.default)) "Base properties of ideal gas"
+  redeclare replaceable model extends BaseProperties
+    "Base properties of ideal gas"
   equation
         assert(T >= T_min and T <= T_max, "
 Temperature T (= "   + String(T) + " K) is not
@@ -316,6 +313,25 @@ This is required for the implementation of
 Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2010, by Michael Wetter:<br>
+Removed the <code>stateSelect</code> assignment in <pre>
+BaseProperties(
+    T(stateSelect=if preferredMediumStates then StateSelect.prefer else
+                       StateSelect.default),
+    p(stateSelect=if preferredMediumStates then StateSelect.prefer else
+                       StateSelect.default))
+</pre>
+as this is now handled in the model
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
+Buildings.Fluid.MixingVolumes.MixingVolume</a>. The reason for this change is
+that the assignment is different for steady-state and dynamic balance.
+In the previous implementation, this assignment can cause steady-state models to 
+be differentiated in order to obtain <code>T</code> as a state. This resulted
+in some cases in large coupled systems of equations that can be avoided
+if the <code>stateSelect</code> is not set to <code>StateSelect.prefer</code>
+for steady-state models.
+</li>
 <li>
 August 2, 2011, by Michael Wetter:<br>
 <ul>

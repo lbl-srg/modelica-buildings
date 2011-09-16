@@ -13,10 +13,14 @@ model LumpedVolume "Lumped volume with mass and energy balance"
 
   // Set nominal attributes where literal values can be used.
   Medium.BaseProperties medium(
-    preferredMediumStates=true,
-    p(start=p_start, nominal=Medium.p_default),
+    preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
+    p(start=p_start, nominal=Medium.p_default,
+      stateSelect=if not (massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+                     then StateSelect.prefer else StateSelect.default),
     h(start=Medium.specificEnthalpy_pTX(p_start, T_start, X_start)),
-    T(start=T_start, nominal=Medium.T_default),
+    T(start=T_start, nominal=Medium.T_default,
+      stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
+                     then StateSelect.prefer else StateSelect.default),
     Xi(start=X_start[1:Medium.nXi], nominal=Medium.X_default[1:Medium.nXi]),
     d(start=rho_nominal)) "Medium properties";
 

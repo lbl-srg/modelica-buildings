@@ -265,6 +265,22 @@ are used as steady-state models, have been improved.</td>
                      Buildings.Fluid.Sensors.UsersGuide</a> for details.</td>
 </tr>
 
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Storage</b></td></tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.Stratified<br/>
+                     Buildings.Fluid.Storage.StratifiedEnhanced</td>
+    <td valign=\"top\">Changed the implementation of the model <code>Buoyancy</code>
+                     to make it differentiable in the temperatures.</td>
+</tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Media</b></td></tr>
+<tr><td valign=\"top\">Buildings.Media.Interfaces.PartialSimpleMedium<br/>
+                     Buildings.Media.Interfaces.PartialSimpleIdealGasMedium</td>
+    <td valign=\"top\">Moved the assignment of the <code>stateSelect<code> attribute for
+                     the <code>BaseProperties</code> to the model 
+                     <code>Buildings.Fluid.MixingVolumes.MixingVolume</code>. This allows
+                     to handle it differently for steady-state and dynamic models.</td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Utilities.Psychrometrics</b></td></tr>
 <tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.TDewPoi_pW</td>
     <td valign=\"top\">Changed implementation to use 

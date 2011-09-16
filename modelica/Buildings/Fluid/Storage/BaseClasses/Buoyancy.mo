@@ -24,9 +24,12 @@ protected
     "Specific heat capacity";
    parameter Real k(unit="W/K") = V*rho_nominal*cp0/tau/nSeg
     "Proportionality constant, since we use dT instead of dH";
+   Modelica.SIunits.TemperatureDifference dT[nSeg-1]
+    "Temperature difference between adjoining volumes";
 equation
   for i in 1:nSeg-1 loop
-    Q_flow[i] = k*max(heatPort[i+1].T-heatPort[i].T, 0);
+    dT[i] = heatPort[i+1].T-heatPort[i].T;
+    Q_flow[i] = k*smooth(1, if dT[i]>0 then dT[i]^2 else 0);
   end for;
 
   heatPort[1].Q_flow = -Q_flow[1];
@@ -44,6 +47,14 @@ associated with the buoyancy induced mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2011 by Michael Wetter:<br>
+Changed the implementation from <code>Q_flow[i] = k*max(heatPort[i+1].T-heatPort[i].T, 0);</code> to
+<code>Q_flow[i] = k*smooth(1, if dT[i]>0 then dT[i]^2 else 0);</code>.
+The previous implementation was not differentiable. In modeling a solar system, this
+change reduced the computing time by a factor of 20 during the time when the pumps
+were almost switched off and colder temperature was fed from the collector to the tank.
+</li>
 <li>
 October 28, 2008 by Michael Wetter:<br>
 First implementation.
