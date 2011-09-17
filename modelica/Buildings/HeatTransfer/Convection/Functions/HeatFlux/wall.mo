@@ -3,7 +3,7 @@ function wall "Free convection, wall"
   extends
     Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux;
 algorithm
-  q_flow := sign(dT)*1.3*abs(dT)^1.3333;
+  q_flow := noEvent(smooth(1, if (dT > 0) then 1.3*dT^1.3333 else -1.3*(-dT)^1.3333));
 
 annotation (smoothOrder=1,
 Documentation(info=

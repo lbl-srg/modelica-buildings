@@ -4,7 +4,7 @@ function floor "Free convection, floor"
     Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux;
 
 algorithm
-  q_flow  := if (dT>0) then 1.51*dT^1.3333 else -0.76*(-dT)^1.3333;
+  q_flow  := noEvent(smooth(1, if (dT>0) then 1.51*dT^1.3333 else -0.76*(-dT)^1.3333));
 annotation(smoothOrder=1,
               Documentation(info=
 "<html>
