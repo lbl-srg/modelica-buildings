@@ -21,6 +21,9 @@ model ConstantEffectiveness
   Modelica.SIunits.MassFlowRate mMax_flow
     "Maximum water flow rate from medium 2 to medium 1";
 
+protected
+  Real gai1(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
+  Real gai2(min=0, max=1) "Auxiliary variable for smoothing at zero flow";
 equation
   // Definitions for effectiveness model
   X_w_in1 = Modelica.Fluid.Utilities.regStep(m1_flow,
@@ -31,6 +34,14 @@ equation
                   state_b2_inflow.X[Medium2.Water], m2_flow_small);
 
   // mass exchange
+  // Compute a gain that goes to zero near zero flow rate.
+  // This is required to smoothen the heat transfer at very small flow rates.
+  // Note that gaiK = 1 for abs(mK_flow) > mK_flow_small
+  gai1 = Modelica.Fluid.Utilities.regStep(abs(m1_flow) - 0.75*m1_flow_small,
+              1, 0, 0.25*m1_flow_small);
+  gai2 = Modelica.Fluid.Utilities.regStep(abs(m2_flow) - 0.75*m2_flow_small,
+              1, 0, 0.25*m2_flow_small);
+
   mMax_flow = smooth(1, min(smooth(1, gai1 * abs(m1_flow)),
                             smooth(1, gai2 * abs(m2_flow)))) * (X_w_in2 - X_w_in1);
   mWat_flow = epsL * mMax_flow;

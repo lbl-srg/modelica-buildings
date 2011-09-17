@@ -1,7 +1,7 @@
 simulateModel("Buildings.Fluid.MixingVolumes.Examples.MixingVolumeInitialization", stopTime=0.001, numberOfIntervals=5000, method="dassl", tolerance=1e-06, resultFile="MixingVolumeInitialization");
 createPlot(id = 1,
  position = {251, 8, 608, 579},
- y = {"vol1.T_start", "vol1.medium.T"},
+ y = {"vol1.T_start", "vol1.T"},
  range = {(-6E-07), 9E-07, 500.0, 350.0},
  autoscale = true,
  autoerase = true,

@@ -1,7 +1,7 @@
 simulateModel("Buildings.Airflow.Multizone.Examples.ChimneyShaftNoVolume", stopTime=3600, method="radau", tolerance=1e-06, resultFile="ChimneyShaftNoVolume");
 createPlot(id = 1,
  position = {25, 15, 470, 484},
- y = {"roo.medium.T", "bou0.medium.T"},
+ y = {"roo.T", "bou0.T"},
  range = {0, 4000.0, 25.0, -5.0},
  autoscale = true,
  autoerase = true,

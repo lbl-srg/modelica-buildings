@@ -19,7 +19,7 @@ model WetCoilCounterFlow
 
 equation
   mWat_flow = sum(ele[i].vol2.mWat_flow for i in 1:nEle);
-  QLat2_flow = sum(Medium2.enthalpyOfCondensingGas(ele[i].vol2.medium.T)*ele[i].vol2.mWat_flow for i in 1:nEle);
+  QLat2_flow = sum(Medium2.enthalpyOfCondensingGas(ele[i].vol2.heatPort.T)*ele[i].vol2.mWat_flow for i in 1:nEle);
   Q2_flow = QSen2_flow + QLat2_flow;
   Q2_flow*SHR = QSen2_flow;
  annotation (

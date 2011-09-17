@@ -1,7 +1,7 @@
 simulateModel("Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.Examples.HexInternalElement", stopTime=3600, method="dassl", resultFile="HexInternalElement");
 createPlot(id = 1,
  position = {35, 30, 400, 499},
- y = {"hex.vol1.medium.T", "hex.vol2.medium.T"},
+ y = {"hex.vol1.T", "hex.vol2.T"},
  range = {0.0, 4000.0, 35.0, 5.0},
  autoscale = true,
  autoerase = true,

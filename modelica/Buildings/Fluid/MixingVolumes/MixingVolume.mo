@@ -3,7 +3,6 @@ model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
   outer Modelica.Fluid.System system "System properties";
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
@@ -31,19 +30,11 @@ model MixingVolume
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port connected to outflowing medium"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  // Set nominal attributes where literal values can be used.
-  // The parameter preferredMediumStates is only set to true for the dynamic balances.
-  // Otherwise, Dymola 2012 may differentiate the steady-state model in order to obtain
-  // temperature as a state, because the medium BaseProperties declare
-  // T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default)
-  // See Dynasim #13596
-  Medium.BaseProperties medium(
-    preferredMediumStates= not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState),
-    p(start=p_start, nominal=Medium.p_default),
-    h(start=Medium.specificEnthalpy_pTX(p_start, T_start, X_start)),
-    T(start=T_start, nominal=Medium.T_default),
-    Xi(start=X_start[1:Medium.nXi], nominal=Medium.X_default[1:Medium.nXi]),
-    d(start=rho_nominal)) "Medium properties";
+
+  Modelica.SIunits.Temperature T "Temperature of the fluid";
+  Modelica.SIunits.Pressure p "Pressure of the fluid";
+  Modelica.SIunits.MassFraction Xi[Medium.nXi]
+    "Species concentration of the fluid";
 
   Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
     "Trace substance mixture content";
@@ -149,11 +140,12 @@ of the modeller. Increase nPorts to add an additional port.
     connect(COut_internal,  dynBal.COut);
   end if;
   // Medium properties
-  medium.p = if nPorts > 0 then ports[1].p else p_start;
-  hOut_internal  = medium.h;
-  XiOut_internal = medium.Xi;
-  COut_internal = C;
-  heatPort.T = medium.T;
+  p = if nPorts > 0 then ports[1].p else p_start;
+  T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}));
+  Xi = XiOut_internal;
+  C = COut_internal;
+  // Port properties
+  heatPort.T = T;
   heatPort.Q_flow = Q_flow;
   annotation (
 defaultComponentName="vol",
@@ -218,6 +210,12 @@ Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 17, 2011 by Michael Wetter:<br>
+Removed instance <code>medium</code> as this is already used in <code>dynBal</code>.
+Removing the base properties led to 30% faster computing time for a solar thermal system
+that contains many fluid volumes. 
+</li>
 <li>
 September 13, 2011 by Michael Wetter:<br>
 Changed in declaration of <code>medium</code> the parameter assignment

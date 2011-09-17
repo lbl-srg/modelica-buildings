@@ -51,7 +51,7 @@ equation
     mXi_flow = mWat_flow * s;
   end if;
 // Medium species concentration
-  X_w = s * medium.Xi;
+  X_w = s * Xi;
 
   annotation (Diagram(graphics),
                        Icon(graphics),

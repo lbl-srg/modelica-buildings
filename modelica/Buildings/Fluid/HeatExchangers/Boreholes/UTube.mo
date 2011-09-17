@@ -113,8 +113,8 @@ protected
   parameter Modelica.SIunits.Height z[nVer]={hBor/nVer*(i - 0.5) for i in 1:
       nVer} "Distance from the surface to the considered segment";
 equation
-  Tdown[:] = borHol[:].pipFil.vol1.medium.T;
-  Tup[:] = borHol[:].pipFil.vol2.medium.T;
+  Tdown[:] = borHol[:].pipFil.vol1.heatPort.T;
+  Tup[:] = borHol[:].pipFil.vol2.heatPort.T;
   connect(port_a, borHol[1].port_a1) annotation (Line(
       points={{-100,5.55112e-16},{-60,5.55112e-16},{-60,6},{-20,6}},
       color={0,127,255},

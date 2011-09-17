@@ -131,8 +131,8 @@ initial equation
 equation
   Q1_flow = sum(ele[i].Q1_flow for i in 1:nEle);
   Q2_flow = sum(ele[i].Q2_flow for i in 1:nEle);
-  T1[:] = ele[:].vol1.medium.T;
-  T2[:] = ele[:].vol2.medium.T;
+  T1[:] = ele[:].vol1.T;
+  T2[:] = ele[:].vol2.T;
   T_m[:] = ele[:].mas.T;
   connect(masFloSen_1.m_flow, hA.m1_flow) annotation (Line(points={{-74,66.6},{
           -74,72},{-82,72},{-82,97},{-61,97}}, color={0,0,127}));

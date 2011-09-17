@@ -4,28 +4,15 @@ model RadiatorEN442_2 "Dynamic radiator for space heating"
    showDesignFlowDirection = false,
    show_T=true,
    m_flow_nominal=abs(Q_flow_nominal/cp_nominal/(T_a_nominal-T_b_nominal)));
+   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations(
+     final X_start = Medium.X_default,
+     final C_start = fill(0, Medium.nC),
+     final C_nominal = fill(1E-2, Medium.nC));
+
   parameter Integer nEle(min=1) = 5
     "Number of elements used in the discretization";
   parameter Real fraRad(min=0, max=1) = 0.35 "Fraction radiant heat transfer";
   // Assumptions
-  parameter Modelica.Fluid.Types.Dynamics energyDynamics=system.energyDynamics
-    "Formulation of energy balance"
-    annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
-
- // Initialization
-  parameter Medium.AbsolutePressure p_start = system.p_start
-    "Start value of pressure"
-    annotation(Dialog(tab = "Initialization"));
-  parameter Medium.Temperature T_start[nEle]=TWat_nominal
-    "Start value of temperature"
-    annotation(Dialog(tab = "Initialization"));
-  parameter Medium.MassFraction X_start[Medium.nX] = Medium.X_default
-    "Start value of mass fractions m_i/m"
-    annotation (Dialog(tab="Initialization", enable=Medium.nXi > 0));
-  parameter Medium.ExtraProperty C_start[Medium.nC](
-       each quantity=Medium.extraPropertiesNames)= fill(0, Medium.nC)
-    "Start value of trace substances"
-    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
   parameter Modelica.SIunits.Power Q_flow_nominal
     "Nominal heating power (positive for heating)"
@@ -68,9 +55,10 @@ public
     annotation (Placement(transformation(extent={{10,62},{30,82}},
                                  rotation=0)));
 
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nEle] heaCap(each C=500
-        *mDry/nEle, T(start=T_start)) if
-                           not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor[nEle] heaCap(
+    each C=500*mDry/nEle,
+    each T(start=T_start)) if
+     not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "heat capacity of radiator metal"
     annotation (Placement(transformation(extent={{-50,12},{-30,32}})));
 
@@ -89,7 +77,7 @@ public
     each final energyDynamics=energyDynamics,
     each final massDynamics=energyDynamics,
     each final p_start=p_start,
-    final T_start=T_start,
+    each final T_start=T_start,
     each final X_start=X_start,
     each final C_start=C_start) "Volume for fluid stream"
     annotation (Placement(transformation(extent={{-9,0},{11,-20}},
@@ -158,8 +146,8 @@ initial equation
    end for;
 
 equation
-  dTCon = heatPortCon.T .- vol.medium.T;
-  dTRad = heatPortRad.T .- vol.medium.T;
+  dTCon = heatPortCon.T .- vol.T;
+  dTRad = heatPortRad.T .- vol.T;
   if homotopyInitialization then
     preHeaFloCon.Q_flow = homotopy(actual=(1-fraRad) .* UAEle .* dTCon .*
                                           Buildings.Utilities.Math.Functions.regNonZeroPower(x=dTCon, n=n-1, delta=0.05),
@@ -191,18 +179,19 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(port_a, vol[1].ports[1]) annotation (Line(
-      points={{-100,0},{-75.25,0},{-75.25,1.11022e-015},{-50.5,1.11022e-015},{-50.5,
-          0},{-1,0}},
+      points={{-100,5.55112e-16},{-75.25,5.55112e-16},{-75.25,1.11022e-15},{
+          -50.5,1.11022e-15},{-50.5,5.55112e-16},{-1,5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol[nEle].ports[2], port_b) annotation (Line(
-      points={{3,0},{27.25,0},{27.25,1.11022e-015},{51.5,1.11022e-015},{51.5,0},
-          {100,0}},
+      points={{3,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,
+          1.11022e-15},{51.5,5.55112e-16},{100,5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   for i in 1:nEle-1 loop
     connect(vol[i].ports[2], vol[i+1].ports[1]) annotation (Line(
-        points={{3,0},{2,0},{2,1.11022e-015},{1,1.11022e-015},{1,0},{-1,0}},
+        points={{3,5.55112e-16},{2,5.55112e-16},{2,1.11022e-15},{1,1.11022e-15},
+            {1,5.55112e-16},{-1,5.55112e-16}},
         color={0,127,255},
         smooth=Smooth.None));
   end for;

@@ -4,7 +4,7 @@ simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HexElement",
    method="dassl", resultFile="HexElement");
 createPlot(id = 1,
  position = {42, 6, 676, 442},
- y = {"hex.vol1.medium.T", "hex.vol2.medium.T", "hex.temSen.T"},
+ y = {"hex.vol1.T", "hex.vol2.T", "hex.temSen.T"},
  range = {0, 2, 305.0, 280.0},
  autoscale = true,
  autoerase = true,

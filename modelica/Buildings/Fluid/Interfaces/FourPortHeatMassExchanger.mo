@@ -15,7 +15,6 @@ model FourPortHeatMassExchanger
     nPorts = 2,
     V=m1_flow_nominal*tau1/rho1_nominal,
     final m_flow_nominal=m1_flow_nominal,
-    medium(T(stateSelect=StateSelect.always)),
     energyDynamics=if tau1 > Modelica.Constants.eps
                          then energyDynamics else
                          Modelica.Fluid.Types.Dynamics.SteadyState,

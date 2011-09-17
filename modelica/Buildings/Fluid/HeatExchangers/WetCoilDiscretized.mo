@@ -5,8 +5,7 @@ model WetCoilDiscretized
   // function is known. Otherwise, checkModel(...) will fail
   extends DryCoilDiscretized(final allowCondensation=true,
   each hexReg(ele(redeclare each final
-          Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2(
-          medium(T(stateSelect=StateSelect.never))))),
+          Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2)),
     temSen_1(m_flow_nominal=m1_flow_nominal),
     temSen_2(m_flow_nominal=m2_flow_nominal));
  annotation (

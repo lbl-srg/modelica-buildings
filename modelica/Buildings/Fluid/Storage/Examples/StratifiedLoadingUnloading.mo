@@ -27,7 +27,7 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
     m_flow_nominal=1*1000/3600/4,
     VTan=0.1,
     nSeg=nSeg,
-    vol(medium(T(start=ones(nSeg)*273.15 + {50,26.8425,26.6594,26.65958,26.6596,26.6596,26.6596}))),
+    vol(T(start=ones(nSeg)*273.15 + {50,26.8425,26.6594,26.65958,26.6596,26.6596,26.6596})),
     show_T=true) "Tank"        annotation (Placement(transformation(extent={{-14,-2},
             {6,18}},  rotation=0)));
 
@@ -48,7 +48,7 @@ model StratifiedLoadingUnloading "Test model for stratified tank"
     m_flow_nominal=1*1000/3600/4,
     VTan=0.1,
     nSeg=nSeg,
-    vol(medium(T(start=ones(nSeg)*273.15 + {50,26.8425,26.6594,26.65958,26.6596,26.6596,26.6596}))),
+    vol(T(start=ones(nSeg)*273.15 + {50,26.8425,26.6594,26.65958,26.6596,26.6596,26.6596})),
     show_T=true) "Tank"        annotation (Placement(transformation(extent={{-10,-40},
             {10,-20}},rotation=0)));
 
@@ -88,7 +88,8 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedLoadingUnloading.mos" "Simulate and plot"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedLoadingUnloading.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization

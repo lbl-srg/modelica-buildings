@@ -3,7 +3,7 @@ removePlots();
 createPlot(id = 5,
  filename = "TemperatureDryBulb.mat",
  position = {95, 90, 677, 498},
- y = {"masFloRat.medium.T", "temSteSta.T", "temDyn.T"},
+ y = {"masFloRat.T", "temSteSta.T", "temDyn.T"},
  range = {0.0, 65.0, 45.0, 15.0},
  autoscale = true,
  autoerase = true,
