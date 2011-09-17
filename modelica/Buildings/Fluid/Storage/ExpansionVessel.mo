@@ -15,8 +15,12 @@ model ExpansionVessel "Pressure expansion vessel with fixed gas cushion"
 
  Modelica.SIunits.Volume VLiq "Volume of liquid in the vessel";
 protected
+  // We set m(start=(VTot-VGas0)*1000, stateSelect=StateSelect.always)
+  // since the mass accumulated in the volume should be a state.
+  // This often leads to smaller systems of equations.
   Buildings.Fluid.Interfaces.LumpedVolume vol(
     redeclare final package Medium = Medium,
+    m(start=(VTot-VGas0)*1000, stateSelect=StateSelect.always),
     final nPorts = 1,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
@@ -57,7 +61,9 @@ equation
 defaultComponentName="exp",
 Documentation(info="<html>
 <p>
-This is a model of a pressure expansion vessel. The vessel has a fixed total volume. A fraction of the volume is occupied by a fixed mass of gas, and the other fraction is occupied by the liquid that flows through the port.
+This is a model of a pressure expansion vessel. The vessel has a fixed total volume. 
+A fraction of the volume is occupied by a fixed mass of gas, and the other fraction is occupied 
+by the liquid that flows through the port.
 The pressure <code>p</code> in the vessel is<pre>
  VGas0 * p_start = (VTot-VLiquid) * p
 </pre>
@@ -77,8 +83,27 @@ water to set a reference pressure and, for liquids where the
 density is modeled as a function of temperature, to allow for
 the thermal expansion of the liquid.
 </p>
+<p>
+Note that alternatively, the model
+<a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
+Buildings.Fluid.Sources.FixedBoundary</a> may be used to set 
+a reference pressure. The main difference between these two models
+is that in this model, there is an energy and mass balance for the volume.
+In contrast, for
+<a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
+Buildings.Fluid.Sources.FixedBoundary</a>, 
+any mass flow rate that flows out of the model will be at a user-specified temperature.
+Therefore, <a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
+Buildings.Fluid.Sources.FixedBoundary</a> leads to smaller systems
+of equations, which may result in faster simulation.
+</p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 16, 2011 by Michael Wetter:<br>
+Set <code>m(stateSelect=StateSelect.always)</code>, since
+setting the <code>stateSelect</code> attribute leads to smaller systems of equations.
+</li>
 <li>
 July 26, 2011 by Michael Wetter:<br>
 Revised model to use new declarations from
