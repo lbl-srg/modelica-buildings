@@ -869,6 +869,35 @@ class Tester:
         print "          blocks   : ", str(iBlo)
         print "          functions: ", str(iFun)
 
+    def __removePlotCommands(self, mosFilNam):
+        ''' Remove all plot commands from the mos file.
+        
+        :param mosFilNam: The name of the ``*.mos`` file
+
+        This function removes all plot commands from the file ``mosFilNam``.
+        This allows to work around a bug in Dymola 2012 which can cause an exception
+        from the Windows operating system, or which can cause Dymola to hang on Linux
+        '''
+        fil = open(mosFilNam, "r+")
+        lines = fil.readlines()
+        fil.close()
+        linWri = []
+        goToPlotEnd = False
+        for i in range(len(lines)):
+            if not goToPlotEnd:
+                if (lines[i].count("removePlots(") == 0) and (lines[i].count("createPlot(") == 0):
+                    linWri.append(i)
+                elif (lines[i].count("createPlot(")) > 0:
+                    goToPlotEnd = True
+            else:
+                if (lines[i].count(";") > 0):
+                    goToPlotEnd = False
+        # Write file
+        filWri = open(mosFilNam, "w")
+        for i in range(len(linWri)):
+            filWri.write(lines[linWri[i]])
+        filWri.close()
+
     # --------------------------
     # Write the script that runs all example problems, and
     # that searches for errors
@@ -898,6 +927,11 @@ class Tester:
                                  + self.__data[i].getScriptDirectory() + "/" 
                                  + self.__data[i].getScriptFile() + "\");\n")
                     self.__data[i].setResultDirectory(self.__temDir[iPro])
+                    mosFilNam = os.path.join(self.__temDir[iPro], "Buildings", 
+                                             "Resources", "Scripts", "Dymola",
+                                             self.__data[i].getScriptDirectory(),
+                                             self.__data[i].getScriptFile())
+                    self.__removePlotCommands(mosFilNam)
                     nUniTes = nUniTes + 1
             runFil.write("// Save log file\n")
             runFil.write("savelog(\"unitTests.log\");\n")
