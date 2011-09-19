@@ -24,15 +24,3 @@ createPlot(id = 1,
  subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
-createPlot(id = 1,
- position = {251, 8, 608, 138},
- y = {"vol1.medium.u"},
- autoscale = true,
- autoerase = true,
- autoreplot = true,
- grid = true,
- color = true,
- subPlot = 3,
- leftTitleType = 1,
- bottomTitleType = 1);
-
