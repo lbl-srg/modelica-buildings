@@ -67,7 +67,7 @@ class Reader:
            >>> (time, fanPower) = r.values('fan.PEle')
         '''
         d = self.__data__.data(varName)
-        a, aname, tmp = self.__data__.abscissa(varName)
+        a = self.__data__.abscissa(blockOrName=varName, valuesOnly=True)
         return a, d
     
     def integral(self, varName):
