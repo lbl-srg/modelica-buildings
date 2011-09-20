@@ -127,9 +127,10 @@ class DyMatFile:
 
     def data(self, varName):
         """Return the values of a variable"""
+        import copy
         tmp, d, c, s = self._vars[varName]
         di = 'data_%d' % (d)
-        dd = self.mat[di][c]
+        dd = copy.deepcopy(self.mat[di][c])
         if s < 0:
             dd *= -1
         return dd
