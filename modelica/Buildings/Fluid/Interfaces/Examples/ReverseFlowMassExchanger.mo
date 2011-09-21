@@ -311,10 +311,12 @@ equation
       points={{28,30},{0,30},{0,34},{-30,34}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos" "Simulate and plot"),
+  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos"
+        "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-200},{200,
             200}}), graphics),
     Documentation(info="<html>
+<p>
 This model tests whether the results for a mass exchanger are
 identical for forward flow and reverse flow.
 If the results differ, then an assert is triggered.
@@ -329,6 +331,11 @@ in computing the heat and moisture transfer would lead to identical results,
 but it would introduce additional nonlinear equations that need to be solved.
 Therefore, the model uses the mass flow rates at <code>port_a1</code>
 and <code>port_a2</code>.
+</p>
+<p>
+<b>Note:</b> This problem fails to translate in Dymola 2012 due to an error in Dymola's support
+of stream connector. This bug will be corrected in future versions of Dymola.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>

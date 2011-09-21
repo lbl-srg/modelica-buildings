@@ -96,7 +96,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(hex.port_b1, sin_1.ports[1]) annotation (Line(
-      points={{26,12},{64,12}},
+      points={{26,12},{45,12},{45,12},{64,12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(hex.port_b2, sin_2.ports[1]) annotation (Line(
@@ -107,5 +107,12 @@ equation
  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                     graphics),
-                     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/ConstantEffectiveness.mos" "Simulate and plot"));
+                     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/ConstantEffectiveness.mos"
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+<b>Note:</b> This problem fails to translate in Dymola 2012 due to an error in Dymola's support
+of stream connector. This bug will be corrected in future versions of Dymola.
+</p>
+</html>"));
 end ConstantEffectiveness;
