@@ -1,12 +1,12 @@
-.. BuildingsPy documentation master file, created by
+.. buildingspy documentation master file, created by
    sphinx-quickstart on Wed Jun  1 22:56:43 2011.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-BuildingsPy's documentation
-===========================
+buildingspy
+===========
 
-*BuildingsPy* is a `Python <http://www.python.org/>`_ 
+*buildingspy* is a `Python <http://www.python.org/>`_ 
 package that can be used 
 
  - to run Modelica simulation using
