@@ -216,7 +216,7 @@ it can be computed by the model based on the Carnot effectiveness, in which
 case
 <p align=\"center\" style=\"font-style:italic;\">
   COP<sub>0</sub> = &eta;<sub>car</sub> COP<sub>car</sub>
-= &eta;<sub>car</sub> T<sub>eva</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>)
+= &eta;<sub>car</sub> T<sub>eva</sub> &frasl; (T<sub>con</sub>-T<sub>eva</sub>),
 </p>
 where <i>T<sub>eva</sub></i> is the evaporator temperature 
 and <i>T<sub>con</sub></i> is the condenser temperature.
@@ -238,7 +238,7 @@ that can be used to take into account a change in <i>COP</i> at part load
 conditions.
 </p>
 <p>
-On the <code>Assumptions</code> tag, the model can be parametrized to compute a transient
+On the <code>Dynamics</code> tag, the model can be parametrized to compute a transient
 or steady-state response.
 The transient response of the model is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
