@@ -1,5 +1,6 @@
 bicubic
 biquadratic
+cubicHermiteLinearExtrapolation
 polynomial
 powerLinearized
 quadraticLinear
@@ -10,6 +11,8 @@ smoothMax
 smoothMin
 smoothLimit
 spliceFunction
+splineDerivatives
 trapezoidalIntegration
+inverseXRegularized
 Examples
 BaseClasses

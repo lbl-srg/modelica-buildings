@@ -161,6 +161,13 @@ to <b style=\"color:blue\">existing</b> libraries:
                       </td>
     <td valign=\"top\">Added a model for heat conduction in circular coordinates.
     </td> </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities.Math</b></td></tr>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.cubicHermiteLinearExtrapolation<br/>
+                       Buildings.Utilities.Math.Functions.splineDerivatives.
+                      </td>
+    <td valign=\"top\">Added functions for cubic hermite spline interpolation, with
+                       option for monotone increasing (or decreasing) spline.
+    </td> </tr>
 
 
 </table>

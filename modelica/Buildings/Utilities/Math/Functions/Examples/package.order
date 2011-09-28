@@ -7,3 +7,4 @@ RegNonZeroPowerDerivativeCheck
 SmoothExponentialDerivativeCheck
 SpliceFunction
 SpliceFunctionDerivativeCheck
+CubicHermite
