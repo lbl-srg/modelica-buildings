@@ -1,5 +1,6 @@
 within Buildings.Examples.HydronicHeating;
-model TwoRoomsWithStorage "Model of a hydronic heating system with energy storage"
+model TwoRoomsWithStorage
+  "Model of a hydronic heating system with energy storage"
   extends Modelica.Icons.Example;
  package MediumA = Buildings.Media.GasesConstantDensity.SimpleAir
     "Medium model for air";
@@ -175,8 +176,7 @@ model TwoRoomsWithStorage "Model of a hydronic heating system with energy storag
     redeclare package Medium = Medium,
     dp_nominal(displayUnit="Pa") = dpVal_nominal,
     Kv_SI=mRad_flow_nominal/nRoo/sqrt(dpVal_nominal),
-    m_flow_nominal=mRad_flow_nominal/nRoo,
-    from_dp=true) "Radiator valve"
+    m_flow_nominal=mRad_flow_nominal/nRoo) "Radiator valve"
     annotation (Placement(transformation(extent={{360,118},{380,138}})));
   Controls.Continuous.LimPID conRoo2(
     yMax=1,
@@ -192,8 +192,7 @@ model TwoRoomsWithStorage "Model of a hydronic heating system with energy storag
     redeclare package Medium = Medium,
     dp_nominal(displayUnit="Pa") = dpVal_nominal,
     Kv_SI=mRad_flow_nominal/nRoo/sqrt(dpVal_nominal),
-    m_flow_nominal=mRad_flow_nominal/nRoo,
-    from_dp=true) "Radiator valve"
+    m_flow_nominal=mRad_flow_nominal/nRoo) "Radiator valve"
     annotation (Placement(transformation(extent={{360,390},{380,410}})));
   Controls.Continuous.LimPID conRoo1(
     yMax=1,
@@ -221,7 +220,7 @@ model TwoRoomsWithStorage "Model of a hydronic heating system with energy storag
     l={0.01,0.01},
     tau=10,
     m_flow_nominal=mRad_flow_nominal,
-    dynamicBalance=true) "Three-way valve"
+    dynamicBalance=false) "Three-way valve"
                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -321,16 +320,16 @@ model TwoRoomsWithStorage "Model of a hydronic heating system with energy storag
   Buildings.Fluid.FixedResistances.FixedResistanceDpM resRoo1(
     redeclare package Medium = Medium,
     dp_nominal=dpRoo_nominal,
-    m_flow_nominal=mRad_flow_nominal/nRoo,
-    from_dp=false) "Resistance of pipe leg that serves the room"
+    m_flow_nominal=mRad_flow_nominal/nRoo)
+    "Resistance of pipe leg that serves the room"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={404,360})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM resRoo2(
     redeclare package Medium = Medium,
     dp_nominal=dpRoo_nominal,
-    m_flow_nominal=mRad_flow_nominal/nRoo,
-    from_dp=false) "Resistance of pipe leg that serves the room"
+    m_flow_nominal=mRad_flow_nominal/nRoo)
+    "Resistance of pipe leg that serves the room"
     annotation (Placement(transformation(extent={{10,-10},{-10,10}},
         rotation=0,
         origin={402,100})));
@@ -343,9 +342,6 @@ model TwoRoomsWithStorage "Model of a hydronic heating system with energy storag
     annotation (Placement(transformation(extent={{480,330},{500,350}})));
   Modelica.Blocks.Sources.Constant TRooSet(k=273.15 + 21)
     annotation (Placement(transformation(extent={{480,390},{500,410}})));
-  Buildings.Fluid.Storage.ExpansionVessel expVes(redeclare package Medium = Medium, VTot=
-        1) "Expansion vessel"
-    annotation (Placement(transformation(extent={{-90,-100},{-70,-80}})));
   Buildings.Utilities.Math.Max maxYVal(nin=2) "Maximum radiator valve position"
     annotation (Placement(transformation(extent={{0,100},{20,120}})));
   Modelica.Blocks.Logical.Hysteresis hysPum(           uLow=0.01, uHigh=0.5)
@@ -486,6 +482,9 @@ model TwoRoomsWithStorage "Model of a hydronic heating system with energy storag
   Modelica.Blocks.Sources.Constant TOutSwi(k=16 + 293.15)
     "Outside air temperature to switch heating on or off"
     annotation (Placement(transformation(extent={{540,340},{560,360}})));
+  Fluid.Sources.FixedBoundary bou(nPorts=1, redeclare package Medium = Medium)
+    "Fixed boundary condition, needed to provide a pressure in the system"
+    annotation (Placement(transformation(extent={{-82,-130},{-62,-110}})));
 equation
   connect(TAmb.port,boi. heatPort) annotation (Line(
       points={{-20,-90},{-10,-90},{-10,-112.8}},
@@ -587,10 +586,6 @@ equation
   connect(swi.y, conRoo2.u_s)     annotation (Line(
       points={{661,380},{680,380},{680,280},{530,280},{530,250},{538,250}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(expVes.port_a, boi.port_a) annotation (Line(
-      points={{-80,-100},{-80,-120},{-20,-120}},
-      color={0,127,255},
       smooth=Smooth.None));
   connect(maxYVal.y, hysPum.u) annotation (Line(
       points={{21,110},{38,110}},
@@ -978,6 +973,10 @@ equation
   connect(TRoo2.T, conRoo2.u_m) annotation (Line(
       points={{500,226},{550,226},{550,238}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(bou.ports[1], boi.port_a) annotation (Line(
+      points={{-62,-120},{-20,-120}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,
             -200},{700,600}}), graphics),
