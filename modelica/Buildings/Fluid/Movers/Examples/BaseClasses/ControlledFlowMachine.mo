@@ -32,10 +32,7 @@ model ControlledFlowMachine
         origin={-10,32})));
   Buildings.Fluid.Movers.FlowMachine_y fan1(
     redeclare package Medium = Medium,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow (
-          V_flow_nominal={0,1.8,3}, dp_nominal={1000,600,0}),
-    m_flow_nominal=6000/3600*1.2,
+    pressure(V_flow={0,1.8,3}, dp={1000,600,0}),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   FixedResistances.FixedResistanceDpM dp1(
@@ -79,10 +76,7 @@ model ControlledFlowMachine
     annotation (Placement(transformation(extent={{60,100},{80,120}})));
   Buildings.Fluid.Movers.FlowMachine_Nrpm fan4(
     redeclare package Medium = Medium,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow (
-          V_flow_nominal={0,1.8,3}, dp_nominal={1000,600,0}),
-    m_flow_nominal=6000/3600*1.2,
+    pressure(V_flow={0,1.8,3}, dp={1000,600,0}),
     dynamicBalance=false)
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Modelica.Blocks.Math.Gain gain(k=1500) "Converts y to nominal rpm"
@@ -153,7 +147,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(dp8.port_b, fan4.port_a) annotation (Line(
-      points={{-32,110},{-28,110},{-28,108},{-26,108},{-26,110},{-20,110}},
+      points={{-32,110},{-20,110}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dp5.port_b, fan1.port_a) annotation (Line(

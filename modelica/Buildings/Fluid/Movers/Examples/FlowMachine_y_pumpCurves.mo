@@ -9,6 +9,22 @@ model FlowMachine_y_pumpCurves
     "Nominal mass flow rate";
   parameter Modelica.SIunits.Pressure dp_nominal = 10000 "Nominal pressure";
 
+   model pumpModel = Buildings.Fluid.Movers.FlowMachine_y (
+    redeclare package Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    dynamicBalance=false,
+    pressure(V_flow=2/1000*{0,m_flow_nominal/2,m_flow_nominal},
+             dp={2*dp_nominal,1.5*dp_nominal, 0})) "Declaration of pump model";
+
+  pumpModel pum "Pump"
+    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+  pumpModel pum1 "Pump"
+    annotation (Placement(transformation(extent={{40,38},{60,58}})));
+  pumpModel pum2 "Pump"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  pumpModel pum3 "Pump"
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+
   Modelica.Blocks.Sources.Ramp y(
     offset=1,
     duration=0.5,
@@ -23,15 +39,7 @@ model FlowMachine_y_pumpCurves
     T=293.15,
     nPorts=4) annotation (Placement(transformation(extent={{-70,78},{-50,98}},
           rotation=0)));
-  Buildings.Fluid.Movers.FlowMachine_y pum(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow (
-          dp_nominal={0,1.5*dp_nominal, 2*dp_nominal}, V_flow_nominal=2/1000*{m_flow_nominal,m_flow_nominal/2,0})) "Pump"
-    annotation (Placement(transformation(extent={{40,80},{60,100}})));
+
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Fluid.Sources.Boundary_pT sou1(
@@ -51,15 +59,7 @@ model FlowMachine_y_pumpCurves
                                y1(k=1) "Input signal"
                  annotation (Placement(transformation(extent={{20,120},{40,140}},
           rotation=0)));
-  Buildings.Fluid.Movers.FlowMachine_y pum1(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow (
-          dp_nominal={0,1.5*dp_nominal, 2*dp_nominal}, V_flow_nominal=2/1000*{m_flow_nominal,m_flow_nominal/2,0})) "Pump"
-    annotation (Placement(transformation(extent={{40,38},{60,58}})));
+
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -69,15 +69,7 @@ model FlowMachine_y_pumpCurves
                                y2(k=0.5) "Input signal"
                  annotation (Placement(transformation(extent={{8,60},{28,80}},
           rotation=0)));
-  Buildings.Fluid.Movers.FlowMachine_y pum2(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow (
-          dp_nominal={0,1.5*dp_nominal, 2*dp_nominal}, V_flow_nominal=2/1000*{m_flow_nominal,m_flow_nominal/2,0})) "Pump"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
@@ -87,15 +79,6 @@ model FlowMachine_y_pumpCurves
                                y3(k=0.1) "Input signal"
                  annotation (Placement(transformation(extent={{8,12},{28,32}},
           rotation=0)));
-  Buildings.Fluid.Movers.FlowMachine_y pum3(
-    redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
-    dynamicBalance=false,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow (
-          dp_nominal={0,1.5*dp_nominal, 2*dp_nominal}, V_flow_nominal=2/1000*{m_flow_nominal,m_flow_nominal/2,0})) "Pump"
-    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,

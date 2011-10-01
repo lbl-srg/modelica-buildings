@@ -36,6 +36,26 @@ model TwoRoomsWithStorage
  parameter Modelica.SIunits.Pressure dp_nominal = dpPip_nominal + dpVal_nominal + dpRoo_nominal
     "Pressure difference of loop";
   // Room model
+
+  Fluid.Movers.FlowMachine_y pumBoi(
+    redeclare package Medium = Medium,
+    pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
+             dp=dp_nominal*{2,1}),
+             dynamicBalance=false)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={70,-120})));
+
+  Fluid.Movers.FlowMachine_y pumRad(
+    redeclare package Medium = Medium,
+    pressure(
+          V_flow=mRad_flow_nominal/1000*{0,2},
+          dp=5000*{2,0}),
+    dynamicBalance=false) "Pump that serves the radiators"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={220,50})));
+
   HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
     "Construction material for exterior walls"
     annotation (Placement(transformation(extent={{460,560},{480,580}})));
@@ -137,16 +157,6 @@ model TwoRoomsWithStorage
   Buildings.HeatTransfer.Sources.FixedTemperature TAmb(T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Fluid.Movers.FlowMachine_y pumRad(
-    redeclare package Medium = Medium,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal=mRad_flow_nominal/1000*{0,2}, dp_nominal=dp_nominal*{2,0}),
-    m_flow_nominal=mRad_flow_nominal,
-    dynamicBalance=false) "Pump that serves the radiators"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={220,50})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM resSup(
     redeclare package Medium = Medium,
     dp_nominal=dpPip_nominal,
@@ -245,16 +255,7 @@ model TwoRoomsWithStorage
     VTan=0.2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Storage tank"
     annotation (Placement(transformation(extent={{208,-140},{248,-100}})));
-  Fluid.Movers.FlowMachine_y pumBoi(
-    redeclare package Medium = Medium,
-    m_flow_nominal=mBoi_flow_nominal,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          dp_nominal=5000*{1,2}, V_flow_nominal=mBoi_flow_nominal/1000*{1,0.5}),
-    dynamicBalance=false)
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={70,-120})));
+
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor tanTemBot
     "Tank temperature"
     annotation (Placement(transformation(extent={{280,-190},{300,-170}})));
@@ -359,7 +360,7 @@ model TwoRoomsWithStorage
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-50,330},{-30,350}})));
   Modelica.Blocks.Continuous.FirstOrder delRadPum(T=10)
-    "Delay element for the transient response of the pump"
+    "Delay element for the transient response of the pump. This is needed to avoid an algebraic loop."
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=180,
         origin={150,50})));
@@ -420,8 +421,7 @@ model TwoRoomsWithStorage
   Fluid.Movers.FlowMachine_m_flow fanSup(
     redeclare package Medium = MediumA,
     dynamicBalance=false,
-    m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    m_flow_max=2*VRoo*1.2*0.37/3600) "Supply air fan"
+    m_flow_nominal=2*VRoo*1.2*0.37/3600) "Supply air fan"
     annotation (Placement(transformation(extent={{160,490},{180,510}})));
   Modelica.Blocks.Sources.Constant m_flow_out(k=2*VRoo*1.2*0.37/3600)
     "Outside air mass flow rate"
@@ -429,8 +429,7 @@ model TwoRoomsWithStorage
   Fluid.Movers.FlowMachine_m_flow fanRet(
     redeclare package Medium = MediumA,
     dynamicBalance=false,
-    m_flow_nominal=2*VRoo*1.2*0.37/3600,
-    m_flow_max=2*VRoo*1.2*0.37/3600) "Return air fan"
+    m_flow_nominal=2*VRoo*1.2*0.37/3600) "Return air fan"
     annotation (Placement(transformation(extent={{180,450},{160,470}})));
   Airflow.Multizone.Orifice lea1(redeclare package Medium = MediumA, A=0.01^2)
     "Leakage of facade of room"
@@ -950,10 +949,6 @@ equation
       points={{183,50},{162,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(delRadPum.y, conPum.u_m) annotation (Line(
-      points={{139,50},{130,50},{130,98}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(res3.port_b, tan.port_a) annotation (Line(
       points={{140,-120},{208,-120}},
       color={0,127,255},
@@ -977,6 +972,10 @@ equation
   connect(bou.ports[1], boi.port_a) annotation (Line(
       points={{-62,-120},{-20,-120}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(delRadPum.y, conPum.u_m) annotation (Line(
+      points={{139,50},{130,50},{130,98}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,
             -200},{700,600}}), graphics),

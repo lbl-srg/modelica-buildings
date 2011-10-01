@@ -3,10 +3,10 @@ partial model PrescribedFlowMachine
   "Partial model for fan or pump with speed (y or Nrpm) as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
       final show_V_flow = false,
+      final m_flow_nominal = max(pressure.V_flow)*rho_nominal,
       preSou(final control_m_flow=false));
 
   extends Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface(
-    V_flow_nominal=m_flow_nominal/rho_nominal,
     V_flow_max(start=V_flow_nominal),
     final rho_nominal = Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default));
 
@@ -14,22 +14,21 @@ partial model PrescribedFlowMachine
 protected
   Modelica.Blocks.Sources.RealExpression dpMac(y=-dpMachine)
     "Pressure drop of the pump or fan"
-    annotation (Placement(transformation(extent={{-80,22},{-60,42}})));
-  Modelica.Blocks.Sources.RealExpression QMac_flow(y=Q_flow + dpMachine*
-        VMachine_flow)
-    "Heat input into the medium from the fan or pump (not including flow work)"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
+  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if  addPowerToMedium
+    "Heat and work input into medium"
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 equation
  VMachine_flow = -port_b.m_flow/rho;
  rho = rho_in;
 
-  connect(QMac_flow.y, prePow.Q_flow) annotation (Line(
-      points={{-59,50},{-50,50},{-50,24},{-80,24},{-80,10},{-68,10}},
+  connect(preSou.dp_in, dpMac.y) annotation (Line(
+      points={{36,8},{36,30},{21,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(preSou.dp_in, dpMac.y) annotation (Line(
-      points={{36,8},{36,32},{-59,32}},
+  connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
+      points={{-79,20},{-70,20}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (

@@ -8,7 +8,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   package MediumW = Buildings.Media.ConstantPropertyLiquidWater
     "Medium model for water";
 
-  parameter Real yFan_start=0.1 "Initial or guess value of output (= state)";
+  parameter Real yFan_start=0.0 "Initial or guess value of output (= state)";
   parameter Boolean dynamicBalanceJunction=true
     "Set to true to use a dynamic balance for junction volumes, which often leads to smaller systems of equations";
   parameter Modelica.Fluid.Types.Dynamics energyDynamicsJunctions=Modelica.Fluid.Types.Dynamics.FixedInitial
@@ -98,28 +98,19 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     annotation (Placement(transformation(extent={{372,-146},{352,-166}})));
   Buildings.Fluid.Movers.FlowMachine_y fanSupHot(
     redeclare package Medium = MediumA,
-    m_flow_nominal=mAirHot_flow_nominal,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal=mAirHot_flow_nominal/1.2*{0,2}, dp_nominal=600*{2,0}),
+    pressure(V_flow=mAirHot_flow_nominal/1.2*{0,2}, dp=600*{2,0}),
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     dynamicBalance=true) "Supply air fan for hot deck"
     annotation (Placement(transformation(extent={{300,-10},{320,10}})));
   Buildings.Fluid.Movers.FlowMachine_y fanSupCol(
     redeclare package Medium = MediumA,
-    m_flow_nominal=mAirCol_flow_nominal,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal=mAirCol_flow_nominal/1.2*{0,2}, dp_nominal=600*{2,0}),
+    pressure(V_flow=mAirCol_flow_nominal/1.2*{0,2}, dp=600*{2,0}),
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     dynamicBalance=true) "Supply air fan for cold deck"
     annotation (Placement(transformation(extent={{302,-160},{322,-140}})));
   Buildings.Fluid.Movers.FlowMachine_y fanRet(
     redeclare package Medium = MediumA,
-    m_flow_nominal=m_flow_nominal,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal=m_flow_nominal/1.2*{0,2}, dp_nominal=100*{2,0}),
+    pressure(V_flow=m_flow_nominal/1.2*{0,2}, dp=100*{2,0}),
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     dynamicBalance=true) "Return air fan"
     annotation (Placement(transformation(extent={{360,150},{340,170}})));

@@ -9,10 +9,11 @@ model ControlledFlowMachine
      final use_powerCharacteristic = false,
      final rho_nominal = Medium.density(sta_nominal));
 
-  parameter Medium.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate, used as flow rate if control_m_flow";
-  parameter Modelica.SIunits.MassFlowRate m_flow_max = m_flow_nominal
-    "Maximum mass flow rate (at zero head)";
+  import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
+//  parameter Medium.MassFlowRate m_flow_nominal
+//    "Nominal mass flow rate, used as flow rate if control_m_flow";
+//  parameter Modelica.SIunits.MassFlowRate m_flow_max = m_flow_nominal
+//    "Maximum mass flow rate (at zero head)";
   // what to control
   constant Boolean control_m_flow "= false to control head instead of m_flow"
     annotation(Evaluate=true);
@@ -30,24 +31,27 @@ model ControlledFlowMachine
         rotation=-90,
         origin={50,82})));
 
+  Real r_V(start=1)
+    "Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)";
+
 protected
   final parameter Medium.AbsolutePressure p_a_nominal(displayUnit="Pa") = Medium.p_default
     "Nominal inlet pressure for predefined fan or pump characteristics";
   parameter Medium.ThermodynamicState sta_nominal = Medium.setState_pTX(T=T_start,
      p=p_a_nominal, X=X_start[1:Medium.nXi]);
 
-public
-  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + dpMachine*
-        VMachine_flow) "Heat and work input into medium"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 protected
   Modelica.Blocks.Math.Gain gain(final k=-1) if not control_m_flow
     annotation (Placement(transformation(extent={{20,50},{0,70}})));
+  Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if  addPowerToMedium
+    "Heat and work input into medium"
+    annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 initial equation
-  V_flow_max=m_flow_max/rho_nominal;
+  V_flow_max=m_flow_nominal/rho_nominal;
 equation
-  etaHyd = hydraulicEfficiency(r_V=r_V);
-  etaMot = motorEfficiency(r_V=r_V);
+  r_V = VMachine_flow/V_flow_max;
+  etaHyd = cha.efficiency(data=hydraulicEfficiency, r_V=r_V, d=hydDer);
+  etaMot = cha.efficiency(data=motorEfficiency,     r_V=r_V, d=motDer);
   dpMachine = -dp;
   VMachine_flow = -port_b.m_flow/rho_in;
 
@@ -56,16 +60,16 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
-      points={{-79,30},{-74,30},{-74,10},{-68,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(preSou.m_flow_in, m_flow_in) annotation (Line(
       points={{24,8},{24,40},{-50,40},{-50,82}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preSou.dp_in, gain.y) annotation (Line(
       points={{36,8},{36,44},{-10,44},{-10,60},{-1,60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
+      points={{-79,20},{-70,20}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (defaultComponentName="fan",

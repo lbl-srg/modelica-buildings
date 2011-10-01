@@ -25,12 +25,9 @@ model FlowMachine_y_linear
           rotation=0)));
   Buildings.Fluid.Movers.FlowMachine_y pumFixDp(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          dp_nominal={0,2*dp_nominal}, V_flow_nominal=2/1000*{m_flow_nominal,0}))
+    pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0}))
     "Pump with fixed pressure raise"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   inner Modelica.Fluid.System system
@@ -57,12 +54,9 @@ model FlowMachine_y_linear
           rotation=0)));
   Buildings.Fluid.Movers.FlowMachine_y pumFixM_flow(
     redeclare package Medium = Medium,
-    m_flow_nominal=m_flow_nominal,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          dp_nominal={0,2*dp_nominal}, V_flow_nominal=2/1000*{m_flow_nominal,0}))
+    pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0}))
     "Pump with fixed mass flow rate"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou3(

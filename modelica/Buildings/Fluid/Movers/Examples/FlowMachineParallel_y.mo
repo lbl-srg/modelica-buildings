@@ -14,10 +14,7 @@ model FlowMachineParallel_y "Test model for two flow machines in parallel"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Buildings.Fluid.Movers.FlowMachine_y floMac1(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal={m_flow_nominal/1000,0}, dp_nominal={0,2*4*1000}))
+    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}))
     "Model of a flow machine"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
@@ -62,10 +59,7 @@ model FlowMachineParallel_y "Test model for two flow machines in parallel"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Fluid.Movers.FlowMachine_y floMac2(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal={m_flow_nominal/1000,0}, dp_nominal={0,2*4*1000}))
+    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}))
     "Model of a flow machine"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpOut2(

@@ -90,8 +90,7 @@ model ChillerSetPointControl
     m_flow_nominal=999)
     annotation (Placement(transformation(extent={{4,-74},{24,-54}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(
-    m_flow_nominal=mCHW_flow_nominal,
-    m_flow_max=1.2*mCHW_flow_nominal,
+    m_flow_nominal=1.2*mCHW_flow_nominal,
     dp(start=40474),
     redeclare package Medium = Medium2) "Chilled water pump" annotation (
       Placement(transformation(

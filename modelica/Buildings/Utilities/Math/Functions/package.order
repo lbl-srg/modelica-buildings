@@ -14,5 +14,6 @@ spliceFunction
 splineDerivatives
 trapezoidalIntegration
 inverseXRegularized
+isMonotonic
 Examples
 BaseClasses

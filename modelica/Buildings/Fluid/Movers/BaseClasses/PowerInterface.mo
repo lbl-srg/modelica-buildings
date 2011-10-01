@@ -14,18 +14,20 @@ partial model PowerInterface
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  replaceable function motorEfficiency =
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.constantEfficiency(eta_nominal = 0.7) constrainedby
-    Characteristics.baseEfficiency "Efficiency vs. normalized volume flow rate"
-    annotation(Dialog(group="Characteristics"),
-               enable = not use_powerCharacteristic,
-               choicesAllMatching=true);
-  replaceable function hydraulicEfficiency =
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.constantEfficiency(eta_nominal = 0.7) constrainedby
-    Characteristics.baseEfficiency "Efficiency vs. normalized volume flow rate"
-    annotation(Dialog(group="Characteristics"),
-               enable = not use_powerCharacteristic,
-               choicesAllMatching=true);
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+      motorEfficiency(r_V={1}, eta={0.7})
+    "Normalized volume flow rate vs. efficiency"
+    annotation(Placement(transformation(extent={{60,-40},{80,-20}})),
+               Dialog(group="Characteristics"),
+               enable = not use_powerCharacteristic);
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters
+      hydraulicEfficiency(r_V={1}, eta={0.7})
+    "Normalized volume flow rate vs. efficiency"
+    annotation(Placement(transformation(extent={{60,-80},{80,-60}})),
+               Dialog(group="Characteristics"),
+               enable = not use_powerCharacteristic);
 
   parameter Modelica.SIunits.Density rho_nominal "Nominal fluid density";
 
@@ -38,24 +40,49 @@ partial model PowerInterface
   Real etaHyd(min=0, max=1) "Hydraulic efficiency";
   Real etaMot(min=0, max=1) "Motor efficiency";
 
-  Real r_V(start=1)
-    "Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)";
-
   Modelica.SIunits.Pressure dpMachine(displayUnit="Pa") "Pressure increase";
   Modelica.SIunits.VolumeFlowRate VMachine_flow "Volume flow rate";
 protected
   parameter Modelica.SIunits.VolumeFlowRate V_flow_max(fixed=false)
-    "Maximum volume flow rate";
-  Modelica.SIunits.HeatFlowRate QThe_flow "Heat input into the medium";
+    "Maximum volume flow rate, used for smoothing";
+  //Modelica.SIunits.HeatFlowRate QThe_flow "Heat input into the medium";
   parameter Modelica.SIunits.VolumeFlowRate delta_V_flow = 1E-3*V_flow_max
     "Factor used for setting heat input into medium to zero at very small flows";
-equation
-  r_V = VMachine_flow/V_flow_max;
+  final parameter Real motDer[size(motorEfficiency.r_V, 1)](fixed=false)
+    "Coefficients for polynomial of pressure vs. flow rate"
+    annotation (Evaluate=true);
+  final parameter Real hydDer[size(hydraulicEfficiency.r_V,1)](fixed=false)
+    "Coefficients for polynomial of pressure vs. flow rate"
+    annotation (Evaluate=true);
 
-  eta    = etaHyd * etaMot;
+  Modelica.SIunits.HeatFlowRate QThe_flow
+    "Heat input from fan or pump to medium";
+
+initial algorithm
+ // Compute derivatives for cubic spline
+ motDer :=
+   if use_powerCharacteristic then
+     zeros(size(motorEfficiency.r_V, 1))
+   elseif ( size(motorEfficiency.r_V, 1) == 1)  then
+       {0}
+   else
+      Buildings.Utilities.Math.Functions.splineDerivatives(
+      x=motorEfficiency.r_V,
+      y=motorEfficiency.eta);
+  hydDer :=
+     if use_powerCharacteristic then
+       zeros(size(hydraulicEfficiency.r_V, 1))
+     elseif ( size(hydraulicEfficiency.r_V, 1) == 1)  then
+       {0}
+     else
+       Buildings.Utilities.Math.Functions.splineDerivatives(
+                   x=hydraulicEfficiency.r_V,
+                   y=hydraulicEfficiency.eta);
+equation
+  eta = etaHyd * etaMot;
   WFlo = eta * PEle;
   // Flow work
-  WFlo   = dpMachine*VMachine_flow;
+  WFlo = dpMachine*VMachine_flow;
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
   etaHyd * WHyd   = WFlo;
   // Heat input into medium

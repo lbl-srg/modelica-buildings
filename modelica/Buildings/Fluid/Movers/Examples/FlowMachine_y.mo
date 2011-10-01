@@ -6,18 +6,12 @@ model FlowMachine_y
     gain(k=1),
     redeclare Buildings.Fluid.Movers.FlowMachine_y floMacSta(
       redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal,
-      redeclare function flowCharacteristic =
-          Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow (
-            V_flow_nominal={0,m_flow_nominal,2*m_flow_nominal}/1.2, dp_nominal={
-              2*dp_nominal,dp_nominal,0})),
+      pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+               dp={2*dp_nominal,dp_nominal,0})),
     redeclare Buildings.Fluid.Movers.FlowMachine_y floMacDyn(
       redeclare package Medium = Medium,
-      m_flow_nominal=m_flow_nominal,
-      redeclare function flowCharacteristic =
-          Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow (
-            V_flow_nominal={0,m_flow_nominal,2*m_flow_nominal}/1.2, dp_nominal={
-              2*dp_nominal,dp_nominal,0})));
+      pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
+               dp={2*dp_nominal,dp_nominal,0})));
 
 equation
   connect(gain.y, floMacDyn.y) annotation (Line(
@@ -31,7 +25,8 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}}), graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/FlowMachine_y.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/FlowMachine_y.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example demonstrates and tests the use of a flow machine whose mass flow rate is reduced to zero.
 </html>", revisions="<html>

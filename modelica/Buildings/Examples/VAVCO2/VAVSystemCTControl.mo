@@ -85,20 +85,14 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
             annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Fluid.Movers.FlowMachine_y fan32(
     redeclare package Medium = Medium,
-    m_flow_nominal=mMIT_flow,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.quadraticFlow (
-          V_flow_nominal={0,11.08,14.9}, dp_nominal={1508,743,100}),
+    pressure(V_flow={0,11.08,14.9}, dp={1508,743,100}),
     homotopyInitialization=true,
     dynamicBalance=true,
     r_N(start=0))
     annotation (Placement(transformation(extent={{122,-18},{138,-2}})));
   Fluid.Movers.FlowMachine_y fan56(
     redeclare package Medium = Medium,
-    m_flow_nominal=mMIT_flow,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal={2.676,11.05}, dp_nominal={600,100}),
+    pressure(V_flow={2.676,11.05}, dp={600,100}),
     homotopyInitialization=true,
     dynamicBalance=true,
     r_N(start=0))
@@ -112,8 +106,6 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
     rising=120,
     startTime=6*3600) "Pressure setpoint (0 during night, 120 during day)"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=60)
-    annotation (Placement(transformation(extent={{80,80},{100,100}})));
 equation
   connect(PAtm.y, bouIn.p_in) annotation (Line(
       points={{-59,-40},{-50,-40},{-50,-56},{-40,-56}},
@@ -175,16 +167,12 @@ equation
       points={{-19,90},{38,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conSupFan.y, firstOrder.u) annotation (Line(
-      points={{61,90},{78,90}},
+  connect(conSupFan.y, fan32.y) annotation (Line(
+      points={{61,90},{110,90},{110,40},{130,40},{130,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(firstOrder.y, fan56.y) annotation (Line(
-      points={{101,90},{110,90},{110,-48},{130,-48},{130,-62}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firstOrder.y, fan32.y) annotation (Line(
-      points={{101,90},{110,90},{110,8},{130,8},{130,-2}},
+  connect(conSupFan.y, fan56.y) annotation (Line(
+      points={{61,90},{110,90},{110,-48},{130,-48},{130,-62}},
       color={0,0,127},
       smooth=Smooth.None));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,

@@ -9,10 +9,7 @@ model FlowMachineSeries_y "Test model for two flow machines in series"
 
   Buildings.Fluid.Movers.FlowMachine_y floMac1(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal={m_flow_nominal/1000,0}, dp_nominal={0,2*4*1000}),
+    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}),
     dynamicBalance=false) "Model of a flow machine"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
 
@@ -38,10 +35,7 @@ model FlowMachineSeries_y "Test model for two flow machines in series"
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
   Buildings.Fluid.Movers.FlowMachine_y floMac2(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal={m_flow_nominal/1000,0}, dp_nominal={0,2*4*1000}),
+    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}),
     dynamicBalance=false) "Model of a flow machine"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Modelica.Blocks.Sources.Ramp     const1(
@@ -53,9 +47,9 @@ model FlowMachineSeries_y "Test model for two flow machines in series"
   Buildings.Fluid.Sources.Boundary_pT sou1(
     redeclare package Medium = Medium,
     use_p_in=false,
-    nPorts=1,
     p(displayUnit="Pa") = 300000 + 4000,
-    T=293.15) annotation (Placement(transformation(extent={{156,50},{136,70}},
+    T=293.15,
+    nPorts=1) annotation (Placement(transformation(extent={{156,50},{136,70}},
           rotation=0)));
 equation
   connect(const2.y, floMac2.y)
@@ -89,7 +83,8 @@ This example tests the configuration of two flow machines that are installed in 
 Both flow machines start with full speed. 
 Between <i>t=1</i> second and <i>t=9</i> seconds, the speed of the flow machine on the left is reduced to zero.
 As its speed is reduced, the mass flow rate is reduced. Note that even at zero input, the mass flow rate is non-zero,
-but the pressure rise of the pump is zero.
+but the pressure drop of the pump <code>floMac1.dp</code> is positive, which means that this pump has a flow resistance.
+However, <code>flowMac2.dp</code> is always negative, as this pump has a constant control input of 1.
 </html>", revisions="<html>
 <ul>
 <li>March 24 2010, by Michael Wetter:<br>

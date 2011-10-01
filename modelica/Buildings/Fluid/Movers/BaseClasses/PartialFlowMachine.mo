@@ -22,10 +22,10 @@ partial model PartialFlowMachine
     X_start=X_start,
     C_start=C_start,
     m_flow_nominal=m_flow_nominal,
-    nPorts=2,
     p_start=p_start,
     prescribedHeatFlowRate=true,
-    allowFlowReversal=allowFlowReversal) "Fluid volume for dynamic model"
+    allowFlowReversal=allowFlowReversal,
+    nPorts=2) "Fluid volume for dynamic model"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
    parameter Boolean dynamicBalance = true
     "Set to true to use a dynamic balance, which often leads to smaller systems of equations"
@@ -38,21 +38,21 @@ partial model PartialFlowMachine
     "Time constant of fluid volume for nominal flow, used if dynamicBalance=true"
     annotation (Dialog(tab="Dynamics", group="Nominal condition", enable=dynamicBalance));
 
-  Modelica.SIunits.Density rho_in "Density of inflowing fluid";
- // Modelica.SIunits.VolumeFlowRate V_in_flow
- //   "Volume flow rate that flows into the device";
   // Models
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
 
 protected
+  Modelica.SIunits.Density rho_in "Density of inflowing fluid";
+
   Buildings.Fluid.Movers.BaseClasses.IdealSource preSou(
   redeclare package Medium = Medium,
     allowFlowReversal=allowFlowReversal) "Pressure source"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
+
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow prePow if addPowerToMedium
     "Prescribed power (=heat and flow work) flow for dynamic model"
-    annotation (Placement(transformation(extent={{-68,0},{-48,20}})));
+    annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
 
   parameter Medium.ThermodynamicState sta_start=Medium.setState_pTX(
       T=T_start, p=p_start, X=X_start);
@@ -63,9 +63,8 @@ equation
   // For computing the density, we assume that the fan operates in the design flow direction.
   rho_in = Medium.density(
        Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
-//  V_in_flow = m_flow/rho_in;
   connect(prePow.port, vol.heatPort) annotation (Line(
-      points={{-48,10},{-40,10}},
+      points={{-50,20},{-44,20},{-44,10},{-40,10}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -74,18 +73,18 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(port_a, vol.ports[1]) annotation (Line(
-      points={{-100,5.55112e-16},{-83,5.55112e-16},{-83,4.87687e-22},{-66,
-          4.87687e-22},{-66,-5.55112e-16},{-32,-5.55112e-16}},
+      points={{-100,5.55112e-16},{-66,5.55112e-16},{-66,-5.55112e-16},{-32,
+          -5.55112e-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(vol.ports[2], preSou.port_a) annotation (Line(
+      points={{-28,-5.55112e-16},{-5,-5.55112e-16},{-5,6.10623e-16},{20,
+          6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(preSou.port_b, port_b) annotation (Line(
-      points={{40,6.10623e-16},{55,6.10623e-16},{55,1.16573e-15},{70,
-          1.16573e-15},{70,5.55112e-16},{100,5.55112e-16}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(vol.ports[2],preSou. port_a) annotation (Line(
-      points={{-28,-5.55112e-16},{-16,-5.55112e-16},{-16,5.55107e-17},{-4,
-          5.55107e-17},{-4,6.10623e-16},{20,6.10623e-16}},
+      points={{40,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{100,
+          5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -125,8 +124,8 @@ equation
           fillPattern=FillPattern.Sphere,
           visible=dynamicBalance,
           fillColor={0,100,199})}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
+            100}}),
             graphics),
     Documentation(info="<html>
 <p>This is the base model for fans and pumps.
@@ -136,9 +135,9 @@ and the implementation of the energy and pressure balance
 of the fluid.
 </p>
 <p>
-The model has two fluid streams. Depending on the value of
-the parameter <code>dynamicBalance</code>, one of the streams
-is removed.
+Depending on the value of
+the parameter <code>dynamicBalance</code>, the fluid volume
+is computed using a dynamic balance or a steady-state balance.
 </p>
 <p>
 The parameter <code>addPowerToMedium</code> determines whether 

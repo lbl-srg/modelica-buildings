@@ -2,6 +2,7 @@ within Buildings.Fluid.HeatExchangers.CoolingTowers;
 model YorkCalc
   "Cooling tower with variable speed using the York calculation for the approach temperature"
   extends Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower;
+  import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 
   parameter Modelica.SIunits.Temperature TAirInWB_nominal = 273.15+25.55
     "Design inlet air wet bulb temperature"
@@ -16,13 +17,14 @@ model YorkCalc
     "Fan power divived by water mass flow rate at design condition";
   parameter Modelica.SIunits.Power PFan_nominal = fraPFan_nominal*m_flow_nominal
     "Fan power";
-  replaceable function fanRelPow =
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.polynomialEfficiency (
-       r_V_nominal = {0.1,   0.3,   0.6,   1},
-       eta_nominal = {0.1^3, 0.3^3, 0.6^3, 1}) constrainedby
-    Buildings.Fluid.Movers.BaseClasses.Characteristics.baseEfficiency
-    "Fan relative power consumption as a function of control signal, fanParLoaEff=P(y)/P(y=1)"
-    annotation(choicesAllMatching=true);
+
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.efficiencyParameters fanRelPow(
+       r_V = {0, 0.1,   0.3,   0.6,   1},
+       eta = {0, 0.1^3, 0.3^3, 0.6^3, 1})
+    "Fan relative power consumption as a function of control signal, fanRelPow=P(y)/P(y=1)"
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+
   parameter Real yMin(min=0.01, max=1) = 0.3
     "Minimum control signal until fan is switched off (used for smoothing between forced and free convection regime)";
   parameter Real fraFreCon(min=0, max=1) = 0.125
@@ -62,6 +64,11 @@ protected
     "Approach temperature for forced convection";
   Modelica.SIunits.TemperatureDifference TAppFreCon(min=0, nominal=1, displayUnit="K")
     "Approach temperature for free convection";
+
+  final parameter Real fanRelPowDer[size(fanRelPow.r_V,1)](fixed=false)
+    "Coefficients for fan relative power consumption as a function of control signal"
+    annotation (Evaluate=true);
+
 initial equation
   TWatOut_nominal = TAirInWB_nominal + TApp_nominal;
   TRan_nominal = TWatIn0 - TWatOut_nominal; // by definition of the range temp.
@@ -69,13 +76,19 @@ initial equation
                    TRan=TRan_nominal, TWetBul=TAirInWB_nominal,
                    FRWat=FRWat0, FRAir=1); // this will be solved for FRWat0
   mRef_flow = m_flow_nominal/FRWat0;
+
+  // Derivatives for spline that interpolates the fan relative power
+  fanRelPowDer = Buildings.Utilities.Math.Functions.splineDerivatives(
+            x=fanRelPow.r_V,
+            y=fanRelPow.eta);
   // Check validity of relative fan power consumption at y=yMin and y=1
-  assert(fanRelPow(r_V=yMin)>-1E-4, "The fan relative power consumption must be negative for y=0."
-  + "\n   Obtained fanRelPow(0) = " + String(fanRelPow(r_V=yMin))
-  + "\n   You need to choose a different function for fanRelPow.");
-  assert(abs(1-fanRelPow(r_V=1))<1E-4, "The fan relative power consumption must be one for y=1."
-  + "\n   Obtained fanRelPow(1) = " + String(fanRelPow(r_V=1))
-  + "\n   You need to choose a different function for fanRelPow."
+  assert(cha.efficiency(data=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
+    "The fan relative power consumption must be non-negative for y=0."
+  + "\n   Obtained fanRelPow(0) = " + String(cha.efficiency(data=fanRelPow, r_V=yMin, d=fanRelPowDer))
+  + "\n   You need to choose different values for the parameter fanRelPow.");
+  assert(abs(1-cha.efficiency(data=fanRelPow, r_V=1, d=fanRelPowDer))<1E-4, "The fan relative power consumption must be one for y=1."
+  + "\n   Obtained fanRelPow(1) = " + String(cha.efficiency(data=fanRelPow, r_V=1, d=fanRelPowDer))
+  + "\n   You need to choose different values for the parameter fanRelPow."
   + "\n   To increase the fan power, change fraPFan_nominal or PFan_nominal.");
 equation
   // Air temperature used for the heat transfer
@@ -98,7 +111,9 @@ equation
   // which depends on forced vs. free convection.
   // The transition is for y in [yMin-yMin/10, yMin]
   [TAppAct, PFan] = Buildings.Utilities.Math.Functions.spliceFunction(
-                                                 pos=[TAppCor, fanRelPow(r_V=y) * PFan_nominal],
+                                                 pos=[TAppCor,
+                                                 cha.efficiency(
+                                                     data=fanRelPow, r_V=y, d=fanRelPowDer) * PFan_nominal],
                                                  neg=[TAppFreCon, 0],
                                                  x=y-yMin+yMin/20,
                                                  deltax=yMin/20);
@@ -175,8 +190,9 @@ For numerical reasons, the transition of fan power from the part load mode
 to zero power consumption in the free convection mode occurs in the range 
 <code>y &isin; [0.9*yMin, yMin]</code>.
 <br/>
-To change the function for fan relative power consumption at part load in the forced convection mode, 
-tuples of fan control signal and relative power consumption can be specified.
+To change the fan relative power consumption at part load in the forced convection mode, 
+points of fan controls signal and associated relative power consumption can be specified.
+In between these points, the values are interpolated using cubic splines.
 </p>
 <h4>Comparison the the cooling tower model of EnergyPlus</h4>
 <p> 
@@ -199,6 +215,10 @@ control law to compute the input signal <code>y</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 29, 2011, by Michael Wetter:<br>
+Revised model to use cubic spline interpolation instead of a polynomial.
+</li>
 <li>
 July 12, 2011, by Michael Wetter:<br>
 Introduced common base class for

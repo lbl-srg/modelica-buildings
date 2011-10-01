@@ -2,9 +2,7 @@ within Buildings.Fluid.Movers;
 model FlowMachine_y
   "Fan or pump with ideally controlled normalized speed y as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine(
-  final N_nominal=1500 "fix N_nominal as it is used only for scaling",
-  redeclare replaceable function flowCharacteristic =
-      Buildings.Fluid.Movers.BaseClasses.Characteristics.baseFlow);
+  final N_nominal=1500 "fix N_nominal as it is used only for scaling");
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)
     "Constant normalized rotational speed"

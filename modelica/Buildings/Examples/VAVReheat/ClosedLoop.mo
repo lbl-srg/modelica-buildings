@@ -75,22 +75,15 @@ model ClosedLoop "Closed loop model of variable air volume flow system"
     annotation (Placement(transformation(extent={{440,110},{420,130}})));
   Buildings.Fluid.Movers.FlowMachine_y fanSup(
     redeclare package Medium = MediumA,
-    m_flow_nominal=m_flow_nominal,
     tau=60,
     dynamicBalance=true,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal={m_flow_nominal/1.2*2,0}, dp_nominal={0,850}))
-    "Supply air fan"
+    pressure(V_flow={0, m_flow_nominal/1.2*2}, dp={850,0})) "Supply air fan"
     annotation (Placement(transformation(extent={{300,-50},{320,-30}})));
   Buildings.Fluid.Movers.FlowMachine_y fanRet(
     redeclare package Medium = MediumA,
-    m_flow_nominal=m_flow_nominal,
     tau=60,
     dynamicBalance=true,
-    redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal=m_flow_nominal/1.2*{2,0}, dp_nominal=1.5*110*{0,2}))
+    pressure(V_flow=m_flow_nominal/1.2*{0, 2}, dp=1.5*110*{2,0}))
     "Return air fan"
     annotation (Placement(transformation(extent={{310,110},{290,130}})));
   Buildings.Fluid.Sources.FixedBoundary sinHea(

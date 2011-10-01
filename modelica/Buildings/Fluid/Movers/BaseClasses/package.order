@@ -2,7 +2,6 @@ Characteristics
 ControlledFlowMachine
 PrescribedFlowMachine
 PartialFlowMachine
-FlowMachineInterface
 IdealSource
 PowerInterface
-
+FlowMachineInterface

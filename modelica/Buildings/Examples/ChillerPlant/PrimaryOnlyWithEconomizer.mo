@@ -25,7 +25,6 @@ model PrimaryOnlyWithEconomizer
   Buildings.Fluid.Movers.FlowMachine_m_flow fan(
     redeclare package Medium = MediumAir,
     m_flow_nominal=mAir_flow_nominal,
-    m_flow_max=mAir_flow_nominal,
     dp(start=249),
     m_flow(start=mAir_flow_nominal),
     T_start=293.15)
@@ -61,7 +60,6 @@ model PrimaryOnlyWithEconomizer
   Buildings.Fluid.Movers.FlowMachine_m_flow pumCHW(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    m_flow_max=mCHW_flow_nominal,
     dp(start=329460),
     m_flow(start=mCHW_flow_nominal)) "Chilled water pump" annotation (Placement(
         transformation(
@@ -88,7 +86,6 @@ model PrimaryOnlyWithEconomizer
         origin={208,233})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pumCW(
     redeclare package Medium = MediumCW,
-    m_flow_max=mCW_flow_nominal,
     m_flow_nominal=mCW_flow_nominal,
     dp(start=37474)) "Condenser water pump" annotation (Placement(
         transformation(
