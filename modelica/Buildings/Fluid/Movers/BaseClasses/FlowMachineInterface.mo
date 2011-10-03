@@ -94,6 +94,20 @@ initial algorithm
   // Note that if dpMax=0 in the function calls below, then the value of V_flow_max has no effect on the results.
   // But we need to set V_flow_max to a non-zero number to avoid a division by zero.
 
+  // Write warning if the volumetric flow rate versus pressure curve is non-decreasing
+  if (not Buildings.Utilities.Math.Functions.isMonotonic(x=pressure.dp, strict=false)) then
+    Modelica.Utilities.Streams.print("
+Warning:
+========
+It is recommended that the volume flow rate versus pressure relation
+of the fan or pump is a decreasing sequence. Otherwise, a solution 
+to the equations may not exist if the fan or pump speed is reduced.
+In this situation, the solver will fail due to non-convergence and 
+the simulation stops.
+The following performance data have been entered:
+" + getPerformanceDataAsString(pressure, preDer));
+  end if;
+
   // Equation to compute V_flow_max.
   assert(preDer[size(preDer,1)] < 0,
   "The pump or fan pressure raise data are such that the performance curve
