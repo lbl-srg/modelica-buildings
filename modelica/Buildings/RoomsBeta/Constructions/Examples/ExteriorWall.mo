@@ -8,7 +8,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
     layers={extConMat},
     til={Buildings.HeatTransfer.Types.Tilt.Wall})
     "Construction of an exterior wall without a window"
-    annotation (Placement(transformation(extent={{2,-30},{62,30}})));
+    annotation (Placement(transformation(extent={{0,-64},{60,-4}})));
   Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditions bouConExt(
     nCon=1,
     linearizeRadiation = false,
@@ -20,7 +20,7 @@ model ExteriorWall "Test model for an exterior wall without a window"
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     til={Buildings.HeatTransfer.Types.Tilt.Wall})
     "Exterior boundary conditions for constructions without a window"
-    annotation (Placement(transformation(extent={{74,-14},{114,26}})));
+    annotation (Placement(transformation(extent={{76,-80},{116,-40}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     annotation (Placement(transformation(extent={{-120,10},{-100,30}})));
   Buildings.HeatTransfer.Convection.Interior con[
@@ -51,16 +51,8 @@ equation
       points={{-60,20},{-50,20},{-50,20},{-40,20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(con.solid, conExt.opa_a) annotation (Line(
-      points={{-20,20},{-9,20},{-9,20},{2,20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conExt.opa_b, bouConExt.opa_a) annotation (Line(
-      points={{62.2,20},{72,20},{72,19.3333},{74,19.3333}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(weaDat.weaBus, bouConExt.weaBus) annotation (Line(
-      points={{120,70},{140,70},{140,7.4},{108.867,7.4}},
+      points={{120,70},{140,70},{140,-58.6},{110.867,-58.6}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -68,8 +60,18 @@ equation
       points={{-159,20},{-122,20}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(con.solid, conExt.opa_b) annotation (Line(
+      points={{-20,20},{60.2,20},{60.2,-14}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(bouConExt.opa_a, conExt.opa_a) annotation (Line(
+      points={{76,-46.6667},{44,-46.6667},{44,-46},{-1.66533e-15,-46},{
+          -1.66533e-15,-14}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/RoomsBeta/Constructions/Examples/ExteriorWall.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/RoomsBeta/Constructions/Examples/ExteriorWall.mos"
+        "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
             100}}), graphics),
     Documentation(info="<html>

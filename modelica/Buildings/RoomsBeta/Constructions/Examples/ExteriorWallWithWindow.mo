@@ -25,7 +25,7 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
     AWin=AWin,
     fFra=fFra,
     til={1.5707963267949}) "Construction of an exterior wall without a window"
-    annotation (Placement(transformation(extent={{0,-30},{60,30}})));
+    annotation (Placement(transformation(extent={{60,-30},{0,30}})));
   Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditionsWithWindow
     bouConExt(
     nCon=1,
@@ -103,13 +103,24 @@ model ExteriorWallWithWindow "Test model for an exterior wall with a window"
         origin={-20,-64})));
   Modelica.Blocks.Sources.Constant QAbs[1,glaSys.nLay](each k=0)
     "Solar radiation absorbed by glass"
-    annotation (Placement(transformation(extent={{-8,-90},{12,-70}})));
+    annotation (Placement(transformation(extent={{-2,-90},{18,-70}})));
   Modelica.Blocks.Sources.Constant QAbsSha(each k=0)
     "Solar radiation absorbed by interior shade"
     annotation (Placement(transformation(extent={{-58,-60},{-38,-40}})));
   Modelica.Blocks.Sources.Constant QTra(each k=0)
     "Solar radiation absorbed by exterior shade"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
+  Buildings.HeatTransfer.Convection.Interior con1[
+                              1](A=A - AWin, til={Buildings.HeatTransfer.Types.Tilt.Wall})
+    "Model for heat convection"
+    annotation (Placement(transformation(extent={{-20,-110},{-40,-90}})));
+  Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol3(
+                                                                   m=1)
+    "Thermal collector to link a vector of models to a single model"
+    annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-70,-100})));
 equation
   connect(prescribedTemperature.port, theCol.port_b) annotation (Line(
       points={{-120,30},{-100,30},{-100,30},{-80,30}},
@@ -117,14 +128,6 @@ equation
       smooth=Smooth.None));
   connect(theCol.port_a, con.fluid) annotation (Line(
       points={{-60,30},{-50,30},{-50,30},{-40,30}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(con.solid, conExt.opa_a) annotation (Line(
-      points={{-20,30},{-10,30},{-10,20},{-1.66533e-15,20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conExt.opa_b, bouConExt.opa_a) annotation (Line(
-      points={{60.2,20},{72,20},{72,19.3333},{82,19.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(weaDat.weaBus, bouConExt.weaBus) annotation (Line(
@@ -146,61 +149,6 @@ equation
       smooth=Smooth.None));
   connect(theCol1.port_a, intCon.air) annotation (Line(
       points={{-80,-20},{-60,-20},{-60,-20},{-40,-20}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(intCon.glaUns, conExt.glaUns_a) annotation (Line(
-      points={{-20,-18},{-12,-18},{-12,-8},{-1.66533e-15,-8}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(intCon.glaSha, conExt.glaSha_a) annotation (Line(
-      points={{-20,-22},{-10,-22},{-10,-12},{-1.66533e-15,-12}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(intCon.JOutUns, conExt.JInUns_a) annotation (Line(
-      points={{-19,-12},{-16,-12},{-16,2},{-1,2}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(intCon.JInUns, conExt.JOutUns_a) annotation (Line(
-      points={{-19,-14},{-14,-14},{-14,-2},{-1,-2}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(intCon.JOutSha, conExt.JInSha_a) annotation (Line(
-      points={{-19,-26},{-8,-26},{-8,-16},{-1,-16}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(intCon.JInSha, conExt.JOutSha_a) annotation (Line(
-      points={{-19,-28},{-6,-28},{-6,-20},{-1,-20}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(conExt.JOutUns_b, bouConExt.JInUns) annotation (Line(
-      points={{61,2},{68,2},{68,7.33333},{81.3333,7.33333}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(bouConExt.JOutUns, conExt.JInUns_b) annotation (Line(
-      points={{81.3333,4.66667},{70,4.66667},{70,-2},{61,-2}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(bouConExt.glaUns, conExt.glaUns_b) annotation (Line(
-      points={{82,0.666667},{80,0.666667},{80,0},{72,0},{72,-8},{60,-8}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(bouConExt.glaSha, conExt.glaSha_b) annotation (Line(
-      points={{82,-2},{74,-2},{74,-12},{60,-12}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(conExt.JOutSha_b, bouConExt.JInSha) annotation (Line(
-      points={{61,-16},{76,-16},{76,-4.66667},{81.3333,-4.66667}},
-      color={0,127,0},
-      smooth=Smooth.None));
-  connect(conExt.JInSha_b, bouConExt.JOutSha) annotation (Line(
-      points={{61,-20},{78,-20},{78,-7.33333},{81.3333,-7.33333}},
-      color={0,0,0},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(conExt.fra_b, bouConExt.fra) annotation (Line(
-      points={{60.2,-26},{80,-26},{80,-11.3333},{82,-11.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(indRad.JOut, intCon[1].JInRoo) annotation (Line(
@@ -229,15 +177,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(uSha.y, conExt[1].uSha) annotation (Line(
-      points={{-159,-50},{-140,-50},{-140,6},{-2,6}},
+      points={{-159,-50},{-140,-50},{-140,6},{62,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QAbs.y, conExt.QAbsUns_flow) annotation (Line(
-      points={{13,-80},{22,-80},{22,-32}},
+      points={{19,-80},{38,-80},{38,-32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QAbs.y, conExt.QAbsSha_flow) annotation (Line(
-      points={{13,-80},{38,-80},{38,-32}},
+      points={{19,-80},{22,-80},{22,-32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QAbsSha.y, intCon[1].QAbs_flow) annotation (Line(
@@ -248,10 +196,88 @@ equation
       points={{61,50},{68,50},{68,10},{80.6667,10}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(conExt.opa_b, con.solid) annotation (Line(
+      points={{-0.2,20},{-10,20},{-10,30},{-20,30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(intCon.JOutUns, conExt.JInUns_b) annotation (Line(
+      points={{-19,-12},{-18,-12},{-18,-2},{-1,-2}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(intCon.JInUns, conExt.JOutUns_b) annotation (Line(
+      points={{-19,-14},{-16,-14},{-16,2},{-1,2}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(intCon.glaUns, conExt.glaUns_b) annotation (Line(
+      points={{-20,-18},{-14,-18},{-14,-8},{-1.66533e-15,-8}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(intCon.glaSha, conExt.glaSha_b) annotation (Line(
+      points={{-20,-22},{-12,-22},{-12,-12},{-1.66533e-15,-12}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(intCon.JOutSha, conExt.JInSha_b) annotation (Line(
+      points={{-19,-26},{-10,-26},{-10,-20},{-1,-20}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(intCon.JInSha, conExt.JOutSha_b) annotation (Line(
+      points={{-19,-28},{-8,-28},{-8,-16},{-1,-16}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(conExt.opa_a, bouConExt.opa_a) annotation (Line(
+      points={{60,20},{65.5,20},{65.5,19.3333},{71,19.3333},{71,19.3333},{82,
+          19.3333}},
+      color={191,0,0},
+      smooth=Smooth.None));
+
+  connect(conExt.JInUns_a, bouConExt.JOutUns) annotation (Line(
+      points={{61,2},{66,2},{66,4.66667},{81.3333,4.66667}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(conExt.JOutUns_a, bouConExt.JInUns) annotation (Line(
+      points={{61,-2},{68,-2},{68,7.33333},{81.3333,7.33333}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(conExt.glaUns_a, bouConExt.glaUns) annotation (Line(
+      points={{60,-8},{70,-8},{70,0.666667},{82,0.666667}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(conExt.glaSha_a, bouConExt.glaSha) annotation (Line(
+      points={{60,-12},{72,-12},{72,-2},{82,-2}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(conExt.JInSha_a, bouConExt.JOutSha) annotation (Line(
+      points={{61,-16},{74,-16},{74,-7.33333},{81.3333,-7.33333}},
+      color={0,0,0},
+      pattern=LinePattern.None,
+      smooth=Smooth.None));
+  connect(conExt.JOutSha_a, bouConExt.JInSha) annotation (Line(
+      points={{61,-20},{76,-20},{76,-4.66667},{81.3333,-4.66667}},
+      color={0,127,0},
+      smooth=Smooth.None));
+  connect(conExt.fra_a, bouConExt.fra) annotation (Line(
+      points={{60,-26},{78,-26},{78,-11.3333},{82,-11.3333}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con1.solid, conExt.fra_b) annotation (Line(
+      points={{-20,-100},{-8,-100},{-8,-60},{-0.2,-60},{-0.2,-26}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(con1.fluid, theCol3.port_a) annotation (Line(
+      points={{-40,-100},{-60,-100}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(theCol3.port_b, prescribedTemperature.port) annotation (Line(
+      points={{-80,-100},{-112,-100},{-112,30},{-120,30}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/RoomsBeta/Constructions/Examples/ExteriorWallWithWindow.mos"
         "Simulate and plot"),
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-140},{200,
             100}}), graphics),
     Documentation(info="<html>
 This model tests the exterior constructions with windows.

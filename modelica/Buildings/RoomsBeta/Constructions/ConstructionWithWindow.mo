@@ -376,7 +376,12 @@ equation
           lineColor={0,0,0},
           smooth=Smooth.None,
           fillColor={95,95,95},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+                               Ellipse(
+          extent={{-222,68},{-160,4}},
+          lineColor={255,255,0},
+          fillColor={255,213,170},
+          fillPattern=FillPattern.Sphere)}),
 defaultComponentName="conWin",
 Documentation(revisions="<html>
 <ul>
