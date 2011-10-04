@@ -1,7 +1,10 @@
 within Buildings.BoundaryConditions.WeatherData;
 block ReaderTMY3 "Reader for TMY3 weather data "
   import Buildings.BoundaryConditions.Types.DataSource;
-  parameter Buildings.BoundaryConditions.Types.DataSource pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter
+  import Buildings.BoundaryConditions.Types.SkyTemperatureCalculation;
+
+  parameter Buildings.BoundaryConditions.Types.DataSource pAtmSou=
+     Buildings.BoundaryConditions.Types.DataSource.Parameter
     "Atmosheric pressure"
     annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Modelica.SIunits.Pressure pAtm = 101325
@@ -19,6 +22,12 @@ block ReaderTMY3 "Reader for TMY3 weather data "
     "Time zone";
   Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
             190,-10},{210,10}}), iconTransformation(extent={{190,-10},{210,10}})));
+
+  parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation calTSky=
+   SkyTemperatureCalculation.TemperaturesAndSkyCover
+    "Computation of black-body sky temperature"
+    annotation(choicesAllMatching=true,
+               Evaluate=true, Dialog(group="Sky temperature"));
 
   Modelica.Blocks.Interfaces.RealInput pAtm_in if
          (pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Input)
@@ -66,7 +75,7 @@ protected
     annotation (Placement(transformation(extent={{60,120},{80,140}})));
   BaseClasses.CheckWindDirection cheWinDir "Checks the wind direction"
     annotation (Placement(transformation(extent={{0,140},{20,160}})));
-  SkyTemperature.BlackBody TBlaSky(calTSky=0)
+  SkyTemperature.BlackBody TBlaSky(calTSky=calTSky)
     "Checks the sky black-body temperature"
     annotation (Placement(transformation(extent={{140,50},{160,70}})));
   Utilities.SimulationTime simTim "Simulation time"
@@ -102,8 +111,8 @@ protected
 
   Modelica.Blocks.Interfaces.RealInput pAtm_in_internal
     "Needed to connect to conditional connector";
-equation
 
+equation
   if pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
     pAtm_in_internal = pAtm;
   elseif pAtmSou == Buildings.BoundaryConditions.Types.DataSource.File then
@@ -457,6 +466,10 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+October 3, 2011, by Michael Wetter:<br>
+Propagated value for sky temperature calculation to make it accessible as a parameter.
+</li>
 <li>
 July 20, 2011, by Michael Wetter:<br>
 Added the option to use a constant, an input signal or the weather file as the source

@@ -335,20 +335,20 @@ that is used for the regularization near zero mass flow rate.</td>
                      Buildings.Fluid.Movers.FlowMachine_dp<br>
                      Buildings.Fluid.Movers.FlowMachine_m_flow</td>
     <td valign=\"top\">
-		     The performance data are now defined through records and not
+                     The performance data are now defined through records and not
                      through replaceable functions. The performance data now needs to be
                      declared in the form<pre>
  pressure(V_flow_nominal={0,V_flow_nominal,2*V_flow_nominal},
           dp_nominal={2*dp_nominal,dp_nominal,0})</pre>
-		     where <code>pressure</code> is an instance of a record. A similar declaration is
+                     where <code>pressure</code> is an instance of a record. A similar declaration is
                      used for power and efficiency.
                      <br/>
                      The parameter m_flow_nominal has been removed from 
                      FlowMachine_y and FlowMachine_Nrpm.
-				<br/>
+                                <br/>
                      The parameter m_flow_max has been replaced by m_flow_nominal in
                      FlowMachine_m_flow.
-				<br/>
+                                <br/>
                      The implementation of the pressure drop computation as a function
                      of speed and volume flow rate has been revised to avoid a singularity 
                      near zero volume flow rate and zero speed.<br/>
@@ -414,6 +414,11 @@ that can lead to wrong simulation results):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
+
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody</td>
+    <td valign=\"top\">Fixed error in <code>if-then</code> statement that led to
+                       a selection of the wrong branch to compute the sky temperature.</td></tr>
 <tr><td colspan=\"2\"><b>Buildings.Media</b></td></tr>
 <tr><td valign=\"top\">Buildings.Media.PartialSimpleMedium</br>
                        Buildings.Media.GasesConstantDensity.SimpleAir</td>

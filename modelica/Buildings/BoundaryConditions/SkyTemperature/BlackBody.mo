@@ -1,8 +1,14 @@
 within Buildings.BoundaryConditions.SkyTemperature;
 block BlackBody "Calculate black body sky temperature"
   extends Modelica.Blocks.Interfaces.BlockIcon;
-  parameter Integer calTSky(min=0, max=1)
-    "0: Use radHor; 1: Use TDry, TDewPoi and nOpa";
+  import Buildings.BoundaryConditions.Types.SkyTemperatureCalculation;
+
+  parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation calTSky=
+    SkyTemperatureCalculation.TemperaturesAndSkyCover
+    "Computation of black-body sky temperature"
+    annotation(choicesAllMatching=true,
+               Evaluate=true);
+
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     final quantity="Temperature",
     final unit="K",
@@ -28,14 +34,14 @@ protected
   Modelica.SIunits.Emissivity epsSky "Black-body absorptivity of sky";
   Real nOpa10(min=0, max=10) "Opaque sky cover";
 algorithm
-  if calTSky == 1 then
-    TBlaSky := (radHor/Modelica.Constants.sigma)^0.25;
-  else
+  if calTSky == Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover then
     TDewPoiK := Buildings.Utilities.Math.Functions.smoothMin(TDryBul, TDewPoi, 0.1);
     nOpa10 := 10*nOpa "Input nOpa is scaled to [0,1] instead of [0,10]";
     epsSky := (0.787 + 0.764*Modelica.Math.log(-TDewPoiK/Modelica.Constants.T_zero))*(1 + 0.0224*nOpa10 -
       0.0035*(nOpa10^2) + 0.00028*(nOpa10^3));
     TBlaSky := TDryBul*(epsSky^0.25);
+  else
+    TBlaSky := (radHor/Modelica.Constants.sigma)^0.25;
   end if;
   annotation (
     defaultComponentName="TBlaSky",
@@ -50,6 +56,12 @@ Otherwise, it uses dry buld temperature, dew point temperature and opaque sky co
 </html>
 ", revisions="<html>
 <ul>
+<li>
+October 3, 2011, by Michael Wetter:<br>
+Used enumeration to set the sky temperature computation.
+Fixed error in <code>if-then</code> statement that led to
+a selection of the wrong branch to compute the sky temperature.
+</li>
 <li>
 March 16, 2011, by Michael Wetter:<br>
 Added types for parameters and attributes for variables. 
