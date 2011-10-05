@@ -13,8 +13,9 @@ model FlowMachine_y_pumpCurves
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false,
-    pressure(V_flow=2/1000*{0,m_flow_nominal/2,m_flow_nominal},
-             dp={2*dp_nominal,1.5*dp_nominal, 0})) "Declaration of pump model";
+    pressure(V_flow=2/1000*m_flow_nominal*{0.2, 0.4, 0.6, 0.8},
+                  dp=dp_nominal*{0.9, 0.85, 0.6, 0.2}))
+    "Declaration of pump model";
 
   pumpModel pum "Pump"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
@@ -45,9 +46,9 @@ model FlowMachine_y_pumpCurves
   Buildings.Fluid.Sources.Boundary_pT sou1(
     redeclare package Medium = Medium,
     use_p_in=false,
-    p(displayUnit="Pa") = 300000 + 0.01*dp_nominal,
-    T=293.15,
-    nPorts=4) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+    nPorts=4,
+    p(displayUnit="Pa") = 300000,
+    T=293.15) annotation (Placement(transformation(extent={{-10,-10},{10,10}},
           rotation=180,
         origin={128,88})));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp1(
@@ -76,7 +77,7 @@ model FlowMachine_y_pumpCurves
     dp_nominal=0.01*dp_nominal) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Constant
-                               y3(k=0.1) "Input signal"
+                               y3(k=0.05) "Input signal"
                  annotation (Placement(transformation(extent={{8,12},{28,32}},
           rotation=0)));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp4(

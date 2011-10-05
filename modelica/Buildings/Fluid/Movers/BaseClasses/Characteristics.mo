@@ -1,7 +1,5 @@
 within Buildings.Fluid.Movers.BaseClasses;
 package Characteristics "Functions for fan or pump characteristics"
- constant Real deltaLinear = 0.01
-    "Small value used to add a linear pressure drop";
 
   record flowParameters "Record for flow parameters"
     extends Modelica.Icons.Record;
@@ -103,6 +101,8 @@ First implementation.
     input Real delta "Small value used to transition to other fan curve";
     input Real cBar[2]
       "Coefficients for linear approximation of pressure vs. flow rate";
+    input Real kRes(unit="kg/(s.m4)")
+      "Linear coefficient for fan-internal pressure drop";
     output Modelica.SIunits.Pressure dp "Pressure raise";
 
   protected
@@ -162,7 +162,7 @@ First implementation.
                                                      delta=delta, cBar=cBar),
                                              x_small=delta/4);
     end if;
-    dp := dp - V_flow/V_flow_max*dpMax*deltaLinear;
+    dp := dp - V_flow*kRes;
     annotation(smoothOrder=1,
                 Documentation(info="<html>
 <p>

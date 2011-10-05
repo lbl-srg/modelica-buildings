@@ -39,16 +39,28 @@ protected
   parameter Real cBar[2](fixed=false)
     "Coefficients for linear approximation of pressure vs. flow rate";
   parameter Modelica.SIunits.Pressure dpMax(min=0, fixed=false);
+  parameter Real kRes(min=0, unit="kg/(s.m4)", fixed=false)
+    "Coefficient for internal pressure drop of fan or pump";
 
- parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pressureCor(V_flow=pressure.V_flow,
-   dp(fixed=false))
+  parameter Integer curve(min=1, max=3, fixed=false)
+    "Flag, used to pick the right representatio of the fan or pump pressure curve";
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pCur1(
+    V_flow(each fixed=false)=zeros(nOri), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
- parameter Real preDerCor[size(pressure.V_flow,1)]=Buildings.Utilities.Math.Functions.splineDerivatives(
-       x=pressureCor.V_flow, y=pressureCor.dp)
-    "Coefficients for polynomial of pressure vs. flow rate";
-
-  parameter Real preDer[size(pressure.V_flow,1)](fixed=false)
-    "Coefficients for polynomial of pressure vs. flow rate";
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pCur2(
+    V_flow(each fixed=false)=zeros(nOri+1), dp(each fixed=false))
+    "Volume flow rate vs. total pressure rise with correction for pump resistance added";
+  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pCur3(
+    V_flow(each fixed=false)=zeros(nOri+2), dp(each fixed=false))
+    "Volume flow rate vs. total pressure rise with correction for pump resistance added";
+  parameter Integer nOri = size(pressure.V_flow,1)
+    "Number of data points for pressure curve";
+  parameter Real preDer1[nOri](fixed=false)
+    "Derivatives of flow rate vs. pressure at the support points";
+  parameter Real preDer2[nOri+1](fixed=false)
+    "Derivatives of flow rate vs. pressure at the support points";
+  parameter Real preDer3[nOri+2](fixed=false)
+    "Derivatives of flow rate vs. pressure at the support points";
   parameter Real powDer[size(power.V_flow,1)]=
    if use_powerCharacteristic then
      Buildings.Utilities.Math.Functions.splineDerivatives(
@@ -57,6 +69,12 @@ protected
    else
      zeros(size(power.V_flow,1))
     "Coefficients for polynomial of pressure vs. flow rate";
+
+  parameter Boolean haveMinimumDecrease(fixed=false) "Flag used for reporting";
+  parameter Boolean haveDPMax(fixed=false)
+    "Flag, true if user specified data that contain dpMax";
+  parameter Boolean haveVMax(fixed=false)
+    "Flag, true if user specified data that contain V_flow_max";
 
   // Variables
   Modelica.SIunits.Density rho "Medium density";
@@ -70,7 +88,7 @@ function getPerformanceDataAsString
   output String str "String representation";
 algorithm
   str :="";
-  for i in 1:size(pressure.V_flow, 1) loop
+  for i in 1:size(derivative, 1) loop
     str :=str + "  V_flow[" + String(i) + "]=" + String(
         pressure.V_flow[i],
         minimumLength=minimumLength,
@@ -86,46 +104,145 @@ algorithm
   end for;
 end getPerformanceDataAsString;
 
-initial algorithm
-  // Pressure derivatives at support points
-  preDer:=Buildings.Utilities.Math.Functions.splineDerivatives(
-    x=pressure.V_flow,
-    y=pressure.dp);
-  // Note that if dpMax=0 in the function calls below, then the value of V_flow_max has no effect on the results.
-  // But we need to set V_flow_max to a non-zero number to avoid a division by zero.
+function getArrayAsString
+  input Real array[:] "Array to be printed";
+  input String varName "Variable name";
+  input Integer minimumLength =  6 "Minimum width of result";
+  input Integer significantDigits = 6 "Number of significant digits";
+  output String str "String representation";
+algorithm
+  str :="";
+  for i in 1:size(array, 1) loop
+    str :=str + "  " + varName + "[" + String(i) + "]=" + String(
+        array[i],
+        minimumLength=minimumLength,
+        significantDigits=significantDigits) + "\n";
+  end for;
+end getArrayAsString;
 
-  // Write warning if the volumetric flow rate versus pressure curve is non-decreasing
-  if (not Buildings.Utilities.Math.Functions.isMonotonic(x=pressure.dp, strict=false)) then
+initial algorithm
+  // Check validity of data
+  assert(size(pressure.V_flow, 1) > 1, "Must have at least two data points for pressure.V_flow.");
+  assert(Buildings.Utilities.Math.Functions.isMonotonic(x=pressure.V_flow, strict=true) and
+  pressure.V_flow[1] > -Modelica.Constants.eps,
+  "The volume flow rate for the fan pressure rise must be a strictly decreasing sequence
+  with the first element being non-zero.
+The following performance data have been entered:
+" + getArrayAsString(pressure.V_flow, "pressure.V_flow"));
+
+  // Check if V_flow_max or dpMax are provided by user
+  haveVMax  :=(abs(pressure.dp[nOri])   < Modelica.Constants.eps);
+  haveDPMax :=(abs(pressure.V_flow[1])  < Modelica.Constants.eps);
+  // Assign V_flow_max and dpMax
+  if haveVMax then
+    V_flow_max :=pressure.V_flow[nOri];
+  else
+    assert((pressure.V_flow[nOri]-pressure.V_flow[nOri-1])/((pressure.dp[nOri]-pressure.dp[nOri-1]))<0,
+    "The last two pressure points for the fan or pump performance curve must be decreasing.
+    You need to set more reasonable parameters.
+Received 
+" + getArrayAsString(pressure.dp, "dp"));
+    V_flow_max :=pressure.V_flow[nOri] - (pressure.V_flow[nOri] - pressure.V_flow[
+      nOri - 1])/((pressure.dp[nOri] - pressure.dp[nOri - 1]))*pressure.dp[nOri];
+  end if;
+  if haveDPMax then
+    dpMax :=pressure.dp[1];
+  else
+    dpMax :=pressure.dp[1] - ((pressure.dp[2] - pressure.dp[1])/(pressure.V_flow[
+      2] - pressure.V_flow[1]))*pressure.V_flow[1];
+  end if;
+
+  // Check if minimum decrease condition is satisfied
+  haveMinimumDecrease :=true;
+  kRes :=dpMax/V_flow_max*delta^2/10;
+  for i in 1:nOri-1 loop
+    if ((pressure.dp[i+1]-pressure.dp[i])/(pressure.V_flow[i+1]-pressure.V_flow[i]) >= -kRes) then
+      haveMinimumDecrease :=false;
+    end if;
+  end for;
+  // Write warning if the volumetric flow rate versus pressure curve does not satisfy
+  // the minimum decrease condition
+  if (not haveMinimumDecrease) then
     Modelica.Utilities.Streams.print("
 Warning:
 ========
 It is recommended that the volume flow rate versus pressure relation
-of the fan or pump is a decreasing sequence. Otherwise, a solution 
-to the equations may not exist if the fan or pump speed is reduced.
+of the fan or pump satisfies the minimum decrease condition
+
+        (pressure.dp[i+1]-pressure.dp[i])
+d[i] = ----------------------------------------- < " + String(-kRes) + "
+       (pressure.V_flow[i+1]-pressure.V_flow[i])
+ 
+is " + getArrayAsString({(pressure.dp[i+1]-pressure.dp[i])/(pressure.V_flow[i+1]-pressure.V_flow[i]) for i in 1:nOri-1}, "d") + "
+Otherwise, a solution to the equations may not exist if the fan or pump speed is reduced.
 In this situation, the solver will fail due to non-convergence and 
-the simulation stops.
-The following performance data have been entered:
-" + getPerformanceDataAsString(pressure, preDer));
+the simulation stops.");
   end if;
 
-  // Equation to compute V_flow_max.
-  assert(preDer[size(preDer,1)] < 0,
-  "The pump or fan pressure raise data are such that the performance curve
-  is increasing for flow rates greater than " + String(pressure.V_flow[size(preDer,1)]) + " m3/h.
-  This is not allowed. You need to provide more reasonable performance data than the following data:\n"
-    + getPerformanceDataAsString(pressure, preDer));
-
-  // Maximum flow rate if r_N=1 and dp=0.
-  // Since the spline use linear extrapolation, this can be simply computed using a linear function
-  V_flow_max :=pressure.V_flow[size(preDer, 1)] + pressure.dp[size(preDer, 1)]/
-    preDer[size(preDer, 1)];
+  // Correction for flow resistance of pump or fan
+  // Case 1:
+  if (haveVMax and haveDPMax) or (nOri == 2) then
+    curve :=1; // V_flow_max and dpMax are provided by the user, or we only have two data points
+    for i in 1:nOri loop
+      pCur1.dp[i]  :=pressure.dp[i] + pressure.V_flow[i] * kRes;
+      pCur1.V_flow[i] := pressure.V_flow[i];
+    end for;
+      pCur2.V_flow := zeros(nOri + 1);
+      pCur2.dp     := zeros(nOri + 1);
+      pCur3.V_flow := zeros(nOri + 2);
+      pCur3.dp     := zeros(nOri + 2);
+      preDer1:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur1.V_flow, y=pCur1.dp);
+      preDer2:=zeros(nOri+1);
+      preDer3:=zeros(nOri+2);
+  elseif haveVMax or haveDPMax then
+    curve :=2; // V_flow_max or dpMax is provided by the user, but not both
+    if haveVMax then
+      pCur2.V_flow[1] := 0;
+      pCur2.dp[1]     := dpMax;
+      for i in 1:nOri loop
+        pCur2.dp[i+1]  :=pressure.dp[i] + pressure.V_flow[i] * kRes;
+        pCur2.V_flow[i+1] := pressure.dp[i];
+      end for;
+    else
+      for i in 1:nOri loop
+        pCur2.dp[i]  :=pressure.dp[i] + pressure.V_flow[i] * kRes;
+        pCur2.V_flow[i] := pressure.V_flow[i];
+      end for;
+      pCur2.V_flow[nOri+1] := V_flow_max;
+      pCur2.dp[nOri+1]     := 0;
+    end if;
+    pCur1.V_flow := zeros(nOri);
+    pCur1.dp     := zeros(nOri);
+    pCur3.V_flow := zeros(nOri + 2);
+    pCur3.dp     := zeros(nOri + 2);
+    preDer1:=zeros(nOri);
+    preDer2:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur2.V_flow, y=pCur2.dp);
+    preDer3:=zeros(nOri+2);
+  else
+    curve :=3; // Neither V_flow_max nor dpMax are provided by the user
+    pCur3.V_flow[1] := 0;
+    pCur3.dp[1]     := dpMax;
+    for i in 1:nOri loop
+      pCur3.dp[i+1]  :=pressure.dp[i] + pressure.V_flow[i] * kRes;
+      pCur3.V_flow[i+1] := pressure.V_flow[i];
+    end for;
+    pCur3.V_flow[nOri+2] := V_flow_max;
+    pCur3.dp[nOri+2]     := 0;
+    pCur1.V_flow := zeros(nOri);
+    pCur1.dp     := zeros(nOri);
+    pCur2.V_flow := zeros(nOri + 1);
+    pCur2.dp     := zeros(nOri + 1);
+    preDer1:=zeros(nOri);
+    preDer2:=zeros(nOri+1);
+    preDer3:=Buildings.Utilities.Math.Functions.splineDerivatives(x=pCur3.V_flow, y=pCur3.dp);
+  end if;
 
   // Equation to compute VDelta_flow. By the affinity laws, the volume flow rate is proportional to the speed.
   VDelta_flow :=V_flow_max*delta;
 
   // Equation to compute dpDelta
   dpDelta :=cha.pressure(
-    data=pressure,
+    data=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3,
     V_flow=0,
     r_N=delta,
     VDelta_flow=0,
@@ -133,32 +250,15 @@ The following performance data have been entered:
     V_flow_max=Modelica.Constants.eps,
     dpMax=0,
     delta=0,
-    d=preDer,
-    cBar=zeros(2));
-
-  dpMax :=cha.pressure(
-    data=pressure,
-    V_flow=0,
-    r_N=1,
-    VDelta_flow=0,
-    dpDelta=0,
-    V_flow_max=Modelica.Constants.eps,
-    dpMax=0,
-    delta=0,
-    d=preDer,
-    cBar=zeros(2));
-
-  // Correction for flow resistance of pump or fan
-  for i in 1:size(pressure.V_flow, 1) loop
-    pressureCor.dp[i]  :=pressure.dp[i] + pressure.V_flow[i]/V_flow_max*dpMax*
-      Characteristics.deltaLinear;
-  end for;
+    d=if (curve == 1) then preDer1 elseif (curve == 2) then preDer2 else preDer3,
+    cBar=zeros(2),
+    kRes=  kRes);
 
   // Linear equations to determine cBar
   // Conditions for r_N=delta, V_flow = VDelta_flow
   // Conditions for r_N=delta, V_flow = 0
-  cBar[1] :=(cha.pressure(
-    data=pressureCor,
+  cBar[1] :=cha.pressure(
+    data=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3,
     V_flow=0,
     r_N=delta,
     VDelta_flow=0,
@@ -166,11 +266,12 @@ The following performance data have been entered:
     V_flow_max=Modelica.Constants.eps,
     dpMax=0,
     delta=0,
-    d=preDer,
-    cBar=zeros(2)) - delta*dpDelta)/delta^2;
+    d=if (curve == 1) then preDer1 elseif (curve == 2) then preDer2 else preDer3,
+    cBar=zeros(2),
+    kRes=  kRes) * (1-delta)/delta^2;
 
   cBar[2] :=((cha.pressure(
-    data=pressureCor,
+    data=if (curve == 1) then pCur1 elseif (curve == 2) then pCur2 else pCur3,
     V_flow=VDelta_flow,
     r_N=delta,
     VDelta_flow=0,
@@ -178,44 +279,113 @@ The following performance data have been entered:
     V_flow_max=Modelica.Constants.eps,
     dpMax=0,
     delta=0,
-    d=preDer,
-    cBar=zeros(2)) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
+    d=if (curve == 1) then preDer1 elseif (curve == 2) then preDer2 else preDer3,
+    cBar=zeros(2),
+    kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 equation
   r_N = N/N_nominal;
   r_V = VMachine_flow/V_flow_max;
   // For the homotopy method, we approximate dpMachine by an equation
   // that is linear in VMachine_flow, and that goes linearly to 0 as r_N goes to 0.
-  if homotopyInitialization then
-     dpMachine = homotopy(actual=cha.pressure(data=pressureCor,
+  // The three branches below are identical, except that we pass either
+  // pCur1, pCur2 or pCur3, and preDer1, preDer2 or preDer3
+  if (curve == 1) then
+    if homotopyInitialization then
+       dpMachine = homotopy(actual=cha.pressure(data=pCur1,
                                                     V_flow=VMachine_flow, r_N=r_N,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDerCor, cBar=cBar),
+                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes),
                           simplified=r_N*
-                              (cha.pressure(data=pressureCor,
+                              (cha.pressure(data=pCur1,
                                                     V_flow=V_flow_nominal, r_N=1,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDerCor, cBar=cBar)
+                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes)
                                +(VMachine_flow-V_flow_nominal)*
-                                (cha.pressure(data=pressureCor,
+                                (cha.pressure(data=pCur1,
                                                     V_flow=(1+delta)*V_flow_nominal, r_N=1,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDerCor, cBar=cBar)
-                                -cha.pressure(data=pressureCor,
+                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes)
+                                -cha.pressure(data=pCur1,
                                                     V_flow=(1-delta)*V_flow_nominal, r_N=1,
                                                     VDelta_flow=VDelta_flow, dpDelta=dpDelta,
                                                     V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDerCor, cBar=cBar))
+                                                    delta=delta, d=preDer1, cBar=cBar, kRes=kRes))
                                  /(2*delta*V_flow_nominal)));
 
-   else
-     dpMachine = cha.pressure(data=pressureCor,        V_flow=VMachine_flow, r_N=r_N,
-                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
-                                                    delta=delta, d=preDerCor, cBar=cBar);
-   end if;
+     else
+       dpMachine = cha.pressure(data=pCur1, V_flow=VMachine_flow, r_N=r_N,
+                                                VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
+                                                delta=delta, d=preDer1, cBar=cBar, kRes=kRes);
+     end if;
+     // end of computation for this branch
+   elseif (curve == 2) then
+    if homotopyInitialization then
+       dpMachine = homotopy(actual=cha.pressure(data=pCur2,
+                                                    V_flow=VMachine_flow, r_N=r_N,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes),
+                          simplified=r_N*
+                              (cha.pressure(data=pCur2,
+                                                    V_flow=V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes)
+                               +(VMachine_flow-V_flow_nominal)*
+                                (cha.pressure(data=pCur2,
+                                                    V_flow=(1+delta)*V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes)
+                                -cha.pressure(data=pCur2,
+                                                    V_flow=(1-delta)*V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer2, cBar=cBar, kRes=kRes))
+                                 /(2*delta*V_flow_nominal)));
 
+     else
+       dpMachine = cha.pressure(data=pCur2, V_flow=VMachine_flow, r_N=r_N,
+                                                VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
+                                                delta=delta, d=preDer2, cBar=cBar, kRes=kRes);
+     end if;
+     // end of computation for this branch
+  else
+    if homotopyInitialization then
+       dpMachine = homotopy(actual=cha.pressure(data=pCur3,
+                                                    V_flow=VMachine_flow, r_N=r_N,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes),
+                          simplified=r_N*
+                              (cha.pressure(data=pCur3,
+                                                    V_flow=V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes)
+                               +(VMachine_flow-V_flow_nominal)*
+                                (cha.pressure(data=pCur3,
+                                                    V_flow=(1+delta)*V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes)
+                                -cha.pressure(data=pCur3,
+                                                    V_flow=(1-delta)*V_flow_nominal, r_N=1,
+                                                    VDelta_flow=VDelta_flow, dpDelta=dpDelta,
+                                                    V_flow_max=V_flow_max, dpMax=dpMax,
+                                                    delta=delta, d=preDer3, cBar=cBar, kRes=kRes))
+                                 /(2*delta*V_flow_nominal)));
+
+     else
+       dpMachine = cha.pressure(data=pCur3, V_flow=VMachine_flow, r_N=r_N,
+                                                VDelta_flow=VDelta_flow, dpDelta=dpDelta, V_flow_max=V_flow_max, dpMax=dpMax,
+                                                delta=delta, d=preDer3, cBar=cBar, kRes=kRes);
+     end if;
+     // end of computation for this branch
+  end if;
   // Power consumption
   if use_powerCharacteristic then
     // For the homotopy, we want PEle/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
@@ -255,28 +425,48 @@ and efficiency of fans and pumps. It is used by the model
 <a href=\"modelica://Buildings.Fluids.Movers.BaseClasses.PrescribedFlowMachine\">PrescribedFlowMachine</a>.
 </p>
 <p>
-The nominal hydraulic characteristic (total pressure vs. volume flow rate) is given by the the replaceable function <code>flowCharacteristic</code>.
+The nominal hydraulic characteristic (volume flow rate versus total pressure) is given by a set of data points.
+A cubic hermite spline with linear extrapolation is used to compute the performance at other
+operating points.
 </p>
 <p>The fan or pump energy balance can be specified in two alternative ways: </p>
 <p>
 <ul>
 <li>
-If <code>use_powerCharacteristic = false</code>, the replaceable function
-<code>efficiencyCharacteristic</code>
-(efficiency vs. normalized volume flow rate) is used to determine the efficiency, 
+If <code>use_powerCharacteristic = false</code>, then the data points for
+normalized volume flow rate versus efficiency is used to determine the efficiency, 
 and then the power consumption. The default is a constant efficiency of 0.8.
 </li>
 <li>
-If <code>use_powerCharacteristic = true</code>, the replaceable function
-<code>powerCharacteristic</code> (power consumption vs. normalized volume flow rate 
-at nominal conditions) is used to determine the power consumption, and then the efficiency
+If <code>use_powerCharacteristic = true</code>, then the data points for
+normalized volume flow rate versus power consumption
+is used to determine the power consumption, and then the efficiency
 is computed based on the actual power consumption and the flow work. 
+</p>
+<h4>Implementation</h4>
+<p>
+For numerical reasons, the user-provided data points for volume flow rate 
+versus pressure rise are modified to add a fan internal flow resistance.
+Because this flow resistance is subtracted during the simulation when
+computing the fan pressure rise, the model reproduces the exact points 
+that were provided by the user.
+</p>
+<p>
+Also for numerical reasons, the pressure rise at zero flow rate and 
+the flow rate at zero pressure rise is added to the user-provided data,
+unless the user already provides these data points.
+Since Modelica 3.2 does not allow dynamic memory allocation, this 
+implementation required the use of three different arrays for the 
+situation where no additional point is added, where one additional
+point is added and where two additional points are added.
+The parameter <code>curve</code> causes the correct data record
+to be used during the simulation.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-August 25 2011, by Michael Wetter:<br>
+October 4 2011, by Michael Wetter:<br>
 Revised the implementation of the pressure drop computation as a function
 of speed and volume flow rate.
 The new implementation avoids a singularity near zero volume flow rate and zero speed.
