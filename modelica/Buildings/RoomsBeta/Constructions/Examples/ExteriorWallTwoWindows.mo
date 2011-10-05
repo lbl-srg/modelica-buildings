@@ -127,12 +127,12 @@ model ExteriorWallTwoWindows
   Modelica.Blocks.Sources.Constant QTra[nCon](each k=0)
     "Solar radiation absorbed by exterior shade"
     annotation (Placement(transformation(extent={{20,40},{40,60}})));
-  Buildings.HeatTransfer.Convection.Interior con1[
-                              1](A=A - AWin, til={Buildings.HeatTransfer.Types.Tilt.Wall})
+  Buildings.HeatTransfer.Convection.Interior con1[nCon](A=A - AWin,
+     each til=Buildings.HeatTransfer.Types.Tilt.Wall)
     "Model for heat convection"
     annotation (Placement(transformation(extent={{-38,-130},{-58,-110}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol4(
-                                                                   m=1)
+                                                                   m=nCon)
     "Thermal collector to link a vector of models to a single model"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
