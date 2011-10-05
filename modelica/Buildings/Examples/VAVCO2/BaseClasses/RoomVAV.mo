@@ -15,7 +15,8 @@ model RoomVAV "Model for CO2 emitted by people"
     redeclare package Medium = Medium,
     V=VRoo,
     nPorts=6,
-    m_flow_nominal=m_flow_nominal) "Room volume"
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room volume"
                           annotation (extent=[-10,-10; 10,10], Placement(
         transformation(extent={{-10,0},{10,20}})));
   Buildings.Fluid.Sensors.TraceSubstances senCO2(       redeclare package
@@ -33,7 +34,8 @@ model RoomVAV "Model for CO2 emitted by people"
     redeclare package Medium = Medium,
     V=VPle,
     nPorts=2,
-    m_flow_nominal=m_flow_nominal) "Plenum volume"
+    m_flow_nominal=m_flow_nominal,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Plenum volume"
                           annotation (extent=[-10,-70; 10,-50], Placement(
         transformation(extent={{-10,-10},{10,10}},
         rotation=90,
