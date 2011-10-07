@@ -14,5 +14,6 @@ initial equation
   assert(abs(longitude*180/Modelica.Constants.pi+87.92) < 1,
       "Error when parsing longitude, longitude = " + String(longitude));
 
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos" "Simulate and plot"));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos"
+        "Simulate and plot"));
 end GetHeaderElement;

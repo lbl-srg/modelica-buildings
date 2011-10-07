@@ -6,9 +6,9 @@ CheckWindSpeed
 ConvertRadiation
 ConvertRelativeHumidity
 ConvertTemperature
+ConvertTime
 EquationOfTime
 LocalCivilTime
-ConvertTime
 SolarTime
 getHeaderElementTMY3
 getLongitudeTMY3

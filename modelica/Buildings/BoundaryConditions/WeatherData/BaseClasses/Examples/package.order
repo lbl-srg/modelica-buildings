@@ -6,6 +6,7 @@ CheckWindSpeed
 ConvertRadiation
 ConvertRelativeHumidity
 ConvertTemperature
+ConvertTime
 EquationOfTime
 GetHeaderElement
 LocalCivilTime
