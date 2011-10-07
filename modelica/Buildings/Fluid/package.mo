@@ -36,12 +36,12 @@ of equations.
 <p>
 The flow resistance is computed as
 <p align=\"center\" style=\"font-style:italic;\">
-  k = m &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span> 
+  k = m&#775; &frasl; &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span> 
 </p>
-where <i>m</i> is the mass flow rate and <i>&Delta;p</i> is the pressure drop.
-For <i>|m| &lt; &delta;<sub>m</sub> m<sub>0</sub></i>, 
-where <i>&delta;<sub>m</sub></i> is a parameter and 
-<i>m<sub>0</sub></i> is the mass flow rate at the nominal operating point, the 
+where <i>m&#775;</i> is the mass flow rate and <i>&Delta;p</i> is the pressure drop.
+For <i>|m&#775;| &lt; &delta;<sub>m&#775;</sub> m&#775;<sub>0</sub></i>, 
+where <i>&delta;<sub>m&#775;</sub></i> is a parameter and 
+<i>m&#775;<sub>0</sub></i> is the mass flow rate at the nominal operating point, the 
 equation is linearized.
 The pressure drop is computed as a function of mass flow rate instead of
 volume flow rate as this often leads to fewer equations. Otherwise,
@@ -50,7 +50,7 @@ the pressure drop would depend on the density and hence on temperature.
 <p>
 The flow coefficient <i>k</i> is typically computed based
 on nominal values for the mass flow rate and the pressure drop, i.e.,
-<i>k = m<sub>0</sub> &frasl; &radic;&nbsp;&Delta;p<sub>0</sub> &nbsp;
+<i>k = m&#775;<sub>0</sub> &frasl; &radic;&nbsp;&Delta;p<sub>0</sub> &nbsp;
 </i>.
 This functional form has been used as in building HVAC systems, a more exact
 computation of the pressure drop would require detailed knowledge of the duct or pipe
@@ -62,9 +62,145 @@ Modelica.Fluid</a> can be used in conjuction with models from the <code>Building
 <p>
 In actuators such as valves and air dampers, <i>k</i> is a function of the control signal.
 </p>
-<h4>Computation of heat and mass balance</h4>
+<h4>Computation of mass and energy balance</h4>
 <p>
-fixme: add documentation.
+Most models have parameters  
+<code>massDynamics</code> and <code>energyDynamics</code>
+that allow using a dynamic or a 
+steady-state equation for the mass and energy balance.
+The table below shows the different settings and how they affect the 
+mass and energy balance equations.
+For the mass balance, the following configurations can be selected:
+</p>
+<p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+<th>Parameter</th>
+<th>Initialization problem<br/>
+    If density depends on pressure</th>
+<th>Initialization problem<br/>
+    If density is independent of pressure</th>
+<th>Equation used during time integration</th>
+</tr>
+<tr>
+  <td>DynamicsFreeInitial</td>
+  <td>Unspecified</td>
+  <td>Unspecified</td>
+  <td><i>dm(t)/dt = &sum; m&#775;(t)</i></td>
+</tr>
+<tr>
+  <td>FixedInitial</td>
+  <td><i>p(0)=p<sub>0</sub></i></td>
+  <td>Unspecified</td>
+  <td><i>dm(t)/dt = &sum; m&#775;(t)</i></td>
+</tr>
+<tr>
+  <td>SteadyStateInitial</td>
+  <td><i>dp(0)/dt</i></td>
+  <td>Unspecified</td>
+  <td><i>dm(t)/dt = &sum; m&#775;(t)</i></td>
+</tr>
+<tr>
+  <td>SteadyState</td>
+  <td>Unspecified</td>
+  <td>Unspecified</td>
+  <td><i>0 = &sum; m&#775;(t)</i></td>
+</tr>
+</table>
+</p>
+<p>
+where <i>m(t)</i> is the mass of the control volume,
+<i>m&#775;(t)</i> is the mass flow rate,
+<i>p</i> is the pressure and
+<i>p<sub>0</sub></i> is the initial pressure, which is a parameter.
+<i>Unspecified</i> means that no equation is declared for 
+<i>p(0)</i>. In this situation, there can be two cases:
+<ol>
+<li>
+If a system model sets the pressure, such as if the volume is connected
+to a model that sets the pressure, e.g.,
+<a href=\"modelica://Buildings.Fluid.Sources.FixedBoundary\">
+Buildings.Fluid.Sources.FixedBoundary</a>,
+then due to the connection between the models, the
+pressure of the volume is the same as the pressure of the 
+model for the boundary condition.
+</li>
+<li>
+If a system model does not set the pressure, then the pressure starts 
+at the value set by 
+<code>p(start=Medium.p_default)</code>, 
+where <code>Medium</code> is the medium model.
+</li>
+</ol>
+</p>
+<p>
+Similarly, for the energy balance, the following configurations can be selected:
+</p>
+<p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+<th>Parameter</th>
+<th>Initialization problem</th>
+<th>Equation used during time integration</th>
+</tr>
+<tr>
+  <td>DynamicsFreeInitial</td>
+  <td>Unspecified</td>
+  <td><i>dU(t)/dt = &sum; m&#775;(t) &nbsp; h(t) + &sum; Q&#775;(t)</i></td>
+</tr>
+<tr>
+  <td>FixedInitial</td>
+  <td><i>T(0)=T<sub>0</sub></i></td>
+  <td><i>dU(t)/dt = &sum; m&#775;(t) &nbsp; h(t) + &sum; Q&#775;(t)</i></td>
+</tr>
+<tr>
+  <td>SteadyStateInitial</td>
+  <td><i>dT(0)/dt=0</i></td>
+  <td><i>dU(t)/dt = &sum; m&#775;(t) &nbsp; h(t) + &sum; Q&#775;(t)</i></td>
+</tr>
+<tr>
+  <td>SteadyState</td>
+  <td>Unspecified</td>
+  <td><i>0 = &sum; m&#775;(t) &nbsp; h(t) + &sum; Q&#775;(t)</i></td>
+</tr>
+</table>
+<p>
+where <i>U(t)</i> is the internal energy of the control volume,
+<i>h(t)</i> is the enthalpy carried by the medium and
+<i>Q&#775;(t)</i> is the heat flow rate that is added to the medium through the heat port.
+<i>Unspecified</i> means that no equation is declared for 
+<i>T(0)</i>. In this situation, there can be two cases:
+<ol>
+<li>
+If a system model sets the temperature, such as if the heat port of the
+volume is connected to a fixed temperature,
+then <i>T(0)</i> of the volume would be equal to the temperature connected
+to this port.
+</li>
+<li>
+If a system model does not set the temperature, then the temperature starts 
+at the value <code>T(start=Medium.T_default)</code>, 
+where <code>Medium</code> is the medium model
+</li>
+</ol>
+</p>
+<p>
+In most models, the size of volume is configured using the parameter <code>tau</code>.
+This parameter is equal to the time constant that the volume has if the mass flow rate is 
+at its nominal value, as set by the parameter <code>m_flow_nominal</code>.
+Using the time constant, as opposed to the actual fluid volume, allows in many cases an
+easier parametrization, since the volume is automatically enlarged if the nominal mass
+flow rate is increased. This allows an easy adjustment of the component size.
+The actual size of the control volume is then set as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  V = m&#775;<sub>0</sub> &tau;/&rho;<sub>0</sub>
+</p>
+<p>
+where
+<i>m<sub>0</sub></i> is the nominal mass flow rate,
+<i>&tau;</i> is the time constant, and
+<i>&rho;<sub>0</sub></i> is the mass density at the nominal condition.
 </p>
 </html>"));
 
