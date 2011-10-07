@@ -1,0 +1,1 @@
+simulateModel("Buildings.Rooms.BaseClasses.Examples.RadiationTemperature", method="dassl", resultFile="RadiationTemperature");

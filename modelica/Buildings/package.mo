@@ -458,17 +458,17 @@ that can lead to wrong simulation results):
                        For this medium, the function is <code>u=h-p/dStp</code>.
 </td></tr>
 
-<tr><td colspan=\"2\"><b>Buildings.RoomsBeta</b></td></tr>
-<tr><td valign=\"top\">Buildings.RoomsBeta.MixedAir</br>
-                     Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditions</td>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir</br>
+                     Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions</td>
     <td valign=\"top\">Fixed bug (<a href=\"https://corbu.lbl.gov/trac/bie/ticket/35\">ticket 35</a>) 
                      that leads to the wrong solar heat gain for
                      roofs and for floors. Prior to this bug fix, the outside facing surface
                      of a ceiling received solar irradiation as if it were a floor 
                      and vice versa.</td></tr>
 </td></tr>
-<tr><td valign=\"top\">Buildings.RoomsBeta.MixedAir</br>
-                     Buildings.RoomsBeta.BaseClasses.ExteriorBoundaryConditionsWithWindow</td>
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir</br>
+                     Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</td>
     <td valign=\"top\">Fixed bug (<a href=\"https://corbu.lbl.gov/trac/bie/ticket/36\">ticket 36</a>) 
                      that leads to too high a surface temperature of the window frame when
                      it receives solar radiation. The previous version did not compute 
@@ -509,7 +509,7 @@ have been fixed:
     </td>
 </tr>
 
-<tr><td colspan=\"2\"><b>Buildings.RoomsBeta</b></td></tr>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
 <tr><td valign=\"top\">
     <a href=\"https://corbu.lbl.gov/trac/bie/ticket/35\">#35</a></td>
     <td valign=\"top\">
@@ -560,10 +560,10 @@ that can lead to wrong simulation results):
 </p>
 <p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-  <tr><td colspan=\"2\"><b>Buildings.RoomsBeta</b></td></tr>
-  <tr><td valign=\"top\"><a href=\"modelica://Buildings.RoomsBeta.BaseClasses.InfraredRadiationExchange\">
-  Buildings.RoomsBeta.BaseClasses.InfraredRadiationExchange</a></td>
-      <td valign=\"top\">The model <code>Buildings.RoomsBeta.BaseClasses.InfraredRadiationExchange</code>
+  <tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
+  <tr><td valign=\"top\"><a href=\"modelica://Buildings.Rooms.BaseClasses.InfraredRadiationExchange\">
+  Buildings.Rooms.BaseClasses.InfraredRadiationExchange</a></td>
+      <td valign=\"top\">The model <code>Buildings.Rooms.BaseClasses.InfraredRadiationExchange</code>
       had an error in the view factor approximation. 
       The error caused too much radiosity to flow from large to small surfaces because the law of reciprocity 
       for view factors was not satisfied. This led to low surface temperatures if a surface had a large area 
@@ -625,16 +625,16 @@ are still being validated.
 <ul>
 <li>
 Added the package 
-<a href=\"modelica://Buildings.RoomsBeta\">
-Buildings.RoomsBeta</a> to compute heat transfer in rooms
+<a href=\"modelica://Buildings.Rooms\">
+Buildings.Rooms</a> to compute heat transfer in rooms
 and through the building envelope. 
 Multiple instances of these models can be connected to create
 a multi-zone building model.
 </li>
 <li>
 Added the package
-<a href=\"modelica://Buildings.HeatTransfer.WindowsBeta\">
-Buildings.HeatTransfer.WindowsBeta</a>
+<a href=\"modelica://Buildings.HeatTransfer.Windows\">
+Buildings.HeatTransfer.Windows</a>
 to compute heat transfer (solar radiation, infrared radiation,
 convection and conduction) through glazing systems.
 </li>
@@ -1459,7 +1459,7 @@ The development of the Buildings library is organized by<br>
   The <a href=\"modelica://Buildings.Airflow.Multizone\">package for multizone airflow modeling</a>
   and the <a href=\"modelica://Buildings.Utilities.Comfort.Fanger\">model for thermal comfort</a>
   was contributed by the United Technologies Research Center, which also contributed to the
-  validation of the <a href=\"modelica://Buildings.RoomsBeta.MixedAir\">room heat transfer model</a>.
+  validation of the <a href=\"modelica://Buildings.Rooms.MixedAir\">room heat transfer model</a>.
 </p>
 <p>
 We thank Dietmar Winkler from Telemark University College for the various feedback that 

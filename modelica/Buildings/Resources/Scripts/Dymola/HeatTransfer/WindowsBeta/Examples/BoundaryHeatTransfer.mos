@@ -1,1 +1,0 @@
-simulateModel("Buildings.HeatTransfer.WindowsBeta.Examples.BoundaryHeatTransfer", method="dassl", resultFile="BoundaryHeatTransfer");

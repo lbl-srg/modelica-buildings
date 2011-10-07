@@ -1145,8 +1145,8 @@ The HVAC system is a dual-fan, dual-duct system with economizer and a heating an
 </p>
 <p>
 To model the heat transfer through the building envelope, a model of five interconnected rooms has been implemented, using the thermal room model 
-<a href=\"modelica://Buildings.RoomsBeta.MixedAir\">
-Buildings.RoomsBeta.MixedAir</a>. 
+<a href=\"modelica://Buildings.Rooms.MixedAir\">
+Buildings.Rooms.MixedAir</a>. 
 The five room model is representative of one floor of the new construction medium office building for Chicago, IL, as described in the set of DOE Commercial Building Benchmarks (Deru et al, 2009). There are four perimeter zones and one core zone. The envelope thermal properties meet ASHRAE Standard 90.1-2004.
 </p>
 <p>

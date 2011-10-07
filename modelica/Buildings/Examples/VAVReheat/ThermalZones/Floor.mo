@@ -70,7 +70,7 @@ model Floor "Model of a floor of the building"
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{240,460},{260,480}})));
   constant Modelica.SIunits.Height hRoo=2.74 "Room height";
-  RoomsBeta.MixedAir per1(
+  Rooms.MixedAir per1(
     redeclare package Medium = Medium,
     lat=lat,
     AFlo=568.77/hRoo,
@@ -99,7 +99,7 @@ model Floor "Model of a floor of the building"
     nPorts=5,
     intConMod=intConMod) "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
-  RoomsBeta.MixedAir per2(
+  Rooms.MixedAir per2(
     redeclare package Medium = Medium,
     lat=lat,
     AFlo=360.0785/hRoo,
@@ -133,7 +133,7 @@ model Floor "Model of a floor of the building"
     nPorts=5,
     intConMod=intConMod) "East zone"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
-  RoomsBeta.MixedAir per3(
+  Rooms.MixedAir per3(
     redeclare package Medium = Medium,
     lat=lat,
     AFlo=568.77/hRoo,
@@ -162,7 +162,7 @@ model Floor "Model of a floor of the building"
     nPorts=5,
     intConMod=intConMod) "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
-  RoomsBeta.MixedAir per4(
+  Rooms.MixedAir per4(
     redeclare package Medium = Medium,
     lat=lat,
     AFlo=360.0785/hRoo,
@@ -196,7 +196,7 @@ model Floor "Model of a floor of the building"
     nPorts=5,
     intConMod=intConMod) "West zone"
     annotation (Placement(transformation(extent={{12,36},{52,76}})));
-  RoomsBeta.MixedAir cor(
+  Rooms.MixedAir cor(
     redeclare package Medium = Medium,
     lat=lat,
     AFlo=2698/hRoo,

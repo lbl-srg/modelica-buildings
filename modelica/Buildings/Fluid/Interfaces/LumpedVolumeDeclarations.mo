@@ -56,10 +56,10 @@ These parameters are used by
 Buildings.Fluid.Interfaces.LumpedVolume</a>,
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>,
-<a href=\"modelica://Buildings.RoomsBeta.MixedAir\">
-Buildings.RoomsBeta.MixedAir</a>, and by
-<a href=\"modelica://Buildings.RoomsBeta.BaseClasses.MixedAir\">
-Buildings.RoomsBeta.BaseClasses.MixedAir</a>.
+<a href=\"modelica://Buildings.Rooms.MixedAir\">
+Buildings.Rooms.MixedAir</a>, and by
+<a href=\"modelica://Buildings.Rooms.BaseClasses.MixedAir\">
+Buildings.Rooms.BaseClasses.MixedAir</a>.
 </p>
 </html>",
 revisions="<html>

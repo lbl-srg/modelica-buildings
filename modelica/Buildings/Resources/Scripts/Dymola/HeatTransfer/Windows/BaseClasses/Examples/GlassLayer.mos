@@ -1,0 +1,14 @@
+simulateModel("Buildings.HeatTransfer.Windows.BaseClasses.Examples.GlassLayer", method="dassl", resultFile="GlassLayer");
+createPlot(id = 1,
+ position = {35, 30, 400, 280},
+ y = {"TAirOut.T", "TRadOut.T", "nonSha.port_a.T", "nonSha.port_b.T", "sha.port_a.T", "sha.port_b.T", "TAirRoo.T"},
+ range = {0, 1, 25.0, -5.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "GlassLayer.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+

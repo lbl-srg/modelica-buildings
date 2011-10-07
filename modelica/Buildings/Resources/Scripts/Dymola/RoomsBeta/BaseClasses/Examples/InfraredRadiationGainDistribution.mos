@@ -1,1 +1,0 @@
-simulateModel("Buildings.RoomsBeta.BaseClasses.Examples.InfraredRadiationGainDistribution", method="dassl", resultFile="InfraredRadiationGainDistribution");
