@@ -1,6 +1,6 @@
 within Buildings.Examples.ChillerPlant;
 model PrimaryOnlyWithEconomizer
-  "Chiller plant system with water side economizer for data center"
+  "Chiller plant with water side economizer for data center"
   extends Modelica.Icons.Example;
   package MediumAir = Buildings.Media.GasesPTDecoupled.SimpleAir "Medium model";
   package MediumCHW = Buildings.Media.ConstantPropertyLiquidWater

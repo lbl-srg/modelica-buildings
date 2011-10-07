@@ -1,6 +1,6 @@
 within Buildings.Examples.VAVCO2;
 model VAVSystemCTControl
-  "VAV system model of MIT building with continuous time control for static pressure reset"
+  "Variable air volume flow system of MIT building with continuous time control for static pressure reset"
   extends Modelica.Icons.Example;
  package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});
  parameter Modelica.SIunits.MassFlowRate mMIT_flow = roo.m0Tot_flow

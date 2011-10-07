@@ -1,5 +1,6 @@
 within Buildings.Examples.VAVReheat;
-model ClosedLoop "Closed loop model of variable air volume flow system"
+model ClosedLoop
+  "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.Example;
   // fixme package MediumA = Modelica.Media.Air.MoistAir;
   // works package MediumA = Buildings.Media.PerfectGases.MoistAir;

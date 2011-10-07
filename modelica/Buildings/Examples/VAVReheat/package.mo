@@ -1,6 +1,8 @@
 within Buildings.Examples;
-package VAVReheat "VAV system with reheat for five zones"
+package VAVReheat "Variable air volume flow system with terminal reheat and five thermal zones"
   extends Modelica.Icons.ExamplesPackage;
+
+
 
 
 annotation ();
