@@ -41,7 +41,7 @@ algorithm
       QL_flow := Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues(
         table=table, iX=iSam, x=Q_flow, iY=iSam+1-i);
       QU_flow := Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues(
-        table=table, iX=iSam, x=Q_flow, iY=iSam-i); // fixme: check index
+        table=table, iX=iSam, x=Q_flow, iY=iSam-i);
       // The division by hSeg is because QU_flow and QL_flow are in [W], but the equation
       // requires [W/m], i.e., heat flow rate per unit length of the line source.
       dT := dT + 1/(4*Modelica.Constants.pi*k)*
