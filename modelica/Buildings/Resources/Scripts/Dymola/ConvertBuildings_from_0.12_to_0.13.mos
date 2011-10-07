@@ -1,6 +1,6 @@
 // Conversion script for Buildings library
-//  from: Version 0.11.0
-//  to:   Version 0.12.0
+//  from: Version 0.12.0
+//  to:   Version 0.13.0
 clear
 
 convertClear();
@@ -18,3 +18,6 @@ convertElement({Buildings.Utilities.Reports.Printer,
 convertElement({Buildings.Utilities.Reports.Printer,
                 Buildings.Utilities.Reports.printRealArray},
                 "precision", "significantDigits");
+
+convertClass("Buildings.RoomsBeta", "Buildings.Rooms");
+convertClass("Buildings.WindowsBeta", "Buildings.Windows");
