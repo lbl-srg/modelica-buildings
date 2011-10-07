@@ -224,7 +224,6 @@ protected
     "Mass flow rate sensor"              annotation (Placement(transformation(
           extent={{82,-66},{70,-54}}, rotation=0)));
 public
-  // fixme: review parameter name ductConnectionDynamics
   parameter Modelica.Fluid.Types.Dynamics ductConnectionDynamics=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for duct connection"
