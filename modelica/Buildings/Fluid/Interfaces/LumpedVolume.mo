@@ -61,7 +61,6 @@ model LumpedVolume "Lumped volume with mass and energy balance"
     "Leaving species concentration of the component";
   Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](unit="1")
     "Leaving trace substances of the component";
-  // fixme: should this be set to false to avoid fast pressure transients?
 protected
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure";
