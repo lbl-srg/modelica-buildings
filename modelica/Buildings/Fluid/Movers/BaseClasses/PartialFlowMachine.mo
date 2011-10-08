@@ -4,7 +4,7 @@ partial model PartialFlowMachine
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   import Modelica.Constants;
 
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(show_T=true,
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(show_T=false,
     port_a(
       h_outflow(start=h_outflow_start),
       final m_flow(min = if allowFlowReversal then -Constants.inf else 0)),

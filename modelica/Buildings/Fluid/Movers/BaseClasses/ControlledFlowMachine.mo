@@ -2,7 +2,7 @@ within Buildings.Fluid.Movers.BaseClasses;
 model ControlledFlowMachine
   "Partial model for fan or pump with ideally controlled mass flow rate or head as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
-   final show_V_flow = true,
+   final show_V_flow = false,
    preSou(final control_m_flow=control_m_flow));
 
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
