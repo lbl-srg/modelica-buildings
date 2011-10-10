@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 partial model PartialEffectiveness
   "Partial model to implement heat exchangers based on effectiveness model"
-  extends Fluid.Interfaces.StaticFourPortHeatMassExchanger(final show_T=true);
+  extends Fluid.Interfaces.StaticFourPortHeatMassExchanger(show_T=false);
 
   Modelica.SIunits.Temperature T_in1 "Inlet temperature medium 1";
   Modelica.SIunits.Temperature T_in2 "Inlet temperature medium 2";
@@ -116,6 +116,10 @@ and <code>QMax_flow &gt; 0</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2011, by Michael Wetter:<br>
+Set <code>show_T=false</code> to avoid state events near zero flow.
+</li>
 <li>
 August 31, 2011, by Michael Wetter:<br>
 Removed unused variables <code>gai1</code> and <code>gai2</code>.

@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers;
 model DryCoilDiscretized
   "Coil with discretization along the flow paths and no humidity condensation"
-  extends Fluid.Interfaces.PartialFourPortInterface(show_T=true);
+  extends Fluid.Interfaces.PartialFourPortInterface(show_T=false);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
     final computeFlowResistance1=true,
     final computeFlowResistance2=true,
@@ -358,6 +358,10 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2010, by Michael Wetter:<br>
+Set <code>show_T=false</code> to avoid state events near zero flow.
+</li>
 <li>
 March 24, 2011, by Michael Wetter:<br>
 Replaced integer division <code>nReg/2</code> by <code>div(nReg,2)</code>

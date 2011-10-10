@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers;
 model DryCoilCounterFlow
   "Counterflow coil with discretization along the flow paths and without humidity condensation"
-  extends Fluid.Interfaces.PartialFourPortInterface(show_T=true);
+  extends Fluid.Interfaces.PartialFourPortInterface(show_T=false);
   extends Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters(
     final computeFlowResistance1=false,
     final computeFlowResistance2=false,
@@ -235,6 +235,10 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2011, by Michael Wetter:<br>
+Set <code>show_T=false</code> to avoid state events near zero flow.
+</li>
 <li>
 May 27, 2010, by Michael Wetter:<br>
 First implementation.
