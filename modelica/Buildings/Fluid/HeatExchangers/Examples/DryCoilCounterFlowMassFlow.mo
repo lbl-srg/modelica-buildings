@@ -12,6 +12,7 @@ model DryCoilCounterFlowMassFlow
   DryCoilCounterFlow hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
+    show_T=true,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     dp2_nominal(displayUnit="Pa") = 200,
