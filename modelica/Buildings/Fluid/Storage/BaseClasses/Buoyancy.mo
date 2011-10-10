@@ -29,7 +29,7 @@ protected
 equation
   for i in 1:nSeg-1 loop
     dT[i] = heatPort[i+1].T-heatPort[i].T;
-    Q_flow[i] = k*smooth(1, if dT[i]>0 then dT[i]^2 else 0);
+    Q_flow[i] = k*noEvent(smooth(1, if dT[i]>0 then dT[i]^2 else 0));
   end for;
 
   heatPort[1].Q_flow = -Q_flow[1];
@@ -47,6 +47,13 @@ associated with the buoyancy induced mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 8, 2011 by Michael Wetter:<br>
+Added <code>noEvent(...)</code> to
+<code>Q_flow[i] = k*smooth(1, if dT[i]>0 then dT[i]^2 else 0);</code>
+since the equation returns the same value to the left and right of 
+<code>dT[i]>0</code>.
+</li>
 <li>
 September 16, 2011 by Michael Wetter:<br>
 Changed the implementation from <code>Q_flow[i] = k*max(heatPort[i+1].T-heatPort[i].T, 0);</code> to
