@@ -93,6 +93,7 @@ model DryEffectivenessNTUPControl
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
+    show_T=true,
     m1_flow_nominal=m1_flow_nominal,
     m2_flow_nominal=m2_flow_nominal,
     Q_flow_nominal=m1_flow_nominal*4200*(T_a1_nominal-T_b1_nominal),
@@ -159,5 +160,6 @@ equation
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{200,200}}), graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTUPControl.mos" "Simulate and plot"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTUPControl.mos"
+        "Simulate and plot"));
 end DryEffectivenessNTUPControl;

@@ -87,6 +87,7 @@ model DryCoilDiscretizedPControl
   Buildings.Fluid.HeatExchangers.DryCoilDiscretized hex(
     redeclare package Medium1 = Medium1,
     redeclare package Medium2 = Medium2,
+    show_T=true,
     nPipPar=1,
     nPipSeg=3,
     nReg=4,

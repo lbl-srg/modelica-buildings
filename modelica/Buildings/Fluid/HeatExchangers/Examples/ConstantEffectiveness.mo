@@ -55,6 +55,7 @@ model ConstantEffectiveness
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness hex(redeclare package
       Medium1 =
         Medium1, redeclare package Medium2 = Medium2,
+    show_T=true,
     m1_flow_nominal=5,
     m2_flow_nominal=5,
     dp1_nominal=500,
@@ -111,5 +112,6 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/ConstantEffectiveness.mos" "Simulate and plot"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/ConstantEffectiveness.mos"
+        "Simulate and plot"));
 end ConstantEffectiveness;
