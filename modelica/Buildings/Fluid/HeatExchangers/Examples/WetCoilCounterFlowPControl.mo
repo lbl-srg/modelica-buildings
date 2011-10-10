@@ -85,7 +85,8 @@ model WetCoilCounterFlowPControl
         T_a1_nominal,
         T_b1_nominal,
         T_a2_nominal,
-        T_b2_nominal))       annotation (Placement(transformation(extent={{60,
+        T_b2_nominal),
+    show_T=true)             annotation (Placement(transformation(extent={{60,
             16},{80,36}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));

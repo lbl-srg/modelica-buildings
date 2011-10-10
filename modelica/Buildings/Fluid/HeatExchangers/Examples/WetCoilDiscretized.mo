@@ -30,7 +30,8 @@ model WetCoilDiscretized
         T_a1_nominal,
         T_b1_nominal,
         T_a2_nominal,
-        T_b2_nominal))   annotation (Placement(transformation(extent={{8,-4},{
+        T_b2_nominal),
+    show_T=true)         annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2,
@@ -114,5 +115,6 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretized.mos" "Simulate and plot"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretized.mos"
+        "Simulate and plot"));
 end WetCoilDiscretized;

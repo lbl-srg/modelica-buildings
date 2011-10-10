@@ -74,9 +74,10 @@ model DryEffectivenessNTU
     m1_flow_nominal=m1_flow,
     m2_flow_nominal=m2_flow,
     Q_flow_nominal=m2_flow*cp2*(24 - 20),
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow,
+    show_T=true,
     T_a1_nominal=303.15,
-    T_a2_nominal=293.15,
-    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.ParallelFlow)
+    T_a2_nominal=293.15)
     annotation (Placement(transformation(extent={{-10,40},{10,60}},
                                                                   rotation=0)));
 
@@ -92,9 +93,10 @@ model DryEffectivenessNTU
     m1_flow_nominal=m1_flow,
     m2_flow_nominal=m2_flow,
     Q_flow_nominal=m2_flow*cp2*(24 - 20),
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
+    show_T=true,
     T_a1_nominal=303.15,
-    T_a2_nominal=293.15,
-    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow)
+    T_a2_nominal=293.15)
     annotation (Placement(transformation(extent={{-10,0},{10,20}},rotation=0)));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroC1Mix(
     redeclare package Medium1 = Medium1,
@@ -104,9 +106,10 @@ model DryEffectivenessNTU
     m1_flow_nominal=m1_flow,
     m2_flow_nominal=m2_flow,
     Q_flow_nominal=m2_flow*cp2*(24 - 20),
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed,
+    show_T=true,
     T_a1_nominal=303.15,
-    T_a2_nominal=293.15,
-    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1MixedStream2Unmixed)
+    T_a2_nominal=293.15)
     annotation (Placement(transformation(extent={{-10,-28},{10,-8}},
                                                                   rotation=0)));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroC1Unm(
@@ -117,9 +120,10 @@ model DryEffectivenessNTU
     m1_flow_nominal=m1_flow,
     m2_flow_nominal=m2_flow,
     Q_flow_nominal=m2_flow*cp2*(24 - 20),
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed,
+    show_T=true,
     T_a1_nominal=303.15,
-    T_a2_nominal=293.15,
-    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowStream1UnmixedStream2Mixed)
+    T_a2_nominal=293.15)
     annotation (Placement(transformation(extent={{-10,-58},{10,-38}},
                                                                   rotation=0)));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hexCroUnm(
@@ -130,9 +134,10 @@ model DryEffectivenessNTU
     m1_flow_nominal=m1_flow,
     m2_flow_nominal=m2_flow,
     Q_flow_nominal=m2_flow*cp2*(24 - 20),
+    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed,
+    show_T=true,
     T_a1_nominal=303.15,
-    T_a2_nominal=293.15,
-    configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CrossFlowUnmixed)
+    T_a2_nominal=293.15)
     annotation (Placement(transformation(extent={{-10,-86},{10,-66}},
                                                                   rotation=0)));
   Modelica.Blocks.Sources.Trapezoid trapezoid(
@@ -247,5 +252,6 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTU.mos" "Simulate and plot"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTU.mos"
+        "Simulate and plot"));
 end DryEffectivenessNTU;

@@ -30,7 +30,8 @@ model DryCoilDiscretized
         T_a2_nominal,
         T_b2_nominal),
     dp2_nominal=200,
-    dp1_nominal=5000)          annotation (Placement(transformation(extent={{8,-4},{
+    dp1_nominal=5000,
+    show_T=true)               annotation (Placement(transformation(extent={{8,-4},{
             28,16}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
       package Medium = Medium2, T=303.15,
@@ -122,5 +123,6 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilDiscretized.mos" "Simulate and plot"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilDiscretized.mos"
+        "Simulate and plot"));
 end DryCoilDiscretized;
