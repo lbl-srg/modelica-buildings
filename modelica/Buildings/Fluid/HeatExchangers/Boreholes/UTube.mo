@@ -51,12 +51,10 @@ model UTube
     "Temperature of the undisturbed ground"
     annotation (Dialog(tab="Initial temperature", group="Filling material"));
 
-  // fixme: Isn't 50 meters too large?
-
-  parameter Modelica.SIunits.Height z0=50
+  parameter Modelica.SIunits.Height z0=10
     "Depth below which the temperature gradient starts"
     annotation (Dialog(tab="Initial temperature", group="Temperature profile"));
-  parameter Real dT_dz(unit="K/m") = 0.015
+  parameter Real dT_dz(unit="K/m") = 0.01
     "Vertical temperature gradient of the undisturbed soil for h below z0"
     annotation (Dialog(tab="Initial temperature", group="Temperature profile"));
 
@@ -241,6 +239,9 @@ is computed
 as a function of the depth <i>z &gt; 0</i>. 
 For a depth between <i>0 &le; z &le; z<sub>0</sub></i>, the temperature
 is set to <i>T<sub>ext,0,start</sub></i>. 
+The value of <i>z<sub>0</sub></i> is a parameter with a default of 10 meters.
+However, there is large variability in the depth where the undisturbed soil temperature
+starts.
 For a depth of <i>z<sub>0</sub> &le; z &le; h<sub>bor</sub></i>,
 the temperature is computed as
 </p>
@@ -249,6 +250,8 @@ the temperature is computed as
 </p>
 with <i>i &isin; {1, ..., n<sub>ver</sub>}</i>,
 where the temperature gradient <i>dT &frasl; dz &ge; 0</i> is a parameter.
+As with <i>z<sub>0</sub></i>, there is large variability in 
+<i>dT &frasl; dz &ge; 0</i>. The default value is set to <i>1</i> Kelvin per 100 meters.
 For the temperature of the grout, the same equations are applied, with
 <i>T<sub>ext,0,start</sub></i> replaced with
 <i>T<sub>fil,0,start</sub></i>, and 
