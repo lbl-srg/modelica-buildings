@@ -71,8 +71,8 @@ class Simulator:
         :param statement: A script statement.
 
         Usage: Type
-           >>> from buildingspy.simulate.Simulator import Sim
-           >>> s=Sim("myPackage.myModel", "dymola")
+           >>> from buildingspy.simulate.Simulator import Simulator
+           >>> s=Simulator("myPackage.myModel", "dymola")
            >>> s.addPreProcessingStatement("Advanced.StoreProtectedVariables:= true;")
            >>> s.addPreProcessingStatement("Advanced.GenerateTimers = true;")
 
@@ -89,8 +89,8 @@ class Simulator:
         :param dictionary: A dictionary with the parameter values
 
         Usage: Type
-           >>> from buildingspy.simulate.Simulator import Sim
-           >>> s=Sim("myPackage.myModel", "dymola")
+           >>> from buildingspy.simulate.Simulator import Simulator
+           >>> s=Simulator("myPackage.myModel", "dymola")
            >>> s.addParameters({'PID.k': 1.0, 'valve.m_flow_nominal' : 0.1})
            >>> s.addParameters({'PID.t': 10.0})
 
@@ -106,8 +106,8 @@ class Simulator:
         :return: A list of parameters as (key, value)-tuples.
 
         Usage: Type
-           >>> from buildingspy.simulate.Simulator import Sim
-           >>> s=Sim("myPackage.myModel", "dymola")
+           >>> from buildingspy.simulate.Simulator import Simulator
+           >>> s=Simulator("myPackage.myModel", "dymola")
            >>> s.addParameters({'PID.k': 1.0, 'valve.m_flow_nominal' : 0.1})
            >>> s.getParameters()
 
@@ -130,8 +130,8 @@ class Simulator:
         :param dictionary: A model modifier.
 
         Usage: Type
-           >>> from buildingspy.simulate.Simulator import Sim
-           >>> s=Sim("myPackage.myModel", "dymola")
+           >>> from buildingspy.simulate.Simulator import Simulator
+           >>> s=Simulator("myPackage.myModel", "dymola")
            >>> s.addModelModifier('redeclare package MediumA = Buildings.Media.IdealGases.SimpleAir')
 
         This method adds a model modifier. The modifier is added to the list
@@ -150,8 +150,8 @@ class Simulator:
         :return: A list of parameters (key, value) pairs, as 2-tuples.
 
         Usage: Type
-           >>> from buildingspy.simulate.Simulator import Sim
-           >>> s=Sim("myPackage.myModel", "dymola")
+           >>> from buildingspy.simulate.Simulator import Simulator
+           >>> s=Simulator("myPackage.myModel", "dymola")
            >>> s.add({'PID.k': 1.0, 'valve.m_flow_nominal' : 0.1})
            >>> s.getSimulatorSettings()
 
