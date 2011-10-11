@@ -454,7 +454,7 @@ class Simulator:
         # List of command and arguments
         if self.__showGUI:
             cmd=[self.__MODELICA_EXE, mosFile]
-        else
+        else:
             cmd=[self.__MODELICA_EXE, mosFile, "/nowindow"]
 #        cmd=[self.__MODELICA_EXE, mosFile]
 #        cmd=["sleep", "1"]
