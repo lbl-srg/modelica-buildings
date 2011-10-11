@@ -38,6 +38,7 @@ class Simulator:
         self.__MODELICA_EXE='dymola'
         self.__reporter = reporter.Reporter(directory=outputDirectory)
         self.__showProgressBar = True
+        self.__showGUI = False;
 
 
     def __createDirectory(self, directoryName):
@@ -344,6 +345,14 @@ class Simulator:
             except OSError as e:
                 self.__reporter.writeError("Failed to delete '" + fil + "' : " + e.strerror)
 
+    def showGUI(self, show=True):
+        ''' Call this function to show the GUI of the simulator.
+        
+        By default, the simulator runs without GUI
+        '''
+        self.__showGUI = show;
+        return
+
     def printModelAndTime(self):
         ''' Prints the current time and the model name to the standard output.
         
@@ -443,7 +452,10 @@ class Simulator:
         import os
 
         # List of command and arguments
-        cmd=[self.__MODELICA_EXE, mosFile, "/nowindow"]
+        if self.__showGUI:
+            cmd=[self.__MODELICA_EXE, mosFile]
+        else
+            cmd=[self.__MODELICA_EXE, mosFile, "/nowindow"]
 #        cmd=[self.__MODELICA_EXE, mosFile]
 #        cmd=["sleep", "1"]
 
