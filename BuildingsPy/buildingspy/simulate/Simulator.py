@@ -73,8 +73,8 @@ class Simulator:
         Usage: Type
            >>> from buildingspy.simulate.Simulator import Sim
            >>> s=Sim("myPackage.myModel", "dymola")
-           >>> s.ProcessingStatement("Advanced.StoreProtectedVariables:= true;")
-           >>> s.ProcessingStatement("Advanced.GenerateTimers = true;")
+           >>> s.addPreProcessingStatement("Advanced.StoreProtectedVariables:= true;")
+           >>> s.addPreProcessingStatement("Advanced.GenerateTimers = true;")
 
         This will execute the two statements after the ``openModel`` and
         before the ``simulateModel`` statement.
