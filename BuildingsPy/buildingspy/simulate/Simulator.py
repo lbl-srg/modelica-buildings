@@ -298,7 +298,7 @@ class Simulator:
             fil.write('OutputCPUtime:=true;\n')
             # Pre-processing commands
             for prePro in self.__preProcessing__:
-                fil.write(prePro)
+                fil.write(prePro + '\n')
 
             fil.write('modelInstance=' + mi + '\n')
             fil.write('simulateModel(modelInstance, ')
