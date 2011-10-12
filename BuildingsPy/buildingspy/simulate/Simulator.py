@@ -38,8 +38,8 @@ class Simulator:
         self.__MODELICA_EXE='dymola'
         self.__reporter = reporter.Reporter(directory=outputDirectory)
         self.__showProgressBar = True
-        self.__showGUI = False;
-
+        self.__showGUI = False
+        self.__exitSimulator = True
 
     def __createDirectory(self, directoryName):
         ''' Creates the directory *directoryName*
@@ -118,7 +118,7 @@ class Simulator:
         return self.__parameters__.items()
 
     def getOutputDirectory(self):
-        '''Returns a the name of the output directory.
+        '''Returns the name of the output directory.
 
         :return: The name of the output directory.
 
@@ -235,6 +235,19 @@ class Simulator:
         self.__simulator__.update(resultFile=rs[len(rs)-1])
         return
 
+    def exitSimulator(self, exit=True):
+        ''' This function allows avoiding that the simulator terminates.
+
+        :param exit: Set to ``False`` to avoid the simulator from terminating
+                     after the simulation.
+
+        This function is useful during debugging, as it allows to
+        keep the simulator open after the simulation in order to 
+        inspect results or log messages.
+
+        '''
+        self.__exitSimulator = exit
+        return
 
     def simulate(self):
         '''Simulates the model.
@@ -314,7 +327,8 @@ class Simulator:
                           str(self.__simulator__.get('numberOfIntervals')))
             fil.write(');\n')
             fil.write("savelog(\"simulator.log\");\n")
-            fil.write("Modelica.Utilities.System.exit();\n")
+            if self.__exitSimulator:
+                fil.write("Modelica.Utilities.System.exit();\n")
             fil.close()
             # Copy files to working directory
 
