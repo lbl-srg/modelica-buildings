@@ -1,0 +1,17 @@
+{% extends "!layout.html" %}
+{% block header %}
+<div class="headerStyle">
+<img src="_static/lbl-logo.png" alt="LBL logo" />
+</div>
+{% endblock %}
+
+{% block rootrellink %}
+    <li><a href="http://simulationresearch.lbl.gov/modelica">Home</a> &gt;
+    <a href="http://simulationresearch.lbl.gov/modelica/buildingspy">BuildingsPy</a></li>
+    </br>
+<!--    {{ super() }} -->
+{% endblock %}
+
+{% block sidebar1 %}{{ sidebar() }}{% endblock %}
+{% block sidebar2 %}{% endblock %}
+
