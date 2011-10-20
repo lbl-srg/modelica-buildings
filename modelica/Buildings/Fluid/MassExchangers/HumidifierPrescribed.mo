@@ -121,14 +121,20 @@ Model for an air humidifier or dehumidifier.
 </p>
 <p>
 This model adds (or removes) moisture from the air stream.
-The amount of exchanged moisture is equal to <code>m_flow = u * m_flow_nominal</code>.
-The input signal <code>u</code> and the nominal moisture flow rate added to the air stream <code>m_flow_nominal</code> can be positive or negative.
-If the product <code>u * m_flow_nominal</code> is positive, then moisture is added
-to the air stream, otherwise it is removed.
+The amount of exchanged moisture is equal to
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+m&#775;<sub>wat</sub> = u  m&#775;<sub>wat,nom</sub>,
 </p>
 <p>
+where <i>u</i> is the control input signal and
+<i>m&#775;<sub>wat,nom</sub></i> is equal to the parameter <code>mWat_flow_nominal</code>.
+The parameter <code>mWat_flow_nominal</code> can be positive or negative.
+If <i>m&#775;<sub>wat</sub></i> is positive, then moisture is added
+to the air stream, otherwise it is removed.
+</p>
 <p>If the connector <code>T_in</code> is left unconnected, the value
-set by the parameter <code>T</code> is used for temperature of the water that is 
+set by the parameter <code>T</code> is used for the temperature of the water that is 
 added to the air stream.
 </p>
 <p>
