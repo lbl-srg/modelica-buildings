@@ -26,6 +26,7 @@ class Simulator:
         ## This call is needed so that the reporter can write to the working directory
         self.__createDirectory(outputDirectory)
         self.__preProcessing__ = list()
+        self.__postProcessing__ = list()
         self.__parameters__ = {}
         self.__modelModifiers__ = list()
         self.__simulator__ = {}
@@ -82,6 +83,18 @@ class Simulator:
         '''
         d = self.__preProcessing__.append(command)
         return
+
+    def addPostProcessingStatement(self, command):
+        '''Adds a post-processing statement to the simulation script.
+
+        :param statement: A script statement.
+
+        This will execute ``command`` after the simulation, and before
+        the log file is written.
+        '''
+        d = self.__postProcessing__.append(command)
+        return
+
 
 
     def addParameters(self, dictionary):
@@ -326,6 +339,10 @@ class Simulator:
                 fil.write(', numberOfIntervals=' + 
                           str(self.__simulator__.get('numberOfIntervals')))
             fil.write(');\n')
+            # Post-processing commands
+            for posPro in self.__postProcessing__:
+                fil.write(posPro + '\n')
+
             fil.write("savelog(\"simulator.log\");\n")
             if self.__exitSimulator:
                 fil.write("Modelica.Utilities.System.exit();\n")
