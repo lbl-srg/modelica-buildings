@@ -86,8 +86,8 @@ model SupplyBranch "Supply branch of a dual duct system"
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Mixer for hot and cold air deck"
-                                                             annotation (
+    linearized=linearizeFlowResistance,
+    dynamicBalance=false) "Mixer for hot and cold air deck"  annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
