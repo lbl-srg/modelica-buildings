@@ -91,11 +91,11 @@ equation
   // The next statement sets the heat input into the medium to zero for very small flow rates.
   if homotopyInitialization then
     Q_flow = homotopy(actual=Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
-                       x=abs(VMachine_flow)-2*delta_V_flow, deltax=delta_V_flow),
+                       x=noEvent(abs(VMachine_flow))-2*delta_V_flow, deltax=delta_V_flow),
                      simplified=0);
   else
     Q_flow = Buildings.Utilities.Math.Functions.spliceFunction(pos=QThe_flow, neg=0,
-                       x=abs(VMachine_flow)-2*delta_V_flow, deltax=delta_V_flow);
+                       x=noEvent(abs(VMachine_flow))-2*delta_V_flow, deltax=delta_V_flow);
   end if;
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
