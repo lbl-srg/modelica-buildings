@@ -13,7 +13,7 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
     "Set to false to use density based on state (as implemented by the Medium model)"
     annotation (Evaluate=true);
   Modelica.SIunits.Density rho "Fluid density at port_a";
-  parameter Modelica.SIunits.Pressure dp_turbulent(min=0) = 0.1
+  parameter Modelica.SIunits.Pressure dp_turbulent(min=0, displayUnit="Pa") = 0.1
     "Pressure difference where laminar and turbulent flow relation coincide. Recommended = 0.1";
   Modelica.SIunits.Velocity v(nominal=1) "Average velocity";
   parameter Modelica.SIunits.Length lWet=sqrt(A)
