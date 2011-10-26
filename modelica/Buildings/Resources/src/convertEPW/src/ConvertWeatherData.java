@@ -168,7 +168,7 @@ public class ConvertWeatherData{
     int lineNum;    // line number in .epw file
     int[] time = new int[5]; 
 		int i;
-       
+
  		missData[1] = "99.9";
     missData[2] = "99.9";
 		missData[3] = "999";
@@ -220,7 +220,7 @@ public class ConvertWeatherData{
 
       // read year, month, date, hour and minute
       for(i=0; i<=4; i++){
-        if(lineTokenizer.hasNext()){
+        if(lineTokenizer.hasNext()) {
 	     	  time[i] = lineTokenizer.nextInt();	        
           }
         else {          
@@ -242,27 +242,23 @@ public class ConvertWeatherData{
 
       // check dry bulb temperature, dew point temperature, relative humidity, atmospheric station pressure 
 	    for(i=1; i<=4; i++){		
-				if(lineTokenizer.hasNext()) {        
+				if (lineTokenizer.hasNext()) {        
 					tmp2 = lineTokenizer.next();
-					tmp2 = checkdata(tmp2, preData[i], missData[i], lineNum, i);				
-          if(i==3){  
-            float relHum = new Float(tmp2) / 100;  // Convert relative humidity
-      			tmp2 = Float.toString(relHum); 
-          }
+					tmp2 = checkdata(tmp2, preData[i], missData[i], lineNum, i);									
 		      tmp = tmp + tmp2 + "\t";                  	
 					preData[i] = tmp2;
 		    }
-		    else{ 
+		    else { 
 		        throw new IOException("Expected more entries on line " + lineNum + ".");         
 		    } 
 			}
 
 			// others
       for(i=5; i<=7; i++){
-        if(lineTokenizer.hasNext()){           
+        if (lineTokenizer.hasNext()) {           
           tmp = tmp + lineTokenizer.next() + "\t";                  
         }
-        else{ 
+        else { 
           throw new IOException("Expected more entries on line " + lineNum + ".");         
         }      
       }   
