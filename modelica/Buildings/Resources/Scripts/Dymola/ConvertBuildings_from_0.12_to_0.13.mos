@@ -1,6 +1,6 @@
 // Conversion script for Buildings library
-//  from: Version 0.12.0
-//  to:   Version 0.13.0
+//  from: Version 0.12
+//  to:   Version 0.13
 clear
 
 convertClear();
@@ -11,12 +11,12 @@ convertClear();
 convertClass("Buildings.Fluid.Sensors.TemperatureDynamicTwoPort",
              "Buildings.Fluid.Sensors.TemperatureTwoPort");
 
-convertElement({Buildings.Utilities.Reports.Printer,
-                Buildings.Utilities.Reports.printRealArray},
+convertElement({"Buildings.Utilities.Reports.Printer",
+                "Buildings.Utilities.Reports.printRealArray"},
                 "minimumWidth", "minimumLength");
 
-convertElement({Buildings.Utilities.Reports.Printer,
-                Buildings.Utilities.Reports.printRealArray},
+convertElement({"Buildings.Utilities.Reports.Printer",
+                "Buildings.Utilities.Reports.printRealArray"},
                 "precision", "significantDigits");
 
 convertClass("Buildings.RoomsBeta", "Buildings.Rooms");
