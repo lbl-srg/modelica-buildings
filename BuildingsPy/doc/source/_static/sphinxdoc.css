@@ -46,11 +46,12 @@ html {
 
 body {
     font-size: 14px;
-    letter-spacing: -0.01em;
+// this looks cramped on Ubuntu  letter-spacing: -0.01em;
     line-height: 150%;
     color: #022e4d;
 //    border: 1px solid #022e4d;
-    background-color: #BFD1D4;
+//    background-color: #BFD1D4;
+    background-color: red;
     text-align: left;
     margin-left: auto;
     margin-right: auto;
@@ -59,6 +60,7 @@ body {
 
     width: 870px;
 }
+
 
 div.headerStyle{
     background-color: white; 

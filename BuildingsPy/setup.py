@@ -1,5 +1,7 @@
 import os
 from setuptools import setup
+# Python setup file. 
+# See http://packages.python.org/an_example_pypi_project/setuptools.html
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -14,15 +16,15 @@ setup(
     license = "3-clause BSD",
     keywords = "modelica dymola openmodelica mat",
     url = "http://simulationresearch.lbl.gov/modelica/",
-    packages = ['development', 
-                'examples', 
-                'io', 
-                'simulate', 
-                'thirdParty',
-                'thirdParty.dymat',
-                'thirdparty.dymat.DyMat',
-                'thirdparty.dymat.DyMat.Plot',
-                'thirdparty.dymat.DyMat.Export'],
+    packages = ['buildingspy/development', 
+                'buildingspy/examples', 
+                'buildingspy/io', 
+                'buildingspy/simulate', 
+                'buildingspy/thirdParty',
+                'buildingspy/thirdParty.dymat',
+                'buildingspy/thirdparty.dymat.DyMat',
+                'buildingspy/thirdparty.dymat.DyMat.Plot',
+                'buildingspy/thirdparty.dymat.DyMat.Export'],
     classifiers = [
         "Development Status :: 1.0",
         "Environment :: Console",

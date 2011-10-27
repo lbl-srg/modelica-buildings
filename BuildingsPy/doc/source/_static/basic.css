@@ -373,7 +373,9 @@ dd ul, dd table {
 dd {
     margin-top: 3px;
     margin-bottom: 10px;
-    margin-left: 30px;
+// Reduce margin, otherwise code snippets often do not fit
+//    margin-left: 30px;
+    margin-left: 10px;
 }
 
 dt:target, .highlighted {

@@ -4,7 +4,8 @@ import buildingspy.simulate.Simulator as si
 # Function to set common parameters and to run the simulation
 def simulateCase(s):
     s.setStopTime(86400)
-    s.setTimeOut(60) # Kill the process if it does not finish in 1 minute
+    # Kill the process if it does not finish in 1 minute
+    s.setTimeOut(60) 
     s.showProgressBar(False)
     s.printModelAndTime()
     s.simulate()

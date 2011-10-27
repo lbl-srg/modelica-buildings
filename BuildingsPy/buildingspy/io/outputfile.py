@@ -36,9 +36,12 @@ class Reader:
            Usage: Type
               >>> from buildingspy.io.outputfile import Reader
               >>> r=Reader("PlotDemo.mat", "dymola")
-              >>> r.varNames()         # Returns a list with all variable names
-              >>> r.varNames('const')  # Returns ['const.k', 'const.y']
-              >>> r.varNames('u$')     # Returns all variables whose last character is u
+              >>> # Return a list with all variable names
+              >>> r.varNames()         
+              >>> # Return ['const.k', 'const.y']
+              >>> r.varNames('const')  
+              >>> # Returns all variables whose last character is u
+              >>> r.varNames('u$') 
 
         '''
         import re

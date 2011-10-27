@@ -120,8 +120,9 @@ class Tester:
         contain previous results, then this method can be used as
 
         >>> import buildingspy.development.unittest as u
+        >>> l=['/tmp/tmp-Buildings-0-zABC44', '/tmp/tmp-Buildings-0-zQNS41']
         >>> ut = u.Tester()
-        >>> ut.useExistingResults(['/tmp/tmp-Buildings-0-zABC44', '/tmp/tmp-Buildings-0-zQNS41'])
+        >>> ut.useExistingResults(l)
         >>> ut.run()
 
         '''
