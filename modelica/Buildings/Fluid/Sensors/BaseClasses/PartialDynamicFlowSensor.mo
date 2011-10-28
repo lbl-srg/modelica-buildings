@@ -2,11 +2,9 @@ within Buildings.Fluid.Sensors.BaseClasses;
 partial model PartialDynamicFlowSensor
   "Partial component to model sensors that measure flow properties using a dynamic model"
   extends PartialFlowSensor;
+
   parameter Modelica.SIunits.Time tau(min=0) = 1
     "Time constant at nominal flow rate" annotation (Evaluate=true);
-  parameter Boolean use_constantK = false
-    "Set to true to use a constant gain. (Not recommended, for testing only. Fixme."
-                                                                                     annotation (Evaluate=true);
   parameter Modelica.Blocks.Types.Init initType = Modelica.Blocks.Types.Init.NoInit
     "Type of initialization (InitialState and InitialOutput are identical)"
      annotation(Evaluate=true, Dialog(group="Initialization"));
@@ -17,12 +15,15 @@ protected
     "Flag, true if the sensor is a dynamic sensor";
   Real mNor_flow "Normalized mass flow rate";
 equation
-  if use_constantK or (not dynamic) then
+  if dynamic then
+    mNor_flow = port_a.m_flow/m_flow_nominal;
+    k = Modelica.Fluid.Utilities.regStep(x=port_a.m_flow,
+                                         y1= mNor_flow,
+                                         y2=-mNor_flow,
+                                         x_small=m_flow_small);
+  else
     mNor_flow = 1;
     k = 1;
-  else
-    mNor_flow = port_a.m_flow/m_flow_nominal;
-    k = Modelica.Fluid.Utilities.regStep(x=port_a.m_flow, y1=mNor_flow, y2=-mNor_flow, x_small=m_flow_small);
   end if;
   annotation (Icon(graphics={
         Line(visible=(tau <> 0),

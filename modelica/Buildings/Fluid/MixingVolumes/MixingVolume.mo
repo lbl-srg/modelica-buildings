@@ -30,18 +30,15 @@ model MixingVolume
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
     "Heat port connected to outflowing medium"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-
   Modelica.SIunits.Temperature T "Temperature of the fluid";
   Modelica.SIunits.Pressure p "Pressure of the fluid";
   Modelica.SIunits.MassFraction Xi[Medium.nXi]
     "Species concentration of the fluid";
-
   Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
     "Trace substance mixture content";
    // Models for the steady-state and dynamic energy balance.
-// fixme: Make protected for release.
-// Here, it is public for access to parameter use_safeDivision
-   Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger steBal(
+protected
+  Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger steBal(
     sensibleOnly = true,
     redeclare final package Medium=Medium,
     final m_flow_nominal = m_flow_nominal,
@@ -73,11 +70,12 @@ model MixingVolume
     Q_flow = Q_flow,
     mXi_flow = zeros(Medium.nXi)) if
         not useSteadyStateTwoPort "Model for dynamic energy balance";
-protected
-   parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
+
+  parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
       T=T_start,
       p=p_start,
       X=X_start[1:Medium.nXi]) "Start state";
+
   parameter Modelica.SIunits.Density rho_nominal=Medium.density(
    Medium.setState_pTX(
      T=T_start,
