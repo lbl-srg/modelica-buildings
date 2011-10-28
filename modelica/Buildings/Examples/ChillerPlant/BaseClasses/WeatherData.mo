@@ -30,7 +30,8 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
             200}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
-            200}})),
+            200}},
+        initialScale=0.05)),
     Documentation(info="<html>
 <p>
 This is a modified model of the weather data reader <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>. It outputs the wet bulb temperature in addition to the other data.
