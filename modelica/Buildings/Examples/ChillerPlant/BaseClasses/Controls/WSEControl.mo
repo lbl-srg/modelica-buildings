@@ -219,7 +219,7 @@ equation
     Icon(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{400,400}},
-        initialScale=0.01), graphics={
+        initialScale=0.04), graphics={
         Rectangle(
           extent={{-100,-106},{400,400}},
           lineColor={0,0,127},
@@ -236,7 +236,7 @@ equation
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{400,400}},
-        initialScale=0.01,
+        initialScale=0.04,
         grid={2,2}), graphics),
     Documentation(info="<HTML>
 <p>
