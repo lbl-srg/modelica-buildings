@@ -7,9 +7,6 @@ model StaticTwoPortHeatMassExchanger
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
   import Modelica.Constants;
-  parameter Boolean use_safeDivision=true
-    "fixme: Used for testing only. Set to true as default"
-    annotation (Evaluate=true);
   input Modelica.SIunits.HeatFlowRate Q_flow "Heat transfered into the medium";
   input Medium.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
@@ -21,6 +18,8 @@ model StaticTwoPortHeatMassExchanger
     "Leaving species concentration of the component";
   Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](unit="1")
     "Leaving trace substances of the component";
+  constant Boolean use_safeDivision=true
+    "Set to true to improve numerical robustness";
 protected
   Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
   final parameter Real k(unit="")=if computeFlowResistance
