@@ -128,6 +128,10 @@ its class name ends with the string <code>Beta</code>.
 Version 0.13 is not backward compatible to version 0.12, i.e., models developed with
 versions 0.12 will require some changes in their parameters to
 work with version 0.13.
+The conversion script
+<a href=\"modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_0.13.mos\">
+Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_0.13.mos</a> can help
+in converting old models to this version of the library.
 </p>
 <p>
 The following <b style=\"color:blue\">new libraries</b> have been added:
@@ -145,6 +149,11 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b></td></tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise
+                      </td>
+    <td valign=\"top\">Added a function that computes wind pressure on the facade of low-rise buildings.
+    </td> </tr>
 <tr><td colspan=\"2\"><b>Buildings.Examples</b></td></tr>
 <tr><td valign=\"top\">Buildings.Examples.ChillerPlant
                       </td>
@@ -155,6 +164,13 @@ to <b style=\"color:blue\">existing</b> libraries:
                       </td>
     <td valign=\"top\">Added a user's guide that describes
                        the main functionality of all base classes.
+    </td> </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Sources</b></td></tr>
+<tr><td valign=\"top\">Buildings.Fluid.Sources.Outside_Cp<br/>
+                       Buildings.Fluid.Sources.Outside_CpLowRise
+                      </td>
+    <td valign=\"top\">Added models to compute wind pressure on building
+                       facades.
     </td> </tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b></td></tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Conductor
@@ -173,8 +189,6 @@ to <b style=\"color:blue\">existing</b> libraries:
     <td valign=\"top\">Added functions for cubic hermite spline interpolation, with
                        option for monotone increasing (or decreasing) spline.
     </td> </tr>
-
-
 </table>
 </p>
 <p>

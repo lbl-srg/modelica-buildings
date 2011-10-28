@@ -3,20 +3,19 @@ model RoomLeakage "Room leakage model"
   extends Buildings.BaseClasses.BaseIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
-
   parameter Modelica.SIunits.Volume VRoo "Room volume";
-
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
     redeclare package Medium = Medium,
     dp_nominal=50,
     m_flow_nominal=VRoo*1.2/3600) "Resistance model" annotation (Placement(
         transformation(extent={{20,-10},{40,10}}, rotation=0)));
-
   Modelica.Fluid.Interfaces.FluidPort_b port_b(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{90,-10},{110,10}},
           rotation=0)));
-
-  Fluid.Sources.Outside amb(redeclare package Medium = Medium, nPorts=1)
+  Fluid.Sources.Outside_CpLowRise
+                        amb(redeclare package Medium = Medium, nPorts=1,
+    s=s,
+    azi=azi)
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}}, rotation=
             0)));
   BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
@@ -30,20 +29,24 @@ model RoomLeakage "Room leakage model"
   Modelica.Blocks.Math.Gain ACHInf(k=1/VRoo/1.2*3600, y(unit="1/h"))
     "Air change per hour due to infiltration"
     annotation (Placement(transformation(extent={{12,30},{32,50}})));
+  parameter Real s "Side ratio, s=length of this wall/length of adjacent wall";
+  parameter Modelica.SIunits.Angle azi "Surface azimuth (South:0, West:pi/2)";
 equation
-  connect(res.port_b, port_b) annotation (Line(points={{40,0},{55,0},{55,
-          1.16573e-015},{70,1.16573e-015},{70,0},{100,0}}, color={0,127,255}));
+  connect(res.port_b, port_b) annotation (Line(points={{40,6.10623e-16},{55,
+          6.10623e-16},{55,1.16573e-15},{70,1.16573e-15},{70,5.55112e-16},{100,
+          5.55112e-16}},                                   color={0,127,255}));
   connect(amb.weaBus, weaBus) annotation (Line(
-      points={{-60,0.2},{-80,0.2},{-80,0},{-100,0}},
+      points={{-60,0.2},{-80,0.2},{-80,5.55112e-16},{-100,5.55112e-16}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(amb.ports[1], senMasFlo1.port_a) annotation (Line(
-      points={{-40,0},{-20,0},{-20,1.22465e-015}},
+      points={{-40,6.66134e-16},{-20,6.66134e-16},{-20,7.25006e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senMasFlo1.port_b, res.port_a) annotation (Line(
-      points={{0,-1.22465e-015},{10,-1.22465e-015},{10,0},{20,0}},
+      points={{5.55112e-16,-1.72421e-15},{10,-1.72421e-15},{10,6.10623e-16},{20,
+          6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senMasFlo1.m_flow, ACHInf.u) annotation (Line(

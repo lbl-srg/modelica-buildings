@@ -25,12 +25,16 @@ wind pressure on the building facade.
 </p>
 <p>
 Wind pressure coefficients for different building configurations can be found
-in Costola <i>et al.</i> (2009). 
+in Costola <i>et al.</i> (2009), Persily and Ivy (2001), and Swami and Chandra (1987). 
 </p>
 <p>  
 The models in this package are as described in Wetter (2005), 
-except for some changes that have been done when migrating 
-them to Modelica 3.1, which led to a simpler implementation based
+except for the addition of the model
+<a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise\">
+Buildings.Airflow.Multizone.BaseClasses.windPressureLowRise</a>
+that computes the wind pressure on facades, and 
+some changes that have been done when migrating 
+the models to Modelica 3.1, which led to a simpler implementation based
 on the stream functions.
 </p>
 <h4>Acknowledgements</h4>
@@ -47,10 +51,32 @@ and airflow network programs.
 <i>Building and Environment</i>. Vol. 44(10): 2027-2036. 2009.
 </p>
 <p>
+Muthusamy V. Swami and
+Subrato Chandra.
+<i>
+<a href=\"http://www.fsec.ucf.edu/en/publications/pdf/FSEC-CR-163-86.pdf\">
+Procedures for
+Calculating Natural
+Ventilation Airflow
+Rates in Buildings.</a></i>
+Florida Solar Energy Center, FSEC-CR-163-86. March, 1987.
+Cape Canaveral, Florida.
+</p>
+<p>
+Andrew K. Persily and Elizabeth M. Ivy.
+<i>
+<a href=\"www.bfrl.nist.gov/IAQanalysis/docs/NISTIR6585.pdf\">
+Input Data for Multizone Airflow and IAQ Analysis.</a></i>
+NIST, NISTIR 6585.
+January, 2001.
+Gaithersburg, MD.
+</p>
+<p>
 Michael Wetter.
 <a href=\"modelica://Buildings/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">
 Multizone Airflow Model in Modelica.</a>
 Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006.
+</p>
 </html>"));
 
 end UsersGuide;

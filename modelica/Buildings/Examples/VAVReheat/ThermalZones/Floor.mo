@@ -243,16 +243,24 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
     annotation (Placement(transformation(extent={{200,190},{220,210}})));
-  RoomLeakage leaPer1(redeclare package Medium = Medium, VRoo=568.77)
+  RoomLeakage leaPer1(redeclare package Medium = Medium, VRoo=568.77,
+    s=49.91/33.27,
+    azi=Buildings.HeatTransfer.Types.Azimuth.S)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,380},{-22,420}})));
-  RoomLeakage leaPer2(redeclare package Medium = Medium, VRoo=360.0785)
+  RoomLeakage leaPer2(redeclare package Medium = Medium, VRoo=360.0785,
+    s=33.27/49.91,
+    azi=Buildings.HeatTransfer.Types.Azimuth.E)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,340},{-22,380}})));
-  RoomLeakage leaPer3(redeclare package Medium = Medium, VRoo=568.77)
+  RoomLeakage leaPer3(redeclare package Medium = Medium, VRoo=568.77,
+    s=49.91/33.27,
+    azi=Buildings.HeatTransfer.Types.Azimuth.N)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-56,300},{-20,340}})));
-  RoomLeakage leaPer4(redeclare package Medium = Medium, VRoo=360.0785)
+  RoomLeakage leaPer4(redeclare package Medium = Medium, VRoo=360.0785,
+    s=33.27/49.91,
+    azi=Buildings.HeatTransfer.Types.Azimuth.W)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-56,260},{-20,300}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirPer1
