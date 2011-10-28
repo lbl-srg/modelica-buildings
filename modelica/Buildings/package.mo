@@ -121,16 +121,23 @@ its class name ends with the string <code>Beta</code>.
 
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
-  class Version_0_13 "Version 0.13"
+  class Version_1_0 "Version 1.0"
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
-Version 0.13 is not backward compatible to version 0.12, i.e., models developed with
+Version 1.0 is the first official release of the <code>Buildings</code>
+library.
+Compared to the last pre-release, which is version 0.13, this version contains
+new models as well as significants improvements to the model formulation 
+that leads to faster and more robust simulation. A detailed list of changes is shown below.
+</p>
+<p>
+Version 1.0 is not backward compatible to version 0.12, i.e., models developed with
 versions 0.12 will require some changes in their parameters to
-work with version 0.13.
+work with version 1.0.
 The conversion script
-<a href=\"modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_0.13.mos\">
-Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_0.13.mos</a> can help
+<a href=\"modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos\">
+Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos</a> can help
 in converting old models to this version of the library.
 </p>
 <p>
@@ -565,7 +572,7 @@ generates the entry in the <code>Command</code> pull down menu has been changed 
 </ul>
 </p>
 </html>"));
-  end Version_0_13;
+  end Version_1_0;
 
   class Version_0_12_0 "Version 0.12.0"
     extends Modelica.Icons.ReleaseNotes;
@@ -1398,8 +1405,8 @@ on the Buildings library
 </p>
 <ul>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_13\">
-Version 0.13 </a>(xxxx, 2011)</li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0\">
+Version 1.0 </a>(xxxx, 2011)</li>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">
@@ -1741,13 +1748,13 @@ User's Guides that can be accessed by the following links:
 end UsersGuide;
 
 annotation (
-version="0.13",
-versionBuild=0,
+version="1.0",
+versionBuild=1,
 versionDate="2011-XX-XX",
 uses(Modelica(version="3.2")),
 conversion(
  from(version="0.12",
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_0.13.mos")),
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos")),
 dateModified = "$Date$",
 revisionId="$Id:: package.mo 2369 2011-05-10 00:35:26Z #$",
 preferredView="info",

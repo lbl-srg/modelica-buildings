@@ -1,12 +1,9 @@
 // Conversion script for Buildings library
 //  from: Version 0.12
-//  to:   Version 0.13
+//  to:   Version 1.0
 clear
 
 convertClear();
-
-//convertClass("Buildings.HeatTransfer.ConductorMultiLayer",
-//             "Buildings.HeatTransfer.Conduction.MultiLayer");
 
 convertClass("Buildings.Fluid.Sensors.TemperatureDynamicTwoPort",
              "Buildings.Fluid.Sensors.TemperatureTwoPort");
