@@ -1,11 +1,13 @@
 CheckCeilingHeight
+CheckRadiation
+CheckRelativeHumidity
 CheckPressure
 CheckSkyCover
+CheckTemperature
 CheckWindDirection
 CheckWindSpeed
 ConvertRadiation
 ConvertRelativeHumidity
-ConvertTemperature
 ConvertTime
 EquationOfTime
 LocalCivilTime

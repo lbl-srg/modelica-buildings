@@ -1,11 +1,13 @@
 CheckCeilingHeight
+CheckRadiation
 CheckPressure
+CheckRelativeHumidity
 CheckSkyCover
+CheckTemperature
 CheckWindDirection
 CheckWindSpeed
 ConvertRadiation
 ConvertRelativeHumidity
-ConvertTemperature
 ConvertTime
 EquationOfTime
 GetHeaderElement

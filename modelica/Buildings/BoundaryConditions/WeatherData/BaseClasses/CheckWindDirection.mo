@@ -4,7 +4,7 @@ block CheckWindDirection "Constrains the wind direction to [0, 2*pi] degree"
 public
   Modelica.Blocks.Interfaces.RealInput nIn(
     final quantity="Angle",
-    final unit="deg",
+    final unit="rad",
     displayUnit="deg") "Input wind direction"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealOutput nOut(
@@ -20,7 +20,7 @@ protected
 equation
 
   nOut = Buildings.Utilities.Math.Functions.smoothLimit(
-    nIn/360*nMax,
+    nIn,
     nMin,
     nMax,
     delta/10);
@@ -33,6 +33,10 @@ This component constrains the interpolated wind direction between <i>0</i> and <
 </html>
 ", revisions="<html>
 <ul>
+<li>
+October 27, 2011, by Wangda Zuo:<br>
+Delete the unit convertion part since it will be done outside.
+</li>
 <li>
 July 14, 2010, by Wangda Zuo:<br>
 First implementation.

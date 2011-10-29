@@ -1,10 +1,10 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
-model ConvertRelativeHumidity "Test model for converting temperature"
+model ConvertRelativeHumidity
+  "Test model for converting relative humidity and checking its validity"
   extends Modelica.Icons.Example;
   import Buildings;
-
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity
-    conHum annotation (Placement(transformation(extent={{20,0},{40,20}})));
+    conRelHum annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
 protected
@@ -17,11 +17,12 @@ protected
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+
 public
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime conTim
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
 equation
-  connect(datRea.y[3], conHum.relHumIn) annotation (Line(
+  connect(datRea.y[3], conRelHum.relHumIn) annotation (Line(
       points={{1,10},{18,10}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -33,6 +34,7 @@ equation
       points={{-39,10},{-22,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertRelativeHumidity.mos"
+  annotation (Diagram(graphics), __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertRelativeHumidity.mos"
         "Simulate and plot"));
 end ConvertRelativeHumidity;

@@ -1,13 +1,12 @@
 within Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples;
-model ConvertRadiation "Test model for convert radiation"
+model ConvertRadiation "Test model for ConvertRadiation"
   extends Modelica.Icons.Example;
   import Buildings;
-
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
-    cheGloRad "Check global horizontal radiation"
+    conGloRad "Convert units for global horizontal radiation"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation
-    cheDifRad "Check diffuse horizontal radiation"
+    conDifRad "Convert units for diffuse horizontal radiation"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.Utilities.SimulationTime simTim
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
@@ -24,16 +23,17 @@ protected
     smoothness=Modelica.Blocks.Types.Smoothness.ContinuousDerivative)
     "Data reader"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+
 equation
   connect(timCon.calTim, datRea.u) annotation (Line(
       points={{-39,10},{-22,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(datRea.y[8], cheGloRad.HIn) annotation (Line(
+  connect(datRea.y[8], conGloRad.HIn) annotation (Line(
       points={{1,10},{10,10},{10,30},{18,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(datRea.y[10], cheDifRad.HIn) annotation (Line(
+  connect(datRea.y[10], conDifRad.HIn) annotation (Line(
       points={{1,10},{10,10},{10,-10},{18,-10}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -41,6 +41,7 @@ equation
       points={{-79,10},{-62,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertRadiation.mos"
+  annotation (Diagram(graphics), __Dymola_Commands(file=
+          "modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/ConvertRadiation.mos"
         "Simulate and plot"));
 end ConvertRadiation;
