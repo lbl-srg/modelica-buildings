@@ -3,7 +3,7 @@ simulateModel("Buildings.BoundaryConditions.WeatherData.BaseClasses.Examples.Con
 
 createPlot(id = 1,
  position = {7, 7, 746, 517},
- y = {"conHum.relHumOut"},
+ y = {"conRelHum.relHumOut"},
  range = {0, 90000.0, 100000.0, -20000.0},
  autoscale = true,
  autoerase = true,
