@@ -215,8 +215,11 @@ have been <b style=\"color:blue\">improved</b> in a
 
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions.WeatherData</b></td></tr>
 <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3</td>
-    <td valign=\"top\">This model has now the option of using a constant atmospheric pressure,
-                     using the pressure from the weather file, or from an input connector.</td>
+    <td valign=\"top\">This model has now the option of using a constant value,
+                     using the data from the weather file, or from an input connector for 7 variables, 
+                     including atmospheric pressure, relative humidity, dry bulb temperature, 
+                     global horizontal radiation, diffuse horizontal radiation,
+                     wind direction and wind speed.</td>
 </tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b></td></tr>
@@ -520,6 +523,31 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
+<tr><td valign=\"top\">
+    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/8\">#8</a></td>
+    <td valign=\"top\">
+         Add switches for new data.
+    </td>
+</tr>
+<tr><td valign=\"top\">
+    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/19\">#19</a></td>
+    <td valign=\"top\">
+         Shift the time for the radiation data 30 min forth and output the local civil time in the data reader. 
+    </td>
+</tr>
+<tr><td valign=\"top\">
+    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/41\">#41</a></td>
+    <td valign=\"top\">
+       Using when-then sentences to reduce CPU time.
+    </td>
+</tr>
+<tr><td valign=\"top\">
+    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/43\">#43</a></td>
+    <td valign=\"top\">
+         Add a ConvertRadiation to convert the unit of radiation from TMY3.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b></td></tr>
 <tr><td valign=\"top\">
     <a href=\"https://corbu.lbl.gov/trac/bie/ticket/28\">#28</a></td>
@@ -527,6 +555,15 @@ have been fixed:
          Move scripts to Buildings\\Resources\\Scripts\\Dymola.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b></td></tr>
+<tr><td valign=\"top\">
+    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/18\">#18</a></td>
+    <td valign=\"top\">
+         Add a smooth interpolation function to avoid the event.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Media</b></td></tr>
 <tr><td valign=\"top\">
     <a href=\"https://corbu.lbl.gov/trac/bie/ticket/30\">#30</a></td>
