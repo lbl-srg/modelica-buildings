@@ -1135,22 +1135,89 @@ equation
             600}}),      graphics),
     Documentation(info="<html>
 <p>
-This model consist of an HVAC system, a building envelope model and a model for air flow through building leakage and through open doors.
+This model consist of an HVAC system, a building envelope model and a model 
+for air flow through building leakage and through open doors.
 </p>
 <p>
-The HVAC system is a dual-fan, dual-duct system with economizer and a heating and cooling coil in the air handler unit. 
-<br/>
-<b>fixme: Update documentation</b>
-<br/>There is also a reheat coil and an air damper in each of the five zone inlet branches. The control is an implementation of the control sequence <i>VAV 2A2-21232</i> of the Sequences of Operation for Common HVAC Systems (ASHRAE, 2006). In this control sequence, the supply fan speed is regulated based on the duct static pressure. The return fan controller tracks the supply fan air flow rate reduced by a fixed offset. The duct static pressure is adjusted so that at least one VAV damper is 90% open. The economizer dampers are modulated to track the setpoint for the mixed air dry bulb temperature. Priority is given to maintain a minimum outside air volume flow rate. In each zone, the VAV damper is adjusted to meet the room temperature setpoint for cooling, or fully opened during heating. The room temperature setpoint for heating is tracked by varying the water flow rate through the reheat coil. There is also a finite state machine that transitions the mode of operation of the HVAC system between the modes <i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>, <i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>. In the VAV model, all air flows are computed based on the duct static pressure distribution and the performance curves of the fans. Local loop control is implemented using proportional and proportional-integral controllers, while the supervisory control is implemented using a finite state machine.
+The HVAC system is a dual-fan, dual-duct system with economizer and a heating and 
+cooling coil in the air handler unit. 
+One is called the hot-deck and has a heating coil, the other is called
+the cold-deck and has a cooling coil. There is also one return fan and
+an economizer. The figure below shows the schematic diagram of the dual-fan,
+dual-duct system.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/dualFanDualDuctSchematics.png\" border=\"1\">
 </p>
 <p>
-To model the heat transfer through the building envelope, a model of five interconnected rooms has been implemented, using the thermal room model 
-<a href=\"modelica://Buildings.Rooms.MixedAir\">
-Buildings.Rooms.MixedAir</a>. 
-The five room model is representative of one floor of the new construction medium office building for Chicago, IL, as described in the set of DOE Commercial Building Benchmarks (Deru et al, 2009). There are four perimeter zones and one core zone. The envelope thermal properties meet ASHRAE Standard 90.1-2004.
+Each thermal zone inlet branch has a flow mixer and an air damper
+in the hot deck and the cold deck. The air damper control signals are
+as shown in the figure below.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/hotColdDeckControl.png\" border=\"1\">
+</p>
+<p>
+Hence, at low room temperatures, the amount
+of hot air is increased, and at high room temperatures, the amount
+of cold air is increased. In addition, whenever the air mass flow rate
+is below a prescribed limit, the hot air deck damper opens to track
+the minimum air flow rate. The temperature of the hot-deck is re-
+set based on the outside air temperature. The temperature of the
+cold-deck is constant. The revolutions of both supply fans are con-
+trolled in order to track a pressure difference between VAV damper
+inlet and room pressure of 30 Pascals. The return fan is controlled
+to track a building pressure of 30 Pascals above outside air pressure.
+There is also an economizer. 
+During night-time, the fans are switched off.
+The coils are controlled as follows: The preheat coil is controlled to
+maintain the an air outlet temperature of 11&deg;C during day-time, and
+6&deg;C during night-time. The heating coil is controlled to maintain the
+air outlet temperature shown in the figure below.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Examples/DualFanDualDuct/hotDeckTemperatureSetPoint.png\" border=\"1\">
+</p>
+<p>
+The cooling coil is controlled to maintain a constant outlet temperature 
+of 12&deg; during day-time, and 30&deg;C during night-time
+</p>
+<p>
+There is also a 
+finite state machine that transitions the mode of operation of 
+the HVAC system between the modes 
+<i>occupied</i>, <i>unoccupied off</i>, <i>unoccupied night set back</i>,
+<i>unoccupied warm-up</i> and <i>unoccupied pre-cool</i>. 
+</p>
+<p>
+All air flows are computed based on the 
+duct static pressure distribution and the performance curves of the fans. 
+Local loop control is implemented using proportional and proportional-integral 
+controllers, while the supervisory control is implemented 
+using a finite state machine.
+</p>
+<p>
+To model the heat transfer through the building envelope, 
+a model of five interconnected rooms is used.
+The five room model is representative of one floor of the 
+new construction medium office building for Chicago, IL, 
+as described in the set of DOE Commercial Building Benchmarks 
+(Deru et al, 2009). There are four perimeter zones and one core zone. 
+The envelope thermal properties meet ASHRAE Standard 90.1-2004.
+The thermal room model computes transient heat conduction through
+walls, floors and ceilings and long-wave radiative heat exchange between
+surfaces. The convective heat transfer coefficient is computed based
+on the temperature difference between the surface and the room air.
+There is also a layer-by-layer short-wave radiation,
+long-wave radiation, convection and conduction heat transfer model for the
+windows. The model is similar to the 
+Window 5 model and described in TARCOG 2006.
 </p>
 <p>
 Each thermal zone can have air flow from the HVAC system, through leakages of the building envelope (except for the core zone) and through bi-directional air exchange through open doors that connect adjacent zones. The bi-directional air exchange is modeled based on the differences in static pressure between adjacent rooms at a reference height plus the difference in static pressure across the door height as a function of the difference in air density.
+There is also wind pressure acting on each facade. The wind pressure is a function
+of the wind speed and wind direction. Therefore, infiltration is a function of the
+flow imbalance of the HVAC system and of the wind conditions.
 </p>
 <h4>References</h4>
 <p>
@@ -1164,6 +1231,11 @@ Deru M., K. Field, D. Studer, K. Benne, B. Griffith, P. Torcellini,
 <i>DOE commercial building research benchmarks for commercial buildings</i>.
 Technical report, U.S. Department of Energy, Energy Efficiency and
 Renewable Energy, Office of Building Technologies, Washington, DC, 2009.
+</p>
+<p>
+TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
+of thermal performance of glazing systems with our without
+shading devices, Technical Report, Oct. 17, 2006.
 </p>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DualFanDualDuct/ClosedLoop.mos"
