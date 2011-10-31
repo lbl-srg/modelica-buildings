@@ -13,7 +13,8 @@ block ReaderTMY3 "Reader for TMY3 weather data "
     final unit="Pa",
     displayUnit="Pa") if (pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input pressure"
-    annotation (Placement(transformation(extent={{-240,160},{-200,200}})));
+    annotation (Placement(transformation(extent={{-240,180},{-200,220}}),
+        iconTransformation(extent={{-240,180},{-200,220}})));
   //--------------------------------------------------------------
   // Dry bulb temperature
   parameter Buildings.BoundaryConditions.Types.DataSource TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File
@@ -41,7 +42,8 @@ block ReaderTMY3 "Reader for TMY3 weather data "
     min=0,
     max=1) if (relHumSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input relative humidity"
-    annotation (Placement(transformation(extent={{-240,80},{-200,120}})));
+    annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
+        iconTransformation(extent={{-240,60},{-200,100}})));
   //--------------------------------------------------------------
   // Wind speed
   parameter Buildings.BoundaryConditions.Types.DataSource winSpeSou=Buildings.BoundaryConditions.Types.DataSource.File
@@ -55,7 +57,8 @@ block ReaderTMY3 "Reader for TMY3 weather data "
     min=0,
     displayUnit="m/s") if (winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input wind speed"
-    annotation (Placement(transformation(extent={{-240,40},{-200,80}})));
+    annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
+        iconTransformation(extent={{-240,0},{-200,40}})));
   //--------------------------------------------------------------
   // Wind direction
   parameter Buildings.BoundaryConditions.Types.DataSource winDirSou=Buildings.BoundaryConditions.Types.DataSource.File
@@ -68,7 +71,8 @@ block ReaderTMY3 "Reader for TMY3 weather data "
     final unit="rad",
     displayUnit="deg") if (winDirSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input wind direction"
-    annotation (Placement(transformation(extent={{-240,0},{-200,40}})));
+    annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
+        iconTransformation(extent={{-240,-60},{-200,-20}})));
   //--------------------------------------------------------------
   // Global horizontal radiation
   parameter Buildings.BoundaryConditions.Types.DataSource HGloHorSou=Buildings.BoundaryConditions.Types.DataSource.File
@@ -82,7 +86,8 @@ block ReaderTMY3 "Reader for TMY3 weather data "
     final unit="W/m2",
     displayUnit="W/m2") = 100 if (HGloHorSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input global horizontal radiation"
-    annotation (Placement(transformation(extent={{-240,-40},{-200,0}})));
+    annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
+        iconTransformation(extent={{-240,-120},{-200,-80}})));
   //--------------------------------------------------------------
   // Diffuse horizontal radiation
   parameter Buildings.BoundaryConditions.Types.DataSource HDifHorSou=Buildings.BoundaryConditions.Types.DataSource.File
@@ -96,14 +101,15 @@ block ReaderTMY3 "Reader for TMY3 weather data "
     final unit="W/m2",
     displayUnit="W/m2") if (HDifHorSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input diffuse horizontal radiation"
-    annotation (Placement(transformation(extent={{-240,-80},{-200,-40}})));
+    annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
+        iconTransformation(extent={{-240,-180},{-200,-140}})));
   parameter String filNam "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
-  final parameter Modelica.SIunits.Angle lon(displayUnit="deg") =
+  final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
     filNam) "Longitude";
-  final parameter Modelica.SIunits.Time timZon(displayUnit="h") =
+  final parameter Modelica.SIunits.Time timZon(displayUnit="h")=
     Buildings.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam)
     "Time zone";
   Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
@@ -597,7 +603,42 @@ equation
           points={{-58,-62},{-88,-88}},
           color={255,0,0},
           smooth=Smooth.None,
-          thickness=1)}),
+          thickness=1),
+        Text(
+          visible=(pAtmSou == Buildings.BoundaryConditions.Types.DataSource.Input),
+          extent={{-190,216},{-164,184}},
+          lineColor={0,0,127},
+          textString="p"),
+        Text(
+          visible=(TDryBulSou == Buildings.BoundaryConditions.Types.DataSource.Input),
+          extent={{-194,162},{-118,118}},
+          lineColor={0,0,127},
+          textString="TDryBul"),
+        Text(
+          visible=(relHumSou == Buildings.BoundaryConditions.Types.DataSource.Input),
+          extent={{-190,92},{-104,66}},
+          lineColor={0,0,127},
+          textString="relHum"),
+        Text(
+          visible=(winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input),
+          extent={{-196,44},{-110,2}},
+          lineColor={0,0,127},
+          textString="winSpe"),
+        Text(
+          visible=(winDirSou == Buildings.BoundaryConditions.Types.DataSource.Input),
+          extent={{-192,-18},{-106,-60}},
+          lineColor={0,0,127},
+          textString="winDir"),
+        Text(
+          visible=(HGloHorSou == Buildings.BoundaryConditions.Types.DataSource.Input),
+          extent={{-188,-82},{-98,-122}},
+          lineColor={0,0,127},
+          textString="HGloHor"),
+        Text(
+          visible=(HDifHorSou == Buildings.BoundaryConditions.Types.DataSource.Input),
+          extent={{-192,-148},{-98,-172}},
+          lineColor={0,0,127},
+          textString="HDifHor")}),
     Documentation(info="<html>
 <p>
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data. 
@@ -696,6 +737,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-200},{300,
+    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-300},{300,
             300}}), graphics));
 end ReaderTMY3;
