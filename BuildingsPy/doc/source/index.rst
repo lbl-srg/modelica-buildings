@@ -34,6 +34,7 @@ Contents:
    development
    legal
    acknowledgments
+   revisions
 
 Indices and tables
 ==================

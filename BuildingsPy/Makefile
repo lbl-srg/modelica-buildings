@@ -6,8 +6,11 @@ BPDOC=doc
 doc:
 	(cd $(BPDOC); make html linkcheck)
 
-dist:	clean doc
+dist:	clean doc 
+	python setup.py sdist --formats=gztar,zip
 	python setup.py bdist_egg
+	@rm -rf build
+	@rm -rf buildingspy.egg-info
 	@echo "Source distribution is in directory dist"
 
 clean-dist:
