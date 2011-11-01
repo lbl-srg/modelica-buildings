@@ -12,6 +12,7 @@ dist:	clean doc
 	@rm -rf build
 	@rm -rf buildingspy.egg-info
 	@echo "Source distribution is in directory dist"
+	@echo "To post to server, run postBuildingsPyToWeb.sh"
 
 clean-dist:
 	rm -rf build

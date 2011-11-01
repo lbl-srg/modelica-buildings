@@ -28,6 +28,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   install
    simulate
    io
    examples
