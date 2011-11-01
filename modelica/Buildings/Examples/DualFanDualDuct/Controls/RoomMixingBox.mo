@@ -9,7 +9,7 @@ block RoomMixingBox "Controller for room mixing box"
     Td=60,
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=1,
+    k=0.5,
     Ti=60) "Controller for heating"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.Continuous.LimPID conCoo(
@@ -17,7 +17,7 @@ block RoomMixingBox "Controller for room mixing box"
     reverseAction=true,
     Td=60,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=1,
+    k=0.5,
     Ti=60) "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Interfaces.RealInput TRoo(final quantity="ThermodynamicTemperature",
@@ -52,14 +52,6 @@ block RoomMixingBox "Controller for room mixing box"
     "Room temperature setpoint for cooling"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 equation
-  connect(conHea.u_m, TRoo) annotation (Line(
-      points={{-10,48},{-10,40},{-80,40},{-80,80},{-120,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conCoo.u_m, TRoo) annotation (Line(
-      points={{-10,-62},{-10,-80},{-80,-80},{-80,80},{-120,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(mAirSet.y, conFloRat.u_s) annotation (Line(
       points={{-39,20},{-22,20}},
       color={0,0,127},
@@ -90,6 +82,14 @@ equation
       smooth=Smooth.None));
   connect(conCoo.u_s, TRooSetCoo) annotation (Line(
       points={{-22,-50},{-72,-50},{-72,1.11022e-15},{-120,1.11022e-15}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TRoo, conCoo.u_m) annotation (Line(
+      points={{-120,80},{-80,80},{-80,-80},{-10,-80},{-10,-62}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TRoo, conHea.u_m) annotation (Line(
+      points={{-120,80},{-80,80},{-80,44},{-10,44},{-10,48}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,

@@ -70,7 +70,7 @@ model Floor "Model of a floor of the building"
     haveExteriorShade=false) "Data record for the glazing system"
     annotation (Placement(transformation(extent={{240,460},{260,480}})));
   constant Modelica.SIunits.Height hRoo=2.74 "Room height";
-  Rooms.MixedAir per1(
+  Rooms.MixedAir sou(
     redeclare package Medium = Medium,
     lat=lat,
     AFlo=568.77/hRoo,
@@ -99,7 +99,7 @@ model Floor "Model of a floor of the building"
     nPorts=5,
     intConMod=intConMod) "South zone"
     annotation (Placement(transformation(extent={{144,-44},{184,-4}})));
-  Rooms.MixedAir per2(
+  Rooms.MixedAir eas(
     redeclare package Medium = Medium,
     lat=lat,
     AFlo=360.0785/hRoo,
@@ -133,7 +133,7 @@ model Floor "Model of a floor of the building"
     nPorts=5,
     intConMod=intConMod) "East zone"
     annotation (Placement(transformation(extent={{304,56},{344,96}})));
-  Rooms.MixedAir per3(
+  Rooms.MixedAir nor(
     redeclare package Medium = Medium,
     lat=lat,
     AFlo=568.77/hRoo,
@@ -162,7 +162,7 @@ model Floor "Model of a floor of the building"
     nPorts=5,
     intConMod=intConMod) "North zone"
     annotation (Placement(transformation(extent={{144,116},{184,156}})));
-  Rooms.MixedAir per4(
+  Rooms.MixedAir wes(
     redeclare package Medium = Medium,
     lat=lat,
     AFlo=360.0785/hRoo,
@@ -218,16 +218,16 @@ model Floor "Model of a floor of the building"
     nPorts=11,
     intConMod=intConMod) "Core zone"
     annotation (Placement(transformation(extent={{144,36},{184,76}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsPer1[2](
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsSou[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{70,-42},{110,-26}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsPer2[2](
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsEas[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{314,28},{354,44}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsPer3[2](
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsNor[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{70,118},{110,134}})));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsPer4[2](
+  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsWes[2](
       redeclare package Medium = Medium) "Fluid inlets and outlets"
     annotation (Placement(transformation(extent={{-50,38},{-10,54}})));
   Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b portsCor[2](
@@ -243,36 +243,36 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
     annotation (Placement(transformation(extent={{200,190},{220,210}})));
-  RoomLeakage leaPer1(redeclare package Medium = Medium, VRoo=568.77,
+  RoomLeakage leaSou(redeclare package Medium = Medium, VRoo=568.77,
     s=49.91/33.27,
     azi=Buildings.HeatTransfer.Types.Azimuth.S)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,380},{-22,420}})));
-  RoomLeakage leaPer2(redeclare package Medium = Medium, VRoo=360.0785,
+  RoomLeakage leaEas(redeclare package Medium = Medium, VRoo=360.0785,
     s=33.27/49.91,
     azi=Buildings.HeatTransfer.Types.Azimuth.E)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-58,340},{-22,380}})));
-  RoomLeakage leaPer3(redeclare package Medium = Medium, VRoo=568.77,
+  RoomLeakage leaNor(redeclare package Medium = Medium, VRoo=568.77,
     s=49.91/33.27,
     azi=Buildings.HeatTransfer.Types.Azimuth.N)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-56,300},{-20,340}})));
-  RoomLeakage leaPer4(redeclare package Medium = Medium, VRoo=360.0785,
+  RoomLeakage leaWes(redeclare package Medium = Medium, VRoo=360.0785,
     s=33.27/49.91,
     azi=Buildings.HeatTransfer.Types.Azimuth.W)
     "Model for air infiltration through the envelope"
     annotation (Placement(transformation(extent={{-56,260},{-20,300}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirPer1
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirSou
     "Air temperature sensor"
     annotation (Placement(transformation(extent={{290,340},{310,360}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirPer2
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirEas
     "Air temperature sensor"
     annotation (Placement(transformation(extent={{292,310},{312,330}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirPer3
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirNor
     "Air temperature sensor"
     annotation (Placement(transformation(extent={{292,280},{312,300}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirPer4
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirWes
     "Air temperature sensor"
     annotation (Placement(transformation(extent={{292,248},{312,268}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temAirPer5
@@ -283,16 +283,16 @@ model Floor "Model of a floor of the building"
   Modelica.Blocks.Interfaces.RealOutput TRooAir[5] "Room air temperatures"
     annotation (Placement(transformation(extent={{380,150},{400,170}}),
         iconTransformation(extent={{380,150},{400,170}})));
-  Airflow.Multizone.DoorDiscretizedOpen opePer1Cor(redeclare package Medium =
+  Airflow.Multizone.DoorDiscretizedOpen opeSouCor(redeclare package Medium =
         Medium, wOpe=10) "Opening between perimeter1 and core"
     annotation (Placement(transformation(extent={{84,0},{104,20}})));
-  Airflow.Multizone.DoorDiscretizedOpen opePer2Cor(redeclare package Medium =
+  Airflow.Multizone.DoorDiscretizedOpen opeEasCor(redeclare package Medium =
         Medium, wOpe=10) "Opening between perimeter2 and core"
     annotation (Placement(transformation(extent={{250,38},{270,58}})));
-  Airflow.Multizone.DoorDiscretizedOpen opePer3Cor(redeclare package Medium =
+  Airflow.Multizone.DoorDiscretizedOpen opeNorCor(redeclare package Medium =
         Medium, wOpe=10) "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{80,74},{100,94}})));
-  Airflow.Multizone.DoorDiscretizedOpen opePer4Cor(redeclare package Medium =
+  Airflow.Multizone.DoorDiscretizedOpen opeWesCor(redeclare package Medium =
         Medium, wOpe=10) "Opening between perimeter3 and core"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.CombiTimeTable intGaiFra(table=[0,0.05; 3600*8,0.05; 3600*9,0.9;
@@ -314,35 +314,35 @@ model Floor "Model of a floor of the building"
   parameter HeatTransfer.Types.InteriorConvection intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
 equation
-  connect(per1.surf_conBou[1], per4.surf_surBou[2]) annotation (Line(
+  connect(sou.surf_conBou[1], wes.surf_surBou[2]) annotation (Line(
       points={{170,-40.6667},{170,-54},{62,-54},{62,20},{28,20},{28.2,42.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(per1.surf_conBou[2], cor.surf_surBou[1]) annotation (Line(
+  connect(sou.surf_conBou[2], cor.surf_surBou[1]) annotation (Line(
       points={{170,-40},{170,-54},{200,-54},{200,20},{160.2,20},{160.2,41.25}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(per1.surf_conBou[3], per2.surf_surBou[1]) annotation (Line(
+  connect(sou.surf_conBou[3], eas.surf_surBou[1]) annotation (Line(
       points={{170,-39.3333},{170,-54},{320.2,-54},{320.2,61.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(per2.surf_conBou[1], cor.surf_surBou[2]) annotation (Line(
+  connect(eas.surf_conBou[1], cor.surf_surBou[2]) annotation (Line(
       points={{330,60},{330,20},{160.2,20},{160.2,41.75}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(per2.surf_surBou[2], per3.surf_conBou[1]) annotation (Line(
+  connect(eas.surf_surBou[2], nor.surf_conBou[1]) annotation (Line(
       points={{320.2,62.5},{320.2,24},{220,24},{220,100},{170,100},{170,119.333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(per3.surf_conBou[2], cor.surf_surBou[3]) annotation (Line(
+  connect(nor.surf_conBou[2], cor.surf_surBou[3]) annotation (Line(
       points={{170,120},{170,100},{200,100},{200,26},{160.2,26},{160.2,42.25}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(per3.surf_conBou[3], per4.surf_surBou[1]) annotation (Line(
+  connect(nor.surf_conBou[3], wes.surf_surBou[1]) annotation (Line(
       points={{170,120.667},{170,100},{60,100},{60,20},{28.2,20},{28.2,41.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(per4.surf_conBou[1], cor.surf_surBou[4]) annotation (Line(
+  connect(wes.surf_conBou[1], cor.surf_surBou[4]) annotation (Line(
       points={{38,40},{38,30},{160.2,30},{160.2,42.75}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -351,22 +351,22 @@ equation
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(replicator.y, per3.uSha) annotation (Line(
+  connect(replicator.y, nor.uSha) annotation (Line(
       points={{-19,180},{130,180},{130,152},{142,152}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(replicator.y, per4.uSha) annotation (Line(
+  connect(replicator.y, wes.uSha) annotation (Line(
       points={{-19,180},{-6,180},{-6,72},{10,72}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(replicator.y, per2.uSha) annotation (Line(
+  connect(replicator.y, eas.uSha) annotation (Line(
       points={{-19,180},{232,180},{232,92},{302,92}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(replicator.y, per1.uSha) annotation (Line(
+  connect(replicator.y, sou.uSha) annotation (Line(
       points={{-19,180},{130,180},{130,-8},{142,-8}},
       color={0,0,127},
       pattern=LinePattern.None,
@@ -376,7 +376,7 @@ equation
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(gai.y, per3.qGai_flow)          annotation (Line(
+  connect(gai.y, nor.qGai_flow)          annotation (Line(
       points={{-29,110},{120,110},{120,146},{142,146}},
       color={0,0,127},
       pattern=LinePattern.None,
@@ -386,22 +386,22 @@ equation
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(gai.y, per1.qGai_flow)          annotation (Line(
+  connect(gai.y, sou.qGai_flow)          annotation (Line(
       points={{-29,110},{120,110},{120,-14},{142,-14}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(gai.y, per2.qGai_flow)          annotation (Line(
+  connect(gai.y, eas.qGai_flow)          annotation (Line(
       points={{-29,110},{226,110},{226,86},{302,86}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(gai.y, per4.qGai_flow)          annotation (Line(
+  connect(gai.y, wes.qGai_flow)          annotation (Line(
       points={{-29,110},{-14,110},{-14,66},{10,66}},
       color={0,0,127},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(per1.weaBus, weaBus) annotation (Line(
+  connect(sou.weaBus, weaBus) annotation (Line(
       points={{181.9,-6.1},{181.9,8},{210,8},{210,200}},
       color={255,204,51},
       pattern=LinePattern.None,
@@ -410,19 +410,19 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(per2.weaBus, weaBus) annotation (Line(
+  connect(eas.weaBus, weaBus) annotation (Line(
       points={{341.9,93.9},{341.9,120},{210,120},{210,200}},
       color={255,204,51},
       pattern=LinePattern.None,
       thickness=0.5,
       smooth=Smooth.None));
-  connect(per3.weaBus, weaBus) annotation (Line(
+  connect(nor.weaBus, weaBus) annotation (Line(
       points={{181.9,153.9},{182,160},{182,168},{210,168},{210,200}},
       color={255,204,51},
       pattern=LinePattern.None,
       thickness=0.5,
       smooth=Smooth.None));
-  connect(per4.weaBus, weaBus) annotation (Line(
+  connect(wes.weaBus, weaBus) annotation (Line(
       points={{49.9,73.9},{49.9,168},{210,168},{210,200}},
       color={255,204,51},
       pattern=LinePattern.None,
@@ -434,22 +434,22 @@ equation
       pattern=LinePattern.None,
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaBus, leaPer1.weaBus) annotation (Line(
+  connect(weaBus, leaSou.weaBus) annotation (Line(
       points={{210,200},{-80,200},{-80,400},{-58,400}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaBus, leaPer2.weaBus) annotation (Line(
+  connect(weaBus, leaEas.weaBus) annotation (Line(
       points={{210,200},{-80,200},{-80,360},{-58,360}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaBus, leaPer3.weaBus) annotation (Line(
+  connect(weaBus, leaNor.weaBus) annotation (Line(
       points={{210,200},{-80,200},{-80,320},{-56,320}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaBus, leaPer4.weaBus) annotation (Line(
+  connect(weaBus, leaWes.weaBus) annotation (Line(
       points={{210,200},{-80,200},{-80,280},{-56,280}},
       color={255,204,51},
       thickness=0.5,
@@ -458,19 +458,19 @@ equation
       points={{361,290},{380,290},{380,160},{390,160}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(temAirPer1.T, multiplex5_1.u1[1]) annotation (Line(
+  connect(temAirSou.T, multiplex5_1.u1[1]) annotation (Line(
       points={{310,350},{328,350},{328,300},{338,300}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(temAirPer2.T, multiplex5_1.u2[1]) annotation (Line(
+  connect(temAirEas.T, multiplex5_1.u2[1]) annotation (Line(
       points={{312,320},{324,320},{324,295},{338,295}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(temAirPer3.T, multiplex5_1.u3[1]) annotation (Line(
+  connect(temAirNor.T, multiplex5_1.u3[1]) annotation (Line(
       points={{312,290},{338,290}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(temAirPer4.T, multiplex5_1.u4[1]) annotation (Line(
+  connect(temAirWes.T, multiplex5_1.u4[1]) annotation (Line(
       points={{312,258},{324,258},{324,285},{338,285}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -478,19 +478,19 @@ equation
       points={{314,228},{322,228},{322,230},{332,230},{332,280},{338,280}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(per1.heaPorAir, temAirPer1.port) annotation (Line(
+  connect(sou.heaPorAir, temAirSou.port) annotation (Line(
       points={{163,-24},{224,-24},{224,100},{264,100},{264,350},{290,350}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(per2.heaPorAir, temAirPer2.port) annotation (Line(
+  connect(eas.heaPorAir, temAirEas.port) annotation (Line(
       points={{323,76},{286,76},{286,320},{292,320}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(per3.heaPorAir, temAirPer3.port) annotation (Line(
+  connect(nor.heaPorAir, temAirNor.port) annotation (Line(
       points={{163,136},{164,136},{164,290},{292,290}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(per4.heaPorAir, temAirPer4.port) annotation (Line(
+  connect(wes.heaPorAir, temAirWes.port) annotation (Line(
       points={{31,56},{70,56},{70,114},{186,114},{186,258},{292,258}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -498,35 +498,35 @@ equation
       points={{163,56},{162,56},{162,228},{294,228}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(per1.ports[1], portsPer1[1]) annotation (Line(
+  connect(sou.ports[1], portsSou[1]) annotation (Line(
       points={{145.8,-34},{80,-34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per1.ports[2], portsPer1[2]) annotation (Line(
+  connect(sou.ports[2], portsSou[2]) annotation (Line(
       points={{147.4,-34},{100,-34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per2.ports[1], portsPer2[1]) annotation (Line(
+  connect(eas.ports[1], portsEas[1]) annotation (Line(
       points={{305.8,66},{300,66},{300,36},{324,36}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per2.ports[2], portsPer2[2]) annotation (Line(
+  connect(eas.ports[2], portsEas[2]) annotation (Line(
       points={{307.4,66},{300,66},{300,36},{344,36}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per3.ports[1], portsPer3[1]) annotation (Line(
+  connect(nor.ports[1], portsNor[1]) annotation (Line(
       points={{145.8,126},{80,126}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per3.ports[2], portsPer3[2]) annotation (Line(
+  connect(nor.ports[2], portsNor[2]) annotation (Line(
       points={{147.4,126},{100,126}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per4.ports[1], portsPer4[1]) annotation (Line(
+  connect(wes.ports[1], portsWes[1]) annotation (Line(
       points={{13.8,46},{-40,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per4.ports[2], portsPer4[2]) annotation (Line(
+  connect(wes.ports[2], portsWes[2]) annotation (Line(
       points={{15.4,46},{-20,46}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -538,83 +538,83 @@ equation
       points={{146.091,46},{100,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(leaPer1.port_b, per1.ports[3]) annotation (Line(
+  connect(leaSou.port_b, sou.ports[3]) annotation (Line(
       points={{-22,400},{-2,400},{-2,-72},{134,-72},{134,-34},{149,-34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(leaPer2.port_b, per2.ports[3]) annotation (Line(
+  connect(leaEas.port_b, eas.ports[3]) annotation (Line(
       points={{-22,360},{246,360},{246,66},{309,66}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(leaPer3.port_b, per3.ports[3]) annotation (Line(
+  connect(leaNor.port_b, nor.ports[3]) annotation (Line(
       points={{-20,320},{138,320},{138,126},{149,126}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(leaPer4.port_b, per4.ports[3]) annotation (Line(
+  connect(leaWes.port_b, wes.ports[3]) annotation (Line(
       points={{-20,280},{2,280},{2,46},{17,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer1Cor.port_b1, cor.ports[3]) annotation (Line(
+  connect(opeSouCor.port_b1, cor.ports[3]) annotation (Line(
       points={{104,16},{116,16},{116,46},{146.818,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer1Cor.port_a2, cor.ports[4]) annotation (Line(
+  connect(opeSouCor.port_a2, cor.ports[4]) annotation (Line(
       points={{104,4},{116,4},{116,46},{147.545,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer1Cor.port_a1, per1.ports[4]) annotation (Line(
+  connect(opeSouCor.port_a1, sou.ports[4]) annotation (Line(
       points={{84,16},{74,16},{74,-20},{134,-20},{134,-34},{150.6,-34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer1Cor.port_b2, per1.ports[5]) annotation (Line(
+  connect(opeSouCor.port_b2, sou.ports[5]) annotation (Line(
       points={{84,4},{74,4},{74,-20},{134,-20},{134,-34},{152.2,-34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer2Cor.port_b1, per2.ports[4]) annotation (Line(
+  connect(opeEasCor.port_b1, eas.ports[4]) annotation (Line(
       points={{270,54},{290,54},{290,66},{310.6,66}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer2Cor.port_a2, per2.ports[5]) annotation (Line(
+  connect(opeEasCor.port_a2, eas.ports[5]) annotation (Line(
       points={{270,42},{290,42},{290,66},{312.2,66}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer2Cor.port_a1, cor.ports[5]) annotation (Line(
+  connect(opeEasCor.port_a1, cor.ports[5]) annotation (Line(
       points={{250,54},{190,54},{190,34},{142,34},{142,46},{148.273,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer2Cor.port_b2, cor.ports[6]) annotation (Line(
+  connect(opeEasCor.port_b2, cor.ports[6]) annotation (Line(
       points={{250,42},{190,42},{190,34},{142,34},{142,46},{149,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer3Cor.port_b1, per3.ports[4]) annotation (Line(
+  connect(opeNorCor.port_b1, nor.ports[4]) annotation (Line(
       points={{100,90},{124,90},{124,126},{150.6,126}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer3Cor.port_a2, per3.ports[5]) annotation (Line(
+  connect(opeNorCor.port_a2, nor.ports[5]) annotation (Line(
       points={{100,78},{124,78},{124,126},{152.2,126}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer3Cor.port_a1, cor.ports[7]) annotation (Line(
+  connect(opeNorCor.port_a1, cor.ports[7]) annotation (Line(
       points={{80,90},{76,90},{76,60},{142,60},{142,46},{149.727,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer3Cor.port_b2, cor.ports[8]) annotation (Line(
+  connect(opeNorCor.port_b2, cor.ports[8]) annotation (Line(
       points={{80,78},{76,78},{76,60},{142,60},{142,46},{150.455,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer4Cor.port_b1, cor.ports[9]) annotation (Line(
+  connect(opeWesCor.port_b1, cor.ports[9]) annotation (Line(
       points={{40,-4},{56,-4},{56,34},{116,34},{116,46},{151.182,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer4Cor.port_a2, cor.ports[10]) annotation (Line(
+  connect(opeWesCor.port_a2, cor.ports[10]) annotation (Line(
       points={{40,-16},{56,-16},{56,34},{116,34},{116,46},{151.909,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer4Cor.port_a1, per4.ports[4]) annotation (Line(
+  connect(opeWesCor.port_a1, wes.ports[4]) annotation (Line(
       points={{20,-4},{2,-4},{2,46},{18.6,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(opePer4Cor.port_b2, per4.ports[5]) annotation (Line(
+  connect(opeWesCor.port_b2, wes.ports[5]) annotation (Line(
       points={{20,-16},{2,-16},{2,46},{20.2,46}},
       color={0,127,255},
       smooth=Smooth.None));

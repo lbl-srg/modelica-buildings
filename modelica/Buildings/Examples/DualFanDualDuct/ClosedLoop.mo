@@ -18,19 +18,19 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   parameter Boolean linearizeFlowResistance=false
     "= true, use linear relation between m_flow and dp for any flow rate";
 
-  constant Real conv=1.2 "Conversion factor for nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=3.493*conv
+  constant Real conv=1.5 "Conversion factor for nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=3.0*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_per1=0.878*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=1.1*conv
     "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_per2=0.992*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=1.4*conv
     "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_per3=0.760*conv*1.4
+  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=2.3*conv
     "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_per4=1.161*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=1.4*conv
     "Design mass flow rate perimeter 4";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m0_flow_cor +
-      m0_flow_per1 + m0_flow_per2 + m0_flow_per3 + m0_flow_per4
+      m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes
     "Nominal air mass flow rate";
   parameter Modelica.SIunits.MassFlowRate mAirOut_flow_nominal = 0.3*m_flow_nominal
     "Nominal outside air mass flow rate";
@@ -215,7 +215,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Sensors.TemperatureTwoPort TMix(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Mixed air temperature sensor"
     annotation (Placement(transformation(extent={{30,-50},{50,-30}})));
-  Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint TSetRoo
+  Buildings.Examples.VAVReheat.Controls.RoomTemperatureSetpoint TSetRoo(THeaOff=
+        289.15)
     annotation (Placement(transformation(extent={{-300,-276},{-280,-256}})));
   Buildings.Fluid.Sources.FixedBoundary souHea(
     redeclare package Medium = MediumW,
@@ -253,33 +254,33 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{548,44},{616,112}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    per1(
+                                                    sou(
     redeclare package MediumA = MediumA,
-    m_flow_nominal=m0_flow_per1,
+    m_flow_nominal=m0_flow_sou,
     VRoo=568.77,
     energyDynamicsJunctions=energyDynamicsJunctions,
     dynamicBalanceJunction=dynamicBalanceJunction) "South-facing thermal zone"
     annotation (Placement(transformation(extent={{686,42},{758,114}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    per2(
+                                                    eas(
     redeclare package MediumA = MediumA,
-    m_flow_nominal=m0_flow_per2,
+    m_flow_nominal=m0_flow_eas,
     VRoo=360.08,
     energyDynamicsJunctions=energyDynamicsJunctions,
     dynamicBalanceJunction=dynamicBalanceJunction) "East-facing thermal zone"
     annotation (Placement(transformation(extent={{824,46},{892,114}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    per3(
+                                                    nor(
     redeclare package MediumA = MediumA,
-    m_flow_nominal=m0_flow_per3,
+    m_flow_nominal=m0_flow_nor,
     VRoo=568.77,
     energyDynamicsJunctions=energyDynamicsJunctions,
     dynamicBalanceJunction=dynamicBalanceJunction) "North-facing thermal zone"
     annotation (Placement(transformation(extent={{964,46},{1032,114}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
-                                                    per4(
+                                                    wes(
     redeclare package MediumA = MediumA,
-    m_flow_nominal=m0_flow_per4,
+    m_flow_nominal=m0_flow_wes,
     VRoo=360.08,
     energyDynamicsJunctions=energyDynamicsJunctions,
     dynamicBalanceJunction=dynamicBalanceJunction) "West-facing thermal zone"
@@ -300,10 +301,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Splitter for room return"
     annotation (Placement(transformation(extent={{590,170},{610,150}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetPer1(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetSou(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per1 + m0_flow_per2 + m0_flow_per3 + m0_flow_per4,
-        m0_flow_per2 + m0_flow_per3 + m0_flow_per4,m0_flow_per1},
+    m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
+        m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     dp_nominal(displayUnit="Pa") = {20,10,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
@@ -311,10 +312,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Splitter for room return"
     annotation (Placement(transformation(extent={{730,170},{750,150}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetPer2(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetEas(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per2 + m0_flow_per3 + m0_flow_per4,m0_flow_per3 +
-        m0_flow_per4,m0_flow_per2},
+    m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
+        m0_flow_wes,m0_flow_eas},
     dp_nominal(displayUnit="Pa") = {20,10,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
@@ -322,9 +323,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Splitter for room return"
     annotation (Placement(transformation(extent={{870,170},{890,150}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetPer3(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetNor(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per3 + m0_flow_per4,m0_flow_per4,m0_flow_per3},
+    m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     dp_nominal(displayUnit="Pa") = {20,10,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
@@ -342,10 +343,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Splitter for room supply"
     annotation (Placement(transformation(extent={{560,10},{580,-10}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupPer1Hot(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupSouHot(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per1 + m0_flow_per2 + m0_flow_per3 + m0_flow_per4,
-        m0_flow_per2 + m0_flow_per3 + m0_flow_per4,m0_flow_per1},
+    m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
+        m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
@@ -353,10 +354,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Splitter for room supply"
     annotation (Placement(transformation(extent={{700,10},{720,-10}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupPer2Hot(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupEasHot(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per2 + m0_flow_per3 + m0_flow_per4,m0_flow_per3 +
-        m0_flow_per4,m0_flow_per2},
+    m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
+        m0_flow_wes,m0_flow_eas},
     dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
@@ -364,9 +365,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Splitter for room supply"
     annotation (Placement(transformation(extent={{840,10},{860,-10}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupPer3Hot(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupNorHot(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per3 + m0_flow_per4,m0_flow_per4,m0_flow_per3},
+    m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
@@ -493,10 +494,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Splitter for room supply"
     annotation (Placement(transformation(extent={{580,-30},{600,-50}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupPer1Col(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupSouCol(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per1 + m0_flow_per2 + m0_flow_per3 + m0_flow_per4,
-        m0_flow_per2 + m0_flow_per3 + m0_flow_per4,m0_flow_per1},
+    m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
+        m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
@@ -504,10 +505,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Splitter for room supply"
     annotation (Placement(transformation(extent={{724,-30},{744,-50}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupPer2Col(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupEasCol(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per2 + m0_flow_per3 + m0_flow_per4,m0_flow_per3 +
-        m0_flow_per4,m0_flow_per2},
+    m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
+        m0_flow_wes,m0_flow_eas},
     dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
@@ -515,9 +516,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     from_dp=from_dp,
     linearized=linearizeFlowResistance) "Splitter for room supply"
     annotation (Placement(transformation(extent={{860,-30},{880,-50}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupPer3Col(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupNorCol(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per3 + m0_flow_per4,m0_flow_per4,m0_flow_per3},
+    m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
@@ -640,7 +641,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(per1.controlBus, controlBus) annotation (Line(
+  connect(sou.controlBus, controlBus) annotation (Line(
       points={{686,59.28},{686,18},{674,18},{674,-160},{480,-160},{480,-260},{-240,
           -260}},
       color={255,204,51},
@@ -649,7 +650,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(per2.controlBus, controlBus) annotation (Line(
+  connect(eas.controlBus, controlBus) annotation (Line(
       points={{824,62.32},{812,62.32},{812,-160},{480,-160},{480,-260},{-240,
           -260}},
       color={255,204,51},
@@ -658,7 +659,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(per3.controlBus, controlBus) annotation (Line(
+  connect(nor.controlBus, controlBus) annotation (Line(
       points={{964,62.32},{950,62.32},{950,-160},{480,-160},{480,-260},{-240,
           -260}},
       color={255,204,51},
@@ -667,7 +668,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(per4.controlBus, controlBus) annotation (Line(
+  connect(wes.controlBus, controlBus) annotation (Line(
       points={{1102,62.32},{1092,62.32},{1092,-160},{480,-160},{480,-260},{-240,
           -260}},
       color={255,204,51},
@@ -722,31 +723,31 @@ equation
       points={{82,160},{24,160},{24,54},{14,54},{14,55.2}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer3.port_1, splRetPer2.port_2) annotation (Line(
+  connect(splRetNor.port_1, splRetEas.port_2) annotation (Line(
       points={{1010,160},{890,160}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer2.port_1, splRetPer1.port_2) annotation (Line(
+  connect(splRetEas.port_1, splRetSou.port_2) annotation (Line(
       points={{870,160},{750,160}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer1.port_1, splRetRoo1.port_2) annotation (Line(
+  connect(splRetSou.port_1, splRetRoo1.port_2) annotation (Line(
       points={{730,160},{610,160}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupRoo1Hot.port_2, splSupPer1Hot.port_1)
+  connect(splSupRoo1Hot.port_2, splSupSouHot.port_1)
                                                 annotation (Line(
       points={{580,-6.10623e-16},{652,3.36456e-22},{652,-6.10623e-16},{700,
           -6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer1Hot.port_2, splSupPer2Hot.port_1)
+  connect(splSupSouHot.port_2, splSupEasHot.port_1)
                                                 annotation (Line(
       points={{720,-6.10623e-16},{790,3.36456e-22},{790,-6.10623e-16},{840,
           -6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer2Hot.port_2, splSupPer3Hot.port_1)
+  connect(splSupEasHot.port_2, splSupNorHot.port_1)
                                                 annotation (Line(
       points={{860,-6.10623e-16},{928,3.36456e-22},{928,-6.10623e-16},{980,
           -6.10623e-16}},
@@ -807,35 +808,35 @@ equation
           931.2,375.873}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per1.port_b, flo.portsPer1[1]) annotation (Line(
+  connect(sou.port_b, flo.portsSou[1]) annotation (Line(
       points={{722,114},{722,228},{918.08,228},{918.08,323.34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer1.port_3, flo.portsPer1[2]) annotation (Line(
+  connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
       points={{740,170},{740,218},{934,218},{934,323.34},{931.2,323.34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per2.port_b, flo.portsPer2[1]) annotation (Line(
+  connect(eas.port_b, flo.portsEas[1]) annotation (Line(
       points={{858,114},{858,212},{1078,212},{1078,369.307},{1078.14,369.307}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer2.port_3, flo.portsPer2[2]) annotation (Line(
+  connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
       points={{880,170},{880,210},{1091.26,210},{1091.26,369.307}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per3.port_b, flo.portsPer3[1]) annotation (Line(
+  connect(nor.port_b, flo.portsNor[1]) annotation (Line(
       points={{998,114},{998,412},{918.08,412},{918.08,428.407}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer3.port_3, flo.portsPer3[2]) annotation (Line(
+  connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
       points={{1020,170},{1020,418},{931.2,418},{931.2,428.407}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per4.port_b, flo.portsPer4[1]) annotation (Line(
+  connect(wes.port_b, flo.portsWes[1]) annotation (Line(
       points={{1136,114},{1136,248},{839.36,248},{839.36,375.873}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer3.port_2, flo.portsPer4[2]) annotation (Line(
+  connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
       points={{1030,160},{1130,160},{1130,240},{852.48,240},{852.48,375.873}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -852,19 +853,19 @@ equation
       points={{1121.44,450.733},{1162,450.733},{1162,420},{1198,420}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRooAir.y1[1], per1.TRoo) annotation (Line(
+  connect(TRooAir.y1[1], sou.TRoo) annotation (Line(
       points={{519,138},{660,138},{660,90},{681.2,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRooAir.y2[1], per2.TRoo) annotation (Line(
+  connect(TRooAir.y2[1], eas.TRoo) annotation (Line(
       points={{519,134},{808,134},{808,91.3333},{819.467,91.3333}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRooAir.y3[1], per3.TRoo) annotation (Line(
+  connect(TRooAir.y3[1], nor.TRoo) annotation (Line(
       points={{519,130},{950,130},{950,91.3333},{959.467,91.3333}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRooAir.y4[1], per4.TRoo) annotation (Line(
+  connect(TRooAir.y4[1], wes.TRoo) annotation (Line(
       points={{519,126},{1088,126},{1088,91.3333},{1097.47,91.3333}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -959,17 +960,17 @@ equation
       points={{380,-200},{380,-210}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupRoo1Col.port_2, splSupPer1Col.port_1)
+  connect(splSupRoo1Col.port_2, splSupSouCol.port_1)
                                                 annotation (Line(
       points={{600,-40},{724,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer1Col.port_2, splSupPer2Col.port_1)
+  connect(splSupSouCol.port_2, splSupEasCol.port_1)
                                                 annotation (Line(
       points={{744,-40},{860,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer2Col.port_2, splSupPer3Col.port_1)
+  connect(splSupEasCol.port_2, splSupNorCol.port_1)
                                                 annotation (Line(
       points={{880,-40},{1000,-40}},
       color={0,127,255},
@@ -982,40 +983,40 @@ equation
       points={{593.787,44},{590,44},{590,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per1.port_aHot, splSupPer1Hot.port_3) annotation (Line(
+  connect(sou.port_aHot, splSupSouHot.port_3) annotation (Line(
       points={{709.52,42},{709.52,26},{710,26},{710,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per1.port_aCol, splSupPer1Col.port_3) annotation (Line(
+  connect(sou.port_aCol, splSupSouCol.port_3) annotation (Line(
       points={{734.48,42},{734.48,6},{734,6},{734,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per2.port_aHot, splSupPer2Hot.port_3) annotation (Line(
+  connect(eas.port_aHot, splSupEasHot.port_3) annotation (Line(
       points={{846.213,46},{850,46},{850,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per2.port_aCol, splSupPer2Col.port_3) annotation (Line(
+  connect(eas.port_aCol, splSupEasCol.port_3) annotation (Line(
       points={{869.787,46},{870,46},{870,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per3.port_aHot, splSupPer3Hot.port_3) annotation (Line(
+  connect(nor.port_aHot, splSupNorHot.port_3) annotation (Line(
       points={{986.213,46},{990,46},{990,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per3.port_aCol, splSupPer3Col.port_3) annotation (Line(
+  connect(nor.port_aCol, splSupNorCol.port_3) annotation (Line(
       points={{1009.79,46},{1010,46},{1010,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer3Hot.port_2, per4.port_aHot) annotation (Line(
+  connect(splSupNorHot.port_2, wes.port_aHot) annotation (Line(
       points={{1000,-6.10623e-16},{1058,-6.10623e-16},{1058,0},{1124.21,0},{
           1124.21,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer3Col.port_2, per4.port_aCol) annotation (Line(
+  connect(splSupNorCol.port_2, wes.port_aCol) annotation (Line(
       points={{1020,-40},{1147.79,-40},{1147.79,46}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per3.p_relHot, conFanSupHot.u_m) annotation (Line(
+  connect(nor.p_relHot, conFanSupHot.u_m) annotation (Line(
       points={{1034.27,68.6667},{1048,68.6667},{1048,28},{130,28},{130,78}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -1034,7 +1035,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(per3.p_relCol, conFanSupCol.u_m) annotation (Line(
+  connect(nor.p_relCol, conFanSupCol.u_m) annotation (Line(
       points={{1034.27,55.0667},{1044,55.0667},{1044,32},{110,32},{110,38}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -1164,14 +1165,14 @@ of cold air is increased. In addition, whenever the air mass flow rate
 is below a prescribed limit, the hot air deck damper opens to track
 the minimum air flow rate. The temperature of the hot-deck is re-
 set based on the outside air temperature. The temperature of the
-cold-deck is constant. The revolutions of both supply fans are con-
-trolled in order to track a pressure difference between VAV damper
+cold-deck is constant. The revolutions of both supply fans are controlled 
+in order to track a pressure difference between VAV damper
 inlet and room pressure of 30 Pascals. The return fan is controlled
 to track a building pressure of 30 Pascals above outside air pressure.
 There is also an economizer. 
 During night-time, the fans are switched off.
 The coils are controlled as follows: The preheat coil is controlled to
-maintain the an air outlet temperature of 11&deg;C during day-time, and
+maintain an air outlet temperature of 11&deg;C during day-time, and
 6&deg;C during night-time. The heating coil is controlled to maintain the
 air outlet temperature shown in the figure below.
 </p>

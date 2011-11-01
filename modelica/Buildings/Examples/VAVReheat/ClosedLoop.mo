@@ -9,16 +9,16 @@ model ClosedLoop
   constant Real conv=1.2 "Conversion factor for nominal mass flow rate";
   parameter Modelica.SIunits.MassFlowRate m0_flow_cor=3.493*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_per1=0.878*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=0.878*conv
     "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_per2=0.992*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=0.992*conv
     "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_per3=0.760*conv*1.4
+  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=0.760*conv*1.4
     "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_per4=1.161*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=1.161*conv
     "Design mass flow rate perimeter 4";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m0_flow_cor +
-      m0_flow_per1 + m0_flow_per2 + m0_flow_per3 + m0_flow_per4
+      m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes
     "Nominal mass flow rate";
    parameter Modelica.SIunits.Angle lat=41.98*3.14159/180 "Latitude";
   Fluid.Sources.Outside amb(redeclare package Medium = MediumA, nPorts=2)
@@ -241,31 +241,31 @@ model ClosedLoop
     VRoo=2698) "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{550,4},{618,72}})));
   Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
-                                                    per1(
+                                                    sou(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
-    m_flow_nominal=m0_flow_per1,
+    m_flow_nominal=m0_flow_sou,
     VRoo=568.77) "South-facing thermal zone"
     annotation (Placement(transformation(extent={{688,2},{760,74}})));
   Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
-                                                    per2(
+                                                    eas(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
-    m_flow_nominal=m0_flow_per2,
+    m_flow_nominal=m0_flow_eas,
     VRoo=360.08) "East-facing thermal zone"
     annotation (Placement(transformation(extent={{826,6},{894,74}})));
   Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
-                                                    per3(
+                                                    nor(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
-    m_flow_nominal=m0_flow_per3,
+    m_flow_nominal=m0_flow_nor,
     VRoo=568.77) "North-facing thermal zone"
     annotation (Placement(transformation(extent={{966,6},{1034,74}})));
   Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
-                                                    per4(
+                                                    wes(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
-    m_flow_nominal=m0_flow_per4,
+    m_flow_nominal=m0_flow_wes,
     VRoo=360.08) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1104,6},{1172,74}})));
   Controls.FanVFD conFanRet(xSet_nominal(displayUnit="m3/s") = m_flow_nominal/
@@ -283,27 +283,27 @@ model ClosedLoop
     dynamicBalance=true,
     linearized=true) "Splitter for room return"
     annotation (Placement(transformation(extent={{600,130},{620,110}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetPer1(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetSou(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per1 + m0_flow_per2 + m0_flow_per3 + m0_flow_per4,
-        m0_flow_per2 + m0_flow_per3 + m0_flow_per4,m0_flow_per1},
+    m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
+        m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     dynamicBalance=true,
     linearized=true) "Splitter for room return"
     annotation (Placement(transformation(extent={{738,130},{758,110}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetPer2(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetEas(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per2 + m0_flow_per3 + m0_flow_per4,m0_flow_per3 +
-        m0_flow_per4,m0_flow_per2},
+    m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
+        m0_flow_wes,m0_flow_eas},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     dynamicBalance=true,
     linearized=true) "Splitter for room return"
     annotation (Placement(transformation(extent={{874,130},{894,110}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetPer3(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetNor(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per3 + m0_flow_per4,m0_flow_per4,m0_flow_per3},
+    m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=false,
     dynamicBalance=true,
@@ -316,25 +316,25 @@ model ClosedLoop
     from_dp=true,
     linearized=true) "Splitter for room supply"
     annotation (Placement(transformation(extent={{574,-30},{594,-50}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupPer1(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupSou(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per1 + m0_flow_per2 + m0_flow_per3 + m0_flow_per4,
-        m0_flow_per2 + m0_flow_per3 + m0_flow_per4,m0_flow_per1},
+    m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
+        m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
     linearized=true) "Splitter for room supply"
     annotation (Placement(transformation(extent={{714,-30},{734,-50}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupPer2(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupEas(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per2 + m0_flow_per3 + m0_flow_per4,m0_flow_per3 +
-        m0_flow_per4,m0_flow_per2},
+    m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
+        m0_flow_wes,m0_flow_eas},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
     linearized=true) "Splitter for room supply"
     annotation (Placement(transformation(extent={{850,-30},{870,-50}})));
-  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupPer3(
+  Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupNor(
     redeclare package Medium = MediumA,
-    m_flow_nominal={m0_flow_per3 + m0_flow_per4,m0_flow_per4,m0_flow_per3},
+    m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
     dp_nominal(displayUnit="Pa") = {10,10,10},
     from_dp=true,
     linearized=true) "Splitter for room supply"
@@ -484,7 +484,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(per1.controlBus, controlBus) annotation (Line(
+  connect(sou.controlBus, controlBus) annotation (Line(
       points={{688,19.28},{688,18},{674,18},{674,-160},{480,-160},{480,-260},{-240,
           -260}},
       color={255,204,51},
@@ -493,7 +493,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(per2.controlBus, controlBus) annotation (Line(
+  connect(eas.controlBus, controlBus) annotation (Line(
       points={{826,22.32},{812,22.32},{812,-160},{480,-160},{480,-260},{-240,
           -260}},
       color={255,204,51},
@@ -502,7 +502,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(per3.controlBus, controlBus) annotation (Line(
+  connect(nor.controlBus, controlBus) annotation (Line(
       points={{966,22.32},{950,22.32},{950,-160},{480,-160},{480,-260},{-240,
           -260}},
       color={255,204,51},
@@ -511,7 +511,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(per4.controlBus, controlBus) annotation (Line(
+  connect(wes.controlBus, controlBus) annotation (Line(
       points={{1104,22.32},{1092,22.32},{1092,-160},{480,-160},{480,-260},{-240,
           -260}},
       color={255,204,51},
@@ -577,21 +577,21 @@ equation
           158,8.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(per1.yDam, pSetDuc.u[2]) annotation (Line(
+  connect(sou.yDam, pSetDuc.u[2]) annotation (Line(
       points={{762.4,26},{774,26},{774,190},{140,190},{140,9.2},{158,9.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(per2.yDam, pSetDuc.u[3]) annotation (Line(
+  connect(eas.yDam, pSetDuc.u[3]) annotation (Line(
       points={{896.267,28.6667},{916,28.6667},{916,190},{140,190},{140,10},{158,
           10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(per3.yDam, pSetDuc.u[4]) annotation (Line(
+  connect(nor.yDam, pSetDuc.u[4]) annotation (Line(
       points={{1036.27,28.6667},{1060,28.6667},{1060,190},{140,190},{140,10.8},
           {158,10.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(per4.yDam, pSetDuc.u[5]) annotation (Line(
+  connect(wes.yDam, pSetDuc.u[5]) annotation (Line(
       points={{1174.27,28.6667},{1196,28.6667},{1196,190},{140,190},{140,11.6},
           {158,11.6}},
       color={0,0,127},
@@ -640,15 +640,15 @@ equation
       points={{600,120},{440,120}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer3.port_1, splRetPer2.port_2) annotation (Line(
+  connect(splRetNor.port_1, splRetEas.port_2) annotation (Line(
       points={{1014,120},{894,120}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer2.port_1, splRetPer1.port_2) annotation (Line(
+  connect(splRetEas.port_1, splRetSou.port_2) annotation (Line(
       points={{874,120},{758,120}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer1.port_1, splRetRoo1.port_2) annotation (Line(
+  connect(splRetSou.port_1, splRetRoo1.port_2) annotation (Line(
       points={{738,120},{620,120}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -660,31 +660,31 @@ equation
       points={{584,-30},{584,20.7733}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupRoo1.port_2, splSupPer1.port_1) annotation (Line(
+  connect(splSupRoo1.port_2, splSupSou.port_1) annotation (Line(
       points={{594,-40},{714,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer1.port_3, per1.port_a) annotation (Line(
+  connect(splSupSou.port_3, sou.port_a) annotation (Line(
       points={{724,-30},{724,19.76}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer1.port_2, splSupPer2.port_1) annotation (Line(
+  connect(splSupSou.port_2, splSupEas.port_1) annotation (Line(
       points={{734,-40},{850,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer2.port_3, per2.port_a) annotation (Line(
+  connect(splSupEas.port_3, eas.port_a) annotation (Line(
       points={{860,-30},{860,22.7733}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer2.port_2, splSupPer3.port_1) annotation (Line(
+  connect(splSupEas.port_2, splSupNor.port_1) annotation (Line(
       points={{870,-40},{990,-40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer3.port_3, per3.port_a) annotation (Line(
+  connect(splSupNor.port_3, nor.port_a) annotation (Line(
       points={{1000,-30},{1000,22.7733}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splSupPer3.port_2, per4.port_a) annotation (Line(
+  connect(splSupNor.port_2, wes.port_a) annotation (Line(
       points={{1010,-40},{1138,-40},{1138,22.7733}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -755,36 +755,36 @@ equation
           931.2,375.873}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per1.port_b, flo.portsPer1[1]) annotation (Line(
+  connect(sou.port_b, flo.portsSou[1]) annotation (Line(
       points={{724,74},{724,228},{918.08,228},{918.08,323.34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer1.port_3, flo.portsPer1[2]) annotation (Line(
+  connect(splRetSou.port_3, flo.portsSou[2]) annotation (Line(
       points={{748,130},{750,130},{750,224},{934,224},{934,323.34},{931.2,
           323.34}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per2.port_b, flo.portsPer2[1]) annotation (Line(
+  connect(eas.port_b, flo.portsEas[1]) annotation (Line(
       points={{860,74},{860,218},{1078,218},{1078,369.307},{1078.14,369.307}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer2.port_3, flo.portsPer2[2]) annotation (Line(
+  connect(splRetEas.port_3, flo.portsEas[2]) annotation (Line(
       points={{884,130},{882,130},{882,212},{1091.26,212},{1091.26,369.307}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per3.port_b, flo.portsPer3[1]) annotation (Line(
+  connect(nor.port_b, flo.portsNor[1]) annotation (Line(
       points={{1000,74},{1002,74},{1002,412},{918.08,412},{918.08,428.407}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer3.port_3, flo.portsPer3[2]) annotation (Line(
+  connect(splRetNor.port_3, flo.portsNor[2]) annotation (Line(
       points={{1024,130},{1024,418},{931.2,418},{931.2,428.407}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(per4.port_b, flo.portsPer4[1]) annotation (Line(
+  connect(wes.port_b, flo.portsWes[1]) annotation (Line(
       points={{1138,74},{1140,74},{1140,254},{839.36,254},{839.36,375.873}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(splRetPer3.port_2, flo.portsPer4[2]) annotation (Line(
+  connect(splRetNor.port_2, flo.portsWes[2]) annotation (Line(
       points={{1034,120},{1130,120},{1130,242},{852.48,242},{852.48,375.873}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -801,19 +801,19 @@ equation
       points={{1121.44,450.733},{1166,450.733},{1166,420},{1198,420}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRooAir.y1[1], per1.TRoo) annotation (Line(
+  connect(TRooAir.y1[1], sou.TRoo) annotation (Line(
       points={{521,98},{660,98},{660,50},{683.2,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRooAir.y2[1], per2.TRoo) annotation (Line(
+  connect(TRooAir.y2[1], eas.TRoo) annotation (Line(
       points={{521,94},{808,94},{808,51.3333},{821.467,51.3333}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRooAir.y3[1], per3.TRoo) annotation (Line(
+  connect(TRooAir.y3[1], nor.TRoo) annotation (Line(
       points={{521,90},{950,90},{950,51.3333},{961.467,51.3333}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRooAir.y4[1], per4.TRoo) annotation (Line(
+  connect(TRooAir.y4[1], wes.TRoo) annotation (Line(
       points={{521,86},{1088,86},{1088,51.3333},{1099.47,51.3333}},
       color={0,0,127},
       smooth=Smooth.None));
