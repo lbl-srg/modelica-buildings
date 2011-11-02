@@ -512,10 +512,11 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, but, e.
 units are wrong or errors in documentation):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b></td></tr>
-<tr><td valign=\"top\"> xxxx<br>
-                        xxxx<br>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation</td>
+    <td>Corrected wrong unit label.
     </td>
+</tr>
 </table>
 <p>
 The following
