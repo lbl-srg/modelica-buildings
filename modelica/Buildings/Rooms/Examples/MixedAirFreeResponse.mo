@@ -167,14 +167,6 @@ equation
 This model illustrates the use of the room model
 <a href=\"modelica://Buildings.Rooms.MixedAir\">
 Buildings.Rooms.MixedAir</a>.
-<h4>Information for Windows users:</h4>
-<p>
-This example uses the Radau solver. 
-For Dymola 7.4, Microsoft Visual C++ Express 2010 does
-not work with the Radau solver.
-Microsoft Visual C++ Express is not officialy supported by Dymola 7.4 and it can not link
-the model to the Radau solver. 
-To avoid this problem, use another compiler, such as Visual C++ 2008. 
 </p>
 </html>", revisions="<html>
 <ul>
