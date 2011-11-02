@@ -596,15 +596,25 @@ equation
     Icon(graphics),
     Documentation(info="<HTML>
 <h4>System Configuration</h4>
-<p>This example demonstrates the implementation of a chiller plant with water-side economizer for cooling of a data center.
-The system has the following properties:</p>
+<p>This example demonstrates the implementation of a chiller plant with water-side economizer to cool a data center.
+The system schematics is as shown below.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Examples/ChillerPlant/chillerSchematics.png\" border=\"1\">
+</p>
 <p>
-<ul>
-<li>This is a primary-only integrated water side economizer system.</li>
-<li>The data center room is simplified as a mixed air volume with heat source. The only means to transfer heat out of the room is through the HVAC system. Heat conduction and air infiltration through building leakage is neglected since the heat exchange between the room and the ambient environment is small compared to the heat released by the servers.</li>
-<li>The control objective is to maintain the temperature of the supply air into data center room and to reduce energy consumption of the chiller, fans and pumps by maximizing the usage of the water-side economizer (WSE) for free cooling.</li>  
-<li>The current system only specifies the control of the chiller (on/off and set point reset) and the WSE, which may be on or off.</li>
-</ul>
+The system is a primary-only chiller plant with integrated water-side economizer.
+The data center room is simplified as a mixed air volume with a heat source. 
+The only means to transfer heat between the room and the environment is through the HVAC system. 
+Heat conduction and air infiltration through building leakage are neglected since the 
+heat exchange between the room and the ambient environment is small compared to 
+the heat released by the servers.
+The control objective is to maintain the temperature of the supply air into the 
+data center room and to reduce energy consumption of the chiller, 
+fans and pumps by maximizing the usage of the water-side economizer (WSE) for free cooling.
+The control sequence is as described by Stein (2009).
+The chiller may be on or off. If it is on, then the leaving water temperature setpoint is reset
+based on the load. The WSE can be on or off.
 </p>
 <h4>Enabling/Disabling the WSE</h4>
 <p>
