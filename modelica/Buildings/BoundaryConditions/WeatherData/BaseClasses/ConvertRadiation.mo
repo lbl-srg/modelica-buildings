@@ -27,7 +27,7 @@ This component converts <code>Wh/m2</code> to <code>W/m2</code> that is the stan
 <ul>
 <li>
 October 27, 2011, by Wangda Zuo:<br>
-Add the unit convertion and delete the data validity check.
+Add the unit conversion and delete the data validity check.
 </li>
 <li>
 July 14, 2010, by Wangda Zuo:<br>
