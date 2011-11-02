@@ -1142,7 +1142,8 @@ for air flow through building leakage and through open doors.
 <p>
 The HVAC system is a dual-fan, dual-duct system with economizer and a heating and 
 cooling coil in the air handler unit. 
-One is called the hot-deck and has a heating coil, the other is called
+One of the supply air streams is called the hot-deck 
+and has a heating coil, the other is called
 the cold-deck and has a cooling coil. There is also one return fan and
 an economizer. The figure below shows the schematic diagram of the dual-fan,
 dual-duct system.
@@ -1163,8 +1164,8 @@ Hence, at low room temperatures, the amount
 of hot air is increased, and at high room temperatures, the amount
 of cold air is increased. In addition, whenever the air mass flow rate
 is below a prescribed limit, the hot air deck damper opens to track
-the minimum air flow rate. The temperature of the hot-deck is re-
-set based on the outside air temperature. The temperature of the
+the minimum air flow rate. The temperature of the hot-deck is reset 
+based on the outside air temperature. The temperature of the
 cold-deck is constant. The revolutions of both supply fans are controlled 
 in order to track a pressure difference between VAV damper
 inlet and room pressure of 30 Pascals. The return fan is controlled
