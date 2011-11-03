@@ -219,5 +219,5 @@ April 14 2011, by Pierre Vigouroux:<br>
 First implementation.
 </li>
 </ul>
-</html>"),   uses(Modelica(version="3.2")));
+</html>"));
 end SingleLayerCylinder;

@@ -10,7 +10,6 @@ model SensibleEnthalpyFlowRate
       Modelica.Media.Interfaces.PartialCondensingGases
       annotation (choicesAllMatching = true);
   parameter Integer i_w = 1 "Index for water substance";
-
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Sensible enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
@@ -84,13 +83,34 @@ annotation (defaultComponentName="senEntFlo",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}), graphics),
   Icon(graphics={
+        Ellipse(
+          extent={{-70,70},{70,-70}},
+          lineColor={0,0,0},
+          fillColor={170,213,255},
+          fillPattern=FillPattern.Solid),
         Line(points={{-100,0},{-70,0}}, color={0,128,255}),
         Line(points={{70,0},{100,0}}, color={0,128,255}),
         Line(points={{0,100},{0,70}}, color={0,0,127}),
         Text(
           extent={{180,151},{20,99}},
           lineColor={0,0,0},
-          textString="HS_flow")}),
+          textString="HS_flow"),
+        Polygon(
+          points={{-0.48,31.6},{18,26},{18,57.2},{-0.48,31.6}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(points={{0,0},{9.02,28.6}}, color={0,0,0}),
+        Ellipse(
+          extent={{-5,5},{5,-5}},
+          lineColor={0,0,0},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid),
+        Line(points={{37.6,13.7},{65.8,23.9}}, color={0,0,0}),
+        Line(points={{22.9,32.8},{40.2,57.3}}, color={0,0,0}),
+        Line(points={{0,70},{0,40}}, color={0,0,0}),
+        Line(points={{-22.9,32.8},{-40.2,57.3}}, color={0,0,0}),
+        Line(points={{-37.6,13.7},{-65.8,23.9}}, color={0,0,0})}),
   Documentation(info="<html>
 <p>
 This component monitors the <i>sensible</i> enthalphy flow rate of the medium in the flow

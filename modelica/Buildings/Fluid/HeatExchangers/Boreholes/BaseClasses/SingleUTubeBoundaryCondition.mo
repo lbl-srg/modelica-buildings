@@ -38,8 +38,9 @@ protected
 initial algorithm
   U    := 0;
   UOld := 0;
+equation
+  der(U) = Q_flow;
 algorithm
-  der(U) := Q_flow;
   // Set the start time for the sampling
   when initial() then
     startTime:=time;
@@ -100,6 +101,11 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 3 2011, by Michael Wetter:<br>
+Moved <code>der(U) := Q_flow;</code> from the algorithm section to the equation section
+as this assignment does not conform to the Modelica specification.
+</li>
 <li>
 September 9 2011, by Michael Wetter:<br>
 Moved <code>equation</code> section into <code>algorithm</code> section to make sure that the equations
