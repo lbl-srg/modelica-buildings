@@ -1444,7 +1444,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0\">
-Version 1.0 </a>(xxxx, 2011)</li>
+Version 1.0 </a>(November 3, 2011)</li>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">
@@ -1788,7 +1788,7 @@ end UsersGuide;
 annotation (
 version="1.0",
 versionBuild=1,
-versionDate="2011-XX-XX",
+versionDate="2011-11-03",
 uses(Modelica(version="3.2")),
 conversion(
  from(version="0.12",
