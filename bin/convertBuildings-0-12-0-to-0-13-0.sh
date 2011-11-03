@@ -12,16 +12,20 @@
 # Michael Wetter, LBNL                                     2009-09-29
 #####################################################################
 ORI=(\
-DynamicTwoPortTransformer \
-DynamicFourPortTransformer \
-TwoPortHeatMassTransfer \
-FourPortHeatMassTransfer \
+##DynamicTwoPortTransformer \
+##DynamicFourPortTransformer \
+##TwoPortHeatMassTransfer \
+##FourPortHeatMassTransfer \
+RoomsBeta \
+WindowsBeta \
 )
 NEW=(\
-TwoPortHeatMassExchanger \
-FourPortHeatMassExchanger \
-StaticTwoPortHeatMassExchanger \
-StaticFourPortHeatMassExchanger \
+##TwoPortHeatMassExchanger \
+##FourPortHeatMassExchanger \
+##StaticTwoPortHeatMassExchanger \
+##StaticFourPortHeatMassExchanger \
+Rooms \
+Windows \
 )
 
 # Number of strings to replace
@@ -36,7 +40,7 @@ fi
 
 
 # Find all *.mo and *.mos files, then replace the strings
-for ff in `find . \( -name '*.mo' -or -name '*.mos' -not -name 'ConvertBuildings_from*' \)`; do
+for ff in `find . \( -name '*.mo' -or -name '*.mos' -or -name '*.txt' -not -name 'ConvertBuildings_from*' \)`; do
     iVar=0
     while [ $iVar -lt $iMax ]; do
         # Count how many times the original string is in the file
