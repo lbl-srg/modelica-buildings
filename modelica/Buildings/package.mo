@@ -15,7 +15,6 @@ the headings \"h1, h2, h3\" should not be used,
 because they are utilized from the automatically generated documentation/headings.
 Additional headings in the html documentation should start with \"h4\".
 </p>
-
 <p>
 In the Modelica package the following conventions are used:
 </p>
@@ -24,31 +23,30 @@ In the Modelica package the following conventions are used:
 <li> Class and instance names are written in upper and lower case
   letters, e.g., \"ElectricCurrent\". An underscore is only used
   at the end of a name to characterize a lower or upper index,
-  e.g., \"pin_a\".<br>&nbsp;</li>
+  e.g., \"pin_a\".</li>
 
-<li> <b>Class names</b> start always with an upper case letter.<br>&nbsp;</li>
+<li> <b>Class names</b> start always with an upper case letter.</li>
 
 <li> <b>Instance names</b>, i.e., names of component instances and
   of variables (with the exception of constants),
   start usually with a lower case letter with only
   a few exceptions if this is common sense
-  (such as \"T\" for a temperature variable).<br>&nbsp;</li>
+  (such as \"T\" for a temperature variable).</li>
 
 <li> <b>Constant names</b>, i.e., names of variables declared with the
   \"constant\" prefix, follow the usual naming conventions
   (= upper and lower case letters) and start usually with an
-  upper case letter, e.g. UniformGravity, SteadyState.<br>&nbsp;<li>
-
+  upper case letter, e.g. UniformGravity, SteadyState.</li>
 <li> The two connectors of a domain that have identical declarations
   and different icons are usually distinguished by \"_a\", \"_b\"
-  or \"_p\", \"_n\", e.g., Flange_a/Flange_b, HeatPort_a, HeatPort_b.<br>&nbsp;</li>
+  or \"_p\", \"_n\", e.g., Flange_a/Flange_b, HeatPort_a, HeatPort_b.</li>
 
 <li> The <b>instance name</b> of a component is always displayed in its icon
   (= text string \"%name\") in <b>blue color</b>. A connector class has the instance
   name definition in the diagram layer and not in the icon layer.
   <b>Parameter</b> values, e.g., resistance, mass, gear ratio, are displayed
   in the icon in <b>black color</b> in a smaller font size as the instance name.
- <br>&nbsp;<li>
+ </li>
 
 <li> A main package has usually the following subpackages:
   <ul>
@@ -94,7 +92,7 @@ and <code>TDryBul</code> (or simply <code>T</code>) denotes dry bulb temperature
 <li>
 Names of models, blocks and packages should start with an upper-case letter and be a
 noun or a noun with a combination of adjectives and nouns.
-Use camel-case notation to combine multiple words, such as <code>HeatTransfer</code>
+Use camel-case notation to combine multiple words, such as <code>HeatTransfer</code>.
 </li>
 <li>
 Parameter and variables names are usually a character, such as <code>T</code>
@@ -1444,7 +1442,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0\">
-Version 1.0 </a>(November 3, 2011)</li>
+Version 1.0 </a>(November 4, 2011)</li>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">
@@ -1756,6 +1754,10 @@ User's Guides that can be accessed by the following links:
    </td>
    <td valign=\"top\">Library for computing boundary conditions, such as solar irradiation.</td>
 </tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.BoundaryConditions.WeatherData.UsersGuide\">BoundaryConditions.WeatherData</a>
+   </td>
+   <td valign=\"top\">Library for reading weather data.</td>
+</tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.UsersGuide\">Fluid</a>
    </td>
    <td valign=\"top\">Library for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
@@ -1776,10 +1778,6 @@ User's Guides that can be accessed by the following links:
    </td>
    <td valign=\"top\">Library heat transfer in building constructions.</td>
 </tr>
-<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.WeatherData.UsersGuide\">Utilities.IO.WeatherData</a>
-   </td>
-   <td valign=\"top\">Library for reading weather data.</td>
-</tr>
 </table>
 </p>
 </html>"));
@@ -1788,7 +1786,7 @@ end UsersGuide;
 annotation (
 version="1.0",
 versionBuild=1,
-versionDate="2011-11-03",
+versionDate="2011-11-04",
 uses(Modelica(version="3.2")),
 conversion(
  from(version="0.12",
