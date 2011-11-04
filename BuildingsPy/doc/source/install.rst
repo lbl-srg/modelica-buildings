@@ -6,12 +6,26 @@ To install the *buildingspy* module, install
 
 .. parsed-literal::
 
-   pip install buildingspy
+   pip install http://simulationresearch.lbl.gov/modelica/releases/python/buildingspy-1.0.0.tar.gz
+
+On Linux or Mac OS X, run 
+
+.. parsed-literal::
+
+   sudo pip install http://simulationresearch.lbl.gov/modelica/releases/python/buildingspy-1.0.0.tar.gz
 
 To uninstall, run
 
 .. parsed-literal::
 
    pip uninstall buildingspy
+
+On Linux or Mac OS X, run
+
+.. parsed-literal::
+
+   sudo pip uninstall buildingspy
+
+
 
 
