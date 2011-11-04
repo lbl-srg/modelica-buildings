@@ -154,7 +154,7 @@ The sensor can only be used with medium models that implement the function
 ", revisions="<html>
 <ul>
 <li>
-November 3 2011, by Michael Wetter:<br>
+November 3, 2011, by Michael Wetter:<br>
 Moved <code>der(h_out) := 0;</code> from the initial algorithm section to 
 the initial equation section
 as this assignment does not conform to the Modelica specification.
