@@ -47,13 +47,14 @@ initial algorithm
                   + Medium.mediumName + "'.\n"
                   + "Change medium model to one that has 'water' as a substance.");
   assert(i_w == i_w_internal, "Parameter 'i_w' must be set to '" + String(i_w) + "'.\n");
+initial equation
  // Compute initial state
  if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
-      der(h_out) :=0;
+      der(h_out) = 0;
     elseif initType == Modelica.Blocks.Types.Init.InitialState or
            initType == Modelica.Blocks.Types.Init.InitialOutput then
-      h_out :=h_out_start;
+      h_out = h_out_start;
     end if;
   end if;
 equation
@@ -148,6 +149,12 @@ The sensor can only be used with medium models that implement the function
 </html>
 ", revisions="<html>
 <ul>
+<li>
+November 3, 2011, by Michael Wetter:<br>
+Moved <code>der(h_out) := 0;</code> from the initial algorithm section to 
+the initial equation section
+as this assignment does not conform to the Modelica specification.
+</li>
 <li>
 August 10, 2011 by Michael Wetter:<br>
 Added parameter <code>i_w</code> and an assert statement to

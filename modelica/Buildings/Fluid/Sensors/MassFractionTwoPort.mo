@@ -35,14 +35,14 @@ initial algorithm
   assert(ind > 0, "Species with name '" + substanceName + "' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check sensor parameter and medium model.");
-
+initial equation
   // Assign initial conditions
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
-      der(X) :=0;
+      der(X) = 0;
      elseif initType == Modelica.Blocks.Types.Init.InitialState or
            initType == Modelica.Blocks.Types.Init.InitialOutput then
-      X :=X_start;
+      X = X_start;
     end if;
   end if;
 
@@ -90,6 +90,12 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 <html>
 <p>
 <ul>
+<li>
+November 3, 2011, by Michael Wetter:<br>
+Moved <code>der(X) := 0;</code> from the initial algorithm section to 
+the initial equation section
+as this assignment does not conform to the Modelica specification.
+</li>
 <li>
 June 3, 2011 by Michael Wetter:<br>
 Revised implementation to add dynamics in such a way that 

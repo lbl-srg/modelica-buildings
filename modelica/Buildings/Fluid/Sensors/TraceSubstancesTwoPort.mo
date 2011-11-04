@@ -36,12 +36,13 @@ initial algorithm
          + Medium.mediumName + "'.\n"
          + "Check sensor parameter and medium model.");
 
+initial equation
   if dynamic then
     if initType == Modelica.Blocks.Types.Init.SteadyState then
-      der(C) := 0;
+      der(C) = 0;
      elseif initType == Modelica.Blocks.Types.Init.InitialState or
            initType == Modelica.Blocks.Types.Init.InitialOutput then
-      C := C_start;
+      C = C_start;
     end if;
   end if;
 equation
@@ -84,6 +85,12 @@ Buildings.Fluid.Sensors.UsersGuide</a> for an explanation.
 <html>
 <p>
 <ul>
+<li>
+November 3, 2011, by Michael Wetter:<br>
+Moved <code>der(C) := 0;</code> from the initial algorithm section to 
+the initial equation section
+as this assignment does not conform to the Modelica specification.
+</li>
 <li>
 June 3, 2011 by Michael Wetter:<br>
 Revised implementation to add dynamics in such a way that 
