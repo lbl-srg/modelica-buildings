@@ -51,24 +51,24 @@ protected
   final parameter Modelica.SIunits.Area ASurBou[NSurBou] = surBou.A
     "Area of surface models of constructions that are modeled outside of this room";
 
-  final parameter Modelica.SIunits.Emissivity epsConExt[NConExt] = datConExt.layers.absIR_b
+  parameter Modelica.SIunits.Emissivity epsConExt[NConExt] = datConExt.layers.absIR_b
     "Absorptivity of exterior constructions";
-  final parameter Modelica.SIunits.Emissivity epsConExtWinOpa[NConExtWin] = datConExtWin.layers.absIR_b
+  parameter Modelica.SIunits.Emissivity epsConExtWinOpa[NConExtWin] = datConExtWin.layers.absIR_b
     "Absorptivity of opaque part of exterior constructions that contain a window";
-  final parameter Modelica.SIunits.Emissivity epsConExtWinUns[NConExtWin]=
+  parameter Modelica.SIunits.Emissivity epsConExtWinUns[NConExtWin]=
     {(datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].absIR_b) for i in 1:NConExtWin}
     "Absorptivity of unshaded part of window constructions";
-  final parameter Modelica.SIunits.Emissivity epsConExtWinSha[NConExtWin] = datConExtWin.glaSys.shade.absIR_a
+  parameter Modelica.SIunits.Emissivity epsConExtWinSha[NConExtWin] = datConExtWin.glaSys.shade.absIR_a
     "Absorptivity of shaded part of window constructions";
-  final parameter Modelica.SIunits.Emissivity epsConExtWinFra[NConExtWin] = datConExtWin.glaSys.absIRFra
+  parameter Modelica.SIunits.Emissivity epsConExtWinFra[NConExtWin] = datConExtWin.glaSys.absIRFra
     "Absorptivity of window frame";
-  final parameter Modelica.SIunits.Emissivity epsConPar_a[NConPar] = datConPar.layers.absIR_a
+  parameter Modelica.SIunits.Emissivity epsConPar_a[NConPar] = datConPar.layers.absIR_a
     "Absorptivity of partition constructions surface a";
-  final parameter Modelica.SIunits.Emissivity epsConPar_b[NConPar] = datConPar.layers.absIR_b
+  parameter Modelica.SIunits.Emissivity epsConPar_b[NConPar] = datConPar.layers.absIR_b
     "Absorptivity of partition constructions surface b";
-  final parameter Modelica.SIunits.Emissivity epsConBou[NConBou] = datConBou.layers.absIR_b
+  parameter Modelica.SIunits.Emissivity epsConBou[NConBou] = datConBou.layers.absIR_b
     "Absorptivity of constructions with exterior boundary conditions exposed to outside of room model";
-  final parameter Modelica.SIunits.Emissivity epsSurBou[NSurBou] = surBou.absIR
+  parameter Modelica.SIunits.Emissivity epsSurBou[NSurBou] = surBou.absIR
     "Absorptivity of surface models of constructions that are modeled outside of this room";
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,
             -240},{240,240}}),
@@ -140,6 +140,13 @@ such as <code>haveConExt</code>, which is set to
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 6, 2011, by Michael Wetter:<br>
+Changed parameters that contain radiative properties from final to non-final, as
+they need to be overwritten by 
+<a href=\"modelica://Buildings.Rooms.BaseClasses.SolarRadiationExchange\">
+Buildings.Rooms.BaseClasses.SolarRadiationExchange</a>.
+</li>
 <li>
 November 16 2010, by Michael Wetter:<br>
 First implementation.

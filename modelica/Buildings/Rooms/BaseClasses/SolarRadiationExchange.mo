@@ -1,7 +1,27 @@
 within Buildings.Rooms.BaseClasses;
 model SolarRadiationExchange
   "Solar radiation heat exchange between the room facing surfaces"
-  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface;
+  extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface(
+  final epsConExt = datConExt.layers.absSol_b,
+  final epsConExtWinOpa = datConExtWin.layers.absSol_b,
+  final epsConExtWinUns={(1-datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol
+                     -datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].rhoSol_b) for i in 1:NConExtWin},
+  final epsConExtWinSha = {(1-datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol
+                       -datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].rhoSol_b) for i in 1:NConExtWin},
+  final epsConExtWinFra = datConExtWin.glaSys.absSolFra,
+  final epsConPar_a = datConPar.layers.absSol_a,
+  final epsConPar_b = datConPar.layers.absSol_b,
+  final epsConBou = datConBou.layers.absSol_b,
+  final epsSurBou = surBou.absSol);
+  // In the above declaration, we simplified the assignment of epsConExtWinSha.
+  // An exact formulation would need to take into account the transmission and reflection
+  // of the shade for the solar radiation that strikes the window from the room-side.
+  // The simplification leads to too low a value of epsConExtWinSha. Since epsConExtWinSha
+  // is used as a weight for how much solar radiation hits the window from the room-side,
+  // underestimating epsConExtWinSha does not seem to cause concerns. The reason is that
+  // the model assumes diffuse reflection, whereas in reality, reflection of the solar
+  // radiation at the floor is likely specular, and therefore less radiation would hit
+  // the window from the room-side.
   parameter Boolean isFloorConExt[NConExt]
     "Flag to indicate if floor for exterior constructions";
   parameter Boolean isFloorConExtWin[NConExtWin]
@@ -290,6 +310,11 @@ radiation.
 </html>",
         revisions="<html>
 <ul>
+<li>
+November 6, 2011, by Michael Wetter:<br>
+Fixed bug as in the old version, the absorbtance and reflectance
+of the infrared spectrum has been used instead of the solar spectrum.
+</li>
 <li>
 Dec. 1 2010, by Michael Wetter:<br>
 First implementation.
