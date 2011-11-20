@@ -1,5 +1,5 @@
-simulateModel("Buildings.Airflow.Multizone.Examples.OpenDoors", stopTime=7200, 
-  method="radau", tolerance=1e-006, resultFile="OpenDoors");
+simulateModel("Buildings.Airflow.Multizone.Examples.ClosedDoors", stopTime=7200, 
+  method="radau", tolerance=1e-006, resultFile="ClosedDoors");
 
 removePlots();
 createPlot(id = 4,
@@ -10,4 +10,4 @@ createPlot(id = 4,
  autoreplot = true,
  grid = true,
  color = true,
- filename = "OpenDoors.mat");
+ filename = "ClosedDoors.mat");

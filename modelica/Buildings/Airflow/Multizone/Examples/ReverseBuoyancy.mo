@@ -1,15 +1,16 @@
 within Buildings.Airflow.Multizone.Examples;
 model ReverseBuoyancy
+  "Model with four rooms and buoyancy-driven air circulation that reverses direction"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
-  Buildings.Fluid.MixingVolumes.MixingVolume volEas(
+  Buildings.Fluid.MixingVolumes.MixingVolume volBotEas(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     V=2.5*5*5,
     T_start=273.15 + 25,
     nPorts=5,
-    m_flow_nominal=0.001)
+    m_flow_nominal=0.001) "Volume of bottom floor, east room"
               annotation (Placement(transformation(extent={{-34,-30},{-14,-10}},
           rotation=0)));
   Buildings.Airflow.Multizone.Orifice oriOutBot(
@@ -35,22 +36,6 @@ model ReverseBuoyancy
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom)
     annotation (Placement(transformation(extent={{-1,-30},{19,-10}},rotation=0)));
-  Buildings.Fluid.MixingVolumes.MixingVolume volOut(
-    redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    V=1E12,
-    T_start=273.15 + 15,
-    nPorts=3,
-    m_flow_nominal=0.001)
-              annotation (Placement(transformation(extent={{123,-38},{143,-18}},
-          rotation=0)));
-  Buildings.Airflow.Multizone.Orifice dummy(
-    redeclare package Medium = Medium,
-    m=1,
-    A=100,
-    dp_turbulent=0.1) "to fix absolute pressure" annotation (Placement(
-        transformation(extent={{148,-60},{168,-40}}, rotation=0)));
   Buildings.Airflow.Multizone.MediumColumn colEasInBot(
     redeclare package Medium = Medium,
     h=1.5,
@@ -60,7 +45,7 @@ model ReverseBuoyancy
     redeclare package Medium = Medium,
     h=1.5,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop)
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}}, rotation=
+    annotation (Placement(transformation(extent={{98,-90},{118,-70}},  rotation=
            0)));
   MediumColumn colWesBot(
     redeclare package Medium = Medium,
@@ -95,15 +80,16 @@ model ReverseBuoyancy
     vZer=0.01,
     dp_turbulent=0.1) "Discretized door" annotation (Placement(transformation(
           extent={{-61,-55},{-41,-35}}, rotation=0)));
-  Buildings.Fluid.Delays.DelayFirstOrder volWes(
+  Buildings.Fluid.Delays.DelayFirstOrder volBotWes(
     redeclare package Medium = Medium,
     m_flow_nominal=1.2,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     tau=2.5*5*5,
-    p_start=101325,
     T_start=273.15 + 22,
-    nPorts=3) annotation (Placement(transformation(extent={{-161,-29},{-141,-9}},
+    nPorts=3,
+    p_start=101325) "Volume of bottom floor, west room"
+              annotation (Placement(transformation(extent={{-161,-29},{-141,-9}},
           rotation=0)));
   Modelica.Blocks.Sources.Constant ope(k=1) annotation (Placement(
         transformation(extent={{-102,-23},{-82,-3}}, rotation=0)));
@@ -132,7 +118,7 @@ model ReverseBuoyancy
     V=2.5*5*10,
     T_start=273.15 + 21,
     nPorts=3,
-    m_flow_nominal=0.001)
+    m_flow_nominal=0.001) "Volume of top floor, east room"
               annotation (Placement(transformation(extent={{-30,121},{-10,141}},
           rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume volTopWes(
@@ -142,7 +128,7 @@ model ReverseBuoyancy
     T_start=273.15 + 20,
     V=2.5*5*10,
     nPorts=3,
-    m_flow_nominal=0.001)
+    m_flow_nominal=0.001) "Volume of top floor, west room"
               annotation (Placement(transformation(extent={{-110,120},{-90,140}},
           rotation=0)));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeCloTop(
@@ -158,14 +144,14 @@ model ReverseBuoyancy
     vZer=0.01,
     dp_turbulent=0.1) "Discretized door" annotation (Placement(transformation(
           extent={{-63,80},{-43,100}}, rotation=0)));
-  Fluid.Sources.FixedBoundary amb(
+  Fluid.Sources.FixedBoundary volOut(
     redeclare package Medium = Medium,
     p=100000,
     T=283.15,
-    nPorts=1) "Ambient conditions" annotation (Placement(transformation(
+    nPorts=2) "Ambient conditions" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
-        origin={190,-50})));
+        origin={130,-50})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
 equation
@@ -180,24 +166,27 @@ equation
   connect(oriWesTop.port_a, colWesTop.port_b) annotation (Line(points={{-114,57},
           {-114,66},{-114,73}}, color={0,127,255}));
   connect(oriOutBot.port_b, colOutBot.port_b) annotation (Line(points={{58,-76},
-          {68,-76},{68,-90},{110,-90}},color={0,127,255}));
+          {68,-76},{68,-90},{108,-90}},color={0,127,255}));
   connect(colEasInBot.port_b, oriOutBot.port_a) annotation (Line(points={{18,-86},
           {18,-86},{18,-94},{38,-94},{38,-76}}, color={0,127,255}));
   connect(colEasInTop.port_a, oriOutTop.port_a) annotation (Line(points={{9,-10},
-          {15.25,-10},{15.25,0},{23.5,0},{23.5,0},{37,0}},
+          {15.25,-10},{15.25,0},{23.5,0},{23.5,6.10623e-16},{37,6.10623e-16}},
         color={0,127,255}));
-  connect(oriOutTop.port_b, colOutTop.port_a) annotation (Line(points={{57,0},{
-          108,0},{108,-12},{108,-14},{107,-14}},                         color=
+  connect(oriOutTop.port_b, colOutTop.port_a) annotation (Line(points={{57,
+          6.10623e-16},{108,6.10623e-16},{108,-12},{108,-14},{107,-14}}, color=
           {0,127,255}));
-  connect(volWes.ports[1], dooOpeClo.port_b2) annotation (Line(
+  connect(volBotWes.ports[1], dooOpeClo.port_b2)
+                                              annotation (Line(
       points={{-153.667,-29},{-153.667,-51},{-61,-51}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(volWes.ports[2], dooOpeClo.port_a1) annotation (Line(
+  connect(volBotWes.ports[2], dooOpeClo.port_a1)
+                                              annotation (Line(
       points={{-151,-29},{-151,-39},{-61,-39}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(colWesBot.port_b, volWes.ports[3]) annotation (Line(
+  connect(colWesBot.port_b, volBotWes.ports[3])
+                                             annotation (Line(
       points={{-114,1},{-114,-36},{-148.333,-36},{-148.333,-29}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -229,40 +218,37 @@ equation
       points={{-8,39},{-8,29},{-8,19},{-8,19}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(dooOpeClo.port_b1, volEas.ports[1]) annotation (Line(
+  connect(dooOpeClo.port_b1, volBotEas.ports[1])
+                                              annotation (Line(
       points={{-41,-39},{-33.5,-39},{-33.5,-30},{-27.2,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(dooOpeClo.port_a2, volEas.ports[2]) annotation (Line(
+  connect(dooOpeClo.port_a2, volBotEas.ports[2])
+                                              annotation (Line(
       points={{-41,-51},{-25.6,-51},{-25.6,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(colEasInBot.port_a, volEas.ports[3]) annotation (Line(
+  connect(colEasInBot.port_a, volBotEas.ports[3])
+                                               annotation (Line(
       points={{18,-66},{18,-60},{-24,-60},{-24,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(colEasInTop.port_b, volEas.ports[4]) annotation (Line(
+  connect(colEasInTop.port_b, volBotEas.ports[4])
+                                               annotation (Line(
       points={{9,-30},{8,-30},{8,-42},{-22,-42},{-22,-30},{-22.4,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(col1EasBot.port_b, volEas.ports[5]) annotation (Line(
+  connect(col1EasBot.port_b, volBotEas.ports[5])
+                                              annotation (Line(
       points={{-8,-1},{-8,-30},{-20.8,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(colOutTop.port_b, volOut.ports[1]) annotation (Line(
-      points={{107,-34},{106,-34},{106,-46},{130.333,-46},{130.333,-38}},
+  connect(colOutBot.port_a, volOut.ports[1]) annotation (Line(
+      points={{108,-70},{108,-52},{120,-52}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(colOutBot.port_a, volOut.ports[2]) annotation (Line(
-      points={{110,-70},{110,-54},{133,-54},{133,-38}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(dummy.port_a, volOut.ports[3]) annotation (Line(
-      points={{148,-50},{135.667,-50},{135.667,-38}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(amb.ports[1], dummy.port_b) annotation (Line(
-      points={{180,-50},{168,-50}},
+  connect(colOutTop.port_b, volOut.ports[2]) annotation (Line(
+      points={{107,-34},{108,-34},{108,-48},{120,-48}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -277,7 +263,7 @@ equation
           lineColor={135,135,135},
           lineThickness=1),
         Rectangle(
-          extent={{-52,156},{48,49}},
+          extent={{-52,156},{48,48}},
           lineColor={135,135,135},
           lineThickness=1),
         Rectangle(
@@ -286,5 +272,28 @@ equation
           lineThickness=1)}),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ReverseBuoyancy.mos"
         "Simulate and plot"),
-    Diagram);
+    Diagram,
+    Documentation(info="<html>
+<p>
+This model is similar than
+<a href=\"modelica://Buildings.Airflow.Multizone.Examples.Validation3Rooms\">
+Buildings.Airflow.Multizone.Examples.Validation3Rooms</a> but it has four 
+instead of three rooms.
+The outdoor conditions are held constant at <i>10</i>&deg;C and 
+atmospheric pressure.
+All four rooms are at different temperatures, with the rooms on the bottom
+floor being initially at a higher temperature than the rooms on the bottom floor.
+As time progresses, the temperatures of the two rooms on the respective floors
+asymptotically approach each other. The bottom floor eventually cools below
+the temperature of the top floor, because the
+bottom floor directly exchanges air with the outside.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 10, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end ReverseBuoyancy;

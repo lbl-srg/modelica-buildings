@@ -120,7 +120,7 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_1_1 "Version 1.1"
+  class Version_1_1_build1 "Version 1.1 build 1"
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
@@ -154,19 +154,19 @@ to <b style=\"color:blue\">existing</b> libraries:
     </tr>
 </table>
 </p>
-<!-- Backward compatbile changes -->
+<!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.Examples
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Improved documentation of example files.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -268,9 +268,9 @@ xxx
 </ul>
 </p>
 </html>"));
-  end Version_1_1;
+  end Version_1_1_build1;
 
-  class Version_1_0 "Version 1.0"
+  class Version_1_0_build1 "Version 1.0 build 1"
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
@@ -758,7 +758,7 @@ generates the entry in the <code>Command</code> pull down menu has been changed 
 </ul>
 </p>
 </html>"));
-  end Version_1_0;
+  end Version_1_0_build1;
 
   class Version_0_12_0 "Version 0.12.0"
     extends Modelica.Icons.ReleaseNotes;
@@ -1666,6 +1666,7 @@ The development of the Buildings library is organized by<br>
   Energy Efficiency and Renewable Energy, Office of Building
   Technologies of the U.S. Department of Energy, under
   Contract No. DE-AC02-05CH11231.
+  fixme: add CEC support.
 </p>
 <p>
   The <a href=\"modelica://Buildings.Airflow.Multizone\">package for multizone airflow modeling</a>
@@ -1932,6 +1933,7 @@ User's Guides that can be accessed by the following links:
 </p>
 </html>"));
 end UsersGuide;
+
 
 annotation (
 version="1.1",

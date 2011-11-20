@@ -1,16 +1,18 @@
 within Buildings.Airflow.Multizone.Examples;
-model Validation0
+model Validation1Room
+  "Model with one room for the validation of the multizone air exchange models"
+
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Fluid.MixingVolumes.MixingVolume volEas(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 20,
     V=2.5*5*5,
     nPorts=2,
-    m_flow_nominal=0.001)
+    m_flow_nominal=0.001,
+    massDynamics=Modelica.Fluid.Types.Dynamics.SteadyStateInitial)
               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -39,12 +41,12 @@ model Validation0
   Buildings.Fluid.MixingVolumes.MixingVolume volOut(
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 10,
     V=1E12,
     p_start=Medium.p_default,
     nPorts=2,
-    m_flow_nominal=0.001)
+    m_flow_nominal=0.001,
+    massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
               annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -101,7 +103,22 @@ equation
           extent={{-52,60},{48,-88}},
           lineColor={0,0,0},
           lineThickness=1)}),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation0.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation1Room.mos"
         "Simulate and plot"),
-    Diagram);
-end Validation0;
+    Diagram,
+    Documentation(info="<html>
+<p>
+This model has been used to validate buoyancy-driven air flow between two volumes.
+The volume <code>volEas</code> is at <i>20</i>&deg;C and the volume 
+<code>volOut</code> is at <i>10</i>&deg;C.
+This initial condition induces a clock-wise airflow between the two volumes.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 10, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
+end Validation1Room;

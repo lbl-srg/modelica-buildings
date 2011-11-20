@@ -1,59 +1,63 @@
 within Buildings.Airflow.Multizone.Examples;
 model ChimneyShaftWithVolume
-  "Test model that demonstrates the chimney effect with a shaft that contains an air volume"
+  "Model that demonstrates the chimney effect with a dynamic model of a shaft"
   extends Modelica.Icons.Example;
   import Buildings;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Fluid.MixingVolumes.MixingVolume roo(
-    nPorts=3,
     V=2.5*5*5,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     massDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     T_start=273.15 + 20,
     redeclare package Medium = Medium,
     m_flow_nominal=0.05,
-    p_start=101325) "Air volume of a room"
-                           annotation (Placement(transformation(extent={{-10,-48},
-            {10,-28}},   rotation=0)));
+    p_start=101325,
+    nPorts=3) "Air volume of a room"
+     annotation (Placement(transformation(extent={{20,-60},
+            {40,-40}},   rotation=0)));
   Buildings.Airflow.Multizone.Orifice oriChiTop(
     m=0.5,
     redeclare package Medium = Medium,
     A=0.01) annotation (Placement(transformation(
-        origin={40,11},
+        origin={70,11},
         extent={{-10,-10},{10,10}},
         rotation=90)));
   Buildings.Fluid.Sources.MassFlowSource_T boundary(
     redeclare package Medium = Medium,
-    nPorts=1,
     use_m_flow_in=true,
-    T=293.15)
-    annotation (Placement(transformation(extent={{-50,-90},{-30,-70}})));
+    T=293.15,
+    nPorts=1)
+    annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   Buildings.Fluid.Sources.Boundary_pT bou0(
     redeclare package Medium = Medium,
     T=273.15,
     nPorts=2)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={60,50})));
+        origin={90,50})));
   Buildings.Airflow.Multizone.Orifice oriBot(
     m=0.5,
     redeclare package Medium = Medium,
     A=0.01) annotation (Placement(transformation(
-        origin={80,-50},
+        origin={110,-20},
         extent={{10,-10},{-10,10}},
         rotation=90)));
+  Modelica.Blocks.Sources.CombiTimeTable mRoo_flow(tableOnFile=false, table=[0,
+        0.05; 600,0.05; 601,0; 1800,0; 1801,-0.05; 2400,-0.05; 2401,0; 3600,0])
+    "Mass flow into and out of room to fill the medium column with air of different temperature"
+    annotation (Placement(transformation(extent={{-90,-82},{-70,-62}})));
   MediumColumn staOut(
     redeclare package Medium = Medium,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromTop,
-    h=3/2) "Model for stack effect"
-    annotation (Placement(transformation(extent={{70,-1},{90,19}},    rotation=
+    h=1.5) "Model for stack effect outside the room"
+    annotation (Placement(transformation(extent={{100,-1},{120,19}},  rotation=
             0)));
   Buildings.Airflow.Multizone.Orifice oriChiBot(
     m=0.5,
     redeclare package Medium = Medium,
     A=0.01) annotation (Placement(transformation(
-        origin={40,-49},
+        origin={70,-49},
         extent={{-10,-10},{10,10}},
         rotation=90)));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow preHea
@@ -80,33 +84,26 @@ model ChimneyShaftWithVolume
     annotation (Placement(transformation(extent={{-28,20},{-8,40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  Buildings.Airflow.Multizone.MediumColumnDynamic sha(
-                                              redeclare package Medium = Medium,
-      V=3,
-    m_flow_nominal=0.05) "Shaft of chimney"
-    annotation (Placement(transformation(extent={{30,-30},{50,-10}})));
-  MediumColumn staOut1(
+  Buildings.Airflow.Multizone.MediumColumnDynamic
+                                           sha(redeclare package Medium =
+        Medium,
+    m_flow_nominal=0.05,
+    V=3) "Shaft of chimney"
+    annotation (Placement(transformation(extent={{60,-30},{80,-10}})));
+  MediumColumn staIn(
     redeclare package Medium = Medium,
     densitySelection=Buildings.Airflow.Multizone.Types.densitySelection.fromBottom,
-    h=3/2) "Model for stack effect"
-    annotation (Placement(transformation(extent={{70,-89},{90,-69}},  rotation=
+    h=1.5) "Model for stack effect inside the room"
+    annotation (Placement(transformation(extent={{100,-59},{120,-39}},rotation=
             0)));
 
-  Modelica.Blocks.Sources.CombiTimeTable mRoo_flow(tableOnFile=false, table=[0,0.05;
-        600,0.05; 601,0; 1800,0; 1801,-0.05; 2400,-0.05; 2401,0; 3600,0])
-    "Mass flow into and out of room to fill the medium column with air of different temperature"
-    annotation (Placement(transformation(extent={{-90,-82},{-70,-62}})));
 equation
-  connect(boundary.ports[1],roo. ports[1]) annotation (Line(
-      points={{-30,-80},{-2.66667,-80},{-2.66667,-48}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(TSet.y, con.u_s) annotation (Line(
       points={{-69,30},{-62,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.T, con.u_m) annotation (Line(
-      points={{-70,0},{-50,0},{-50,18}},
+      points={{-70,6.10623e-16},{-50,6.10623e-16},{-50,18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.u, con.y) annotation (Line(
@@ -114,63 +111,80 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, preHea.Q_flow) annotation (Line(
-      points={{-7,30},{1.83697e-015,30},{1.83697e-015,20}},
+      points={{-7,30},{2.50304e-15,30},{2.50304e-15,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sha.port_a, oriChiTop.port_a) annotation (Line(
-      points={{40,-10},{40,1}},
+      points={{70,-10},{70,1}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sha.port_b, oriChiBot.port_b) annotation (Line(
-      points={{40,-30},{40,-39}},
+      points={{70,-30},{70,-39}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(staOut.port_b, oriBot.port_a) annotation (Line(
-      points={{80,-1},{80,-40}},
+      points={{110,-1},{110,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(preHea.port, roo.heatPort) annotation (Line(
-      points={{-1.83697e-015,0},{-1.83697e-015,-20},{-20,-20},{-20,-38},{-10,
-          -38}},
+      points={{-1.22629e-15,1.22125e-15},{-1.22629e-15,-20},{0,-20},{0,-50},{20,
+          -50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(roo.heatPort, temSen.port) annotation (Line(
-      points={{-10,-38},{-40,-38},{-40,-20},{-96,-20},{-96,0},{-90,0}},
+      points={{20,-50},{-40,-50},{-40,-20},{-96,-20},{-96,6.10623e-16},{-90,
+          6.10623e-16}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(bou0.ports[1], oriChiTop.port_b)  annotation (Line(
-      points={{62,40},{58,40},{58,34},{40,34},{40,21}},
+      points={{92,40},{88,40},{88,34},{70,34},{70,21}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou0.ports[2], staOut.port_a) annotation (Line(
-      points={{58,40},{62,40},{62,34},{80,34},{80,19}},
+      points={{88,40},{92,40},{92,34},{110,34},{110,19}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(roo.ports[2], oriChiBot.port_a)  annotation (Line(
-      points={{2.22045e-016,-48},{4,-48},{4,-64},{40,-64},{40,-59}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(oriBot.port_b, staOut1.port_a) annotation (Line(
-      points={{80,-60},{80,-69}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(staOut1.port_b, roo.ports[3]) annotation (Line(
-      points={{80,-89},{80,-92},{2.66667,-92},{2.66667,-48}},
+  connect(oriBot.port_b, staIn.port_a)   annotation (Line(
+      points={{110,-30},{110,-39}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(mRoo_flow.y[1], boundary.m_flow_in) annotation (Line(
-      points={{-69,-72},{-50,-72}},
+      points={{-69,-72},{-40,-72}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(boundary.ports[1], roo.ports[1]) annotation (Line(
+      points={{-20,-80},{27.3333,-80},{27.3333,-60}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(roo.ports[2], staIn.port_b)   annotation (Line(
+      points={{30,-60},{30,-80},{110,-80},{110,-59}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(roo.ports[3], oriChiBot.port_a) annotation (Line(
+      points={{32.6667,-60},{32.6667,-72},{70,-72},{70,-59}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}),
+            {140,100}}),
                       graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ChimneyShaftWithVolume.mos"
+   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ChimneyShaftWithVolume.mos"
         "Simulate and plot"),
     experiment(
       StopTime=3600,
       Tolerance=1e-06,
       Algorithm="Radau"),
     experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
+    Documentation(info="<html>
+<p>
+This model is identical to
+<a href=\"modelica://Buildings.Airflow.Multizone.Examples.ChimneyShaftNoVolume\">
+Buildings.Airflow.Multizone.Examples.ChimneyShaftNoVolume</a>,
+except that the chimney model is not steady-state, but rather dynamic
+as it contains an air volume. The air volume is approximated
+as being well-mixed. (Stratified volumes could be approximated by
+using multiple instances of the model <code>sha</code> that are
+connected in series.)
+</p>
+</html>"));
 end ChimneyShaftWithVolume;

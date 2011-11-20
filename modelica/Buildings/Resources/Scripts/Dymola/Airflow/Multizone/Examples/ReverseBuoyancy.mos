@@ -14,7 +14,7 @@ createPlot(id = 1,
 
 createPlot(id = 2,
  position = {55, 50, 881, 504},
- y = {"volWes.T", "volEas.T", "volTopWes.T", "volTopEas.T", "volOut.T"},
+ y = {"volBotWes.T", "volBotEas.T", "volTopWes.T", "volTopEas.T", "volOut.T"},
  range = {0, 360000.0, 33.0, 19.0},
  autoscale = true,
  autoerase = true,

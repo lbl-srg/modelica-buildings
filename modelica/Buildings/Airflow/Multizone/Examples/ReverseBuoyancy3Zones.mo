@@ -1,5 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
 model ReverseBuoyancy3Zones
+  "Model with three rooms and buoyancy-driven air circulation that reverses direction"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
   Buildings.Fluid.MixingVolumes.MixingVolume volEas(
@@ -229,5 +230,35 @@ equation
           lineThickness=1)}),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ReverseBuoyancy3Zones.mos"
         "Simulate and plot"),
-    Diagram);
+    Diagram,
+    Documentation(revisions="<html>
+<ul>
+<li>
+November 10, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model is similar than
+<a href=\"modelica://Buildings.Airflow.Multizone.Examples.Validation3Rooms\">
+Buildings.Airflow.Multizone.Examples.Validation3Rooms</a>.
+However, the initial temperatures are such that at the start of the
+simulation, the flow direction between the three rooms reverses direction.
+</p>
+<p>
+At the start of the simulation, 
+the outdoor temperature is <i>15</i>&deg;C,
+and the temperatures of the volumes are
+<i>20</i>&deg;C at the top,
+<i>22</i>&deg;C at the bottom west and
+<i>25</i>&deg;C at the bottom east.
+Thus, initially there is a net flow circulation in the counter-clock
+direction.
+Because the volume on the east exchanges air with the outside,
+it cools down fast. Once it cooled down sufficiently,
+the flow direction between the three rooms reverses
+because the air in the bottom east is heaviest.
+</p>
+</html>"));
 end ReverseBuoyancy3Zones;

@@ -1,12 +1,12 @@
-translateModel("Buildings.Airflow.Multizone.Examples.Validation1");
-simulateModel("Buildings.Airflow.Multizone.Examples.Validation1", stopTime=3600, 
- method="radau", tolerance=1e-06, resultFile="Validation1");
+translateModel("Buildings.Airflow.Multizone.Examples.Validation3Rooms");
+simulateModel("Buildings.Airflow.Multizone.Examples.Validation3Rooms", stopTime=3600, 
+ method="radau", tolerance=1e-06, resultFile="Validation3Rooms");
 
 createPlot(id = 1,
  position = {35, 30, 825, 625},
  y = {"oriWesTop.port_a.m_flow", "oriEasTop.port_a.m_flow", "oriOutTop.port_a.m_flow","oriOutBot.port_a.m_flow", "dooOpeClo.mAB_flow", "dooOpeClo.mBA_flow"}, 
  range = {0, 3600.0, 3.5, (-1.5)},
- filename = "Validation1.mat",
+ filename = "Validation3Rooms.mat",
  autoscale = true,
  autoerase = true,
  autoreplot = true,

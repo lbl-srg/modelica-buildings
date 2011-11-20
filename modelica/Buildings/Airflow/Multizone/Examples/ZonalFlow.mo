@@ -29,19 +29,19 @@ model ZonalFlow
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
   connect(rooA.ports[1], zonFlo.port_a1) annotation (Line(
-      points={{-72,0},{-72,-6},{-10,-6}},
+      points={{-72,-5.55112e-16},{-72,-6},{-10,-6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(zonFlo.port_b1, rooB.ports[1]) annotation (Line(
-      points={{10,-6},{48,-6},{48,0}},
+      points={{10,-6},{48,-6},{48,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(zonFlo.port_b2, rooA.ports[2]) annotation (Line(
-      points={{-10,-18},{-68,-18},{-68,0}},
+      points={{-10,-18},{-68,-18},{-68,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(zonFlo.port_a2, rooB.ports[2]) annotation (Line(
-      points={{10,-18},{52,-18},{52,0}},
+      points={{10,-18},{52,-18},{52,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(zonFlo.ACS, ACS_con.y) annotation (Line(
@@ -49,5 +49,24 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ZonalFlow.mos"
-        "Simulate and plot"),                                                                                                    Diagram(graphics));
+        "Simulate and plot"),                                                                                                    Diagram(graphics),
+    Documentation(info="<html>
+<p>
+This example illustrates the use of the model that
+exchanges a prescribed air exchange rate between the
+volumes that are attached to it.
+The constant block prescribes the air exchange rate to
+5 air changes per hour. 
+This amount of air flows from
+<code>rooA</code> to <code>rooB</code>, and
+from <code>rooB</code> to <code>rooA</code>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 10, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end ZonalFlow;

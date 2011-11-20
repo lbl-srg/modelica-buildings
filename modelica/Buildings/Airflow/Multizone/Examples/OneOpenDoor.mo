@@ -1,11 +1,11 @@
 within Buildings.Airflow.Multizone.Examples;
-model OneOpenDoor
+model OneOpenDoor "Model with one open and one closed door"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOpen dooOpe(redeclare package
       Medium = Medium) "Discretized door" annotation (Placement(transformation(
-          extent={{14,-8},{34,12}}, rotation=0)));
+          extent={{10,-8},{30,12}}, rotation=0)));
 
   Buildings.Fluid.MixingVolumes.MixingVolume volA(
     redeclare package Medium = Medium,
@@ -33,13 +33,13 @@ model OneOpenDoor
           extent={{-20,60},{0,80}}, rotation=0)));
   Buildings.Airflow.Multizone.DoorDiscretizedOperable dooOpeClo(redeclare
       package Medium = Medium, LClo=20*1E-4) "Discretized door" annotation (
-      Placement(transformation(extent={{14,-44},{34,-24}}, rotation=0)));
+      Placement(transformation(extent={{10,-44},{30,-24}}, rotation=0)));
   Modelica.Blocks.Sources.Ramp ramp(
     duration=120,
     height=1,
     offset=0,
-    startTime=1000) annotation (Placement(transformation(extent={{-74,-36},{-54,
-            -16}}, rotation=0)));
+    startTime=1000) annotation (Placement(transformation(extent={{-60,-44},{-40,
+            -24}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
 equation
@@ -47,42 +47,42 @@ equation
     annotation (Line(points={{1,70},{14,70}}, color={0,0,255}));
   connect(heaSou.y, Gain1.u)
     annotation (Line(points={{-39,70},{-39,70},{-22,70}}, color={0,0,255}));
-  connect(ramp.y, dooOpeClo.y) annotation (Line(points={{-53,-26},{-20,-26},{
-          -20,-34},{13,-34}}, color={0,0,255}));
+  connect(ramp.y, dooOpeClo.y) annotation (Line(points={{-39,-34},{-39,-34},{9,-34}},
+                              color={0,0,255}));
   connect(preHeaFlo.port, volB.heatPort) annotation (Line(
       points={{34,70},{60,70}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(volA.ports[1], dooOpeClo.port_b2) annotation (Line(
-      points={{-25,14},{-25,-40},{14,-40}},
+      points={{-25,14},{-25,-40},{10,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volA.ports[2], dooOpeClo.port_a1) annotation (Line(
-      points={{-23,14},{-23,-28},{14,-28}},
+      points={{-23,14},{-23,-28},{10,-28}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volA.ports[3], dooOpe.port_b2) annotation (Line(
-      points={{-21,14},{-21,-4},{14,-4}},
+      points={{-21,14},{-21,-4},{10,-4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volA.ports[4], dooOpe.port_a1) annotation (Line(
-      points={{-19,14},{-19,8},{14,8}},
+      points={{-19,14},{-19,8},{10,8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volB.ports[1], dooOpe.port_b1) annotation (Line(
-      points={{67,60},{67,8},{34,8}},
+      points={{67,60},{67,8},{30,8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volB.ports[2], dooOpe.port_a2) annotation (Line(
-      points={{69,60},{72,60},{72,-4},{34,-4}},
+      points={{69,60},{72,60},{72,-4},{30,-4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volB.ports[3], dooOpeClo.port_b1) annotation (Line(
-      points={{71,60},{68,60},{68,-28},{34,-28}},
+      points={{71,60},{68,60},{68,-28},{30,-28}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(volB.ports[4], dooOpeClo.port_a2) annotation (Line(
-      points={{73,60},{73,-40},{34,-40}},
+      points={{73,60},{73,-40},{30,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
@@ -93,5 +93,24 @@ equation
     experiment(
       StopTime=3600,
       Tolerance=1e-05,
-      Algorithm="Radau"));
+      Algorithm="Radau"),
+    Documentation(info="<html>
+<p>
+This model consists of two doors with the same geometry.
+For <i>t &le; 1000</i> seconds, the door <code>dooOpeClo</code>
+is closed, and afterwards it is open. The door
+<code>dooOpe</code> is always open.
+Heat is added to the volume <code>volB</code>, which causes
+a density difference between <code>volA</code> and <code>volB</code>.
+This density difference induces a bi-directional airflow through both doors.
+Both doors have exactly the same bi-directional airflow rates.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 10, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end OneOpenDoor;

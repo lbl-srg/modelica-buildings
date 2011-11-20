@@ -1,5 +1,6 @@
 within Buildings.Airflow.Multizone.Examples;
-model Validation1
+model Validation3Rooms
+  "Model with three rooms for the validation of the multizone air exchange models"
   extends Modelica.Icons.Example;
 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
@@ -235,18 +236,45 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-150},{300,
             250}}), graphics={
         Rectangle(
-          extent={{8,48},{152,-96}},
+          extent={{8,48},{152,-100}},
           lineColor={135,135,135},
           lineThickness=1),
         Rectangle(
-          extent={{-160,48},{8,-96}},
+          extent={{-160,48},{8,-100}},
           lineColor={135,135,135},
           lineThickness=1),
         Rectangle(
           extent={{-160,160},{152,49}},
           lineColor={135,135,135},
           lineThickness=1)}),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation1.mos"
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation3Rooms.mos"
         "Simulate and plot"),
-    Diagram);
-end Validation1;
+    Diagram,
+    Documentation(info="<html>
+<p>
+This is a model of three rooms that exchange air among each based
+on density difference between the air in the rooms and the outside.
+The model implements the configuration shown below.</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Airflow/Multizone/Examples/3roomValidation.png\" border=\"1\">
+</p>
+<p>
+This model has been used for a comparative model validation between CONTAM and
+the <code>Buildings</code> library.
+See Wetter (2006) for details of the validation.
+<h4>References</h4>
+<p>
+Michael Wetter.
+<a href=\"modelica://Buildings/Resources/Images/Airflow/Multizone/Wetter-airflow-2006.pdf\">
+Multizone Airflow Model in Modelica.</a>
+Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 10, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
+end Validation3Rooms;
