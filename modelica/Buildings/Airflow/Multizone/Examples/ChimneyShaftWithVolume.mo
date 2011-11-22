@@ -186,5 +186,12 @@ as being well-mixed. (Stratified volumes could be approximated by
 using multiple instances of the model <code>sha</code> that are
 connected in series.)
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 10, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
 </html>"));
 end ChimneyShaftWithVolume;

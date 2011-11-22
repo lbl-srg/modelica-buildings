@@ -14,10 +14,6 @@ algorithm
     end if;
    end for;
   end for;
-  // check algorithm (during development only)
-  for i in 1:nin-1 loop
-    assert(y[i] >= y[i+1], "Error in sorting algorithm.");
-  end for;
   annotation (
 defaultComponentName="sigRan",
 Documentation(info="<html>
@@ -31,6 +27,10 @@ controller to access the position of the dampers that are most open.
 </html>",
 revisions="<html>
 <ul>
+<li>
+November 21, 2011, by Michael Wetter:<br>
+Removed <code>assert</code> statement.
+</li>
 <li>
 November 25, 2008, by Michael Wetter:<br>
 First implementation.

@@ -1,6 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
-model OffTimer "Example model"
-  extends Modelica.Icons.Example; 
+model OffTimer "Example model for off timer"
+  extends Modelica.Icons.Example;
   import Buildings;
 
   Modelica.Blocks.Sources.BooleanPulse booleanPulse(period=0.2)
@@ -24,7 +24,30 @@ equation
       points={{-2,-30},{-19,-30}},
       color={255,0,255},
       smooth=Smooth.None));
- annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/OffTimer.mos" "Simulate and plot"),
+ annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/OffTimer.mos"
+        "Simulate and plot"),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics),
+    Documentation(
+info="<html>
+<p>
+Example that demonstrates the use of the model
+<a href=\"modelica://Buildings.Controls.Continuous.OffTimer\">
+Buildings.Controls.Continuous.OffTimer</a>.
+The input to the two timers are alternating boolean values.
+Whenever the input becomes <code>false(=0)</code>, the timer is reset.
+The figures below show the input and output of the blocks.
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer1.png\" border=\"1\"><br/>
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/OffTimer2.png\" border=\"1\">
+</p>
+</html>",
+revisions="<html>
+<ul>
+<li>
+November 21, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end OffTimer;

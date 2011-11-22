@@ -1,6 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
-model PIDHysteresis "Example model"
-  extends Modelica.Icons.Example; 
+model PIDHysteresis "Example model for PID controller with hysteresis"
+  extends Modelica.Icons.Example;
   import Buildings;
 
   Buildings.Controls.Continuous.PIDHysteresis con(
@@ -10,7 +10,7 @@ model PIDHysteresis "Example model"
     Ti=600,
     Td=60)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Modelica.Blocks.Sources.Constant TSet(k=273.15 + 40) "Set point"
+  Modelica.Blocks.Sources.Constant TSet(k=273.15 + 40, y(unit="K")) "Set point"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap(C=1000000, T(start=
          313.15, fixed=true))
@@ -29,7 +29,8 @@ model PIDHysteresis "Example model"
     freqHz=1/86400,
     offset=273.15,
     amplitude=20,
-    phase=-1.5707963267949)
+    phase=-1.5707963267949,
+    y(unit="K"))
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 equation
 
@@ -72,8 +73,37 @@ equation
  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresis.mos" "Simulate and plot"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresis.mos"
+        "Simulate and plot"),
     experiment(StopTime=86400),
     experimentSetupOutput,
-              Diagram);
+              Diagram,
+    Documentation(info="<html>
+<p>
+Example that demonstrates the use of the PID controller
+with hysteresis. The control objective is to keep 
+the temperature of the energy storage <code>cap</code>
+at <i>40</i>&deg;C.
+The controller <code>con</code> is parameterized to 
+switch on if the control error is bigger than 
+<i>e<sub>on</sub>=1</i>.
+The output of the controller remains above <i>y<sub>min</sub>=0.3</i> until the control
+error is smaller than <i>e<sub>off</sub>=-1</i>, at which 
+time the controller outputs <i>y=0</i> until the
+control error is again bigger than <i>1</i>.
+The figure below shows the control error
+<code>con.feeBac.y</code> and the control signal
+<code>con.y</code>.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresis.png\" border=\"1\">
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 21, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end PIDHysteresis;

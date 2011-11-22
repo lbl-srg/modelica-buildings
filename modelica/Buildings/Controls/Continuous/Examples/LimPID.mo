@@ -1,6 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
-model LimPID "Example model"
-  extends Modelica.Icons.Example; 
+model LimPID "Test model for PID controller with optional reverse action"
+  extends Modelica.Icons.Example;
   import Buildings;
 
   Modelica.Blocks.Sources.Pulse pulse(period=0.25)
@@ -90,5 +90,28 @@ equation
  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPID.mos" "Simulate and plot"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/LimPID.mos"
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+November 21, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>", info="<html>
+<p>
+This model tests the implementation of the 
+PID controller with optional reverse action.
+The model <code>limPIDOri</code> is the original
+implementation of the controller from the Modelica
+Standard Library. The models <code>limPID</code>
+and <code>limPIDRev</code> are the implementations
+from the Buildings library. The model
+<code>limPIDRev</code> is parameterized to have
+reverse action. 
+The assertion blocks test whether the results
+of all three controllers are identical.
+</p>
+</html>"));
 end LimPID;

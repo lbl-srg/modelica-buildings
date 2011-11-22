@@ -1,6 +1,6 @@
 within Buildings.Controls.Continuous.Examples;
-model SignalRanker "Example model"
-  extends Modelica.Icons.Example; 
+model SignalRanker "Example model for signal ranker"
+  extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Sine sine(freqHz=2)
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}}, rotation=0)));
   Modelica.Blocks.Sources.Pulse pulse(period=0.25)
@@ -21,6 +21,25 @@ equation
  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/SignalRanker.mos" "Simulate and plot"),
-              Diagram);
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/SignalRanker.mos"
+        "Simulate and plot"),
+              Diagram,
+    Documentation(info="<html>
+<p>
+Example that demonstrates the use of the signal ranker model.
+The figure below shows the input and output signals of the block.
+Note that 
+<code>sigRan.y[1] &ge; sigRan.y[2] &ge; sigRan.y[3]</code>.
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerU.png\" border=\"1\"><br/>
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/SignalRankerY.png\" border=\"1\">
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 21, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end SignalRanker;

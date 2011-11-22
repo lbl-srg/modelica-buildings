@@ -1,6 +1,6 @@
 within Buildings.Controls.SetPoints.Examples;
 model HotWaterTemperatureReset "Test model for the heating curve"
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   Buildings.Controls.SetPoints.HotWaterTemperatureReset heaCur(
     m=1,
     TSup_nominal=333.15,
@@ -41,6 +41,33 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), 
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/HotWaterTemperatureReset.mos" "Simulate and plot"));
+            -100},{100,100}}), graphics),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/HotWaterTemperatureReset.mos"
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+Example that demonstrates the use of the hot water temperature reset
+for a heating system.
+The parameters of the block <code>heaCur</code>
+are for a heating system with
+<i>60</i>&deg;C supply water temperature and
+<i>40</i>&deg;C return water temperature at
+an outside temperature of 
+<i>-10</i>&deg;C and a room temperature of
+<i>20</i>&deg;C. The offset for the temperature reset is 
+<i>8</i> Kelvin, i.e., above 
+<i>12</i>&deg;C outside temperature, there is no heating load.
+The figure below shows the computed supply and return water temperatures.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/SetPoints/Examples/HotWaterTemperatureReset.png\" border=\"1\">
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 21, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end HotWaterTemperatureReset;

@@ -1,6 +1,7 @@
 within Buildings.Controls.Continuous.Examples;
-model PIDHysteresisTimer "Example model"
-  extends Modelica.Icons.Example; 
+model PIDHysteresisTimer
+  "Example model for PID controller with hysteresis and timer"
+  extends Modelica.Icons.Example;
   import Buildings;
 
   Buildings.Controls.Continuous.PIDHysteresisTimer con(
@@ -10,7 +11,7 @@ model PIDHysteresisTimer "Example model"
     Ti=60,
     Td=10)
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Modelica.Blocks.Sources.Constant TSet(k=273.15 + 40) "Set point"
+  Modelica.Blocks.Sources.Constant TSet(k=273.15 + 40, y(unit="K")) "Set point"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor cap(C=100000, T(start=
           293.15, fixed=true))
@@ -72,8 +73,38 @@ equation
  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresisTimer.mos" "Simulate and plot"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/PIDHysteresisTimer.mos"
+        "Simulate and plot"),
     experiment(StopTime=86400),
     experimentSetupOutput,
-              Diagram);
+              Diagram,
+    Documentation(info="<html>
+<p>
+Example that demonstrates the use of the PID controller
+with hysteresis and off timer. 
+The example is identical to 
+<a href=\"modelica://Buildings.Controls.Continuous.Examples.PIDHysteresis\">
+Buildings.Controls.Continuous.Examples.PIDHysteresis</a>,
+except that the controller also has an off timer.
+This timer keeps the control signal at <i>y=0</i>
+for a period of <code>minOffTime=1000</code> seconds.
+This may be used to avoid short-cycling if the load is small
+and the system has little heat capacity.
+</p>
+<p>
+The figure below shows the control error
+<code>con.feeBac.y</code> and the control signal
+<code>con.y</code>.
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerError.png\" border=\"1\"><br/>
+<img src=\"modelica://Buildings/Resources/Images/Controls/Continuous/Examples/PIDHysteresisTimerOutput.png\" border=\"1\">
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 21, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end PIDHysteresisTimer;

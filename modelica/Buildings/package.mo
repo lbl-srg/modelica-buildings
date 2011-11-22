@@ -161,12 +161,22 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.Continuous<br/>
+                       Buildings.Controls.Discrete<br/>
+                       Buildings.Controls.SetPoints
+    </td>
+    <td valign=\"top\">Improved documentation of models and of examples.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Airflow.Multizone.Examples
     </td>
-    <td valign=\"top\">Improved documentation of example files.
+    <td valign=\"top\">Improved documentation of examples.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>

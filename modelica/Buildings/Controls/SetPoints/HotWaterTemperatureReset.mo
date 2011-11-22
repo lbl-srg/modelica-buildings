@@ -18,10 +18,10 @@ block HotWaterTemperatureReset
     "Get the room temperature set point from the input connector"
     annotation(Evaluate=true, HideResult=true);
   parameter Modelica.SIunits.Temperature TRoo = 293.15
-    "Fixed value of room air temperature set point"
+    "Fixed value of room temperature set point"
     annotation (Evaluate = true,
                 Dialog(enable = not use_TRoo_in));
-  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal = 8
+  parameter Modelica.SIunits.TemperatureDifference dTOutHeaBal(displayUnit="K") = 8
     "Offset for heating curve";
   Modelica.Blocks.Interfaces.RealInput TRoo_in(final quantity="Temperature",
                                                final unit = "K", displayUnit = "degC", min=0) if
@@ -46,7 +46,7 @@ protected
   Modelica.Blocks.Interfaces.RealInput TRoo_in_internal(final quantity="Temperature",
                                                         final unit = "K", displayUnit = "degC", min=0)
     "Needed to connect to conditional connector";
-  Real qRel "Relative heat load = Q_flow/Q_flow_nominal";
+  Real qRel "Relative heating load = Q_flow/Q_flow_nominal";
   Modelica.SIunits.Temperature TOutOffSet
     "Effective outside temperature for heat transfer (takes into account room heat gains)";
   parameter Modelica.SIunits.Temperature TOutOffSet_nominal =  TOut_nominal + dTOutHeaBal
@@ -74,16 +74,21 @@ by a parameter, or it can be an input to the model. The latter allows
 to use this model with systems that have night set back.
 </p>
 <p>
-The parameter <code>dTOutHeaBal</code> can be used to shift the heating curve to account
-for the fact that solar heat gains and heat gains from equipment and people 
+The parameter <code>dTOutHeaBal</code> can be used to shift the heating curve 
+to take into account that heat gains from solar, equipment and people 
 make up for some of the transmission losses. 
-For example, in energy efficient houses, the heating may not be switched on above 
-12 degree Celsius, even if a room temperature of 20 degree is required.
+For example, in energy efficient houses, the heating may not be switched on if
+the outside air temperature is greater than
+<i>12</i>&deg;C, even if a room temperature of <i>20</i>&deg;C is required.
 In such a situation, set <code>dTOutHeaBal=20-12=8</code> Kelvin to 
 shift the heating curve.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 21, 2011, by Michael Wetter:<br>
+Improved documentation.
+</li>
 <li>
 February 5, 2009 by Michael Wetter:<br>
 First implementation.

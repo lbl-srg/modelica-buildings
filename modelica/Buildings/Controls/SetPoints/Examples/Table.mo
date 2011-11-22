@@ -1,6 +1,6 @@
 within Buildings.Controls.SetPoints.Examples;
 model Table "Test model for table that determines set points"
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   import Buildings;
   Buildings.Controls.SetPoints.Table tabConExt(table=[20,0; 22,0.5; 25,0.5; 26,1])
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
@@ -21,6 +21,21 @@ equation
       points={{-59,10},{-50,10},{-50,50},{-22,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/Table.mos" "Simulate and plot"),
-              Diagram(graphics));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/Table.mos"
+        "Simulate and plot"),
+              Diagram(graphics),
+    Documentation(info="<html>
+<p>
+Example that demonstrates the use of the block
+<a href=\"modelica://Buildings.Controls.SetPoints.Table\">
+Buildings.Controls.SetPoints.Table</a>.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+November 21, 2011, by Michael Wetter:<br/>
+Added documentation.
+</li>
+</ul>
+</html>"));
 end Table;
