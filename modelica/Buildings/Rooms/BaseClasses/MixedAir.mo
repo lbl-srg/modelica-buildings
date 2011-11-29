@@ -409,8 +409,8 @@ equation
       smooth=Smooth.None));
   connect(vol.heatPort, heaPorAir)
                                   annotation (Line(
-      points={{10,-200},{20,-200},{20,-90},{-150,-90},{-150,0},{-200,0},{-200,0},
-          {-240,0}},
+      points={{10,-200},{20,-200},{20,-90},{-150,-90},{-150,0},{-200,0},{-200,
+          5.55112e-16},{-240,5.55112e-16}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convConWin.JOutUns, JOutUns)
@@ -445,7 +445,7 @@ equation
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, irRadExc.conExtWinFra) annotation (Line(
-      points={{242,0},{192,0},{192,10},{-79.9167,10}},
+      points={{242,5.55112e-16},{192,5.55112e-16},{192,10},{-79.9167,10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, irRadExc.conPar_a) annotation (Line(
@@ -540,12 +540,13 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaGai.QLat_flow,vol. ports[nPorts+1]) annotation (Line(
-      points={{-200,94},{-180,94},{-180,-220},{-2,-220},{-2,-210},{0,-210}},
+      points={{-200,94},{-180,94},{-180,-220},{-2,-220},{-2,-210},{-7.77156e-16,
+          -210}},
       color={0,127,255},
       smooth=Smooth.None));
   for i in 1:nPorts loop
   connect(ports[i],vol. ports[i]) annotation (Line(
-      points={{0,-238},{0,-238},{0,-220},{0,-220},{0,-210}},
+      points={{2.22045e-15,-238},{0,-238},{0,-220},{0,-210},{-7.77156e-16,-210}},
       color={0,127,255},
       smooth=Smooth.None));
   end for;
@@ -574,7 +575,7 @@ equation
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, solRadExc.conExtWinFra) annotation (Line(
-      points={{242,0},{192,0},{192,50},{-79.9167,50}},
+      points={{242,5.55112e-16},{192,5.55112e-16},{192,50},{-79.9167,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, solRadExc.conPar_a) annotation (Line(
@@ -686,6 +687,11 @@ equation
       points={{-159,120},{-130,120},{-130,-30},{-100.833,-30}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(conExtWinFra, convConWin.frame) annotation (Line(
+      points={{242,5.55112e-16},{218,5.55112e-16},{218,0},{192,0},{192,100},{
+          115,100},{115,108}},
+      color={191,0,0},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
            extent={{-240,-240},{240,240}}),
         graphics), Icon(coordinateSystem(
@@ -788,6 +794,14 @@ solar absorptivity.
 
 </html>", revisions="<html>
 <ul>
+<li>
+November 29, 2011, by Michael Wetter:<br>
+Added missing connect statement between window frame
+surface and window frame convection model. Prior to this bug fix,
+no convective heat transfer was computed between window frame and
+room air.
+Bug fix is due to feedback from Tobias Klingbeil (Fraunhofer ISE).
+</li>
 <li>
 November 16 2010, by Michael Wetter:<br>
 First implementation.

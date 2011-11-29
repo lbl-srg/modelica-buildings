@@ -213,6 +213,17 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Convection.Exterior
+    </td>
+    <td valign=\"top\">Fixed error in assignment of wind-based convection coefficient. 
+                     The old implementation did not take into account the surface roughness.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
@@ -222,6 +233,13 @@ that can lead to wrong simulation results):
      of the long-wave spectrum instead of the solar spectrum have been used 
      to compute the distribution of the solar radiation among the surfaces 
      inside the room.
+    </td>
+<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.MixedAir
+    </td>
+    <td valign=\"top\">Added missing connect statement between window frame
+     surface and window frame convection model. Prior to this bug fix,
+     no convective heat transfer was computed between window frame and
+     room air.
     </td>
 </tr>
 

@@ -35,12 +35,13 @@ block ReaderTMY3 "Reader for TMY3 weather data "
     "Relative humidity" annotation (Evaluate=true, Dialog(group="Data source"));
   parameter Real relHum(
     min=0,
-    max=1) = 0.5 "Relative humidity (used if relHum=Parameter)"
+    max=1,
+    unit="1") = 0.5 "Relative humidity (used if relHum=Parameter)"
     annotation (Evaluate=true, Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput relHum_in(
-    final quantity="1",
     min=0,
-    max=1) if (relHumSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    max=1,
+    unit="1") if (relHumSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input relative humidity"
     annotation (Placement(transformation(extent={{-240,60},{-200,100}}),
         iconTransformation(extent={{-240,60},{-200,100}})));
@@ -160,7 +161,7 @@ protected
     annotation (Placement(transformation(extent={{160,240},{180,260}})));
   BaseClasses.CheckWindDirection cheWinDir "Check the wind direction"
     annotation (Placement(transformation(extent={{160,-280},{180,-260}})));
-  SkyTemperature.BlackBody TBlaSky(calTSky=calTSky)
+  SkyTemperature.BlackBody TBlaSky(final calTSky=calTSky)
     "Check the sky black-body temperature"
     annotation (Placement(transformation(extent={{240,-220},{260,-200}})));
   Utilities.SimulationTime simTim "Simulation time"
@@ -168,11 +169,11 @@ protected
   Modelica.Blocks.Math.Add add
     "Add 30 minutes to time to shift weather data reader"
     annotation (Placement(transformation(extent={{-140,160},{-120,180}})));
-  Modelica.Blocks.Sources.Constant con30mins(k=1800)
+  Modelica.Blocks.Sources.Constant con30mins(final k=1800)
     "Constant used to shift weather data reader"
     annotation (Placement(transformation(extent={{-180,192},{-160,212}})));
   Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime locTim(
-      lon=lon, timZon=timZon) "Local civil time"
+      final lon=lon, final timZon=timZon) "Local civil time"
     annotation (Placement(transformation(extent={{-120,-160},{-100,-140}})));
   Modelica.Blocks.Tables.CombiTable1Ds datRea1(
     final tableOnFile=true,
@@ -194,7 +195,7 @@ protected
   Modelica.Blocks.Interfaces.RealInput pAtm_in_internal(
     final quantity="Pressure",
     final unit="Pa",
-    displayUnit="Ba") "Needed to connect to conditional connector";
+    displayUnit="bar") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput TDryBul_in_internal(
     final quantity="Temperature",
     final unit="K",
@@ -704,6 +705,11 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+November 29, 2011, by Michael Wetter:<br>
+Fixed wrong display unit for <code>pAtm_in_internal</code> and 
+made propagation of parameter final.
+</li>
 <li>
 October 27, 2011, by Wangda Zuo:<br>
 1. Added optional connectors for dry bulb temperature, relative humidity, wind speed, wind direction, global horizontal radiation, diffuse horizontal radiation.<br>

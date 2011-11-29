@@ -26,17 +26,17 @@ protected
    parameter Real R(fixed=false) "Surface roughness";
    Real W(min=0.5, max=1) "Wind direction modifier";
 initial equation
-  if (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.VeryRough) then
+  if (roughness == Buildings.HeatTransfer.Types.SurfaceRoughness.VeryRough) then
     R=2.17;
-  elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.Rough) then
+  elseif (roughness == Buildings.HeatTransfer.Types.SurfaceRoughness.Rough) then
     R=1.67;
-  elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.Medium) then
+  elseif (roughness == Buildings.HeatTransfer.Types.SurfaceRoughness.Medium) then
     R=1.52;
-  elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.MediumSmooth) then
+  elseif (roughness == Buildings.HeatTransfer.Types.SurfaceRoughness.MediumSmooth) then
     R=1.13;
-  elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth) then
+  elseif (roughness == Buildings.HeatTransfer.Types.SurfaceRoughness.Smooth) then
     R=1.11;
-  elseif (conMod == Buildings.HeatTransfer.Types.SurfaceRoughness.VerySmooth) then
+  elseif (roughness == Buildings.HeatTransfer.Types.SurfaceRoughness.VerySmooth) then
     R=1.00;
   else
     R=0;
@@ -207,6 +207,12 @@ Engineering Research Laboratory, Champaign, IL.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+November 29, 2011, by Michael Wetter:<br>
+Fixed error in assignment of wind-based convection coefficient. 
+The old implementation did not take into account the surface roughness.
+Bug fix is due to feedback from Tobias Klingbeil (Fraunhofer ISE).
+</li>
 <li>
 March 10 2010, by Michael Wetter:<br>
 First implementation.
