@@ -33,10 +33,6 @@ equation
           1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(y, y) annotation (Line(
-      points={{110,5.55112e-16},{110,5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(decAng.decAng, incAng.decAng) annotation (Line(
       points={{-19,40},{20,40},{20,5.4},{37.8,5.4}},
       color={0,0,127},
@@ -72,6 +68,10 @@ For a definition of the parameters, see the
 </html>
 ", revisions="<html>
 <ul>
+<li>
+November 30, 2011, by Michael Wetter:<br>
+Removed <code>connect(y, y)</code> statement.
+</li>
 <li>
 February 28, 2011, by Wangda Zuo:<br>
 Use local civil time instead of clock time.
