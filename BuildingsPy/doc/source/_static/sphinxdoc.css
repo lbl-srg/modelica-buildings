@@ -51,7 +51,6 @@ body {
     color: #022e4d;
 //    border: 1px solid #022e4d;
 //    background-color: #BFD1D4;
-    background-color: red;
     text-align: left;
     margin-left: auto;
     margin-right: auto;
@@ -247,14 +246,12 @@ a.headerlink:hover {
 cite, code, tt {
     font-family: 'Consolas', 'Deja Vu Sans Mono',
                  'Bitstream Vera Sans Mono', monospace;
-    font-size: 0.95em;
-    letter-spacing: 0.01em;
+    font-size: 1.05em;
     color: #750000;
 }
 
 tt {
     background-color: #f2f2f2;
-//    border-bottom: 1px solid #ddd;
     color: #333;
 }
 
