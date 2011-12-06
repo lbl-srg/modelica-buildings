@@ -277,12 +277,13 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Boreholes</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/xxx\">#xxx</a>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/45\">#45</a>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Dymola 2012 FD01 hangs when simulating a borehole heat exchanger.
+    This was caused by a wrong release of memory in <code>freeArray.c</code>.
     </td>
 </tr>
 </table>

@@ -16,7 +16,6 @@ void freeArray(void* object)
   if ( object != NULL ){
     ExternalObjectStructure* table = (ExternalObjectStructure*) object;
     free(table->x);
-    free(table->n);
     free(table);
   }
 }
