@@ -11,7 +11,8 @@ if __name__ == "__main__":
     DELETEFILES=['buildlog.txt', 'dsfinal.txt', 'dsin.txt', 'dslog.txt', 
                  'dsmodel*', 'dymosim', 'dymosim.lib', 'dymosim.exp', 
                  'dymosim.exe', '*.mat', '*.mof', 
-                 '*.bak-mo', 'request.', 'status.', 'status', 'failure' , 'stop']
+                 '*.bak-mo', 'request.', 'status.', 'status', 'failure' , 
+                 'stop', 'stop.']
 
     # Array in which the names of the files that will be deleted are stored
     matches = []
