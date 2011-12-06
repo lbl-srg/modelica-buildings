@@ -66,7 +66,8 @@ model ConstantEffectiveness
     m1_flow_nominal=5,
     m2_flow_nominal=5,
     dp1_nominal=100,
-    dp2_nominal=100)
+    dp2_nominal=100,
+    show_T=true)
     annotation (Placement(transformation(extent={{6,-4},{26,16}}, rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
