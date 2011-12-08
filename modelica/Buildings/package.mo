@@ -1641,11 +1641,17 @@ The development of the Buildings library is organized by<br>
     annotation (Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Acknowledgements</font></h4>
 <p>
- The development of this library was supported by the Assistant Secretary for
+ The development of this library was supported
+ <ul>
+ <li>by the Assistant Secretary for
   Energy Efficiency and Renewable Energy, Office of Building
   Technologies of the U.S. Department of Energy, under
-  Contract No. DE-AC02-05CH11231.
-  fixme: add CEC support.
+  contract No. DE-AC02-05CH11231, and
+ </li>
+ <li>
+  by the California Energy Commission, Public Interest Energy Research Program, Buildings End Use Energy Efficiency Program, award number 500-10-052.
+ </li>
+ </ul>
 </p>
 <p>
   The <a href=\"modelica://Buildings.Airflow.Multizone\">package for multizone airflow modeling</a>
@@ -1918,7 +1924,7 @@ annotation (
 version="1.0",
 versionBuild=2,
 versionDate="2011-11-04",
-dateModified="2011-12-07 23:20:00Z",
+dateModified="2011-12-08 23:20:00Z",
 uses(Modelica(version="3.2")),
 conversion(
  from(version="0.12",
