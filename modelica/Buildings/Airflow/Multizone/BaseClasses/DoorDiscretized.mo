@@ -34,11 +34,16 @@ protected
   Real kVal "Flow coefficient for each compartment, k = V_flow/ dp^m";
   Modelica.SIunits.Area dA "Compartment area";
 
-  Modelica.SIunits.Density rhoAve "Average air density";
-
+//  Modelica.SIunits.Density rhoAve "Average air density";
+  parameter Medium.ThermodynamicState sta0=Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default);
+  parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
+    "Density, used to compute fluid volume";
 equation
   dA = A/nCom;
-  rhoAve = (rho_a1_inflow + rho_a2_inflow)/2;
+//  rhoAve = (rho_a1_inflow + rho_a2_inflow)/2;
 
   for i in 1:nCom loop
     // pressure drop in each compartment
@@ -98,6 +103,9 @@ using the model for a door that can be open or closed.
 </html>",
 revisions="<html>
 <ul>
+<li><i>December 6, 2011</i> by Michael Wetter:<br>
+       Removed protected variable <code>rhoAve</code>.
+</li>
 <li><i>August 12, 2011</i> by Michael Wetter:<br>
        Changed model to use the new function 
        <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">

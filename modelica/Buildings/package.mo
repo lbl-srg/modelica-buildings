@@ -120,40 +120,17 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_1_1_build1 "Version 1.1 build 1"
+  class Version_1_0_build2 "Version 1.0 build 2"
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
-Version 1.1 is ... xxx
+Version 1.0 build 2 has been released to correct model errors that
+were present in version 1.0 build 1. Both versions are compatible.
+In addition, version 1.0 build 2 contains improved documentation
+of various example models.
 </p>
 <!-- New libraries -->
-<p>
-The following <b style=\"color:blue\">new libraries</b> have been added:
-</p>
-<table border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-    </tr>
-</table>
-</p>
 <!-- New components for existing libraries -->
-<p>
-The following <b style=\"color:blue\">new components</b> have been added
-to <b style=\"color:blue\">existing</b> libraries:
-</p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td> 
-    </tr>
-</table>
-</p>
 <!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
@@ -174,39 +151,31 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Airflow.Multizone</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Airflow.Multizone.DoorDiscretizedOpen<br/>
+                     Buildings.Airflow.Multizone.DoorDiscretizedOperable
+    </td>
+    <td valign=\"top\">Changed the computation of the discharge coefficient to use the 
+       nominal density instead of the actual density. 
+       Computing <code>sqrt(2/rho)</code> sometimes causes warnings from the solver,
+       as it seems to try negative values for the density during iterative solutions.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Airflow.Multizone.Examples
     </td>
     <td valign=\"top\">Improved documentation of examples.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Examples.DualFanDualDuct</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Examples.DualFanDualDuct.Controls.RoomMixingBox
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Improved control of minimum air flow rate to avoid overheating.
     </td>
 </tr>
 </table>
 </p>
 <!-- Non-backward compatbile changes to existing components -->
-<p>
-The following <b style=\"color:blue\">existing components</b>
-have been <b style=\"color:blue\">improved</b> in a
-<b style=\"color:blue\">non-backward compatible</b> way:
-</p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
-</p>
 <!-- Errors that have been fixed -->
 <p>
 The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
@@ -241,35 +210,15 @@ that can lead to wrong simulation results):
      no convective heat transfer was computed between window frame and
      room air.
     </td>
-</tr>
-
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.HeatGain
     </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Fixed bug that caused convective heat gains 
+     to be removed from the room instead of added to the room.
     </td>
 </tr>
 </table>
 </p>
 <!-- Uncritical errors -->
-<p>
-The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
-that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
-units are wrong or errors in documentation):
-</p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
-</p>
 <!-- Trac tickets -->
 <p>
 The following
@@ -286,18 +235,19 @@ have been fixed:
     This was caused by a wrong release of memory in <code>freeArray.c</code>.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/46\">#46</a>
+    </td>
+    <td valign=\"top\">The convective internal heat gain has the wrong sign.
+    </td>
+</tr>
+
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li> 
-xxx
-</li>
-</ul>
 </p>
 </html>"));
-  end Version_1_1_build1;
+  end Version_1_0_build2;
 
   class Version_1_0_build1 "Version 1.0 build 1"
     extends Modelica.Icons.ReleaseNotes;
@@ -1965,9 +1915,10 @@ end UsersGuide;
 
 
 annotation (
-version="1.1",
-versionBuild=0,
-versionDate="xxx",
+version="1.0",
+versionBuild=2,
+versionDate="2011-11-04",
+dateModified="2011-12-07 23:20:00Z",
 uses(Modelica(version="3.2")),
 conversion(
  from(version="0.12",

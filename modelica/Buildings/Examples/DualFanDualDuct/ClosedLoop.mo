@@ -18,17 +18,24 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   parameter Boolean linearizeFlowResistance=false
     "= true, use linear relation between m_flow and dp for any flow rate";
 
-  constant Real conv=1.5 "Conversion factor for nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=3.0*conv
+  parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume corridor";
+  parameter Modelica.SIunits.Volume VRooSou=568.77 "Room volume south";
+  parameter Modelica.SIunits.Volume VRooNor=568.77 "Room volume north";
+  parameter Modelica.SIunits.Volume VRooEas=360.08 "Room volume east";
+  parameter Modelica.SIunits.Volume VRooWes=360.08 "Room volume west";
+
+  constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=3*VRooCor*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=1.1*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=8*VRooSou*conv
     "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=1.4*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=9*VRooEas*conv
     "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=2.3*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=11*VRooNor*conv
     "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=1.4*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=10*VRooWes*conv
     "Design mass flow rate perimeter 4";
+
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m0_flow_cor +
       m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes
     "Nominal air mass flow rate";
@@ -165,10 +172,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     "Controller for cooling coil"
     annotation (Placement(transformation(extent={{340,-200},{360,-180}})));
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupHot(
-      xSet_nominal(displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    r_N_min=0) "Controller for fan of hot deck"
+    r_N_min=0,
+    xSet_nominal(displayUnit="Pa") = 30) "Controller for fan of hot deck"
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch(occupancy=3600*{6,19})
     "Occupancy schedule"
@@ -250,8 +257,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal=m0_flow_cor,
     VRoo=2698,
     energyDynamicsJunctions=energyDynamicsJunctions,
-    dynamicBalanceJunction=dynamicBalanceJunction)
-    "Zone for core of buildings (azimuth will be neglected)"
+    dynamicBalanceJunction=dynamicBalanceJunction,
+    from_dp=true) "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{548,44},{616,112}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
                                                     sou(
@@ -259,7 +266,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal=m0_flow_sou,
     VRoo=568.77,
     energyDynamicsJunctions=energyDynamicsJunctions,
-    dynamicBalanceJunction=dynamicBalanceJunction) "South-facing thermal zone"
+    dynamicBalanceJunction=dynamicBalanceJunction,
+    from_dp=true) "South-facing thermal zone"
     annotation (Placement(transformation(extent={{686,42},{758,114}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
                                                     eas(
@@ -267,7 +275,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal=m0_flow_eas,
     VRoo=360.08,
     energyDynamicsJunctions=energyDynamicsJunctions,
-    dynamicBalanceJunction=dynamicBalanceJunction) "East-facing thermal zone"
+    dynamicBalanceJunction=dynamicBalanceJunction,
+    from_dp=true) "East-facing thermal zone"
     annotation (Placement(transformation(extent={{824,46},{892,114}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
                                                     nor(
@@ -275,7 +284,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal=m0_flow_nor,
     VRoo=568.77,
     energyDynamicsJunctions=energyDynamicsJunctions,
-    dynamicBalanceJunction=dynamicBalanceJunction) "North-facing thermal zone"
+    dynamicBalanceJunction=dynamicBalanceJunction,
+    from_dp=true) "North-facing thermal zone"
     annotation (Placement(transformation(extent={{964,46},{1032,114}})));
   Buildings.Examples.DualFanDualDuct.ThermalZones.SupplyBranch
                                                     wes(
@@ -283,7 +293,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     m_flow_nominal=m0_flow_wes,
     VRoo=360.08,
     energyDynamicsJunctions=energyDynamicsJunctions,
-    dynamicBalanceJunction=dynamicBalanceJunction) "West-facing thermal zone"
+    dynamicBalanceJunction=dynamicBalanceJunction,
+    from_dp=true) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1102,46},{1170,114}})));
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanRet(
                         xSet_nominal(displayUnit="Pa") = 30,
@@ -294,90 +305,90 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetRoo1(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
-    dp_nominal(displayUnit="Pa") = {30,10,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room return"
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit="Pa") = {30,0,70}) "Splitter for room return"
     annotation (Placement(transformation(extent={{590,170},{610,150}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetSou(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
-    dp_nominal(displayUnit="Pa") = {20,10,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room return"
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit="Pa") = {20,0,50}) "Splitter for room return"
     annotation (Placement(transformation(extent={{730,170},{750,150}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetEas(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
         m0_flow_wes,m0_flow_eas},
-    dp_nominal(displayUnit="Pa") = {20,10,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room return"
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit="Pa") = {20,0,30}) "Splitter for room return"
     annotation (Placement(transformation(extent={{870,170},{890,150}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splRetNor(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
-    dp_nominal(displayUnit="Pa") = {20,10,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room return"
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit="Pa") = {20,10,10}) "Splitter for room return"
     annotation (Placement(transformation(extent={{1010,170},{1030,150}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupRoo1Hot(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
-    dp_nominal(displayUnit="Pa") = {240,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room supply"
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit="Pa") = {240,0,-80}) "Splitter for room supply"
     annotation (Placement(transformation(extent={{560,10},{580,-10}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupSouHot(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
-    dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room supply"
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-60}) "Splitter for room supply"
     annotation (Placement(transformation(extent={{700,10},{720,-10}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupEasHot(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
         m0_flow_wes,m0_flow_eas},
-    dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room supply"
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-40}) "Splitter for room supply"
     annotation (Placement(transformation(extent={{840,10},{860,-10}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupNorHot(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
-    dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room supply"
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-20}) "Splitter for room supply"
     annotation (Placement(transformation(extent={{980,10},{1000,-10}})));
   Buildings.Examples.DualFanDualDuct.Controls.CoolingCoilTemperatureSetpoint
                                                                        TSetCoo(TOn=
-        285.15, TOff=303.15) "Setpoint for cooling coil"
+        285.15, TOff=313.15) "Setpoint for cooling coil"
     annotation (Placement(transformation(extent={{-80,-250},{-60,-230}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -481,59 +492,59 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     controllerType=Modelica.Blocks.Types.SimpleController.P)
     "Controller for heating coil"
     annotation (Placement(transformation(extent={{340,-60},{360,-40}})));
-  Buildings.Controls.SetPoints.Table TSetHot(table=[273.15 + 5,273.15 + 30; 273.15
+  Buildings.Controls.SetPoints.Table TSetHot(table=[273.15 + 5,273.15 + 40; 273.15
          + 22,273.15 + 22]) "Setpoint for hot deck temperature"
     annotation (Placement(transformation(extent={{300,-60},{320,-40}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupRoo1Col(
     redeclare package Medium = MediumA,
     m_flow_nominal={m_flow_nominal,m_flow_nominal - m0_flow_cor,m0_flow_cor},
-    dp_nominal(displayUnit="Pa") = {240,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room supply"
+    linearized=linearizeFlowResistance,
+    dp_nominal(displayUnit="Pa") = {240,0,-80}) "Splitter for room supply"
     annotation (Placement(transformation(extent={{580,-30},{600,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupSouCol(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes,
         m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_sou},
-    dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room supply"
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-60}) "Splitter for room supply"
     annotation (Placement(transformation(extent={{724,-30},{744,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupEasCol(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_eas + m0_flow_nor + m0_flow_wes,m0_flow_nor +
         m0_flow_wes,m0_flow_eas},
-    dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room supply"
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-40}) "Splitter for room supply"
     annotation (Placement(transformation(extent={{860,-30},{880,-50}})));
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM splSupNorCol(
     redeclare package Medium = MediumA,
     m_flow_nominal={m0_flow_nor + m0_flow_wes,m0_flow_wes,m0_flow_nor},
-    dp_nominal={20,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     dynamicBalance=dynamicBalanceJunction,
     from_dp=from_dp,
-    linearized=linearizeFlowResistance) "Splitter for room supply"
+    linearized=linearizeFlowResistance,
+    dp_nominal={20,0,-20}) "Splitter for room supply"
     annotation (Placement(transformation(extent={{1000,-30},{1020,-50}})));
-  Modelica.Blocks.Sources.Constant pStaPre_Set(k=30, y(final unit="Pa", min=0))
+  Modelica.Blocks.Sources.Constant pStaPre_Set(      y(final unit="Pa", min=0), k=30)
     "Setpoint for static pressure"
     annotation (Placement(transformation(extent={{60,80},{80,100}})));
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupCol(
-      xSet_nominal(displayUnit="Pa") = 30,
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=yFan_start,
-    r_N_min=0) "Controller for fan of cold deck"
+    r_N_min=0,
+    xSet_nominal(displayUnit="Pa") = 30) "Controller for fan of cold deck"
     annotation (Placement(transformation(extent={{100,40},{120,60}})));
   Modelica.Blocks.Logical.Switch swiPumPreCoi "Switch for preheat coil pump"
     annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
@@ -1182,7 +1193,7 @@ air outlet temperature shown in the figure below.
 </p>
 <p>
 The cooling coil is controlled to maintain a constant outlet temperature 
-of 12&deg; during day-time, and 30&deg;C during night-time
+of 12&deg; during day-time, and 40&deg;C during night-time
 </p>
 <p>
 There is also a 
@@ -1239,6 +1250,17 @@ TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 6, 2011, by Michael Wetter:<br>
+Improved control for minimum zone flow rate.
+</li>
+<li>
+July 18, 2011, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
 </html>"),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DualFanDualDuct/ClosedLoop.mos"
         "Simulate and plot"),

@@ -52,7 +52,7 @@ initial algorithm
                   + "Change medium model to one that has 'water' as a substance.");
 equation
   QRad_flow = qGai_flow[1]*AFlo;
-  QCon_flow.Q_flow = qGai_flow[2]*AFlo;
+  QCon_flow.Q_flow = -qGai_flow[2]*AFlo;
 
   // Interface to fluid port
   // If a medium does not contain water vapor, then h_fg is equal to zero.
@@ -72,7 +72,9 @@ equation
  annotation(Documentation(info="<html>
 This model computes the radiant, convective and latent heat flow.
 Input into this model are these three components in units of [W/m2].
-Output are 
+The inputs need to be positive quantities if heat or moisture is added
+to the room.
+The outputs are 
 <ul>
 <li>
 the radiant heat flow in Watts,
@@ -90,6 +92,12 @@ the mass flow rate at the fluid port is equal to zero.
 </html>",
         revisions="<html>
 <ul>
+<li>
+December 6, 2011, by Michael Wetter:<br>
+Fixed sign error in convective heat gain that is assigned to 
+<code>QCon_flow.Q_flow</code>.
+This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/45\">ticket 45</a>.
+</li>
 <li>
 April 27, 2011, by Michael Wetter:<br>
 Changed assert statement to allow use of model for media without water vapor.

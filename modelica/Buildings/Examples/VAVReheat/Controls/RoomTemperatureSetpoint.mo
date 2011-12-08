@@ -10,7 +10,6 @@ block RoomTemperatureSetpoint "Set point scheduler for room temperature"
     "Cooling setpoint during on";
   parameter Modelica.SIunits.Temperature TCooOff=303.15
     "Cooling setpoint during off";
-
   ControlBus controlBus
     annotation (Placement(transformation(extent={{10,50},{30,70}})));
   Modelica.Blocks.Routing.IntegerPassThrough mode
@@ -25,11 +24,13 @@ block RoomTemperatureSetpoint "Set point scheduler for room temperature"
     "Cooling setpoint"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Continuous.FirstOrder firOrdHea(each T=10, each initType=
-        Modelica.Blocks.Types.Init.SteadyState)
+        Modelica.Blocks.Types.Init.SteadyState,
+    y(unit="K", displayUnit="degC"))
     "First order element, used since otherwise, Dymola 7.3 cannot reduce the index of the DAE"
     annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
   Modelica.Blocks.Continuous.FirstOrder firOrdCoo(each T=10, each initType=
-        Modelica.Blocks.Types.Init.SteadyState)
+        Modelica.Blocks.Types.Init.SteadyState,
+    y(unit="K", displayUnit="degC"))
     "First order element, used since otherwise, Dymola 7.3 cannot reduce the index of the DAE"
     annotation (Placement(transformation(extent={{-40,30},{-20,50}})));
 equation

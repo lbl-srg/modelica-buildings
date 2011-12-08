@@ -82,12 +82,12 @@ model SupplyBranch "Supply branch of a dual duct system"
     redeclare package Medium = MediumA,
     m_flow_nominal={mAirCol_flow_nominal,mAirHot_flow_nominal,mAirCol_flow_nominal +
         mAirHot_flow_nominal},
-    dp_nominal=20*{0,0,0},
     energyDynamics=energyDynamicsJunctions,
     massDynamics=energyDynamicsJunctions,
     from_dp=from_dp,
     linearized=linearizeFlowResistance,
-    dynamicBalance=false) "Mixer for hot and cold air deck"  annotation (
+    dynamicBalance=false,
+    dp_nominal=20*{0,0,0}) "Mixer for hot and cold air deck" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -109,6 +109,12 @@ model SupplyBranch "Supply branch of a dual duct system"
     annotation (Placement(transformation(extent={{200,-70},{220,-50}})));
   Modelica.Blocks.Interfaces.RealOutput p_relHot "Pressure signal of hot deck"
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
+  Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium = MediumA,
+      m_flow_nominal=m_flow_nominal) "Supply air temperature" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={50,168})));
 equation
   connect(fraMasFlo.u, senMasFlo.m_flow) annotation (Line(
       points={{100,144},{80,144},{80,134},{61,134}},
@@ -117,10 +123,6 @@ equation
   connect(ACH.u, senMasFlo.m_flow) annotation (Line(
       points={{98,104},{80,104},{80,134},{61,134}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(senMasFlo.port_b, port_b) annotation (Line(
-      points={{50,144},{50,200}},
-      color={0,127,255},
       smooth=Smooth.None));
   connect(con.TRoo, TRoo) annotation (Line(
       points={{-42,18},{-60,18},{-60,100},{-120,100}},
@@ -197,6 +199,14 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(senMasFlo.port_b, TSup.port_a) annotation (Line(
+      points={{50,144},{50,158}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TSup.port_b, port_b) annotation (Line(
+      points={{50,178},{50,200}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={

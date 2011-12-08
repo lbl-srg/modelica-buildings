@@ -14,7 +14,7 @@ block pW_TDewPoi
           rotation=0)));
 
 equation
- p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);
+ p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=T);
     annotation (
     defaultComponentName="pWat",
     Documentation(info="<html>
@@ -30,6 +30,16 @@ temperatures.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 7, 2011 by Michael Wetter:<br>
+Changed function call from 
+<code>p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi(T=T);</code>
+to 
+<code>p_w = Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb(T=T);</code>
+as the first version sometimes triggered warnings when the solver attempts negative 
+temperatures. The accuracy of the two implementation does not change much in the
+region of interest for building HVAC applications.
+</li>
 <li>February 17, 2010 by Michael Wetter:<br>
 Renamed block from <code>DewPointTemperature_pWat</code>
 to <code>pW_TDewPoi</code>.

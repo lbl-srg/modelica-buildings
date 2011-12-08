@@ -4,7 +4,6 @@ model VAVBranch "Supply branch of a VAV system"
     "Medium model for air" annotation (choicesAllMatching=true);
   replaceable package MediumW = Modelica.Media.Interfaces.PartialMedium
     "Medium model for water" annotation (choicesAllMatching=true);
-
   Buildings.Fluid.Actuators.Dampers.VAVBoxExponential vav(
     redeclare package Medium = MediumA,
     m_flow_nominal=m_flow_nominal,
@@ -31,7 +30,6 @@ model VAVBranch "Supply branch of a VAV system"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={56,44})));
-
   Buildings.Fluid.Sources.FixedBoundary sinTer(
     redeclare package Medium = MediumW,
     p(displayUnit="Pa") = 3E5,
@@ -51,7 +49,6 @@ model VAVBranch "Supply branch of a VAV system"
         iconTransformation(extent={{40,190},{60,210}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Mass flow rate of this thermal zone";
-
   parameter Modelica.SIunits.Volume VRoo "Room volume";
   Controls.RoomVAV con "Room temperature controller"
     annotation (Placement(transformation(extent={{0,-6},{20,14}})));
@@ -92,7 +89,8 @@ model VAVBranch "Supply branch of a VAV system"
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={132,64})));
-  Modelica.Blocks.Interfaces.RealInput TRoo "Measured room temperature"
+  Modelica.Blocks.Interfaces.RealInput TRoo(unit="K", displayUnit="degC")
+    "Measured room temperature"
     annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
 equation
   connect(con.controlBus, controlBus) annotation (Line(
@@ -107,9 +105,8 @@ equation
       points={{100,144},{80,144},{80,134},{61,134}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(TSup.T, con.TSup) annotation (Line(
-      points={{39,74},{-20,74},{-20,0},{-2,0}},
+      points={{39,74},{-20,74},{-20,6.66134e-16},{-2,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.yDam, vav.y) annotation (Line(
@@ -129,7 +126,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(con.yDam, yDam) annotation (Line(
-      points={{21,-1},{188,-1},{188,0},{210,0}},
+      points={{21,-1},{188,-1},{188,5.55112e-16},{210,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(ACH.u, senMasFlo.m_flow) annotation (Line(

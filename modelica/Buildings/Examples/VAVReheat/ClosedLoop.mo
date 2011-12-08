@@ -6,16 +6,23 @@ model ClosedLoop
       Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
   package MediumW = Buildings.Media.ConstantPropertyLiquidWater
     "Medium model for water";
-  constant Real conv=1.2 "Conversion factor for nominal mass flow rate";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=3.493*conv
+
+  parameter Modelica.SIunits.Volume VRooCor=2698 "Room volume corridor";
+  parameter Modelica.SIunits.Volume VRooSou=568.77 "Room volume south";
+  parameter Modelica.SIunits.Volume VRooNor=568.77 "Room volume north";
+  parameter Modelica.SIunits.Volume VRooEas=360.08 "Room volume east";
+  parameter Modelica.SIunits.Volume VRooWes=360.08 "Room volume west";
+
+  constant Real conv=1.2/3600 "Conversion factor for nominal mass flow rate";
+  parameter Modelica.SIunits.MassFlowRate m0_flow_cor=5*VRooCor*conv
     "Design mass flow rate core";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=0.878*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_sou=5.5*VRooSou*conv
     "Design mass flow rate perimeter 1";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=0.992*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_eas=8*VRooEas*conv
     "Design mass flow rate perimeter 2";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=0.760*conv*1.4
+  parameter Modelica.SIunits.MassFlowRate m0_flow_nor=5.5*VRooNor*conv
     "Design mass flow rate perimeter 3";
-  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=1.161*conv
+  parameter Modelica.SIunits.MassFlowRate m0_flow_wes=8*VRooWes*conv
     "Design mass flow rate perimeter 4";
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal=m0_flow_cor +
       m0_flow_sou + m0_flow_eas + m0_flow_nor + m0_flow_wes
@@ -238,35 +245,35 @@ model ClosedLoop
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=m0_flow_cor,
-    VRoo=2698) "Zone for core of buildings (azimuth will be neglected)"
+    VRoo=VRooCor) "Zone for core of buildings (azimuth will be neglected)"
     annotation (Placement(transformation(extent={{550,4},{618,72}})));
   Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
                                                     sou(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=m0_flow_sou,
-    VRoo=568.77) "South-facing thermal zone"
+    VRoo=VRooSou) "South-facing thermal zone"
     annotation (Placement(transformation(extent={{688,2},{760,74}})));
   Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
                                                     eas(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=m0_flow_eas,
-    VRoo=360.08) "East-facing thermal zone"
+    VRoo=VRooEas) "East-facing thermal zone"
     annotation (Placement(transformation(extent={{826,6},{894,74}})));
   Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
                                                     nor(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=m0_flow_nor,
-    VRoo=568.77) "North-facing thermal zone"
+    VRoo=VRooNor) "North-facing thermal zone"
     annotation (Placement(transformation(extent={{966,6},{1034,74}})));
   Buildings.Examples.VAVReheat.ThermalZones.VAVBranch
                                                     wes(
     redeclare package MediumA = MediumA,
     redeclare package MediumW = MediumW,
     m_flow_nominal=m0_flow_wes,
-    VRoo=360.08) "West-facing thermal zone"
+    VRoo=VRooWes) "West-facing thermal zone"
     annotation (Placement(transformation(extent={{1104,6},{1172,74}})));
   Controls.FanVFD conFanRet(xSet_nominal(displayUnit="m3/s") = m_flow_nominal/
       1.2, r_N_min=0.0) "Controller for fan"
@@ -354,6 +361,7 @@ model ClosedLoop
   Modelica.Blocks.Routing.DeMultiplex5 TRooAir
     "Demultiplex for room air temperature"
     annotation (Placement(transformation(extent={{500,80},{520,100}})));
+
 equation
   connect(fil.port_b, heaCoi.port_a1) annotation (Line(
       points={{80,-40},{98,-40}},

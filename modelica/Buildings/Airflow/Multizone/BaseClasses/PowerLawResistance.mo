@@ -21,7 +21,7 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
   Real Re "Reynolds number";
 
 protected
-  parameter Real k(fixed=false) "Flow coefficient, k = V_flow/ dp^m";
+  parameter Real k "Flow coefficient, k = V_flow/ dp^m";
 
   parameter Medium.ThermodynamicState sta0=Medium.setState_pTX(
       T=Medium.T_default,
@@ -32,7 +32,7 @@ protected
 
   constant Real gamma(min=1) = 1.5
     "Normalized flow rate where dphi(0)/dpi intersects phi(1)";
-  parameter Real a = gamma 
+  parameter Real a = gamma
     "Polynomial coefficient for regularized implementation of flow resistance";
   parameter Real b = 1/8*m^2 - 3*gamma - 3/2*m + 35.0/8
     "Polynomial coefficient for regularized implementation of flow resistance";
@@ -99,6 +99,10 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li><i>December 6, 2011</i> by Michael Wetter:<br>
+       Removed <code>fixed=false</code> attribute of protected parameter
+       <code>k</code>.
+</li>
 <li><i>July 20, 2010</i> by Michael Wetter:<br>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>

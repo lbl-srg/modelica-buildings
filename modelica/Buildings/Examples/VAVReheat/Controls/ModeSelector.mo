@@ -1,6 +1,5 @@
 within Buildings.Examples.VAVReheat.Controls;
 model ModeSelector "Finite State Machine for the operational modes"
-
   Modelica.StateGraph.InitialStep initialStep
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.StateGraph.Transition start "Starts the system"
@@ -15,8 +14,9 @@ model ModeSelector "Finite State Machine for the operational modes"
     mode=Buildings.Examples.VAVReheat.Controls.OperationModes.unoccupiedNightSetBack,
     nIn=1) "Unoccupied night set back"
     annotation (Placement(transformation(extent={{80,20},{100,40}})));
-  Modelica.StateGraph.Transition t2(condition=TRooMinErrHea.y > 0, enableTimer=
-        false)
+  Modelica.StateGraph.Transition t2(condition=TRooMinErrHea.y > 0,
+    enableTimer=true,
+    waitTime=60)
     annotation (Placement(transformation(extent={{28,20},{48,40}})));
   parameter Modelica.SIunits.TemperatureDifference delTRooOnOff(min=0.1)=1
     "Deadband in room temperature between occupied on and occupied off";
@@ -40,7 +40,7 @@ model ModeSelector "Finite State Machine for the operational modes"
                                                                             nIn=2,
     nOut=1) "Morning warm up"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
-  Modelica.StateGraph.TransitionWithSignal t6
+  Modelica.StateGraph.TransitionWithSignal t6(enableTimer=true, waitTime=60)
     annotation (Placement(transformation(extent={{-76,-100},{-56,-80}})));
   Modelica.Blocks.Logical.LessEqualThreshold occThrSho(threshold=1800)
     "Signal to allow transition into morning warmup"
@@ -181,7 +181,6 @@ equation
       points={{106.5,130},{-30,130},{-30,29.3333},{-21,29.3333}},
       color={0,0,0},
       smooth=Smooth.None));
-
   connect(occThrSho.y, and1.u1) annotation (Line(
       points={{-119,-180},{-110,-180},{-110,-190},{-102,-190}},
       color={255,0,255},
@@ -206,7 +205,6 @@ equation
       points={{-118.2,-212},{-110.1,-212},{-110.1,-198},{-102,-198}},
       color={255,0,255},
       smooth=Smooth.None));
-
   connect(preCooSta.y, t9.condition) annotation (Line(
       points={{-119,-150},{-80,-150},{-80,-142}},
       color={255,0,255},
@@ -219,8 +217,6 @@ equation
       points={{0.5,29.875},{12,29.875},{12,0},{-100,0},{-100,-130},{-84,-130}},
       color={0,0,0},
       smooth=Smooth.None));
-
-
   connect(cb, preCooSta.controlBus) annotation (Line(
       points={{-158,140},{-150,140},{-150,-144},{-136.2,-144}},
       color={255,204,51},
@@ -237,7 +233,6 @@ equation
       points={{21.5,-130},{30,-130},{30,-128},{46,-128},{46,-90},{59,-90}},
       color={0,0,0},
       smooth=Smooth.None));
-
   connect(t3.outPort, occ.inPort[1]) annotation (Line(
       points={{21.5,-90},{42,-90},{42,-89.3333},{59,-89.3333}},
       color={0,0,0},
@@ -289,12 +284,10 @@ equation
       smooth=Smooth.None));
   connect(morWarUp.y, sum.u[2]) annotation (Line(
       points={{-19,-96},{-8,-96},{-8,-68},{-192,-68},{-192,141.68},{-186,141.68}},
-
       color={255,127,0},
       smooth=Smooth.None));
   connect(occ.y, sum.u[3]) annotation (Line(
       points={{81,-96},{100,-96},{100,-108},{-192,-108},{-192,140},{-186,140}},
-
       color={255,127,0},
       smooth=Smooth.None));
   connect(unOccOff.y, sum.u[4]) annotation (Line(

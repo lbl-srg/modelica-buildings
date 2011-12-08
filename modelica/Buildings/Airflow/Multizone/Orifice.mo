@@ -1,13 +1,10 @@
 within Buildings.Airflow.Multizone;
 model Orifice "Orifice"
-  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance(m=0.5);
+  extends Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance(m=0.5,
+    k = CD * A * sqrt(2.0/rho_nominal));
 
   parameter Real CD=0.65 "|Orifice characteristics|Discharge coefficient";
-protected
-  parameter Real coef = CD * A * sqrt(2.0) "Constant coefficient";
 
-initial equation
-  k = coef / sqrt(rho);
   annotation (Diagram(graphics),
                        Icon(graphics={
         Rectangle(
@@ -62,6 +59,11 @@ November, 2002.
 </html>",
 revisions="<html>
 <ul>
+<li><i>December 6, 2011</i> by Michael Wetter:<br>
+       Replaced <code>rho</code> with <code>rho_nominal</code> because
+       <code>rho</code> is computed in an <code>equation</code> section and not
+       in the <code>initial equation</code> section.
+</li>
 <li><i>July 20, 2010</i> by Michael Wetter:<br>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>

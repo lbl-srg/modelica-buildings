@@ -856,6 +856,15 @@ sets the latitude of the building which needs to correspond with the latitude of
 </html>", revisions="<html>
 <ul>
 <li>
+December 6, 2011, by Michael Wetter:<br>
+Fixed bug that caused convective heat gains to be 
+removed from the room instead of added to the room.
+This error was caused by a wrong sign in
+<a href=\"modelica://Buildings.Rooms.BaseClasses.HeatGain\">
+Buildings.Rooms.BaseClasses.HeatGain</a>.
+This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/45\">ticket 45</a>.
+</li>
+<li>
 August 9, 2011, by Michael Wetter:<br>
 Fixed bug that caused too high a surface temperature of the window frame.
 The previous version did not compute the infrared radiation exchange between the

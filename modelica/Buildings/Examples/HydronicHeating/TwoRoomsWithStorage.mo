@@ -304,7 +304,7 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{300,556},{320,576}})));
   Modelica.Blocks.Logical.Switch switch1
     annotation (Placement(transformation(extent={{340,550},{360,570}})));
-  Modelica.Blocks.Sources.RealExpression occ1(y=0*1/6/4)
+  Modelica.Blocks.Sources.RealExpression occ1(y=1/6/4)
     "Heat gain if occupied in room 1"
     annotation (Placement(transformation(extent={{300,580},{320,600}})));
   Modelica.Blocks.Sources.Constant zer(k=0) "Outputs zero"
@@ -315,7 +315,7 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{300,286},{320,306}})));
   Modelica.Blocks.Logical.Switch switch2
     annotation (Placement(transformation(extent={{340,280},{360,300}})));
-  Modelica.Blocks.Sources.RealExpression occ2(y=0*1/6/4)
+  Modelica.Blocks.Sources.RealExpression occ2(y=1/6/4)
     "Heat gain if occupied in room 2"
     annotation (Placement(transformation(extent={{300,310},{320,330}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM resRoo1(
@@ -1034,6 +1034,17 @@ system.
 </li>
 </ul>
 </p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 6, 2011, by Michael Wetter:<br>
+Added internal heat gains, which were set to zero in the previous version.
+</li>
+<li>
+January 30, 2009, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
 </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicHeating/TwoRoomsWithStorage.mos"
         "Simulate and plot"),

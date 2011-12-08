@@ -15,11 +15,10 @@ protected
     "Polynomial coefficient for regularized implementation of flow resistance";
   constant Real d = 1/8*mFixed^2 - gamma - mFixed + 15.0/8
     "Polynomial coefficient for regularized implementation of flow resistance";
-
 equation
   m=mFixed;
   A = wOpe*hOpe;
-  kVal = CD*dA*sqrt(2/rhoAve);
+  kVal = CD*dA*sqrt(2/rho_nominal);
   // orifice equation
   for i in 1:nCom loop
     dV_flow[i] = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
@@ -55,6 +54,12 @@ for a door that can either be open or closed.
 </html>",
 revisions="<html>
 <ul>
+<li><i>December 6, 2011</i> by Michael Wetter:<br>
+       Changed the computation of the discharge coefficient to use the 
+       nominal density instead of the actual density. 
+       Computing <code>sqrt(2/rho)</code> sometimes causes warnings from the solver,
+       as it seems to try negative values for the density during iterative solutions.
+</li>
 <li><i>August 12, 2011</i> by Michael Wetter:<br>
        Changed model to use the new function 
        <a href=\"modelica://Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM\">
