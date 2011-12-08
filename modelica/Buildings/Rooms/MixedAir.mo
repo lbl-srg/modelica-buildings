@@ -862,7 +862,7 @@ removed from the room instead of added to the room.
 This error was caused by a wrong sign in
 <a href=\"modelica://Buildings.Rooms.BaseClasses.HeatGain\">
 Buildings.Rooms.BaseClasses.HeatGain</a>.
-This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/45\">ticket 45</a>.
+This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/46\">ticket 46</a>.
 </li>
 <li>
 August 9, 2011, by Michael Wetter:<br>
