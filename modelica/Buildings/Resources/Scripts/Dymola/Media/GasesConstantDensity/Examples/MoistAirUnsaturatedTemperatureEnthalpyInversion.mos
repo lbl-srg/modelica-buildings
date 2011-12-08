@@ -1,1 +1,1 @@
-simulateModel("Buildings.Media.GasesConstantDensity.Examples.MoistAirUnsaturatedTemperatureEnthalpyInversion", method="dassl", resultFile="GasesConstantDensityMoistAirUnsaturatedTemperatureEnthalpyInversion.mos");
+simulateModel("Buildings.Media.GasesConstantDensity.Examples.MoistAirUnsaturatedTemperatureEnthalpyInversion", method="dassl", resultFile="GasesConstantDensityMoistAirUnsaturatedTemperatureEnthalpyInversion");

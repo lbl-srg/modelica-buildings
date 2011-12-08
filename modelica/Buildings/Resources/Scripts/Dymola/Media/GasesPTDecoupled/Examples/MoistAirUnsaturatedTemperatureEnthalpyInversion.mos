@@ -1,1 +1,1 @@
-simulateModel("Buildings.Media.GasesPTDecoupled.Examples.MoistAirUnsaturatedTemperatureEnthalpyInversion", method="dassl", resultFile="GasesPTDecoupledMoistAirUnsaturatedTemperatureEnthalpyInversion.mos");
+simulateModel("Buildings.Media.GasesPTDecoupled.Examples.MoistAirUnsaturatedTemperatureEnthalpyInversion", method="dassl", resultFile="GasesPTDecoupledMoistAirUnsaturatedTemperatureEnthalpyInversion");
