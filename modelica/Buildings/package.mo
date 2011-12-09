@@ -1665,7 +1665,7 @@ The development of the Buildings library is organized by<br>
 </p>
 <p>
 We thank Dietmar Winkler from Telemark University College for the various feedback that 
-helped improving the organization and structure of the library.
+helped improve the organization and structure of the library.
 </p>
 <p>
 The following people have directly contributed to the implementation of the Buildings library
