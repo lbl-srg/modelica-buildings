@@ -1933,7 +1933,7 @@ uses(Modelica(version="3.2")),
 conversion(
  from(version="0.12",
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos")),
-revisionId="$Id:: package.mo 2369 2011-05-10 00:35:26Z #$",
+revisionId="$Id$",
 preferredView="info",
 Documentation(info="<html>
 <p>
