@@ -1570,8 +1570,12 @@ on the Buildings library
 </p>
 <ul>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0\">
-Version 1.0 </a>(November 4, 2011)</li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">
+Version 1.0 build2</a>(December 8, 2011)</li>
+</li>
+<li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build1\">
+Version 1.0 build1</a>(November 4, 2011)</li>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">
@@ -1924,12 +1928,11 @@ annotation (
 version="1.0",
 versionBuild=2,
 versionDate="2011-11-04",
-dateModified="2011-12-08 23:20:00Z",
+dateModified = "$Date$",
 uses(Modelica(version="3.2")),
 conversion(
  from(version="0.12",
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos")),
-dateModified = "$Date$",
 revisionId="$Id:: package.mo 2369 2011-05-10 00:35:26Z #$",
 preferredView="info",
 Documentation(info="<html>
