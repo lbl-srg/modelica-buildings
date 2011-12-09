@@ -120,6 +120,145 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+  class Version_X_Y_buildY "Version X.Y build Z"
+    extends Modelica.Icons.ReleaseNotes;
+     annotation (Documentation(info="<html>
+<p>
+Version X.Y build Z is ... xxx
+</p>
+<!-- New libraries -->
+<p>
+The following <b style=\"color:blue\">new libraries</b> have been added:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+    </tr>
+</table>
+</p>
+<!-- New components for existing libraries -->
+<p>
+The following <b style=\"color:blue\">new components</b> have been added
+to <b style=\"color:blue\">existing</b> libraries:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td> 
+    </tr>
+</table>
+</p>
+<!-- Backward compatbile changes -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">backward compatible</b> way:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Non-backward compatbile changes to existing components -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">non-backward compatible</b> way:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Errors that have been fixed -->
+<p>
+The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+that can lead to wrong simulation results):
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Uncritical errors -->
+<p>
+The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+units are wrong or errors in documentation):
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Trac tickets -->
+<p>
+The following
+<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+have been fixed:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/xxx\">#xxx</a>
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+<p>
+Note:
+</p>
+<ul>
+<li> 
+xxx
+</li>
+</ul>
+</p>
+</html>"));
+  end Version_X_Y_buildY;
+
+
   class Version_1_0_build2 "Version 1.0 build 2"
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
@@ -1563,12 +1702,17 @@ to the medium properties.
 </html>
 "));
   end Version_0_1_0;
+
     annotation (Documentation(info="<html>
 <p>
 This section summarizes the changes that have been performed
 on the Buildings library
 </p>
 <ul>
+<li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_X_Y_buildZ\">
+Version X.Y buildZ</a>(xxxx, 2012)</li>
+</li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">
 Version 1.0 build2</a>(December 8, 2011)</li>
