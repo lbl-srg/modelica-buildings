@@ -464,6 +464,8 @@ The room can have any number of constructions and surfaces that participate in t
 heat exchange through convection, conduction, infrared radiation and solar radiation.</p>
 <h4>Physical description</h4>
 <p>
+A description of the model assumptions and the implemention and validation of this room model can be found in 
+<a href=\"#WetterEtAl2011\">Wetter et al. (2011)</a>.
 The room models the following physical processes:
 <ol>
 <li>
@@ -852,6 +854,14 @@ Finally, the declaration
 
 </pre>
 sets the latitude of the building which needs to correspond with the latitude of the weather data file.
+</p>
+<h4>References</h4>
+<p>
+<A NAME=\"WetterEtAl2011\"></A> 
+Michael Wetter, Wangda Zuo and Thierry Stephane Nouidui.<br>
+<a href=\"modelica://Buildings/Resources/Images/Rooms/2011-ibpsa-BuildingsLib.pdf\">
+Modeling of Heat Transfer in Rooms in the Modelica \"Buildings\" Library.</a><br/>
+Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 2011. 
 </p>
 </html>", revisions="<html>
 <ul>
