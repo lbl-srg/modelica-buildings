@@ -229,7 +229,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Boreholes</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/46\">#46</a>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/45\">#45</a>
     </td>
     <td valign=\"top\">Dymola 2012 FD01 hangs when simulating a borehole heat exchanger.
     This was caused by a wrong release of memory in <code>freeArray.c</code>.
