@@ -29,18 +29,15 @@ protected
    then abs(m_flow_nominal/dp_nominal) else 0;
 equation
   // Regularization of m_flow around the origin to avoid a division by zero
-/*  m_flowInv = smooth(2, if (abs(port_a.m_flow) > m_flow_small/1E3) then 
-      1/port_a.m_flow
-      else 
-      Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3));
- */
  if use_safeDivision then
     m_flowInv = Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
  else
      m_flowInv = 1/port_a.m_flow;
  end if;
  if allowFlowReversal then
-/* This formulation fails to simulate in Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate. See also Dynasim ticket 13596
+// This formulation fails to simulate in Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate
+// with Dymola 2012. See also Dynasim ticket 13596.
+// It works with Dymola 2012 FD01.
    if (port_a.m_flow >= 0) then
      hOut =  port_b.h_outflow;
      XiOut = port_b.Xi_outflow;
@@ -50,17 +47,6 @@ equation
      XiOut = port_a.Xi_outflow;
      COut =  port_a.C_outflow;
     end if;
-*/
-   hOut = smooth(0, if (port_a.m_flow >= 0) then
-      port_b.h_outflow else
-      port_a.h_outflow);
-   XiOut = smooth(0, if (port_a.m_flow >= 0) then
-      port_b.Xi_outflow else
-      port_a.Xi_outflow);
-   COut = smooth(0, if (port_a.m_flow >= 0) then
-      port_b.C_outflow else
-      port_a.C_outflow);
-
  else
    hOut =  port_b.h_outflow;
    XiOut = port_b.Xi_outflow;
@@ -181,6 +167,15 @@ or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 14, 2011 by Michael Wetter:<br>
+Changed assignment of <code>hOut</code>, <code>XiOut</code> and
+<code>COut</code> to no longer declare that it is continuous. 
+The declaration of continuity, i.e, the 
+<code>smooth(0, if (port_a.m_flow >= 0) then ...</code> declaration,
+was required for Dymola 2012 to simulate, but it is no longer needed 
+for Dymola 2012 FD01.
+</li>
 <li>
 August 19, 2011, by Michael Wetter:<br>
 Changed assignment of <code>hOut</code>, <code>XiOut</code> and

@@ -161,6 +161,15 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger
+    </td>
+    <td valign=\"top\">Removed <code>smooth()</code> operator as the return value
+                     may be discontinuous if the flow reverses its direction.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -168,16 +177,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">xxx.
     </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
+</tr></table>
 </p>
 <!-- Non-backward compatbile changes to existing components -->
 <p>
@@ -257,7 +257,6 @@ xxx
 </p>
 </html>"));
   end Version_X_Y_buildY;
-
 
   class Version_1_0_build2 "Version 1.0 build 2"
     extends Modelica.Icons.ReleaseNotes;
@@ -2066,6 +2065,7 @@ User's Guides that can be accessed by the following links:
 </p>
 </html>"));
 end UsersGuide;
+
 
 annotation (
 version="1.0",
