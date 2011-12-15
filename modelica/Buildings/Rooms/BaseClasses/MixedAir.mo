@@ -441,69 +441,79 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExt, irRadExc.conExt) annotation (Line(
-      points={{240,220},{160,220},{160,19.1667},{-80,19.1667}},
+      points={{240,220},{160,220},{160,60},{-60,60},{-60,20},{-80,20},{-80,
+          19.1667}},
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, irRadExc.conExtWinFra) annotation (Line(
-      points={{242,5.55112e-16},{192,5.55112e-16},{192,10},{-79.9167,10}},
+      points={{242,5.55112e-16},{160,5.55112e-16},{160,60},{-60,60},{-60,10},{
+          -79.9167,10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, irRadExc.conPar_a) annotation (Line(
-      points={{242,-60},{188,-60},{188,7.5},{-79.9167,7.5}},
+      points={{242,-60},{160,-60},{160,60},{-60,60},{-60,8},{-80,8},{-80,8},{
+          -80,7.5},{-79.9167,7.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_b, irRadExc.conPar_b) annotation (Line(
-      points={{242,-100},{184,-100},{184,6},{180,6},{180,5.83333},{-79.9167,
+      points={{242,-100},{160,-100},{160,60},{-60,60},{-60,5.83333},{-79.9167,
           5.83333}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(conBou, irRadExc.conBou) annotation (Line(
-      points={{242,-160},{180,-160},{180,4},{-79.9167,4},{-79.9167,3.33333}},
+      points={{242,-160},{160,-160},{160,60},{-60,60},{-60,3.33333},{-79.9167,
+          3.33333}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(conSurBou, irRadExc.conSurBou) annotation (Line(
-      points={{241,-220},{176,-220},{176,0},{-79.9583,0},{-79.9583,0.833333}},
+      points={{241,-220},{160,-220},{160,60},{-60,60},{-60,0.833333},{-79.9583,
+          0.833333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(irRadExc.JOutConExtWin, convConWin.JInRoo)    annotation (Line(
-      points={{-79.5833,15},{86,15},{86,110},{98,110}},
+      points={{-79.5833,15},{-60,15},{-60,16},{-40,16},{-40,100},{80,100},{80,
+          110},{98,110}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(convConWin.JOutRoo, irRadExc.JInConExtWin)    annotation (Line(
-      points={{97.6,114},{84,114},{84,13.3333},{-79.5833,13.3333}},
+      points={{97.6,114},{80,114},{80,100},{-40,100},{-40,16},{-40,16},{-40,
+          13.3333},{-79.5833,13.3333}},
       color={0,127,0},
       smooth=Smooth.None));
   connect(irRadGai.JOutConExtWin, convConWin.JInRoo)    annotation (Line(
-      points={{-79.5833,-25},{86,-25},{86,110},{98,110}},
+      points={{-79.5833,-25},{-60,-25},{-60,-26},{-40,-26},{-40,100},{80,100},{
+          80,110},{98,110}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(irRadGai.conExt, irRadExc.conExt) annotation (Line(
-      points={{-80,-20.8333},{-80,-20},{-58,-20},{-58,19.1667},{-80,19.1667}},
+  connect(irRadGai.conExt, conExt) annotation (Line(
+      points={{-80,-20.8333},{-80,-20},{-60,-20},{-60,60},{160,60},{160,220},{
+          240,220}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadGai.conExtWinFra, irRadExc.conExtWinFra) annotation (Line(
-      points={{-79.9167,-30},{-54,-30},{-54,10},{-79.9167,10}},
+  connect(irRadGai.conExtWinFra, conExtWinFra) annotation (Line(
+      points={{-79.9167,-30},{-60,-30},{-60,60},{160,60},{160,5.55112e-16},{242,
+          5.55112e-16}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadGai.conPar_a, irRadExc.conPar_a) annotation (Line(
-      points={{-79.9167,-32.5},{-52,-32.5},{-52,7.5},{-79.9167,7.5}},
+  connect(irRadGai.conPar_a, conPar_a) annotation (Line(
+      points={{-79.9167,-32.5},{-60,-32.5},{-60,60},{160,60},{160,-60},{242,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadGai.conPar_b, irRadExc.conPar_b) annotation (Line(
-      points={{-79.9167,-34.1667},{-50,-34.1667},{-50,5.83333},{-79.9167,
-          5.83333}},
+  connect(irRadGai.conPar_b, conPar_b) annotation (Line(
+      points={{-79.9167,-34.1667},{-60,-34.1667},{-60,60},{160,60},{160,-100},{
+          242,-100}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadGai.conBou, irRadExc.conBou) annotation (Line(
-      points={{-79.9167,-36.6667},{-54,-36.6667},{-54,-36},{-48,-36},{-48,
-          3.33333},{-79.9167,3.33333}},
+  connect(irRadGai.conBou, conBou) annotation (Line(
+      points={{-79.9167,-36.6667},{-60,-36.6667},{-60,-36},{-60,-36},{-60,60},{
+          160,60},{160,-160},{242,-160}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadGai.conSurBou, irRadExc.conSurBou) annotation (Line(
-      points={{-79.9583,-39.1667},{-46,-39.1667},{-46,0.833333},{-79.9583,
-          0.833333}},
+  connect(irRadGai.conSurBou, conSurBou) annotation (Line(
+      points={{-79.9583,-39.1667},{-60,-39.1667},{-60,60},{160,60},{160,-220},{
+          241,-220}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -532,11 +542,12 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(conExtWin, irRadExc.conExtWin) annotation (Line(
-      points={{240,180},{166,180},{166,17.5},{-80,17.5}},
+      points={{240,180},{160,180},{160,60},{-60,60},{-60,16},{-80,16},{-80,17.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadExc.conExtWin, irRadGai.conExtWin) annotation (Line(
-      points={{-80,17.5},{-56,17.5},{-56,-22.5},{-80,-22.5}},
+  connect(conExtWin, irRadGai.conExtWin) annotation (Line(
+      points={{240,180},{160,180},{160,60},{-60,60},{-60,-22},{-70,-22},{-70,
+          -22.5},{-80,-22.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(heaGai.QLat_flow,vol. ports[nPorts+1]) annotation (Line(
@@ -545,7 +556,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   for i in 1:nPorts loop
-  connect(ports[i],vol. ports[i]) annotation (Line(
+    connect(ports[i],vol. ports[i]) annotation (Line(
       points={{2.22045e-15,-238},{0,-238},{0,-220},{0,-210},{-7.77156e-16,-210}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -566,36 +577,41 @@ equation
       smooth=Smooth.None));
   connect(convConWin.glaSha, glaSha)
                                     annotation (Line(
-      points={{118,116},{216,116},{216,80},{242,80}},
+      points={{118,116},{160,116},{160,80},{242,80}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(conExt, solRadExc.conExt) annotation (Line(
-      points={{240,220},{160,220},{160,59.1667},{-80,59.1667}},
+      points={{240,220},{160,220},{160,60},{160,60},{-80,60},{-80,59.1667}},
       color={190,0,0},
       smooth=Smooth.None));
   connect(conExtWinFra, solRadExc.conExtWinFra) annotation (Line(
-      points={{242,5.55112e-16},{192,5.55112e-16},{192,50},{-79.9167,50}},
+      points={{242,5.55112e-16},{214,0},{160,0},{160,60},{-60,60},{-60,50},{
+          -79.9167,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_a, solRadExc.conPar_a) annotation (Line(
-      points={{242,-60},{188,-60},{188,48},{-79.9167,48},{-79.9167,47.5}},
+      points={{242,-60},{160,-60},{160,60},{-60,60},{-60,48},{-79.9167,48},{
+          -79.9167,47.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conPar_b, solRadExc.conPar_b) annotation (Line(
-      points={{242,-100},{184,-100},{184,44},{-79.9167,44},{-79.9167,45.8333}},
+      points={{242,-100},{160,-100},{160,60},{-60,60},{-60,46},{-70,46},{-70,
+          45.8333},{-79.9167,45.8333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conBou, solRadExc.conBou) annotation (Line(
-      points={{242,-160},{180,-160},{180,42},{-79.9167,42},{-79.9167,43.3333}},
+      points={{242,-160},{160,-160},{160,60},{-60,60},{-60,43.3333},{-79.9167,
+          43.3333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conSurBou, solRadExc.conSurBou) annotation (Line(
-      points={{241,-220},{176,-220},{176,40.8333},{-79.9583,40.8333}},
+      points={{241,-220},{160,-220},{160,60},{-60,60},{-60,40},{-70,40},{-70,
+          40.8333},{-79.9583,40.8333}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conExtWin, solRadExc.conExtWin) annotation (Line(
-      points={{240,180},{166,180},{166,57.5},{-80,57.5}},
+      points={{240,180},{160,180},{160,60},{-60,60},{-60,57.5},{-80,57.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(QAbsSolSha_flow, convConWin.QAbs_flow)
@@ -617,50 +633,53 @@ equation
           -100.833,-62.5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(irRadExc.conExt, radTem.conExt) annotation (Line(
-      points={{-80,19.1667},{-58,19.1667},{-58,-60.8333},{-80,-60.8333}},
+  connect(conExt, radTem.conExt) annotation (Line(
+      points={{240,220},{160,220},{160,60},{-60,60},{-60,-60.8333},{-80,
+          -60.8333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadExc.conExtWin, radTem.conExtWin) annotation (Line(
-      points={{-80,17.5},{-56,17.5},{-56,-62.5},{-80,-62.5}},
+  connect(conExtWin, radTem.conExtWin) annotation (Line(
+      points={{240,180},{130,180},{130,180},{160,180},{160,60},{-60,60},{-60,
+          -62.5},{-80,-62.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadExc.conExtWinFra, radTem.conExtWinFra) annotation (Line(
-      points={{-79.9167,10},{-54,10},{-54,-70},{-79.9167,-70}},
+  connect(conExtWinFra, radTem.conExtWinFra) annotation (Line(
+      points={{242,5.55112e-16},{202,5.55112e-16},{202,0},{160,0},{160,60},{-42,
+          60},{-42,60},{-60,60},{-60,-70},{-79.9167,-70}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadExc.conPar_a, radTem.conPar_a) annotation (Line(
-      points={{-79.9167,7.5},{-52,7.5},{-52,-72.5},{-79.9167,-72.5}},
+  connect(conPar_a, radTem.conPar_a) annotation (Line(
+      points={{242,-60},{160,-60},{160,60},{-60,60},{-60,-72.5},{-79.9167,-72.5}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(irRadExc.conPar_b, radTem.conPar_b) annotation (Line(
-      points={{-79.9167,5.83333},{-50,5.83333},{-50,-74.1667},{-79.9167,
+  connect(conPar_b, radTem.conPar_b) annotation (Line(
+      points={{242,-100},{160,-100},{160,60},{-60,60},{-60,-74.1667},{-79.9167,
           -74.1667}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(irRadExc.conBou, radTem.conBou) annotation (Line(
-      points={{-79.9167,3.33333},{-48,3.33333},{-48,-76.6667},{-79.9167,
+  connect(conBou, radTem.conBou) annotation (Line(
+      points={{242,-160},{160,-160},{160,60},{-60,60},{-60,-76.6667},{-79.9167,
           -76.6667}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(irRadExc.conSurBou, radTem.conSurBou) annotation (Line(
-      points={{-79.9583,0.833333},{-46,0.833333},{-46,-79.1667},{-79.9583,
+  connect(conSurBou, radTem.conSurBou) annotation (Line(
+      points={{241,-220},{160,-220},{160,60},{-60,60},{-60,-79.1667},{-79.9583,
           -79.1667}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(radTem.glaUns, glaUns) annotation (Line(
-      points={{-80,-65},{-8,-65},{-8,-32},{212,-32},{212,120},{242,120}},
+      points={{-80,-65},{-60,-65},{-60,60},{160,60},{160,120},{242,120}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(radTem.glaSha, glaSha) annotation (Line(
-      points={{-80,-66.6667},{-4,-66.6667},{-4,-36},{216,-36},{216,80},{242,80}},
+      points={{-80,-66.6667},{-60,-66.6667},{-60,60},{160,60},{160,80},{242,80}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(convConWin.sha, radTem.sha) annotation (Line(
-      points={{104.8,108},{104,108},{104,-40},{0,-40},{0,-68},{-80,-68},{-80,
+      points={{104.8,108},{104,108},{104,60},{-60,60},{-60,-68},{-80,-68},{-80,
           -68.4167}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -688,8 +707,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWinFra, convConWin.frame) annotation (Line(
-      points={{242,5.55112e-16},{218,5.55112e-16},{218,0},{192,0},{192,100},{
-          115,100},{115,108}},
+      points={{242,5.55112e-16},{160,5.55112e-16},{160,100},{115,100},{115,108}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,
@@ -794,6 +812,10 @@ solar absorptivity.
 
 </html>", revisions="<html>
 <ul>
+<li>
+December 9, 2011, by Michael Wetter:<br>
+Reconnected heat ports to clean-up model.
+</li>
 <li>
 November 29, 2011, by Michael Wetter:<br>
 Added missing connect statement between window frame
