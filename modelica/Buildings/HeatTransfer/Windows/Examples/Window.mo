@@ -82,6 +82,7 @@ model Window "Test model for the window"
     tauGlaSol=glaSys.glass.tauSol,
     rhoGlaSol_a=glaSys.glass.rhoSol_a,
     rhoGlaSol_b=glaSys.glass.rhoSol_b,
+    xGla=glaSys.glass.x,
     tauShaSol_a=glaSys.shade.tauSol_a,
     tauShaSol_b=glaSys.shade.tauSol_b,
     rhoShaSol_a=glaSys.shade.rhoSol_a,
@@ -269,5 +270,6 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}}),
                       graphics),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Window.mos" "Simulate and plot"));
+  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Window.mos"
+        "Simulate and plot"));
 end Window;

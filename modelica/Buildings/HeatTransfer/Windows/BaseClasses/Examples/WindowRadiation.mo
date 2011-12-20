@@ -31,6 +31,7 @@ model WindowRadiation "Test model for window radiation"
     tauGlaSol=glaSys.glass.tauSol,
     rhoGlaSol_a=glaSys.glass.rhoSol_a,
     rhoGlaSol_b=glaSys.glass.rhoSol_b,
+    xGla=glaSys.glass.x,
     tauShaSol_a=glaSys.shade.tauSol_a,
     tauShaSol_b=glaSys.shade.tauSol_b,
     rhoShaSol_a=glaSys.shade.rhoSol_a,
@@ -38,6 +39,7 @@ model WindowRadiation "Test model for window radiation"
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
+
   Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     UFra=2,
@@ -96,11 +98,16 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/WindowRadiation.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/WindowRadiation.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example illustrates modeling of window radiation.
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2011, by Wangda Zuo:<br>
+Add glass thickness as a parameter for winRad. It is needed by the claculation of property for uncoated glass.
+</li>
 <li>
 December 15, 2010, by Wangda Zuo:<br>
 First implementation.

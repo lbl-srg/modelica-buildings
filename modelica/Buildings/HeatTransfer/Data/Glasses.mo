@@ -23,7 +23,7 @@ package Glasses "Package with thermophysical properties for window glas"
 This record implements thermophysical properties for window glas.
 </p>
 <p>
-The table below compares the data of this record with the variables used in the WINDOW 5 output file.
+The table below compares the data of this record with the variables used in the WINDOW 6 output file.
 </p>
 <p>
 Note that
@@ -38,7 +38,7 @@ Data in the solar spectrum are used for computing solar heat gains.
 Data in the infrared spectrum are used for thermal radiation that is emitted by surfaces that are 
 around room or ambient temperature.
 </li>
-<li>WINDOW 5 uses spectral data in the calculation of optical properties of window systems, 
+<li>WINDOW 6 uses spectral data in the calculation of optical properties of window systems, 
 whereas the model in this library uses averages over the whole solar or infrared spectrum.
 </li>
 </ul>
@@ -48,7 +48,7 @@ whereas the model in this library uses averages over the whole solar or infrared
 <thead>
  <tr>
    <th>Buildings library variable name</th>
-   <th>WINDOW 5 variable name</th>
+   <th>WINDOW 6 variable name</th>
  </tr>
 </thead>
 <tbody>
@@ -65,10 +65,10 @@ whereas the model in this library uses averages over the whole solar or infrared
   <td>tauIR</td>  <td>Tir</td>
 </tr>
 <tr>
-  <td>absIR_a</td>  <td>Abs1</td>
+  <td>absIR_a</td>  <td>Emis1</td>
 </tr>
 <tr>
-  <td>absIR_b</td>  <td>Abs2</td>
+  <td>absIR_b</td>  <td>Emis2</td>
 </tr>
 </tbody>
 </table>
@@ -76,6 +76,10 @@ whereas the model in this library uses averages over the whole solar or infrared
 </html>",
   revisions="<html>
 <ul>
+<li>
+December 09, 2011, by Wangda Zuo:<br>
+Compare the variable names with those in Window 6 and correct the variable names <i>Emis1</i> and <i>Emis2</i> in documentation.
+</li>
 <li>
 Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br>
 First implementation.

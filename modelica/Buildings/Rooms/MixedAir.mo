@@ -186,6 +186,7 @@ model MixedAir "Model of a room in which the air is completely mixed"
     final tauGlaSol=datConExtWin.glaSys.glass.tauSol,
     final rhoGlaSol_a=datConExtWin.glaSys.glass.rhoSol_a,
     final rhoGlaSol_b=datConExtWin.glaSys.glass.rhoSol_b,
+    final xGla=datConExtWin.glaSys.glass.x,
     final tauShaSol_a=datConExtWin.glaSys.shade.tauSol_a,
     final tauShaSol_b=datConExtWin.glaSys.shade.tauSol_b,
     final rhoShaSol_a=datConExtWin.glaSys.shade.rhoSol_a,
@@ -866,6 +867,10 @@ Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 20
 </html>", revisions="<html>
 <ul>
 <li>
+December 12, 2011, by Wangda Zuo:<br>
+Add glass thickness as a parameter for conExtWinRad. It is needed by the claculation of property for uncoated glass.
+</li>
+<li>
 December 6, 2011, by Michael Wetter:<br>
 Fixed bug that caused convective heat gains to be 
 removed from the room instead of added to the room.
@@ -885,6 +890,7 @@ model
 Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/36\">ticket 36</a>.
 </li>
+
 <li>
 August 9, 2011 by Michael Wetter:<br>
 Changed assignment of tilt in instances <code>bouConExt</code> and <code>bouConExtWin</code>.

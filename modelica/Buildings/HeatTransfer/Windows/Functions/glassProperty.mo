@@ -4,84 +4,61 @@ function glassProperty
   extends
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation;
   input Real glass[3, N] "Propertry of each glass pane";
+  input Real xGla[N] "Thickness of each glass pane";
   input Modelica.SIunits.Angle psi[HEM - 1] "Incident angles";
 
   output Real layer[3, N, HEM] "Transmittance, front and back reflectance";
 
 protected
-  Integer NDIR=HEM - 1 "Number of incident angles";
-
-  Real psi_c "cos(psi), psi is incident angle";
-  Real psi_cs "cos(psi)*sin(psi)";
-  Real angT "Angular variation of transmittance";
-  Real angR "Angular variation of reflectance";
-  Real f[3, NDIR]
-    "Temporary variables for integration in hemispherical transmittance and reflectance";
-  constant Real deltaX=0.5*Modelica.Constants.pi/(NDIR - 1);
-  constant Real a[4, 5]={{-0.0015,3.355,-3.840,1.460,0.0288},{0.999,-0.563,
-      2.043,-2.532,1.054},{-0.002,2.813,-2.341,-0.05725,0.599},{0.997,-1.868,
-      6.513,-7.862,3.225}} "Coeffcients in Table A.2";
-  Integer id1 "Index of coefficients for transmittance";
-  Integer id2 "Index of coefficients for reflectance";
+  Real tol=0.005
+    "Tolerance for difference between front and back reflectance to decide a glass is uncoated or coated";
+  Real oneLay[3, HEM] "Temporary storage for glass property of one pane";
+  Real oneGla[3];
 
 algorithm
   // Compute specular value for angle 0 to 90 degree (psi[1] to psi[N]) and panes from 1 to N
   for i in 1:N loop
-    for k in TRA:Rb loop
-      layer[k, i, 1] := glass[k, i]
-        "Copy the data at 0 degree (normal incidence)";
+    // Copy data to temporary place
+    for j in 1:3 loop
+      oneGla[j] := glass[j, i];
     end for;
 
-    for j in 2:NDIR - 1 loop
-      psi_c := Modelica.Math.cos(psi[j]);
-      if layer[TRA, i, 1] > 0.645 then
-        id1 := 1;
-        id2 := 2;
-      else
-        id1 := 3;
-        id2 := 4;
-      end if;
-      angT := a[id1, 1] + psi_c*(a[id1, 2] + psi_c*(a[id1, 3] + psi_c*(a[id1, 4]
-         + psi_c*a[id1, 5]))) "Equation (A.4.68a)";
-      angR := a[id2, 1] + psi_c*(a[id2, 2] + psi_c*(a[id2, 3] + psi_c*(a[id2, 4]
-         + psi_c*a[id2, 5]))) - angT "Equation (A.4.68b)";
-      layer[TRA, i, j] := layer[TRA, i, 1]*angT "Equation (A4.69a)";
-      layer[Ra, i, j] := layer[Ra, i, 1]*(1 - angR) + angR "Equation (A4.69b)";
-      layer[Rb, i, j] := layer[Rb, i, 1]*(1 - angR) + angR "Equation (A4.69b)";
-    end for;
+    //uncoated galss
+    if (abs(glass[Ra, i] - glass[Rb, i]) < tol) then
+      oneLay := Buildings.HeatTransfer.Windows.Functions.glassPropertyUncoated(
+        HEM,
+        oneGla,
+        xGla[i],
+        psi);
 
-    // When incident angle is equal to 90 degree
-    layer[TRA, i, NDIR] := 0;
-    layer[Ra, i, NDIR] := 1.0;
-    layer[Rb, i, NDIR] := 1.0;
+    else
+      //coated glass
+      oneLay := Buildings.HeatTransfer.Windows.Functions.glassPropertyCoated(
+        HEM,
+        oneGla,
+        psi);
+    end if;
 
-  end for;
-
-  // Computer hemispherical value: HEM.
-  for i in 1:N loop
-    for j in 1:NDIR loop
-      psi_cs := Modelica.Math.cos(psi[j])*Modelica.Math.sin(psi[j]);
-      for k in TRA:Rb loop
-        f[k, j] := 2*layer[k, i, j]*psi_cs;
+    for j in 1:3 loop
+      for k in 1:HEM loop
+        layer[j, i, k] := oneLay[j, k];
       end for;
     end for;
-
-    for k in TRA:Rb loop
-      layer[k, i, HEM] :=
-        Buildings.Utilities.Math.Functions.trapezoidalIntegration(
-        NDIR,
-        f[k, :],
-        deltaX) "Equation (A.4.70a) and (A.4.70b)";
-    end for;
-
   end for;
-
   annotation (Documentation(info="<html>
 <p>
 This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for each glass pane.
+There are two schemes for the calculation. One is for coated glass and the other is for uncoated glass. 
+The function checks the difference between front and back reflectances. 
+If the difference is less than the tolerance (0.005), it uses the formula for uncoated glass. 
+Otherwise, the formula for coated glass will be used.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2011, by Wangda Zuo:<br>
+Calculate the property using formula for coated (existing) and uncoated glass (newly added).
+</li>
 <li>
 August 24, 2010, by Wangda Zuo:<br>
 First implementation.

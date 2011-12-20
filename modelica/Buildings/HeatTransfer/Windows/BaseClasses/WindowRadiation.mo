@@ -39,6 +39,7 @@ block WindowRadiation "Calculation radiation for window"
     final tauGlaSol=tauGlaSol,
     final rhoGlaSol_a=rhoGlaSol_a,
     final rhoGlaSol_b=rhoGlaSol_b,
+    final xGla=xGla,
     final tauShaSol_a=tauShaSol_a,
     final rhoShaSol_a=rhoShaSol_a,
     final rhoShaSol_b=rhoShaSol_b,
@@ -52,6 +53,7 @@ block WindowRadiation "Calculation radiation for window"
     final tauGlaSol=tauGlaSol,
     final rhoGlaSol_a=rhoGlaSol_a,
     final rhoGlaSol_b=rhoGlaSol_b,
+    final xGla=xGla,
     final tauShaSol_a=tauShaSol_a,
     final tauShaSol_b=tauShaSol_b,
     final rhoShaSol_a=rhoShaSol_a,
@@ -61,12 +63,13 @@ block WindowRadiation "Calculation radiation for window"
     final AWin=AWin)
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
 protected
-  final parameter Boolean noShade = not (haveExteriorShade or haveInteriorShade)
+  final parameter Boolean noShade=not (haveExteriorShade or haveInteriorShade)
     "Flag, true if the window has a shade";
 equation
   if noShade then
-    assert(uSha_internal < 1E-6, "Window has no shade, but control signal is non-zero.\n"
-       + "  Received uSha_internal = " + String(uSha_internal));
+    assert(uSha_internal < 1E-6,
+      "Window has no shade, but control signal is non-zero.\n" +
+      "  Received uSha_internal = " + String(uSha_internal));
   end if;
   connect(HDif, tra.HDif) annotation (Line(
       points={{-120,80},{-80,80},{-80,58},{-41.5,58}},
@@ -210,6 +213,10 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2011, by Wangda Zuo:<br>
+Add glass thickness as a parameter for tra and abs. It is needed by the claculation of property for uncoated glass.
+</li>
 <li>
 February 2, 2010, by Michael Wetter:<br>
 Made connector <code>uSha</code> a conditional connector.

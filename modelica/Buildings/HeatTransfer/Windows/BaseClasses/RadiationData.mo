@@ -4,8 +4,8 @@ record RadiationData "Radiation property of a window"
   extends Buildings.HeatTransfer.Windows.BaseClasses.RadiationBaseData;
   final parameter Real glass[3, N]={tauGlaSol,rhoGlaSol_a,rhoGlaSol_b}
     "Glass solar transmissivity, solar reflectivity at surface a and b, at normal incident angle";
-  final parameter Real traRefShaDev[2, 2]={{tauShaSol_a,tauShaSol_b},{rhoShaSol_a,
-      rhoShaSol_b}} "Shading device property";
+  final parameter Real traRefShaDev[2, 2]={{tauShaSol_a,tauShaSol_b},{
+      rhoShaSol_a,rhoShaSol_b}} "Shading device property";
   final parameter Integer NDIR=10 "Number of incident angles";
   final parameter Integer HEM=NDIR + 1 "Index of hemispherical integration";
   final parameter Modelica.SIunits.Angle psi[NDIR]=
@@ -16,6 +16,7 @@ record RadiationData "Radiation property of a window"
       N,
       HEM,
       glass,
+      xGla,
       psi) "Angular and hemispherical transmissivity, front (outside-facing) and back (room facing) reflectivity 
       of each glass pane";
   final parameter Real traRef[3, N, N, HEM]=
@@ -115,6 +116,10 @@ record RadiationData "Radiation property of a window"
 Record that computes the solar radiation data for glazing system.
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2011, by Wangda Zuo:<br>
+Add glass thickness as a parameter for glassProperty(). It is needed by the calculation of property for uncoated glass.
+</li>
 <li>
 December 12, 2010, by Michael Wetter:<br>
 Replaced record 

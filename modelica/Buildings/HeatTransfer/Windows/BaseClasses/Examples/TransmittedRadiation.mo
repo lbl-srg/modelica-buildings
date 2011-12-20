@@ -30,6 +30,7 @@ model TransmittedRadiation
     tauGlaSol=glaSys.glass.tauSol,
     rhoGlaSol_a=glaSys.glass.rhoSol_a,
     rhoGlaSol_b=glaSys.glass.rhoSol_b,
+    xGla=glaSys.glass.x,
     tauShaSol_a=glaSys.shade.tauSol_a,
     tauShaSol_b=glaSys.shade.tauSol_b,
     rhoShaSol_a=glaSys.shade.rhoSol_a,
@@ -87,11 +88,16 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/TransmittedRadiation.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/TransmittedRadiation.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example illustrates modeling of window transmittance.
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2011, by Wangda Zuo:<br>
+Add glass thickness as a parameter for winTra. It is needed by the claculation of property for uncoated glass.
+</li>
 <li>
 December 15, 2010, by Wangda Zuo:<br>
 First implementation.

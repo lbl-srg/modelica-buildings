@@ -4,7 +4,8 @@ partial record RadiationBaseData
 
   parameter Integer N(min=1) "Number of glass layers"
     annotation (Dialog(group="Glass"));
-
+  parameter Modelica.SIunits.Length xGla[N] "Thickness of glass"
+  annotation (Dialog(group="Glass"));
   parameter Modelica.SIunits.TransmissionCoefficient tauGlaSol[N]
     "Solar transmissivity of glass" annotation (Dialog(group="Glass"));
   parameter Modelica.SIunits.ReflectionCoefficient rhoGlaSol_a[N]
@@ -31,6 +32,10 @@ partial record RadiationBaseData
 Record that defines base parameter for window radiation calculation.
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2011, by Wangda Zuo:<br>
+Add glass thickness as a parameter. It is needed by the claculation of property for uncoated glass.
+</li>
 <li>
 December 16, 2010, by Wangda Zuo:<br>
 First implementation.

@@ -20,6 +20,7 @@ partial block PartialRadiation
     final tauGlaSol=tauGlaSol,
     final rhoGlaSol_a=rhoGlaSol_a,
     final rhoGlaSol_b=rhoGlaSol_b,
+    final xGla=xGla,
     final tauShaSol_a=tauShaSol_a,
     final tauShaSol_b=tauShaSol_b,
     final rhoShaSol_a=rhoShaSol_a,
@@ -81,6 +82,10 @@ Dissertation. University of California at Berkeley. 2004.
 </ul>
 </html>", revisions="<html>
 <ul>
+<li>
+December 12, 2011, by Wangda Zuo:<br>
+Add glass thickness as a parameter for radDat. It is needed by the claculation of property for uncoated glass.
+</li>
 <li>
 February 2, 2010, by Michael Wetter:<br>
 Made connector <code>uSha</code> a conditional connector.
