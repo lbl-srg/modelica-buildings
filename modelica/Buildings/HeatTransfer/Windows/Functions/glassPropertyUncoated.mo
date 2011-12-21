@@ -113,10 +113,11 @@ algorithm
       f[k, :],
       deltaX)
       "Equation (A.4.70a) and (A.4.70b) in M. Wetter 's Thesis or (7.3) in Finlayson 1993.";
-  end for annotation (Documentation(info="<html>
+  end for
+annotation (Documentation(info="<html>
 <p>
 This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for one uncoated glass pane.
-The equations are mainly based on Finlayson et al (1990) and Fuler et (1991) with some modifications. 
+The equations are mainly based on Finlayson et al. (1990) and Fuler et al. (1991) with some modifications. 
 </p>
 <h4>Implementation</h4>
 <p>
@@ -267,4 +268,5 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
 end glassPropertyUncoated;
