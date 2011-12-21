@@ -1,5 +1,5 @@
 within Buildings.HeatTransfer.Windows.Functions;
-function glassAbsInterirorIrradiationNoShading
+function glassAbsInteriorIrradiationNoShading
   "Hemispherical absorptance of each glass pane for interior irradiation without shading"
 
   extends
@@ -53,4 +53,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end glassAbsInterirorIrradiationNoShading;
+end glassAbsInteriorIrradiationNoShading;

@@ -32,7 +32,7 @@ record RadiationData "Radiation data of a window"
       HEM) "Angular and hemispherical absorptivity of each glass pane 
       for exterior irradiation without shading";
   final parameter Real absIntIrrNoSha[N]=
-      Buildings.HeatTransfer.Windows.Functions.glassAbsInterirorIrradiationNoShading(
+      Buildings.HeatTransfer.Windows.Functions.glassAbsInteriorIrradiationNoShading(
       traRef,
       N,
       HEM) "Hemispherical absorptivity of each glass pane 
