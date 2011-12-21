@@ -1,6 +1,6 @@
 within Buildings.HeatTransfer.Windows.Functions.BaseClasses;
 partial function partialWindowShadingRadiation
-  "partial function for window radiation property with shading device"
+  "Partial function for window radiation property with shading device"
   input Real traRef[3, N, N, HEM](each min=0, each max=0)
     "Transmittance and reflectance with exterior irradiation and no shading";
   input Real traRefShaDev[2, 2](each min=0, each max=0)

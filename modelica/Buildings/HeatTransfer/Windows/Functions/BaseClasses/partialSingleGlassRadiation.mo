@@ -1,6 +1,6 @@
 within Buildings.HeatTransfer.Windows.Functions.BaseClasses;
 partial function partialSingleGlassRadiation
-  "partial function for single glass radiation property"
+  "Partial function for single glass radiation property"
 
   input Integer HEM "Index of hemispherical integration";
 protected

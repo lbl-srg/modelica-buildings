@@ -1,6 +1,6 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 partial record RadiationBaseData
-  "Define base parameters for window radiation calculation"
+  "Basic parameters for window radiation calculation"
 
   parameter Integer N(min=1) "Number of glass layers"
     annotation (Dialog(group="Glass"));
@@ -29,7 +29,7 @@ partial record RadiationBaseData
     annotation (Dialog(group="Shade"));
 
   annotation (Documentation(info="<html>
-Record that defines base parameter for window radiation calculation.
+Record that defines basic parameters for the window radiation calculation.
 </html>", revisions="<html>
 <ul>
 <li>

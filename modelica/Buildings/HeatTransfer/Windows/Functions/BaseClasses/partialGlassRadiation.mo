@@ -1,6 +1,6 @@
 within Buildings.HeatTransfer.Windows.Functions.BaseClasses;
 partial function partialGlassRadiation
-  "partial function for glass radiation property"
+  "Partial function for glass radiation property"
 
   input Integer N(min=1) "Number of glass layers";
   extends

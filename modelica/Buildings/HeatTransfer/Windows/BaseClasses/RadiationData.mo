@@ -1,5 +1,5 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
-record RadiationData "Radiation property of a window"
+record RadiationData "Radiation data of a window"
   extends Modelica.Icons.Record;
   extends Buildings.HeatTransfer.Windows.BaseClasses.RadiationBaseData;
   final parameter Real glass[3, N]={tauGlaSol,rhoGlaSol_a,rhoGlaSol_b}
@@ -113,7 +113,7 @@ record RadiationData "Radiation property of a window"
       HEM)
     "Hemiperical absorptivity of an interior shading device for interior irradiation";
   annotation (Documentation(info="<html>
-Record that computes the solar radiation data for glazing system.
+Record that computes the solar radiation data for a glazing system.
 </html>", revisions="<html>
 <ul>
 <li>
