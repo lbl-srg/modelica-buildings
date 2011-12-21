@@ -175,7 +175,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Functions.glassProperty
     </td>
-    <td valign=\"top\">Add a function glassPropertyUncoated that calculates the property for uncoated glass.
+    <td valign=\"top\">Added the function <code>glassPropertyUncoated</code> that calculates the property for uncoated glass.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
