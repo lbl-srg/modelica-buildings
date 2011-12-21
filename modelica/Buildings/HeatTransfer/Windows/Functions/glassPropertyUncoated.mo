@@ -118,6 +118,7 @@ algorithm
 This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for one uncoated glass pane.
 The equations are mainly based on Finlayson et al (1990) and Fuler et (1991) with some modifications. 
 </p>
+<h4>Implementation</h4>
 <p>
 Step 1: Compute the reflectivity at normal incidence 
 </p>

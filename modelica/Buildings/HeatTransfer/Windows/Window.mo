@@ -354,7 +354,7 @@ and
 Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>.
 </p>
 <p>
-<b>Important note:</b>
+<h4>Limitations</h4>
 To calculate the angular transmittance, reflectance and absorptance of a glazing system, Window 5 model first calculates the value for each wave length, then calculate the weighted value over entire wave lengths.
 Current window model in Buildings library only uses the weighted value of each glass. 
 As a result, there are some differences in prediciton between the current Modelica window model and WINDOW 5. 
