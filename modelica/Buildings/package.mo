@@ -170,6 +170,14 @@ have been <b style=\"color:blue\">improved</b> in a
                      may be discontinuous if the flow reverses its direction.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Functions.glassProperty
+    </td>
+    <td valign=\"top\">Add a function glassPropertyUncoated that calculates the property for uncoated glass.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
