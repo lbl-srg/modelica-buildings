@@ -10,7 +10,7 @@ function glassProperty
   output Real layer[3, N, HEM] "Transmittance, front and back reflectance";
 
 protected
-  Real tol=0.005
+  parameter Real tol=0.005
     "Tolerance for difference between front and back reflectance to decide a glass is uncoated or coated";
   Real oneLay[3, HEM] "Temporary storage for glass property of one pane";
   Real oneGla[3];
