@@ -12,6 +12,10 @@ model BoilerPolynomial
   parameter Buildings.Fluid.Types.EfficiencyCurves effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant
     "Curve used to compute the efficiency";
   parameter Real a[:] = {0.9} "Coefficients for efficiency curve";
+
+  parameter Buildings.Fluid.Data.Fuels.Generic fue "Fuel type"
+   annotation (choicesAllMatching = true);
+
   parameter Modelica.SIunits.ThermalConductance UA=0.05*Q_flow_nominal/30
     "Overall UA value";
   parameter Modelica.SIunits.Volume VWat = 1.5E-6*Q_flow_nominal
@@ -24,8 +28,10 @@ model BoilerPolynomial
 
   Real eta(min=0) "Boiler efficiency";
 
-  Modelica.SIunits.Power QFue_flow "Sensible heat released by fuel";
+  Modelica.SIunits.Power QFue_flow "Heat released by fuel";
   Modelica.SIunits.Power QWat_flow "Heat transfer from gas into water";
+  Modelica.SIunits.MassFlowRate mFue_flow "Fuel mass flow rate";
+  Modelica.SIunits.VolumeFlowRate VFue_flow "Fuel volume flow rate";
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Part load ratio"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}},
@@ -84,6 +90,9 @@ equation
   QFue_flow = y * Q_flow_nominal/eta_nominal;
   // Heat input into water
   QWat_flow = eta * QFue_flow;
+  // Fuel mass flow rate and volume flow rate
+  mFue_flow = QFue_flow/fue.h;
+  VFue_flow = mFue_flow/fue.d;
   connect(UAOve.port_b, vol.heatPort)            annotation (Line(
       points={{-28,20},{-22,20},{-22,-10},{-9,-10}},
       color={191,0,0},
@@ -143,17 +152,87 @@ equation
           smooth=Smooth.None)}),
 defaultComponentName="boi",
 Documentation(info="<html>
-This is a model of a boiler that computes the heat transferred
-to the medium based on an input control signal.
-The efficiency of the boiler can be computed using polynomials
-in the control signal <code>y</code> and
-the boiler temperature <code>T</code>.
+This is a model of a boiler whose efficiency is described
+by a polynomial. 
+The heat input into the medium is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  Q&#775; = y Q&#775;<sub>0</sub> &eta; &frasl; &eta;<sub>0</sub>
+</p>
+<p>
+where 
+<i>y &isin; [0, 1]</i> is the control signal,
+<i>Q&#775;<sub>0</sub></i> is the nominal power,
+<i>&eta;</i> is the efficiency at the current operating point, and
+<i>&eta;<sub>0</sub></i> is the efficiency at <i>y=1</i> and 
+nominal temperature <i>T=T<sub>0</sub></i> as specified by the parameter
+<code>T_nominal</code>.
+</p>
+<p>
+The parameter <code>effCur</code> determines what polynomial is used
+to compute the efficiency, which is defined as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  &eta; = Q&#775; &frasl; Q&#775;<sub>f</sub>,
+</p>
+<p>
+where
+<i>Q&#775;</i> is the heat transfered to the working fluid (typically water or air), and
+<i>Q&#775;<sub>f</sub></i> is the heat of combustion released by the fuel.
+</p>
+<p>
+The following polynomials can be selected to compute the efficiency:
+</p>
+<p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+<th>Parameter <code>effCur</code></th>
+<th>Efficiency curve</th>
+</tr>
+<tr>
+<td>Buildings.Fluid.Types.EfficiencyCurves.Constant</td>
+<td><i>&eta; = a<sub>1</sub></i></td>
+</tr>
+<tr>
+<td>Buildings.Fluid.Types.EfficiencyCurves.Polynomial</td>
+<td><i>&eta; = a<sub>1</sub> + a<sub>2</sub> y + a<sub>3</sub> y<sup>2</sup> + ...</i></td>
+</tr>
+<tr>
+<td>Buildings.Fluid.Types.EfficiencyCurves.QuadraticLinear</td>
+<td><i>&eta; = a<sub>1</sub> + a<sub>2</sub>  y 
+        + a<sub>3</sub> y<sup>2</sup> 
+        + (a<sub>4</sub> + a<sub>5</sub>  y 
+        + a<sub>6</sub> y<sup>2</sup>)  T
+</i></td>
+</tr>
+</table>
+</p>
+<p>
+where
+<i>T</i> is the boiler outlet temperature in Kelvin.
+For <code>effCur = Buildings.Fluid.Types.EfficiencyCurves.Polynomial</code>,
+an arbitrary number of polynomial coefficients can be specified.
 </p>
 <p>
 The parameter <code>Q_flow_nominal</code> is the power transferred to the fluid
 for <code>y=1</code> and, if the efficiency depends on temperature, 
 for <code>T=T0</code>.
 </p>
+<p>
+The fuel mass flow rate and volume flow rate are computed as 
+<p align=\"center\" style=\"font-style:italic;\">
+  m&#775;<sub>f</sub> = Q&#775;<sub>f</sub> &frasl; h<sub>f</sub>
+</p>
+and
+<p align=\"center\" style=\"font-style:italic;\">
+  V&#775;<sub>f</sub> = m&#775;<sub>f</sub> &frasl; &rho;<sub>f</sub>,
+</p>
+where the fuel heating value
+<i>h<sub>f</sub></i> and the fuel mass density
+<i>&rho;<sub>f</sub></i> are obtained from the 
+parameter <code>fue</code>.
+Note that if <i>&eta;</i> is the efficiency relative to the lower heating value,
+then the fuel properties also need to be used for the lower heating value.
 <p>
 Optionally, the port <code>heatPort</code> can be connected to a heat port
 outside of this model to impose a boundary condition in order to
@@ -170,6 +249,10 @@ which are lumped into one state. The boiler outlet temperature is equal to this 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 22, 2011 by Michael Wetter:<br>
+Added computation of fuel usage and improved the documentation.
+</li>
 <li>
 May 25, 2011 by Michael Wetter:<br>
 <ul>

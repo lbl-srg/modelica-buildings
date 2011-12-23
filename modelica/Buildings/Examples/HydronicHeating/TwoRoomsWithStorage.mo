@@ -150,7 +150,8 @@ model TwoRoomsWithStorage
     dp_nominal=3000,
     Q_flow_nominal=Q_flow_nominal,
     m_flow_nominal=mBoi_flow_nominal,
-    T_start=293.15) "Boiler"
+    T_start=293.15,
+    fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue()) "Boiler"
     annotation (Placement(transformation(extent={{-20,-130},{0,-110}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,540},{-60,560}})));

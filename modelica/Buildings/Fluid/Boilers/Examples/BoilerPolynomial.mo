@@ -34,7 +34,8 @@ model BoilerPolynomial "Test model"
     m_flow_nominal = m_flow_nominal,
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
-    T_start=293.15) "Boiler"
+    T_start=293.15,
+    fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue()) "Boiler"
     annotation (Placement(transformation(extent={{-10,-2},{10,18}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TAmb1(      T=288.15)
     "Ambient temperature in boiler room"
@@ -48,7 +49,8 @@ model BoilerPolynomial "Test model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     massDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dp_nominal=dp_nominal,
-    T_start=293.15) "Boiler"
+    T_start=293.15,
+    fue=Buildings.Fluid.Data.Fuels.NaturalGasLowerHeatingValue()) "Boiler"
     annotation (Placement(transformation(extent={{-12,-70},{8,-50}})));
   Buildings.HeatTransfer.Sources.FixedTemperature TAmb2(      T=288.15)
     "Ambient temperature in boiler room"

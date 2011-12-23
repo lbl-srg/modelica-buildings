@@ -144,6 +144,15 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Data.Fuels
+    </td>
+    <td valign=\"top\">Package with physical properties of fuels that are used by the
+                     boiler model.
+    </td> 
+    </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -162,6 +171,11 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Boilers.BoilerPolynomial
+    </td>
+    <td valign=\"top\">Added computation of fuel usage and improved the documentation.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger

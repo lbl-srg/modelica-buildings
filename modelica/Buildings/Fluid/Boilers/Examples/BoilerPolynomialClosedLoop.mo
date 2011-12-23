@@ -18,7 +18,8 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
     redeclare package Medium = Medium,
     dp_nominal=20000,
     T_start=293.15,
-    m_flow_nominal=m_flow_nominal) "Boiler"
+    m_flow_nominal=m_flow_nominal,
+    fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue()) "Boiler"
     annotation (Placement(transformation(extent={{40,-110},{20,-90}})));
   Modelica.Blocks.Logical.OnOffController onOffController(bandwidth=20)
     annotation (Placement(transformation(extent={{-130,-80},{-110,-60}})));
