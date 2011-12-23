@@ -198,7 +198,7 @@ The actual size of the control volume is then set as
 </p>
 <p>
 where
-<i>m<sub>0</sub></i> is the nominal mass flow rate,
+<i>m&#775;<sub>0</sub></i> is the nominal mass flow rate,
 <i>&tau;</i> is the time constant, and
 <i>&rho;<sub>0</sub></i> is the mass density at the nominal condition.
 </p>
