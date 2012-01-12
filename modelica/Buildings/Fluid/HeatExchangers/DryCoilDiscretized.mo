@@ -439,8 +439,7 @@ First implementation.
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
-        grid={2,2},
-        initialScale=0.5), graphics={Text(
+        grid={2,2}), graphics={Text(
           extent={{60,72},{84,58}},
           lineColor={0,0,255},
           textString="water-side"), Text(

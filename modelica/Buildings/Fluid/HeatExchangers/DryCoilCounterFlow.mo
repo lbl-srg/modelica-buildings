@@ -248,8 +248,7 @@ First implementation.
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={2,2},
-        initialScale=0.5), graphics={
+        grid={2,2}), graphics={
         Rectangle(
           extent={{-70,80},{70,-80}},
           lineColor={0,0,255},
