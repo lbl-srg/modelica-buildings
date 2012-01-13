@@ -131,9 +131,10 @@ Version X.Y build Z is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Examples.Tutorial
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Tutorial with step by step instructions for how to
+                       build system models.
     </td>
     </tr>
 </table>
@@ -2084,6 +2085,13 @@ User's Guides that can be accessed by the following links:
    <td valign=\"top\">Library heat transfer in building constructions.</td>
 </tr>
 </table>
+</p>
+<p>
+There is also a tutorial available at 
+<a href=\"modelica://Buildings.Examples.Tutorial\">
+Buildings.Examples.Tutorial</a>
+with step by step instructions for how to build system models.
+<!-- fixme: add link to UsersGuide when published. -->
 </p>
 </html>"));
 end UsersGuide;

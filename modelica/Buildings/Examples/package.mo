@@ -3,7 +3,9 @@ package Examples "Collection of models that illustrate model use and test models
   extends Modelica.Icons.ExamplesPackage;
 annotation (preferedView="info", Documentation(info="<html>
 <p>
-This package contains examples of system models that are
+This package contains a tutorial with step by step instructions
+for how to build system models.
+This package also contains examples of system models that are
 composed of models from a variety of packages of the 
 <code>Buildings</code> library. The examples illustrate
 the scope of the library. Smaller examples that typically only
