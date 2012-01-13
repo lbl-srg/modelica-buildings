@@ -40,8 +40,9 @@ The flow resistance is computed as
 </p>
 where <i>m&#775;</i> is the mass flow rate and <i>&Delta;p</i> is the pressure drop.
 For <i>|m&#775;| &lt; &delta;<sub>m&#775;</sub> m&#775;<sub>0</sub></i>, 
-where <i>&delta;<sub>m&#775;</sub></i> is a parameter and 
-<i>m&#775;<sub>0</sub></i> is the mass flow rate at the nominal operating point, the 
+where <i>&delta;<sub>m&#775;</sub></i> is equal to the parameter <code>deltaM</code> and 
+<i>m&#775;<sub>0</sub></i> is the mass flow rate at the nominal operating point, as
+set by the parameter <code>m_flow_nominal</code>, the 
 equation is linearized.
 The pressure drop is computed as a function of mass flow rate instead of
 volume flow rate as this often leads to fewer equations. Otherwise,
@@ -201,6 +202,84 @@ where
 <i>m&#775;<sub>0</sub></i> is the nominal mass flow rate,
 <i>&tau;</i> is the time constant, and
 <i>&rho;<sub>0</sub></i> is the mass density at the nominal condition.
+</p>
+<h4>Nominal values</h4>
+<p>
+Most components have a parameters for the nominal operating conditions.
+These parameters should be set to the values that the component typically 
+have if run at full load or design conditions. Depending on the model, these
+parameters are used differently, and the respective model documentation or code
+should be consulted for details. However, the table below shows typical use of 
+parameters in various model to help the user understand how they are used.
+</p>
+<p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr>
+<th>Parameter</th>
+<th>Model</th>
+<th>Functionality</th>
+</tr>
+<tr>
+  <td>m_flow_nominal<br/>
+      dp_nominal</td>
+  <td>Flow resistance models</td>
+  <td>These parameter may be used 
+      to define a point on the flow rate versus pressure drop curve. For other
+      mass flow rates, the pressure drop is typically adjusted using similarity laws.
+  </td>
+</tr>
+<tr>
+  <td>m_flow_nominal<br/>
+      m_flow_small</td>
+  <td>Sensors<br/>
+      Volumes<br/>
+      Heat exchangers<br/>
+      Chillers
+  </td>
+  <td>Some of these models set <code>m_flow_small=1E-4*abs(m_flow_nominal)</code> as the
+      default value. Then, <code>m_flow_small</code> is used to regularize, or replace,
+      equations when the mass flow rate is smaller than <code>m_flow_small</code>
+      in magnitude. This is needed to improve the numerical properties of the model. The error in the 
+      results is for typical applications negligible, because at flow rates below
+      <i>0.01%</i> from the design flow rate, most model assumptions are not applicable
+      anyways, and the HVAC system is not operated in this region. However, because Modelica
+      simulates in the continuous-time domain, such small flow rates can occur, and therefore
+      models are implemented in such a way that they are numerically well-behaved for 
+      zero or near-zero flow rates.
+  </td>
+</tr>
+<tr>
+  <td>tau<br/>
+      m_flow_nominal</td>
+  <td>Sensors<br/>
+      Volumes<br/>
+      Heat exchangers<br/>
+      Chillers
+  </td>
+  <td>Because Modelica simulates in the continuous-time domain, it is generally more
+      efficient to have dynamic models as opposed to steady-state models.
+      However, it would be tedious to define what volume of fluid is contained in a
+      device, and what fraction of its mass contributes to the thermally active mass
+      that influences the dynamic response. Such a parametrization would also require
+      product data that is not published by manufacturers.
+      To circumvent this problem, many models take as a parameter the time constant
+      <code>tau</code> and lump all its thermal mass into a fluid volume. 
+      The time constant <code>tau</code> can be understood as the time constant that one would 
+      observe if the input to the component has a step change, and the mass flow rate
+      of the component is equal to <code>m_flow_nominal</code>.
+      Using these two values and the fluid density <code>rho</code>, 
+      components adjust their fluid volume 
+      <code>V=m_flow_nominal tau/rho</code> because having such a volume
+      gives the specified time response.
+      For most components, engineering experience can be used to estimate a reasonable
+      value for <code>tau</code>, and where generally applicable values can be used, 
+      components already set a default value for <code>tau</code>.
+      See for example
+      <a href=\"modelica://Buildings.Fluid.HeatExchangers.WetCoilDiscretized\">
+      Buildings.Fluid.HeatExchangers.WetCoilDiscretized</a>.
+  </td>
+</tr>
+</table>
 </p>
 </html>"));
 
