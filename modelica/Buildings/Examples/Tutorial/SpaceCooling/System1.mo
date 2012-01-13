@@ -129,9 +129,13 @@ The medium model has been set to <code>MediumA</code>, and the nominal mass
 flow rate is set to <code>mA_flow_nominal</code>.
 The nominal mass flow rate is used for numerical reasons and should be set 
 to the approximate order of magnitude. It only has an effect if the mass flow
-rate is near zero (and what \"near zero\" means depends on the magnitude of
+rate is near zero and what \"near zero\" means depends on the magnitude of
 <code>m_flow_nominal</code>, as it is used for the default value of the parameter
-<code>m_flow_small</code> on the <code>Assumptions</code> tag of the model).
+<code>m_flow_small</code> on the <code>Assumptions</code> tag of the model.
+See also 
+<a href=\"modelica://Buildings.Fluid.UsersGuide\">
+Buildings.Fluid.UsersGuide</a>
+for an explanation of the purpose of <code>m_flow_small</code>.
 </p>
 </li>
 <li>
