@@ -253,6 +253,14 @@ units are wrong or errors in documentation):
                        a translation error with version 1.0 or higher.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody
+    </td>
+    <td valign=\"top\">Fixed error in BlackBody model that was causing a translation error when <code>calTSky</code> was set to <code>Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation</code>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
