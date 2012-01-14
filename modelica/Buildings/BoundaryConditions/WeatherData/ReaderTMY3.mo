@@ -310,70 +310,70 @@ equation
   end if;
   connect(HDifHor_in_internal, cheDifHorRad.HIn);
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
-      points={{181,70},{220,70},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,70},{220,70},{220,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTotSkyCov.nOut, weaBus.nTot) annotation (Line(
-      points={{181,-30},{220,-30},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-30},{220,-30},{220,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheOpaSkyCov.nOut, weaBus.nOpa) annotation (Line(
-      points={{181,-150},{220,-150},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-150},{220,-150},{220,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheGloHorRad.HOut, weaBus.HGloHor) annotation (Line(
-      points={{181,170},{220,170},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,170},{220,170},{220,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDifHorRad.HOut, weaBus.HDifHor) annotation (Line(
-      points={{181,130},{220,130},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,130},{220,130},{220,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheDirNorRad.HOut, weaBus.HDirNor) annotation (Line(
-      points={{181,210},{220,210},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,210},{220,210},{220,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheCeiHei.ceiHeiOut, weaBus.celHei) annotation (Line(
-      points={{181,-110},{220,-110},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-110},{220,-110},{220,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinSpe.winSpeOut, weaBus.winSpe) annotation (Line(
-      points={{181,-70},{220,-70},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-70},{220,-70},{220,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheHorRad.HOut, weaBus.radHor) annotation (Line(
-      points={{181,250},{220,250},{220,5.55112e-16},{304,5.55112e-16}},
+      points={{181,250},{220,250},{220,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheWinDir.nOut, weaBus.winDir) annotation (Line(
-      points={{181,-270},{280,-270},{280,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-270},{280,-270},{280,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -388,23 +388,21 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TBlaSky.TBlaSky, weaBus.TBlaSky) annotation (Line(
-      points={{261,-210},{280,-210},{280,0},{292,0},{292,5.55112e-16},{304,
-          5.55112e-16}},
+      points={{261,-210},{280,-210},{280,0},{292,0},{292,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(simTim.y, weaBus.cloTim) annotation (Line(
-      points={{-159,6.10623e-16},{34.75,6.10623e-16},{34.75,0},{124.5,0},{124.5,
-          5.55112e-16},{304,5.55112e-16}},
+      points={{-159,0},{34.75,0},{34.75,0},{124.5,0},{124.5,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(simTim.y, add.u2) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,164},{-142,164}},
+      points={{-159,0},{-150,0},{-150,164},{-142,164}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(con30mins.y, add.u1) annotation (Line(
@@ -420,11 +418,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(simTim.y, locTim.cloTim) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-150},{-122,-150}},
+      points={{-159,0},{-150,0},{-150,-150},{-122,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(simTim.y, conTim.simTim) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-30},{-122,-30}},
+      points={{-159,0},{-150,0},{-150,-30},{-122,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conTim.calTim, datRea.u) annotation (Line(
@@ -432,7 +430,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(simTim.y, eqnTim.nDay) annotation (Line(
-      points={{-159,6.10623e-16},{-150,6.10623e-16},{-150,-110},{-122,-110}},
+      points={{-159,0},{-150,0},{-150,-110},{-122,-110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eqnTim.eqnTim, solTim.equTim) annotation (Line(
@@ -444,8 +442,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(solTim.solTim, weaBus.solTim) annotation (Line(
-      points={{-59,-130},{-20,-130},{-20,0},{284,0},{284,5.55112e-16},{304,
-          5.55112e-16}},
+      points={{-59,-130},{-20,-130},{-20,0},{284,0},{284,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -492,7 +489,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheTemDewPoi.TOut, weaBus.TDewPoi) annotation (Line(
-      points={{181,-230},{280,-230},{280,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-230},{280,-230},{280,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -523,14 +520,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(cheRelHum.relHumOut, weaBus.relHum) annotation (Line(
-      points={{181,30},{280,30},{280,5.55112e-16},{304,5.55112e-16}},
+      points={{181,30},{280,30},{280,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(cheTemDryBul.TOut, weaBus.TDryBul) annotation (Line(
-      points={{181,-190},{280,-190},{280,5.55112e-16},{304,5.55112e-16}},
+      points={{181,-190},{280,-190},{280,0},{304,0}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -662,7 +659,13 @@ The input connector will be enabled if
 The the weather file will be read if
 <code>pAtmSou = Buildings.BoundaryConditions.Types.DataSource.File</code>.
 </p>
-<b>Note:</b> In HVAC systems, when the fan is off, changes in atmospheric pressure can cause small air flow rates
+
+<p>
+<ol>
+<b>Notes</b>
+<li>
+<p>
+In HVAC systems, when the fan is off, changes in atmospheric pressure can cause small air flow rates
 in the duct system due to change in pressure and hence in the mass of air that is stored
 in air volumes (such as in fluid junctions or in the room model). 
 This may increase computing time. Therefore, the default value for the atmospheric pressure
@@ -671,6 +674,20 @@ Furthermore, if the initial pressure of air volumes are different
 from the atmospheric pressure, then fast pressure transients can happen in the first few seconds of the simulation.
 This can cause numerical problems for the solver. To avoid this problem, set the atmospheric pressure to the
 same value as the medium default pressure, which is typically set to the parameter <code>Medium.p_default</code>.
+</p>
+</li>
+<li>
+<p>
+The data units of user specified input files should be SI units consistent with Modelica standard. 
+For instance, the unit for the solar radiation should be <code>W/m2</code> and that for the wind direction should be <code>rad</code>.
+</p>
+</li>
+<li>
+<p>
+The ReaderTMY3 should only be used with TMY3 data. It contains a time shift for solar radiation data that is explained below. This time shift should be removed if the user may want to use the ReaderTMY3 for other weather data types. 
+</p>
+</li>
+</ol>
 </p>
 <h4>Implementation</h4>
 <p>
@@ -691,8 +708,7 @@ time is shifted by <i>30</i> minutes prior to reading the weather data.
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\">
 </p>
-<b>Note:</b>The data units of user specified input files should be SI units consistent with Modelica standard. 
-For instance, the unit for the solar radiation should be <code>W/m2</code> and that for the wind direction should be <code>rad</code>.
+
 <h4>References</h4>
 <p>
 <ul>

@@ -41,7 +41,10 @@ algorithm
       0.0035*(nOpa10^2) + 0.00028*(nOpa10^3));
     TBlaSky := TDryBul*(epsSky^0.25);
   else
-    TBlaSky := (radHor/Modelica.Constants.sigma)^0.25;
+    TDewPoiK := 273.15;
+    nOpa10   := 0.0;
+    epsSky   := 0.0;
+    TBlaSky  := (radHor/Modelica.Constants.sigma)^0.25;
   end if;
   annotation (
     defaultComponentName="TBlaSky",
