@@ -108,11 +108,9 @@ model MoistAir
       m_flow_nominal=m_flow_nominal) "Supply air temperature"
     annotation (Placement(transformation(extent={{310,62},{330,82}})));
   Buildings.Fluid.Movers.FlowMachine_y fan(redeclare package Medium = Medium,
-      redeclare function flowCharacteristic =
-        Buildings.Fluid.Movers.BaseClasses.Characteristics.linearFlow (
-          V_flow_nominal={0,m_flow_nominal/1.2}, dp_nominal={2*400,400}),
-    m_flow_nominal=m_flow_nominal,
-    dynamicBalance=false)
+					   pressure(V_flow={0,m_flow_nominal/1.2},
+						    dp={2*400,400}),
+					   dynamicBalance=false)
     annotation (Placement(transformation(extent={{140,62},{160,82}})));
   Modelica.Blocks.Sources.Constant yFan(k=1) "Fan control signal"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
@@ -324,6 +322,11 @@ This model is implemented in <code>bcvtb\\examples\\dymolaEPlusXY-singleZone</co
 where <code>XY</code> denotes the EnergyPlus version number.
 </html>", revisions="<html>
 <ul>
+<li>
+January 13, 2012, by Michael Wetter:<br>
+Updated fan parameters, which were still for version 0.12 of the 
+Buildings library and hence caused a translation error with version 1.0 or higher.
+</li>
 <li>
 April 5, 2011, by Michael Wetter:<br>
 Changed sensor models from one-port sensors to two port sensors.

@@ -243,6 +243,16 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.BCVTB.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.BCVTB.Examples.MoistAir
+    </td>
+    <td valign=\"top\">Updated fan parameters, which were still for 
+                       version 0.12 of the Buildings library and hence caused 
+                       a translation error with version 1.0 or higher.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
