@@ -19,56 +19,20 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  Real k(unit="") "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
-    "Turbulent flow if |m_flow| >= m_flow_turbulent, not a parameter because k can be a function of time"
-     annotation(Evaluate=true);
+  parameter Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
+    "Turbulent flow if |m_flow| >= m_flow_turbulent";
 
 protected
   parameter Medium.ThermodynamicState sta0=
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
   parameter Modelica.SIunits.DynamicViscosity eta_nominal=Medium.dynamicViscosity(sta0)
     "Dynamic viscosity, used to compute transition to turbulent flow regime";
-  final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
-    "Flag to enable/disable computation of flow resistance"
-   annotation(Evaluate=true);
 protected
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
     "Absolute value of nominal flow rate";
   final parameter Modelica.SIunits.Pressure dp_nominal_pos = abs(dp_nominal)
     "Absolute value of nominal pressure";
-initial equation
-  if computeFlowResistance then
-    assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
-  end if;
 equation
-  // Pressure drop calculation
-  if computeFlowResistance then
-    if linearized then
-      m_flow*m_flow_nominal_pos = k^2*dp;
-    else
-      if homotopyInitialization then
-        if from_dp then
-          m_flow=homotopy(actual=FlowModels.basicFlowFunction_dp(dp=dp, k=k,
-                                   m_flow_turbulent=m_flow_turbulent),
-                                   simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
-        else
-          dp=homotopy(actual=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
-                                   m_flow_turbulent=m_flow_turbulent),
-                    simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
-         end if;  // from_dp
-      else // do not use homotopy
-        if from_dp then
-          m_flow=FlowModels.basicFlowFunction_dp(dp=dp, k=k, m_flow_turbulent=m_flow_turbulent);
-        else
-          dp=FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, m_flow_turbulent=m_flow_turbulent);
-        end if;  // from_dp
-      end if; // homotopyInitialization
-    end if; // linearized
-  else // do not compute flow resistance
-    dp = 0;
-  end if;  // computeFlowResistance
-
   // Isenthalpic state transformation (no storage and no loss of energy)
   port_a.h_outflow = inStream(port_b.h_outflow);
   port_b.h_outflow = inStream(port_a.h_outflow);
@@ -106,15 +70,28 @@ equation
 Documentation(info="<html>
 <p>
 Partial model for a flow resistance, possible with variable flow coefficient.
-The pressure drop is computed by an instance of
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
-Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>,
-i.e., using a regularized implementation of the equation
-<p align=\"center\" style=\"font-style:italic;\">
-  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+Models that extend this class need to implement an equation that relates
+<code>m_flow</code> and <code>dp</code>, and they need to assign the parameter
+<code>m_flow_turbulent</code>.
+</p>
+<p>
+See for example
+<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
+Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> for a model that extends
+this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 16, 2012 by Michael Wetter:<br>
+To simplify object inheritance tree, revised base classes
+<code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
+and model
+<code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
+</li>
 <li>
 August 5, 2011, by Michael Wetter:<br>
 Moved linearized pressure drop equation from the function body to the equation

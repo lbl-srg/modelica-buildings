@@ -1,7 +1,8 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialTwoWayValve "Partial model for a two way valve"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialActuator(
-       dp_nominal=6000);
+       dp_nominal=6000,
+       final m_flow_turbulent = deltaM * abs(m_flow_nominal));
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default),
       final dpVal_nominal=dp_nominal);
@@ -13,7 +14,6 @@ initial equation
   // 1/k^2, the parameter l must not be zero.
   assert(l > 0, "Valve leakage parameter l must be bigger than zero.");
 equation
- m_flow_turbulent = deltaM * abs(m_flow_nominal);
  if linearized then
    // This implementation yields m_flow_nominal = phi*kv_SI * sqrt(dp_nominal)
    // if m_flow = m_flow_nominal and dp = dp_nominal
@@ -108,6 +108,16 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 16, 2012 by Michael Wetter:<br>
+To simplify object inheritance tree, revised base classes
+<code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
+and model
+<code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
+</li>
 <li>
 August 12, 2011 by Michael Wetter:<br>
 Added <code>assert</code> statement to prevent <code>l=0</code> due to the

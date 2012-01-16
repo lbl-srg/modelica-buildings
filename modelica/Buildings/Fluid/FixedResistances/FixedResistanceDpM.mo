@@ -1,7 +1,12 @@
 within Buildings.Fluid.FixedResistances;
 model FixedResistanceDpM
   "Fixed flow resistance with dp and m_flow as parameter"
-  extends Buildings.Fluid.BaseClasses.PartialResistance;
+  extends Buildings.Fluid.BaseClasses.PartialResistance(
+    final m_flow_turbulent = if (computeFlowResistance and use_dh) then
+                       eta_nominal*dh/4*Modelica.Constants.pi*ReC 
+                       elseif (computeFlowResistance) then
+                       deltaM * m_flow_nominal_pos
+		       else 0);
   parameter Boolean use_dh = false "Set to true to specify hydraulic diameter"
        annotation(Evaluate=true, Dialog(enable = not linearized));
   parameter Modelica.SIunits.Length dh=1 "Hydraulic diameter"
@@ -12,7 +17,19 @@ model FixedResistanceDpM
   parameter Real deltaM(min=0.01) = 0.3
     "Fraction of nominal mass flow rate where transition to turbulent occurs"
        annotation(Evaluate=true, Dialog(enable = not use_dh and not linearized));
+
+  final parameter Real k(unit="") = if computeFlowResistance then
+        m_flow_nominal_pos / sqrt(dp_nominal_pos) else 0    
+        "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
+protected
+  final parameter Boolean computeFlowResistance=(dp_nominal_pos > Modelica.Constants.eps)
+    "Flag to enable/disable computation of flow resistance"
+   annotation(Evaluate=true);
 initial equation
+ if computeFlowResistance then
+   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
+ end if;
+
  assert(m_flow_nominal_pos > 0, "m_flow_nominal_pos must be non-zero. Check parameters.");
  if ( m_flow_turbulent > m_flow_nominal_pos) then
    Modelica.Utilities.Streams.print("Warning: In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent."
@@ -26,16 +43,35 @@ initial equation
  end if;
 
 equation
- // if computeFlowResistance = false, then equations of this model are disabled.
- if computeFlowResistance then
-   m_flow_turbulent = if use_dh then
-                      eta_nominal*dh/4*Modelica.Constants.pi*ReC else
-                      deltaM * m_flow_nominal_pos;
-   k = m_flow_nominal_pos / sqrt(dp_nominal_pos);
- else
-   m_flow_turbulent = 0;
-   k = 0;
- end if;
+  // Pressure drop calculation
+  if computeFlowResistance then
+    if linearized then
+      m_flow*m_flow_nominal_pos = k^2*dp;
+    else
+      if homotopyInitialization then
+        if from_dp then
+          m_flow=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
+                                   m_flow_turbulent=m_flow_turbulent),
+                                   simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+        else
+          dp=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
+                                   m_flow_turbulent=m_flow_turbulent),
+                    simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+         end if;  // from_dp
+      else // do not use homotopy
+        if from_dp then
+          m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k, 
+                                   m_flow_turbulent=m_flow_turbulent);
+        else
+          dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k, 
+                                   m_flow_turbulent=m_flow_turbulent);
+        end if;  // from_dp
+      end if; // homotopyInitialization
+    end if; // linearized
+  else // do not compute flow resistance
+    dp = 0;
+  end if;  // computeFlowResistance
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
@@ -48,9 +84,29 @@ k = m &frasl;
 &radic;<span style=\"text-decoration:overline;\">&Delta;P</span>.
 </p>
 Near the origin, the square root relation is regularized to ensure that the derivative is bounded.
+Fixme: Expand documentation.
+</p>
+<h4>Implementation</h4>
+<p>
+The pressure drop is computed by an instance of
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
+Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>,
+i.e., using a regularized implementation of the equation
+<p align=\"center\" style=\"font-style:italic;\">
+  m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 16, 2012 by Michael Wetter:<br>
+To simplify object inheritance tree, revised base classes
+<code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
+and model
+<code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
+</li>
 <li>
 May 30, 2008 by Michael Wetter:<br>
 Added parameters <code>use_dh</code> and <code>deltaM</code> for easier parameterization.

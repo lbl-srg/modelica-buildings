@@ -1,7 +1,10 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialDamperExponential
   "Partial model for air dampers with exponential opening characteristics"
- extends Buildings.Fluid.Actuators.BaseClasses.PartialActuator;
+ extends Buildings.Fluid.Actuators.BaseClasses.PartialActuator(
+  m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
+      eta_nominal*ReC*sqrt(area)*facRouDuc);
+
  parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
  parameter Real deltaM = 0.3
@@ -67,9 +70,6 @@ equation
   rho = if use_constant_density then
          rho_nominal else
          Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
-  m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
-      eta_nominal*ReC*sqrt(area)*facRouDuc;
-
   // flow coefficient, k=m_flow/sqrt(dp)
   kDam=sqrt(2*rho)*area/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=y,
@@ -127,6 +127,16 @@ Exponential</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 16, 2012 by Michael Wetter:<br>
+To simplify object inheritance tree, revised base classes
+<code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</code>,
+<code>Buildings.Fluid.Actuators.BaseClasses.PartialActuator</code>
+and model
+<code>Buildings.Fluid.FixedResistances.FixedResistanceDpM</code>.
+</li>
 <li>
 August 5, 2011, by Michael Wetter:<br>
 Moved linearized pressure drop equation from the function body to the equation

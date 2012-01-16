@@ -185,6 +185,15 @@ have been <b style=\"color:blue\">improved</b> in a
                      may be discontinuous if the flow reverses its direction.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.BaseClasses.PartialResistance<br/>
+                       Buildings.Fluid.Actuators.BaseClasses.PartialActuator<br/>
+                       Buildings.Fluid.FixedResistances.FixedResistanceDpM<br/>
+                       Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve<br/>
+                       Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential
+    </td>
+    <td valign=\"top\">Revised base classes and model to simplify object inheritance tree.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
