@@ -243,7 +243,23 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.Utilities.IO.BCVTB.Examples</b>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody
+    </td>
+    <td valign=\"top\">Fixed error in BlackBody model that was causing a translation error when <code>calTSky</code> was set to <code>Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation</code>.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger
+    </td>
+    <td valign=\"top\">Fixed wrong class reference in information section.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Utilities.IO.BCVTB.Examples.MoistAir
@@ -251,14 +267,6 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Updated fan parameters, which were still for 
                        version 0.12 of the Buildings library and hence caused 
                        a translation error with version 1.0 or higher.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody
-    </td>
-    <td valign=\"top\">Fixed error in BlackBody model that was causing a translation error when <code>calTSky</code> was set to <code>Buildings.BoundaryConditions.Types.SkyTemperatureCalculation.HorizontalRadiation</code>.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>

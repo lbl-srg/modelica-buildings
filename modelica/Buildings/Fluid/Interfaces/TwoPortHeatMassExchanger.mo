@@ -138,7 +138,7 @@ Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a>,
 <li>
 the ideal humidifier
 <a href=\"modelica://Buildings.Fluid.MassExchangers.HumidifierPrescribed\">
-Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a>, and
+Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>, and
 </li>
 <li>
 the boiler
@@ -155,6 +155,10 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+January 15, 2011, by Michael Wetter:<br>
+Fixed wrong class reference in information section.
+</li>
 <li>
 September 13, 2011, by Michael Wetter:<br>
 Changed assignment of <code>vol(mass/energyDynamics=...)</code> as the
