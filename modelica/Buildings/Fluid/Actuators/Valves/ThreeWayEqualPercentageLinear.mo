@@ -69,16 +69,16 @@ Siemens).
 </p><p>
 This model is based on the partial valve models 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
-PartialThreeWayValve</a> and
+Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a> and
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
-PartialTwoWayValve</a>. 
+Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>. 
 See
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
-PartialThreeWayValve</a>
+Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>
 for the implementation of the three way valve
 and see
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
-PartialTwoWayValve</a>
+Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>
 for the implementation of the leakage flow or 
 the regularization near the origin.
 </p>

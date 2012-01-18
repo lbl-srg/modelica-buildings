@@ -25,7 +25,8 @@ Two way valve with an equal percentage valve opening characteristic.
 </p><p>
 This model is based on the partial valve model 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
-PartialTwoWayValve</a>. Check this model for more information, such
+Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</a>.
+Check this model for more information, such
 as the leakage flow or regularization near the origin.
 </p>
 </html>",
