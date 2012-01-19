@@ -74,7 +74,7 @@ div.sphinxsidebar form {
 }
 
 div.sphinxsidebar input {
-    border: 1px solid #98dbcc;
+    border: 1px solid #BFD1D4;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 1em;
 }
@@ -194,6 +194,7 @@ dt:hover > a.headerlink {
 
 div.body p.caption {
     text-align: inherit;
+    font-style: italic;
 }
 
 div.body td {

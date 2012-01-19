@@ -202,7 +202,7 @@ h2 {
 
 h3 {
     margin: 1em 0 -0.3em 0;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 div.body h1 a, div.body h2 a, div.body h3 a, div.body h4 a, div.body h5 a, div.body h6 a {
@@ -380,4 +380,15 @@ div.viewcode-block:target {
     background-color: #f4debf;
     border-top: 1px solid #ac9;
     border-bottom: 1px solid #ac9;
+}
+
+div.figure {
+  border: 1px solid #BFD1D4;
+  margin: 0em;
+  padding: 0.5em;
+}
+
+div.figure p {
+  font-style: italic;
+  text-indent: 0;
 }
