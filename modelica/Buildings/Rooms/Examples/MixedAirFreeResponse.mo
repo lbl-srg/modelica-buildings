@@ -66,9 +66,9 @@ model MixedAirFreeResponse "Free response of room model"
     datConBou(layers={matLayFlo}, each A=6*4,
            each til=Buildings.HeatTransfer.Types.Tilt.Floor),
     nSurBou=1,
-    surBou(each A=6*3, 
-           each absIR=0.9, 
-           each absSol=0.9, 
+    surBou(each A=6*3,
+           each absIR=0.9,
+           each absSol=0.9,
            each til=Buildings.HeatTransfer.Types.Tilt.Wall),
     linearizeRadiation = false,
     nPorts=1,
@@ -162,7 +162,8 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {200,200}}),
-                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/MixedAirFreeResponse.mos" "Simulate and plot"),
+                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/MixedAirFreeResponse.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This model illustrates the use of the room model
 <a href=\"modelica://Buildings.Rooms.MixedAir\">

@@ -2,17 +2,19 @@ within Buildings.Rooms.BaseClasses;
 model SolarRadiationExchange
   "Solar radiation heat exchange between the room facing surfaces"
   extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface(
-  final epsConExt = datConExt.layers.absSol_b,
-  final epsConExtWinOpa = datConExtWin.layers.absSol_b,
-  final epsConExtWinUns={(1-datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol
-                     -datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].rhoSol_b) for i in 1:NConExtWin},
-  final epsConExtWinSha = {(1-datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol
-                       -datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].rhoSol_b) for i in 1:NConExtWin},
-  final epsConExtWinFra = datConExtWin.glaSys.absSolFra,
-  final epsConPar_a = datConPar.layers.absSol_a,
-  final epsConPar_b = datConPar.layers.absSol_b,
-  final epsConBou = datConBou.layers.absSol_b,
-  final epsSurBou = surBou.absSol);
+    final epsConExt=datConExt.layers.absSol_b,
+    final epsConExtWinOpa=datConExtWin.layers.absSol_b,
+    final epsConExtWinUns={(1 - datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol
+         - datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].rhoSol_b)
+        for i in 1:NConExtWin},
+    final epsConExtWinSha={(1 - datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].tauSol
+         - datConExtWin[i].glaSys.glass[datConExtWin[i].glaSys.nLay].rhoSol_b)
+        for i in 1:NConExtWin},
+    final epsConExtWinFra=datConExtWin.glaSys.absSolFra,
+    final epsConPar_a=datConPar.layers.absSol_a,
+    final epsConPar_b=datConPar.layers.absSol_b,
+    final epsConBou=datConBou.layers.absSol_b,
+    final epsSurBou=surBou.absSol);
   // In the above declaration, we simplified the assignment of epsConExtWinSha.
   // An exact formulation would need to take into account the transmission and reflection
   // of the shade for the solar radiation that strikes the window from the room-side.
@@ -57,16 +59,20 @@ protected
     "Intermediate variable for gain for solar radiation distribution";
   Modelica.SIunits.HeatFlowRate Q_flow[NTot]
     "Total solar radiation that is absorbed by the surfaces (or transmitted back through the glass)";
-  final parameter Integer NOpa = NConExt+2*NConExtWin+2*NConPar+NConBou+NSurBou
-    "Number of opaque surfaces, including the window frame";
-  final parameter Integer NWin = NConExtWin "Number of window surfaces";
-  final parameter Integer NTot = NOpa + NWin "Total number of surfaces";
+  final parameter Integer NOpa=NConExt + 2*NConExtWin + 2*NConPar + NConBou +
+      NSurBou "Number of opaque surfaces, including the window frame";
+  final parameter Integer NWin=NConExtWin "Number of window surfaces";
+  final parameter Integer NTot=NOpa + NWin "Total number of surfaces";
   final parameter Boolean isFlo[NTot](fixed=false)
     "Flag, true if a surface is a floor";
-  final parameter Real eps[NTot](min=0, max=1, fixed=false)
-    "Solar absorptivity";
-  final parameter Real tau[NTot](min=0, max=1, fixed=false)
-    "Solar transmissivity";
+  final parameter Real eps[NTot](
+    min=0,
+    max=1,
+    fixed=false) "Solar absorptivity";
+  final parameter Real tau[NTot](
+    min=0,
+    max=1,
+    fixed=false) "Solar transmissivity";
   final parameter Modelica.SIunits.Area AFlo(fixed=false) "Total floor area";
   final parameter Modelica.SIunits.Area A[NTot](fixed=false) "Surface areas";
   final parameter Real k[NTot](unit="1", fixed=false)
@@ -81,37 +87,40 @@ initial equation
   // The last two entries are for the opaque wall that contains a window, and for the window frame.
   for i in 1:NConExt loop
     eps[i] = epsConExt[i];
-    A[i]      = AConExt[i];
-    isFlo[i]  = isFloorConExt[i];
+    A[i] = AConExt[i];
+    isFlo[i] = isFloorConExt[i];
   end for;
   for i in 1:NConPar loop
-    eps[i+NConExt]           = epsConPar_a[i];
-    A[i+NConExt]             = AConPar[i];
-    isFlo[i+NConExt]         = isFloorConPar_a[i];
-    eps[i+NConExt+NConPar]   = epsConPar_b[i];
-    A[i+NConExt+NConPar]     = AConPar[i];
-    isFlo[i+NConExt+NConPar] = isFloorConPar_b[i];
+    eps[i + NConExt] = epsConPar_a[i];
+    A[i + NConExt] = AConPar[i];
+    isFlo[i + NConExt] = isFloorConPar_a[i];
+    eps[i + NConExt + NConPar] = epsConPar_b[i];
+    A[i + NConExt + NConPar] = AConPar[i];
+    isFlo[i + NConExt + NConPar] = isFloorConPar_b[i];
   end for;
   for i in 1:NConBou loop
-    eps[i+NConExt+2*NConPar]   = epsConBou[i];
-    A[i+NConExt+2*NConPar]     = AConBou[i];
-    isFlo[i+NConExt+2*NConPar] = isFloorConBou[i];
+    eps[i + NConExt + 2*NConPar] = epsConBou[i];
+    A[i + NConExt + 2*NConPar] = AConBou[i];
+    isFlo[i + NConExt + 2*NConPar] = isFloorConBou[i];
   end for;
   for i in 1:NSurBou loop
-    eps[i+NConExt+2*NConPar+NConBou]   = epsSurBou[i];
-    A[i+NConExt+2*NConPar+NConBou]     = ASurBou[i];
-    isFlo[i+NConExt+2*NConPar+NConBou] = isFloorSurBou[i];
+    eps[i + NConExt + 2*NConPar + NConBou] = epsSurBou[i];
+    A[i + NConExt + 2*NConPar + NConBou] = ASurBou[i];
+    isFlo[i + NConExt + 2*NConPar + NConBou] = isFloorSurBou[i];
   end for;
 
   for i in 1:NConExtWin loop
     // Opaque part of construction that has a window embedded
-    eps[i+NConExt+2*NConPar+NConBou+NSurBou]   = epsConExtWinOpa[i];
-    A[i+NConExt+2*NConPar+NConBou+NSurBou]     = AConExtWinOpa[i];
-    isFlo[i+NConExt+2*NConPar+NConBou+NSurBou] = isFloorConExtWin[i];
+    eps[i + NConExt + 2*NConPar + NConBou + NSurBou] = epsConExtWinOpa[i];
+    A[i + NConExt + 2*NConPar + NConBou + NSurBou] = AConExtWinOpa[i];
+    isFlo[i + NConExt + 2*NConPar + NConBou + NSurBou] = isFloorConExtWin[i];
     // Window frame
-    eps[i+NConExt+2*NConPar+NConBou+NSurBou+NConExtWin]   = epsConExtWinFra[i];
-    A[i+NConExt+2*NConPar+NConBou+NSurBou+NConExtWin]     = AConExtWinFra[i];
-    isFlo[i+NConExt+2*NConPar+NConBou+NSurBou+NConExtWin] = isFloorConExtWin[i];
+    eps[i + NConExt + 2*NConPar + NConBou + NSurBou + NConExtWin] =
+      epsConExtWinFra[i];
+    A[i + NConExt + 2*NConPar + NConBou + NSurBou + NConExtWin] = AConExtWinFra[
+      i];
+    isFlo[i + NConExt + 2*NConPar + NConBou + NSurBou + NConExtWin] =
+      isFloorConExtWin[i];
   end for;
   // Window glass
   for i in 1:NConExtWin loop
@@ -119,9 +128,12 @@ initial equation
     // have the same solar absorbtance.
     // This simplification allows lumping the solar distribution into
     // a parameter.
-    eps[i+NConExt+2*NConPar+NConBou+NSurBou+2*NConExtWin] = epsConExtWinUns[i];
-    isFlo[i+NConExt+2*NConPar+NConBou+NSurBou+2*NConExtWin] = isFloorConExtWin[i];
-    A[i+NConExt+2*NConPar+NConBou+NSurBou+2*NConExtWin] = AConExtWinGla[i];
+    eps[i + NConExt + 2*NConPar + NConBou + NSurBou + 2*NConExtWin] =
+      epsConExtWinUns[i];
+    isFlo[i + NConExt + 2*NConPar + NConBou + NSurBou + 2*NConExtWin] =
+      isFloorConExtWin[i];
+    A[i + NConExt + 2*NConPar + NConBou + NSurBou + 2*NConExtWin] =
+      AConExtWinGla[i];
   end for;
   // Vector with all surface areas.
   // The next loops build the array A that simplifies
@@ -136,32 +148,33 @@ initial equation
     tau[i] = 0;
   end for;
   for i in 1:NWin loop
-    tau[NOpa+i] = tauGla[i];
+    tau[NOpa + i] = tauGla[i];
   end for;
 
   // Sum of surface areas
-  AFlo = sum( (if isFlo[i] then A[i] else 0) for i in 1:NTot);
+  AFlo = sum((if isFlo[i] then A[i] else 0) for i in 1:NTot);
 
   // Coefficient that is used for non-floor areas.
   // The expression  max(1E-20, AFlo) is used to prevent a division by zero in case AFlo=0.
   // The situation for AFlo=0 is caught by the assert statement.
-  k1 = sum( ( if isFlo[i] then (A[i] * (1-eps[i]-tau[i])) else 0)  for i in 1:NTot) / max(1E-20, AFlo);
+  k1 = sum((if isFlo[i] then (A[i]*(1 - eps[i] - tau[i])) else 0) for i in 1:
+    NTot)/max(1E-20, AFlo);
 
-  k2 = sum( ( if isFlo[i] then 0 else (A[i] * (eps[i]+tau[i])))  for i in 1:NTot);
+  k2 = sum((if isFlo[i] then 0 else (A[i]*(eps[i] + tau[i]))) for i in 1:NTot);
 
-  if ( k2 > 1E-10) then
+  if (k2 > 1E-10) then
     for i in 1:NTot loop
       if isFlo[i] then
-         k[i] = (eps[i]+tau[i]) * A[i] / AFlo;
+        k[i] = (eps[i] + tau[i])*A[i]/AFlo;
       else
-         k[i] = k1/k2*(eps[i]+tau[i]) * A[i];
+        k[i] = k1/k2*(eps[i] + tau[i])*A[i];
       end if;
-     end for;
+    end for;
   else
-        // This branch only happens if k2=0, i.e., there is no surface other than floors
+    // This branch only happens if k2=0, i.e., there is no surface other than floors
     for i in 1:NTot loop
       if isFlo[i] then
-        k[i] = A[i] / AFlo;
+        k[i] = A[i]/AFlo;
       else
         k[i] = 0;
       end if;
@@ -169,17 +182,18 @@ initial equation
   end if;
 
   // Test whether there is a floor inside this room
-  assert( AFlo > 1E-10,
-     "Error in parameters of the room model: The geometry is incorrect:\n" +
-     "    The room model must have a construction that is a floor,\n" +
-     "    and this construction must not have a window.\n" +
-     "    The parameters for the room model are such that there is no such construction.\n" +
-     "    Revise the model parameters.");
+  assert(AFlo > 1E-10,
+    "Error in parameters of the room model: The geometry is incorrect:\n" +
+    "    The room model must have a construction that is a floor,\n" +
+    "    and this construction must not have a window.\n" +
+    "    The parameters for the room model are such that there is no such construction.\n"
+     + "    Revise the model parameters.");
   // Test whether the distribution factors add up to one
-  assert(abs(1-sum(k)) < 1E-5,
-     "Program error: Sum of solar distribution factors in room is not equal to one. k=" + String(sum(k)));
+  assert(abs(1 - sum(k)) < 1E-5,
+    "Program error: Sum of solar distribution factors in room is not equal to one. k="
+     + String(sum(k)));
 
-////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 equation
   // Incoming radiation
   HTot = sum(JInConExtWin);
@@ -190,32 +204,33 @@ equation
     Q_flow[i] = conExt[i].Q_flow;
   end for;
   for i in 1:NConPar loop
-    Q_flow[i+NConExt]         = conPar_a[i].Q_flow;
-    Q_flow[i+NConExt+NConPar] = conPar_b[i].Q_flow;
+    Q_flow[i + NConExt] = conPar_a[i].Q_flow;
+    Q_flow[i + NConExt + NConPar] = conPar_b[i].Q_flow;
   end for;
   for i in 1:NConBou loop
-    Q_flow[i+NConExt+2*NConPar] = conBou[i].Q_flow;
+    Q_flow[i + NConExt + 2*NConPar] = conBou[i].Q_flow;
   end for;
   for i in 1:NSurBou loop
-    Q_flow[i+NConExt+2*NConPar+NConBou] = conSurBou[i].Q_flow;
+    Q_flow[i + NConExt + 2*NConPar + NConBou] = conSurBou[i].Q_flow;
   end for;
   for i in 1:NConExtWin loop
-    Q_flow[i+NConExt+2*NConPar+NConBou+NSurBou]            = conExtWin[i].Q_flow;
-    Q_flow[i+NConExt+2*NConPar+NConBou+NSurBou+NConExtWin] = conExtWinFra[i].Q_flow;
+    Q_flow[i + NConExt + 2*NConPar + NConBou + NSurBou] = conExtWin[i].Q_flow;
+    Q_flow[i + NConExt + 2*NConPar + NConBou + NSurBou + NConExtWin] =
+      conExtWinFra[i].Q_flow;
   end for;
   // Windows
   for j in 1:NWin loop
-    Q_flow[j+NOpa] = JOutConExtWin[j];
-    HOutConExtWin[j] = if (AConExtWinGla[j] > 1E-10) then JOutConExtWin[j] / AConExtWinGla[j] else 0;
+    Q_flow[j + NOpa] = JOutConExtWin[j];
+    HOutConExtWin[j] = if (AConExtWinGla[j] > 1E-10) then JOutConExtWin[j]/
+      AConExtWinGla[j] else 0;
   end for;
 
   annotation (
-preferedView="info",
-Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},
-            {240,240}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-240,-240},{240,240}}),
-                                      graphics={
+    preferedView="info",
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
+            240}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
+            240}}), graphics={
         Line(
           points={{-144,-8},{2,-200}},
           color={255,128,0},
@@ -244,7 +259,7 @@ Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},
           lineColor={95,95,95},
           fillColor={85,170,255},
           fillPattern=FillPattern.Solid)}),
-        Documentation(info="<html>
+    Documentation(info="<html>
 <p>
 This model computes the distribution of the solar radiation gain
 to the room surfaces.
@@ -307,8 +322,7 @@ For the glass of the windows, the heat flow rate
 <i>J<sub>out</sub><sup>i</sup></i>
 that will strike the glass or the window shade as diffuse solar
 radiation.
-</html>",
-        revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 November 6, 2011, by Michael Wetter:<br>

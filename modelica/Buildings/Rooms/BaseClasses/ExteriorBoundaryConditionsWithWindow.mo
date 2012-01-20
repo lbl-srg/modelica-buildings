@@ -8,14 +8,12 @@ model ExteriorBoundaryConditionsWithWindow
     annotation (Dialog(group="Frame"));
 
   parameter Modelica.SIunits.Emissivity absSolFra[nCon]
-    "Solar absorptivity of window frame"
-    annotation (Dialog(group="Frame"));
+    "Solar absorptivity of window frame" annotation (Dialog(group="Frame"));
   parameter Modelica.SIunits.Emissivity absIRFra[nCon]
-    "Infrared absorptivity of window frame"
-    annotation (Dialog(group="Frame"));
+    "Infrared absorptivity of window frame" annotation (Dialog(group="Frame"));
   parameter Modelica.SIunits.Emissivity absIRSha_air[nCon]
     "Infrared absorptivity of shade surface that faces air"
-        annotation (Dialog(group="Shading"));
+    annotation (Dialog(group="Shading"));
   parameter Modelica.SIunits.Emissivity absIRSha_glass[nCon]
     "Infrared absorptivity of shade surface that faces glass"
     annotation (Dialog(group="Shading"));
@@ -34,26 +32,26 @@ model ExteriorBoundaryConditionsWithWindow
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
 
-  final parameter Boolean windowHasShade=
-    haveExteriorShade[1] or haveInteriorShade[1]
-    "Set to true if window system has a shade"
+  final parameter Boolean windowHasShade=haveExteriorShade[1] or
+      haveInteriorShade[1] "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
 
   Modelica.Blocks.Interfaces.RealInput uSha[nCon](min=0, max=1) if
-       windowHasShade
+    windowHasShade
     "Control signal for the shading device, 0: unshaded; 1: fully shaded"
     annotation (Placement(transformation(extent={{-340,80},{-300,120}}),
         iconTransformation(extent={{-340,80},{-300,120}})));
 
-  Modelica.Blocks.Interfaces.RealInput QAbsSolSha_flow[nCon](
-    final unit="W", quantity="Power") "Solar radiation absorbed by shade"
+  Modelica.Blocks.Interfaces.RealInput QAbsSolSha_flow[nCon](final unit="W",
+      quantity="Power") "Solar radiation absorbed by shade"
     annotation (Placement(transformation(extent={{-340,40},{-300,80}})));
 
   HeatTransfer.Windows.ExteriorHeatTransfer conExtWin[nCon](
     final A=AWin,
     final fFra=fFra,
-    each final linearizeRadiation = linearizeRadiation,
-    final F_sky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i in 1:nCon},
+    each final linearizeRadiation=linearizeRadiation,
+    final F_sky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for
+        i in 1:nCon},
     final absIRSha_air=absIRSha_air,
     final absIRSha_glass=absIRSha_glass,
     final tauIRSha_air=tauIRSha_air,
@@ -66,8 +64,8 @@ model ExteriorBoundaryConditionsWithWindow
   SkyRadiationExchange skyRadExcWin(
     final n=nCon,
     each final absIR=absIRFra,
-    vieFacSky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i in
-            1:nCon},
+    vieFacSky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i
+         in 1:nCon},
     each final A=AWin .* fFra)
     "Infrared radiative heat exchange between window frame and sky"
     annotation (Placement(transformation(extent={{-140,-282},{-180,-242}})));
@@ -79,47 +77,41 @@ model ExteriorBoundaryConditionsWithWindow
     "Incoming radiosity that connects to unshaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-320,10},{-300,30}}),
         iconTransformation(extent={{-320,10},{-300,30}})));
-  HeatTransfer.Interfaces.RadiosityOutflow JOutSha[nCon] if
-       windowHasShade
+  HeatTransfer.Interfaces.RadiosityOutflow JOutSha[nCon] if windowHasShade
     "Outgoing radiosity that connects to shaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-300,-210},{-320,-190}}),
         iconTransformation(extent={{-300,-210},{-320,-190}})));
-  HeatTransfer.Interfaces.RadiosityInflow JInSha[nCon] if
-       windowHasShade
+  HeatTransfer.Interfaces.RadiosityInflow JInSha[nCon] if windowHasShade
     "Incoming radiosity that connects to shaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-320,-170},{-300,-150}}),
         iconTransformation(extent={{-320,-170},{-300,-150}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaUns[nCon]
-    "Heat port at unshaded glass of exterior-facing surface"
-                                                    annotation (Placement(transformation(extent={{-310,
-            -90},{-290,-70}},
-                       rotation=0), iconTransformation(extent={{-310,-90},{-290,
-            -70}})));
+    "Heat port at unshaded glass of exterior-facing surface" annotation (
+      Placement(transformation(extent={{-310,-90},{-290,-70}}, rotation=0),
+        iconTransformation(extent={{-310,-90},{-290,-70}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a glaSha[nCon] if
-       windowHasShade "Heat port at shaded glass of exterior-facing surface"
-    annotation (Placement(transformation(extent={{-310,-130},{-290,-110}}, rotation=0),
-        iconTransformation(extent={{-310,-130},{-290,-110}})));
+    windowHasShade "Heat port at shaded glass of exterior-facing surface"
+    annotation (Placement(transformation(extent={{-310,-130},{-290,-110}},
+          rotation=0), iconTransformation(extent={{-310,-130},{-290,-110}})));
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a fra[nCon](T(each nominal=
           300, each start=283.15))
-    "Heat port at frame of exterior-facing surface"                                   annotation (Placement(transformation(extent={{-310,
-            -270},{-290,-250}},
-                       rotation=0), iconTransformation(extent={{-310,-270},{-290,
-            -250}})));
-  Modelica.Blocks.Math.Add HTotConExtWinFra[nCon](
-     final k1=fFra .* absSolFra .* AWin,
-     final k2=fFra .* absSolFra .* AWin)
+    "Heat port at frame of exterior-facing surface" annotation (Placement(
+        transformation(extent={{-310,-270},{-290,-250}}, rotation=0),
+        iconTransformation(extent={{-310,-270},{-290,-250}})));
+  Modelica.Blocks.Math.Add HTotConExtWinFra[nCon](final k1=fFra .* absSolFra
+         .* AWin, final k2=fFra .* absSolFra .* AWin)
     "Total solar irradiation on window frame"
     annotation (Placement(transformation(extent={{40,60},{20,80}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow solHeaGaiConWin[nCon]
     "Total solar heat gain of the window frame"
     annotation (Placement(transformation(extent={{0,60},{-20,80}})));
-  Modelica.Blocks.Interfaces.RealOutput HDir[nCon](
-     each final quantity="RadiantEnergyFluenceRate",
-     each final unit="W/m2") "Direct solar irradition on tilted surface"
+  Modelica.Blocks.Interfaces.RealOutput HDir[nCon](each final quantity=
+        "RadiantEnergyFluenceRate", each final unit="W/m2")
+    "Direct solar irradition on tilted surface"
     annotation (Placement(transformation(extent={{300,110},{320,130}})));
-  Modelica.Blocks.Interfaces.RealOutput HDif[nCon](
-     each final quantity="RadiantEnergyFluenceRate",
-     each final unit="W/m2") "Diffuse solar irradiation on tilted surface"
+  Modelica.Blocks.Interfaces.RealOutput HDif[nCon](each final quantity=
+        "RadiantEnergyFluenceRate", each final unit="W/m2")
+    "Diffuse solar irradiation on tilted surface"
     annotation (Placement(transformation(extent={{300,50},{320,70}})));
   Modelica.Blocks.Interfaces.RealOutput inc[nCon](
     each final quantity="Angle",
@@ -128,8 +120,8 @@ model ExteriorBoundaryConditionsWithWindow
     annotation (Placement(transformation(extent={{300,170},{320,190}})));
 
 protected
-  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirConExtWin[
-    nCon] "Outside air temperature for window constructions"
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirConExtWin[nCon]
+    "Outside air temperature for window constructions"
     annotation (Placement(transformation(extent={{160,-90},{120,-50}})));
   Modelica.Blocks.Routing.Replicator repConExtWin(final nout=nCon)
     "Signal replicator"
@@ -141,46 +133,45 @@ protected
     "Signal replicator"
     annotation (Placement(transformation(extent={{140,-22},{120,-2}})));
 equation
-  connect(uSha, conExtWin.uSha)
-                          annotation (Line(
+  connect(uSha, conExtWin.uSha) annotation (Line(
       points={{-320,100},{-140,100},{-140,-40},{40,-40},{40,-66},{22.4,-66}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(JInUns,conExtWin. JInUns) annotation (Line(
+  connect(JInUns, conExtWin.JInUns) annotation (Line(
       points={{-310,20},{-200,20},{-200,-72},{-43,-72}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(conExtWin.JOutUns,JOutUns)  annotation (Line(
+  connect(conExtWin.JOutUns, JOutUns) annotation (Line(
       points={{-43,-66},{-196.45,-66},{-196.45,-20},{-310,-20}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(conExtWin.glaUns,glaUns)  annotation (Line(
+  connect(conExtWin.glaUns, glaUns) annotation (Line(
       points={{-40,-84},{-192,-84},{-192,-80},{-300,-80}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conExtWin.glaSha,glaSha)  annotation (Line(
+  connect(conExtWin.glaSha, glaSha) annotation (Line(
       points={{-40,-96},{-190,-96},{-190,-120},{-300,-120}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conExtWin.JOutSha,JOutSha)  annotation (Line(
+  connect(conExtWin.JOutSha, JOutSha) annotation (Line(
       points={{-43,-108},{-176,-108},{-176,-200},{-310,-200}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(conExtWin.JInSha,JInSha)  annotation (Line(
+  connect(conExtWin.JInSha, JInSha) annotation (Line(
       points={{-43,-114},{-184.45,-114},{-184.45,-160},{-310,-160}},
       color={0,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(conExtWin.frame,fra)  annotation (Line(
+  connect(conExtWin.frame, fra) annotation (Line(
       points={{-31,-120},{-31,-220},{-260,-220},{-260,-260},{-300,-260}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TAirConExtWin.port,conExtWin. air) annotation (Line(
+  connect(TAirConExtWin.port, conExtWin.air) annotation (Line(
       points={{120,-70},{90,-70},{90,-90},{20,-90}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TAirConExtWin.T,repConExtWin. y) annotation (Line(
+  connect(TAirConExtWin.T, repConExtWin.y) annotation (Line(
       points={{164,-70},{179,-70}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -191,11 +182,11 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(repConExtWinF_clr.y,conExtWin. f_clr) annotation (Line(
+  connect(repConExtWinF_clr.y, conExtWin.f_clr) annotation (Line(
       points={{119,-130},{94.5,-130},{94.5,-114},{22.4,-114}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(repConExtWinVWin.y,conExtWin. vWin) annotation (Line(
+  connect(repConExtWinVWin.y, conExtWin.vWin) annotation (Line(
       points={{119,-12},{108,-12},{108,-78},{22.4,-78}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -219,6 +210,7 @@ equation
       smooth=Smooth.None));
   connect(solHeaGaiConWin.port, fra) annotation (Line(
       points={{-20,70},{-60,70},{-60,-220},{-260,-220},{-260,-260},{-300,-260}},
+
       color={191,0,0},
       smooth=Smooth.None));
   connect(HDirTil.H, HDir) annotation (Line(
@@ -245,16 +237,14 @@ equation
       points={{-10,-123},{-10,-140},{-160,-140},{-160,60},{-320,60}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(skyRadExcWin.TOut, weaBus.TDryBul)
-                                          annotation (Line(
+  connect(skyRadExcWin.TOut, weaBus.TDryBul) annotation (Line(
       points={{-136,-270},{244,-270},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(skyRadExcWin.TBlaSky, weaBus.TBlaSky)
-                                             annotation (Line(
+  connect(skyRadExcWin.TBlaSky, weaBus.TBlaSky) annotation (Line(
       points={{-136,-254},{244,-254},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
@@ -265,7 +255,8 @@ equation
       points={{-180,-260.4},{-242,-260.4},{-242,-260},{-300,-260}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Icon(graphics={
+  annotation (
+    Icon(graphics={
         Rectangle(
           extent={{-220,180},{-160,-102}},
           lineColor={0,0,0},

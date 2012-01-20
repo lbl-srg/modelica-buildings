@@ -4,8 +4,7 @@ record ParameterConstruction
   extends Buildings.Rooms.BaseClasses.PartialParameterConstruction;
   parameter Modelica.SIunits.Area A "Heat transfer area";
 
-  annotation (
-Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 This data record is used to set the parameters of constructions that do not have a window.
 </p>

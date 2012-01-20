@@ -2,18 +2,16 @@ within Buildings.Rooms.BaseClasses;
 model HeatGain "Model to convert internal heat gain signals"
   extends Buildings.BaseClasses.BaseIcon;
 
-  replaceable package Medium =
-     Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium in the component" annotation (choicesAllMatching=true);
 
   parameter Modelica.SIunits.Area AFlo "Floor area";
-  parameter Modelica.SIunits.Temperature TWat=273.15+34
+  parameter Modelica.SIunits.Temperature TWat=273.15 + 34
     "Temperature at which water vapor is released";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a QCon_flow
-    "Convective heat gain"    annotation (Placement(transformation(extent={{90,-10},
-            {110,10}},         rotation=0), iconTransformation(extent={{90,-10},
-            {110,10}})));
+    "Convective heat gain" annotation (Placement(transformation(extent={{90,-10},
+            {110,10}}, rotation=0), iconTransformation(extent={{90,-10},{110,10}})));
 
 public
   Modelica.Blocks.Interfaces.RealInput qGai_flow[3]
@@ -22,34 +20,34 @@ public
   Modelica.Blocks.Interfaces.RealOutput QRad_flow "Radiative heat gain"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
   Modelica.Fluid.Interfaces.FluidPort_b QLat_flow(redeclare final package
-      Medium =
-        Medium) "Latent heat gain"
+      Medium = Medium) "Latent heat gain"
     annotation (Placement(transformation(extent={{90,-70},{110,-50}})));
 protected
   Modelica.SIunits.MassFlowRate mWat_flow
     "Water vapor flow rate released by latent gain";
 
-  parameter Modelica.SIunits.SpecificEnergy h_fg = Medium.enthalpyOfCondensingGas(TWat)
-    "Latent heat of water vapor";
- // constant Medium.MassFraction Xi[Medium.nXi] = {1}
- //   "Species concentration (water vapor only)";
+  parameter Modelica.SIunits.SpecificEnergy h_fg=Medium.enthalpyOfCondensingGas(
+      TWat) "Latent heat of water vapor";
+  // constant Medium.MassFraction Xi[Medium.nXi] = {1}
+  //   "Species concentration (water vapor only)";
 
 protected
   parameter Real s[Medium.nX](fixed=false)
     "Vector with zero everywhere except where water vapor is";
 initial algorithm
   for i in 1:Medium.nX loop
-    if ( Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2="water",
-                                            caseSensitive=false)) then
-      s[i] :=1;
+    if (Modelica.Utilities.Strings.isEqual(
+        string1=Medium.substanceNames[i],
+        string2="water",
+        caseSensitive=false)) then
+      s[i] := 1;
     else
-      s[i] :=0;
+      s[i] := 0;
     end if;
-   end for;
-   assert(Medium.nX == 1 or abs(1-sum(s)) < 1E-4, "Substance 'water' is not present in medium '"
-                  + Medium.mediumName + "'.\n"
-                  + "Change medium model to one that has 'water' as a substance.");
+  end for;
+  assert(Medium.nX == 1 or abs(1 - sum(s)) < 1E-4,
+    "Substance 'water' is not present in medium '" + Medium.mediumName + "'.\n"
+     + "Change medium model to one that has 'water' as a substance.");
 equation
   QRad_flow = qGai_flow[1]*AFlo;
   QCon_flow.Q_flow = -qGai_flow[2]*AFlo;
@@ -62,14 +60,13 @@ equation
     mWat_flow = qGai_flow[3]*AFlo/h_fg;
   end if;
 
-  QLat_flow.C_outflow  = fill(0, Medium.nC);
-  QLat_flow.h_outflow  = h_fg;
+  QLat_flow.C_outflow = fill(0, Medium.nC);
+  QLat_flow.h_outflow = h_fg;
   QLat_flow.Xi_outflow = s[1:Medium.nXi];
-  QLat_flow.m_flow     = if (h_fg > 0) then
-                           -qGai_flow[3]*AFlo/h_fg else
-                            0;
+  QLat_flow.m_flow = if (h_fg > 0) then -qGai_flow[3]*AFlo/h_fg else 0;
 
- annotation(Documentation(info="<html>
+  annotation (
+    Documentation(info="<html>
 This model computes the radiant, convective and latent heat flow.
 Input into this model are these three components in units of [W/m2].
 The inputs need to be positive quantities if heat or moisture is added
@@ -89,8 +86,7 @@ the water vapor released into the air.
 If the medium model does not contain water vapor, then
 the water vapor released into the air is zero, i.e., 
 the mass flow rate at the fluid port is equal to zero.
-</html>",
-        revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 December 6, 2011, by Michael Wetter:<br>
@@ -107,12 +103,13 @@ June 9, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"), Icon(graphics={
-            Rectangle(
-            extent={{-100,100},{100,-100}},
-            lineColor={0,0,0},
-            fillColor={255,255,255},
-            fillPattern=FillPattern.Solid),
+</html>"),
+    Icon(graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Line(
           points={{-48,-66},{-24,-18},{0,-68}},
           color={0,0,255},
@@ -129,7 +126,7 @@ First implementation.
           points={{-24,38},{8,22}},
           color={0,0,255},
           smooth=Smooth.None),
-        Ellipse(extent={{-40,76},{-8,46}},  lineColor={0,0,255}),
+        Ellipse(extent={{-40,76},{-8,46}}, lineColor={0,0,255}),
         Text(
           extent={{-98,30},{-38,-26}},
           lineColor={0,0,127},
@@ -146,7 +143,7 @@ First implementation.
           extent={{12,-46},{86,-68}},
           lineColor={0,0,127},
           textString="mLat_flow")}),
-        Documentation(info = "<html>
+    Documentation(info="<html>
 This is a dummy model that is required to implement the room
 model with a variable number of surface models.
 The model is required since arrays of models, such as used for the surfaces
@@ -157,8 +154,7 @@ However, conditionally removing the surface models does not work in this
 situation since some models, such as for computing the radiative heat exchange
 between the surfaces, require access to the area and absorptivity of the surface models.
 
-</html>",
-        revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 February 22, by Michael Wetter:<br>

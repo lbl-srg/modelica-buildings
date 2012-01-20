@@ -2,59 +2,66 @@ within Buildings.Rooms.BaseClasses;
 model InfraredRadiationExchange
   "Infrared radiation heat exchange between the room facing surfaces"
   extends Buildings.Rooms.BaseClasses.PartialSurfaceInterface;
-
   parameter Boolean linearizeRadiation
     "Set to true to linearize emissive power";
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-
+  parameter Boolean homotopyInitialization=true "= true, use homotopy method"
+    annotation (Evaluate=true,Dialog(tab="Advanced"));
   HeatTransfer.Interfaces.RadiosityInflow JInConExtWin[NConExtWin]
     "Incoming radiosity that connects to non-frame part of the window"
     annotation (Placement(transformation(extent={{260,70},{240,90}})));
   HeatTransfer.Interfaces.RadiosityOutflow JOutConExtWin[NConExtWin]
     "Outgoing radiosity that connects to non-frame part of the window"
     annotation (Placement(transformation(extent={{240,110},{260,130}})));
-
 protected
-  final parameter Integer NOpa = NConExt+2*NConExtWin+2*NConPar+NConBou+NSurBou
-    "Number of opaque surfaces, including the window frame";
-  final parameter Integer nOpa = nConExt+2*nConExtWin+2*nConPar+nConBou+nSurBou
-    "Number of opaque surfaces, including the window frame";
-  final parameter Integer NWin = NConExtWin "Number of window surfaces";
-  final parameter Integer nWin = nConExtWin "Number of window surfaces";
-  final parameter Integer NTot = NOpa + NWin "Total number of surfaces";
-  final parameter Integer nTot = nOpa + nWin "Total number of surfaces";
-  final parameter Real epsOpa[nOpa](min=0, max=1, fixed=false)
-    "Absorptivity of opaque surfaces";
-  final parameter Real rhoOpa[nOpa](min=0, max=1, fixed=false)
-    "Reflectivity of opaque surfaces";
+  final parameter Integer NOpa=NConExt + 2*NConExtWin + 2*NConPar + NConBou +
+      NSurBou "Number of opaque surfaces, including the window frame";
+  final parameter Integer nOpa=nConExt + 2*nConExtWin + 2*nConPar + nConBou +
+      nSurBou "Number of opaque surfaces, including the window frame";
+  final parameter Integer NWin=NConExtWin "Number of window surfaces";
+  final parameter Integer nWin=nConExtWin "Number of window surfaces";
+  final parameter Integer NTot=NOpa + NWin "Total number of surfaces";
+  final parameter Integer nTot=nOpa + nWin "Total number of surfaces";
+  final parameter Real epsOpa[nOpa](
+    min=0,
+    max=1,
+    fixed=false) "Absorptivity of opaque surfaces";
+  final parameter Real rhoOpa[nOpa](
+    min=0,
+    max=1,
+    fixed=false) "Reflectivity of opaque surfaces";
   final parameter Modelica.SIunits.Area AOpa[nOpa](fixed=false)
     "Surface area of opaque surfaces";
   final parameter Modelica.SIunits.Area A[nTot](fixed=false) "Surface areas";
   final parameter Real kOpa[nOpa](unit="W/K4", fixed=false)
     "Product sigma*epsilon*A for opaque surfaces";
-  final parameter Real F[nTot,nTot](min=0, max=1, fixed=false)
-    "View factor from surface i to j";
-
-  Modelica.SIunits.HeatFlowRate J[nTot](max=0, start=A.*0.8*Modelica.Constants.sigma*293.15^4,
-     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
+  final parameter Real F[nTot, nTot](
+    min=0,
+    max=1,
+    fixed=false) "View factor from surface i to j";
+  Modelica.SIunits.HeatFlowRate J[nTot](
+    max=0,
+    start=A .* 0.8*Modelica.Constants.sigma*293.15^4,
+    each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity leaving the surface";
-  Modelica.SIunits.HeatFlowRate G[nTot](min=0, start=A.*0.8*Modelica.Constants.sigma*293.15^4,
-     each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
+  Modelica.SIunits.HeatFlowRate G[nTot](
+    min=0,
+    start=A .* 0.8*Modelica.Constants.sigma*293.15^4,
+    each nominal=10*0.8*Modelica.Constants.sigma*293.15^4)
     "Radiosity entering the surface";
   constant Real T40(unit="K4") = 293.15^4 "Nominal temperature";
-  Modelica.SIunits.Temperature TOpa[nOpa](each start=293.15, each nominal=293.15)
-    "Temperature of opaque surfaces";
-  Real T4Opa[nOpa](each unit="K4", each start=T40, each nominal=293.15^4)
-    "Forth power of temperature of opaque surfaces";
+  Modelica.SIunits.Temperature TOpa[nOpa](each start=293.15, each nominal=
+        293.15) "Temperature of opaque surfaces";
+  Real T4Opa[nOpa](
+    each unit="K4",
+    each start=T40,
+    each nominal=293.15^4) "Forth power of temperature of opaque surfaces";
   Modelica.SIunits.HeatFlowRate Q_flow[nTot] "Heat flow rate at surfaces";
-
   parameter Modelica.SIunits.Temperature T0=293.15
     "Temperature used to linearize radiative heat transfer";
-  final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"
- annotation(Evaluate=true);
+  final parameter Real T03(
+    min=0,
+    unit="K3") = T0^3 "3rd power of temperature T0" annotation (Evaluate=true);
   Modelica.SIunits.HeatFlowRate sumEBal "Sum of energy balance, should be zero";
-
 initial equation
   // The next loops build the array epsOpa, AOpa and kOpa that simplify
   // the model equations.
@@ -64,37 +71,45 @@ initial equation
   // The last two entries are for the opaque wall that contains a window, and for the window frame.
   for i in 1:nConExt loop
     epsOpa[i] = epsConExt[i];
-    AOpa[i]   = AConExt[i];
-    kOpa[i]   = Modelica.Constants.sigma * epsConExt[i] *AOpa[i];
+    AOpa[i] = AConExt[i];
+    kOpa[i] = Modelica.Constants.sigma*epsConExt[i]*AOpa[i];
   end for;
   for i in 1:nConPar loop
-    epsOpa[i+nConExt]         = epsConPar_a[i];
-    AOpa[i+nConExt]           = AConPar[i];
-    kOpa[i+nConExt]           = Modelica.Constants.sigma * epsConPar_a[i] *AOpa[i+nConExt];
-    epsOpa[i+nConExt+nConPar] = epsConPar_b[i];
-    AOpa[i+nConExt+nConPar]   = AConPar[i];
-    kOpa[i+nConExt+nConPar]   = Modelica.Constants.sigma * epsConPar_b[i] *AOpa[i+nConExt+nConPar];
+    epsOpa[i + nConExt] = epsConPar_a[i];
+    AOpa[i + nConExt] = AConPar[i];
+    kOpa[i + nConExt] = Modelica.Constants.sigma*epsConPar_a[i]*AOpa[i +
+      nConExt];
+    epsOpa[i + nConExt + nConPar] = epsConPar_b[i];
+    AOpa[i + nConExt + nConPar] = AConPar[i];
+    kOpa[i + nConExt + nConPar] = Modelica.Constants.sigma*epsConPar_b[i]*AOpa[
+      i + nConExt + nConPar];
   end for;
   for i in 1:nConBou loop
-    epsOpa[i+nConExt+2*nConPar] = epsConBou[i];
-    AOpa[i+nConExt+2*nConPar]   = AConBou[i];
-    kOpa[i+nConExt+2*nConPar]   = Modelica.Constants.sigma * epsConBou[i] *AOpa[i+nConExt+2*nConPar];
+    epsOpa[i + nConExt + 2*nConPar] = epsConBou[i];
+    AOpa[i + nConExt + 2*nConPar] = AConBou[i];
+    kOpa[i + nConExt + 2*nConPar] = Modelica.Constants.sigma*epsConBou[i]*AOpa[
+      i + nConExt + 2*nConPar];
   end for;
   for i in 1:nSurBou loop
-    epsOpa[i+nConExt+2*nConPar+nConBou] = epsSurBou[i];
-    AOpa[i+nConExt+2*nConPar+nConBou]   = ASurBou[i];
-    kOpa[i+nConExt+2*nConPar+nConBou]   = Modelica.Constants.sigma * epsSurBou[i] *AOpa[i+nConExt+2*nConPar+nConBou];
+    epsOpa[i + nConExt + 2*nConPar + nConBou] = epsSurBou[i];
+    AOpa[i + nConExt + 2*nConPar + nConBou] = ASurBou[i];
+    kOpa[i + nConExt + 2*nConPar + nConBou] = Modelica.Constants.sigma*
+      epsSurBou[i]*AOpa[i + nConExt + 2*nConPar + nConBou];
   end for;
-
   for i in 1:nConExtWin loop
     // Opaque part of construction that has a window embedded
-    epsOpa[i+nConExt+2*nConPar+nConBou+nSurBou] = epsConExtWinOpa[i];
-    AOpa[i+nConExt+2*nConPar+nConBou+nSurBou]   = AConExtWinOpa[i];
-    kOpa[i+nConExt+2*nConPar+nConBou+nSurBou]   = Modelica.Constants.sigma * epsConExtWinOpa[i] *AOpa[i+nConExt+2*nConPar+nConBou+nSurBou];
+    epsOpa[i + nConExt + 2*nConPar + nConBou + nSurBou] = epsConExtWinOpa[i];
+    AOpa[i + nConExt + 2*nConPar + nConBou + nSurBou] = AConExtWinOpa[i];
+    kOpa[i + nConExt + 2*nConPar + nConBou + nSurBou] = Modelica.Constants.sigma
+      *epsConExtWinOpa[i]*AOpa[i + nConExt + 2*nConPar + nConBou + nSurBou];
     // Window frame
-    epsOpa[i+nConExt+2*nConPar+nConBou+nSurBou+nConExtWin] = epsConExtWinFra[i];
-    AOpa[i+nConExt+2*nConPar+nConBou+nSurBou+nConExtWin]   = AConExtWinFra[i];
-    kOpa[i+nConExt+2*nConPar+nConBou+nSurBou+nConExtWin]   = Modelica.Constants.sigma * epsConExtWinFra[i] *AOpa[i+nConExt+2*nConPar+nConBou+nSurBou+nConExtWin];
+    epsOpa[i + nConExt + 2*nConPar + nConBou + nSurBou + nConExtWin] =
+      epsConExtWinFra[i];
+    AOpa[i + nConExt + 2*nConPar + nConBou + nSurBou + nConExtWin] =
+      AConExtWinFra[i];
+    kOpa[i + nConExt + 2*nConPar + nConBou + nSurBou + nConExtWin] = Modelica.Constants.sigma
+      *epsConExtWinFra[i]*AOpa[i + nConExt + 2*nConPar + nConBou + nSurBou +
+      nConExtWin];
   end for;
   // Vector with all surface areas.
   // The next loops build the array A that simplifies
@@ -107,26 +122,24 @@ initial equation
     A[i] = AOpa[i];
   end for;
   for i in 1:nWin loop
-    A[i+nOpa] = AConExtWinGla[i];
+    A[i + nOpa] = AConExtWinGla[i];
   end for;
   // Reflectivity for opaque surfaces
   rhoOpa = 1 .- epsOpa;
-
- // View factors from surface i to surface j
+  // View factors from surface i to surface j
   for i in 1:nTot loop
-     for j in 1:nTot loop
-       F[i,j] = A[j] /sum((A[k]) for k in 1:nTot);
-     end for;
+    for j in 1:nTot loop
+      F[i, j] = A[j]/sum((A[k]) for k in 1:nTot);
+    end for;
   end for;
-
   // Test whether the view factors add up to one, or the sum is zero in case there
   // is only one construction
   for i in 1:nTot loop
-    assert((abs(1-sum(F[i,j] for j in 1:nTot))) < 1E-10,
-           "Program error: Sum 1 of view factors is " + String(sum(F[i,j] for j in 1:nTot)));
+    assert((abs(1 - sum(F[i, j] for j in 1:nTot))) < 1E-10,
+      "Program error: Sum 1 of view factors is " + String(sum(F[i, j] for j in
+      1:nTot)));
   end for;
-
-////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////
 equation
   // If the room has no window, then the incoming radiosity from the window
   // is not connected. In this situation, we set it to zero.
@@ -136,51 +149,53 @@ equation
   if (cardinality(JInConExtWin) == 0) then
     JInConExtWin = zeros(NConExtWin);
   end if;
-
   // Assign temperature of opaque surfaces
   for i in 1:nConExt loop
     TOpa[i] = conExt[i].T;
   end for;
   for i in 1:nConPar loop
-    TOpa[i+nConExt]         = conPar_a[i].T;
-    TOpa[i+nConExt+nConPar] = conPar_b[i].T;
+    TOpa[i + nConExt] = conPar_a[i].T;
+    TOpa[i + nConExt + nConPar] = conPar_b[i].T;
   end for;
   for i in 1:nConBou loop
-    TOpa[i+nConExt+2*nConPar] = conBou[i].T;
+    TOpa[i + nConExt + 2*nConPar] = conBou[i].T;
   end for;
   for i in 1:nSurBou loop
-    TOpa[i+nConExt+2*nConPar+nConBou] = conSurBou[i].T;
+    TOpa[i + nConExt + 2*nConPar + nConBou] = conSurBou[i].T;
   end for;
   for i in 1:nConExtWin loop
-    TOpa[i+nConExt+2*nConPar+nConBou+nSurBou]            = conExtWin[i].T;
-    TOpa[i+nConExt+2*nConPar+nConBou+nConExtWin+nSurBou] = conExtWinFra[i].T;
+    TOpa[i + nConExt + 2*nConPar + nConBou + nSurBou] = conExtWin[i].T;
+    TOpa[i + nConExt + 2*nConPar + nConBou + nConExtWin + nSurBou] =
+      conExtWinFra[i].T;
   end for;
   // Incoming radiosity at each surface
   // is equal to the negative of the outgoing radiosity of
   // all other surfaces times the view factor
-   G = -transpose(F)*J;
-
+  G = -transpose(F)*J;
   // Outgoing radiosity
   // Opaque surfaces.
   // If kOpa[j]=absIR[j]*A[j] < 1E-28, then A < 1E-20 and the surface is
   // from a dummy construction. In this situation, we set T40=293.15^4 to
   // avoid a singularity.
   for j in 1:nOpa loop
-   //   T4Opa[j] = if (kOpa[j] > 1E-28) then (Q_flow[j]-epsOpa[j] * G[j])/kOpa[j] else T40;
-    T4Opa[j] = (-J[j]-rhoOpa[j] * G[j])/kOpa[j];
+    //   T4Opa[j] = if (kOpa[j] > 1E-28) then (Q_flow[j]-epsOpa[j] * G[j])/kOpa[j] else T40;
+    T4Opa[j] = (-J[j] - rhoOpa[j]*G[j])/kOpa[j];
   end for;
-
   // 4th power of temperature
   if linearizeRadiation then
-    TOpa = T4Opa./T03;
+    TOpa = T4Opa ./ T03;
   else
     if homotopyInitialization then
-      TOpa = homotopy(actual=Buildings.Utilities.Math.Functions.powerLinearized(x=T4Opa, x0=243.15^4, n=0.25),
-        simplified=T4Opa./T03);
+      TOpa = homotopy(actual=Buildings.Utilities.Math.Functions.powerLinearized(
+        x=T4Opa,
+        x0=243.15^4,
+        n=0.25), simplified=T4Opa ./ T03);
     else
-      TOpa = Buildings.Utilities.Math.Functions.powerLinearized(x=T4Opa, x0=243.15^4, n=0.25);
+      TOpa = Buildings.Utilities.Math.Functions.powerLinearized(
+        x=T4Opa,
+        x0=243.15^4,
+        n=0.25);
     end if;
-
   end if;
   // Assign radiosity that comes from window
   // and that leaves window.
@@ -189,12 +204,11 @@ equation
   // JIn > 0 because it enters the model
   // JOut < 0 because it leaves the model
   for j in 1:nWin loop
-    J[j+nOpa] = -JInConExtWin[j];
-    G[j+nOpa] = -JOutConExtWin[j];
+    J[j + nOpa] = -JInConExtWin[j];
+    G[j + nOpa] = -JOutConExtWin[j];
   end for;
   // Net heat exchange
-  Q_flow = -J-G;
-
+  Q_flow = -J - G;
   // Assign heat exchange to connectors
   for i in 1:nConExt loop
     Q_flow[i] = conExt[i].Q_flow;
@@ -203,49 +217,49 @@ equation
     conExt[1].T = T0;
   end if;
   for i in 1:nConPar loop
-    Q_flow[i+nConExt]         = conPar_a[i].Q_flow;
-    Q_flow[i+nConExt+nConPar] = conPar_b[i].Q_flow;
+    Q_flow[i + nConExt] = conPar_a[i].Q_flow;
+    Q_flow[i + nConExt + nConPar] = conPar_b[i].Q_flow;
   end for;
   if nConPar == 0 then
     conPar_a[1].T = T0;
     conPar_b[1].T = T0;
   end if;
   for i in 1:nConBou loop
-    Q_flow[i+nConExt+2*nConPar] = conBou[i].Q_flow;
+    Q_flow[i + nConExt + 2*nConPar] = conBou[i].Q_flow;
   end for;
   if nConBou == 0 then
     conBou[1].T = T0;
   end if;
   for i in 1:nSurBou loop
-    Q_flow[i+nConExt+2*nConPar+nConBou] = conSurBou[i].Q_flow;
+    Q_flow[i + nConExt + 2*nConPar + nConBou] = conSurBou[i].Q_flow;
   end for;
   if nSurBou == 0 then
     conSurBou[1].T = T0;
   end if;
   for i in 1:nConExtWin loop
-    Q_flow[i+nConExt+2*nConPar+nConBou+nSurBou]            = conExtWin[i].Q_flow;
-    Q_flow[i+nConExt+2*nConPar+nConBou+nSurBou+nConExtWin] = conExtWinFra[i].Q_flow;
+    Q_flow[i + nConExt + 2*nConPar + nConBou + nSurBou] = conExtWin[i].Q_flow;
+    Q_flow[i + nConExt + 2*nConPar + nConBou + nSurBou + nConExtWin] =
+      conExtWinFra[i].Q_flow;
   end for;
   if nConExtWin == 0 then
     conExtWin[1].T = T0;
     conExtWinFra[1].T = T0;
     JOutConExtWin[1] = 0;
   end if;
-
   // Sum of energy balance
   // Remove sumEBal and assert statement for final release
-  sumEBal = sum(conExt.Q_flow)+sum(conPar_a.Q_flow)+sum(conPar_b.Q_flow)
-    +sum(conBou.Q_flow)+sum(conSurBou.Q_flow)+sum(conExtWin.Q_flow)+sum(conExtWinFra.Q_flow)
-    +(sum(JInConExtWin)+sum(JOutConExtWin));
-  assert(abs(sumEBal) < 1E-1, "Program error: Energy is not conserved in InfraredRadiationExchange."
-   + "\n  Sum of all energy is " + String(sumEBal));
+  sumEBal = sum(conExt.Q_flow) + sum(conPar_a.Q_flow) + sum(conPar_b.Q_flow) +
+    sum(conBou.Q_flow) + sum(conSurBou.Q_flow) + sum(conExtWin.Q_flow) + sum(
+    conExtWinFra.Q_flow) + (sum(JInConExtWin) + sum(JOutConExtWin));
+  assert(abs(sumEBal) < 1E-1,
+    "Program error: Energy is not conserved in InfraredRadiationExchange." +
+    "\n  Sum of all energy is " + String(sumEBal));
   annotation (
-preferedView="info",
-Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,
-            -240},{240,240}}),
-                      graphics), Icon(coordinateSystem(preserveAspectRatio=true,
-          extent={{-240,-240},{240,240}}),
-                                      graphics={
+    preferedView="info",
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
+            240}}), graphics),
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
+            240}}), graphics={
         Line(
           points={{-144,-8},{146,-8}},
           color={255,0,0},
@@ -276,8 +290,7 @@ Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,
           color={255,0,0},
           smooth=Smooth.None,
           thickness=0.5)}),
-Documentation(
-info="<html>
+    Documentation(info="<html>
 <p>
 This model computes the infrared radiative heat transfer between the interior
 surfaces of a room. Each opaque surface emits radiation according to
@@ -347,8 +360,7 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 <p align=\"center\" style=\"font-style:italic;\">
   F<sup>i,j</sup> = A<sup>j</sup> &frasl; &sum;<sub>k </sub> A<sup>k</sup>.
 </p>
-</html>",
-revisions="<html>
+</html>", revisions="<html>
 <ul>
 <li>
 April 21, 2011 by Michael Wetter:<br>
