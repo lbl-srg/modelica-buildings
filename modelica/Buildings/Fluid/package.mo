@@ -147,22 +147,22 @@ Similarly, for the energy balance, the following configurations can be selected:
 <tr>
   <td>DynamicsFreeInitial</td>
   <td>Unspecified</td>
-  <td><i>dU(t)/dt = &sum; m&#775;(t) &nbsp; h(t) + &sum; Q&#775;(t)</i></td>
+  <td><i>dU(t)/dt = &sum; m&#775;(t) &nbsp; h(t) + Q&#775;(t)</i></td>
 </tr>
 <tr>
   <td>FixedInitial</td>
   <td><i>T(0)=T<sub>0</sub></i></td>
-  <td><i>dU(t)/dt = &sum; m&#775;(t) &nbsp; h(t) + &sum; Q&#775;(t)</i></td>
+  <td><i>dU(t)/dt = &sum; m&#775;(t) &nbsp; h(t) + Q&#775;(t)</i></td>
 </tr>
 <tr>
   <td>SteadyStateInitial</td>
   <td><i>dT(0)/dt=0</i></td>
-  <td><i>dU(t)/dt = &sum; m&#775;(t) &nbsp; h(t) + &sum; Q&#775;(t)</i></td>
+  <td><i>dU(t)/dt = &sum; m&#775;(t) &nbsp; h(t) + Q&#775;(t)</i></td>
 </tr>
 <tr>
   <td>SteadyState</td>
   <td>Unspecified</td>
-  <td><i>0 = &sum; m&#775;(t) &nbsp; h(t) + &sum; Q&#775;(t)</i></td>
+  <td><i>0 = &sum; m&#775;(t) &nbsp; h(t) + Q&#775;(t)</i></td>
 </tr>
 </table>
 <p>
