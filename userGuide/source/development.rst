@@ -18,7 +18,7 @@ Models that are contributed need to follow the following guidelines, as this is 
   - the `Buildings` library `development checklist <https://corbu.lbl.gov/trac/bie/wiki/DevelopmentCheckList>`_.
 
  * They need to be made available under the `Modelica license <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License>`_.
- * For models of fluid flow components, they need to be based on the base classes in `Modelica.Fluid.Interfaces <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html>`_, which are described in the `User's Guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ of this package. Otherwise, it becomes very difficult to ensure that the implementation is numerically robust.
+ * For models of fluid flow components, they need to be based on the base classes in `Buildings.Fluid.Interfaces <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html>`_, which are described in the `user guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ of this package. Otherwise, it becomes difficult to ensure that the implementation is numerically robust.
 
 The web site for the development of the library is https://corbu.lbl.gov/trac/bie
 
@@ -26,7 +26,7 @@ The web site for the development of the library is https://corbu.lbl.gov/trac/bi
 Adding a new class
 ------------------
 
-Adding a new class, such as a model or a function, is usually easiest by extending, or copying and modifying, an existing class. In many cases, a similar component already exists. In this situation, it is recommended to copy and modify a similar component. If they share a significant amount of similar code, then a base class should be introduced that implements the common code. See for example `Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor>`_ which is shared by all sensors with one fluid port in the package `Buildings.Fluid.Sensors <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_.
+Adding a new class, such as a model or a function, is usually easiest by extending, or copying and modifying, an existing class. In many cases, the similar component already exists. In this situation, it is recommended to copy and modify a similar component. If both components share a significant amount of similar code, then a base class should be introduced that implements the common code. See for example `Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor>`_ which is shared by all sensors with one fluid port in the package `Buildings.Fluid.Sensors <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors>`_.
 
 The next sections give guidance that is specific to the implementation of thermofluid flow devices and to pressure drop models.
 
@@ -55,8 +55,7 @@ Pressure drop
 
 When implementing equations for pressure drop, it is recommended
 to expand the base class 
-`Buildings.Fluid.BaseClasses.PartialResistance <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance>`_, or 
-to follow a similar implementation.
+`Buildings.Fluid.BaseClasses.PartialResistance <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance>`_.
 Models should allow computing the flow resistance as a quadratic function 
 with regularization near zero as implemented in
 `Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp>`_ and in
@@ -68,10 +67,12 @@ The governing equation is
    k = \frac{\dot m}{\sqrt{\Delta p}}
 
 with regularization near zero to avoid that the limit
-:math:`{d \Delta p}/{d \dot m}` tends to infinity as :math:`\dot m \to 0`,
-as this can cause Newton-based solvers to stall near zero.
+:math:`{d \dot m}/{d \Delta p}` tends to infinity as :math:`\dot m \to 0`,
+as this can cause Newton-based solvers to stall.
 For fixed flow resistances, :math:`k` is typically computed based on nominal
-conditions such as :math:`k = \dot m_0/\sqrt{\Delta p_0}`
+conditions such as :math:`k = \dot m_0/\sqrt{\Delta p_0}`,
+where :math:`\dot m_0` is equal to the parameter ``m_flow_nominal`` and
+:math:`\Delta p_0` is equal to the parameter ``dp_nominal.``
 
 All pressure drop models should also provide a parameter that allows replacing
 the equation by a linear model of the form
@@ -79,9 +80,6 @@ the equation by a linear model of the form
 .. math::
 
    \dot m \, \dot m_0 = \bar k^2 \, \Delta p
-
-Hence, for the linearized implementation, the flow coefficient is 
-defined as :math:`\bar k = \dot m_0/\Delta p_0`.
 
 .. note::
 
@@ -94,7 +92,7 @@ defined as :math:`\bar k = \dot m_0/\Delta p_0`.
 
 When implementing the pressure drop model, also provide means
 
-1. to use homotopty, which should be used by default, and
+1. to use homotopy, which should be used by default, and
 2. to disable the pressure drop model.
 
 Disabling the pressure drop model allows for example a user to 

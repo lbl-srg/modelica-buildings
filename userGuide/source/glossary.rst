@@ -14,3 +14,9 @@ Glossary
 
    compressible flow
       The opposite of :term:`incompressible flow`.
+
+   thermo-fluid system
+      Thermo-fluid systems are systems that compute combined mass and energy flow, such as a heat exchanger in which heat is added to the medium that flows through it.
+
+   state variables
+      State variables are variables whose time rate of change is defined by a differential equation.
