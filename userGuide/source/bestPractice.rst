@@ -12,7 +12,7 @@ If during the course of the development of application-specific models, some mod
 
 
 Building large system models
----------------------------
+----------------------------
 
 When creating a large system model, it is typically easiest to build the system model through the composition of subsystem models that can be tested in isolation. For example, the package `Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples>`_
 contains small test models that were used to test individual components for use in the large system model `Buildings.Examples.ChillerPlant <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant>`_.
@@ -323,7 +323,7 @@ However, since the thermal expansion of the fluid is usually small, this effect 
    of the medium.
 
 Nominal Values
---------------
+~~~~~~~~~~~~~~
 
 Most components have a parameters for the nominal operating conditions.
 These parameters have names that end in ``_nominal`` and they should be set to the values that the component typically 
@@ -478,7 +478,7 @@ where ``tau``>0 is a time constant. See for example
 for a robust implementation.
 
 .. note::
-   In the package `Buildings.Utilities.Math <http://http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_ the functions and blocks whose name starts with ``smooth`` can be used to avoid events.
+   In the package `Buildings.Utilities.Math <http://http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_ the functions and blocks whose names start with ``smooth`` can be used to avoid events.
 
 
 Numerical solvers
