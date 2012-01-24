@@ -40,7 +40,7 @@ If in thermofluid flow systems, Dymola fails to translate a model with the error
    refers to variables, which are all knowns.
    To correct it you can remove this equation.
 
-The the initialization problem is overspecified. To avoid this, set
+then the initialization problem is overspecified. To avoid this, set
 
 .. code-block:: modelica
 

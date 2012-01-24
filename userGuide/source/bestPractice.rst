@@ -354,16 +354,18 @@ parameters in various model to help the user understand how they are used.
 |                     |                           | implemented in such a way that they are numerically well-behaved         |
 |                     |                           | for zero or near-zero flow rates.                                        |
 +---------------------+---------------------------+--------------------------------------------------------------------------+
-| ``tau``             | | Sensors.                | Because Modelica simulates in the continuous-time domain, it is          |
-| ``m_flow_nominal``  | | Volumes.                | generally more efficient to have dynamic models as opposed to            |
-|                     | | Heat exchangers.        | steady-state models. However, it would be tedious to define what         |
-|                     | | Chillers.               | volume of fluid is contained in a device, and what fraction of           |
-|                     |                           | its mass contributes to the thermally active mass that influences        |
-|                     |                           | the dynamic response. Such a parametrization would also require          |
-|                     |                           | product data that is not published by manufacturers.                     |
+| ``tau``             | | Sensors.                | Because Modelica simulates in the continuous-time domain, dynamic        |
+| ``m_flow_nominal``  | | Volumes.                | models are in general numerically more efficient than steady-state       |
+|                     | | Heat exchangers.        | models. However, dynamic models require product data that are generally  |
+|                     | | Chillers.               | not published by manufacturers. Examples include the volume of fluid     |
+|                     |                           | that is contained in a device, and the weight of heat exchangers.        |
+|                     |                           | In addition, other effects such as transport delays in pipes and heat    |
+|                     |                           | exchangers of a chiller are generally unknown and require detailed       |
+|                     |                           | geometry that is typically not available during the design stage.        |
+|                     |                           |                                                                          |
 |                     |                           | To circumvent this problem, many models take as a parameter              |
-|                     |                           | the time constant tau and lump all its thermal mass                      |
-|                     |                           | into a fluid volume. The time constant tau can be understood             |
+|                     |                           | the time constant ``tau`` and lump all its thermal mass                  |
+|                     |                           | into a fluid volume. The time constant ``tau`` can be understood         |
 |                     |                           | as the time constant that one would observe if the input to              |
 |                     |                           | the component has a step change, and the mass flow rate of the           |
 |                     |                           | component is equal to ``m_flow_nominal``. Using these two values         |
