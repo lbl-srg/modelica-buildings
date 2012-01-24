@@ -108,9 +108,11 @@ We also defined the system-level parameters
   parameter Modelica.SIunits.Volume V=6*10*3 \"Room volume\";
   parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
     \"Nominal mass flow rate\";
+  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000 
+    \"Internal heat gains of the room\";
 </pre>
-to declare that the room volume is <i>180</i> m<sup>3</sup> and that the room
-has a nominal mass flow rate of <i>6</i> air changes per hour.
+to declare that the room volume is <i>180</i> m<sup>3</sup>, that the room
+has a nominal mass flow rate of <i>6</i> air changes per hour and that the internal heat gains of the room are <i>1000</i> Watts.
 These parameters have been declared at the top-level of the model
 as they will be used in several other models.
 Declaring them at the top-level allows to propagate them to other
