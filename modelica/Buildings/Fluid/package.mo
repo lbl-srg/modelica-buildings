@@ -206,8 +206,9 @@ where
 <h4>Nominal values</h4>
 <p>
 Most components have a parameters for the nominal operating conditions.
-These parameters should be set to the values that the component typically 
-have if run at full load or design conditions. Depending on the model, these
+These parameters have names that end in <code>_nominal</code> and 
+they should be set to the values that the component typically 
+have if they are run at full load or design conditions. Depending on the model, these
 parameters are used differently, and the respective model documentation or code
 should be consulted for details. However, the table below shows typical use of 
 parameters in various model to help the user understand how they are used.
@@ -226,6 +227,9 @@ parameters in various model to help the user understand how they are used.
   <td>These parameter may be used 
       to define a point on the flow rate versus pressure drop curve. For other
       mass flow rates, the pressure drop is typically adjusted using similarity laws.
+      See
+      <a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
+      Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>.
   </td>
 </tr>
 <tr>
@@ -256,12 +260,16 @@ parameters in various model to help the user understand how they are used.
       Heat exchangers<br/>
       Chillers
   </td>
-  <td>Because Modelica simulates in the continuous-time domain, it is generally more
-      efficient to have dynamic models as opposed to steady-state models.
-      However, it would be tedious to define what volume of fluid is contained in a
-      device, and what fraction of its mass contributes to the thermally active mass
-      that influences the dynamic response. Such a parametrization would also require
-      product data that is not published by manufacturers.
+  <td>
+     Because Modelica simulates in the continuous-time domain, dynamic models are 
+     in general numerically more efficient than steady-state models. However, 
+     dynamic models require product data that are generally not published by  
+     manufacturers. Examples include the volume of fluid that is contained in a  
+     device, and the weight of heat exchangers. In addition, other effects such  
+     as transport delays in pipes and heat exchangers of a chiller are generally  
+     unknown and require detailed geometry that is typically not available  
+     during the design stage.
+     <br/>
       To circumvent this problem, many models take as a parameter the time constant
       <code>tau</code> and lump all its thermal mass into a fluid volume. 
       The time constant <code>tau</code> can be understood as the time constant that one would 
