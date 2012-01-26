@@ -27,7 +27,7 @@ model BoilerPolynomial "Test model"
   Modelica.Blocks.Sources.TimeTable y(table=[0,0; 1800,1; 1800,0; 2400,0; 2400,
         1; 3600,1])
     annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
-  Buildings.Fluid.Boilers.BoilerPolynomial fur1(
+  Buildings.Fluid.Boilers.BoilerPolynomial boi1(
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     Q_flow_nominal=Q_flow_nominal,
@@ -40,7 +40,7 @@ model BoilerPolynomial "Test model"
   Buildings.HeatTransfer.Sources.FixedTemperature TAmb1(      T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-30,28},{-10,48}})));
-  Buildings.Fluid.Boilers.BoilerPolynomial fur2(
+  Buildings.Fluid.Boilers.BoilerPolynomial boi2(
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     Q_flow_nominal=Q_flow_nominal,
@@ -58,21 +58,21 @@ model BoilerPolynomial "Test model"
   Modelica.Blocks.Continuous.FirstOrder firstOrder(T=0.1)
     annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
 equation
-  connect(TAmb1.port, fur1.heatPort)
+  connect(TAmb1.port, boi1.heatPort)
                                    annotation (Line(
       points={{-10,38},{0,38},{0,15.2}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TAmb2.port, fur2.heatPort)
+  connect(TAmb2.port, boi2.heatPort)
                                    annotation (Line(
       points={{-12,-30},{-2,-30},{-2,-52.8}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(sou.ports[1], fur1.port_a) annotation (Line(
+  connect(sou.ports[1], boi1.port_a) annotation (Line(
       points={{-64,-56},{-36,-56},{-36,8},{-10,8}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sou.ports[2], fur2.port_a) annotation (Line(
+  connect(sou.ports[2], boi2.port_a) annotation (Line(
       points={{-64,-60},{-12,-60}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -80,19 +80,19 @@ equation
       points={{-79,-20},{-75.5,-20},{-75.5,-20},{-72,-20}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(firstOrder.y, fur1.y) annotation (Line(
+  connect(firstOrder.y, boi1.y) annotation (Line(
       points={{-49,-20},{-40,-20},{-40,16},{-12,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(firstOrder.y, fur2.y) annotation (Line(
+  connect(firstOrder.y, boi2.y) annotation (Line(
       points={{-49,-20},{-40,-20},{-40,-52},{-14,-52}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(fur2.port_b, sin.ports[2]) annotation (Line(
+  connect(boi2.port_b, sin.ports[2]) annotation (Line(
       points={{8,-60},{70,-60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(fur1.port_b, sin.ports[1]) annotation (Line(
+  connect(boi1.port_b, sin.ports[1]) annotation (Line(
       points={{10,8},{40,8},{40,-56},{70,-56}},
       color={0,127,255},
       smooth=Smooth.None));

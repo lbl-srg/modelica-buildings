@@ -11,7 +11,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-120,-140},{-100,-120}})));
 
-  Buildings.Fluid.Boilers.BoilerPolynomial fur(
+  Buildings.Fluid.Boilers.BoilerPolynomial boi(
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
     Q_flow_nominal=Q_flow_nominal,
@@ -41,9 +41,9 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
-  Movers.FlowMachine_m_flow pumFur(redeclare package Medium = Medium,
+  Movers.FlowMachine_m_flow pumBoi(redeclare package Medium = Medium,
       m_flow_nominal=m_flow_nominal,
-    dynamicBalance=false) "Pump for furnace loop"
+    dynamicBalance=false) "Pump for boiler loop"
                                 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -51,8 +51,8 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
   Modelica.Blocks.Sources.Constant m_flow_pum(k=m_flow_nominal)
     "Mass flow rate of pump"
     annotation (Placement(transformation(extent={{-80,-36},{-60,-16}})));
-  Modelica.Blocks.Sources.Constant TSetFur(k=273.15 + 70)
-    "Temperature setpoint for furnace"
+  Modelica.Blocks.Sources.Constant TSetBoi(k=273.15 + 70)
+    "Temperature setpoint for boiler"
     annotation (Placement(transformation(extent={{-170,-74},{-150,-54}})));
   Controls.Continuous.LimPID conPID(
     Td=1,
@@ -128,12 +128,12 @@ equation
       points={{-109,-70},{-94,-70}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(fur.port_b, pumFur.port_a)
+  connect(boi.port_b, pumBoi.port_a)
                                    annotation (Line(
       points={{20,-100},{-1.12703e-16,-100},{-1.12703e-16,-30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(fur.T, onOffController.u) annotation (Line(
+  connect(boi.T, onOffController.u) annotation (Line(
       points={{19,-92},{-140,-92},{-140,-76},{-132,-76}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -145,7 +145,7 @@ equation
       points={{-99,40},{-82,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TSetFur.y, onOffController.reference) annotation (Line(
+  connect(TSetBoi.y, onOffController.reference) annotation (Line(
       points={{-149,-64},{-132,-64}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -159,7 +159,7 @@ equation
           -1.12703e-16,100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(pumFur.port_b, spl1.port_1) annotation (Line(
+  connect(pumBoi.port_b, spl1.port_1) annotation (Line(
       points={{1.1119e-15,-10},{0,-8},{9.99197e-16,-6},{-1.12703e-16,-6},{
           -1.12703e-16,-5.55112e-16}},
       color={0,127,255},
@@ -169,11 +169,11 @@ equation
           -1.12703e-16,30}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(spl2.port_2, fur.port_a) annotation (Line(
+  connect(spl2.port_2, boi.port_a) annotation (Line(
       points={{80,1.22125e-15},{80,-100},{40,-100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(fur.port_a, exp.port_a) annotation (Line(
+  connect(boi.port_a, exp.port_a) annotation (Line(
       points={{40,-100},{114,-100},{114,-80}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -189,11 +189,11 @@ equation
       points={{70,40},{10,40}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(booleanToReal.y, fur.y) annotation (Line(
+  connect(booleanToReal.y, boi.y) annotation (Line(
       points={{-71,-70},{56,-70},{56,-92},{42,-92}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(m_flow_pum.y, pumFur.m_flow_in) annotation (Line(
+  connect(m_flow_pum.y, pumBoi.m_flow_in) annotation (Line(
       points={{-59,-26},{-8.2,-26},{-8.2,-25}},
       color={0,0,127},
       smooth=Smooth.None));
