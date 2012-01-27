@@ -479,7 +479,7 @@ where ``tau``>0 is a time constant. See for example
 for a robust implementation.
 
 .. note::
-   In the package `Buildings.Utilities.Math <http://http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_ the functions and blocks whose names start with ``smooth`` can be used to avoid events.
+   In the package `Buildings.Utilities.Math <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_ the functions and blocks whose names start with ``smooth`` can be used to avoid events.
 
 
 Numerical solvers
