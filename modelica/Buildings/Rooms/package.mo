@@ -1,7 +1,6 @@
 within Buildings;
 package Rooms "Package with models for rooms"
   extends Modelica.Icons.Package;
-
 annotation (
 preferedView="info", Documentation(info="<html>
 <p>

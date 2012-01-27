@@ -23,8 +23,8 @@ model HeatGain "Test model for the HeatGain model"
   Buildings.Fluid.Sensors.LatentEnthalpyFlowRate QLat_flow(redeclare package
       Medium = MediumA, m_flow_nominal=2E-4)
     annotation (Placement(transformation(extent={{60,-16},{80,4}})));
-  Buildings.Fluid.Sources.Boundary_pT boundary(redeclare package Medium =
-        MediumA, nPorts=1)
+  Buildings.Fluid.Sources.Boundary_pT boundary(          redeclare package
+      Medium = MediumA, nPorts=1)
     annotation (Placement(transformation(extent={{30,-80},{50,-60}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
@@ -45,20 +45,22 @@ model HeatGain "Test model for the HeatGain model"
     "Sensible heat flow of air stream (must be zero)"
     annotation (Placement(transformation(extent={{0,70},{20,90}})));
 equation
-  connect(qRadGai_flow1.y, multiplex3_1.u1[1]) annotation (Line(
+  connect(qRadGai_flow1.y,multiplex3_1. u1[1]) annotation (Line(
       points={{-59,30},{-52,30},{-52,7},{-42,7}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(qConGai_flow.y, multiplex3_1.u2[1]) annotation (Line(
-      points={{-59,0},{-54,0},{-54,0},{-50,0},{-50,0},{-42,0}},
+  connect(qConGai_flow.y,multiplex3_1. u2[1]) annotation (Line(
+      points={{-59,6.10623e-16},{-54,6.10623e-16},{-54,0},{-50,0},{-50,
+          6.66134e-16},{-42,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(qLatGai_flow.y, multiplex3_1.u3[1]) annotation (Line(
+  connect(qLatGai_flow.y, multiplex3_1.u3[1])  annotation (Line(
       points={{-59,-30},{-52,-30},{-52,-7},{-42,-7}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, heatGain.qGai_flow) annotation (Line(
-      points={{-19,0},{-14,0},{-14,0},{-10,0},{-10,0},{-2,0}},
+      points={{-19,6.10623e-16},{-14,6.10623e-16},{-14,0},{-10,0},{-10,
+          6.66134e-16},{-2,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatGain.QLat_flow, QSen_flow.port_a) annotation (Line(
@@ -98,11 +100,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heatGain.QCon_flow, vol.heatPort) annotation (Line(
-      points={{20,0},{24,0},{24,0},{28,0},{28,-40},{52,-40},{52,-60},{60,-60}},
-
+      points={{20,6.10623e-16},{24,6.10623e-16},{24,0},{28,0},{28,-40},{52,-40},
+          {52,-60},{60,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/HeatGain.mos"
+  annotation (Diagram(graphics),
+              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/HeatGain.mos"
         "Simulate and plot"));
 end HeatGain;

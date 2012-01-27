@@ -32,56 +32,59 @@ protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conSha[NConExtWin](
       each G=100) "Heat conductor"
     annotation (Placement(transformation(extent={{20,-190},{40,-170}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature bouGlaUns[NConExtWin](each T=
-        293.15) "Boundary condition" annotation (Placement(transformation(
+  Buildings.HeatTransfer.Sources.FixedTemperature bouGlaUns[NConExtWin](
+      each T=293.15) "Boundary condition"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-120})));
-  Buildings.HeatTransfer.Sources.FixedTemperature bouGlaSha[NConExtWin](each T=
-        293.15) "Boundary condition" annotation (Placement(transformation(
+  Buildings.HeatTransfer.Sources.FixedTemperature bouGlaSha[NConExtWin](
+      each T=293.15) "Boundary condition"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-150})));
-  Buildings.HeatTransfer.Sources.FixedTemperature bouSha[NConExtWin](each T=
-        293.15) "Boundary condition" annotation (Placement(transformation(
+  Buildings.HeatTransfer.Sources.FixedTemperature bouSha[NConExtWin](
+      each T=293.15) "Boundary condition"
+    annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-180})));
 equation
-  connect(conConExt.port_a, radTem.conExt) annotation (Line(
+  connect(conConExt.port_a, radTem.conExt)       annotation (Line(
       points={{40,90},{30,90},{30,38.3333},{-20,38.3333}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conConExtWin.port_a, radTem.conExtWin) annotation (Line(
+  connect(conConExtWin.port_a, radTem.conExtWin)       annotation (Line(
       points={{40,60},{30,60},{30,35},{-20,35}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conConExtWinFra.port_a, radTem.conExtWinFra) annotation (Line(
+  connect(conConExtWinFra.port_a, radTem.conExtWinFra)       annotation (Line(
       points={{40,30},{30,30},{30,20},{-19.8333,20}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conConPar_a.port_a, radTem.conPar_a) annotation (Line(
-      points={{40,0},{32,0},{32,15},{-19.8333,15}},
+  connect(conConPar_a.port_a, radTem.conPar_a)       annotation (Line(
+      points={{40,6.10623e-16},{32,6.10623e-16},{32,15},{-19.8333,15}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conConPar_b.port_a, radTem.conPar_b) annotation (Line(
+  connect(conConPar_b.port_a, radTem.conPar_b)       annotation (Line(
       points={{40,-30},{30,-30},{30,11.6667},{-19.8333,11.6667}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conConBou.port_a, radTem.conBou) annotation (Line(
+  connect(conConBou.port_a, radTem.conBou)       annotation (Line(
       points={{40,-60},{28,-60},{28,6.66667},{-19.8333,6.66667}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(conSurBou.port_a, radTem.conSurBou) annotation (Line(
+  connect(conSurBou.port_a, radTem.conSurBou)       annotation (Line(
       points={{40,-90},{24,-90},{24,1.66667},{-19.9167,1.66667}},
       color={191,0,0},
       smooth=Smooth.None));
 
-  connect(uSha.y, radTem.uSha) annotation (Line(
+  connect(uSha.y, radTem.uSha)       annotation (Line(
       points={{-99,30},{-66,30},{-66,35},{-61.6667,35}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(bouGlaUns.port, conGlaUns.port_b) annotation (Line(
+  connect(bouGlaUns.port, conGlaUns.port_b)     annotation (Line(
       points={{60,-120},{40,-120}},
       color={191,0,0},
       smooth=Smooth.None));
@@ -89,24 +92,23 @@ equation
       points={{60,-150},{40,-150}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(bouSha.port, conSha.port_b) annotation (Line(
+  connect(bouSha.port, conSha.port_b)       annotation (Line(
       points={{60,-180},{40,-180}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(radTem.glaUns, conGlaUns.port_a) annotation (Line(
+  connect(radTem.glaUns, conGlaUns.port_a)       annotation (Line(
       points={{-20,30},{10,30},{10,-120},{20,-120}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(radTem.glaSha, conGlaSha.port_a) annotation (Line(
+  connect(radTem.glaSha, conGlaSha.port_a)       annotation (Line(
       points={{-20,26.6667},{-10,26.6667},{-10,26},{0,26},{0,-150},{20,-150}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(radTem.sha, conSha.port_a) annotation (Line(
+  connect(radTem.sha, conSha.port_a)       annotation (Line(
       points={{-20,23.1667},{-10,23.1667},{-10,-180},{20,-180}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,
-            -200},{100,100}}), graphics), __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/RadiationTemperature.mos"
-        "Simulate and plot"));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
+            {100,100}}),
+                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/RadiationTemperature.mos" "Simulate and plot"));
 end RadiationTemperature;

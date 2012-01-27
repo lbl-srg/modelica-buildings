@@ -2,7 +2,7 @@ within Buildings.Rooms.BaseClasses;
 model ExteriorBoundaryConditions
   "Model for convection and radiation bounary condition of exterior constructions"
   parameter Integer nCon(min=1) "Number of exterior constructions"
-    annotation (Dialog(group="Exterior constructions"));
+  annotation (Dialog(group="Exterior constructions"));
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle til[nCon]
     "Surface tilt (0 if the surface is a roof)";
@@ -20,13 +20,14 @@ model ExteriorBoundaryConditions
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a opa_a[nCon]
     "Heat port at surface a of opaque construction"
     annotation (Placement(transformation(extent={{-310,190},{-290,210}})));
-  parameter Buildings.HeatTransfer.Types.ExteriorConvection conMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
+  parameter Buildings.HeatTransfer.Types.ExteriorConvection conMod=
+  Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind
     "Convective heat transfer model for opaque part of the constructions"
     annotation (Dialog(group="Convective heat transfer"));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer hFixed=10.0
     "Constant convection coefficient for opaque part of the constructions"
-    annotation (Dialog(group="Convective heat transfer", enable=(conMod ==
-          Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
+    annotation (Dialog(group="Convective heat transfer",
+                       enable=(conMod == Buildings.HeatTransfer.Types.ExteriorConvection.Fixed)));
 
   // The convection coefficients are not final to allow a user to individually
   // assign them.
@@ -44,14 +45,15 @@ model ExteriorBoundaryConditions
     final n=nCon,
     each final A=AOpa,
     each final absIR=absIR,
-    vieFacSky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i
-         in 1:nCon}) "Infrared radiative heat exchange with sky"
+    vieFacSky={(Modelica.Constants.pi - til[i])./Modelica.Constants.pi for i in 1:nCon})
+    "Infrared radiative heat exchange with sky"
     annotation (Placement(transformation(extent={{-140,240},{-180,280}})));
-  BoundaryConditions.WeatherData.Bus weaBus annotation (Placement(
-        transformation(extent={{234,32},{254,52}}), iconTransformation(extent={
-            {192,-10},{254,52}})));
+  BoundaryConditions.WeatherData.Bus weaBus
+    annotation (Placement(transformation(extent={{234,32},{254,52}}),
+        iconTransformation(extent={{192,-10},{254,52}})));
 
-  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[nCon](
+  BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil[
+            nCon](
     each final lat=lat,
     final til=til,
     final azi=azi) "Direct solar irradiation on the surface"
@@ -61,23 +63,26 @@ model ExteriorBoundaryConditions
     final til=til,
     final azi=azi) "Diffuse solar irradiation"
     annotation (Placement(transformation(extent={{100,80},{80,100}})));
-  Modelica.Blocks.Math.Add HTotConExt[nCon](final k1=absSol .* AOpa, final k2=
-        absSol .* AOpa) "Total solar irradiation"
+  Modelica.Blocks.Math.Add HTotConExt[nCon](
+    final k1=absSol .* AOpa,
+    final k2=absSol .* AOpa) "Total solar irradiation"
     annotation (Placement(transformation(extent={{40,100},{20,120}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow solHeaGaiConExt[nCon]
     "Total solar heat gain of the surface"
     annotation (Placement(transformation(extent={{0,100},{-20,120}})));
 
 protected
-  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirConExt[nCon]
-    "Outside air temperature for exterior constructions"
+  Buildings.HeatTransfer.Sources.PrescribedTemperature TAirConExt[
+    nCon] "Outside air temperature for exterior constructions"
     annotation (Placement(transformation(extent={{8,160},{-32,200}})));
   Modelica.Blocks.Routing.Replicator repConExt(nout=nCon) "Signal replicator"
     annotation (Placement(transformation(extent={{100,170},{80,190}})));
 
-  Modelica.Blocks.Routing.Replicator repConExt1(nout=nCon) "Signal replicator"
+  Modelica.Blocks.Routing.Replicator repConExt1(
+                                               nout=nCon) "Signal replicator"
     annotation (Placement(transformation(extent={{130,200},{110,220}})));
-  Modelica.Blocks.Routing.Replicator repConExt2(nout=nCon) "Signal replicator"
+  Modelica.Blocks.Routing.Replicator repConExt2(
+                                               nout=nCon) "Signal replicator"
     annotation (Placement(transformation(extent={{180,220},{160,240}})));
 equation
   connect(conOpa.solid, opa_a) annotation (Line(
@@ -85,8 +90,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(skyRadExc.port, opa_a) annotation (Line(
-      points={{-180,261.6},{-212,261.6},{-212,260},{-240,260},{-240,200},{-300,
-          200}},
+      points={{-180,261.6},{-212,261.6},{-212,260},{-240,260},{-240,200},{-300,200}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -120,23 +124,23 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   for i in 1:nCon loop
-    connect(weaBus, HDirTil[i].weaBus) annotation (Line(
-        points={{244,42},{244,130},{100,130}},
-        color={255,204,51},
-        thickness=0.5,
-        smooth=Smooth.None), Text(
-        string="%first",
-        index=-1,
-        extent={{-6,3},{-6,3}}));
-    connect(HDifTil[i].weaBus, weaBus) annotation (Line(
-        points={{100,90},{244,90},{244,42}},
-        color={255,204,51},
-        thickness=0.5,
-        smooth=Smooth.None), Text(
-        string="%second",
-        index=1,
-        extent={{6,3},{6,3}}));
-  end for;
+  connect(weaBus, HDirTil[i].weaBus) annotation (Line(
+      points={{244,42},{244,130},{100,130}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(HDifTil[i].weaBus, weaBus) annotation (Line(
+      points={{100,90},{244,90},{244,42}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+   end for;
   connect(HTotConExt.y, solHeaGaiConExt.Q_flow) annotation (Line(
       points={{19,110},{5.55112e-16,110}},
       color={0,0,127},
@@ -175,21 +179,18 @@ equation
       points={{159,230},{-200,230},{-200,190},{-184,190}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (
-    Diagram(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-300,-300},{300,300}},
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},
+            {300,300}},
         initialScale=0.1), graphics),
-    Icon(coordinateSystem(
-        preserveAspectRatio=true,
-        extent={{-300,-300},{300,300}},
+                          Icon(coordinateSystem(preserveAspectRatio=true,
+          extent={{-300,-300},{300,300}},
         initialScale=0.1), graphics={
         Rectangle(
           extent={{-160,280},{280,-250}},
           fillColor={230,243,255},
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.None),
-        Ellipse(
+                               Ellipse(
           extent={{164,262},{270,162}},
           lineColor={255,255,0},
           fillColor={255,213,170},
@@ -208,7 +209,7 @@ equation
           extent={{-168,346},{212,280}},
           lineColor={0,0,255},
           textString="%name")}),
-    Documentation(info="<html>
+        Documentation(info="<html>
 This model computes the boundary conditions for the outside-facing surface of
 opaque constructions.
 </p>
@@ -234,7 +235,8 @@ The heat transfer of windows are not computed in this model. They are implemente
 <a href=\"modelica:Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow\">
 Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 </p>
-</html>", revisions="<html>
+</html>",
+        revisions="<html>
 <ul>
 <li>
 August 9, 2011 by Michael Wetter:<br>

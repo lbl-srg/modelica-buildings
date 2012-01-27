@@ -1,7 +1,6 @@
 within Buildings.Rooms;
 package BaseClasses "Package with base classes for Buildings.Rooms"
-extends Modelica.Icons.BasesPackage;
-
+  extends Modelica.Icons.BasesPackage;
 
 annotation (preferedView="info", Documentation(info="<html>
 <p>

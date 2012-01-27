@@ -6,9 +6,9 @@ record ParameterConstructionWithWindow
   parameter Modelica.SIunits.Area A
     "Heat transfer area of opaque construction and window combined";
   parameter Modelica.SIunits.Area AWin "Heat transfer area of window"
-    annotation (Dialog(group="Glazing system"));
+      annotation (Dialog(group="Glazing system"));
 
-  final parameter Modelica.SIunits.Area AOpa=A - AWin
+  final parameter Modelica.SIunits.Area AOpa = A-AWin
     "Heat transfer area of opaque construction"
     annotation (Dialog(group="Opaque construction"));
 
@@ -16,21 +16,20 @@ record ParameterConstructionWithWindow
     min=0,
     max=1) = 0.1 "Fraction of window frame divided by total window area"
     annotation (Dialog(group="Glazing system"));
-  final parameter Modelica.SIunits.Area AFra=fFra*AWin "Frame area"
+  final parameter Modelica.SIunits.Area AFra = fFra*AWin "Frame area"
     annotation (Dialog(group="Glazing system"));
   final parameter Modelica.SIunits.Area AGla=AWin - AFra "Glass area"
     annotation (Dialog(group="Glazing system"));
-  parameter Boolean linearizeRadiation=true
+  parameter Boolean linearizeRadiation = true
     "Set to true to linearize emissive power"
     annotation (Dialog(group="Glazing system"));
 
-  replaceable parameter HeatTransfer.Data.GlazingSystems.Generic glaSys
-    "Material properties of glazing system" annotation (
-    Dialog(group="Glazing system"),
-    Evaluate=true,
-    choicesAllMatching=true,
-    Placement(transformation(extent={{140,80},{160,100}})));
-  annotation (Documentation(info="<html>
+ replaceable parameter HeatTransfer.Data.GlazingSystems.Generic glaSys
+    "Material properties of glazing system"
+    annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{140,80},
+            {160,100}})));
+  annotation (
+Documentation(info="<html>
 <p>
 This data record is used to set the parameters of constructions that do have a window.
 </p>

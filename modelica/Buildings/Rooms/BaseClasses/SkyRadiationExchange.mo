@@ -4,27 +4,26 @@ model SkyRadiationExchange
   import Buildings;
   extends Buildings.BaseClasses.BaseIcon;
   parameter Integer n(min=1) "Number of constructions";
-  parameter Modelica.SIunits.Area A[n] "Area of exterior constructions";
+   parameter Modelica.SIunits.Area A[n] "Area of exterior constructions";
   parameter Real vieFacSky[n](min=0, max=1) "View factor to sky (=1 for roofs)";
   parameter Modelica.SIunits.Emissivity absIR[n]
     "Infrared absorptivity of building surface";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port[n] "Heat port"
     annotation (Placement(transformation(extent={{90,-2},{110,18}})));
-  Modelica.Blocks.Interfaces.RealInput TOut(
-    final quantity="ThermodynamicTemperature",
-    final unit="K",
-    min=0) "Outside air temperature" annotation (Placement(transformation(
-          extent={{-140,-60},{-100,-20}}), iconTransformation(extent={{-140,-60},
-            {-100,-20}})));
+  Modelica.Blocks.Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
+                                            final unit = "K", min=0)
+    "Outside air temperature"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
+        iconTransformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput TBlaSky(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=0) "Black body sky temperature" annotation (Placement(transformation(
-          extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{
-            -100,60}})));
+    min=0) "Black body sky temperature"
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
+        iconTransformation(extent={{-140,20},{-100,60}})));
 protected
-  parameter Real k[n](unit="W/K4") = {4*A[i]*Modelica.Constants.sigma*absIR[i]
-    for i in 1:n} "Constant for radiative heat exchange";
+  parameter Real k[n](unit="W/K4") = {4*A[i]*Modelica.Constants.sigma*absIR[i] for i in 1:n}
+    "Constant for radiative heat exchange";
   Modelica.SIunits.Temperature TEnv[n] "Environment temperature";
   Real TBlaSky4(unit="K4") "Auxiliary variable for radiative heat exchange";
   Real TOut4(unit="K4") "Auxiliary variable for radiative heat exchange";
@@ -35,15 +34,13 @@ equation
   TBlaSky4 = TBlaSky^4;
   TOut4 = TOut^4;
   for i in 1:n loop
-    TEnv[i] = (vieFacSky[i]*TBlaSky4 + (1 - vieFacSky[i])*TOut4)^(0.25);
+    TEnv[i] = (vieFacSky[i] * TBlaSky4 + (1-vieFacSky[i]) * TOut4)^(0.25);
     // h[i] uses TEnv[i] instead of (port[i].T+TEnv[i])/2 to avoid
     // a nonlinear equation system
-    h[i] = k[i]*TEnv[i]^3;
-    port[i].Q_flow = h[i]*(port[i].T - TEnv[i]);
+    h[i]  = k[i] * TEnv[i]^3;
+    port[i].Q_flow = h[i] * (port[i].T-TEnv[i]);
   end for;
-  annotation (
-    Diagram(graphics),
-    Icon(graphics={
+  annotation (Diagram(graphics), Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
@@ -88,13 +85,14 @@ equation
           extent={{86,52},{136,6}},
           lineColor={0,0,127},
           textString="QIR_flow")}),
-    Documentation(info="<html>
+        Documentation(info = "<html>
 This model computes the infrared radiative heat flow 
 between exterior building surfaces and the ambient. The ambient consists
 of the sky black-body radiation and the outdoor temperature 
 (which is used as an approximation to the surface temperature of
 the ground and neighboring buildings).
-</html>", revisions="<html>
+</html>",
+        revisions="<html>
 <ul>
 <li>
 June 4 2010, by Michael Wetter:<br>
