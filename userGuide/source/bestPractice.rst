@@ -345,7 +345,7 @@ parameters in various model to help the user understand how they are used.
 |                     | | Heat exchangers.        | replace, equations when the mass flow rate is smaller than               |
 |                     |                           | ``m_flow_small`` in magnitude. This is needed to improve the numerical   |
 |                     |                           | properties of the model. The error in the results is negligible for      |
-|                     |                           | typical applications, because at flow rates below 0.01% from the        |
+|                     |                           | typical applications, because at flow rates below 0.01% from the         |
 |                     |                           | design flow rate, most model assumptions are not applicable              |
 |                     |                           | anyways, and the HVAC system is not operated in this region.             |
 |                     |                           | Modelica simulates in the continuous-time domain, thus                   |
