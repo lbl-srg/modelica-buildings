@@ -8,36 +8,34 @@ Getting Started
 
 Literature for Users
 --------------------
-We recommend people that are new to Modelica to study the books by Michael Tiller [Til2001]_ and Peter Fritzson ([Fri2011]_ and [Fri2004]_), and the tutorials that are listed at https://www.modelica.org/publications.
+We recommend new users of Modelica to study the books by Michael Tiller [Til2001]_ and Peter Fritzson ([Fri2011]_ and [Fri2004]_), and the tutorials that are listed at https://www.modelica.org/publications.
 
-The `Modelica Language Tutorial <https://www.modelica.org/documents/ModelicaTutorial14.pdf>`_ is 
-relevant to understand the concept of the language. Although it 
-is for Modelica 1.4, it is still instructive.
+Although the `Modelica Language Tutorial <https://www.modelica.org/documents/ModelicaTutorial14.pdf>`_ is for an older version (Modelica 1.4), it is still instructive and relevant to understand the concepts of the language.
 
-Links to papers that describe or used the Buildings library are available at http://simulationresearch.lbl.gov. Furthermore, the model documentation that is available from the download page contains user guides that describe the individual packages of the Buildings library.
+Links to papers that describe or used the `Buildings` library are available at http://simulationresearch.lbl.gov. The model documentation from the download page contains user guides that describe the individual packages of the `Buildings` library.
 
 
 Literature for Developers
 -------------------------
 
-For users who develop new thermo-fluid component models, in addition to the literature for users, understanding the concept of stream connectors is essential. Stream connectors are explained in the Modelica language definition, available from https://www.modelica.org/documents, and in the paper Franke et al. [Fra2009a]_. 
-Since the `Buildings` library uses similar modeling principles, and the same base classes, as the Modelica.Fluid library, we also recommend to read the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.
+It is essential for the users who develop new thermo-fluid models to  understand the concept of stream connectors. Stream connectors are explained in the Modelica language definition, available at https://www.modelica.org/documents, and in the paper Franke et al. [Fra2009a]_. 
+The `Buildings` library uses similar modeling principles, and the same base classes, as the `Modelica.Fluid` library. Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.
 
 
 Software Requirements
 ---------------------
-For software requirements that are needed for the different versions of the Buildings library, see the download page at http://simulationresearch.lbl.gov/modelica
+Check the software requirements for the different versions of the Buildings library at http://simulationresearch.lbl.gov/modelica/Download
 
 
 Running the First Simulations
 -----------------------------
 
-To start using Modelica, run the example models of the `Buildings` library, and make variations of these examples such as by changing values of model parameters or by replacing existing and adding new component models. The example models can be found in the packages `Examples`.
-Typically, heat transfer models which can be found in `Buildings.HeatTransfer.*.Examples` are easier to understand than fluid flow models. The reasons are that 
+To start using Modelica, run the example models of the `Buildings` library. Make variations in these examples by changing values of model parameters or by replacing existing component models by new ones. The example models can be found in the packages `Examples`.
+Typically, heat transfer models which can be found in `Buildings.HeatTransfer.*.Examples` are easier to understand than fluid flow models because; 
 
-* handling fluid flow adds more complexity due to flow reversal, i.e., if the mass flow rate changes its direction, 
+* handling fluid flow adds more complexity due to flow reversal (i.e., if the mass flow rate changes its direction), 
 * fluid flow models may need to handle multiple species such as air and water vapor, as well as trace substances such as CO2, and 
-* fluid flow models use packages that define medium models, such as for dry air, moist air, water or other fluids.
+* fluid flow models use packages that define medium models, such as dry air, moist air, water or other fluids.
 
 
 References
