@@ -7,8 +7,8 @@ Before submitting a bug report,
  
 When submitting a bug report, please provide:
  * A *total model* that is as small as possible and still reproduces the error. The chances of quickly finding and fixing a bug are much higher if the bug is part of a small test problem. In addition, creating a small test problem may help finding the root cause for the bug yourself, or realizing that there is no bug at all, and hence your problem can be solved much sooner. In Dymola, a *total model* can be saved by selecting ``File -> Save Total``.
- * A description of what is the expected result and what is the observed result.
- * Information about the operating system and the Modelica simulation environment that is used.
+ * A description of the expected and the observed results.
+ * Information about the operating system and the used Modelica simulation environment.
 
 To report the bug, send email to https://groups.google.com/group/modelica-buildings. This is an open group and everyone can join it. No invitation is needed. 
 

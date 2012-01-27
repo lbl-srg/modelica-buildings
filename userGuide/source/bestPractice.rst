@@ -1,21 +1,21 @@
 Best Practice
 =============
 
-This section explains to library users best practice in creating new system models. The selected topics are based on problems that we often observed with users who are new to Modelica. Experienced users of Modelica may skip this section.
+This section explains to library users best practice in creating new system models. The selected topics are based on problems that are often observed with new users of Modelica. Experienced users of Modelica may skip this section.
 
 Organization of packages
 ------------------------
 
 When developing models, one should distinguish between a library which contains widely applicable models, such as the `Buildings` library, and an application-specific model which may be created for a specific building and is of limited use for other applications. 
-We recommend to store application-specific models outside of the `Buildings` library. This will allow replacing the `Buildings` library with a new version without having to change the application-specific model.
+We recommend storing application-specific models outside of the `Buildings` library. This will allow replacing the `Buildings` library with a new version without having to change the application-specific model.
 If during the course of the development of application-specific models, some models turn out to be of interest for other applications, then they can be contributed to the development of the `Buildings` library, as described in the section :ref:`Development`.
 
 
 Building large system models
 ----------------------------
 
-When creating a large system model, it is typically easiest to build the system model through the composition of subsystem models that can be tested in isolation. For example, the package `Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples>`_
-contains small test models that were used to test individual components for use in the large system model `Buildings.Examples.ChillerPlant <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant>`_.
+When creating a large system model, it is typically easier to build the system model through the composition of subsystem models that can be tested in isolation. For example, the package `Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant_BaseClasses_Controls_Examples.html#Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples>`_
+contains small test models that are used to test individual components in the large system model `Buildings.Examples.ChillerPlant <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant>`_.
 Creating small test models typically saves time as the proper response of controls, and the proper operation of subsystems, can be tested in isolation of complex system-interactions that are often present in large models.
 
 
@@ -40,16 +40,16 @@ we recommend to use
    Pump pum(m_flow_nominal=m_flow_nominal) "Pump";
    TemperatureSensor sen(m_flow_nominal=m_flow_nominal) "Sensor";
 
-This allows to change the value of ``m_flow_nominal`` at one location, and then have the value be propagated to all models that reference it. The effort for the additional declaration typically pays off as changes to the model are easier and more robust to do.
+This allows to change the value of ``m_flow_nominal`` at one location, and then have the value be propagated to all models that reference it. The effort for the additional declaration typically pays off as changes to the model are easier and more robust.
 
-Propagating parameters and packages is particularly important for medium definitions, as this allows to change the medium declaration at one location and then have it propagated to all models that reference it. This can be done by using the declaration
+Propagating parameters and packages is particularly important for medium definitions. This allows the user to change the medium declaration at one location and then have it propagated to all models that reference it. This can be done by using the declaration
 
 .. code-block:: modelica
 
    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
      "Medium model for air" annotation (choicesAllMatching=true);
 
-Here, we added the optional annotation ``annotation (choicesAllMatching=true)`` which causes a GUI to show a drop-down menu with all medium models that extend from ``Modelica.Media.Interfaces.PartialMedium``.
+Here, the optional annotation ``annotation (choicesAllMatching=true)`` is added which causes a GUI to show a drop-down menu with all medium models that extend from ``Modelica.Media.Interfaces.PartialMedium``.
 
 If the above sensor requires a medium model, which is likely the case, its declaration would be
 
@@ -71,7 +71,7 @@ At the top-level of a system-model, one would set the ``Medium`` package to an a
 Thermo-fluid systems
 --------------------
 
-In this section, we describe best practice that are specific to the modeling of thermo-fluid systems.
+In this section, we describe best practices that are specific to the modeling of thermo-fluid systems.
 
 Overdetermined initialization problem and inconsistent equations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -85,10 +85,10 @@ a fixed boundary condition ``Buildings.Fluid.Sources.FixedBoundary``, connected 
    
    Schematic diagram of a flow source, a fluid volume, and a pressure source.
 
-The volume allows to configure balance equations for energy and mass in four different ways. 
+The volume allows configuring balance equations for energy and mass in four different ways. 
 Let :math:`p(\cdot)` be the pressure of the volume,
 :math:`p_0` be the parameter for the initial pressure,
-:math:`m(\cdot)` be the mass of the volume,
+:math:`m(\cdot)` be the mass contained in the volume,
 :math:`\dot m_i(\cdot)` be the mass flow rate across the i-th fluid port of the volume,
 :math:`N \in \mathbb N` be the number of fluid ports, and
 :math:`t_0` be the initial time.
@@ -111,16 +111,16 @@ Then, the equations for the mass balance of the fluid volume can be configured a
 *Unspecified* means that no equation is declared for the initial value
 :math:`p(t_0)`. In this situation, there can be two cases:
 
-1. If a system model sets the pressure, such as in the model above in
-   which ``vol.p=vol.ports.p=bou.ports.p`` due to the connection
-   between the models, then
+1. If a system model sets the pressure in the above model 
+   ``vol.p=vol.ports.p=bou.ports.p`` due to the connection
+   between them, then
    :math:`p(t_0)` of the volume is equal to ``bou.ports.p``.
-2. If a system model does not set the pressure (if ``vol`` and ``bou``
-   were not connected to each other), then the pressure starts 
+2. If a system model does not set the pressure (i.e., if ``vol`` and ``bou``
+   are not connected to each other), then the pressure starts 
    at the value ``p(start=Medium.p_default)``, where ``Medium`` is the 
    name of the instance of the medium model.
 
-Since the model ``Buildings.Fluid.Sources.FixedBoundary`` fixes the pressure at its port, it follows that the initial conditions :math:`p(t_0)=p_0` and :math:`dp(t_0)/dt = 0` lead to an overspecified system for the model shown above. To avoid such a situation, use different initial conditions, or add a flow resistance between the mixing volume and the pressure source. The flow resistance will introduce an equation that relates the pressure of the mixing volume and the pressure source as a function of the mass flow rate, thereby removing the inconsistency.
+Since the model ``Buildings.Fluid.Sources.FixedBoundary`` fixes the pressure at its port, it follows the initial conditions :math:`p(t_0)=p_0` and :math:`dp(t_0)/dt = 0` that lead to an overspecified system for the model shown above. To avoid such situation, use different initial conditions, or add a flow resistance between the mixing volume and the pressure source. The flow resistance introduces an equation that relates the pressure of the mixing volume and the pressure source as a function of the mass flow rate, thereby removing the inconsistency.
 
 .. warning::
 
@@ -152,14 +152,14 @@ Then, the energy balance can be configured as shown in the table below.
 *Unspecified* means that no equation is declared for 
 :math:`T(t_0)`. In this situation, there can be two cases:
 
-1. If a system model sets the temperature, such as if in the model
-   the heat port of ``vol`` would be connected to a fixed temperature,
+1. If a system model sets the temperature (i.e. if in the model
+   the heat port of ``vol`` is connected to a fixed temperature),
    then
    :math:`T(t_0)` of the volume would be equal to the temperature connected
    to this port.
 2. If a system model does not set the temperature, then the temperature starts 
    at the value ``T(start=Medium.T_default)``, where ``Medium`` is the 
-   medium model
+   medium model.
 
 
 .. note::
@@ -170,23 +170,22 @@ Then, the energy balance can be configured as shown in the table below.
       and stop the translation with an error message.
       To see why the equations are inconsistent, 
       consider a volume with two fluid ports 
-      and no heat port. Then, it is is possible 
+      and no heat port. Then, it is possible 
       that :math:`\dot m_1(t) \not = 0` and :math:`\dot m_2(t) = 0`, 
       since :math:`dm(t)/dt =  \dot m_1(t) + \dot m_2(t)`. 
-      However, since the energy balance equation 
-      is :math:`0 = \sum_{i=1}^2 \dot m_i(t) \, h_i(t) + \dot Q(t)`, 
-      with :math:`\dot Q(t) = 0` because there is no heat port,
-      we have :math:`0 = \dot m_1(t) \, h_1(t)` and hence the 
-      equation is inconsistent.
+      However, the energy balance equation 
+      :math:`0 = \sum_{i=1}^2 \dot m_i(t) \, h_i(t) + \dot Q(t)`, 
+      with :math:`\dot Q(t) = 0` (because there is no heat port),
+      we get :math:`0 = \dot m_1(t) \, h_1(t)` which is inconsistent.
    2. Unlike the case with the pressure initialization, the temperature in
       the model ``bou`` does not lead to ``vol.T = bou.T`` at initial time,
       because physics allows the temperatures in ``bou`` and ``vol`` to 
       be different.
 
 
-The equations for the mass fraction dynamics, such as the 
-water vapor concentration, 
-and the trace substance dynamics, such as carbon dioxide concentration,
+The equations for the mass fraction dynamics (such as the 
+water vapor concentration), 
+and the trace substance dynamics (such as carbon dioxide concentration),
 are similar to the energy equations.
 
 Let 
@@ -210,7 +209,7 @@ Then, the substance dynamics can be configured as shown in the table below.
 |``SteadyState``         |  Unspecified                            | :math:`0 = \sum_{i=1}^N  \dot m_i(t) \, x_i(t) + \dot X(t)`        | 
 +------------------------+-----------------------------------------+--------------------------------------------------------------------+
 
-The equations for the trace substance dynamics, such as the carbon dioxide concentration, are identical to the equations for the substance dynamics, if
+The equations for the trace substance dynamics are identical to the equations for the substance dynamics, if
 :math:`X(\cdot), \, \dot X(\cdot)` and :math:`x_i(\cdot)` are replaced with
 :math:`C(\cdot), \, \dot C(\cdot)` and :math:`c_i(\cdot)`, where
 :math:`C(\cdot)` is the mass of the trace substances in the volume,
@@ -268,7 +267,7 @@ the medium model `Buildings.Media.IdealGases.SimpleAir <http://simulationresearc
 then the model is well defined because the gas medium implements the
 equation :math:`p=\rho \, R \, T`,
 where :math:`p` is the static pressure, :math:`\rho` is the mass density,
-:math:`R` is the gas constant and :math:`T` is the temperature.
+:math:`R` is the gas constant and :math:`T` is the absolute temperature.
 
 However, when the medium model is changed to a model that models
 :term:`incompressible flow`, such as
@@ -306,7 +305,7 @@ to form the system model shown below.
    of the medium.
 
 Alternatively, you may use
-`Buildings.Fluid.Sources.FixedBoundary <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary>`_, which sets the pressure to a constant
+`Buildings.Fluid.Sources.FixedBoundary <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary>`_, which sets the pressure to a constant value
 and adds or removes fluid as needed to maintain the pressure.
 The model `Buildings.Fluid.Sources.FixedBoundary <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBoundary>`_ usually leads to simpler equations than 
 `Buildings.Fluid.Storage.ExpansionVessel <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.ExpansionVessel>`_.
@@ -345,11 +344,11 @@ parameters in various model to help the user understand how they are used.
 | ``m_flow_small``    | | Volumes.                | as the default value. Then, m_flow_small is used to regularize, or       |
 |                     | | Heat exchangers.        | replace, equations when the mass flow rate is smaller than               |
 |                     |                           | ``m_flow_small`` in magnitude. This is needed to improve the numerical   |
-|                     |                           | properties of the model. The error in the results is for typical         |
-|                     |                           | applications negligible, because at flow rates below 0.01% from the      |
+|                     |                           | properties of the model. The error in the results is negligible for      |
+|                     |                           | typical applications, because at flow rates below 0.01% from the        |
 |                     |                           | design flow rate, most model assumptions are not applicable              |
 |                     |                           | anyways, and the HVAC system is not operated in this region.             |
-|                     |                           | However, because Modelica simulates in the continuous-time domain,       |
+|                     |                           | Modelica simulates in the continuous-time domain, thus                   |
 |                     |                           | such small flow rates can occur, and therefore models are                |
 |                     |                           | implemented in such a way that they are numerically well-behaved         |
 |                     |                           | for zero or near-zero flow rates.                                        |
