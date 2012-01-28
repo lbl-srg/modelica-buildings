@@ -10,11 +10,11 @@ User Guide
 This user guide provides instructions for how to use the free open-source Modelica `Buildings <http://simulationresearch.lbl.gov/modelica>`_ library.
 The user guide covers: 
 
-- how to get started
-- best practices to create models and run simulations
-- work-arounds to problems in translating or simulating models
-- pre- and post-processing
-- resources for users who want to develop or contribute models to the library 
+- How to get started.
+- Best practices to create models and run simulations.
+- Work-arounds to problems in translating or simulating models.
+- Pre- and post-processing.
+- Resources for users who want to develop or contribute models to the library.
 - information for how to get help.
 
 

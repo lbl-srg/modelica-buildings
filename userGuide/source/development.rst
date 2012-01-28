@@ -11,11 +11,11 @@ We welcome contributions of new models and suggestions for how to improve the li
 Models that are contributed need to follow the following guidelines, as this is needed to integrate them in the library, make them accessible to users and further maintain them:
 
  * They should be of general interest also to other users and well documented and tested.
- * They need to follow the coding conventions of 
+ * They need to follow the coding conventions described in
 
-  - the `Buildings` library (see `here <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_),
-  - the Modelica Standard Library (see `here <http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions>`_), and 
-  - the `Buildings` library `development checklist <https://corbu.lbl.gov/trac/bie/wiki/DevelopmentCheckList>`_.
+  - the `Buildings library user guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_,
+  - the `Modelica Standard Library user guide <http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions>`_, and 
+  - the `Buildings library development checklist <https://corbu.lbl.gov/trac/bie/wiki/DevelopmentCheckList>`_.
 
  * They need to be made available under the `Modelica license <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License>`_.
  * For models of fluid flow components, they need to be based on the base classes in `Buildings.Fluid.Interfaces <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html>`_, which are described in the `user guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ of this package. Otherwise, it becomes difficult to ensure that the implementation is numerically robust.
