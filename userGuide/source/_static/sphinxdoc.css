@@ -60,6 +60,13 @@ body {
     width: 870px;
 }
 
+/* Center images */
+div.figure img{
+    border: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 div.headerStyle{
     background-color: white; 
