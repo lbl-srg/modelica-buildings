@@ -235,8 +235,8 @@ However, in more complex flow configurations, one may want to explicitly control
    
    Correct (left) and wrong (right) connection of components with use of a mixer or splitter model.
 
-In the figure on the left, the mixing points have been correctly defined by use of the three-way model that mixes or splits flow. By setting the nominal pressure drop of the mixer or splitter model to zero, the mixer or splitter model can be simplified so that no equation for the flow resistance is introduced. In addition, in the branch of splitter ``spl4`` that connects to the valve, a pressure drop can be modelled, which then affects the valve authority.
-However, in the figure on the right, the flow that leaves port A is mixing at port B with the return from the volume ``vol,`` and then it flows to port C. Thus, the valve is exposed to the wrong temperature.
+In the figure on the left, the mixing points have been correctly defined by use of the three-way model that mixes or splits flow. By setting the nominal pressure drop of the mixer or splitter model to zero, the mixer or splitter model can be simplified so that no equation for the flow resistance is introduced. In addition, in the branch of the splitter that connects to the valve, a pressure drop can be modelled, which then affects the valve authority.
+However, in the figure on the right, the flow that leaves port A is mixing at port B with the return from the volume ``vol``, and then it flows to port C. Thus, the valve is exposed to the wrong temperature.
 
 
 Use of sensors in fluid flow systems
