@@ -8,14 +8,14 @@ User Guide
 ==========
 
 This user guide provides instructions for how to use the free open-source Modelica `Buildings <http://simulationresearch.lbl.gov/modelica>`_ library.
-The user guide covers: 
+The user guide covers how to
 
-- How to get started.
-- Best practices to create models and run simulations.
-- Work-arounds to problems in translating or simulating models.
-- Pre- and post-processing.
-- Resources for users who want to develop or contribute models to the library.
-- information for how to get help.
+- get started,
+- follow best practices when createing models and running simulations,
+- fix common problems in translating or simulating models,
+- pre- and post-process model input and output,
+- develop and contribute new models to the library, and
+- get help.
 
 
 The following information can be found in the Modelica files rather than in this documentation:
