@@ -85,10 +85,54 @@ defaultComponentName="spl",
     Documentation(info="<html>
 <p>
 Model of a flow splitter or mixer with a fixed resistance in each flow leg.
+In each flow lag, a pressure drop can be modelled, and at the fluid junction,
+a mixing volume can be modelled.
 </p>
-</html>"),
-revisions="<html>
+<p>
+The pressure drop is implemented using the model
+<a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
+Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>.
+If its nominal pressure drop is set to zero, then the pressure drop
+model will be removed.
+For example, the pressure drop declaration
+</p>
+<pre>
+  m_flow_nominal={ 0.1, 0.1,  -0.2},
+  dp_nominal =   {500,    0, -6000}
+</pre>
+<p>
+would model a mixer that has the nominal flow rates and associated pressure drops
+as shown in the figure below. Note that <code>port_3</code> is set to negative values.
+The negative values indicate that at the nominal conditions, fluid is leaving the component.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png\"/>
+</p>
+<p>
+Optionally, at the fluid junction, a control volume can be modelled. 
+This is implemented using the model
+<a href=\"modelica://Buildings.Fluid.Delays.DelayFirstOrder\">
+Buildings.Fluid.Delays.DelayFirstOrder</a>.
+The fluid volume is modelled if
+<code>dynamicBalance=true</code>, and it is removed if
+<code>dynamicBalance=false</code>.
+The control volume has the size
+</p>
+<pre>
+  V = sum(abs(m_flow_nominal[:])/3)*tau/rho_nominal
+</pre>
+<p>
+where <code>tau</code> is a parameter and <code>rho_nominal</code> is the density 
+of the medium in the volume at nominal condition.
+Setting <code>dynamicBalance=true</code> can help reducing the size of the nonlinear
+system of equations.
+</p>
+</html>", revisions="<html>
 <ul>
+<li>
+February 1, 2012 by Michael Wetter:<br>
+Expanded documentation.
+</li>
 <li>
 August 4, 2011 by Michael Wetter:<br>
 Added <code>final allowFlowReversal=true</code> to all resistances since it is impractical
@@ -105,5 +149,5 @@ July 20, 2007 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
 end SplitterFixedResistanceDpM;
