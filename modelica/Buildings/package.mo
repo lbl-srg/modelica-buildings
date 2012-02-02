@@ -2087,10 +2087,30 @@ or through requirements definition or by providing feedback regarding the model 
 to solve specific problems.
 </p>
 <p>
-This is a short <b>User's Guide</b> for
-the overall library. Some of the main sublibraries have their own
-User's Guides that can be accessed by the following links:
+The library has the following <i>User's Guides</i>:
 </p>
+<ol>
+<li>
+<p>
+General information about the use of the <code>Buildings</code> library
+is available at
+<a href=\"http://simulationresearch.lbl.gov/modelica/userGuide\">
+http://simulationresearch.lbl.gov/modelica/userGuide</a>.
+This web site covers general information that is not specific to the 
+use of individual sublibraries or models.
+Discussed topics include 
+how to get started, best practices, how to post-process results using Python,
+work-around for problems and how to develop models.
+</p>
+</li>
+<li>
+<p>
+Some of the main sublibraries have their own
+User's Guides that can be accessed by the links below.
+These User's Guides are discussing items that are specific to the
+individual libraries.
+</p>
+<p>
 <table border=1 cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Airflow.Multizone.UsersGuide\">Airflow.Multizone</a>
    </td>
@@ -2126,12 +2146,16 @@ User's Guides that can be accessed by the following links:
 </tr>
 </table>
 </p>
+</li>
+<li>
 <p>
 There is also a tutorial available at 
 <a href=\"modelica://Buildings.Examples.Tutorial\">
-Buildings.Examples.Tutorial</a>
-with step by step instructions for how to build system models.
-<!-- fixme: add link to UsersGuide when published. -->
+Buildings.Examples.Tutorial</a>.
+The tutorial contains step by step instructions for how to build system models.
+</p>
+</li>
+</ol>
 </p>
 </html>"));
 end UsersGuide;
