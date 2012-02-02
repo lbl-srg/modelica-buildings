@@ -613,6 +613,15 @@ Buildings.Examples.Tutorial.Boiler.System6</a>
 to use a state machine to switch the pumps and the boiler on and off.
 State machines provide an alternate way to implement discrete event, 
 reactive and hybrid systems.
+The state machine that is implemented in this model is shown in
+the figure below.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/stateMachine.png\" border=\"1\">
+</p>
+<p>
+In the figure above, the ovals depict states, and the arrows are transitions between the states.
+The transitions fire when the conditions are true.
 </p>
 <h4>Implementation</h4>
 <p>
