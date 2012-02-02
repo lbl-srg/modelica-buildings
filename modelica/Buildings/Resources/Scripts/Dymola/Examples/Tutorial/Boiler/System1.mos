@@ -1,4 +1,4 @@
-simulateModel("Buildings.Examples.Tutorial.Boiler.System1", stopTime=172800, method="dassl", resultFile="System1");
+simulateModel("Buildings.Examples.Tutorial.Boiler.System1", stopTime=172800, method="dassl", resultFile="BoilerSystem1");
 createPlot(id = 1,
  position = {15, 10, 400, 280},
  y = {"vol.T_start", "vol.T", "TOut.T"},
@@ -10,7 +10,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "System1.mat",
+ filename = "BoilerSystem1.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0, 0, 255}, {255, 0, 0}, {0, 128, 0}},

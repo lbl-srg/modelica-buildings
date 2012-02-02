@@ -1,4 +1,4 @@
-simulateModel("Buildings.Examples.Tutorial.SpaceCooling.System2", stopTime=10800, method="dassl", resultFile="System2");
+simulateModel("Buildings.Examples.Tutorial.SpaceCooling.System2", stopTime=10800, method="dassl", resultFile="SpaceCoolingSystem2");
 createPlot(id = 1,
  position = {15, 10, 733, 355},
  y = {"vol.T_start", "vol.T", "TOut.T", "cooCoi.sta_a2.T", "cooCoi.sta_b2.T"},
@@ -10,7 +10,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "System2.mat",
+ filename = "SpaceCoolingSystem2.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0, 0, 255}, {255, 0, 0}, {0, 128, 0}, {255, 0, 255}, {0, 0, 0}},
