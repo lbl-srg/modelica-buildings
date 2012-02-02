@@ -181,7 +181,7 @@ following analytical solutions:
 <li>
 At steady-state, the temperature difference to the outside should be
 <i>&Delta; T = Q&#775; &frasl; UA = 1000/(10000/30) = 3</i> Kelvin, which 
-corresponds to a room temperature of <i>-7</i><sub>&circ;</sub> Celsius.
+corresponds to a room temperature of <i>-7</i>&deg;C.
 </li>
 <li>
 It can be shown that the time constant of the room is
