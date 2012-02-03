@@ -12,7 +12,7 @@ We recommend new users of Modelica to study the books by Michael Tiller [Til2001
 
 Although the `Modelica Language Tutorial <https://www.modelica.org/documents/ModelicaTutorial14.pdf>`_ is for an older version (Modelica 1.4), it is still instructive and relevant to understand the concepts of the language.
 
-Links to papers that describe or used the `Buildings` library are available at http://simulationresearch.lbl.gov. The model documentation from the download page contains user guides that describe the individual packages of the `Buildings` library.
+Links to papers that describe or used the `Buildings` library are available at http://simulationresearch.lbl.gov/modelica/Publications. The model documentation from the download page contains user guides that describe the individual packages of the `Buildings` library.
 
 
 Literature for Developers
