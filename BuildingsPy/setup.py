@@ -27,9 +27,9 @@ setup(
                 'buildingspy/thirdParty.dymat.DyMat.Plot',
                 'buildingspy/thirdParty.dymat.DyMat.Export'],
     classifiers = [
-        "Development Status :: 1.0",
+        "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
-        "License :: 3-clause BSD License",
+        "License :: OSI Approved :: BSD License",
         "Programming Language :: Python :: 2.7",
         "Intended Audience :: End Users/Desktop",
         "Intended Audience :: Science/Research",
