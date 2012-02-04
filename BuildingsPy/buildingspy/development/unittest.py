@@ -7,7 +7,7 @@
 #######################################################
 
 def runSimulation(worDir):
-    ''' Runs the simulation.
+    ''' Run the simulation.
 
     :param worDir: The working directory.
 
@@ -989,7 +989,7 @@ class Tester:
     #####################################################################################
 
     def run(self):
-        ''' Runs all unit tests and checks the results.
+        ''' Run all unit tests and checks the results.
 
         :return: 0 if no errros occurred during the unit tests, 
                  otherwise a non-zero value.
