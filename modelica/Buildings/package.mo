@@ -194,7 +194,8 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Revised base classes and model to simplify object inheritance tree.
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.FixedResistanceDpM<br/>
+                       Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM
     </td>
     <td valign=\"top\">Improved documentation.
     </td>

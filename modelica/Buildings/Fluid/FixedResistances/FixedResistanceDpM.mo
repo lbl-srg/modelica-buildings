@@ -78,13 +78,94 @@ equation
 defaultComponentName="res",
 Documentation(info="<html>
 <p>
-This is a model of a resistance with a fixed flow coefficient 
+This is a model of a resistance with a fixed flow coefficient.
+The mass flow rate is computed as
 <p align=\"center\" style=\"font-style:italic;\">
-k = m &frasl; 
-&radic;<span style=\"text-decoration:overline;\">&Delta;P</span>.
+m&#775; = k  
+&radic;<span style=\"text-decoration:overline;\">&Delta;P</span>,
 </p>
-Near the origin, the square root relation is regularized to ensure that the derivative is bounded.
-Fixme: Expand documentation.
+where 
+<i>k</i> is a constant and 
+<i>&Delta;P</i> is the pressure drop.
+The constant <i>k</i> is equal to
+<code>k=m_flow_nominal/dp_nominal</code>,
+where <code>m_flow_nominal</code> and <code>dp_nominal</code>
+are parameters.
+In the region
+<code>abs(m_flow) &lt; m_flow_turbulent</code>, 
+the square root is replaced by a differentiable function
+with finite slope.
+The value of <code>m_flow_turbulent</code> is
+computed as follows:
+</p>
+<p>
+<ul>
+<li>
+If the parameter <code>use_dh</code> is <code>false</code>
+(the default setting), 
+the equation 
+<code>m_flow_turbulent = deltaM * abs(m_flow_nominal)</code>,
+where <code>deltaM=0.3</code> and 
+<code>m_flow_nominal</code> are parameters that can be set by the user.
+</li>
+<li>
+Otherwise, the equation
+<code>m_flow_turbulent = eta_nominal*dh/4*&pi;*ReC</code> is used,
+where 
+<code>eta_nominal</code> is the dynamic viscosity, obtained from
+the medium model. The parameter
+<code>dh</code> is the hydraulic diameter and
+<code>ReC=4000</code> is the critical Reynolds number, which both
+can be set by the user.
+</li>
+</ul>
+</p>
+<p>
+The figure below shows the pressure drop for the parameters
+<code>m_flow_nominal=5</code> kg/s,
+<code>dp_nominal=10</code> Pa and
+<code>deltaM=0.3</code>.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png\"/>
+</p>
+<p>
+If the parameters 
+<code>show_V_flow</code> or
+<code>show_T</code> are set to <code>true</code>,
+then the model will compute the volume flow rate and the
+temperature at its ports. Note that this can lead to state events
+when the mass flow rate approaches zero,
+which can increase computing time.
+</p>
+<p>
+The parameter <code>from_dp</code> is used to determine
+whether the mass flow rate is computed as a function of the 
+pressure drop (if <code>from_dp=true</code>), or vice versa.
+This setting can affect the size of the nonlinear system of equations.
+</p>
+<p>
+If the parameter <code>linearized</code> is set to <code>true</code>,
+then the pressure drop is computed as a linear function of the
+mass flow rate.
+</p>
+<p>
+Setting <code>allowFlowReversal=false</code> can lead to simpler
+equations. However, this should only be set to <code>false</code>
+if one can guarantee that the flow never reverses its direction.
+This can be difficult to guarantee, as pressure imbalance after 
+the initialization, or due to medium expansion and contraction,
+can lead to reverse flow.
+</p>
+<p>
+<h4>Notes</h4>
+<p>
+For more detailed models that compute the actual flow friction, 
+models from the package 
+<a href=\"modelica://Modelica.Fluid\">
+Modelica.Fluid</a>
+can be used and combined with models from the 
+<code>Buildings</code> library.
 </p>
 <h4>Implementation</h4>
 <p>
@@ -94,6 +175,12 @@ Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>,
 i.e., using a regularized implementation of the equation
 <p align=\"center\" style=\"font-style:italic;\">
   m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+</p>
+<p>
+To decouple the energy equation from the mass equations,
+the pressure drop is a function of the mass flow rate,
+and not the volume flow rate.
+This leads to simpler equations.
 </p>
 </html>", revisions="<html>
 <ul>
