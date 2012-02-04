@@ -129,13 +129,12 @@ protected
     "Start value for outflowing enthalpy";
 
 public
-  FixedResistances.FixedResistanceDpM preDro1(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro1(
     redeclare package Medium = Medium1,
     final use_dh=false,
     final m_flow_nominal=m1_flow_nominal,
     final deltaM=deltaM1,
     final allowFlowReversal=allowFlowReversal1,
-    final m_flow_small=m1_flow_small,
     final show_T=false,
     final show_V_flow=show_V_flow,
     final from_dp=from_dp1,
@@ -146,13 +145,12 @@ public
     final ReC=4000) "Pressure drop model for fluid 1"
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 
-  FixedResistances.FixedResistanceDpM preDro2(
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro2(
     redeclare package Medium = Medium2,
     final use_dh=false,
     final m_flow_nominal=m2_flow_nominal,
     final deltaM=deltaM2,
     final allowFlowReversal=allowFlowReversal2,
-    final m_flow_small=m2_flow_small,
     final show_T=false,
     final show_V_flow=show_V_flow,
     final from_dp=from_dp2,
@@ -205,6 +203,11 @@ The variable names follow the conventions used in
 </p>Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2012, by Michael Wetter:<br>
+Removed assignment of <code>m_flow_small</code> as it is no
+longer used in its base class.
+</li>
 <li>
 July 29, 2011, by Michael Wetter:
 <ul>

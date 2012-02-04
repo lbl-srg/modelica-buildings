@@ -120,11 +120,11 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_X_Y_buildY "Version X.Y build Z"
+  class Version_X_Y_buildY "Version 1.1 build xxx"
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
-Version X.Y build Z is ... xxx
+Version 1.1 build xxx is ... xxx
 </p>
 <!-- New libraries -->
 <p>
@@ -191,7 +191,9 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve<br/>
                        Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential
     </td>
-    <td valign=\"top\">Revised base classes and model to simplify object inheritance tree.
+    <td valign=\"top\">Revised base classes and models to simplify object inheritance tree.
+                       Set <code>m_flow_small</code> to <code>final</code> in Buildings.Fluid.BaseClasses.PartialResistance,
+                       and removed its assignment in the other classes.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.FixedResistances.FixedResistanceDpM<br/>
@@ -1774,7 +1776,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_X_Y_buildZ\">
-Version X.Y buildZ</a>(xxxx, 2012)</li>
+Version 1.1 buildXXXX</a>(xxxx, 2012)</li>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">
@@ -2163,12 +2165,13 @@ end UsersGuide;
 
 
 annotation (
-version="1.0",
-versionBuild=3,
+version="1.1",
+versionBuild=1,
 versionDate="2011-11-04",
 dateModified = "$Date: 2011-12-08 16:25:22 -0800 (Thu, 08 Dec 2011) $",
 uses(Modelica(version="3.2")),
 conversion(
+ noneFromVersion="1.0",
  from(version="0.12",
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_0.12_to_1.0.mos")),
 revisionId="$Id$",

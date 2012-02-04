@@ -3,7 +3,8 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
     extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
      show_T=false, show_V_flow=false,
      m_flow(start=0, nominal=m_flow_nominal_pos),
-     dp(start=0, nominal=dp_nominal_pos));
+     dp(start=0, nominal=dp_nominal_pos),
+     final m_flow_small = 1E-4*abs(m_flow_nominal));
 
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
@@ -83,7 +84,12 @@ this base class.
 </html>", revisions="<html>
 <ul>
 <li>
-January 16, 2012 by Michael Wetter:<br>
+February 3, 2012, by Michael Wetter:<br>
+Made assignment of <code>m_flow_small</code> <code>final</code> as it is no
+longer used in the base class.
+</li>
+<li>
+January 16, 2012, by Michael Wetter:<br>
 To simplify object inheritance tree, revised base classes
 <code>Buildings.Fluid.BaseClasses.PartialResistance</code>,
 <code>Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve</code>,
@@ -100,7 +106,7 @@ the symbolic processor may not rearrange the equations, which can lead
 to coupled equations instead of an explicit solution.
 </li>
 <li>
-June 20, 2011 by Michael Wetter:<br>
+June 20, 2011, by Michael Wetter:<br>
 Set start values for <code>m_flow</code> and <code>dp</code> to zero, since
 most HVAC systems start at zero flow. With this change, the start values
 appear in the GUI and can be set by the user.

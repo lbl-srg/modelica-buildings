@@ -26,7 +26,7 @@ model MixingBoxMinimumFlow
           rotation=270,
         origin={60,120})));
 
-  VAVBoxExponential damOAMin(
+  Buildings.Fluid.Actuators.Dampers.VAVBoxExponential damOAMin(
     redeclare package Medium = Medium,
     dp_nominalIncludesDamper=dp_nominalIncludesDamper,
     from_dp=from_dp,
@@ -37,7 +37,6 @@ model MixingBoxMinimumFlow
     v_nominal=v_nominal,
     roundDuct=roundDuct,
     ReC=ReC,
-    m_flow_small=m_flow_small,
     a=a,
     b=b,
     yL=yL,
@@ -93,6 +92,11 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+February 3, 2012, by Michael Wetter:<br>
+Removed assignment of <code>m_flow_small</code> as it is no
+longer used in its base class.
+</li>
 <li>
 February 24, 2010 by Michael Wetter:<br>
 Changed implementation of flow resistance. Instead of using a

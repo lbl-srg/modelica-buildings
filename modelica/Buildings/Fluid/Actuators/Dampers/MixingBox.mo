@@ -23,7 +23,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     v_nominal=v_nominal,
     roundDuct=roundDuct,
     ReC=ReC,
-    m_flow_small=m_flow_small,
     a=a,
     b=b,
     yL=yL,
@@ -68,7 +67,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     v_nominal=v_nominal,
     roundDuct=roundDuct,
     ReC=ReC,
-    m_flow_small=m_flow_small,
     a=a,
     b=b,
     yL=yL,
@@ -95,7 +93,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     v_nominal=v_nominal,
     roundDuct=roundDuct,
     ReC=ReC,
-    m_flow_small=m_flow_small,
     a=a,
     b=b,
     yL=yL,
@@ -137,9 +134,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "Pressure drop exhaust air leg"
      annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_small=1E-4
-      *mOut_flow_nominal "Small mass flow rate for regularization of zero flow"
-    annotation (Dialog(tab="Advanced"));
   parameter Boolean from_dp=true
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Dialog(tab="Advanced"));
@@ -304,6 +298,11 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+February 3, 2012, by Michael Wetter:<br>
+Removed assignment of <code>m_flow_small</code> as it is no
+longer used in its base class.
+</li>
 <li>
 February 23, 2010 by Michael Wetter:<br>
 First implementation.

@@ -70,7 +70,6 @@ public
     final m_flow_nominal=m_flow_nominal,
     final deltaM=deltaM,
     final allowFlowReversal=allowFlowReversal,
-    final m_flow_small=m_flow_small,
     final show_T=false,
     final show_V_flow=show_V_flow,
     final from_dp=from_dp,
@@ -155,6 +154,11 @@ Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 3, 2012, by Michael Wetter:<br>
+Removed assignment of <code>m_flow_small</code> as it is no
+longer used in the pressure drop model.
+</li>
 <li>
 January 15, 2011, by Michael Wetter:<br>
 Fixed wrong class reference in information section.
