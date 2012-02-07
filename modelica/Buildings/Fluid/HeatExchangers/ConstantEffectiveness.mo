@@ -8,7 +8,7 @@ model ConstantEffectiveness "Heat exchanger with constant effectiveness"
     mXi1_flow = zeros(Medium1.nXi),
     mXi2_flow = zeros(Medium2.nXi));
 
-  parameter Real eps(start=0.8, min=0, max=1, unit="1")
+  parameter Real eps(min=0, max=1, unit="1") = 0.8
     "Heat exchanger effectiveness";
 equation
 
