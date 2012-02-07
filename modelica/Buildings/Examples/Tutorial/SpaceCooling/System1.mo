@@ -65,7 +65,7 @@ This section describes step by step how we implemented the model.
 <ol>
 <li>
 <p>
-First, we drag 
+First, we dragged 
 <a href=\"modelica://Modelica.Fluid.System\">
 Modelica.Fluid.System</a> into the model and keep its name at
 its default setting, which is <code>system</code>.

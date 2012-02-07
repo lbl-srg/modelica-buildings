@@ -73,102 +73,110 @@ model.
 </p>
 <h4>Implementation</h4>
 <p>
-This model is based on the model 
-<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System1\">
-Buildings.Examples.Tutorial.SpaceCooling.System1</a> which implements the same
-model, except for the following changes:
-<ul>
-<li>
-The heat loss of the room is <i>20</i> kW at a temperature difference of <i>30</i> Kelvin.
-</li>
-<li>
-The internal heat gain is <i>4</i> kW between 8am and 6pm, and zero otherwise.
-</i>
-</ul>
-<p>
-We now describe step by step how we implemented the model.
+This section describes step by step how we implemented the model.
 </p>
 <ol>
 <li>
 <p>
-First, we copied the model
-<a href=\"modelica://Buildings.Examples.Tutorial.SpaceCooling.System1\">
-Buildings.Examples.Tutorial.SpaceCooling.System1</a>
-into the package
-<a href=\"modelica://Buildings.Examples.Tutorial.Boiler\">
-Buildings.Examples.Tutorial.Boiler</a>.
-(To see how the model was constructed, check the documentation of 
-<a href=\"modelica://Buildings.Examples.Tutorial.Boiler\">
-Buildings.Examples.Tutorial.Boiler</a>.)
-Copying the model can be done either using a graphical user interface of a modeling environment,
-or by manually copying the file <code>System1.mo</code> on the harddisk.
-If the file is copied manually, then the package name needs to be changed. This can be
-done by changing the line
-<pre>
-within Buildings.Examples.Tutorial.SpaceCooling;
-</pre>
-to 
-<pre>
-within Buildings.Examples.Tutorial.Boiler;
-</pre>
+First, we dragged 
+<a href=\"modelica://Modelica.Fluid.System\">
+Modelica.Fluid.System</a> into the model and keep its name at
+its default setting, which is <code>system</code>.
+This model is required for all fluid flow models to set
+global properties.
 </p>
 </li>
 <li>
 <p>
-Next, we updated the parameters of the model by changing
+Next, to define the medium properties, we added the declaration
 </p>
 <pre>
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=10000/30) 
-    \"Thermal conductance with the ambient\";
+  replaceable package MediumA =
+      Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
 </pre>
 <p>
-to 
+This will allow the propagation of the medium model to all models that contain air.
+In this example, there is only one model with air.
 </p>
-<pre>
-  Modelica.Thermal.HeatTransfer.Components.ThermalConductor theCon(G=20000/30) 
-    \"Thermal conductance with the ambient\";
-</pre>
 <p>
-and by changing 
+We called the medium <code>MediumA</code> to distinguish it from
+<code>MediumW</code> that we will use in later versions of the model for components that
+have water as a medium. Because we do not anticipate saturated air, we used
+the medium model
+<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated\">
+Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated</a>
+instead of 
+<a href=\"modelica://Buildings.Media.GasesPTDecoupled.MoistAir\">
+Buildings.Media.GasesPTDecoupled.MoistAir</a>
+as the latter is computationally more expensive.
+Because in this model, we are not interested in air humidification or
+dehumidification, we could have as well used the medium model
+<a href=\"modelica://Buildings.Media.GasesPTDecoupled.SimpleAir\">
+Buildings.Media.GasesPTDecoupled.SimpleAir</a>.
 </p>
+<p>
+We also defined the system-level parameters
 <pre>
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 1000
+  parameter Modelica.SIunits.Volume V=6*10*3 \"Room volume\";
+  parameter Modelica.SIunits.MassFlowRate mA_flow_nominal = V*6/3600
+    \"Nominal mass flow rate\";
+  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000 
     \"Internal heat gains of the room\";
 </pre>
-<p>
-to 
-</p>
-<pre>
-  parameter Modelica.SIunits.HeatFlowRate QRooInt_flow = 4000
-    \"Internal heat gains of the room\";
-</pre>
+to declare that the room volume is <i>180</i> m<sup>3</sup>, that the room
+has a nominal mass flow rate of <i>6</i> air changes per hour and that 
+the internal heat gains of the room are <i>4000</i> Watts.
+These parameters have been declared at the top-level of the model
+as they will be used in several other models.
+Declaring them at the top-level allows to propagate them to other
+models, and to easily change them at one location should this be required
+when revising the model.
 </p>
 </li>
 <li>
 <p>
-To make the heat gain time dependent, we changed the class of the instance
-<code>preHea</code> from the model
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow\">
-Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a>
-to the model
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
-Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>.
+To model the room air, approximated as a completely mixed volume of air, 
+an instance of
+<a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
+Buildings.Fluid.MixingVolumes.MixingVolume</a>
+has been used, as this model can be used with dry air or moist air.
+The medium model has been set to <code>MediumA</code>, and the nominal mass
+flow rate is set to <code>mA_flow_nominal</code>.
+The nominal mass flow rate is used for numerical reasons and should be set 
+to the approximate order of magnitude. It only has an effect if the mass flow
+rate is near zero and what \"near zero\" means depends on the magnitude of
+<code>m_flow_nominal</code>, as it is used for the default value of the parameter
+<code>m_flow_small</code> on the <code>Assumptions</code> tag of the model.
+See also 
+<a href=\"modelica://Buildings.Fluid.UsersGuide\">
+Buildings.Fluid.UsersGuide</a>
+for an explanation of the purpose of <code>m_flow_small</code>.
 </p>
+</li>
+<li>
 <p>
-Changing the class can be done either in the textual editor, 
-or by deleting the existing and adding the new component in the graphical editor, or in Dymola
-by left-clicking on the component and selecting \"Change Class...\", as shown in the figure below.
-<p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/replaceHeatFlow.png\" border=\"1\">
+Since we need to increase the heat capacity of the room air to approximate
+energy storage in furniture and building constructions, we connected the instance
+<code>heaCap</code> to the heat port of the room air.
+The model <code>heaCap</code> models energy storage. We set its capacity to
+<i>C=2*V*1.2*1006</i> J/K. This will increase the total heat capacity 
+of the room air by a factor of three.
 </p>
+</li>
+<li>
 <p>
-<b>Note:</b>
-If the class is changed as shown in the image above, then Dymola 2012 FD01 does <i>not</i> delete
-the parameter assignment <code>Q_flow=QRooInt_flow</code>. 
-Since <code>Q_flow</code> is an input to 
-<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
-Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>,
-the parameter assignment needs to be deleted manually in the text editor.
+We used the instance <code>heaCon</code> to model the heat conductance to the ambient.
+Since our room should have a heat loss of <i>20</i> kW at a temperature difference
+of <i>30</i> Kelvin, we set the conductance to 
+<i>G=20000 &frasl; 30</i> W/K.
+</p>
+</li>
+<li>
+<p>
+We used the instance <code>preHea</code> to model a prescribed heat gain, 
+such as due to internal heat source.
+This model outputs the heat gain which is equal to the value of its 
+input signal, which is obtained from a time table.
 </p>
 </li>
 <li>
