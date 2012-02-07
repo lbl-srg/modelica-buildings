@@ -1,9 +1,8 @@
 within Buildings.Fluid.MixingVolumes;
 model MixingVolumeMoistAir
   "Mixing volume with heat port for latent heat exchange, to be used with media that contain water"
-  extends BaseClasses.PartialMixingVolumeWaterPort(nPorts(min=2, max=2),
-    steBal(
-    final sensibleOnly = false));
+  extends BaseClasses.PartialMixingVolumeWaterPort(
+    steBal(final sensibleOnly = false));
   // redeclare Medium with a more restricting base class. This improves the error
   // message if a user selects a medium that does not contain the function
   // enthalpyOfLiquid(.)
@@ -15,6 +14,14 @@ protected
   parameter Real s[Medium.nXi](fixed=false)
     "Vector with zero everywhere except where species is";
 
+protected
+  Modelica.Blocks.Sources.RealExpression
+    masExc[Medium.nXi](y=mXi_flow) if
+       Medium.nXi > 0 "Block to set mass exchange in volume"
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  Modelica.Blocks.Sources.RealExpression heaInp(y=heatPort.Q_flow + HWat_flow)
+    "Block to set heat input into volume"
+    annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 initial algorithm
   i_w:= -1;
   if cardinality(mWat_flow) > 0 then
@@ -53,6 +60,22 @@ equation
 // Medium species concentration
   X_w = s * Xi;
 
+  connect(heaInp.y, steBal.Q_flow) annotation (Line(
+      points={{-59,80},{-32,80},{-32,18},{-22,18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(masExc.y, steBal.mXi_flow) annotation (Line(
+      points={{-59,60},{-40,60},{-40,14},{-22,14}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heaInp.y, dynBal.Q_flow) annotation (Line(
+      points={{-59,80},{26,80},{26,16},{38,16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(masExc.y, dynBal.mXi_flow) annotation (Line(
+      points={{-59,60},{20,60},{20,12},{38,12}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(graphics),
                        Icon(graphics),
 defaultComponentName="vol",
@@ -85,6 +108,10 @@ Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 7, 2012 by Michael Wetter:<br>
+Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.
+</li>
 <li>
 February 22, by Michael Wetter:<br>
 Improved the code that searches for the index of 'water' in the medium model.

@@ -1,12 +1,7 @@
 within Buildings.Fluid;
 package Interfaces "Package with interfaces for fluid models"
   extends Modelica.Icons.InterfacesPackage;
-annotation (preferedView="info", Documentation(info="<html>
-This package contains basic classes that are used to build
-component models that change the state of the
-fluid. The classes are not directly usable, but can
-be extended when building a new model.
-</html>"));
+
 
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
@@ -37,28 +32,68 @@ Next, we describe the basic classes. For a more detailed description,
 see the <i>info</i> section of the class.
 </p>
 <p>
-<table>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
 <!-- -------------------------------- -->
-  <td><a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolume\">
-      Buildings.Fluid.Interfaces.LumpedVolume</a>
+  <td><a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
+      Buildings.Fluid.Interfaces.ConservationEquation</a>
   </td>
-  <td>This is a basic model for an ideally mixed fluid volume 
-      with the ability to store mass and energy.
-      Models that instanciate this model need to define the inputs
+  <td><p>
+      This is a basic model for an ideally mixed fluid volume.
+      It implements conservation equations for mass and energy.
+      The conservation equations can be dynamic or steady-state.
+      The model can have an arbitrary number of fluid ports.
+      Models that instanciate this model need to define the input
+      <code>fluidVolume</code>, which is the actual volume occupied by the fluid.
+      For most components, this can be set to a parameter. However, for components such as 
+      expansion vessels, the fluid volume can change in time.
+      </p>
+      <p>
+      The model has the following input connectors:
 <ul>
 <li>
-<code>fluidVolume</code>, which is the actual volume occupied by the fluid.
-For most components, this can be set to a parameter. However, for components such as 
-expansion vessels, the fluid volume can change in time.
+<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
 </li>
 <li>
-<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium.
+<code>mXi_flow</code>, which is the species mass flow rate added to the medium.
+</li>
+</ul> 
+ </p>
+  <p>
+  Models that instanciate this model can used these connectors to interface with the conservation equations.
+  </p>
+  </td>
+</tr>
+<!-- -------------------------------- -->
+<tr>
+  <td><a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
+      Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
+  </td>
+  <td><p>
+      This is a basic model for steady-state conservation equations
+      for mass and energy of a component with two fluid ports.
+      </p>
+      <p>
+      The model has the following input connectors:
+<ul>
+<li>
+<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
 </li>
 <li>
 <code>mXi_flow</code>, which is the species mass flow rate added to the medium.
 </li>
 </ul>
+  </p>
+  <p>
+  Models that instanciate this model can used these connectors to interface with the conservation equations.
+  </p>
+ <p>
+  Compared to 
+  <a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
+      Buildings.Fluid.Interfaces.ConservationEquation</a>
+  this model provides a more efficient implementation of the steady-state conservation equations for
+  models with two fluid ports.
+  </p>
   </td>
 </tr>
 <!-- -------------------------------- -->
@@ -168,4 +203,11 @@ expansion vessels, the fluid volume can change in time.
 
 end UsersGuide;
 
+
+annotation (preferedView="info", Documentation(info="<html>
+This package contains basic classes that are used to build
+component models that change the state of the
+fluid. The classes are not directly usable, but can
+be extended when building a new model.
+</html>"));
 end Interfaces;

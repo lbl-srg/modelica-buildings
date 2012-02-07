@@ -13,7 +13,6 @@ package Medium = Buildings.Media.PerfectGases.MoistAir;
   Buildings.Utilities.Diagnostics.AssertEquality assMas(threShold=1E-5)
     "Assert to test if the outputs of the forward flow and reverse flow model are identical"
     annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
-
   Buildings.Fluid.MassExchangers.HumidifierPrescribed humBac(
     redeclare package Medium = Medium,
     dp_nominal=0,
@@ -96,7 +95,6 @@ equation
       points={{-79.4,60},{-70,60},{-70,12},{-24,12},{-24,0},{-30,0}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(humFor.port_b, senTem1.port)         annotation (Line(
       points={{-30,30},{-30,70},{-20,70}},
       color={0,127,255},

@@ -52,8 +52,8 @@ lumped volume model.
 </p>
 <p>
 These parameters are used by
-<a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolume\">
-Buildings.Fluid.Interfaces.LumpedVolume</a>,
+<a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
+Buildings.Fluid.Interfaces.ConservationEquation</a>,
 <a href=\"modelica://Buildings.Fluid.MixingVolumes.MixingVolume\">
 Buildings.Fluid.MixingVolumes.MixingVolume</a>,
 <a href=\"modelica://Buildings.Rooms.MixedAir\">

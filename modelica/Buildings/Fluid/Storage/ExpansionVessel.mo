@@ -14,14 +14,14 @@ model ExpansionVessel "Pressure expansion vessel with fixed gas cushion"
     "Maximum pressure before simulation stops with an error";
 
  Modelica.SIunits.Volume VLiq "Volume of liquid in the vessel";
-protected
   // We set m(start=(VTot-VGas0)*1000, stateSelect=StateSelect.always)
   // since the mass accumulated in the volume should be a state.
   // This often leads to smaller systems of equations.
-  Buildings.Fluid.Interfaces.LumpedVolume vol(
+protected
+  Buildings.Fluid.Interfaces.ConservationEquation vol(
     redeclare final package Medium = Medium,
     m(start=(VTot-VGas0)*1000, stateSelect=StateSelect.always),
-    final nPorts = 1,
+    final nPorts=1,
     final energyDynamics=energyDynamics,
     final massDynamics=massDynamics,
     final p_start=p_start,
@@ -29,11 +29,16 @@ protected
     final X_start=X_start,
     final C_start=C_start,
     final C_nominal=C_nominal,
-    final fluidVolume = VLiq,
-    final Q_flow = 0,
-    final mXi_flow = zeros(Medium.nXi))
-    "Model for mass and energy balance of water in expansion vessel";
+    final fluidVolume = VLiq)
+    "Model for mass and energy balance of water in expansion vessel"
+    annotation (Placement(transformation(extent={{-10,-20},{10,0}})));
+  Modelica.Blocks.Sources.Constant heaInp(final k=0)
+    "Block to set heat input into volume"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
 
+  Modelica.Blocks.Sources.Constant       masExc[Medium.nXi](final k=zeros(Medium.nXi)) if
+        Medium.nXi > 0 "Block to set mass exchange in volume"
+    annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
 equation
   assert(port_a.p < pMax, "Pressure exceeds maximum pressure.\n" +
        "You may need to increase VTot of the ExpansionVessel.");
@@ -41,7 +46,19 @@ equation
   // Water content and pressure
   port_a.p * (VTot-VLiq) = p_start * VGas0;
 
-  connect(port_a, vol.ports[1]);
+  connect(heaInp.y, vol.Q_flow) annotation (Line(
+      points={{-59,70},{-20,70},{-20,-4},{-12,-4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(masExc.y, vol.mXi_flow) annotation (Line(
+      points={{-59,40},{-30,40},{-30,-8},{-12,-8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(port_a, vol.ports[1]) annotation (Line(
+      points={{5.55112e-16,-100},{5.55112e-16,-60},{6.66134e-16,-60},{
+          6.66134e-16,-20}},
+      color={0,127,255},
+      smooth=Smooth.None));
    annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics={
         Ellipse(
@@ -99,6 +116,10 @@ of equations, which may result in faster simulation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 7, 2012 by Michael Wetter:<br>
+Revised due to changes in conservation equations in <code>Buildings.Fluid.Interfaces</code>.
+</li>
 <li>
 September 16, 2011 by Michael Wetter:<br>
 Set <code>m(stateSelect=StateSelect.always)</code>, since

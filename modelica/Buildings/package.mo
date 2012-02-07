@@ -148,6 +148,13 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                     Buildings.Fluid.Interfaces.StaticConservationEquation
+    </td>
+    <td valign=\"top\">These base classes have been added to simplify the implementation
+                     of dynamic and steady-state thermofluid models.
+    </td> 
+    </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Data.Fuels
     </td>
     <td valign=\"top\">Package with physical properties of fuels that are used by the
@@ -722,7 +729,7 @@ that is used for the regularization near zero mass flow rate.</td>
                      Buildings.Fluid.Interfaces.PartialDynamicStaticFourPortHeatMassExchanger<br>
                      Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br>
                      Buildings.Fluid.Interfaces.PartialDynamicStaticTwoPortHeatMassExchanger<br>
-                     Buildings.Fluid.Interfaces.LumpedVolume</td>
+                     Buildings.Fluid.Interfaces.ConservationEquation</td>
     <td valign=\"top\">The implementation has been changed to better handle mass flow rates
 near zero flow if the components have exactly two fluid ports connected.</td>
 </tr>
@@ -1088,8 +1095,8 @@ With the new implementation, the energy and moisture balance is exact.
 </li>
 <li>
 In 
-<a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolume\">
-Buildings.Fluid.Interfaces.LumpedVolume</a> and in
+<a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
+Buildings.Fluid.Interfaces.ConservationEquation</a> and in
 <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleMedium\">
 Buildings.Media.Interfaces.PartialSimpleMedium</a>, set
 nominal attribute for medium to provide consistent normalization.
@@ -1341,8 +1348,8 @@ pressure drop and height.
 <ul>
 <li>
 In 
-<a href=\"modelica://Buildings.Fluid.Interfaces.LumpedVolume\">
-Buildings.Fluid.Interfaces.LumpedVolume</a>,
+<a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
+Buildings.Fluid.Interfaces.ConservationEquation</a>,
 added to <code>Medium.BaseProperties</code> the initialization 
 <code>X(start=X_start[1:Medium.nX])</code>. Previously, the initialization
 was only done for <code>Xi</code> but not for <code>X</code>, which caused the

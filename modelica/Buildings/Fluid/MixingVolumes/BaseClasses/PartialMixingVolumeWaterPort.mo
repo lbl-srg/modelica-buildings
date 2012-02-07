@@ -1,14 +1,7 @@
 within Buildings.Fluid.MixingVolumes.BaseClasses;
 partial model PartialMixingVolumeWaterPort
   "Partial mixing volume that allows adding or subtracting water vapor"
-  extends Buildings.Fluid.MixingVolumes.MixingVolume(
-   steBal(
-    sensibleOnly = false,
-    final Q_flow = Q_flow + HWat_flow,
-    final mXi_flow = mXi_flow),
-   dynBal(
-    final Q_flow = Q_flow + HWat_flow,
-    final mXi_flow = mXi_flow));
+  extends Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
 
  // additional declarations
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
@@ -31,13 +24,14 @@ partial model PartialMixingVolumeWaterPort
 
   annotation (
     Documentation(info="<html>
-Model for an ideally mixed fluid volume with <code>nP</code> ports and the ability 
-to store mass and energy. The volume is fixed. 
+This is a partial model of an instantaneously mixed volume.
+It is used as the base class for all fluid volumes of the package
+<a href=\"modelica://Buildings.Fluid.MixingVolumes\">
+Buildings.Fluid.MixingVolumes</a>
+that add or remove humidity from the volume.
+</p>
+<h4>Implementation</h4>
 <p>
-This model represents the same physics as 
-<a href=\"Modelica:Modelica.Fluid.Vessels.Volume\">
-Modelica.Fluid.Vessels.Volume</a> but in addition,
-it allows to connect signals for the water exchanged with the volume.
 The model is partial in order to allow a submodel that can be used with media
 that contain water as a substance, and a submodel that can be used with dry air.
 Having separate models is required because calls to the medium property function
@@ -47,6 +41,10 @@ is used that does not implement this function.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 7, 2012 by Michael Wetter:<br>
+Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.
+</li>
 <li>
 January 10, 2011 by Michael Wetter:<br>
 Removed <code>ports_p_static</code> and used instead <code>medium.p</code> since

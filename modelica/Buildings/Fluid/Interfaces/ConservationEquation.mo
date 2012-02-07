@@ -1,5 +1,5 @@
 within Buildings.Fluid.Interfaces;
-model LumpedVolume "Lumped volume with mass and energy balance"
+model ConservationEquation "Lumped volume with mass and energy balance"
 
 //  outer Modelica.Fluid.System system "System properties";
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
@@ -49,18 +49,30 @@ model LumpedVolume "Lumped volume with mass and energy balance"
 
   // Inputs that need to be defined by an extending class
   input Modelica.SIunits.Volume fluidVolume "Volume";
-  input Modelica.SIunits.HeatFlowRate Q_flow
-    "Net heat input into component other than through the fluid ports";
-  input Modelica.SIunits.MassFlowRate[Medium.nXi] mXi_flow
-    "Net substance mass flow rate into the component other than through the fluid ports";
+
+  Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
+    "Heat transfered into the medium"
+    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
+  Modelica.Blocks.Interfaces.RealInput mXi_flow[Medium.nXi](unit="kg/s")
+    "Mass flow rates of independent substances added to the medium"
+    annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
 
   // Outputs that are needed in models that extend this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg")
-    "Leaving temperature of the component";
+    "Leaving enthalpy of the component"
+     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-50,110})));
   Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](unit="1")
-    "Leaving species concentration of the component";
+    "Leaving species concentration of the component"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={0,110})));
   Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](unit="1")
-    "Leaving trace substances of the component";
+    "Leaving trace substances of the component"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={50,110})));
 protected
   parameter Boolean initialize_p = not Medium.singleState
     "= true to set up initial equations for pressure";
@@ -75,7 +87,6 @@ protected
      p=p_start,
      X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
   annotation (Evaluate=true);
-
 equation
   // Total quantities
   m = fluidVolume*medium.d;
@@ -200,18 +211,22 @@ initial equation
     Documentation(info="<html>
 <p>
 Basic model for an ideally mixed fluid volume with the ability to store mass and energy.
+It implements a dynamic or a steady-state conservation equation for energy and mass fractions.
+The model has zero pressure drop between its ports.
 </p>
 <h4>Implementation</h4>
 <p>
-When extending or instantiating this model, the following inputs need to be assigned:
-<ul>
-<li>
-<code>fluidVolume</code>, which is the actual volume occupied by the fluid.
+When extending or instantiating this model, the input 
+<code>fluidVolume</code>, which is the actual volume occupied by the fluid,
+needs to be assigned.
 For most components, this can be set to a parameter. However, for components such as 
 expansion vessels, the fluid volume can change in time.
-</li>
+</p>
+<p>
+Input connectors of the model are
+<ul>
 <li>
-<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium.
+<code>Q_flow</code>, which is the sensible plus latent heat flow rate added to the medium, and
 </li>
 <li>
 <code>mXi_flow</code>, which is the species mass flow rate added to the medium.
@@ -222,8 +237,8 @@ expansion vessels, the fluid volume can change in time.
 The model can be used as a dynamic model or as a steady-state model.
 However, for a steady-state model with exactly two fluid ports connected, 
 the model
-<a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
-Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>
+<a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
+Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
 provides a more efficient implementation.
 </p>
 <p>
@@ -291,5 +306,38 @@ Implemented first version in <code>Buildings</code> library, based on model from
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}),
-            graphics));
-end LumpedVolume;
+            graphics),
+    Icon(graphics={            Rectangle(
+          extent={{-100,100},{100,-100}},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          pattern=LinePattern.None),
+        Text(
+          extent={{-89,17},{-54,34}},
+          lineColor={0,0,127},
+          textString="mXi_flow"),
+        Text(
+          extent={{-89,52},{-54,69}},
+          lineColor={0,0,127},
+          textString="Q_flow"),
+        Line(points={{-56,-73},{81,-73}}, color={255,255,255}),
+        Line(points={{-42,55},{-42,-84}}, color={255,255,255}),
+        Polygon(
+          points={{-42,67},{-50,45},{-34,45},{-42,67}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Polygon(
+          points={{87,-73},{65,-65},{65,-81},{87,-73}},
+          lineColor={255,255,255},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{-42,-28},{-6,-28},{18,4},{40,12},{66,14}},
+          color={255,255,255},
+          smooth=Smooth.Bezier),
+        Text(
+          extent={{-155,-120},{145,-160}},
+          lineColor={0,0,255},
+          textString="%name")}));
+end ConservationEquation;

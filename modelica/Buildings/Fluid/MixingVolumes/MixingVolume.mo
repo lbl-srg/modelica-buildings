@@ -1,150 +1,31 @@
 within Buildings.Fluid.MixingVolumes;
 model MixingVolume
   "Mixing volume with inlet and outlet ports (flow reversal is allowed)"
-  outer Modelica.Fluid.System system "System properties";
-  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
-  // Port definitions
-  parameter Integer nPorts=0 "Number of ports"
-    annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
-    "Small mass flow rate for regularization of zero flow"
-    annotation(Dialog(tab = "Advanced"));
-  parameter Boolean homotopyInitialization = true "= true, use homotopy method"
-    annotation(Evaluate=true, Dialog(tab="Advanced"));
-  parameter Boolean allowFlowReversal = system.allowFlowReversal
-    "= true to allow flow reversal in medium, false restricts to design direction (ports[1] -> ports[2]). Used only if model has two ports."
-    annotation(Dialog(tab="Assumptions"), Evaluate=true);
-  parameter Modelica.SIunits.Volume V "Volume";
-  parameter Boolean prescribedHeatFlowRate=false
-    "Set to true if the model has a prescribed heat flow at its heatPort"
-   annotation(Evaluate=true, Dialog(tab="Assumptions",
-      enable=use_HeatTransfer,
-      group="Heat transfer"));
-  Modelica.Fluid.Vessels.BaseClasses.VesselFluidPorts_b ports[nPorts](
-      redeclare each package Medium = Medium) "Fluid inlets and outlets"
-    annotation (Placement(transformation(extent={{-40,-10},{40,10}},
-      origin={0,-100})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port connected to outflowing medium"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}})));
-  Modelica.SIunits.Temperature T "Temperature of the fluid";
-  Modelica.SIunits.Pressure p "Pressure of the fluid";
-  Modelica.SIunits.MassFraction Xi[Medium.nXi]
-    "Species concentration of the fluid";
-  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
-    "Trace substance mixture content";
-   // Models for the steady-state and dynamic energy balance.
+  extends Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume;
 protected
-  Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger steBal(
-    sensibleOnly = true,
-    redeclare final package Medium=Medium,
-    final m_flow_nominal = m_flow_nominal,
-    final dp_nominal = 0,
-    final allowFlowReversal = allowFlowReversal,
-    final m_flow_small = m_flow_small,
-    final homotopyInitialization = homotopyInitialization,
-    final show_V_flow = false,
-    final from_dp = false,
-    final linearizeFlowResistance = true,
-    final deltaM = 0.3,
-    Q_flow = Q_flow,
-    mXi_flow = zeros(Medium.nXi)) if
-        useSteadyStateTwoPort "Model for steady-state balance if nPorts=2";
-  Buildings.Fluid.Interfaces.LumpedVolume dynBal(
-    redeclare final package Medium = Medium,
-    final nPorts = nPorts,
-    final energyDynamics=energyDynamics,
-    final massDynamics=massDynamics,
-    final p_start=p_start,
-    final T_start=T_start,
-    final X_start=X_start,
-    final C_start=C_start,
-    final C_nominal=C_nominal,
-    final fluidVolume = V,
-    m(start=V*rho_nominal),
-    U(start=V*rho_nominal*Medium.specificInternalEnergy(
-        state_start)),
-    Q_flow = Q_flow,
-    mXi_flow = zeros(Medium.nXi)) if
-        not useSteadyStateTwoPort "Model for dynamic energy balance";
-
-  parameter Medium.ThermodynamicState state_start = Medium.setState_pTX(
-      T=T_start,
-      p=p_start,
-      X=X_start[1:Medium.nXi]) "Start state";
-
-  parameter Modelica.SIunits.Density rho_nominal=Medium.density(
-   Medium.setState_pTX(
-     T=T_start,
-     p=p_start,
-     X=X_start[1:Medium.nXi])) "Density, used to compute fluid mass"
-  annotation (Evaluate=true);
-  ////////////////////////////////////////////////////
-  final parameter Boolean useSteadyStateTwoPort=(nPorts == 2) and
-      prescribedHeatFlowRate and (
-      energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
-      massDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
-      substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) and (
-      traceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
-    "Flag, true if the model has two ports only and uses a steady state balance"
-    annotation (Evaluate=true);
-  Modelica.SIunits.HeatFlowRate Q_flow
-    "Heat flow across boundaries or energy source/sink";
-  // Outputs that are needed to assign the medium properties
-  Modelica.Blocks.Interfaces.RealOutput hOut_internal(unit="J/kg")
-    "Internal connector for leaving temperature of the component";
-  Modelica.Blocks.Interfaces.RealOutput XiOut_internal[Medium.nXi](unit="1")
-    "Internal connector for leaving species concentration of the component";
-  Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](unit="1")
-    "Internal connector for leaving trace substances of the component";
+  Modelica.Blocks.Sources.Constant       masExc[Medium.nXi](k=zeros(Medium.nXi)) if
+       Medium.nXi > 0 "Block to set mass exchange in volume"
+    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+  Modelica.Blocks.Sources.RealExpression heaInp(y=heatPort.Q_flow)
+    "Block to set heat input into volume"
+    annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
-  ///////////////////////////////////////////////////////////////////////////
-  // asserts
-  if not allowFlowReversal then
-    assert(ports[1].m_flow > -m_flow_small,
-"Model has flow reversal, but the parameter allowFlowReversal is set to false.
-  m_flow_small    = " + String(m_flow_small) + "
-  ports[1].m_flow = " + String(ports[1].m_flow) + "
-");
-  end if;
-// Only one connection allowed to a port to avoid unwanted ideal mixing
-  if not useSteadyStateTwoPort then
-    for i in 1:nPorts loop
-    assert(cardinality(ports[i]) == 2 or cardinality(ports[i]) == 0,"
-each ports[i] of volume can at most be connected to one component.
-If two or more connections are present, ideal mixing takes
-place with these connections, which is usually not the intention
-of the modeller. Increase nPorts to add an additional port.
-");
-     end for;
-  end if;
-  // actual definition of port variables
-  // If the model computes the energy and mass balances as steady-state,
-  // and if it has only two ports,
-  // then we use the same base class as for all other steady state models.
-  if useSteadyStateTwoPort then
-    connect(ports[1], steBal.port_a);
-    connect(ports[2], steBal.port_b);
-    connect(hOut_internal,  steBal.hOut);
-    connect(XiOut_internal, steBal.XiOut);
-    connect(COut_internal,  steBal.COut);
-  else
-    connect(ports, dynBal.ports);
-    connect(hOut_internal,  dynBal.hOut);
-    connect(XiOut_internal, dynBal.XiOut);
-    connect(COut_internal,  dynBal.COut);
-  end if;
-  // Medium properties
-  p = if nPorts > 0 then ports[1].p else p_start;
-  T = Medium.temperature_phX(p=p, h=hOut_internal, X=cat(1,Xi,{1-sum(Xi)}));
-  Xi = XiOut_internal;
-  C = COut_internal;
-  // Port properties
-  heatPort.T = T;
-  heatPort.Q_flow = Q_flow;
+  connect(heaInp.y, steBal.Q_flow) annotation (Line(
+      points={{-59,90},{-30,90},{-30,18},{-22,18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(heaInp.y, dynBal.Q_flow) annotation (Line(
+      points={{-59,90},{28,90},{28,16},{38,16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(masExc.y, steBal.mXi_flow) annotation (Line(
+      points={{-59,70},{-42,70},{-42,14},{-22,14}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(masExc.y, dynBal.mXi_flow) annotation (Line(
+      points={{-59,70},{20,70},{20,12},{38,12}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
 defaultComponentName="vol",
 Documentation(info="<html>
@@ -208,6 +89,10 @@ Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 7, 2012 by Michael Wetter:<br>
+Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.
+</li>
 <li>
 September 17, 2011 by Michael Wetter:<br>
 Removed instance <code>medium</code> as this is already used in <code>dynBal</code>.
