@@ -6,11 +6,37 @@ model StaticTwoPortHeatMassExchanger
   final show_T=true);
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(
     final computeFlowResistance=(abs(dp_nominal) > Modelica.Constants.eps));
-  import Modelica.Constants;
+
+  // Model inputs
   input Modelica.SIunits.HeatFlowRate Q_flow "Heat transfered into the medium";
   input Medium.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
-  constant Boolean sensibleOnly "Set to true if sensible exchange only";
+
+  // Models for conservation equations and pressure drop
+  Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation vol(
+    sensibleOnly = sensibleOnly,
+    use_safeDivision = use_safeDivision,
+    redeclare final package Medium = Medium,
+    final m_flow_nominal = m_flow_nominal,
+    final allowFlowReversal=allowFlowReversal,
+    final m_flow_small=m_flow_small,
+    final homotopyInitialization=homotopyInitialization)
+    "Control volume for steady-state energy and mass balance"
+    annotation (Placement(transformation(extent={{15,-10}, {35,10}})));
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM preDro(
+    redeclare final package Medium = Medium,
+    final use_dh=false,
+    final m_flow_nominal=m_flow_nominal,
+    final deltaM=deltaM,
+    final allowFlowReversal=allowFlowReversal,
+    final show_T=false,
+    final show_V_flow=show_V_flow,
+    final from_dp=from_dp,
+    final linearized=linearizeFlowResistance,
+    final homotopyInitialization=homotopyInitialization,
+    final dp_nominal=dp_nominal) "Pressure drop model"
+    annotation (Placement(transformation(extent={{-50,-10},{-30,10}})));
+
   // Outputs that are needed in models that extend this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg")
     "Leaving temperature of the component";
@@ -18,114 +44,50 @@ model StaticTwoPortHeatMassExchanger
     "Leaving species concentration of the component";
   Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](unit="1")
     "Leaving trace substances of the component";
+  constant Boolean sensibleOnly "Set to true if sensible exchange only";
   constant Boolean use_safeDivision=true
     "Set to true to improve numerical robustness";
 protected
-  Real m_flowInv(unit="s/kg") "Regularization of 1/m_flow";
-  final parameter Real k(unit="")=if computeFlowResistance
-   then abs(m_flow_nominal)/sqrt(abs(dp_nominal)) else 0
-    "Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
-  final parameter Real kLin(unit="") = if computeFlowResistance
-   then abs(m_flow_nominal/dp_nominal) else 0;
+  Modelica.Blocks.Sources.RealExpression heaInp(y=Q_flow)
+    "Block to set heat input into volume"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+  Modelica.Blocks.Sources.RealExpression
+    masExc[Medium.nXi](y=mXi_flow) if
+       Medium.nXi > 0 "Block to set mass exchange in volume"
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
 equation
-  // Regularization of m_flow around the origin to avoid a division by zero
- if use_safeDivision then
-    m_flowInv = Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
- else
-     m_flowInv = 1/port_a.m_flow;
- end if;
- if allowFlowReversal then
-// This formulation fails to simulate in Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate
-// with Dymola 2012. See also Dynasim ticket 13596.
-// It works with Dymola 2012 FD01.
-   if (port_a.m_flow >= 0) then
-     hOut =  port_b.h_outflow;
-     XiOut = port_b.Xi_outflow;
-     COut =  port_b.C_outflow;
-    else
-     hOut =  port_a.h_outflow;
-     XiOut = port_a.Xi_outflow;
-     COut =  port_a.C_outflow;
-    end if;
- else
-   hOut =  port_b.h_outflow;
-   XiOut = port_b.Xi_outflow;
-   COut =  port_b.C_outflow;
- end if;
-  //////////////////////////////////////////////////////////////////////////////////////////
-  // Energy balance and mass balance
-  if sensibleOnly then
-    // Mass balance
-    port_a.m_flow = -port_b.m_flow;
-    // Energy balance
-    port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-    port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
-    // Transport of species
-    port_a.Xi_outflow = inStream(port_b.Xi_outflow);
-    port_b.Xi_outflow = inStream(port_a.Xi_outflow);
-    // Transport of trace substances
-    port_a.C_outflow = inStream(port_b.C_outflow);
-    port_b.C_outflow = inStream(port_a.C_outflow);
-  else
-    // Mass balance (no storage)
-    port_a.m_flow + port_b.m_flow = -sum(mXi_flow);
-    // Energy balance.
-    // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
-    // at both ports. Since mXi_flow << m_flow, the error is small.
-    port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-    port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
-    // Transport of species
-    for i in 1:Medium.nXi loop
-      port_b.Xi_outflow[i] = inStream(port_a.Xi_outflow[i]) + mXi_flow[i] * m_flowInv;
-      port_a.Xi_outflow[i] = inStream(port_b.Xi_outflow[i]) - mXi_flow[i] * m_flowInv;
-    end for;
-    // Transport of trace substances
-    for i in 1:Medium.nC loop
-      port_a.m_flow*port_a.C_outflow[i] = -port_b.m_flow*inStream(port_b.C_outflow[i]);
-      port_b.m_flow*port_b.C_outflow[i] = -port_a.m_flow*inStream(port_a.C_outflow[i]);
-    end for;
-  end if; // sensibleOnly
-  //////////////////////////////////////////////////////////////////////////////////////////
-  // Pressure drop calculation
-  if computeFlowResistance then
-    if linearizeFlowResistance then
-      m_flow = kLin*dp;
-    else
-      if homotopyInitialization then
-        if from_dp then
-           m_flow = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                    dp=dp,
-                                    k=k,
-                                    m_flow_turbulent=deltaM * m_flow_nominal),
-                                    simplified=m_flow_nominal*dp/dp_nominal);
-         else
-           dp = homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                    m_flow=m_flow,
-                                    k=k,
-                                    m_flow_turbulent=deltaM * m_flow_nominal),
-                                    simplified=dp_nominal*m_flow/m_flow_nominal);
-        end if; // from_dp
-      else // do not use homotopy
-        if from_dp then
-          m_flow = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(
-                                    dp=dp,
-                                    k=k,
-                                    m_flow_turbulent=deltaM * m_flow_nominal);
-        else
-          dp = Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(
-                                    m_flow=m_flow,
-                                    k=k,
-                                    m_flow_turbulent=deltaM * m_flow_nominal);
-        end if; // from_dp
-      end if; // homotopyInitialization
-    end if; // linearized
-  else // do not compute flow resistance
-    dp = 0;
-  end if; // computeFlowResistance
+  connect(vol.hOut, hOut);
+  connect(vol.XiOut, XiOut);
+  connect(vol.COut, COut);
+  connect(port_a,preDro. port_a) annotation (Line(
+      points={{-100,0},{-80,0},{-80,0},{-70,0},{-70,
+          0},{-50,0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(preDro.port_b, vol.port_a) annotation (Line(
+      points={{-30,0},{-8,0},{-8,0},{15,
+          0}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
+  connect(vol.port_b, port_b) annotation (Line(
+      points={{35,0},{67,0},{67,0},{100,
+          5.55112e-16}},
+      color={0,127,255},
+      smooth=Smooth.None));
+
+  connect(heaInp.y, vol.Q_flow) annotation (Line(
+      points={{1,50},{6,50},{6,8},{13,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(masExc.y, vol.mXi_flow) annotation (Line(
+      points={{1,30},{4,30},{4,4},{13,4}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     preferedView="info",
     Diagram(coordinateSystem(
-        preserveAspectRatio=false,
+        preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         grid={1,1}), graphics),
     Documentation(info="<html>
@@ -167,6 +129,10 @@ or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 8, 2012 by Michael Wetter:<br>
+Changed model to use graphical modeling.
+</li>
 <li>
 December 14, 2011 by Michael Wetter:<br>
 Changed assignment of <code>hOut</code>, <code>XiOut</code> and

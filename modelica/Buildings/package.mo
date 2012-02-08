@@ -188,8 +188,8 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger
     </td>
-    <td valign=\"top\">Removed <code>smooth()</code> operator as the return value
-                     may be discontinuous if the flow reverses its direction.
+    <td valign=\"top\">Changed model to use graphical implementation of models for
+                       pressure drop and conservation equations.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.PartialResistance<br/>

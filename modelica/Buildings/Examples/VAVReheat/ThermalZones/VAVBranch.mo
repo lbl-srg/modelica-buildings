@@ -104,63 +104,78 @@ equation
   connect(fraMasFlo.u, senMasFlo.m_flow) annotation (Line(
       points={{100,144},{80,144},{80,134},{61,134}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(TSup.T, con.TSup) annotation (Line(
       points={{39,74},{-20,74},{-20,6.66134e-16},{-2,6.66134e-16}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(con.yDam, vav.y) annotation (Line(
       points={{21,-1},{32,-1},{32,104},{42,104}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(terHea.port_b1, TSup.port_a) annotation (Line(
       points={{50,54},{50,64}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(TSup.port_b, vav.port_a) annotation (Line(
       points={{50,84},{50,94}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(vav.port_b, senMasFlo.port_a) annotation (Line(
       points={{50,114},{50,124}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(con.yDam, yDam) annotation (Line(
       points={{21,-1},{188,-1},{188,5.55112e-16},{210,5.55112e-16}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(ACH.u, senMasFlo.m_flow) annotation (Line(
       points={{98,104},{80,104},{80,134},{61,134}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(con.yHea, valHea.y) annotation (Line(
       points={{21,8},{92,8},{92,16}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(souTer.ports[1], terHea.port_a2) annotation (Line(
       points={{122,64},{62,64},{62,54}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(terHea.port_b2, valHea.port_a) annotation (Line(
       points={{62,34},{62,24},{82,24}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(valHea.port_b, sinTer.ports[1]) annotation (Line(
       points={{102,24},{122,24}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(port_a, terHea.port_a1) annotation (Line(
       points={{50,-26},{50,34}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(senMasFlo.port_b, port_b) annotation (Line(
       points={{50,144},{50,200}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(con.TRoo, TRoo) annotation (Line(
       points={{-2,8},{-60,8},{-60,100},{-120,100}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{200,200}}), graphics={

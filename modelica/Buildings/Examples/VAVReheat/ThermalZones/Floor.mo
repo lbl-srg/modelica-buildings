@@ -235,10 +235,10 @@ model Floor "Model of a floor of the building"
     annotation (Placement(transformation(extent={{70,38},{110,54}})));
   Modelica.Blocks.Math.MatrixGain gai(K=20*[0.4; 0.4; 0.2])
     "Matrix gain to split up heat gain in radiant, convective and latent gain"
-    annotation (Placement(transformation(extent={{-50,100},{-30,120}})));
+    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
-    annotation (Placement(transformation(extent={{-70,170},{-50,190}})));
+    annotation (Placement(transformation(extent={{-80,170},{-60,190}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=1)
     annotation (Placement(transformation(extent={{-40,170},{-20,190}})));
   BoundaryConditions.WeatherData.Bus weaBus "Weather bus"
@@ -299,7 +299,7 @@ model Floor "Model of a floor of the building"
         3600*12,0.9; 3600*12,0.8; 3600*13,0.8; 3600*13,1; 3600*17,1; 3600*19,0.1; 3600*24,0.05], extrapolation=
         Modelica.Blocks.Types.Extrapolation.Periodic)
     "Fraction of internal heat gain"
-    annotation (Placement(transformation(extent={{-100,100},{-80,120}})));
+    annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
   Fluid.Sensors.RelativePressure senRelPre(redeclare package Medium = Medium)
     "Building pressure measurement"
     annotation (Placement(transformation(extent={{40,240},{60,260}})));
@@ -347,59 +347,59 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(uSha.y, replicator.u) annotation (Line(
-      points={{-49,180},{-42,180}},
+      points={{-59,180},{-42,180}},
       color={0,0,127},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(replicator.y, nor.uSha) annotation (Line(
       points={{-19,180},{130,180},{130,152},{142,152}},
       color={0,0,127},
-      pattern=LinePattern.None,
+      pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, wes.uSha) annotation (Line(
       points={{-19,180},{-6,180},{-6,72},{10,72}},
       color={0,0,127},
-      pattern=LinePattern.None,
+      pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, eas.uSha) annotation (Line(
       points={{-19,180},{232,180},{232,92},{302,92}},
       color={0,0,127},
-      pattern=LinePattern.None,
+      pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, sou.uSha) annotation (Line(
       points={{-19,180},{130,180},{130,-8},{142,-8}},
       color={0,0,127},
-      pattern=LinePattern.None,
+      pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(replicator.y, cor.uSha) annotation (Line(
       points={{-19,180},{130,180},{130,72},{142,72}},
       color={0,0,127},
-      pattern=LinePattern.None,
+      pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, nor.qGai_flow)          annotation (Line(
-      points={{-29,110},{120,110},{120,146},{142,146}},
+      points={{-19,110},{120,110},{120,146},{142,146}},
       color={0,0,127},
-      pattern=LinePattern.None,
+      pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, cor.qGai_flow)          annotation (Line(
-      points={{-29,110},{120,110},{120,66},{142,66}},
+      points={{-19,110},{120,110},{120,66},{142,66}},
       color={0,0,127},
-      pattern=LinePattern.None,
+      pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, sou.qGai_flow)          annotation (Line(
-      points={{-29,110},{120,110},{120,-14},{142,-14}},
+      points={{-19,110},{120,110},{120,-14},{142,-14}},
       color={0,0,127},
-      pattern=LinePattern.None,
+      pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, eas.qGai_flow)          annotation (Line(
-      points={{-29,110},{226,110},{226,86},{302,86}},
+      points={{-19,110},{226,110},{226,86},{302,86}},
       color={0,0,127},
-      pattern=LinePattern.None,
+      pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(gai.y, wes.qGai_flow)          annotation (Line(
-      points={{-29,110},{-14,110},{-14,66},{10,66}},
+      points={{-19,110},{-14,110},{-14,66},{10,66}},
       color={0,0,127},
-      pattern=LinePattern.None,
+      pattern=LinePattern.Dash,
       smooth=Smooth.None));
   connect(sou.weaBus, weaBus) annotation (Line(
       points={{181.9,-6.1},{181.9,8},{210,8},{210,200}},
@@ -455,29 +455,35 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(multiplex5_1.y, TRooAir) annotation (Line(
-      points={{361,290},{380,290},{380,160},{390,160}},
+      points={{361,290},{372,290},{372,160},{390,160}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(temAirSou.T, multiplex5_1.u1[1]) annotation (Line(
       points={{310,350},{328,350},{328,300},{338,300}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(temAirEas.T, multiplex5_1.u2[1]) annotation (Line(
       points={{312,320},{324,320},{324,295},{338,295}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(temAirNor.T, multiplex5_1.u3[1]) annotation (Line(
       points={{312,290},{338,290}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(temAirWes.T, multiplex5_1.u4[1]) annotation (Line(
       points={{312,258},{324,258},{324,285},{338,285}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(temAirPer5.T, multiplex5_1.u5[1]) annotation (Line(
-      points={{314,228},{322,228},{322,230},{332,230},{332,280},{338,280}},
+      points={{314,228},{322,228},{322,228},{332,228},{332,280},{338,280}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(sou.heaPorAir, temAirSou.port) annotation (Line(
       points={{163,-24},{224,-24},{224,100},{264,100},{264,350},{290,350}},
       color={191,0,0},
@@ -509,11 +515,13 @@ equation
   connect(eas.ports[1], portsEas[1]) annotation (Line(
       points={{305.8,66},{300,66},{300,36},{324,36}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(eas.ports[2], portsEas[2]) annotation (Line(
       points={{307.4,66},{300,66},{300,36},{344,36}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(nor.ports[1], portsNor[1]) annotation (Line(
       points={{145.8,126},{80,126}},
       color={0,127,255},
@@ -541,59 +549,73 @@ equation
   connect(leaSou.port_b, sou.ports[3]) annotation (Line(
       points={{-22,400},{-2,400},{-2,-72},{134,-72},{134,-34},{149,-34}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(leaEas.port_b, eas.ports[3]) annotation (Line(
       points={{-22,360},{246,360},{246,66},{309,66}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(leaNor.port_b, nor.ports[3]) annotation (Line(
       points={{-20,320},{138,320},{138,126},{149,126}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(leaWes.port_b, wes.ports[3]) annotation (Line(
       points={{-20,280},{2,280},{2,46},{17,46}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeSouCor.port_b1, cor.ports[3]) annotation (Line(
       points={{104,16},{116,16},{116,46},{146.818,46}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeSouCor.port_a2, cor.ports[4]) annotation (Line(
       points={{104,4},{116,4},{116,46},{147.545,46}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeSouCor.port_a1, sou.ports[4]) annotation (Line(
       points={{84,16},{74,16},{74,-20},{134,-20},{134,-34},{150.6,-34}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeSouCor.port_b2, sou.ports[5]) annotation (Line(
       points={{84,4},{74,4},{74,-20},{134,-20},{134,-34},{152.2,-34}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeEasCor.port_b1, eas.ports[4]) annotation (Line(
       points={{270,54},{290,54},{290,66},{310.6,66}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeEasCor.port_a2, eas.ports[5]) annotation (Line(
       points={{270,42},{290,42},{290,66},{312.2,66}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeEasCor.port_a1, cor.ports[5]) annotation (Line(
       points={{250,54},{190,54},{190,34},{142,34},{142,46},{148.273,46}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeEasCor.port_b2, cor.ports[6]) annotation (Line(
       points={{250,42},{190,42},{190,34},{142,34},{142,46},{149,46}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeNorCor.port_b1, nor.ports[4]) annotation (Line(
       points={{100,90},{124,90},{124,126},{150.6,126}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeNorCor.port_a2, nor.ports[5]) annotation (Line(
       points={{100,78},{124,78},{124,126},{152.2,126}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeNorCor.port_a1, cor.ports[7]) annotation (Line(
       points={{80,90},{76,90},{76,60},{142,60},{142,46},{149.727,46}},
       color={0,127,255},
@@ -601,31 +623,38 @@ equation
   connect(opeNorCor.port_b2, cor.ports[8]) annotation (Line(
       points={{80,78},{76,78},{76,60},{142,60},{142,46},{150.455,46}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeWesCor.port_b1, cor.ports[9]) annotation (Line(
       points={{40,-4},{56,-4},{56,34},{116,34},{116,46},{151.182,46}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeWesCor.port_a2, cor.ports[10]) annotation (Line(
       points={{40,-16},{56,-16},{56,34},{116,34},{116,46},{151.909,46}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeWesCor.port_a1, wes.ports[4]) annotation (Line(
       points={{20,-4},{2,-4},{2,46},{18.6,46}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(opeWesCor.port_b2, wes.ports[5]) annotation (Line(
       points={{20,-16},{2,-16},{2,46},{20.2,46}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(intGaiFra.y, gai.u) annotation (Line(
-      points={{-79,110},{-52,110}},
+      points={{-59,110},{-42,110}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   connect(cor.ports[11], senRelPre.port_b) annotation (Line(
       points={{152.636,46},{110,46},{110,250},{60,250}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(out.weaBus, weaBus) annotation (Line(
       points={{-58,250.2},{-70,250.2},{-70,250},{-80,250},{-80,200},{210,200}},
       color={255,204,51},
@@ -637,11 +666,13 @@ equation
   connect(out.ports[1], senRelPre.port_a) annotation (Line(
       points={{-38,250},{40,250}},
       color={0,127,255},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      thickness=0.5));
   connect(senRelPre.p_rel, p_rel) annotation (Line(
       points={{50,241},{50,220},{-110,220}},
       color={0,0,127},
-      smooth=Smooth.None));
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{400,500}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{400,500}}), graphics={
