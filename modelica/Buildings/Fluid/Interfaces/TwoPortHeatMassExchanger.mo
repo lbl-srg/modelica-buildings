@@ -9,7 +9,7 @@ model TwoPortHeatMassExchanger
   import Modelica.Constants;
 
   replaceable Buildings.Fluid.MixingVolumes.MixingVolume vol
-    constrainedby Buildings.Fluid.MixingVolumes.MixingVolume(
+    constrainedby Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume(
     redeclare final package Medium = Medium,
     nPorts = 2,
     V=m_flow_nominal*tau/rho_nominal,
@@ -91,18 +91,16 @@ initial algorithm
 
 equation
   connect(vol.ports[2], port_b) annotation (Line(
-      points={{1,5.55112e-16},{27.25,5.55112e-16},{27.25,1.11022e-15},{51.5,
-          1.11022e-15},{51.5,5.55112e-16},{100,5.55112e-16}},
+      points={{1,0},{27.25,0},{27.25,0},{51.5,0},{51.5,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_a, preDro.port_a) annotation (Line(
-      points={{-100,5.55112e-16},{-90,5.55112e-16},{-90,1.16573e-15},{-80,
-          1.16573e-15},{-80,6.10623e-16},{-60,6.10623e-16}},
+      points={{-100,0},{-90,0},{-90,0},{-80,0},{-80,0},{-60,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(preDro.port_b, vol.ports[1]) annotation (Line(
-      points={{-40,6.10623e-16},{-30.25,6.10623e-16},{-30.25,1.16573e-15},{
-          -20.5,1.16573e-15},{-20.5,5.55112e-16},{1,5.55112e-16}},
+      points={{-40,0},{-30.25,0},{-30.25,0},{
+          -20.5,0},{-20.5,0},{1,0}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
