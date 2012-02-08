@@ -53,7 +53,7 @@ model ExteriorBoundaryConditionsWithWindow
     final A=AWin,
     final fFra=fFra,
     each final linearizeRadiation = linearizeRadiation,
-    final F_sky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i in 1:nCon},
+    final vieFacSky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i in 1:nCon},
     final absIRSha_air=absIRSha_air,
     final absIRSha_glass=absIRSha_glass,
     final tauIRSha_air=tauIRSha_air,
@@ -70,7 +70,7 @@ model ExteriorBoundaryConditionsWithWindow
             1:nCon},
     each final A=AWin .* fFra)
     "Infrared radiative heat exchange between window frame and sky"
-    annotation (Placement(transformation(extent={{-140,-282},{-180,-242}})));
+    annotation (Placement(transformation(extent={{-140,-280},{-180,-240}})));
   HeatTransfer.Interfaces.RadiosityOutflow JOutUns[nCon]
     "Outgoing radiosity that connects to unshaded part of glass at exterior side"
     annotation (Placement(transformation(extent={{-300,-30},{-320,-10}}),
@@ -133,13 +133,13 @@ protected
     annotation (Placement(transformation(extent={{160,-90},{120,-50}})));
   Modelica.Blocks.Routing.Replicator repConExtWin(final nout=nCon)
     "Signal replicator"
-    annotation (Placement(transformation(extent={{200,-80},{180,-60}})));
-  Modelica.Blocks.Routing.Replicator repConExtWinF_clr(final nout=nCon)
-    "Signal replicator"
-    annotation (Placement(transformation(extent={{140,-140},{120,-120}})));
+    annotation (Placement(transformation(extent={{220,-80},{200,-60}})));
   Modelica.Blocks.Routing.Replicator repConExtWinVWin(final nout=nCon)
     "Signal replicator"
     annotation (Placement(transformation(extent={{140,-22},{120,-2}})));
+  Modelica.Blocks.Routing.Replicator repConExtWinTSkyBla(final nout=nCon)
+    "Signal replicator"
+    annotation (Placement(transformation(extent={{220,-112},{200,-92}})));
 equation
   connect(uSha, conExtWin.uSha)
                           annotation (Line(
@@ -181,33 +181,22 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(TAirConExtWin.T,repConExtWin. y) annotation (Line(
-      points={{164,-70},{179,-70}},
+      points={{164,-70},{199,-70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(repConExtWin.u, weaBus.TDryBul) annotation (Line(
-      points={{202,-70},{244,-70},{244,42}},
+      points={{222,-70},{244,-70},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(repConExtWinF_clr.y,conExtWin. f_clr) annotation (Line(
-      points={{119,-130},{94.5,-130},{94.5,-114},{22.4,-114}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(repConExtWinVWin.y,conExtWin. vWin) annotation (Line(
-      points={{119,-12},{108,-12},{108,-78},{22.4,-78}},
+      points={{119,-12},{50,-12},{50,-78},{22.4,-78}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(repConExtWinVWin.u, weaBus.winSpe) annotation (Line(
       points={{142,-12},{192,-12},{192,-14},{244,-14},{244,42}},
-      color={0,0,127},
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
-  connect(repConExtWinF_clr.u, weaBus.nTot) annotation (Line(
-      points={{142,-130},{244,-130},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -247,7 +236,7 @@ equation
       smooth=Smooth.None));
   connect(skyRadExcWin.TOut, weaBus.TDryBul)
                                           annotation (Line(
-      points={{-136,-270},{244,-270},{244,42}},
+      points={{-136,-268},{244,-268},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
@@ -255,16 +244,31 @@ equation
       extent={{6,3},{6,3}}));
   connect(skyRadExcWin.TBlaSky, weaBus.TBlaSky)
                                              annotation (Line(
-      points={{-136,-254},{244,-254},{244,42}},
+      points={{-136,-252},{244,-252},{244,42}},
       color={0,0,127},
       smooth=Smooth.None), Text(
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
   connect(skyRadExcWin.port, fra) annotation (Line(
-      points={{-180,-260.4},{-242,-260.4},{-242,-260},{-300,-260}},
+      points={{-180,-260},{-242,-260},{-242,-260},{-300,-260}},
       color={191,0,0},
       smooth=Smooth.None));
+  connect(repConExtWin.y, conExtWin.TOut) annotation (Line(
+      points={{199,-70},{180,-70},{180,-114.6},{23,-114.6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(repConExtWinTSkyBla.y, conExtWin.TBlaSky) annotation (Line(
+      points={{199,-102},{23,-102}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(repConExtWinTSkyBla.u, weaBus.TBlaSky) annotation (Line(
+      points={{222,-102},{244,-102},{244,42}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-220,180},{-160,-102}},
@@ -307,6 +311,15 @@ the model
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+February 8 2012, by Michael Wetter:<br>
+Changed model to use new implementation of
+<a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
+Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
+This change leads to the use of the same equations for the radiative
+heat transfer between window and ambient as is used for 
+the opaque constructions.
+</li>
 <li>
 August 9, 2011, by Michael Wetter:<br>
 Fixed bug that caused too high a surface temperature of the window frame.

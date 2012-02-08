@@ -867,6 +867,15 @@ Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 20
 </html>", revisions="<html>
 <ul>
 <li>
+February 8 2012, by Michael Wetter:<br>
+Changed model to use new implementation of
+<a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
+Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
+This change leads to the use of the same equations for the radiative
+heat transfer between window and ambient as is used for 
+the opaque constructions.
+</li>
+<li>
 December 12, 2011, by Wangda Zuo:<br>
 Add glass thickness as a parameter for conExtWinRad. It is needed by the claculation of property for uncoated glass.
 </li>

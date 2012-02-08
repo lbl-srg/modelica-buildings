@@ -7,7 +7,15 @@ annotation (Documentation(info="<html>
 <p>
 This package provides component models for the
 infrared radiative heat exchange of window assemblies.
-The models are according to TARCOG 2006.
+The models are according to TARCOG 2006,
+except for the outdoor radiosity, which is computed by 
+<a href=\"modelica://Buildings.HeatTransfer.Radiosity.OutdoorRadiosity\">
+Buildings.HeatTransfer.Radiosity.OutdoorRadiosity</a>.
+The outdoor radiosity is different from the TARCOG implementation so
+that the same equations are used for windows as are used for 
+opaque walls in the room heat transfer model of the package
+<a href=\"modelica://Buildings.Rooms\">
+Buildings.Rooms</a>.
 </p>
 <h4>References</h4>
 <p>

@@ -26,7 +26,9 @@ model Window "Test model for the window"
     haveInteriorShade=glaSys.haveInteriorShade)
     "Room-side convective heat transfer"
     annotation (Placement(transformation(extent={{158,82},{138,102}})));
-  Buildings.HeatTransfer.Windows.ExteriorHeatTransfer extCon(A=A, fFra=fFra,
+  Buildings.HeatTransfer.Windows.ExteriorHeatTransfer extCon(
+    A=A,
+    fFra=fFra,
     linearizeRadiation=linearize,
     absIRSha_air=glaSys.shade.absIR_a,
     absIRSha_glass=glaSys.shade.absIR_b,
@@ -34,7 +36,7 @@ model Window "Test model for the window"
     tauIRSha_glass=glaSys.shade.tauIR_b,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade,
-    F_sky=0.5) "Exterior convective heat transfer"
+    vieFacSky=0.5) "Exterior convective heat transfer"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Modelica.Blocks.Sources.Constant TRooAir(k=293.15, y(unit="K"))
     "Room air temperature"
@@ -48,8 +50,6 @@ model Window "Test model for the window"
   Buildings.HeatTransfer.Sources.PrescribedTemperature TRAir
     "Room air temperature"
     annotation (Placement(transformation(extent={{160,140},{180,160}})));
-  Modelica.Blocks.Sources.Constant fClr(k=0) "Fraction of sky that is clear"
-    annotation (Placement(transformation(extent={{-20,72},{0,92}})));
   Buildings.HeatTransfer.Radiosity.IndoorRadiosity indRad(A=A)
     "Model for indoor radiosity"
     annotation (Placement(transformation(extent={{188,80},{168,100}})));
@@ -175,10 +175,6 @@ equation
       points={{137,86},{130,86},{130,80},{123,80}},
       color={0,127,0},
       smooth=Smooth.None));
-  connect(fClr.y, extCon.f_clr) annotation (Line(
-      points={{1,82},{39.2,82}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(indRad.JOut, intCon.JInRoo) annotation (Line(
       points={{167,94},{162,94},{162,84},{158,84}},
       color={0,127,0},
@@ -267,8 +263,24 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{200,200}}),
+  connect(weaBus.TBlaSky, extCon.TBlaSky) annotation (Line(
+      points={{20,-10},{20,85.8},{38.8,85.8}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(weaBus.TDryBul, extCon.TOut) annotation (Line(
+      points={{20,-10},{20,82.1},{38.9,82.1}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+            {200,200}}),
                       graphics),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Window.mos"
         "Simulate and plot"));

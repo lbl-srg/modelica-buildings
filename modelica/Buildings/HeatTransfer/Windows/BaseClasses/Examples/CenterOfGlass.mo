@@ -57,12 +57,9 @@ model CenterOfGlass "Test model for center of glas heat transfer"
     haveInteriorShade=true,
     UFra=2) "Parameters for glazing system"
     annotation (Placement(transformation(extent={{120,122},{140,142}})));
-  Buildings.HeatTransfer.Radiosity.OutdoorRadiosity radOut(          A=A, F_sky=
-       0.5) "Outdoor radiosity"
+  Buildings.HeatTransfer.Radiosity.OutdoorRadiosity radOut(A=A,
+     vieFacSky=0.5) "Outdoor radiosity"
     annotation (Placement(transformation(extent={{-90,-152},{-70,-132}})));
-  Modelica.Blocks.Sources.Constant fSky_clr(k=0.5)
-    "Fraction of sky that is clear"
-    annotation (Placement(transformation(extent={{-140,-152},{-120,-132}})));
 
   Modelica.Thermal.HeatTransfer.Components.Convection conRooSha
     "Convection for room-facing surface of shaded part of window"
@@ -115,10 +112,6 @@ equation
   connect(radOut.JOut, radShaOut.JIn) annotation (Line(
       points={{-69,-142},{-64,-142},{-64,-4},{-51,-4}},
       color={0,127,0},
-      smooth=Smooth.None));
-  connect(fSky_clr.y, radOut.f_clr) annotation (Line(
-      points={{-119,-142},{-92,-142}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(hA.y, hANonSha.u1) annotation (Line(
       points={{1,150},{30,150},{30,146},{58,146}},
@@ -229,10 +222,6 @@ equation
       points={{-99,110},{40,110},{40,104},{58,104}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(radOut.heatPort, TAirOut.port) annotation (Line(
-      points={{-90,-136},{-90,-30},{-100,-30}},
-      color={191,0,0},
-      smooth=Smooth.None));
   connect(QAbs.y, nonSha.QAbs_flow) annotation (Line(
       points={{-139,-110},{10,-110},{10,-101}},
       color={0,0,127},
@@ -241,9 +230,18 @@ equation
       points={{-139,-110},{-4,-110},{-4,20},{10,20},{10,29}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/CenterOfGlass.mos" "Simulate and plot"),
-              Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-160},
-            {160,160}}),
+  connect(radOut.TOut, TOut.y) annotation (Line(
+      points={{-92,-146},{-132,-146},{-132,-30},{-139,-30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TOut.y, radOut.TBlaSky) annotation (Line(
+      points={{-139,-30},{-132,-30},{-132,-138},{-92,-138}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/CenterOfGlass.mos"
+        "Simulate and plot"),
+              Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
+            -160},{160,160}}),
                       graphics),
     Documentation(info="<html>
 This model tests the heat transfer for the center of the glass, with and without a shading device.

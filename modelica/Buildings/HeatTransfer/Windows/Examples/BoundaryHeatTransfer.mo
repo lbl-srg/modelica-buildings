@@ -17,7 +17,7 @@ model BoundaryHeatTransfer
     tauIRSha_glass=glaSys.shade.tauIR_b,
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade,
-    F_sky=0.5) "Exterior convective heat transfer"
+    vieFacSky=0.5) "Exterior convective heat transfer"
     annotation (Placement(transformation(extent={{-56,-34},{-36,-14}})));
   Modelica.Blocks.Sources.Constant TOut(y(unit="K"), k=273.15)
     "Outside air temperature"
@@ -30,7 +30,7 @@ model BoundaryHeatTransfer
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
   Modelica.Blocks.Sources.Ramp uSha(duration=1, startTime=0)
     "Shading control signal"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
+    annotation (Placement(transformation(extent={{-102,20},{-82,40}})));
   Modelica.Blocks.Sources.Constant vWin(k=1) "Wind speed"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TOuts
@@ -39,8 +39,6 @@ model BoundaryHeatTransfer
   Buildings.HeatTransfer.Sources.PrescribedTemperature TRAir
     "Room air temperature"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Sources.Constant fClr(k=0) "Fraction of sky that is clear"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
 
   Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys2(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
@@ -83,19 +81,15 @@ public
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
 equation
   connect(uSha.y, extCon.uSha) annotation (Line(
-      points={{-79,30},{-70,30},{-70,-16},{-56.8,-16}},
+      points={{-81,30},{-62,30},{-62,-16},{-58,-16},{-58,-16},{-56.8,-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOuts.port, extCon.air) annotation (Line(
-      points={{-40,70},{-30,70},{-30,40},{-64,40},{-64,-24},{-56,-24}},
+      points={{-40,70},{-30,70},{-30,40},{-66,40},{-66,-24},{-56,-24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TRooAir.y, TRAir.T) annotation (Line(
       points={{41,72},{50,72},{50,70},{58,70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(fClr.y, extCon.f_clr) annotation (Line(
-      points={{-79,-50},{-68,-50},{-68,-32},{-56.8,-32}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(extCon.vWin, vWin.y) annotation (Line(
@@ -115,7 +109,7 @@ equation
       color={0,127,0},
       smooth=Smooth.None));
   connect(shaSig.u, uSha.y) annotation (Line(
-      points={{-22,30},{-79,30}},
+      points={{-22,30},{-81,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(radShaOut.JOut_2, extCon.JInUns) annotation (Line(
@@ -169,5 +163,14 @@ equation
       points={{-46,-35},{-46,-90},{-79,-90}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/BoundaryHeatTransfer.mos" "Simulate and plot"));
+  connect(TOut.y, extCon.TBlaSky) annotation (Line(
+      points={{-79,90},{-70,90},{-70,-28.2},{-57.2,-28.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TOut.y, extCon.TOut) annotation (Line(
+      points={{-79,90},{-70,90},{-70,-31.9},{-57.1,-31.9}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/BoundaryHeatTransfer.mos"
+        "Simulate and plot"), Diagram(graphics));
 end BoundaryHeatTransfer;

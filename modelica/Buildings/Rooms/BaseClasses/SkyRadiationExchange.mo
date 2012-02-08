@@ -9,7 +9,7 @@ model SkyRadiationExchange
   parameter Modelica.SIunits.Emissivity absIR[n]
     "Infrared absorptivity of building surface";
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port[n] "Heat port"
-    annotation (Placement(transformation(extent={{90,-2},{110,18}})));
+    annotation (Placement(transformation(extent={{90,-10},{110,10}})));
   Modelica.Blocks.Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
                                             final unit = "K", min=0)
     "Outside air temperature"

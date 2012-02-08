@@ -217,6 +217,19 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added the function <code>glassPropertyUncoated</code> that calculates the property for uncoated glass.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir
+    </td>
+    <td valign=\"top\">Changed model to use new implementation of
+                       Buildings.HeatTransfer.Radiosity.OutdoorRadiosity
+                       in its base classes.
+                       This change leads to the use of the same equations for the radiative
+                       heat transfer between window and ambient as is used for 
+                       the opaque constructions.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -226,7 +239,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr></table>
 </p>
-<!-- Non-backward compatbile changes to existing components -->
+<!-- Non-backward compatible changes to existing components -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
@@ -234,12 +247,17 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.HeatTransfer.Radiosity.OutdoorRadiosity<br>
+                       Buildings.HeatTransfer.Windows.ExteriorHeatTransfer
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed model to use new implementation of
+                       Buildings.HeatTransfer.Radiosity.OutdoorRadiosity.
+                       This change leads to the use of the same equations for the radiative
+                       heat transfer between window and ambient as is used for 
+                       the opaque constructions.
     </td>
 </tr>
 </table>
@@ -310,12 +328,16 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Exterior longwave radiation exchange in window model</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/xxx\">#xxx</a>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/51\">#51</a>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Changed model to use new implementation of
+                       Buildings.HeatTransfer.Radiosity.OutdoorRadiosity.
+                       This change leads to the use of the same equations for the radiative
+                       heat transfer between window and ambient as is used for 
+                       the opaque constructions.
     </td>
 </tr>
 </table>

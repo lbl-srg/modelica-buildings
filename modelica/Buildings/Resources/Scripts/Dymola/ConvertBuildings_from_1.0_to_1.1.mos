@@ -1,9 +1,12 @@
 // Conversion script for Buildings library
-//  from: Version 0.12
-//  to:   Version 1.0
+//  from: Version 1.0
+//  to:   Version 1.1
 clear
 
 convertClear();
 
 convertClass("Buildings.Airflow.Multizone.Examples.OpenDoors",
-              Buildings.Airflow.Multizone.Examples.ClosedDoors);
+              "Buildings.Airflow.Multizone.Examples.ClosedDoors");
+convertElement({"Buildings.HeatTransfer.Radiosity.OutdoorRadiosity",
+                "Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"},
+                "F_sky", "vieFacSky");
