@@ -1,6 +1,7 @@
 within Buildings.Fluid.Storage;
 model StratifiedEnhanced "Stratified tank model with enhanced discretization"
   extends Stratified(nPorts=3, vol(each prescribedHeatFlowRate=true));
+  extends Modelica.Icons.UnderConstruction;
   BaseClasses.ThirdOrderStratifier str(
     redeclare package Medium = Medium,
     nSeg=nSeg,
@@ -49,6 +50,18 @@ outlet temperatures of the segments in the tank. This model
 is implemented in
 <a href=\"modelica:Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
 Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
+</p>
+<p>
+<b>Note:</b>
+This model is marked under construction because the 
+<a href=\"modelica:Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
+Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>
+can yield to situations where the tank outlet temperature is higher (colder)
+than the hottest (coldest) temperature in the tank.
+Energy seems to be conserved, but the 2nd law is violated.
+See also 
+<a href=\"https://corbu.lbl.gov/trac/bie/ticket/15\">
+https://corbu.lbl.gov/trac/bie/ticket/15</a>.
 </p>
 </html>", revisions="<html>
 <ul>
