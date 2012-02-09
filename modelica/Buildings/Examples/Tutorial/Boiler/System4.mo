@@ -17,7 +17,7 @@ model System4
     Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
     "Radiator nominal mass flow rate";
 
-  parameter Modelica.SIunits.Temperature TBoiSup_nominal = 273.15+80
+  parameter Modelica.SIunits.Temperature TBoiSup_nominal = 273.15+70
     "Boiler nominal supply water temperature";
   parameter Modelica.SIunits.Temperature TBoiRet_min = 273.15+60
     "Boiler minimum return water temperature";
@@ -186,14 +186,20 @@ model System4
   Modelica.Blocks.Sources.Constant const(k=1)
     "Constant control signal for valves"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
+
+//---------------------Step 2: Outdoor temperature sensor and control------------------//
   Modelica.Blocks.Logical.Hysteresis hysTOut(uLow=273.15 + 16, uHigh=273.15 + 17)
     "Hysteresis for on/off based on outside temperature"
     annotation (Placement(transformation(extent={{-260,-200},{-240,-180}})));
   Modelica.Blocks.Logical.Not not2
     annotation (Placement(transformation(extent={{-220,-200},{-200,-180}})));
+
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor senTOut
     "Outdoor temperature sensor"
     annotation (Placement(transformation(extent={{-318,20},{-298,40}})));
+//------------------------------------------------------------------------------------//
+
+//-------------------------------Step 4: Boiler hysteresis----------------------------//
   Modelica.Blocks.Logical.Hysteresis hysTBoi(uHigh=273.15 + 90,
                                              uLow=273.15 + 70)
     "Hysteresis for on/off of boiler"
@@ -202,14 +208,22 @@ model System4
     annotation (Placement(transformation(extent={{-220,-348},{-200,-328}})));
   Modelica.Blocks.Logical.And and1
     annotation (Placement(transformation(extent={{-180,-160},{-160,-140}})));
+//------------------------------------------------------------------------------------//
+
+//-------------------------Step 3: Boolean to real: Boiler Pump-----------------------//
   Modelica.Blocks.Math.BooleanToReal booToReaRad1(realTrue=mBoi_flow_nominal)
-    "Radiator pump signal"
+    "Boiler pump signal"
     annotation (Placement(transformation(extent={{-140,-290},{-120,-270}})));
+//------------------------------------------------------------------------------------//
+
   Modelica.Blocks.Logical.And and2
     annotation (Placement(transformation(extent={{-140,-340},{-120,-320}})));
-  Modelica.Blocks.Math.BooleanToReal booToReaRad2(realTrue=1)
-    "Radiator pump signal"
+
+//---------------------------------Step 4: Boiler signal------------------------------//
+ Modelica.Blocks.Math.BooleanToReal booToReaRad2(realTrue=1) "Boiler signal"
     annotation (Placement(transformation(extent={{-100,-340},{-80,-320}})));
+//------------------------------------------------------------------------------------//
+
   Modelica.Blocks.Logical.Hysteresis hysPum(uLow=273.15 + 19,
                                             uHigh=273.15 + 21)
     "Pump hysteresis"
@@ -472,7 +486,7 @@ to the block <code>and1</code> as shown in the figure below.
 </li>
 <li>
 <p>
-Similar to the control of the radiator pump, we used a real to boolean
+Similar to the control of the radiator pump, we used a boolean to real
 converter, followed by a first order filter, to set the mass flow
 rate of the boiler pump.
 </p>

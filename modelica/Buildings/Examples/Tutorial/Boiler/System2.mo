@@ -4,9 +4,13 @@ model System2
   extends Modelica.Icons.Example;
   replaceable package MediumA =
       Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
+
+//-------------------------Step 2: Water as medium-------------------------//
   replaceable package MediumW =
       Buildings.Media.ConstantPropertyLiquidWater "Medium model";
+//-------------------------------------------------------------------------//
 
+//------------------------Step 4: Design conditions------------------------//
   parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal = 20000
     "Nominal heat flow rate of radiator";
   parameter Modelica.SIunits.Temperature TRadSup_nominal = 273.15+50
@@ -16,6 +20,7 @@ model System2
   parameter Modelica.SIunits.MassFlowRate mRad_flow_nominal=
     Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
     "Radiator nominal mass flow rate";
+//------------------------------------------------------------------------//
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -50,12 +55,16 @@ model System2
              18*3600, 0;
              24*3600, 0]) "Time table for internal heat gain"
     annotation (Placement(transformation(extent={{-20,70},{0,90}})));
-  Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
+
+//-------------------------Step 5: Radiator Model-------------------------//
+ Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2 rad(
     redeclare package Medium = MediumW,
     Q_flow_nominal=Q_flow_nominal,
     T_a_nominal=TRadSup_nominal,
     T_b_nominal=TRadRet_nominal) "Radiator"
     annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+//------------------------------------------------------------------------//
+
   Fluid.Sources.FixedBoundary sin(nPorts=1, redeclare package Medium = MediumW)
     "Sink for mass flow rate"           annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -72,12 +81,16 @@ model System2
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-40,30})));
+
+//------------------------Step 5: Pump for radiator-----------------------//
   Buildings.Fluid.Movers.FlowMachine_m_flow pumRad(m_flow_nominal=mRad_flow_nominal,
       redeclare package Medium = MediumW) "Pump for radiator"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-70})));
+//------------------------------------------------------------------------//
+
   Fluid.Sources.FixedBoundary sou(
     nPorts=1,
     redeclare package Medium = MediumW,
@@ -86,10 +99,13 @@ model System2
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-110})));
+
+//--------------------------Step 6: Pump control--------------------------//
   Modelica.Blocks.Logical.Hysteresis hysPum(uLow=273.15 + 19,
                                             uHigh=273.15 + 21)
     "Pump hysteresis"
     annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
+
   Modelica.Blocks.Math.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
@@ -101,9 +117,11 @@ model System2
     y_start=0)
     "First order filter to avoid step change for pump mass flow rate"
     annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
+//------------------------------------------------------------------------//
+
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
-      points={{5.55112e-16,50},{20,50}},
+      points={{0,50},{20,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theCon.port_b, vol.heatPort) annotation (Line(
@@ -123,7 +141,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
-      points={{-50,-30},{-50,-10},{-5.55112e-16,-10}},
+      points={{-50,-30},{-50,-10},{0,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(rad.port_b, sin.ports[1]) annotation (Line(

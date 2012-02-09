@@ -229,7 +229,9 @@ model System5
     y(stateSelect=StateSelect.always))
     "First order filter to avoid step change for pump mass flow rate"
     annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
-  Modelica.Blocks.Sources.Constant TSetBoiRet(k=TBoiRet_min)
+
+//------------------------Step 2: Boiler loop valve control-----------------------//	
+	Modelica.Blocks.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-320},{140,-300}})));
   Buildings.Controls.Continuous.LimPID conPIDBoi(
@@ -244,6 +246,9 @@ model System5
     y(stateSelect=StateSelect.always),
     T=5) "First order filter to avoid step change for valve position"
     annotation (Placement(transformation(extent={{200,-290},{220,-270}})));
+//--------------------------------------------------------------------------------//
+
+//----------------------Step 3: Radiator loop valve control-----------------------//	
   Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
                                           273.15 + 21, 273.15 + 21])
     "Setpoint for supply water temperature"
@@ -260,6 +265,8 @@ model System5
     y(stateSelect=StateSelect.always),
     T=5) "First order filter to avoid step change for valve position"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
+//--------------------------------------------------------------------------------//
+	
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
       points={{-340,50},{20,50}},
@@ -282,7 +289,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
-      points={{-50,-30},{-50,-10},{-5.55112e-16,-10}},
+      points={{-50,-30},{-50,-10},{0,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(temRoo.port, vol.heatPort) annotation (Line(
@@ -302,7 +309,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b, pumBoi.port_a) annotation (Line(
-      points={{-5.55112e-16,-310},{-50,-310},{-50,-290}},
+      points={{0,-310},{-50,-310},{-50,-290}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pumBoi.port_b, spl1.port_1) annotation (Line(

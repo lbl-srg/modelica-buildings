@@ -230,12 +230,16 @@ model System6
   Modelica.Blocks.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-320},{140,-300}})));
-  Buildings.Controls.Continuous.LimPID conPIDBoi(
+
+//-----------------------Step 3: Change in controller type-----------------------//			
+	Buildings.Controls.Continuous.LimPID conPIDBoi(
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=600,
     k=0.25) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-290},{180,-270}})));
+//------------------------------------------------------------------------------//
+
   Modelica.Blocks.Continuous.FirstOrder firOrdValBoi(
     T=5,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -247,12 +251,16 @@ model System6
                                           273.15 + 21, 273.15 + 21])
     "Setpoint for supply water temperature"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
-  Buildings.Controls.Continuous.LimPID conPIDRad(
+
+//-----------------------Step 3: Change in controller type-----------------------//			
+	Buildings.Controls.Continuous.LimPID conPIDRad(
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=600,
     k=0.25) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
+//------------------------------------------------------------------------------//
+	
   Modelica.Blocks.Continuous.FirstOrder firOrdValRad(
     T=5,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -260,6 +268,8 @@ model System6
     y(stateSelect=StateSelect.always))
     "First order filter to avoid step change for valve position"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
+	
+//-----------------------------Step 2: Weather data------------------------------//		
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data reader"
@@ -269,6 +279,8 @@ model System6
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
+//------------------------------------------------------------------------------//
+
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -287,7 +299,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
-      points={{-50,-30},{-50,-10},{-5.55112e-16,-10}},
+      points={{-50,-30},{-50,-10},{0,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(temRoo.port, vol.heatPort) annotation (Line(
@@ -307,7 +319,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b, pumBoi.port_a) annotation (Line(
-      points={{-5.55112e-16,-310},{-50,-310},{-50,-290}},
+      points={{0,-310},{-50,-310},{-50,-290}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pumBoi.port_b, spl1.port_1) annotation (Line(

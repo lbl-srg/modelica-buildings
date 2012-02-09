@@ -249,6 +249,8 @@ model System7
   Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature TOut
     "Outside temperature"
     annotation (Placement(transformation(extent={{-260,60},{-240,80}})));
+
+//-------------------------Step 2: State machine implementation-------------------------//			
   Modelica_StateGraph2.Step allOff(
     nOut=1,
     initialStep=true,
@@ -301,6 +303,8 @@ model System7
     annotation (Placement(transformation(extent={{-232,-144},{-224,-136}})));
   Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
+//--------------------------------------------------------------------------------------//
+
 equation
   connect(theCon.port_b, vol.heatPort) annotation (Line(
       points={{40,50},{50,50},{50,30},{60,30}},
@@ -319,7 +323,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
-      points={{-50,-30},{-50,-10},{-5.55112e-16,-10}},
+      points={{-50,-30},{-50,-10},{0,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(temRoo.port, vol.heatPort) annotation (Line(
@@ -339,7 +343,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b, pumBoi.port_a) annotation (Line(
-      points={{-5.55112e-16,-310},{-50,-310},{-50,-290}},
+      points={{0,-310},{-50,-310},{-50,-290}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pumBoi.port_b, spl1.port_1) annotation (Line(

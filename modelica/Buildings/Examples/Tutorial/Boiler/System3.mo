@@ -17,17 +17,21 @@ model System3
     Q_flow_nominal/4200/(TRadSup_nominal-TRadRet_nominal)
     "Radiator nominal mass flow rate";
 
-  parameter Modelica.SIunits.Temperature TBoiSup_nominal = 273.15+80
+//-------------------------Step 4: Boiler design values-------------------------//
+  parameter Modelica.SIunits.Temperature TBoiSup_nominal = 273.15+70
     "Boiler nominal supply water temperature";
-  parameter Modelica.SIunits.Temperature TBoiRet_min = 273.15+50
+  parameter Modelica.SIunits.Temperature TBoiRet_min = 273.15+60
     "Boiler minimum return water temperature";
   parameter Modelica.SIunits.MassFlowRate mBoi_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TBoiRet_min)
     "Boiler nominal mass flow rate";
+//------------------------------------------------------------------------------//
 
+//----------------Radiator loop: Three-way valve: mass flow rate----------------//
   parameter Modelica.SIunits.MassFlowRate mRadVal_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TRadRet_nominal)
     "Boiler nominal mass flow rate";
+//------------------------------------------------------------------------------//
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -85,6 +89,8 @@ model System3
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-70})));
+
+//-------------------------Step 3: Splitter and mixers------------------------//
   Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM mix(
     redeclare package Medium =MediumW,
     m_flow_nominal={mRadVal_flow_nominal,
@@ -134,6 +140,8 @@ model System3
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={60,-150})));
+//----------------------------------------------------------------------------//
+
   Buildings.Fluid.Movers.FlowMachine_m_flow pumBoi(
       redeclare package Medium = MediumW,
       m_flow_nominal=mBoi_flow_nominal) "Pump for boiler"
@@ -141,6 +149,8 @@ model System3
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-280})));
+
+//-------------------------------Step 3: Boiler-------------------------------//
   Buildings.Fluid.Boilers.BoilerPolynomial boi(
     redeclare package Medium = MediumW,
     m_flow_nominal=mBoi_flow_nominal,
@@ -148,6 +158,9 @@ model System3
     Q_flow_nominal=Q_flow_nominal,
     fue=Buildings.Fluid.Data.Fuels.HeatingOilLowerHeatingValue()) "Boiler"
     annotation (Placement(transformation(extent={{20,-320},{0,-300}})));
+//----------------------------------------------------------------------------//
+
+//--------------------------Step 3: Three-way Valve---------------------------//
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRad(
     redeclare package Medium = MediumW,
     m_flow_nominal=mRadVal_flow_nominal,
@@ -156,6 +169,8 @@ model System3
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,-150})));
+//----------------------------------------------------------------------------//
+
   Buildings.Fluid.Sources.FixedBoundary preSou(redeclare package Medium = MediumW,
       nPorts=1)
     "Source for pressure and to account for thermal expansion of water"
@@ -192,7 +207,7 @@ model System3
   Modelica.Blocks.Sources.Constant const1(k=0.5)
     "Constant control signal for valves"
     annotation (Placement(transformation(extent={{0,-290},{20,-270}})));
-  Modelica.Blocks.Logical.Hysteresis hysPum(uLow=273.15 + 19,
+ Modelica.Blocks.Logical.Hysteresis hysPum(uLow=273.15 + 19,
                                             uHigh=273.15 + 21)
     "Pump hysteresis"
     annotation (Placement(transformation(extent={{-220,-80},{-200,-60}})));
