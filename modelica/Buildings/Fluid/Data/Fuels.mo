@@ -2,23 +2,6 @@ within Buildings.Fluid.Data;
 package Fuels "Package with properties of fuels"
     extends Modelica.Icons.MaterialPropertiesPackage;
 
-    annotation (
-preferedView="info",
-Documentation(info="<html>
-<p>
-Package with records for fuel properties.
-Note that the heating value and the mass density can vary for individual fuels.
-The parameter <code>mCO2</code> are the CO<sub>2</sub> emission in kilograms 
-that are released per kilogram fuel that is burnt.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-December 22, 2011, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
 
   record NaturalGasLowerHeatingValue = Buildings.Fluid.Data.Fuels.Generic (
       h=50E6,
@@ -34,10 +17,21 @@ First implementation.
   record HeatingOilHigherHeatingValue = HeatingOilLowerHeatingValue (
       h=45.4E6) "Heating oil, higher heating value";
 
-// fixme: add wood and pellet, review the provided data, add reference for source data,
-// such as ASHRAE or Recknagel.
+  record WoodAirDriedLowerHeatingValue = Buildings.Fluid.Data.Fuels.Generic (
+      h=14.6E6,
+      d=700,
+      mCO2=0) "Wood, air-dried, lower heating value" annotation (Documentation(
+        info="<html>
+<p>
+The lower heating value is based on Recknagel 2005, Tafel 1.3.6-1.
+</p>
+<h4>References</h4>
+<p>
+Hermann Recknagel, Eberhard Sprenger and Ernst-Rudolf Schramek. Taschenbuch fuer Heizung und Klimatechnik.72. Auflage. Oldenbourg Industrieverlage Muenchen. ISBN 3-486-26560-1. 2005.
+</p>
+</html>"));
 
-record Generic "Generic record of fuel properties"
+  record Generic "Generic record of fuel properties"
     extends Modelica.Icons.Record;
     parameter Modelica.SIunits.SpecificEnthalpy h
       "Heating value (lower or upper, depending on fuel)";
@@ -58,4 +52,21 @@ First implementation.
 </html>"));
 end Generic;
 
+    annotation (
+preferedView="info",
+Documentation(info="<html>
+<p>
+Package with records for fuel properties.
+Note that the heating value and the mass density can vary for individual fuels.
+The parameter <code>mCO2</code> are the CO<sub>2</sub> emission in kilograms 
+that are released per kilogram fuel that is burnt.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+December 22, 2011, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Fuels;
