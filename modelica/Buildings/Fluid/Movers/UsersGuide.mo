@@ -32,6 +32,45 @@ For other speeds, similarity laws are used to scale the performance curves, as
 described in 
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure\">
 Buildings.Fluid.Movers.BaseClasses.Characteristics.pressure</a>.
+<p>
+For example, suppose a pump needs to be modeled whose pressure versus flow relation crosses, at
+full speed, the points shown in the table below.
+</p>
+<p>
+  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <tr>
+      <th>Volume flow rate [m<sup>3</sup>&frasl;h] </th>
+      <th>Head [Pa]</th>
+    </tr>
+    <tr>
+      <td>0.0003</td>
+      <td>45000</td>
+    </tr>
+    <tr>
+      <td>0.0006</td>
+      <td>35000</td>
+    </tr>
+    <tr>
+      <td>0.0008</td>
+      <td>15000</td>
+    </tr>
+  </table>
+</p>
+<p>
+Then, a declaration would be
+<pre>
+  Buildings.Fluid.Movers.FlowMachine_y pum(
+    redeclare package Medium = Medium,
+    pressure(V_flow={0.0003,0.0006,0.0008},
+             dp    ={45,35,15}*1000))
+    \"Circulation pump\";
+</pre>
+</p>
+<p>
+This will model the following pump curve for the pump input signal <code>y=1</code>.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/Movers/UserGuide_pumpCurve.png\"/>
 </p>
 <h5>Models that have idealized perfect controls</h5>
 <p>
