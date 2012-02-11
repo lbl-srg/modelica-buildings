@@ -2,24 +2,32 @@ within Buildings.HeatTransfer.Radiosity;
 model OpaqueSurface "Model for an opaque surface"
   extends Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityOneSurface;
   extends Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersOneSurface(
-   final tauIR=1-rhoIR-absIR, final rhoIR=1-absIR);
+      final tauIR=1 - rhoIR - absIR, final rhoIR=1 - absIR);
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    "Heat port of this surface"
-    annotation (Placement(transformation(extent={{-10,-108},{10,-88}}),
-        iconTransformation(extent={{-2,-108},{18,-88}})));
+    "Heat port of this surface" annotation (Placement(transformation(extent={{-10,
+            -108},{10,-88}}), iconTransformation(extent={{-2,-108},{18,-88}})));
 protected
- final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"
- annotation(Evaluate=true);
- Real T4(min=1E8, start=293.15^4, nominal=1E10, unit="K4")
-    "4th power of temperature";
+  final parameter Real T03(
+    min=0,
+    unit="K3") = T0^3 "3rd power of temperature T0" annotation (Evaluate=true);
+  final parameter Real T04(
+    min=0,
+    unit="K4") = T0^4 "4th power of temperature T0" annotation (Evaluate=true);
+  Real T4(
+    min=1E8,
+    start=293.15^4,
+    nominal=1E10,
+    unit="K4") "4th power of temperature";
 
 equation
-  T4 = if linearize then T03 * heatPort.T else heatPort.T^4;
-  0 = JOut + A * absIR * Modelica.Constants.sigma * T4 + rhoIR*JIn;
+  T4 = if linearize then 4*T03*heatPort.T - 3*T04 else heatPort.T^4;
+  0 = JOut + A*absIR*Modelica.Constants.sigma*T4 + rhoIR*JIn;
   0 = heatPort.Q_flow + JIn + JOut;
 
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Rectangle(
           extent={{-34,94},{8,-94}},
           fillColor={135,135,135},
@@ -49,13 +57,18 @@ equation
           smooth=Smooth.None,
           origin={18,26},
           rotation=90)}),
-defaultComponentName="sur",
-Documentation(info="<html>
+    defaultComponentName="sur",
+    Documentation(info="<html>
 Model for the emissive power of an opaque surface. 
 </html>", revisions="<html>
 <ul>
 <li>
-August 18 2010, by Michael Wetter:<br>
+February 10, 2012, by Wangda Zuo:<br>
+Fixed a bug for temperature linearization.
+</li>
+</ul>
+<li>
+August 18, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

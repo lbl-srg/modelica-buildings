@@ -12,31 +12,37 @@ model OutdoorRadiosity
   Real TRad4(unit="K4") "4th power of the mean outdoor temperature";
   Modelica.SIunits.Temperature TRad "Mean radiant temperature";
 
-  Modelica.Blocks.Interfaces.RealInput TOut(final quantity="ThermodynamicTemperature",
-                                            final unit = "K", min=0)
-    "Outside temperature"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}}),
-        iconTransformation(extent={{-140,-60},{-100,-20}})));
+  Modelica.Blocks.Interfaces.RealInput TOut(
+    final quantity="ThermodynamicTemperature",
+    final unit="K",
+    min=0) "Outside temperature" annotation (Placement(transformation(extent={{
+            -140,-60},{-100,-20}}), iconTransformation(extent={{-140,-60},{-100,
+            -20}})));
   Modelica.Blocks.Interfaces.RealInput TBlaSky(
     final quantity="ThermodynamicTemperature",
     final unit="K",
-    min=0) "Black body sky temperature"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}),
-        iconTransformation(extent={{-140,20},{-100,60}})));
+    min=0) "Black body sky temperature" annotation (Placement(transformation(
+          extent={{-140,20},{-100,60}}), iconTransformation(extent={{-140,20},{
+            -100,60}})));
   Buildings.HeatTransfer.Interfaces.RadiosityOutflow JOut
-    "Radiosity that flows out of component"
-  annotation (Placement(transformation(
-          extent={{100,-10},{120,10}}), iconTransformation(extent={{100,-10},{120,
-            10}})));
+    "Radiosity that flows out of component" annotation (Placement(
+        transformation(extent={{100,-10},{120,10}}), iconTransformation(extent=
+            {{100,-10},{120,10}})));
 protected
-  final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"
-    annotation(Evaluate=true);
+  final parameter Real T03(
+    min=0,
+    unit="K3") = T0^3 "3rd power of temperature T0" annotation (Evaluate=true);
+  final parameter Real T04(
+    min=0,
+    unit="K4") = T0^4 "4th power of temperature T0" annotation (Evaluate=true);
 equation
-  TRad4 = (vieFacSky * TBlaSky^4 + (1-vieFacSky) * TOut^4);
-  JOut = -A * Modelica.Constants.sigma * TRad4;
-  TRad = if linearize then TRad4/T03 else TRad4^(1/4);
+  TRad4 = (vieFacSky*TBlaSky^4 + (1 - vieFacSky)*TOut^4);
+  JOut = -A*Modelica.Constants.sigma*TRad4;
+  TRad = if linearize then (TRad4 + 3*T04)/(4*T03) else TRad4^(1/4);
 
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (
+    Diagram(graphics),
+    Icon(graphics={
         Text(
           extent={{-96,-10},{-54,-52}},
           lineColor={0,0,127},
@@ -75,27 +81,32 @@ equation
           pattern=LinePattern.None,
           fillColor={0,127,0},
           fillPattern=FillPattern.Solid,
-          lineColor={0,0,0}),           Text(
-        extent={{-150,142},{150,102}},
-        textString="%name",
-        lineColor={0,0,255}),
+          lineColor={0,0,0}),
+        Text(
+          extent={{-150,142},{150,102}},
+          textString="%name",
+          lineColor={0,0,255}),
         Text(
           extent={{-96,72},{-54,30}},
           lineColor={0,0,127},
           textString="TBlaSky")}),
-defaultComponentName="radOut",
-Documentation(info="<html>
+    defaultComponentName="radOut",
+    Documentation(info="<html>
 <p>
 Model for the infrared radiosity balance of the outdoor environment.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
+February 10, 2012, by Wangda Zuo:<br>
+Fixed a bug for temperature linearization.
+</li>
+<li>
 February 8, 2012 by Michael Wetter:<br>
 Changed implementation to use the same equations as is used for opaque walls.
 </li>
 <li>
-August 18 2010, by Michael Wetter:<br>
+August 18, 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
