@@ -268,12 +268,30 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.HeatTransfer.Radiosity.OpaqueSurface
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Fixed an error in linearization of T^4. 
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Radiosity.IndoorRadiosity
+    </td>
+    <td valign=\"top\">Fixed an error in linearization of T^4. 
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Radiosity.OutdoorRadiosity
+    </td>
+    <td valign=\"top\">Fixed an error in linearization of T^4. 
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.InfraredRadiationExchange
+    </td>
+    <td valign=\"top\">Fixed an error in linearization of T^4. 
     </td>
 </tr>
 </table>
