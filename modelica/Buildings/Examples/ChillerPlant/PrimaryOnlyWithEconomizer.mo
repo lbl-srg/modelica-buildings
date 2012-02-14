@@ -34,11 +34,11 @@ model PrimaryOnlyWithEconomizer
     redeclare package Medium2 = MediumAir,
     m2_flow_nominal=mAir_flow_nominal,
     m1_flow_nominal=mCHW_flow_nominal,
-    dp1_nominal(displayUnit="Pa") = 100,
     UA_nominal=1e6,
     m1_flow(start=mCHW_flow_nominal),
     m2_flow(start=mAir_flow_nominal),
-    dp2_nominal=249) "Cooling coil"
+    dp2_nominal=249,
+    dp1_nominal(displayUnit="Pa") = 89580) "Cooling coil"
     annotation (Placement(transformation(extent={{238,-185},{218,-165}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{258,-211},
@@ -50,8 +50,7 @@ model PrimaryOnlyWithEconomizer
     rooWid=30,
     rooHei=3,
     m_flow_nominal=mAir_flow_nominal,
-    QRoo_flow=200000) "Room model"
-                           annotation (Placement(transformation(
+    QRoo_flow=200000) "Room model" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={204,-238})));
@@ -60,9 +59,8 @@ model PrimaryOnlyWithEconomizer
   Buildings.Fluid.Movers.FlowMachine_m_flow pumCHW(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dp(start=329460),
-    m_flow(start=mCHW_flow_nominal)) "Chilled water pump" annotation (Placement(
-        transformation(
+    m_flow(start=mCHW_flow_nominal),
+    dp(start=325474)) "Chilled water pump" annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={162,-126})));
@@ -80,14 +78,14 @@ model PrimaryOnlyWithEconomizer
     PFan_nominal=6000,
     TAirInWB_nominal(displayUnit="degC") = 283.15,
     TApp_nominal=6,
-    dp_nominal=47776) "Cooling tower" annotation (Placement(transformation(
+    dp_nominal=74650) "Cooling tower" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={208,233})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pumCW(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
-    dp(start=37474)) "Condenser water pump" annotation (Placement(
+    dp(start=214992)) "Condenser water pump" annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -100,14 +98,14 @@ model PrimaryOnlyWithEconomizer
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res4(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
-    dp_nominal=1000) "Fixed resistance " annotation (Placement(transformation(
+    dp_nominal=14930) "Fixed resistance " annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={128,203})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
-    dp_nominal=1000) "Fixed resistance " annotation (Placement(transformation(
+    dp_nominal=14930) "Fixed resistance " annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={290,181})));
@@ -120,18 +118,18 @@ model PrimaryOnlyWithEconomizer
     dp2_nominal=59720,
     eps=0.8) "Water side economizer (Heat exchanger)"
     annotation (Placement(transformation(extent={{68,83},{48,103}})));
-  Fluid.Actuators.Valves.TwoWayLinear           val5(
+  Fluid.Actuators.Valves.TwoWayLinear val5(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
-    dp_nominal=44790) "Control valve for condenser water loop of chiller"
+    dp_nominal=20902) "Control valve for condenser water loop of chiller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={128,153})));
-  Fluid.Actuators.Valves.TwoWayLinear                    val1(
+  Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=44790)
+    dp_nominal=20902)
     "Bypass control valve for economizer. 1: disable economizer, 0: enable economoizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -159,10 +157,10 @@ model PrimaryOnlyWithEconomizer
     dp2_nominal=89580,
     per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_823kW_6_28COP_Vanes())
     annotation (Placement(transformation(extent={{218,83},{198,103}})));
-  Fluid.Actuators.Valves.TwoWayLinear           val6(
+  Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=44790) "Control valve for chilled water leaving from chiller"
+    dp_nominal=20902) "Control valve for chilled water leaving from chiller"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -172,9 +170,9 @@ model PrimaryOnlyWithEconomizer
     annotation (Placement(transformation(extent={{-226,83},{-206,103}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
     redeclare package Medium = MediumCHW,
-    dp_nominal=1000,
-    m_flow_nominal=mCHW_flow_nominal) "Fixed resistance in chilled water loop"
-    annotation (Placement(transformation(
+    m_flow_nominal=mCHW_flow_nominal,
+    dp_nominal=14930) "Fixed resistance in chilled water loop" annotation (
+      Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={162,67})));
@@ -218,20 +216,21 @@ model PrimaryOnlyWithEconomizer
   Modelica.Blocks.Logical.Switch swi
     annotation (Placement(transformation(extent={{-101,82},{-81,102}})));
   Modelica.Blocks.Sources.Constant off(k=0) "Control signal of chiller"
-    annotation (Placement(transformation(extent={{-142,63},{-122,83}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-142,63},{-122,83}}, rotation
+          =0)));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=100) "Fixed resistance in CHW loop" annotation (Placement(
+    dp_nominal=1000) "Fixed resistance in CHW loop"
+                                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={108,-19})));
-  Fluid.Actuators.Valves.TwoWayLinear           val4(
+  Fluid.Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
-    dp_nominal=44790) "Control valve for condenser water loop of economizer"
+    dp_nominal=20902) "Control valve for condenser water loop of economizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -252,8 +251,8 @@ model PrimaryOnlyWithEconomizer
         origin={162,-3})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TChiCWST(redeclare package Medium
       = MediumCW, m_flow_nominal=mCW_flow_nominal)
-    "Condenser water supply temperature for economizer and chiller" annotation (
-     Placement(transformation(
+    "Condenser water supply temperature for economizer and chiller" annotation
+    (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={272,113})));
@@ -262,10 +261,10 @@ model PrimaryOnlyWithEconomizer
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={172,271})));
-  Fluid.Actuators.Valves.TwoWayEqualPercentage           val2(
+  Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=44790)
+    dp_nominal=20902)
     "Bypass valve for chiller. It controls the mass flow rate of chilled water going into the chiller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -273,10 +272,10 @@ model PrimaryOnlyWithEconomizer
         origin={214,13})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU KMinusU(k=1)
     annotation (Placement(transformation(extent={{-66,82},{-46,102}})));
-  Fluid.Actuators.Valves.TwoWayLinear                    val3(
+  Fluid.Actuators.Valves.TwoWayLinear val3(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=44790)
+    dp_nominal=20902)
     "Control valve for economizer. 0: disable economizer, 1: enable economoizer"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -301,7 +300,7 @@ model PrimaryOnlyWithEconomizer
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res6(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=44990) "Fixed resistance in chilled water loop" annotation (
+    dp_nominal=14930) "Fixed resistance in chilled water loop" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -335,6 +334,7 @@ equation
       smooth=Smooth.None));
   connect(linPieTwo.y[1], swi.u1) annotation (Line(
       points={{-87,202.3},{-76,202.3},{-76,122},{-112,122},{-112,100},{-103,100}},
+
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -412,6 +412,7 @@ equation
       smooth=Smooth.None));
   connect(linPieTwo.y[2], chiSwi.TSet) annotation (Line(
       points={{-87,203.3},{-64,203.3},{-64,249},{-274,249},{-274,88},{-227,88}},
+
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -429,6 +430,7 @@ equation
       smooth=Smooth.None));
   connect(TSupAir.T, limPID.u_m) annotation (Line(
       points={{240,-214},{240,-201},{-266,-201},{-266,179},{-176,179},{-176,190}},
+
       color={0,0,127},
       smooth=Smooth.None));
 
