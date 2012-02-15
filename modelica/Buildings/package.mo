@@ -161,6 +161,11 @@ to <b style=\"color:blue\">existing</b> libraries:
                      boiler model.
     </td> 
     </tr>
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.Pipe
+    </td>
+    <td valign=\"top\">A pipe model that allows heat exchange with environment.
+    </td> 
+    </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
