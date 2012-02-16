@@ -1,6 +1,6 @@
 within Buildings.Fluid.FixedResistances.BaseClasses;
 model PartialPipe
-  "Partial model of a pipe with finite volume discretization along the flow path"
+  "Model of a pipe with finite volume discretization along the flow path"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
   showDesignFlowDirection = false,
@@ -100,7 +100,7 @@ equation
           textString="%nSeg")}),
     Documentation(info="<html>
 <p>
-Partial model of a pipe with flow resistance and optional heat storage.
+Model of a pipe with flow resistance and optional heat storage.
 This model can be used for modeling the heat exchange between the pipe and environment.
 The model consists of a flow resistance 
 <a href=\"modelica://Buildings.Fluid.FixedResistances.FixedResistanceDpM\">
