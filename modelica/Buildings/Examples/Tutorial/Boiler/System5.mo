@@ -215,58 +215,32 @@ model System5
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-220,-82},{-200,-62}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdPumRad(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always))
-    "First order filter to avoid step change for pump mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdPumBoi(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always))
-    "First order filter to avoid step change for pump mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
 
-//------------------------Step 2: Boiler loop valve control-----------------------//	
-	Modelica.Blocks.Sources.Constant TSetBoiRet(k=TBoiRet_min)
+//------------------------Step 2: Boiler loop valve control-----------------------//
+ Modelica.Blocks.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-320},{140,-300}})));
   Buildings.Controls.Continuous.LimPID conPIDBoi(
     Td=1,
-    Ti=1,
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=0.25) "Controller for valve in boiler loop"
+    Ti=120,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-290},{180,-270}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdValBoi(
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always),
-    T=5) "First order filter to avoid step change for valve position"
-    annotation (Placement(transformation(extent={{200,-290},{220,-270}})));
 //--------------------------------------------------------------------------------//
 
-//----------------------Step 3: Radiator loop valve control-----------------------//	
+//----------------------Step 3: Radiator loop valve control-----------------------//
   Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
                                           273.15 + 21, 273.15 + 21])
     "Setpoint for supply water temperature"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
   Buildings.Controls.Continuous.LimPID conPIDRad(
     Td=1,
-    Ti=1,
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=0.25) "Controller for valve in radiator loop"
+    Ti=120,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdValRad(
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always),
-    T=5) "First order filter to avoid step change for valve position"
-    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
 //--------------------------------------------------------------------------------//
-	
+
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
       points={{-340,50},{20,50}},
@@ -289,7 +263,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
-      points={{-50,-30},{-50,-10},{0,-10}},
+      points={{-50,-30},{-50,-10},{-5.55112e-16,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(temRoo.port, vol.heatPort) annotation (Line(
@@ -309,7 +283,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b, pumBoi.port_a) annotation (Line(
-      points={{0,-310},{-50,-310},{-50,-290}},
+      points={{-5.55112e-16,-310},{-50,-310},{-50,-290}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pumBoi.port_b, spl1.port_1) annotation (Line(
@@ -435,16 +409,6 @@ equation
       points={{-239,-72},{-222,-72}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(booToReaRad.y,firOrdPumRad. u)
-                                   annotation (Line(
-      points={{-119,-70},{-102,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdPumRad.y, pumRad.m_flow_in)
-                                      annotation (Line(
-      points={{-79,-70},{-70,-70},{-70,-75},{-58.2,-75}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(not1.y, and1.u1) annotation (Line(
       points={{-199,-72},{-192,-72},{-192,-150},{-182,-150}},
       color={255,0,255},
@@ -452,14 +416,6 @@ equation
   connect(and1.y, booToReaRad.u) annotation (Line(
       points={{-159,-150},{-152,-150},{-152,-70},{-142,-70}},
       color={255,0,255},
-      smooth=Smooth.None));
-  connect(booToReaRad1.y, firOrdPumBoi.u) annotation (Line(
-      points={{-119,-280},{-102,-280}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdPumBoi.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-79,-280},{-68.5,-280},{-68.5,-285},{-58.2,-285}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(temRet.T,conPIDBoi. u_s) annotation (Line(
       points={{71,-280},{158,-280}},
@@ -469,20 +425,8 @@ equation
       points={{141,-310},{170,-310},{170,-292}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conPIDBoi.y,firOrdValBoi. u) annotation (Line(
-      points={{181,-280},{198,-280}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdValBoi.y, valBoi.y) annotation (Line(
-      points={{221,-280},{232,-280},{232,-250},{68,-250}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(temRoo.T, TSetSup.u) annotation (Line(
       points={{-50,30},{-270,30},{-270,-10},{-222,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conPIDRad.y, firOrdValRad.u) annotation (Line(
-      points={{-159,-10},{-142,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSetSup.y, conPIDRad.u_s) annotation (Line(
@@ -493,8 +437,20 @@ equation
       points={{-61,-40},{-170,-40},{-170,-22}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(firOrdValRad.y, valRad.y) annotation (Line(
-      points={{-119,-10},{-110,-10},{-110,-150},{-58,-150}},
+  connect(conPIDRad.y, valRad.y) annotation (Line(
+      points={{-159,-10},{-108,-10},{-108,-150},{-62,-150}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
+      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
+      points={{-119,-280},{-90.5,-280},{-90.5,-280.2},{-62,-280.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conPIDBoi.y, valBoi.y) annotation (Line(
+      points={{181,-280},{190,-280},{190,-250},{72,-250}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -532,125 +488,26 @@ This is implemented using the constant block
 Modelica.Blocks.Sources.Constant</a> for the set point,
 the PID controller with output limitation
 <a href=\"modelica://Buildings.Controls.Continuous.LimPID\">
-Buildings.Controls.Continuous.LimPID</a>, followed by
-a first order filter
-<a href=\"modelica://Modelica.Blocks.Continuous.FirstOrder\">
-Modelica.Blocks.Continuous.FirstOrder</a>.
-As for the pumps, the first order filter avoids a sudden change in
-the valve position.
+Buildings.Controls.Continuous.LimPID</a>.
 We configured the controller as
 </p>
 <pre>
   Buildings.Controls.Continuous.LimPID conPIDBoi(
     controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=0.25,
-    Ti=1,    
+    k=0.1,
+    Ti=120,    
     Td=1) \"Controller for valve in boiler loop\";
 </pre>
-Thus, we use it as a P-controller, which we will later 
-change to a PI-controller. We used the P-controller because 
-the gain of the P-controller is easier to tune compared to a PI-controller.
-We set the proportional band to <i>4</i> Kelvin, hence <code>k=0.25</code>.
-Although <i>4</i> Kelvin may lead to a large steady-state control error,
-this is not a concerns as we will later change the controller to a PI-controller.
-</p>
-<p>
-Similar than for the pumps, we parameterized the first order filter
-as
-</p>
-<pre>
-  Modelica.Blocks.Continuous.FirstOrder firOrdValBoi(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0) \"First order filter to avoid step change for valve position\";
-</pre>
-<p>
-Note that we forced the output signal <code>y</code> 
-to be zero at the start of the simulation.
-This ensures that the valve input signal is within the allowed 
-range of <i>[0,&nbsp;1]</i>.
+We set the proportional band to <i>10</i> Kelvin, hence <code>k=0.1</code>.
+We set the integral time constant to <i>120</i> seconds, which is 
+the same time as is required to open or close the valve.
+These settings turn out to give satisfactory closed loop control performance.
+Otherwise, we would need to retune the controller, which is 
+usually easiest by configuring the controller as a P-controller, then tuning the
+proportional gain, and finally changing it to a PI-controller and tuning the 
+integral time constant.
 </p>
 </li>
-<li>
-<p>
-When an earlier development version of this model
-was simulated in Dymola 2012 FD01, then the simulation
-stopped with the following error message:
-</p>
-<pre>
-ERROR: Failed to solve non-linear system using Newton solver.To get more information: Turn on Simulation/Setup/Debug/Nonlinear solver diagnostics/DetailsSolution to systems of equations not found at time = 6780.96   Nonlinear system of equations number = 4   Infinity-norm of residue = 0.0449558   Iteration is not making good progress.   Accumulated number of residue       calc.: 147649   Accumulated number of symbolic Jacobian calc.: 20994   Last values of solution vector:spl.port_2.p = 311569
-firOrdPumRad.y = 0.478238
-spl2.vol.dynBal.medium.p = 311848
-pumRad.vol.dynBal.medium.p = 300653
-mix.vol.dynBal.medium.p = 305696
-spl1.vol.dynBal.medium.p = 311759
-spl.vol.dynBal.medium.p = 311762
-firOrdValBoi.y = -0.00917415
-pumBoi.vol.dynBal.medium.p = 298044
-firOrdPumBoi.y = 0.235443
-   Last values of residual vector:{ -9.69976E-08, -8.10579E-06, -0.000155234, -2.37278E-07, -4.21349E-05,
-  7.96656E-06, 0.000129487, -0.0329536, 0.000654838, -0.0110041 }
- Solver will attempt to handle this problem.
-
-
-... Error message from dymosim
-At time T = 6.780958e+03 and stepsize
-H = 1.249713e-07 the corrector could not
-converge because IRES was equal to minus one.
-Integration will be terminated.
-</pre>
-<p>
-In the above output, we see that <code>firOrdValBoi.y = -0.00917415</code>, 
-which means that the input signal to the valve
-is negative. Clearly, this numerical error is undesired.
-To fix this, we can select in the simulation pane <code>Simulation -> Setup</code> and then select to report the selected state variables:
-</p>
-<p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5SimulationSetup.png\" border=\"1\">
-</p>
-<p>
-After this change, the following message was shown after the model was translated:
-</p>
-<pre>
-There is one set of dynamic state selection.
-There are 3 states to be selected from:
-  firOrdPumBoi.y
-  firOrdPumRad.y
-  firOrdValBoi.y
-  mix.vol.dynBal.medium.p
-  pumBoi.vol.dynBal.medium.p
-  pumRad.vol.dynBal.medium.p
-  spl.port_2.p
-  spl.vol.dynBal.medium.p
-  spl1.vol.dynBal.medium.p
-  spl2.vol.dynBal.medium.p
-</pre>
-<p>
-This means that Dymola was able to choose three of these variables as state variables.
-Because one of the first order elements was negative when the solver failed to converge,
-and because the first order elements are easy to integrate, we selected
-these as state variables.
-Hence, in the model, we set for all first order elements the <code>stateSelect</code> attribute as
-</p>
-<pre>
-  Modelica.Blocks.Continuous.FirstOrder firOrdValBoi(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always)) 
-    \"First order filter to avoid step change for valve position\";
-</pre>
-<p>
-After this change, the model run without problems.
-</p>
-<p>
-Note that in this version of the model, setting the <code>stateSelect</code>
-attribute is not required for convergence. However, by setting
-<code>stateSelect=StateSelect.always</code> for the outputs of the
-first order filters, the model simulates about twice as fast.
-</p>
-</li>
-<li>
 <p>
 The valve control for the radiator loop is implemented similar to
 the boiler loop, with the exception that the setpoint is computed
@@ -659,7 +516,7 @@ using the model
 Buildings.Controls.SetPoints.Table</a> to implement
 a set point that shifts as a function of the room temperature.
 This instance is called <code>TSetSup</code> in the 
-control sequence shown in the figure below
+control sequence shown in the figure below.
 </p>
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System5RadiatorValve.png\" border=\"1\">

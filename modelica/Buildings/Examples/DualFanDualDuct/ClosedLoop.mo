@@ -155,21 +155,21 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Controls.Continuous.LimPID preHeaCoiCon(
     yMax=1,
     yMin=0,
-    Ti=60,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
-    controllerType=Modelica.Blocks.Types.SimpleController.P)
-    "Controller for pre-heating coil"
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=120,
+    k=0.1) "Controller for pre-heating coil"
     annotation (Placement(transformation(extent={{20,-180},{40,-160}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon(
-    Ti=60,
     reverseAction=true,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     yMax=1,
     yMin=0,
-    controllerType=Modelica.Blocks.Types.SimpleController.P)
-    "Controller for cooling coil"
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1,
+    Ti=120) "Controller for cooling coil"
     annotation (Placement(transformation(extent={{340,-200},{360,-180}})));
   Buildings.Examples.VAVReheat.Controls.FanVFD conFanSupHot(
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -212,9 +212,9 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         origin={380,-220})));
   Buildings.Examples.VAVReheat.Controls.Economizer conEco(
     dT=1,
-    k=1,
     Ti=60,
-    VOut_flow_min=0.3*m_flow_nominal/1.2) "Controller for economizer"
+    VOut_flow_min=0.3*m_flow_nominal/1.2,
+    k=0.1) "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Return air temperature sensor"
@@ -439,7 +439,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     dp_nominal=6000,
     from_dp=true,
-    m_flow_nominal=mWatPre_flow_nominal) "Preheating coil valve"
+    m_flow_nominal=mWatPre_flow_nominal,
+    riseTime=10) "Preheating coil valve"
                                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -484,13 +485,13 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         rotation=90,
         origin={380,-50})));
   Buildings.Controls.Continuous.LimPID heaCoiCon(
-    Ti=60,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     yMax=1,
     yMin=0,
-    controllerType=Modelica.Blocks.Types.SimpleController.P)
-    "Controller for heating coil"
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=120,
+    k=0.1) "Controller for heating coil"
     annotation (Placement(transformation(extent={{340,-60},{360,-40}})));
   Buildings.Controls.SetPoints.Table TSetHot(table=[273.15 + 5,273.15 + 40; 273.15
          + 22,273.15 + 22]) "Setpoint for hot deck temperature"
@@ -964,7 +965,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(heaCoiCon.y, valHea.y)  annotation (Line(
-      points={{361,-50},{372,-50}},
+      points={{361,-50},{368,-50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(valCoo.port_a, souCoo.ports[1]) annotation (Line(
@@ -1063,12 +1064,12 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(cooCoiCon.y, valCoo.y) annotation (Line(
-      points={{361,-190},{372,-190}},
+      points={{361,-190},{368,-190}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHeaCoiCon.y, valPreHea.y)
                                     annotation (Line(
-      points={{41,-170},{112,-170}},
+      points={{41,-170},{108,-170}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSupSetHea.TSet, conEco.TSupHeaSet) annotation (Line(
@@ -1098,7 +1099,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(swiPumPreCoi.y, pumPreHea.m_flow_in) annotation (Line(
-      points={{61,-90},{76,-90},{76,-95},{111.8,-95}},
+      points={{61,-90},{76,-90},{76,-90.2},{108,-90.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWatPreOff.y, swiPumPreCoi.u3) annotation (Line(
@@ -1106,15 +1107,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanRet.y, fanRet.y) annotation (Line(
-      points={{261,230},{350,230},{350,170}},
+      points={{261,230},{350,230},{350,172}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanSupHot.y, fanSupHot.y) annotation (Line(
-      points={{141,90},{310,90},{310,10}},
+      points={{141,90},{310,90},{310,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conFanSupCol.y, fanSupCol.y) annotation (Line(
-      points={{121,50},{260,50},{260,-120},{312,-120},{312,-140}},
+      points={{121,50},{260,50},{260,-120},{312,-120},{312,-138}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pStaBui_Set.y, conFanRet.u) annotation (Line(

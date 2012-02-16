@@ -35,10 +35,10 @@ model DryEffectivenessNTUPControl
             {120,30}},  rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
       package Medium = Medium1,
-    p=300000,
-    T=293.15,
     nPorts=1,
-    use_p_in=true)        annotation (Placement(transformation(extent={{140,50},
+    use_p_in=false,
+    p=300000,
+    T=293.15)             annotation (Placement(transformation(extent={{140,50},
             {120,70}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou_1(
     redeclare package Medium = Medium1,
@@ -61,13 +61,6 @@ model DryEffectivenessNTUPControl
     dp_nominal=2000 + 3000)
              annotation (Placement(transformation(extent={{90,50},{110,70}},
           rotation=0)));
-    Modelica.Blocks.Sources.Ramp PSin_1(
-    duration=60,
-    height=5000,
-    startTime=240,
-    offset=300000)
-                 annotation (Placement(transformation(extent={{140,90},{160,110}},
-          rotation=0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen(redeclare package Medium =
         Medium2, m_flow_nominal=m2_flow_nominal)
                  annotation (Placement(transformation(extent={{40,10},{20,30}},
@@ -80,14 +73,14 @@ model DryEffectivenessNTUPControl
              annotation (Placement(transformation(extent={{30,50},{50,70}},
           rotation=0)));
   Buildings.Controls.Continuous.LimPID P(
-                              k=1,
-    Ti=60,
-    controllerType=Modelica.Blocks.Types.SimpleController.P)
-                                      annotation (Placement(transformation(
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=30,
+    k=0.1)                            annotation (Placement(transformation(
           extent={{-24,80},{-4,100}},   rotation=0)));
-  Modelica.Blocks.Sources.TimeTable TSet(table=[0,330.15; 600,298.15; 600,
-        303.15; 1200,303.15; 1800,298.15; 2400,298.15; 2400,304.15])
-    "Setpoint temperature"
+  Modelica.Blocks.Sources.Pulse     TSet(
+    amplitude=5,
+    period=3600,
+    offset=273.15 + 22) "Setpoint temperature"
     annotation (Placement(transformation(extent={{-70,80},{-50,100}},  rotation=
            0)));
   Buildings.Fluid.HeatExchangers.DryEffectivenessNTU hex(
@@ -105,14 +98,9 @@ model DryEffectivenessNTUPControl
                          annotation (Placement(transformation(extent={{60,16},{
             80,36}}, rotation=0)));
 
-  Buildings.Fluid.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model"
-    annotation (Placement(transformation(extent={{10,80},{30,100}},rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
-  connect(PSin_1.y, sin_1.p_in) annotation (Line(points={{161,100},{180,100},{
-          180,68},{142,68}},
-                         color={0,0,127}));
   connect(hex.port_b1, res_1.port_a)
     annotation (Line(points={{80,32},{86,32},{86,60},{90,60}},
                                                color={0,127,255}));
@@ -150,12 +138,8 @@ equation
       points={{30,31},{30,40},{-14,40},{-14,78}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mot.y, val.y) annotation (Line(
-      points={{31,90},{40,90},{40,68}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(P.y, mot.u) annotation (Line(
-      points={{-3,90},{8,90}},
+  connect(P.y, val.y) annotation (Line(
+      points={{-3,90},{40,90},{40,72}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,

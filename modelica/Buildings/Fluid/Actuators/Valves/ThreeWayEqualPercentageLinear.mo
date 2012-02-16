@@ -18,7 +18,8 @@ model ThreeWayEqualPercentageLinear
       Kv_SI=Kv_SI,
       Kv=Kv,
       Cv=Cv,
-      Av=Av),
+      Av=Av,
+      final filteredOpening=false),
       redeclare TwoWayLinear res3(
       redeclare package Medium = Medium,
       l=l[2],
@@ -33,20 +34,21 @@ model ThreeWayEqualPercentageLinear
       Kv_SI=fraK*Kv_SI,
       Kv=fraK*Kv,
       Cv=fraK*Cv,
-      Av=fraK*Av));
+      Av=fraK*Av,
+      final filteredOpening=false));
   parameter Real R = 50 "Rangeability, R=50...100 typically";
   parameter Real delta0 = 0.01
     "Range of significant deviation from equal percentage law";
 
 equation
-  connect(inv.y, res3.y) annotation (Line(points={{69,60},{74,60},{80,60},{80,
-          -50},{20,-50},{8,-50}},
+  connect(inv.y, res3.y) annotation (Line(points={{-62.6,46},{20,46},{20,46},{
+          20,-50},{8,-50}},
                          color={0,0,127}));
-  connect(y, inv.u2) annotation (Line(points={{1.11022e-15,80},{0,80},{0,30},{
-          60,30},{60,52}},
+  connect(y_actual, inv.u2) annotation (Line(points={{70,20},{84,20},{84,32},{
+          -68,32},{-68,41.2}},
                          color={0,0,127}));
-  connect(y, res1.y) annotation (Line(points={{1.11022e-15,80},{0,80},{0,30},{
-          -50,30},{-50,8}},
+  connect(y_actual, res1.y) annotation (Line(points={{70,20},{84,20},{84,32},{
+          -50,32},{-50,8}},
         color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
@@ -85,6 +87,10 @@ the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 14, 2012 by Michael Wetter:<br>
+Added filter to approximate the travel time of the actuator.
+</li>
 <li>
 March 25, 2011, by Michael Wetter:<br>
 Added homotopy method.

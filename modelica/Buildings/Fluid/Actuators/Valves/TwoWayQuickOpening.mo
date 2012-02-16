@@ -7,10 +7,10 @@ protected
    parameter Real alpInv = 1/alp;
 equation
   if homotopyInitialization then
-     phi = homotopy(actual=l + Modelica.Fluid.Utilities.regPow(y, alpInv, delta0) * (1 - l),
-                    simplified=l + y * (1 - l));
+     phi = homotopy(actual=l + Modelica.Fluid.Utilities.regPow(y_actual, alpInv, delta0) * (1 - l),
+                    simplified=l + y_actual * (1 - l));
   else
-     phi = l + Modelica.Fluid.Utilities.regPow(y, alpInv, delta0) * (1 - l);
+     phi = l + Modelica.Fluid.Utilities.regPow(y_actual, alpInv, delta0) * (1 - l);
   end if;
 annotation (
 defaultComponentName="val",

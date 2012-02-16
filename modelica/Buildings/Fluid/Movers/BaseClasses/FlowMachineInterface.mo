@@ -25,11 +25,49 @@ partial model FlowMachineInterface
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
     annotation(Evaluate=true, Dialog(tab="Advanced"));
 
-  Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm N(min=0, start = N_nominal)
-    "Shaft rotational speed";
-  Real r_N(min=0, start=1, unit="1") "Ratio N/N_nominal";
+  // Classes used to implement the filtered speed
+  parameter Boolean filteredSpeed=true
+    "= true, if speed is filtered with a 2nd order CriticalDamping filter"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed"));
+  parameter Modelica.SIunits.Time riseTime=30
+    "Rise time of the filter (time to reach 99.6 % of the speed)"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+  parameter Modelica.Blocks.Types.Init init=Modelica.Blocks.Types.Init.InitialOutput
+    "Type of initialization (no init/steady state/initial state/initial output)"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+  parameter Real N_start=0 "Initial value of speed"
+    annotation(Dialog(tab="Dynamics", group="Filtered speed",enable=filteredSpeed));
+
+  // Speed
+  Modelica.Blocks.Interfaces.RealOutput N_actual(min=0, max=N_nominal,
+                                                 final quantity="AngularVelocity",
+                                                 final unit="1/min",
+                                                 nominal=N_nominal)
+    annotation (Placement(transformation(extent={{40,60},{60,80}})));
+
+  // "Shaft rotational speed in rpm";
+  Real r_N(min=0, start=N_start/N_nominal, unit="1") "Ratio N_actual/N_nominal";
   Real r_V(start=1, unit="1") "Ratio V_flow/V_flow_max";
+
 protected
+  Modelica.Blocks.Interfaces.RealOutput N_filtered(min=0, start=N_start, max=N_nominal) if
+     filteredSpeed "Filtered speed in the range 0..N_nominal"
+    annotation (Placement(transformation(extent={{40,78},{60,98}}),
+        iconTransformation(extent={{60,50},{80,70}})));
+  Modelica.Blocks.Continuous.Filter filter(
+     order=2,
+     f_cut=5/(2*Modelica.Constants.pi*riseTime),
+     final init=init,
+     final y_start=N_start,
+     x(each stateSelect=StateSelect.always),
+     u_nominal=N_nominal,
+     u(final quantity="AngularVelocity", final unit="1/min", nominal=N_nominal),
+     y(final quantity="AngularVelocity", final unit="1/min", nominal=N_nominal),
+     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     final filterType=Modelica.Blocks.Types.FilterType.LowPass) if
+        filteredSpeed
+    "Second order filter to approximate valve opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{20,81},{34,95}})));
   parameter Modelica.SIunits.VolumeFlowRate VDelta_flow(fixed=false, start=delta*V_flow_nominal)
     "Small volume flow rate";
   parameter Modelica.SIunits.Pressure dpDelta(fixed=false, start=100)
@@ -283,7 +321,9 @@ the simulation stops.");
     cBar=zeros(2),
     kRes=  kRes) - delta*dpDelta)/delta^2 - cBar[1])/VDelta_flow;
 equation
-  r_N = N/N_nominal;
+
+  // Hydraulic equations
+  r_N = N_actual/N_nominal;
   r_V = VMachine_flow/V_flow_max;
   // For the homotopy method, we approximate dpMachine by an equation
   // that is linear in VMachine_flow, and that goes linearly to 0 as r_N goes to 0.
@@ -414,7 +454,11 @@ equation
 
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics),
+            100}}), graphics={
+        Line(
+          points={{0,70},{40,70}},
+          color={0,0,0},
+          smooth=Smooth.None)}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}),
             graphics),
@@ -465,6 +509,10 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 14, 2012, by Michael Wetter:<br>
+Added filter for start-up and shut-down transient.
+</li>
 <li>
 October 4 2011, by Michael Wetter:<br>
 Revised the implementation of the pressure drop computation as a function

@@ -148,6 +148,10 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.UsersGuide
+    </td>
+    <td valign=\"top\">Added a user's guide for actuator models.
+    </td> 
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
                      Buildings.Fluid.Interfaces.StaticConservationEquation
     </td>
@@ -159,11 +163,6 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Package with physical properties of fuels that are used by the
                      boiler model.
-    </td> 
-    </tr>
-<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.Pipe
-    </td>
-    <td valign=\"top\">A pipe model that allows heat exchange with environment.
     </td> 
     </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -273,30 +272,12 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+<tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.HeatTransfer.Radiosity.OpaqueSurface
+<tr><td valign=\"top\">xxx
     </td>
-    <td valign=\"top\">Fixed an error in linearization of T^4. 
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.HeatTransfer.Radiosity.IndoorRadiosity
-    </td>
-    <td valign=\"top\">Fixed an error in linearization of T^4. 
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.HeatTransfer.Radiosity.OutdoorRadiosity
-    </td>
-    <td valign=\"top\">Fixed an error in linearization of T^4. 
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.InfraredRadiationExchange
-    </td>
-    <td valign=\"top\">Fixed an error in linearization of T^4. 
+    <td valign=\"top\">xxx.
     </td>
 </tr>
 </table>
@@ -2182,6 +2163,10 @@ individual libraries.
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.UsersGuide\">Fluid</a>
    </td>
    <td valign=\"top\">Library for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">Fluid.Actuators</a>
+   </td>
+   <td valign=\"top\">Library with valves and air dampers.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Fluid.Movers</a>
    </td>

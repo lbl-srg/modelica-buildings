@@ -1,4 +1,4 @@
-PartialActuator
+ActuatorSignal
 PartialDamperExponential
 PartialThreeWayValve
 PartialTwoWayValve
@@ -7,3 +7,4 @@ der_equalPercentage
 equalPercentage
 exponentialDamper
 Examples
+

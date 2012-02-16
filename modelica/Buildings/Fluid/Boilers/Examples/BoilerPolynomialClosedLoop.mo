@@ -50,13 +50,13 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
         origin={0,-20})));
   Modelica.Blocks.Sources.Constant m_flow_pum(k=m_flow_nominal)
     "Mass flow rate of pump"
-    annotation (Placement(transformation(extent={{-80,-36},{-60,-16}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Modelica.Blocks.Sources.Constant TSetBoi(k=273.15 + 70)
     "Temperature setpoint for boiler"
     annotation (Placement(transformation(extent={{-170,-74},{-150,-54}})));
   Controls.Continuous.LimPID conPID(
     Td=1,
-    k=1,
+    k=0.5,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=100)
           annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
@@ -119,7 +119,7 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
     annotation (Placement(transformation(extent={{-120,162},{-100,182}})));
   Modelica.Blocks.Math.Gain gain(k=2)
     "Multiply the mass flow rate as this circuit has a smaller temperature difference"
-    annotation (Placement(transformation(extent={{-40,96},{-20,116}})));
+    annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Sensor for volume temperature"
     annotation (Placement(transformation(extent={{-60,120},{-80,140}})));
@@ -138,7 +138,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conPID.y, val.y) annotation (Line(
-      points={{-59,40},{-8,40}},
+      points={{-59,40},{-12,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSetHea.y, conPID.u_s) annotation (Line(
@@ -194,7 +194,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow_pum.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-59,-26},{-8.2,-26},{-8.2,-25}},
+      points={{-59,-20},{-12,-20},{-12,-20.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(vol.ports[1], spl3.port_1) annotation (Line(
@@ -210,11 +210,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(gain.y, pumLoa.m_flow_in) annotation (Line(
-      points={{-19,106},{-13.6,106},{-13.6,105},{-8.2,105}},
+      points={{-19,110},{-13.6,110},{-13.6,109.8},{-12,109.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m_flow_pum.y, gain.u) annotation (Line(
-      points={{-59,-26},{-52,-26},{-52,106},{-42,106}},
+      points={{-59,-20},{-52,-20},{-52,110},{-42,110}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TVol.port, vol.heatPort) annotation (Line(

@@ -41,7 +41,7 @@ model MixingBoxMinimumFlow
       annotation (Placement(transformation(extent={{-100,10},{-80,30}},
           rotation=0)));
     Modelica.Blocks.Sources.Constant yDamMin(k=0.5)
-      annotation (Placement(transformation(extent={{-40,70},{-20,90}},rotation=
+      annotation (Placement(transformation(extent={{-40,40},{-20,60}},rotation=
             0)));
     Modelica.Blocks.Sources.Ramp PSup(
     offset=101320,
@@ -56,21 +56,21 @@ model MixingBoxMinimumFlow
     startTime=20)
                  annotation (Placement(transformation(extent={{60,-50},{80,-30}},
           rotation=0)));
-    Modelica.Blocks.Sources.Ramp yDam(
-    duration=20,
-    startTime=40,
+    Modelica.Blocks.Sources.Step yDam(
     height=0.1,
-    offset=0.45) annotation (Placement(transformation(extent={{-40,40},{-20,60}},
+    offset=0.45,
+    startTime=60)
+                 annotation (Placement(transformation(extent={{-40,70},{-20,90}},
           rotation=0)));
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
   connect(yDamMin.y, mixBox.yOutMin)
-                               annotation (Line(points={{-19,80},{30,80},{30,
+                               annotation (Line(points={{-19,50},{18,50},{18,
           6.66134e-16}},
                    color={0,0,127}));
-  connect(yDam.y, mixBox.y) annotation (Line(points={{-19,50},{24,50},{24,
+  connect(yDam.y, mixBox.y) annotation (Line(points={{-19,80},{24,80},{24,
           6.66134e-16}},
                    color={0,0,127}));
   connect(bouIn.p_in, PAtm.y) annotation (Line(points={{-62,20},{-72,20},{-79,
@@ -102,5 +102,8 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                       graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/MixingBoxMinimumFlow.mos" "Simulate and plot"));
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/MixingBoxMinimumFlow.mos"
+        "Simulate and plot"),
+    experiment(StopTime=240),
+    __Dymola_experimentSetupOutput);
 end MixingBoxMinimumFlow;

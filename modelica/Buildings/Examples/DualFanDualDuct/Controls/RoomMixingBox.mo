@@ -9,16 +9,16 @@ block RoomMixingBox "Controller for room mixing box"
     Td=60,
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.5,
-    Ti=60) "Controller for heating"
+    k=0.1,
+    Ti=120) "Controller for heating"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.Continuous.LimPID conCoo(
     yMax=1,
     reverseAction=true,
     Td=60,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.5,
-    Ti=60) "Controller for cooling (acts on damper)"
+    k=0.1,
+    Ti=120) "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-20,-66},{0,-46}})));
   Modelica.Blocks.Interfaces.RealInput TRoo(final quantity="ThermodynamicTemperature",
                                           final unit = "K", displayUnit = "degC", min=0)
@@ -37,8 +37,8 @@ block RoomMixingBox "Controller for room mixing box"
     Td=60,
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=1,
-    Ti=20) "Controller for mass flow rate"
+    k=0.1,
+    Ti=120) "Controller for mass flow rate"
     annotation (Placement(transformation(extent={{-30,0},{-10,20}})));
   Modelica.Blocks.Sources.Constant mAirSet(k=m_flow_min)
     "Set point for minimum air flow rate"
@@ -70,10 +70,6 @@ block RoomMixingBox "Controller for room mixing box"
     "Adds control signal for minimum flow rate of zone"
     annotation (Placement(transformation(extent={{72,-60},{92,-40}})));
 equation
-  connect(mAirSet.y, conFloRat.u_s) annotation (Line(
-      points={{-39,10},{-32,10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(mAir_flow, conFloRat.u_m) annotation (Line(
       points={{-120,-60},{-90,-60},{-90,-20},{-20,-20},{-20,-2}},
       color={0,0,127},
@@ -133,6 +129,10 @@ equation
       smooth=Smooth.None));
   connect(smoothMaxCoo.y, yCol) annotation (Line(
       points={{93,-50},{110,-50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(mAirSet.y, conFloRat.u_s) annotation (Line(
+      points={{-39,10},{-32,10}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,

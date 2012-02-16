@@ -27,8 +27,8 @@ model FlowMachine_y_linear
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false,
-    pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0}))
-    "Pump with fixed pressure raise"
+    pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0}),
+    filteredSpeed=false) "Pump with fixed pressure raise"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{120,-80},{140,-60}})));
@@ -56,8 +56,8 @@ model FlowMachine_y_linear
     redeclare package Medium = Medium,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false,
-    pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0}))
-    "Pump with fixed mass flow rate"
+    pressure(V_flow=2/1000*{0, m_flow_nominal}, dp={2*dp_nominal, 0}),
+    filteredSpeed=false) "Pump with fixed mass flow rate"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Fluid.Sources.Boundary_pT sou3(
     redeclare package Medium = Medium,
@@ -69,7 +69,7 @@ model FlowMachine_y_linear
         origin={128,50})));
 equation
   connect(pumFixDp.port_b, sou1.ports[1]) annotation (Line(
-      points={{60,90},{90,90},{90,90},{118,90}},
+      points={{60,90},{118,90}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dp1.port_b, pumFixDp.port_a) annotation (Line(
@@ -89,11 +89,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y, pumFixDp.y) annotation (Line(
-      points={{-59,130},{50,130},{50,100}},
+      points={{-59,130},{50,130},{50,102}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(y.y, pumFixM_flow.y) annotation (Line(
-      points={{-59,130},{10,130},{10,70},{50,70},{50,60}},
+      points={{-59,130},{10,130},{10,70},{50,70},{50,62}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -110,9 +110,18 @@ In the top model, a small flow resistance has been added since a pump with zero 
 produce a non-zero pressure raise. For this operating region, the pressure drop ensures that
 the model is non-singular.
 </p>
+<p>
+The fans have been configured as steady-state models.
+This ensures that the actual speed is equal to the input signal.
+</p>
 </html>", revisions="<html>
 <ul>
-<li>March 24 2010, by Michael Wetter:<br>
+<li>
+February 14, 2012, by Michael Wetter:<br>
+Added filter for start-up and shut-down transient.
+</li>
+<li>
+March 24 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

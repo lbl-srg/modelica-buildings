@@ -1,11 +1,12 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialTwoWayValve "Partial model for a two way valve"
-  extends Buildings.Fluid.Actuators.BaseClasses.PartialActuator(
+  extends Buildings.Fluid.BaseClasses.PartialResistance(
        dp_nominal=6000,
        final m_flow_turbulent = deltaM * abs(m_flow_nominal));
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default),
       final dpVal_nominal=dp_nominal);
+  extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
 
   parameter Real l(min=1e-10, max=1) = 0.0001 "Valve leakage, l=Cv(y=0)/Cvs";
   Real phi "Ratio actual to nominal mass flow rate, phi=Cv(y)/Cv(y=1)";
@@ -39,8 +40,8 @@ equation
       end if;
     end if; // homotopyInitialization
  end if; // linearized
-  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}), graphics={
+  annotation (Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
+            {100,100}}),       graphics={
         Polygon(
           points={{2,-2},{-76,60},{-76,-60},{2,-2}},
           lineColor={0,0,0},
@@ -53,7 +54,7 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-48,-40},{0,-4},{56,38},{52,-42},{-48,-40}},
+          points={{-52,-42},{0,-4},{60,40},{60,-42},{-52,-42}},
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={255,255,255},
@@ -64,11 +65,12 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{0,100},{0,-2}},
+          points={{0,40},{0,-4}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
-          points={{-40,48},{40,48}},
+          visible=not filteredOpening,
+          points={{0,100},{0,40}},
           color={0,0,0},
           smooth=Smooth.None)}),
 Documentation(info="<html>

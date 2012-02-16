@@ -111,17 +111,11 @@ model System2
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdPumRad(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0)
-    "First order filter to avoid step change for pump mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 //------------------------------------------------------------------------//
 
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
-      points={{0,50},{20,50}},
+      points={{5.55112e-16,50},{20,50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(theCon.port_b, vol.heatPort) annotation (Line(
@@ -141,7 +135,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
-      points={{-50,-30},{-50,-10},{0,-10}},
+      points={{-50,-30},{-50,-10},{-5.55112e-16,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(rad.port_b, sin.ports[1]) annotation (Line(
@@ -180,14 +174,8 @@ equation
       points={{-159,-70},{-142,-70}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(booToReaRad.y, firOrdPumRad.u)
-                                   annotation (Line(
-      points={{-119,-70},{-102,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdPumRad.y, pumRad.m_flow_in)
-                                      annotation (Line(
-      points={{-79,-70},{-70,-70},{-70,-75},{-58.2,-75}},
+  connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
+      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -355,25 +343,11 @@ We set the parameters of the real to boolean converter as
 <p>
 For numerical reasons, in particular in large system models, it is recommended to
 continuously change the mass flow rate, as opposed to having a step change.
-Therefore, we made an instance of 
-<a href=\"modelica://Modelica.Blocks.Continuous.FirstOrder\">
-Modelica.Blocks.Continuous.FirstOrder</a>,
-which we called <code>firOrdPumRad</code>.
-We set its parameters as
-</p>
-<pre>
-  Modelica.Blocks.Continuous.FirstOrder firOrdPumRad(
-                      T=5,
-                      initType=Modelica.Blocks.Types.Init.InitialState,
-                      y_start=0) 
-                      \"First order filter to avoid step change for pump mass flow rate\";
-</pre>
-</p>
-This configures the pump input signal <i>y</i> of the pump to be governed by
-the equation
-<i>5 dy/dt = u-y</i>, with <i>y(t<sub>0</sub>)=0</i>, where
-<i>u</i> is the input signal of the first order element, 
-which is obtained from the block <code>booToReaRad</code>.
+Therefore, 
+in the instance <code>pumRad</code>, we leave the parameter
+<code>filteredSpeed</code> at its default value <code>true</code>.
+This will approximate a continuous change in mass flow rate when the
+pump is switched on or off.
 Finally, we closed the control loop between the room temperature sensor and the
 pump input signal.
 </li>
@@ -393,10 +367,6 @@ The figure shows that the room temperature is maintained at
 <i>19</i>&deg;C to <i>21</i>&deg;C when there is an internal heat gain.
 The temperature is slightly outside this temperature range because of the
 time lag that is caused by the thermal capacity of the radiator.
-The large undershoot at the end of the two periods in which the controller switches 
-on and off is because at the very end, the internal heat gain is zero.
-Therefore, when the pump switches on, the only heat added to the room is from the
-radiator, and consequently there is a larger undershoot.
 </p>
 <!-- Notes -->
 <h4>Notes</h4>

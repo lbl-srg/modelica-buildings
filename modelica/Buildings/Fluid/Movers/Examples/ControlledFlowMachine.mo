@@ -3,13 +3,14 @@ model ControlledFlowMachine
   import Buildings;
   extends Modelica.Icons.Example;
   extends Buildings.Fluid.Movers.Examples.BaseClasses.ControlledFlowMachine(
-    fan4(addPowerToMedium=false),
-    fan1(addPowerToMedium=false),
-    fan2(addPowerToMedium=false),
-    fan3(addPowerToMedium=false));
+    fan4(addPowerToMedium=false, filteredSpeed=false),
+    fan1(addPowerToMedium=false, filteredSpeed=false),
+    fan2(addPowerToMedium=false, filteredSpeed=false),
+    fan3(addPowerToMedium=false, filteredSpeed=false));
 
   annotation (
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ControlledFlowMachine.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ControlledFlowMachine.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example demonstrates the use of the flow model with four different configurations.
 At steady-state, all flow models have the same mass flow rate and pressure difference.
@@ -18,6 +19,10 @@ Dymola computes the enthalpy change of the component as a fraction <code>(k*m_fl
 which leads to an error because of <code>0/0</code> at zero flow rate.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,
-            160}}), graphics),
+            160}}),
+      experiment(
+      StopTime=600,
+      Tolerance=1e-06,
+      Algorithm="Dassl"), graphics),
               Diagram);
 end ControlledFlowMachine;

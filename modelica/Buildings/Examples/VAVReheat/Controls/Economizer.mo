@@ -43,11 +43,6 @@ block Economizer "Controller for economizer"
     "Control signal for outside air damper"
     annotation (Placement(transformation(extent={{200,70},{220,90}},
         rotation=0), iconTransformation(extent={{200,70},{220,90}})));
-public
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    T=5*60) annotation (Placement(transformation(extent={{160,-20},{180,0}})));
   Modelica.Blocks.Routing.Extractor extractor(nin=6)
     annotation (Placement(transformation(extent={{120,-20},{140,0}})));
   Modelica.Blocks.Sources.Constant closed(k=0) "Signal to close OA damper"
@@ -82,14 +77,6 @@ equation
       points={{-39,-10},{-24,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(firstOrder.y, yOA) annotation (Line(
-      points={{181,-10},{192,-10},{192,80},{210,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(extractor.y, firstOrder.u) annotation (Line(
-      points={{141,-10},{158,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(controlBus.controlMode, extractor.index) annotation (Line(
       points={{-40,60},{-40,20},{60,20},{60,-40},{130,-40},{130,-22}},
       color={255,204,51},
@@ -102,7 +89,6 @@ equation
       points={{101,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(closed.y, extractor.u[OperationModes.unoccupiedOff]) annotation (Line(
       points={{81,-80},{110,-80},{110,-10},{118,-10}},
       color={0,0,127},
@@ -123,7 +109,6 @@ equation
       points={{81,-80},{110,-80},{110,-10},{118,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(TSupHeaSet, TSetMix.TSupHeaSet) annotation (Line(
       points={{-120,-20},{-80,-20},{-80,80},{-22,80}},
       color={0,0,127},
@@ -194,6 +179,10 @@ equation
       smooth=Smooth.None));
   connect(TFre.y, yOATFre.TMixSet) annotation (Line(
       points={{1,110},{10,110},{10,124},{18,124}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(extractor.y, yOA) annotation (Line(
+      points={{141,-10},{170,-10},{170,80},{210,80}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,

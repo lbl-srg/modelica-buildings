@@ -76,7 +76,8 @@ model DryCoilDiscretizedPControl
     redeclare package Medium = Medium1,
     l=0.005,
     Kv_SI=5/sqrt(4000),
-    m_flow_nominal=m1_flow_nominal) "Valve model"
+    m_flow_nominal=m1_flow_nominal,
+    filteredOpening=false) "Valve model"
              annotation (Placement(transformation(extent={{30,50},{50,70}},
           rotation=0)));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,298.15; 600,298.15; 600,

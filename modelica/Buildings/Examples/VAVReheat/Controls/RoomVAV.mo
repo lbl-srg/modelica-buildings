@@ -8,8 +8,8 @@ block RoomVAV "Controller for room VAV box"
     Td=60,
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    k=0.01/10,
-    Ti=10/2) "Controller for heating"
+    k=0.1,
+    Ti=120) "Controller for heating"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
   Buildings.Controls.Continuous.LimPID conCoo(
     yMax=1,
@@ -17,7 +17,7 @@ block RoomVAV "Controller for room VAV box"
     Td=60,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
-    Ti=60) "Controller for cooling (acts on damper)"
+    Ti=120) "Controller for cooling (acts on damper)"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   ControlBus controlBus
     annotation (Placement(transformation(extent={{-80,64},{-60,84}})));

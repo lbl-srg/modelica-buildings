@@ -10,8 +10,8 @@ model ValveParameterization
     redeclare package Medium = Medium,
     m_flow_nominal=150/3600,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    dp_nominal(displayUnit="kPa") = 4500)
-    "Valve model, linear opening characteristics"
+    dp_nominal(displayUnit="kPa") = 4500,
+    filteredOpening=false) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{-10,30},{10,50}},
                                                                        rotation=
            0)));
@@ -42,7 +42,8 @@ model ValveParameterization
     CvData=Buildings.Fluid.Types.CvTypes.Kv,
     m_flow_nominal=150/3600,
     Kv=0.73,
-    dp_nominal=450000) "Valve model, linear opening characteristics"
+    dp_nominal=450000,
+    filteredOpening=false) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                                                                        rotation=
            0)));
@@ -53,7 +54,8 @@ model ValveParameterization
     m_flow_nominal=150/3600,
     CvData=Buildings.Fluid.Types.CvTypes.Cv,
     Cv=0.84,
-    dp_nominal=450000) "Valve model, linear opening characteristics"
+    dp_nominal=450000,
+    filteredOpening=false) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{-10,-50},{10,-30}},
                                                                        rotation=
            0)));
@@ -84,14 +86,14 @@ model ValveParameterization
 equation
   connect(y.y, valOPPoi.y)
                          annotation (Line(
-      points={{-39,70},{-20,70},{-20,54},{6.66134e-16,54},{6.66134e-16,48}},
+      points={{-39,70},{-20,70},{6.66134e-16,70},{6.66134e-16,52}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(PSou.y, sou.p_in)
     annotation (Line(points={{-79,26},{-74.5,26},{-74.5,8},{-72,8}},
                                                  color={0,0,127}));
   connect(y.y, valKv.y)  annotation (Line(
-      points={{-39,70},{-20,70},{-20,14},{6.66134e-16,14},{6.66134e-16,8}},
+      points={{-39,70},{-20,70},{-20,20},{6.66134e-16,20},{6.66134e-16,12}},
       color={0,0,127},
       pattern=LinePattern.None));
   connect(valKv.port_a, sou.ports[2])  annotation (Line(
@@ -103,7 +105,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y, valCv.y) annotation (Line(
-      points={{-39,70},{-20,70},{-20,-26},{6.66134e-16,-26},{6.66134e-16,-32}},
+      points={{-39,70},{-20,70},{-20,-20},{6.66134e-16,-20},{6.66134e-16,-28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[1], valOPPoi.port_a) annotation (Line(
@@ -171,7 +173,8 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                         graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/ValveParameterization.mos" "Simulate and plot"),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/ValveParameterization.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Test model for two way valves. This model tests the

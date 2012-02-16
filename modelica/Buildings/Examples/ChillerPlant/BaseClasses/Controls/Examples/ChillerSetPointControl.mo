@@ -92,18 +92,20 @@ model ChillerSetPointControl
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(
     m_flow_nominal=1.2*mCHW_flow_nominal,
     dp(start=40474),
-    redeclare package Medium = Medium2) "Chilled water pump" annotation (
+    redeclare package Medium = Medium2,
+    init=Modelica.Blocks.Types.Init.NoInit) "Chilled water pump"
+                                                             annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={134,-7})));
+        origin={134,-9})));
   Buildings.Fluid.Storage.ExpansionVessel expVesChi(VTot=1, redeclare package
       Medium = Medium2)
     annotation (Placement(transformation(extent={{134,26},{154,46}})));
   Modelica.Blocks.Sources.BooleanConstant booleanConstant1(k=true)
     annotation (Placement(transformation(extent={{-180,62},{-160,82}})));
   Modelica.Blocks.Math.Gain gain(k=mCHW_flow_nominal)
-    annotation (Placement(transformation(extent={{86,-22},{106,-2}})));
+    annotation (Placement(transformation(extent={{86,-18},{106,2}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(
     use_T_in=true,
     redeclare package Medium = MediumAir,
@@ -125,10 +127,8 @@ model ChillerSetPointControl
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={114,-92})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=pum.tau/2)
-    annotation (Placement(transformation(extent={{2,-20},{22,0}})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(y_start=273.15 + 10, T=chi.tau1
-        /2) annotation (Placement(transformation(extent={{2,20},{22,40}})));
+        /2) annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TSup(
     redeclare package Medium = MediumAir,
     m_flow_nominal=999)
@@ -147,11 +147,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(chi.port_a2, pum.port_b) annotation (Line(
-      points={{104,22},{134,22},{134,3}},
+      points={{104,22},{134,22},{134,1}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pum.port_a, coi.port_b1) annotation (Line(
-      points={{134,-17},{134,-48},{106,-48}},
+      points={{134,-19},{134,-48},{106,-48}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(chi.port_a2, expVesChi.port_a) annotation (Line(
@@ -163,7 +163,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(gain.y, pum.m_flow_in) annotation (Line(
-      points={{107,-12},{116.4,-12},{116.4,-12},{125.8,-12}},
+      points={{107,-8},{116.4,-8},{116.4,-9.2},{122,-9.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou2.T_in, sine.y) annotation (Line(
@@ -186,14 +186,6 @@ equation
       points={{-171,30},{-162,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(firstOrder.y, gain.u) annotation (Line(
-      points={{23,-10},{76,-10},{76,-12},{84,-12}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(linPieTwo.y[1], firstOrder.u) annotation (Line(
-      points={{-39,29.3},{-22,29.3},{-22,-10},{-6.66134e-16,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TRet.port_b, coi.port_b2) annotation (Line(
       points={{24,-64},{56,-64},{56,-60},{86,-60}},
       color={0,127,255},
@@ -203,11 +195,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(linPieTwo.y[2], firstOrder1.u) annotation (Line(
-      points={{-39,30.3},{-20,30},{-6.66134e-16,30}},
+      points={{-39,30.3},{-20,30},{-2,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(firstOrder1.y, chi.TSet) annotation (Line(
-      points={{23,30},{44,30},{44,25},{82,25}},
+      points={{21,30},{44,30},{44,25},{82,25}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(coi.port_a2, TSup.port_a) annotation (Line(
@@ -221,6 +213,10 @@ equation
   connect(booleanConstant1.y, triAndRes.sta) annotation (Line(
       points={{-159,72},{-120,72},{-120,23.3333},{-99.3333,23.3333}},
       color={255,0,255},
+      smooth=Smooth.None));
+  connect(linPieTwo.y[1], gain.u) annotation (Line(
+      points={{-39,29.3},{-20,29.3},{-20,-8},{84,-8}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,

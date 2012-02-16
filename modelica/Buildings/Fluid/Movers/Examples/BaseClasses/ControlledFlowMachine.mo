@@ -4,14 +4,12 @@ model ControlledFlowMachine
 
   package Medium = Buildings.Media.IdealGases.SimpleAir;
 
-  Modelica.Blocks.Sources.Trapezoid y(
-    rising=0.1,
-    width=0.1,
-    falling=0.1,
-    period=0.5,
+  Modelica.Blocks.Sources.Pulse     y(
     startTime=0,
     offset=0,
-    amplitude=1) annotation (Placement(transformation(extent={{-140,70},{-120,90}},
+    amplitude=1,
+    period=120,
+    width=50)    annotation (Placement(transformation(extent={{-140,70},{-120,90}},
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -135,15 +133,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(gain.y, fan4.Nrpm) annotation (Line(
-      points={{-39,140},{-10,140},{-10,120}},
+      points={{-39,140},{-10,140},{-10,122}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(masFloRat1.m_flow, fan2.m_flow_in) annotation (Line(
-      points={{70,71},{70,86},{42,86},{42,4},{-15,4},{-15,-11.8}},
+      points={{70,71},{70,86},{42,86},{42,4},{-10.2,4},{-10.2,-8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(relPre.p_rel, fan3.dp_in) annotation (Line(
-      points={{-10,23},{-10,8},{-24,8},{-24,-40},{-5,-40},{-5,-51.8}},
+      points={{-10,23},{-10,8},{-24,8},{-24,-40},{-10.2,-40},{-10.2,-48}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dp8.port_b, fan4.port_a) annotation (Line(
@@ -163,7 +161,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y, fan1.y) annotation (Line(
-      points={{-119,80},{-10,80},{-10,70}},
+      points={{-119,80},{-10,80},{-10,72}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(y.y, gain.u) annotation (Line(

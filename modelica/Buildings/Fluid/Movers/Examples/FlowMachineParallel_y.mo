@@ -67,11 +67,10 @@ model FlowMachineParallel_y "Test model for two flow machines in parallel"
     dp_nominal=1000,
     m_flow_nominal=0.5*m_flow_nominal) "Pressure drop"
     annotation (Placement(transformation(extent={{58,0},{78,20}})));
-  Modelica.Blocks.Sources.Ramp     const1(
+  Modelica.Blocks.Sources.Step     const1(
     height=-1,
     offset=1,
-    duration=8,
-    startTime=1)
+    startTime=150)
     annotation (Placement(transformation(extent={{0,130},{20,150}})));
 equation
   connect(dpIn1.port_b, floMac1.port_a) annotation (Line(
@@ -108,7 +107,7 @@ equation
       smooth=Smooth.None));
   connect(const2.y, floMac2.y)
                               annotation (Line(
-      points={{21,40},{30,40},{30,20}},
+      points={{21,40},{30,40},{30,22}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dpIn.port_b, dpIn2.port_a) annotation (Line(
@@ -120,7 +119,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(const1.y, floMac1.y) annotation (Line(
-      points={{21,140},{30,140},{30,120}},
+      points={{21,140},{30,140},{30,122}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -131,19 +130,24 @@ equation
     Documentation(info="<html>
 This example tests the configuration of two flow machines that are installed in parallel.
 Both flow machines start with full speed. 
-Between <i>t=1</i> second and <i>t=9</i> seconds, the speed of the flow machine on the top is reduced to zero.
+At <i>t=150</i> second, the speed of the flow machine on the top is reduced to zero.
 As its speed is reduced, the mass flow rate changes its direction in such a way that the flow machine
 at the top has reverse flow.
 </html>", revisions="<html>
 <ul>
-<li>March 24 2010, by Michael Wetter:<br>
+<li>
+February 14, 2012, by Michael Wetter:<br>
+Added filter for start-up and shut-down transient.
+</li>
+<li>
+March 24 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
 </html>"),    Diagram,
     experiment(
-      StopTime=10,
-      Tolerance=1e-05,
+      StopTime=300,
+      Tolerance=1e-06,
       Algorithm="Radau"),
     __Dymola_experimentSetupOutput);
 end FlowMachineParallel_y;

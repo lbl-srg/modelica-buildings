@@ -1,6 +1,7 @@
 within Buildings.Fluid.Actuators.Dampers;
 model MixingBox "Outside air mixing box with interlocked air dampers"
   extends Buildings.BaseClasses.BaseIconLow;
+  extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
   outer Modelica.Fluid.System system "System wide properties";
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialMedium "Medium in the component"
@@ -31,8 +32,9 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k1=k1,
     use_constant_density=use_constant_density,
     allowFlowReversal=allowFlowReversal,
-    m_flow_nominal=mOut_flow_nominal)
-    annotation (Placement(transformation(extent={{-40,50},{-20,70}},   rotation=
+    m_flow_nominal=mOut_flow_nominal,
+    final filteredOpening=false)
+    annotation (Placement(transformation(extent={{-40,20},{-20,40}},   rotation=
            0)));
   parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
@@ -54,7 +56,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
   parameter Modelica.SIunits.Area AOut=mOut_flow_nominal/rho_nominal/v_nominal
     "Face area outside air damper"
     annotation(Dialog(enable=not use_v_nominal));
-  VAVBoxExponential damExh(                            A=AExh,
+  VAVBoxExponential damExh(A=AExh,
     redeclare package Medium = Medium,
     m_flow_nominal=mExh_flow_nominal,
     dp_nominal=dpExh_nominal,
@@ -74,13 +76,14 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k0=k0,
     k1=k1,
     use_constant_density=use_constant_density,
-    allowFlowReversal=allowFlowReversal) "Exhaust air damper"
+    allowFlowReversal=allowFlowReversal,
+    final filteredOpening=false) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}}, rotation=
            0)));
   parameter Modelica.SIunits.Area AExh=mExh_flow_nominal/rho_nominal/v_nominal
     "Face area exhaust air damper"
     annotation(Dialog(enable=not use_v_nominal));
-  VAVBoxExponential damRec(                            A=ARec,
+  VAVBoxExponential damRec(A=ARec,
     redeclare package Medium = Medium,
     m_flow_nominal=mRec_flow_nominal,
     dp_nominal=dpRec_nominal,
@@ -100,7 +103,8 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     k0=k0,
     k1=k1,
     use_constant_density=use_constant_density,
-    allowFlowReversal=allowFlowReversal) "Recirculation air damper"
+    allowFlowReversal=allowFlowReversal,
+    final filteredOpening=false) "Recirculation air damper"
                                annotation (Placement(transformation(
         origin={30,0},
         extent={{-10,-10},{10,10}},
@@ -181,9 +185,6 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
                 0))
     "Fluid connector b (positive design flow direction is from port_a to port_b)"
     annotation (Placement(transformation(extent={{110,50},{90,70}}, rotation=0)));
-  Modelica.Blocks.Interfaces.RealInput y "Damper position (0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},   rotation=270,
-        origin={0,120})));
   Modelica.Blocks.Sources.Constant uni(k=1) "Unity signal"
     annotation (Placement(transformation(extent={{-90,-4},{-70,16}},rotation=0)));
 
@@ -197,21 +198,13 @@ protected
   parameter Medium.ThermodynamicState sta_nominal=
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
 equation
-  connect(y, damOA.y) annotation (Line(points={{1.11022e-15,120},{0,120},{0,80},
-          {-30,80},{-30,68}},
-                     color={0,0,127}));
-  connect(y, damExh.y) annotation (Line(points={{1.11022e-15,120},{0,120},{0,
-          -40},{-30,-40},{-30,-52}},   color={0,0,127}));
   connect(uni.y, add.u1) annotation (Line(points={{-69,6},{-42,6},{-42,6}},
         color={0,0,127}));
-  connect(y, add.u2) annotation (Line(points={{1.11022e-15,120},{0,120},{0,-20},
-          {-52,-20},{-52,-6},{-42,-6}},
-                color={0,0,127}));
   connect(add.y, damRec.y) annotation (Line(points={{-19,6.10623e-16},{-19,0},{
-          22,0},{22,1.15598e-15}},
+          18,0},{18,1.4009e-15}},
                              color={0,0,127}));
   connect(damOA.port_a, port_Out) annotation (Line(
-      points={{-40,60},{-100,60}},
+      points={{-40,30},{-70,30},{-70,60},{-100,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(damExh.port_b, port_Exh) annotation (Line(
@@ -219,11 +212,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_Sup, damOA.port_b) annotation (Line(
-      points={{100,60},{-20,60}},
+      points={{100,60},{80,60},{80,30},{-20,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(damRec.port_b, port_Sup) annotation (Line(
-      points={{30,10},{30,60},{100,60}},
+      points={{30,10},{30,30},{80,30},{80,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(port_Ret, damExh.port_a) annotation (Line(
@@ -234,13 +227,26 @@ equation
       points={{100,-60},{30,-60},{30,-10}},
       color={0,127,255},
       smooth=Smooth.None));
+  connect(y_actual, add.u2) annotation (Line(
+      points={{50,70},{60,70},{60,60},{0,60},{0,-20},{-60,-20},{-60,-6},{-42,-6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  connect(y_actual, damOA.y) annotation (Line(
+      points={{50,70},{60,70},{60,60},{-30,60},{-30,42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(y_actual, damExh.y) annotation (Line(
+      points={{50,70},{60,70},{60,60},{0,60},{0,-20},{-30,-20},{-30,-48}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
                        Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
-          extent={{-98,66},{94,54}},
+          extent={{-94,12},{90,0}},
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
@@ -250,17 +256,17 @@ equation
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-6,66},{6,-56}},
+          extent={{-4,6},{6,-56}},
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-70,42},{-48,78},{-30,78},{-54,42},{-70,42}},
+          points={{-86,-12},{-64,24},{-46,24},{-70,-12},{-86,-12}},
           lineColor={0,0,0},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{68,66},{90,60},{68,54},{68,66}},
+          points={{48,12},{70,6},{48,0},{48,12}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -275,13 +281,13 @@ equation
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
         Text(
-          extent={{2,104},{28,82}},
+          extent={{22,132},{48,110}},
           lineColor={0,0,127},
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid,
           textString="y"),
         Rectangle(
-          extent={{48,62},{68,58}},
+          extent={{28,8},{48,4}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -291,13 +297,31 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-20,-18},{2,18},{20,18},{-4,-18},{-20,-18}},
+          points={{-20,-40},{2,-4},{20,-4},{-4,-40},{-20,-40}},
           lineColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{78,66},{90,10}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Rectangle(
+          extent={{-94,66},{-82,8}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Line(
+          points={{0,40},{0,10},{0,12}},
+          color={0,0,255},
+          smooth=Smooth.None)}),
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+February 14, 2012 by Michael Wetter:<br>
+Added filter to approximate the travel time of the actuator.
+</li>
 <li>
 February 3, 2012, by Michael Wetter:<br>
 Removed assignment of <code>m_flow_small</code> as it is no

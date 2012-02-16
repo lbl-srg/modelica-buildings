@@ -12,10 +12,10 @@ initial equation
 
 equation
   if homotopyInitialization then
-     phi = homotopy(actual=Buildings.Fluid.Actuators.BaseClasses.equalPercentage(y, R, l, delta0),
-                    simplified=l + y * (1 - l));
+     phi = homotopy(actual=Buildings.Fluid.Actuators.BaseClasses.equalPercentage(y_actual, R, l, delta0),
+                    simplified=l + y_actual * (1 - l));
   else
-     phi = Buildings.Fluid.Actuators.BaseClasses.equalPercentage(y, R, l, delta0);
+     phi = Buildings.Fluid.Actuators.BaseClasses.equalPercentage(y_actual, R, l, delta0);
   end if;
 annotation (
 defaultComponentName="val",
@@ -32,6 +32,10 @@ as the leakage flow or regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 14, 2012 by Michael Wetter:<br>
+Added filter to approximate the travel time of the actuator.
+</li>
 <li>
 March 25, 2011, by Michael Wetter:<br>
 Added homotopy method.

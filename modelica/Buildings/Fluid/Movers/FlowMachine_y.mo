@@ -4,24 +4,57 @@ model FlowMachine_y
   extends Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine(
   final N_nominal=1500 "fix N_nominal as it is used only for scaling");
 
-  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1)
+  Modelica.Blocks.Interfaces.RealInput y(min=0, max=1, unit="1")
     "Constant normalized rotational speed"
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={0,100}), iconTransformation(
+        origin={0,120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={0,100})));
+        origin={0,120})));
 
+protected
+  Modelica.Blocks.Math.Gain gaiSpe(final k=N_nominal,
+    u(min=0, max=1),
+    y(final quantity="AngularVelocity",
+      final unit="1/min",
+      nominal=N_nominal)) "Gain for speed input signal"
+    annotation (Placement(transformation(extent={{-6,64},{6,76}})));
 equation
-  N = y*N_nominal;
+  connect(y, gaiSpe.u) annotation (Line(
+      points={{1.11022e-15,120},{0,104},{0,104},{0,92},{-20,92},{-20,70},{-7.2,
+          70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+   connect(filter.y, N_filtered) annotation (Line(
+      points={{34.7,88},{50,88}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  if filteredSpeed then
+    connect(gaiSpe.y, filter.u) annotation (Line(
+      points={{6.6,70},{12.6,70},{12.6,88},{18.6,88}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(filter.y, N_actual) annotation (Line(
+      points={{34.7,88},{38,88},{38,70},{50,70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  else
+    connect(gaiSpe.y, N_actual) annotation (Line(
+      points={{6.6,70},{50,70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  end if;
+
   annotation (defaultComponentName="fan",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics={Text(extent={{20,100},{112,78}}, textString=
+            100}}), graphics={Text(extent={{10,124},{102,102}},textString=
               "y_in [0, 1]")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
+            100}}),     graphics),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump with prescribed normalized speed.
@@ -42,6 +75,10 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 14, 2012, by Michael Wetter:<br>
+Added filter for start-up and shut-down transient.
+</li>
 <li>
 May 25, 2011, by Michael Wetter:<br>
 Revised implementation of energy balance to avoid having to use conditionally removed models.

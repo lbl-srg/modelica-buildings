@@ -40,7 +40,8 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
   Buildings.Fluid.Movers.FlowMachine_m_flow fan(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dynamicBalance=false) "Fan"
+    dynamicBalance=false,
+    filteredSpeed=false) "Fan"
     annotation (Placement(transformation(extent={{140,-20},{160,0}})));
   Modelica.Blocks.Sources.Constant const(k=2*m_flow_nominal)
     "Mass flow rate signal for pump"
@@ -112,7 +113,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(const.y, fan.m_flow_in) annotation (Line(
-      points={{121,10},{145,10},{145,-1.8}},
+      points={{121,10},{149.8,10},{149.8,2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fan.port_b, sou.ports[3]) annotation (Line(

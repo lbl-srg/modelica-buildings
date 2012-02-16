@@ -193,13 +193,6 @@ model System7
   Modelica.Blocks.Math.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdPumRad(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always))
-    "First order filter to avoid step change for pump mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
   Modelica.Blocks.Continuous.FirstOrder firOrdPumBoi(
     T=5,
     initType=Modelica.Blocks.Types.Init.InitialState,
@@ -213,16 +206,9 @@ model System7
   Buildings.Controls.Continuous.LimPID conPIDBoi(
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=600,
-    k=0.25) "Controller for valve in boiler loop"
+    k=0.1,
+    Ti=120) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-290},{180,-270}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdValBoi(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always))
-    "First order filter to avoid step change for valve position"
-    annotation (Placement(transformation(extent={{200,-290},{220,-270}})));
   Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
                                           273.15 + 21, 273.15 + 21])
     "Setpoint for supply water temperature"
@@ -230,16 +216,9 @@ model System7
   Buildings.Controls.Continuous.LimPID conPIDRad(
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=600,
-    k=0.25) "Controller for valve in radiator loop"
+    k=0.1,
+    Ti=120) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdValRad(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always))
-    "First order filter to avoid step change for valve position"
-    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data reader"
@@ -323,7 +302,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
-      points={{-50,-30},{-50,-10},{0,-10}},
+      points={{-50,-30},{-50,-10},{-5.55112e-16,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(temRoo.port, vol.heatPort) annotation (Line(
@@ -343,7 +322,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b, pumBoi.port_a) annotation (Line(
-      points={{0,-310},{-50,-310},{-50,-290}},
+      points={{-5.55112e-16,-310},{-50,-310},{-50,-290}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pumBoi.port_b, spl1.port_1) annotation (Line(
@@ -421,22 +400,12 @@ equation
       points={{-79,-330},{40,-330},{40,-302},{22,-302}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(booToReaRad.y,firOrdPumRad. u)
-                                   annotation (Line(
-      points={{-119,-70},{-102,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdPumRad.y, pumRad.m_flow_in)
-                                      annotation (Line(
-      points={{-79,-70},{-70,-70},{-70,-75},{-58.2,-75}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(booToReaRad1.y, firOrdPumBoi.u) annotation (Line(
       points={{-119,-280},{-102,-280}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(firOrdPumBoi.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-79,-280},{-68.5,-280},{-68.5,-285},{-58.2,-285}},
+      points={{-79,-280},{-68.5,-280},{-68.5,-280.2},{-62,-280.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temRet.T,conPIDBoi. u_s) annotation (Line(
@@ -447,20 +416,8 @@ equation
       points={{141,-310},{170,-310},{170,-292}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conPIDBoi.y,firOrdValBoi. u) annotation (Line(
-      points={{181,-280},{198,-280}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdValBoi.y, valBoi.y) annotation (Line(
-      points={{221,-280},{232,-280},{232,-250},{68,-250}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(temRoo.T, TSetSup.u) annotation (Line(
       points={{-50,30},{-270,30},{-270,-10},{-222,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conPIDRad.y, firOrdValRad.u) annotation (Line(
-      points={{-159,-10},{-142,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSetSup.y, conPIDRad.u_s) annotation (Line(
@@ -469,10 +426,6 @@ equation
       smooth=Smooth.None));
   connect(temSup.T, conPIDRad.u_m) annotation (Line(
       points={{-61,-40},{-170,-40},{-170,-22}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdValRad.y, valRad.y) annotation (Line(
-      points={{-119,-10},{-110,-10},{-110,-150},{-58,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
@@ -608,6 +561,18 @@ equation
   connect(pumpsOn.outPort[2], T2.inPort) annotation (Line(
       points={{-227,-144.6},{-227,-152},{-220,-152},{-220,-156}},
       color={0,0,0},
+      smooth=Smooth.None));
+  connect(conPIDRad.y, valRad.y) annotation (Line(
+      points={{-159,-10},{-90,-10},{-90,-150},{-62,-150}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
+      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conPIDBoi.y, valBoi.y) annotation (Line(
+      points={{181,-280},{200,-280},{200,-250},{72,-250}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>

@@ -150,11 +150,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.yHot, vavHot.y) annotation (Line(
-      points={{-19,14},{-16,14},{-16,-30},{-8,-30}},
+      points={{-19,14},{-16,14},{-16,-30},{-12,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.yCol, vavCol.y) annotation (Line(
-      points={{-19,5},{80,5},{80,-30},{92,-30}},
+      points={{-19,5},{80,5},{80,-30},{88,-30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senRelPreHot.port_a, port_aHot) annotation (Line(

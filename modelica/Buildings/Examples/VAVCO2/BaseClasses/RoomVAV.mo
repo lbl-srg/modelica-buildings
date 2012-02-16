@@ -70,7 +70,8 @@ model RoomVAV "Model for CO2 emitted by people"
         IdealGases.Common.SingleGasesData.CO2.MM) "CO2 volume fraction"
     annotation (extent=[40,20; 60,40], Placement(transformation(extent={{60,20},
             {80,40}})));
-  DamperControl con "Damper controller"   annotation (extent=[72,20; 92,40],
+  DamperControl con(Kp=1) "Damper controller"
+                                          annotation (extent=[72,20; 92,40],
       Placement(transformation(extent={{100,20},{120,40}})));
   Modelica.Blocks.Math.Gain peoDen(k=2.5/VRoo) "People density per m2"
     annotation (extent=[-120,-120; -100,-100]);

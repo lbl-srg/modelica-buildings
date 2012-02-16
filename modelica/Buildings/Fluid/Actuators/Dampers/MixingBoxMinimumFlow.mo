@@ -14,6 +14,10 @@ model MixingBoxMinimumFlow
     "Pressure drop minimum outside air leg"
      annotation (Dialog(group="Nominal condition"));
 
+  parameter Real yOutMin_start=y_start
+    "Initial value of signal for minimum outside air damper"
+    annotation(Dialog(tab="Dynamics", group="Filtered opening",enable=filteredOpening));
+
   Modelica.Fluid.Interfaces.FluidPort_a port_OutMin(redeclare package Medium =
         Medium, m_flow(start=0, min=if allowFlowReversal then -Constants.inf else
                 0))
@@ -24,7 +28,13 @@ model MixingBoxMinimumFlow
     "Damper position minimum outside air (0: closed, 1: open)"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
           rotation=270,
-        origin={60,120})));
+        origin={-60,120}), iconTransformation(
+        extent={{-20,-20},{20,20}},
+        rotation=270,
+        origin={-60,120})));
+  Modelica.Blocks.Interfaces.RealOutput yOutMin_actual "Actual valve position"
+    annotation (Placement(transformation(extent={{-52,58},{-32,78}}),
+        iconTransformation(extent={{-52,58},{-32,78}})));
 
   Buildings.Fluid.Actuators.Dampers.VAVBoxExponential damOAMin(
     redeclare package Medium = Medium,
@@ -47,20 +57,63 @@ model MixingBoxMinimumFlow
     allowFlowReversal=allowFlowReversal,
     m_flow_nominal=mOutMin_flow_nominal,
     dp_nominal=dpOutMin_nominal,
-    A=AOutMin) "Damper for minimum outside air intake"
-    annotation (Placement(transformation(extent={{20,70},{40,90}},     rotation=
+    A=AOutMin,
+    final filteredOpening=false) "Damper for minimum outside air intake"
+    annotation (Placement(transformation(extent={{48,32},{68,52}},     rotation=
            0)));
+protected
+  Modelica.Blocks.Interfaces.RealOutput yOutMin_filtered if filteredOpening
+    "Filtered damper position in the range 0..1"
+    annotation (Placement(transformation(extent={{-32,78},{-12,98}}),
+        iconTransformation(extent={{60,50},{80,70}})));
+
+  Modelica.Blocks.Continuous.Filter filterOutMin(
+     order=2,
+     f_cut=5/(2*Modelica.Constants.pi*riseTime),
+     final init=init,
+     final y_start=yOutMin_start,
+     final analogFilter=Modelica.Blocks.Types.AnalogFilter.CriticalDamping,
+     final filterType=Modelica.Blocks.Types.FilterType.LowPass,
+     x(each stateSelect=StateSelect.always)) if
+        filteredOpening
+    "Second order filter to approximate valve opening time, and to improve numerics"
+    annotation (Placement(transformation(extent={{-56,81},{-42,95}})));
+
 equation
+ connect(filterOutMin.y, yOutMin_filtered) annotation (Line(
+      points={{-41.3,88},{-22,88}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  if filteredOpening then
+  connect(yOutMin, filterOutMin.u) annotation (Line(
+      points={{-60,120},{-60,88},{-57.4,88}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(filterOutMin.y, yOutMin_actual) annotation (Line(
+      points={{-41.3,88},{-36,88},{-36,68},{-42,68}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  else
+    connect(yOutMin, yOutMin_actual) annotation (Line(
+      points={{-60,120},{-60,68},{-42,68}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  end if;
+  //////
   connect(port_OutMin, damOAMin.port_a) annotation (Line(
-      points={{-100,100},{-46,100},{-46,90},{10,90},{10,80},{20,80}},
+      points={{-100,100},{-80,100},{-80,72},{-68,72},{-68,42},{48,42}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(damOAMin.port_b, port_Sup) annotation (Line(
-      points={{40,80},{60,80},{60,60},{100,60}},
+      points={{68,42},{80,42},{80,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(yOutMin, damOAMin.y) annotation (Line(
-      points={{60,120},{60,96},{30,96},{30,88}},
+  connect(yOutMin_actual, damOAMin.y) annotation (Line(
+      points={{-42,68},{-12,68},{-12,58},{58,58},{58,54}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(yOutMin_actual, yOutMin_actual) annotation (Line(
+      points={{-42,68},{-47,68},{-47,64},{-52,64},{-52,68},{-42,68}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
@@ -69,29 +122,38 @@ equation
                        Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics={
         Rectangle(
-          extent={{-100,94},{0,86}},
+          extent={{-60,34},{80,28}},
+          lineColor={0,0,255},
+          fillColor={0,0,255},
+          fillPattern=FillPattern.Solid),
+        Text(
+          extent={{-126,144},{-86,112}},
+          lineColor={0,0,127},
+          fillColor={0,0,0},
+          fillPattern=FillPattern.Solid,
+          textString="yMin"),
+        Rectangle(
+          extent={{-98,98},{-54,92}},
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Rectangle(
-          extent={{-6,66},{2,94}},
+          extent={{-60,92},{-54,34}},
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid),
         Polygon(
-          points={{-62,82},{-50,98},{-42,98},{-54,82},{-62,82}},
+          points={{-68,62},{-50,84},{-42,84},{-60,62},{-68,62}},
           lineColor={0,0,0},
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{50,104},{76,82}},
-          lineColor={0,0,127},
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid,
-          textString="yMin")}),
+          fillPattern=FillPattern.Solid)}),
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+February 14, 2012 by Michael Wetter:<br>
+Added filter to approximate the travel time of the actuator.
+</li>
 <li>
 February 3, 2012, by Michael Wetter:<br>
 Removed assignment of <code>m_flow_small</code> as it is no

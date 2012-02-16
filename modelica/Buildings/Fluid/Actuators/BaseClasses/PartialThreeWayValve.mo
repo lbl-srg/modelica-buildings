@@ -7,6 +7,7 @@ partial model PartialThreeWayValve "Partial three way valve"
     extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default),
       final dpVal_nominal=dp_nominal);
+    extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
 
   parameter Real fraK(min=0, max=1) = 0.7
     "Fraction Kv_SI(port_1->port_2)/Kv_SI(port_3->port_2)";
@@ -23,25 +24,26 @@ partial model PartialThreeWayValve "Partial three way valve"
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
 
-  Modelica.Blocks.Interfaces.RealInput y "Valve position (0: closed, 1: open)"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-          rotation=270,
-        origin={0,80})));
 protected
   Modelica.Blocks.Math.Feedback inv "Inversion of control signal"
-    annotation (Placement(transformation(extent={{50,50},{70,70}},   rotation=0)));
+    annotation (Placement(transformation(extent={{-74,40},{-62,52}}, rotation=0)));
   Modelica.Blocks.Sources.Constant uni(final k=1)
     "Outputs one for bypass valve"
-    annotation (Placement(transformation(extent={{10,50},{30,70}},   rotation=0)));
+    annotation (Placement(transformation(extent={{-92,40},{-80,52}}, rotation=0)));
 equation
+
   connect(uni.y, inv.u1)
-    annotation (Line(points={{31,60},{36,60},{42,60},{52,60}},
-                                                 color={0,0,127}));
+    annotation (Line(points={{-79.4,46},{-72.8,46}},
+                     color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
                        Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}), graphics={
+        Line(
+          points={{0,70},{40,70}},
+          color={0,0,0},
+          smooth=Smooth.None),
         Rectangle(
           extent={{-100,44},{100,-36}},
           lineColor={0,0,0},
@@ -90,17 +92,33 @@ equation
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid),
         Line(
-          points={{-40,46},{40,46}},
+          points={{-30,46},{30,46}},
           color={0,0,0},
           smooth=Smooth.None),
         Line(
           points={{0,100},{0,-2}},
           color={0,0,0},
           smooth=Smooth.None),
+        Rectangle(
+          visible=filteredOpening,
+          extent={{-36,36},{36,100}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          visible=filteredOpening,
+          extent={{-36,100},{36,36}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
         Text(
-          extent={{30,116},{68,66}},
-          lineColor={0,0,127},
-          textString="y")}),
+          visible=filteredOpening,
+          extent={{-22,92},{20,46}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="M",
+          textStyle={TextStyle.Bold})}),
     Documentation(info="<html>
 <p>
 Partial model of a three way valve. This is the base model for valves

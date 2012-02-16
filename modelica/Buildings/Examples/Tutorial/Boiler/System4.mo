@@ -233,18 +233,6 @@ model System4
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-220,-82},{-200,-62}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdPumRad(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0)
-    "First order filter to avoid step change for pump mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdPumBoi(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0)
-    "First order filter to avoid step change for pump mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
       points={{-340,50},{20,50}},
@@ -362,12 +350,12 @@ equation
       smooth=Smooth.None));
   connect(const.y, valRad.y)
                           annotation (Line(
-      points={{-119,-150},{-58,-150}},
+      points={{-119,-150},{-62,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, valBoi.y)
                            annotation (Line(
-      points={{-119,-150},{-100,-150},{-100,-220},{80,-220},{80,-250},{68,-250}},
+      points={{-119,-150},{-100,-150},{-100,-220},{80,-220},{80,-250},{72,-250}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -423,16 +411,6 @@ equation
       points={{-239,-72},{-222,-72}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(booToReaRad.y,firOrdPumRad. u)
-                                   annotation (Line(
-      points={{-119,-70},{-102,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdPumRad.y, pumRad.m_flow_in)
-                                      annotation (Line(
-      points={{-79,-70},{-70,-70},{-70,-75},{-58.2,-75}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(not1.y, and1.u1) annotation (Line(
       points={{-199,-72},{-192,-72},{-192,-150},{-182,-150}},
       color={255,0,255},
@@ -441,12 +419,12 @@ equation
       points={{-159,-150},{-152,-150},{-152,-70},{-142,-70}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(booToReaRad1.y, firOrdPumBoi.u) annotation (Line(
-      points={{-119,-280},{-102,-280}},
+  connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
+      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(firOrdPumBoi.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-79,-280},{-68.5,-280},{-68.5,-285},{-58.2,-285}},
+  connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
+      points={{-119,-280},{-88,-280},{-88,-280.2},{-62,-280.2}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>

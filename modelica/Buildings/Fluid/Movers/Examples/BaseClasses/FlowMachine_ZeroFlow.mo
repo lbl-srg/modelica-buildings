@@ -86,8 +86,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpDyn1.port_b, floMacDyn.port_a) annotation (Line(
-      points={{5.55112e-16,6.10623e-16},{5,6.10623e-16},{5,6.10623e-16},{10,
-          6.10623e-16},{10,6.10623e-16},{20,6.10623e-16}},
+      points={{5.55112e-16,6.10623e-16},{10,-3.36456e-22},{10,6.10623e-16},{20,
+          6.10623e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpSta1.port_a, sou.ports[1]) annotation (Line(

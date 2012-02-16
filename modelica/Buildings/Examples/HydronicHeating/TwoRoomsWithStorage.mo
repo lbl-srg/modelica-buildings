@@ -41,7 +41,7 @@ model TwoRoomsWithStorage
     redeclare package Medium = Medium,
     pressure(V_flow=mBoi_flow_nominal/1000*{0.5, 1},
              dp=dp_nominal*{2,1}),
-             dynamicBalance=false)
+    dynamicBalance=false)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=0,
         origin={70,-120})));
@@ -167,22 +167,22 @@ model TwoRoomsWithStorage
         origin={260,30})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TRoo2
     annotation (Placement(transformation(extent={{480,216},{500,236}})));
-  Modelica.Blocks.Sources.Constant dpSet(k=dp_nominal) "Pressure set point"
+  Modelica.Blocks.Sources.Constant pumRadOn(k=1) "Pump on signal"
     annotation (Placement(transformation(extent={{40,140},{60,160}})));
   Controls.Continuous.PIDHysteresisTimer conPum(
-    Ti=60,
     yMax=1,
-    eOn=1,
-    k=0.1,
     Td=60,
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    yMin=0.05) "Controller for pump"
+    yMin=0.05,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    eOn=0.5,
+    k=0.5,
+    Ti=15) "Controller for pump"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
   Buildings.Fluid.Sensors.RelativePressure dpSen(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={192,50})));
+        origin={180,50})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = Medium,
     dp_nominal(displayUnit="Pa") = dpVal_nominal,
@@ -242,9 +242,10 @@ model TwoRoomsWithStorage
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     xi_start=1,
     Td=60,
-    Ti=5,
-    controllerType=Modelica.Blocks.Types.SimpleController.P,
-    k=10) "Controller for pump"
+    k=0.1,
+    Ti=120,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI)
+    "Controller for pump"
     annotation (Placement(transformation(extent={{140,-10},{160,10}})));
   Fluid.Storage.Stratified tan(
     m_flow_nominal=mRad_flow_nominal,
@@ -351,8 +352,7 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{40,100},{60,120}})));
   Modelica.Blocks.Logical.Switch swiPum "Pump switch"
     annotation (Placement(transformation(extent={{80,100},{100,120}})));
-  Modelica.Blocks.Sources.Constant dpSetOff(k=0)
-    "Pressure set point to switch pump off"
+  Modelica.Blocks.Sources.Constant pumRadOff(k=0) "Pump off signal"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -360,11 +360,6 @@ model TwoRoomsWithStorage
     annotation (Placement(transformation(extent={{-80,330},{-60,350}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Bus with weather data"
     annotation (Placement(transformation(extent={{-50,330},{-30,350}})));
-  Modelica.Blocks.Continuous.FirstOrder delRadPum(T=10)
-    "Delay element for the transient response of the pump. This is needed to avoid an algebraic loop."
-    annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=180,
-        origin={150,50})));
   Modelica_StateGraph2.Step off(
     nOut=1,
     initialStep=true,
@@ -485,6 +480,9 @@ model TwoRoomsWithStorage
   Fluid.Sources.FixedBoundary bou(nPorts=1, redeclare package Medium = Medium)
     "Fixed boundary condition, needed to provide a pressure in the system"
     annotation (Placement(transformation(extent={{-82,-130},{-62,-110}})));
+  Modelica.Blocks.Math.Gain gain(k=1/dp_nominal)
+    "Gain used to normalize pressure measurement signal"
+    annotation (Placement(transformation(extent={{160,40},{140,60}})));
 equation
   connect(TAmb.port,boi. heatPort) annotation (Line(
       points={{-20,-90},{-10,-90},{-10,-112.8}},
@@ -492,12 +490,12 @@ equation
       smooth=Smooth.None));
   connect(pumRad.port_b, dpSen.port_a)
                                      annotation (Line(
-      points={{220,60},{192,60}},
+      points={{220,60},{180,60}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(dpSen.port_b, pumRad.port_a)
                                      annotation (Line(
-      points={{192,40},{220,40}},
+      points={{180,40},{220,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(val1.port_b, rad1.port_a) annotation (Line(
@@ -509,12 +507,12 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(conRoo1.y, val1.y) annotation (Line(
-      points={{561,510},{580,510},{580,420},{370,420},{370,408}},
+      points={{561,510},{580,510},{580,420},{370,420},{370,412}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conRoo2.y, val2.y)
                             annotation (Line(
-      points={{561,250},{580,250},{580,150},{370,150},{370,136}},
+      points={{561,250},{580,250},{580,150},{370,150},{370,140}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pumRad.port_a, thrWayVal.port_2)
@@ -595,11 +593,13 @@ equation
       points={{61,110},{78,110}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(dpSet.y, swiPum.u1) annotation (Line(
+  connect(pumRadOn.y, swiPum.u1)
+                              annotation (Line(
       points={{61,150},{68,150},{68,118},{78,118}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dpSetOff.y, swiPum.u3) annotation (Line(
+  connect(pumRadOff.y, swiPum.u3)
+                                 annotation (Line(
       points={{61,70},{68,70},{68,102},{78,102}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -618,13 +618,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conVal.y, thrWayVal.y) annotation (Line(
-      points={{161,6.10623e-16},{185.5,6.10623e-16},{185.5,1.15598e-15},{212,
-          1.15598e-15}},
+      points={{161,6.10623e-16},{185.5,6.10623e-16},{185.5,1.4009e-15},{208,
+          1.4009e-15}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(booToReaPum.y, pumBoi.y)
                                 annotation (Line(
-      points={{329,-74},{70,-74},{70,-110}},
+      points={{329,-74},{70,-74},{70,-108}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(off.outPort[1], T1.inPort) annotation (Line(
@@ -706,7 +706,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(fanSup.m_flow_in, m_flow_out.y) annotation (Line(
-      points={{165,508.2},{165,540.1},{101,540.1},{101,540}},
+      points={{169.8,512},{169.8,540.1},{101,540.1},{101,540}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fanSup.port_b, hex.port_a1) annotation (Line(
@@ -726,7 +726,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(m_flow_out.y, fanRet.m_flow_in) annotation (Line(
-      points={{101,540},{152,540},{152,476},{175,476},{175,468.2}},
+      points={{101,540},{152,540},{152,476},{170.2,476},{170.2,472}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(lea1.port_b, roo1.ports[3]) annotation (Line(
@@ -946,10 +946,6 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(dpSen.p_rel, delRadPum.u) annotation (Line(
-      points={{183,50},{162,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(res3.port_b, tan.port_a) annotation (Line(
       points={{140,-120},{208,-120}},
       color={0,127,255},
@@ -959,7 +955,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(conPum.y, pumRad.y) annotation (Line(
-      points={{141,110},{204,110},{204,50},{210,50}},
+      points={{141,110},{204,110},{204,50},{208,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRoo1.T, conRoo1.u_m) annotation (Line(
@@ -974,7 +970,11 @@ equation
       points={{-62,-120},{-20,-120}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(delRadPum.y, conPum.u_m) annotation (Line(
+  connect(gain.u, dpSen.p_rel) annotation (Line(
+      points={{162,50},{168,50},{168,50},{171,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gain.y, conPum.u_m) annotation (Line(
       points={{139,50},{130,50},{130,98}},
       color={0,0,127},
       smooth=Smooth.None));

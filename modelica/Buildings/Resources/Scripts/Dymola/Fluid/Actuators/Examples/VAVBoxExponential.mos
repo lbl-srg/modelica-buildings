@@ -1,8 +1,8 @@
-simulateModel("Buildings.Fluid.Actuators.Examples.VAVBoxExponential", method="dassl", resultFile="VAVBoxExponential");
+simulateModel("Buildings.Fluid.Actuators.Examples.VAVBoxExponential", method="dassl", stopTime=240, resultFile="VAVBoxExponential");
 createPlot(id = 11,
  position = {15, 10, 924, 583},
  y = {"dam.m_flow", "vav.m_flow"},
- range = {0, 1.0, 6.0, (-8.0)},
+ range = {0, 240.0, 6.0, (-8.0)},
  autoscale = true,
  autoerase = true,
  autoreplot = true,

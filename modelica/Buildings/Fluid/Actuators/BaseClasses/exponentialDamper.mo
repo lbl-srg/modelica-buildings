@@ -1,7 +1,6 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 function exponentialDamper
   "Damper opening characteristics for an exponential damper"
-
   input Real y(min=0, max=1, unit="")
     "Control signal, y=0 is closed, y=1 is open";
   input Real a(unit="") "Coefficient a for damper characteristics";
@@ -10,7 +9,6 @@ function exponentialDamper
   input Real[3] cU "Polynomial coefficients for curve fit for y > yu";
   input Real yL "Lower value for damper curve";
   input Real yU "Upper value for damper curve";
-
   output Real kThetaSqRt(min=0)
     "Flow coefficient, kThetaSqRT = =sqrt(kTheta) = sqrt(pressure drop/dynamic pressure)";
 protected

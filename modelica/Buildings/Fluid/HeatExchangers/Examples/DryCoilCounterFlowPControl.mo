@@ -103,7 +103,7 @@ model DryCoilCounterFlowPControl
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1,
-    Ti=10) "Controller"
+    Ti=60) "Controller"
     annotation (Placement(transformation(extent={{0,90},{20,110}})));
   Modelica.Blocks.Sources.Ramp TWat(
     height=30,

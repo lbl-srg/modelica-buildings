@@ -50,11 +50,11 @@ model MixingBox
     startTime=20)
                  annotation (Placement(transformation(extent={{60,-50},{80,-30}},
           rotation=0)));
-    Modelica.Blocks.Sources.Ramp yDam(
-    startTime=40,
+    Modelica.Blocks.Sources.Step yDam(
     height=1,
     offset=0,
-    duration=10) annotation (Placement(transformation(extent={{-40,40},{-20,60}},
+    startTime=60)
+                 annotation (Placement(transformation(extent={{-40,40},{-20,60}},
           rotation=0)));
 
   inner Modelica.Fluid.System system
@@ -88,5 +88,8 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                       graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/MixingBox.mos" "Simulate and plot"));
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/MixingBox.mos"
+        "Simulate and plot"),
+    experiment(StopTime=240),
+    __Dymola_experimentSetupOutput);
 end MixingBox;

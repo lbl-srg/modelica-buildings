@@ -203,7 +203,7 @@ model System3
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})));
   Modelica.Blocks.Sources.Constant conBoi(k=mBoi_flow_nominal)
     "Constant mass flow rate for boiler pump"
-    annotation (Placement(transformation(extent={{-112,-294},{-92,-274}})));
+    annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
   Modelica.Blocks.Sources.Constant const1(k=0.5)
     "Constant control signal for valves"
     annotation (Placement(transformation(extent={{0,-290},{20,-270}})));
@@ -216,12 +216,6 @@ model System3
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-180,-80},{-160,-60}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdPumRad(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0)
-    "First order filter to avoid step change for pump mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
 equation
   connect(TOut.port, theCon.port_a) annotation (Line(
       points={{5.55112e-16,50},{20,50}},
@@ -339,16 +333,16 @@ equation
       smooth=Smooth.None));
   connect(const.y, valRad.y)
                           annotation (Line(
-      points={{-119,-150},{-58,-150}},
+      points={{-119,-150},{-62,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conBoi.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-91,-284},{-70.5,-284},{-70.5,-285},{-58.2,-285}},
+      points={{-79,-280},{-70.5,-280},{-70.5,-280.2},{-62,-280.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, valBoi.y)
                            annotation (Line(
-      points={{-119,-150},{-100,-150},{-100,-220},{80,-220},{80,-250},{68,-250}},
+      points={{-119,-150},{-100,-150},{-100,-220},{80,-220},{80,-250},{72,-250}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -368,14 +362,8 @@ equation
       points={{-159,-70},{-142,-70}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(booToReaRad.y,firOrdPumRad. u)
-                                   annotation (Line(
-      points={{-119,-70},{-102,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdPumRad.y, pumRad.m_flow_in)
-                                      annotation (Line(
-      points={{-79,-70},{-70,-70},{-70,-75},{-58.2,-75}},
+  connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
+      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>

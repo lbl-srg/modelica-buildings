@@ -27,7 +27,8 @@ model PrimaryOnlyWithEconomizer
     m_flow_nominal=mAir_flow_nominal,
     dp(start=249),
     m_flow(start=mAir_flow_nominal),
-    T_start=293.15)
+    T_start=293.15,
+    filteredSpeed=false)
     annotation (Placement(transformation(extent={{288,-235},{268,-215}})));
   Buildings.Fluid.HeatExchangers.DryCoilCounterFlow cooCoi(
     redeclare package Medium1 = MediumCHW,
@@ -60,7 +61,9 @@ model PrimaryOnlyWithEconomizer
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     m_flow(start=mCHW_flow_nominal),
-    dp(start=325474)) "Chilled water pump" annotation (Placement(transformation(
+    dp(start=325474),
+    filteredSpeed=false) "Chilled water pump"
+                                           annotation (Placement(transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={162,-126})));
@@ -85,7 +88,9 @@ model PrimaryOnlyWithEconomizer
   Buildings.Fluid.Movers.FlowMachine_m_flow pumCW(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
-    dp(start=214992)) "Condenser water pump" annotation (Placement(
+    dp(start=214992),
+    filteredSpeed=false) "Condenser water pump"
+                                             annotation (Placement(
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -216,8 +221,8 @@ model PrimaryOnlyWithEconomizer
   Modelica.Blocks.Logical.Switch swi
     annotation (Placement(transformation(extent={{-101,82},{-81,102}})));
   Modelica.Blocks.Sources.Constant off(k=0) "Control signal of chiller"
-    annotation (Placement(transformation(extent={{-142,63},{-122,83}}, rotation
-          =0)));
+    annotation (Placement(transformation(extent={{-142,63},{-122,83}}, rotation=
+           0)));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
@@ -251,8 +256,8 @@ model PrimaryOnlyWithEconomizer
         origin={162,-3})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TChiCWST(redeclare package Medium
       = MediumCW, m_flow_nominal=mCW_flow_nominal)
-    "Condenser water supply temperature for economizer and chiller" annotation
-    (Placement(transformation(
+    "Condenser water supply temperature for economizer and chiller" annotation (
+     Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={272,113})));
@@ -334,7 +339,6 @@ equation
       smooth=Smooth.None));
   connect(linPieTwo.y[1], swi.u1) annotation (Line(
       points={{-87,202.3},{-76,202.3},{-76,122},{-112,122},{-112,100},{-103,100}},
-
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -355,7 +359,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(pumCW.m_flow_in, mCWFlo.y) annotation (Line(
-      points={{281.8,221},{266,221},{266,209},{255,209}},
+      points={{278,216.2},{266,216.2},{266,209},{255,209}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pumCW.port_b, res3.port_a) annotation (Line(
@@ -395,11 +399,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(chiCon.y, val6.y) annotation (Line(
-      points={{-140,33},{-124,33},{-124,49},{270,49},{270,33},{284,33}},
+      points={{-140,33},{-124,33},{-124,49},{270,49},{270,33},{280,33}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(chiCon.y, val5.y) annotation (Line(
-      points={{-140,33},{-124,33},{-124,49},{112,49},{112,153},{120,153}},
+      points={{-140,33},{-124,33},{-124,49},{112,49},{112,153},{116,153}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(chiSwi.y, pre1.u) annotation (Line(
@@ -412,7 +416,6 @@ equation
       smooth=Smooth.None));
   connect(linPieTwo.y[2], chiSwi.TSet) annotation (Line(
       points={{-87,203.3},{-64,203.3},{-64,249},{-274,249},{-274,88},{-227,88}},
-
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -425,12 +428,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(mFanFlo.y, fan.m_flow_in) annotation (Line(
-      points={{279,-201},{283,-201},{283,-216.8}},
+      points={{279,-201},{278.2,-201},{278.2,-213}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSupAir.T, limPID.u_m) annotation (Line(
       points={{240,-214},{240,-201},{-266,-201},{-266,179},{-176,179},{-176,190}},
-
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -439,11 +441,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(KMinusU.y, val2.y) annotation (Line(
-      points={{-45,92},{-38,92},{-38,39},{214,39},{214,21}},
+      points={{-45,92},{-38,92},{-38,39},{214,39},{214,25}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mPumCHW.y, pumCHW.m_flow_in) annotation (Line(
-      points={{125,-131},{153.8,-131}},
+      points={{125,-131},{137.5,-131},{137.5,-126.2},{150,-126.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(val6.port_b, cooCoi.port_a1) annotation (Line(
@@ -463,15 +465,15 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(wseCon.y2, val1.y) annotation (Line(
-      points={{-137.6,-35.24},{134,-35.24},{134,-40},{154,-40}},
+      points={{-137.6,-35.24},{134,-35.24},{134,-40},{150,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(wseCon.y1, val3.y) annotation (Line(
-      points={{-137.6,-24.6},{2,-24.6},{2,-39},{63,-39},{63,-51}},
+      points={{-137.6,-24.6},{0,-24.6},{0,-39},{63,-39},{63,-47}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(wseCon.y1, val4.y) annotation (Line(
-      points={{-137.6,-24.6},{2,-24.6},{2,151},{30,151}},
+      points={{-137.6,-24.6},{0,-24.6},{0,151},{26,151}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSupAir.port_a, fan.port_b) annotation (Line(

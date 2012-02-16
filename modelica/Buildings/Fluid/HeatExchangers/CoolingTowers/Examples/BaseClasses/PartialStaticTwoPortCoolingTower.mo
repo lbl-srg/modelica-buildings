@@ -15,12 +15,13 @@ partial model PartialStaticTwoPortCoolingTower
     Buildings.Fluid.HeatExchangers.CoolingTowers.BaseClasses.CoolingTower(
     redeclare package Medium = Medium_W,
     m_flow_nominal=mWat_flow_nominal,
-    dp_nominal=10,
+    dp_nominal=6000,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState) "Cooling tower"
     annotation (Placement(transformation(extent={{24,-60},{44,-40}}, rotation=0)));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
         Medium_W, m_flow_nominal=mWat_flow_nominal,
-    dynamicBalance=false) "Pump for chilled water loop"
+    dynamicBalance=false,
+    filteredSpeed=false) "Pump for chilled water loop"
                           annotation (Placement(transformation(extent={{-40,-60},
             {-20,-40}}, rotation=0)));
   inner Modelica.Fluid.System system
@@ -51,9 +52,11 @@ partial model PartialStaticTwoPortCoolingTower
     prescribedHeatFlowRate=true,
     V=0.5)
     annotation (Placement(transformation(extent={{20,-120},{40,-100}})));
-  Buildings.Fluid.Storage.ExpansionVessel exp(VTot=0.03, redeclare package
-      Medium = Medium_W)
-    annotation (Placement(transformation(extent={{110,-110},{130,-90}})));
+  Buildings.Fluid.Sources.FixedBoundary   exp(           redeclare package
+      Medium = Medium_W, nPorts=1)
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=180,
+        origin={92,-120})));
   Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow fixHeaFlo(Q_flow=0.5*
         mWat_flow_nominal*4200*5) "Fixed heat flow rate"
     annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
@@ -94,10 +97,6 @@ equation
       points={{44,-50},{60,-50},{60,-120},{30,-120}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(exp.port_a, vol.ports[3]) annotation (Line(
-      points={{120,-110},{120,-120},{32.6667,-120}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(pum.port_b, tow.port_a) annotation (Line(
       points={{-20,-50},{24,-50}},
       color={0,127,255},
@@ -111,9 +110,13 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(switch1.y, pum.m_flow_in) annotation (Line(
-      points={{41,-190},{70,-190},{70,-240},{-100,-240},{-100,-30},{-35,-30},{
-          -35,-41.8}},
+      points={{41,-190},{70,-190},{70,-240},{-100,-240},{-100,-30},{-30.2,-30},
+          {-30.2,-38}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(exp.ports[1], vol.ports[3]) annotation (Line(
+      points={{82,-120},{32.6667,-120}},
+      color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,
             -260},{140,100}}),

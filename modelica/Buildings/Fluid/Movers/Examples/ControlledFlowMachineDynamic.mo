@@ -7,11 +7,16 @@ model ControlledFlowMachineDynamic
     fan2(dynamicBalance=true),
     fan3(dynamicBalance=true));
   annotation (
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ControlledFlowMachineDynamic.mos" "Simulate and plot"),
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ControlledFlowMachineDynamic.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example demonstrates the use of the flow model with four different configurations.
 At steady-state, all flow models have the same mass flow rate and pressure difference.
 </html>"),
-Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160, 160}}), graphics));
+Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160, 160}}), graphics),
+    experiment(
+      StopTime=600,
+      Tolerance=1e-06,
+      Algorithm="Dassl"));
 
 end ControlledFlowMachineDynamic;

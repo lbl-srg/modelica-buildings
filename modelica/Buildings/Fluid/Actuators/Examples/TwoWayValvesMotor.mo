@@ -6,8 +6,9 @@ model TwoWayValvesMotor
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valLin(
     redeclare package Medium = Medium,
     l=0.05,
-    m_flow_nominal=2) "Valve model, linear opening characteristics"
-         annotation (Placement(transformation(extent={{0,10},{20,30}}, rotation=
+    m_flow_nominal=2,
+    filteredOpening=false) "Valve model, linear opening characteristics"
+         annotation (Placement(transformation(extent={{0,20},{20,40}}, rotation=
            0)));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
@@ -29,7 +30,8 @@ model TwoWayValvesMotor
   Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening valQui(
     redeclare package Medium = Medium,
     l=0.05,
-    m_flow_nominal=2) "Valve model, quick opening characteristics"
+    m_flow_nominal=2,
+    filteredOpening=false) "Valve model, quick opening characteristics"
          annotation (Placement(transformation(extent={{0,-20},{20,0}}, rotation=
            0)));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valEqu(
@@ -37,8 +39,10 @@ model TwoWayValvesMotor
     l=0.05,
     R=10,
     delta0=0.1,
-    m_flow_nominal=2) "Valve model, equal percentage opening characteristics"
-         annotation (Placement(transformation(extent={{0,-50},{20,-30}},
+    m_flow_nominal=2,
+    filteredOpening=false)
+    "Valve model, equal percentage opening characteristics"
+         annotation (Placement(transformation(extent={{0,-60},{20,-40}},
           rotation=0)));
   Modelica.Blocks.Sources.TimeTable ySet(table=[0,0; 60,0; 60,1; 120,1; 180,0.5;
         240,0.5; 300,0; 360,0; 360,0.25; 420,0.25; 480,1; 540,1.5; 600,-0.25])
@@ -56,17 +60,16 @@ equation
                                                  color={0,0,127}));
   connect(ySet.y, mot.u)
     annotation (Line(points={{-79,70},{-62,70}}, color={0,0,127}));
-  connect(mot.y, valEqu.y) annotation (Line(points={{-39,70},{-12,70},{-12,-28},
-          {10,-28},{10,-32}},
+  connect(mot.y, valEqu.y) annotation (Line(points={{-39,70},{-12,70},{-12,-30},
+          {10,-30},{10,-38}},
                      color={0,0,127}));
-  connect(mot.y, valQui.y) annotation (Line(points={{-39,70},{-12,70},{-12,2},{
-          10,2},{10,-2}},
+  connect(mot.y, valQui.y) annotation (Line(points={{-39,70},{-12,70},{-12,10},
+          {10,10},{10,2}},
                     color={0,0,127}));
-  connect(mot.y, valLin.y) annotation (Line(points={{-39,70},{-12,70},{-12,34},
-          {10,34},{10,28}},
-                    color={0,0,127}));
+  connect(mot.y, valLin.y) annotation (Line(points={{-39,70},{10,70},{10,44},{
+          10,42}},  color={0,0,127}));
   connect(sou.ports[1], valLin.port_a) annotation (Line(
-      points={{-40,-7.33333},{-20,-7.33333},{-20,20},{-5.55112e-16,20}},
+      points={{-40,-7.33333},{-20,-7.33333},{-20,30},{-5.55112e-16,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], valQui.port_a) annotation (Line(
@@ -74,11 +77,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[3], valEqu.port_a) annotation (Line(
-      points={{-40,-12.6667},{-20,-12.6667},{-20,-40},{-5.55112e-16,-40}},
+      points={{-40,-12.6667},{-20,-12.6667},{-20,-50},{-5.55112e-16,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valLin.port_b, sin.ports[1]) annotation (Line(
-      points={{20,20},{36,20},{36,-7.33333},{50,-7.33333}},
+      points={{20,30},{36,30},{36,-7.33333},{50,-7.33333}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valQui.port_b, sin.ports[2]) annotation (Line(
@@ -86,13 +89,14 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(valEqu.port_b, sin.ports[3]) annotation (Line(
-      points={{20,-40},{36,-40},{36,-12.6667},{50,-12.6667}},
+      points={{20,-50},{36,-50},{36,-12.6667},{50,-12.6667}},
       color={0,127,255},
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                         graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/TwoWayValvesMotor.mos" "Simulate and plot"),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/TwoWayValvesMotor.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 Test model for two way valves. Note that the 
@@ -100,6 +104,13 @@ leakage flow rate has been set to a large value
 and the rangeability to a small value
 for better visualization of the valve characteristics.
 To use common values, use the default values.
+</p>
+<p>
+All valves are connected to a model of a motor with
+hysteresis. A more efficient implementation that approximates
+a motor but lacks hysteresis would be to
+set the valve parameter <code>filteredOpening=true</code> instead
+of using the motor model.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -8,19 +8,39 @@ model FlowMachine_Nrpm
     annotation (Placement(transformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={0,100}), iconTransformation(
+        origin={0,120}), iconTransformation(
         extent={{-20,-20},{20,20}},
         rotation=-90,
-        origin={0,100})));
+        origin={0,120})));
 
 equation
-  N = Nrpm;
+  if filteredSpeed then
+    connect(Nrpm, filter.u) annotation (Line(
+      points={{1.11022e-15,120},{0,104},{0,104},{0,88},{18.6,88}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(filter.y, N_actual) annotation (Line(
+      points={{34.7,88},{38.35,88},{38.35,70},{50,70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+    connect(filter.y, N_filtered) annotation (Line(
+      points={{34.7,88},{50,88}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  else
+    connect(Nrpm, N_actual) annotation (Line(
+      points={{1.11022e-15,120},{0,120},{0,70},{50,70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  end if;
+
   annotation (defaultComponentName="pump",
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics={Text(extent={{20,100},{118,78}}, textString=
+            100}}), graphics={Text(extent={{20,126},{118,104}},textString=
               "N_in [rpm]")}),
-    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
+            100}}),     graphics),
     Documentation(info="<html>
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
@@ -39,6 +59,10 @@ User's Guide</a> for more information.
 </html>",
       revisions="<html>
 <ul>
+<li>
+February 14, 2012, by Michael Wetter:<br>
+Added filter for start-up and shut-down transient.
+</li>
 <li>
 May 25, 2011, by Michael Wetter:<br>
 Revised implementation of energy balance to avoid having to use conditionally removed models.

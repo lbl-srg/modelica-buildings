@@ -11,7 +11,8 @@ partial model PartialFlowMachine
     port_b(
       h_outflow(start=h_outflow_start),
       p(start=p_start),
-      final m_flow(max = if allowFlowReversal then +Constants.inf else 0)));
+      final m_flow(max = if allowFlowReversal then +Constants.inf else 0)),
+      final showDesignFlowDirection=false);
 
   Delays.DelayFirstOrder vol(
     redeclare package Medium = Medium,
@@ -40,7 +41,8 @@ partial model PartialFlowMachine
 
   // Models
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
-    annotation (Placement(transformation(extent={{-70,-90},{-50,-70}})));
+    annotation (Placement(transformation(extent={{-70,-90},{-50,-70}}),
+        iconTransformation(extent={{-10,-78},{10,-58}})));
 
 protected
   Modelica.SIunits.Density rho_in "Density of inflowing fluid";
@@ -88,42 +90,55 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics={
-        Polygon(
-          points={{-48,-60},{-72,-100},{72,-100},{48,-60},{-48,-60}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.VerticalCylinder),
+    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
+                    graphics={
+        Line(
+          visible=not filteredSpeed,
+          points={{0,100},{0,40}},
+          color={0,0,0},
+          smooth=Smooth.None),
         Rectangle(
-          extent={{-100,46},{100,-46}},
+          extent={{-100,16},{100,-14}},
           lineColor={0,0,0},
           fillColor={0,127,255},
           fillPattern=FillPattern.HorizontalCylinder),
-        Polygon(
-          points={{2,70},{2,-66},{72,4},{2,70}},
-          lineColor={0,0,0},
-          pattern=LinePattern.None,
-          fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={255,255,255}),
         Ellipse(
-          extent={{-80,80},{80,-80}},
+          extent={{-58,50},{54,-58}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           fillColor={0,100,199}),
         Polygon(
-          points={{0,72},{0,-68},{74,4},{0,72}},
+          points={{0,50},{0,-56},{54,2},{0,50}},
           lineColor={0,0,0},
           pattern=LinePattern.None,
           fillPattern=FillPattern.HorizontalCylinder,
           fillColor={255,255,255}),
         Ellipse(
-          extent={{16,18},{46,-12}},
+          extent={{4,14},{34,-16}},
           lineColor={0,0,0},
           fillPattern=FillPattern.Sphere,
           visible=dynamicBalance,
-          fillColor={0,100,199})}),
+          fillColor={0,100,199}),
+        Rectangle(
+          visible=filteredSpeed,
+          extent={{-34,40},{32,100}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Ellipse(
+          visible=filteredSpeed,
+          extent={{-34,100},{32,40}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid),
+        Text(
+          visible=filteredSpeed,
+          extent={{-22,92},{20,46}},
+          lineColor={0,0,0},
+          fillColor={135,135,135},
+          fillPattern=FillPattern.Solid,
+          textString="M",
+          textStyle={TextStyle.Bold})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
             100}}),
             graphics),

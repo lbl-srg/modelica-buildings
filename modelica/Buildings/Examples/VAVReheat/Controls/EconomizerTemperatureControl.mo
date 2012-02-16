@@ -9,7 +9,7 @@ block EconomizerTemperatureControl
     yMax=0.995,
     yMin=0.005,
     Td=60,
-    controllerType=Modelica.Blocks.Types.SimpleController.P)
+    controllerType=Modelica.Blocks.Types.SimpleController.PI)
     "Controller for mixed air temperature"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   parameter Real k=1 "Gain of controller";
@@ -38,7 +38,6 @@ equation
       points={{-39,60},{-12,60},{-12,6.66134e-16},{-2,6.66134e-16}},
       color={255,0,255},
       smooth=Smooth.None));
-
   connect(swi1.y, con.u_s)    annotation (Line(
       points={{21,6.10623e-16},{30,0},{40,1.27676e-15},{40,6.66134e-16},{58,
           6.66134e-16}},
@@ -57,7 +56,6 @@ equation
           5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-
   connect(signGain.u1, TRet) annotation (Line(
       points={{-62,60},{-120,60}},
       color={0,0,127},

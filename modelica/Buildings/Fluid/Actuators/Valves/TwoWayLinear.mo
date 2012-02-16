@@ -3,7 +3,7 @@ model TwoWayLinear "Two way valve with linear flow characteristics"
   extends BaseClasses.PartialTwoWayValve;
 
 equation
-  phi = l + y * (1 - l);
+  phi = l + y_actual * (1 - l);
 annotation (
 defaultComponentName="val",
 Documentation(info="<html>

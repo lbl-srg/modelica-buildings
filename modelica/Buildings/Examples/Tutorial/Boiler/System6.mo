@@ -213,62 +213,34 @@ model System6
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
   Modelica.Blocks.Logical.Not not1 "Negate output of hysteresis"
     annotation (Placement(transformation(extent={{-220,-82},{-200,-62}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdPumRad(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always))
-    "First order filter to avoid step change for pump mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-80},{-80,-60}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdPumBoi(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always))
-    "First order filter to avoid step change for pump mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
   Modelica.Blocks.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-320},{140,-300}})));
 
 //-----------------------Step 3: Change in controller type-----------------------//			
-	Buildings.Controls.Continuous.LimPID conPIDBoi(
+ Buildings.Controls.Continuous.LimPID conPIDBoi(
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=600,
-    k=0.25) "Controller for valve in boiler loop"
+    k=0.1,
+    Ti=120) "Controller for valve in boiler loop"
     annotation (Placement(transformation(extent={{160,-290},{180,-270}})));
 //------------------------------------------------------------------------------//
 
-  Modelica.Blocks.Continuous.FirstOrder firOrdValBoi(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always))
-    "First order filter to avoid step change for valve position"
-    annotation (Placement(transformation(extent={{200,-290},{220,-270}})));
   Controls.SetPoints.Table TSetSup(table=[273.15 + 19, 273.15 + 50;
                                           273.15 + 21, 273.15 + 21])
     "Setpoint for supply water temperature"
     annotation (Placement(transformation(extent={{-220,-20},{-200,0}})));
 
 //-----------------------Step 3: Change in controller type-----------------------//			
-	Buildings.Controls.Continuous.LimPID conPIDRad(
+ Buildings.Controls.Continuous.LimPID conPIDRad(
     Td=1,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=600,
-    k=0.25) "Controller for valve in radiator loop"
+    k=0.1,
+    Ti=120) "Controller for valve in radiator loop"
     annotation (Placement(transformation(extent={{-180,-20},{-160,0}})));
 //------------------------------------------------------------------------------//
-	
-  Modelica.Blocks.Continuous.FirstOrder firOrdValRad(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always))
-    "First order filter to avoid step change for valve position"
-    annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-	
+
+
 //-----------------------------Step 2: Weather data------------------------------//		
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -299,7 +271,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSup.port_b, rad.port_a) annotation (Line(
-      points={{-50,-30},{-50,-10},{0,-10}},
+      points={{-50,-30},{-50,-10},{-5.55112e-16,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(temRoo.port, vol.heatPort) annotation (Line(
@@ -319,7 +291,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boi.port_b, pumBoi.port_a) annotation (Line(
-      points={{0,-310},{-50,-310},{-50,-290}},
+      points={{-5.55112e-16,-310},{-50,-310},{-50,-290}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pumBoi.port_b, spl1.port_1) annotation (Line(
@@ -441,16 +413,6 @@ equation
       points={{-239,-72},{-222,-72}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(booToReaRad.y,firOrdPumRad. u)
-                                   annotation (Line(
-      points={{-119,-70},{-102,-70}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdPumRad.y, pumRad.m_flow_in)
-                                      annotation (Line(
-      points={{-79,-70},{-70,-70},{-70,-75},{-58.2,-75}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(not1.y, and1.u1) annotation (Line(
       points={{-199,-72},{-192,-72},{-192,-150},{-182,-150}},
       color={255,0,255},
@@ -458,14 +420,6 @@ equation
   connect(and1.y, booToReaRad.u) annotation (Line(
       points={{-159,-150},{-152,-150},{-152,-70},{-142,-70}},
       color={255,0,255},
-      smooth=Smooth.None));
-  connect(booToReaRad1.y, firOrdPumBoi.u) annotation (Line(
-      points={{-119,-280},{-102,-280}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdPumBoi.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-79,-280},{-68.5,-280},{-68.5,-285},{-58.2,-285}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(temRet.T,conPIDBoi. u_s) annotation (Line(
       points={{71,-280},{158,-280}},
@@ -475,20 +429,8 @@ equation
       points={{141,-310},{170,-310},{170,-292}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(conPIDBoi.y,firOrdValBoi. u) annotation (Line(
-      points={{181,-280},{198,-280}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdValBoi.y, valBoi.y) annotation (Line(
-      points={{221,-280},{232,-280},{232,-250},{68,-250}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(temRoo.T, TSetSup.u) annotation (Line(
       points={{-50,30},{-270,30},{-270,-10},{-222,-10}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conPIDRad.y, firOrdValRad.u) annotation (Line(
-      points={{-159,-10},{-142,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSetSup.y, conPIDRad.u_s) annotation (Line(
@@ -497,10 +439,6 @@ equation
       smooth=Smooth.None));
   connect(temSup.T, conPIDRad.u_m) annotation (Line(
       points={{-61,-40},{-170,-40},{-170,-22}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdValRad.y, valRad.y) annotation (Line(
-      points={{-119,-10},{-110,-10},{-110,-150},{-58,-150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
@@ -526,6 +464,22 @@ equation
   connect(TOut.port, senTOut.port) annotation (Line(
       points={{-240,70},{-220,70},{-220,50},{-340,50},{-340,30},{-318,30}},
       color={191,0,0},
+      smooth=Smooth.None));
+  connect(booToReaRad.y, pumRad.m_flow_in) annotation (Line(
+      points={{-119,-70},{-90.5,-70},{-90.5,-70.2},{-62,-70.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conPIDRad.y, valRad.y) annotation (Line(
+      points={{-159,-10},{-90,-10},{-90,-150},{-62,-150}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
+      points={{-119,-280},{-90.5,-280},{-90.5,-280.2},{-62,-280.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(conPIDBoi.y, valBoi.y) annotation (Line(
+      points={{181,-280},{200,-280},{200,-250},{72,-250}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>
@@ -578,19 +532,6 @@ to
 <a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature\">
 Modelica.Thermal.HeatTransfer.Sources.PrescribedTemperature</a>
 in order to use the dry-bulb temperature as an input signal.
-</p>
-</li>
-<li>
-<p>
-Next, we changed the parameter <code>controllerType</code> from
-<code>Modelica.Blocks.Types.SimpleController.P</code> to
-<code>Modelica.Blocks.Types.SimpleController.PI</code>.
-In 
-<a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System5\">
-Buildings.Examples.Tutorial.Boiler.System5</a>,
-we had the integrator time constant set at <i>1</i> second. This
-turned out to be too fast as it led to oscillations.
-Setting it to <i>600</i> seconds for both controllers leads to stable control.
 </p>
 </li>
 </ol>

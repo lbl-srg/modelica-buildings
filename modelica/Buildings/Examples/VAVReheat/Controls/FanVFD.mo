@@ -7,7 +7,8 @@ block FanVFD "Controller for fan revolution"
     yMin=0,
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Td=60,
-    Ti=10) "Controller"
+    k=0.5,
+    Ti=15) "Controller"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Math.Gain gaiMea(k=1/xSet_nominal)
     "Gain to normalize measurement signal"
@@ -31,11 +32,6 @@ block FanVFD "Controller for fan revolution"
         rotation=90,
         origin={0,-120})));
   parameter Real r_N_min=0.01 "Minimum normalized fan speed";
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(
-    T=60,
-    initType=initType,
-    y_start=y_start)
-    annotation (Placement(transformation(extent={{60,-40},{80,-20}})));
   parameter Modelica.Blocks.Types.Init initType=Modelica.Blocks.Types.Init.NoInit
     "Type of initialization (1: no init, 2: steady state, 3/4: initial output)";
   parameter Real y_start=0 "Initial or guess value of output (= state)";
@@ -91,12 +87,8 @@ equation
       points={{-62,30},{-90,30},{-90,1.11022e-15},{-120,1.11022e-15}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(extractor.y, firstOrder.u) annotation (Line(
-      points={{41,-30},{58,-30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firstOrder.y, y) annotation (Line(
-      points={{81,-30},{88,-30},{88,5.55112e-16},{110,5.55112e-16}},
+  connect(extractor.y, y) annotation (Line(
+      points={{41,-30},{70,-30},{70,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,

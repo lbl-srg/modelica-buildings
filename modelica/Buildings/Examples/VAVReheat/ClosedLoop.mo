@@ -130,21 +130,21 @@ model ClosedLoop
   Buildings.Controls.Continuous.LimPID heaCoiCon(
     yMax=1,
     yMin=0,
-    Ti=60,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
-    controllerType=Modelica.Blocks.Types.SimpleController.P)
-    "Controller for heating coil"
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=600,
+    k=0.01) "Controller for heating coil"
     annotation (Placement(transformation(extent={{0,-170},{20,-150}})));
   Buildings.Controls.Continuous.LimPID cooCoiCon(
-    Ti=60,
     reverseAction=true,
     Td=60,
     initType=Modelica.Blocks.Types.InitPID.InitialState,
     yMax=1,
     yMin=0,
-    controllerType=Modelica.Blocks.Types.SimpleController.P)
-    "Controller for cooling coil"
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=600,
+    k=0.01) "Controller for cooling coil"
     annotation (Placement(transformation(extent={{0,-210},{20,-190}})));
   Buildings.Fluid.Sensors.RelativePressure dpRetFan(redeclare package Medium =
         MediumA) "Pressure difference over return fan" annotation (Placement(
@@ -194,9 +194,9 @@ model ClosedLoop
         origin={230,-120})));
   Controls.Economizer conEco(
     dT=1,
-    k=1,
-    Ti=60,
-    VOut_flow_min=0.3*m_flow_nominal/1.2) "Controller for economizer"
+    VOut_flow_min=0.3*m_flow_nominal/1.2,
+    Ti=600,
+    k=0.1) "Controller for economizer"
     annotation (Placement(transformation(extent={{-80,140},{-60,160}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
         MediumA, m_flow_nominal=m_flow_nominal) "Return air temperature sensor"
@@ -494,7 +494,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(conFanSup.y, fanSup.y) annotation (Line(
-      points={{261,10},{310,10},{310,-30}},
+      points={{261,10},{310,10},{310,-28}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -554,7 +554,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(heaCoiCon.y, valHea.y) annotation (Line(
-      points={{21,-160},{108,-160},{108,-80},{122,-80}},
+      points={{21,-160},{108,-160},{108,-80},{118,-80}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -569,12 +569,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   connect(cooCoiCon.y, valCoo.y) annotation (Line(
-      points={{21,-200},{210,-200},{210,-80},{222,-80}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(conEco.yOA, eco.y) annotation (Line(
-      points={{-59.3333,152},{-48,152},{-48,-8},{-13,-8},{-13,6.6}},
+      points={{21,-200},{210,-200},{210,-80},{218,-80}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -666,7 +661,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(conFanRet.y, fanRet.y) annotation (Line(
-      points={{261,150},{300,150},{300,130}},
+      points={{261,150},{300,150},{300,132}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -922,6 +917,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
+  connect(conEco.yOA, eco.y) annotation (Line(
+      points={{-59.3333,152},{-50,152},{-50,-20},{-13,-20},{-13,6.6}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-400},{
             1400,600}}), graphics),

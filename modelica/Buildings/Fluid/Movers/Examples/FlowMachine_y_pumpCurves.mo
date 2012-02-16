@@ -17,13 +17,13 @@ model FlowMachine_y_pumpCurves
                   dp=dp_nominal*{0.9, 0.85, 0.6, 0.2}))
     "Declaration of pump model";
 
-  pumpModel pum "Pump"
+  pumpModel pum(filteredSpeed=false) "Pump"
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  pumpModel pum1 "Pump"
+  pumpModel pum1(filteredSpeed=false) "Pump"
     annotation (Placement(transformation(extent={{40,38},{60,58}})));
-  pumpModel pum2 "Pump"
+  pumpModel pum2(filteredSpeed=false) "Pump"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  pumpModel pum3 "Pump"
+  pumpModel pum3(filteredSpeed=false) "Pump"
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
 
   Modelica.Blocks.Sources.Ramp y(
@@ -54,7 +54,8 @@ model FlowMachine_y_pumpCurves
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.01*dp_nominal) "Pressure drop"
+    dp_nominal=0.01*dp_nominal,
+    filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Modelica.Blocks.Sources.Constant
                                y1(k=1) "Input signal"
@@ -64,7 +65,8 @@ model FlowMachine_y_pumpCurves
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.01*dp_nominal) "Pressure drop"
+    dp_nominal=0.01*dp_nominal,
+    filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,38},{0,58}})));
   Modelica.Blocks.Sources.Constant
                                y2(k=0.5) "Input signal"
@@ -74,7 +76,8 @@ model FlowMachine_y_pumpCurves
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.01*dp_nominal) "Pressure drop"
+    dp_nominal=0.01*dp_nominal,
+    filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Constant
                                y3(k=0.05) "Input signal"
@@ -83,7 +86,8 @@ model FlowMachine_y_pumpCurves
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.01*dp_nominal) "Pressure drop"
+    dp_nominal=0.01*dp_nominal,
+    filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.Constant
                                y4(k=0.01) "Input signal"
@@ -99,11 +103,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(y1.y, pum.y)      annotation (Line(
-      points={{41,130},{50,130},{50,100}},
+      points={{41,130},{50,130},{50,102}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(y.y, dp1.y) annotation (Line(
-      points={{-59,130},{-10,130},{-10,98}},
+      points={{-59,130},{-10,130},{-10,102}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dp2.port_b, pum1.port_a)     annotation (Line(
@@ -111,7 +115,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y,dp2. y) annotation (Line(
-      points={{-59,130},{-26,130},{-26,68},{-10,68},{-10,56}},
+      points={{-59,130},{-26,130},{-26,68},{-10,68},{-10,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[2], dp2.port_a) annotation (Line(
@@ -119,7 +123,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(y2.y, pum1.y) annotation (Line(
-      points={{29,70},{50,70},{50,58}},
+      points={{29,70},{50,70},{50,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dp3.port_b, pum2.port_a)     annotation (Line(
@@ -128,11 +132,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y,dp3. y) annotation (Line(
-      points={{-59,130},{-26,130},{-26,20},{-10,20},{-10,8}},
+      points={{-59,130},{-26,130},{-26,20},{-10,20},{-10,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(y3.y, pum2.y) annotation (Line(
-      points={{29,22},{50,22},{50,10}},
+      points={{29,22},{50,22},{50,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dp3.port_a, sou.ports[3]) annotation (Line(
@@ -144,11 +148,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y,dp4. y) annotation (Line(
-      points={{-59,130},{-26,130},{-26,-30},{-10,-30},{-10,-42}},
+      points={{-59,130},{-26,130},{-26,-30},{-10,-30},{-10,-38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(y4.y, pum3.y) annotation (Line(
-      points={{29,-28},{50,-28},{50,-40}},
+      points={{29,-28},{50,-28},{50,-38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dp4.port_a, sou.ports[4]) annotation (Line(
