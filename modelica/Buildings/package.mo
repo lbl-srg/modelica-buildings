@@ -148,6 +148,12 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.FixedResistances.Pipe
+    </td>
+    <td valign=\"top\">Added a model for a pipe with transport delay and optional heat
+                       exchange with the environment.
+    </td> 
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Actuators.UsersGuide
     </td>
     <td valign=\"top\">Added a user's guide for actuator models.
@@ -185,9 +191,44 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Dampers.Exponential<br>
+                       Buildings.Fluid.Actuators.Dampers.VAVBoxExponential<br>
+                       Buildings.Fluid.Actuators.Dampers.MixingBox<br>
+                       Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow<br>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br>
+                       Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br>
+                       Buildings.Fluid.Actuators.Valves.TwoWayLinear<br>
+                       Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening
+    </td>
+    <td valign=\"top\">Added an optional 2nd order lowpass filter for the input signal. 
+                       The filter approximates the travel time of the actuators. 
+                       It also makes the system of equations easier to solve
+                       because a step change in the input signal causes a gradual change in the actuator
+                       position.<br>
+                       Note that this filter affects the time response of closed loop control.
+                       Therefore, enabling the filter may require retuning of control loops.
+                       See the user's guide of the Buildings.Fluid.Actuators package.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.Boilers.BoilerPolynomial
     </td>
     <td valign=\"top\">Added computation of fuel usage and improved the documentation.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_y<br>
+                       Buildings.Fluid.Movers.FlowMachine_Nrpm<br>
+                       Buildings.Fluid.Movers.FlowMachine_dp<br>
+                       Buildings.Fluid.Movers.FlowMachine_m_flow
+    </td>
+    <td valign=\"top\">Added a 2nd order lowpass filter to the input signal. 
+                       The filter approximates the startup and shutdown transients of fans or pumps.
+                       It also makes the system of equations easier to solve
+                       because a step change in the input signal causes a gradual change in the
+                       mass flow rate.<br>
+                       Note that this filter affects the time response of closed loop control.
+                       Therefore, enabling the filter may require retuning of control loops.
+                       See the user's guide of the Buildings.Fluid.Movers package.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger
@@ -197,7 +238,6 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.PartialResistance<br/>
-                       Buildings.Fluid.Actuators.BaseClasses.PartialActuator<br/>
                        Buildings.Fluid.FixedResistances.FixedResistanceDpM<br/>
                        Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve<br/>
                        Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential
