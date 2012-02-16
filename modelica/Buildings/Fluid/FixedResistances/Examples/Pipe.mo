@@ -7,12 +7,11 @@ model Pipe "Test of a pipe with multiple segments"
 
   Modelica.Blocks.Sources.Constant PAtm(k=101325) annotation (Placement(
         transformation(extent={{40,60},{60,80}}, rotation=0)));
-  parameter Modelica.SIunits.Pressure dp_nominal=5
-    "Nominal pressure drop for each resistance";
+
   Modelica.Blocks.Sources.Ramp P(
     duration=1,
-    height=2*dp_nominal,
-    offset=101325 - dp_nominal) annotation (Placement(transformation(extent={{-80,
+    height=2*pip.dp_nominal,
+    offset=101325 - pip.dp_nominal) annotation (Placement(transformation(extent={{-80,
             60},{-60,80}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou(
     redeclare package Medium = Medium,
@@ -32,14 +31,11 @@ model Pipe "Test of a pipe with multiple segments"
   HeatTransfer.Sources.FixedTemperature TEnv(T=263.15)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Buildings.Fluid.FixedResistances.Pipe pip(
-    dp_nominal=dp_nominal,
-    nSeg=100,
     thicknessIns=0.01,
     lambdaIns=0.01,
-    diameter=0.2,
-    length=100,
     m_flow_nominal=10,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    length=10)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
 equation
 
@@ -68,10 +64,5 @@ equation
     Diagram(Text(
         extent=[-20, 58; 30, 44],
         style(color=3, rgbcolor={0,0,255}),
-        string="nRes resistances  in series")),
-    experiment(
-      Interval=0.0001,
-      fixedstepsize=0.0001,
-      Algorithm="Euler"),
-    experimentSetupOutput);
+        string="nRes resistances  in series")));
 end Pipe;
