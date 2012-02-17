@@ -9,7 +9,8 @@ Avoiding step changes
 All flow machines (fans and pumps) have a boolean parameter
 ``filteredSpeed``, and all actuators have a boolean parameter
 ``filteredOpening``.
-If set to ``true``, which is the default setting, then the control input signal is sent to a 2nd order low pass filter that changes a step signal to a smooth signal.
+If set to ``true``, which is the default setting, then the control input signal is sent to 
+a :term:`2nd order low pass filter` that changes a step signal to a smooth signal.
 This typically improves the robustness of the simulation.
 
 To see the effect of the filter, consider the model below 
@@ -19,6 +20,8 @@ in which ``fanS`` is configured with
 Both fans are connected to a step input signal.
 The configuration of ``fanS`` causes the fan speed to instantly change from 0 to 1. In large system models, this can lead to high computing time or to convergence problems. The ``fanC`` avoids this problem because the speed of the fan varies continuously, thereby making it easier for the solver to compute a solution. In this model, we set the parameter
 ``raiseTime=30`` seconds.
+
+.. _FigureFilteredResponse:
 
 .. figure:: img/fanStepSchematics.png
    

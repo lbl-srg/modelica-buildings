@@ -2,6 +2,16 @@ Glossary
 ========
 
 .. glossary::
+
+   2nd order low pass filter
+      A second order low pass filter is an input-output block that computes
+      :math:`\dot x(t) = A \, x(t) + (-1, 0)^T \, u(t)` and 
+      :math:`y(t) = (0, \, 1) \, x(t)`,
+      where :math:`A = (r, \, 0; \, -r, \, r)` with :math:`r` being a positive
+      real number. 
+      This causes the input signal :math:`u(\cdot)` to be converted to 
+      an output signal :math:`y(\cdot)` that is differentiable in time.
+      See the :ref:`plot of a filtered step response <FigureFilteredResponse>`. 
  
    numerical noise
       In numerical solutions, numerical noise refers to fast but small
