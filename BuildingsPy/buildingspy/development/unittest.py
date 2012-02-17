@@ -328,6 +328,12 @@ class Tester:
                                 for i in range(len(y)):
                                     y[i] = y[i].replace(",", ", ")
                                 plotVars.append(y)
+                        if len(plotVars) == 0:
+                            s = "*** Warning: %s does not contain any plot command.\n" % mosFil
+                            s += "           You need to add a plot command to include its\n"
+                            s += "           results in the unit tests.\n"
+                            sys.stderr.write(s)
+                            
                         dat.setResultVariables(plotVars)
 
                         # search for the result file
