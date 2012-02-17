@@ -2114,7 +2114,7 @@ You are under no obligation whatsoever to provide any bug fixes, patches, or upg
 <p>
 At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package: 
 <ul><li style=\"list-style-type:none\">
-Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2009-2011, The Regents of the University of California, through Lawrence Berkeley National Laboratory. 
+Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2009-2012, The Regents of the University of California, through Lawrence Berkeley National Laboratory. 
 <p>
 <li style=\"list-style-type:none\"><i>
 This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at </em><a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>. 
@@ -2153,7 +2153,7 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
     annotation (Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Copyright</font></h4>
 <p>
-Copyright (c) 2009-2011, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
+Copyright (c) 2009-2012, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
 </p><p>
 If you have questions about your rights to use or distribute this software, please contact Berkeley Lab's Technology Transfer Department at 
 <A HREF=\"mailto:TTD@lbl.gov\">TTD@lbl.gov</A>
