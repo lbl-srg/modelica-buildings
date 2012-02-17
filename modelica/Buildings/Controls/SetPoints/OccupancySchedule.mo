@@ -6,8 +6,7 @@ block OccupancySchedule "Occupancy schedule with look-ahead"
     "Occupancy table, each entry switching occupancy on or off";
   parameter Boolean firstEntryOccupied = true
     "Set to true if first entry in occupancy denotes a changed from unoccupied to occupied";
-  parameter Modelica.SIunits.Time startTime = 0 "Start time of periodicity";
-  parameter Modelica.SIunits.Time endTime =   86400 "End time of periodicity";
+  parameter Modelica.SIunits.Time period =   86400 "End time of periodicity";
 
   Modelica.Blocks.Interfaces.RealOutput tNexNonOcc
     "Time until next non-occupancy"
@@ -19,7 +18,8 @@ block OccupancySchedule "Occupancy schedule with look-ahead"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
-  final parameter Modelica.SIunits.Time period = endTime-startTime;
+  parameter Modelica.SIunits.Time offSet(fixed=false)
+    "Time off-set, in multiples of period, that is used to switch the time when doing the table lookup";
   final parameter Integer nRow = size(occupancy,1);
 
   output Integer nexStaInd "Next index when occupancy starts";
@@ -29,22 +29,30 @@ protected
     "Counter for the period in which the next occupancy starts";
   output Integer iPerSto
     "Counter for the period in which the next occupancy stops";
-  output Modelica.SIunits.Time schTim
-    "Time in schedule (not exceeding max. schedule time)";
-  output Modelica.SIunits.Time tMax "Maximum time in schedule";
+
   output Modelica.SIunits.Time tOcc "Time when next occupancy starts";
   output Modelica.SIunits.Time tNonOcc "Time when next non-occupancy starts";
+
+encapsulated function switch
+  input Integer x1;
+  input Integer x2;
+  output Integer y1;
+  output Integer y2;
+algorithm
+  y1:=x2;
+  y2:=x1;
+end switch;
+
 initial algorithm
   // Check parameters for correctness
  assert(mod(nRow, 2) < 0.1,
    "The parameter \"occupancy\" must have an even number of elements.\n");
- assert(startTime < occupancy[1],
-   "The parameter \"startTime\" must be smaller than the first element of \"occupancy\"."
-   + "\n   Received startTime    = " + String(startTime)
-   + "\n            occupancy[1] = " + String(occupancy[1]));
- assert(endTime > occupancy[nRow],
-   "The parameter \"endTime\" must be greater than the last element of \"occupancy\"."
-   + "\n   Received endTime      = " + String(endTime)
+ assert(0 < occupancy[1],
+   "The first element of \"occupancy\" must be bigger than or equal than zero."
+   + "\n   Received occupancy[1] = " + String(occupancy[1]));
+ assert(period > occupancy[nRow],
+   "The parameter \"period\" must be greater than the last element of \"occupancy\"."
+   + "\n   Received period      = " + String(period)
    + "\n            occupancy[" + String(nRow) +
      "] = " + String(occupancy[nRow]));
   for i in 1:nRow-1 loop
@@ -52,24 +60,37 @@ initial algorithm
       "The elements of the parameter \"occupancy\" must be strictly increasing.");
   end for;
  // Initialize variables
- // if the firstEntryOccupied == false, then set the current time to the
- // the time when occupancy starts.
- tOcc    :=if firstEntryOccupied then occupancy[1] else time;
- tNonOcc :=if firstEntryOccupied then time else occupancy[1];
+ iPerSta   := integer(time/period);
+ iPerSto   := iPerSta;
+ offSet:=iPerSta*period;
 
- iPerSta   := 0;
- iPerSto   := 0;
- nexStaInd := if firstEntryOccupied then 1 else 2;
- nexStoInd := if firstEntryOccupied then 2 else 1;
- occupied := not firstEntryOccupied;
- tOcc    := occupancy[nexStaInd];
- tNonOcc := occupancy[nexStoInd];
+ // First, assume that the first entry is occupied.
+ nexStaInd := 1;
+ for i in 1:2:nRow-1 loop
+   if time > occupancy[i] + offSet then
+     nexStaInd :=i;
+   end if;
+ end for;
+
+ nexStoInd := 2;
+ for i in 2:2:nRow loop
+   if time > occupancy[i] + offSet then
+     nexStoInd :=i;
+   end if;
+ end for;
+
+ occupied := (time+offSet - occupancy[nexStaInd]) < (time+offSet - occupancy[nexStoInd]);
+
+ // Now, correct if the first entry is vaccant instead of occupied
+ if not firstEntryOccupied then
+   (nexStaInd, nexStoInd) := switch(nexStaInd, nexStoInd);
+   occupied := not occupied;
+ end if;
+
+ tOcc    := occupancy[nexStaInd]+offSet;
+ tNonOcc := occupancy[nexStoInd]+offSet;
+
 algorithm
-  assert(startTime < endTime, "Wrong parameter values.");
-  tMax :=endTime;
-  schTim :=startTime + mod(time-startTime, period);
-
-  // Changed the index that computes the time until the next occupancy
   when time >= pre(occupancy[nexStaInd])+ iPerSta*period then
     nexStaInd :=nexStaInd + 2;
     occupied := not occupied;
@@ -144,10 +165,20 @@ The occupancy is defined by a time schedule of the form
 </pre>
 This indicates that the occupancy is from <i>7:00</i> until <i>12:00</i>
 and from <i>14:00</i> to <i>19:00</i>. This will be repeated periodically.
-The parameters <code>startTime<code> and <code>endTime</code> define the periodicity.
+The parameter <code>periodicity</code> defines the periodicity.
+The period always starts at <i>t=0</i> seconds.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 16, 2012, by Michael Wetter:<br>
+Removed parameter <code>startTime</code>. It was removed because <code>startTime=0</code>
+would imply that the schedule should not start for one day if the the simulation were
+to be started at <i>t=-8760</i> seconds.
+Fixed bug that prevented schedule to start when the simulation was started at a time that
+is higher than <code>endTime</code>.
+Renamed parameter <code>endTime</code> to <code>period</code>.
+</li>
 <li>
 April 2, 2009, by Michael Wetter:<br>
 First implementation.

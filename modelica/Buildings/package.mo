@@ -304,6 +304,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        the opaque constructions.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.SetPoints.OccupancySchedule
+    </td>
+    <td valign=\"top\">Changed model to fix a bug that caused the output of the block 
+                       to be incorrect when the simulation started
+                       at a time different from zero.
+                       When fixing this bug, the parameter <code>startTime</code> was removed,
+                       and the parameter <code>endTime</code> was renamed to <code>period</code>.
+                       The period always starts at <i>t=0</i> seconds.
+    </td>
+</tr>
 </table>
 </p>
 <!-- Errors that have been fixed -->
@@ -312,12 +325,13 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.SetPoints.OccupancySchedule
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">The output of the block was incorrect when the simulation started
+                       at a time different from zero.
     </td>
 </tr>
 </table>
@@ -382,6 +396,12 @@ have been fixed:
                        This change leads to the use of the same equations for the radiative
                        heat transfer between window and ambient as is used for 
                        the opaque constructions.
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/53\">#53</a>
+    </td>
+    <td valign=\"top\">Fixed bug in Buildings.Controls.SetPoints.OccupancySchedule that 
+                       led to wrong results when the simulation started at a time different from zero.
     </td>
 </tr>
 </table>

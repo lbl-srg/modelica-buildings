@@ -1,9 +1,6 @@
 within Buildings.Controls.SetPoints.Examples;
 model OccupancySchedule "Test model for occupancy schedule with look-ahead"
   extends Modelica.Icons.Example;
-  // fixme: this model is wrong if run as
-  // simulateModel("Buildings.Controls.SetPoints.Examples.OccupancySchedule", startTime=172800, stopTime=342800, method="dassl", resultFile="OccupancySchedule");
-
   Buildings.Controls.SetPoints.OccupancySchedule occSch
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   annotation (experiment(StopTime=172800), experimentSetupOutput,

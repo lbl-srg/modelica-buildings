@@ -10,3 +10,5 @@ convertClass("Buildings.Airflow.Multizone.Examples.OpenDoors",
 convertElement({"Buildings.HeatTransfer.Radiosity.OutdoorRadiosity",
                 "Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"},
                 "F_sky", "vieFacSky");
+convertElement({"Buildings.Controls.SetPoints.Occupancy"},
+                "endTime", "period");
