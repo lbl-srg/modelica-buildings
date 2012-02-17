@@ -120,11 +120,19 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_X_Y_buildY "Version 1.1 build xxx"
+  class Version_1_1_build0 "Version 1.1 build 0 (release candidate 1)"
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
-Version 1.1 build xxx is ... xxx
+Version 1.1 build 0 is a release candidate.
+It contains improvements to models that address numerical problems.
+In particular, flow machines and actuators now have an optional filter
+that converts step changes in the input signal to a smooth change in 
+speed or actuator position.
+Also, (<a href=\"modelica://Buildings.Examples.Tutorial\">
+Buildings.Examples.Tutorial</a>)
+has been added to provide step-by-step instruction for how to build
+system models.
 </p>
 <!-- New libraries -->
 <p>
@@ -169,14 +177,6 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">Package with physical properties of fuels that are used by the
                      boiler model.
-    </td> 
-    </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
     </td> 
     </tr>
 </table>
@@ -274,14 +274,7 @@ have been <b style=\"color:blue\">improved</b> in a
                        the opaque constructions.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr></table>
+</table>
 </p>
 <!-- Non-backward compatible changes to existing components -->
 <p>
@@ -369,14 +362,6 @@ units are wrong or errors in documentation):
                        a translation error with version 1.0 or higher.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 </p>
 <!-- Trac tickets -->
@@ -410,12 +395,20 @@ Note:
 </p>
 <ul>
 <li> 
-xxx
+The use of filters for actuator and flow machine input
+signals changes the dynamic response of feedback control loops.
+Therefore, control gains may need to be retuned.
+See <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
+Buildings.Fluid.Actuators.UsersGuide</a>
+and
+<a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">
+Buildings.Fluid.Movers.UsersGuide</a> for recommended control
+gains and further details.
 </li>
 </ul>
 </p>
 </html>"));
-  end Version_X_Y_buildY;
+  end Version_1_1_build0;
 
   class Version_1_0_build2 "Version 1.0 build 2"
     extends Modelica.Icons.ReleaseNotes;
@@ -1866,10 +1859,11 @@ to the medium properties.
 This section summarizes the changes that have been performed
 on the Buildings library
 </p>
+<p>
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_X_Y_buildZ\">
-Version 1.1 buildXXXX</a>(xxxx, 2012)</li>
+Version 1.1 build 0 (release candidate 1)</a>(February 17, 2012)</li>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">
@@ -1920,6 +1914,7 @@ Version 0.2.0 </a>(June 17, 2008)</li>
 Version 0.1.0 </a>(May 27, 2008)</li>
 </ul>
 </p>
+<p></p>
 </html>
 "));
   end ReleaseNotes;
@@ -2263,8 +2258,8 @@ end UsersGuide;
 
 annotation (
 version="1.1",
-versionBuild=1,
-versionDate="2011-11-04",
+versionBuild=0,
+versionDate="2011-02-17",
 dateModified = "$Date: 2011-12-08 16:25:22 -0800 (Thu, 08 Dec 2011) $",
 uses(Modelica(version="3.2")),
 conversion(
