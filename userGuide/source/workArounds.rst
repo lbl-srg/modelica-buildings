@@ -6,15 +6,45 @@ This section describes work-arounds that often help if there are problems during
 Avoiding step changes
 ---------------------
 
-Consider the model below in which ``fanS`` is directly connected to a block that outputs 0 or 1, and ``fanC`` is connected to a first order block that computes its output signal :math:`y(t)` as :math:`T \, dy(t)/dt = u(t)-y(t)` where :math:`T` is a time constant and :math:`u(t)` is its input signal.
-The speed of both fans is equal to their input signal.
-The configuration of ``fanS`` causes the fan speed to instantly change between 0 and 1. In large system models, this can lead to high computing time or to convergence problems. The implementation with ``fanC`` avoids this problem because the speed of the fan :math:`u(t)` varies continuously, thereby making it easier for the solver to compute a solution. In this model, we set the time response of the first order block to 10 seconds, as this may approximate the time response of the fan rotor.
+All flow machines (fans and pumps) have a boolean parameter
+``filteredSpeed``, and all actuators have a boolean parameter
+``filteredOpening``.
+If set to ``true``, which is the default setting, then the control input signal is sent to a 2nd order low pass filter that changes a step signal to a smooth signal.
+This typically improves the robustness of the simulation.
 
-In large system models, adding such a first order response often avoids numerical problems that can occur when control signals or control setpoints switch.
+To see the effect of the filter, consider the model below 
+in which ``fanS`` is configured with
+``filteredSpeed=false``, and ``fanC`` is configured with
+``filteredSpeed=true``.
+Both fans are connected to a step input signal.
+The configuration of ``fanS`` causes the fan speed to instantly change from 0 to 1. In large system models, this can lead to high computing time or to convergence problems. The ``fanC`` avoids this problem because the speed of the fan varies continuously, thereby making it easier for the solver to compute a solution. In this model, we set the parameter
+``raiseTime=30`` seconds.
 
-.. figure:: img/fanPulse.png
+.. figure:: img/fanStepSchematics.png
    
-   Schematic diagram of fans that are connected to a block that outputs a step, and connected to a first order response.
+   Schematic diagram of fans that are configured with ``filterSpeed=false`` (``fanS``) and ``filterSpeed=true`` (``fanC``).
+
+.. figure:: img/fanStepResponse.png
+   
+   Mass flow rate of the two fans for a step input signal at 0 seconds.
+
+
+For fans and pumps, the dynamics introduced by the filter can be thought of as approximating the rotational inertia of the fan rotor and the inertia of the fluid in the duct or piping network.
+The default value is ``raiseTime=30`` seconds.
+
+For actuators, the rise time approximates the travel time of the valve lift.
+The default value is ``raiseTime=120`` seconds.
+
+.. note:: When changing ``filteredSpeed`` (or ``filteredOpening``),
+          or when changing the value of ``riseTime``, the dynamic
+          response of the closed loop control changes. Therefore,
+          control gains may need to be retuned to ensure satisfactory
+          closed loop control performance.
+
+For further information, see the 
+`User's Guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers_UsersGuide.html>`_ of the flow machines, and the 
+`User's Guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html>`_
+of the actuators.
 
 
 Breaking algebraic loops
