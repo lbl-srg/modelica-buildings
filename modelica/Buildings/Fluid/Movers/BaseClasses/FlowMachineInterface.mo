@@ -2,8 +2,8 @@ within Buildings.Fluid.Movers.BaseClasses;
 partial model FlowMachineInterface
   "Partial model with performance curves for fans or pumps"
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
-    VMachine_flow(start=V_flow_nominal),
-    V_flow_max(start=V_flow_nominal));
+    VMachine_flow(nominal=V_flow_nominal, start=V_flow_nominal),
+    V_flow_max(nominal=V_flow_nominal, start=V_flow_nominal));
 
   import Modelica.Constants;
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
@@ -509,6 +509,10 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 20, 2012, by Michael Wetter:<br>
+Assigned value to nominal attribute of <code>VMachine_flow</code>.
+</li>
 <li>
 February 14, 2012, by Michael Wetter:<br>
 Added filter for start-up and shut-down transient.
