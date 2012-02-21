@@ -1,41 +1,56 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialTwoWayValve "Partial model for a two way valve"
   extends Buildings.Fluid.BaseClasses.PartialResistance(
-       dp_nominal=6000,
+       final dp_nominal=dpValve_nominal + dpFixed_nominal,
        final m_flow_turbulent = deltaM * abs(m_flow_nominal));
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
       rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default),
-      final dpVal_nominal=dp_nominal);
+      dpValve_nominal=6000);
   extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
-
+  parameter Modelica.SIunits.Pressure dpFixed_nominal(displayUnit="Pa", min=0) = 0
+    "Pressure drop of pipe and other resistances that are in series"
+     annotation(Dialog(group = "Nominal condition"));
   parameter Real l(min=1e-10, max=1) = 0.0001 "Valve leakage, l=Cv(y=0)/Cvs";
-  Real phi "Ratio actual to nominal mass flow rate, phi=Cv(y)/Cv(y=1)";
+  Real phi "Ratio actual to nominal mass flow rate of valve, phi=Cv(y)/Cv(y=1)";
+protected
+ parameter Real kFixed(unit="") = if dpFixed_nominal > Modelica.Constants.small
+    then m_flow_nominal / sqrt(dpFixed_nominal) else 0
+    "Flow coefficient of fixed resistance that may be in series with valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
+ Real kVal(unit="", min=Modelica.Constants.small)
+    "Flow coefficient of valve, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
+ Real k(unit="", min=Modelica.Constants.small)
+    "Flow coefficient of valve and pipe in series, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2).";
 initial equation
   // Since the flow model Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow computes
   // 1/k^2, the parameter l must not be zero.
   assert(l > 0, "Valve leakage parameter l must be bigger than zero.");
+  assert(dpFixed_nominal > -Modelica.Constants.small, "Require dpFixed_nominal >= 0. Received dpFixed_nominal = "
+        + String(dpFixed_nominal) + " Pa.");
 equation
+ kVal = phi*Kv_SI;
+ k = if (dpFixed_nominal > Modelica.Constants.eps) then sqrt(1/(1/kFixed^2 + 1/kVal^2)) else kVal;
+
  if linearized then
    // This implementation yields m_flow_nominal = phi*kv_SI * sqrt(dp_nominal)
    // if m_flow = m_flow_nominal and dp = dp_nominal
-   m_flow*m_flow_nominal_pos = (phi*Kv_SI)^2 * dp;
+   m_flow*m_flow_nominal_pos = k^2 * dp;
  else
    if homotopyInitialization then
      if from_dp then
-         m_flow=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=phi*Kv_SI,
+         m_flow=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
                                 m_flow_turbulent=m_flow_turbulent),
                                 simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
       else
-         dp=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=phi*Kv_SI,
+         dp=homotopy(actual=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
                                 m_flow_turbulent=m_flow_turbulent),
                                 simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
      end if;
    else // do not use homotopy
      if from_dp then
-       m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=phi*Kv_SI,
+       m_flow=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp(dp=dp, k=k,
                                 m_flow_turbulent=m_flow_turbulent);
       else
-        dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=phi*Kv_SI,
+        dp=Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow(m_flow=m_flow, k=k,
                                 m_flow_turbulent=m_flow_turbulent);
       end if;
     end if; // homotopyInitialization
@@ -110,6 +125,14 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 20, 2012 by Michael Wetter:<br>
+Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
+and added new parameter <code>dpFixed_nominal</code>.
+See 
+<a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
+Buildings.Fluid.Actuators.UsersGuide</a>.
+</li>
 <li>
 January 16, 2012 by Michael Wetter:<br>
 To simplify object inheritance tree, revised base classes

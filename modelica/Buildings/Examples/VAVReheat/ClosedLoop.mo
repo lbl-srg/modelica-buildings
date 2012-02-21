@@ -43,11 +43,11 @@ model ClosedLoop
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=m_flow_nominal,
     allowFlowReversal2=false,
-    dp2_nominal=6000,
     m2_flow_nominal=m_flow_nominal*1000*(10 - (-20))/4200/10,
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     Q_flow_nominal=m_flow_nominal*1006*(16.7 - 8.5),
     dp1_nominal=0,
+    dp2_nominal=0,
     T_a1_nominal=281.65,
     T_a2_nominal=323.15) "Heating coil"
     annotation (Placement(transformation(extent={{98,-56},{118,-36}})));
@@ -62,8 +62,8 @@ model ClosedLoop
     redeclare package Medium2 = MediumA,
     m1_flow_nominal=m_flow_nominal*1000*15/4200/10,
     m2_flow_nominal=m_flow_nominal,
-    dp1_nominal=6000,
-    dp2_nominal=0) "Cooling coil"
+    dp2_nominal=0,
+    dp1_nominal=0) "Cooling coil"
     annotation (Placement(transformation(extent={{210,-36},{190,-56}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpSupDuc(
     m_flow_nominal=m_flow_nominal,
@@ -179,8 +179,10 @@ model ClosedLoop
     redeclare package Medium = MediumW,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     m_flow_nominal=m_flow_nominal*1000*15/4200/10,
-    dp_nominal=6000,
-    from_dp=true) "Cooling coil valve" annotation (Placement(transformation(
+    dpValve_nominal=6000,
+    from_dp=true,
+    dpFixed_nominal=6000) "Cooling coil valve"
+                                       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={230,-80})));
@@ -209,9 +211,11 @@ model ClosedLoop
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHea(
     redeclare package Medium = MediumW,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    dp_nominal=6000,
+    dpValve_nominal=6000,
     m_flow_nominal=m_flow_nominal*1000*40/4200/10,
-    from_dp=true) "Heating coil valve" annotation (Placement(transformation(
+    from_dp=true,
+    dpFixed_nominal=6000) "Heating coil valve"
+                                       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={130,-80})));
@@ -923,8 +927,8 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-400},{
-            1400,600}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-400},{1400,
+            600}}),      graphics),
     Documentation(info="<html>
 <p>
 This model consist of an HVAC system, a building envelope model and a model

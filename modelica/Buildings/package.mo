@@ -120,7 +120,7 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_1_1_build0 "Version 1.1 build 0 (release candidate 1)"
+  class Version_1_1_build0 "Version 1.1 build 0 (release candidate 2)"
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
@@ -181,7 +181,7 @@ to <b style=\"color:blue\">existing</b> libraries:
     </tr>
 </table>
 </p>
-<!-- Backward compatbile changes -->
+<!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
@@ -284,6 +284,32 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayLinear<br>
+                       Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage<br>
+                       Buildings.Fluid.Actuators.Valves.TwoWayLinear<br>
+                       Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening
+    </td>
+    <td valign=\"top\">Changed models to allow modeling of a fixed resistance that is 
+                       within the controlled flow leg. This allows in some cases
+                       the avoidance of a nonlinear equation if a flow resistance is
+                       in series to the valve.
+                       This change required changing the parameter for the valve resistance
+                       <code>dp_nominal</code> to <code>dpValve_nominal</code>, 
+                       and introducing the parameter
+                       <code>dpFixed_nominal</code>, with <code>dpFixed_nominal=0</code>
+                       as its default value.
+                       Previous models that instantiate these components need to change the
+                       assignment of <code>dp_nominal</code> to an assignment of
+                       <code>dpValve_nominal</code>.
+                       See also <a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
+                       Buildings.Fluid.Actuators.UsersGuide</a>.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -325,6 +351,18 @@ that can lead to wrong simulation results):
     </td>
     <td valign=\"top\">The output of the block was incorrect when the simulation started
                        at a time different from zero.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DryCoilCounterFlow<br>
+                       Buildings.Fluid.HeatExchangers.WetCoilCounterFlow
+    </td>
+    <td valign=\"top\">Corrected error in assignment of <code>dp2_nominal</code>.
+                       The previous assignment caused a pressure drop in all except one element,
+                       instead of the opposite. This caused too high a flow resistance
+                       of the heat exchanger.
     </td>
 </tr>
 </table>
@@ -1863,7 +1901,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_X_Y_buildZ\">
-Version 1.1 build 0 (release candidate 1)</a>(February 17, 2012)</li>
+Version 1.1 build 0 (release candidate 2)</a>(February 20, 2012)</li>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">
@@ -2259,7 +2297,7 @@ end UsersGuide;
 annotation (
 version="1.1",
 versionBuild=0,
-versionDate="2011-02-17",
+versionDate="2011-02-20",
 dateModified = "$Date: 2011-12-08 16:25:22 -0800 (Thu, 08 Dec 2011) $",
 uses(Modelica(version="3.2")),
 conversion(

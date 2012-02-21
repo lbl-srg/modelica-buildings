@@ -117,7 +117,7 @@ protected
     each from_dp1=from_dp1,
     each from_dp2=from_dp2,
     dp1_nominal={if i == 1 then dp1_nominal else 0 for i in 1:nEle},
-    dp2_nominal={if i == nEle then 0 else dp2_nominal for i in 1:nEle})
+    dp2_nominal={if i == nEle then dp2_nominal else 0 for i in 1:nEle})
     "Heat exchanger element"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Routing.Replicator rep1(nout=nEle) "Signal replicator"
@@ -235,6 +235,13 @@ this model computes only sensible heat transfer.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 2, 2012, by Michael Wetter:<br>
+Corrected error in assignment of <code>dp2_nominal</code>.
+The previous assignment caused a pressure drop in all except one element,
+instead of the opposite. This caused too high a flow resistance
+of the heat exchanger.
+</li>
 <li>
 October 8, 2011, by Michael Wetter:<br>
 Set <code>show_T=false</code> to avoid state events near zero flow.

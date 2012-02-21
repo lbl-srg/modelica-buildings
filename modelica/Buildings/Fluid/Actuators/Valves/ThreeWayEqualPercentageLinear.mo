@@ -2,53 +2,21 @@ within Buildings.Fluid.Actuators.Valves;
 model ThreeWayEqualPercentageLinear
   "Three way valve with equal percentage and linear characteristics"
     extends BaseClasses.PartialThreeWayValve(
-      redeclare TwoWayEqualPercentage res1(
-      redeclare package Medium = Medium,
-      l=l[1],
-      deltaM=deltaM,
-      dp_nominal=dp_nominal,
-      dp(start=dp_nominal/2),
-      from_dp=from_dp,
-      linearized=linearized[1],
-      homotopyInitialization=homotopyInitialization,
-      R=R,
-      delta0=delta0,
-      m_flow_nominal=m_flow_nominal,
-      CvData=CvData,
-      Kv_SI=Kv_SI,
-      Kv=Kv,
-      Cv=Cv,
-      Av=Av,
-      final filteredOpening=false),
-      redeclare TwoWayLinear res3(
-      redeclare package Medium = Medium,
-      l=l[2],
-      deltaM=deltaM,
-      dp_nominal=dp_nominal,
-      dp(start=dp_nominal/2),
-      from_dp=from_dp,
-      linearized=linearized[2],
-      homotopyInitialization=homotopyInitialization,
-      m_flow_nominal=m_flow_nominal,
-      CvData=CvData,
-      Kv_SI=fraK*Kv_SI,
-      Kv=fraK*Kv,
-      Cv=fraK*Cv,
-      Av=fraK*Av,
-      final filteredOpening=false));
+      redeclare TwoWayEqualPercentage res1(R=R, delta0=delta0),
+      redeclare TwoWayLinear res3);
   parameter Real R = 50 "Rangeability, R=50...100 typically";
   parameter Real delta0 = 0.01
     "Range of significant deviation from equal percentage law";
 
 equation
   connect(inv.y, res3.y) annotation (Line(points={{-62.6,46},{20,46},{20,46},{
-          20,-50},{8,-50}},
+          20,-50},{12,-50}},
                          color={0,0,127}));
-  connect(y_actual, inv.u2) annotation (Line(points={{70,20},{84,20},{84,32},{
-          -68,32},{-68,41.2}},
+  connect(y_actual, inv.u2) annotation (Line(points={{50,70},{84,70},{84,32},{-68,
+          32},{-68,41.2}},
                          color={0,0,127}));
-  connect(y_actual, res1.y) annotation (Line(points={{70,20},{84,20},{84,32},{
-          -50,32},{-50,8}},
+  connect(y_actual, res1.y) annotation (Line(points={{50,70},{84,70},{84,32},{
+          -50,32},{-50,12}},
         color={0,0,127}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
@@ -87,6 +55,14 @@ the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 20, 2012 by Michael Wetter:<br>
+Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
+and added new parameter <code>dpFixed_nominal</code>.
+See 
+<a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
+Buildings.Fluid.Actuators.UsersGuide</a>.
+</li>
 <li>
 February 14, 2012 by Michael Wetter:<br>
 Added filter to approximate the travel time of the actuator.

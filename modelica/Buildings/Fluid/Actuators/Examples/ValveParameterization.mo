@@ -10,7 +10,7 @@ model ValveParameterization
     redeclare package Medium = Medium,
     m_flow_nominal=150/3600,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    dp_nominal(displayUnit="kPa") = 4500,
+    dpValve_nominal(displayUnit="kPa") = 4500,
     filteredOpening=false) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{-10,30},{10,50}},
                                                                        rotation=
@@ -42,7 +42,7 @@ model ValveParameterization
     CvData=Buildings.Fluid.Types.CvTypes.Kv,
     m_flow_nominal=150/3600,
     Kv=0.73,
-    dp_nominal=450000,
+    dpValve_nominal=450000,
     filteredOpening=false) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                                                                        rotation=
@@ -54,7 +54,7 @@ model ValveParameterization
     m_flow_nominal=150/3600,
     CvData=Buildings.Fluid.Types.CvTypes.Cv,
     Cv=0.84,
-    dp_nominal=450000,
+    dpValve_nominal=450000,
     filteredOpening=false) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{-10,-50},{10,-30}},
                                                                        rotation=

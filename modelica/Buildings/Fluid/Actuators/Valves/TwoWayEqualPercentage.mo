@@ -33,6 +33,14 @@ as the leakage flow or regularization near the origin.
 revisions="<html>
 <ul>
 <li>
+February 20, 2012 by Michael Wetter:<br>
+Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
+and added new parameter <code>dpFixed_nominal</code>.
+See 
+<a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
+Buildings.Fluid.Actuators.UsersGuide</a>.
+</li>
+<li>
 February 14, 2012 by Michael Wetter:<br>
 Added filter to approximate the travel time of the actuator.
 </li>

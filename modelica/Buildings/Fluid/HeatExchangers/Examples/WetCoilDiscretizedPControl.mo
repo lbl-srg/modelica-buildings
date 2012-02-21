@@ -60,7 +60,8 @@ model WetCoilDiscretizedPControl
     redeclare package Medium = Medium1,
     Kv_SI=m1_flow_nominal/sqrt(5000),
     m_flow_nominal=m1_flow_nominal,
-    filteredOpening=false)
+    filteredOpening=false,
+    dpFixed_nominal=2000)
              annotation (Placement(transformation(extent={{18,38},{38,58}},
           rotation=0)));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,293.15; 600,293.15; 600,
@@ -83,8 +84,8 @@ model WetCoilDiscretizedPControl
         T_b1_nominal,
         T_a2_nominal,
         T_b2_nominal),
-    dp1_nominal(displayUnit="Pa") = 2000,
-    dp2_nominal(displayUnit="Pa") = 200)
+    dp2_nominal(displayUnit="Pa") = 200,
+    dp1_nominal(displayUnit="Pa") = 0)
                          annotation (Placement(transformation(extent={{60,16},{
             80,36}}, rotation=0)));
   inner Modelica.Fluid.System system
@@ -151,7 +152,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mot.y, val.y) annotation (Line(
-      points={{21,130},{28,130},{28,56}},
+      points={{21,130},{28,130},{28,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sin_2.ports[1], temSen.port_b) annotation (Line(

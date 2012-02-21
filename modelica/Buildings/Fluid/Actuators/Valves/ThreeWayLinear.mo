@@ -1,38 +1,8 @@
 within Buildings.Fluid.Actuators.Valves;
 model ThreeWayLinear "Three way valve with linear characteristics"
     extends BaseClasses.PartialThreeWayValve(
-      redeclare TwoWayLinear res1(
-      redeclare package Medium = Medium,
-      l=l[1],
-      deltaM=deltaM,
-      dp_nominal=dp_nominal,
-      dp(start=dp_nominal/2),
-      from_dp=from_dp,
-      linearized=linearized[1],
-      homotopyInitialization=homotopyInitialization,
-      m_flow_nominal=m_flow_nominal,
-      CvData=CvData,
-      Kv_SI=Kv_SI,
-      Kv=Kv,
-      Cv=Cv,
-      Av=Av,
-      final filteredOpening=false),
-      redeclare TwoWayLinear res3(
-      redeclare package Medium = Medium,
-      l=l[2],
-      deltaM=deltaM,
-      dp_nominal=dp_nominal,
-      dp(start=dp_nominal/2),
-      from_dp=from_dp,
-      linearized=linearized[2],
-      homotopyInitialization=homotopyInitialization,
-      m_flow_nominal=m_flow_nominal,
-      CvData=CvData,
-      Kv_SI=fraK*Kv_SI,
-      Kv=fraK*Kv,
-      Cv=fraK*Cv,
-      Av=fraK*Av,
-      final filteredOpening=false));
+      redeclare TwoWayLinear res1,
+      redeclare TwoWayLinear res3);
 
 equation
   connect(inv.y, res3.y) annotation (Line(points={{-62.6,46},{20,46},{20,-50},{
@@ -72,6 +42,14 @@ the regularization near the origin.
 </html>",
 revisions="<html>
 <ul>
+<li>
+February 20, 2012 by Michael Wetter:<br>
+Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
+and added new parameter <code>dpFixed_nominal</code>.
+See 
+<a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
+Buildings.Fluid.Actuators.UsersGuide</a>.
+</li>
 <li>
 February 14, 2012 by Michael Wetter:<br>
 Added filter to approximate the travel time of the actuator.

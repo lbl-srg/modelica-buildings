@@ -12,3 +12,8 @@ convertElement({"Buildings.HeatTransfer.Radiosity.OutdoorRadiosity",
                 "F_sky", "vieFacSky");
 convertElement({"Buildings.Controls.SetPoints.Occupancy"},
                 "endTime", "period");
+
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage", "dp_nominal", "dpValve_nominal");
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayLinear", "dp_nominal", "dpValve_nominal");
+convertElement("Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening", "dp_nominal", "dpValve_nominal");
+

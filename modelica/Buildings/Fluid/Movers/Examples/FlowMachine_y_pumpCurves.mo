@@ -54,7 +54,7 @@ model FlowMachine_y_pumpCurves
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp1(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.01*dp_nominal,
+    dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,80},{0,100}})));
   Modelica.Blocks.Sources.Constant
@@ -65,7 +65,7 @@ model FlowMachine_y_pumpCurves
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp2(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.01*dp_nominal,
+    dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,38},{0,58}})));
   Modelica.Blocks.Sources.Constant
@@ -76,7 +76,7 @@ model FlowMachine_y_pumpCurves
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp3(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.01*dp_nominal,
+    dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Constant
@@ -86,7 +86,7 @@ model FlowMachine_y_pumpCurves
   Buildings.Fluid.Actuators.Valves.TwoWayLinear dp4(
     redeclare package Medium = Medium,
     m_flow_nominal=m_flow_nominal,
-    dp_nominal=0.01*dp_nominal,
+    dpValve_nominal=0.01*dp_nominal,
     filteredOpening=false) "Pressure drop"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Modelica.Blocks.Sources.Constant

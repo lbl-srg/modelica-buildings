@@ -90,7 +90,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.HeatExchangers.WetCoilCounterFlow cooCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
-    dp1_nominal=6000,
     m1_flow_nominal=mWatCol_flow_nominal,
     m2_flow_nominal=mAirCol_flow_nominal,
     UA_nominal=-mAirCol_flow_nominal*1000*15/
@@ -101,7 +100,8 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
         T_b2=13),
     dp2_nominal=0,
     from_dp2=from_dp,
-    linearizeFlowResistance2=linearizeFlowResistance) "Cooling coil"
+    linearizeFlowResistance2=linearizeFlowResistance,
+    dp1_nominal=0) "Cooling coil"
     annotation (Placement(transformation(extent={{372,-146},{352,-166}})));
   Buildings.Fluid.Movers.FlowMachine_y fanSupHot(
     redeclare package Medium = MediumA,
@@ -197,8 +197,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     redeclare package Medium = MediumW,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     m_flow_nominal=m_flow_nominal*1000*15/4200/10,
-    dp_nominal=6000,
-    from_dp=true) "Cooling coil valve" annotation (Placement(transformation(
+    dpValve_nominal=6000,
+    from_dp=true,
+    dpFixed_nominal=6000) "Cooling coil valve"
+                                       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={380,-190})));
@@ -407,7 +409,6 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Fluid.HeatExchangers.DryEffectivenessNTU          heaCoi(
     redeclare package Medium1 = MediumW,
     redeclare package Medium2 = MediumA,
-    dp1_nominal=6000,
     m1_flow_nominal=mWatHot_flow_nominal,
     m2_flow_nominal=mAirHot_flow_nominal,
     Q_flow_nominal=mAirHot_flow_nominal*1000*(45 - 12),
@@ -415,6 +416,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
     dp2_nominal=0,
     from_dp2=from_dp,
     linearizeFlowResistance2=linearizeFlowResistance,
+    dp1_nominal=0,
     T_a1_nominal=285.15,
     T_a2_nominal=318.15) "Heating coil for hot deck"
     annotation (Placement(transformation(extent={{370,4},{350,-16}})));
@@ -437,7 +439,7 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valPreHea(
     redeclare package Medium = MediumW,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    dp_nominal=6000,
+    dpValve_nominal=6000,
     from_dp=true,
     m_flow_nominal=mWatPre_flow_nominal,
     riseTime=10) "Preheating coil valve"
@@ -477,9 +479,10 @@ model ClosedLoop "Closed loop model of a dual-fan dual-duct system"
   Buildings.Fluid.Actuators.Valves.TwoWayLinear valHea(
     redeclare package Medium = MediumW,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    dp_nominal=6000,
+    dpValve_nominal=6000,
     from_dp=true,
-    m_flow_nominal=mWatPre_flow_nominal) "Heating coil valve"
+    m_flow_nominal=mWatPre_flow_nominal,
+    dpFixed_nominal=6000) "Heating coil valve"
                                        annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,

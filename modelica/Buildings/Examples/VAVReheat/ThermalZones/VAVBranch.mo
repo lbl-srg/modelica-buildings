@@ -18,12 +18,12 @@ model VAVBranch "Supply branch of a VAV system"
     redeclare package Medium1 = MediumA,
     redeclare package Medium2 = MediumW,
     m1_flow_nominal=m_flow_nominal,
-    dp2_nominal=6000,
     m2_flow_nominal=m_flow_nominal*1000*(50 - 17)/4200/10,
     Q_flow_nominal=m_flow_nominal*1006*(50 - 16.7),
     configuration=Buildings.Fluid.Types.HeatExchangerConfiguration.CounterFlow,
     dp1_nominal=0,
     from_dp2=true,
+    dp2_nominal=0,
     T_a1_nominal=289.85,
     T_a2_nominal=355.35) "Heat exchanger of terminal box" annotation (Placement(
         transformation(
@@ -79,7 +79,8 @@ model VAVBranch "Supply branch of a VAV system"
     redeclare package Medium = MediumW,
     m_flow_nominal=m_flow_nominal*1000*15/4200/10,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
-    from_dp=true) "Valve at reaheat coil"
+    from_dp=true,
+    dpFixed_nominal=6000) "Valve at reaheat coil"
     annotation (Placement(transformation(extent={{82,34},{102,14}})));
   Buildings.Fluid.Sources.FixedBoundary souTer(
     redeclare package Medium = MediumW,
@@ -112,7 +113,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(con.yDam, vav.y) annotation (Line(
-      points={{21,-1},{32,-1},{32,104},{42,104}},
+      points={{21,-1},{32,-1},{32,104},{38,104}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -142,7 +143,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(con.yHea, valHea.y) annotation (Line(
-      points={{21,8},{92,8},{92,16}},
+      points={{21,8},{92,8},{92,12}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));

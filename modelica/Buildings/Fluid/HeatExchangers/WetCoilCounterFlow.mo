@@ -75,6 +75,13 @@ Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </html>", revisions="<html>
 <ul>
 <li>
+February 2, 2012, by Michael Wetter:<br>
+Corrected error in assignment of <code>dp2_nominal</code> in the base class.
+The previous assignment caused a pressure drop in all except one element,
+instead of the opposite. This caused too high a flow resistance
+of the heat exchanger.
+</li>
+<li>
 May 27, 2010, by Michael Wetter:<br>
 First implementation.
 </li>

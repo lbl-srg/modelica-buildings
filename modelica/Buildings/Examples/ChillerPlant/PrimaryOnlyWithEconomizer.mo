@@ -39,7 +39,7 @@ model PrimaryOnlyWithEconomizer
     m1_flow(start=mCHW_flow_nominal),
     m2_flow(start=mAir_flow_nominal),
     dp2_nominal=249,
-    dp1_nominal(displayUnit="Pa") = 89580) "Cooling coil"
+    dp1_nominal(displayUnit="Pa") = 1000 + 89580) "Cooling coil"
     annotation (Placement(transformation(extent={{238,-185},{218,-165}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{258,-211},
@@ -81,7 +81,8 @@ model PrimaryOnlyWithEconomizer
     PFan_nominal=6000,
     TAirInWB_nominal(displayUnit="degC") = 283.15,
     TApp_nominal=6,
-    dp_nominal=74650) "Cooling tower" annotation (Placement(transformation(
+    dp_nominal=14930 + 14930 + 74650) "Cooling tower"
+                                      annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={208,233})));
@@ -100,33 +101,20 @@ model PrimaryOnlyWithEconomizer
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={244,209})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res4(
-    redeclare package Medium = MediumCW,
-    m_flow_nominal=mCW_flow_nominal,
-    dp_nominal=14930) "Fixed resistance " annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={128,203})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
-    redeclare package Medium = MediumCW,
-    m_flow_nominal=mCW_flow_nominal,
-    dp_nominal=14930) "Fixed resistance " annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={290,181})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness wse(
     redeclare package Medium1 = MediumCW,
     redeclare package Medium2 = MediumCHW,
     m1_flow_nominal=mCW_flow_nominal,
     m2_flow_nominal=mCHW_flow_nominal,
-    dp1_nominal=59720,
-    dp2_nominal=59720,
-    eps=0.8) "Water side economizer (Heat exchanger)"
+    eps=0.8,
+    dp2_nominal=0,
+    dp1_nominal=0) "Water side economizer (Heat exchanger)"
     annotation (Placement(transformation(extent={{68,83},{48,103}})));
   Fluid.Actuators.Valves.TwoWayLinear val5(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
-    dp_nominal=20902) "Control valve for condenser water loop of chiller"
+    dpValve_nominal=20902,
+    dpFixed_nominal=89580) "Control valve for condenser water loop of chiller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -134,7 +122,7 @@ model PrimaryOnlyWithEconomizer
   Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=20902)
+    dpValve_nominal=20902)
     "Bypass control valve for economizer. 1: disable economizer, 0: enable economoizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -158,14 +146,16 @@ model PrimaryOnlyWithEconomizer
     redeclare package Medium2 = MediumCHW,
     m1_flow_nominal=mCW_flow_nominal,
     m2_flow_nominal=mCHW_flow_nominal,
-    dp1_nominal=89580,
-    dp2_nominal=89580,
-    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_823kW_6_28COP_Vanes())
+    per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_823kW_6_28COP_Vanes(),
+    dp2_nominal=0,
+    dp1_nominal=0)
     annotation (Placement(transformation(extent={{218,83},{198,103}})));
   Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=20902) "Control valve for chilled water leaving from chiller"
+    dpValve_nominal=20902,
+    dpFixed_nominal=14930 + 89580)
+    "Control valve for chilled water leaving from chiller"
     annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
@@ -173,14 +163,6 @@ model PrimaryOnlyWithEconomizer
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch chiSwi(
       deaBan(displayUnit="K") = 1) "Control unit switching chiller on or off "
     annotation (Placement(transformation(extent={{-226,83},{-206,103}})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
-    redeclare package Medium = MediumCHW,
-    m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=14930) "Fixed resistance in chilled water loop" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={162,67})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond triAndRes(
     yMax=1,
     yMin=0,
@@ -223,19 +205,12 @@ model PrimaryOnlyWithEconomizer
   Modelica.Blocks.Sources.Constant off(k=0) "Control signal of chiller"
     annotation (Placement(transformation(extent={{-142,63},{-122,83}}, rotation=
            0)));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
-    redeclare package Medium = MediumCHW,
-    m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=1000) "Fixed resistance in CHW loop"
-                                                   annotation (Placement(
-        transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={108,-19})));
   Fluid.Actuators.Valves.TwoWayLinear val4(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
-    dp_nominal=20902) "Control valve for condenser water loop of economizer"
+    dpValve_nominal=20902,
+    dpFixed_nominal=59720)
+    "Control valve for condenser water loop of economizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -269,7 +244,8 @@ model PrimaryOnlyWithEconomizer
   Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=20902)
+    dpValve_nominal=20902,
+    dpFixed_nominal=14930)
     "Bypass valve for chiller. It controls the mass flow rate of chilled water going into the chiller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -280,21 +256,13 @@ model PrimaryOnlyWithEconomizer
   Fluid.Actuators.Valves.TwoWayLinear val3(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=20902)
+    dpValve_nominal=20902,
+    dpFixed_nominal=59720 + 1000)
     "Control valve for economizer. 0: disable economizer, 1: enable economoizer"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={63,-59})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res5(
-    redeclare package Medium = MediumCHW,
-    dp_nominal=1000,
-    m_flow_nominal=mCHW_flow_nominal,
-    m_flow(fixed=true, start=mCHW_flow_nominal)) "Fixed resistance in CHW loop"
-    annotation (Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=0,
-        origin={185,-167})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TWseCHWST(redeclare package Medium
       = MediumCHW, m_flow_nominal=mCHW_flow_nominal)
     "Temperature of chilled water goes into the WSE" annotation (Placement(
@@ -302,14 +270,6 @@ model PrimaryOnlyWithEconomizer
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={162,-87})));
-  Buildings.Fluid.FixedResistances.FixedResistanceDpM res6(
-    redeclare package Medium = MediumCHW,
-    m_flow_nominal=mCHW_flow_nominal,
-    dp_nominal=14930) "Fixed resistance in chilled water loop" annotation (
-      Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={258,13})));
   Fluid.Sensors.MassFlowRate mChiCHW(redeclare package Medium = MediumCHW)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -362,14 +322,6 @@ equation
       points={{278,216.2},{266,216.2},{266,209},{255,209}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(pumCW.port_b, res3.port_a) annotation (Line(
-      points={{290,206},{290,191}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res4.port_a, val5.port_b) annotation (Line(
-      points={{128,193},{128,163}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(val5.port_a, chi.port_b1) annotation (Line(
       points={{128,143},{128,99},{198,99}},
       color={0,127,255},
@@ -380,14 +332,6 @@ equation
       smooth=Smooth.None));
   connect(val4.port_a, wse.port_b1) annotation (Line(
       points={{38,141},{38,99},{48,99}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(val4.port_b, res4.port_a) annotation (Line(
-      points={{38,161},{38,175},{128,175},{128,193}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res2.port_b, chi.port_a2) annotation (Line(
-      points={{162,77},{162,87},{198,87}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(chiSwi.y, chi.on) annotation (Line(
@@ -456,14 +400,6 @@ equation
       points={{48,87},{38,87},{38,-59},{53,-59}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res5.port_a, cooCoi.port_b1) annotation (Line(
-      points={{195,-167},{210,-167},{210,-169},{218,-169}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(pumCHW.port_a, res5.port_b) annotation (Line(
-      points={{162,-136},{162,-167},{175,-167}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(wseCon.y2, val1.y) annotation (Line(
       points={{-137.6,-35.24},{134,-35.24},{134,-40},{150,-40}},
       color={0,0,127},
@@ -488,24 +424,12 @@ equation
       points={{205.85,-228},{205.85,-225},{162,-225},{162,-181},{218,-181}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(wse.port_b2, res1.port_a) annotation (Line(
-      points={{68,87},{84,87},{84,-19},{98,-19}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(TWseCHWST.port_a, pumCHW.port_b) annotation (Line(
       points={{162,-97},{162,-116}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TChiCHWST.port_b, res2.port_a) annotation (Line(
-      points={{162,7},{162,57}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(TChiCHWST.port_b, val2.port_a) annotation (Line(
       points={{162,7},{162,13},{204,13}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res1.port_b, TChiCHWST.port_a) annotation (Line(
-      points={{118,-19},{162,-19},{162,-13}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TChiCHWST.port_a, val1.port_b) annotation (Line(
@@ -520,28 +444,12 @@ equation
       points={{73,-59},{162,-59},{162,-77}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res4.port_b, cooTow.port_a) annotation (Line(
-      points={{128,213},{128,233},{198,233}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res3.port_b, TChiCWST.port_a) annotation (Line(
-      points={{290,171},{290,113},{282,113}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(TChiCWST.port_b, chi.port_a1) annotation (Line(
       points={{262,113},{242,113},{242,99},{218,99}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TChiCWST.port_b, wse.port_a1) annotation (Line(
       points={{262,113},{84,113},{84,99},{68,99}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(val2.port_b, res6.port_a) annotation (Line(
-      points={{224,13},{248,13}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(res6.port_b, val6.port_b) annotation (Line(
-      points={{268,13},{292,13},{292,23}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pre1.y, triAndRes.sta) annotation (Line(
@@ -591,6 +499,34 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  connect(TChiCHWST.port_a, wse.port_b2) annotation (Line(
+      points={{162,-13},{162,-20},{80,-20},{80,87},{68,87}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(cooCoi.port_b1, pumCHW.port_a) annotation (Line(
+      points={{218,-169},{162,-169},{162,-136}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(val2.port_b, val6.port_b) annotation (Line(
+      points={{224,13},{260,13},{260,14},{292,14},{292,23}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(TChiCHWST.port_b, chi.port_a2) annotation (Line(
+      points={{162,7},{162,88},{198,88},{198,87}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(val5.port_b, cooTow.port_a) annotation (Line(
+      points={{128,163},{128,233},{198,233}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(val4.port_b, cooTow.port_a) annotation (Line(
+      points={{38,161},{38,233},{198,233}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(pumCW.port_b, TChiCWST.port_a) annotation (Line(
+      points={{290,206},{290,113},{282,113}},
+      color={0,127,255},
+      smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-300},{400,
             300}}), graphics),

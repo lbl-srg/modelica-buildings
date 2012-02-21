@@ -25,13 +25,15 @@ partial model ValveParameters "Model with parameters for valves"
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure dpVal_nominal "Nominal pressure drop"
+  parameter Modelica.SIunits.Pressure dpValve_nominal(displayUnit="Pa",
+                                                      min=Modelica.Constants.small)
+    "Nominal pressure drop of fully open valve"
     annotation(Dialog(group="Nominal condition"));
 
   parameter Real Kv_SI(
     min=0,
     fixed= if CvData==Buildings.Fluid.Types.CvTypes.OpPoint then true else false,
-    start=m_flow_nominal/sqrt(dpVal_nominal)) = m_flow_nominal/sqrt(dpVal_nominal)
+    start=m_flow_nominal/sqrt(dpValve_nominal)) = m_flow_nominal/sqrt(dpValve_nominal)
     "Flow coefficient for fully open valve in SI units, Kv=m_flow/sqrt(dp) [kg/s/(Pa)^(1/2)]"
   annotation(Dialog(group = "Flow Coefficient",
                     enable = (CvData==Buildings.Fluid.Types.CvTypes.OpPoint)));

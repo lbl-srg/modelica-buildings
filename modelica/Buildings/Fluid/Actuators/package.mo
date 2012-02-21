@@ -6,6 +6,66 @@ package Actuators "Package with actuator models such as valves and dampers"
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   annotation (DocumentationClass=true, Documentation(info="<html>
+<h4>Pressure drop of valves</h4>
+<p>
+All two and three-way valves have a parameter
+<code>dpFixed_nominal</code>. This parameter can be set to a positive (non-zero) 
+value to model a pressure drop that is in series to the valve.
+If <code>dpFixed_nominal=0</code>, then only the valve pressure drop is modeled.
+</p>
+<p>
+For example, in the schematics below, a valve and a fixed resistance
+are modeled in series. 
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/valvePressureDropSeries.png\"/>
+</p>
+<p>
+This often introduces an additional nonlinear equation.
+Suppose that in the above model, the parameters for the flow resistance are
+</p>
+<pre>
+  val(dpValve_nominal=6000, dpFixed=0, m_flow_nominal);
+  res(dp_nominal=10000,                m_flow_nominal);
+</pre>
+<p>
+Instead of this arrangement, the model <code>res</code> can be deleted
+and the valve configured as
+</p>
+<pre>
+  val(dpValve_nominal=6000, dpFixed=10000, m_flow_nominal);
+</pre>
+<p>
+This yields the same simulation results, but a nonlinear equation can be avoided
+in some cases. Although lumping the pressure drop of other components into the 
+valve model violates the intent that in component-based modeling, each component 
+should only model its own behavior, having the option of eliminating 
+a nonlinear equation can be worthwhile.
+</p>
+<p>
+For three way valves, similar parameters exist for the controlled ports of the valve. For example, 
+consider the configuration below.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/Actuators/threeWayValvePressureDropSeries.png\"/>
+</p>
+<p>
+Suppose the parameters are
+</p>
+<pre>
+  val(dpValve_nominal=6000, dpFixed={0, 0}, m_flow_nominal);
+  res1(dp_nominal=10000,                    m_flow_nominal);
+  res3(dp_nominal=100,                      m_flow_nominal);
+</pre>
+<p>
+An equivalent model could be created by deleting the two resistance models 
+<code>res1</code> and <code>res3</code>, and configuring the valve as
+</p>
+<pre>
+  val(dpValve_nominal=6000, dpFixed={10000, 100}, m_flow_nominal);
+</pre>
+<p>
+</p>
 <h4>Transients of actuators</h4>
 This section describes how valves and dampers can be configured
 to approximate the travel time of an actuator.

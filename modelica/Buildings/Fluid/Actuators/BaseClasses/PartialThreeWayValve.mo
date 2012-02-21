@@ -2,11 +2,51 @@ within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialThreeWayValve "Partial three way valve"
     extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
       final mDyn_flow_nominal = m_flow_nominal,
+        redeclare replaceable 
+          Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve
+            res1 constrainedby 
+               Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
+               redeclare package Medium = Medium,
+               l=l[1],
+               deltaM=deltaM,
+               dpValve_nominal=dpValve_nominal,
+               dpFixed_nominal=dpFixed_nominal[1],
+               dp(start=dpValve_nominal/2),
+               from_dp=from_dp,
+               linearized=linearized[1],
+               homotopyInitialization=homotopyInitialization,
+               m_flow_nominal=m_flow_nominal,
+               CvData=CvData,
+               Kv_SI=Kv_SI,
+               Kv=Kv,
+               Cv=Cv,
+               Av=Av,
+               final filteredOpening=false),
         redeclare FixedResistances.LosslessPipe res2(
-            redeclare package Medium = Medium, m_flow_nominal=m_flow_nominal));
+          redeclare package Medium = Medium, m_flow_nominal=m_flow_nominal),
+        redeclare replaceable 
+          Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve
+            res3 constrainedby 
+               Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
+               redeclare package Medium = Medium,
+               l=l[2],
+               deltaM=deltaM,
+               dpValve_nominal=dpValve_nominal,
+               dpFixed_nominal=dpFixed_nominal[2],
+               dp(start=dpValve_nominal/2),
+               from_dp=from_dp,
+               linearized=linearized[2],
+               homotopyInitialization=homotopyInitialization,
+               m_flow_nominal=m_flow_nominal,
+               CvData=CvData,
+               Kv_SI=fraK*Kv_SI,
+               Kv=fraK*Kv,
+               Cv=fraK*Cv,
+               Av=fraK*Av,
+               final filteredOpening=false));
     extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
-      rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default),
-      final dpVal_nominal=dp_nominal);
+      dpValve_nominal=6000,
+      rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
     extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
 
   parameter Real fraK(min=0, max=1) = 0.7
@@ -17,8 +57,9 @@ partial model PartialThreeWayValve "Partial three way valve"
     annotation(Dialog(group="Pressure-flow linearization"));
   parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
-  parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa") = 6000
-    "Nominal pressure drop"
+  parameter Modelica.SIunits.Pressure dpFixed_nominal[2](each displayUnit="Pa",
+                                                         each min=0) = {0, 0}
+    "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
     annotation(Dialog(group="Nominal condition"));
   parameter Boolean[2] linearized = {false, false}
     "= true, use linear relation between m_flow and dp for any flow rate"
@@ -134,6 +175,7 @@ is computed as<pre>
          Kv_SI(port_3 -> port_2)
 </pre> 
 where <code>fraK</code> is a parameter.
+fixme: is this used?
 </p><p>
 Since this model uses two way valves to construct a three way valve, see 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
@@ -142,21 +184,21 @@ PartialTwoWayValve</a> for details regarding the valve implementation.
 </html>", revisions="<html>
 <ul>
 <li>
-June 3, 2008 by Michael Wetter:<br>
-First implementation.
+February 20, 2012 by Michael Wetter:<br>
+Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,
+and added new parameter <code>dpFixed_nominal=0</code>.
+See 
+<a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">
+Buildings.Fluid.Actuators.UsersGuide</a>.
 </li>
-</ul>
-</html>"),
-revisions="<html>
-<ul>
 <li>
 March 25, 2011, by Michael Wetter:<br>
 Added homotopy method.
 </li>
 <li>
-June 16, 2008 by Michael Wetter:<br>
+June 3, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
 end PartialThreeWayValve;
