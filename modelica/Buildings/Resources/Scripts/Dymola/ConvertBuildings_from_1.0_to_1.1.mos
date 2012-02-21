@@ -13,7 +13,9 @@ convertElement({"Buildings.HeatTransfer.Radiosity.OutdoorRadiosity",
 convertElement({"Buildings.Controls.SetPoints.Occupancy"},
                 "endTime", "period");
 
-convertElement("Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage", "dp_nominal", "dpValve_nominal");
-convertElement("Buildings.Fluid.Actuators.Valves.TwoWayLinear", "dp_nominal", "dpValve_nominal");
-convertElement("Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening", "dp_nominal", "dpValve_nominal");
+convertElement({"Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage",
+                "Buildings.Fluid.Actuators.Valves.TwoWayLinear",
+                "Buildings.Fluid.Actuators.Valves.TwoWayQuickOpening",
+                "Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear",
+                "Buildings.Fluid.Actuators.Valves.ThreeWayLinear"}, "dp_nominal", "dpValve_nominal");
 
