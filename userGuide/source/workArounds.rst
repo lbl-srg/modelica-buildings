@@ -56,19 +56,23 @@ Breaking algebraic loops
 In fluid flow systems, flow junctions where mass flow rates separate and mix can couple non-linear systems of equations. This leads to larger systems of coupled equations that need to be solved, which often causes larger computing time and can sometimes cause convergence problems.
 To decouple these systems of equations, in the model of a flow splitter or mixer (model `Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM>`_), or in models for fans or pumps (such as the model `Buildings.Fluid.Movers.FlowMachine_y <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y>`_), the parameter ``dynamicBalance`` can be set to ``true``. This adds a control volume at the fluid junction that can decouple the system of equations.
 
-Reducing the number of nonlinear equations of flow resistances connected in  series
------------------------------------------------------------------------------------
+Reducing nonlinear equations of serially connected flow resistances
+-------------------------------------------------------------------
 
 In fluid flow systems, if multiple components are connected in series,
-then computing the pressure drop due to flow friction in each
-individual component can lead to coupled nonlinear systems of equations. For example, consider the system shown below.
+then computing the pressure drop due to flow friction in the
+individual components can lead to coupled nonlinear systems of equations. 
+While this is no problem for small models, the iterative solution can lead to higher computing time, particularly in large models where other equations may 
+be part of the residual function.
+
+For illustration, consider the simple system shown below.
 
 .. figure:: img/resistancesSeries.png
    
    Schematic diagram of two flow resistances in series that connect a source and a volume.
 
-Depending on the configuration of the individual component models, simulating this system model may require the iterative solution of a nonlinear equation. While this is no problem for such small a model, the iterative solution can lead to higher computing time in larger models.
-To avoid a nonlinear equation, either:
+Depending on the configuration of the individual component models, simulating this system model may require the iterative solution of a nonlinear equation. 
+To avoid a nonlinear equation, you could do any of the below measures.
 
  - Set the parameter ``res2(dp_nominal=0)``, and add the pressure drop to the parameter ``dp_nominal`` of the model ``res1``. This will eliminate the equation that computes the flow friction in ``res2``, thereby avoiding a nonlinear equation. The same applies if there are multiple components in series, such as a pre-heat coil, a heating coil and a cooling coil.
  - Set ``from_dp=false`` in all components, which is the default setting. This will cause Modelica to use a function that computes the pressure drop as a function of the mass flow rate. Therefore, a code translator is likely to generate an equation that solves for the mass flow rate, and it then uses the mass flow rate to compute the pressure drop of the components that are connected in series.
