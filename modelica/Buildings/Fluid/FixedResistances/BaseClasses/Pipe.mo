@@ -1,5 +1,5 @@
 within Buildings.Fluid.FixedResistances.BaseClasses;
-model PartialPipe
+model Pipe
   "Model of a pipe with finite volume discretization along the flow path"
   extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
@@ -122,4 +122,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end PartialPipe;
+end Pipe;

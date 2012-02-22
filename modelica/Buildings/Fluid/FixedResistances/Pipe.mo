@@ -1,7 +1,6 @@
 within Buildings.Fluid.FixedResistances;
 model Pipe "Pipe with finite volume discretization along flow path"
-
-  extends Buildings.Fluid.FixedResistances.BaseClasses.PartialPipe(
+  extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
    diameter=sqrt(4*m_flow_nominal/rho_nominal/v_nominal/Modelica.Constants.pi),
    dp_nominal=2*dpStraightPipe_nominal,
    res(dp(nominal=length*10)));
