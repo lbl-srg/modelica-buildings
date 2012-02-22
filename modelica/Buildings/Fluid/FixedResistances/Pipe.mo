@@ -27,7 +27,7 @@ model Pipe "Pipe with finite volume discretization along flow path"
     "Pressure loss of a straight pipe at m_flow_nominal"
     annotation (Evaluate=true);
 
-  parameter Boolean useMultipleHeatPort=false
+  parameter Boolean useMultipleHeatPorts=false
     "= true to use one heat port for each segment of the pipe, false to use a single heat port for the entire pipe";
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conPipWal[nSeg](
@@ -36,32 +36,32 @@ model Pipe "Pipe with finite volume discretization along flow path"
     "Thermal conductance through pipe wall"
     annotation (Placement(transformation(extent={{-28,-38},{-8,-18}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector colAllToOne(m=nSeg) if
-       not useMultipleHeatPort
+       not useMultipleHeatPorts
     "Connector to assign multiple heat ports to one heat port" annotation (
       Placement(transformation(
         extent={{-6,-6},{6,6}},
         rotation=180,
         origin={-50,10})));
 
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a singleHeatPort if not
-    useMultipleHeatPort
-    "Single heat port that connects to outside of pipe wall (default, enabled when useMultipleHeatPort=false)"
-    annotation (Placement(transformation(extent={{-60,16},{-40,36}}),
-        iconTransformation(extent={{-10,50},{10,70}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a multipleHeatPort[nSeg] if
-       useMultipleHeatPort
-    "Multiple heat ports that connect to outside of pipe wall (enabled if useMultipleHeatPort=true)"
-    annotation (Placement(transformation(extent={{-85,16},{-65,36}}),
-        iconTransformation(extent={{-9,50},{11,70}})));
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort if not
+    useMultipleHeatPorts
+    "Single heat port that connects to outside of pipe wall (default, enabled when useMultipleHeatPorts=false)"
+    annotation (Placement(transformation(extent={{-10,40},{10,20}}),
+        iconTransformation(extent={{-10,60},{10,40}})));
+  Modelica.Fluid.Interfaces.HeatPorts_a heatPorts[nSeg] if
+       useMultipleHeatPorts
+    "Multiple heat ports that connect to outside of pipe wall (enabled if useMultipleHeatPorts=true)"
+    annotation (Placement(transformation(extent={{-10,-70},{11,-50}}),
+        iconTransformation(extent={{-30,-60},{30,-40}})));
 equation
 
   connect(conPipWal.port_b, vol.heatPort) annotation (Line(
       points={{-8,-28},{-1,-28}},
       color={191,0,0},
       smooth=Smooth.None));
-  if useMultipleHeatPort then
-    connect(multipleHeatPort, conPipWal.port_a) annotation (Line(
-        points={{-75,26},{-75,-28},{-28,-28}},
+  if useMultipleHeatPorts then
+    connect(heatPorts, conPipWal.port_a) annotation (Line(
+        points={{0.5,-60},{-50,-60},{-50,-28},{-28,-28}},
         color={191,0,0},
         smooth=Smooth.None));
   else
@@ -69,8 +69,8 @@ equation
         points={{-50,4},{-50,-28},{-28,-28}},
         color={191,0,0},
         smooth=Smooth.None));
-    connect(colAllToOne.port_b, singleHeatPort) annotation (Line(
-        points={{-50,16},{-50,26}},
+    connect(colAllToOne.port_b, heatPort) annotation (Line(
+        points={{-50,16},{-50,30},{5.55112e-16,30}},
         color={191,0,0},
         smooth=Smooth.None));
 
@@ -84,9 +84,9 @@ equation
 Model of a pipe with flow resistance and heat exchange with environment.
 </p>
 <p>
-If <code>useMultipleHeatPort=false</code> (default option), the pipe uses a single heat port 
+If <code>useMultipleHeatPorts=false</code> (default option), the pipe uses a single heat port 
 for the heat exchange with the environment.
-If <code>useMultipleHeatPort=true</code>, then one heat port for each segment of the pipe is
+If <code>useMultipleHeatPorts=true</code>, then one heat port for each segment of the pipe is
 used for the heat exchange with the environment.
 </p>
 <p>
@@ -113,6 +113,11 @@ Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 22, 2012 by Michael Wetter:<br>
+Renamed <code>useMultipleHeatPort</code> to <code>useMultipleHeatPorts</code> and 
+used heat port connector from <code>Modelica.Fluid</code> package for vector of heat ports.
+</li>
 <li>
 February 15, 2012 by Michael Wetter:<br>
 Revised implementation and added default values.
