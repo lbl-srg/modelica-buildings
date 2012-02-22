@@ -1901,7 +1901,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_X_Y_buildZ\">
-Version 1.1 build 0 (release candidate 2)</a>(February 20, 2012)</li>
+Version 1.1 build 0 (release candidate 2)</a>(February 22, 2012)</li>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">
