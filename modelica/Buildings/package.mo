@@ -2297,7 +2297,7 @@ end UsersGuide;
 annotation (
 version="1.1",
 versionBuild=0,
-versionDate="2011-02-20",
+versionDate="2011-02-22",
 dateModified = "$Date: 2011-12-08 16:25:22 -0800 (Thu, 08 Dec 2011) $",
 uses(Modelica(version="3.2")),
 conversion(
