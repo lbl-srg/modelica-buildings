@@ -52,8 +52,66 @@ of the actuators.
 
 Breaking algebraic loops
 ------------------------
+
 In fluid flow systems, flow junctions where mass flow rates separate and mix can couple non-linear systems of equations. This leads to larger systems of coupled equations that need to be solved, which often causes larger computing time and can sometimes cause convergence problems.
-To decouple these systems of equations, the model of a flow splitter or mixer (model `Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM>`_), or in models for fans or pumps (such as the model `Buildings.Fluid.Movers.FlowMachine_y <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y>`_), the parameter ``dynamicBalance`` can be set to ``true``. This adds a control volume at the fluid junction that can decouple the system of equations.
+To decouple these systems of equations, in the model of a flow splitter or mixer (model `Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM>`_), or in models for fans or pumps (such as the model `Buildings.Fluid.Movers.FlowMachine_y <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers.html#Buildings.Fluid.Movers.FlowMachine_y>`_), the parameter ``dynamicBalance`` can be set to ``true``. This adds a control volume at the fluid junction that can decouple the system of equations.
+
+Reducing the number of flow resistance in series
+------------------------------------------------
+
+In fluid flow systems, if multiple components are connected in series,
+then computing the pressure drop due to flow friction in each
+individual component can lead to coupled nonlinear systems of equations. For example, consider the system shown below.
+
+.. figure:: img/resistancesSeries.png
+   
+   Schematic diagram of two flow resistances in series that connect a source and a volume.
+
+
+To avoid a nonlinear equation, either:
+
+ - Set the parameter ``res2(dp_nominal=0)``, and add the pressure drop to the parameter ``dp_nominal`` of the model ``res1``. This will eliminate the equation that computes the flow friction in ``res2``, thereby avoiding a nonlinear equation. The same applies if there are multiple components in series, such as a pre-heat coil, a heating coil and a cooling coil.
+ - Set ``from_dp=false`` in all components. This will likely cause a code translator to generate a nonlinear equation for the mass flow rate, and then use this mass flow rate to compute the pressure drop of the components that are connected in series.
+
+
+Control valves also allow lumping the pressure drop into the model of the valve. Consider the situation where a fixed flow resistance is in series with a control valve as shown below.
+
+.. figure:: img/resistanceValveSeries.png
+   
+   Schematic diagram of a fixed flow resistance and a valve in series  that connect a source and a volume.
+
+Suppose the parameters are::
+
+   Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+     redeclare package Medium = Medium,
+     m_flow_nominal=0.2,
+     dp_nominal=10000);
+
+   Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
+     redeclare package Medium = Medium,
+     m_flow_nominal=0.2,
+     dpValve_nominal=5000);
+
+To avoid a nonlinear equation, the flow resistance could be deleted as shown below.
+
+.. figure:: img/valveNoResistance.png
+   
+   Schematic diagram of a valve that connects a source and a volume.
+
+
+If the valve is configured as::
+
+   Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
+     redeclare package Medium = Medium,
+     m_flow_nominal=0.2,
+     dpValve_nominal=5000,
+     dpFixed_nominal=10000);
+
+then the valve will have the same valve authority and mass flow rate, but a nonlinear equation can be avoided.
+
+See the
+`User's Guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html>`_ of the actuator package.
+
 
 
 Prescribed mass flow rate
