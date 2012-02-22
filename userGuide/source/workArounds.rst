@@ -65,13 +65,14 @@ individual components can lead to coupled nonlinear systems of equations.
 While this is no problem for small models, the iterative solution can lead to higher computing time, particularly in large models where other equations may 
 be part of the residual function.
 
-For illustration, consider the simple system shown below.
+For illustration, consider the simple system shown below in which the flow resistances ``res1`` and ``res2`` compute the mass flow rate as
+:math:`\dot m = k \, \sqrt{\Delta p}` if the parameter ``from_dp`` is set to ``true``, or otherwise the pressure drop between their inlet and outlet as :math:`\Delta p = (\dot m / k)^2`. (Both formulations are implemented using :term:`regularization` near zero.)
 
 .. figure:: img/resistancesSeries.png
    
    Schematic diagram of two flow resistances in series that connect a source and a volume.
 
-Depending on the configuration of the individual component models, simulating this system model may require the iterative solution of a nonlinear equation. 
+Depending on the configuration of the individual component models, simulating this system model may require the iterative solution of a nonlinear equation to compute the mass flow rate or the pressure drop. 
 To avoid a nonlinear equation, you could do any of the below measures.
 
  - Set the parameter ``res2(dp_nominal=0)``, and add the pressure drop to the parameter ``dp_nominal`` of the model ``res1``. This will eliminate the equation that computes the flow friction in ``res2``, thereby avoiding a nonlinear equation. The same applies if there are multiple components in series, such as a pre-heat coil, a heating coil and a cooling coil.
@@ -115,9 +116,19 @@ If the valve is configured as
      dpValve_nominal=5000,
      dpFixed_nominal=10000);
 
-then the valve will have the same :term:`valve authority` and mass flow rate, but a nonlinear equation can be avoided.
+then the valve will compute the composite flow coefficient 
+:math:`\bar k` as
 
-See the
+.. math::
+
+    \bar k = \frac{1}{\sqrt{1/k_v(y) + 1/k_f}}
+
+where :math:`k_v(y) = \dot m(y)/\sqrt{\Delta p}` is the flow coefficient of the valve at the lift :math:`y`, and
+:math:`k_f` is equal to the ratio ``m_flow_nominal/sqrt(dpFixed_nominal)``.
+The valve model then computes the pressure drop using :math:`\bar k` and the same equations as the described above for the fixed resistances.
+Thus, the composite model has the same :term:`valve authority` and mass flow rate, but a nonlinear equation can be avoided.
+
+For more details, see the
 `User's Guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html>`_ of the actuator package.
 
 
