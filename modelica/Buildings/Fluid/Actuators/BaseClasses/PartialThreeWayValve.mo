@@ -175,7 +175,6 @@ is computed as<pre>
          Kv_SI(port_3 -> port_2)
 </pre> 
 where <code>fraK</code> is a parameter.
-fixme: is this used?
 </p><p>
 Since this model uses two way valves to construct a three way valve, see 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
