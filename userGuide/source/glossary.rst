@@ -8,7 +8,7 @@ Glossary
 
       .. math::
 
-       \dot x(t) = \begin{pmatrix} r & 0 \\ -r & r \end{pmatrix} \, x(t) + \begin{pmatrix} -1 \\ 0 \end{pmatrix} \, u(t)
+       \dot x(t) = \begin{pmatrix} r & 0 \\ -r & r \end{pmatrix} \, x(t) + \begin{pmatrix} -r \\ 0 \end{pmatrix} \, u(t)
 
       and 
       
