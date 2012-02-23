@@ -6,16 +6,19 @@ model SolarAzimuth "Test model for zenith angle"
     solHouAng "Solar hour angle"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(lat=lat)
+    "Zenith angle"
     annotation (Placement(transformation(extent={{60,40},{80,60}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth solAzi(lat=lat)
+    "Solar azimuth"
     annotation (Placement(transformation(extent={{100,10},{120,30}})));
   WeatherData.ReaderTMY3 weaDat(
     filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
+    "Weather data"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  WeatherData.Bus weaBus
+  WeatherData.Bus weaBus "Weather bus"
     annotation (Placement(transformation(extent={{-54,0},{-34,20}})));
 equation
   connect(zen.zen, solAzi.zen) annotation (Line(
@@ -69,5 +72,6 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{150,
             100}}), graphics),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/SolarAzimuth.mos" "Simulate and plot"));
+    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/SolarAzimuth.mos"
+        "Simulate and plot"));
 end SolarAzimuth;

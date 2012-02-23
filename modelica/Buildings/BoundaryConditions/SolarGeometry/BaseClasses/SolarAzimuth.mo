@@ -27,7 +27,7 @@ algorithm
     decAng))/(Modelica.Math.cos(lat)*Modelica.Math.sin(zen));
 
   arg :=min(1.0, max(-1.0, tmp));
-
+  // Fixme: The if-then below makes no sense.
   if solTim < 43200 then
     solAzi :=-Modelica.Math.acos(arg);
   else
@@ -66,7 +66,9 @@ First implementation.
         Text(
           extent={{-102,6},{-60,-4}},
           lineColor={0,0,127},
-          textString="decAng")}),
+          textString="decAng"),
+        Bitmap(extent={{-90,90},{90,-92}}, fileName=
+              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/SolarAzimuth.png")}),
     Icon(graphics),
     Diagram(graphics));
 end SolarAzimuth;

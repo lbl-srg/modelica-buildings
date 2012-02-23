@@ -39,5 +39,6 @@ First implementation.
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          lineColor={0,0,255}), Bitmap(extent={{-92,92},{92,-92}}, fileName=
+              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/Declination.png")}));
 end Declination;

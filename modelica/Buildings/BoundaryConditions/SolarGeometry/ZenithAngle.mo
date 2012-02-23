@@ -30,12 +30,12 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(zen.zen, y) annotation (Line(
-      points={{81,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
-          1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
+      points={{81,0},{88.25,0},{88.25,1.16573e-015},{95.5,1.16573e-015},{95.5,0},
+          {110,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.cloTim, decAng.nDay) annotation (Line(
-      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,40},{-22,40}},
+      points={{-102,0},{-60,0},{-60,40},{-22,40}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -43,7 +43,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
-      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,-40},{-22,-40}},
+      points={{-102,0},{-60,0},{-60,-40},{-22,-40}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -54,9 +54,9 @@ equation
     defaultComponentName="zen",
     Documentation(info="<html>
 <p>
-This component computes the zenith angle, which is the angle between the earth surface normal and the sun's beam.
-For a definition of the parameters, see the 
-<a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
+This component computes the zenith angle, which is the angle between the earth surface normal and the sun beam.
+For a definition of the parameters, see the User's Guide
+<a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">Buildings.BoundaryConditions.UsersGuide</a>.
 </p>
 </html>
 ", revisions="<html>
@@ -73,5 +73,6 @@ First implementation.
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          lineColor={0,0,255}), Bitmap(extent={{-90,90},{90,-92}}, fileName=
+              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/ZenithAngle.png")}));
 end ZenithAngle;

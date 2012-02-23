@@ -63,5 +63,7 @@ First implementation.
         Text(
           extent={{-98,-42},{-42,-54}},
           lineColor={0,0,127},
-          textString="solHouAng")}));
+          textString="solHouAng"),
+        Bitmap(extent={{-90,92},{90,-94}}, fileName=
+              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/IncidenceAngle.png")}));
 end IncidenceAngle;

@@ -29,8 +29,8 @@ public
     annotation (Placement(transformation(extent={{-110,-6},{-90,14}})));
 equation
   connect(incAng.incAng, y) annotation (Line(
-      points={{61,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
-          1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
+      points={{61,0},{88.25,0},{88.25,1.16573e-015},{95.5,1.16573e-015},{95.5,0},
+          {110,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(decAng.decAng, incAng.decAng) annotation (Line(
@@ -62,8 +62,8 @@ equation
     Documentation(info="<html>
 <p>
 This component computes the solar incidence angle on a tilted surface.
-For a definition of the parameters, see the 
-<a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">User's Guide</a>.
+For a definition of the parameters, see the User's Guide
+<a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">Buildings.BoundaryConditions.UsersGuide</a>.
 </p>
 </html>
 ", revisions="<html>
@@ -88,5 +88,6 @@ First implementation.
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},
           textString="%name",
-          lineColor={0,0,255})}));
+          lineColor={0,0,255}), Bitmap(extent={{-90,90},{90,-92}}, fileName=
+              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/IncidenceAngle.png")}));
 end IncidenceAngle;
