@@ -19,19 +19,19 @@ public
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
 protected
-Real arg;
-Real tmp;
+Real arg "cos(solAzi) after data validity check";
+Real tmp "cos(solAzi) before data validity check";
 
 algorithm
   tmp :=(Modelica.Math.sin(lat)*Modelica.Math.cos(zen) - Modelica.Math.sin(
     decAng))/(Modelica.Math.cos(lat)*Modelica.Math.sin(zen));
 
   arg :=min(1.0, max(-1.0, tmp));
-  // Fixme: The if-then below makes no sense.
+
   if solTim < 43200 then
-    solAzi :=-Modelica.Math.acos(arg);
+    solAzi :=-Modelica.Math.acos(arg); // Negative angle if it is in the morning
   else
-    solAzi := Modelica.Math.acos(arg);
+    solAzi := Modelica.Math.acos(arg); // Positive angle if it is in the afternoon
   end if "(A4.9a and b)";
   annotation (
     defaultComponentName="solAzi",
