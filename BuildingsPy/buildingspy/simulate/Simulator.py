@@ -493,6 +493,7 @@ class Simulator:
         # Check if executable is on the path
         if not self.__isExecutable(cmd[0]):
             print "Error: Did not find executable '", cmd[0], "'."
+            print "       Make sure it is on the PATH variable of your operating system."
             exit(3)
         # Run command
         try:
