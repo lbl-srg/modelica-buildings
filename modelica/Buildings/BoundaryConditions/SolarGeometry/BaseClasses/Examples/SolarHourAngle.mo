@@ -12,7 +12,8 @@ model SolarHourAngle "Test model for solar hour angle"
     annotation (Placement(transformation(extent={{-54,-10},{-34,10}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-60,0},{-44,0}},
+      points={{-60,5.82867e-16},{-56,5.82867e-16},{-56,1.13798e-15},{-52,
+          1.13798e-15},{-52,0},{-44,0}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -20,7 +21,8 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
-      points={{-44,0},{-2,0}},
+      points={{-44,5.55112e-16},{-33.5,5.55112e-16},{-33.5,1.22125e-15},{-23,
+          1.22125e-15},{-23,6.66134e-16},{-2,6.66134e-16}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(

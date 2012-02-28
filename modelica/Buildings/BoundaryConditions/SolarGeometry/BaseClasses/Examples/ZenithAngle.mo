@@ -2,8 +2,8 @@ within Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples;
 model ZenithAngle "Test model for zenith angle"
   extends Modelica.Icons.Example;
   import Buildings;
-  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(lat=0)
-    "Zenith angle"
+  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(lat=
+        0.73268921998722) "Zenith angle"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
     "Declination angle"
@@ -27,7 +27,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-60,0},{-34,0}},
+      points={{-60,5.82867e-16},{-53.5,5.82867e-16},{-53.5,1.13798e-15},{-47,
+          1.13798e-15},{-47,5.55112e-16},{-34,5.55112e-16}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -35,7 +36,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(weaBus.cloTim, decAng.nDay) annotation (Line(
-      points={{-34,0},{-18,0},{-18,30},{18,30}},
+      points={{-34,5.55112e-16},{-18,5.55112e-16},{-18,30},{18,30}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -43,7 +44,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
-      points={{-34,0},{-18,0},{-18,-30},{18,-30}},
+      points={{-34,5.55112e-16},{-18,5.55112e-16},{-18,-30},{18,-30}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
