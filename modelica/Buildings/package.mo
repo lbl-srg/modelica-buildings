@@ -120,12 +120,11 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_1_1_build0 "Version 1.1 build 0 (release candidate 2)"
+  class Version_1_1_build1 "Version 1.1 build 1"
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
-Version 1.1 build 0 is a release candidate.
-It contains improvements to models that address numerical problems.
+Version 1.1 build 1, contains improvements to models that address numerical problems.
 In particular, flow machines and actuators now have an optional filter
 that converts step changes in the input signal to a smooth change in 
 speed or actuator position.
@@ -446,7 +445,7 @@ gains and further details.
 </ul>
 </p>
 </html>"));
-  end Version_1_1_build0;
+  end Version_1_1_build1;
 
   class Version_1_0_build2 "Version 1.0 build 2"
     extends Modelica.Icons.ReleaseNotes;
@@ -1900,8 +1899,8 @@ on the Buildings library
 <p>
 <ul>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_X_Y_buildZ\">
-Version 1.1 build 0 (release candidate 2)</a>(February 22, 2012)</li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_1_build1\">
+Version 1.1 build 1</a>(February 29, 2012)</li>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">
@@ -2296,9 +2295,9 @@ end UsersGuide;
 
 annotation (
 version="1.1",
-versionBuild=0,
-versionDate="2011-02-22",
-dateModified = "$Date: 2011-12-08 16:25:22 -0800 (Thu, 08 Dec 2011) $",
+versionBuild=1,
+versionDate="2012-02-29",
+dateModified = "$Date$",
 uses(Modelica(version="3.2")),
 conversion(
  from(version="1.0",
