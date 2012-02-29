@@ -21,6 +21,7 @@ public
 protected
 Real arg "cos(solAzi) after data validity check";
 Real tmp "cos(solAzi) before data validity check";
+constant Modelica.SIunits.Time day=86400 "Number of seconds in a day";
 
 algorithm
   tmp :=(Modelica.Math.sin(lat)*Modelica.Math.cos(zen) - Modelica.Math.sin(
@@ -28,11 +29,12 @@ algorithm
 
   arg :=min(1.0, max(-1.0, tmp));
 
-  if solTim < 43200 then
+  if solTim - integer(solTim/day)*day < 43200 then
     solAzi :=-Modelica.Math.acos(arg); // Negative angle if it is in the morning
   else
     solAzi := Modelica.Math.acos(arg); // Positive angle if it is in the afternoon
   end if "(A4.9a and b)";
+
   annotation (
     defaultComponentName="solAzi",
     Documentation(info="<html>
@@ -42,6 +44,10 @@ This component computes the solar azimuth angle.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+Feburary 28, 2012, by Wangda Zuo:<br>
+Add solar time convertion since it is removed from solTim.
+</li>
 <li>
 May 18, 2010, by Wangda Zuo:<br>
 First implementation.
