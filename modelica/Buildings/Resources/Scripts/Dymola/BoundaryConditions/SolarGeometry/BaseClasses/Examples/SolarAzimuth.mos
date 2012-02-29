@@ -1,5 +1,5 @@
 removePlots();
-simulateModel("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarAzimuth", stopTime=86400, numberOfIntervals=500, method="dassl", resultFile="SolarAzimuth");
+simulateModel("Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Examples.SolarAzimuth", stopTime=864000, numberOfIntervals=500, method="dassl", resultFile="SolarAzimuth");
 
 
 createPlot(id = 1,
