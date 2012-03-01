@@ -124,7 +124,7 @@ its class name ends with the string <code>Beta</code>.
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
-Version 1.1 build 1, contains improvements to models that address numerical problems.
+Version 1.1 build 1 contains improvements to models that address numerical problems.
 In particular, flow machines and actuators now have an optional filter
 that converts step changes in the input signal to a smooth change in 
 speed or actuator position.
@@ -1900,7 +1900,7 @@ on the Buildings library
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_1_build1\">
-Version 1.1 build 1</a>(February 29, 2012)</li>
+Version 1.1 build1</a>(February 29, 2012)</li>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">
