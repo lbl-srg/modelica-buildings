@@ -147,7 +147,6 @@ a, img, img.drawing {
 code { 
     font-family: 'Consolas', 'Deja Vu Sans Mono',
                  'Bitstream Vera Sans Mono', monospace;
-    font-size: 0.9em;
     background-color: #F3F5F7;
 }
 
@@ -155,7 +154,8 @@ pre {
     border: 1pt solid #AEBDCC;
     background-color: #F3F5F7;
     padding: 5pt;
-    font-family: 'Monospace';
+    font-family: 'Consolas', 'Deja Vu Sans Mono',
+                 'Bitstream Vera Sans Mono', monospace;
     white-space: pre;
     /* begin css 3 or browser specific rules - do not remove!
     see: http://forums.techguy.org/archive/index.php/t-249849.html */
