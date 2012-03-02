@@ -1,7 +1,11 @@
-Shade
+AbsorbedRadiation
 CenterOfGlass
 GlassLayer
 GasConvection
-WindowRadiation
+Shade
+SideFins
 TransmittedRadiation
-AbsorbedRadiation
+Overhang
+WindowRadiation
+
+

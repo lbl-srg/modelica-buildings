@@ -10,40 +10,27 @@ public
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
    Buildings.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(final lat=lat)
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.Declination decAng
-    "Declination angle"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarHourAngle
-    solHouAng
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 public
   WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{-112,-10},{-92,10}})));
 equation
-  connect(decAng.decAng, zen.decAng) annotation (Line(
-      points={{1,40},{50,40},{50,5.4},{58,5.4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(solHouAng.solHouAng, zen.solHouAng) annotation (Line(
-      points={{1,-40},{50,-40},{50,-4.8},{58,-4.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(zen.zen, y) annotation (Line(
-      points={{81,0},{88.25,0},{88.25,1.16573e-015},{95.5,1.16573e-015},{95.5,0},
-          {110,0}},
+      points={{21,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
+          1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.cloTim, decAng.nDay) annotation (Line(
-      points={{-102,0},{-60,0},{-60,40},{-22,40}},
+  connect(weaBus.sol.dec, zen.decAng) annotation (Line(
+      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,5.4},{-2,5.4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus.solTim, solHouAng.solTim) annotation (Line(
-      points={{-102,0},{-60,0},{-60,-40},{-22,-40}},
+  connect(weaBus.sol.solHouAng, zen.solHouAng) annotation (Line(
+      points={{-102,5.55112e-16},{-60,5.55112e-16},{-60,-6},{-60,-6},{-60,-4.8},
+          {-2,-4.8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -61,6 +48,11 @@ For a definition of the parameters, see the User's Guide
 </html>
 ", revisions="<html>
 <ul>
+<li>
+February 25, 2012, by Michael Wetter:<br>
+Changed model to get declination angle and 
+solar hour angle from weather bus.
+</li>
 <li>
 May 17, 2010, by Wangda Zuo:<br>
 First implementation.

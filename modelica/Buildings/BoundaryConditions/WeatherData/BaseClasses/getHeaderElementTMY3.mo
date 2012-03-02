@@ -6,7 +6,7 @@ function getHeaderElementTMY3
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
  input String start "Start of the string that contains the elements";
- input String name = "longitude"
+ input String name
     "Name of data element, used in error reporting";
  input Integer position(min=1)
     "Position of the element on the line that contains 'start'";
@@ -70,6 +70,10 @@ When this line is found, the function returns the element at the position number
 A comma is used as the delimiter of the elements.
 </html>", revisions="<html>
 <ul>
+<li>
+February 25, 2012, by Michael Wetter:<br>
+Removed default value for parameter <code>name</code>.
+</li>
 <li>
 March 5, 2011, by Michael Wetter:<br>
 First implementation.

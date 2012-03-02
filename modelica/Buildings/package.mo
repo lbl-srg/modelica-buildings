@@ -144,12 +144,13 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer.Windows</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Overhang<br>
+                       Buildings.HeatTransfer.Windows.SideFins
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Blocks to compute fraction of window that is shaded by overhang or side fins.
     </td> 
     </tr>
 </table>
@@ -161,12 +162,13 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added new sub-bus that contains the solar position. 
+                       This allows reusing the solar position in various other models.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>

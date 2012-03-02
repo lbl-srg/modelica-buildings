@@ -20,7 +20,10 @@ algorithm
     defaultComponentName="solTim",
     Documentation(info="<html>
 <p>
-This component computes the local solar time. (Note: To avoid events, it does not convert solar time in a scale of 24 hours.) 
+This component computes the local solar time.
+</p>
+<p>
+<b>Note:</b> To avoid events, this block does not convert solar time to a scale of 24 hours.
 </p>
 </html>
 ", revisions="<html>

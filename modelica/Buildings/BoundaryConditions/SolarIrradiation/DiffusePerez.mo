@@ -24,8 +24,6 @@ protected
     azi=azi,
     til=til)
     annotation (Placement(transformation(extent={{-86,-96},{-76,-86}})));
-  SolarGeometry.ZenithAngle zen(lat=lat)
-    annotation (Placement(transformation(extent={{-86,-44},{-78,-36}})));
 equation
   connect(relAirMas.relAirMas, skyBri.relAirMas) annotation (Line(
       points={{-43.6,-44},{-34,-44},{-34,-50.4},{-30.8,-50.4}},
@@ -43,20 +41,20 @@ equation
       points={{-75.5,-91},{34,-91},{34,-14},{41.8,-14},{41.8,-14.7}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zen.y, skyCle.zen) annotation (Line(
+  connect(weaBus.sol.zen, skyCle.zen) annotation (Line(
       points={{-77.6,-40},{-70,-40},{-70,17.6},{-52.8,17.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zen.y, relAirMas.zen) annotation (Line(
+  connect(weaBus.sol.zen, relAirMas.zen) annotation (Line(
       points={{-77.6,-40},{-66,-40},{-66,-44},{-52.8,-44}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(zen.y, briCoe.zen) annotation (Line(
+  connect(weaBus.sol.zen, briCoe.zen) annotation (Line(
       points={{-77.6,-40},{-70,-40},{-70,-64},{-10,-64},{-10,-34},{1.2,-34},{
           1.2,-32.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDifTil.zen, zen.y) annotation (Line(
+  connect(HDifTil.zen, weaBus.sol.zen) annotation (Line(
       points={{41.8,-8.4},{26,-8.4},{26,-80},{-70,-80},{-70,-40},{-77.6,-40}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -121,14 +119,6 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(weaBus, zen.weaBus) annotation (Line(
-      points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-40},{-86.08,-40}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   annotation (
     defaultComponentName="HDifTil",
     Documentation(info="<html>
@@ -159,6 +149,10 @@ Solar Energy, 44(5):271-289.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+February 25, 2012, by Michael Wetter:<br>
+Changed component to get zenith angle from weather bus.
+</li>
 <li>
 May 24, 2010, by Wangda Zuo:<br>
 First implementation.
