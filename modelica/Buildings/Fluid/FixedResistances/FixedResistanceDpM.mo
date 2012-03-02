@@ -169,12 +169,15 @@ can be used and combined with models from the
 </p>
 <h4>Implementation</h4>
 <p>
-The pressure drop is computed by an instance of
-<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel\">
-Buildings.Fluid.BaseClasses.FlowModels.BasicFlowModel</a>,
-i.e., using a regularized implementation of the equation
+The pressure drop is computed by calling a function in the package
+<a href=\"modelica://Buildings.Fluid.BaseClasses.FlowModels\">
+Buildings.Fluid.BaseClasses.FlowModels</a>,
+This package contains regularized implementations of the equation
 <p align=\"center\" style=\"font-style:italic;\">
   m = sign(&Delta;p) k  &radic;<span style=\"text-decoration:overline;\">&nbsp;&Delta;p &nbsp;</span>
+</p>
+<p>
+and its inverse function.
 </p>
 <p>
 To decouple the energy equation from the mass equations,
