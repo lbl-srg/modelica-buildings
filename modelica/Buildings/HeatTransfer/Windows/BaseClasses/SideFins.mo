@@ -14,7 +14,7 @@ block SideFins
     "Angle between projection of sun's rays and normal to vertical surface"
   annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   Modelica.Blocks.Interfaces.RealOutput frc(min=0, max=1)
-    "Fraction of window area shaded by overhang"
+    "Fraction of window area shaded by side fin"
   annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
 // Side fin dimensions
