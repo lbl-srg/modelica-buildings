@@ -47,8 +47,8 @@ equation
             Documentation(info="<html>
 <p>
 This block calculates the fraction of the total window area that is shaded by side fins.
-The overhang is symmetrically placed above the window, and its length must be
-equal or greater than the window width.
+The side fins are symmetrically placed above the vertical window centerline, 
+and its length must be equal or greater than the window height.
 This models can also be used for doors with side fins.
 The figure below shows the parameters. The parameter <code>ht</code> is measured
 from the bottom of the window to the top of the side fins, 
