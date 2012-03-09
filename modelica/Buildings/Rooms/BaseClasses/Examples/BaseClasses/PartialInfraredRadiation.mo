@@ -9,7 +9,7 @@ model PartialInfraredRadiation
   nSurBou=1,
   datConExt(each A=1),
   datConBou(each A=1),
-  datConExtWin(each A=1, each AWin=0.5),
+  datConExtWin(each A=1, each hWin=1, each wWin=0.5),
   surBou(each A=1),
   datConPar(each A=1));
 

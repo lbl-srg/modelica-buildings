@@ -7,6 +7,7 @@ GlassLayer
 Overhang
 ThermalConductor
 Shade
+ShadeInterface_weatherBus
 ShadingSignal
 SideFins
 PartialConvection
@@ -22,3 +23,4 @@ nusseltHorizontalCavityEnhanced
 nusseltHorizontalCavityReduced
 smoothInterpolation
 Examples
+

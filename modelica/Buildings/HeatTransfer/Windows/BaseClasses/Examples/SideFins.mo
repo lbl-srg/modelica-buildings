@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
-model SideFins
-  "This example uses Window SideFins model to calculate fraction of window area shaded by the side fins"
+model SideFins "Test model for side fins"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=0.73129295658562)
@@ -15,17 +14,16 @@ model SideFins
     "Weather data"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.HeatTransfer.Windows.BaseClasses.SideFins fin(
-    winHt=1.0,
-    winWid=1.0,
-    ht=1.1,
+    hWin=1.0,
+    wWin=1.0,
+    h=1.1,
     gap=0.1,
     dep=0.5) "Calculates fraction of window area shaded by the side fins"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle
     altAng "Altitude angle: Angle between Sun ray and horizontal surface"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth
-    wallSolAzi
+  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth walSolAzi
     "Angle measured in horizontal plane between projection of sun's rays and normal to vertical surface"
      annotation (Placement(transformation(extent={{20,20},{40,40}})));
 equation
@@ -47,15 +45,15 @@ equation
       points={{1,50},{8,50},{8,6},{58,6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(wallSolAzi.verAzi, fin.verAzi)    annotation (Line(
+  connect(walSolAzi.verAzi, fin.verAzi)     annotation (Line(
       points={{41,30},{50,30},{50,14},{58,14}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(altAng.alt, wallSolAzi.alt) annotation (Line(
+  connect(altAng.alt, walSolAzi.alt)  annotation (Line(
       points={{1,50},{8,50},{8,34.8},{18,34.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(incAng.y, wallSolAzi.incAng) annotation (Line(
+  connect(incAng.y, walSolAzi.incAng)  annotation (Line(
       points={{-19,10},{0,10},{0,25.2},{18,25.2}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -63,20 +61,20 @@ equation
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-This example uses the basic side fins model with solar angles as input and calculates the fraction of total window area shadowed by the side fins.
-For detail discription of the solar angles used in the model refer to documentation of components in SolarGeometry package 
+This example uses the basic side fins model with solar angles as input and calculates the fraction of total window area that is exposed to the sun.
+For a detailed description of the solar angles used in the model refer to documentation of components in the package 
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry\">Buildings.BoundaryConditions.SolarGeometry</a>. 
-For detail description of side fins block refer to documentation of SideFins model
+For a detail description of side fins block, see
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.SideFins\">
 Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>.
-Required data for solar angle calculations is obtained from weather data.
+The required data for the solar angle calculations are obtained from the weather data.
 </p>
 <p>
 Solar angles used in this model are:
 <ul>
 <li>
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.ZenithAngle\">Buildings.BoundaryConditions.SolarGeometry.ZenithAngle</a>: 
-Angle between Sun ray and normal to horizontal surface  
+Angle between sun ray and normal to horizontal surface  
 </li>
 <li>
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle\">Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</a>: 

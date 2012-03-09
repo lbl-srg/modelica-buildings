@@ -10,7 +10,9 @@ model OnlyExteriorWallWithWindowExteriorShade "Test model for room model"
    roo(
     datConExtWin(layers={matLayExt, matLayExt}, each A=10,
                  glaSys={glaSys, glaSys},
-                 each AWin=4, each fFra=0.1,
+                 each wWin=2, 
+                 each hWin=2, 
+                 each fFra=0.1,
                  til={Buildings.HeatTransfer.Types.Tilt.Floor, Buildings.HeatTransfer.Types.Tilt.Ceiling},
                  each azi=Buildings.HeatTransfer.Types.Azimuth.W)),
     glaSys(haveExteriorShade=true));

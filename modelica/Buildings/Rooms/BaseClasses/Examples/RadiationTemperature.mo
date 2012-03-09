@@ -2,7 +2,13 @@ within Buildings.Rooms.BaseClasses.Examples;
 model RadiationTemperature "Test model for the radiation temperature"
   extends Modelica.Icons.Example;
   extends
-    Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation;
+    Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation(
+    bouConExt(T=289.15),
+    bouConExtWin(T=290.15),
+    bouConExtWinFra(T=285.15),
+    bouConPar_b(T=291.15),
+    bouConBou(T=295.15),
+    bouSurBou(T=296.15));
   import Buildings;
 
   Buildings.Rooms.BaseClasses.RadiationTemperature radTem(
@@ -32,14 +38,14 @@ protected
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor conSha[NConExtWin](
       each G=100) "Heat conductor"
     annotation (Placement(transformation(extent={{20,-190},{40,-170}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature bouGlaUns[NConExtWin](
-      each T=293.15) "Boundary condition"
+  Buildings.HeatTransfer.Sources.FixedTemperature bouGlaUns[NConExtWin](each T=
+        288.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={70,-120})));
-  Buildings.HeatTransfer.Sources.FixedTemperature bouGlaSha[NConExtWin](
-      each T=293.15) "Boundary condition"
+  Buildings.HeatTransfer.Sources.FixedTemperature bouGlaSha[NConExtWin](each T=
+        284.15) "Boundary condition"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=180,
@@ -110,5 +116,6 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
             {100,100}}),
-                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/RadiationTemperature.mos" "Simulate and plot"));
+                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/RadiationTemperature.mos"
+        "Simulate and plot"));
 end RadiationTemperature;

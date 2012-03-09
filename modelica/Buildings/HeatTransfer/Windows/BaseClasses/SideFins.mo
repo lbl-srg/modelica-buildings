@@ -1,8 +1,7 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 block SideFins
-  "The model calculates fraction of window area shaded by the side fins"
+  "For a window with side fins, outputs the fraction of the area that is sun exposed"
   extends Modelica.Blocks.Interfaces.BlockIcon;
-
   Modelica.Blocks.Interfaces.RealInput alt(quantity="Angle",
                                            unit="rad",
                                            displayUnit="deg")
@@ -13,12 +12,13 @@ block SideFins
                                               displayUnit="deg")
     "Angle between projection of sun's rays and normal to vertical surface"
   annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealOutput frc(min=0, max=1)
-    "Fraction of window area shaded by side fin"
+  Modelica.Blocks.Interfaces.RealOutput fraSun(final min=0,
+                                               final max=1,
+                                               final unit="1")
+    "Fraction of the area that is unshaded"
   annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-
 // Side fin dimensions
-  parameter Modelica.SIunits.Length ht
+  parameter Modelica.SIunits.Length h
     "Side fin height (measured vertically and parallel to wall plane)"
     annotation(Dialog(tab="General",group="Side fin"));
   parameter Modelica.SIunits.Length dep
@@ -27,24 +27,22 @@ block SideFins
   parameter Modelica.SIunits.Length gap
     "Distance between window upper edge and side fin"
     annotation(Dialog(tab="General",group="Side fin"));
-
 // Window dimensions
-  parameter Modelica.SIunits.Length winHt "Window height"
+  parameter Modelica.SIunits.Length hWin "Window height"
     annotation(Dialog(tab="General",group="Window"));
-  parameter Modelica.SIunits.Length winWid "Window width"
+  parameter Modelica.SIunits.Length wWin "Window width"
     annotation(Dialog(tab="General",group="Window"));
-
 // Other calculation variables
 protected
   final parameter Modelica.SIunits.Length tempHght[4]=
-                  {ht, ht - winHt, ht, ht - winHt}
+                  {h, h - hWin, h, h - hWin}
     "Height of rectangular sections used for superposition";
   final parameter Modelica.SIunits.Length tempWdth[4]=
-                  {gap + winWid,gap + winWid,gap, gap}
+                  {gap + wWin,gap + wWin,gap, gap}
     "Width of rectangular sections used for superpositions; c1,c2 etc";
-  final parameter Modelica.SIunits.Length deltaL=winWid/100
+  final parameter Modelica.SIunits.Length deltaL=wWin/100
     "Fraction of window dimension over which min-max functions are smoothened";
-  final parameter Modelica.SIunits.Area winArea=winHt*winWid "Window area";
+  final parameter Modelica.SIunits.Area AWin=hWin*wWin "Window area";
   Modelica.SIunits.Length x1[4]
     "Horizontal distance between side fin and point where shadow line and window lower edge intersects";
   Modelica.SIunits.Length x2
@@ -74,87 +72,113 @@ protected
   Real lambda_t;
   Real verAzi_c;
   Real alt_t;
-
 initial algorithm
-  assert(ht >= winHt, "Sidefins must be at least as high as the window.
-  Received ht    = " + String(ht) + "
-           winHt = " + String(winHt));
+  assert(h == 0 or h >= hWin, "Sidefins must be at least as high as the window.
+  Received h    = " + String(h) + "
+           hWin = " + String(hWin));
 equation
-//avoiding division by zero
-  lambda_t = Buildings.Utilities.Math.Functions.smoothMax(
-    x1=tanLambda,
-    x2=delta,
-    deltaX=delta/10);
-  verAzi_t = Buildings.Utilities.Math.Functions.smoothMax(
-    x1=Modelica.Math.tan(verAzi),
-    x2=delta,
-    deltaX=delta/10);
-  verAzi_c = Buildings.Utilities.Math.Functions.smoothMax(
-    x1=Modelica.Math.cos(verAzi),
-    x2=delta,
-    deltaX=delta/10);
-  alt_t = Buildings.Utilities.Math.Functions.smoothMax(
-    x1=Modelica.Math.tan(alt),
-    x2=delta,
-    deltaX=delta/10);
-  tanLambda = alt_t / verAzi_t;
-  y2 = dep*alt_t/verAzi_c;
-  x2 = dep*verAzi_t;
-  for i in 1:4 loop
-    x1[i] = tempHght[i]/lambda_t;
-    x3[i] = tempWdth[i];
-    y1[i] = tempHght[i];
-    y3[i] = tempWdth[i]*lambda_t;
-    minX2X3[i] = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=x2,
-      x2=x3[i],
-      deltaX=deltaL);
-    minX[i] = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=x1[i],
-      x2=minX2X3[i],
-      deltaX=deltaL);
-    minY2Y3[i] = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=y2,
-      x2=y3[i],
-      deltaX=deltaL);
-    minY[i] = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=y1[i],
-      x2=minY2Y3[i],
-      deltaX=deltaL);
-    area[i] = tempHght[i]*minX[i] - minX[i]*minY[i]/2;
-  end for;
-//by superposition
-  shdArea = area[1] + area[4] - area[2] - area[3];
-  // The corrections below ensure that the shaded area is 1 if the
-  // sun is below the horizon or behind the wall.
-  // This correction is not required (because the direct solar irradiation
-  // will be zero in this case), but it leads to more realistic time series
-  // of this model.
-//correction case: Sun not in front of the wall
-  crShdArea1 = Buildings.Utilities.Math.Functions.spliceFunction(
-     pos=shdArea,
-     neg=1,
-     x=(Modelica.Constants.pi/2)-verAzi,
-     deltax=0.01);
-//correction case: Sun below horizon
-  crShdArea2 = Buildings.Utilities.Math.Functions.spliceFunction(
-     pos=shdArea,
-     neg=1,
-     x=alt,
-     deltax=0.01);
-  crShdArea=Buildings.Utilities.Math.Functions.smoothMax(
-     x1=crShdArea1,
-     x2=crShdArea2,
-     deltaX=0.0001*winArea);
-
-  frc = crShdArea/winArea;
-
+  // This if-then construct below increases computing efficiency in 
+  // Buildings.Rooms.BaseClasses.Shade in case the window has no overhang.
+  if h > Modelica.Constants.eps then
+  //avoiding division by zero
+    lambda_t = Buildings.Utilities.Math.Functions.smoothMax(
+      x1=tanLambda,
+      x2=delta,
+      deltaX=delta/10);
+    verAzi_t = Buildings.Utilities.Math.Functions.smoothMax(
+      x1=Modelica.Math.tan(verAzi),
+      x2=delta,
+      deltaX=delta/10);
+    verAzi_c = Buildings.Utilities.Math.Functions.smoothMax(
+      x1=Modelica.Math.cos(verAzi),
+      x2=delta,
+      deltaX=delta/10);
+    alt_t = Buildings.Utilities.Math.Functions.smoothMax(
+      x1=Modelica.Math.tan(alt),
+      x2=delta,
+      deltaX=delta/10);
+    tanLambda = alt_t / verAzi_t;
+    y2 = dep*alt_t/verAzi_c;
+    x2 = dep*verAzi_t;
+    for i in 1:4 loop
+      x1[i] = tempHght[i]/lambda_t;
+      x3[i] = tempWdth[i];
+      y1[i] = tempHght[i];
+      y3[i] = tempWdth[i]*lambda_t;
+      minX2X3[i] = Buildings.Utilities.Math.Functions.smoothMin(
+        x1=x2,
+        x2=x3[i],
+        deltaX=deltaL);
+      minX[i] = Buildings.Utilities.Math.Functions.smoothMin(
+        x1=x1[i],
+        x2=minX2X3[i],
+        deltaX=deltaL);
+      minY2Y3[i] = Buildings.Utilities.Math.Functions.smoothMin(
+        x1=y2,
+        x2=y3[i],
+        deltaX=deltaL);
+      minY[i] = Buildings.Utilities.Math.Functions.smoothMin(
+        x1=y1[i],
+        x2=minY2Y3[i],
+        deltaX=deltaL);
+      area[i] = tempHght[i]*minX[i] - minX[i]*minY[i]/2;
+    end for;
+  //by superposition
+    shdArea = area[1] + area[4] - area[2] - area[3];
+    // The corrections below ensure that the shaded area is 1 if the
+    // sun is below the horizon or behind the wall.
+    // This correction is not required (because the direct solar irradiation
+    // will be zero in this case), but it leads to more realistic time series
+    // of this model.
+  //correction case: Sun not in front of the wall
+    crShdArea1 = Buildings.Utilities.Math.Functions.spliceFunction(
+       pos=shdArea,
+       neg=1,
+       x=(Modelica.Constants.pi/2)-verAzi,
+       deltax=0.01);
+  //correction case: Sun below horizon
+    crShdArea2 = Buildings.Utilities.Math.Functions.spliceFunction(
+       pos=shdArea,
+       neg=1,
+       x=alt,
+       deltax=0.01);
+    crShdArea=Buildings.Utilities.Math.Functions.smoothMax(
+       x1=crShdArea1,
+       x2=crShdArea2,
+       deltaX=0.0001*AWin);
+    fraSun = 1-crShdArea/AWin;
+  else
+    lambda_t = 0;
+    verAzi_t = 0;
+    verAzi_c = 0;
+    alt_t =    0;
+    tanLambda = 0;
+    y2 = 0;
+    x2 = 0;
+    for i in 1:4 loop
+      x1[i] = 0;
+      x3[i] = 0;
+      y1[i] = 0;
+      y3[i] = 0;
+      minX2X3[i] = 0;
+      minX[i]    = 0;
+      minY2Y3[i] = 0;
+      minY[i]    = 0;
+      area[i]    = 0;
+    end for;
+    shdArea = 0;
+    crShdArea1 = 0;
+    crShdArea2 = 0;
+    crShdArea  = 0;
+    fraSun     = 0;
+  end if;
   annotation ( Diagram(graphics), Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
             fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFins.png")}),
 defaultComponentName="fin",
 Documentation(info="<html>
 <p>
-This block outputs the fraction of the total window area that is shaded by the side fins.
+For a window with side fins, this block outputs the fraction of 
+the area that is exposed to the sun.
 This models can also be used for doors with side fins. 
 </p>
 <p>

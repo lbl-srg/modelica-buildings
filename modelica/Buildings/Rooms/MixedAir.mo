@@ -138,15 +138,11 @@ model MixedAir "Model of a room in which the air is completely mixed"
   // room model has an exterior-facing surface that is a floor
   BaseClasses.ExteriorBoundaryConditions bouConExt(
     final nCon=nConExt,
-    final AOpa=datConExt.A,
     final lat=lat,
-    final til=datConExt.til,
-    final azi=datConExt.azi,
     linearizeRadiation=linearizeRadiation,
     final conMod=extConMod,
-    final hFixed=hExtFixed,
-    final absIR=datConExt.layers.absIR_a,
-    final absSol=datConExt.layers.absSol_a) if haveConExt
+    final conPar=datConExt,
+    final hFixed=hExtFixed) if haveConExt
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{116,116},{146,146}})));
   // Reassign the tilt since a construction that is declared as a ceiling of the
@@ -154,32 +150,13 @@ model MixedAir "Model of a room in which the air is completely mixed"
   BaseClasses.ExteriorBoundaryConditionsWithWindow bouConExtWin(
     final nCon=nConExtWin,
     final lat=lat,
-    final til=datConExtWin.til,
-    final azi=datConExtWin.azi,
-    final AOpa=datConExtWin.AOpa,
-    final AWin=datConExtWin.AWin,
-    final fFra=datConExtWin.fFra,
+    final conPar=datConExtWin,
     linearizeRadiation=linearizeRadiation,
     final conMod=extConMod,
-    final hFixed=hExtFixed,
-    final absIR=datConExtWin.layers.absIR_a,
-    final absIRSha_air={datConExtWin[i].glaSys.shade.absIR_a for i in 1:
-        nConExtWin},
-    final absIRSha_glass={datConExtWin[i].glaSys.shade.absIR_b for i in 1:
-        nConExtWin},
-    final tauIRSha_air={datConExtWin[i].glaSys.shade.tauIR_a for i in 1:
-        nConExtWin},
-    final tauIRSha_glass={datConExtWin[i].glaSys.shade.tauIR_b for i in 1:
-        nConExtWin},
-    final absIRFra={datConExtWin[i].glaSys.absIRFra for i in 1:nConExtWin},
-    final haveExteriorShade={datConExtWin[i].glaSys.haveExteriorShade for i in
-        1:nConExtWin},
-    final haveInteriorShade={datConExtWin[i].glaSys.haveInteriorShade for i in
-        1:nConExtWin},
-    final absSol=datConExtWin.layers.absSol_a,
-    final absSolFra=datConExtWin.glaSys.absSolFra) if haveConExtWin
+    final hFixed=hExtFixed) if haveConExtWin
     "Exterior boundary conditions for constructions with a window"
     annotation (Placement(transformation(extent={{116,46},{146,76}})));
+
   HeatTransfer.Windows.BaseClasses.WindowRadiation conExtWinRad[NConExtWin](
     final AWin=(1 .- datConExtWin.fFra) .* datConExtWin.AWin,
     final N=datConExtWin.glaSys.nLay,
@@ -491,6 +468,12 @@ and
 <a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransfer\">
 Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
 for the exterior and interior heat transfer.
+If a window has side fins or an overhang, then the model
+<a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
+Buildings.HeatTransfer.Windows.SideFins</a> or
+<a href=\"modelica://Buildings.HeatTransfer.Windows.Overhang\">
+Buildings.HeatTransfer.Windows.Overhang</a> is used to compute
+the reduction in direct solar irradiation due to the external shading device.
 </li>
 <li>
 Convective heat transfer between the room air and room-facing surfaces using
@@ -602,7 +585,8 @@ The forth column describes the main applicability of the model.
 <th>Description of the model</th></tr>
 <tr>
 <td>
-datConExt
+<a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstruction\">
+datConExt</a>
 </td>
 <td>
 modConExt
@@ -616,7 +600,8 @@ Exterior constructions that have no window.
 </tr>
 <tr>
 <td>
-datConExtWin
+<a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow\">
+datConExtWin</a>
 </td>
 <td>
 modConExtWin
@@ -625,18 +610,20 @@ modConExtWin
 <a href=\"modelica://Buildings.Rooms.Constructions.ConstructionWithWindow\">Buildings.Rooms.Constructions.ConstructionWithWindow</a>
 </td>
 <td>
-Exterior constructions that have a window. Each construction of this type needs to have one window.
-Within the same room, all windows can either have a shade or have no shade. 
-Individual windows within the same room can have either an interior shade or an exterior shade, but not both.
+Exterior constructions that have a window. Each construction of this type must have one window.
+<br/>
+Within the same room, all windows can either have an interior shade, an exterior shade or no shade.
 Each window has its own control signal for the shade. This signal is exposed by the port <code>uSha</code>, which
 has the same dimension as the number of windows. The values for <code>uSha</code> must be between 
 <code>0</code> and <code>1</code>. Set <code>uSha=0</code> to open the shade, and <code>uSha=1</code>
-to close the shade.
+to close the shade.<br/>
+Windows can also have either an overhang, side fins, or no external shading device.
 </td>
 </tr>
 <tr>
 <td>
-datConPar
+<a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstruction\">
+datConPar</a>
 </td>
 <td>
 modConPar
@@ -653,7 +640,8 @@ of the same construction.
 </tr>
 <tr>
 <td>
-datConBou
+<a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstruction\">
+datConBou</a>
 </td>
 <td>
 modConBou
@@ -672,10 +660,11 @@ to model a floor inside this room and connect to other side of this floor model 
 </tr>
 <tr>
 <td>
-N/A
+<a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic\">
+surBou</a>
 </td>
 <td>
-surBou
+N/A
 </td>
 <td>
 <a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic\">Buildings.HeatTransfer.Data.OpaqueSurfaces.Generic</a>
@@ -708,7 +697,8 @@ With these constructions, we may define a room as follows: </p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConExtWin=nConExtWin,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConExtWin(layers={matLayExt}, A={4*3},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              glaSys={glaSys},</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              AWin={2*2},</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              hWin={2},</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              wWin={2},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              fFra={0.1},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              til={Buildings.HeatTransfer.Types.Tilt.Wall},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              azi={Buildings.HeatTransfer.Types.Azimuth.S}),</span></p>
@@ -778,20 +768,65 @@ Next, the declaration
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConExtWin=nConExtWin,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConExtWin(layers={matLayExt}, A={4*3},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              glaSys={glaSys},</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              AWin={2*2},</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              hWin={2},</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              wWin={2},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0p" + "x; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              fFra={0.1},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              til={Buildings.HeatTransfer.Types.Tilt.Wall},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              azi={Buildings.HeatTransfer.Types.Azimuth.S}),</span></p>
-
 </pre>
 declares the construction that contains a window. This construction is built
 using the materials defined in the record <code>matLayExt</code>. Its total area,
 including the window, is <i>4*3 m<sup>2</sup></i>.
 The glazing system is built using the construction defined in the record
-<code>glaSys</code>. The glass area is <i>2*2 m<sup>2</sup></i> and the ratio of frame
-to total glazing system area is <i>10%</i>. The construction is a wall that is 
-south exposed.
+<code>glaSys</code>. The window area is <i>h<sub>win</sub>=2 m</i> high
+and
+<i>w<sub>win</sub>=2 m</i> wide.
+The ratio of frame
+to total glazing system area is <i>10%</i>.
 </p>
+<p>
+Optionally, each window can have an overhang or side fins, but not both.
+If the above window were to have an overhang of
+<i>2.5 m</i> width, 
+<i>1 m</i> depth and a gap between window and overhang of 
+<i>0.1 m</i>, then
+its declaration would be
+<pre>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(w={2.5}, gap={0.1}, dep={1}),</span></p>
+</pre>
+This line can be placed below the declaration of <code>wWin</code>.
+This would instanciate the model
+<a href=\"modelica://Buildings.HeatTransfer.Windows.Overhang\">
+Buildings.HeatTransfer.Windows.Overhang</a> to model the overhang. See this class for a picture of the above dimensions.
+</p>
+<p>
+If the window were to have side fins that are 
+<i>2.5 m</i> high, measured from the bottom of the windows,
+<i>1 m</i> depth and are placed 
+<i>0.1 m</i> to the left and right of the window,
+then its declaration would be
+<pre>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              sidFin(h={2.5}, gap={0.1}, dep={1}),</span></p>
+</pre>
+This would instanciate the model
+<a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
+Buildings.HeatTransfer.Windows.SideFins</a> to model the side fins. See this class for a picture of the above dimensions.
+</p>
+<p>
+The lines
+<pre>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              til={Buildings.HeatTransfer.Types.Tilt.Wall},</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              azi={Buildings.HeatTransfer.Types.Azimuth.S}),</span></p>
+</pre>
+declare that the construction is a wall that is south exposed.
+</p>
+<p>
+Note that if the room were to have two windows, and one window has side fins and the other window has an overhang, the 
+following declaration could be used:
+<pre>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              sidFin(h = {2.5, 0}, gap={0.1, 0.0}, dep={1, 0}),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(   w={0.0, 4}, gap={0.0, 0.1}, dep={0, 1}),</span></p>
+</pre>
 <p>
 What follows is the declaration of the partition constructions, as declared by
 <pre>
@@ -834,7 +869,7 @@ to couple this room model to another room model that may model the construction.
 <p>
 The declaration
 <pre>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    linearizeRadiation = true ,</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    linearizeRadiation = true,</span></p>
 
 </pre>
 causes the equations for radiative heat transfer to be linearized. This can
@@ -866,6 +901,12 @@ Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 20
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 7 2012, by Michael Wetter:<br>
+Added optional parameters <code>ove</code> and <code>sidFin</code> to
+the parameter <code>datConExtWin</code>.
+This allows modeling windows with an overhang or with side fins.
+</li>
 <li>
 February 8 2012, by Michael Wetter:<br>
 Changed model to use new implementation of
@@ -899,7 +940,6 @@ model
 Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/36\">ticket 36</a>.
 </li>
-
 <li>
 August 9, 2011 by Michael Wetter:<br>
 Changed assignment of tilt in instances <code>bouConExt</code> and <code>bouConExtWin</code>.

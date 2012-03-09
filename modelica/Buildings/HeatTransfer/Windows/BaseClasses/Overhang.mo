@@ -1,35 +1,37 @@
 within Buildings.HeatTransfer.Windows.BaseClasses;
 block Overhang
-  "Block to calculate the fraction of window area shaded by an overhang"
+  "For a window with an overhang, outputs the fraction of the area that is sun exposed"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
   Modelica.Blocks.Interfaces.RealInput alt(quantity="Angle", unit="rad", displayUnit="deg")
     "Solar altitude angle (angle between sun ray and horizontal surface)"
-  annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));    //beta
+  annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
   Modelica.Blocks.Interfaces.RealInput verAzi(quantity="Angle", unit="rad", displayUnit="deg")
     "Wall solar azimuth angle (angle between projection of sun's rays and normal to vertical surface)"
-  annotation (Placement(transformation(extent={{-140,20},{-100,60}})));       //gamma
-  Modelica.Blocks.Interfaces.RealOutput frc(min=0, max=1)
-    "Fraction of window area shaded by overhang"
+  annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
+  Modelica.Blocks.Interfaces.RealOutput fraSun(final min=0,
+                                               final max=1,
+                                               final unit="1")
+    "Fraction of the area that is unshaded"
   annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 // Overhang dimensions
-  parameter Modelica.SIunits.Length wid
+  parameter Modelica.SIunits.Length w
     "Overhang width (measured horizontally and parallel to wall plane)"
-    annotation(Dialog(tab="General",group="Overhang"));            //d (remove after documentation)
+    annotation(Dialog(tab="General",group="Overhang"));
   parameter Modelica.SIunits.Length dep
     "Overhang depth (measured perpendicular to the wall plane)"
-    annotation(Dialog(tab="General",group="Overhang"));            //b
+    annotation(Dialog(tab="General",group="Overhang"));
   parameter Modelica.SIunits.Length gap
     "Distance between window upper edge and overhang lower edge"
-    annotation(Dialog(tab="General",group="Overhang"));           //e
+    annotation(Dialog(tab="General",group="Overhang"));
 // Window dimensions
-  parameter Modelica.SIunits.Length winHt "Window height"
-    annotation(Dialog(tab="General",group="Window"));              //a
-  parameter Modelica.SIunits.Length winWid "Window width"
-    annotation(Dialog(tab="General",group="Window"));                        //c
+  parameter Modelica.SIunits.Length hWin "Window height"
+    annotation(Dialog(tab="General",group="Window"));
+  parameter Modelica.SIunits.Length wWin "Window width"
+    annotation(Dialog(tab="General",group="Window"));
 // Other calculation variables
 protected
-  final parameter Modelica.SIunits.Area winArea= winHt*winWid "Window area";
+  final parameter Modelica.SIunits.Area AWin= hWin*wWin "Window area";
   parameter Modelica.SIunits.Length tempHght[4](fixed=false)
     "Height rectangular sections used for superposition";
   parameter Modelica.SIunits.Length tempWdth[4](fixed=false)
@@ -53,74 +55,95 @@ protected
     "Corrected for the sun behind the surface/wall";
   Modelica.SIunits.Area crShdArea2 "Corrected for the sun below horizon";
 initial algorithm
-  assert(wid >= winWid, "Overhang must be at least as wide as the window.
-  Received wid    = " + String(wid) + "
-           winWid = " + String(winWid));
-  del_L := winWid/100;
+  assert(w == 0 or w >= wWin, "Overhang must be at least as wide as the window.
+  Received w    = " + String(w) + "
+           wWin = " + String(wWin));
+  del_L := wWin/100;
 //Temporary height and widths are for the areas below the overhang
 //These areas are used in superposition
   for i in 1:4 loop
-    tempHght[i] := gap + mod((i - 1), 2)*winHt;
+    tempHght[i] := gap + mod((i - 1), 2)*hWin;
   end for;
-  tempWdth[1] := (wid + winWid)/2;
-  tempWdth[2] := (wid - winWid)/2;
-  tempWdth[3] := (wid - winWid)/2;
-  tempWdth[4] := (wid + winWid)/2;
+  tempWdth[1] := (w + wWin)/2;
+  tempWdth[2] := (w - wWin)/2;
+  tempWdth[3] := (w - wWin)/2;
+  tempWdth[4] := (w + wWin)/2;
 equation
-  y1*Modelica.Math.cos(verAzi) = dep*Modelica.Math.tan(alt);
-  x1 = dep*Modelica.Math.tan(verAzi);
-  shdwTrnglRtio*x1 = y1;
-  for i in 1:4 loop
-    y2[i] = tempHght[i];
-    x2[i]*y1 = x1*tempHght[i];
-    area[i] = Buildings.Utilities.Math.Functions.smoothMin(
-      x1=y1,
-      x2=y2[i],
-      deltaX=del_L)*tempWdth[i] - (Buildings.Utilities.Math.Functions.smoothMin(
-      y1,
-      tempHght[i],
-      del_L)*Buildings.Utilities.Math.Functions.smoothMin(
-      x1=x2[i],
-      x2=y1,
-      deltaX=del_L)/2) + Buildings.Utilities.Math.Functions.smoothMax(
-      x1=shdwTrnglRtio*(Buildings.Utilities.Math.Functions.smoothMin(
-        x1=x1,
-        x2=x2[i],
-        deltaX=del_L) - tempWdth[i]),
-      x2=0,
-      deltaX=del_L)*Buildings.Utilities.Math.Functions.smoothMax(
-      x1=(Buildings.Utilities.Math.Functions.smoothMin(
-        x1=x1,
-        x2=x2[i],
-        deltaX=del_L) - tempWdth[i]),
-      x2=0,
-      deltaX=del_L)/2;
-  end for;
-  shdArea = area[4] + area[3] - area[2] - area[1];
-//correction case: Sun not in front of the wall
-  crShdArea1 = Buildings.Utilities.Math.Functions.spliceFunction(
-    pos=shdArea,
-    neg=1,
-    x=(Modelica.Constants.pi/2)-verAzi,
-    deltax=0.01);
-//correction case: Sun not above horizon
-  crShdArea2 = Buildings.Utilities.Math.Functions.spliceFunction(
-    pos=shdArea,
-    neg=1,
-    x=alt,
-    deltax=0.01);
-  crShdArea=Buildings.Utilities.Math.Functions.smoothMax(x1=crShdArea1,
-                                                         x2=crShdArea2,
-                                                         deltaX=0.01);
-  frc = crShdArea/winArea;
-
+  // if dep=0, then the equation
+  //   y1*Modelica.Math.cos(verAzi) = dep*Modelica.Math.tan(alt);
+  // is singular. Hence, we treat this special case with an
+  // if-then construct.
+  // This also increases computing efficiency in
+  // Buildings.Rooms.BaseClasses.Shade in case the window has no overhang.
+  if dep > Modelica.Constants.eps then
+    y1*Modelica.Math.cos(verAzi) = dep*Modelica.Math.tan(alt);
+    x1 = dep*Modelica.Math.tan(verAzi);
+    shdwTrnglRtio*x1 = y1;
+    for i in 1:4 loop
+      y2[i] = tempHght[i];
+      x2[i]*y1 = x1*tempHght[i];
+      area[i] = Buildings.Utilities.Math.Functions.smoothMin(
+        x1=y1,
+        x2=y2[i],
+          deltaX=del_L)*tempWdth[i] - (Buildings.Utilities.Math.Functions.smoothMin(
+        y1,
+        tempHght[i],
+        del_L)*Buildings.Utilities.Math.Functions.smoothMin(
+        x1=x2[i],
+        x2=y1,
+        deltaX=del_L)/2) + Buildings.Utilities.Math.Functions.smoothMax(
+        x1=shdwTrnglRtio*(Buildings.Utilities.Math.Functions.smoothMin(
+          x1=x1,
+          x2=x2[i],
+          deltaX=del_L) - tempWdth[i]),
+        x2=0,
+        deltaX=del_L)*Buildings.Utilities.Math.Functions.smoothMax(
+        x1=(Buildings.Utilities.Math.Functions.smoothMin(
+          x1=x1,
+          x2=x2[i],
+          deltaX=del_L) - tempWdth[i]),
+        x2=0,
+        deltaX=del_L)/2;
+    end for;
+    shdArea = area[4] + area[3] - area[2] - area[1];
+  // correction case: Sun not in front of the wall
+    crShdArea1 = Buildings.Utilities.Math.Functions.spliceFunction(
+      pos=shdArea,
+      neg=1,
+      x=(Modelica.Constants.pi/2)-verAzi,
+      deltax=0.01);
+  // correction case: Sun not above horizon
+    crShdArea2 = Buildings.Utilities.Math.Functions.spliceFunction(
+      pos=shdArea,
+      neg=1,
+      x=alt,
+      deltax=0.01);
+    crShdArea=Buildings.Utilities.Math.Functions.smoothMax(x1=crShdArea1,
+                                                           x2=crShdArea2,
+                                                           deltaX=0.01);
+    fraSun = 1-crShdArea/AWin;
+   else
+    y1 = 0;
+    x1 = 0;
+    shdwTrnglRtio = 0;
+    for i in 1:4 loop
+      y2[i] = 0;
+      x2[i] = 0;
+      area[i] = 0;
+    end for;
+    shdArea = 0;
+    crShdArea1 = 0;
+    crShdArea2 = 0;
+    crShdArea  = 0;
+    fraSun     = 0;
+   end if;
   annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
 fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/Overhang.png")}),
 defaultComponentName="overhang",
 Documentation(info="<html>
 <p>
-This component calculates the fraction of total window area 
-shaded by an overhang.
+For a window with an overhang, this block outputs the fraction of 
+the area that is exposed to the sun.
 This models can also be used for doors with an overhang. 
 </p>
 <p>

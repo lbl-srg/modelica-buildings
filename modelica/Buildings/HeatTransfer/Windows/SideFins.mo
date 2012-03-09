@@ -1,12 +1,11 @@
 within Buildings.HeatTransfer.Windows;
 model SideFins
-  "Block to calculate the fraction of window area shaded by side fins"
+  "For a window with side fins, outputs the fraction of the area that is sun exposed"
   import Buildings;
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus;
 // Side fin dimensions
- // fixme: add figure to the info section that explains parameters
-  parameter Modelica.SIunits.Length ht
-    "fixme: not clear if side fin extends below window. Side fin height (measured vertically and parallel to wall plane)"
+  parameter Modelica.SIunits.Length h
+    "Side fin height (measured vertically and parallel to wall plane)"
     annotation(Dialog(tab="General",group="Side fin"));
   parameter Modelica.SIunits.Length dep
     "Side fin depth (measured perpendicular to the wall plane)"
@@ -17,30 +16,33 @@ model SideFins
 
   Buildings.HeatTransfer.Windows.BaseClasses.SideFins fin(
     final dep=dep,
-    final ht=ht,
+    final h=h,
     final gap=gap,
-    final winHt=winHt,
-    final winWid=winWid) "Window side fins"
-    annotation (Placement(transformation(extent={{60,-10},
-            {80,10}})));
+    final hWin=hWin,
+    final wWin=wWin) "Window side fins"
+    annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 equation
-  connect(fin.frc, frc)          annotation (Line(
-      points={{81,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
+  connect(fin.fraSun, fraSun)          annotation (Line(
+      points={{21,6.10623e-16},{88.25,6.10623e-16},{88.25,1.16573e-15},{95.5,
           1.16573e-15},{95.5,5.55112e-16},{110,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(walSolAzi.verAzi, fin.verAzi)            annotation (Line(
-      points={{21,50},{48,50},{48,4},{58,4}},
+      points={{-39,-50},{-20,-50},{-20,4},{-2,4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.sol.alt, fin.alt) annotation (Line(
-      points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-4},{58,-4}},
+      points={{-100,5.55112e-16},{-80,5.55112e-16},{-80,-4},{-2,-4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
+  connect(fin.fraSun, product.u2) annotation (Line(
+      points={{21,6.10623e-16},{40,6.10623e-16},{40,54},{58,54}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
             fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFins.png")}),
             defaultComponentName="fin",

@@ -5,7 +5,12 @@ record ParameterConstructionWithWindow
 
   parameter Modelica.SIunits.Area A
     "Heat transfer area of opaque construction and window combined";
-  parameter Modelica.SIunits.Area AWin "Heat transfer area of window"
+  parameter Modelica.SIunits.Length hWin "Window height"
+    annotation (Dialog(group="Glazing system"));
+  parameter Modelica.SIunits.Length wWin "Window width"
+    annotation (Dialog(group="Glazing system"));
+  final parameter Modelica.SIunits.Area AWin=hWin*wWin
+    "Heat transfer area of window"
       annotation (Dialog(group="Glazing system"));
 
   final parameter Modelica.SIunits.Area AOpa = A-AWin
@@ -13,21 +18,28 @@ record ParameterConstructionWithWindow
     annotation (Dialog(group="Opaque construction"));
 
   parameter Real fFra(
-    min=0,
-    max=1) = 0.1 "Fraction of window frame divided by total window area"
+    final min=0,
+    final max=1) = 0.1 "Fraction of window frame divided by total window area"
     annotation (Dialog(group="Glazing system"));
+
+ parameter Buildings.Rooms.BaseClasses.Overhang ove(w=0, dep=0, gap=0)
+    "Geometry of overhang"
+    annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,20},
+            {80,40}})));
+ parameter Buildings.Rooms.BaseClasses.SideFins sidFin(h=0, dep=0, gap=0)
+    "Geometry of side fins"
+    annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,-20},
+            {80,0}})));
+
   final parameter Modelica.SIunits.Area AFra = fFra*AWin "Frame area"
     annotation (Dialog(group="Glazing system"));
   final parameter Modelica.SIunits.Area AGla=AWin - AFra "Glass area"
     annotation (Dialog(group="Glazing system"));
-  parameter Boolean linearizeRadiation = true
-    "Set to true to linearize emissive power"
-    annotation (Dialog(group="Glazing system"));
 
  replaceable parameter HeatTransfer.Data.GlazingSystems.Generic glaSys
     "Material properties of glazing system"
-    annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{140,80},
-            {160,100}})));
+    annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{58,62},
+            {78,82}})));
   annotation (
 Documentation(info="<html>
 <p>

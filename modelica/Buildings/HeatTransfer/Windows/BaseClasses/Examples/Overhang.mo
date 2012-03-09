@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
-model Overhang
-  "This example uses Window overhang model (with super position method)"
+model Overhang "Test model for the overhang"
   import Buildings;
   extends Modelica.Icons.Example;
   BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle altAng
@@ -18,14 +17,13 @@ model Overhang
     "Weather data"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.HeatTransfer.Windows.BaseClasses.Overhang ove(
-    wid=1.2,
+    w = 1.2,
     dep=0.5,
-    winHt=1.0,
-    winWid=1.0,
-    gap=0.1) "Calculates fraction of window area shaded by the overhang"
+    gap=0.1,
+    hWin=1.0,
+    wWin=1.0) "Calculates fraction of window area shaded by the overhang"
      annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth
-    wallSolAzi
+  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth walSolAzi
     "Angle measured in horizontal plane between projection of sun's rays and normal to vertical surface"
      annotation (Placement(transformation(extent={{20,20},{40,40}})));
 equation
@@ -47,15 +45,15 @@ equation
       points={{1,50},{10,50},{10,6},{58,6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(incAng.y, wallSolAzi.incAng) annotation (Line(
+  connect(incAng.y, walSolAzi.incAng)  annotation (Line(
       points={{-19,10},{-2,10},{-2,25.2},{18,25.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(altAng.alt, wallSolAzi.alt) annotation (Line(
+  connect(altAng.alt, walSolAzi.alt)  annotation (Line(
       points={{1,50},{10,50},{10,34.8},{18,34.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(wallSolAzi.verAzi, ove.verAzi)        annotation (Line(
+  connect(walSolAzi.verAzi, ove.verAzi)         annotation (Line(
       points={{41,30},{48,30},{48,14},{58,14}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -63,19 +61,19 @@ equation
         "Simulate and plot"),
 Documentation(info="<html>
 <p>
-This example uses the basic overhang model with solar angles as input and calculates the fraction of total window area shadowed by the overhang.
-For detail discription of the solar angles used in the model refer to documentation of components in  SolarGeometry package 
+This example uses the basic overhang model with solar angles as input and calculates the fraction of total window area that is exposed to the sun.
+For a detail description of the solar angles used in the model, see 
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry\">Buildings.BoundaryConditions.SolarGeometry</a>. 
-For detail description of overhang block refer to documentation of Overhang model
+For a detailed description of the overhang block, see
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Overhang\">Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
-Required data for solar angle calculations is obtained from weather data.
+The required data for the solar angle calculations is obtained from weather data.
 </p>
 <p>
 Solar angles used in this model are:
 <ul>
 <li>
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.ZenithAngle\">Buildings.BoundaryConditions.SolarGeometry.ZenithAngle</a>: 
-Angle between Sun ray and normal to horizontal surface  
+Angle between sun ray and normal to horizontal surface  
 </li>
 <li>
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle\">Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle</a>: 

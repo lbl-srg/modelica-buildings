@@ -18,9 +18,9 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
           extent={{120,90},{100,110}},
                                     rotation=0)));
 
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res11(
     redeclare package Medium = Medium,
-    from_dp = false,
+    from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
              annotation (Placement(transformation(extent={{-20,90},{0,110}},
@@ -28,49 +28,49 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
   inner Modelica.Fluid.System system(p_ambient=101325)
                                    annotation (Placement(transformation(extent={{140,-80},
             {160,-60}},        rotation=0)));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res1(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res12(
     redeclare package Medium = Medium,
-    from_dp = false,
+    from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
              annotation (Placement(transformation(extent={{20,90},{40,110}},
           rotation=0)));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res2(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res22(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
              annotation (Placement(transformation(extent={{20,50},{40,70}},
           rotation=0)));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res3(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res21(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
              annotation (Placement(transformation(extent={{-20,50},{0,70}},
           rotation=0)));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res4(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res31(
     redeclare package Medium = Medium,
-    from_dp = false,
+    from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
              annotation (Placement(transformation(extent={{-20,-20},{0,0}},
           rotation=0)));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res5(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res32(
     redeclare package Medium = Medium,
-    from_dp = false,
+    from_dp=false,
     m_flow_nominal=2,
     dp_nominal=5)
              annotation (Placement(transformation(extent={{20,-20},{40,0}},
           rotation=0)));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res6(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res42(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
     from_dp=true)
              annotation (Placement(transformation(extent={{20,-60},{40,-40}},
           rotation=0)));
-    Buildings.Fluid.FixedResistances.FixedResistanceDpM res7(
+    Buildings.Fluid.FixedResistances.FixedResistanceDpM res41(
     redeclare package Medium = Medium,
     m_flow_nominal=2,
     dp_nominal=5,
@@ -113,16 +113,16 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
                  annotation (Placement(transformation(extent={{-100,90},{-80,
             110}},
           rotation=0)));
-  Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
-        Medium) "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo1(redeclare package Medium =
         Medium) "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{60,50},{80,70}})));
+    annotation (Placement(transformation(extent={{60,90},{80,110}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo2(redeclare package Medium =
         Medium) "Mass flow rate sensor"
-    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+    annotation (Placement(transformation(extent={{60,50},{80,70}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo3(redeclare package Medium =
+        Medium) "Mass flow rate sensor"
+    annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+  Buildings.Fluid.Sensors.MassFlowRate senMasFlo4(redeclare package Medium =
         Medium) "Mass flow rate sensor"
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality
@@ -130,35 +130,43 @@ model FixedResistancesExplicit "Test of multiple resistances in series"
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality1
     annotation (Placement(transformation(extent={{120,0},{140,20}})));
 equation
-  connect(res.port_b, res1.port_a) annotation (Line(
+  connect(res11.port_b, res12.port_a)
+                                   annotation (Line(
       points={{5.55112e-16,100},{20,100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res3.port_b, res2.port_a) annotation (Line(
+  connect(res21.port_b, res22.port_a)
+                                    annotation (Line(
       points={{5.55112e-16,60},{20,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res4.port_b, res5.port_a) annotation (Line(
+  connect(res31.port_b, res32.port_a)
+                                    annotation (Line(
       points={{5.55112e-16,-10},{20,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res7.port_b, res6.port_a) annotation (Line(
+  connect(res41.port_b, res42.port_a)
+                                    annotation (Line(
       points={{5.55112e-16,-50},{20,-50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sou.ports[1], res.port_a) annotation (Line(
+  connect(sou.ports[1], res11.port_a)
+                                    annotation (Line(
       points={{-40,100},{-20,100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(bou.ports[1], res4.port_a) annotation (Line(
+  connect(bou.ports[1], res31.port_a)
+                                     annotation (Line(
       points={{-60,-10},{-20,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(bou1.ports[1], res7.port_a) annotation (Line(
+  connect(bou1.ports[1], res41.port_a)
+                                      annotation (Line(
       points={{-60,-50},{-20,-50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(sou1.ports[1], res3.port_a) annotation (Line(
+  connect(sou1.ports[1], res21.port_a)
+                                      annotation (Line(
       points={{-38,60},{-20,60}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -170,58 +178,65 @@ equation
       points={{-79,100},{-70,100},{-70,68},{-60,68}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(res1.port_b, senMasFlo.port_a) annotation (Line(
+  connect(res12.port_b, senMasFlo1.port_a)
+                                         annotation (Line(
       points={{40,100},{60,100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res2.port_b, senMasFlo1.port_a) annotation (Line(
+  connect(res22.port_b, senMasFlo2.port_a)
+                                          annotation (Line(
       points={{40,60},{60,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res5.port_b, senMasFlo2.port_a) annotation (Line(
+  connect(res32.port_b, senMasFlo3.port_a)
+                                          annotation (Line(
       points={{40,-10},{60,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(res6.port_b, senMasFlo3.port_a) annotation (Line(
+  connect(res42.port_b, senMasFlo4.port_a)
+                                          annotation (Line(
       points={{40,-50},{60,-50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senMasFlo2.port_b, sin1.ports[1]) annotation (Line(
+  connect(senMasFlo3.port_b, sin1.ports[1]) annotation (Line(
       points={{80,-10},{90,-10},{90,-28},{100,-28}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senMasFlo3.port_b, sin1.ports[2]) annotation (Line(
+  connect(senMasFlo4.port_b, sin1.ports[2]) annotation (Line(
       points={{80,-50},{90,-50},{90,-32},{100,-32}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senMasFlo.port_b, sin.ports[1]) annotation (Line(
+  connect(senMasFlo1.port_b, sin.ports[1])
+                                          annotation (Line(
       points={{80,100},{100,100}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senMasFlo1.port_b, sin2.ports[1]) annotation (Line(
+  connect(senMasFlo2.port_b, sin2.ports[1]) annotation (Line(
       points={{80,60},{100,60}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senMasFlo2.m_flow, assertEquality1.u1) annotation (Line(
+  connect(senMasFlo3.m_flow, assertEquality1.u1) annotation (Line(
       points={{70,1},{70,16},{118,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senMasFlo3.m_flow, assertEquality1.u2) annotation (Line(
+  connect(senMasFlo4.m_flow, assertEquality1.u2) annotation (Line(
       points={{70,-39},{72,-39},{72,-30},{84,-30},{84,4},{118,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senMasFlo.m_flow, assertEquality.u1) annotation (Line(
+  connect(senMasFlo1.m_flow, assertEquality.u1)
+                                               annotation (Line(
       points={{70,111},{70,136},{118,136}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senMasFlo1.m_flow, assertEquality.u2) annotation (Line(
+  connect(senMasFlo2.m_flow, assertEquality.u2) annotation (Line(
       points={{70,71},{70,80},{88,80},{88,124},{118,124}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{160,160}}),
                       graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesExplicit.mos" "Simulate and plot"),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesExplicit.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This model tests whether inverse functions are being used by the code
 translator. In Dymola 7.2, there should only be one non-linear equation system

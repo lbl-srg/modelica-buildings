@@ -6,6 +6,7 @@ model Floor "Model of a floor of the building"
   parameter Real winWalRat(
     min=0.01,
     max=0.99) = 0.33 "Window to wall ratio for exterior walls";
+  parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
   HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
     annotation (Placement(transformation(extent={{140,460},{160,480}})));
@@ -81,7 +82,8 @@ model Floor "Model of a floor of the building"
       layers={conExtWal},
       A={49.91*hRoo},
       glaSys={glaSys},
-      AWin={winWalRat*49.91*hRoo},
+      wWin={winWalRat/hWin*49.91*hRoo},
+      hWin=hWin,
       fFra={0.1},
       til={Buildings.HeatTransfer.Types.Tilt.Wall},
       azi={Buildings.HeatTransfer.Types.Azimuth.S}),
@@ -110,7 +112,8 @@ model Floor "Model of a floor of the building"
       layers={conExtWal},
       A={33.27*hRoo},
       glaSys={glaSys},
-      AWin={winWalRat*33.27*hRoo},
+      wWin={winWalRat/hWin*33.27*hRoo},
+      hWin=hWin,
       fFra={0.1},
       til={Buildings.HeatTransfer.Types.Tilt.Wall},
       azi={Buildings.HeatTransfer.Types.Azimuth.E}),
@@ -144,7 +147,8 @@ model Floor "Model of a floor of the building"
       layers={conExtWal},
       A={49.91*hRoo},
       glaSys={glaSys},
-      AWin={winWalRat*49.91*hRoo},
+      wWin={winWalRat/hWin*49.91*hRoo},
+      hWin=hWin,
       fFra={0.1},
       til={Buildings.HeatTransfer.Types.Tilt.Wall},
       azi={Buildings.HeatTransfer.Types.Azimuth.N}),
@@ -173,7 +177,8 @@ model Floor "Model of a floor of the building"
       layers={conExtWal},
       A={33.27*hRoo},
       glaSys={glaSys},
-      AWin={winWalRat*33.27*hRoo},
+      wWin={winWalRat/hWin*33.27*hRoo},
+      hWin=hWin,
       fFra={0.1},
       til={Buildings.HeatTransfer.Types.Tilt.Wall},
       azi={Buildings.HeatTransfer.Types.Azimuth.W}),

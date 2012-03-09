@@ -1,36 +1,18 @@
 within Buildings.Rooms.BaseClasses;
 model ExteriorBoundaryConditionsWithWindow
   "Model for exterior boundary conditions for constructions with a window"
-  extends Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions;
-  parameter Modelica.SIunits.Area AWin[nCon] "Areas of window glass and frame";
-  parameter Real fFra[nCon](each min=0, each max=1)
-    "Fraction of window frame divided by total window area"
-    annotation (Dialog(group="Frame"));
+  extends Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions(
+   final AOpa=conPar[:].AOpa,
+   redeclare Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar);
 
-  parameter Modelica.SIunits.Emissivity absSolFra[nCon]
-    "Solar absorptivity of window frame"
-    annotation (Dialog(group="Frame"));
-  parameter Modelica.SIunits.Emissivity absIRFra[nCon]
-    "Infrared absorptivity of window frame"
-    annotation (Dialog(group="Frame"));
-  parameter Modelica.SIunits.Emissivity absIRSha_air[nCon]
-    "Infrared absorptivity of shade surface that faces air"
-        annotation (Dialog(group="Shading"));
-  parameter Modelica.SIunits.Emissivity absIRSha_glass[nCon]
-    "Infrared absorptivity of shade surface that faces glass"
-    annotation (Dialog(group="Shading"));
+  final parameter Modelica.SIunits.Area AWin[nCon] = conPar[:].hWin .* conPar[:].wWin
+    "Window area"
+    annotation (Dialog(group="Glazing system"));
 
-  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_air[nCon]
-    "Infrared transmissivity of shade for radiation coming from the exterior or the room"
-    annotation (Dialog(group="Shading"));
-  parameter Modelica.SIunits.TransmissionCoefficient tauIRSha_glass[nCon]
-    "Infrared transmissivity of shade for radiation coming from the glass"
-    annotation (Dialog(group="Shading"));
-
-  parameter Boolean haveExteriorShade[nCon]
+  final parameter Boolean haveExteriorShade[nCon] = conPar[:].glaSys.haveExteriorShade
     "Set to true if window has exterior shade (at surface a)"
     annotation (Dialog(group="Shading"));
-  parameter Boolean haveInteriorShade[nCon]
+  final parameter Boolean haveInteriorShade[nCon] = conPar[:].glaSys.haveInteriorShade
     "Set to true if window has interior shade (at surface b)"
     annotation (Dialog(group="Shading"));
 
@@ -38,6 +20,10 @@ model ExteriorBoundaryConditionsWithWindow
     haveExteriorShade[1] or haveInteriorShade[1]
     "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
+
+  Buildings.Rooms.BaseClasses.Shade sha[nCon](final conPar=conPar)
+    "Shade due to overhang or side fins"
+    annotation (Placement(transformation(extent={{140,100},{120,120}})));
 
   Modelica.Blocks.Interfaces.RealInput uSha[nCon](min=0, max=1) if
        windowHasShade
@@ -50,14 +36,14 @@ model ExteriorBoundaryConditionsWithWindow
     annotation (Placement(transformation(extent={{-340,40},{-300,80}})));
 
   HeatTransfer.Windows.ExteriorHeatTransfer conExtWin[nCon](
-    final A=AWin,
-    final fFra=fFra,
+    final A=conPar[:].AWin,
+    final fFra=conPar[:].fFra,
     each final linearizeRadiation = linearizeRadiation,
-    final vieFacSky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i in 1:nCon},
-    final absIRSha_air=absIRSha_air,
-    final absIRSha_glass=absIRSha_glass,
-    final tauIRSha_air=tauIRSha_air,
-    final tauIRSha_glass=tauIRSha_glass,
+    final vieFacSky={(Modelica.Constants.pi - conPar[i].til) ./ Modelica.Constants.pi for i in 1:nCon},
+    final absIRSha_air=conPar[:].glaSys.shade.absIR_a,
+    final absIRSha_glass=conPar[:].glaSys.shade.absIR_b,
+    final tauIRSha_air=conPar[:].glaSys.shade.tauIR_a,
+    final tauIRSha_glass=conPar[:].glaSys.shade.tauIR_b,
     final haveExteriorShade=haveExteriorShade,
     final haveInteriorShade=haveInteriorShade)
     "Exterior convection of the window"
@@ -65,10 +51,10 @@ model ExteriorBoundaryConditionsWithWindow
 
   SkyRadiationExchange skyRadExcWin(
     final n=nCon,
-    each final absIR=absIRFra,
-    vieFacSky={(Modelica.Constants.pi - til[i]) ./ Modelica.Constants.pi for i in
+    each final absIR=conPar[:].glaSys.absIRFra,
+    vieFacSky={(Modelica.Constants.pi - conPar[i].til) ./ Modelica.Constants.pi for i in
             1:nCon},
-    each final A=AWin .* fFra)
+    each final A=conPar[:].AWin .* conPar[:].fFra)
     "Infrared radiative heat exchange between window frame and sky"
     annotation (Placement(transformation(extent={{-140,-280},{-180,-240}})));
   HeatTransfer.Interfaces.RadiosityOutflow JOutUns[nCon]
@@ -106,8 +92,8 @@ model ExteriorBoundaryConditionsWithWindow
                        rotation=0), iconTransformation(extent={{-310,-270},{-290,
             -250}})));
   Modelica.Blocks.Math.Add HTotConExtWinFra[nCon](
-     final k1=fFra .* absSolFra .* AWin,
-     final k2=fFra .* absSolFra .* AWin)
+     final k1=conPar[:].fFra .* conPar[:].glaSys.absSolFra .* conPar[:].AWin,
+     final k2=conPar[:].fFra .* conPar[:].glaSys.absSolFra .* conPar[:].AWin)
     "Total solar irradiation on window frame"
     annotation (Placement(transformation(extent={{40,60},{20,80}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow solHeaGaiConWin[nCon]
@@ -140,6 +126,7 @@ protected
   Modelica.Blocks.Routing.Replicator repConExtWinTSkyBla(final nout=nCon)
     "Signal replicator"
     annotation (Placement(transformation(extent={{220,-112},{200,-92}})));
+
 equation
   connect(uSha, conExtWin.uSha)
                           annotation (Line(
@@ -210,24 +197,16 @@ equation
       points={{-20,70},{-60,70},{-60,-220},{-260,-220},{-260,-260},{-300,-260}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(HDirTil.H, HDir) annotation (Line(
-      points={{79,130},{72,130},{72,180},{280,180},{280,120},{310,120}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(HDifTil.H, HDif) annotation (Line(
-      points={{79,90},{72,90},{72,60},{310,60}},
+      points={{199,90},{72,90},{72,60},{310,60}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDirTil.inc, inc) annotation (Line(
-      points={{79,126},{72,126},{72,180},{310,180}},
+      points={{199,126},{180,126},{180,112},{260,112},{260,180},{310,180}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HTotConExtWinFra.u2, HDifTil.H) annotation (Line(
-      points={{42,64},{72,64},{72,90},{79,90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(HTotConExtWinFra.u1, HDirTil.H) annotation (Line(
-      points={{42,76},{66,76},{66,130},{79,130}},
+      points={{42,64},{72,64},{72,90},{199,90}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExtWin.QAbs_flow, QAbsSolSha_flow) annotation (Line(
@@ -269,6 +248,32 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+  for i in 1:nCon loop
+    connect(sha[i].weaBus, weaBus) annotation (Line(
+      points={{140,110},{244,110},{244,42}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  end for;
+  connect(sha.HDirTil, HTotConExtWinFra.u1) annotation (Line(
+      points={{119,116},{100,116},{100,76},{42,76}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sha.HDirTil, HDir) annotation (Line(
+      points={{119,116},{100,116},{100,70},{280,70},{280,120},{310,120}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sha.HDirTilUns, HDirTil.H) annotation (Line(
+      points={{142,116},{160,116},{160,130},{199,130}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(HDirTil.inc, sha.incAng) annotation (Line(
+      points={{199,126},{168,126},{168,104},{142,104}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Icon(graphics={
         Rectangle(
           extent={{-220,180},{-160,-102}},

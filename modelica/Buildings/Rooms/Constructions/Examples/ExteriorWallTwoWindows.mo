@@ -6,61 +6,62 @@ model ExteriorWallTwoWindows
   parameter Integer nCon = 2 "Number of constructions";
   parameter Modelica.SIunits.Area A[:]={3*10, 3*10}
     "Heat transfer area of wall and window";
-  parameter Modelica.SIunits.Area AWin[:]=A-{2*3, 1*3}
+  parameter Modelica.SIunits.Length hWin[:] = {2, 1} "Window height";
+  parameter Modelica.SIunits.Length wWin[:] = {3, 3} "Window width";
+  parameter Modelica.SIunits.Area AWin[:]= hWin .* wWin
     "Heat transfer area of frame and window";
   parameter Real fFra[:]={0.1, 0.1}
     "Fraction of window frame divided by total window area";
+
   parameter Boolean linearizeRadiation = false
     "Set to true to linearize emissive power";
-  HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys1(
+  parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys1(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveInteriorShade=false,
     haveExteriorShade=false) "Record for glazing system"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
-  HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys2(
+  parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys2(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveInteriorShade=false,
     haveExteriorShade=false) "Record for glazing system"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
-  ConstructionWithWindow conExt[nCon](
-    layers={extConMat, extConMat},
-    glaSys={glaSys1, glaSys2},
-    linearizeRadiation = {linearizeRadiation, linearizeRadiation},
+
+  parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar[nCon](
+    redeclare
+      Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
+      layers,
+    each til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    each azi=0.017453292519943,
     A=A,
-    AWin=AWin,
-    fFra=fFra,
-    til={Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall})
-    "Construction of an exterior wall without a window"
+    hWin=hWin,
+    wWin=wWin,
+    glaSys = {glaSys1, glaSys2}) "Construction parameters"
+    annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
+
+  ConstructionWithWindow conExt[nCon](
+    layers=conPar[:].layers,
+    glaSys=conPar[:].glaSys,
+    linearizeRadiation = {linearizeRadiation, linearizeRadiation},
+    A=conPar[:].A,
+    AWin=conPar[:].hWin .* conPar[:].wWin,
+    fFra=conPar[:].fFra,
+    til=conPar[:].til) "Construction of an exterior wall with a window"
     annotation (Placement(transformation(extent={{60,-30},{0,30}})));
+
   Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow
     bouConExt(
     nCon=2,
     linearizeRadiation = false,
-    fFra=fFra,
-    absIR={extConMat.absIR_a, extConMat.absIR_a},
-    AOpa=A - AWin,
-    absSol={extConMat.absSol_a, extConMat.absSol_a},
-    AWin=AWin,
-    absSolFra={glaSys1.absSolFra, glaSys2.absSolFra},
-    absIRSha_air={glaSys1.shade.absIR_a, glaSys2.shade.absIR_a},
-    absIRSha_glass={glaSys1.shade.absIR_b, glaSys2.shade.absIR_b},
-    tauIRSha_air={glaSys1.shade.tauIR_a, glaSys2.shade.tauIR_a},
-    tauIRSha_glass={glaSys1.shade.tauIR_b, glaSys2.shade.tauIR_b},
-    haveExteriorShade={glaSys1.haveExteriorShade, glaSys2.haveExteriorShade},
-    haveInteriorShade={glaSys1.haveInteriorShade, glaSys2.haveInteriorShade},
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Fixed,
-    til={Buildings.HeatTransfer.Types.Tilt.Wall,Buildings.HeatTransfer.Types.Tilt.Wall},
-    azi={0,0},
     lat=0.73268921998722,
-    absIRFra={glaSys1.absSolFra,glaSys2.absSolFra})
-    "Exterior boundary conditions for constructions without a window"
+    conPar=conPar)
+    "Exterior boundary conditions for constructions with a window"
     annotation (Placement(transformation(extent={{82,-14},{122,26}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
     annotation (Placement(transformation(extent={{-160,10},{-140,30}})));
-  Buildings.HeatTransfer.Convection.Interior con[
-                              nCon](A=A - AWin,
+  Buildings.HeatTransfer.Convection.Interior con[nCon](A=A - AWin,
     til={Buildings.HeatTransfer.Types.Tilt.Wall,
          Buildings.HeatTransfer.Types.Tilt.Wall}) "Model for heat convection"
     annotation (Placement(transformation(extent={{-20,10},{-40,30}})));
@@ -92,7 +93,7 @@ model ExteriorWallTwoWindows
     "Model for interior convection"
     annotation (Placement(transformation(extent={{-40,-30},{-20,-10}})));
   Modelica.Blocks.Sources.Constant uSha(k=0) "Shading control signal"
-    annotation (Placement(transformation(extent={{-190,-50},{-170,-30}})));
+    annotation (Placement(transformation(extent={{-192,-44},{-172,-24}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol1(m=2)
     "Thermal collector to link a vector of models to a single model"
     annotation (Placement(transformation(
@@ -110,7 +111,7 @@ model ExteriorWallTwoWindows
         rotation=0,
         origin={-22,-68})));
   Modelica.Blocks.Routing.Replicator replicator(nout=nCon)
-    annotation (Placement(transformation(extent={{-160,-50},{-140,-30}})));
+    annotation (Placement(transformation(extent={{-160,-44},{-140,-24}})));
   Modelica.Thermal.HeatTransfer.Components.ThermalCollector theCol3(
                                                                    m=2)
     "Thermal collector to link a vector of models to a single model"
@@ -138,6 +139,7 @@ model ExteriorWallTwoWindows
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-88,-120})));
+
 equation
   connect(prescribedTemperature.port, theCol.port_b) annotation (Line(
       points={{-140,20},{-130,20},{-130,20},{-120,20}},
@@ -171,11 +173,11 @@ equation
       smooth=Smooth.None));
 
   connect(uSha.y, replicator.u) annotation (Line(
-      points={{-169,-40},{-162,-40}},
+      points={{-171,-34},{-162,-34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(replicator.y, intCon.uSha) annotation (Line(
-      points={{-139,-40},{-52,-40},{-52,-12},{-40.8,-12}},
+      points={{-139,-34},{-52,-34},{-52,-12},{-40.8,-12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(indRad.JOut, intCon.JInRoo) annotation (Line(
@@ -200,7 +202,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(bouConExt.uSha, replicator.y) annotation (Line(
-      points={{80.6667,12.6667},{-52,12.6667},{-52,-40},{-139,-40}},
+      points={{80.6667,12.6667},{-52,12.6667},{-52,-34},{-139,-34}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(QAbs.y, conExt.QAbsUns_flow) annotation (Line(
@@ -248,12 +250,11 @@ equation
       color={0,127,0},
       smooth=Smooth.None));
   connect(replicator.y, conExt.uSha) annotation (Line(
-      points={{-139,-40},{-52,-40},{-52,12},{66,12},{66,6},{62,6}},
+      points={{-139,-34},{-52,-34},{-52,-40},{66,-40},{66,6},{62,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conExt.opa_a, bouConExt.opa_a) annotation (Line(
-      points={{60,20},{65.5,20},{65.5,19.3333},{71,19.3333},{71,19.3333},{82,
-          19.3333}},
+      points={{60,20},{65.5,20},{65.5,19.3333},{82,19.3333}},
       color={191,0,0},
       smooth=Smooth.None));
 
@@ -303,6 +304,22 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-140},{200,
             100}}), graphics),
     Documentation(info="<html>
-This model tests the exterior construction with windows.
+<p>
+This model tests the exterior construction with two windows.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 7, 2012, by Michael Wetter:<br>
+Updated example to use new data model 
+<a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow\">
+Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow</a>
+in model for boundary conditions.
+</li>
+<li>
+December 6, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ExteriorWallTwoWindows;

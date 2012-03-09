@@ -14,7 +14,8 @@ record ConstructionRecords "Data records for construction data"
     redeclare Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120 layers,
     each til=0,
     each azi=0,
-    each AWin=0,
+    each hWin=0,
+    each wWin=0,
     redeclare Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3 glaSys)
     "Data for exterior construction with window"
     annotation (Placement(transformation(extent={{-140,-160},{-120,-140}})), HideResult=true);

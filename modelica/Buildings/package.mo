@@ -150,12 +150,14 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Overhang<br>
                        Buildings.HeatTransfer.Windows.SideFins
     </td>
-    <td valign=\"top\">Blocks to compute fraction of window that is shaded by overhang or side fins.
+    <td valign=\"top\">For windows with either an overhang or side fins,
+                       these blocks output the fraction of the area
+                       that is sun exposed.
     </td> 
     </tr>
 </table>
 </p>
-<!-- Backward compatbile changes -->
+<!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
@@ -171,14 +173,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        This allows reusing the solar position in various other models.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 </p>
 <!-- Non-backward compatbile changes to existing components -->
@@ -188,7 +182,29 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir
+    </td>
+    <td valign=\"top\">Added optional modeling of window overhangs and side fins.
+                       The modeling of window overhangs and side fins required the 
+                       introduction of the new parameters 
+                       <code>hWin</code> for the window height and
+                       <code>wWin</code> for the window width, in addition to the
+                       parameters <code>ove</code> and <code>sidFin</code> which are used
+                       to declare the geometry of overhangs and side fins.
+                       The parameters <code>hWin</code> and <code>wWin</code>
+                       replace the previously used parameter <code>AWin</code> for the
+                       window area.
+                       Users need to manually replace <code>AWin</code> with <code>hWin</code>
+                       and <code>wWin</code> when updating models
+                       from a previous version of the library.<br/>
+                       See the information section in
+                       <a href=\"modelica://Buildings.Rooms.MixedAir\">
+                       Buildings.Rooms.MixedAir</a> for how to use these models.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>

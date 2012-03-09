@@ -53,11 +53,15 @@ model MixedAirFreeResponse "Free response of room model"
            til={Buildings.HeatTransfer.Types.Tilt.Ceiling, Buildings.HeatTransfer.Types.Tilt.Wall},
            azi={Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.W}),
     nConExtWin=nConExtWin,
-    datConExtWin(layers={matLayExt}, A={4*3},
+    datConExtWin(
+              layers={matLayExt},
+              each A=4*3,
               glaSys={glaSys},
-              AWin={4*2},
-              fFra={0.1},
-              til={Buildings.HeatTransfer.Types.Tilt.Wall},
+              each hWin=2,
+              each wWin=4,
+              ove(w={4}, gap={0.1}, dep={1}),
+              each fFra=0.1,
+              each til=Buildings.HeatTransfer.Types.Tilt.Wall,
               azi={Buildings.HeatTransfer.Types.Azimuth.S}),
     nConPar=1,
     datConPar(layers={matLayPar}, each A=10,
@@ -66,15 +70,16 @@ model MixedAirFreeResponse "Free response of room model"
     datConBou(layers={matLayFlo}, each A=6*4,
            each til=Buildings.HeatTransfer.Types.Tilt.Floor),
     nSurBou=1,
-    surBou(each A=6*3, 
-           each absIR=0.9, 
-           each absSol=0.9, 
+    surBou(each A=6*3,
+           each absIR=0.9,
+           each absSol=0.9,
            each til=Buildings.HeatTransfer.Types.Tilt.Wall),
     linearizeRadiation = false,
     nPorts=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.73268921998722) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
+  //            sidFin(h={2.5}, gap={0.1}, dep={1}),
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
@@ -141,7 +146,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TSoi.port, roo.surf_conBou)  annotation (Line(
-      points={{100,-10},{72,-10},{72,22}},
+      points={{100,-10},{72,-10},{72,24}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TBou.port,conOut. port_b) annotation (Line(
@@ -162,7 +167,8 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {200,200}}),
-                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/MixedAirFreeResponse.mos" "Simulate and plot"),
+                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/MixedAirFreeResponse.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This model illustrates the use of the room model
 <a href=\"modelica://Buildings.Rooms.MixedAir\">

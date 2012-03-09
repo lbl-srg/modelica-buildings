@@ -7,11 +7,15 @@ MixedAir
 RadiationAdapter
 RadiationTemperature
 SolarRadiationExchange
+Shade
 PartialSurfaceInterface
 SkyRadiationExchange
 ConstructionNumbers
 ConstructionRecords
+Overhang
 ParameterConstructionWithWindow
 ParameterConstruction
 PartialParameterConstruction
+SideFins
 Examples
+

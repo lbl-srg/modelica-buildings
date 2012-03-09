@@ -4,21 +4,17 @@ model ExteriorWall "Test model for an exterior wall without a window"
   extends Modelica.Icons.Example;
 
   Buildings.Rooms.Constructions.Construction conExt[1](
-    A={10*3},
-    layers={extConMat},
+    A=conPar[:].A,
+    layers=conPar[:].layers,
     til={Buildings.HeatTransfer.Types.Tilt.Wall})
     "Construction of an exterior wall without a window"
     annotation (Placement(transformation(extent={{0,-64},{60,-4}})));
   Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions bouConExt(
     nCon=1,
     linearizeRadiation = false,
-    absIR={0.5},
-    azi={0},
-    AOpa={1},
-    absSol={0.5},
-    lat=0.73268921998722,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
-    til={Buildings.HeatTransfer.Types.Tilt.Wall})
+    lat=0.73268921998722,
+    conPar=conPar)
     "Exterior boundary conditions for constructions without a window"
     annotation (Placement(transformation(extent={{76,-80},{116,-40}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature prescribedTemperature
@@ -42,6 +38,12 @@ model ExteriorWall "Test model for an exterior wall without a window"
     "Record for material layers"
     annotation (Placement(transformation(extent={{-160,60},{-140,80}})));
 
+  Buildings.Rooms.BaseClasses.ParameterConstruction conPar[1](
+    each til=Buildings.HeatTransfer.Types.Tilt.Wall,
+    each azi=0,
+    each A=3*10,
+    layers={extConMat}) "Data for construction"
+    annotation (Placement(transformation(extent={{-120,60},{-100,80}})));
 equation
   connect(prescribedTemperature.port, theCol.port_b) annotation (Line(
       points={{-100,20},{-90,20},{-90,20},{-80,20}},
@@ -75,6 +77,22 @@ equation
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
             100}}), graphics),
     Documentation(info="<html>
+<p>
 This model tests the exterior construction without windows.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 7, 2012, by Michael Wetter:<br>
+Updated example to use new data model 
+<a href=\"modelica://Buildings.Rooms.BaseClasses.ParameterConstruction\">
+Buildings.Rooms.BaseClasses.ParameterConstruction</a>
+in model for boundary conditions.
+</li>
+<li>
+December 6, 2010, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
 </html>"));
 end ExteriorWall;
