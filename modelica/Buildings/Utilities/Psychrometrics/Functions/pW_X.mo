@@ -6,7 +6,7 @@ function pW_X "Water vapor pressure for given humidity ratio"
     max=1,
     nominal=0.01) "Species concentration at dry bulb temperature";
   input Modelica.SIunits.Pressure p=101325 "Total pressure";
-  output Modelica.SIunits.Pressure p_w "Water vapor pressure";
+  output Modelica.SIunits.Pressure p_w(displayUnit="Pa") "Water vapor pressure";
 
 protected
   Modelica.SIunits.MassFraction x_w(nominal=0.01)
@@ -16,6 +16,7 @@ algorithm
   p_w := p*x_w/(0.62198 + x_w);
   annotation (
     Inline=true,
+    smoothOrder=99,
     derivative=BaseClasses.der_pW_X,
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
@@ -25,6 +26,10 @@ Function to compute the water vapor partial pressure for a given humidity ratio.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 9, 2012 by Michael Wetter:<br>
+Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
+</li>
 <li>
 February 17, 2010 by Michael Wetter:<br>
 Renamed block from <code>VaporPressure_X</code> to <code>pW_X</code>.

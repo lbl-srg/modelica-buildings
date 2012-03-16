@@ -4,7 +4,8 @@ function TDewPoi_pW_amb
   extends
     Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb;
 
-  input Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
+  input Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=100)
+    "Water vapor partial pressure";
   output Modelica.SIunits.Temperature T "Dew point temperature";
 
 algorithm
@@ -12,6 +13,7 @@ algorithm
   annotation (
     inverse(p_w=pW_TDewPoi_amb(T)),
     Inline=true,
+    smoothOrder=99,
     derivative=BaseClasses.der_TDewPoi_pW_amb,
     Documentation(info="<html>
 <p>
@@ -32,6 +34,10 @@ whereas the other function requires a numerical solution.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 9, 2012 by Michael Wetter:<br>
+Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
+</li>
 <li>
 May 21, 2010 by Michael Wetter:<br>
 First implementation.

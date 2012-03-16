@@ -2,8 +2,9 @@ within Buildings.Utilities.Psychrometrics.Functions;
 function pW_TDewPoi
   "Function to compute the water vapor partial pressure for a given dew point temperature of moist air"
 
-  input Modelica.SIunits.Temperature T "Dew point temperature";
-  output Modelica.SIunits.Pressure p_w "Water vapor partial pressure";
+  input Modelica.SIunits.Temperature T(min=100) "Dew point temperature";
+  output Modelica.SIunits.Pressure p_w(displayUnit="Pa", min=100)
+    "Water vapor partial pressure";
 protected
   constant Real C8=-5.800226E3;
   constant Real C9=1.3914993E0;
@@ -30,6 +31,10 @@ temperatures.
 </html>", revisions="<html>
 <ul>
 <li>
+March 9, 2012 by Michael Wetter:<br>
+Added <code>smoothOrder=99</code> and <code>displayUnit</code> for pressure.
+</li>
+<li>
 February 17, 2010 by Michael Wetter:<br>
 Renamed function from <code>dewPointTemperature</code> to <code>pW_TDewPoi</code>.
 </li>
@@ -54,6 +59,6 @@ First implementation.
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics),
     Inline=true,
-    smoothOrder=1,
+    smoothOrder=99,
     derivative=BaseClasses.der_pW_TDewPoi);
 end pW_TDewPoi;
