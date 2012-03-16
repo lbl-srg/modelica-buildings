@@ -36,9 +36,9 @@ model SingleLayerCylinder "Heat conduction in a cylinder"
   Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
     "Heat flow rate from state i to i+1";
 
+//  Modelica.SIunits.TemperatureSlope der_T[nSta]
+//    "Time derivative of temperature (= der(T))";
 protected
-  Modelica.SIunits.TemperatureSlope der_T[nSta]
-    "Time derivative of temperature (= der(T))";
   parameter Modelica.SIunits.Radius r[nSta+1](each fixed=false)
     "Radius to the boundary of the i-th domain";
   parameter Modelica.SIunits.Radius rC[nSta](each fixed=false)
@@ -83,7 +83,7 @@ initial equation
   // The initialization is only done for materials that store energy.
   if not material.steadyState then
     if steadyStateInitial then
-      der_T = zeros(nSta);
+      der(T) = zeros(nSta);
     else
       for i in 1:nSta loop
         T[i]=TInt_start+ (TExt_start-TInt_start)/Modelica.Math.log(r_b/r_a) * Modelica.Math.log(rC[i]/r_a);
@@ -101,14 +101,12 @@ equation
     // Q_flow[i] represents the heat flowing betwen two nodes
   end for;
   if material.steadyState then
-    der_T = zeros(nSta);
     for i in 2:nSta+1 loop
       Q_flow[i]=Q_flow[1];
     end for;
   else
     for i in 1:nSta loop
         der(T[i])= (Q_flow[i]-Q_flow[i+1])/C[i];
-        der_T[i] = der(T[i]);
     end for;
   end if;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -214,6 +212,10 @@ and not the variable <code>T[1]</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 9, 2012, by Michael Wetter:<br>
+Removed protected variable <code>der_T</code> as it is not required.
+</li>
 <li>
 April 14 2011, by Pierre Vigouroux:<br>
 First implementation.

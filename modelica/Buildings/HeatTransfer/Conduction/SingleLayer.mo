@@ -10,8 +10,7 @@ model SingleLayer "Model for single layer heat conductance"
   Modelica.SIunits.Temperature T[nSta](start=
      {T_a_start+(T_b_start-T_a_start) * UA *
         sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i) for i in 1:nSta},
-      each nominal = 300)
-    "Temperature at the states";
+      each nominal = 300) "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
     "Heat flow rate from state i to i+1";
 
@@ -31,11 +30,6 @@ model SingleLayer "Model for single layer heat conductance"
 protected
   parameter Modelica.SIunits.HeatCapacity C = A*material.x*material.d*material.c/material.nSta
     "Heat capacity associated with the temperature state";
-  // nodes at surface have only 1/2 the layer thickness
-//  final parameter Modelica.SIunits.ThermalConductance G[nSta+1](each fixed=false)
- //   "Thermal conductance of layer between the states";
-  Modelica.SIunits.TemperatureSlope der_T[nSta]
-    "Time derivative of temperature (= der(T))";
   final parameter Integer nSta(min=1) = material.nSta
     "Number of state variables";
   final parameter Modelica.SIunits.ThermalConductance UAnSta = UA*nSta
@@ -47,7 +41,7 @@ initial equation
   // The initialization is only done for materials that store energy.
   if not material.steadyState then
     if steadyStateInitial then
-      der_T = zeros(nSta);
+      der(T) = zeros(nSta);
     else
       for i in 1:nSta loop
         T[i] = T_a_start+(T_b_start-T_a_start) * UA *
@@ -67,14 +61,12 @@ equation
        T[i-1]-T[i] = Q_flow[i]/UAnSta;
     end for;
     if material.steadyState then
-      der_T = zeros(nSta);
       for i in 2:nSta+1 loop
         Q_flow[i] = Q_flow[1];
       end for;
       else
         for i in 1:nSta loop
           der(T[i]) = (Q_flow[i]-Q_flow[i+1])/C;
-          der_T[i] = der(T[i]);
         end for;
     end if;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -183,6 +175,10 @@ where
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 9, 2012, by Michael Wetter:<br>
+Removed protected variable <code>der_T</code> as it is not required.
+</li>
 <li>
 March 6 2010, by Michael Wetter:<br>
 Changed implementation to allow steady-state and transient heat conduction
