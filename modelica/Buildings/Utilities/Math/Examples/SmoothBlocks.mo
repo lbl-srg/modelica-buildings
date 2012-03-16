@@ -46,5 +46,19 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothBlocks.mos" "Simulate and plot"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/SmoothBlocks.mos"
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model tests the implementation of blocks that approximate non-differentiable functions
+by smooth functions.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+August 15, 2008, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end SmoothBlocks;

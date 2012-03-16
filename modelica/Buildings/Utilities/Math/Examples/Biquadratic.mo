@@ -2,9 +2,12 @@ within Buildings.Utilities.Math.Examples;
 model Biquadratic "Test model for biquadratic function"
   import Buildings;
   extends Modelica.Icons.Example;
-  Modelica.Blocks.Sources.Constant x1(k=1)
+  Modelica.Blocks.Sources.Ramp x1(duration=1)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}}, rotation=0)));
-  Modelica.Blocks.Sources.Constant x2(k=2)
+  Modelica.Blocks.Sources.Ramp x2(
+    height=2,
+    duration=1,
+    offset=2)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}}, rotation=0)));
   Buildings.Utilities.Math.Biquadratic biquadratic(a={1,2,3,4,5,6})
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
@@ -21,5 +24,22 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {100,100}}),
                      graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Biquadratic.mos" "Simulate and plot"));
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/Biquadratic.mos"
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model tests the implementation of the biquadratic function.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+March 14, 2012 by Michael Wetter:<br>
+Changed input values of function.
+</li>
+<li>
+Sep 17, 2010 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end Biquadratic;
