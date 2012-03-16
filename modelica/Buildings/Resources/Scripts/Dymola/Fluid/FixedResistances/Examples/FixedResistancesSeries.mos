@@ -3,5 +3,5 @@ simulateModel("Buildings.Fluid.FixedResistances.Examples.FixedResistancesSeries(
 createPlot(id = 1,
  position = {(-1), 6, 400, 280},
  x = "res[1].dp",
- y = {"res[1].m_flow", "res[1].m_small_flow"},
+ y = {"res[1].m_flow", "res[1].m_flow_turbulent"},
  grid = true);
