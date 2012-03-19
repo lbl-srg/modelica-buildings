@@ -120,7 +120,7 @@ Then, the equations for the mass balance of the fluid volume can be configured a
    at the value ``p(start=Medium.p_default)``, where ``Medium`` is the 
    name of the instance of the medium model.
 
-Since the model ``Buildings.Fluid.Sources.FixedBoundary`` fixes the pressure at its port, it follows the initial conditions :math:`p(t_0)=p_0` and :math:`dp(t_0)/dt = 0` that lead to an overspecified system for the model shown above. To avoid such situation, use different initial conditions, or add a flow resistance between the mixing volume and the pressure source. The flow resistance introduces an equation that relates the pressure of the mixing volume and the pressure source as a function of the mass flow rate, thereby removing the inconsistency.
+Since the model ``Buildings.Fluid.Sources.FixedBoundary`` fixes the pressure at its port, the initial conditions :math:`p(t_0)=p_0` and :math:`dp(t_0)/dt = 0` lead to an overspecified system for the model shown above. To avoid such situation, use different initial conditions, or add a flow resistance between the mixing volume and the pressure source. The flow resistance introduces an equation that relates the pressure of the mixing volume and the pressure source as a function of the mass flow rate, thereby removing the inconsistency.
 
 .. warning::
 
@@ -173,10 +173,11 @@ Then, the energy balance can be configured as shown in the table below.
       and no heat port. Then, it is possible 
       that :math:`\dot m_1(t) \not = 0` and :math:`\dot m_2(t) = 0`, 
       since :math:`dm(t)/dt =  \dot m_1(t) + \dot m_2(t)`. 
-      However, the energy balance equation 
+      However, the energy balance equation is
       :math:`0 = \sum_{i=1}^2 \dot m_i(t) \, h_i(t) + \dot Q(t)`, 
-      with :math:`\dot Q(t) = 0` (because there is no heat port),
-      we get :math:`0 = \dot m_1(t) \, h_1(t)` which is inconsistent.
+      with :math:`\dot Q(t) = 0` because there is no heat port.
+      Therefore, we obtain :math:`0 = \dot m_1(t) \, h_1(t)`,
+      which is inconsistent.
    2. Unlike the case with the pressure initialization, the temperature in
       the model ``bou`` does not lead to ``vol.T = bou.T`` at initial time,
       because physics allows the temperatures in ``bou`` and ``vol`` to 
