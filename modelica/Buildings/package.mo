@@ -221,6 +221,14 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer
+    </td>
+    <td valign=\"top\">Fixed the bug for temperature linearization and changed the equation for heat flow through the glass layer to a more accurate one.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -238,6 +246,9 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -255,6 +266,19 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Base class for heat flow in glass layer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/56\">#56</a>
+    </td>
+    <td valign=\"top\">Changed to better form of heat flow calculation for single glass layer.
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/57\">#57</a>
+    </td>
+    <td valign=\"top\">Fixed bugs in temperature linearization that generate wrong results in OnlyExteriorWallWithWindow.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -275,7 +299,6 @@ xxx
 </p>
 </html>"));
   end Version_1_2_build0;
-
 
   class Version_1_1_build1 "Version 1.1 build 1"
     extends Modelica.Icons.ReleaseNotes;
