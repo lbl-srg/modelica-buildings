@@ -116,7 +116,7 @@ Buildings.HeatTransfer.Radiosity.WindowPane</a>.
 <ul>
 <li>
 March 20, 2012 by Wangda Zuo:<br>
-Fix the bug for heat flow reproted by Pierre Tittelein and fix bugs for temperature linearization.
+Fixed bug for heat flow reported by Pierre Tittelein and fixed bug for temperature linearization.
 </li>
 <li>
 April 2, 2011 by Michael Wetter:<br>

@@ -38,7 +38,7 @@ revisions="<html>
 <ul>
 <li>
 March 20, 2012, by Wangda Zuo:<br>
-Add T04 for temperautre linearization.
+Added <code>T04</code> for temperature linearization.
 </li>
 <li>
 August 23, 2010, by Michael Wetter:<br>
