@@ -11,8 +11,7 @@ model GlassLayer "Model for a glass layer of a window assembly"
     "Infrared absorptivity of surface a (usually room-facing surface)";
   parameter Modelica.SIunits.Emissivity absIR_b
     "Infrared absorptivity of surface b (usually outside-facing surface)";
-  parameter Modelica.SIunits.Emissivity tauIR
-    "Infrared transmittance of glass";
+  parameter Modelica.SIunits.Emissivity tauIR "Infrared transmittance of glass";
 
   Modelica.Blocks.Interfaces.RealInput u
     "Input connector, used to scale the surface area to take into account an operable shading device"
@@ -53,15 +52,16 @@ equation
   // These equations are from Window 6 Technical report, (2.1-14) to (2.1-17)
   0 = port_a.Q_flow + port_b.Q_flow + QAbs_flow + JIn_a  + JIn_b + JOut_a + JOut_b;
   //port_b.T-port_a.T = R/u * (2*port_b.Q_flow+QAbs_flow);
-  u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-(absIR_a*JIn_a-E_a));
+  //   u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-(absIR_a*JIn_a-E_a));
+  u * (port_b.T-port_a.T) = 2*R * (-port_a.Q_flow-QAbs_flow/2-JIn_a-JOut_a); // Ticket 56
   // Radiosity balance
   if linearize then
-    T4_a = T03 * port_a.T;
-    T4_b = T03 * port_b.T;
+    T4_a = 4*T03*port_a.T - 3*T04;
+    T4_b = 4*T03*port_b.T - 3*T04;
   else
     if homotopyInitialization then
-      T4_a = homotopy(actual=port_a.T^4, simplified=T03*port_a.T);
-      T4_b = homotopy(actual=port_b.T^4, simplified=T03*port_b.T);
+      T4_a = homotopy(actual=port_a.T^4, simplified=4*T03*port_a.T - 3*T04);
+      T4_b = homotopy(actual=port_b.T^4, simplified=4*T03*port_b.T - 3*T04);
     else
       T4_a = port_a.T^4;
       T4_b = port_b.T^4;
@@ -114,6 +114,10 @@ Buildings.HeatTransfer.Radiosity.WindowPane</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 20, 2012 by Wangda Zuo:<br>
+Fix the bug for heat flow reproted by Pierre Tittelein and fix bugs for temperature linearization.
+</li>
 <li>
 April 2, 2011 by Michael Wetter:<br>
 Added <code>homotopy</code> operator.

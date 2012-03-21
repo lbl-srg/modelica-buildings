@@ -19,7 +19,8 @@ model ParametersTwoSurfaces
 protected
  final parameter Real T03(min=0, unit="K3")=T0^3 "3rd power of temperature T0"
  annotation(Evaluate=true);
-
+ final parameter Real T04(min=0, unit="K4")=T0^4 "4th power of temperature T0"
+ annotation(Evaluate=true);
 initial equation
     assert(abs(1-absIR_a-rhoIR_a-tauIR) < Modelica.Constants.eps,
     "Absorptivity, reflectivity and transmissivity of surface a do not add up to one. Check parameters.");
@@ -35,6 +36,10 @@ Parameters that are used for classes with two surfaces.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 20, 2012, by Wangda Zuo:<br>
+Add T04 for temperautre linearization.
+</li>
 <li>
 August 23, 2010, by Michael Wetter:<br>
 First implementation.
