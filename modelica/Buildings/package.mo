@@ -226,7 +226,9 @@ that can lead to wrong simulation results):
 </tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer
     </td>
-    <td valign=\"top\">Fixed the bug for temperature linearization and changed the equation for heat flow through the glass layer to a more accurate one.
+    <td valign=\"top\">Fixed the bug in the temperature linearization and 
+                       in the heat flow through the glass layer if the transmissivity of glass
+                       in the infrared regime is non-zero.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -266,17 +268,17 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Base class for heat flow in glass layer</b>
+<tr><td colspan=\"2\"><b>Heat transfer in glass layer</b>
     </td>
 </tr>
 <tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/56\">#56</a>
     </td>
-    <td valign=\"top\">Changed to better form of heat flow calculation for single glass layer.
+    <td valign=\"top\">Fixed bug in heat flow through the glass layer if the infrared transmissivity is non-zero.
     </td>
 </tr>
 <tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/57\">#57</a>
     </td>
-    <td valign=\"top\">Fixed bugs in temperature linearization that generate wrong results in OnlyExteriorWallWithWindow.
+    <td valign=\"top\">Fixed bug in temperature linearization of window glass.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
