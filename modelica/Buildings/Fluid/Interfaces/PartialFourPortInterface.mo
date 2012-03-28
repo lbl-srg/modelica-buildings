@@ -33,10 +33,10 @@ partial model PartialFourPortInterface
     "= true, if actual temperature at port is computed (may lead to events)"
     annotation(Dialog(tab="Advanced",group="Diagnostics"));
 public
-  Modelica.SIunits.VolumeFlowRate V1_flow=m1_flow/Medium.density(sta_a1) if
+  Modelica.SIunits.VolumeFlowRate V1_flow=m1_flow/Medium1.density(sta_a1) if
         show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a1 to port_b1)";
-  Modelica.SIunits.VolumeFlowRate V2_flow=m2_flow/Medium.density(sta_a2) if
+  Modelica.SIunits.VolumeFlowRate V2_flow=m2_flow/Medium2.density(sta_a2) if
         show_V_flow
     "Volume flow rate at inflowing port (positive when flow from port_a2 to port_b2)";
   Medium1.MassFlowRate m1_flow(start=0) = port_a1.m_flow
@@ -57,7 +57,7 @@ public
       Medium1.setState_phX(port_a1.p,
                            actualStream(port_a1.h_outflow),
                            actualStream(port_a1.Xi_outflow)) if
-         show_T "Medium properties in port_a1";
+         show_T or show_V_flow "Medium properties in port_a1";
   Medium1.ThermodynamicState sta_b1=if homotopyInitialization then
       Medium1.setState_phX(port_b1.p,
           homotopy(actual=actualStream(port_b1.h_outflow),
@@ -79,7 +79,7 @@ public
       Medium2.setState_phX(port_a2.p,
                            actualStream(port_a2.h_outflow),
                            actualStream(port_a2.Xi_outflow)) if
-         show_T "Medium properties in port_a2";
+         show_T or show_V_flow "Medium properties in port_a2";
   Medium2.ThermodynamicState sta_b2=if homotopyInitialization then
       Medium2.setState_phX(port_b2.p,
           homotopy(actual=actualStream(port_b2.h_outflow),
@@ -124,6 +124,16 @@ mass transfer and pressure drop equations.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2012 by Michael Wetter:<br>
+Replaced the erroneous function call <code>Medium.density</code> with 
+<code>Medium1.density</code> and <code>Medium2.density</code>.
+Changed condition to remove <code>sta_a1</code> and <code>sta_a2</code> to also
+compute the states at the inlet port if <code>show_V_flow=true</code>. 
+The previous implementation resulted in a translation error
+if <code>show_V_flow=true</code>, but worked correctly otherwise
+because the erroneous function call is removed if  <code>show_V_flow=false</code>.
+</li>
 <li>
 March 27, 2011 by Michael Wetter:<br>
 Added <code>homotopy</code> operator.

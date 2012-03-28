@@ -248,15 +248,22 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.PartialFourPortInterface<br/>
+                       Buildings.Fluid.Interfaces.PartialTwoPortInterface
     </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Replaced the erroneous function call <code>Medium.density</code> with 
+                       <code>Medium1.density</code> and <code>Medium2.density</code> in
+                        <code>PartialFourPortInterface</code>.
+                       Changed condition to remove <code>sta_a1</code> and
+                       <code>sta_a2</code> in <code>PartialFourPortInterface</code>, and
+                       <code>sta_a</code> in <code>PartialTwoPortInterface</code>, to also
+                       compute the state at the inlet port if <code>show_V_flow=true</code>.<br/>
+                       The previous implementation resulted in a translation error
+                       if <code>show_V_flow=true</code>, but worked correctly otherwise
+                       because the erroneous function call is removed if  <code>show_V_flow=false</code>.
     </td>
 </tr>
 </table>

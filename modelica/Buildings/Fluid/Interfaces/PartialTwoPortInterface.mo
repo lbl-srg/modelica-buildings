@@ -43,7 +43,7 @@ partial model PartialTwoPortInterface
       Medium.setState_phX(port_a.p,
                           actualStream(port_a.h_outflow),
                           actualStream(port_a.Xi_outflow)) if
-         show_T "Medium properties in port_a";
+         show_T or show_V_flow "Medium properties in port_a";
 
   Medium.ThermodynamicState sta_b=if homotopyInitialization then
       Medium.setState_phX(port_b.p,
@@ -83,6 +83,14 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2012 by Michael Wetter:<br>
+Changed condition to remove <code>sta_a</code> to also
+compute the state at the inlet port if <code>show_V_flow=true</code>. 
+The previous implementation resulted in a translation error
+if <code>show_V_flow=true</code>, but worked correctly otherwise
+because the erroneous function call is removed if  <code>show_V_flow=false</code>.
+</li>
 <li>
 March 27, 2011 by Michael Wetter:<br>
 Added <code>homotopy</code> operator.
