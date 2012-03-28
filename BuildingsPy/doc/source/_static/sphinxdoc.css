@@ -96,6 +96,19 @@ div.related {
     font-size: 1em;
 }
 
+/* Highlight class names in python documentation */
+.class dt  {
+    background-color: #BFD1D4;
+}
+/* Don't highlight method names in python documentation */
+.class .method dt, .class .staticmethod dt  {
+    background-color: white;
+}
+/* Prevent that the whitespace in  ``(t, y)`` has a grey background */
+tt.docutils.literal{
+    background-color: white;
+    }
+
 div.related ul {
     background-image: url(navigation.png);
     height: 2em;

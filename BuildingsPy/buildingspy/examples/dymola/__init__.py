@@ -24,6 +24,8 @@ Plotting of Time Series
 
 This module provides an example that illustrates the
 use of the python to plot results from a Dymola simulation.
+See also the class :class:`buildingspy.io.postprocess.Plotter`
+for more advanced plotting.
 
 The file ``plotResult.py`` illustrates how to plot results from a
 Dymola output file. To run the example, proceed as follows:

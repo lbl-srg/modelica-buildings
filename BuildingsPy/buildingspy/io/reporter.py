@@ -28,9 +28,6 @@ class Reporter:
         stream to the file ''stdout.log'', and the standard error stream to the file ``stderr.log``.
         The default setting is ``True``
         '''
-        import os
-
-
         self.__logToFile = log
 
     def writeError(self, message):

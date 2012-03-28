@@ -1,10 +1,19 @@
-Reading output files
-====================
+Reading output files, plotting results and reporting simulation output
+======================================================================
 
 .. automodule:: buildingspy.io 
-.. automodule:: buildingspy.io.outputfile
+
+File reader
+-----------
 .. autoclass:: buildingspy.io.outputfile.Reader
    :members:
 
+Plotter
+-------
+.. autoclass:: buildingspy.io.postprocess.Plotter
+   :members:
+
+Reporter
+--------
 .. autoclass:: buildingspy.io.reporter.Reporter
    :members:

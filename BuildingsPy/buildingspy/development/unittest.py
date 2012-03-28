@@ -36,7 +36,8 @@ def runSimulation(worDir):
         else:
             return 0
     except OSError as e:
-        print "Execution of ", command, " failed:", e
+        sys.stderr.write("Execution of " + [t.getModelicaCommand(), "runAll.mos", "/nowindow"] + " failed.")
+        raise(e)
 
 
 class Tester:
@@ -74,7 +75,6 @@ class Tester:
     def __init__(self):
         import os
         import multiprocessing
-        import buildingspy.development.data as dat
 
         # --------------------------
         # Class variables
@@ -275,7 +275,6 @@ class Tester:
         import os
         import re
         import sys
-        import copy
         import buildingspy.development.data as data
 
         scrPat = os.path.join(self.__libHome, 'Resources', 'Scripts', 'Dymola')
@@ -371,7 +370,6 @@ class Tester:
             a ``ValueError`` exception.
 
         '''
-        import sys
         s = set()
         errMes = ""
         for data in self.__data:
@@ -399,6 +397,7 @@ class Tester:
         import os
         import sys
         from buildingspy.io.outputfile import Reader
+        from buildingspy.io.postprocess import Plotter
 
         def extractData(y, step):
             # Replace the last element with the last element in time,
@@ -451,58 +450,15 @@ class Tester:
                     if (not foundData) and len(time) > 2:
                         dat['time']=ti
                         foundData = True
-                    dat[var]=self.__interpolate(ti, time, val)
+
+                    if self.__isParameter(val):
+                        dat[var] = val
+                    else:
+                        dat[var]=Plotter.interpolate(ti, time, val)
+
             if foundData:
                 ret.append(dat)
         return ret
-
-    def __interpolate(self, tSup, t, y):
-        ''' Interpolate (t, y) to support points tSup.
-        
-        :param tSup: Support points.
-        :param t: Time points.
-        :param y: Function values at ``t``.
-        :return: Interpolated values of ``y`` at ``tSup``
-        
-        '''
-        import numpy as np
-        import copy
-        yI = []
-        if self.__isParameter(y):
-            yI = y
-        else:
-            if ( (np.isnan(tSup)).any() ):
-                raise ValueError('NaN in input argument tSup.')
-            if ( (np.isnan(t)).any() ):
-                raise ValueError('NaN in input argument t.')
-            if ( (np.isnan(y)).any() ):
-                raise ValueError('NaN in input argument y.')
-            # Numpy needs t to be strictly increasing, but Dymola may have the same time stamps
-            # more than once. 
-            # If the last points are for the same time stamp, we remove them from the interpolation
-            iMax = len(t)-1
-            dT = (max(t)-min(t))/float(iMax)
-            while t[iMax] <= t[iMax-1]:
-                iMax = iMax-1
-            tNew = copy.deepcopy(t)
-            # Shift tNew slight in case of multiple equal entries.
-            # Since the last entry was removed above, the final time is not going to change.
-            tTol = 1E-2*dT # Do not set to 1E-3*dT to avoid round-off errors.
-            tInc = 10.0*tTol
-            for i in range(1, iMax):
-                if tNew[i] < tNew[i-1] + tTol:
-                    tNew[i] = tNew[i-1] + tInc
-            for i in range(1, iMax):
-                if tNew[i] < tNew[i-1] + tTol:
-                    raise ValueError('Time t is not strictly increasing.')
-            for i in range(1, len(tSup)-1):
-                if tSup[i] < tSup[i-1] + tTol:
-                    raise ValueError('Time tSup is not strictly increasing.')
-            yI=np.interp(tSup, tNew[0:iMax+1], y[0:iMax+1])
-            if ( (np.isnan(yI)).any() ):
-                raise ValueError('NaN in iterpolation.')
-        return yI
-
 
     def __areResultsEqual(self, tOld, yOld, tNew, yNew, varNam, filNam):
         ''' Return `True` if the data series are equal within a tolerance.
@@ -518,23 +474,44 @@ class Tester:
         '''
         import sys
         import numpy as np
+        from buildingspy.io.postprocess import Plotter
+
+
+        # Check arguments
+##        if len(tNew) != len(yNew):
+##            em = ("Argument tNew and yNew must have the same number of arguments.\n" 
+##                  "   For file " + filNam + ", variable " + varNam + ", "
+##                  "received len(tNew) = " + str(len(tNew)) + ", len(yNew) = " + str(len(yNew)) + ".")
+##            raise ValueError(em)
 
         timMaxErr = 0
 
         tol=1E-3  #Tolerance
 
         # Interpolate the new variables to the old time stamps
-        yInt = self.__interpolate(tOld, tNew, yNew)
+        if len(yNew) > 2:
+            yInt = Plotter.interpolate(tOld, tNew, yNew)
+        else:
+            yInt = [yNew[0], yNew[0]]
 
         errAbs=np.zeros(len(yInt))
         errRel=np.zeros(len(yInt))
         errFun=np.zeros(len(yInt))
 
+        # Make sure both time series have the same number of support points.
+        # This may not be the case if a parameter was changed to a variable or vice versa
+#        if len(yOld) != len(yInt):
+#            sys.stdout.write("*** Warning: %s : %s changed from %s to %s support points.\n" %
+#                             (filNam, varNam, str(len(yOld)) ,str(len(yInt))))
+#            return (False, tNew[0])
+            
         # Compute error for the variable with name varNam
         for i in range(len(yInt)):
             errAbs[i] = abs( yOld[i] - yInt[i] )
             if np.isnan(errAbs[i]):
-                raise ValueError('NaN in errAbs ' + varNam + " "  + str(yOld[i]) + "  " + str(yInt[i]) + " i, N " + str(i) + " --:" + str(yInt[i-1]) + " ++:", str(yInt[i+1]))
+                raise ValueError('NaN in errAbs ' + varNam + " "  + str(yOld[i]) + 
+                                 "  " + str(yInt[i]) + " i, N " + str(i) + " --:" + str(yInt[i-1]) + 
+                                 " ++:", str(yInt[i+1]))
             if (abs(yOld[i]) > 10*tol):
                 errRel[i] = errAbs[i] / abs( yOld[i] )
             else:
@@ -550,8 +527,10 @@ class Tester:
             timMaxErr = tOld[iMax]
             sys.stdout.write("*** Warning: %s : %s has absolute and relative error = %s  %s.\n" %
                              (filNam, varNam, str(max(errAbs)) ,str(max(errRel))))
-
-            sys.stdout.write("             Maximum error is at t = %s\n" % str(timMaxErr))
+            if self.__isParameter(yInt):
+                sys.stdout.write("             %s is a parameter.\n" % varNam)
+            else:
+                sys.stdout.write("             Maximum error is at t = %s\n" % str(timMaxErr))
             return (False, timMaxErr)
         else:
             return (True, timMaxErr)
@@ -560,6 +539,9 @@ class Tester:
     def __isParameter(self, dataSeries):
         ''' Return `True` if `dataSeries` is from a parameter.
         '''
+        import numpy as np
+        if not (isinstance(dataSeries, np.ndarray) or isinstance(dataSeries, list)):
+            raise TypeError("Program error: dataSeries must be a numpy.ndarr or a list. Received type " + str(type(dataSeries)) + ".\n")
         return (len(dataSeries) == 2)
 
     def __writeReferenceResults(self, refFilNam, yS):
@@ -600,7 +582,6 @@ class Tester:
         :return: A dictionary with the reference results.
 
         '''
-        import string
         import numpy
 
         d = dict()
@@ -666,7 +647,7 @@ class Tester:
 
         '''
         import matplotlib.pyplot as plt
-        import numpy
+
         # Reset answer, unless it is set to Y or N
         if not (ans == "Y" or ans == "N"):
             ans = "-"
@@ -714,8 +695,19 @@ class Tester:
                 if varNam != 'time':
                     if yR.has_key(varNam):
                         # Check results
-                        (res, timMaxErr) = self.__areResultsEqual(tR, yR[varNam], 
-                                                     tS, pai[varNam], varNam, matFilNam)
+                        if self.__isParameter(pai[varNam]):
+                            t=[min(tS), max(tS)]
+                        else:
+                            t=tS
+
+                    # Check arguments
+##                        if len(t) != len(pai[varNam]):
+##                            em = ("Argument tNew and yNew must have the same number of arguments.\n" 
+##                                  "   For variable " + varNam + ", "
+##                                  "received len(t) = " + str(len(t)) + ", len(pai[varNam]) = " + str(len(pai[varNam])) + ".")
+##                            raise ValueError(em)
+
+                        (res, timMaxErr) = self.__areResultsEqual(tR, yR[varNam], t, pai[varNam], varNam, matFilNam)
                         if not res:
                             foundError = True
                             timOfMaxErr[varNam] = timMaxErr
@@ -785,8 +777,7 @@ class Tester:
     # ask the user whether it should be generated.
     def __checkReferencePoints(self, ans):
         import os
-        import shutil
-        from datetime import date
+        import sys
 
         #Check if the directory "self.__libHome\\Resources\\ReferenceResults\\Dymola" exists, if not create it.
         refDir=os.path.join(self.__libHome, 'Resources', 'ReferenceResults', 'Dymola')   
@@ -829,15 +820,13 @@ class Tester:
                 if updateReferenceData:    # If the reference data of any variable was updated
                     # Make dictionary to save the results and the svn information
                     self.__writeReferenceResults(oldRefFulFilNam, yS)
-            else: # self.__includeFile(data.getScriptFile())
-                print "*** Warning: Output file of ", k ," is excluded from result test."
+            else:
+                sys.stderr.write("*** Warning: Output file of " + data.getScriptFile() + " is excluded from result test.")
 
         return ans
 
     # --------------------------
     def __checkSimulationError(self, errorFile):
-        import os.path
-        import sys
         fil = open(errorFile, "r")
         i=0
         for lin in fil.readlines():

@@ -1,1 +1,15 @@
-Version 1.0.0, November 1, 2011 -- Initial release.
+BuildingsPy Changelog
+---------------------
+
+Version 1.1.0, xxx, 2012 -- Release 1.1
+---------------------------------------
+- Added class buildingspy.io.postprocess.Plotter.
+  This simplifies the creation of boxplot and the
+  plotting of data that repeat every day.
+- Moved function buildingspy.development.unittest.Tester.__interpolate
+  to buildingspy.io.postprocess.Plotter.interpolate
+
+Version 1.0.0, November 1, 2011
+-------------------------------
+
+Initial release.
