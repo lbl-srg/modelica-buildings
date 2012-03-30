@@ -1,7 +1,6 @@
 within Buildings.Fluid.Storage;
 model StratifiedEnhanced "Stratified tank model with enhanced discretization"
-  extends Stratified(nPorts=3, vol(each prescribedHeatFlowRate=true));
-  extends Modelica.Icons.UnderConstruction;
+  extends Stratified(nSeg=4, nPorts=3, vol(each prescribedHeatFlowRate=true));
   BaseClasses.ThirdOrderStratifier str(
     redeclare package Medium = Medium,
     nSeg=nSeg,
@@ -28,10 +27,10 @@ equation
                                                   color={0,0,127}));
   connect(str.heatPort, vol.heatPort)    annotation (Line(points={{-40,-40},{
           -32,-40},{-32,10},{6,10},{6,-6}},      color={191,0,0}));
-  connect(port_a, str.fluidPort[1]) annotation (Line(points={{-100,0},{-100,0},{
-          -72,0},{-72,-40},{-60,-40}},           color={0,127,255}));
-  connect(port_b, str.fluidPort[nSeg + 2]) annotation (Line(points={{100,0},{100,
-          0},{80,0},{80,-88},{-72,-88},{-72,-40},{-60,-40}},
+  connect(port_a, str.fluidPort[1]) annotation (Line(points={{-100,5.55112e-16},
+          {-100,0},{-72,0},{-72,-40},{-60,-40}}, color={0,127,255}));
+  connect(port_b, str.fluidPort[nSeg + 2]) annotation (Line(points={{100,
+          5.55112e-16},{100,0},{80,0},{80,-88},{-72,-88},{-72,-40},{-60,-40}},
                            color={0,127,255}));
   connect(mTan_flow.y, str.m_flow) annotation (Line(points={{-73,-32},{-68.5,
           -32},{-68.5,-31.8},{-62,-31.8}}, color={0,0,127}));
@@ -51,20 +50,16 @@ is implemented in
 <a href=\"modelica:Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
 Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 </p>
+<h4>Limitations</h4>
 <p>
-<b>Note:</b>
-This model is marked under construction because the 
-<a href=\"modelica:Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier\">
-Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>
-can yield to situations where the tank outlet temperature is higher (colder)
-than the hottest (coldest) temperature in the tank.
-Energy seems to be conserved, but the 2nd law is violated.
-See also 
-<a href=\"https://corbu.lbl.gov/trac/bie/ticket/15\">
-https://corbu.lbl.gov/trac/bie/ticket/15</a>.
+The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 or higher.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2012 by Wangda Zuo:<br>
+Revised the implementation to reduce the temperature overshoot.
+</li>
 <li>
 June 23, 2010 by Michael Wetter and Wangda Zuo:<br>
 Changed model that is used to correct the numerical diffusion. 

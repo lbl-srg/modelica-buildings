@@ -236,7 +236,7 @@ that can lead to wrong simulation results):
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClass.ThirdOrderStratifier
     </td>
-    <td valign=\"top\">Revise the implementation to reduce the temperature over-predicting and correct the heat flux added into the volume.
+    <td valign=\"top\">Revised the implementation to reduce the temperature over-shoot.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -301,7 +301,7 @@ have been fixed:
 </tr>
 <tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/15\">#15</a>
     </td>
-    <td valign=\"top\">Revise the implementation to reduce the temperature over-predicting and correct the heat flux added into the volume.
+    <td valign=\"top\">Revised the implementation to reduce the temperature over-shoot.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>

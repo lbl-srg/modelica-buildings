@@ -7,11 +7,11 @@ model ThirdOrderStratifier
 
   parameter Medium.MassFlowRate m_flow_small(min=0)
     "Small mass flow rate for regularization of zero flow";
-  parameter Integer nSeg(min=4) = 4 "Number of volume segments";
+  parameter Integer nSeg(min=4) "Number of volume segments";
 
   parameter Real alpha(
     min=0,
-    max=1) = 0.5 "under-relaxation coefficient (1: QUICK; 0: 1st order Upwind)";
+    max=1) = 0.5 "Under-relaxation coefficient (1: QUICK; 0: 1st order upwind)";
 
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heatPort
     "Heat input into the volumes" annotation (Placement(transformation(extent={
@@ -74,15 +74,17 @@ Number of segments of the enhanced stratified tank should be no less than 4 (nSe
     1,
     0,
     m_flow_small);
+             // at surface between port_a and vol1
+
   comSig = 1 - sig;
 
-  hOut[1] = sig*h[1] + comSig*h[2];
   // at surface between port_a and vol1
-  hOut[nSeg + 1] = sig*h[nSeg + 1] + comSig*h[nSeg + 2];
+  hOut[1] = sig*h[1] + comSig*h[2];
   // at surface between vol[nSeg] and port_b
+  hOut[nSeg + 1] = sig*h[nSeg + 1] + comSig*h[nSeg + 2];
 
-  // Pros: These two equations can further reduce the T over-predicting by using the upwind
-  // Cons: The minium of nSeg hase to be 4 instead of 2.
+  // Pros: These two equations can further reduce the temperature overshoot by using the upwind
+  // Cons: The minimum of nSeg hase to be 4 instead of 2.
   hOut[2] = sig*h[2] + comSig*h[3];
   // at surface between vol1 and vol2
   hOut[nSeg] = sig*h[nSeg] + comSig*h[nSeg + 1];
@@ -90,22 +92,23 @@ Number of segments of the enhanced stratified tank should be no less than 4 (nSe
 
   for i in 3:nSeg - 1 loop
     // at surface between vol[i-1] and vol[i]
+    // QUICK method
     hOut[i] = 0.5*(h[i] + h[i + 1]) - comSig*0.125*(h[i + 2] + h[i] - 2*h[i + 1])
        - sig*0.125*(h[i - 1] + h[i + 1] - 2*h[i]);
-    // QUICK method
     //     hOut[i] = 0.5*(h[i]+h[i+1]); // Central difference method
   end for;
 
   for i in 1:nSeg loop
-    Q_flow[i] = m_flow*(hOut[i + 1] - hOut[i]) - (H_flow[i + 1] - H_flow[i]);
     // difference between QUICK and UPWIND; index of H_flow is same as hOut
+    Q_flow[i] = m_flow*(hOut[i + 1] - hOut[i]) - (H_flow[i + 1] - H_flow[i]);
   end for;
 
   //   Q_flow_upWind = sum(Q_flow[i] for i in 1:nSeg); //Used to test the energy conservation
 
   for i in 1:nSeg loop
+    // Add the difference back to the volume as heat flow. An under-relaxation is needed to reduce
+    // oscillations caused by high order method
     heatPort[i].Q_flow = Q_flow[i]*alpha;
-    // Add the difference back to the volume as heat flow. An under-relaxation is needed to reduce oscillation caused by high order method
   end for;
   annotation (Documentation(info="<html>
 <p>
@@ -121,20 +124,33 @@ It computes a heat flux that needs to be added to each volume of <a href=\"model
 Modelica.Fluid.Storage.Stratified</a> in order to give the results that a third-order upwind discretization scheme (QUICK) would give.
 </p>
 <p>
-The QUICK method can cause the oscillation in predicted temperatures since the high order method will introduce the numerical dispersion. There are two ways to reduce the oscillations:<br>
-1. To use an under-relaxation coefficient <code>alpha</code> when adding the heat flux into the volume.<br> 
-2. To use the first-order upwind for <code>hOut[2]</code> and <code>hOut[nSeg]</code>. Note: Using it requires <code>nSeg>=4</code>.
+The QUICK method can cause oscillations in the tank temperatures since the high order method introduces numerical dispersion.
+There are two ways to reduce the oscillations:</p>
+<ul>
+<li>
+To use an under-relaxation coefficient <code>alpha</code> when adding the heat flux into the volume.
+</li>
+<li>
+To use the first-order upwind for <code>hOut[2]</code> and <code>hOut[nSeg]</code>. Note: Using it requires <code>nSeg>=4</code>.
+</li>
+</ul>
+<p>
+Both approaches are implemented in the model.
 </p>
 <p>
 The model is used by
 <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhanced\">
 Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
+<h4>Limitations</h4>
+<p>
+The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 or higher.
+</p>
 </html>", revisions="<html>
 <ul>
 <li>
-Mar 29, 2012 by Wangda Zuo:<br>
-Revise the implementation to reduce the temperature over-predicting and correct the heat flux added into the volume.
+March 29, 2012 by Wangda Zuo:<br>
+Revised the implementation to reduce the temperature overshoot.
 </li>
 <li>
 July 28, 2010 by Wangda Zuo:<br>
