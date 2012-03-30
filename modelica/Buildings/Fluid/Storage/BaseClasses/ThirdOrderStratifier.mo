@@ -2,90 +2,110 @@ within Buildings.Fluid.Storage.BaseClasses;
 model ThirdOrderStratifier
   "Model to reduce the numerical dissipation in a tank"
   extends Buildings.BaseClasses.BaseIcon;
-  replaceable package Medium =
-    Modelica.Media.Interfaces.PartialMedium "Medium model"  annotation (
-      choicesAllMatching = true);
+  replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
+    "Medium model" annotation (choicesAllMatching=true);
 
   parameter Medium.MassFlowRate m_flow_small(min=0)
     "Small mass flow rate for regularization of zero flow";
-  parameter Integer nSeg(min=2) = 2 "Number of volume segments";
+  parameter Integer nSeg(min=4) = 4 "Number of volume segments";
+
+  parameter Real alpha(
+    min=0,
+    max=1) = 0.5 "under-relaxation coefficient (1: QUICK; 0: 1st order Upwind)";
+
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a[nSeg] heatPort
-    "Heat input into the volumes"
-    annotation (Placement(transformation(extent={{90,-10},{110,10}}, rotation=0)));
+    "Heat input into the volumes" annotation (Placement(transformation(extent={
+            {90,-10},{110,10}},rotation=0)));
 
   Modelica.Blocks.Interfaces.RealInput m_flow
-    "Mass flow rate from port a to port b"
-    annotation (Placement(transformation(extent={{-140,62},{-100,102}},
-          rotation=0)));
+    "Mass flow rate from port a to port b" annotation (Placement(transformation(
+          extent={{-140,62},{-100,102}}, rotation=0)));
 
-  Modelica.Blocks.Interfaces.RealInput[nSeg+1] H_flow
-    "Enthalpy flow between the volumes"
-    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}},
-          rotation=0)));
+  Modelica.Blocks.Interfaces.RealInput[nSeg + 1] H_flow
+    "Enthalpy flow between the volumes" annotation (Placement(transformation(
+          extent={{-140,-100},{-100,-60}}, rotation=0)));
 
-  Modelica.Fluid.Interfaces.FluidPort_a[nSeg+2] fluidPort(
-      redeclare each package Medium = Medium)
+  Modelica.Fluid.Interfaces.FluidPort_a[nSeg + 2] fluidPort(redeclare each
+      package Medium = Medium)
     "Fluid port, needed to get pressure, temperature and species concentration"
     annotation (Placement(transformation(extent={{-110,-10},{-90,10}}, rotation=
            0)));
 
 protected
-  Modelica.SIunits.SpecificEnthalpy[nSeg+2] hOut
-    "Extended vector with new outlet enthalpies to reduce numerical dissipation";
-  Modelica.SIunits.SpecificEnthalpy[nSeg+2] h
+  Modelica.SIunits.SpecificEnthalpy[nSeg + 1] hOut
+    "Extended vector with new outlet enthalpies to reduce numerical dissipation (at the boundary between two volumes)";
+  Modelica.SIunits.SpecificEnthalpy[nSeg + 2] h
     "Extended vector with port enthalpies, needed to simplify loop";
   Modelica.SIunits.HeatFlowRate Q_flow[nSeg]
     "Heat exchange computed using upwind third order discretization scheme";
-  Modelica.SIunits.HeatFlowRate Q_flow_upWind
-    "Heat exchange computed using upwind third order discretization scheme";
+  //    Modelica.SIunits.HeatFlowRate Q_flow_upWind
+  //     "Heat exchange computed using upwind third order discretization scheme"; //Used to test the energy conservation
   Real sig
     "Sign used to implement the third order upwind scheme without triggering a state event";
   Real comSig
     "Sign used to implement the third order upwind scheme without triggering a state event";
 
-  parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=Medium.T_default,
-         p=Medium.p_default, X=Medium.X_default[1:Medium.nXi]);
-  parameter Modelica.SIunits.SpecificHeatCapacity cp0=Medium.specificHeatCapacityCp(sta0)
+  parameter Medium.ThermodynamicState sta0=Medium.setState_pTX(
+      T=Medium.T_default,
+      p=Medium.p_default,
+      X=Medium.X_default[1:Medium.nXi]);
+  parameter Modelica.SIunits.SpecificHeatCapacity cp0=
+      Medium.specificHeatCapacityCp(sta0)
     "Density, used to compute fluid volume";
+
 equation
+  assert(nSeg >= 4, "
+Number of segments of the enhanced stratified tank should be no less than 4 (nSeg>=4).");
+
   // assign zero flow conditions at port
-  fluidPort[:].m_flow = zeros(nSeg+2);
-  fluidPort[:].h_outflow = zeros(nSeg+2);
-  fluidPort[:].Xi_outflow = zeros(nSeg+2, Medium.nXi);
-  fluidPort[:].C_outflow  = zeros(nSeg+2, Medium.nC);
+  fluidPort[:].m_flow = zeros(nSeg + 2);
+  fluidPort[:].h_outflow = zeros(nSeg + 2);
+  fluidPort[:].Xi_outflow = zeros(nSeg + 2, Medium.nXi);
+  fluidPort[:].C_outflow = zeros(nSeg + 2, Medium.nC);
 
   // assign extended enthalpy vectors
-  for i in 1:nSeg+2 loop
+  for i in 1:nSeg + 2 loop
     h[i] = inStream(fluidPort[i].h_outflow);
   end for;
 
   // Value that transitions between 0 and 1 as the flow reverses.
-  sig = Modelica.Fluid.Utilities.regStep(m_flow,1,0,m_flow_small);
-  comSig = 1-sig;
+  sig = Modelica.Fluid.Utilities.regStep(
+    m_flow,
+    1,
+    0,
+    m_flow_small);
+  comSig = 1 - sig;
 
-  hOut[1] = h[1];
-  hOut[nSeg+2] = h[nSeg+2];
+  hOut[1] = sig*h[1] + comSig*h[2];
+  // at surface between port_a and vol1
+  hOut[nSeg + 1] = sig*h[nSeg + 1] + comSig*h[nSeg + 2];
+  // at surface between vol[nSeg] and port_b
 
-  hOut[2] = sig*h[2]
-          + comSig * (0.5*(h[1]+h[2])-0.125*(h[3]+h[1]-2*h[2]));
+  // Pros: These two equations can further reduce the T over-predicting by using the upwind
+  // Cons: The minium of nSeg hase to be 4 instead of 2.
+  hOut[2] = sig*h[2] + comSig*h[3];
+  // at surface between vol1 and vol2
+  hOut[nSeg] = sig*h[nSeg] + comSig*h[nSeg + 1];
+  // at surface between vol[nSeg-1] and vol[nSeg]
 
-  for i in 2:(nSeg-1) loop
-    hOut[i+1] = sig*0.5*(h[i+2]+h[i+1])+comSig*0.5*(h[i]+h[i+1])
-              - 0.125*(h[i+2]+h[i]-2*h[i+1]);
+  for i in 3:nSeg - 1 loop
+    // at surface between vol[i-1] and vol[i]
+    hOut[i] = 0.5*(h[i] + h[i + 1]) - comSig*0.125*(h[i + 2] + h[i] - 2*h[i + 1])
+       - sig*0.125*(h[i - 1] + h[i + 1] - 2*h[i]);
+    // QUICK method
+    //     hOut[i] = 0.5*(h[i]+h[i+1]); // Central difference method
   end for;
 
-  hOut[nSeg+1] = comSig*h[nSeg-1]
-               + sig * (0.5*(h[nSeg+2]+h[nSeg+1])-0.125*(h[nSeg+2]+h[nSeg]-2*h[nSeg+1]));
-
   for i in 1:nSeg loop
-     Q_flow[i] = sig*(m_flow*(hOut[i+1]-hOut[i])+ H_flow[i] - H_flow[i+1])
-                + comSig*(m_flow*(hOut[i+2]-hOut[i+1])- H_flow[i] + H_flow[i+1]);
+    Q_flow[i] = m_flow*(hOut[i + 1] - hOut[i]) - (H_flow[i + 1] - H_flow[i]);
+    // difference between QUICK and UPWIND; index of H_flow is same as hOut
   end for;
 
-  Q_flow_upWind = sum(Q_flow[i] for i in 1:nSeg);
+  //   Q_flow_upWind = sum(Q_flow[i] for i in 1:nSeg); //Used to test the energy conservation
 
   for i in 1:nSeg loop
-    heatPort[i].Q_flow = Q_flow[i] - Q_flow_upWind/nSeg;
+    heatPort[i].Q_flow = Q_flow[i]*alpha;
+    // Add the difference back to the volume as heat flow. An under-relaxation is needed to reduce oscillation caused by high order method
   end for;
   annotation (Documentation(info="<html>
 <p>
@@ -94,20 +114,16 @@ by the standard first-order upwind discretization scheme which is
 created when connecting fluid volumes in series.
 </p>
 <p>
-Since the model is used in conjunction with 
-<a href=\"modelica://Modelica.Fluid\">
-Modelica.Fluid</a>,
-it computes a heat flux that needs to be added to each volume
-in order to give the results that a third-order upwind discretization
-scheme would give.
-If a standard third-order upwind discretization scheme were to be used,
-then the temperatures of the elements that face the tank inlet and outlet ports
-would overshoot by a few tenths of a Kelvin.
-To reduce this overshoot, the model uses a first order scheme at the 
-boundary elements, and it adds a term that ensures that the energy balance
-is satisfied. Without this term, small numerical
-errors in the energy balance, introduced by the third order discretization scheme,
-would occur.
+The model is used in conjunction with 
+<a href=\"modelica://Modelica.Fluid.Storage.Stratified\">
+Modelica.Fluid.Storage.Stratified</a>.
+It computes a heat flux that needs to be added to each volume of <a href=\"modelica://Modelica.Fluid.Storage.Stratified\">
+Modelica.Fluid.Storage.Stratified</a> in order to give the results that a third-order upwind discretization scheme (QUICK) would give.
+</p>
+<p>
+The QUICK method can cause the oscillation in predicted temperatures since the high order method will introduce the numerical dispersion. There are two ways to reduce the oscillations:<br>
+1. To use an under-relaxation coefficient <code>alpha</code> when adding the heat flux into the volume.<br> 
+2. To use the first-order upwind for <code>hOut[2]</code> and <code>hOut[nSeg]</code>. Note: Using it requires <code>nSeg>=4</code>.
 </p>
 <p>
 The model is used by
@@ -116,6 +132,10 @@ Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+Mar 29, 2012 by Wangda Zuo:<br>
+Revise the implementation to reduce the temperature over-predicting and correct the heat flux added into the volume.
+</li>
 <li>
 July 28, 2010 by Wangda Zuo:<br>
 Rewrote third order upwind scheme to avoid state events.
@@ -126,9 +146,9 @@ June 23, 2010 by Michael Wetter and Wangda Zuo:<br>
 First implementation.
 </li>
 </ul>
-</html>"),
-Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,100}}),
-        graphics={Rectangle(
+</html>"), Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+            {100,100}}),graphics={
+        Rectangle(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,0},
           fillColor={255,255,255},

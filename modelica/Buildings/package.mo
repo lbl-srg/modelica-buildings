@@ -231,6 +231,14 @@ that can lead to wrong simulation results):
                        in the infrared regime is non-zero.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClass.ThirdOrderStratifier
+    </td>
+    <td valign=\"top\">Revise the implementation to reduce the temperature over-predicting and correct the heat flux added into the volume.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -286,6 +294,14 @@ have been fixed:
 <tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/57\">#57</a>
     </td>
     <td valign=\"top\">Fixed bug in temperature linearization of window glass.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Overshooting in enhanced stratified tank</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/15\">#15</a>
+    </td>
+    <td valign=\"top\">Revise the implementation to reduce the temperature over-predicting and correct the heat flux added into the volume.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
