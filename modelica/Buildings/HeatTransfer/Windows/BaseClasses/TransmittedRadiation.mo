@@ -59,11 +59,6 @@ initial algorithm
   //**************************************************************
   traCoeRoo := radDat.traRef[1, N, 1, HEM];
 
-equation
-
-  //**************************************************************
-  // Window: transmitted radiation for diffusive radiation from exterior sources
-  //**************************************************************
 algorithm
   QTraUns_flow := AWin*HDif*(1 - uSha_internal)*coeTraWinExtIrr[NoShade, HEM +
     1];
