@@ -290,8 +290,8 @@ Similarly, if the medium model `Modelica.Media.Water.WaterIF97OnePhase_ph <http:
 which models density as a function of pressure and enthalpy, then 
 the model is well-defined, but the pressure increases the longer the pump runs.
 The reason is that the pump adds heat to the water. When the water temperature 
-increases from :math:`20^\circ` C to :math:`40^\circ` C,
-the pressure increases from 1 bar to 150 bars.
+increases from :math:`20^\circ \mathrm C` to :math:`40^\circ \mathrm C`,
+the pressure increases from :math:`1 \, \mathrm{bars}` to :math:`150 \, \mathrm{bars}`.
 
 To avoid this singularity or increase in pressure, 
 a model that imposes a pressure source and that can account for the expansion of the fluid needs to be used. 
