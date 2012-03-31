@@ -77,12 +77,12 @@ class Reader:
         '''Get the integral of the data series.
 
         :param varName: The name of the variable.
-        :return: The integral of *varName*.
+        :return: The integral of ``varName``.
 
         This function returns :math:`\int_{t_0}^{t_1} x(s) \, ds`, where
         :math:`t_0` is the start time and :math:`t_1` the final time of the data
         series :math:`x(\cdot)`, and :math:`x(\cdot)` are the data values
-        of the variable *varName*
+        of the variable ``varName``.
           
         
         Usage: Type
@@ -100,7 +100,7 @@ class Reader:
         '''Get the mean of the data series.
 
         :param varName: The name of the variable.
-        :return: The mean value of *varName*.
+        :return: The mean value of ``varName``.
 
         This function returns 
 
@@ -110,7 +110,7 @@ class Reader:
          
         where :math:`t_0` is the start time and :math:`t_1` the final time of the data
         series :math:`x(\cdot)`, and :math:`x(\cdot)` are the data values
-        of the variable *varName*
+        of the variable ``varName``.
           
         
         Usage: Type
@@ -126,10 +126,10 @@ class Reader:
         '''Get the minimum of the data series.
 
         :param varName: The name of the variable.
-        :return: The minimum value of *varName*.
+        :return: The minimum value of ``varName``.
 
         This function returns :math:`\min \{x_k\}_{k=0}^{N-1}`, where
-        :math:`\{x_k\}_{k=0}^{N-1}` are the values of the variable *varName*
+        :math:`\{x_k\}_{k=0}^{N-1}` are the values of the variable ``varName``
         
         Usage: Type
            >>> from buildingspy.io.outputfile import Reader
@@ -143,10 +143,10 @@ class Reader:
         '''Get the maximum of the data series.
 
         :param varName: The name of the variable.
-        :return: The maximum value of *varName*.
+        :return: The maximum value of ``varName``.
 
         This function returns :math:`\max \{x_k\}_{k=0}^{N-1}`, where
-        :math:`\{x_k\}_{k=0}^{N-1}` are the values of the variable *varName*
+        :math:`\{x_k\}_{k=0}^{N-1}` are the values of the variable ``varName``.
         
         Usage: Type
            >>> from buildingspy.io.outputfile import Reader
