@@ -65,9 +65,15 @@ class Plotter:
     interpolate = staticmethod(interpolate)
 
     def convertToPeriodic(tPeriod, t, y):
-        '''Converts the data series ``(t, y)`` such that t is periodic with periodicity ``tPeriod``
+        '''Convert the data series ``(t, y)`` such that ``t`` is periodic 
+        with periodicity ``tPeriod``.
+
+        :param tPeriod: Period to which ``t`` needs to be converted.
+        :param t: Equally spaced, increasing vector of time, with ``t[0]=0``.
+        :param y: Function values at support points ``t``.
+        :return: Vectors ``(np.array(tP, y))`` where ``tP`` is periodic with period ``tPeriod``.
             
-        The vector ``t`` must start at zero, be equally spaced and strict increasing.
+        The vector ``t`` must start at zero, be equally spaced and increasing.
         For example, ``t`` could be
 
             >>> import numpy as np
