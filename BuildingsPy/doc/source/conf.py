@@ -17,14 +17,16 @@ import sys, os
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.append(os.path.abspath('.'))
-#sys.path.append(os.path.abspath('./../..'))
+sys.path.append(os.path.abspath('.'))
 
 # -- General configuration -----------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-#extensions = ['sphinx.ext.autodoc', 'sphinx.ext.pngmath', 'sphinx.ext.jsmath']
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.pngmath']
+#extensions = ['sphinx.ext.autodoc', 'sphinx.ext.pngmath']
+extensions = ['sphinx.ext.autodoc', 'mathjax']
+# mathjax_path is based on http://www.mathjax.org/docs/2.0/start.html
+mathjax_path = "https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -40,7 +42,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'buildingspy'
-copyright = u'2011, The Regents of the University of California (through Lawrence Berkeley National Laboratory), subject to receipt of any required approvals from U.S. Department of Energy'
+copyright = u'2012, The Regents of the University of California (through Lawrence Berkeley National Laboratory), subject to receipt of any required approvals from U.S. Department of Energy'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
