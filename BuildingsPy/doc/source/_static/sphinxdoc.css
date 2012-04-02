@@ -266,7 +266,7 @@ a.headerlink:hover {
 cite, code, tt {
     font-family: 'Consolas', 'Deja Vu Sans Mono',
                  'Bitstream Vera Sans Mono', monospace;
-    font-size: 1.05em;
+    font-size: 1em;
     color: #750000;
 }
 
