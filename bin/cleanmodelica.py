@@ -17,7 +17,8 @@ if __name__ == "__main__":
                  '*.bak-mo', 'request.', 'status.', 'status', 'failure', 
                  'success.',
                  'stop', 'stop.',
-                 'fmiModelIdentifier.h', 'modelDescription.xml']
+                 'fmiModelIdentifier.h', 'modelDescription.xml',
+                 'fmiFunctions.o']
     # Directories to be deleted. This will be non-recursive
     DELETEDIRS=['binaries']
 
