@@ -20,9 +20,16 @@ package MoistAir
         Buildings.Media.PerfectGases.Common.SingleGasData.H2O;
   import SI = Modelica.SIunits;
 
-    // Min and max values, used for Brent's algorithm in T_hpX
-    constant Modelica.SIunits.Temperature TMin = 200 "Minimum temperature";
-    constant Modelica.SIunits.Temperature TMax = 400 "Maximum temperature";
+  // Min and max values, used for Brent's algorithm in T_hpX
+  constant Modelica.SIunits.Temperature TMin = 200 "Minimum temperature";
+  constant Modelica.SIunits.Temperature TMax = 400 "Maximum temperature";
+
+  // Redeclare ThermodynamicState to avoid the warning
+  // "Base class ThermodynamicState is replaceable"
+  // during model check
+  redeclare record extends ThermodynamicState
+    "ThermodynamicState record for moist air"
+  end ThermodynamicState;
 
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
@@ -432,6 +439,11 @@ it has a constant specific heat capacity.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 4, 2012, by Michael Wetter:<br>
+Added redeclaration of <code>ThermodynamicState</code> to avoid a warning
+during model check and translation.
+</li>
 <li>
 February 22, 2010, by Michael Wetter:<br>
 Changed <code>T_phX</code> to first compute <code>T</code> 

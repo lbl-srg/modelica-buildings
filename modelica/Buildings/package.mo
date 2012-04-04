@@ -173,6 +173,21 @@ have been <b style=\"color:blue\">improved</b> in a
                        This allows reusing the solar position in various other models.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Media</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Media.GasesPTDecoupled.MoistAir<br/>
+                       Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated<br/>
+                       Buildings.Media.PerfectGases.MoistAir<br/>
+                       Buildings.Media.PerfectGases.MoistAirUnsaturated<br/>
+                       Buildings.Media.GasesConstantDensity.MoistAir<br/>
+                       Buildings.Media.GasesConstantDensity.MoistAirUnsaturated
+    </td>
+    <td valign=\"top\">Added redeclaration of <code>ThermodynamicState</code> 
+                       to avoid a warning
+                       during model check and translation.
+    </td>
+</tr>
 </table>
 </p>
 <!-- Non-backward compatbile changes to existing components -->

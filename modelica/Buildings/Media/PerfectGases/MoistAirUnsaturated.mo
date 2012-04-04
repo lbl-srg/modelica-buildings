@@ -20,6 +20,13 @@ package MoistAirUnsaturated
         Buildings.Media.PerfectGases.Common.SingleGasData.H2O;
   import SI = Modelica.SIunits;
 
+  // Redeclare ThermodynamicState to avoid the warning
+  // "Base class ThermodynamicState is replaceable"
+  // during model check
+  redeclare record extends ThermodynamicState
+    "ThermodynamicState record for moist air"
+  end ThermodynamicState;
+
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
@@ -442,6 +449,11 @@ of initial conditions that can be numerically challenging for
 thermo-fluid systems.
 </html>", revisions="<html>
 <ul>
+<li>
+April 4, 2012, by Michael Wetter:<br>
+Added redeclaration of <code>ThermodynamicState</code> to avoid a warning
+during model check and translation.
+</li>
 <li>
 January 27, 2010, by Michael Wetter:<br>
 Added function <code>enthalpyOfNonCondensingGas</code> and its derivative.

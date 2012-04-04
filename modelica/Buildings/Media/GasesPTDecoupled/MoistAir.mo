@@ -24,6 +24,13 @@ package MoistAir
   constant AbsolutePressure pStp = 101325 "Pressure for which dStp is defined";
   constant Density dStp = 1.2 "Fluid density at pressure pStp";
 
+  // Redeclare ThermodynamicState to avoid the warning
+  // "Base class ThermodynamicState is replaceable"
+  // during model check
+  redeclare record extends ThermodynamicState
+    "ThermodynamicState record for moist air"
+  end ThermodynamicState;
+
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
@@ -344,6 +351,11 @@ because pressure and temperature are decoupled, at the expense of accuracy.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 4, 2012, by Michael Wetter:<br>
+Added redeclaration of <code>ThermodynamicState</code> to avoid a warning
+during model check and translation.
+</li>
 <li>
 August 3, 2011, by Michael Wetter:<br>
 Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 
