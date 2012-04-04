@@ -22,9 +22,8 @@ model Pipe "Pipe with finite volume discretization along flow path"
       length=length,
       diameter=diameter,
       roughness=roughness,
-      m_flow_small=m_flow_nominal/100)
-    "Pressure loss of a straight pipe at m_flow_nominal"
-    annotation (Evaluate=true);
+      m_flow_small=m_flow_small)
+    "Pressure loss of a straight pipe at m_flow_nominal";
 
   parameter Boolean useMultipleHeatPorts=false
     "= true to use one heat port for each segment of the pipe, false to use a single heat port for the entire pipe";
@@ -80,13 +79,14 @@ equation
     defaultComponentName="pip",
     Documentation(info="<html>
 <p>
-Model of a pipe with flow resistance and heat exchange with environment.
+Model of a pipe with flow resistance and optional heat exchange with environment.
 </p>
 <p>
 If <code>useMultipleHeatPorts=false</code> (default option), the pipe uses a single heat port 
 for the heat exchange with the environment.
 If <code>useMultipleHeatPorts=true</code>, then one heat port for each segment of the pipe is
 used for the heat exchange with the environment.
+If the heat port is unconnected, then the pipe has no heat loss.
 </p>
 <p>
 The default value for the parameter <code>diameter</code> is computed such that the flow velocity
