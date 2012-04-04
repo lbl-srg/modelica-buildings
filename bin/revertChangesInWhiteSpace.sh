@@ -25,7 +25,7 @@ for ff  in `svn status`; do
     else
 	if [ "$modified" == "true" ]; then
 	    clear
-	    svn diff --diff-cmd diff -x -B $ff
+	    svn diff --diff-cmd diff -x -B $ff | colordiff
 	    echo "====== type 'r' to revert changes, or any other character to keep file"
 	    read -n 1 ans
 	    if [ "$ans" == "r" ]; then
