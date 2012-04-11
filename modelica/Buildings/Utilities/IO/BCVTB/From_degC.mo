@@ -44,7 +44,7 @@ First implementation.
                            Text(
           extent={{-16,94},{-96,14}},
           lineColor={0,0,0},
-          textString="°C"),
+          textString="degC"),
         Line(points={{-96,-4},{24,-4}},
                                       color={191,0,0})}));
 end From_degC;

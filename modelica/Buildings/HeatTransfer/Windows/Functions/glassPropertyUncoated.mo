@@ -145,7 +145,7 @@ where
 
 <p>
 Step 2: Compute the spectral absorption coefficient &alpha;<sub>&lambda;</sub> and spectral index of refraction n<sub>&lambda;</sub>
-<\p>
+</p>
 <table>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
@@ -165,7 +165,7 @@ Step 2: Compute the spectral absorption coefficient &alpha;<sub>&lambda;</sub> a
 
 <p>
 Step 3: For each angle of incidence measured in air &phi; (0 &lt; &phi; &lt; 90) 
-<\p>
+</p>
 <table>
 <tr>
 <td> a. Compute the angle of incidence measured in glass &phi;'</td>

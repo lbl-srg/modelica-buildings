@@ -44,7 +44,7 @@ First implementation.
                            Text(
           extent={{94,-24},{14,-104}},
           lineColor={0,0,0},
-          textString="°C"),
+          textString="degC"),
         Line(points={{-96,-4},{24,-4}},
                                       color={191,0,0})}),
     Diagram(graphics));

@@ -17,16 +17,16 @@ model CenterOfGlass "Model for center of glass of a window construction"
 
   Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer[glaSys.nLay] glass(
     each final A=A,
-    final x[:]=glaSys.glass.x,
-    final k[:]=glaSys.glass.k,
-    final absIR_a[:]=glaSys.glass.absIR_a,
-    final absIR_b[:]=glaSys.glass.absIR_a,
-    final tauIR[:]=glaSys.glass.tauIR,
+    final x=glaSys.glass.x,
+    final k=glaSys.glass.k,
+    final absIR_a=glaSys.glass.absIR_a,
+    final absIR_b=glaSys.glass.absIR_a,
+    final tauIR=glaSys.glass.tauIR,
     each final linearize=linearize) "Window glass layer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Buildings.HeatTransfer.Windows.BaseClasses.GasConvection gas[glaSys.nLay-1](
     each final A=A,
-    final gas[:]=glaSys.gas,
+    final gas=glaSys.gas,
     each final til=til,
     each linearize=linearize) "Window gas layer"
     annotation (Placement(transformation(extent={{20,10},{40,30}})));
