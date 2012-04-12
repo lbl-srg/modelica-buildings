@@ -9,9 +9,7 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
   parameter Boolean from_dp = false
     "= true, use m_flow = f(dp) else dp = f(m_flow)"
     annotation (Evaluate=true, Dialog(tab="Advanced"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+
   parameter Modelica.SIunits.Pressure dp_nominal(displayUnit="Pa")
     "Pressure drop at nominal mass flow rate"                                annotation(Dialog(group = "Nominal condition"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -83,6 +81,10 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 12, 2012, by Michael Wetter:<br>
+Removed duplicate declaration of <code>m_flow_nominal</code>.
+</li>
 <li>
 February 3, 2012, by Michael Wetter:<br>
 Made assignment of <code>m_flow_small</code> <code>final</code> as it is no

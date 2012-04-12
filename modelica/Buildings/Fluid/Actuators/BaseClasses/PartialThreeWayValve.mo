@@ -2,10 +2,10 @@ within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialThreeWayValve "Partial three way valve"
     extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
       final mDyn_flow_nominal = m_flow_nominal,
-        redeclare replaceable 
-          Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve
-            res1 constrainedby 
-               Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
+        redeclare replaceable
+      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve
+            res1 constrainedby
+      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
                redeclare package Medium = Medium,
                l=l[1],
                deltaM=deltaM,
@@ -24,10 +24,10 @@ partial model PartialThreeWayValve "Partial three way valve"
                final filteredOpening=false),
         redeclare FixedResistances.LosslessPipe res2(
           redeclare package Medium = Medium, m_flow_nominal=m_flow_nominal),
-        redeclare replaceable 
-          Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve
-            res3 constrainedby 
-               Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
+        redeclare replaceable
+      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve
+            res3 constrainedby
+      Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
                redeclare package Medium = Medium,
                l=l[2],
                deltaM=deltaM,
@@ -55,8 +55,7 @@ partial model PartialThreeWayValve "Partial three way valve"
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
     annotation(Dialog(group="Pressure-flow linearization"));
-  parameter Medium.MassFlowRate m_flow_nominal(min=0) "Nominal mass flow rate"
-    annotation(Dialog(group = "Nominal condition"));
+
   parameter Modelica.SIunits.Pressure dpFixed_nominal[2](each displayUnit="Pa",
                                                          each min=0) = {0, 0}
     "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
@@ -182,6 +181,10 @@ PartialTwoWayValve</a> for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 12, 2012 by Michael Wetter:<br>
+Removed duplicate declaration of <code>m_flow_nominal</code>.
+</li>
 <li>
 February 20, 2012 by Michael Wetter:<br>
 Renamed parameter <code>dp_nominal</code> to <code>dpValve_nominal</code>,

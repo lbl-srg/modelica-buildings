@@ -22,7 +22,7 @@ partial model ValveParameters "Model with parameters for valves"
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
     annotation(Dialog(group="Pressure-flow linearization"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal(min=0)
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Nominal mass flow rate"
     annotation(Dialog(group = "Nominal condition"));
   parameter Modelica.SIunits.Pressure dpValve_nominal(displayUnit="Pa",
