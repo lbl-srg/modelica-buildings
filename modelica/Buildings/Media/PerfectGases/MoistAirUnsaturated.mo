@@ -30,7 +30,7 @@ package MoistAirUnsaturated
   redeclare replaceable model extends BaseProperties(
     T(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
     p(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default),
-    Xi(stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default))
+    Xi(each stateSelect=if preferredMediumStates then StateSelect.prefer else StateSelect.default))
 
     /* p, T, X = X[Water] are used as preferred states, since only then all
      other quantities can be computed in a recursive sequence. 
@@ -449,6 +449,10 @@ of initial conditions that can be numerically challenging for
 thermo-fluid systems.
 </html>", revisions="<html>
 <ul>
+<li>
+April 12, 2012, by Michael Wetter:<br>
+Added keyword <code>each</code> to <code>Xi(stateSelect=...</code>.
+</li>
 <li>
 April 4, 2012, by Michael Wetter:<br>
 Added redeclaration of <code>ThermodynamicState</code> to avoid a warning
