@@ -2,11 +2,11 @@ within Buildings.HeatTransfer.Examples;
 model ConductorStepResponse "Test model for heat conductor"
   import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.HeatTransfer.Data.Solids.Concrete concrete(x=0.12, nStaRef=4)
+  parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete(x=0.12, nStaRef=4)
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.HeatTransfer.Data.Resistances.Carpet carpet "carpet"
+  parameter Buildings.HeatTransfer.Data.Resistances.Carpet carpet "carpet"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic composite(
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic composite(
       nLay=2,
       material={carpet,concrete})
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
@@ -121,8 +121,9 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), 
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorStepResponse.mos" "Simulate and plot"),
+            -100},{100,100}}), graphics),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorStepResponse.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example illustrates modeling of multi-layer materials. It also tests if the 
 multi-layer material computes the same heat transfer with its boundary condition 

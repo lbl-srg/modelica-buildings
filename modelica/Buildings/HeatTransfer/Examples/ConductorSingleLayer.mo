@@ -29,9 +29,9 @@ model ConductorSingleLayer "Test model for heat conductor"
     annotation (Placement(transformation(extent={{-6,4},{6,16}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-8)
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  Buildings.HeatTransfer.Data.Solids.Concrete concrete200(x=0.2, nStaRef=4)
+  parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete200(x=0.2, nStaRef=4)
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nStaRef=4)
+  parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nStaRef=4)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.HeatTransfer.Convection.Interior conv1(      A=1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
     "Convective heat transfer"
@@ -94,8 +94,9 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), 
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayer.mos" "Simulate and plot"),
+            -100},{100,100}}), graphics),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayer.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example tests if two conductors in series computes the same heat transfer
 as one conductor with twice the thickness.

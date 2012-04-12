@@ -16,7 +16,7 @@ model ConductorSingleLayerCylinder
          annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow Qa
     annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.HeatTransfer.Data.Soil.Concrete           concrete
+  parameter Buildings.HeatTransfer.Data.Soil.Concrete concrete
     annotation (Placement(transformation(extent={{14,60},{40,86}})));
  Modelica.Blocks.Sources.Step step(
     offset=0,
