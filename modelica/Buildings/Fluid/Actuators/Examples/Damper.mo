@@ -18,21 +18,16 @@ model Damper
           rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
-    use_p_in=true,
     nPorts=1,
+    p(displayUnit="Pa") = 101335,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-68,10},{-48,30}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
-    use_p_in=true,
     nPorts=1,
+    p(displayUnit="Pa") = 101325,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{74,10},{54,30}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PAtm(k=101325)
-      annotation (Placement(transformation(extent={{60,60},{80,80}}, rotation=0)));
-    Modelica.Blocks.Sources.Constant PAtm0(k=101335)
-      annotation (Placement(transformation(extent={{-100,18},{-80,38}},
-          rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,80},{-80,100}})));
 equation
@@ -40,11 +35,6 @@ equation
       points={{1,50},{10,50},{10,32}},
       color={0,0,127},
       pattern=LinePattern.None));
-  connect(PAtm.y, sin.p_in) annotation (Line(points={{81,70},{86,70},{86,28},{
-          76,28}}, color={0,0,127}));
-  connect(PAtm0.y, sou.p_in)
-    annotation (Line(points={{-79,28},{-74.5,28},{-70,28}},
-                                                 color={0,0,127}));
   connect(sou.ports[1], res.port_a) annotation (Line(
       points={{-48,20},{-5.55112e-16,20}},
       color={0,127,255},
