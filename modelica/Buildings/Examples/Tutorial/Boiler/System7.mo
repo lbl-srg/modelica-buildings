@@ -193,13 +193,6 @@ model System7
   Modelica.Blocks.Math.BooleanToReal booToReaRad(realTrue=mRad_flow_nominal)
     "Radiator pump signal"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Modelica.Blocks.Continuous.FirstOrder firOrdPumBoi(
-    T=5,
-    initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0,
-    y(stateSelect=StateSelect.always))
-    "First order filter to avoid step change for pump mass flow rate"
-    annotation (Placement(transformation(extent={{-100,-290},{-80,-270}})));
   Modelica.Blocks.Sources.Constant TSetBoiRet(k=TBoiRet_min)
     "Temperature setpoint for boiler return"
     annotation (Placement(transformation(extent={{120,-320},{140,-300}})));
@@ -400,14 +393,6 @@ equation
       points={{-79,-330},{40,-330},{40,-302},{22,-302}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(booToReaRad1.y, firOrdPumBoi.u) annotation (Line(
-      points={{-119,-280},{-102,-280}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firOrdPumBoi.y, pumBoi.m_flow_in) annotation (Line(
-      points={{-79,-280},{-68.5,-280},{-68.5,-280.2},{-62,-280.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(temRet.T,conPIDBoi. u_s) annotation (Line(
       points={{71,-280},{158,-280}},
       color={0,0,127},
@@ -574,6 +559,10 @@ equation
       points={{181,-280},{200,-280},{200,-250},{72,-250}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(booToReaRad1.y, pumBoi.m_flow_in) annotation (Line(
+      points={{-119,-280},{-90.5,-280},{-90.5,-280.2},{-62,-280.2}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Documentation(info="<html>
 <p>
 This part of the system model changes the implementation of the control in
@@ -658,6 +647,10 @@ response shown below should be seen.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 13, 2012, by Michael Wetter:<br>
+Removed first order filter at boiler pump input.
+</li>
 <li>
 January 27, 2012, by Michael Wetter:<br>
 First implementation.
