@@ -45,9 +45,9 @@ The default value is ``raiseTime=120`` seconds.
           closed loop control performance.
 
 For further information, see the 
-`User's Guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers_UsersGuide.html>`_ of the flow machines, and the 
-`User's Guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html>`_
-of the actuators.
+`User's Guide of the flow machine package <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Movers_UsersGuide.html>`_, and the 
+`User's Guide of the actuator package <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html>`_.
+
 
 
 Breaking algebraic loops
@@ -129,7 +129,7 @@ The valve model then computes the pressure drop using :math:`\bar k` and the sam
 Thus, the composite model has the same :term:`valve authority` and mass flow rate, but a nonlinear equation can be avoided.
 
 For more details, see the
-`User's Guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html>`_ of the actuator package.
+`User's Guide of the actuator package <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Actuators_UsersGuide.html>`_.
 
 
 
