@@ -7,7 +7,7 @@ annotation (preferedView="info", Documentation(info="<html>
 <p>
 This package contains examples with step-by-step instructions for how to build 
 a system model for a boiler with a heat load as shown in the figure below. 
-The pressure drops of the individual flow branches and the temperautures correspond to design conditions.
+The pressure drops of the individual flow branches and the temperatures correspond to design conditions.
 The heating system shall be designed to provide <i>20</i> kW, which is the load
 needed at <i>-10</i>&deg;C outdoor temperature.
 This load already takes into account the heat required for air infiltration and
