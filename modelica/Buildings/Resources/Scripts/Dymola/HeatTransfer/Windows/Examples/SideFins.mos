@@ -3,8 +3,13 @@ simulateModel("Buildings.HeatTransfer.Windows.Examples.SideFins", stopTime=86400
 
 createPlot(id = 1,
  position = {7, 7, 746, 517},
+<<<<<<< .mine
+ y = {"fin.fraSun"},
+ range = {0, 90000.0, 100000.0, -20000.0},
+=======
  y = {"fin.fraSun"},
  range = {0.0, 90000.0, 1.2000000000000002, -0.2},
+>>>>>>> .r3983
  autoscale = true,
  autoerase = true,
  autoreplot = true,
