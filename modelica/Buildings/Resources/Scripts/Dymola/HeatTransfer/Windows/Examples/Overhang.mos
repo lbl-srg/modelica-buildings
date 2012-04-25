@@ -2,13 +2,8 @@ removePlots();
 simulateModel("Buildings.HeatTransfer.Windows.Examples.Overhang", stopTime=86400, numberOfIntervals=500, method="dassl", resultFile="Overhang");
 createPlot(id = 1,
  position = {7, 7, 746, 517},
-<<<<<<< .mine
- y = {"ove.fraSun"},
- range = {0, 90000.0, 100000.0, -20000.0},
-=======
  y = {"ove.fraSun"},
  range = {0.0, 90000.0, 1.2000000000000002, -0.2},
->>>>>>> .r3983
  autoscale = true,
  autoerase = true,
  autoreplot = true,
@@ -18,8 +13,7 @@ createPlot(id = 1,
  online = false,
  filename = "Overhang.mat",
  leftTitleType = 1,
- bottomTitleType = 1,
- colors = {{0, 0, 255}});
+ bottomTitleType = 1);
 createPlot(id = 1,
  position = {7, 7, 746, 255},
  y = {"ove.HDirTilUns", "ove.HDirTil"},
@@ -33,5 +27,4 @@ createPlot(id = 1,
  online = false,
  subPlot = 2,
  leftTitleType = 1,
- bottomTitleType = 1,
- colors = {{0, 0, 255}, {255, 0, 0}});
+ bottomTitleType = 1);

@@ -3,13 +3,8 @@ simulateModel("Buildings.HeatTransfer.Windows.Examples.SideFins", stopTime=86400
 
 createPlot(id = 1,
  position = {7, 7, 746, 517},
-<<<<<<< .mine
- y = {"fin.fraSun"},
- range = {0, 90000.0, 100000.0, -20000.0},
-=======
  y = {"fin.fraSun"},
  range = {0.0, 90000.0, 1.2000000000000002, -0.2},
->>>>>>> .r3983
  autoscale = true,
  autoerase = true,
  autoreplot = true,
@@ -19,8 +14,7 @@ createPlot(id = 1,
  online = false,
  filename = "SidFinrhang.mat",
  leftTitleType = 1,
- bottomTitleType = 1,
- colors = {{0, 0, 255}});
+ bottomTitleType = 1);
 createPlot(id = 1,
  position = {7, 7, 746, 255},
  y = {"fin.HDirTilUns", "fin.HDirTil"},
@@ -34,5 +28,4 @@ createPlot(id = 1,
  online = false,
  subPlot = 2,
  leftTitleType = 1,
- bottomTitleType = 1,
- colors = {{0, 0, 255}, {255, 0, 0}});
+ bottomTitleType = 1);
