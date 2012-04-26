@@ -13,10 +13,6 @@ model ControlledFlowMachineDynamic
 This example demonstrates the use of the flow model with four different configurations.
 At steady-state, all flow models have the same mass flow rate and pressure difference.
 </html>"),
-Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160, 160}}), graphics),
-    experiment(
-      StopTime=600,
-      Tolerance=1e-06,
-      Algorithm="Dassl"));
+Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160, 160}}), graphics));
 
 end ControlledFlowMachineDynamic;

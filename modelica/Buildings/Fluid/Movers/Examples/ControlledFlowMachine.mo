@@ -20,9 +20,6 @@ which leads to an error because of <code>0/0</code> at zero flow rate.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,
             160}}),
-      experiment(
-      StopTime=600,
-      Tolerance=1e-06,
-      Algorithm="Dassl"), graphics),
+            graphics),
               Diagram);
 end ControlledFlowMachine;
