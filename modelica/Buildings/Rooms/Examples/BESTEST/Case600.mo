@@ -387,7 +387,7 @@ First implementation.
 </html>", info="<html>
 <p>
 This model is used for the basic test case 600 of the BESTEST validation suite.
-Case 600 is a leight-weight building with room temperature control set to
+Case 600 is a light-weight building with room temperature control set to
 <i>20&deg;C</i> for heating and <i>27&deg;C</i> for cooling.
 The room has no shade and a window that faces south.
 </p>

@@ -9,7 +9,7 @@ model Case600FF "Case 600 with free floating temperature"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the basic test case 600FF of the BESTEST validation suite.
-Case 600 is a leight-weight building.
+Case 600 is a light-weight building.
 The room temperature is free floating.
 This is achieved by setting <code>gaiHea.k=0</code>
 and <code>gaiCoo.k=0</code>.
