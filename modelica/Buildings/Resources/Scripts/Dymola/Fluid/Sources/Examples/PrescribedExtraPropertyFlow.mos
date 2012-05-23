@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.Sources.Examples.PrescribedExtraPropertyFlow", method="dassl", tolerance=1e-04, stopTime=600, resultFile="PrescribedExtraPropertyFlow");
+
+removePlots();
+
+createPlot(id = 2,
+ y = {"C.C", "C1.C", "vol4.C[1]", "C2.C", "C3.C"},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "PrescribedExtraPropertyFlow.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);

@@ -1,0 +1,14 @@
+simulateModel("Buildings.Controls.Discrete.Examples.BooleanDelay", method="dassl", resultFile="BooleanDelay");
+createPlot(id = 5,
+ position = {40, 26, 554, 366},
+ y = {"del.u", "del.y"},
+ range = {0, 1, 1.4, (-0.2)},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "BooleanDelay.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+

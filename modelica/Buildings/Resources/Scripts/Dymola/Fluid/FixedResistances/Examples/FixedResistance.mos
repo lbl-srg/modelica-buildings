@@ -1,0 +1,14 @@
+simulateModel("Buildings.Fluid.FixedResistances.Examples.FixedResistance", method="dassl", resultFile="FixedResistance");
+
+createPlot(id = 1,
+ position = {22, 11, 620, 523},
+ x = "res1.dp",
+ y = {"res1.m_flow", "res1.m_flow_turbulent", "res2.m_flow", "res2.m_flow_turbulent"},
+ autoscale = true,
+ autoreplot = true,
+ grid = true,
+ color = true,
+ filename = "FixedResistance.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1);
+

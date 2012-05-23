@@ -1,0 +1,5 @@
+simulateModel("Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.InverseDewPointTemperatureDerivativeCheck_amb", startTime=611, stopTime=7383, method="dassl", tolerance=1E-9, resultFile="InverseDewPointTemperatureDerivativeCheck_amb");
+createPlot(id = 1,
+ y = {"x", "y"},
+ grid = true);
+
