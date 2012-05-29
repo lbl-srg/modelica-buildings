@@ -207,9 +207,9 @@ Modelica.Blocks.Sources.CombiTimeTable timTab(
 </pre>
 <p>
 Note that we set that the output is a periodic signal by configuring 
-<i>
+<code>
 extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic.
-</i>
+</code>
 The documentation of <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">
 Modelica.Blocks.Sources.CombiTimeTable</a>
 explains why we added two values for 8am and 6pm.
