@@ -331,9 +331,9 @@ to negate the signal.
 The output of this signal is a boolean value, but the pump
 input signal is the required mass flow rate.
 Thus, we used the block
-<a href=\"modelica://Modelica.Blocks.Math.RealToBoolean\">
-Modelica.Blocks.Math.RealToBoolean</a> to convert the signal.
-We set the parameters of the real to boolean converter as
+<a href=\"modelica://Modelica.Blocks.Math.BooleanToReal\">
+Modelica.Blocks.Math.BooleanToReal</a> to convert the signal.
+We set the parameters of the boolean to real converter as
 </p>
 <pre>
   Modelica.Blocks.Math.BooleanToReal booToReaRad(
