@@ -156,8 +156,10 @@ for an explanation of the purpose of <code>m_flow_small</code>.
 <li>
 <p>
 Since we need to increase the heat capacity of the room air to approximate
-energy storage in furniture and building constructions, we connected the instance
-<code>heaCap</code> to the heat port of the room air.
+energy storage in furniture and building constructions, we connected the instance <code>heaCap</code> of 
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.HeatCapacitor\">
+Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</a>
+to the heat port of the room air.
 The model <code>heaCap</code> models energy storage. We set its capacity to
 <i>C=2*V*1.2*1006</i> J/K. This will increase the total heat capacity 
 of the room air by a factor of three.
@@ -165,7 +167,10 @@ of the room air by a factor of three.
 </li>
 <li>
 <p>
-We used the instance <code>heaCon</code> to model the heat conductance to the ambient.
+We used the instance <code>theCon</code> of
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Components.ThermalConductor\">
+Modelica.Thermal.HeatTransfer.Components.ThermalConductor</a> 
+ to model the thermal conductance to the ambient.
 Since our room should have a heat loss of <i>20</i> kW at a temperature difference
 of <i>30</i> Kelvin, we set the conductance to 
 <i>G=20000 &frasl; 30</i> W/K.
@@ -173,7 +178,10 @@ of <i>30</i> Kelvin, we set the conductance to
 </li>
 <li>
 <p>
-We used the instance <code>preHea</code> to model a prescribed heat gain, 
+We used the instance <code>preHea</code> of 
+<a href=\"modelica://Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow\">
+Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>
+to model a prescribed heat gain, 
 such as due to internal heat source.
 This model outputs the heat gain which is equal to the value of its 
 input signal, which is obtained from a time table.
@@ -198,7 +206,10 @@ Modelica.Blocks.Sources.CombiTimeTable timTab(
              24*3600, 0]) \"Time table for internal heat gain\";
 </pre>
 <p>
-Note that we configured the parameters in such a way that the output is a periodic signal.
+Note that we set that the output is a periodic signal by configuring 
+<i>
+extrapolation=Modelica.Blocks.Types.Extrapolation.Periodic.
+</i>
 The documentation of <a href=\"modelica://Modelica.Blocks.Sources.CombiTimeTable\">
 Modelica.Blocks.Sources.CombiTimeTable</a>
 explains why we added two values for 8am and 6pm.
