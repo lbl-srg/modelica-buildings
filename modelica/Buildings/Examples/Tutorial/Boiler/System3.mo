@@ -30,7 +30,7 @@ model System3
 //----------------Radiator loop: Three-way valve: mass flow rate----------------//
   parameter Modelica.SIunits.MassFlowRate mRadVal_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TRadRet_nominal)
-    "Boiler nominal mass flow rate";
+    "Radiator nominal mass flow rate";
 //------------------------------------------------------------------------------//
 
   inner Modelica.Fluid.System system
@@ -470,7 +470,7 @@ For its mass flow rate, we introduced the parameter
 <pre>
   parameter Modelica.SIunits.MassFlowRate mRadVal_flow_nominal=
     Q_flow_nominal/4200/(TBoiSup_nominal-TRadRet_nominal) 
-    \"Boiler nominal mass flow rate\";
+    \"Radiator nominal mass flow rate\";
 </pre>
 <p>
 This allowed us to configure the valve as
