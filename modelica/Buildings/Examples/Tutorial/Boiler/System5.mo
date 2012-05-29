@@ -544,7 +544,9 @@ response shown below should be seen.
 <p>
 The figure shows that the return water temperature
 <code>temRet.T</code>
-quickly raises to <i>50</i>&deg;C.
+quickly raises to <i>50</i>&deg;C and the supply water temperature
+<code>temSup.T</code>
+is more stable than it was in System4. 
 </p>
 </html>", revisions="<html>
 <ul>
