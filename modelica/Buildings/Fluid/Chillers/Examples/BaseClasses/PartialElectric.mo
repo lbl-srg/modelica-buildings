@@ -27,13 +27,13 @@ partial model PartialElectric
   Buildings.Fluid.Sources.MassFlowSource_T sou1(nPorts=1,
     redeclare package Medium = Medium1,
     use_T_in=true,
-    m_flow=mEva_flow_nominal,
+    m_flow=mCon_flow_nominal,
     T=298.15)
     annotation (Placement(transformation(extent={{-60,6},{-40,26}})));
   Buildings.Fluid.Sources.MassFlowSource_T sou2(nPorts=1,
     redeclare package Medium = Medium2,
     use_T_in=true,
-    m_flow=mCon_flow_nominal,
+    m_flow=mEva_flow_nominal,
     T=291.15)
     annotation (Placement(transformation(extent={{60,-6},{40,14}})));
   Buildings.Fluid.Sources.FixedBoundary sin1(          redeclare package Medium

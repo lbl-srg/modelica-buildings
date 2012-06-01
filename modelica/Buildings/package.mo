@@ -289,6 +289,11 @@ units are wrong or errors in documentation):
                        because the erroneous function call is removed if  <code>show_V_flow=false</code>.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Chillers.Examples.BaseClasses.PartialElectric
+    </td>
+    <td valign=\"top\">Corrected the nominal mass flow rate used in the mass flow source.
+    </td>
+</tr>
 </table>
 </p>
 <!-- Trac tickets -->
