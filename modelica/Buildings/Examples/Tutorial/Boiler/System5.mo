@@ -546,7 +546,9 @@ The figure shows that the return water temperature
 <code>temRet.T</code>
 quickly raises to <i>50</i>&deg;C and the supply water temperature
 <code>temSup.T</code>
-is more stable than it was in System4. 
+has smaller oscillations compared to 
+<a href=\"modelica://Buildings.Examples.Tutorial.Boiler.System4\">
+Buildings.Examples.Tutorial.Boiler.System4</a>.
 </p>
 </html>", revisions="<html>
 <ul>
