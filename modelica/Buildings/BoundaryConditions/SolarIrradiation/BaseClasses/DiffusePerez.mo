@@ -16,10 +16,7 @@ public
   Modelica.Blocks.Interfaces.RealInput HGloHor(quantity=
         "RadiantEnergyFluenceRate", unit="W/m2") "Global horizontal radiation"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealOutput HDifTil(final quantity=
-        "RadiantEnergyFluenceRate", final unit="W/m2")
-    "Hemispherical diffuse solar irradiation on a tilted surfce"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
   Modelica.Blocks.Interfaces.RealInput zen(
     quantity="Angle",
     unit="rad",
@@ -30,6 +27,15 @@ public
     unit="rad",
     displayUnit="degree") "Solar incidence angle on the surface"
     annotation (Placement(transformation(extent={{-140,-90},{-100,-50}})));
+
+  Modelica.Blocks.Interfaces.RealOutput HGroDifTil(final quantity=
+        "RadiantEnergyFluenceRate", final unit="W/m2")
+    "Hemispherical diffuse solar irradiation on a tilted surfce from the ground"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput HSkyDifTil(final quantity=
+        "RadiantEnergyFluenceRate", final unit="W/m2")
+    "Hemispherical diffuse solar irradiation on a tilted surfce from the sky"
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
 protected
   Real a;
   Real b;
@@ -44,9 +50,9 @@ equation
     bMin,
     Modelica.Math.cos(zen),
     0.01);
-  HDifTil = HDifHor*(0.5*(1 - briCof1)*(1 + Modelica.Math.cos(til)) +
-    briCof1*a/b + briCof2*Modelica.Math.sin(til)) + HGloHor*0.5*rho*(1 -
-    Modelica.Math.cos(til));
+  HSkyDifTil = HDifHor*(0.5*(1 - briCof1)*(1 + Modelica.Math.cos(til)) +
+    briCof1*a/b + briCof2*Modelica.Math.sin(til));
+  HGroDifTil = HGloHor*0.5*rho*(1 - Modelica.Math.cos(til));
 
   annotation (
     defaultComponentName="HDifTil",
@@ -74,6 +80,12 @@ Solar Energy, 44(5):271-289.
 </ul>
 </html>
 ", revisions="<html>
+<ul>
+<li>
+June 6, 2012, by Wangda Zuo:<br>
+Separated the contribution from the sky and the ground.
+</li>
+</ul>
 <ul>
 <li>
 May 24, 2010, by Wangda Zuo:<br>

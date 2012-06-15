@@ -14,16 +14,22 @@ public
         "RadiantEnergyFluenceRate", unit="W/m2") "Horizontal global radiation"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
 
-  Modelica.Blocks.Interfaces.RealOutput HDifTil(final quantity=
-        "RadiantEnergyFluenceRate", final unit="W/m2")
-    "Diffuse solar irradiation on a tilted surfce"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput HGroDifTil(final quantity="RadiantEnergyFluenceRate",
+      final unit="W/m2")
+    "Diffuse solar irradiation on a tilted surfce from the ground"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 protected
   Real til_c "Cosine of tilt angle";
 
+public
+  Modelica.Blocks.Interfaces.RealOutput HSkyDifTil(final quantity="RadiantEnergyFluenceRate",
+      final unit="W/m2")
+    "Diffuse solar irradiation on a tilted surfce from the sky"
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
 equation
   til_c = Modelica.Math.cos(til);
-  HDifTil = 0.5*HDifHor*(1 + til_c) + 0.5*HGloHor*rho*(1 - til_c);
+  HSkyDifTil = 0.5*HDifHor*(1 + til_c);
+  HGroDifTil = 0.5*HGloHor*rho*(1 - til_c);
   annotation (
     defaultComponentName="HDifTilIso",
     Documentation(info="<html>
@@ -41,13 +47,17 @@ Solar Energy, 39(4): 301-305.
 ", revisions="<html>
 <ul>
 <li>
+June 6, 2012, by Wangda Zuo:<br>
+Separated the contributions from the sky and the ground.
+</li>
+<li>
 May 24, 2010, by Wangda Zuo:<br>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}}), graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,100}}),
+                    graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Text(
           extent={{-150,110},{150,150}},

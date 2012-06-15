@@ -173,6 +173,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        This allows reusing the solar position in various other models.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SolarIrradiation.DiffuseIsotropic<br/>
+                       Buildings.BoundaryConditions.SolarIrradiation.DiffusePerez<br/>
+                       Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffuseIsotropic<br/>
+                       Buildings.BoundaryConditions.SolarIrradiation.BaseClasses.DiffusePerez<br/>
+    </td>
+    <td valign=\"top\">Added optional output of diffuse radiation from the sky and ground. 
+                       This allows reusing the diffuse radiation in solar thermal collector.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
