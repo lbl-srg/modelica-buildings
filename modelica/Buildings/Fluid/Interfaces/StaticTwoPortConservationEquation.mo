@@ -39,7 +39,7 @@ equation
  if use_safeDivision then
     m_flowInv = Buildings.Utilities.Math.Functions.inverseXRegularized(x=port_a.m_flow, delta=m_flow_small/1E3);
  else
-     m_flowInv = 1/port_a.m_flow;
+     m_flowInv = 0; // m_flowInv is not used if use_safeDivision = false.
  end if;
  if allowFlowReversal then
 // This formulation fails to simulate in Buildings.Fluid.MixingVolumes.Examples.MixingVolumePrescribedHeatFlowRate
@@ -65,8 +65,13 @@ equation
     // Mass balance
     port_a.m_flow = -port_b.m_flow;
     // Energy balance
-    port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-    port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+    if use_safeDivision then
+      port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
+      port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+    else
+      port_a.m_flow * (inStream(port_a.h_outflow) - port_b.h_outflow) = Q_flow;
+      port_a.m_flow * (inStream(port_b.h_outflow) - port_a.h_outflow) = -Q_flow;
+    end if;
     // Transport of species
     port_a.Xi_outflow = inStream(port_b.Xi_outflow);
     port_b.Xi_outflow = inStream(port_a.Xi_outflow);
@@ -79,13 +84,23 @@ equation
     // Energy balance.
     // This equation is approximate since m_flow = port_a.m_flow is used for the mass flow rate
     // at both ports. Since mXi_flow << m_flow, the error is small.
-    port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
-    port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
-    // Transport of species
-    for i in 1:Medium.nXi loop
-      port_b.Xi_outflow[i] = inStream(port_a.Xi_outflow[i]) + mXi_flow[i] * m_flowInv;
-      port_a.Xi_outflow[i] = inStream(port_b.Xi_outflow[i]) - mXi_flow[i] * m_flowInv;
-    end for;
+    if use_safeDivision then
+      port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
+      port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
+      // Transport of species
+      for i in 1:Medium.nXi loop
+        port_b.Xi_outflow[i] = inStream(port_a.Xi_outflow[i]) + mXi_flow[i] * m_flowInv;
+        port_a.Xi_outflow[i] = inStream(port_b.Xi_outflow[i]) - mXi_flow[i] * m_flowInv;
+      end for;
+     else
+      port_a.m_flow * (port_b.h_outflow - inStream(port_a.h_outflow)) = Q_flow;
+      port_a.m_flow * (port_a.h_outflow - inStream(port_b.h_outflow)) = -Q_flow;
+      // Transport of species
+      for i in 1:Medium.nXi loop
+        port_a.m_flow * (port_b.Xi_outflow[i] - inStream(port_a.Xi_outflow[i])) = mXi_flow[i];
+        port_a.m_flow * (port_a.Xi_outflow[i] - inStream(port_b.Xi_outflow[i])) =- mXi_flow[i];
+      end for;
+     end if;
     // Transport of trace substances
     for i in 1:Medium.nC loop
       port_a.m_flow*port_a.C_outflow[i] = -port_b.m_flow*inStream(port_b.C_outflow[i]);
@@ -132,6 +147,12 @@ or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+June 22, 2012 by Michael Wetter:<br>
+Reformulated implementation with <code>m_flowInv</code> to use <code>port_a.m_flow * ...</code>
+if <code>use_safeDivision=false</code>. This avoids a division by zero if 
+<code>port_a.m_flow=0</code>.
+</li>
 <li>
 February 7, 2012 by Michael Wetter:<br>
 Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.
