@@ -200,7 +200,7 @@ class Tester:
 
             If some modules are missing, then an `ImportError` is raised.
         '''
-        requiredModules = ['buildingspy', 'matplotlib.pyplot', 'numpy']
+        requiredModules = ['buildingspy', 'matplotlib.pyplot', 'numpy', 'scipy.io']
         missingModules = []
         for module in requiredModules:
             try:
