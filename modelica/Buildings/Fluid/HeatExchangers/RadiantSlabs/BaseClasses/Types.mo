@@ -3,7 +3,7 @@ package Types "Types for radiant slab model"
   type SystemType = enumeration(
       Ceiling_Wall_or_Capillary
         "Radiant heating or cooling system (ceiling or wall)",
-      Floor "Floor heating system");
+      Floor "Floor heating system") "System type for radiant slab";
 annotation (
     Documentation(info="<html>
 <p>

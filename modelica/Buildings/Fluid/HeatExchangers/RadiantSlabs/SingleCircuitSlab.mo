@@ -1,5 +1,6 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs;
-model Slab "Model of a radiant slab"
+model SingleCircuitSlab "Model of a single circuit of a radiant slab"
+  extends Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab;
   extends Buildings.Fluid.FixedResistances.BaseClasses.Pipe(
      final diameter=pipe.dIn,
      length=A/disPip,
@@ -16,48 +17,13 @@ model Slab "Model of a radiant slab"
       roughness=pipe.roughness,
       m_flow_small=m_flow_small),
       res(dp(nominal=200*length)));
-  parameter
-    Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType
-     sysTyp "Radiant system type";
   parameter Modelica.SIunits.Area A "Surface area of radiant slab"
   annotation(Dialog(group="Construction"));
-  parameter Modelica.SIunits.Distance disPip "Pipe distance";
-
-  parameter Buildings.Fluid.Data.Pipes.Generic pipe
-    "Record for pipe geometry and material"
-    annotation (choicesAllMatching = true, Placement(transformation(extent={{-60,60},{-40,80}})));
-
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic layers
-    "Construction definition"
-    annotation (Dialog(group="Construction"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{-20,60},
-            {0,80}})));
-  parameter Boolean steadyStateInitial=false
-    "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start, T_c_start and T_b_start"
-    annotation(Dialog(tab="Initialization", group="Construction"));
-
-  parameter Integer iLayPip(min=1)
-    "Number of interface layer in which pipes are"
-  annotation(Dialog(group="Construction"), Evaluate=true);
-
-  parameter Modelica.SIunits.Temperature T_a_start=293.15
-    "Initial temperature at surf_a, used if steadyStateInitial = false"
-    annotation(Dialog(tab="Initialization", group="Construction"));
-  parameter Modelica.SIunits.Temperature T_b_start=293.15
-    "Initial temperature at surf_b, used if steadyStateInitial = false"
-    annotation(Dialog(tab="Initialization", group="Construction"));
   parameter Modelica.SIunits.Temperature T_c_start=(T_a_start*con_b[1].layers.R+T_b_start*con_a[1].layers.R)/layers.R
     "Initial construction temperature in the layer that contains the pipes, used if steadyStateInitial = false"
     annotation(Dialog(tab="Initialization", group="Construction"));
-
   final parameter Modelica.SIunits.Velocity v_nominal = 4*m_flow_nominal/pipe.dIn^2/Modelica.Constants.pi/rho_nominal
     "Velocity at m_flow_nominal";
-
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_a
-    "Heat port at construction surface"
-    annotation (Placement(transformation(extent={{30,90},{48,108}})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a surf_b
-    "Heat port at construction surface"
-    annotation (Placement(transformation(extent={{30,-112},{48,-94}})));
 
   Buildings.HeatTransfer.Conduction.MultiLayer con_a[nSeg](
     each final A=A/nSeg,
@@ -80,7 +46,7 @@ model Slab "Model of a radiant slab"
       each steadyStateInitial=steadyStateInitial,
       each layers(
       final nLay = layers.nLay-iLayPip,
-      final material={layers.material[i] for i in iLayPip+1:layers.nLay},
+      final material={layers.material[i] for i in iLayPip + 1:layers.nLay},
       absIR_a=layers.absIR_a,
       absIR_b=layers.absIR_b,
       absSol_a=layers.absSol_a,
@@ -151,11 +117,11 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(colAllToOne1.port_b,surf_a)  annotation (Line(
-      points={{40,82},{40,99},{39,99}},
+      points={{40,82},{40,100},{40,100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(colAllToOne.port_b,surf_b)  annotation (Line(
-      points={{40,-92},{40,-103},{39,-103}},
+      points={{40,-92},{40,-100},{40,-100}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(colAllToOne1.port_a, con_a.port_a) annotation (Line(
@@ -201,8 +167,13 @@ Icon(graphics={
           smooth=Smooth.None)}), Diagram(graphics),
     Documentation(info="<html>
 <p>
-This is a model of a radiant slab with pipes or a capillary heat exchanger
+This is a model of a single flow circuit of a radiant slab with pipes or a capillary heat exchanger
 embedded in the construction.
+For a model with multiple parallel flow circuits, see
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab\">
+Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab</a>.
+</p>
+<p>
 The figure below shows the thermal resistance network of the model for an 
 example in which the pipes are embedded in the concrete slab, and
 the layers below the pipes are insulation and reinforced concrete.
@@ -372,4 +343,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Slab;
+end SingleCircuitSlab;

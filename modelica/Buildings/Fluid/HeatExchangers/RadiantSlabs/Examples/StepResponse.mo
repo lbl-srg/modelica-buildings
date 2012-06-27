@@ -5,63 +5,64 @@ model StepResponse "Model that tests the radiant slab"
       inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,-80},{80,-60}})));
   Sources.Boundary_ph sin(redeclare package Medium = Medium, nPorts=1) "Sink"
-    annotation (Placement(transformation(extent={{60,-30},{40,-10}})));
+    annotation (Placement(transformation(extent={{80,-30},{60,-10}})));
   Sources.MassFlowSource_T sou(
     redeclare package Medium = Medium,
     use_m_flow_in=true,
     T=298.15,
     nPorts=1) "Source"
-    annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
+    annotation (Placement(transformation(extent={{-30,-30},{-10,-10}})));
   Modelica.Blocks.Sources.Pulse pulse(
     period=86400,
     startTime=0,
     amplitude=-m_flow_nominal,
     offset=m_flow_nominal)
-    annotation (Placement(transformation(extent={{-100,-22},{-80,-2}})));
-  Slab sla(
-    A=10,
+    annotation (Placement(transformation(extent={{-80,-22},{-60,-2}})));
+  Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab
+       sla(
     m_flow_nominal=m_flow_nominal,
     redeclare package Medium = Medium,
     layers=layers,
     iLayPip=1,
     pipe=pipe,
     sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
-    disPip=0.2) "Slabe with embedded pipes"
-    annotation (Placement(transformation(extent={{-10,-30},{10,-10}})));
+    disPip=0.2,
+    A=A) "Slabe with embedded pipes"
+    annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
   parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_nominal=
      0.167 "Nominal mass flow rate";
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAirAbo(T=293.15)
     "Air temperature above the slab"
-    annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TRadAbo(T=293.15)
     "Radiant temperature above the slab"
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
+    annotation (Placement(transformation(extent={{-60,20},{-40,40}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAirBel(T=293.15)
     "Air temperature below the slab"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+    annotation (Placement(transformation(extent={{-60,-60},{-40,-40}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TRadBel(T=293.15)
     "Radiant temperature below the slab"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+    annotation (Placement(transformation(extent={{-60,-100},{-40,-80}})));
   HeatTransfer.Convection.Interior conAbo(
     A=A,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     til=Buildings.HeatTransfer.Types.Tilt.Floor)
     "Convective heat transfer above the slab"
-    annotation (Placement(transformation(extent={{-20,60},{-40,80}})));
+    annotation (Placement(transformation(extent={{0,60},{-20,80}})));
   parameter Modelica.SIunits.Area A=10 "Heat transfer area";
   HeatTransfer.Convection.Interior conBel(
     A=A,
     conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     til=Buildings.HeatTransfer.Types.Tilt.Ceiling)
     "Convective heat transfer below the slab"
-    annotation (Placement(transformation(extent={{-20,-60},{-40,-40}})));
+    annotation (Placement(transformation(extent={{0,-60},{-20,-40}})));
   Modelica.Thermal.HeatTransfer.Components.BodyRadiation hRadAbo(Gr=A/(1/0.7 + 1
         /0.7 - 1)) "Radiative heat transfer above the slab"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
+    annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Thermal.HeatTransfer.Components.BodyRadiation hRadBel(Gr=A/(1/0.7 + 1
         /0.7 - 1)) "Radiative heat transfer below the slab"
-    annotation (Placement(transformation(extent={{-40,-100},{-20,-80}})));
+    annotation (Placement(transformation(extent={{-20,-100},{0,-80}})));
   HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay=3, material={
         Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.08,
@@ -83,52 +84,52 @@ model StepResponse "Model that tests the radiant slab"
     annotation (Placement(transformation(extent={{60,20},{80,40}})));
 equation
   connect(pulse.y, sou.m_flow_in)       annotation (Line(
-      points={{-79,-12},{-50,-12}},
+      points={{-59,-12},{-30,-12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[1], sla.port_a) annotation (Line(
-      points={{-30,-20},{-10,-20}},
+      points={{-10,-20},{10,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sla.port_b, sin.ports[1]) annotation (Line(
-      points={{10,-20},{40,-20}},
+      points={{30,-20},{60,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TAirAbo.port, conAbo.fluid) annotation (Line(
-      points={{-60,70},{-40,70}},
+      points={{-40,70},{-20,70}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TRadAbo.port, hRadAbo.port_a) annotation (Line(
-      points={{-60,30},{-40,30}},
+      points={{-40,30},{-20,30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TAirBel.port, conBel.fluid) annotation (Line(
-      points={{-60,-50},{-40,-50}},
+      points={{-40,-50},{-20,-50}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TRadBel.port, hRadBel.port_a) annotation (Line(
-      points={{-60,-90},{-40,-90}},
+      points={{-40,-90},{-20,-90}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conAbo.solid, sla.surf_a) annotation (Line(
-      points={{-20,70},{3.9,70},{3.9,-10.1}},
+      points={{5.55112e-16,70},{24,70},{24,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(hRadAbo.port_b, sla.surf_a) annotation (Line(
-      points={{-20,30},{3.9,30},{3.9,-10.1}},
+      points={{5.55112e-16,30},{24,30},{24,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(conBel.solid, sla.surf_b) annotation (Line(
-      points={{-20,-50},{3.9,-50},{3.9,-30.3}},
+      points={{5.55112e-16,-50},{24,-50},{24,-30}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(hRadBel.port_b, sla.surf_b) annotation (Line(
-      points={{-20,-90},{3.9,-90},{3.9,-30.3}},
+      points={{5.55112e-16,-90},{24,-90},{24,-30}},
       color={191,0,0},
       smooth=Smooth.None));
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/StepResponse.mos"
         "Simulate and plot"),
-          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,-120},
+          Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-120},
             {100,100}}),
                      graphics),
     experimentSetupOutput,
@@ -149,7 +150,7 @@ First implementation.
       StopTime=86400,
       Tolerance=1e-05,
       Algorithm="Radau"),
-    Icon(coordinateSystem(extent={{-120,-120},{100,100}})),
+    Icon(coordinateSystem(extent={{-100,-120},{100,100}})),
     Documentation(info="<html>
 <p>
 This example models the step response for a radiant slab.

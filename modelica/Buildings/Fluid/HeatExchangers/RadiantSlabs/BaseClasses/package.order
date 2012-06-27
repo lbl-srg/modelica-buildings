@@ -1,3 +1,6 @@
 InternalFlowConvection
+HeatFlowRateMultiplier
+MassFlowRateMultiplier
+Slab
 Functions
 Types
