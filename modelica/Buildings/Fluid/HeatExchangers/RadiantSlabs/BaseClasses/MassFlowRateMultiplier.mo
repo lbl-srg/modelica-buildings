@@ -16,7 +16,7 @@ model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
              0), iconTransformation(extent={{110,-10},{90,10}})));
 initial equation
   assert( k > Modelica.Constants.small or -k < -Modelica.Constants.small,
-    "Gain must not be zero. Received k = " + realString(k));
+    "Gain must not be zero. Received k = " + String(k));
 equation
     // Pressure drop in design flow direction
   port_a.p = port_b.p;

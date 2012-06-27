@@ -10,7 +10,7 @@ model HeatFlowRateMultiplier "Multiplies the heat flow rate"
   parameter Real k "Gain for mass flow rate";
 initial equation
   assert( k > Modelica.Constants.small or -k < -Modelica.Constants.small,
-    "Gain must not be zero. Received k = " + realString(k));
+    "Gain must not be zero. Received k = " + String(k));
 equation
   // Energy balance. (Energy is not conserved by this model!)
   port_b.Q_flow = -k*port_a.Q_flow;
