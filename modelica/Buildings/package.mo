@@ -2254,6 +2254,10 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
 </li>
+<li>Xiufeng Pang, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
+</li>
 <li>Pierre Vigouroux, Institut National des Sciences Appliquees, France
 </li>
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
