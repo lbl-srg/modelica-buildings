@@ -131,9 +131,16 @@ Version 1.2 build 0 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Package with models for radiant slabs
+                       with pipes or a capillary heat exchanger 
+                       embedded in the construction.
+    </td>
+    </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Data.Pipes
+    </td>
+    <td valign=\"top\">Package with records for pipes.
     </td>
     </tr>
 </table>
