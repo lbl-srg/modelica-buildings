@@ -1,6 +1,5 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case600
-  "Basic test with light-weight construction and dual-setpoint for heating and cooling"
+model Case610 "Case 610 with south shading. Fixme: make object oriented"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.GasesConstantDensity.SimpleAir
     "Medium model";
@@ -12,7 +11,7 @@ model Case600
   parameter Real C_ = Buildings.HeatTransfer.Types.Tilt.Ceiling;
   parameter Real F_ = Buildings.HeatTransfer.Types.Tilt.Floor;
   parameter Real Z_ = Buildings.HeatTransfer.Types.Tilt.Wall;
-  parameter Integer nConExtWin = 1 "Number of constructions with a window";
+  parameter Integer nConExtWin=1 "Number of constructions with a window";
   parameter Integer nConBou = 1
     "Number of surface that are connected to constructions that are modeled inside the room";
   inner Modelica.Fluid.System system
@@ -62,7 +61,6 @@ model Case600
   Buildings.Rooms.MixedAir roo(
     redeclare package Medium = MediumA,
     hRoo=2.7,
-    nConExtWin=nConExtWin,
     nConBou=1,
     nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -79,18 +77,27 @@ model Case600
     nConExt=4,
     nConPar=0,
     nSurBou=0,
+    intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
     linearizeRadiation=false,
+    nConExtWin=2,
+    lat=weaDat.lat,
     datConExtWin(
-      layers={matExtWal},
-      A={8*2.7},
-      glaSys={window600},
-      wWin={2*3},
-      hWin={2},
-      fFra={0.001},
-      til={Z_},
-      azi={S_}),
-    lat=weaDat.lat) "Room model for Case 600"
+      layers={matExtWal,matExtWal},
+      A={4*2.7,4*2.7},
+      glaSys={window600,window600},
+      wWin={3,3},
+      hWin={2,2},
+      fFra={0.001,0.001},
+      til={Z_,Z_},
+      azi={S_,S_},
+      ove(
+        wR={6,2},
+        wL={2,6},
+        dep={1,1},
+        gap={0.5,0.5}))) "Room model for Case 610"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));
+  //Same overhang is added twice considering its position with respect to the two south facing windows over which overhang is placed.
   Modelica.Blocks.Sources.Constant qConGai_flow(k=80/48) "Convective heat gain"
     annotation (Placement(transformation(extent={{-56,58},{-48,66}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=120/48) "Radiative heat gain"
@@ -102,14 +109,8 @@ model Case600
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/DRYCOLD.mos")
     annotation (Placement(transformation(extent={{98,-94},{86,-82}})));
-  Modelica.Blocks.Sources.Constant uSha(k=0)
-    "Control signal for the shading device"
-    annotation (Placement(transformation(extent={{-28,70},{-20,78}})));
-  Modelica.Blocks.Routing.Replicator replicator(nout=max(1,nConExtWin))
-    annotation (Placement(transformation(extent={{-12,70},{-4,78}})));
-  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T=
-        283.15) "Boundary condition for construction"
-                                          annotation (Placement(transformation(
+  Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T=283.15)
+    "Boundary condition for construction" annotation (Placement(transformation(
         extent={{0,0},{-8,8}},
         rotation=0,
         origin={72,-52})));
@@ -133,7 +134,7 @@ model Case600
         k=0.160,
         c=840,
         d=950,
-        nStaRef=nStaRef)}) "Lightweight Case: Roof"
+        nStaRef=nStaRef)}) "Lightweight Case: Exterior Wall"
     annotation (Placement(transformation(extent={{60,80},{74,94}})));
   Win600 window600(
     UFra=3,
@@ -229,6 +230,11 @@ model Case600
     initType=Modelica.Blocks.Types.Init.InitialState,
     y_start=0) "Cooling energy in MWh"
     annotation (Placement(transformation(extent={{-12,6},{-4,14}})));
+  Modelica.Blocks.Sources.Constant uSha(k=0)
+    "Control signal for the shading device"
+    annotation (Placement(transformation(extent={{-28,72},{-20,80}})));
+  Modelica.Blocks.Routing.Replicator replicator(nout=max(1,nConExtWin))
+    annotation (Placement(transformation(extent={{-12,72},{-4,80}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
       points={{-35.6,70},{-34,70},{-34,64.8},{-18.8,64.8}},
@@ -242,21 +248,8 @@ equation
       points={{-9.6,62},{20,62},{20,-7.5},{34.5,-7.5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(roo.uSha, replicator.y) annotation (Line(
-      points={{34.5,-3},{24,-3},{24,74},{-3.6,74}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(qConGai_flow.y, multiplex3_1.u2[1]) annotation (Line(
       points={{-47.6,62},{-18.8,62}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(weaDat.weaBus, roo.weaBus)  annotation (Line(
-      points={{86,-88},{80.07,-88},{80.07,-1.575},{64.425,-1.575}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
-  connect(uSha.y, replicator.u) annotation (Line(
-      points={{-19.6,74},{-12.8,74}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(product.y, Infiltration.m_flow_in) annotation (Line(
@@ -367,7 +360,20 @@ equation
       points={{-12.8,10},{-26,10},{-26,12},{-41.6,12}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case600.mos"
+  connect(weaDat.weaBus, roo.weaBus) annotation (Line(
+      points={{86,-88},{80,-88},{80,4},{64.425,4},{64.425,-1.575}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(roo.uSha,replicator. y) annotation (Line(
+      points={{34.5,-3},{24,-3},{24,76},{-3.6,76}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(uSha.y,replicator. u) annotation (Line(
+      points={{-19.6,76},{-12.8,76}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case610.mos"
         "Simulate and plot"),
         experiment(
       StopTime=3.1536e+007,
@@ -376,19 +382,23 @@ equation
       Algorithm="Radau"),                  Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics),
     experimentSetupOutput,
-    Documentation(revisions="<html>
+    Documentation(
+    info="<html>
+<p>
+This model is the case 610 of the BESTEST validation suite.
+Case 610 differs from case 600 in that the window has an overhang.
+</p>
+</html>",
+revisions="<html>
 <ul>
 <li>
+May 1, 2012, by Kaustubh Phalak:<br>
+Modified the Case 600 for implementation of Case 610.
+</li>
+<li>
 October 6, 2011, by Michael Wetter:<br>
-First implementation.
+First implementation of Case 600.
 </li>
 </ul>
-</html>", info="<html>
-<p>
-This model is used for the basic test case 600 of the BESTEST validation suite.
-Case 600 is a light-weight building with room temperature control set to
-<i>20&deg;C</i> for heating and <i>27&deg;C</i> for cooling.
-The room has no shade and a window that faces south.
-</p>
 </html>"));
-end Case600;
+end Case610;

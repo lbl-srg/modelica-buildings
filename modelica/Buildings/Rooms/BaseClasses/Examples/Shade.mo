@@ -1,9 +1,10 @@
 within Buildings.Rooms.BaseClasses.Examples;
 model Shade "Test model for the Shade model"
-  import Buildings;
   extends Modelica.Icons.Example;
 
-  Buildings.Rooms.BaseClasses.Shade sha[3](final conPar=conPar) "Shade model"
+  Buildings.Rooms.BaseClasses.Shade sha[4](final conPar=conPar,
+    azi=conPar.azi,
+    each lat=weaDat.lat) "Shade model"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
     filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -13,53 +14,52 @@ model Shade "Test model for the Shade model"
     til=Buildings.HeatTransfer.Types.Tilt.Wall,
     azi=Buildings.HeatTransfer.Types.Azimuth.S) "Direct solar irradiation"
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
-  Modelica.Blocks.Routing.Replicator H(nout=3) "Replicator"
+  Modelica.Blocks.Routing.Replicator H(nout=4) "Replicator"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Modelica.Blocks.Routing.Replicator incAng(nout=3) "Replicator"
+  Modelica.Blocks.Routing.Replicator incAng(nout=4) "Replicator"
     annotation (Placement(transformation(extent={{20,20},{40,40}})));
-  parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar[3](
+  parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar[4](
     each til=Buildings.HeatTransfer.Types.Tilt.Wall,
     each azi=Buildings.HeatTransfer.Types.Azimuth.S,
     each A=20,
     each hWin=1.5,
     each wWin=2,
     each glaSys=glaSys,
-    ove(
-      gap={0.1, 0, 0},
-      dep={1, 0, 0},
-      w = {2.2, 0, 0}),
-    sidFin(
-      h = {0, 1.8, 0},
-      dep={0, 1, 0},
-      gap={0, 0.1, 0}),
     redeclare
       Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
-      layers) "Construction parameters"
+      layers,
+    ove(
+      wR={1.1,1.1,0,0},
+      wL={1.1,1.1,0,0},
+      gap={0.1,0.1,0,0},
+      dep={1,1,0,0}),
+    sidFin(
+      dep={0,1,1,0},
+      gap={0,0.1,0.1,0},
+      h={0,1.6,1.6,0})) "Construction parameters"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+
   parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys
     "Glazing system"
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(weaDat.weaBus, sha[1].weaBus) annotation (Line(
-      points={{-40,5.82867e-16},{-30,5.82867e-16},{-30,6.10623e-16},{60,
-          6.10623e-16}},
+      points={{-40,0},{60,0}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaDat.weaBus, sha[2].weaBus) annotation (Line(
-      points={{-40,5.82867e-16},{-30,5.82867e-16},{-30,6.10623e-16},{60,
-          6.10623e-16}},
+      points={{-40,0},{60,0}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaDat.weaBus, sha[3].weaBus) annotation (Line(
-      points={{-40,5.82867e-16},{-30,5.82867e-16},{-30,6.10623e-16},{60,
-          6.10623e-16}},
+      points={{-40,0},{60,0}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
   connect(HDirTil.weaBus, weaDat.weaBus) annotation (Line(
-      points={{-20,70},{-30,70},{-30,5.82867e-16},{-40,5.82867e-16}},
+      points={{-20,70},{-30,70},{-30,0},{-40,0}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -78,6 +78,11 @@ equation
   connect(H.y,sha. HDirTilUns) annotation (Line(
       points={{41,70},{50,70},{50,6},{58,6}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, sha[4].weaBus) annotation (Line(
+      points={{-40,0},{60,0}},
+      color={255,204,51},
+      thickness=0.5,
       smooth=Smooth.None));
   annotation (Diagram(graphics),
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/Shade.mos"

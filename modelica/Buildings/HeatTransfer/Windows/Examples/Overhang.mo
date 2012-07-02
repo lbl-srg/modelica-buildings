@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows.Examples;
-model Overhang
-  "This example uses Window overhang model (with super position method)"
+model Overhang "This example tests the window overhang model"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
@@ -8,11 +7,13 @@ model Overhang
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.HeatTransfer.Windows.Overhang ove(
     dep=1.2,
-    w=1.0,
     gap=0.1,
     hWin=1.0,
-    wWin=1.0)
-    "Calculates fraction of window area shaded by the window overhang"
+    wWin=1.0,
+    azi=Buildings.HeatTransfer.Types.Azimuth.S,
+    wR=0.6,
+    wL=0.6,
+    lat=weaDat.lat) "Calculates fraction of window area exposed to the sun"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
     lat=weaDat.lat,
@@ -43,7 +44,7 @@ equation
 Documentation(info="<html>
 <p>
 This example demonstrates the use of the overhang model.
-It calculates the fraction of total window area shadowed by the overhang.
+It calculates the fraction of total window area that is exposed to the sun.
 </p>
 <p>
 A similar example of an overhang model with more basic components is implemented in 

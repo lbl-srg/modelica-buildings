@@ -1,6 +1,6 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case600
-  "Basic test with light-weight construction and dual-setpoint for heating and cooling"
+model Case620
+  "Basic test with light-weight construction and dual-setpoint for heating and cooling with windows on East and West side walls. Fixme: Make object-oriented"
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.GasesConstantDensity.SimpleAir
     "Medium model";
@@ -62,7 +62,6 @@ model Case600
   Buildings.Rooms.MixedAir roo(
     redeclare package Medium = MediumA,
     hRoo=2.7,
-    nConExtWin=nConExtWin,
     nConBou=1,
     nPorts=3,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -71,26 +70,29 @@ model Case600
       layers={matFlo},
       each A=48,
       each til=F_),
-    datConExt(
-      layers={roofCase600,matExtWal,matExtWal,matExtWal},
-      A={48,6*2.7,6*2.7,8*2.7},
-      til={C_,Z_,Z_,Z_},
-      azi={S_,W_,E_,N_}),
-    nConExt=4,
     nConPar=0,
     nSurBou=0,
+    intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
     linearizeRadiation=false,
+    lat=weaDat.lat,
+    nConExtWin=2,
     datConExtWin(
-      layers={matExtWal},
-      A={8*2.7},
-      glaSys={window600},
-      wWin={2*3},
-      hWin={2},
-      fFra={0.001},
-      til={Z_},
-      azi={S_}),
-    lat=weaDat.lat) "Room model for Case 600"
-    annotation (Placement(transformation(extent={{36,-30},{66,0}})));
+      layers={matExtWal,matExtWal},
+      A={6*2.7,6*2.7},
+      glaSys={window600,window600},
+      wWin={3,3},
+      hWin={2,2},
+      fFra={0.001,0.001},
+      til={Z_,Z_},
+      azi={W_,E_}),
+    nConExt=3,
+    datConExt(
+      layers={roofCase600,matExtWal,matExtWal},
+      A={48,8*2.7,8*2.7},
+      til={C_,Z_,Z_},
+      azi={S_,S_,N_})) "Room model for Case 600"
+    annotation (Placement(transformation(extent={{34,-32},{64,-2}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=80/48) "Convective heat gain"
     annotation (Placement(transformation(extent={{-56,58},{-48,66}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=120/48) "Radiative heat gain"
@@ -239,11 +241,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{-9.6,62},{20,62},{20,-7.5},{34.5,-7.5}},
+      points={{-9.6,62},{20,62},{20,-9.5},{32.5,-9.5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.uSha, replicator.y) annotation (Line(
-      points={{34.5,-3},{24,-3},{24,74},{-3.6,74}},
+      points={{32.5,-5},{24,-5},{24,74},{-3.6,74}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(qConGai_flow.y, multiplex3_1.u2[1]) annotation (Line(
@@ -251,7 +253,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, roo.weaBus)  annotation (Line(
-      points={{86,-88},{80.07,-88},{80.07,-1.575},{64.425,-1.575}},
+      points={{86,-88},{80.07,-88},{80.07,-3.575},{62.425,-3.575}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -264,7 +266,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(density.port, roo.ports[1])  annotation (Line(
-      points={{-45,-76},{32,-76},{32,-22.5},{37.75,-22.5}},
+      points={{-45,-76},{32,-76},{32,-24.5},{35.75,-24.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(density.d, product.u2) annotation (Line(
@@ -288,7 +290,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(soil.port_b, roo.surf_conBou[1])  annotation (Line(
-      points={{56,-32},{56,-27},{55.5,-27}},
+      points={{56,-32},{56,-29},{53.5,-29}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(TRooAir.T, conHea.u_m) annotation (Line(
@@ -324,7 +326,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(roo.heaPorAir, TRooAir.port)  annotation (Line(
-      points={{50.25,-15},{-90,-15},{-90,-8},{-84,-8}},
+      points={{48.25,-17},{-90,-17},{-90,-8},{-84,-8}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(Infiltration1.ports[1], heaCoo.port_a) annotation (Line(
@@ -332,11 +334,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(heaCoo.port_b, roo.ports[2])  annotation (Line(
-      points={{18,-28},{26,-28},{26,-22.5},{39.75,-22.5}},
+      points={{18,-28},{26,-28},{26,-24.5},{37.75,-24.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(Infiltration.ports[1], roo.ports[3])  annotation (Line(
-      points={{16,-52},{28,-52},{28,-22.5},{41.75,-22.5}},
+      points={{16,-52},{28,-52},{28,-24.5},{39.75,-24.5}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(gaiHea.y, multiplex2.u1[1]) annotation (Line(
@@ -356,7 +358,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(preHea.port, roo.heaPorAir) annotation (Line(
-      points={{14,24},{16,24},{16,-15},{50.25,-15}},
+      points={{14,24},{16,24},{16,-17},{48.25,-17}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(EHea.u, gaiHea.y) annotation (Line(
@@ -367,7 +369,7 @@ equation
       points={{-12.8,10},{-26,10},{-26,12},{-41.6,12}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case600.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case620.mos"
         "Simulate and plot"),
         experiment(
       StopTime=3.1536e+007,
@@ -376,19 +378,23 @@ equation
       Algorithm="Radau"),                  Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics),
     experimentSetupOutput,
-    Documentation(revisions="<html>
+    Documentation(info="<html>
+<p>
+This model is the case 620 of the BESTEST validation suite.
+Case 620 differs from case 600 in that the west and east facing walls
+have a window, but there is no window in the south facing wall.
+</p>
+</html>",
+revisions="<html>
 <ul>
+<li>
+May 12, 2012, by Kaustubh Phalak:<br>
+Modified the Case 600 for implementation of Case 620.
+</li>
 <li>
 October 6, 2011, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>", info="<html>
-<p>
-This model is used for the basic test case 600 of the BESTEST validation suite.
-Case 600 is a light-weight building with room temperature control set to
-<i>20&deg;C</i> for heating and <i>27&deg;C</i> for cooling.
-The room has no shade and a window that faces south.
-</p>
 </html>"));
-end Case600;
+end Case620;

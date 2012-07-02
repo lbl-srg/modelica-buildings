@@ -21,8 +21,9 @@ model ExteriorBoundaryConditionsWithWindow
     "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
 
-  Buildings.Rooms.BaseClasses.Shade sha[nCon](final conPar=conPar)
-    "Shade due to overhang or side fins"
+  Buildings.Rooms.BaseClasses.Shade sha[nCon](final conPar=conPar,
+    each lat=lat,
+    azi=conPar.azi) "Shade due to overhang or side fins"
     annotation (Placement(transformation(extent={{140,100},{120,120}})));
 
   Modelica.Blocks.Interfaces.RealInput uSha[nCon](min=0, max=1) if
@@ -190,7 +191,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(HTotConExtWinFra.y, solHeaGaiConWin.Q_flow) annotation (Line(
-      points={{19,70},{5.55112e-16,70}},
+      points={{19,70},{0,70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(solHeaGaiConWin.port, fra) annotation (Line(

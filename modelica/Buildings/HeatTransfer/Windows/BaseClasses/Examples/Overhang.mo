@@ -2,61 +2,74 @@ within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model Overhang "Test model for the overhang"
   import Buildings;
   extends Modelica.Icons.Example;
-  BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle altAng
-    "Altitude angle: Angle between Sun ray and horizontal surface"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=0.73129295658562)
-    "Zenith angle: angle between the earth surface normal and the sun's beam"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
   Buildings.BoundaryConditions.SolarGeometry.IncidenceAngle incAng(
-    lat=0.73129295658562,
-    azi=0,
-    til=1.5707963267949) "Solar incidence angle on a tilted surface"
+    lat=weaDat.lat,
+    azi=Buildings.HeatTransfer.Types.Azimuth.S,
+    til=Buildings.HeatTransfer.Types.Tilt.Wall)
+    "Solar incidence angle on a tilted surface"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.HeatTransfer.Windows.BaseClasses.Overhang ove(
-    w = 1.2,
-    dep=0.5,
     gap=0.1,
-    hWin=1.0,
-    wWin=1.0) "Calculates fraction of window area shaded by the overhang"
-     annotation (Placement(transformation(extent={{60,0},{80,20}})));
+    azi=Buildings.HeatTransfer.Types.Azimuth.S,
+    lat=weaDat.lat,
+    wl=1.1,
+    dep=1,
+    hWin=1.5,
+    wWin=2,
+    wr=1.1) "Calculates fraction of window area shaded by the overhang"
+     annotation (Placement(transformation(extent={{68,6},{88,26}})));
+
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth walSolAzi
     "Angle measured in horizontal plane between projection of sun's rays and normal to vertical surface"
-     annotation (Placement(transformation(extent={{20,20},{40,40}})));
+     annotation (Placement(transformation(extent={{0,20},{20,40}})));
+  Buildings.BoundaryConditions.WeatherData.Bus weaBus
+   annotation (Placement(transformation(extent={{-44,24},{-24,44}})));
 equation
-  connect(zen.y, altAng.zen)        annotation (Line(
-      points={{-39,50},{-22,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(weaDat.weaBus, zen.weaBus) annotation (Line(
-      points={{-80,30},{-70,30},{-70,50},{-60.2,50}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(weaDat.weaBus, incAng.weaBus) annotation (Line(
       points={{-80,30},{-70,30},{-70,10.4},{-40,10.4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(altAng.alt, ove.alt)        annotation (Line(
-      points={{1,50},{10,50},{10,6},{58,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(incAng.y, walSolAzi.incAng)  annotation (Line(
-      points={{-19,10},{-2,10},{-2,25.2},{18,25.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(altAng.alt, walSolAzi.alt)  annotation (Line(
-      points={{1,50},{10,50},{10,34.8},{18,34.8}},
+      points={{-19,10},{-10,10},{-10,25.2},{-2,25.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(walSolAzi.verAzi, ove.verAzi)         annotation (Line(
-      points={{41,30},{48,30},{48,14},{58,14}},
+      points={{21,30},{48,30},{48,20},{66,20}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(weaDat.weaBus, ove.weaBus) annotation (Line(
+      points={{-80,30},{-70,30},{-70,-20},{50,-20},{50,16},{67.8,16}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None));
+  connect(weaDat.weaBus, weaBus) annotation (Line(
+      points={{-80,30},{-70,30},{-70,34},{-34,34}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(weaBus.sol.alt, walSolAzi.alt) annotation (Line(
+      points={{-34,34},{-32,34},{-32,34.8},{-2,34.8}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
+  connect(weaBus.sol.alt, ove.alt) annotation (Line(
+      points={{-34,34},{-70,34},{-70,-20},{60,-20},{60,12},{66,12}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/Overhang.mos"
         "Simulate and plot"),
 Documentation(info="<html>

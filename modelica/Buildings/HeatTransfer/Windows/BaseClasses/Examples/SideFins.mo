@@ -1,6 +1,5 @@
 within Buildings.HeatTransfer.Windows.BaseClasses.Examples;
 model SideFins "Test model for side fins"
-  import Buildings;
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.SolarGeometry.ZenithAngle zen(lat=0.73129295658562)
     "Zenith angle: angle between the earth surface normal and the sun's beam"
@@ -14,11 +13,11 @@ model SideFins "Test model for side fins"
     "Weather data"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.HeatTransfer.Windows.BaseClasses.SideFins fin(
-    hWin=1.0,
-    wWin=1.0,
-    h=1.1,
     gap=0.1,
-    dep=0.5) "Calculates fraction of window area shaded by the side fins"
+    h=2.2,
+    dep=1.0,
+    hWin=1.5,
+    wWin=2.0) "Calculates fraction of window area shaded by the side fins"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.AltitudeAngle
     altAng "Altitude angle: Angle between Sun ray and horizontal surface"

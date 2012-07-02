@@ -13,7 +13,7 @@
    height="297mm"
    id="svg3908"
    version="1.1"
-   inkscape:version="0.48.1 r9760"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="Overhang.svg"
    inkscape:export-filename="/Users/mwetter/Downloads/reshadingblockupdate/WindowOverhangDimensions.png"
    inkscape:export-xdpi="41.400002"
@@ -409,6 +409,34 @@
          style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
          transform="matrix(-0.8,0,0,-0.8,-10,0)" />
     </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-7"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-986"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-06"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
   </defs>
   <sodipodi:namedview
      inkscape:document-units="mm"
@@ -419,16 +447,18 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.74879164"
-     inkscape:cx="135.6664"
-     inkscape:cy="620.97295"
+     inkscape:cx="166.88279"
+     inkscape:cy="863.18413"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1636"
      inkscape:window-height="1006"
-     inkscape:window-x="37"
-     inkscape:window-y="0"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
      inkscape:window-maximized="0"
-     inkscape:snap-global="false">
+     inkscape:snap-global="true"
+     inkscape:snap-to-guides="false"
+     inkscape:snap-bbox="true">
     <inkscape:grid
        type="xygrid"
        id="grid3914" />
@@ -456,7 +486,7 @@
        height="20.877193"
        x="50"
        y="79.993759"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <rect
@@ -466,7 +496,7 @@
        height="365.35089"
        x="80.45356"
        y="142.62534"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <rect
@@ -476,7 +506,7 @@
        height="365.35089"
        x="527.10571"
        y="142.62534"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <rect
@@ -486,7 +516,7 @@
        height="20.877193"
        x="537.2569"
        y="79.993759"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -494,7 +524,7 @@
        d="m 476.34979,38.239376 20.30237,0 10.15118,-20.877193 0,41.754386 10.15119,-20.877193 20.30237,0 0,104.385964 -60.90711,0 z"
        id="path3923"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -502,7 +532,7 @@
        d="m 476.34979,121.74815 60.90711,0"
        id="path3929"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -510,7 +540,7 @@
        d="m 476.34979,100.87096 60.90711,0"
        id="path3931"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -518,7 +548,7 @@
        d="m 476.34979,79.993763 60.90711,0"
        id="path3933"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -526,7 +556,7 @@
        d="m 476.34979,59.116569 60.90711,0"
        id="path3935"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -534,7 +564,7 @@
        d="m 514.92429,121.74815 0,20.87719"
        id="path3937"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -542,7 +572,7 @@
        d="m 496.65216,100.87096 0,20.87719"
        id="path3939"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -550,7 +580,7 @@
        d="m 516.95453,100.87096 0,-20.877197"
        id="path3941"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -558,7 +588,7 @@
        d="m 496.65216,59.116569 0,20.877194"
        id="path3943"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -566,7 +596,7 @@
        d="m 476.34979,594.96453 20.30237,0 10.15118,17.39765 0,-34.79531 10.15119,17.39766 20.30237,0 0,-86.98831 -60.90711,0 z"
        id="path3923-4"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -574,7 +604,7 @@
        d="m 476.34979,528.85341 60.90711,0"
        id="path3929-8"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -582,7 +612,7 @@
        d="m 476.34979,549.7306 60.90711,0"
        id="path3931-8"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -590,7 +620,7 @@
        d="m 476.34979,570.6078 60.90711,0"
        id="path3933-2"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -598,7 +628,7 @@
        d="m 514.92429,528.85341 0,-20.87719"
        id="path3937-5"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -606,7 +636,7 @@
        d="m 496.65216,549.7306 0,-20.87719"
        id="path3939-5"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -614,7 +644,7 @@
        d="m 516.95453,549.7306 0,20.8772"
        id="path3941-1"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -622,7 +652,7 @@
        d="m 538.5437,90.357715 0,-8.947368 89.91049,0 89.91051,0 0,8.947368 0,8.947368 -89.91051,0 -89.91049,0 0,-8.947368 z"
        id="path4007"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -630,7 +660,7 @@
        d="m 477.63659,90.357715 0,-8.947368 18.85219,0 18.85222,0 0,8.947368 0,8.947368 -18.85222,0 -18.85219,0 0,-8.947368 z"
        id="path4009"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -638,7 +668,7 @@
        d="m 497.93896,111.23491 0,-8.94737 18.85219,0 18.85222,0 0,8.94737 0,8.94737 -18.85222,0 -18.85219,0 0,-8.94737 z"
        id="path4011"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -646,7 +676,7 @@
        d="m 477.63659,111.23491 0,-8.94737 8.70101,0 8.70103,0 0,8.94737 0,8.94737 -8.70103,0 -8.70101,0 0,-8.94737 z"
        id="path4013"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -654,7 +684,7 @@
        d="m 477.63659,132.1121 0,-8.94737 18.12712,0 18.12711,0 0,8.94737 0,8.94737 -18.12711,0 -18.12712,0 0,-8.94737 z"
        id="path4015"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -662,7 +692,7 @@
        d="m 516.06608,132.1121 0,-8.94737 9.78864,0 9.78865,0 0,8.94737 0,8.94737 -9.78865,0 -9.78864,0 0,-8.94737 z"
        id="path4017"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -670,7 +700,7 @@
        d="m 477.63659,69.480522 0,-8.947368 8.70101,0 8.70103,0 0,8.947368 0,8.947368 -8.70103,0 -8.70101,0 0,-8.947368 z"
        id="path4019"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -678,7 +708,7 @@
        d="m 507.18379,78.616235 c 5.28406,-0.127392 13.93069,-0.127392 19.21475,0 5.28404,0.127393 0.96073,0.231629 -9.60739,0.231629 -10.56809,0 -14.89142,-0.10424 -9.60736,-0.231629 z"
        id="path4021"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -686,7 +716,7 @@
        d="m 497.93896,69.294118 0,-8.760964 18.85219,0 18.85222,0 0,8.760964 0,8.760965 -18.85222,0 -18.85219,0 0,-8.760965 z"
        id="path4023"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -694,7 +724,7 @@
        d="m 518.24133,90.357715 0,-8.947368 8.70101,0 8.70103,0 0,8.947368 0,8.947368 -8.70103,0 -8.70101,0 0,-8.947368 z"
        id="path4025"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -702,7 +732,7 @@
        d="m 477.63659,48.603328 0,-8.947367 9.98617,0 9.98619,0 3.74812,-7.642546 3.74814,-7.642543 0.0422,16.589913 0.0422,16.589911 -13.77662,0 -13.7766,0 0,-8.947368 z"
        id="path4027"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -710,7 +740,7 @@
        d="m 509.54031,57.186108 c 0,-0.200526 1.8696,-4.226841 4.15465,-8.947368 l 4.15464,-8.582779 8.89688,0 8.89689,0 0,8.947367 0,8.947368 -13.05152,0 c -7.17835,0 -13.05154,-0.164073 -13.05154,-0.364588 z"
        id="path4029"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -718,7 +748,7 @@
        d="m 477.63659,518.34018 0,-8.94736 18.12712,0 18.12711,0 0,8.94736 0,8.94736 -18.12711,0 -18.12712,0 0,-8.94736 z"
        id="path4045"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -726,7 +756,7 @@
        d="m 516.06608,518.34018 0,-8.94736 9.78864,0 9.78865,0 0,8.94736 0,8.94736 -9.78865,0 -9.78864,0 0,-8.94736 z"
        id="path4047"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -734,7 +764,7 @@
        d="m 477.63659,539.21737 0,-8.94736 8.70101,0 8.70103,0 0,8.94736 0,8.94736 -8.70103,0 -8.70101,0 0,-8.94736 z"
        id="path4049"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -742,7 +772,7 @@
        d="m 497.93896,539.21737 0,-8.94736 18.85219,0 18.85222,0 0,8.94736 0,8.94736 -18.85222,0 -18.85219,0 0,-8.94736 z"
        id="path4051"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -750,7 +780,7 @@
        d="m 477.63659,560.09456 0,-8.94736 18.85219,0 18.85222,0 0,8.94736 0,8.94736 -18.85222,0 -18.85219,0 0,-8.94736 z"
        id="path4053"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -758,7 +788,7 @@
        d="m 518.24133,560.09456 0,-8.94736 8.70101,0 8.70103,0 0,8.94736 0,8.94736 -8.70103,0 -8.70101,0 0,-8.94736 z"
        id="path4055"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -766,15 +796,15 @@
        d="m 501.20184,600.04683 -3.62542,-6.37247 -9.96992,-0.0146 -9.96991,-0.0146 0,-10.8114 0,-10.8114 29.00338,0 29.0034,0 0,10.8114 0,10.8114 -8.97424,0 -8.97422,0 -4.20098,-7.26973 c -2.31055,-3.99836 -5.04262,-8.61184 -6.07128,-10.2522 l -1.8703,-2.98246 -0.36254,16.63825 -0.36254,16.63824 -3.62543,-6.37247 z"
        id="path4057"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.27923596;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       style="fill:none;stroke:#000000;stroke-width:1.27913386;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
        d="m 445.89623,142.62534 0,363.26314"
        id="path5640-2-61"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <text
@@ -785,7 +815,7 @@
        id="text6204-4"
        sodipodi:linespacing="125%"
        transform="matrix(0,-0.96140377,1.0401457,0,0,0)"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002"><tspan
          sodipodi:role="line"
@@ -796,11 +826,11 @@
            style="font-size:37.59490585px;baseline-shift:sub"
            id="tspan6411-3">hWin</tspan></tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.26444662;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
-       d="m 395.1403,59.116569 -345.1403,0"
+       style="fill:none;stroke:#000000;stroke-width:1.27913386;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 224.54265,57.116569 -174.717522,0"
        id="path5640-2-61-6"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -808,7 +838,7 @@
        d="m 364.68675,570.6078 -284.233194,0"
        id="path5640-2-61-6-5"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <text
@@ -819,7 +849,7 @@
        id="text6204-4-4"
        sodipodi:linespacing="125%"
        transform="scale(0.93493293,1.0695954)"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002"><tspan
          sodipodi:role="line"
@@ -832,27 +862,27 @@
     <text
        xml:space="preserve"
        style="font-size:72.296875px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="226.87895"
-       y="35.751251"
+       x="110.72883"
+       y="36.746475"
        id="text6204-4-2"
        sodipodi:linespacing="125%"
        transform="scale(0.93493296,1.0695954)"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002"><tspan
          sodipodi:role="line"
          id="tspan6206-2-33"
-         x="226.87895"
-         y="35.751251"
+         x="110.72883"
+         y="36.746475"
          style="font-size:57.83750153px"><tspan
            style="font-size:37.59490585px;baseline-shift:sub"
-           id="tspan6411-3-4">w</tspan></tspan></text>
+           id="tspan6411-3-4">wL</tspan></tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.87586462;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
        d="m 720,58.743765 -182.76489,0"
        id="path5640-2-61-6-2"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <text
@@ -863,7 +893,7 @@
        id="text6204-4-2-7"
        sodipodi:linespacing="125%"
        transform="scale(0.93493293,1.0695954)"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002"><tspan
          sodipodi:role="line"
@@ -878,7 +908,7 @@
        d="m 445.89623,38.239376 0,62.631584"
        id="path5640-2-61-2"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <text
@@ -889,7 +919,7 @@
        id="text6204-4-8"
        sodipodi:linespacing="125%"
        transform="matrix(0,-0.96140377,1.0401457,0,0,0)"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002"><tspan
          sodipodi:role="line"
@@ -904,7 +934,7 @@
        d="m 395.1403,100.87096 81.20949,0"
        id="path4737"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -912,7 +942,7 @@
        d="m 364.68675,142.62534 111.66304,0"
        id="path4737-2"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -920,7 +950,7 @@
        d="m 364.68675,507.97622 111.66304,0"
        id="path4737-2-4"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -928,7 +958,7 @@
        d="m 395.1403,27.80078 0,52.192983"
        id="path4737-8"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -936,7 +966,7 @@
        d="m 50,27.800778 0,52.192985"
        id="path4737-8-6"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -944,7 +974,7 @@
        d="m 719.97824,27.80078 0,52.192976"
        id="path4737-8-5"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -952,7 +982,7 @@
        d="m 364.68675,507.97622 0,73.07017"
        id="path4737-8-0"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -960,7 +990,7 @@
        d="m 80.453556,507.97622 0,73.07017"
        id="path4737-8-0-0"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
     <path
@@ -970,12 +1000,55 @@
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002"
-       inkscape:export-filename="/Users/mwetter/proj/ldrd/bie/modeling/bie/trunk/bie/modelica/Buildings/Resources/Images/HeatTransfer/Windows/path4043.png" />
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 477.15039,142.94285 c 0,364.84762 0,364.07627 0,364.07627"
        id="path4043"
        inkscape:connector-curvature="0"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png" />
+    <text
+       xml:space="preserve"
+       style="font-size:72.296875px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="306.80502"
+       y="37.38763"
+       id="text6204-4-2-9"
+       sodipodi:linespacing="125%"
+       transform="scale(0.93493296,1.0695954)"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-ydpi="41.400002"><tspan
+         sodipodi:role="line"
+         id="tspan6206-2-33-73"
+         x="306.80502"
+         y="37.38763"
+         style="font-size:57.83750153px"><tspan
+           style="font-size:37.59490585px;baseline-shift:sub"
+           id="tspan6411-3-4-0">wR</tspan></tspan></text>
+    <path
+       inkscape:export-ydpi="41.400002"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:connector-curvature="0"
+       id="path3184"
+       d="m 394.54265,57.116569 -174.71752,0"
+       style="fill:none;stroke:#000000;stroke-width:1.27913386;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)" />
+    <path
+       inkscape:export-ydpi="41.400002"
+       inkscape:export-xdpi="41.400002"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
+       inkscape:connector-curvature="0"
+       id="path3186"
+       d="m 224,27.800778 0,104.561402"
+       style="fill:none;stroke:#000000;stroke-width:2.06503701;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.13007417, 2.0650371;stroke-dashoffset:0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.0629921;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:4.25196838,2.12598419,1.0629921,2.12598419;stroke-dashoffset:10.62992096"
+       d="m 224,137.80078 0,384.5614"
+       id="path4136"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/Overhang.png"
        inkscape:export-xdpi="41.400002"
        inkscape:export-ydpi="41.400002" />
   </g>

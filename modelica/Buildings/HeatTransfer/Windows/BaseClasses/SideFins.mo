@@ -15,7 +15,7 @@ block SideFins
   Modelica.Blocks.Interfaces.RealOutput fraSun(final min=0,
                                                final max=1,
                                                final unit="1")
-    "Fraction of the area that is unshaded"
+    "Fraction of window area exposed to the sun"
   annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 // Side fin dimensions
   parameter Modelica.SIunits.Length h
@@ -77,7 +77,7 @@ initial algorithm
   Received h    = " + String(h) + "
            hWin = " + String(hWin));
 equation
-  // This if-then construct below increases computing efficiency in 
+  // This if-then construct below increases computing efficiency in
   // Buildings.Rooms.BaseClasses.Shade in case the window has no overhang.
   if h > Modelica.Constants.eps then
   //avoiding division by zero
@@ -133,13 +133,13 @@ equation
   //correction case: Sun not in front of the wall
     crShdArea1 = Buildings.Utilities.Math.Functions.spliceFunction(
        pos=shdArea,
-       neg=1,
+       neg=AWin,
        x=(Modelica.Constants.pi/2)-verAzi,
        deltax=0.01);
   //correction case: Sun below horizon
     crShdArea2 = Buildings.Utilities.Math.Functions.spliceFunction(
        pos=shdArea,
-       neg=1,
+       neg=AWin,
        x=alt,
        deltax=0.01);
     crShdArea=Buildings.Utilities.Math.Functions.smoothMax(

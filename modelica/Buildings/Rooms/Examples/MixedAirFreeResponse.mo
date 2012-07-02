@@ -59,7 +59,7 @@ model MixedAirFreeResponse "Free response of room model"
               glaSys={glaSys},
               each hWin=2,
               each wWin=4,
-              ove(w={4}, gap={0.1}, dep={1}),
+              ove(wR={2},wL={2}, gap={0.1}, dep={1}),
               each fFra=0.1,
               each til=Buildings.HeatTransfer.Types.Tilt.Wall,
               azi={Buildings.HeatTransfer.Types.Azimuth.S}),

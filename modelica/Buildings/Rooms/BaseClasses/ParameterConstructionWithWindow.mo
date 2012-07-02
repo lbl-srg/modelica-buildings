@@ -22,11 +22,14 @@ record ParameterConstructionWithWindow
     final max=1) = 0.1 "Fraction of window frame divided by total window area"
     annotation (Dialog(group="Glazing system"));
 
- parameter Buildings.Rooms.BaseClasses.Overhang ove(w=0, dep=0, gap=0)
-    "Geometry of overhang"
+ replaceable parameter Buildings.Rooms.BaseClasses.Overhang ove(
+    wR=0,
+    wL=0,
+    dep=0,
+    gap=0) "Geometry of overhang"
     annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,20},
             {80,40}})));
- parameter Buildings.Rooms.BaseClasses.SideFins sidFin(h=0, dep=0, gap=0)
+ replaceable parameter Buildings.Rooms.BaseClasses.SideFins sidFin(h=0, dep=0, gap=0)
     "Geometry of side fins"
     annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,-20},
             {80,0}})));

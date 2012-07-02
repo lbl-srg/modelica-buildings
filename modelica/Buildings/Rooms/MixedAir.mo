@@ -267,12 +267,12 @@ equation
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(conExtWin.glaUns_a, bouConExtWin.glaUns) annotation (Line(
-      points={{56,57},{80,57},{80,57},{116,57}},
+      points={{56,57},{116,57}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
   connect(bouConExtWin.glaSha, conExtWin.glaSha_a) annotation (Line(
-      points={{116,55},{88,55},{88,55},{56,55}},
+      points={{116,55},{56,55}},
       color={191,0,0},
       pattern=LinePattern.None,
       smooth=Smooth.None));
@@ -360,11 +360,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(air.heaPorAir, heaPorAir) annotation (Line(
-      points={{-138,50},{-164,50},{-164,20},{5.55112e-16,20}},
+      points={{-138,50},{-164,50},{-164,20},{0,20}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(air.heaPorRad, heaPorRad) annotation (Line(
-      points={{-138,48.6667},{-166,48.6667},{-166,-10},{5.55112e-16,-10}},
+      points={{-138,48.6667},{-166,48.6667},{-166,-10},{0,-10}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
@@ -461,19 +461,21 @@ Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation</a>.
 The overall heat transfer is modeled using the model
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Window\">
 Buildings.HeatTransfer.Windows.Window</a>
-for the glass assembly, the models
+for the glass assembly, and the models
 <a href=\"modelica://Buildings.HeatTransfer.Windows.ExteriorHeatTransfer\">
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>
 and
 <a href=\"modelica://Buildings.HeatTransfer.Windows.InteriorHeatTransfer\">
 Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
 for the exterior and interior heat transfer.
-If a window has side fins or an overhang, then the model
-<a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
-Buildings.HeatTransfer.Windows.SideFins</a> or
+A window can have both, an overhang and a side fin.
+Overhangs and side fins are modeled using
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Overhang\">
-Buildings.HeatTransfer.Windows.Overhang</a> is used to compute
-the reduction in direct solar irradiation due to the external shading device.
+Buildings.HeatTransfer.Windows.Overhang</a> and
+<a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
+Buildings.HeatTransfer.Windows.SideFins</a>, respectively.
+These models compute the reduction in direct solar irradiation 
+due to the external shading device.
 </li>
 <li>
 Convective heat transfer between the room air and room-facing surfaces using
@@ -617,7 +619,7 @@ Each window has its own control signal for the shade. This signal is exposed by 
 has the same dimension as the number of windows. The values for <code>uSha</code> must be between 
 <code>0</code> and <code>1</code>. Set <code>uSha=0</code> to open the shade, and <code>uSha=1</code>
 to close the shade.<br/>
-Windows can also have either an overhang, side fins, or no external shading device.
+Windows can also have an overhang, side fins, both (overhang and sidefins) or no external shading device.
 </td>
 </tr>
 <tr>
@@ -785,14 +787,14 @@ The ratio of frame
 to total glazing system area is <i>10%</i>.
 </p>
 <p>
-Optionally, each window can have an overhang or side fins, but not both.
+Optionally, each window can have an overhang or/and side fins.
 If the above window were to have an overhang of
 <i>2.5 m</i> width, 
 <i>1 m</i> depth and a gap between window and overhang of 
 <i>0.1 m</i>, then
 its declaration would be
 <pre>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(w={2.5}, gap={0.1}, dep={1}),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(wr={1.25}, wl={1.25}, gap={0.1}, dep={1}),</span></p>
 </pre>
 This line can be placed below the declaration of <code>wWin</code>.
 This would instanciate the model
@@ -822,10 +824,10 @@ declare that the construction is a wall that is south exposed.
 </p>
 <p>
 Note that if the room were to have two windows, and one window has side fins and the other window has an overhang, the 
-following declaration could be used:
+following declaration could be used: fixme: update for new shade
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              sidFin(h = {2.5, 0}, gap={0.1, 0.0}, dep={1, 0}),</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(   w={0.0, 4}, gap={0.0, 0.1}, dep={0, 1}),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(wr={0.0, 2}, wl={0.0, 2}, gap={0.0, 0.1}, dep={0, 1}),</span></p>
 </pre>
 <p>
 What follows is the declaration of the partition constructions, as declared by
