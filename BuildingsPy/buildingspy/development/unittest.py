@@ -75,6 +75,7 @@ class Tester:
     def __init__(self):
         import os
         import multiprocessing
+        import buildingspy.io.reporter as rep
 
         # --------------------------
         # Class variables
@@ -107,6 +108,7 @@ class Tester:
                  mos file plots `a.x` versus `a.y` and `b.x` versus `(b.y1, b.y2)`.
         '''
         self.__data = []
+        self.__reporter = rep.Reporter()
 
     def useExistingResults(self, dirs):
         ''' This function allows to use existing results, as opposed to running a simulation.
@@ -315,10 +317,10 @@ class Tester:
                                 try:
                                     var=re.search('{.*?}', lin).group()
                                 except AttributeError as e:
-                                    s = "*** Error: %s could not be parsed.\n" % mosFil
-                                    s += "           Make sure that each assignment of the plot command is on one line.\n"
-                                    s += "           Unit tests failed with error.\n"
-                                    sys.stderr.write(s)
+                                    s =  "%s could not be parsed.\n" % mosFil
+                                    s += "Make sure that each assignment of the plot command is on one line.\n"
+                                    s += "Unit tests failed with error.\n"
+                                    self.__reporter.writeError(s)
                                     raise
                                 var=var.strip('{}"')
                                 y = var.split('","')
@@ -328,10 +330,10 @@ class Tester:
                                     y[i] = y[i].replace(",", ", ")
                                 plotVars.append(y)
                         if len(plotVars) == 0:
-                            s = "*** Warning: %s does not contain any plot command.\n" % mosFil
-                            s += "           You need to add a plot command to include its\n"
-                            s += "           results in the unit tests.\n"
-                            sys.stderr.write(s)
+                            s =  "%s does not contain any plot command.\n" % mosFil
+                            s += "You need to add a plot command to include its\n"
+                            s += "results in the unit tests.\n"
+                            self.__reporter.writeError(s)
                             
                         dat.setResultVariables(plotVars)
 
@@ -795,33 +797,42 @@ class Tester:
                 mosFulFilNam = mosFulFilNam.replace(os.sep, '_')
                 refFilNam=os.path.splitext( mosFulFilNam )[0] + ".txt" 
 
-                # extract reference points from the ".mat" file corresponding to "filNam"
-                yS=self.__getSimulationResults(data)
-                # Reset answer, unless it is set to Y or N
-                if not (ans == "Y" or ans == "N"):
-                    ans = "-"
-
-                updateReferenceData = False
-                # check if reference results already exists in library
-                oldRefFulFilNam=os.path.join(refDir, refFilNam)  
-                # If the reference file exists, and if the reference file contains results, compare the results.
-                if os.path.exists(oldRefFulFilNam):
-                    # compare the new reference data with the old one
-                    [updateReferenceData, foundError, ans]=self.__compareResults(
-                        data.getResultFile(), oldRefFulFilNam, yS, refFilNam, ans)
+                try:
+                    # extract reference points from the ".mat" file corresponding to "filNam"
+                    yS=self.__getSimulationResults(data)
+                except UnicodeDecodeError, e:
+                    em = str(e) + "\n"
+                    em += "Output file of " + data.getScriptFile() + " is excluded from unit tests.\n"
+                    em += "The model appears to contain a non-asci character\n"
+                    em += "in the comment of a variable, parameter or constant.\n"
+                    em += "Check " + data.getScriptFile() + " and the classes it instanciates.\n"
+                    self.__reporter.writeError(em)
                 else:
-                    # Reference file does not exist
-                    print "*** Warning: Reference file ", refFilNam, " does not yet exist."
-                    while not (ans == "n" or ans == "y" or ans == "Y" or ans == "N"):
-                        print "    Create new file?"
-                        ans = raw_input("    Enter: y(yes), n(no), Y(yes for all), N(no for all): ")
-                    if ans == "y" or ans == "Y":
-                        updateReferenceData = True
-                if updateReferenceData:    # If the reference data of any variable was updated
-                    # Make dictionary to save the results and the svn information
-                    self.__writeReferenceResults(oldRefFulFilNam, yS)
+                    # Reset answer, unless it is set to Y or N
+                    if not (ans == "Y" or ans == "N"):
+                        ans = "-"
+
+                    updateReferenceData = False
+                    # check if reference results already exists in library
+                    oldRefFulFilNam=os.path.join(refDir, refFilNam)  
+                    # If the reference file exists, and if the reference file contains results, compare the results.
+                    if os.path.exists(oldRefFulFilNam):
+                        # compare the new reference data with the old one
+                        [updateReferenceData, foundError, ans]=self.__compareResults(
+                            data.getResultFile(), oldRefFulFilNam, yS, refFilNam, ans)
+                    else:
+                        # Reference file does not exist
+                        print "*** Warning: Reference file ", refFilNam, " does not yet exist."
+                        while not (ans == "n" or ans == "y" or ans == "Y" or ans == "N"):
+                            print "    Create new file?"
+                            ans = raw_input("    Enter: y(yes), n(no), Y(yes for all), N(no for all): ")
+                        if ans == "y" or ans == "Y":
+                            updateReferenceData = True
+                    if updateReferenceData:    # If the reference data of any variable was updated
+                        # Make dictionary to save the results and the svn information
+                        self.__writeReferenceResults(oldRefFulFilNam, yS)
             else:
-                sys.stderr.write("*** Warning: Output file of " + data.getScriptFile() + " is excluded from result test.")
+                self.__reporter.writeWarning("Output file of " + data.getScriptFile() + " is excluded from result test.")
 
         return ans
 
@@ -1059,7 +1070,7 @@ class Tester:
                 file.close()
                 logFil.write(data)
             else:
-                sys.stderr.write("*** Error: Log file '" + temLogFilNam + "' does not exist.\n")
+                self.__reporter.writeError("Log file '" + temLogFilNam + "' does not exist.\n")
                 retVal = 1
         logFil.close()
 

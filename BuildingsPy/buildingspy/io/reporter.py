@@ -37,12 +37,37 @@ class Reporter:
         
         Note that this method adds a new line character at the end of the message.
         '''
+        self.__writeErrorOrWarning(True, message)
+        return
+
+    def writeWarning(self, message):
+        ''' Writes a warning message.
+        
+        :param message: The message to be written.
+        
+        Note that this method adds a new line character at the end of the message.
+        '''
+        self.__writeErrorOrWarning(False, message)
+        return
+
+
+    def __writeErrorOrWarning(self, isError, message):
+        ''' Writes an error message or a warning message.
+        
+        :param isError: Set to 'True' if an error should be written, or 'False' for a warning.
+        :param message: The message to be written.
+        
+        Note that this method adds a new line character at the end of the message.
+        '''
         import sys
         import os
 
         msg = ""
         if self.__verbose:
-            msg += "*** Error : "
+            if isError:
+                msg += "*** Error : "
+            else:
+                msg += "*** Warning : "                
         msg += message + "\n"
         sys.stderr.write(msg)
         if self.__logToFile:
@@ -50,6 +75,7 @@ class Reporter:
             fil.write(msg)
             fil.close()
         return
+
 
     def writeOutput(self, message):
         ''' Writes a message to the standard output.

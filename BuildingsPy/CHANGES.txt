@@ -8,6 +8,11 @@ Version 1.1.0, xxx, 2012 -- Release 1.1
   plotting of data that repeat every day.
 - Moved function buildingspy.development.unittest.Tester.__interpolate
   to buildingspy.io.postprocess.Plotter.interpolate
+- Caught exception that is caused when non-ascii characters are
+  used in the comments of constants, parameters or variables. Now,
+  these files are excluded from the unit tests and a warning is issued.
+- Centralized error reporting to using buildings.io.reporter instead
+  of writing directly to stderr.
 
 Version 1.0.0, November 1, 2011
 -------------------------------
