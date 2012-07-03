@@ -48,13 +48,13 @@ class Plotter:
         # Since the last entry was removed above, the final time is not going to change.
         tTol = 1E-2*dT # Do not set to 1E-3*dT to avoid round-off errors.
         tInc = 10.0*tTol
-        for i in range(1, iMax):
+        for i in range(1, iMax+1):
             if tNew[i] < tNew[i-1] + tTol:
                 tNew[i] = tNew[i-1] + tInc
-        for i in range(1, iMax):
+        for i in range(1, iMax+1):
             if tNew[i] < tNew[i-1] + tTol:
                 raise ValueError('Time t is not strictly increasing.')
-        for i in range(1, len(tSup)-1):
+        for i in range(1, len(tSup)):
             if tSup[i] <= tSup[i-1]:
                 raise ValueError('Time tSup is not strictly increasing.')
         yI=np.interp(tSup, tNew[0:iMax+1], y[0:iMax+1])
