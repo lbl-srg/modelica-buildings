@@ -541,9 +541,9 @@ class Simulator:
 
             if not killedProcess:
                 self.__reporter.writeOutput("*** Standard output stream from simulation:\n" + pro.stdout.read())
-                self.__reporter.writeError("*** Standard error stream from simulation:\n" + pro.stderr.read())
+                self.__reporter.writeError("Standard error stream from simulation:\n" + pro.stderr.read())
             else:
-                self.__reporter.writeOutput("*** Killed process as it computed longer than " +
+                self.__reporter.writeError("Killed process as it computed longer than " +
                              str(timeout) + " seconds.")
 
         except OSError as e:

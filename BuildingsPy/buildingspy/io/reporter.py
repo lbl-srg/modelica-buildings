@@ -4,31 +4,51 @@ class Reporter:
     ''' Class that is used to report errors.
     '''
     
-    def __init__(self, directory="."):
+    def __init__(self, fileName):
         ''' Construct a reporter.
 
-        :param directory: The directory where the log files will be written to.
+        :param fileName: Name of the output file.
 
         This class writes the standard output stream and the
-        standard error stream to the files ``stdout.log``
-        and  ``stderr.log``. These files will be created in the
-        directory ``directory``.
+        standard error stream to the file ``fileName``. 
         '''
+        import os
+
         self.__logToFile = True
-        self.__directory = directory
         self.__verbose = True
+        self.__iWar = 0
+        self.__iErr = 0
         self.logToFile()
+        # Delete existing files
+        self.__logFil = os.path.join(fileName)
+        if os.path.isfile(self.__logFil):
+            os.remove(self.__logFil)
+            
 
     def logToFile(self, log=True):
         ''' Function to log the standard output and standard error stream to a file.
         
         :param log: If ``True``, then the standard output stream and the standard error stream will be logged to a file.
 
-        This function can be used to enable and disable writing of the standard output 
-        stream to the file ''stdout.log'', and the standard error stream to the file ``stderr.log``.
+        This function can be used to enable and disable writing outputs to
+        the file ''fileName''.
         The default setting is ``True``
         '''
         self.__logToFile = log
+
+    def getNumberOfErrors(self):
+        ''' Returns the number of error messages that were written.
+        
+        :return : The number of error messages that were written.
+        '''
+        return self.__iErr
+
+    def getNumberOfWarnings(self):
+        ''' Returns the number of warning messages that were written.
+        
+        :return : The number of warning messages that were written.
+        '''
+        return self.__iWar
 
     def writeError(self, message):
         ''' Writes an error message.
@@ -37,6 +57,7 @@ class Reporter:
         
         Note that this method adds a new line character at the end of the message.
         '''
+        self.__iErr += 1
         self.__writeErrorOrWarning(True, message)
         return
 
@@ -47,6 +68,7 @@ class Reporter:
         
         Note that this method adds a new line character at the end of the message.
         '''
+        self.__iWar += 1
         self.__writeErrorOrWarning(False, message)
         return
 
@@ -60,18 +82,17 @@ class Reporter:
         Note that this method adds a new line character at the end of the message.
         '''
         import sys
-        import os
 
         msg = ""
         if self.__verbose:
             if isError:
-                msg += "*** Error : "
+                msg += "*** Error: "
             else:
-                msg += "*** Warning : "                
+                msg += "*** Warning: "                
         msg += message + "\n"
         sys.stderr.write(msg)
         if self.__logToFile:
-            fil = open(os.path.join(self.__directory, 'stderr.log'), 'a')
+            fil = open(self.__logFil, 'a')
             fil.write(msg)
             fil.close()
         return
@@ -85,11 +106,10 @@ class Reporter:
         Note that this method adds a new line character at the end of the message.
         '''
         import sys
-        import os
 
         msg = message + "\n"
         if self.__logToFile:
-            fil = open(os.path.join(self.__directory, 'stdout.log'), 'a')
+            fil = open(self.__logFil, 'a')
             fil.write(msg)
             fil.close()
         sys.stdout.write(msg)

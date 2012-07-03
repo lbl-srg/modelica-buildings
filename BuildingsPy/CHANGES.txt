@@ -13,6 +13,13 @@ Version 1.1.0, xxx, 2012 -- Release 1.1
   these files are excluded from the unit tests and a warning is issued.
 - Centralized error reporting to using buildings.io.reporter instead
   of writing directly to stderr.
+- Fixed error in buildingspy.io.postprocess.Plotter.interpolate().
+  The previous version could lead to non-increasing time for
+  the last time stamp of the results, and then led to an wrong result
+  of the interpolation function.
+- Changed file output: The output of Dymola is now in the file dymola.log,
+  whereas unitTests.log contains the warning and error messages of the python
+  unit test scripts.
 
 Version 1.0.0, November 1, 2011
 -------------------------------
