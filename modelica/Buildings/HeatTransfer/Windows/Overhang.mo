@@ -77,7 +77,7 @@ wR and wL should always be measured from window vertical center-line. <br>
 The figure below shows the parameters.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/Overhang.png\"width=\"480\" height=\"496\"  border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/Overhang.png\" width=\"480\" height=\"496\"  border=\"1\">
 </p>
 <p>
 The surface azimuth <code>azi</code> is as defined in 
