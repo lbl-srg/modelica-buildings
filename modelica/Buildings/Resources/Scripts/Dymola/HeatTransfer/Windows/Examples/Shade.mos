@@ -1,4 +1,4 @@
-simulateModel("Buildings.Rooms.BaseClasses.Examples.Shade", stopTime=86400, method="dassl", resultFile="MultipleShades");
+simulateModel("Buildings.HeatTransfer.Windows.Examples.Shade", stopTime=86400, method="dassl", resultFile="MultipleShades");
 
 createPlot(id = 1,
  position = {15, 6, 744, 504},
@@ -17,7 +17,7 @@ createPlot(id = 1,
 createPlot(id = 1,
  position = {15, 6, 744, 249},
  y = {"sha[1].fraSun", "sha[2].fraSun", "sha[3].fraSun", "sha[4].fraSun"},
- range = {0.0, 90000.0, 1.4000000000000001, -0.2},
+ range = {0.0, 90000.0, 1.4, -0.2},
  autoscale = true,
  autoerase = true,
  autoreplot = true,

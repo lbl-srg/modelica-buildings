@@ -1,12 +1,38 @@
-within Buildings.Rooms.BaseClasses;
+within Buildings.HeatTransfer.Windows;
 model Shade "Model for exterior shade due to overhang and/or side fin"
   extends HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus;
-  parameter ParameterConstructionWithWindow conPar "Construction parameters"
+  parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar
+    "Construction parameters"
     annotation (Evaluate=true);
 
   parameter Modelica.SIunits.Angle lat "Latitude";
   parameter Modelica.SIunits.Angle azi(displayUnit="deg")
     "Surface azimuth; azi= -90 degree East; azi= 0 South";
+
+  Modelica.Blocks.Routing.Multiplex4 mulFraSun(
+    n1=1,
+    n2=1,
+    n3=1,
+    n4=1) "Multiplex for fraction of shaded area"
+    annotation (Placement(transformation(extent={{32,0},{52,20}})));
+
+  Modelica.Blocks.Math.Add sumFraSun
+    "Addition of sun exposed window area fractions"
+    annotation (Placement(transformation(extent={{-40,-40},{-28,-28}})));
+
+  Modelica.Blocks.Math.Add resFraSun(k2=1.0, k1=-1.0)
+    "Calculates resultant sun exposed window area fraction"
+    annotation (Placement(transformation(extent={{-40,-6},{-28,6}})));
+  Modelica.Blocks.Logical.Switch switch "Switches from sun to no sun condition"
+    annotation (Placement(transformation(extent={{8,8},{20,20}})));
+  Modelica.Blocks.Sources.Constant overlap(k=1.0)
+    "Overlap of sun exposed window area fraction"
+    annotation (Placement(transformation(extent={{-40,20},{-28,32}})));
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold
+    annotation (Placement(transformation(extent={{-20,-20},{-8,-8}})));
+  Modelica.Blocks.Sources.Constant noSunCond(k=0.0)
+    "Condition when the sun is not in front of window"
+    annotation (Placement(transformation(extent={{-20,-40},{-8,-28}})));
 
 protected
   final parameter Boolean haveOverhang = conPar.ove.haveOverhang
@@ -45,7 +71,7 @@ protected
   Modelica.Blocks.Math.Product mulHDir
     "Multiplication to obtain direct solar irradiation on shaded window"
     annotation (Placement(transformation(extent={{60,50},{80,70}})));
-protected
+
   Modelica.Blocks.Routing.Extractor extFraSun(final allowOutOfRange=false, final
       nin=4,
     index(start=idx, fixed=true))
@@ -54,34 +80,16 @@ protected
   Modelica.Blocks.Sources.IntegerConstant idxSou(final k=idx)
     "Source term to pick output signal"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-public
-  Modelica.Blocks.Routing.Multiplex4 mulFraSun(
-    n1=1,
-    n2=1,
-    n3=1,
-    n4=1) "Multiplex for fraction of shaded area"
-    annotation (Placement(transformation(extent={{32,0},{52,20}})));
-protected
   Modelica.Blocks.Sources.Constant const(k=1)
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
 public
-  Modelica.Blocks.Math.Add sumFraSun
-    "Addition of sun exposed window area fractions"
-    annotation (Placement(transformation(extent={{-40,-40},{-28,-28}})));
-public
-  Modelica.Blocks.Math.Add resFraSun(k2=1.0, k1=-1.0)
-    "Calculates resultant sun exposed window area fraction"
-    annotation (Placement(transformation(extent={{-40,-6},{-28,6}})));
-  Modelica.Blocks.Logical.Switch switch "Switches from sun to no sun condition"
-    annotation (Placement(transformation(extent={{8,8},{20,20}})));
-  Modelica.Blocks.Sources.Constant overlap(k=1.0)
-    "Overlap of sun exposed window area fraction"
-    annotation (Placement(transformation(extent={{-40,20},{-28,32}})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold
-    annotation (Placement(transformation(extent={{-20,-20},{-8,-8}})));
-  Modelica.Blocks.Sources.Constant noSunCond(k=0.0)
-    "Condition when the sun is not in front of window"
-    annotation (Placement(transformation(extent={{-20,-40},{-8,-28}})));
+  model ShadeSelector
+    "Model that selects a model for the overhang, sidefin or both"
+  extends HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus;
+  parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar
+      "Construction parameters"
+    annotation (Evaluate=true);
+  end ShadeSelector;
 
 equation
   connect(weaBus.sol.alt, walSolAzi.alt) annotation (Line(
@@ -269,6 +277,12 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Moved model from package <code>Buildings.Rooms.BaseClasses</code> to 
+<code>Buildings.HeatTransfer.Windows</code>, because the overhang and side fin
+models are also in this package.
+</li>
 <li>
 May 21, 2012, by Kaustubh Phalak:<br>
 Enabled the model to use overhang and side at the same time. 

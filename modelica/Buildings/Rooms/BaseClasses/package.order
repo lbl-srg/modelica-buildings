@@ -7,7 +7,6 @@ MixedAir
 RadiationAdapter
 RadiationTemperature
 SolarRadiationExchange
-Shade
 PartialSurfaceInterface
 SkyRadiationExchange
 ConstructionNumbers

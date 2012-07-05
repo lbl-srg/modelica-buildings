@@ -21,7 +21,7 @@ model ExteriorBoundaryConditionsWithWindow
     "Set to true if window system has a shade"
     annotation (Dialog(group="Shading"), Evaluate=true);
 
-  Buildings.Rooms.BaseClasses.Shade sha[nCon](final conPar=conPar,
+  Buildings.HeatTransfer.Windows.Shade sha[nCon](final conPar=conPar,
     each lat=lat,
     azi=conPar.azi) "Shade due to overhang or side fins"
     annotation (Placement(transformation(extent={{140,100},{120,120}})));

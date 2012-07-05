@@ -78,7 +78,7 @@ initial algorithm
            hWin = " + String(hWin));
 equation
   // This if-then construct below increases computing efficiency in
-  // Buildings.Rooms.BaseClasses.Shade in case the window has no overhang.
+  // Buildings.HeatTransfer.Windows.Shade in case the window has no overhang.
   if h > Modelica.Constants.eps then
   //avoiding division by zero
     lambda_t = Buildings.Utilities.Math.Functions.smoothMax(

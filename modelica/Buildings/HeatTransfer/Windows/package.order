@@ -3,6 +3,7 @@ ExteriorHeatTransfer
 InteriorHeatTransfer
 Overhang
 SideFins
+Shade
 Examples
 BaseClasses
 Functions

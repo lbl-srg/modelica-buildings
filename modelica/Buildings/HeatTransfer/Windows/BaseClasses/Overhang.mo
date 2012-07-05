@@ -108,7 +108,7 @@ equation
   // is singular. Hence, we treat this special case with an
   // if-then construct.
   // This also increases computing efficiency in
-  // Buildings.Rooms.BaseClasses.Shade in case the window has no overhang.
+  // Buildings.HeatTransfer.Windows.Shade in case the window has no overhang.
 
   if dep > Modelica.Constants.eps then
     y1*Modelica.Math.cos(verAzi) = dep*Modelica.Math.tan(alt);
