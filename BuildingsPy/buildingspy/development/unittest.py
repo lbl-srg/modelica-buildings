@@ -697,7 +697,7 @@ class Tester:
                             timOfMaxErr[varNam] = timMaxErr
                     else:
                         # There is no old data series for this variable name
-                        self.__reporter.writeWarning("Did not find variable ", varNam , " in old results.")
+                        self.__reporter.writeWarning("Did not find variable " + varNam + " in old results.")
                         foundError = True
                         noOldResults.append(varNam)
 
