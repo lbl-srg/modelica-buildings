@@ -15,11 +15,11 @@ model Overhang "Test model for the overhang"
     gap=0.1,
     azi=Buildings.HeatTransfer.Types.Azimuth.S,
     lat=weaDat.lat,
-    wL=1.1,
+    wL=0.6,
     dep=1,
-    hWin=1.5,
-    wWin=2,
-    wR=1.1) "Calculates fraction of window area shaded by the overhang"
+    hWin=2,
+    wWin=1,
+    wR=1.5) "Calculates fraction of window area shaded by the overhang"
      annotation (Placement(transformation(extent={{68,6},{88,26}})));
 
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth walSolAzi
@@ -109,6 +109,10 @@ Angle measured in horizontal plane between projection of sun's rays and normal t
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter<br>
+Changed parameters to test non-symmetric overhang. 
+</li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak<br>
 First implementation. 
