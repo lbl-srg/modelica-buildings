@@ -46,12 +46,17 @@ block Overhang
    annotation (Placement(transformation(extent={{-112,-10},{-92,10}})));
 
 protected
+  constant Modelica.SIunits.Angle delSolAzi = 0.005
+    "Half-width of transition interval between left and right formulation for overhang";
+
   final parameter Modelica.SIunits.Area AWin= hWin*wWin "Window area";
-  Modelica.SIunits.Length tempHght[4]
+  parameter Modelica.SIunits.Length tmpH[4](fixed=false)
     "Height rectangular sections used for superposition";
-  Modelica.SIunits.Length tempWdth[4]
+  Modelica.SIunits.Length w
+    "Either wL or wR, depending on the sun relative to the wall azimuth";
+  Modelica.SIunits.Length tmpW[4]
     "Width of rectangular sections used for superpositions";
-  Modelica.SIunits.Length del_L
+  Modelica.SIunits.Length del_L = wWin/100
     "Fraction of window dimension over which min-max functions are smoothened";
   Modelica.SIunits.Length x1
     "Horizontal distance between window side edge and shadow corner";
@@ -69,37 +74,21 @@ protected
   Modelica.SIunits.Area crShdArea1
     "Corrected for the sun behind the surface/wall";
   Modelica.SIunits.Area crShdArea2 "Corrected for the sun below horizon";
-public
-  BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth           solAzi(lat=lat)
+
+  Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth solAzi(lat=lat)
     "Solar azimuth"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
-algorithm
+initial algorithm
     assert((wR+wL) == 0 or (wR >= wWin/2),  "Overhang must cover complete window
     Received overhang width on right hand side (wR) = " + String(wR) + "
              half window width (wWin/2) = " + String(wWin/2));
     assert((wR+wL) == 0 or  (wL >= wWin/2), "Overhang must cover complete window
     Received overhang width on left hand side (wL) = " + String(wL) + "
              half window width (wWin/2) = " + String(wWin/2));
-  del_L := wWin/100;
 
-//Temporary height and widths are for the areas below the overhang
-//These areas are used in superposition
- if (solAzi.solAzi-azi)<0.00 then
-   tempWdth[1] :=(2*wR + wWin)/2;
-   tempWdth[2] :=(2*wR - wWin)/2;
-   tempWdth[3] :=(2*wR - wWin)/2;
-   tempWdth[4] :=(2*wR + wWin)/2;
-
- else
-   tempWdth[1] :=(2*wL + wWin)/2;
-   tempWdth[2] :=(2*wL - wWin)/2;
-   tempWdth[3] :=(2*wL - wWin)/2;
-   tempWdth[4] :=(2*wL + wWin)/2;
- end if;
-
-  for i in 1:4 loop
-    tempHght[i] :=gap + mod((i - 1), 2)*hWin;
+    for i in 1:4 loop
+    tmpH[i] := gap + mod((i - 1), 2)*hWin;
   end for;
 
 equation
@@ -111,18 +100,30 @@ equation
   // Buildings.HeatTransfer.Windows.Shade in case the window has no overhang.
 
   if dep > Modelica.Constants.eps then
+    //Temporary height and widths are for the areas below the overhang
+    //These areas are used in superposition
+    w = Buildings.Utilities.Math.Functions.spliceFunction(
+            pos=wL,
+            neg=wR,
+            x=solAzi.solAzi-azi,
+            deltax=delSolAzi);
+    tmpW[1] =(w + wWin/2);
+    tmpW[2] =(w - wWin/2);
+    tmpW[3] =(w - wWin/2);
+    tmpW[4] =(w + wWin/2);
+
     y1*Modelica.Math.cos(verAzi) = dep*Modelica.Math.tan(alt);
     x1 = dep*Modelica.Math.tan(verAzi);
     shdwTrnglRtio*x1 = y1;
     for i in 1:4 loop
-      y2[i] = tempHght[i];
-      x2[i]*y1 = x1*tempHght[i];
+      y2[i] = tmpH[i];
+      x2[i]*y1 = x1*tmpH[i];
       area[i] = Buildings.Utilities.Math.Functions.smoothMin(
         x1=y1,
         x2=y2[i],
-          deltaX=del_L)*tempWdth[i] - (Buildings.Utilities.Math.Functions.smoothMin(
+          deltaX=del_L)*tmpW[i] - (Buildings.Utilities.Math.Functions.smoothMin(
         y1,
-        tempHght[i],
+        tmpH[i],
         del_L)*Buildings.Utilities.Math.Functions.smoothMin(
         x1=x2[i],
         x2=y1,
@@ -130,13 +131,13 @@ equation
         x1=shdwTrnglRtio*(Buildings.Utilities.Math.Functions.smoothMin(
           x1=x1,
           x2=x2[i],
-          deltaX=del_L) - tempWdth[i]),
+          deltaX=del_L) - tmpW[i]),
         x2=0,
         deltaX=del_L)*Buildings.Utilities.Math.Functions.smoothMax(
         x1=(Buildings.Utilities.Math.Functions.smoothMin(
           x1=x1,
           x2=x2[i],
-          deltaX=del_L) - tempWdth[i]),
+          deltaX=del_L) - tmpW[i]),
         x2=0,
         deltaX=del_L)/2;
     end for;
@@ -160,7 +161,9 @@ equation
         x1=Buildings.Utilities.Math.Functions.smoothMax(x1=1-crShdArea/AWin,x2=0,deltaX=0.01),
         x2=1.0,
         deltaX=0.01);
-   else
+  else
+    w = 0;
+    tmpW=fill(0.0, 4);
     y1 = 0;
     x1 = 0;
     shdwTrnglRtio = 0;
@@ -261,6 +264,11 @@ to calculate the shaded fraction of the window.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Revised implementation to avoid state events when horizontal projection
+of the sun beam is perpendicular to window.
+</li>
 <li>
 May 7, 2012, by Kaustubh Phalak:<br>
 Modified for use of asymmetrical overhang.

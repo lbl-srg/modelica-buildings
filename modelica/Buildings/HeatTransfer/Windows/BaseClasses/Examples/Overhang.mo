@@ -15,11 +15,11 @@ model Overhang "Test model for the overhang"
     gap=0.1,
     azi=Buildings.HeatTransfer.Types.Azimuth.S,
     lat=weaDat.lat,
-    wL=0.6,
-    dep=1,
+    wL=0.05,
+    wR=1,
+    dep=0.5,
     hWin=2,
-    wWin=1,
-    wR=1.5) "Calculates fraction of window area shaded by the overhang"
+    wWin=0.1) "Calculates fraction of window area shaded by the overhang"
      annotation (Placement(transformation(extent={{68,6},{88,26}})));
 
   Buildings.BoundaryConditions.SolarGeometry.BaseClasses.WallSolarAzimuth walSolAzi
@@ -102,9 +102,9 @@ Angle measured in horizontal plane between projection of sun's rays and normal t
 </li>
 </ul>
 </p>
-
-<p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/Overhang.png\" border=\"1\">
+<p>
+The values of the parameters of the overhang model have been set in such
+a way that the overhang in non-symmetric with respect to the window center-line.
 </p>
 </html>",
 revisions="<html>

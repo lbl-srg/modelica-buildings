@@ -162,6 +162,11 @@ to <b style=\"color:blue\">existing</b> libraries:
                        that is sun exposed.
     </td> 
     </tr>
+<tr><td valign=\"top\">Buildings.Rooms.Examples.BESTEST.xxx fixme
+    </td>
+    <td valign=\"top\">Additional BESTEST validation models.
+    </td> 
+    </tr>
 </table>
 </p>
 <!-- Backward compatible changes -->
@@ -187,6 +192,11 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Added optional output of diffuse radiation from the sky and ground. 
                        This allows reusing the diffuse radiation in solar thermal collector.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SolarGeometry.BaseClasses.SolarAzimuth
+    </td>
+    <td valign=\"top\">Changed implementation to avoid an event at solar noon.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Media</b>

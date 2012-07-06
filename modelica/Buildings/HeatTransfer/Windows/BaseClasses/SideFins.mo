@@ -34,10 +34,10 @@ block SideFins
     annotation(Dialog(tab="General",group="Window"));
 // Other calculation variables
 protected
-  final parameter Modelica.SIunits.Length tempHght[4]=
+  final parameter Modelica.SIunits.Length tmpH[4]=
                   {h, h - hWin, h, h - hWin}
     "Height of rectangular sections used for superposition";
-  final parameter Modelica.SIunits.Length tempWdth[4]=
+  final parameter Modelica.SIunits.Length tmpW[4]=
                   {gap + wWin,gap + wWin,gap, gap}
     "Width of rectangular sections used for superpositions; c1,c2 etc";
   final parameter Modelica.SIunits.Length deltaL=wWin/100
@@ -101,10 +101,10 @@ equation
     y2 = dep*alt_t/verAzi_c;
     x2 = dep*verAzi_t;
     for i in 1:4 loop
-      x1[i] = tempHght[i]/lambda_t;
-      x3[i] = tempWdth[i];
-      y1[i] = tempHght[i];
-      y3[i] = tempWdth[i]*lambda_t;
+      x1[i] = tmpH[i]/lambda_t;
+      x3[i] = tmpW[i];
+      y1[i] = tmpH[i];
+      y3[i] = tmpW[i]*lambda_t;
       minX2X3[i] = Buildings.Utilities.Math.Functions.smoothMin(
         x1=x2,
         x2=x3[i],
@@ -121,7 +121,7 @@ equation
         x1=y1[i],
         x2=minY2Y3[i],
         deltaX=deltaL);
-      area[i] = tempHght[i]*minX[i] - minX[i]*minY[i]/2;
+      area[i] = tmpH[i]*minX[i] - minX[i]*minY[i]/2;
     end for;
   //by superposition
     shdArea = area[1] + area[4] - area[2] - area[3];

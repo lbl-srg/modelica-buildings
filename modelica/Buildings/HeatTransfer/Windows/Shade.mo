@@ -23,18 +23,17 @@ model Shade "Model for exterior shade due to overhang and/or side fin"
   Modelica.Blocks.Math.Add resFraSun(k2=1.0, k1=-1.0)
     "Calculates resultant sun exposed window area fraction"
     annotation (Placement(transformation(extent={{-40,-6},{-28,6}})));
-  Modelica.Blocks.Logical.Switch switch "Switches from sun to no sun condition"
-    annotation (Placement(transformation(extent={{8,8},{20,20}})));
   Modelica.Blocks.Sources.Constant overlap(k=1.0)
     "Overlap of sun exposed window area fraction"
     annotation (Placement(transformation(extent={{-40,20},{-28,32}})));
-  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold
-    annotation (Placement(transformation(extent={{-20,-20},{-8,-8}})));
-  Modelica.Blocks.Sources.Constant noSunCond(k=0.0)
+  Modelica.Blocks.Sources.Constant noSunCond(k=small)
     "Condition when the sun is not in front of window"
     annotation (Placement(transformation(extent={{-20,-40},{-8,-28}})));
 
 protected
+  constant Real small = 0.001
+    "Small number, used to avoid that sun-exposed fraction of window is negative";
+
   final parameter Boolean haveOverhang = conPar.ove.haveOverhang
     "Flag for overhang" annotation (Evaluate=true);
 
@@ -82,15 +81,10 @@ protected
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Modelica.Blocks.Sources.Constant const(k=1)
     annotation (Placement(transformation(extent={{0,-90},{20,-70}})));
-public
-  model ShadeSelector
-    "Model that selects a model for the overhang, sidefin or both"
-  extends HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus;
-  parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar
-      "Construction parameters"
-    annotation (Evaluate=true);
-  end ShadeSelector;
 
+  Utilities.Math.SmoothMax smoMax(deltaX=small/2)
+    "Limiter to avoid that the fraction of sun-exposed window is below zero"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
 equation
   connect(weaBus.sol.alt, walSolAzi.alt) annotation (Line(
       points={{-100,5.55112e-16},{-92,5.55112e-16},{-92,-76},{-82,-76},{-82,
@@ -187,38 +181,27 @@ equation
       points={{-27.4,26},{-22,26},{-22,10},{-44,10},{-44,3.6},{-41.2,3.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(resFraSun.y, greaterThreshold.u)
-                                      annotation (Line(
-      points={{-27.4,-1.88738e-16},{-24,-1.88738e-16},{-24,-14},{-21.2,-14}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(resFraSun.y, switch.u1)
-                             annotation (Line(
-      points={{-27.4,-1.88738e-16},{-8,-1.88738e-16},{-8,18.8},{6.8,18.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(greaterThreshold.y, switch.u2) annotation (Line(
-      points={{-7.4,-14},{-4,-14},{-4,14},{6.8,14}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(noSunCond.y, switch.u3)
-                                 annotation (Line(
-      points={{-7.4,-34},{0,-34},{0,9.2},{6.8,9.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(sidFin.fraSun, sumFraSun.u2)
                                  annotation (Line(
       points={{-19,-60},{-12,-60},{-12,-44},{-48,-44},{-48,-37.6},{-41.2,-37.6}},
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(switch.y, mulFraSun.u2[1]) annotation (Line(
-      points={{20.6,14},{25.3,14},{25.3,13},{30,13}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(idxSou.y, extFraSun.index) annotation (Line(
       points={{61,-70},{70,-70},{70,-2}},
       color={255,127,0},
+      smooth=Smooth.None));
+  connect(resFraSun.y, smoMax.u1) annotation (Line(
+      points={{-27.4,-1.88738e-16},{-19.7,-1.88738e-16},{-19.7,6},{-12,6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(noSunCond.y, smoMax.u2) annotation (Line(
+      points={{-7.4,-34},{0,-34},{0,-14},{-20,-14},{-20,-6},{-12,-6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(smoMax.y, mulFraSun.u2[1]) annotation (Line(
+      points={{11,6.10623e-16},{18,6.10623e-16},{18,13},{30,13}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
             fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/Overhang.png")}),
