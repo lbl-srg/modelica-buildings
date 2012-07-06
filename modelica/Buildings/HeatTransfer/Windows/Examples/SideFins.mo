@@ -1,12 +1,12 @@
 within Buildings.HeatTransfer.Windows.Examples;
-model SideFins "This example uses Window SideFins model"
+model SideFins "This example demonstrates the use of side fins for a window"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     "Weather data"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Buildings.HeatTransfer.Windows.SideFins fin(
-    h=1.2,
+    h=0.2,
     hWin=1.0,
     wWin=1.0,
     dep=0.5,
@@ -40,15 +40,23 @@ equation
         "Simulate and plot"),
         Documentation(info="<html>
 <p>
-This example uses the window sidefin model to calculate the fraction of total window area exposed to the sun. <br>
-For detail discription refer to documentation of the SideFins block <a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">Buildings.HeatTransfer.Windows.SideFins</a> 
-used in the model. 
-A similar example of SideFins model with basic components is described in 
+This example uses the window sidefin model to calculate the fraction of total window area exposed to the sun.</p>
+<p>
+For a detailed description of the model, see 
+<a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">Buildings.HeatTransfer.Windows.SideFins</a>.
+A similar example of can be found in 
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins\">Buildings.HeatTransfer.Windows.BaseClasses.Examples.SideFins</a>. 
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Changed definitions of side fin height <code>h</code> to be
+measured from the top of the window.
+This allows changing the window height without having to adjust the
+side fin parameters.
+</li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak<br>
 First implementation. 

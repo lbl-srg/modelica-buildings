@@ -92,8 +92,8 @@ model Case610 "Case 610 with south shading. Fixme: make object oriented"
       til={Z_,Z_},
       azi={S_,S_},
       ove(
-        wR={6,2},
-        wL={2,6},
+        wR={4.5,0.5},
+        wL={0.5,4.5},
         dep={1,1},
         gap={0.5,0.5}))) "Room model for Case 610"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));

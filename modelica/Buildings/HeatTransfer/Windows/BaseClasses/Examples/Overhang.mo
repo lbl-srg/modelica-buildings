@@ -15,8 +15,8 @@ model Overhang "Test model for the overhang"
     gap=0.1,
     azi=Buildings.HeatTransfer.Types.Azimuth.S,
     lat=weaDat.lat,
-    wL=0.05,
-    wR=1,
+    wL=0,
+    wR=0.95,
     dep=0.5,
     hWin=2,
     wWin=0.1) "Calculates fraction of window area shaded by the overhang"

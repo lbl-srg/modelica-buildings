@@ -2,20 +2,27 @@ within Buildings.Rooms.BaseClasses;
 record Overhang "Record for window overhang"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.Length wR
-    "Overhang width on right side of window centerline";
-  parameter Modelica.SIunits.Length wL
-    "Overhang width on left side of window centerline";
-  parameter Modelica.SIunits.Length gap "Gap between window and overhang";
-  parameter Modelica.SIunits.Length dep "Overhang depth";
-  final parameter Boolean haveOverhang= wR > 0 and wL > 0 and dep > 0
+  parameter Modelica.SIunits.Length wL(min=0)
+    "Overhang width left to the window, measured from the window corner"
+    annotation(Dialog(tab="General",group="Overhang"));
+  parameter Modelica.SIunits.Length wR(min=0)
+    "Overhang width right to the window, measured from the window corner"
+    annotation(Dialog(tab="General",group="Overhang"));
+
+  parameter Modelica.SIunits.Length dep(min=0)
+    "Overhang depth (measured perpendicular to the wall plane)"
+    annotation(Dialog(tab="General",group="Overhang"));
+  parameter Modelica.SIunits.Length gap(min=0)
+    "Distance between window upper edge and overhang lower edge"
+    annotation(Dialog(tab="General",group="Overhang"));
+
+  final parameter Boolean haveOverhang= dep > Modelica.Constants.eps
     "Flag, true if the window has an overhang";
 
   annotation (
 Documentation(info="<html>
 <p>
-This record is used for declaring and propagating 
-parameters for window overhangs.
+This record declares parameters for window overhangs.
 </p>
 <p>
 See 
@@ -27,6 +34,13 @@ of the overhang model.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Changed definitions of <code>wL</code> and <code>wR</code> to be
+measured from the corner of the window instead of the centerline.
+This allows changing the window width without having to adjust the
+overhang parameters.
+</li>
 <li>
 May 21, 2012, by Kaustubh Phalak:<br>
 Removed <code>gap &gt; 0</code> as a necessary condition. 

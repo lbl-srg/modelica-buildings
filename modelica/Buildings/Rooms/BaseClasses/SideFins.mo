@@ -2,18 +2,23 @@ within Buildings.Rooms.BaseClasses;
 record SideFins "Record for window side fins"
   extends Modelica.Icons.Record;
 
-  parameter Modelica.SIunits.Length h "Sidefins height";
-  parameter Modelica.SIunits.Length dep "Sidefins depth";
-  parameter Modelica.SIunits.Length gap "Gap between window and side fins";
-  final parameter Boolean haveSideFins= h > 0 and dep > 0
+  parameter Modelica.SIunits.Length h(min=0)
+    "Height of side fin that extends above window, measured from top of window"
+    annotation(Dialog(tab="General",group="Side fin"));
+  parameter Modelica.SIunits.Length dep(min=0)
+    "Side fin depth (measured perpendicular to the wall plane)"
+    annotation(Dialog(tab="General",group="Side fin"));
+  parameter Modelica.SIunits.Length gap(min=0)
+    "Distance between side fin and window edge"
+    annotation(Dialog(tab="General",group="Side fin"));
+
+  final parameter Boolean haveSideFins= dep > Modelica.Constants.eps
     "Flag, true if the window has side fins" annotation (Evaluate=true);
-                                                         //or gap > 0
 
   annotation (
 Documentation(info="<html>
 <p>
-This record is used for declaring and propagating
-parameters for window side fins.
+This record declares parameters for window side fins.
 </p>
 <p>
 See 
@@ -25,6 +30,13 @@ of the model for side fins.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Changed definitions of side fin height <code>h</code> to be
+measured from the top of the window.
+This allows changing the window height without having to adjust the
+side fin parameters.
+</li>
 <li>
 May 21, 2012, by Kaustubh Phalak:<br>
 Removed <code>gap &gt; 0</code> as a necessary condition. There can be a side fin with no gap.

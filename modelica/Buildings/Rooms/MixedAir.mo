@@ -787,14 +787,15 @@ The ratio of frame
 to total glazing system area is <i>10%</i>.
 </p>
 <p>
-Optionally, each window can have an overhang or/and side fins.
+Optionally, each window can have an overhang, side fins or both.
 If the above window were to have an overhang of
-<i>2.5 m</i> width, 
-<i>1 m</i> depth and a gap between window and overhang of 
+<i>2.5 m</i> width that is centered above the window, 
+and hence extends each side of the window by <i>0.25 m</i>, and has a depth of
+<i>1 m</i> and a gap between window and overhang of 
 <i>0.1 m</i>, then
 its declaration would be
 <pre>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(wr={1.25}, wl={1.25}, gap={0.1}, dep={1}),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(wL={0.25}, wR={0.25}, gap={0.1}, dep={1}),</span></p>
 </pre>
 This line can be placed below the declaration of <code>wWin</code>.
 This would instanciate the model
@@ -804,11 +805,12 @@ Buildings.HeatTransfer.Windows.Overhang</a> to model the overhang. See this clas
 <p>
 If the window were to have side fins that are 
 <i>2.5 m</i> high, measured from the bottom of the windows,
+and hence extends <i>0.5 m</i> above the window, are
 <i>1 m</i> depth and are placed 
 <i>0.1 m</i> to the left and right of the window,
 then its declaration would be
 <pre>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              sidFin(h={2.5}, gap={0.1}, dep={1}),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              sidFin(h={0.5}, gap={0.1}, dep={1}),</span></p>
 </pre>
 This would instanciate the model
 <a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
@@ -824,10 +826,10 @@ declare that the construction is a wall that is south exposed.
 </p>
 <p>
 Note that if the room were to have two windows, and one window has side fins and the other window has an overhang, the 
-following declaration could be used: fixme: update for new shade
+following declaration could be used, which sets the value of <code>dep</code> to <code>0</code> for the non-present side fins or overhang, respectively:
 <pre>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              sidFin(h = {2.5, 0}, gap={0.1, 0.0}, dep={1, 0}),</span></p>
-<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(wr={0.0, 2}, wl={0.0, 2}, gap={0.0, 0.1}, dep={0, 1}),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              sidFin(h  = {0.5, 0}, gap = {0.1, 0.0}, dep = {1, 0}),</span></p>
+<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(wL = {0.0, 0.25}, wR = {0.0, 0.25}, gap = {0.0, 0.1}, dep = {0, 1}),</span></p>
 </pre>
 <p>
 What follows is the declaration of the partition constructions, as declared by

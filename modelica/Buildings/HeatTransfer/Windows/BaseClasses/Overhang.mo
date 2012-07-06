@@ -2,6 +2,7 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 block Overhang
   "For a window with an overhang, outputs the fraction of the area that is sun exposed"
   extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Buildings.Rooms.BaseClasses.Overhang;
 
   Modelica.Blocks.Interfaces.RealInput verAzi(quantity="Angle", unit="rad", displayUnit="deg")
     "Wall solar azimuth angle (angle between projection of sun's rays and normal to vertical surface)"
@@ -23,19 +24,6 @@ block Overhang
   parameter Modelica.SIunits.Angle azi(displayUnit="deg")
     "Surface azimuth; azi= -90 degree East; azi= 0 degree South";
 
-// Overhang dimensions
-  parameter Modelica.SIunits.Length wR
-    "Overhang width on right hand side from window vertical centerline"
-    annotation(Dialog(tab="General",group="Overhang"));
-  parameter Modelica.SIunits.Length wL
-    "Overhang width on left hand side from window vertical centerline"
-    annotation(Dialog(tab="General",group="Overhang"));
-  parameter Modelica.SIunits.Length dep
-    "Overhang depth (measured perpendicular to the wall plane)"
-    annotation(Dialog(tab="General",group="Overhang"));
-  parameter Modelica.SIunits.Length gap
-    "Distance between window upper edge and overhang lower edge"
-    annotation(Dialog(tab="General",group="Overhang"));
 // Window dimensions
   parameter Modelica.SIunits.Length hWin "Window height"
     annotation(Dialog(tab="General",group="Window"));
@@ -80,14 +68,12 @@ protected
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
 
 initial algorithm
-    assert((wR+wL) == 0 or (wR >= wWin/2),  "Overhang must cover complete window
-    Received overhang width on right hand side (wR) = " + String(wR) + "
-             half window width (wWin/2) = " + String(wWin/2));
-    assert((wR+wL) == 0 or  (wL >= wWin/2), "Overhang must cover complete window
-    Received overhang width on left hand side (wL) = " + String(wL) + "
-             half window width (wWin/2) = " + String(wWin/2));
+  assert(wL >= 0,  "Overhang must cover complete window
+    Received overhang width on left hand side, wL = " + String(wL));
+  assert(wR >= 0,  "Overhang must cover complete window
+    Received overhang width on right hand side, wR = " + String(wR));
 
-    for i in 1:4 loop
+  for i in 1:4 loop
     tmpH[i] := gap + mod((i - 1), 2)*hWin;
   end for;
 
@@ -99,7 +85,7 @@ equation
   // This also increases computing efficiency in
   // Buildings.HeatTransfer.Windows.Shade in case the window has no overhang.
 
-  if dep > Modelica.Constants.eps then
+  if haveOverhang then
     //Temporary height and widths are for the areas below the overhang
     //These areas are used in superposition
     w = Buildings.Utilities.Math.Functions.spliceFunction(
@@ -107,10 +93,10 @@ equation
             neg=wR,
             x=solAzi.solAzi-azi,
             deltax=delSolAzi);
-    tmpW[1] =(w + wWin/2);
-    tmpW[2] =(w - wWin/2);
-    tmpW[3] =(w - wWin/2);
-    tmpW[4] =(w + wWin/2);
+    tmpW[1] = w + wWin;
+    tmpW[2] = w;
+    tmpW[3] = w;
+    tmpW[4] = w + wWin;
 
     y1*Modelica.Math.cos(verAzi) = dep*Modelica.Math.tan(alt);
     x1 = dep*Modelica.Math.tan(verAzi);
@@ -224,10 +210,11 @@ Buildings.BoundaryConditions.SolarGeometry.BaseClasses</a>.
 <p>
 The overhang can be asymmetrical (i.e. <code>wR &ne; wL</code>) 
 about the vertical centerline 
-of the window but overhang should completely cover the window (i.e.,
-<code>wR &gt; wWin/2</code> and 
-<code>wL &gt; wWin/2</code>). 
-<code>wR</code> and <code>wL</code> should always be measured from the window vertical center-line. 
+of the window.
+The overhang must completely cover the window (i.e.,
+<code>wL &ge; 0</code> and 
+<code>wR &ge; 0</code>). 
+<code>wL</code> and <code>wR</code> are measured from the left and right edge of the window.
 </p>
 <p>
 The surface azimuth <code>azi</code> is as defined in 
@@ -240,14 +227,14 @@ The method of super position is used to calculate the window shaded area.
 The area below the overhang is divided as shown in the figure. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangSuperPosition.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangSuperPosition.png\">
 </p>
 <p>
 Dimensional variables used in code for the rectangle <i>DEGI, AEGH, CFGI</i> and <i>BFGH</i>
 are shown in the figure below:
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangVariables.png\" border=\"1\" width=275 height=357>
+<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/OverhangVariables.png\">
 </p>
 <p>
 The rectangles <i>DEGI, AEGH, CFGI</i> and <i>BFGH</i> have the same geometric configuration 
@@ -264,6 +251,13 @@ to calculate the shaded fraction of the window.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Changed definitions of <code>wL</code> and <code>wR</code> to be
+measured from the corner of the window instead of the centerline.
+This allows changing the window width without having to adjust the
+overhang parameters.
+</li>
 <li>
 July 5, 2012, by Michael Wetter:<br>
 Revised implementation to avoid state events when horizontal projection

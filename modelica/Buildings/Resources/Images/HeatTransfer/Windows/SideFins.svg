@@ -15,7 +15,7 @@
    height="572.92188"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.3.1 r9886"
+   inkscape:version="0.48.1 r9760"
    sodipodi:docname="SideFins.svg"
    inkscape:export-filename="/Users/mwetter/Downloads/reshadingblockupdate/WindowSideFinsDimensions.png"
    inkscape:export-xdpi="44.970001"
@@ -184,6 +184,34 @@
        y2="265.22733"
        gradientUnits="userSpaceOnUse"
        gradientTransform="translate(-116.90506,152.15405)" />
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart-9"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4461-3"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.8,0,0,0.8,10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-8"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4464-0"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -192,9 +220,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.3231489"
-     inkscape:cx="763.2227"
-     inkscape:cy="286.46094"
+     inkscape:zoom="1.2124913"
+     inkscape:cx="760.23176"
+     inkscape:cy="270.84375"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -223,7 +251,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -232,159 +260,6 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(330.5,10.059692)">
-    <rect
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       id="rect2987"
-       width="125"
-       height="165"
-       x="-300"
-       y="32.362183" />
-    <rect
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       id="rect3765"
-       width="10"
-       height="195"
-       x="-155"
-       y="2.3621826" />
-    <rect
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       id="rect3765-5"
-       width="10"
-       height="195"
-       x="-330"
-       y="2.3621826" />
-    <rect
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2, 1;stroke-dashoffset:0"
-       id="rect3785"
-       width="145"
-       height="30"
-       x="-300"
-       y="2.3621826" />
-    <rect
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2, 1;stroke-dashoffset:0"
-       id="rect3787"
-       width="20"
-       height="195"
-       x="-175"
-       y="2.3621826" />
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="-310"
-       y="207.36218"
-       id="text3789"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3791"
-         x="-310"
-         y="207.36218"
-         style="font-size:10px;line-height:125%">A</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="-185"
-       y="42.362183"
-       id="text3789-3"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3791-1"
-         x="-185"
-         y="42.362183"
-         style="font-size:10px;line-height:125%">C</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="-180"
-       y="-2.6378174"
-       id="text3789-6"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3791-8"
-         x="-180"
-         y="-2.6378174"
-         style="font-size:10px;line-height:125%">F</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="-310"
-       y="37.362183"
-       id="text3789-8"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3791-2"
-         x="-310"
-         y="37.362183"
-         style="font-size:10px;line-height:125%">B</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="-310"
-       y="-2.6378174"
-       id="text3789-7"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3791-7"
-         x="-310"
-         y="-2.6378174"
-         style="font-size:10px;line-height:125%">E</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="-180"
-       y="207.36218"
-       id="text3789-1"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3791-26"
-         x="-180"
-         y="207.36218"
-         style="font-size:10px;line-height:125%">D</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="-165"
-       y="42.362183"
-       id="text3789-6-0"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3791-8-4"
-         x="-165"
-         y="42.362183"
-         style="font-size:10px;line-height:125%">H</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="-160"
-       y="-2.6378174"
-       id="text3789-6-9"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3791-8-46"
-         x="-160"
-         y="-2.6378174"
-         style="font-size:10px;line-height:125%">G</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="-160"
-       y="207.36218"
-       id="text3789-6-0-0"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan3791-8-4-3"
-         x="-160"
-         y="207.36218"
-         style="font-size:10px;line-height:125%">I</tspan></text>
-    <rect
-       style="fill:none;stroke:#000000;stroke-width:1.98507929;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       id="rect2987-1"
-       width="243.24323"
-       height="334.125"
-       x="118.37837"
-       y="128.23718"
-       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
-       inkscape:export-xdpi="44.970001"
-       inkscape:export-ydpi="44.970001" />
     <rect
        style="fill:#e5e5e5;stroke:#000000;stroke-width:1.98500001000000004;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;fill-opacity:1"
        id="rect3765-7"
@@ -816,39 +691,23 @@
        inkscape:export-xdpi="44.970001"
        inkscape:export-ydpi="44.970001" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:6, 6;stroke-dashoffset:0"
-       d="m 658,127.36218 -15,0 0,335 15,0"
+       style="fill:none;stroke:#000000;stroke-width:1.510041;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:6.04016405, 6.04016405;stroke-dashoffset:0"
+       d="m 658,122.86218 -15,0 0,339.5 15,0"
        id="path4069"
        inkscape:connector-curvature="0"
        inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
        inkscape:export-xdpi="44.970001"
        inkscape:export-ydpi="44.970001" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3,1;stroke-dashoffset:0"
-       d="m 360,127.36218 149.5,0"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 360,123.36218 149.5,0"
        id="path4071"
        inkscape:connector-curvature="0"
        inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
        inkscape:export-xdpi="44.970001"
        inkscape:export-ydpi="44.970001" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 1;stroke-dashoffset:0"
-       d="m 565,462.36218 -205,0 0,100"
-       id="path4073"
-       inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
-       inkscape:export-xdpi="44.970001"
-       inkscape:export-ydpi="44.970001" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1.33394694;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
-       d="m 553,67.362183 0,394.999997"
-       id="path5640-2-61"
-       inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
-       inkscape:export-xdpi="44.970001"
-       inkscape:export-ydpi="44.970001" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3,1;stroke-dashoffset:0"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 405,67.362183 164.5,0"
        id="path4073-9"
        inkscape:connector-curvature="0"
@@ -858,8 +717,8 @@
     <text
        xml:space="preserve"
        style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
-       x="-298.89853"
-       y="522.04266"
+       x="-106.99166"
+       y="470.60715"
        id="text6204-4-5"
        sodipodi:linespacing="125%"
        transform="matrix(0,-0.96140377,1.0401457,0,0,0)"
@@ -868,10 +727,10 @@
        inkscape:export-ydpi="44.970001"><tspan
          sodipodi:role="line"
          id="tspan3116"
-         x="-298.89853"
-         y="522.04266">h</tspan></text>
+         x="-106.99166"
+         y="470.60715">h</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.072;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:none;stroke-dashoffset:0"
        d="m 335.36841,542.36218 62.63159,0"
        id="path5640-2-61-2"
        inkscape:connector-curvature="0"
@@ -897,7 +756,7 @@
            style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:Sans;-inkscape-font-specification:Sans"
            id="tspan6411-3-0">gap</tspan></tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.07212424;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:url(#Arrow1Lend)"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:none;marker-end:url(#Arrow1Lend);stroke-dashoffset:0"
        d="m 462.63159,542.36218 -62.63159,0"
        id="path5640-2-61-2-4"
        inkscape:connector-curvature="0"
@@ -905,7 +764,7 @@
        inkscape:export-xdpi="44.970001"
        inkscape:export-ydpi="44.970001" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 1;stroke-dashoffset:0"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 400,462.36218 0,100"
        id="path4209"
        inkscape:connector-curvature="0"
@@ -913,7 +772,7 @@
        inkscape:export-xdpi="44.970001"
        inkscape:export-ydpi="44.970001" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.05879116;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend);stroke-dashoffset:0"
        d="m 362,542.36218 -242,0"
        id="path5640-2-61-6-5"
        inkscape:connector-curvature="0"
@@ -939,8 +798,8 @@
            style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:Sans;-inkscape-font-specification:Sans"
            id="tspan6411-3-1">wWin</tspan></tspan></text>
     <path
-       style="fill:#aaeeff;fill-opacity:1;stroke:#000000;stroke-width:0.70710677;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:2.12132034, 0.70710678;stroke-dashoffset:0"
-       d="m 119.56924,295.38357 0,-165.46298 120.20815,0 120.20815,0 0,165.46298 0,165.46299 -120.20815,0 -120.20815,0 0,-165.46299 z"
+       style="fill:#aaeeff;fill-opacity:1;stroke:#000000;stroke-width:1.37704849;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 119.0837,293.36609 0,-169.49609 120.20815,0 120.20815,0 0,169.49609 0,169.49609 -120.20815,0 -120.20815,0 0,-169.49609 z"
        id="path4311"
        inkscape:connector-curvature="0"
        inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
@@ -949,8 +808,8 @@
     <text
        xml:space="preserve"
        style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
-       x="-333.22339"
-       y="460.9931"
+       x="-315.02081"
+       y="462.91592"
        id="text6204-4"
        sodipodi:linespacing="125%"
        transform="matrix(0,-0.96140377,1.0401457,0,0,0)"
@@ -959,22 +818,22 @@
        inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"><tspan
          sodipodi:role="line"
          id="tspan6206-2"
-         x="-333.22339"
-         y="460.9931"
+         x="-315.02081"
+         y="462.91592"
          style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Sans;-inkscape-font-specification:Sans"><tspan
            style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;font-family:Sans;-inkscape-font-specification:Sans"
            id="tspan6411-3">hWin</tspan></tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:1.22846389;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
-       d="m 499.49999,127.36218 0,335"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend);stroke-dashoffset:0"
+       d="m 499.49999,122.86218 0,339.5"
        id="path5640-2-61-4"
        inkscape:connector-curvature="0"
        inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
        inkscape:export-xdpi="44.970001"
        inkscape:export-ydpi="44.970001" />
     <path
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.80531657;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
-       d="m 797.99997,530.36218 -139.99999,0"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 797.99997,542.36218 -139.99999,0"
        id="path5640-2-61-6-5-6"
        inkscape:connector-curvature="0"
        inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
@@ -984,7 +843,7 @@
        xml:space="preserve"
        style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans"
        x="721.86511"
-       y="499.68192"
+       y="511.38492"
        id="text6204-4-4-5"
        sodipodi:linespacing="125%"
        transform="scale(0.97525325,1.0253747)"
@@ -994,7 +853,7 @@
          sodipodi:role="line"
          id="tspan6206-2-3-0"
          x="721.86511"
-         y="499.68192"
+         y="511.38492"
          style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;font-family:Sans;-inkscape-font-specification:Sans"><tspan
            style="font-size:30px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;baseline-shift:sub;fill:#000000;fill-opacity:1;font-family:Sans;-inkscape-font-specification:Sans"
            id="tspan6411-3-1-2">dep</tspan></tspan></text>
@@ -1005,9 +864,9 @@
        inkscape:connector-curvature="0"
        id="path4164"
        d="m 120,462.36218 0,100"
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 1;stroke-dashoffset:0" />
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 1;stroke-dashoffset:0"
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 658,462.36218 0,100"
        id="path4166"
        inkscape:connector-curvature="0"
@@ -1021,6 +880,30 @@
        inkscape:connector-curvature="0"
        id="path4168"
        d="m 799.5,462.36218 0,100"
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 1;stroke-dashoffset:0" />
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend);stroke-dashoffset:0"
+       d="m 499.49999,67.36218 0,55.5"
+       id="path5640-2-61-4-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 360,462.36218 0,100"
+       id="path4209-2"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="m 360,463.36218 149.5,0"
+       id="path4071-1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mwetter/Desktop/SideFins.png"
+       inkscape:export-xdpi="44.970001"
+       inkscape:export-ydpi="44.970001" />
   </g>
 </svg>

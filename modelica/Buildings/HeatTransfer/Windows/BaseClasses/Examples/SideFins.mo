@@ -14,7 +14,7 @@ model SideFins "Test model for side fins"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.HeatTransfer.Windows.BaseClasses.SideFins fin(
     gap=0.1,
-    h=2.2,
+    h=0.7,
     dep=1.0,
     hWin=1.5,
     wWin=2.0) "Calculates fraction of window area shaded by the side fins"
@@ -61,9 +61,10 @@ equation
 Documentation(info="<html>
 <p>
 This example uses the basic side fins model with solar angles as input and calculates the fraction of total window area that is exposed to the sun.
-For a detailed description of the solar angles used in the model refer to documentation of components in the package 
+For a detailed description of the solar angles used in the model,
+see to documentation in the package 
 <a href=\"modelica://Buildings.BoundaryConditions.SolarGeometry\">Buildings.BoundaryConditions.SolarGeometry</a>. 
-For a detail description of side fins block, see
+For a detail description of side fin model, see
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.SideFins\">
 Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>.
 The required data for the solar angle calculations are obtained from the weather data.
@@ -89,13 +90,17 @@ Angle measured in horizontal plane between projection of sun's rays and normal t
 </li>
 </ul>
 </p>
-
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFins.png\" border=\"1\">
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Changed definitions of side fin height <code>h</code> to be
+measured from the top of the window.
+</li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak<br>
 First implementation. 

@@ -2,6 +2,7 @@ within Buildings.HeatTransfer.Windows.BaseClasses;
 block SideFins
   "For a window with side fins, outputs the fraction of the area that is sun exposed"
   extends Modelica.Blocks.Interfaces.BlockIcon;
+  extends Buildings.Rooms.BaseClasses.SideFins;
   Modelica.Blocks.Interfaces.RealInput alt(quantity="Angle",
                                            unit="rad",
                                            displayUnit="deg")
@@ -17,16 +18,6 @@ block SideFins
                                                final unit="1")
     "Fraction of window area exposed to the sun"
   annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-// Side fin dimensions
-  parameter Modelica.SIunits.Length h
-    "Side fin height (measured vertically and parallel to wall plane)"
-    annotation(Dialog(tab="General",group="Side fin"));
-  parameter Modelica.SIunits.Length dep
-    "Side fin depth (measured perpendicular to the wall plane)"
-    annotation(Dialog(tab="General",group="Side fin"));
-  parameter Modelica.SIunits.Length gap
-    "Distance between window upper edge and side fin"
-    annotation(Dialog(tab="General",group="Side fin"));
 // Window dimensions
   parameter Modelica.SIunits.Length hWin "Window height"
     annotation(Dialog(tab="General",group="Window"));
@@ -35,7 +26,7 @@ block SideFins
 // Other calculation variables
 protected
   final parameter Modelica.SIunits.Length tmpH[4]=
-                  {h, h - hWin, h, h - hWin}
+                  {h+hWin, h, h+hWin, h}
     "Height of rectangular sections used for superposition";
   final parameter Modelica.SIunits.Length tmpW[4]=
                   {gap + wWin,gap + wWin,gap, gap}
@@ -73,13 +64,13 @@ protected
   Real verAzi_c;
   Real alt_t;
 initial algorithm
-  assert(h == 0 or h >= hWin, "Sidefins must be at least as high as the window.
-  Received h    = " + String(h) + "
-           hWin = " + String(hWin));
+  assert(h >= 0, "Sidefin parameter 'h' must be at least zero.
+  It is measured from the upper edge of the window to the top of the side fin.
+  Received h = " + String(h));
 equation
   // This if-then construct below increases computing efficiency in
   // Buildings.HeatTransfer.Windows.Shade in case the window has no overhang.
-  if h > Modelica.Constants.eps then
+  if haveSideFins then
   //avoiding division by zero
     lambda_t = Buildings.Utilities.Math.Functions.smoothMax(
       x1=tanLambda,
@@ -155,17 +146,17 @@ equation
     tanLambda = 0;
     y2 = 0;
     x2 = 0;
-    for i in 1:4 loop
-      x1[i] = 0;
-      x3[i] = 0;
-      y1[i] = 0;
-      y3[i] = 0;
-      minX2X3[i] = 0;
-      minX[i]    = 0;
-      minY2Y3[i] = 0;
-      minY[i]    = 0;
-      area[i]    = 0;
-    end for;
+
+    x1 = fill(0.0, 4);
+    x3 = fill(0.0, 4);
+    y1 = fill(0.0, 4);
+    y3 = fill(0.0, 4);
+    minX2X3 = fill(0.0, 4);
+    minX = fill(0.0, 4);
+    minY2Y3 = fill(0.0, 4);
+    minY = fill(0.0, 4);
+    area = fill(0.0, 4);
+
     shdArea = 0;
     crShdArea1 = 0;
     crShdArea2 = 0;
@@ -212,13 +203,13 @@ The method of super position is used to calculate the shaded area of the window.
 The area besides the side fin is divided as shown in the figure below. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFinsSuperPosition.png\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFinsSuperPosition.png\">
 </p>
 <p>
 Variables used in the code for the rectangle <i>AEGI, BEGH, DFGI</i> and <i>CFGH</i> are shown in figure below. 
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFinsVariables.png\" border=\"1\" width=325 height=290>
+<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFinsVariables.png\">
 </p>
 <p>
 The rectangles <i>AEGI, BEGH, DFGI</i> and <i>CFGH</i>  have the same geometric configuration 
@@ -235,6 +226,13 @@ to calculate the shaded fraction of the window.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Changed definitions of side fin height <code>h</code> to be
+measured from the top of the window.
+This allows changing the window height without having to adjust the
+side fin parameters.
+</li>
 <li>
 February 25, 2012, by Michael Wetter:<br>
 Revised implementation.

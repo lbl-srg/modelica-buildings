@@ -59,7 +59,7 @@ model MixedAirFreeResponse "Free response of room model"
               glaSys={glaSys},
               each hWin=2,
               each wWin=4,
-              ove(wR={2},wL={2}, gap={0.1}, dep={1}),
+              ove(wR={0},wL={0}, gap={0.1}, dep={1}),
               each fFra=0.1,
               each til=Buildings.HeatTransfer.Types.Tilt.Wall,
               azi={Buildings.HeatTransfer.Types.Azimuth.S}),
@@ -79,7 +79,6 @@ model MixedAirFreeResponse "Free response of room model"
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.73268921998722) "Room model"
     annotation (Placement(transformation(extent={{46,20},{86,60}})));
-  //            sidFin(h={2.5}, gap={0.1}, dep={1}),
 
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));

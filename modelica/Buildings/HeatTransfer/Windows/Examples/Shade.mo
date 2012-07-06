@@ -29,14 +29,14 @@ model Shade "Test model for the Shade model"
       Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200
       layers,
     ove(
-      wR={1.1,1.1,0,0},
-      wL={1.1,1.1,0,0},
+      wR={0.1,0.1,0,0},
+      wL={0.1,0.1,0,0},
       gap={0.1,0.1,0,0},
       dep={1,1,0,0}),
     sidFin(
       dep={0,1,1,0},
       gap={0,0.1,0.1,0},
-      h={0,1.6,1.6,0})) "Construction parameters"
+      h={0,0.1,0.1,0})) "Construction parameters"
     annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
 
   parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys
@@ -95,6 +95,12 @@ nor a side fin.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Changed values of <code>wL</code> and <code>wR</code> for overhang
+and <code>h</code> for window, to be
+measured from the corner of the window.
+</li>
 <li>
 March 6, 2012, by Michael Wetter:<br>
 First implementation.

@@ -208,25 +208,35 @@ equation
 defaultComponentName="sha",
 Documentation(info="<html>
 <p>
-This block outputs the fraction of the window area that is sun exposed.
+This model outputs the fraction of the window area that is sun exposed
+for a window that may have an overhang and sidefins.
 Depending on the record with construction data <code>conPar</code>, 
 an overhang, side fins or no external shade is modeled.
 The model allows having an overhang and side fins at the same time. 
 In such a case, the overhang width should be 
-measured from the window vertical centerline to the inner edge of the sidefin,
+measured from the window edge to the sidefin,
 because the overhang width beyond the sidefin will 
 cast a shadow on the side fin and not on the window.
-Similarly, the side fin height will be measured 
-from the lower window edge to the overhang,
-because the side fin height below the window lower edge and above the 
+Similarly, the side fin height should be measured 
+from the upper window edge to the overhang,
+because the side fin height above the 
 overhang will not cast a shadow on the window.
+The parameters for the dimensions of the overhang and side fins are as 
+described in the models
+<a href=\"modelica://Buildings.HeatTransfer.Windows.Overhang\">
+Buildings.HeatTransfer.Windows.Overhang</a>
+and
+<a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
+Buildings.HeatTransfer.Windows.SideFins</a>.
 </p>
 <h4>Limitations</h4>
 <p>
 For overhangs, the model assumes that 
 <ul>
 <li> 
-the total overhang length <code>(wR + wL)</code> is greater than or equal to the window width, and
+the overhang is at least as wide as the window, i.e., 
+<i>w<sub>L</sub> &ge; 0</i> and
+<i>w<sub>R</sub> &ge; 0</i>, and
 </li>
 <li>
 the overhang is horizontal.
@@ -243,8 +253,7 @@ the side fins are placed symmetrically to the left and right of the window,
 the top of the side fins must be at an equal or greater height than the window, and
 </li>
 <li>
-the bottom of the side fins must be at an equal or lower height than the 
-bottom of the window.
+the side fins extends at least to the lower edge of the window.
 </li>
 </ul> 
 </p>

@@ -11,8 +11,8 @@ model Overhang "This example tests the window overhang model"
     hWin=1.0,
     wWin=1.0,
     azi=Buildings.HeatTransfer.Types.Azimuth.S,
-    wR=0.6,
-    wL=0.6,
+    wR=0.1,
+    wL=0.1,
     lat=weaDat.lat) "Calculates fraction of window area exposed to the sun"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
@@ -54,6 +54,11 @@ Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Changed definitions of <code>wL</code> and <code>wR</code> to be
+measured from the corner of the window instead of the centerline.
+</li>
 <li>
 Feb 01, 2012, by Kaustubh Phalak:<br>
 First implementation. 

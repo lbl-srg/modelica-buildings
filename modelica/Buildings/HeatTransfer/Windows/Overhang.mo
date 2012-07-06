@@ -2,23 +2,12 @@ within Buildings.HeatTransfer.Windows;
 model Overhang
   "For a window with an overhang, outputs the fraction of the window area exposed to the sun"
   import Buildings;
+  extends Buildings.Rooms.BaseClasses.Overhang;
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus;
   parameter Modelica.SIunits.Angle lat(displayUnit="deg") "Latitude";
   parameter Modelica.SIunits.Angle azi(displayUnit="deg")
     "Surface azimuth; azi= -90 degree East; azi= 0 South";
   // Overhang dimensions
-  parameter Modelica.SIunits.Length wR
-    "Overhang width on right hand side from window vertical centerline"
-    annotation(Dialog(tab="General",group="Overhang"));
-  parameter Modelica.SIunits.Length wL
-    "Overhang width on left hand side from window vertical centerline"
-    annotation(Dialog(tab="General",group="Overhang"));
-  parameter Modelica.SIunits.Length dep
-    "Overhang depth (measured perpendicular to the wall plane)"
-    annotation(Dialog(tab="General",group="Overhang"));
-  parameter Modelica.SIunits.Length gap
-    "Distance between window upper edge and overhang lower edge"
-    annotation(Dialog(tab="General",group="Overhang"));
 protected
   Buildings.HeatTransfer.Windows.BaseClasses.Overhang ove(
     final lat=lat,
@@ -66,18 +55,23 @@ equation
 defaultComponentName="ove",
 Documentation(info="<html>
 <p>
-For a window with an overhang, this block outputs the fraction of 
+For a window with an overhang, this model outputs the fraction of 
 the area that is exposed to the sun.
-This models can also be used for doors with an overhang. 
+The models can also be used for doors with an overhang. 
 </p>
 <p>
-The overhang can be asymmetrical (i.e. wR &ne; wL is allowed) about the vertical centerline of the window but 
-overhang should completely cover the window (i.e. wR &gt; wWin/2 and wL &gt; wWin/2). 
-wR and wL should always be measured from window vertical center-line. <br>
+The overhang can be asymmetrical (i.e. wR &ne; wL is allowed) 
+about the vertical centerline of the window. However, the
+overhang must completely cover the window,
+i.e., <code>wL &ge; 0</code> and <code>wR &ge; 0</code>. 
+<code>wL</code> and <code>wR</code> must be measured from the respective corner
+of the window.
+</p>
+<p>
 The figure below shows the parameters.
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/Overhang.png\" width=\"480\" height=\"496\"  border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/Overhang.png\">
 </p>
 <p>
 The surface azimuth <code>azi</code> is as defined in 
@@ -86,17 +80,34 @@ Buildings.HeatTransfer.Types.Azimuth</a>.
 </p>
 <h4>Limitations</h4>
 <p>
-The model assumes that the overhang completely covers the window, and that the overhang is horizontal.
+The model assumes that 
+<ul>
+<li> 
+the overhang is at least as wide as the window, i.e., 
+<i>w<sub>L</sub> &ge; 0</i> and
+<i>w<sub>R</sub> &ge; 0</i>, and
+</li>
+<li>
+the overhang is horizontal.
+</li>
+</ul>
 </p>
 <h4>Implementation</h4>
 <p>
-The detailed calculation method is explained in 
+The implementation is explained in 
 <a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Overhang\">
 Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Changed definitions of <code>wL</code> and <code>wR</code> to be
+measured from the corner of the window instead of the centerline.
+This allows changing the window width without having to adjust the
+overhang parameters.
+</li>
 <li>
 February 25, 2012, by Michael Wetter:<br>
 Revised implementation.

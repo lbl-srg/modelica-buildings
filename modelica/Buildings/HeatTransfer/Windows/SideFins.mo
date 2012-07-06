@@ -2,17 +2,8 @@ within Buildings.HeatTransfer.Windows;
 model SideFins
   "For a window with side fins, outputs the fraction of the window area exposed to the sun"
   import Buildings;
+  extends Buildings.Rooms.BaseClasses.SideFins;
   extends Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus;
-// Side fin dimensions
-  parameter Modelica.SIunits.Length h
-    "Side fin height (measured vertically and parallel to wall plane)"
-    annotation(Dialog(tab="General",group="Side fin"));
-  parameter Modelica.SIunits.Length dep
-    "Side fin depth (measured perpendicular to the wall plane)"
-    annotation(Dialog(tab="General",group="Side fin"));
-  parameter Modelica.SIunits.Length gap
-    "Distance between side fin and window edge"
-    annotation(Dialog(tab="General",group="Side fin"));
 
   Buildings.HeatTransfer.Windows.BaseClasses.SideFins fin(
     final dep=dep,
@@ -48,23 +39,28 @@ equation
             defaultComponentName="fin",
             Documentation(info="<html>
 <p>
-This block calculates the fraction of the window area that is exposed to the sun.
+For a window with side fins, this model outputs the fraction of 
+the area that is exposed to the sun.
+The model calculates the fraction of the window area that is exposed to the sun.
 The side fins are symmetrically placed above the vertical window centerline, 
-and its length must be equal or greater than the window height.
+and its height must be equal or greater than the window height.
 This models can also be used for doors with side fins.
 The figure below shows the parameters. The parameter <code>h</code> is measured
-from the bottom of the window to the top of the side fins, 
-even in cases where the side fins extend below the window. As length of sidefin below the window edge doesn't affect the shading.
+from the top of the window to the top of the side fins.
+Side fins are assumed to extend at least to the lower edge of the window.
+(Any portion of the side fin below the window edge does not cast
+as shadow on the window anyway.)
 </p>
 <p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/SideFins.png\" width=\"489.75\" height=\"360.75\" border=\"1\">
+<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/SideFins.png\">
 </p>
+<p>
 The parameter <code>h</code> is measured
-from the bottom of the window to the top of the side fins, 
-even in cases where the side fins extend below the window. As length of sidefin below the window edge doesn't affect the shading.
-<p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/WindowSideFinsExtendedSideFin.png\" width=\"329.25\" height=\"358.50\" border=\"1\">
+from the top of the window to the top of the side fins.
+The side fin must extend at least to the bottom of the window.
 </p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/WindowSideFinsExtendedSideFin.png\">
 </p>
 <h4>Limitations</h4>
 <p>
@@ -91,6 +87,13 @@ Buildings.HeatTransfer.Windows.BaseClasses.SideFins</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Changed definitions of side fin height <code>h</code> to be
+measured from the top of the window.
+This allows changing the window height without having to adjust the
+side fin parameters.
+</li>
 <li>
 February 25, 2012, by Michael Wetter:<br>
 Revised implementation.
