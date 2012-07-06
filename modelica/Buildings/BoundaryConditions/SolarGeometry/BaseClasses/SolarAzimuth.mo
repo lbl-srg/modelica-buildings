@@ -19,21 +19,34 @@ public
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
 
 protected
-Real arg "cos(solAzi) after data validity check";
-Real tmp "cos(solAzi) before data validity check";
-constant Modelica.SIunits.Time day=86400 "Number of seconds in a day";
-
+  Real arg "cos(solAzi) after data validity check";
+  Real tmp "cos(solAzi) before data validity check";
+  constant Modelica.SIunits.Time day=86400 "Number of seconds in a day";
+  constant Modelica.SIunits.Angle polarCircle = 1.1617 "Latitude of polar circle (66 degree 33 min 44 sec)";
+  final parameter Boolean outsidePolarCircle = lat < polarCircle and lat > -polarCircle
+    "Flag, true if latitude is outside polar region";
 algorithm
   tmp :=(Modelica.Math.sin(lat)*Modelica.Math.cos(zen) - Modelica.Math.sin(
     decAng))/(Modelica.Math.cos(lat)*Modelica.Math.sin(zen));
 
   arg :=min(1.0, max(-1.0, tmp));
 
-  if solTim - integer(solTim/day)*day < 43200 then
-    solAzi :=-Modelica.Math.acos(arg); // Negative angle if it is in the morning
+  solAzi := Modelica.Math.acos(arg); // Solar azimuth (A4.9a and b) as a positive number
+
+
+  if outsidePolarCircle then
+    // Outside the polar circle, the only non-differentiability is at night when the sun is set.
+    // Hence, we use noEvent.
+    if noEvent(solTim - integer(solTim/day)*day < 43200) then
+      solAzi :=-solAzi;
+    end if;
   else
-    solAzi := Modelica.Math.acos(arg); // Positive angle if it is in the afternoon
-  end if "(A4.9a and b)";
+    // Inside the polar circle, there is a jump at (solar-)midnight when the sun can
+    // be above the horizon. Hence, we do not use noEvent(...)
+    if solTim - integer(solTim/day)*day < 43200 then
+      solAzi :=-solAzi;
+    end if;
+  end if;
 
   annotation (
     defaultComponentName="solAzi",
@@ -45,8 +58,12 @@ This component computes the solar azimuth angle.
 ", revisions="<html>
 <ul>
 <li>
+July 5, 2012, by Michael Wetter:<br>
+Changed model to avoid an event at solar noon.
+</li>
+<li>
 Feburary 28, 2012, by Wangda Zuo:<br>
-Add solar time convertion since it is removed from solTim.
+Add solar time convertion since it is removed from <code>solTim</code>.
 </li>
 <li>
 May 18, 2010, by Wangda Zuo:<br>
