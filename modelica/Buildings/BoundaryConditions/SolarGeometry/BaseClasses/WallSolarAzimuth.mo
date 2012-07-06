@@ -24,7 +24,7 @@ protected
     "Small angle";
   constant Modelica.SIunits.Angle ninety= Modelica.Constants.pi/2-delta
     "+89 degree";
-  constant Real deltaX = 1E-3 "Small number used for smoothing";
+  constant Real deltaX = 1E-4 "Small number used for smoothing";
   Real alt_c "Cosine of altitude, bounded away from zero";
   Real rat "Ratio of cosines";
 equation
@@ -50,6 +50,13 @@ In the northern hemisphere at solar noon, the value of the wall solar azimuth an
 </html>
 ", revisions="<html>
 <ul>
+<li>
+July 5, 2012, by Michael Wetter:<br>
+Decreased <code>deltaX</code> from <i>1e-3</i> to <i>1e-4</i>, as
+the looser tolerance gives sharp changes in 
+<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang\">
+Buildings.HeatTransfer.Windows.BaseClasses.Examples.Overhang</a>.
+</li>
 <li>
 February 23, 2012, by Michael Wetter:<br>
 Guarded against division by zero because the altitude angle can be <i>90</i> degree
