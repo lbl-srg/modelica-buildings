@@ -25,7 +25,7 @@ model HexInternalElement "Internal part of a borehole"
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium in the component" annotation (choicesAllMatching=true);
 
-  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFilling.Generic matFil
+  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic matFil
     "Thermal properties of the filling material"
     annotation (choicesAllMatching=true, Dialog(group="Filling material"),
                 Placement(transformation(extent={{42,70},{62,90}})));

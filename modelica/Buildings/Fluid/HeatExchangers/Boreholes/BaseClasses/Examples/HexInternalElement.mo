@@ -20,7 +20,7 @@ model HexInternalElement
     dp1_nominal=5,
     dp2_nominal=5,
     hSeg=20,
-    redeclare Buildings.HeatTransfer.Data.BoreholeFilling.Bentonite matFil,
+    redeclare Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
     TFil_start=283.15)
              annotation (Placement(transformation(extent={{10,-16},{30,4}})));
   Buildings.Fluid.Sources.Boundary_pT sou_1(

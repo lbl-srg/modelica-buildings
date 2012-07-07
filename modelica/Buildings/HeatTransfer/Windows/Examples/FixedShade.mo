@@ -1,8 +1,8 @@
 within Buildings.HeatTransfer.Windows.Examples;
-model Shade "Test model for the Shade model"
+model FixedShade "Test model for the fixed shade model"
   extends Modelica.Icons.Example;
 
-  Buildings.HeatTransfer.Windows.Shade sha[4](final conPar=conPar,
+  Buildings.HeatTransfer.Windows.FixedShade sha[4](final conPar=conPar,
     azi=conPar.azi,
     each lat=weaDat.lat) "Shade model"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
@@ -85,7 +85,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   annotation (Diagram(graphics),
-              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Shade.mos"
+              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/FixedShade.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
@@ -107,4 +107,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end Shade;
+end FixedShade;

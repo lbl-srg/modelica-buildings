@@ -1,5 +1,5 @@
 within Buildings.HeatTransfer.Windows;
-model Shade "Model for exterior shade due to overhang and/or side fin"
+model FixedShade "Model for exterior shade due to overhang and/or side fin"
   extends HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus;
   parameter Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow conPar
     "Construction parameters"
@@ -270,6 +270,10 @@ Buildings.HeatTransfer.Windows.BaseClasses.Overhang</a>.
 revisions="<html>
 <ul>
 <li>
+July 7, 2012, by Michael Wetter:<br>
+Renamed model from <code>Shade</code> to <code>FixedShade</code> because
+shade is already used for window interior and exterior shades.
+</li><li>
 July 5, 2012, by Michael Wetter:<br>
 Moved model from package <code>Buildings.Rooms.BaseClasses</code> to 
 <code>Buildings.HeatTransfer.Windows</code>, because the overhang and side fin
@@ -286,4 +290,4 @@ First implementation.
 
 </ul>
 </html>"));
-end Shade;
+end FixedShade;

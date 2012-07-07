@@ -18,7 +18,7 @@ model BoreholeSegment "Vertical segment of a borehole"
     "Thermal properties of soil"
     annotation (choicesAllMatching=true, Dialog(group="Soil"),
     Placement(transformation(extent={{2,70},{22,90}})));
-  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFilling.Generic matFil
+  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic matFil
     "Thermal properties of the filling material"
     annotation (choicesAllMatching=true, Dialog(group="Filling material"),
     Placement(transformation(extent={{-68,70},{-48,90}})));

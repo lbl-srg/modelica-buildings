@@ -69,7 +69,7 @@ initial algorithm
   Received h = " + String(h));
 equation
   // This if-then construct below increases computing efficiency in
-  // Buildings.HeatTransfer.Windows.Shade in case the window has no overhang.
+  // Buildings.HeatTransfer.Windows.FixedShade in case the window has no overhang.
   if haveSideFins then
   //avoiding division by zero
     lambda_t = Buildings.Utilities.Math.Functions.smoothMax(

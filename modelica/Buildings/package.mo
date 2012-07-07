@@ -199,6 +199,16 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Changed implementation to avoid an event at solar noon.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Data.BoreholeFillings
+    </td>
+    <td valign=\"top\">
+                       Renamed class to <code>BoreholeFillings</code> 
+                       to be consistent with data records being plural.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Media</b>
     </td>
 </tr>
@@ -277,7 +287,7 @@ that can lead to wrong simulation results):
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClass.ThirdOrderStratifier
     </td>
-    <td valign=\"top\">Revised the implementation to reduce the temperature over-shoot.
+    <td valign=\"top\">Revised the implementation to reduce the temperature overshoot.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>

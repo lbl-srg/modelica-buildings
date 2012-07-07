@@ -1,9 +1,9 @@
 Window
 ExteriorHeatTransfer
 InteriorHeatTransfer
+FixedShade
 Overhang
 SideFins
-Shade
 Examples
 BaseClasses
 Functions

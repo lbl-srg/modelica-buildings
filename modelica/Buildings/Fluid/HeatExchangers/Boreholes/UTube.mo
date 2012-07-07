@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.Boreholes;
-model UTube
+model UTube "Single U-tube borehole heat exchanger"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     show_T=true);
   extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(final
@@ -13,8 +13,8 @@ model UTube
   parameter Modelica.SIunits.Length eTub=0.002 "Thickness of a tube"
     annotation (Dialog(group="Tubes"));
 
-  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFilling.Generic
-                                                      matFil
+  replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic
+    matFil
     "Thermal properties of the borehole filling"
     annotation (choicesAllMatching=true, Dialog(group="Borehole"));
   parameter Modelica.SIunits.Height hBor "Total height of the borehole"
@@ -25,7 +25,7 @@ model UTube
   parameter Modelica.SIunits.Radius rBor=0.1 "Radius of the borehole";
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
-                                             matSoi[nVer]
+    matSoi[nVer]
     "Thermal properties of the soil"
     annotation (choicesAllMatching=true, Dialog(group="Soil"));
 

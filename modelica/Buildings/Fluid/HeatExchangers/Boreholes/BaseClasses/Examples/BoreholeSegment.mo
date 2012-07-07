@@ -6,7 +6,7 @@ model BoreholeSegment
    inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
  package Medium = Buildings.Media.ConstantPropertyLiquidWater;
- Buildings.HeatTransfer.Data.BoreholeFilling.Bentonite                    bento;
+ Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite                    bento;
  Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment seg(
     redeclare package Medium = Medium,
     matFil=bento,

@@ -9,7 +9,7 @@ model UTube "Model that tests the borehole model"
     dT_dz=0.0015,
     samplePeriod=604800,
     m_flow_nominal=0.3,
-    redeclare each Buildings.HeatTransfer.Data.BoreholeFilling.Bentonite matFil,
+    redeclare each Buildings.HeatTransfer.Data.BoreholeFillings.Bentonite matFil,
     redeclare Buildings.HeatTransfer.Data.Soil.Sandstone matSoi,
     TExt0_start=283.15,
     TFil0_start=283.15) "Borehole heat exchanger"

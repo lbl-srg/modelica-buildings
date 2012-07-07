@@ -83,7 +83,7 @@ equation
   // is singular. Hence, we treat this special case with an
   // if-then construct.
   // This also increases computing efficiency in
-  // Buildings.HeatTransfer.Windows.Shade in case the window has no overhang.
+  // Buildings.HeatTransfer.Windows.FixedShade in case the window has no overhang.
 
   if haveOverhang then
     //Temporary height and widths are for the areas below the overhang
