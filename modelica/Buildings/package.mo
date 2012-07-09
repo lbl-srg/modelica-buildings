@@ -154,7 +154,8 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.Overhang<br>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.FixedShade<br>
+                       Buildings.HeatTransfer.Windows.Overhang<br>
                        Buildings.HeatTransfer.Windows.SideFins
     </td>
     <td valign=\"top\">For windows with either an overhang or side fins,
@@ -162,9 +163,14 @@ to <b style=\"color:blue\">existing</b> libraries:
                        that is sun exposed.
     </td> 
     </tr>
-<tr><td valign=\"top\">Buildings.Rooms.Examples.BESTEST.xxx fixme
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
-    <td valign=\"top\">Additional BESTEST validation models.
+</tr>
+
+<tr><td valign=\"top\">Buildings.Rooms.Examples.BESTEST
+    </td>
+    <td valign=\"top\">Added BESTEST validation models Case 610, 620 
+                       and 630 that test shading devices.
     </td> 
     </tr>
 </table>
