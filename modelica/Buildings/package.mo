@@ -288,6 +288,11 @@ that can lead to wrong simulation results):
                        in the infrared regime is non-zero.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.HeatTransfer.Windows.BaseClasses.CenterOfGlass
+    </td>
+    <td valign=\"top\">Fixed the bug in the input parameter of Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer[glaSys.nLay] glass(..., absIR_b=glaSys.glass.absIR_a, ...).
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>

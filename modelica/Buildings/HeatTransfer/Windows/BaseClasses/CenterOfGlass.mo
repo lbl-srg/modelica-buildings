@@ -20,7 +20,7 @@ model CenterOfGlass "Model for center of glass of a window construction"
     final x=glaSys.glass.x,
     final k=glaSys.glass.k,
     final absIR_a=glaSys.glass.absIR_a,
-    final absIR_b=glaSys.glass.absIR_a,
+    final absIR_b=glaSys.glass.absIR_b,
     final tauIR=glaSys.glass.tauIR,
     each final linearize=linearize) "Window glass layer"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
@@ -197,6 +197,10 @@ Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>, and
 Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
 </html>", revisions="<html>
 <ul>
+<li>
+July 9 2012, by Wangda Zuo:<br>
+Fixed a bug in input parameter for Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer[glaSys.nLay] glass.
+</li>
 <li>
 Sep. 3 2010, by Michael Wetter:<br>
 First implementation.
