@@ -199,7 +199,8 @@ Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
 <ul>
 <li>
 July 9 2012, by Wangda Zuo:<br>
-Fixed a bug in input parameter for Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer[glaSys.nLay] glass.
+Fixed a bug in the parameter assignment of the instance <code>glass</code>.
+Previously, the infrared emissivity of surface a was assigned to the surface b.
 </li>
 <li>
 Sep. 3 2010, by Michael Wetter:<br>
