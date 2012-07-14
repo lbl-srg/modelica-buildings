@@ -187,7 +187,10 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
     </td>
-    <td valign=\"top\">Added new sub-bus that contains the solar position. 
+    <td valign=\"top\">Removed assignment of <code>HGloHor_in</code> in its declaration,
+                       because this gives an overdetermined system if the input connector
+                       is used.<br/>
+                       Added new sub-bus that contains the solar position. 
                        This allows reusing the solar position in various other models.
     </td>
 </tr>

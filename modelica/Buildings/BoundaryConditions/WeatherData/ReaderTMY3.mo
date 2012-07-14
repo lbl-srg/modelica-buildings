@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData;
-block ReaderTMY3 "Reader for TMY3 weather data "
+block ReaderTMY3 "Reader for TMY3 weather data"
   //--------------------------------------------------------------
   // Atmospheric pressure
   parameter Buildings.BoundaryConditions.Types.DataSource pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter
@@ -55,8 +55,7 @@ block ReaderTMY3 "Reader for TMY3 weather data "
   Modelica.Blocks.Interfaces.RealInput winSpe_in(
     final quantity="Velocity",
     final unit="m/s",
-    min=0,
-    displayUnit="m/s") if (winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    min=0) if (winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input wind speed"
     annotation (Placement(transformation(extent={{-240,0},{-200,40}}),
         iconTransformation(extent={{-240,0},{-200,40}})));
@@ -84,8 +83,7 @@ block ReaderTMY3 "Reader for TMY3 weather data "
     annotation (Evaluate=true, Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput HGloHor_in(
     final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2",
-    displayUnit="W/m2") = 100 if (HGloHorSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    final unit="W/m2") if (HGloHorSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input global horizontal radiation"
     annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
         iconTransformation(extent={{-240,-120},{-200,-80}})));
@@ -99,8 +97,7 @@ block ReaderTMY3 "Reader for TMY3 weather data "
     annotation (Evaluate=true, Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput HDifHor_in(
     final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2",
-    displayUnit="W/m2") if (HDifHorSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    final unit="W/m2") if (HDifHorSou == Buildings.BoundaryConditions.Types.DataSource.Input)
     "Input diffuse horizontal radiation"
     annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
         iconTransformation(extent={{-240,-180},{-200,-140}})));
@@ -214,20 +211,17 @@ protected
     max=1) "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput winSpe_in_internal(
     final quantity="Velocity",
-    final unit="m/s",
-    displayUnit="m/s") "Needed to connect to conditional connector";
+    final unit="m/s") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput winDir_in_internal(
     final quantity="Angle",
     final unit="rad",
     displayUnit="deg") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput HGloHor_in_internal(
     final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2",
-    displayUnit="W/m2") "Needed to connect to conditional connector";
+    final unit="W/m2") "Needed to connect to conditional connector";
   Modelica.Blocks.Interfaces.RealInput HDifHor_in_internal(
     final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2",
-    displayUnit="W/m2") "Needed to connect to conditional connector";
+    final unit="W/m2") "Needed to connect to conditional connector";
   Modelica.Blocks.Math.UnitConversions.From_deg conWinDir
     "Convert the wind direction unit from [deg] to [rad]"
     annotation (Placement(transformation(extent={{120,-280},{140,-260}})));
@@ -843,6 +837,13 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+July 13, 2012, by Michael Wetter:<br>
+Removed assignment of <code>HGloHor_in</code> in its declaration,
+because this gives an overdetermined system if the input connector
+is used.
+Removed non-required assignments of attribute <code>displayUnit</code>.
+</li>
 <li>
 February 25, 2012, by Michael Wetter:<br>
 Added subbus for solar position, which is needed by irradition and
