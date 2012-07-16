@@ -1,5 +1,5 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case610 "Case 610 with south shading"
+model Case610 "Case 600 with south shading"
   extends Buildings.Rooms.Examples.BESTEST.Case600(
   roo(
      datConExtWin(

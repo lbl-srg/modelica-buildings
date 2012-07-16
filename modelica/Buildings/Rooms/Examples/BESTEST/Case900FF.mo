@@ -1,5 +1,5 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case900FF "Case 900 with free floating temperature"
+model Case900FF "Case 600FF, but with high thermal mass"
   extends Case600FF(
     matExtWal = extWalCase900,
     matFlo =    floorCase900,
@@ -9,21 +9,19 @@ model Case900FF "Case 900 with free floating temperature"
       meanT(Min=24.5+273.15, Max=25.9+273.15, Mean=25.2+273.15)));
 
   Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900
-     extWalCase900 "High Mass Case: Exterior Wall"
+     extWalCase900 "Exterior wall"
     annotation (Placement(transformation(extent={{32,50},{46,64}})));
 
   Buildings.Rooms.Examples.BESTEST.Data.FloorCase900
-    floorCase900 "High Mass Case: Floor"
+    floorCase900 "Floor"
     annotation (Placement(transformation(extent={{60,50},{74,64}})));
 
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case900FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This model is used for the basic test case 900FF of the BESTEST validation suite.
+This model is used for the test case 900FF of the BESTEST validation suite.
 Case 900FF is a heavy-weight building.
 The room temperature is free floating.
-This is achieved by setting <code>gaiHea.k=0</code>
-and <code>gaiCoo.k=0</code>.
 </p>
 </html>", revisions="<html>
 <ul>

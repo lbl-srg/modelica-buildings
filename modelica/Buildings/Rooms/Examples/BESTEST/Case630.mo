@@ -1,6 +1,6 @@
 within Buildings.Rooms.Examples.BESTEST;
 model Case630
-  "Basic test with light-weight construction and dual-setpoint for heating and cooling with windows on East and West side walls with overhang and sidefins"
+  "Case 620, but with added overhang and sidefins"
   extends Buildings.Rooms.Examples.BESTEST.Case620(
   roo(
     datConExtWin(

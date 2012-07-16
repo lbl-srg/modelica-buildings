@@ -1,5 +1,5 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case900 "Case 900 heavy mass test"
+model Case900 "Case 600, but with high thermal mass"
   extends Case600(
    matExtWal = extWalCase900,
    matFlo =    floorCase900,
@@ -10,11 +10,11 @@ model Case900 "Case 900 heavy mass test"
     peakCoo(Min=-2.888*1000, Max=-3.871*1000, Mean=-3.390*1000)));
 
   Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900
-     extWalCase900 "High Mass Case: Exterior Wall"
+     extWalCase900 "Exterior wall"
     annotation (Placement(transformation(extent={{32,50},{46,64}})));
 
   Buildings.Rooms.Examples.BESTEST.Data.FloorCase900
-    floorCase900 "High Mass Case: Floor"
+    floorCase900 "Floor"
     annotation (Placement(transformation(extent={{60,50},{74,64}})));
 
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case900.mos"

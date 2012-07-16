@@ -1,5 +1,5 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case640 "Case 640 that tests heating schedule"
+model Case640 "Case 600, but with heating schedule"
   extends Case600(
     TSetHea(table=[      0, 273.15 + 10;
                     7*3600, 273.15 + 10;

@@ -1,5 +1,5 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case650FF "Free floating case of case 650"
+model Case650FF "Case 600, but with ventilation as in case 650"
   extends Case600FF(
   staRes(
       minT( Min=-23.0+273.15, Max=-21.6+273.15, Mean=-22.7+273.15),

@@ -1,6 +1,6 @@
 within Buildings.Rooms.Examples.BESTEST;
 model Case650
-  "Case 650 that tests dual set point for cooling and night ventilation"
+  "Case 600, but cooling based on schedule, night venting, and no heating"
   extends Case600(
     TSetHea(table=[0, 273.15 -200]),
     TSetCoo(table=[      0, 273.15+100;

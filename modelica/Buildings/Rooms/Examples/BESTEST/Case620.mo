@@ -1,6 +1,5 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case620
-  "Basic test with light-weight construction and dual-setpoint for heating and cooling with windows on East and West side walls. Fixme: Make object-oriented"
+model Case620 "Case 600, but with windows on East and West side walls"
   extends Buildings.Rooms.Examples.BESTEST.Case600(
   roo(
     nConExtWin=2,
@@ -15,7 +14,7 @@ model Case620
       azi={W_,E_}),
     nConExt=3,
     datConExt(
-      layers={roofCase600,matExtWal,matExtWal},
+      layers={roof,matExtWal,matExtWal},
       A={48,8*2.7,8*2.7},
       til={C_,Z_,Z_},
       azi={S_,S_,N_})),
