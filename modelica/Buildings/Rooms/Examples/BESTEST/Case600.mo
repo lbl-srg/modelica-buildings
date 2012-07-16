@@ -4,7 +4,6 @@ model Case600
   extends Modelica.Icons.Example;
   package MediumA = Buildings.Media.GasesConstantDensity.SimpleAir
     "Medium model";
-  parameter Integer nStaRef = 6 "Number of states in a reference material";
   parameter Real S_ = Buildings.HeatTransfer.Types.Azimuth.S;
   parameter Real E_ = Buildings.HeatTransfer.Types.Azimuth.E;
   parameter Real W_ = Buildings.HeatTransfer.Types.Azimuth.W;
@@ -39,7 +38,7 @@ model Case600
         c=840,
         d=950,
         nStaRef=nStaRef)}) "Lightweight Case: Exterior Wall"
-    annotation (Placement(transformation(extent={{20,80},{34,94}})));
+    annotation (Placement(transformation(extent={{20,84},{34,98}})));
   parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic
                                                           matFlo(final nLay=
            2,
@@ -58,7 +57,7 @@ model Case600
         c=1200,
         d=650,
         nStaRef=nStaRef)}) "Lightweight Case: Floor"
-    annotation (Placement(transformation(extent={{80,80},{94,94}})));
+    annotation (Placement(transformation(extent={{80,84},{94,98}})));
   Buildings.Rooms.MixedAir roo(
     redeclare package Medium = MediumA,
     hRoo=2.7,
@@ -92,21 +91,21 @@ model Case600
     lat=weaDat.lat) "Room model for Case 600"
     annotation (Placement(transformation(extent={{36,-30},{66,0}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=80/48) "Convective heat gain"
-    annotation (Placement(transformation(extent={{-56,58},{-48,66}})));
+    annotation (Placement(transformation(extent={{-56,64},{-48,72}})));
   Modelica.Blocks.Sources.Constant qRadGai_flow(k=120/48) "Radiative heat gain"
-    annotation (Placement(transformation(extent={{-44,66},{-36,74}})));
+    annotation (Placement(transformation(extent={{-44,72},{-36,80}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
-    annotation (Placement(transformation(extent={{-18,58},{-10,66}})));
+    annotation (Placement(transformation(extent={{-18,64},{-10,72}})));
   Modelica.Blocks.Sources.Constant qLatGai_flow(k=0) "Latent heat gain"
-    annotation (Placement(transformation(extent={{-44,50},{-36,58}})));
+    annotation (Placement(transformation(extent={{-44,56},{-36,64}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/DRYCOLD.mos")
     annotation (Placement(transformation(extent={{98,-94},{86,-82}})));
   Modelica.Blocks.Sources.Constant uSha(k=0)
     "Control signal for the shading device"
-    annotation (Placement(transformation(extent={{-28,70},{-20,78}})));
+    annotation (Placement(transformation(extent={{-28,76},{-20,84}})));
   Modelica.Blocks.Routing.Replicator replicator(nout=max(1,nConExtWin))
-    annotation (Placement(transformation(extent={{-12,70},{-4,78}})));
+    annotation (Placement(transformation(extent={{-12,76},{-4,84}})));
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TSoi[nConBou](each T=
         283.15) "Boundary condition for construction"
                                           annotation (Placement(transformation(
@@ -134,12 +133,13 @@ model Case600
         c=840,
         d=950,
         nStaRef=nStaRef)}) "Lightweight Case: Roof"
-    annotation (Placement(transformation(extent={{60,80},{74,94}})));
-  Win600 window600(
+    annotation (Placement(transformation(extent={{60,84},{74,98}})));
+  Buildings.Rooms.Examples.BESTEST.Data.Win600
+         window600(
     UFra=3,
     haveExteriorShade=false,
     haveInteriorShade=false) "Window for Case 600"
-    annotation (Placement(transformation(extent={{40,80},{54,94}})));
+    annotation (Placement(transformation(extent={{40,84},{54,98}})));
   Buildings.HeatTransfer.Conduction.SingleLayer soil(
     A=48,
     material(
@@ -168,7 +168,7 @@ model Case600
            annotation (Placement(transformation(extent={{-24,-34},{-12,-22}})));
   Modelica.Blocks.Sources.Constant InfiltrationRate(k=-48*2.7*0.5/3600)
     "0.41 ACH adjusted for the altitude (0.5 at sea level)"
-    annotation (Placement(transformation(extent={{-70,-48},{-62,-40}})));
+    annotation (Placement(transformation(extent={{-88,-48},{-80,-40}})));
   Modelica.Blocks.Math.Product product
     annotation (Placement(transformation(extent={{-50,-52},{-40,-42}})));
   Buildings.Fluid.Sensors.Density density(redeclare package Medium = MediumA)
@@ -186,12 +186,6 @@ model Case600
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     k=0.1) "Controller for heating"
     annotation (Placement(transformation(extent={{-64,30},{-56,38}})));
-  Modelica.Blocks.Sources.Constant TSetHea(k=273.15 + 20)
-    "Setpoint for heating"
-    annotation (Placement(transformation(extent={{-84,30},{-76,38}})));
-  Modelica.Blocks.Sources.Constant TSetCoo(k=273.15 + 27)
-    "Setpoint for cooling"
-    annotation (Placement(transformation(extent={{-84,8},{-76,16}})));
   Buildings.Controls.Continuous.LimPID conCoo(
     Td=60,
     reverseAction=true,
@@ -220,34 +214,56 @@ model Case600
     "Prescribed heat flow for heating and cooling"
     annotation (Placement(transformation(extent={{2,18},{14,30}})));
   Modelica.Blocks.Continuous.Integrator EHea(
-    k=1/1E6/3600,
+    k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0) "Heating energy in MWh"
+    y_start=0,
+    u(unit="W"),
+    y(unit="J")) "Heating energy in Joules"
     annotation (Placement(transformation(extent={{-12,36},{-4,44}})));
   Modelica.Blocks.Continuous.Integrator ECoo(
-    k=1/1E6/3600,
+    k=1,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    y_start=0) "Cooling energy in MWh"
+    y_start=0,
+    u(unit="W"),
+    y(unit="J")) "Cooling energy in Joules"
     annotation (Placement(transformation(extent={{-12,6},{-4,14}})));
+  replaceable parameter Buildings.Rooms.Examples.BESTEST.Data.StandardResults
+                                        staRes(
+    annualHea(Min=4.296*3.6e9, Max=5.709*3.6e9, Mean=5.090*3.6e9),
+    annualCoo(Min=-6.137*3.6e9, Max=-7.964*3.6e9, Mean=-6.832*3.6e9),
+    peakHea(Min=3.437*1000, Max=4.354*1000, Mean=4.000*1000),
+    peakCoo(Min=-5.965*1000, Max=-6.827*1000, Mean=-6.461*1000))
+      constrainedby Modelica.Icons.Record
+    annotation (Placement(transformation(extent={{80,40},{94,54}})));
+  BaseClasses.DaySchedule TSetHea(table=[0.0,273.15 + 20]) "Heating setpoint"
+    annotation (Placement(transformation(extent={{-84,30},{-76,38}})));
+  BaseClasses.DaySchedule TSetCoo(table=[0.0,273.15 + 27]) "Cooling setpoint"
+    annotation (Placement(transformation(extent={{-84,8},{-76,16}})));
+  Modelica.Blocks.Math.MultiSum multiSum(nu=1)
+    annotation (Placement(transformation(extent={{-72,-50},{-60,-38}})));
+  Modelica.Blocks.Math.Mean PHea(f=1/3600) "Hourly averaged heating power"
+    annotation (Placement(transformation(extent={{-12,48},{-4,56}})));
+  Modelica.Blocks.Math.Mean PCoo(f=1/3600) "Hourly averaged cooling power"
+    annotation (Placement(transformation(extent={{-12,-8},{-4,0}})));
 equation
   connect(qRadGai_flow.y,multiplex3_1. u1[1])  annotation (Line(
-      points={{-35.6,70},{-34,70},{-34,64.8},{-18.8,64.8}},
+      points={{-35.6,76},{-34,76},{-34,70.8},{-18.8,70.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(qLatGai_flow.y,multiplex3_1. u3[1])  annotation (Line(
-      points={{-35.6,54},{-28,54},{-28,59.2},{-18.8,59.2}},
+      points={{-35.6,60},{-28,60},{-28,65.2},{-18.8,65.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{-9.6,62},{20,62},{20,-7.5},{34.5,-7.5}},
+      points={{-9.6,68},{20,68},{20,-7.5},{34.5,-7.5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.uSha, replicator.y) annotation (Line(
-      points={{34.5,-3},{24,-3},{24,74},{-3.6,74}},
+      points={{34.5,-3},{24,-3},{24,80},{-3.6,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(qConGai_flow.y, multiplex3_1.u2[1]) annotation (Line(
-      points={{-47.6,62},{-18.8,62}},
+      points={{-47.6,68},{-18.8,68}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaDat.weaBus, roo.weaBus)  annotation (Line(
@@ -256,7 +272,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(uSha.y, replicator.u) annotation (Line(
-      points={{-19.6,74},{-12.8,74}},
+      points={{-19.6,80},{-12.8,80}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(product.y, Infiltration.m_flow_in) annotation (Line(
@@ -279,10 +295,6 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(InfiltrationRate.y, product.u1) annotation (Line(
-      points={{-61.6,-44},{-51,-44}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(TSoi[1].port, soil.port_a) annotation (Line(
       points={{64,-48},{56,-48},{56,-40}},
       color={191,0,0},
@@ -293,14 +305,6 @@ equation
       smooth=Smooth.None));
   connect(TRooAir.T, conHea.u_m) annotation (Line(
       points={{-76,-8},{-68,-8},{-68,24},{-60,24},{-60,29.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TSetHea.y, conHea.u_s) annotation (Line(
-      points={{-75.6,34},{-64.8,34}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TSetCoo.y, conCoo.u_s)  annotation (Line(
-      points={{-75.6,12},{-64.8,12}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conCoo.u_m, TRooAir.T)  annotation (Line(
@@ -367,6 +371,30 @@ equation
       points={{-12.8,10},{-26,10},{-26,12},{-41.6,12}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(TSetHea.y[1], conHea.u_s) annotation (Line(
+      points={{-75.6,34},{-64.8,34}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TSetCoo.y[1], conCoo.u_s) annotation (Line(
+      points={{-75.6,12},{-64.8,12}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(multiSum.y, product.u1) annotation (Line(
+      points={{-58.98,-44},{-51,-44}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(InfiltrationRate.y, multiSum.u[1]) annotation (Line(
+      points={{-79.6,-44},{-72,-44}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(PCoo.u, gaiCoo.y) annotation (Line(
+      points={{-12.8,-4},{-34,-4},{-34,12},{-41.6,12}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(PHea.u, gaiHea.y) annotation (Line(
+      points={{-12.8,52},{-34,52},{-34,34},{-41.6,34}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case600.mos"
         "Simulate and plot"),
         experiment(
@@ -378,6 +406,19 @@ equation
     experimentSetupOutput,
     Documentation(revisions="<html>
 <ul>
+<li>
+July 15, 2012, by Michael Wetter:<br>
+Changed computation of power to use hourly averaged power
+instead of instantaneous power in order to avoid peaks 
+after set point changes.
+This is required because the Modelica model is solved using a 
+continuous time solver, whereas the BESTEST reference results
+were obtained using simulators with discrete time steps.
+</li>
+<li>
+July 14, 2012, by Michael Wetter:<br>
+Changed units of integrator to use Joules instead of MWh.
+</li>
 <li>
 October 6, 2011, by Michael Wetter:<br>
 First implementation.

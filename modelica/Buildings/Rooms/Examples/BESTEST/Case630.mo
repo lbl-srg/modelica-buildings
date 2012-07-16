@@ -12,8 +12,13 @@ model Case630
       sidFin(
         each h=0.5,
         each dep=1.0,
-        each gap=0.0))));
-
+        each gap=0.0))),
+   staRes(
+    annualHea(Min=0*3.6e9, Max=0*3.6e9, Mean=0*3.6e9),
+    annualCoo(Min=-0*3.6e9, Max=-0*3.6e9, Mean=-0*3.6e9),
+    peakHea(Min=0*1000, Max=0*1000, Mean=0*1000),
+    peakCoo(Min=-0*1000, Max=-0*1000, Mean=-0*1000)));
+// fixme: add correct values for staRes
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case630.mos"
         "Simulate and plot"),
         experiment(

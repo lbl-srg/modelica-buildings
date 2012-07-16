@@ -1,7 +1,8 @@
-within Buildings.Rooms.Examples.BESTEST;
+within Buildings.Rooms.Examples.BESTEST.Data;
 record Win600 =
     Buildings.HeatTransfer.Data.GlazingSystems.Generic (
-    final glass={Glass600(),Glass600()},
+    final glass={Buildings.Rooms.Examples.BESTEST.Data.Glass600(),
+                            Buildings.Rooms.Examples.BESTEST.Data.Glass600()},
     final gas={Buildings.HeatTransfer.Data.Gases.Air(x=0.013)},
     UFra=1.4,
     final nLay=2)

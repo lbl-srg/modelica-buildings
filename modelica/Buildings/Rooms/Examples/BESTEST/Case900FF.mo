@@ -1,10 +1,21 @@
 within Buildings.Rooms.Examples.BESTEST;
 model Case900FF "Case 900 with free floating temperature"
-  extends Case900(
-    gaiHea(k=0),
-    gaiCoo(k=0),
-    conCoo(controllerType=Modelica.Blocks.Types.SimpleController.P),
-    conHea(controllerType=Modelica.Blocks.Types.SimpleController.P));
+  extends Case600FF(
+    matExtWal = extWalCase900,
+    matFlo =    floorCase900,
+    staRes(
+      minT( Min=-6.4+273.15, Max=-1.6+273.15, Mean=-4.2+273.15),
+      maxT( Min=41.6+273.15, Max=44.8+273.15, Mean=43.1+273.15),
+      meanT(Min=24.5+273.15, Max=25.9+273.15, Mean=25.2+273.15)));
+
+  Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900
+     extWalCase900 "High Mass Case: Exterior Wall"
+    annotation (Placement(transformation(extent={{32,50},{46,64}})));
+
+  Buildings.Rooms.Examples.BESTEST.Data.FloorCase900
+    floorCase900 "High Mass Case: Floor"
+    annotation (Placement(transformation(extent={{60,50},{74,64}})));
+
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case900FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

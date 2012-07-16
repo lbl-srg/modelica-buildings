@@ -4,7 +4,12 @@ model Case600FF "Case 600 with free floating temperature"
     gaiHea(k=0),
     gaiCoo(k=0),
     conCoo(controllerType=Modelica.Blocks.Types.SimpleController.P),
-    conHea(controllerType=Modelica.Blocks.Types.SimpleController.P));
+    conHea(controllerType=Modelica.Blocks.Types.SimpleController.P),
+    redeclare Buildings.Rooms.Examples.BESTEST.Data.StandardResultsFreeFloating
+                                          staRes(
+    minT( Min=-18.8+273.15, Max=-15.6+273.15, Mean=-17.6+273.15),
+    maxT( Min=64.9+273.15,  Max=69.5+273.15,  Mean=66.2+273.15),
+    meanT(Min=24.2+273.15,  Max=25.9+273.15,  Mean=25.1+273.15)));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case600FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

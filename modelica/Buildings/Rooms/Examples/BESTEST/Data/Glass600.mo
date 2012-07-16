@@ -1,4 +1,4 @@
-within Buildings.Rooms.Examples.BESTEST;
+within Buildings.Rooms.Examples.BESTEST.Data;
 record Glass600 "Thermal properties of window glass"
     extends Modelica.Icons.Record;
  parameter Modelica.SIunits.Length x=0.003175 "Thickness";

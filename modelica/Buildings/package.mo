@@ -170,7 +170,7 @@ to <b style=\"color:blue\">existing</b> libraries:
 <tr><td valign=\"top\">Buildings.Rooms.Examples.BESTEST
     </td>
     <td valign=\"top\">Added BESTEST validation models Case 610, 620 
-                       and 630 that test shading devices.
+                       and 630 that test shading devices. Fixme: complete list.
     </td> 
     </tr>
 </table>
@@ -2285,6 +2285,8 @@ helped improve the organization and structure of the library.
 The following people have directly contributed to the implementation of the Buildings library
 (many others have contributed by other means than model implementation):
 <ul>
+<li>Sebastian Giglmayr, Austrian Institute of Technology, Austria
+</li>
 <li>Brandon M. Hencey, Cornell University, USA
 </li>
 <li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
@@ -2293,7 +2295,11 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
 </li>
+<li>Rafael Velazquez, Austrian Institute of Technology, Austria
+</li>
 <li>Pierre Vigouroux, Institut National des Sciences Appliquees, France
+</li>
+<li>Vladimir Vukovic, Austrian Institute of Technology, Austria
 </li>
 <li>Michael Wetter, Lawrence Berkeley National Laboratory, USA
 </li>

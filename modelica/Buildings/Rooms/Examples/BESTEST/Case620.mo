@@ -18,7 +18,12 @@ model Case620
       layers={roofCase600,matExtWal,matExtWal},
       A={48,8*2.7,8*2.7},
       til={C_,Z_,Z_},
-      azi={S_,S_,N_})));
+      azi={S_,S_,N_})),
+   staRes(
+    annualHea(Min=4.613*3.6e9, Max=5.944*3.6e9, Mean=5.407*3.6e9),
+    annualCoo(Min=-3.417*3.6e9, Max=-5.004*3.6e9, Mean=-4.218*3.6e9),
+    peakHea(Min=3.591*1000, Max=4.379*1000, Mean=4.062*1000),
+    peakCoo(Min=-3.634*1000, Max=-5.096*1000, Mean=-4.343*1000)));
 
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case620.mos"
         "Simulate and plot"),

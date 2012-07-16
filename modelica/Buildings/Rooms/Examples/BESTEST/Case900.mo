@@ -1,47 +1,20 @@
 within Buildings.Rooms.Examples.BESTEST;
 model Case900 "Case 900 heavy mass test"
-  extends Case600(matExtWal = extWallCase900,
-                  matFlo =    floorCase900);
-    Buildings.HeatTransfer.Data.OpaqueConstructions.Generic extWallCase900(
-    nLay=3,
-    absIR_a=0.9,
-    absIR_b=0.9,
-    absSol_a=0.6,
-    absSol_b=0.6,
-    material={Buildings.HeatTransfer.Data.Solids.Generic(
-        x=0.009,
-        k=0.140,
-        c=900,
-        d=530,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
-        x=0.0615,
-        k=0.040,
-        c=1400,
-        d=10,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
-        x=0.100,
-        k=0.510,
-        c=1000,
-        d=1400,
-        nStaRef=nStaRef)}) "High Mass Case: Exterior Wall"
+  extends Case600(
+   matExtWal = extWalCase900,
+   matFlo =    floorCase900,
+   staRes(
+    annualHea(Min=1.170*3.6e9, Max=2.041*3.6e9, Mean=1.745*3.6e9),
+    annualCoo(Min=-2.132*3.6e9, Max=-3.415*3.6e9, Mean=-2.678*3.6e9),
+    peakHea(Min=2.850*1000, Max=3.797*1000, Mean=3.506*1000),
+    peakCoo(Min=-2.888*1000, Max=-3.871*1000, Mean=-3.390*1000)));
+
+  Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900
+     extWalCase900 "High Mass Case: Exterior Wall"
     annotation (Placement(transformation(extent={{32,50},{46,64}})));
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic floorCase900(final nLay=
-           2,
-    absIR_a=0.9,
-    absIR_b=0.9,
-    absSol_a=0.6,
-    absSol_b=0.6,
-    material={Buildings.HeatTransfer.Data.Solids.Generic(
-        x=1.007,
-        k=0.040,
-        c=0,
-        d=0,
-        nStaRef=nStaRef),Buildings.HeatTransfer.Data.Solids.Generic(
-        x=0.080,
-        k=1.130,
-        c=1000,
-        d=1400,
-        nStaRef=nStaRef)}) "High Mass Case: Floor"
+
+  Buildings.Rooms.Examples.BESTEST.Data.FloorCase900
+    floorCase900 "High Mass Case: Floor"
     annotation (Placement(transformation(extent={{60,50},{74,64}})));
 
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case900.mos"
