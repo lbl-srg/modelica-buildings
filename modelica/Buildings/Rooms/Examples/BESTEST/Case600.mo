@@ -1,6 +1,5 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case600
-  "Case 600FF, but with dual-setpoint for heating and cooling"
+model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
   extends Case600FF(
     redeclare Buildings.Rooms.Examples.BESTEST.Data.StandardResults staRes(
     annualHea(Min=4.296*3.6e9, Max=5.709*3.6e9, Mean=5.090*3.6e9),

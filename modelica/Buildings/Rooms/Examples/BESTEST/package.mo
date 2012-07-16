@@ -3,6 +3,7 @@ package BESTEST "BESTEST validation models"
   extends Modelica.Icons.ExamplesPackage;
   constant Integer nStaRef = 6 "Number of states in a reference material";
 
+
 annotation (preferedView="info", Documentation(info="<html>
 <p>
 This package contains the models that were used

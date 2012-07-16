@@ -1,6 +1,5 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case630
-  "Case 620, but with added overhang and sidefins"
+model Case630 "Case 620, but with added overhang and sidefins"
   extends Buildings.Rooms.Examples.BESTEST.Case620(
   roo(
     datConExtWin(
