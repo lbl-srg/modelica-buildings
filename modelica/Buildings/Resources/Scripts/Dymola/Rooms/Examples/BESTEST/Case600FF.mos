@@ -1,7 +1,7 @@
 simulateModel("Buildings.Rooms.Examples.BESTEST.Case600FF", stopTime=3.1536e+07, numberOfIntervals=0, outputInterval=3600, method="Radau", tolerance=1e-06, resultFile="Case600FF");
 createPlot(id = 1,
  position = {23, 5, 464, 449},
- y = {"roo.air.vol.T"},
+ y = {"roo.air.vol.T", "staRes.minT.Min", "staRes.minT.Mean", "staRes.minT.Max", "staRes.meanT.Min", "staRes.meanT.Mean", "staRes.meanT.Max", "staRes.maxT.Min", "staRes.maxT.Mean", "staRes.maxT.Max"},
  range = {0.0, 35000000.0, 30.0, 15.0},
  autoscale = true,
  autoerase = true,
