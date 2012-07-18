@@ -70,6 +70,36 @@ protected
     "Absorptivity of constructions with exterior boundary conditions exposed to outside of room model";
   parameter Modelica.SIunits.Emissivity epsSurBou[NSurBou] = surBou.absIR
     "Absorptivity of surface models of constructions that are modeled outside of this room";
+protected
+  function checkSurfaceAreas
+    input Integer n "Number of surfaces";
+    input Modelica.SIunits.Area A[:] "Surface areas";
+    input String name
+      "Name of the surface data record, used in error message";
+  algorithm
+    if n == 0 then
+      assert(Modelica.Math.Vectors.norm(v=A, p=1) < 1E-10,
+      "Error in declaration of room model: Construction record '" + 
+      name + 
+      "' has the following areas: " +
+      Modelica.Math.Vectors.toString(A) +
+      "However, the room model is declared as having zero surfaces.
+Check the parameters of the room model.");
+    else
+      for i in 1:n loop
+        assert(A[i] > 0, "Error in declaration of room model: Construction record '" + name + "' has the following areas: " +
+      Modelica.Math.Vectors.toString(A) +
+      "However, the surface areas must be bigger than zero.
+Check the parameters of the room model.");
+      end for;
+    end if;
+  end checkSurfaceAreas;
+initial algorithm
+  checkSurfaceAreas(nConExt,    datConExt.A,       "datConExt");
+  checkSurfaceAreas(nConExtWin, datConExtWin.AWin, "datConExtWin");
+  checkSurfaceAreas(nConPar,    datConPar.A,       "datConPar");
+  checkSurfaceAreas(nConBou,    datConBou.A,       "datConBou");
+  checkSurfaceAreas(nSurBou,    surBou.A,          "surBou");
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,
             -240},{240,240}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,
@@ -140,6 +170,15 @@ such as <code>haveConExt</code>, which is set to
 </html>",
 revisions="<html>
 <ul>
+<li>
+July 17, 2012, by Michael Wetter:<br>
+Added validity check of surface areas.
+This helped catching a bug in an early implementation of BESTEST Case960
+in which the extending class set <code>nConExtWin=0</code>, 
+but did not set the area to zero.
+Because the radiation balance model computes exchange among
+<code>NConExtWin=max(nConExtWin, 1)</code> areas, its result was wrong.
+</li>
 <li>
 November 6, 2011, by Michael Wetter:<br>
 Changed parameters that contain radiative properties from final to non-final, as

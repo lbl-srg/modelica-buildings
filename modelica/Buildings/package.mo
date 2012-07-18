@@ -233,6 +233,19 @@ have been <b style=\"color:blue\">improved</b> in a
                        during model check and translation.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Rooms.MixedAir
+    </td>
+    <td valign=\"top\">Added a check that ensures that the number of surfaces
+                       are equal to the length of the parameter that contains
+                       the surface area, and added a check to ensure that no surface area
+                       is equal to zero. These checks help detecting erroneous declarations
+                       of the room model. The changes were done in 
+                       <code>Buildings.Rooms.MixedAir.PartialSurfaceInterface</code>.
+    </td>
+</tr>
 </table>
 </p>
 <!-- Non-backward compatbile changes to existing components -->
@@ -2285,11 +2298,17 @@ helped improve the organization and structure of the library.
 The following people have directly contributed to the implementation of the Buildings library
 (many others have contributed by other means than model implementation):
 <ul>
+<li>Rainer Czetina, Austrian Institute of Technology, Austria
+</li>
 <li>Sebastian Giglmayr, Austrian Institute of Technology, Austria
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
 </li>
+<li>Roman Ilk, Austrian Institute of Technology, Austria
+</li>
 <li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Markus Nurschinger, Austrian Institute of Technology, Austria
 </li>
 <li>Xiufeng Pang, Lawrence Berkeley National Laboratory, USA
 </li>
@@ -2298,6 +2317,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Rafael Velazquez, Austrian Institute of Technology, Austria
 </li>
 <li>Pierre Vigouroux, Institut National des Sciences Appliquees, France
+</li>
+<li>Sebastian Vock, Austrian Institute of Technology, Austria
 </li>
 <li>Vladimir Vukovic, Austrian Institute of Technology, Austria
 </li>
