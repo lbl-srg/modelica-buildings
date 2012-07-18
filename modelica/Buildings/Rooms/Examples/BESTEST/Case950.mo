@@ -1,7 +1,7 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case650
-  "Case 600, but cooling based on schedule, night venting, and no heating"
-  extends Case600(
+model Case950
+  "Case 900, but cooling based on schedule, night venting, and no heating"
+  extends Case900(
     TSetHea(table=[0, 273.15 -200]),
     TSetCoo(table=[      0, 273.15+100;
                     7*3600, 273.15+100;
@@ -9,11 +9,11 @@ model Case650
                    18*3600, 273.15+27;
                    18*3600, 273.15+100;
                    24*3600, 273.15+100]),
-  staRes(
-    annualHea(Min=0*3.6e9, Max=0*3.6e9, Mean=0*3.6e9),
-    annualCoo(Min=-4.816*3.6e9, Max=-6.545*3.6e9, Mean=-5.482*3.6e9),
-    peakHea(Min = 0*1000, Max = 0*1000, Mean = 0 * 1000),
-    peakCoo(Min= -5.831*1000, Max = -6.679*1000, Mean= -6.321*1000)),
+    staRes(
+      annualHea(Min=0*3.6e9, Max=0*3.6e9, Mean=0*3.6e9),
+      annualCoo(Min=-0.387*3.6e9, Max=-0.921*3.6e9, Mean=-0.605*3.6e9),
+      peakHea(Min=0*1000, Max=0*1000, Mean=0*1000),
+      peakCoo(Min=-2.033*1000, Max=-3.170*1000, Mean=-2.674*1000)),
     gaiHea(k=0),
     multiSum(nu=2));
 
@@ -31,7 +31,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     annotation (Placement(transformation(extent={{-76,82},{-56,102}})),
-              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case650.mos"
+              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case950.mos"
         "Simulate and plot"),
         experiment(
       StopTime=3.1536e+007,
@@ -43,19 +43,19 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-July 15, 2012, by Michael Wetter:<br>
+July 16, 2012, by Michael Wetter:<br>
 Revised implementation to extend from base case to avoid duplicate code.
 Merged model into the Buildings library.
 </li>
 <li>
-June 5, 2012, by Vladimir Vukovic:<br>
+June 5, 2012, by Sebastian Vock and Rafael Velazquez:<br>
 First implementation.
 </li>
 </ul>
 </html>", info="<html>
 <p>
-This model is used for the test case 650 of the BESTEST validation suite.
-Case650 is the same as Case600, but with the following modifications:
+This model is used for the test case 950 of the BESTEST validation suite.
+Case950 is the same as Case900, but with the following modifications:
 </p>
 <p>
 <ul>
@@ -85,4 +85,4 @@ No waste heat from fan.
 </ul>
 </p>
 </html>"));
-end Case650;
+end Case950;

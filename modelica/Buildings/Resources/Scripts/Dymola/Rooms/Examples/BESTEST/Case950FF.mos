@@ -1,4 +1,4 @@
-simulateModel("Buildings.Rooms.Examples.BESTEST.Case650FF", stopTime=3.1536e+07, numberOfIntervals=0, outputInterval=3600, method="Radau", tolerance=1e-06, resultFile="Case650FF");
+simulateModel("Buildings.Rooms.Examples.BESTEST.Case950FF", stopTime=3.1536e+07, numberOfIntervals=0, outputInterval=3600, method="Radau", tolerance=1e-06, resultFile="Case950FF");
 createPlot(id = 1,
  position = {23, 5, 464, 449},
  y = {"TRooHou.y", "staRes.minT.Min", "staRes.minT.Mean", "staRes.minT.Max", "staRes.maxT.Min", "staRes.maxT.Mean", "staRes.maxT.Max"},
@@ -23,7 +23,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- subPlot = 3,
+ subPlot = 2,
  leftTitleType = 1,
  bottomTitleType = 1);
 

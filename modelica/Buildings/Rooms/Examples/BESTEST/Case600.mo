@@ -56,11 +56,11 @@ model Case600 "Case 600FF, but with dual-setpoint for heating and cooling"
     annotation (Placement(transformation(extent={{-20,-8},{-12,0}})));
 equation
   connect(TRooAir.T,conHea. u_m) annotation (Line(
-      points={{-76,-8},{-76,24},{-68,24},{-68,29.2}},
+      points={{-78,-24},{-78,24},{-68,24},{-68,29.2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conCoo.u_m, TRooAir.T)  annotation (Line(
-      points={{-68,7.2},{-68,-8},{-76,-8}},
+      points={{-68,7.2},{-68,0},{-78,0},{-78,-24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conHea.y,gaiHea. u) annotation (Line(

@@ -169,8 +169,8 @@ to <b style=\"color:blue\">existing</b> libraries:
 
 <tr><td valign=\"top\">Buildings.Rooms.Examples.BESTEST
     </td>
-    <td valign=\"top\">Added BESTEST validation models Case 610, 620 
-                       and 630 that test shading devices. Fixme: complete list.
+    <td valign=\"top\">Added BESTEST validation models for case 610, 620, 630, 640,
+                       650FF, 650, 920, 940, 950FF, 950, and 960.
     </td> 
     </tr>
 </table>

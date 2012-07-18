@@ -9,11 +9,11 @@ model Case610 "Case 600 with south shading"
         each dep=1,
         each gap=0.5))),
    staRes(
-    annualHea(Min=0*3.6e9, Max=0*3.6e9, Mean=0*3.6e9),
-    annualCoo(Min=-0*3.6e9, Max=-0*3.6e9, Mean=-0*3.6e9),
-    peakHea(Min=0*1000, Max=0*1000, Mean=0*1000),
-    peakCoo(Min=-0*1000, Max=-0*1000, Mean=-0*1000)));
-// fixme: add correct values for staRes
+    annualHea(Min=4.355*3.6e9, Max=5.786*3.6e9, Mean=5.146*3.6e9),
+    annualCoo(Min=-3.915*3.6e9, Max=-5.778*3.6e9, Mean=-4.964*3.6e9),
+    peakHea(Min=3.437*1000, Max=4.354*1000, Mean=3.998*1000),
+    peakCoo(Min=-5.689*1000, Max=-6.371*1000, Mean=-5.988*1000)));
+
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case610.mos"
         "Simulate and plot"),
         experiment(

@@ -1,12 +1,13 @@
 within Buildings.Rooms.Examples.BESTEST;
-model Case650FF
-  "Case 600, no heating, no cooling, and ventilation as in case 650"
-  extends Case600FF(
+model Case950FF
+  "Case 900, but no heating, no cooling, and ventilation as in case 650"
+  extends Case900FF(
   staRes(
-      minT( Min=-23.0+273.15, Max=-21.6+273.15, Mean=-22.7+273.15),
-      maxT( Min=63.2+273.15, Max=68.2+273.15, Mean=64.7+273.15),
-      meanT(Min=18.0+273.15, Max=19.6+273.15, Mean=18.7+273.15)),
+      minT( Min=-20.2+273.15, Max=-18.6+273.15, Mean=-19.6+273.15),
+      maxT( Min=35.5+273.15, Max=38.5+273.15, Mean=36.5+273.15),
+      meanT(Min=14.0+273.15, Max=15.0+273.15, Mean=14.4+273.15)),
   multiSum(nu=2));
+
   BaseClasses.DaySchedule vent(table=[      0, -1703.16/3600;
                                        7*3600, -1703.16/3600;
                                        7*3600,             0;
@@ -21,24 +22,24 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case650FF.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case950FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
-This model is used for the test case 650FF of the BESTEST validation suite.
-Case 650FF is identical to case 650, except that there is no 
+This model is used for the test case 950FF of the BESTEST validation suite.
+Case 950FF is identical to case 950, except that there is no 
 heating and no cooling.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-July 15, 2012, by Michael Wetter:<br>
+July 16, 2012, by Michael Wetter:<br>
 Revised implementation to extend from base case to avoid duplicate code.
 Merged model into the Buildings library.
 </li>
 <li>
-June 26, 2012, by Rafael Velazquez:<br>
+June 26, 2012, by Markus Nurschinger and Rafael Velazquez:<br>
 First implementation.
 </li>
 </ul>
 </html>"));
-end Case650FF;
+end Case950FF;
