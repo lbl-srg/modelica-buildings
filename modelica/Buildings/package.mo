@@ -318,6 +318,19 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Revised the implementation to reduce the temperature overshoot.
     </td>
 </tr>
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.IO.BCVTB
+    </td>
+    <td valign=\"top\">Added a call to <code>Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals</code>
+                       in the <code>initial algorithm</code> section.
+                       This is needed to propagate the initial condition to the server.
+                       It also leads to one more data exchange, which is correct and avoids the
+                       warning message in Ptolemy that says that the simulation reached its stop time
+                       one time step prior to the final time.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>

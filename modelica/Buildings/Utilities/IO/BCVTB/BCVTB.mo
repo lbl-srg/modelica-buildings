@@ -71,6 +71,22 @@ initial algorithm
 
      end if;
    end for;
+   // Exchange initial values
+    if activateInterface then
+      (flaRea, simTimRea, yR, retVal) :=
+        Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals(
+        socketFD=socketFD,
+        flaWri=flaWri,
+        simTimWri=time,
+        dblValWri=_uStart,
+        nDblWri=size(uRWri, 1),
+        nDblRea=size(yR, 1));
+    else
+      flaRea := 0;
+      simTimRea := time;
+      yR := yRFixed;
+      retVal := 0;
+      end if;
 
 equation
    for i in 1:nDblWri loop
@@ -101,7 +117,7 @@ algorithm
         socketFD=socketFD,
         flaWri=flaWri,
         simTimWri=time,
-        dblValWri=if firstTrigger then _uStart else uRWri,
+        dblValWri=uRWri,
         nDblWri=size(uRWri, 1),
         nDblRea=size(yR, 1));
     else
@@ -119,7 +135,7 @@ algorithm
                         "   Received: retVal = " + String(retVal));
 
     // Store current value of integral
-    uRIntPre:=uRInt;
+  uRIntPre:=uRInt;
   end when;
    // Close socket connnection
    when terminal() then
@@ -337,6 +353,15 @@ directory even if <code>activateInterface=false</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 19, 2012, by Michael Wetter:<br>
+Added a call to <code>Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals</code>
+in the <code>initial algorithm</code> section.
+This is needed to propagate the initial condition to the server.
+It also leads to one more data exchange, which is correct and avoids the
+warning message in Ptolemy that says that the simulation reached its stop time
+one time step prior to the final time.
+</li>
 <li>
 January 19, 2010, by Michael Wetter:<br>
 Introduced parameter to set initial value to be sent to the BCVTB.
