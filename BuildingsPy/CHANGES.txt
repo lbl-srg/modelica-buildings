@@ -20,6 +20,9 @@ Version 1.1.0, xxx, 2012 -- Release 1.1
 - Changed file output: The output of Dymola is now in the file dymola.log,
   whereas unitTests.log contains the warning and error messages of the python
   unit test scripts.
+- Changed buildingspy.development.unittest.py to achieve better load 
+  balancing. This change reduced the computing time for all unit tests on a 
+  24 core computer from 38 minutes to 21 minutes.
 
 Version 1.0.0, November 1, 2011
 -------------------------------
