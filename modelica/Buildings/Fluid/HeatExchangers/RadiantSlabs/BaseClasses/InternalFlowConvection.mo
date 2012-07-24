@@ -33,8 +33,6 @@ model InternalFlowConvection "Convective heat transfer in pipes"
     annotation (Placement(transformation(extent={{-118,46},{-100,64}})));
   Modelica.SIunits.CoefficientOfHeatTransfer hCon
     "Convective heat transfer coefficient";
-  // fixme: check benefit of using Medium.T_default instead of actual fluid temperature
-  // if the model is part of a feedback control loop
 protected
   Medium.ThermodynamicState fluSta = Medium.setState_pTX(p=Medium.p_default, T=fluid.T, X=Medium.X_default)
     "State of the medium";
