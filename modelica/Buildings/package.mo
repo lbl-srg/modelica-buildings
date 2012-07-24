@@ -351,9 +351,10 @@ units are wrong or errors in documentation):
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.BoundaryConditions.ReaderTMY3
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
     </td>
-    <td valign=\"top\">Corrected the notes of unit requirement for the input files. 
+    <td valign=\"top\">Corrected the documentation of the unit requirement for 
+                       input files, parameters and connectors.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
