@@ -13,7 +13,7 @@ LIBHOME=os.path.abspath(".")
 # List of invalid strings
 INVALID_IN_ALL=["fixme", "import \"", "<h1", "<h2", "<h3", "todo", "xxx", "tt>", "realString", "integerString", "structurallyIncomplete"]
 # List of invalid strings in .mos files
-INVALID_IN_MOS=["=false", "= false"]
+INVALID_IN_MOS=[]
 # List of strings that are required in .mo files, except in Examples
 REQUIRED_IN_MO=["documentation"]
 
@@ -56,15 +56,17 @@ for (path, dirs, files) in os.walk(LIBHOME):
         for filNam in files:
             pos1=filNam.find('.mo')
             pos2=filNam.find('.mos')
+            foundMo =  (pos1 == (len(filNam)-3))
+            foundMos = (pos2 == (len(filNam)-4))
             filFulNam=os.path.join(path, filNam)
             # Test .mo and .mos
-            if (pos1 > -1) or (pos2 > -1):
+            if foundMo or foundMos:
                 reportErrorIfContains(filFulNam, INVALID_IN_ALL)
             # Test .mos files only
-            if (pos1 == -1) and (pos2 > -1):
+            if foundMos:
                 reportErrorIfContains(filFulNam, INVALID_IN_MOS)
             # Test .mo files only
-            if (pos1 > -1) and (pos2 == -1):
+            if foundMo:
                 if (filFulNam.find('Examples') == -1):
                     reportErrorIfMissing(filFulNam, REQUIRED_IN_MO)
         
