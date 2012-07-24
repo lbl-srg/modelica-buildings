@@ -788,19 +788,28 @@ For medium models for moist air and dry air, the default is
 </li>
 <li>
 <p>
-Different units may apply depending on the input files:
+Different units apply depending on whether data are obtained from a file, or 
+from a parameter or an input connector:
 <ul>
 <li>
-When using TMY3 data (e.g. USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos), the units must be the same as the original TMY3 file used for EnergyPlus (e.g. USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw). 
-The TMY3 data are in both SI units and non-SI units. 
-If <code>Resources/bin/ConvertWeatherData.jar</code> is used to convert the <code>.epw</code> file to <code>.mos</code> file, it will preserve the units of TMY3 data. 
-Those are in non-SI units will then be automatically converted to SI units by the ReaderTMY3.
-For example, the dry bulb temperature, <code>TDryBul</code>, in TMY3 is <code>degC</code>. It will be automatically converted to <code>K</code> by the ReaderTMY3. 
-The wind direction, <code>winDir</code>, in TMY3 is <code>deg</code> and will be automatically converted to <code>rad</code>.   
+When using TMY3 data from a file (e.g. <code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos</code>), the units must be the same as the original TMY3 file used by EnergyPlus (e.g. 
+<code>USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw</code>). 
+The TMY3 data used by EnergyPlus are in both SI units and non-SI units. 
+If <code>Resources/bin/ConvertWeatherData.jar</code> is used to convert the <code>.epw</code> file to an <code>.mos</code> file, the units of the TMY3 data are preserved and the file can be directly
+used by this data reader. 
+The data reader will automatically convert units to the SI units used by Modelica.
+For example, the dry bulb temperature <code>TDryBul</code> in TMY3 is in degree Celsius. 
+The data reader will automatically convert the data to Kelvin. 
+The wind direction <code>winDir</code> in TMY3 is degrees and will be automatically converted to radians.
 </li>
 <li>
-When using user specified weather data for <code>pAtm, TDryBul, relHum, winSpe, winDir, HGloHor, HDifHor</code>, the data must be in SI units to be consistent with Modelica standard. 
-For instance, the unit for the solar <code>radiation, HGloHor, HDifHor<code>, should be <code>W/m2</code> and that for the wind direction, <code>winDir</code>, should be <code>rad</code>.
+When using data from a parameter or from an input connector,
+the data must be in the SI units used by Modelica. 
+For instance, the unit must be 
+<code>Pa</code> for pressure,
+<code>K</code> for temperature,
+<code>W/m2</code> for solar radiations and
+<code>rad</code> for wind direction.
 </li>
 </ul>
 </p>
