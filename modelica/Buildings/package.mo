@@ -2311,27 +2311,27 @@ helped improve the organization and structure of the library.
 The following people have directly contributed to the implementation of the Buildings library
 (many others have contributed by other means than model implementation):
 <ul>
-<li>Rainer Czetina, Austrian Institute of Technology, Austria
+<li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
-<li>Sebastian Giglmayr, Austrian Institute of Technology, Austria
+<li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
 </li>
-<li>Roman Ilk, Austrian Institute of Technology, Austria
+<li>Roman Ilk, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Thierry S. Nouidui, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Markus Nurschinger, Austrian Institute of Technology, Austria
+<li>Markus Nurschinger, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Xiufeng Pang, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
 </li>
-<li>Rafael Velazquez, Austrian Institute of Technology, Austria
+<li>Rafael Velazquez, University of Seville, Spain
 </li>
 <li>Pierre Vigouroux, Institut National des Sciences Appliquees, France
 </li>
-<li>Sebastian Vock, Austrian Institute of Technology, Austria
+<li>Sebastian Vock, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Vladimir Vukovic, Austrian Institute of Technology, Austria
 </li>
