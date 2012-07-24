@@ -1,5 +1,5 @@
 within Buildings.Utilities.Math.Functions.BaseClasses;
-encapsulated function der_2_regNonZeroPower
+function der_2_regNonZeroPower
   "Power function, regularized near zero, but nonzero value for x=0"
  input Real x "Abscissa value";
  input Real n "Exponent";

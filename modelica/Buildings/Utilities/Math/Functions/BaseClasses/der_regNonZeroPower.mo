@@ -1,5 +1,5 @@
 within Buildings.Utilities.Math.Functions.BaseClasses;
-encapsulated function der_regNonZeroPower
+function der_regNonZeroPower
   "Power function, regularized near zero, but nonzero value for x=0"
  input Real x "Abscissa value";
  input Real n "Exponent";
@@ -27,7 +27,7 @@ algorithm
    a3 := (yPP_d - 12 * a1 * delta2)/2;
    der_y := x * ( 4 * a1 * x * x + 2 * a3);
   end if;
- annotation(derivative(zeroDerivative=n, zeroDerivative=delta)=BaseClasses.der_2_regNonZeroPower,
+ annotation(derivative(zeroDerivative=n, zeroDerivative=delta)=der_2_regNonZeroPower,
 Documentation(
 info="<html>
 <p>
