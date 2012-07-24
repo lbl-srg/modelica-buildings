@@ -788,14 +788,21 @@ For medium models for moist air and dry air, the default is
 </li>
 <li>
 <p>
-<!-- ---------------------------- -->
-Fixme: Wangda to fix the paragraph below which is incorrect.
-Please list the required units in weather data file. 
-For example, temperature in the file is in degree Celsius, not in Kelvin.
-<!-- ---------------------------- -->
-The data units of user specified input files 
-should be SI units consistent with Modelica standard. 
-For instance, the unit for the solar radiation should be <code>W/m2</code> and that for the wind direction should be <code>rad</code>.
+Different units may apply depending on the input files:
+<ul>
+<li>
+When using TMY3 data (e.g. USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos), the units must be the same as the original TMY3 file used for EnergyPlus (e.g. USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.epw). 
+The TMY3 data are in both SI units and non-SI units. 
+If <code>Resources/bin/ConvertWeatherData.jar</code> is used to convert the <code>.epw</code> file to <code>.mos</code> file, it will preserve the units of TMY3 data. 
+Those are in non-SI units will then be automatically converted to SI units by the ReaderTMY3.
+For example, the dry bulb temperature, <code>TDryBul</code>, in TMY3 is <code>degC</code>. It will be automatically converted to <code>K</code> by the ReaderTMY3. 
+The wind direction, <code>winDir</code>, in TMY3 is <code>deg</code> and will be automatically converted to <code>rad</code>.   
+</li>
+<li>
+When using user specified weather data for <code>pAtm, TDryBul, relHum, winSpe, winDir, HGloHor, HDifHor</code>, the data must be in SI units to be consistent with Modelica standard. 
+For instance, the unit for the solar <code>radiation, HGloHor, HDifHor<code>, should be <code>W/m2</code> and that for the wind direction, <code>winDir</code>, should be <code>rad</code>.
+</li>
+</ul>
 </p>
 </li>
 <li>
@@ -837,6 +844,10 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+July 24, 2012, by Wangda Zuo:<br>
+Corrected the notes of SI unit requirements for input files.
+</li>
 <li>
 July 13, 2012, by Michael Wetter:<br>
 Removed assignment of <code>HGloHor_in</code> in its declaration,
