@@ -40,24 +40,39 @@ class Plotter:
         # more than once. 
         # If the last points are for the same time stamp, we remove them from the interpolation
         iMax = len(t)-1
-        dT = (max(t)-min(t))/float(iMax)
+        maxT=max(t)
+        dT = (maxT-min(t))/float(iMax)
         while t[iMax] <= t[iMax-1]:
             iMax = iMax-1
-        tNew = copy.deepcopy(t)
+
         # Shift tNew slight in case of multiple equal entries.
         # Since the last entry was removed above, the final time is not going to change.
-        tTol = 1E-2*dT # Do not set to 1E-3*dT to avoid round-off errors.
+        tTol = 1E-4*dT
         tInc = 10.0*tTol
-        for i in range(1, iMax+1):
-            if tNew[i] < tNew[i-1] + tTol:
-                tNew[i] = tNew[i-1] + tInc
-        for i in range(1, iMax+1):
-            if tNew[i] < tNew[i-1] + tTol:
+
+        tNew = list()
+        yNew = list()
+        tNew.append(t[0])
+        yNew.append(y[0])
+        for i in range(1, iMax):
+            if t[i] > t[i-1] + tTol:
+                tNew.append(t[i])
+                yNew.append(y[i])
+            else:
+                if t[i] != t[i-1] and t[i-1] + tInc < maxT:
+                    if t[i-1]+tInc < t[i+1]:
+                        tNew.append(t[i-1] + tInc)
+                        yNew.append(y[i])
+        tNew.append(t[iMax])
+        yNew.append(y[iMax])
+
+        for i in range(1, len(tNew)):
+            if tNew[i] < tNew[i-1] + 0.9*tTol:
                 raise ValueError('Time t is not strictly increasing.')
         for i in range(1, len(tSup)):
             if tSup[i] <= tSup[i-1]:
                 raise ValueError('Time tSup is not strictly increasing.')
-        yI=np.interp(tSup, tNew[0:iMax+1], y[0:iMax+1])
+        yI=np.interp(tSup, tNew, yNew)
         if ( (np.isnan(yI)).any() ):
             raise ValueError('NaN in iterpolation.')
 
