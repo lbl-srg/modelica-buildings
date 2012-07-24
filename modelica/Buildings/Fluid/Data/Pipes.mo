@@ -88,8 +88,6 @@ First implementation.
 </ul>
 </html>"));
 
-;
-
   record Generic "Generic record for pipes"
     extends Modelica.Icons.Record;
     parameter Modelica.SIunits.Length dOut(min=0) "Outer diameter";
