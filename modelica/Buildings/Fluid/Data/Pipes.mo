@@ -1,7 +1,7 @@
 within Buildings.Fluid.Data;
 package Pipes "Package with properties of pipes"
     extends Modelica.Icons.MaterialPropertiesPackage;
-   // fixme: add steel pipes
+
   record PEX_DN_6 = Buildings.Fluid.Data.Pipes.PEX_RADTEST(
       dIn  = 8E-3,
       dOut = 6E-3) "PEX DN 6";
