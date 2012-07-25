@@ -226,7 +226,7 @@ equation
       Algorithm="Radau"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,-240},{260,
             120}}), graphics={Text(
-          extent={{100,-196},{246,-216}},
+          extent={{106,-200},{252,-220}},
           lineColor={0,0,255},
           textString="SunZone"), Text(
           extent={{-12,-202},{134,-222}},
