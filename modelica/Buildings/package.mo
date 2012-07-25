@@ -120,11 +120,13 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_1_2_build0 "Version 1.2 build 0 xxx"
+  class Version_1_2_build1 "Version 1.2 build 1"
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
-Version 1.2 build 0 is ... xxx
+In version 1.2 build 1, models for radiant slabs and window overhangs and sidefins have been added.
+This version also contains various improvements to existing models.
+A detailed list of changes is shown below. 
 </p>
 <!-- New libraries -->
 <p>
@@ -278,14 +280,6 @@ have been <b style=\"color:blue\">improved</b> in a
                        Buildings.Rooms.MixedAir</a> for how to use these models.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 </p>
 <!-- Errors that have been fixed -->
@@ -329,14 +323,6 @@ that can lead to wrong simulation results):
                        It also leads to one more data exchange, which is correct and avoids the
                        warning message in Ptolemy that says that the simulation reached its stop time
                        one time step prior to the final time.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
     </td>
 </tr>
 </table>
@@ -410,26 +396,9 @@ have been fixed:
     <td valign=\"top\">Revised the implementation to reduce the temperature over-shoot.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/xxx\">#xxx</a>
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
-<p>
-Note:
-</p>
-<ul>
-<li> 
-xxx
-</li>
-</ul>
-</p>
 </html>"));
-  end Version_1_2_build0;
+  end Version_1_2_build1;
 
   class Version_1_1_build1 "Version 1.1 build 1"
     extends Modelica.Icons.ReleaseNotes;
@@ -2210,8 +2179,8 @@ on the Buildings library
 <p>
 <ul>
 <li> 
-<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_2_build0\">
-Version 1.2 build0</a>(xxx, 2012)</li>
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_2_build1\">
+Version 1.2 build1</a>(July 26, 2012)</li>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_1_build1\">
@@ -2628,8 +2597,8 @@ end UsersGuide;
 
 annotation (
 version="1.2",
-versionBuild=0,
-versionDate="2012-02-29",
+versionBuild=1,
+versionDate="2012-07-26",
 dateModified = "$Date$",
 uses(Modelica(version="3.2")),
 conversion(
