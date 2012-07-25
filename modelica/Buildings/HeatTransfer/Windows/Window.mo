@@ -429,11 +429,25 @@ Heat conduction through the frame is computed using a heat flow path that is par
 glazing system, i.e., there is no heat exchange between the frame 
 and the glazing layer.
 </p>
+<h4>Validation</h4>
+<p>
+The window model has been validated by using measurement data at LBNL's Test Cell 71T and by using
+a comparative model validation with the WINDOW 6 program. These validations are described in Nouidui et al. (2012).
+The window model has also been validated as part of the BESTEST validations that are implemented in
+<a href=\"modelica://Buildings.Rooms.Examples.BESTEST\">
+Buildings.Rooms.Examples.BESTEST</a>.
+</p>
 <h4>References</h4>
 <p>
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with or without
 shading devices, Technical Report, Oct. 17, 2006.
+</p>
+<p>
+Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
+<a href=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/2012-simBuild-windowValidation.pdf\">
+Validation of the window model of the Modelica Buildings library.</a>
+<i>Proc. of the 5th SimBuild Conference</i>, Madison, WI, USA, August 2012.
 </p>
 </html>", revisions="<html>
 <ul>

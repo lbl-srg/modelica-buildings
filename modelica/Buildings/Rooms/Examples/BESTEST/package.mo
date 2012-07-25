@@ -31,6 +31,10 @@ and the annual hourly integrated minimum (and maximum) peak heating and cooling 
 </li>
 </ul>
 </p>
+<p>
+Note that in addition to the BESTESTs, the window model has been validated separately
+in Nouidui et al. (2012).
+</p>
 <h4>Implementation</h4>
 <p>
 Heating and cooling is controlled using the PI controller
@@ -41,12 +45,18 @@ with anti-windup.
 <p>
 Hourly averaged values, and annual mean values,
 are computed using an instance of
-<a href=\"modelica://Modelica.Blocks.Math.Mean</a>
+<a href=\"modelica://Modelica.Blocks.Math.Mean\">
 Modelica.Blocks.Math.Mean</a>.
 </p>
 <h4>References</h4>
 <p>
 ANSI/ASHRAE. 2007. ANSI/ASHRAE Standard 140-2007, Standard Method of Test for the Evaluation of Building Energy Analysis Computer Programs.
+</p>
+<p>
+Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
+<a href=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/2012-simBuild-windowValidation.pdf\">
+Validation of the window model of the Modelica Buildings library.</a>
+<i>Proc. of the 5th SimBuild Conference</i>, Madison, WI, USA, August 2012.
 </p>
 </html>"));
 end BESTEST;
