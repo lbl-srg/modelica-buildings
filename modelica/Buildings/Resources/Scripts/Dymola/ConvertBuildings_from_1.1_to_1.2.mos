@@ -5,6 +5,6 @@ clear
 
 convertClear();
 
-convertClass("Buildings.HeatTransfer.Data.BoreholeFillings",
-             "Buildings.HeatTransfer.Data.BoreholeFillingss");
+convertClass("Buildings.HeatTransfer.Data.BoreholeFilling",
+             "Buildings.HeatTransfer.Data.BoreholeFillings");
 
