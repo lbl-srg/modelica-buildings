@@ -18,10 +18,11 @@ block OccupancySchedule "Occupancy schedule with look-ahead"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 
 protected
-  parameter Modelica.SIunits.Time offSet(fixed=false)
-    "Time off-set, in multiples of period, that is used to switch the time when doing the table lookup";
-  final parameter Integer nRow = size(occupancy,1);
+  final parameter Integer nRow = size(occupancy,1)
+    "Number of rows in the schedule";
 
+  output Modelica.SIunits.Time offSet=integer(time/period)*period
+    "Time off-set, in multiples of period, that is used to switch the time when doing the table lookup";
   output Integer nexStaInd "Next index when occupancy starts";
   output Integer nexStoInd "Next index when occupancy stops";
 
@@ -59,63 +60,73 @@ initial algorithm
     assert(occupancy[i] < occupancy[i+1],
       "The elements of the parameter \"occupancy\" must be strictly increasing.");
   end for;
+
  // Initialize variables
  iPerSta   := integer(time/period);
  iPerSto   := iPerSta;
- offSet:=iPerSta*period;
 
- // First, assume that the first entry is occupied.
+ // First, assume that the first entry is occupied
  nexStaInd := 1;
- for i in 1:2:nRow-1 loop
-   if time > occupancy[i] + offSet then
-     nexStaInd :=i;
-   end if;
- end for;
-
  nexStoInd := 2;
- for i in 2:2:nRow loop
-   if time > occupancy[i] + offSet then
-     nexStoInd :=i;
+ // nRow is an even number
+ for i in 1:2:nRow loop
+   if time > occupancy[i] + iPerSta*period then
+     nexStaInd := i+2;
+     nexStoInd := nexStaInd + 1;
    end if;
  end for;
+ if nexStaInd > nRow then
+   nexStaInd := 1;
+   iPerSta :=iPerSta + 1;
+ end if;
+ if nexStoInd > nRow then
+    nexStoInd := 2;
+   iPerSto :=iPerSto + 1;
+ end if;
 
  occupied := (time+offSet - occupancy[nexStaInd]) < (time+offSet - occupancy[nexStoInd]);
 
  // Now, correct if the first entry is vaccant instead of occupied
  if not firstEntryOccupied then
    (nexStaInd, nexStoInd) := switch(nexStaInd, nexStoInd);
+   (iPerSta, iPerSto)     := switch(iPerSta,   iPerSto);
    occupied := not occupied;
  end if;
 
- tOcc    := occupancy[nexStaInd]+offSet;
- tNonOcc := occupancy[nexStoInd]+offSet;
+ tOcc    := occupancy[nexStaInd]+iPerSta*period;
+ tNonOcc := occupancy[nexStoInd]+iPerSta*period;
 
 algorithm
-  when time >= pre(occupancy[nexStaInd])+ iPerSta*period then
+  when time >= tOcc then
     nexStaInd :=nexStaInd + 2;
     occupied := not occupied;
     // Wrap index around
     if nexStaInd > nRow then
        nexStaInd := if firstEntryOccupied then 1 else 2;
-       iPerSta := iPerSta + 1;
+       iPerSta :=iPerSta + 1;
     end if;
-    tOcc := occupancy[nexStaInd] + iPerSta*(period);
+    tOcc := occupancy[nexStaInd] + iPerSta*period;
   end when;
 
   // Changed the index that computes the time until the next non-occupancy
-  when time >= pre(occupancy[nexStoInd])+ iPerSto*period then
+  when time >= tNonOcc then
     nexStoInd :=nexStoInd + 2;
     occupied := not occupied;
     // Wrap index around
     if nexStoInd > nRow then
        nexStoInd := if firstEntryOccupied then 2 else 1;
-       iPerSto := iPerSto + 1;
+       iPerSto :=iPerSto + 1;
     end if;
-    tNonOcc := occupancy[nexStoInd] + iPerSto*(period);
+    tNonOcc := occupancy[nexStoInd] + iPerSto*period;
   end when;
 
  tNexOcc    := tOcc-time;
  tNexNonOcc := tNonOcc-time;
+ assert(tNexOcc > -1e-10 and tNexOcc < period+1E-10, "tNexOcc must be non-zero and smaller than period.
+   Received tNexOcc = " + String(tNexOcc));
+ assert(tNexNonOcc > -1e-10 and tNexOcc < period+1E-10, "tNexNonOcc must be non-zero and smaller than period.
+   Received tNexNonOcc = " + String(tNexNonOcc));
+
   annotation (
     Icon(graphics={
         Line(
@@ -170,6 +181,10 @@ The period always starts at <i>t=0</i> seconds.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+July 25, 2012, by Michael Wetter:<br>
+Fixed bug that caused error in schedule if the simulation start time was negative.
+</li>
 <li>
 February 16, 2012, by Michael Wetter:<br>
 Removed parameter <code>startTime</code>. It was removed because <code>startTime=0</code>

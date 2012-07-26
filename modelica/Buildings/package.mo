@@ -288,6 +288,23 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.SetPoints.OccupancySchedule
+    </td>
+    <td valign=\"top\">
+                      Fixed bug that caused error in schedule if the simulation start time was negative. 
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClass.ThirdOrderStratifier
+    </td>
+    <td valign=\"top\">Revised the implementation to reduce the temperature overshoot.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
@@ -302,14 +319,6 @@ that can lead to wrong simulation results):
     </td>
     <td valign=\"top\">Fixed a bug in the parameter assignment of the instance <code>glass</code>.
                        Previously, the infrared emissivity of surface a was assigned to the surface b.
-    </td>
-</tr>
-<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClass.ThirdOrderStratifier
-    </td>
-    <td valign=\"top\">Revised the implementation to reduce the temperature overshoot.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
