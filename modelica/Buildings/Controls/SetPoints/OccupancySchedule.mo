@@ -34,7 +34,7 @@ protected
   output Modelica.SIunits.Time tOcc "Time when next occupancy starts";
   output Modelica.SIunits.Time tNonOcc "Time when next non-occupancy starts";
 
-encapsulated function switch
+encapsulated function switchInteger
   input Integer x1;
   input Integer x2;
   output Integer y1;
@@ -42,14 +42,24 @@ encapsulated function switch
 algorithm
   y1:=x2;
   y2:=x1;
-end switch;
+end switchInteger;
+
+encapsulated function switchReal
+  input Real x1;
+  input Real x2;
+  output Real y1;
+  output Real y2;
+algorithm
+  y1:=x2;
+  y2:=x1;
+end switchReal;
 
 initial algorithm
   // Check parameters for correctness
  assert(mod(nRow, 2) < 0.1,
    "The parameter \"occupancy\" must have an even number of elements.\n");
  assert(0 < occupancy[1],
-   "The first element of \"occupancy\" must be bigger than or equal than zero."
+   "The first element of \"occupancy\" must be bigger than zero."
    + "\n   Received occupancy[1] = " + String(occupancy[1]));
  assert(period > occupancy[nRow],
    "The parameter \"period\" must be greater than the last element of \"occupancy\"."
@@ -69,32 +79,35 @@ initial algorithm
  nexStaInd := 1;
  nexStoInd := 2;
  // nRow is an even number
- for i in 1:2:nRow loop
-   if time > occupancy[i] + iPerSta*period then
+ for i in 1:2:nRow-1 loop
+   if time >= occupancy[i] + iPerSta*period then
      nexStaInd := i+2;
-     nexStoInd := nexStaInd + 1;
+   end if;
+ end for;
+ for i in 2:2:nRow loop
+   if time >= occupancy[i] + iPerSto*period then
+     nexStoInd := i+2;
    end if;
  end for;
  if nexStaInd > nRow then
-   nexStaInd := 1;
-   iPerSta :=iPerSta + 1;
+    nexStaInd := 1;
+    iPerSta :=iPerSta + 1;
  end if;
  if nexStoInd > nRow then
     nexStoInd := 2;
-   iPerSto :=iPerSto + 1;
+    iPerSto :=iPerSto + 1;
  end if;
-
- occupied := (time+offSet - occupancy[nexStaInd]) < (time+offSet - occupancy[nexStoInd]);
+ tOcc    := occupancy[nexStaInd]+iPerSta*period;
+ tNonOcc := occupancy[nexStoInd]+iPerSto*period;
+ occupied := tNonOcc < tOcc;
 
  // Now, correct if the first entry is vaccant instead of occupied
  if not firstEntryOccupied then
-   (nexStaInd, nexStoInd) := switch(nexStaInd, nexStoInd);
-   (iPerSta, iPerSto)     := switch(iPerSta,   iPerSto);
+   (nexStaInd, nexStoInd) := switchInteger(nexStaInd, nexStoInd);
+   (iPerSta, iPerSto)     := switchInteger(iPerSta,   iPerSto);
+   (tOcc, tNonOcc)        := switchReal(tOcc,      tNonOcc);
    occupied := not occupied;
  end if;
-
- tOcc    := occupancy[nexStaInd]+iPerSta*period;
- tNonOcc := occupancy[nexStoInd]+iPerSta*period;
 
 algorithm
   when time >= tOcc then
@@ -182,8 +195,8 @@ The period always starts at <i>t=0</i> seconds.
 </html>", revisions="<html>
 <ul>
 <li>
-July 25, 2012, by Michael Wetter:<br>
-Fixed a bug that caused an error in the schedule if the simulation start time was negative.
+July 26, 2012, by Michael Wetter:<br>
+Fixed a bug that caused an error in the schedule if the simulation start time was negative or equal to the first entry in the schedule.
 </li>
 <li>
 February 16, 2012, by Michael Wetter:<br>

@@ -294,7 +294,7 @@ that can lead to wrong simulation results):
 <tr><td valign=\"top\">Buildings.Controls.SetPoints.OccupancySchedule
     </td>
     <td valign=\"top\">
-                      Fixed a bug that caused an error in the schedule if the simulation start time was negative.
+                      Fixed a bug that caused an error in the schedule if the simulation start time was negative or equal to the first entry in the schedule.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
