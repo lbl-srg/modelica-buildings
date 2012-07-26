@@ -183,7 +183,7 @@ The period always starts at <i>t=0</i> seconds.
 <ul>
 <li>
 July 25, 2012, by Michael Wetter:<br>
-Fixed bug that caused error in schedule if the simulation start time was negative.
+Fixed a bug that caused an error in the schedule if the simulation start time was negative.
 </li>
 <li>
 February 16, 2012, by Michael Wetter:<br>
