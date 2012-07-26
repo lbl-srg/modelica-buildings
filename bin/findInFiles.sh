@@ -1,7 +1,11 @@
 #!/bin/bash
-LIST=(Math\.BaseClasses\.OneNonLinearEquation)
+LIST=(  "Buildings.HeatTransfer.Windows.Shade" \
+        "Buildings.HeatTransfer.Windows.FixedShade"  \
+        "Buildings.HeatTransfer.Windows.Examples.Shade" \
+        "Buildings.HeatTransfer.Windows.Examples.FixedShade" \
+        "Data.BoreholeFilling" "Data.BoreholeFillings" )
 i=0
-while [ $i -le 1 ]; do
+while [ $i -le 4 ]; do
  OLD=${LIST[$i]}
  NEW=${LIST[$i+1]}
  i=$[ i + 2 ]
@@ -23,8 +27,9 @@ for ff in $fl; do
     egrep $OLD $ff > /dev/null
     if [ $? == 0 ]; then
 	echo "Found string in file $ff"
-#	sed "s/${OLD}/AAABBAAA/g" -i $ff
-#	sed "s/AAABBAAA/${NEW}/g" -i $ff
+#        emacs $ff
+	sed "s/${OLD}/AAABBAAA/g" -i $ff
+	sed "s/AAABBAAA/${NEW}/g" -i $ff
     fi
 done
 
