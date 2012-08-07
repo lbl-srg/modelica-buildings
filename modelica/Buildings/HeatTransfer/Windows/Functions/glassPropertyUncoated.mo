@@ -126,9 +126,9 @@ Step 1: Compute the reflectivity at normal incidence
 <table>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-   &rho;<sub>&lambda;</sub>(0) = {&beta; &minus; sqrt[&beta;<sup>2</sup> &minus; 4(2 &minus; R<sub>&lambda;</sub>(0))R<sub>&lambda;</sub>(0)]} 
+   &rho;(0) = {&beta; &minus; sqrt[&beta;<sup>2</sup> &minus; 4(2 &minus; R(0))R(0)]} 
       &frasl; 
-   [2(2&minus;R<sub>&lambda;</sub>(0))],
+   [2(2&minus;R(0))],
 </p></td>
 <td>(1)</td>
 </tr>
@@ -137,27 +137,27 @@ where
 <table>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-  &beta; = T<sub>&lambda;</sub>(0)<sup>2</sup> &minus; R<sub>&lambda;</sub>(0)<sup>2</sup> + 2R<sub>&lambda;</sub>(0) + 1.
+  &beta; = T(0)<sup>2</sup> &minus; R(0)<sup>2</sup> + 2R(0) + 1.
 </p></td>
 <td>(2)</td>
 </tr>
 </table>
 
 <p>
-Step 2: Compute the spectral absorption coefficient &alpha;<sub>&lambda;</sub> and spectral index of refraction n<sub>&lambda;</sub>
+Step 2: Compute the spectral absorption coefficient &alpha; and spectral index of refraction n
 </p>
 <table>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-  &alpha;<sub>&lambda;</sub> = 4 &pi; &kappa;<sub>&lambda;</sub> &frasl;  &lambda; 
-  = - ln[(R<sub>&lambda;</sub>(0) &minus; &rho;<sub>&lambda;</sub>(0)) &frasl; (&rho;<sub>&lambda;</sub>(0)T<sub>&lambda;</sub>(0))] &frasl; d,
+  &alpha; = 4 &pi; &kappa;<sub>&lambda;</sub> &frasl;  &lambda; 
+  = - ln[(R(0) &minus; &rho;(0)) &frasl; (&rho;(0)T(0))] &frasl; d,
 </p></td>
 <td>(3)</td>
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-  n<sub>&lambda;</sub> = (1 + sqrt(&rho;<sub>&lambda;</sub>(0)) &frasl; 
-        (1 &minus; sqrt(&rho;<sub>&lambda;</sub>(0))).
+  n = (1 + sqrt(&rho;(0)) &frasl; 
+        (1 &minus; sqrt(&rho;(0))).
 </p></td>
 <td>(4)</td>
 </tr>
@@ -181,15 +181,15 @@ Step 3: For each angle of incidence measured in air &phi; (0 &lt; &phi; &lt; 90)
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-&rho;<sub>&lambda;1</sub>(&phi;)=[(n<sub>&lambda;</sub>cos&phi; &minus; cos&phi;') &frasl; 
-(n<sub>&lambda;</sub>cos&phi; + cos&phi;')] <sup>2</sup>,
+&rho;<sub>1</sub>(&phi;)=[(n cos&phi; &minus; cos&phi;') &frasl; 
+(n cos&phi; + cos&phi;')] <sup>2</sup>,
 </p></td>
 <td>(6)</td>
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-&rho;<sub>&lambda;2</sub>(&phi;)=[(n<sub>&lambda;</sub>cos&phi;' &minus; cos&phi;) &frasl; 
-(n<sub>&lambda;</sub>cos&phi;' + cos&phi;)] <sup>2</sup>.
+&rho;<sub>2</sub>(&phi;)=[(n cos&phi;' &minus; cos&phi;) &frasl; 
+(n cos&phi;' + cos&phi;)] <sup>2</sup>.
 </p></td>
 <td>(7)</td>
 </tr>
@@ -197,13 +197,13 @@ Step 3: For each angle of incidence measured in air &phi; (0 &lt; &phi; &lt; 90)
 <td>c. Compute spectral tansmissivities at surface</td>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-&tau;<sub>&lambda;1</sub>(&phi;)= 1 &minus; &rho;<sub>&lambda;1</sub>(&phi;),
+&tau;<sub>1</sub>(&phi;)= 1 &minus; &rho;<sub>1</sub>(&phi;),
 </p></td>
 <td>(8)</td>
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-&tau;<sub>&lambda;2</sub>(&phi;)= 1 &minus; &rho;<sub>&lambda;2</sub>(&phi;).
+&tau;<sub>2</sub>(&phi;)= 1 &minus; &rho;<sub>2</sub>(&phi;).
 </p></td>
 <td>(9)</td>
 </tr>
@@ -212,21 +212,21 @@ Step 3: For each angle of incidence measured in air &phi; (0 &lt; &phi; &lt; 90)
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-T<sub>&lambda;1</sub>(&phi;)= &tau;<sub>&lambda;1</sub>(&phi;)<sup>2</sup> exp(-&alpha;<sub>&lambda;</sub>d/cos&phi;') &frasl;
-(1 &minus; &rho;<sub>&lambda;1</sub>(&phi;)<sup>2</sup> exp(-2&alpha;<sub>&lambda;</sub>d/cos&phi;')),
+T<sub>1</sub>(&phi;)= &tau;<sub>1</sub>(&phi;)<sup>2</sup> exp(-&alpha; d/cos&phi;') &frasl;
+(1 &minus; &rho;<sub>1</sub>(&phi;)<sup>2</sup> exp(-2&alpha; d/cos&phi;')),
 </p></td>
 <td>(10)</td>
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-T<sub>&lambda;2</sub>(&phi;)= &tau;<sub>&lambda;2</sub>(&phi;)<sup>2</sup> exp(-&alpha;<sub>&lambda;</sub>d/cos&phi;') &frasl;
-(1 &minus; &rho;<sub>&lambda;2</sub>(&phi;)<sup>2</sup> exp(-2&alpha;<sub>&lambda;</sub>d/cos&phi;')),
+T<sub>2</sub>(&phi;)= &tau;<sub>2</sub>(&phi;)<sup>2</sup> exp(-&alpha; d/cos&phi;') &frasl;
+(1 &minus; &rho;<sub>2</sub>(&phi;)<sup>2</sup> exp(-2&alpha; d/cos&phi;')),
 </p></td>
 <td>(11)</td>
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-T<sub>&lambda;</sub>(&phi;)= (T<sub>&lambda;1</sub>(&phi;) + T<sub>&lambda;2</sub>(&phi;)) / 2.
+T(&phi;)= (T<sub>1</sub>(&phi;) + T<sub>2</sub>(&phi;)) / 2.
 </p></td>
 <td>(12)</td>
 </tr>
@@ -235,33 +235,50 @@ T<sub>&lambda;</sub>(&phi;)= (T<sub>&lambda;1</sub>(&phi;) + T<sub>&lambda;2</su
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-R<sub>&lambda;1</sub>(&phi;)= &rho;<sub>&lambda;1</sub>(&phi;)(1+ T<sub>&lambda;1</sub>(&phi;)exp(-&alpha;<sub>&lambda;</sub>d/cos&phi;')),
+R<sub>1</sub>(&phi;)= &rho;<sub>1</sub>(&phi;)(1+ T<sub>1</sub>(&phi;)exp(-&alpha; d/cos&phi;')),
 </p></td>
 <td>(13)</td>
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-R<sub>&lambda;2</sub>(&phi;)= &rho;<sub>&lambda;2</sub>(&phi;)(1+ T<sub>&lambda;2</sub>(&phi;)exp(-&alpha;<sub>&lambda;</sub>d/cos&phi;')),
+R<sub>2</sub>(&phi;)= &rho;<sub>2</sub>(&phi;)(1+ T<sub>2</sub>(&phi;)exp(-&alpha; d/cos&phi;')),
 </p></td>
 <td>(14)</td>
 </tr>
 <tr>
 <td><p align=\"center\" style=\"font-style:italic;\">
-R<sub>&lambda;</sub>(&phi;)= (R<sub>&lambda;1</sub>(&phi;) + R<sub>&lambda;2</sub>(&phi;)) / 2.
+R(&phi;)= (R<sub>1</sub>(&phi;) + R<sub>2</sub>(&phi;)) / 2.
 </p></td>
 <td>(15)</td>
 </tr>
 </table>
 <p>
-Step 4: T<sub>&lambda;</sub>(90)=0, R<sub>&lambda;</sub>(90)=1. (16)
+Step 4: T(90)=0, R(90)=1. (16)
+
+<h4>Limitations</h4>
+WINDOW program calculates the angular property for each wave length based on the spectral data. 
+It uses different <code>R<sub>&lambda;</sub>(0)</code> and <code>T<sub>&lambda;</sub>(0)</code> for each wave length. 
+Then it integrates the properties over the wave length to get averaged property of <code>R(0)</code> and <code>T(0)</code>. 
+<p> 
+Current window model in Modelica Building library uses averaged <code>R(0)</code> and <code>T(0)</code> directly. 
+It can generate the same results as WINDOW for a single pane window and multi-pane window with the same glass.
+However, the results may be slightly different for multi-pane window with different glasses.
+The reason is that different glasses may have different angular properties for the same wave length.
+To precisely calculate the angular properties of the entire window system, one has to calculate the property for each wave length and integrate them as WINDOW does. 
+For more details, see the paper of Nouidui et al. (2012). 
 
 <h4>References</h4>
 <p>
 Finlayson, E. U., D. K. Arasteh, C. Huizenga, M.D. Rubin, M.S. Reily. 1993. WINDOW 4.0: Documentation of Calcualtion Precedures. Report LBL-33943. Lawrence Berkeley National Laboratory.<br>
-Fuler, Reto A., Angular dependence of optical properties of homogeneous glasses, ASHRAE Transaction, V.97 Part 2, 1991.</br>
+Fuler, Reto A., Angular dependence of optical properties of homogeneous glasses, ASHRAE Transaction, V.97 Part 2, 1991.<br>
+Nouidui, T., M. Wetter, W. Zuo. 2012. Validation of the window and the room models of the Modelica Buildings library, Proceedings of the 5th National Conference of International Building Performance Simulation Association-USA (SimBuild2012), Madison, WI
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+August 06, 2012, by Wangda Zuo:<br>
+Improved the documentation for implementation and added comments for model limitations.
+</li>
 <li>
 December 09, 2011, by Wangda Zuo:<br>
 First implementation.
