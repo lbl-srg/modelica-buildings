@@ -260,7 +260,7 @@ WINDOW program calculates the angular property for each wave length based on the
 It uses different <code>R<sub>&lambda;</sub>(0)</code> and <code>T<sub>&lambda;</sub>(0)</code> for each wave length. 
 Then it integrates the properties over the wave length to get averaged property of <code>R(0)</code> and <code>T(0)</code>. 
 <p> 
-Current window model in Modelica Building library uses averaged <code>R(0)</code> and <code>T(0)</code> directly. 
+The current window model in the Buildings library uses averaged <code>R(0)</code> and <code>T(0)</code> directly. 
 It can generate the same results as WINDOW for a single pane window and multi-pane window with the same glass.
 However, the results may be slightly different for multi-pane window with different glasses.
 The reason is that different glasses may have different angular properties for the same wave length.
@@ -269,9 +269,16 @@ For more details, see the paper of Nouidui et al. (2012).
 
 <h4>References</h4>
 <p>
-Finlayson, E. U., D. K. Arasteh, C. Huizenga, M.D. Rubin, M.S. Reily. 1993. WINDOW 4.0: Documentation of Calcualtion Precedures. Report LBL-33943. Lawrence Berkeley National Laboratory.<br>
-Fuler, Reto A., Angular dependence of optical properties of homogeneous glasses, ASHRAE Transaction, V.97 Part 2, 1991.<br>
-Nouidui, T., M. Wetter, W. Zuo. 2012. Validation of the window and the room models of the Modelica Buildings library, Proceedings of the 5th National Conference of International Building Performance Simulation Association-USA (SimBuild2012), Madison, WI
+Finlayson, E. U., D. K. Arasteh, C. Huizenga, M.D. Rubin, M.S. Reily. 1993. WINDOW 4.0: Documentation of Calcualtion Precedures. <i>Technical Report LBL-33943</i>. Lawrence Berkeley National Laboratory.
+</p>
+<p>
+Fuler, Reto A., Angular dependence of optical properties of homogeneous glasses, <i>ASHRAE Transaction</i>, V.97 Part 2, 1991.
+</p>
+<p>
+Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
+<a href=\"modelica://Buildings/Resources/Images/HeatTransfer/Windows/2012-simBuild-windowValidation.pdf\">
+Validation of the window model of the Modelica Buildings library.</a>
+<i>Proc. of the 5th SimBuild Conference</i>, Madison, WI, USA, August 2012.
 </p>
 </html>", revisions="<html>
 <ul>
