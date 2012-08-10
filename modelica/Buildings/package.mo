@@ -228,6 +228,12 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Fixed error in the documentation.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes
+    </td>
+    <td valign=\"top\">In documentation, removed reference to the parameter
+                       <code>use_HeatTransfer</code> which no longer exists.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
