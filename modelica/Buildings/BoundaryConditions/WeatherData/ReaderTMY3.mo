@@ -73,34 +73,36 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     "Input wind direction"
     annotation (Placement(transformation(extent={{-240,-60},{-200,-20}}),
         iconTransformation(extent={{-240,-60},{-200,-20}})));
+
+     parameter Buildings.BoundaryConditions.Types.RadiationDataSource HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.File
+    "Radiation"
+     annotation (Evaluate=true, Dialog(group="Data source"));
+
   //--------------------------------------------------------------
   // Global horizontal radiation
-  parameter Buildings.BoundaryConditions.Types.DataSource HGloHorSou=Buildings.BoundaryConditions.Types.DataSource.File
-    "Global horizontal radiation"
-    annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.RadiantEnergyFluenceRate HGloHor=100
-    "Global horizontal radiation (used if HGloHor=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput HGloHor_in(
     final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") if (HGloHorSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    final unit="W/m2") if (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor)
     "Input global horizontal radiation"
     annotation (Placement(transformation(extent={{-240,-120},{-200,-80}}),
         iconTransformation(extent={{-240,-120},{-200,-80}})));
   //--------------------------------------------------------------
   // Diffuse horizontal radiation
-  parameter Buildings.BoundaryConditions.Types.DataSource HDifHorSou=Buildings.BoundaryConditions.Types.DataSource.File
-    "Diffuse horizontal radiation"
-    annotation (Evaluate=true, Dialog(group="Data source"));
-  parameter Modelica.SIunits.RadiantEnergyFluenceRate HDifHor=50
-    "Diffuse horizontal radiation (used if HDifHor=Parameter)"
-    annotation (Evaluate=true, Dialog(group="Data source"));
   Modelica.Blocks.Interfaces.RealInput HDifHor_in(
     final quantity="RadiantEnergyFluenceRate",
-    final unit="W/m2") if (HDifHorSou == Buildings.BoundaryConditions.Types.DataSource.Input)
+    final unit="W/m2") if (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor)
     "Input diffuse horizontal radiation"
-    annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
-        iconTransformation(extent={{-240,-180},{-200,-140}})));
+    annotation (Placement(transformation(extent={{-238,-158},{-198,-118}}),
+        iconTransformation(extent={{-240,-172},{-200,-132}})));
+  //--------------------------------------------------------------
+  // Direct normal radiation
+  Modelica.Blocks.Interfaces.RealInput HDirNor_in(final quantity="RadiantEnergyFluenceRate",
+      final unit="W/m2") if
+                          (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor)
+    "Input direct normal radiation"
+    annotation (Placement(transformation(extent={{-240,-240},{-200,-200}}),
+        iconTransformation(extent={{-240,-220},{-200,-180}})));
+
   parameter String filNam "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
@@ -222,6 +224,10 @@ protected
   Modelica.Blocks.Interfaces.RealInput HDifHor_in_internal(
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") "Needed to connect to conditional connector";
+  Modelica.Blocks.Interfaces.RealInput HDirNor_in_internal(
+    final quantity="RadiantEnergyFluenceRate",
+    final unit="W/m2") "Needed to connect to conditional connector";
+
   Modelica.Blocks.Math.UnitConversions.From_deg conWinDir
     "Convert the wind direction unit from [deg] to [rad]"
     annotation (Placement(transformation(extent={{120,-280},{140,-260}})));
@@ -254,6 +260,7 @@ protected
     annotation (Placement(transformation(extent={{-180,-280},{-160,-260}})));
   Modelica.Blocks.Sources.Constant longitude(final k=lon) "Longitude"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
+  Real small = 1e-6;
 equation
   //---------------------------------------------------------------------------
   // Select atmospheric pressure connector
@@ -307,24 +314,44 @@ equation
   connect(winDir_in_internal, cheWinDir.nIn);
   //---------------------------------------------------------------------------
   // Select global horizontal radiation connector
-  if HGloHorSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
-    HGloHor_in_internal = HGloHor;
-  elseif HGloHorSou == Buildings.BoundaryConditions.Types.DataSource.Input then
-    connect(HGloHor_in, HGloHor_in_internal);
+  if HSou ==  Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor then
+    connect(HGloHor_in, HGloHor_in_internal)
+      "Get HGloHor using user input file";
+  elseif HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor then
+     HDirNor_in_internal*cos(zenAng.zen)+HDifHor_in_internal = HGloHor_in_internal
+      "Calculate the HGloHor using HDirNor and HDifHor according to (A.4.14) and (A.4.15)";
   else
-    connect(conGloHorRad.HOut, HGloHor_in_internal);
+    connect(conGloHorRad.HOut, HGloHor_in_internal)
+      "Get HGloHor using weather data file";
   end if;
   connect(HGloHor_in_internal, cheGloHorRad.HIn);
   //---------------------------------------------------------------------------
   // Select diffuse horizontal radiation connector
-  if HDifHorSou == Buildings.BoundaryConditions.Types.DataSource.Parameter then
-    HDifHor_in_internal = HDifHor;
-  elseif HDifHorSou == Buildings.BoundaryConditions.Types.DataSource.Input then
-    connect(HDifHor_in, HDifHor_in_internal);
+  if HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor then
+     connect(HDifHor_in, HDifHor_in_internal)
+      "Get HDifHor using user input file";
+  elseif  HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor then
+      HGloHor_in_internal - HDirNor_in_internal*cos(zenAng.zen) = HDifHor_in_internal
+      "Calculate the HGloHor using HDirNor and HDifHor according to (A.4.14) and (A.4.15)";
   else
-    connect(conDifHorRad.HOut, HDifHor_in_internal);
+    connect(conDifHorRad.HOut, HDifHor_in_internal)
+      "Get HDifHor using weather data file";
   end if;
   connect(HDifHor_in_internal, cheDifHorRad.HIn);
+  //---------------------------------------------------------------------------
+  // Select direct normal radiation connector
+  if HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor then
+     connect(HDirNor_in, HDirNor_in_internal)
+      "Get HDirNor using user input file";
+  elseif  HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor then
+     (HGloHor_in_internal -HDifHor_in_internal)/max(cos(zenAng.zen), small) = HDirNor_in_internal
+      "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
+  else
+    connect(conDirNorRad.HOut, HDirNor_in_internal)
+      "Get HDirNor using weather data file";
+  end if;
+  connect(HDirNor_in_internal, cheDirNorRad.HIn);
+
   connect(chePre.POut, weaBus.pAtm) annotation (Line(
       points={{181,70},{220,70},{220,5.55112e-16},{304,5.55112e-16}},
       color={0,0,127},
@@ -381,7 +408,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(cheHorRad.HOut, weaBus.radHor) annotation (Line(
+  connect(cheHorRad.HOut, weaBus.radHorIR) annotation (Line(
       points={{181,250},{220,250},{220,5.55112e-16},{304,5.55112e-16}},
       color={0,0,127},
       smooth=Smooth.None), Text(
@@ -399,7 +426,7 @@ equation
       points={{181,-150},{220,-150},{220,-213},{238,-213}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(cheHorRad.HOut, TBlaSky.radHor) annotation (Line(
+  connect(cheHorRad.HOut, TBlaSky.radHorIR) annotation (Line(
       points={{181,250},{220,250},{220,-218},{238,-218}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -520,10 +547,6 @@ equation
       smooth=Smooth.None));
   connect(datRea1.y[3], conDirNorRad.HIn) annotation (Line(
       points={{-59,170},{20,170},{20,210},{118,210}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(conDirNorRad.HOut, cheDirNorRad.HIn) annotation (Line(
-      points={{141,210},{158,210}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(datRea1.y[2], conGloHorRad.HIn) annotation (Line(
@@ -718,17 +741,7 @@ equation
           visible=(winDirSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-192,-18},{-106,-60}},
           lineColor={0,0,127},
-          textString="winDir"),
-        Text(
-          visible=(HGloHorSou == Buildings.BoundaryConditions.Types.DataSource.Input),
-          extent={{-188,-82},{-98,-122}},
-          lineColor={0,0,127},
-          textString="HGloHor"),
-        Text(
-          visible=(HDifHorSou == Buildings.BoundaryConditions.Types.DataSource.Input),
-          extent={{-192,-148},{-98,-172}},
-          lineColor={0,0,127},
-          textString="HDifHor")}),
+          textString="winDir")}),
     Documentation(info="<html>
 <p>
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data. 
@@ -853,6 +866,11 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+August 11, 2012, by Wangda Zuo:<br>
+Renamed <code>radHor</code> to <code>radHorIR</code> and 
+improved the optional inputs for radiation data.
+</li>
 <li>
 July 24, 2012, by Wangda Zuo:<br>
 Corrected the notes of SI unit requirements for input files.

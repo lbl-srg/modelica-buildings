@@ -187,12 +187,14 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br> 
+                       Buildings.BoundaryConditions.Types 
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Improved the optional inputs for radiation data (Global horizontal, diffuse horizontal and direct normal radiation). 
+    When user specifies two of them, the third will be automatically calculated.
     </td>
 </tr>
 </table>
@@ -220,6 +222,15 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br>
+                       Buildings.BoundaryConditions.SkyTemperature.BlackBody
+    </td>
+    <td valign=\"top\">Renamed <code>radHor</code> to <code>radHorIR</code>.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
