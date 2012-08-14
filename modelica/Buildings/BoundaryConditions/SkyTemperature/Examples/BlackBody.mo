@@ -26,11 +26,6 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(weaBus.radHor, TBlaSky.radHor) annotation (Line(
-      points={{10,10},{24,10},{24,2},{38,2}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None));
   connect(weaBus.nOpa, TBlaSky.nOpa) annotation (Line(
       points={{10,10},{24,10},{24,7},{38,7}},
       color={255,204,51},
@@ -42,6 +37,14 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
+  connect(weaBus.radHorIR, TBlaSky.radHorIR) annotation (Line(
+      points={{10,10},{24,10},{24,2},{38,2}},
+      color={255,204,51},
+      thickness=0.5,
+      smooth=Smooth.None), Text(
+      string="%first",
+      index=-1,
+      extent={{-6,3},{-6,3}}));
   annotation (
     Diagram(graphics),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SkyTemperature/Examples/BlackBody.mos"

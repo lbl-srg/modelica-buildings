@@ -2,13 +2,11 @@ within Buildings.BoundaryConditions.SkyTemperature;
 block BlackBody "Calculate black body sky temperature"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   import Buildings.BoundaryConditions.Types.SkyTemperatureCalculation;
-
   parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation calTSky=
     SkyTemperatureCalculation.TemperaturesAndSkyCover
     "Computation of black-body sky temperature"
     annotation(choicesAllMatching=true,
                Evaluate=true);
-
   Modelica.Blocks.Interfaces.RealInput TDryBul(
     final quantity="Temperature",
     final unit="K",
@@ -26,8 +24,10 @@ block BlackBody "Calculate black body sky temperature"
     displayUnit="degC",
     final unit="K") "Black-body sky temperature"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealInput radHor(unit="W/m2", min=0, nominal=100)
-    "Horizontal infrared irradiation"
+  Modelica.Blocks.Interfaces.RealInput radHorIR(
+    unit="W/m2",
+    min=0,
+    nominal=100) "Horizontal infrared irradiation"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
 protected
   Modelica.SIunits.Temperature TDewPoiK "Dewpoint temperature";
@@ -44,7 +44,7 @@ algorithm
     TDewPoiK := 273.15;
     nOpa10   := 0.0;
     epsSky   := 0.0;
-    TBlaSky  := (radHor/Modelica.Constants.sigma)^0.25;
+    TBlaSky  := (radHorIR/Modelica.Constants.sigma)^0.25;
   end if;
   annotation (
     defaultComponentName="TBlaSky",
@@ -59,6 +59,10 @@ Otherwise, it uses dry buld temperature, dew point temperature and opaque sky co
 </html>
 ", revisions="<html>
 <ul>
+<li>
+August 11, 2012, by Wangda Zuo:<br>
+Renamed <code>radHor</code> to <code>radHorIR</code>.
+</li>
 <li>
 October 3, 2011, by Michael Wetter:<br>
 Used enumeration to set the sky temperature computation.
@@ -103,7 +107,7 @@ First implementation.
         Text(
           extent={{-92,-74},{-62,-88}},
           lineColor={0,0,127},
-          textString="radHor"),
+          textString="radHorIR"),
         Text(
           extent={{16,-6},{54,-28}},
           lineColor={0,0,255},
