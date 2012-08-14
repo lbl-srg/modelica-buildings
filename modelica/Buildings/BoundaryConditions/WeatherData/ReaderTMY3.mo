@@ -92,7 +92,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     final quantity="RadiantEnergyFluenceRate",
     final unit="W/m2") if (HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor)
     "Input diffuse horizontal radiation"
-    annotation (Placement(transformation(extent={{-238,-158},{-198,-118}}),
+    annotation (Placement(transformation(extent={{-240,-180},{-200,-140}}),
         iconTransformation(extent={{-240,-172},{-200,-132}})));
   //--------------------------------------------------------------
   // Direct normal radiation
@@ -925,6 +925,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-300},{300,300}}),
-                    graphics));
+    Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-300},{300,
+            300}}), graphics));
 end ReaderTMY3;
