@@ -22,11 +22,11 @@ First implementation.
   type RadiationDataSource = enumeration(
       File "Use data from file",
       Input_HGloHor_HDifHor
-        "User defined global horizontal and diffuse horizontal radiation",
+        "Global horizontal and diffuse horizontal radiation from connector",
       Input_HDirNor_HDifHor
-        "User defined direct normal and diffuse horizontal radiation",
+        "Direct normal and diffuse horizontal radiation from connector",
       Input_HDirNor_HGloHor
-        "User defined direct normal and global horizontal radiation")
+        "Direct normal and global horizontal radiation from connector")
     "Enumeration to define solar radiation data source"
         annotation(Documentation(info="<html>
 <p>

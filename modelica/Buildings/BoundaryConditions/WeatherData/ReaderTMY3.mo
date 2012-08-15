@@ -773,6 +773,10 @@ parameter <code>pAtm=101325</code> Pascals.
 </p>
 <p>
 The parameter <code>*Sou</code> configures the source of the data.
+<!-- ------- -->
+fixme: This example is incorrect for the radiation data.
+The documentation needs to be updated.
+<!-- ------- -->
 For example, the parameter 
 <code>pAtmSou</code> is used to change the source that is used as the atmospheric pressure.
 If <code>pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter</code>,

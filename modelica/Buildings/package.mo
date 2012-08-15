@@ -120,11 +120,11 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_1_2_build2 "Version 1.2 build 2"
+  class Version_1_3_build1 "Version 1.3 build 1"
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
-Version 1.2 build 2 is ... xxx
+Version 1.3 build 1 is ... xxx
 </p>
 <!-- New libraries -->
 <p>
@@ -193,9 +193,14 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br> 
                        Buildings.BoundaryConditions.Types 
     </td>
-    <td valign=\"top\">Improved the optional inputs for radiation data (Global horizontal, diffuse horizontal and direct normal radiation). 
-    When user specifies two of them, the third will be automatically calculated.
+    <td valign=\"top\">Improved the optional inputs for the radiation data global horizontal, diffuse horizontal and direct normal radiation. 
+    If a user specifies two of them, the third will be automatically calculated.
     </td>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody
+    </td>
+    <td valign=\"top\">Renamed <code>radHor</code> to <code>radHorIR</code>
+                       to indicate that the radiation is in the infrared
+                       spectrum.
 </tr>
 </table>
 </p>
@@ -289,7 +294,7 @@ xxx
 </ul>
 </p>
 </html>"));
-  end Version_1_2_build2;
+  end Version_1_3_build1;
 
   class Version_1_2_build1 "Version 1.2 build 1"
     extends Modelica.Icons.ReleaseNotes;
@@ -2776,12 +2781,14 @@ end UsersGuide;
 
 
 annotation (
-version="1.2",
-versionBuild=2,
+version="1.3",
+versionBuild=0,
 versionDate="2012-07-26",
 dateModified = "$Date$",
 uses(Modelica(version="3.2")),
 conversion(
+ from(version="1.2",
+      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.2_to_1.3fixme.mos"),
  from(version="1.1",
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.1_to_1.2.mos"),
  from(version="1.0",
