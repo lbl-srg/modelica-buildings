@@ -128,6 +128,9 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     choicesAllMatching=true,
     Evaluate=true,
     Dialog(group="Sky temperature"));
+
+  parameter Real epsCos = 1e-6 "Small value to avoid divided by 0";
+
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
     final tableOnFile=true,
@@ -260,7 +263,7 @@ protected
     annotation (Placement(transformation(extent={{-180,-280},{-160,-260}})));
   Modelica.Blocks.Sources.Constant longitude(final k=lon) "Longitude"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
-  Real small = 1e-6;
+
 equation
   //---------------------------------------------------------------------------
   // Select atmospheric pressure connector
@@ -344,7 +347,8 @@ equation
      connect(HDirNor_in, HDirNor_in_internal)
       "Get HDirNor using user input file";
   elseif  HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor then
-     (HGloHor_in_internal -HDifHor_in_internal)/max(cos(zenAng.zen), small) = HDirNor_in_internal
+      (HGloHor_in_internal -HDifHor_in_internal)/Buildings.Utilities.Math.Functions.smoothMax(x1=cos(zenAng.zen), x2=epsCos, deltaX=0.1*epsCos)
+       = HDirNor_in_internal
       "Calculate the HDirNor using HGloHor and HDifHor according to (A.4.14) and (A.4.15)";
   else
     connect(conDirNorRad.HOut, HDirNor_in_internal)
@@ -655,7 +659,7 @@ equation
         extent={{-200,-200},{200,200}},
         initialScale=0.05), graphics={
         Rectangle(
-          extent={{-200,-200},{200,200}},
+          extent={{-200,-198},{200,202}},
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
@@ -733,7 +737,7 @@ equation
           lineColor={0,0,127},
           textString="relHum"),
         Text(
-          visible=(winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input),
+        visible=(winSpeSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-196,44},{-110,2}},
           lineColor={0,0,127},
           textString="winSpe"),
@@ -741,7 +745,21 @@ equation
           visible=(winDirSou == Buildings.BoundaryConditions.Types.DataSource.Input),
           extent={{-192,-18},{-106,-60}},
           lineColor={0,0,127},
-          textString="winDir")}),
+          textString="winDir"),
+        Text(
+        visible=(HSou ==  Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor),
+        extent={{-202,-88},{-112,-108}},
+          lineColor={0,0,127},
+          textString="HGloHor"),
+        Text(visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
+        extent={{-202,-142},{-116,-164}},
+          lineColor={0,0,127},
+          textString="HDifHor"),
+        Text(
+        visible=(HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HGloHor or HSou == Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HDirNor_HDifHor),
+        extent={{-200,-186},{-126,-214}},
+          lineColor={0,0,127},
+          textString="HDirNor")}),
     Documentation(info="<html>
 <p>
 This component reads TMY3 weather data (Wilcox and Marion, 2008) or user specified weather data. 
@@ -931,4 +949,5 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-300},{300,
             300}}), graphics));
+
 end ReaderTMY3;
