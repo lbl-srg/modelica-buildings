@@ -412,3 +412,10 @@ div.figure p {
   font-style: italic;
   text-indent: 0;
 }
+
+/* Render reference to footnotes as superscripts */
+.footnote-reference, .fn-backref{
+    font-size: 0.75em; 
+    vertical-align: super;
+}
+
