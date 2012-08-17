@@ -949,5 +949,4 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-300},{300,
             300}}), graphics));
-
 end ReaderTMY3;
