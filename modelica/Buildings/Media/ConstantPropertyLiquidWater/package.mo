@@ -17,8 +17,8 @@ import SI = Modelica.SIunits;
   annotation (preferedView="info", Documentation(info="<html>
 <p>
 This medium model is identical to 
-<a href=\"modelica://Buildings.Media.ConstantPropertyLiquidWater\">
-Buildings.Media.ConstantPropertyLiquidWater</a>, except for the following
+<a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">
+Modelica.Media.Water.ConstantPropertyLiquidWater</a>, except for the following
 points:
 <ul>
 <li>
@@ -41,7 +41,11 @@ It implements the function that computes the specific internal energy.
 </html>", revisions="<html>
 <ul>
 <li>
-October 2, by Michael Wetter:<br>
+August 20, 2012, by Michael Wetter:<br>
+Fixed wrong hyperlink in the documentation.
+</li>
+<li>
+October 2, 2008, by Michael Wetter:<br>
 Changed base class to 
 <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleMedium\">
 Buildings.Media.Interfaces.PartialSimpleMedium</a> to allow compressibility
