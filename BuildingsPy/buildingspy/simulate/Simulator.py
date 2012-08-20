@@ -10,6 +10,7 @@ class Simulator:
     If the parameter ``outputDirectory`` is specified, then the
     output files and log files will be moved to this directory
     when the simulation is completed.
+    Outputs from the python functions will be written to ``outputDirectory/BuildingsPy.log``.
     """
 
     def __init__(self, modelName, simulator, outputDirectory='.'):
@@ -19,7 +20,8 @@ class Simulator:
         ## Check arguments and make output directory if needed
         if simulator != "dymola":
             raise ValueError("Argument 'simulator' needs to be set to 'dymola'.")
-
+        # Set log file name for python script
+        logFilNam = os.path.join(outputDirectory, "BuildingsPy.log")
 
         self.modelName = modelName
         self.__outputDir__ = outputDirectory
@@ -37,7 +39,7 @@ class Simulator:
         self.setResultFile(modelName)
         self.setTimeOut(-1)
         self.__MODELICA_EXE='dymola'
-        self.__reporter = reporter.Reporter(directory=outputDirectory)
+        self.__reporter = reporter.Reporter(fileName=logFilNam)
         self.__showProgressBar = True
         self.__showGUI = False
         self.__exitSimulator = True
