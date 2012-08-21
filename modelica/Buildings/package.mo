@@ -144,6 +144,16 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi
+    </td>
+    <td valign=\"top\">Function that computes moisture concentration based
+                       on saturation pressure, total pressure and relative
+                       humidity.
+    </td> 
+    </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>

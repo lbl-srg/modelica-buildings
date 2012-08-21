@@ -38,7 +38,8 @@ initial algorithm
   assert(found, "Did not find medium species 'water' in the medium model. Change medium model.");
 algorithm
   psat := Medium.saturationPressure(T);
-  X[i_w] := phi*k/(k*phi+p_in_internal/psat-phi);
+  X[i_w] := Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+     pSat=psat, p=p_in_internal, phi=phi);
   //sum(X[:]) = 1; // The formulation with a sum in an equation section leads to a nonlinear equation system
   X[i_nw] := 1 - X[i_w];
   annotation (Documentation(info="<html>
@@ -54,8 +55,11 @@ and the value provided by the input connector is used instead.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>August 21, 2012 by Michael Wetter:<br>
+Added function call to compute water vapor content.
+</li>
 <li>
-February 22, by Michael Wetter:<br>
+February 22, 2010 by Michael Wetter:<br>
 Improved the code that searches for the index of 'water' in the medium model.
 </li>
 <li>
