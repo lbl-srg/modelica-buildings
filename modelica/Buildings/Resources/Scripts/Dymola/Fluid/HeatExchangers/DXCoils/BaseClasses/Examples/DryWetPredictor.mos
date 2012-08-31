@@ -1,0 +1,35 @@
+simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.DryWetPredictor", 
+stopTime=60, method="dassl", resultFile="DryWetPredictor");
+removePlots();
+createPlot(id = 1,
+ position = {15, 10, 495, 498},
+ y = {"XADP.y", "XIn.y"},
+ range = {0.0, 65.0, 0.007, 0.0035},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "DryWetPredictor.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}});
+createPlot(id = 1,
+ position = {15, 10, 495, 246},
+ y = {"dryWetPre.dryWetCoi"},
+ range = {0.0, 65.0, 1.5, -1.5},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}});
+
+

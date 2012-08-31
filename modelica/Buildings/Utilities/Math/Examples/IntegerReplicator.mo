@@ -1,0 +1,31 @@
+within Buildings.Utilities.Math.Examples;
+model IntegerReplicator "Test model for IntegerReplicator"
+
+  extends Modelica.Icons.Example;
+  Modelica.Blocks.Sources.IntegerTable intTab(table=[0,1;1, 4;1.5, 5;2, 6])
+    "Integer input signal"
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
+  Buildings.Utilities.Math.IntegerReplicator intRep(nout=
+       2) "Replicates integer values" annotation (Placement(transformation(extent={{0,0},{20,20}})));
+equation
+  connect(intTab.y, intRep.u) annotation (Line(
+      points={{-19,10},{-2,10}},
+      color={255,127,0},
+      smooth=Smooth.None));
+annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+            {100,100}}),
+                    graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/IntegerReplicator.mos"
+        "Simulate and plot"),
+    Documentation(info="<html>
+<p>
+This model tests the implementation of IntegerReplicator.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+July 27, 2012, by Kaustubh Phalak:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
+end IntegerReplicator;
