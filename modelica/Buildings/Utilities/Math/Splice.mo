@@ -68,11 +68,16 @@ equation
 Documentation(info="<html>
 <p>
 This block implements <a href=\"modelica://Buildings.Utilities.Math.Functions.spliceFunction\">
-Buildings.Utilities.Math.Functions.spliceFunction</a> which provides continuously differentialbe transition between to arguments. 
+Buildings.Utilities.Math.Functions.spliceFunction</a>, which provides a continuously differentiable transition between two arguments. 
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+August 31, 2012, by Michael Wetter:<br>
+Revised documentation.
+</li>
+<li>
 July 30, 2012, by Kaustubh Phalak:<br>
 First implementation.
 </li>

@@ -12,6 +12,7 @@ block BooleanReplicator "Boolean signal replicator"
 equation
   y = fill(u, nout);
   annotation (
+    defaultComponentName="booRep",
     Window(
       x=0.15,
       y=0.16,

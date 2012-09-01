@@ -1,5 +1,5 @@
 within Buildings.Utilities.Math.Examples;
-model SmoothBlocks
+model SmoothBlocks "Test model for smooth min and smooth max functions"
   extends Modelica.Icons.Example;
   SmoothMax smoMax(deltaX=0.5) annotation (Placement(transformation(extent={{
             -20,40},{0,60}}, rotation=0)));
