@@ -5,10 +5,7 @@ model Evaporation
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
      annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Time tWet = 1400
-    "Time until moisture drips from coil when a dry coil is switched on";
-  parameter Real gamma(min=0) = 1.5
-    "Ratio of evaporation heat transfer divided by latent heat transfer at nominal conditions";
+
   parameter
     Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues
      nomVal "Nominal values"
@@ -21,7 +18,7 @@ model Evaporation
   final parameter Modelica.SIunits.Mass mMax(min=0, fixed=false)
     "Maximum mass of water that can accumulate on the coil";
 
-  Modelica.SIunits.Mass m(start=0, nominal=-5000*tWet/2257E3)
+  Modelica.SIunits.Mass m(start=0, nominal=-5000*nomVal.tWet/2257E3)
     "Mass of water that accumulated on the coil";
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -109,7 +106,7 @@ initial equation
   QLat_flow_nominal=nomVal.Q_flow_nominal-QSen_flow_nominal;
   h_fg = Medium.enthalpyOfVaporization(nomVal.TIn_nominal);
 
-  mMax = -QLat_flow_nominal * tWet/h_fg;
+  mMax = -QLat_flow_nominal * nomVal.tWet/h_fg;
 
   XIn_nominal=Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
      pSat=Medium.saturationPressure(nomVal.TIn_nominal),
@@ -127,7 +124,7 @@ initial equation
        p=nomVal.p_nominal,
        phi=1);
 
-  K = -Modelica.Math.log(1-gamma * QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/
+  K = -Modelica.Math.log(1-nomVal.gamma * QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/
           (XOut_nominal-XOutSat_nominal));
   K2 = K/mMax*nomVal.m_flow_nominal^(-0.2);
 
