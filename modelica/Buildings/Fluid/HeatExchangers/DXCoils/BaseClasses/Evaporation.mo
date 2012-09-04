@@ -173,14 +173,14 @@ equation
       pSat=Medium.saturationPressure(TOut),
       p=nomVal.p_nominal,
       phi=1);
-    mEva_flow = smooth(1, noEvent(-(XOutSat-XOut) *
+    mEva_flow = smooth(1, noEvent((XOutSat-XOut) *
       Buildings.Utilities.Math.Functions.spliceFunction(
        pos=if abs(mAir_flow) > mAir_flow_small/3 then
           abs(mAir_flow) * (1-Modelica.Math.exp(-K2*m*abs(mAir_flow)^(-0.2))) else 0,
        neg=K2*mAir_flow_small^(-0.2)*m*mAir_flow^2,
        x=abs(mAir_flow)- 2*mAir_flow_small/3,
        deltax=2*mAir_flow_small/6)));
-    der(m) = mEva_flow;
+    der(m) = -mEva_flow;
   end if;
 
   annotation (defaultComponentName="eva",
