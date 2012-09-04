@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 model DXCooling "DX cooling coil operation "
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface;
-  Modelica.Blocks.Interfaces.RealOutput TCoilSurf(
+  Modelica.Blocks.Interfaces.RealOutput TCoiSur(
     quantity="Temperature",
     unit="K",
     min=240,
@@ -146,7 +146,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(deMux.y4[1], TCoilSurf)          annotation (Line(
+  connect(deMux.y4[1], TCoiSur)            annotation (Line(
       points={{81,-4},{94,-4},{94,-40},{110,-40}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -215,11 +215,13 @@ Buildings.Utilities.Math.Splice</a>.
 revisions="<html>
 <ul>
 <li>
+September 4, 2012 by Michael Wetter:<br>
+Renamed connector to follow naming convention.
+</li><li>
 April 12, 2012 by Kaustubh Phalak:<br>
 First implementation. 
 </li>
 </ul>
-
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
          graphics={
