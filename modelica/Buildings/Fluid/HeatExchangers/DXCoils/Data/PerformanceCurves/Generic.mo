@@ -15,6 +15,7 @@ record Generic "Base performance curves data record"
     "Polynomial coefficients for EIR function of flow fration"
     annotation (Dialog(group="Performance curves"));
 //------------------------Range for performance curves------------------------//
+ // fixme: Instead of range, *Min and *Max should be used as is used for the chiller
   parameter Modelica.SIunits.Temperature   TConInRanCap[2]
     "Range of condenser inlet temperature for cooling capacity function"
     annotation (Dialog(group="Minimum and maximum values"));
