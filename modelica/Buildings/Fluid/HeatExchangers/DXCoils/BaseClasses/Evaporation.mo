@@ -18,7 +18,7 @@ model Evaporation
   final parameter Modelica.SIunits.Mass mMax(min=0, fixed=false)
     "Maximum mass of water that can accumulate on the coil";
 
-  Modelica.SIunits.Mass m(start=0, nominal=-5000*nomVal.tWet/2257E3)
+  Modelica.SIunits.Mass m(start=0, nominal=-5000*1400/2257E3)
     "Mass of water that accumulated on the coil";
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -88,7 +88,8 @@ protected
 
   parameter Modelica.SIunits.SpecificEnthalpy h_fg(fixed=false)
     "Latent heat of vaporization";
-
+  parameter Real gammaMax(min=0, fixed=false) "Maximum value for gamma";
+  parameter Real logArg(min=0, fixed=false) "Argument for the log function";
   parameter Real K(min=0, fixed=false)
     "Coefficient used for convective mass transfer";
   parameter Real K2(min=0, fixed=false)
@@ -123,21 +124,49 @@ initial equation
        pSat=Medium.saturationPressure(TOut_nominal),
        p=nomVal.p_nominal,
        phi=1);
+  gammaMax = 0.8 * nomVal.m_flow_nominal * (XOutSat_nominal-XOut_nominal) * h_fg / (-QLat_flow_nominal);
+  if (nomVal.gamma > gammaMax) then
+     Modelica.Utilities.Streams.print("Warning: In DX coil model, gamma is too large for these coil conditions.
+  Instead of gamma = " + String(nomVal.gamma) + ", a value of " + String(gammaMax) + ", which 
+  corresponds to a mass transfer effectiveness of 0.8, will be used.\n");
+  end if;
+  logArg = 1+min(nomVal.gamma, gammaMax)*QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/
+          (XOutSat_nominal-XOut_nominal);
 
-  K = -Modelica.Math.log(1-nomVal.gamma * QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/
-          (XOut_nominal-XOutSat_nominal));
+  K = -Modelica.Math.log(logArg);
   K2 = K/mMax*nomVal.m_flow_nominal^(-0.2);
 
   assert(QLat_flow_nominal < 0, "QLat_nominal must be a negative number. Check parameters.");
   assert(XOut_nominal < XOutSat_nominal, "Require xOut_nominal < xOutSat_nominal, but obtained more than 100% relative humidity at outlet at nominal conditions.
     nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
+    SHR_nominal           = " + String(nomVal.SHR_nominal) + "
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
     XIn_nominal           = " + String(XIn_nominal) + "
     XOut_nominal          = " + String(XOut_nominal) + "
     XOutSat_nominal       = " + String(XOutSat_nominal) + "
     TOut_nominal          = " + String(TOut_nominal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
-
+  assert(logArg > 0, "Require '1+nomVal.gamma*QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/(XOutSat_nominal-XOut_nominal)>0' at nominal conditions.
+    but received " + String(logArg) + "
+    The parameter are:
+    nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
+    SHR_nominal           = " + String(nomVal.SHR_nominal) + "
+    QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
+    XIn_nominal           = " + String(XIn_nominal) + "
+    XOut_nominal          = " + String(XOut_nominal) + "
+    XOutSat_nominal       = " + String(XOutSat_nominal) + "
+    TOut_nominal          = " + String(TOut_nominal) + "
+  Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
+  assert(K > 0, "Require K>0 but received " + String(K) + "
+    The parameter are:
+    nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
+    SHR_nominal           = " + String(nomVal.SHR_nominal) + "
+    QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
+    XIn_nominal           = " + String(XIn_nominal) + "
+    XOut_nominal          = " + String(XOut_nominal) + "
+    XOutSat_nominal       = " + String(XOutSat_nominal) + "
+    TOut_nominal          = " + String(TOut_nominal) + "
+  Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
 equation
   // When the coil switches off, set accumulated water to
   // lower value of actual accumulated water or maximum water content
@@ -317,13 +346,20 @@ At the nominal condition, we have
 and, hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m&#775;<sub>nom</sub> = m&#775;<sub>max,nom</sub> (1-e<sup>-K</sup>)
+  m&#775;<sub>nom</sub> = m&#775;<sub>max,nom</sub> (1-e<sup>-K</sup>).
 </p>
-from which follows that
+<p>
+Because 
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  m&#775;<sub>nom</sub> = - &gamma; Q&#775;<sub>L,nom</sub> &frasl; h<sub>fg</sub>,
+</p>
+<p>
+it follows that
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
   K = -ln(    
-  1 - &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;
+  1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;
   m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;
   (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,nom</sub>)
 ),
@@ -332,14 +368,59 @@ from which follows that
 where
 <i>x<sub>a,nom</sub></i> is the humidity ratio at the coil outlet at nominal condition and
 <i>x<sub>sat</sub>(T<sub>a,nom</sub>)</i> is the humidity ratio at saturation at the coil 
-outlet condition.
+outlet condition. Note that the <i>ln(&middot;)</i> in the above equation requires that the argument
+is positive. See the implementation section below for how this is implemented. fixme: add section
 </p>
 <h4>Implementation</h4>
+<h5>Potential for moisture transfer</h5>
 <p>
 For the potential that causes the moisture transfer, the outlet conditions have been used.
 If the inlet conditions were used, then the mass transfer does not decay to zero fast enough
 as the air flow rate approaches zero, which can cause supersaturated air.
 </p>
+<h5>Computation of mass transfer effectiveness</h5>
+<p>
+To evaluate
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  K = -ln(    
+  1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;
+  m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;
+  (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,nom</sub>)
+),
+</p>
+<p>
+the argument of the <i>ln(&middot;)</i> function must be positive. 
+However, often the parameter <i>&gamma;<sub>nom</sub></i> is not known, and the default
+value of 
+<i>&gamma;<sub>nom</sub> = 1.5</i> may yield negative arguments for 
+the function <i>ln(&middot;)</i>.
+We therefore set a lower bound on <i>&gamma;<sub>nom</sub></i> as follows:
+Note that <i>&gamma;<sub>nom</sub></i> must be such that
+<i>0 &lt; m&#775;<sub>wat,nom</sub> &lt; m&#775;<sub>max,nom</sub></i>.
+This condition is equivalent to
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  0 &lt; &gamma;<sub>nom</sub> &lt; m&#775;<sub>a,nom</sub> (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,nom</sub>)
+  h<sub>fg</sub>
+  &frasl; (-Q&#775;<sub>L,nom</sub>)
+</p>
+<p>
+If <i>&gamma;<sub>nom</sub></i> were equal to the right hand side, then the
+mass transfer effectiveness would be one. Hence, we set the maximum value of
+&gamma;<sub>nom,max</sub> to 
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  &gamma;<sub>nom,max</sub> = 0.8  m&#775;<sub>a,nom</sub> (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,nom</sub>)
+  h<sub>fg</sub>
+  &frasl; (-Q&#775;<sub>L,nom</sub>),
+</p>
+<p>
+which corresponds to a mass transfer effectiveness of <i>0.8</i>. If 
+<i>&gamma;<sub>nom</sub> &gt; &gamma;<sub>nom,max</sub></i>, the model sets
+<i>&gamma;<sub>nom</sub>=&gamma;<sub>nom,max</sub></i> and writes a warning message.
+</p>
+<h5>Regularization near zero air mass flow rate</h5>
 <p>
 To regularize the equations near zero air mass flow rate and zero humidity on the coil, the
 following conditions have been imposed in such a way that the model
