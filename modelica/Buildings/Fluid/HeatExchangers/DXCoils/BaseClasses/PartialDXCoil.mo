@@ -4,9 +4,15 @@ partial model PartialDXCoil
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    redeclare package Medium=Medium,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
     final m_flow_nominal = datCoi.per[nSpe].nomVal.m_flow_nominal);
   extends Modelica.Icons.UnderConstruction;
+  // redeclare Medium with a more restricting base class. This improves the error
+  // message if a user selects a medium that does not contain the function
+  // enthalpyOfLiquid(.)
+  replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
+      annotation (choicesAllMatching = true);
   Modelica.Blocks.Interfaces.RealInput TConIn(
     unit="K",
     displayUnit="degC")
@@ -16,11 +22,13 @@ partial model PartialDXCoil
     "Electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{100,70},{120,90}},rotation=0)));
 
-  Modelica.SIunits.SpecificEnthalpy hIn
+  Modelica.SIunits.SpecificEnthalpy hIn=
+    if port_a.m_flow > 0 then inStream(port_a.h_outflow) else inStream(port_b.h_outflow)
     "Enthalpy of air entering the cooling coil";
-  Modelica.SIunits.Temperature TIn
+  Modelica.SIunits.Temperature TIn = Medium.T_phX(p=port_a.p, h=hIn, X=XIn)
     "Dry bulb temperature of air entering the cooling coil";
-  Modelica.SIunits.MassFraction XIn[Medium.nXi]
+  Modelica.SIunits.MassFraction XIn[Medium.nXi]=
+    if port_a.m_flow > 0 then inStream(port_a.Xi_outflow) else inStream(port_b.Xi_outflow)
     "Mass fraction/absolute humidity of air entering the cooling coil";
   constant Integer iWat = 1 "Index of water component in XIn";
 
@@ -49,10 +57,6 @@ public
   BaseClasses.InputPower pwr "Electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
 equation
-  //Inlet conditions considering possibility of reversible flow
-  hIn= if port_a.m_flow > 0 then inStream(port_a.h_outflow) else inStream(port_b.h_outflow);
-  XIn= if port_a.m_flow > 0 then inStream(port_a.Xi_outflow) else inStream(port_b.Xi_outflow);
-  TIn= Medium.T_phX(p=port_a.p, h=hIn, X=XIn);
   connect(TConIn, dxCoo.TConIn)  annotation (Line(
       points={{-110,30},{-100,30},{-100,55},{-21,55}},
       color={0,0,127},
@@ -233,6 +237,13 @@ Forth National Conference of IBPSA-USA. New York: SimBuild, 2010. 134-141.
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 4, 2012 by Michael Wetter:<br>
+Moved assignments to declaration section to avoid mixing graphical modeling with textual
+modeling in <code>equation</code> section.
+Redeclare medium model as <code>Modelica.Media.Interfaces.PartialCondensingGases</code>
+to remove errors during model check.
+</li>
 <li>
 April 12, 2012 by Kaustubh Phalak:<br>
 First implementation. 
