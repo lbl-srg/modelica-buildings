@@ -18,10 +18,28 @@ partial model PartialDXCoil
     displayUnit="degC")
     "Outside air dry bulb temperature for an air cooled condenser or wetbulb temperature for an evaporative cooled condenser"
     annotation (Placement(transformation(extent={{-120,20},{-100,40}})));
-  Modelica.Blocks.Interfaces.RealOutput P
-    "Electrical power consumed by the unit"
-    annotation (Placement(transformation(extent={{100,70},{120,90}},rotation=0)));
+  Modelica.Blocks.Interfaces.RealOutput P(
+    quantity="Power",
+    unit="W") "Electrical power consumed by the unit"
+    annotation (Placement(transformation(extent={{100,80},{120,100}},rotation=0)));
+  Modelica.Blocks.Interfaces.RealOutput QSen_flow(quantity="Power", unit="W")
+    "Sensible heat flow rate"
+    annotation (Placement(transformation(extent={{100,60},{120,80}}, rotation=0)));
+  Modelica.Blocks.Interfaces.RealOutput QLat_flow(quantity="Power", unit="W")
+    "Latent heat flow rate"
+    annotation (Placement(transformation(extent={{100,40},{120,60}},  rotation=0)));
 
+  BaseClasses.DXCooling dxCoo(
+    redeclare package Medium = Medium,
+    datCoi=datCoi,
+    nSpe=nSpe) "DX cooling coil operation"
+    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+
+  Evaporation eva(redeclare final package Medium = Medium,
+                  final nomVal=datCoi.per[nSpe].nomVal)
+    "Model that computes evaporation of water that accumulated on the coil surface"
+    annotation (Placement(transformation(extent={{-8,-80},{12,-60}})));
+protected
   Modelica.SIunits.SpecificEnthalpy hIn=
     if port_a.m_flow > 0 then inStream(port_a.h_outflow) else inStream(port_b.h_outflow)
     "Enthalpy of air entering the cooling coil";
@@ -30,16 +48,10 @@ partial model PartialDXCoil
   Modelica.SIunits.MassFraction XIn[Medium.nXi]=
     if port_a.m_flow > 0 then inStream(port_a.Xi_outflow) else inStream(port_b.Xi_outflow)
     "Mass fraction/absolute humidity of air entering the cooling coil";
-  constant Integer iWat = 1 "Index of water component in XIn";
+  constant Integer iWat = 1
+    "Index of water component in XIn. fixme: this should be set dynamically";
 
-public
-  BaseClasses.DXCooling dxCoo(
-    redeclare package Medium = Medium,
-    datCoi=datCoi,
-    nSpe=nSpe) "DX cooling coil operation"
-    annotation (Placement(transformation(extent={{-20,40},{0,60}})));
-  Modelica.Blocks.Sources.RealExpression p(
-    y=port_a.p) "Inlet air pressure"
+  Modelica.Blocks.Sources.RealExpression p(y=port_a.p) "Inlet air pressure"
     annotation (Placement(transformation(extent={{-90,4},{-70,24}})));
   Modelica.Blocks.Sources.RealExpression X(y=XIn[iWat])
     "Inlet air mass fraction"
@@ -51,11 +63,19 @@ public
     annotation (Placement(transformation(extent={{-90,34},{-70,54}})));
   Modelica.Blocks.Sources.RealExpression h(y=hIn) "Inlet air specific enthalpy"
     annotation (Placement(transformation(extent={{-56,12},{-36,32}})));
-
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow q "heat extracted by coil"
-    annotation (Placement(transformation(extent={{62,50},{82,70}})));
+    annotation (Placement(transformation(extent={{42,44},{62,64}})));
   BaseClasses.InputPower pwr "Electrical power consumed by the unit"
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
+
+  Modelica.Blocks.Math.Add mWat_flow(final k1=1, final k2=1)
+    "Water flow added or removed from the air stream"
+    annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
+    "Temperature of control volume"
+    annotation (Placement(transformation(extent={{74,48},{86,60}})));
+//    fixme: add assert that checks the |Q_flow_nominal[i]| < |Q_flow_nominal[i+1]| for all i
+//    because nominal values are used from the record for m_flow_small and for the evaporation model
 equation
   connect(TConIn, dxCoo.TConIn)  annotation (Line(
       points={{-110,30},{-100,30},{-100,55},{-21,55}},
@@ -93,25 +113,65 @@ equation
       points={{1,50},{14,50},{14,64},{18,64}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dxCoo.TCoilSurf, vol.TWat)  annotation (Line(
-      points={{1,46},{10,46},{10,24},{-16,24},{-16,-14.8},{-11,-14.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dxCoo.mWat_flow, vol.mWat_flow)  annotation (Line(
-      points={{1,42},{6,42},{6,28},{-20,28},{-20,-18},{-11,-18}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(q.port, vol.heatPort) annotation (Line(
-      points={{82,60},{86,60},{86,20},{-12,20},{-12,-10},{-9,-10}},
+      points={{62,54},{66,54},{66,22},{-12,22},{-12,-10},{-9,-10}},
       color={191,0,0},
       smooth=Smooth.None));
 
   connect(pwr.P, P)    annotation (Line(
-      points={{41,74},{50.5,74},{50.5,80},{110,80}},
+      points={{41,76},{50.5,76},{50.5,90},{110,90}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(dxCoo.Q_flow, q.Q_flow) annotation (Line(
-      points={{1,54},{50,54},{50,60},{62,60}},
+      points={{1,54},{42,54}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dxCoo.mWat_flow, mWat_flow.u1) annotation (Line(
+      points={{1,42},{8,42},{8,8},{-18,8},{-18,-52},{20,-52},{20,-64},{38,-64}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(eva.mEva_flow, mWat_flow.u2) annotation (Line(
+      points={{13,-70},{18,-70},{18,-76},{38,-76}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(mWat_flow.y, vol.mWat_flow) annotation (Line(
+      points={{61,-70},{70,-70},{70,-30},{-16,-30},{-16,-18},{-11,-18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(eva.mWat_flow, dxCoo.mWat_flow) annotation (Line(
+      points={{-10,-64},{-18,-64},{-18,8},{8,8},{8,42},{1,42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dxCoo.TCoiSur, vol.TWat) annotation (Line(
+      points={{1,46},{10,46},{10,6},{-22,6},{-22,-14.8},{-11,-14.8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dxCoo.TCoiSur, eva.TWat) annotation (Line(
+      points={{1,46},{10,46},{10,6},{-22,6},{-22,-68},{-10,-68}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(m.y, eva.mAir_flow) annotation (Line(
+      points={{-69,44},{-66,44},{-66,-72},{-10,-72}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(vol.X_w, eva.XOut) annotation (Line(
+      points={{13,-6},{20,-6},{20,-42},{-24,-42},{-24,-76},{-10,-76}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TVol.port, q.port) annotation (Line(
+      points={{74,54},{62,54}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(TVol.T, eva.TOut) annotation (Line(
+      points={{86,54},{90,54},{90,-90},{-16,-90},{-16,-80},{-10,-80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pwr.QSen_flow, QSen_flow) annotation (Line(
+      points={{41,70},{110,70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(pwr.QLat_flow, QLat_flow) annotation (Line(
+      points={{41,64},{94,64},{94,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics),
@@ -243,6 +303,7 @@ Moved assignments to declaration section to avoid mixing graphical modeling with
 modeling in <code>equation</code> section.
 Redeclare medium model as <code>Modelica.Media.Interfaces.PartialCondensingGases</code>
 to remove errors during model check.
+Added output connectors for sensible and latent heat flow rate.
 </li>
 <li>
 April 12, 2012 by Kaustubh Phalak:<br>
@@ -252,10 +313,16 @@ First implementation.
 
 </html>"),
     Icon(graphics={Text(
-          extent={{-158,58},{-100,40}},
-          lineColor={0,0,255},
+          extent={{-138,64},{-80,46}},
+          lineColor={0,0,127},
           textString="TConIn"), Text(
-          extent={{92,108},{136,88}},
-          lineColor={0,0,255},
-          textString="P")}));
+          extent={{58,98},{102,78}},
+          lineColor={0,0,127},
+          textString="P"),      Text(
+          extent={{54,60},{98,40}},
+          lineColor={0,0,127},
+          textString="QLat"),   Text(
+          extent={{54,80},{98,60}},
+          lineColor={0,0,127},
+          textString="QSen")}));
 end PartialDXCoil;
