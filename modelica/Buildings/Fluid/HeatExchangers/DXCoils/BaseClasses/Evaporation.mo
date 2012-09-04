@@ -146,17 +146,7 @@ initial equation
     XOutSat_nominal       = " + String(XOutSat_nominal) + "
     TOut_nominal          = " + String(TOut_nominal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
-  assert(logArg > 0, "Require '1+nomVal.gamma*QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/(XOutSat_nominal-XOut_nominal)>0' at nominal conditions.
-    but received " + String(logArg) + "
-    The parameter are:
-    nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
-    SHR_nominal           = " + String(nomVal.SHR_nominal) + "
-    QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
-    XIn_nominal           = " + String(XIn_nominal) + "
-    XOut_nominal          = " + String(XOut_nominal) + "
-    XOutSat_nominal       = " + String(XOutSat_nominal) + "
-    TOut_nominal          = " + String(TOut_nominal) + "
-  Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
+
   assert(K > 0, "Require K>0 but received " + String(K) + "
     The parameter are:
     nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
