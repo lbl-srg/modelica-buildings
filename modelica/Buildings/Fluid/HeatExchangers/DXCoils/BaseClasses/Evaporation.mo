@@ -25,31 +25,40 @@ model Evaporation
   // Input and output signals
   Modelica.Blocks.Interfaces.BooleanInput on
     "Control signal, true if compressor is on"
-    annotation (Placement(transformation(extent={{-140,80},{-100,120}})));
+    annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Water flow rate added into the medium"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}}, rotation=
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}, rotation=
            0)));
   Modelica.Blocks.Interfaces.RealInput TWat(final quantity="Temperature",
                                             final unit = "K",
                                             displayUnit = "degC")
     "Temperature of liquid that is drained from or injected into volume"
-    annotation (Placement(transformation(extent={{-140,0},{-100,40}},
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
           rotation=0)));
   Modelica.Blocks.Interfaces.RealInput mAir_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Air mass flow rate"
-    annotation (Placement(transformation(extent={{-140,-40},{-100,0}})));
+    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+  Modelica.Blocks.Interfaces.RealInput XIn(min=0, max=1, unit="1")
+    "Water mass fraction at coil inlet"
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={-60,-120})));
   Modelica.Blocks.Interfaces.RealInput XOut(min=0, max=1, unit="1")
     "Water mass fraction at coil outlet"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={0,-120})));
 
   Modelica.Blocks.Interfaces.RealInput TOut(final quantity="Temperature",
                                             final unit="K",
                                             displayUnit="degC")
     "Coil outlet temperature"
-    annotation (Placement(transformation(extent={{-140,-120},{-100,-80}})));
+    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
+        rotation=90,
+        origin={60,-120})));
 
   Modelica.Blocks.Interfaces.RealOutput mEva_flow(final quantity="MassFlowRate",
                                                   final unit = "kg/s",
@@ -102,6 +111,8 @@ protected
    // check if the on, which is an input connector, is used in the edge() function
   Boolean off=not on "Signal, true when component is off";
 
+  Real dX "Difference in water vapor concentration that drives mass transfer";
+
 initial equation
   QSen_flow_nominal=nomVal.SHR_nominal * nomVal.Q_flow_nominal;
   QLat_flow_nominal=nomVal.Q_flow_nominal-QSen_flow_nominal;
@@ -124,14 +135,14 @@ initial equation
        pSat=Medium.saturationPressure(TOut_nominal),
        p=nomVal.p_nominal,
        phi=1);
-  gammaMax = 0.8 * nomVal.m_flow_nominal * (XOutSat_nominal-XOut_nominal) * h_fg / (-QLat_flow_nominal);
+  gammaMax = 0.8 * nomVal.m_flow_nominal * (XOutSat_nominal-XIn_nominal) * h_fg / (-QLat_flow_nominal);
   if (nomVal.gamma > gammaMax) then
      Modelica.Utilities.Streams.print("Warning: In DX coil model, gamma is too large for these coil conditions.
   Instead of gamma = " + String(nomVal.gamma) + ", a value of " + String(gammaMax) + ", which 
   corresponds to a mass transfer effectiveness of 0.8, will be used.\n");
   end if;
   logArg = 1+min(nomVal.gamma, gammaMax)*QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/
-          (XOutSat_nominal-XOut_nominal);
+          (XOutSat_nominal-XIn_nominal);
 
   K = -Modelica.Math.log(logArg);
   K2 = K/mMax*nomVal.m_flow_nominal^(-0.2);
@@ -166,6 +177,7 @@ equation
 
   if on then
     XOutSat = 0;
+    dX = 0;
     mEva_flow = 0;
     der(m) = -mWat_flow;
   else
@@ -173,7 +185,13 @@ equation
       pSat=Medium.saturationPressure(TOut),
       p=nomVal.p_nominal,
       phi=1);
-    mEva_flow = smooth(1, noEvent((XOutSat-XOut) *
+    dX = XOutSat - smooth(1, noEvent(
+       Buildings.Utilities.Math.Functions.spliceFunction(
+       pos=XIn,
+       neg=XOut,
+       x=abs(mAir_flow)-nomVal.m_flow_nominal/2,
+       deltax=nomVal.m_flow_nominal/3)));
+    mEva_flow = smooth(1, noEvent(dX *
       Buildings.Utilities.Math.Functions.spliceFunction(
        pos=if abs(mAir_flow) > mAir_flow_small/3 then
           abs(mAir_flow) * (1-Modelica.Math.exp(-K2*m*abs(mAir_flow)^(-0.2))) else 0,
@@ -320,13 +338,13 @@ and the rate of change of water on the coil surface is as before
 The maximum mass transfer is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m&#775;<sub>max</sub> = m&#775;<sub>a</sub> (x<sub>sat</sub>(T<sub>a</sub>(t)) - x<sub>a</sub>(t)),
+  m&#775;<sub>max</sub> = m&#775;<sub>a</sub> (x<sub>sat</sub>(T<sub>a</sub>(t)) - x<sub>a,in</sub>(t)),
 </p>
 <p>
 where
 <i>x<sub>sat</sub>(T<sub>a</sub>(t))</i> is the moisture content of saturated air
 at the current air outlet temperature and
-<i>x<sub>a</sub>(t)</i> is the moisture content of the air outlet.
+<i>x<sub>a,in</sub>(t)</i> is the moisture content of the air inlet.
 </p>
 <p>
 The constant <i>K</i> is determined from the nominal conditions as follows:
@@ -351,22 +369,27 @@ it follows that
   K = -ln(    
   1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;
   m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;
-  (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,nom</sub>)
+  (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,in,nom</sub>)
 ),
 </p>
 <p>
 where
-<i>x<sub>a,nom</sub></i> is the humidity ratio at the coil outlet at nominal condition and
+<i>x<sub>a,in,nom</sub></i> is the humidity ratio at the coil inlet at nominal condition and
 <i>x<sub>sat</sub>(T<sub>a,nom</sub>)</i> is the humidity ratio at saturation at the coil 
 outlet condition. Note that the <i>ln(&middot;)</i> in the above equation requires that the argument
-is positive. See the implementation section below for how this is implemented. fixme: add section
+is positive. See the implementation section below for how this is implemented.
 </p>
 <h4>Implementation</h4>
 <h5>Potential for moisture transfer</h5>
 <p>
-For the potential that causes the moisture transfer, the outlet conditions have been used.
-If the inlet conditions were used, then the mass transfer does not decay to zero fast enough
-as the air flow rate approaches zero, which can cause supersaturated air.
+For the potential that causes the moisture transfer, the 
+the humidity ratio at saturation at the coil outlet minus
+the inlet humidity ratio is used, provided that
+the air mass flow rate is within <i>1&frasl;3</i> of the nominal mass flow rate.
+For smaller air mass flow rates, the outlet conditions are used to ensure that for
+small air mass flow rates, the outlet conditions are not supersaturated air.
+The transition between these two driving potential is continuously differentiable 
+in the mass flow rate.
 </p>
 <h5>Computation of mass transfer effectiveness</h5>
 <p>
@@ -376,7 +399,7 @@ To evaluate
   K = -ln(    
   1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;
   m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;
-  (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,nom</sub>)
+  (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,in,nom</sub>)
 ),
 </p>
 <p>
@@ -391,7 +414,7 @@ Note that <i>&gamma;<sub>nom</sub></i> must be such that
 This condition is equivalent to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  0 &lt; &gamma;<sub>nom</sub> &lt; m&#775;<sub>a,nom</sub> (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,nom</sub>)
+  0 &lt; &gamma;<sub>nom</sub> &lt; m&#775;<sub>a,nom</sub> (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,in,nom</sub>)
   h<sub>fg</sub>
   &frasl; (-Q&#775;<sub>L,nom</sub>)
 </p>
@@ -401,7 +424,7 @@ mass transfer effectiveness would be one. Hence, we set the maximum value of
 &gamma;<sub>nom,max</sub> to 
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &gamma;<sub>nom,max</sub> = 0.8  m&#775;<sub>a,nom</sub> (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,nom</sub>)
+  &gamma;<sub>nom,max</sub> = 0.8  m&#775;<sub>a,nom</sub> (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,in,nom</sub>)
   h<sub>fg</sub>
   &frasl; (-Q&#775;<sub>L,nom</sub>),
 </p>
@@ -434,7 +457,7 @@ the equation for the evaporation mass flow rate by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
  m&#775;<sub>wat</sub>(t) = C m m&#775;<sub>a</sub><sup>2</sup>(t) 
- (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,nom</sub>),
+ (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,in,nom</sub>),
 </p>
 <p>
 where
