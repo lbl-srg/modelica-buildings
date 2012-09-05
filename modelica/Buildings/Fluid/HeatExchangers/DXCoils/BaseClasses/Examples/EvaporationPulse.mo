@@ -34,10 +34,10 @@ model EvaporationPulse "Test model for evaporation with pulse signal"
   Modelica.Blocks.Math.RealToBoolean realToBoolean
     annotation (Placement(transformation(extent={{-60,-80},{-40,-60}})));
   Modelica.Blocks.Sources.Constant TWat(k=293.15)
-    annotation (Placement(transformation(extent={{-60,70},{-40,90}})));
+    annotation (Placement(transformation(extent={{-60,110},{-40,130}})));
   Modelica.Blocks.Sources.Constant mAir_flow(k=nomVal.m_flow_nominal)
     "Air flow rate"
-    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
+    annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
   Modelica.Blocks.Sources.Constant XOut(k=XOut_nominal)
     "Outlet water vapor mass fraction"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
@@ -48,7 +48,7 @@ model EvaporationPulse "Test model for evaporation with pulse signal"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Evaporation evaNor(redeclare package Medium = Medium, nomVal=nomVal)
     "Evaporation model"
-    annotation (Placement(transformation(extent={{40,0},{60,20}})));
+    annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.Continuous.Integrator intNor
     "Mass of water that evaporates into air stream"
     annotation (Placement(transformation(extent={{80,0},{100,20}})));
@@ -65,6 +65,9 @@ model EvaporationPulse "Test model for evaporation with pulse signal"
         /Medium.enthalpyOfVaporization(293.15))
     "Water mass flow rate from air to coil surface"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
+  Modelica.Blocks.Sources.Constant XIn(k=XIn_nominal)
+    "Inlet water vapor mass fraction"
+    annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
 
   connect(pulSho.y, realToBoolean.u)
@@ -73,23 +76,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(realToBoolean.y, evaSho.on) annotation (Line(
-      points={{-39,-70},{-18,-70},{-18,60},{38,60}},
+      points={{-39,-70},{-18,-70},{-18,58},{38,58}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(evaSho.TWat, TWat.y) annotation (Line(
-      points={{38,52},{12,52},{12,80},{-39,80}},
+      points={{38,50},{12,50},{12,120},{-39,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(evaSho.mAir_flow, mAir_flow.y) annotation (Line(
-      points={{38,48},{0,48},{0,50},{-39,50}},
+      points={{38,44},{0,44},{0,90},{-39,90}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(XOut.y, evaSho.XOut) annotation (Line(
-      points={{-39,20},{26,20},{26,44},{38,44}},
+      points={{-39,20},{50,20},{50,38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOut.y, evaSho.TOut) annotation (Line(
-      points={{-39,-10},{-6,-10},{-6,40},{38,40}},
+      points={{-39,-10},{56,-10},{56,38}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(evaSho.mEva_flow, intSho.u) annotation (Line(
@@ -97,23 +100,23 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(evaNor.TWat, TWat.y) annotation (Line(
-      points={{38,12},{12,12},{12,80},{-39,80}},
+      points={{38,-30},{12,-30},{12,120},{-39,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(evaNor.mAir_flow, mAir_flow.y) annotation (Line(
-      points={{38,8},{0,8},{0,50},{-39,50}},
+      points={{38,-36},{0,-36},{0,90},{-39,90}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(XOut.y, evaNor.XOut) annotation (Line(
-      points={{-39,20},{26,20},{26,4},{38,4}},
+      points={{-39,20},{20,20},{20,-60},{50,-60},{50,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOut.y, evaNor.TOut) annotation (Line(
-      points={{-39,-10},{-6,-10},{-6,-5.55112e-16},{38,-5.55112e-16}},
+      points={{-39,-10},{-6,-10},{-6,-70},{56,-70},{56,-42},{56,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(evaNor.mEva_flow, intNor.u) annotation (Line(
-      points={{61,10},{78,10}},
+      points={{61,-30},{70,-30},{70,10},{78,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pulNor.y, realToBoolean1.u)
@@ -123,7 +126,7 @@ equation
       smooth=Smooth.None));
   connect(realToBoolean1.y, evaNor.on)
                                       annotation (Line(
-      points={{-39,-130},{34,-130},{34,-110},{34,-110},{34,20},{38,20}},
+      points={{-39,-130},{34,-130},{34,-22},{38,-22}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(pulNor.y, mWat_flow1.u) annotation (Line(
@@ -131,7 +134,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWat_flow1.y, evaNor.mWat_flow) annotation (Line(
-      points={{-39,-100},{-24,-100},{-24,-100},{32,-100},{32,16},{38,16}},
+      points={{-39,-100},{32,-100},{32,-26},{38,-26}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pulSho.y, mWat_flow.u) annotation (Line(
@@ -139,10 +142,18 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWat_flow.y, evaSho.mWat_flow) annotation (Line(
-      points={{-39,-40},{-12,-40},{-12,56},{38,56}},
+      points={{-39,-40},{-12,-40},{-12,54},{38,54}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(extent={{-120,-160},{120,100}},
+  connect(XIn.y, evaSho.XIn) annotation (Line(
+      points={{-39,50},{-30,50},{-30,28},{44,28},{44,38}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(XIn.y, evaNor.XIn) annotation (Line(
+      points={{-39,50},{-30,50},{-30,-54},{44,-54},{44,-42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(extent={{-120,-160},{120,140}},
           preserveAspectRatio=true),
                       graphics),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/EvaporationPulse.mos"
@@ -165,5 +176,5 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-120,-160},{120,100}})));
+    Icon(coordinateSystem(extent={{-120,-160},{120,140}})));
 end EvaporationPulse;
