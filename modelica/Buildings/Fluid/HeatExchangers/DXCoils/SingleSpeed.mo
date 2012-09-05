@@ -13,7 +13,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(on, dxCoo.on) annotation (Line(
-      points={{-110,100},{-40,100},{-40,60},{-21,60}},
+      points={{-110,100},{-32,100},{-32,60},{-21,60}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(eva.on, on) annotation (Line(
+      points={{-10,-60},{-32,-60},{-32,100},{-110,100}},
       color={255,0,255},
       smooth=Smooth.None));
   annotation (defaultComponentName="sinSpeDX", Diagram(graphics), Documentation(info="<html>

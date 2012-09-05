@@ -21,7 +21,11 @@ equation
       smooth=Smooth.None));
   connect(deaBan.y, dxCoo.on)
                            annotation (Line(
-      points={{-59.4,86},{-40,86},{-40,60},{-21,60}},
+      points={{-59.4,86},{-32,86},{-32,60},{-21,60}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(deaBan.y, eva.on) annotation (Line(
+      points={{-59.4,86},{-32,86},{-32,-60},{-10,-60}},
       color={255,0,255},
       smooth=Smooth.None));
   annotation (defaultComponentName="mulSpeDX", Documentation(info="<html>

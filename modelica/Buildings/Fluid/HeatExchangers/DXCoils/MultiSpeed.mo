@@ -7,7 +7,7 @@ model MultiSpeed "Multispeed DX cooling coil"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}}),
         iconTransformation(extent={{-120,60},{-100,80}})));
   Modelica.Blocks.Continuous.CriticalDamping criDam(
-    f=1) "Smooths the step change in speed ratio"
+    f=1) "Smooths the step change in speed ratio. fixme: why is this needed?"
     annotation (Placement(transformation(extent={{-60,60},{-48,72}})));
   Modelica.Blocks.Logical.Hysteresis deaBan(
     uLow=minSpeRat - speRatDeaBan/2, uHigh=minSpeRat + speRatDeaBan/2)
@@ -25,11 +25,6 @@ equation
       points={{-110,70},{-92,70},{-92,86},{-67.2,86}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(deaBan.y, dxCoo.on)
-                           annotation (Line(
-      points={{-53.4,86},{-40,86},{-40,60},{-21,60}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(speRat, speSel.speRatIn) annotation (Line(
       points={{-110,70},{-92,70},{-92,66},{-81.2,66}},
       color={0,0,127},
@@ -37,6 +32,14 @@ equation
   connect(speSel.speRat, criDam.u) annotation (Line(
       points={{-67.4,66},{-61.2,66}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(deaBan.y, eva.on) annotation (Line(
+      points={{-53.4,86},{-32,86},{-32,-60},{-10,-60}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(deaBan.y, dxCoo.on) annotation (Line(
+      points={{-53.4,86},{-32,86},{-32,60},{-21,60}},
+      color={255,0,255},
       smooth=Smooth.None));
   annotation (defaultComponentName="mulSpeDX", Documentation(info="<html>
 <p>
