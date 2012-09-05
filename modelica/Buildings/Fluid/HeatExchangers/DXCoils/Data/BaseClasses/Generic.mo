@@ -1,7 +1,9 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses;
 record Generic "Generic data record for DX coil"
   extends Modelica.Icons.Record;
-  parameter Modelica.SIunits.AngularVelocity spe(unit="1/s", displayUnit="1/min")
+  // fixme: check why spe is used. In particular the single speed coil should not
+  // require this parameter
+  parameter Modelica.SIunits.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
   parameter
     Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues nomVal
