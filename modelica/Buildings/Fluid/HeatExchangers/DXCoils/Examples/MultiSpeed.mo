@@ -36,7 +36,8 @@ model MultiSpeed "Test model for multi speed DX coil"
     nSpe=datCoi.nSpe,
     minSpeRat=datCoi.minSpeRat,
     datCoi=datCoi,
-    T_start=datCoi.per[1].nomVal.TIn_nominal) "Multispeed DX coil"
+    T_start=datCoi.per[1].nomVal.TIn_nominal,
+    show_T=true) "Multispeed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Blocks.Sources.Ramp TIn(
     duration=600,

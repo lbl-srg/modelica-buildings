@@ -45,7 +45,7 @@ model SingleSpeedValidation
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_II())})
     "Coil data"
-    annotation (Placement(transformation(extent={{60,40},{80,60}})));
+    annotation (Placement(transformation(extent={{120,40},{140,60}})));
   Modelica.Blocks.Sources.TimeTable plr_onOff(table=[0,0; 3600,0; 3600,0; 7200,0;
         7200,0; 10800,0; 10800,0; 14400,0; 14400,0; 18000,0; 18000,0; 21600,0; 21600,
         0; 25200,0; 25200,1; 28800,1; 28800,1; 32400,1; 32400,1; 36000,1; 36000,
@@ -119,17 +119,11 @@ model SingleSpeedValidation
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
   Modelica.Blocks.Math.Mean Q_flowMea(f=1/3600) "Mean of cooling rate"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Modelica.Blocks.Sources.RealExpression Q_flow(y=sinSpeDX.pwr.Q_flow)
-    "Cooling rate"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Math.Mean Q_flowSenMea(f=1/3600)
     "Mean of sensible cooling rate"
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
-  Modelica.Blocks.Sources.RealExpression Q_flowSen(y=sinSpeDX.pwr.senHea.y)
-    "Sensible cooling rate"
-    annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
   Modelica.Blocks.Math.Mean PMea(f=1/3600) "Mean of power"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Modelica.Blocks.Math.Add add(k1=-1)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Modelica.Blocks.Sources.Constant XInMoiAir(k=1.0) "Moist air fraction = 1"
@@ -215,6 +209,8 @@ model SingleSpeedValidation
   Modelica.Blocks.Sources.RealExpression XOutEPluMod(y=XOutEPlu.y/(1 + XOutEPlu.y))
     "Modified XOut of energyPlus to comapre with the model results"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
+  Modelica.Blocks.Math.Add QCoo_flow "Total cooling heat flow rate"
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 equation
   connect(sou.ports[1], sinSpeDX.port_a)
                                         annotation (Line(
@@ -269,14 +265,6 @@ equation
       points={{61,130},{78,130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Q_flow.y, Q_flowMea.u)   annotation (Line(
-      points={{-19,90},{-2,90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Q_flowSen.y, Q_flowSenMea.u)   annotation (Line(
-      points={{-19,130},{-2,130}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(XInMoiAir.y, add.u2)
                            annotation (Line(
       points={{-119,-110},{-112,-110},{-112,-96},{-102,-96}},
@@ -295,7 +283,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(sinSpeDX.P, PMea.u) annotation (Line(
-      points={{11,18},{14,18},{14,50},{18,50}},
+      points={{11,19},{14,19},{14,50},{78,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(p.y, sou.p_in) annotation (Line(
@@ -308,6 +296,22 @@ equation
       smooth=Smooth.None));
   connect(XInMod.y, add.u1) annotation (Line(
       points={{-119,-44},{-110,-44},{-110,-84},{-102,-84}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sinSpeDX.QSen_flow, Q_flowSenMea.u) annotation (Line(
+      points={{11,17},{20,17},{20,60},{-12,60},{-12,130},{-2,130}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QCoo_flow.y, Q_flowMea.u) annotation (Line(
+      points={{-19,90},{-2,90}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QCoo_flow.u1, sinSpeDX.QSen_flow) annotation (Line(
+      points={{-42,96},{-50,96},{-50,30},{18,30},{18,17},{11,17}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sinSpeDX.QLat_flow, QCoo_flow.u2) annotation (Line(
+      points={{11,15},{20,15},{20,32},{-48,32},{-48,84},{-42,84}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,
@@ -342,6 +346,10 @@ mass of dry air while in Modelica it is defined as mass of water per unit mass o
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 4, 2012 by Michael Wetter:<br>
+Modified example to avoid having to access protected data.
+</li>
 <li>
 August 20, 2012 by Kaustubh Phalak:<br>
 First implementation. 

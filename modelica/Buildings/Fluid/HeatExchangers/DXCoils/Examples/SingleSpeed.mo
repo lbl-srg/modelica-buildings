@@ -43,7 +43,8 @@ model SingleSpeed "Test model for single speed DX coil"
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
-    T_start=datCoi.per[1].nomVal.TIn_nominal) "Single speed DX coil"
+    T_start=datCoi.per[1].nomVal.TIn_nominal,
+    show_T=true) "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Modelica.Blocks.Sources.Ramp p(

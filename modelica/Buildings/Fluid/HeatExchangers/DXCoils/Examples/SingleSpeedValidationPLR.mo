@@ -51,17 +51,11 @@ model SingleSpeedValidationPLR
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
   Modelica.Blocks.Math.Mean Q_flowMea(f=1/3600) "Mean of cooling rate"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
-  Modelica.Blocks.Sources.RealExpression Q_flow(y=sinSpeDX.pwr.Q_flow)
-    "Cooling rate"
-    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
   Modelica.Blocks.Math.Mean Q_flowSenMea(f=1/3600)
     "Mean of sensible cooling rate"
     annotation (Placement(transformation(extent={{0,120},{20,140}})));
-  Modelica.Blocks.Sources.RealExpression Q_flowSen(y=sinSpeDX.pwr.senHea.y)
-    "Sensible cooling rate"
-    annotation (Placement(transformation(extent={{-40,120},{-20,140}})));
   Modelica.Blocks.Math.Mean PMea(f=1/3600) "Mean of power"
-    annotation (Placement(transformation(extent={{20,40},{40,60}})));
+    annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Modelica.Blocks.Math.Add add(k1=-1)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Modelica.Blocks.Sources.Constant XInMoiAir(k=1.0) "Moist air fraction = 1"
@@ -212,6 +206,8 @@ model SingleSpeedValidationPLR
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_II())})
     "Coil data"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
+  Modelica.Blocks.Math.Add QCoo_flow "Total cooling heat flow rate"
+    annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
 equation
   connect(sou.ports[1], sinSpeDX.port_a)
                                         annotation (Line(
@@ -250,14 +246,6 @@ equation
       points={{61,130},{78,130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Q_flow.y, Q_flowMea.u)   annotation (Line(
-      points={{-19,90},{-2,90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Q_flowSen.y, Q_flowSenMea.u)   annotation (Line(
-      points={{-19,130},{-2,130}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(XInMoiAir.y, add.u2)
                            annotation (Line(
       points={{-119,-110},{-112,-110},{-112,-96},{-102,-96}},
@@ -268,7 +256,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(sinSpeDX.P, PMea.u) annotation (Line(
-      points={{11,18},{14,18},{14,50},{18,50}},
+      points={{11,19},{30,19},{30,50},{38,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(p.y, sou.p_in) annotation (Line(
@@ -303,6 +291,22 @@ equation
       points={{61,-130},{68,-130},{68,-116},{78,-116}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(sinSpeDX.QSen_flow, Q_flowSenMea.u) annotation (Line(
+      points={{11,17},{20,17},{20,60},{-12,60},{-12,130},{-2,130}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QCoo_flow.y, Q_flowMea.u) annotation (Line(
+      points={{-19,90},{-2,90}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QCoo_flow.u1, sinSpeDX.QSen_flow) annotation (Line(
+      points={{-42,96},{-50,96},{-50,30},{18,30},{18,17},{11,17}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(sinSpeDX.QLat_flow, QCoo_flow.u2) annotation (Line(
+      points={{11,15},{20,15},{20,32},{-48,32},{-48,84},{-42,84}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},
             {160,140}}),       graphics),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SingleSpeedValidationPLR.mos"
@@ -324,15 +328,19 @@ t = EnergyPlus output reporting period * PLR.
 This results in on-off cycle and fluctuating results at output of the model.
 To compare the results, model outputs are averaged over 3600 sec. This leads to 3600 lag between 
 model results and EnergyPlus results observed in the plots. 
+fixme: remove time lag.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
+September 4, 2012 by Michael Wetter:<br>
+Modified example to avoid having to access protected data.
+</li>
+<li>
 August 20, 2012 by Kaustubh Phalak:<br>
 First implementation. 
 </li>
 </ul>
-
 </html>"));
 end SingleSpeedValidationPLR;
