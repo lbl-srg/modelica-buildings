@@ -41,7 +41,8 @@ model VarSpeed "Test model for variable speed DX coil"
     duration=600,
     startTime=900,
     height=5,
-    offset=273.15 + 20) "temperature"
+    offset=273.15 + 20,
+    y(unit="K")) "temperature"
     annotation (Placement(transformation(extent={{-100,-40},{-80,-20}})));
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 100,0.0; 900,0.2;
         1800,0.8; 2700,0.75; 3600,0.75]) "Speed ratio "
