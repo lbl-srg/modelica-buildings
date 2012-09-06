@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model DXCooling "Test model for DXCooling"
   extends Modelica.Icons.Example;
-  parameter Integer nSpe=4 "Number of standard compressor speeds";
   package Medium =
       Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   Modelica.Blocks.Sources.Constant p(
@@ -12,8 +11,7 @@ model DXCooling "Test model for DXCooling"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling dxCoo(
     redeclare package Medium = Medium,
-    datCoi=datCoi,
-    nSpe=nSpe)
+    datCoi=datCoi)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.BooleanStep onOff(
     startTime=600) "Compressor on-off signal"
@@ -44,7 +42,7 @@ model DXCooling "Test model for DXCooling"
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  Data.CoilData datCoi(nSpe=4, per={
+  Data.CoilData datCoi(per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=900,
         nomVal=
@@ -84,8 +82,8 @@ model DXCooling "Test model for DXCooling"
           SHR_nominal=0.8,
           m_flow_nominal=1.8),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())})
-    "Coil data"
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())}, nSpe
+      =4) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(TConIn.y, dxCoo.TConIn)  annotation (Line(

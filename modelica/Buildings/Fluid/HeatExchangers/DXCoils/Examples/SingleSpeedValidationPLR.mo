@@ -3,6 +3,7 @@ model SingleSpeedValidationPLR
   "Validation model for single speed DX coil with PLR=1"
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   extends Modelica.Icons.Example;
+  // fixme: check whether EnergyPlus uses the same values for gamma and tWet
  parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.per[1].nomVal.Q_flow_nominal
     "Nominal power";
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.per[1].nomVal.m_flow_nominal

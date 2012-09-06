@@ -2,21 +2,10 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model SpeedSelect "Test model for speed select"
   import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect speSel[3](each
-      nSpe=datCoi.nSpe, each speSet=datCoi.per.spe)
-    "Selects lower value of standard speed"
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect speSel(
+    nSpe=datCoi.nSpe,
+    speSet=datCoi.per.spe) "Normalizes the input speed"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.Blocks.Sources.Ramp speRat1(
-    startTime=0,
-    offset=0,
-    height=1.1,
-    duration=60) "Speed ratio"
-    annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
-  Modelica.Blocks.Sources.Sine speRat2(freqHz=0.004) "Speed ratio"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Sources.Sine speRat3(freqHz=0.004, phase=1.5707963267949)
-    "Speed ratio"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
   Data.CoilData datCoi(nSpe=4, per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=900,
@@ -60,21 +49,16 @@ model SpeedSelect "Test model for speed select"
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())})
     "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  Modelica.Blocks.Sources.IntegerTable sta(table=[0,0; 10,1; 20,2; 30,3; 40,4;
+        50,0]) "Stage of compressor"
+    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
 equation
 
-  connect(speRat1.y, speSel[1].speRatIn) annotation (Line(
-      points={{-19,50},{0,50},{0,6.66134e-16},{18,6.66134e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(speRat2.y, speSel[2].speRatIn) annotation (Line(
-      points={{-19,6.10623e-16},{-0.5,6.10623e-16},{-0.5,6.66134e-16},{18,
-          6.66134e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  connect(speRat3.y, speSel[3].speRatIn) annotation (Line(
-      points={{-19,-50},{0,-50},{0,6.66134e-16},{18,6.66134e-16}},
-      color={0,0,127},
+  connect(sta.y, speSel.stage) annotation (Line(
+      points={{-19,6.10623e-16},{0,-3.36456e-22},{0,6.10623e-16},{19,
+          6.10623e-16}},
+      color={255,127,0},
       smooth=Smooth.None));
 annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/SpeedSelect.mos"
         "Simulate and plot"),

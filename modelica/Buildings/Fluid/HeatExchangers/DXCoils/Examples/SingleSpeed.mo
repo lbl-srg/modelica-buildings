@@ -53,8 +53,7 @@ model SingleSpeed "Test model for single speed DX coil"
     height=dp_nominal,
     offset=101325) "Pressure"
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Data.CoilData datCoi(nSpe=1,
-    sinSpeOpe=true,
+  Data.CoilData datCoi(
     per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=1800,
@@ -65,8 +64,8 @@ model SingleSpeed "Test model for single speed DX coil"
           SHR_nominal=0.8,
           m_flow_nominal=1.5),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_II())})
-    "Coil data"
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_II())}, nSpe=
+       1) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
@@ -83,7 +82,7 @@ equation
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on)
                                annotation (Line(
-      points={{-39,70},{-26,70},{-26,20},{-11,20}},
+      points={{-39,70},{-26,70},{-26,18},{-11,18}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, sinSpeDX.TConIn)

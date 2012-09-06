@@ -10,8 +10,7 @@ model DryCoil "Calculates dry coil condition"
      annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint appDryPt(
     redeclare package Medium = Medium,
-    datCoi=datCoi,
-    nSpe=nSpe) "Calculates air properties at dry coil condition"
+    datCoi=datCoi) "Calculates air properties at dry coil condition"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Modelica.Blocks.Sources.Constant shrDry(
     k=1) "Dry condition sensible heat ratio"

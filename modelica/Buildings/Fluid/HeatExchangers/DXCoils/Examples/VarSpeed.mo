@@ -34,10 +34,9 @@ model VarSpeed "Test model for variable speed DX coil"
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
-    nSpe=datCoi.nSpe,
     minSpeRat=datCoi.minSpeRat,
     T_start=datCoi.per[1].nomVal.TIn_nominal) "Variable speed DX coil"
-    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+    annotation (Placement(transformation(extent={{-10,2},{10,22}})));
   Modelica.Blocks.Sources.Ramp TIn(
     duration=600,
     startTime=900,
@@ -107,12 +106,12 @@ equation
       extent={{6,3},{6,3}}));
   connect(sou.ports[1], varSpeDX.port_a)
                                         annotation (Line(
-      points={{-20,-10},{-16,-10},{-16,10},{-10,10}},
+      points={{-20,-10},{-16,-10},{-16,12},{-10,12}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(varSpeDX.port_b, sin.ports[1])
                                         annotation (Line(
-      points={{10,10},{14,10},{14,-10},{20,-10}},
+      points={{10,12},{14,12},{14,-10},{20,-10}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TIn.y, sou.T_in) annotation (Line(
@@ -121,7 +120,7 @@ equation
       smooth=Smooth.None));
   connect(weaBus.TDryBul, varSpeDX.TConIn)
                                           annotation (Line(
-      points={{-70,30},{-34,30},{-34,13},{-11,13}},
+      points={{-70,30},{-34,30},{-34,15},{-11,15}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -129,7 +128,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(speRat.y, varSpeDX.speRat)   annotation (Line(
-      points={{-63,60},{-22,60},{-22,17},{-11,17}},
+      points={{-63,60},{-22,60},{-22,20},{-11,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(p.y, sou.p_in) annotation (Line(

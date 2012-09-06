@@ -10,13 +10,11 @@ model DXCooling "DX cooling coil operation "
           annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   WetCoil wetCoi(
     redeclare package Medium = Medium,
-    datCoi=datCoi,
-    nSpe=nSpe) "Wet coil condition"
+    datCoi=datCoi) "Wet coil condition"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   DryCoil dryCoi(
     redeclare package Medium = Medium,
-    datCoi=datCoi,
-    nSpe=nSpe) "Dry coil condition"
+    datCoi=datCoi) "Dry coil condition"
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
   Modelica.Blocks.Routing.Multiplex5 mux1
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));

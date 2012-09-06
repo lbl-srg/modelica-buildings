@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model WetCoil "Test model for WetCoil"
  extends Modelica.Icons.Example;
- parameter Integer nSpe=4 "Number of standard compressor speeds";
  package Medium =
       Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   Modelica.Blocks.Sources.Constant p(
@@ -9,8 +8,7 @@ model WetCoil "Test model for WetCoil"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil wetCoi(
     redeclare package Medium = Medium,
-    datCoi=datCoi,
-    nSpe=nSpe) "Performs calculation for wet coil condition"
+    datCoi=datCoi) "Performs calculation for wet coil condition"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Constant TConIn(
     k=273.15 + 35) "Condenser inlet air temperature"

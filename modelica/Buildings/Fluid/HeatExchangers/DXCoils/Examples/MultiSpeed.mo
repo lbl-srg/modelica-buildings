@@ -33,8 +33,6 @@ model MultiSpeed "Test model for multi speed DX coil"
   Buildings.Fluid.HeatExchangers.DXCoils.MultiSpeed mulSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
-    nSpe=datCoi.nSpe,
-    minSpeRat=datCoi.minSpeRat,
     datCoi=datCoi,
     T_start=datCoi.per[1].nomVal.TIn_nominal,
     show_T=true) "Multispeed DX coil"
@@ -94,8 +92,12 @@ model MultiSpeed "Test model for multi speed DX coil"
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())})
     "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 100,0.0; 900,0.2;
-        1800,0.9; 2700,0.75; 3600,0.85]) "Speed ratio "
+  Modelica.Blocks.Sources.IntegerTable speRat(table=[
+    0.0,0.0;
+    900,1;
+    1800,4;
+    2700,3;
+    3600,2]) "Speed ratio "
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
 equation
   connect(weaDat.weaBus, weaBus) annotation (Line(
@@ -133,12 +135,12 @@ equation
       points={{-79,10},{-62,10},{-62,-2},{-42,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(speRat.y, mulSpeDX.speRat) annotation (Line(
-      points={{-39,70},{-26,70},{-26,17},{-11,17}},
-      color={0,0,127},
+  connect(speRat.y, mulSpeDX.stage) annotation (Line(
+      points={{-39,70},{-18,70},{-18,18},{-11,18}},
+      color={255,127,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics),
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
+            {100,100}}),       graphics),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/MultiSpeed.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),

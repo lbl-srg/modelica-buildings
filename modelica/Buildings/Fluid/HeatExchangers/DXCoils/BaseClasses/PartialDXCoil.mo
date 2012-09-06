@@ -31,13 +31,12 @@ partial model PartialDXCoil
 
   BaseClasses.DXCooling dxCoo(
     redeclare package Medium = Medium,
-    datCoi=datCoi,
-    nSpe=nSpe) "DX cooling coil operation"
+    datCoi=datCoi) "DX cooling coil operation"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Evaporation eva(redeclare final package Medium = Medium,
                   final nomVal=datCoi.per[nSpe].nomVal)
-    "Model that computes evaporation of water that accumulated on the coil surface"
+    "Model that computes evaporation of water that accumulated on the coil surface. Fixme: disable component if steady-state"
     annotation (Placement(transformation(extent={{-8,-80},{12,-60}})));
 protected
   Modelica.SIunits.SpecificEnthalpy hIn=
@@ -155,7 +154,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(vol.X_w, eva.XOut) annotation (Line(
-      points={{13,-6},{86,-6},{86,-94},{86,-94},{86,-94},{2,-94},{2,-82},{2,-82}},
+      points={{13,-6},{86,-6},{86,-94},{2,-94},{2,-82}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TVol.port, q.port) annotation (Line(
@@ -163,7 +162,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(TVol.T, eva.TOut) annotation (Line(
-      points={{86,54},{90,54},{90,-90},{8,-90},{8,-82},{8,-82}},
+      points={{86,54},{90,54},{90,-90},{8,-90},{8,-82}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pwr.QSen_flow, QSen_flow) annotation (Line(

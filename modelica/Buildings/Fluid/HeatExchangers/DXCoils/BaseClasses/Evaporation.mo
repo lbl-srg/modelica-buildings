@@ -151,10 +151,12 @@ initial equation
   assert(XOut_nominal < XOutSat_nominal, "Require xOut_nominal < xOutSat_nominal, but obtained more than 100% relative humidity at outlet at nominal conditions.
     nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
     SHR_nominal           = " + String(nomVal.SHR_nominal) + "
+    QSen_flow_nominal     = " + String(QSen_flow_nominal) + "
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
     XIn_nominal           = " + String(XIn_nominal) + "
     XOut_nominal          = " + String(XOut_nominal) + "
     XOutSat_nominal       = " + String(XOutSat_nominal) + "
+    TIn_nominal           = " + String(nomVal.TIn_nominal) + "
     TOut_nominal          = " + String(TOut_nominal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
 
@@ -162,10 +164,12 @@ initial equation
     The parameter are:
     nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
     SHR_nominal           = " + String(nomVal.SHR_nominal) + "
+    QSen_flow_nominal     = " + String(QSen_flow_nominal) + "
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
     XIn_nominal           = " + String(XIn_nominal) + "
     XOut_nominal          = " + String(XOut_nominal) + "
     XOutSat_nominal       = " + String(XOutSat_nominal) + "
+    TIn_nominal           = " + String(nomVal.TIn_nominal) + "
     TOut_nominal          = " + String(TOut_nominal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
 equation

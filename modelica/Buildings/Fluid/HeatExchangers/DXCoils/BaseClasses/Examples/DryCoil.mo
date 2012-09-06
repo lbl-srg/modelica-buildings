@@ -1,6 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model DryCoil "Test model for DryCoil"
- parameter Integer nSpe=4 "Number of standard compressor speeds";
 extends Modelica.Icons.Example;
   package Medium =
       Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
@@ -12,7 +11,6 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil dryCoi(
     redeclare package Medium = Medium,
-    nSpe=nSpe,
     datCoi=datCoi) "Performs calculation for dry coil condition"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
   Modelica.Blocks.Sources.BooleanStep onOff(
@@ -44,7 +42,7 @@ extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,76},{-60,96}})));
-  Data.CoilData datCoi(nSpe=4, per={
+  Data.CoilData datCoi(per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=900,
         nomVal=
@@ -84,8 +82,8 @@ extends Modelica.Icons.Example;
           SHR_nominal=0.8,
           m_flow_nominal=1.8),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())})
-    "Coil data"
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())}, nSpe
+      =4) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(TConIn.y, dryCoi.TConIn)  annotation (Line(

@@ -15,8 +15,7 @@ public
     annotation (Placement(transformation(extent={{-60,20},{-48,32}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint appDewPt(
     redeclare package Medium = Medium,
-    datCoi=datCoi,
-    nSpe=nSpe)
+    datCoi=datCoi)
     "Calculates air properties at apparatus dew point (ADP) at existing air-flow conditions"
     annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio shr(

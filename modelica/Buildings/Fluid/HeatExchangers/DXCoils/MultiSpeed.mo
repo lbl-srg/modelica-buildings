@@ -1,45 +1,43 @@
 within Buildings.Fluid.HeatExchangers.DXCoils;
-model MultiSpeed "Multispeed DX cooling coil"
+model MultiSpeed "Multi-speed DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil;
-  parameter Real minSpeRat( min=0,max=1) "Minimum speed ratio";
-  parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
-  Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}}),
-        iconTransformation(extent={{-120,60},{-100,80}})));
+
+  Modelica.Blocks.Interfaces.IntegerInput stage
+    "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)"
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}}),
+        iconTransformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Continuous.CriticalDamping criDam(
     f=1) "Smooths the step change in speed ratio. fixme: why is this needed?"
     annotation (Placement(transformation(extent={{-60,60},{-48,72}})));
-  Modelica.Blocks.Logical.Hysteresis deaBan(
-    uLow=minSpeRat - speRatDeaBan/2, uHigh=minSpeRat + speRatDeaBan/2)
-    "Speed ratio deadband"
-    annotation (Placement(transformation(extent={{-66,80},{-54,92}})));
   BaseClasses.SpeedSelect speSel(nSpe=datCoi.nSpe, speSet=datCoi.per.spe)
     annotation (Placement(transformation(extent={{-80,60},{-68,72}})));
+  Modelica.Blocks.Math.IntegerToBoolean onSwi(final threshold=1)
+    "On/off switch"
+    annotation (Placement(transformation(extent={{-60,80},{-48,92}})));
 equation
   connect(criDam.y, dxCoo.speRat)          annotation (Line(
       points={{-47.4,66},{-44,66},{-44,57.6},{-21,57.6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(speRat, deaBan.u)
-                         annotation (Line(
-      points={{-110,70},{-92,70},{-92,86},{-67.2,86}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(speRat, speSel.speRatIn) annotation (Line(
-      points={{-110,70},{-92,70},{-92,66},{-81.2,66}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(speSel.speRat, criDam.u) annotation (Line(
       points={{-67.4,66},{-61.2,66}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(deaBan.y, eva.on) annotation (Line(
-      points={{-53.4,86},{-32,86},{-32,-60},{-10,-60}},
+  connect(onSwi.y, eva.on) annotation (Line(
+      points={{-47.4,86},{-26,86},{-26,-62},{-10,-62}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(deaBan.y, dxCoo.on) annotation (Line(
-      points={{-53.4,86},{-32,86},{-32,60},{-21,60}},
+  connect(onSwi.y, dxCoo.on) annotation (Line(
+      points={{-47.4,86},{-26,86},{-26,60},{-21,60}},
       color={255,0,255},
+      smooth=Smooth.None));
+  connect(onSwi.u, stage) annotation (Line(
+      points={{-61.2,86},{-92,86},{-92,80},{-110,80}},
+      color={255,127,0},
+      smooth=Smooth.None));
+  connect(stage, speSel.stage) annotation (Line(
+      points={{-110,80},{-92,80},{-92,66},{-80.6,66}},
+      color={255,127,0},
       smooth=Smooth.None));
   annotation (defaultComponentName="mulSpeDX", Documentation(info="<html>
 <p>
@@ -62,8 +60,8 @@ First implementation.
 
 </html>"),
     Icon(graphics={Text(
-          extent={{-160,96},{-102,78}},
-          lineColor={0,0,255},
-          textString="speRat")}),
+          extent={{-102,94},{-44,76}},
+          lineColor={0,0,127},
+          textString="stage")}),
     Diagram(graphics));
 end MultiSpeed;

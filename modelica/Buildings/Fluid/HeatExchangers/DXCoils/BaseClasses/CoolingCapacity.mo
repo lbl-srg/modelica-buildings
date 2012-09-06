@@ -77,6 +77,7 @@ protected
   Real heavUpLimit(min=0, max=1, nominal=0.8, start=0.8)
     "Heaviside function max value";
 algorithm
+  // fixme: deltaX must be scaled with nominal (or small) mass flow rate
   ff:=Buildings.Utilities.Math.Functions.smoothMax(
     x1=m_flow,
     x2=m_flow_small,

@@ -4,19 +4,19 @@ model VarSpeed "Variable speed DX Cooling Coil"
   parameter Real minSpeRat( min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
   Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
-    annotation (Placement(transformation(extent={{-120,60},{-100,80}}),
-        iconTransformation(extent={{-120,60},{-100,80}})));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}}),
+        iconTransformation(extent={{-120,70},{-100,90}})));
   Modelica.Blocks.Logical.Hysteresis deaBan(uLow=minSpeRat - speRatDeaBan/2,
       uHigh=minSpeRat + speRatDeaBan/2) "Speed ratio deadband"
     annotation (Placement(transformation(extent={{-72,80},{-60,92}})));
 equation
   connect(speRat, dxCoo.speRat) annotation (Line(
-      points={{-110,70},{-80,70},{-80,57.6},{-21,57.6}},
+      points={{-110,80},{-80,80},{-80,57.6},{-21,57.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(speRat, deaBan.u)
                          annotation (Line(
-      points={{-110,70},{-80,70},{-80,86},{-73.2,86}},
+      points={{-110,80},{-80,80},{-80,86},{-73.2,86}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(deaBan.y, dxCoo.on)
@@ -25,7 +25,7 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(deaBan.y, eva.on) annotation (Line(
-      points={{-59.4,86},{-32,86},{-32,-60},{-10,-60}},
+      points={{-59.4,86},{-32,86},{-32,-62},{-10,-62}},
       color={255,0,255},
       smooth=Smooth.None));
   annotation (defaultComponentName="mulSpeDX", Documentation(info="<html>
@@ -49,8 +49,8 @@ First implementation.
 
 </html>"),
     Icon(graphics={Text(
-          extent={{-162,96},{-104,78}},
-          lineColor={0,0,255},
+          extent={{-96,96},{-38,78}},
+          lineColor={0,0,127},
           textString="speRat")}),
     Diagram(graphics));
 end VarSpeed;

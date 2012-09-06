@@ -79,6 +79,7 @@ initial equation
           lineColor={0,0,255},
           textString="U*A/Cp")}), Documentation(info="<html>
 <p>
+fixme: fix math notation.
 This block calculates the <i>UA/Cp</i> value of the coil from the nominal inlet and outlet 
 air properties. The nominal conditions are calculated using 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition\">

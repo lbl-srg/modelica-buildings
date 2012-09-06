@@ -14,7 +14,6 @@ model ApparatusDryPoint "Test model for ApparatusDryPoint"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint appDryPt(
     redeclare package Medium = Medium,
-    nSpe=nSpe,
     datCoi=datCoi) "Dry point condition"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Ramp m_flow(

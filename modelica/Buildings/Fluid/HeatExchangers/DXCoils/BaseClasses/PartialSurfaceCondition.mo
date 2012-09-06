@@ -47,7 +47,7 @@ partial block PartialSurfaceCondition
     min=0,
     fixed=false) "UA/Cp of coil";
   output Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm spe
-    "rotational speed";
+    "Rotational speed. Fixme. Do not use rpm!!!";
   constant Real uACpLowSpe=0.000001 "Minimum Value for uACp";
 public
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSpe](final
@@ -61,6 +61,7 @@ equation
     x2=m_flow_small,
     deltaX=0.01*m_flow_small);
   spe=speRat*maxSpe;
+  // fixme: deltaX must be scaled with UACp
   uACp=Buildings.Utilities.Math.Functions.smoothMax(
      x1=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift(
        spe=spe,
@@ -74,6 +75,8 @@ equation
   //at coil apparatus dew/dry point can be calculated at current condition.
   //'delta_h' value is restricted below hIn to avoid the freezing condition (of wet coil) and
   // also to handle the zero (or extremely low) mass flow rate condition.
+
+  // fixme: deltaX must be scaled with hIn
   delta_h=Buildings.Utilities.Math.Functions.smoothMin(
     x1=-1*(Q_flow / m_flow_nonzero) / (1 - bypass),
     x2=0.999*hIn,

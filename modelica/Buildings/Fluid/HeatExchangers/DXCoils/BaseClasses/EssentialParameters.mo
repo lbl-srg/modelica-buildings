@@ -5,7 +5,8 @@ partial block EssentialParameters "A partial block for essential parameters"
      annotation (choicesAllMatching=true);
   parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData datCoi
     "Performance data";
-  parameter Integer nSpe "Number of standard compressor speeds";
+protected
+  parameter Integer nSpe=datCoi.nSpe "Number of standard compressor speeds";
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
 This partial block is a set of basic parameters required for most of the blocks and models of 

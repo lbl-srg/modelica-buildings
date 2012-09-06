@@ -6,18 +6,18 @@ model SingleSpeed "Single speed DX cooling coil"
     annotation (Placement(transformation(extent={{-72,60},{-60,72}})));
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
-    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
+    annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
 equation
   connect(speRat.y, dxCoo.speRat) annotation (Line(
       points={{-59.4,66},{-43.75,66},{-43.75,57.6},{-21,57.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(on, dxCoo.on) annotation (Line(
-      points={{-110,100},{-32,100},{-32,60},{-21,60}},
+      points={{-110,80},{-32,80},{-32,60},{-21,60}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(eva.on, on) annotation (Line(
-      points={{-10,-60},{-32,-60},{-32,100},{-110,100}},
+      points={{-10,-62},{-32,-62},{-32,80},{-110,80}},
       color={255,0,255},
       smooth=Smooth.None));
   annotation (defaultComponentName="sinSpeDX", Diagram(graphics), Documentation(info="<html>

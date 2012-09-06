@@ -10,7 +10,6 @@ model ApparatusDewPoint "Test model for ApparatusDewPoint"
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint
                                                               adp(
     redeclare package Medium = Medium,
-    nSpe=nSpe,
     datCoi=datCoi) "Calculates air properties at apparatus dew point condition"
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
   Modelica.Blocks.Sources.Ramp m_flow(
