@@ -3,7 +3,7 @@ stopTime=3600, method="dassl", resultFile="DXCooling");
 removePlots();
 createPlot(id = 1,
  position = {32, 15, 476, 768},
- y = {"TIn.y", "dxCoo.TCoilSurf"},
+ y = {"TIn.y", "dxCoo.TCoiSur"},
  range = {0.0, 4000.0, 310.0, 280.0},
  autoscale = true,
  autoerase = true,
