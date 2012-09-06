@@ -29,7 +29,7 @@ partial block PartialCoilInterface "A partial block for air property inputs"
      annotation (Placement(transformation(extent={{100,70},{120,90}})));
   Modelica.Blocks.Interfaces.RealOutput Q_flow(
     max=0,
-    unit="W") "Total cooling capacity at dry surface condition"
+    unit="W") "Total cooling capacity"
      annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
   Modelica.Blocks.Interfaces.RealOutput SHR(
