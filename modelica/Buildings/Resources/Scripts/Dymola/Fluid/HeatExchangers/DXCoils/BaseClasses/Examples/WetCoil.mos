@@ -3,7 +3,7 @@ stopTime=3600, method="dassl", resultFile="WetCoil");
 removePlots();
 createPlot(id = 1,
  position = {29, 7, 484, 723},
- y = {"wetCoi.Q_flow", "wetCoi.Q_flowLat"},
+ y = {"wetCoi.Q_flow"},
  range = {0.0, 4000.0, 5000.0, -20000.0},
  autoscale = true,
  autoerase = true,
