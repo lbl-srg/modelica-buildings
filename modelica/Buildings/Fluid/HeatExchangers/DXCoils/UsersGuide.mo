@@ -1,0 +1,48 @@
+within Buildings.Fluid.HeatExchangers.DXCoils;
+package UsersGuide "User's Guide"
+  extends Modelica.Icons.Info;
+  annotation (DocumentationClass=true, Documentation(info="<html>
+<p>
+This package contains models direct evaporation cooling coils 
+(DX coils).
+</p>
+<p>
+The following three DX coil models are available:
+</p>
+<p>
+  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <tr>
+      <th>DX coil model</th>
+      <th>Properties</th>
+      <th>Control signal</th>
+    </tr>
+    <tr>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</td>
+      <td>Single stage compressor with constant speed</td>
+      <td>Boolean signal</td>
+    </tr>
+    <tr>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.MultiSpeed</td>
+      <td>Multiple compressor stages, each with constant speed</td>
+      <td>Integer, 0 for off, 1 for first stage, 2 for second stage, etc.</td>
+    </tr>
+    <tr>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</td>
+      <td>Variable speed compressor with lower speed limit.
+          If the control signal is below the lower limit, the
+          coil switches off. It switches on if the control signal
+          is above the lower limit plus a hysteresis.</td>
+      <td>Real number between zero and one.</td>
+    </tr>
+  </table>
+</p>
+<h4>Coil performance</h4>
+<p>
+fixme
+</p>
+<h4>Evaporation of accumulated water vapor</h4>
+<p>
+fixme
+</p>
+</html>"));
+end UsersGuide;
