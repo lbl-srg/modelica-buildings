@@ -19,12 +19,12 @@ The following three DX coil models are available:
     <tr>
       <td>Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</td>
       <td>Single stage compressor with constant speed</td>
-      <td>Boolean signal</td>
+      <td>Boolean signal; <code>true</code> if coil is on.</td>
     </tr>
     <tr>
       <td>Buildings.Fluid.HeatExchangers.DXCoils.MultiSpeed</td>
       <td>Multiple compressor stages, each with constant speed</td>
-      <td>Integer, 0 for off, 1 for first stage, 2 for second stage, etc.</td>
+      <td>Integer; 0 for off, 1 for first stage, 2 for second stage, etc.</td>
     </tr>
     <tr>
       <td>Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</td>
@@ -32,7 +32,7 @@ The following three DX coil models are available:
           If the control signal is below the lower limit, the
           coil switches off. It switches on if the control signal
           is above the lower limit plus a hysteresis.</td>
-      <td>Real number between zero and one.</td>
+      <td>Real number; 0 for coil off, 1 for coil at full speed.</td>
     </tr>
   </table>
 </p>
@@ -41,6 +41,10 @@ The following three DX coil models are available:
 fixme
 </p>
 <h4>Evaporation of accumulated water vapor</h4>
+<p>
+fixme
+</p>
+<h4>Coil dynamics</h4>
 <p>
 fixme
 </p>
