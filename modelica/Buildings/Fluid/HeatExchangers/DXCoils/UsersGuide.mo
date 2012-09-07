@@ -17,14 +17,18 @@ The following three DX coil models are available:
       <th>Control signal</th>
     </tr>
     <tr>
+      <td>Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</td>
+      <td>Coil with multiple operating stages, each with constant speed.
+          Each stage has its own performance curve, which may represent
+          the coil performance at different compressor speed, or the
+          coil performance as it switches between cooling only, cooling
+          with hot gas reheat, or heating only.</td>
+      <td>Integer; 0 for off, 1 for first stage, 2 for second stage, etc.</td>
+    </tr>
+    <tr>
       <td>Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</td>
       <td>Single stage compressor with constant speed</td>
       <td>Boolean signal; <code>true</code> if coil is on.</td>
-    </tr>
-    <tr>
-      <td>Buildings.Fluid.HeatExchangers.DXCoils.MultiSpeed</td>
-      <td>Multiple compressor stages, each with constant speed</td>
-      <td>Integer; 0 for off, 1 for first stage, 2 for second stage, etc.</td>
     </tr>
     <tr>
       <td>Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</td>

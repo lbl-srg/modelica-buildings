@@ -183,8 +183,8 @@ equation
 This partial model provides initial calculations for  
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.MultiSpeed\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.MultiSpeed\</a> and
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.MultiStage\"> 
+Buildings.Fluid.HeatExchangers.DXCoils.MultiStage\</a> and
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a>.
 </p>

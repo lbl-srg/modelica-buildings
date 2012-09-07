@@ -28,7 +28,7 @@ equation
       points={{-59.4,86},{-32,86},{-32,-62},{-10,-62}},
       color={255,0,255},
       smooth=Smooth.None));
-  annotation (defaultComponentName="mulSpeDX", Documentation(info="<html>
+  annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
 <p>
 This DX cooling coil model can be used to simulate continuously variable speed compressors. 
 It uses speed ratio as the control signal and should be operated using 

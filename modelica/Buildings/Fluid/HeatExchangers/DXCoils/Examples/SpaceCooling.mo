@@ -116,7 +116,7 @@ model SpaceCooling "Space cooling with DX coils"
         Medium, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{66,-170},{78,-158}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.MultiSpeed mulSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.MultiStage mulStaDX(
     redeclare package Medium = Medium,
     dp_nominal=400,
     datCoi=datCoiMulSpe) "Multi-speed DX coil"
@@ -125,7 +125,7 @@ model SpaceCooling "Space cooling with DX coils"
     redeclare package Medium = Medium,
     nPorts=2,
     QRooInt_flow=QRooInt_flow,
-    mA_flow_nominal=mA_flow_nominal) "Room model connected to multi speed coil"
+    mA_flow_nominal=mA_flow_nominal) "Room model connected to multi stage coil"
                                      annotation (Placement(transformation(
           rotation=0, extent={{180,40},{200,60}})));
 
@@ -167,7 +167,7 @@ model SpaceCooling "Space cooling with DX coils"
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())})
     "Coil data"
     annotation (Placement(transformation(extent={{-2,-140},{18,-120}})));
-  ControllerTwoStage mulSpeCon "Controller for multi-speed coil"
+  ControllerTwoStage mulSpeCon "Controller for multi-stage coil"
                                annotation (Placement(transformation(rotation=0,
           extent={{-60,-136},{-40,-116}})));
   SimpleRoom rooVarSpe(
@@ -215,10 +215,10 @@ model SpaceCooling "Space cooling with DX coils"
     "Power consumed by single speed coil"
     annotation (Placement(transformation(extent={{40,-40},{60,-20}})));
   Modelica.Blocks.Continuous.Integrator mulSpePow(y(unit="J"))
-    "Power consumed by multi-speed coil"
+    "Power consumed by multi-stage coil"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Modelica.Blocks.Continuous.Integrator varSpePow(y(unit="J"))
-    "Power consumed by multi-speed coil"
+    "Power consumed by multi-stage coil"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
 equation
   connect(out.ports[1], hex.port_a1) annotation (Line(
@@ -387,17 +387,17 @@ equation
       points={{78,-164},{100,-164}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemHXOut1.port_b, mulSpeDX.port_a)
+  connect(senTemHXOut1.port_b, mulStaDX.port_a)
                                                annotation (Line(
       points={{-64,-164},{-2,-164}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(mulSpeDX.port_b, senTemSupAir1.port_a)
+  connect(mulStaDX.port_b, senTemSupAir1.port_a)
                                                 annotation (Line(
       points={{18,-164},{66,-164}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(mulSpeDX.TConIn, weaBus.TDryBul) annotation (Line(
+  connect(mulStaDX.TConIn, weaBus.TDryBul) annotation (Line(
       points={{-3,-161},{-62,-161},{-62,-150},{-128,-150},{-128,70}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -447,7 +447,7 @@ public
       use_pre_as_default=false,
       nu=2) annotation (Placement(transformation(extent={{82,-50},{122,-30}})));
     Modelica.Blocks.Interfaces.IntegerOutput stage
-      "Compressor stage control signal"
+      "Coil stage control signal"
       annotation (Placement(transformation(extent={{218,-50},{238,-30}})));
   equation
     connect(con1.reference, reference) annotation (Line(
@@ -504,7 +504,7 @@ equation
           200.933,52.3077}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mulSpeCon.stage, mulSpeDX.stage) annotation (Line(
+  connect(mulSpeCon.stage, mulStaDX.stage) annotation (Line(
       points={{-39.6,-125.333},{-20,-125.333},{-20,-156},{-3,-156}},
       color={255,127,0},
       smooth=Smooth.None));
@@ -596,7 +596,7 @@ equation
       points={{38,-30},{30,-30},{30,-55},{19,-55}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(mulSpePow.u, mulSpeDX.P) annotation (Line(
+  connect(mulSpePow.u, mulStaDX.P) annotation (Line(
       points={{38,-130},{30,-130},{30,-156},{19,-156},{19,-155}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -607,14 +607,14 @@ equation
   annotation (Documentation(info="<html>
 <p>
 This model illustrates the use of the DX coil models with 
-single speed compressor, multi-speed compressor, and variable
+single speed compressor, multi-stage compressor, and variable
 speed compressor.
 The three systems all have the same simple model for a room, 
 and the same HVAC components, except for the coil.
 The top system has a DX coil with single speed compressor
 and on/off control with dead-band.
-The middle system has a DX coil with two compressor stages and
-on/off control for each stage.
+The middle system has a DX coil with two stages, each
+representing a different compressor speed.
 The bottom system has a DX coil with variable speed control
 for the compressor.
 </p>

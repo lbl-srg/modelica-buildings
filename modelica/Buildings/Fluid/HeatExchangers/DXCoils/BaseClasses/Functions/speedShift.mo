@@ -15,7 +15,7 @@ protected
   Real modU[n];
 algorithm
 
-  if size(speSet, 1)>1 then //multi speed operation
+  if size(speSet, 1)>1 then //multi stage operation
     //y1d, y2d in cubic Hermite function
     modSpeSet:=cat(
       1,

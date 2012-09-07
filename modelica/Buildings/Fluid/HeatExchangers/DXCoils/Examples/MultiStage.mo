@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Examples;
-model MultiSpeed "Test model for multi speed DX coil"
+model MultiStage "Test model for multi stage DX coil"
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   extends Modelica.Icons.Example;
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.per[datCoi.nSpe].nomVal.m_flow_nominal
@@ -30,7 +30,7 @@ model MultiSpeed "Test model for multi speed DX coil"
     annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.MultiSpeed mulSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.MultiStage mulStaDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
@@ -108,12 +108,12 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(sou.ports[1], mulSpeDX.port_a)
+  connect(sou.ports[1], mulStaDX.port_a)
                                         annotation (Line(
       points={{-20,-10},{-16,-10},{-16,10},{-10,10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(mulSpeDX.port_b, sin.ports[1])
+  connect(mulStaDX.port_b, sin.ports[1])
                                         annotation (Line(
       points={{10,10},{14,10},{14,-10},{20,-10}},
       color={0,127,255},
@@ -122,7 +122,7 @@ equation
       points={{-79,-28},{-52,-28},{-52,-6},{-42,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.TDryBul, mulSpeDX.TConIn)
+  connect(weaBus.TDryBul, mulStaDX.TConIn)
                                           annotation (Line(
       points={{-68,50},{-34,50},{-34,13},{-11,13}},
       color={255,204,51},
@@ -135,13 +135,13 @@ equation
       points={{-79,10},{-62,10},{-62,-2},{-42,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(speRat.y, mulSpeDX.stage) annotation (Line(
+  connect(speRat.y, mulStaDX.stage) annotation (Line(
       points={{-39,70},{-18,70},{-18,18},{-11,18}},
       color={255,127,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {100,100}}),       graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/MultiSpeed.mos"
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/MultiStage.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
     experimentSetupOutput,
@@ -162,4 +162,4 @@ First implementation.
 </ul>
 
 </html>"));
-end MultiSpeed;
+end MultiStage;
