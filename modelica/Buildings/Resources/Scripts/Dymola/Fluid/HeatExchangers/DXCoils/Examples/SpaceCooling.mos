@@ -1,4 +1,4 @@
-simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling", startTime=1.58112e+07, stopTime=1.6416e+07, method="dassl", resultFile="SpaceCooling");
+simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.Examples.SpaceCooling", startTime=1.58112e+07, stopTime=1.6416e+07, method="radau", tolerance=1e-05, resultFile="SpaceCooling");
 createPlot(id = 1,
  position = {15, 10, 400, 565},
  y = {"rooSinSpe.vol.T", "rooMulSpe.vol.T", "rooVarSpe.vol.T", "weaDat.weaBus.TDryBul"},
