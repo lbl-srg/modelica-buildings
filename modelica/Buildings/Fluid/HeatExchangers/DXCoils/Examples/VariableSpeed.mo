@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Examples;
-model VarSpeed "Test model for variable speed DX coil"
+model VariableSpeed "Test model for variable speed DX coil"
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   extends Modelica.Icons.Example;
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.per[datCoi.nSpe].nomVal.m_flow_nominal
@@ -30,7 +30,7 @@ model VarSpeed "Test model for variable speed DX coil"
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.VarSpeed varSpeDX(
+  Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed varSpeDX(
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
@@ -138,7 +138,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/VarSpeed.mos"
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/VariableSpeed.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
     experimentSetupOutput,
@@ -147,7 +147,7 @@ equation
             Documentation(info="<html>
 <p>
 This is a test model for variable speed DX Cooling Coil: 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VarSpeed\"> Buildings.Fluid.HeatExchangers.DXCoils.VarSpeed</a> 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\"> Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a> 
 </p>
 </html>",
 revisions="<html>
@@ -159,4 +159,4 @@ First implementation.
 </ul>
 
 </html>"));
-end VarSpeed;
+end VariableSpeed;

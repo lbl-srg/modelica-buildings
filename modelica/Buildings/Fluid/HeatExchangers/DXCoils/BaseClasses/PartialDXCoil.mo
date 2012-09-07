@@ -185,8 +185,8 @@ This partial model provides initial calculations for
 Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.MultiSpeed\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.MultiSpeed\</a> and
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VarSpeed\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.VarSpeed</a>.
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\"> 
+Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a>.
 </p>
 <p>
 An air (or evaporative) cooled direct expansion (DX) cooling coil can be modeled using this block. 

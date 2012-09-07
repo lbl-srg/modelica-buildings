@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils;
-model VarSpeed "Variable speed DX Cooling Coil"
+model VariableSpeed "Variable speed DX cooling coil"
   extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil;
   parameter Real minSpeRat( min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
@@ -53,4 +53,4 @@ First implementation.
           lineColor={0,0,127},
           textString="speRat")}),
     Diagram(graphics));
-end VarSpeed;
+end VariableSpeed;
