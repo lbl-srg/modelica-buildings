@@ -36,7 +36,7 @@ model ApparatusDryPoint "Test model for ApparatusDryPoint"
     nSpe=4,
     per={
       Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=900,
+        spe=900/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=-12000,
@@ -46,7 +46,7 @@ model ApparatusDryPoint "Test model for ApparatusDryPoint"
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I()),
               Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=1200,
+        spe=1200/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=-18000,
@@ -56,7 +56,7 @@ model ApparatusDryPoint "Test model for ApparatusDryPoint"
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I()),
               Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=1800,
+        spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=-21000,
@@ -66,7 +66,7 @@ model ApparatusDryPoint "Test model for ApparatusDryPoint"
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_II()),
               Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=2400,
+        spe=2400/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=-30000,

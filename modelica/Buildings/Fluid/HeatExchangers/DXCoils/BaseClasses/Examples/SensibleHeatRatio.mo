@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model SensibleHeatRatio "Test model for SensibleHeatRatio"
  extends Modelica.Icons.Example;
- parameter Integer nSpe=4 "Number of standard compressor speeds";
  package Medium =
       Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   Modelica.Blocks.Sources.Constant p(

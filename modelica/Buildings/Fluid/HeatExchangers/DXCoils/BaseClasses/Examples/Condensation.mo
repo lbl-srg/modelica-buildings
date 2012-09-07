@@ -3,7 +3,6 @@ model Condensation "Test model for Condensation block"
  package Medium =
       Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
  extends Modelica.Icons.Example;
- parameter Integer nSpe=4 "Number of standard compressor speeds";
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation mWat(
       redeclare package Medium = Medium) "Calculates rate of condensation"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));

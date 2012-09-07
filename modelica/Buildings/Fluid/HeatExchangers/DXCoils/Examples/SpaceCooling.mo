@@ -132,7 +132,7 @@ model SpaceCooling "Space cooling with DX coils"
   Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData datCoi(
      per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=1800,
+        spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal,
@@ -146,7 +146,7 @@ model SpaceCooling "Space cooling with DX coils"
 
   Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData datCoiMulSpe(nSpe=2, per=
        {Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=900,
+        spe=900/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal*900/2400,
@@ -156,7 +156,7 @@ model SpaceCooling "Space cooling with DX coils"
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I()),
               Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=2400,
+        spe=2400/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal,
@@ -446,8 +446,7 @@ public
       y_default=0,
       use_pre_as_default=false,
       nu=2) annotation (Placement(transformation(extent={{82,-50},{122,-30}})));
-    Modelica.Blocks.Interfaces.IntegerOutput stage
-      "Coil stage control signal"
+    Modelica.Blocks.Interfaces.IntegerOutput stage "Coil stage control signal"
       annotation (Placement(transformation(extent={{218,-50},{238,-30}})));
   equation
     connect(con1.reference, reference) annotation (Line(

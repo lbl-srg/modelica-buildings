@@ -35,7 +35,7 @@ model SingleSpeedValidation
 
   Data.CoilData datCoi(nSpe=1, per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=1800,
+        spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=-10500,
@@ -227,7 +227,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on)         annotation (Line(
-      points={{-79,110},{-60,110},{-60,20},{-11,20}},
+      points={{-79,110},{-60,110},{-60,18},{-11,18}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(mux.y, sou.X_in)          annotation (Line(

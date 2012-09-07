@@ -44,7 +44,7 @@ model DXCooling "Test model for DXCooling"
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
   Data.CoilData datCoi(per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=900,
+        spe=900/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=-12000,
@@ -54,7 +54,7 @@ model DXCooling "Test model for DXCooling"
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I()),
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=1200,
+        spe=1200/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=-18000,
@@ -64,7 +64,7 @@ model DXCooling "Test model for DXCooling"
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I()),
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=1800,
+        spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=-21000,
@@ -74,7 +74,7 @@ model DXCooling "Test model for DXCooling"
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I()),
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=2400,
+        spe=2400/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=-30000,
@@ -82,8 +82,8 @@ model DXCooling "Test model for DXCooling"
           SHR_nominal=0.8,
           m_flow_nominal=1.8),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())}, nSpe
-      =4) "Coil data"
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())}, nSpe=
+       4) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation
   connect(TConIn.y, dxCoo.TConIn)  annotation (Line(

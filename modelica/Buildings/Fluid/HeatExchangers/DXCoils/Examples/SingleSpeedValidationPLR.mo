@@ -196,7 +196,7 @@ model SingleSpeedValidationPLR
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Data.CoilData datCoi(nSpe=1, per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=1800,
+        spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=-25237.66,
@@ -273,7 +273,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(onOff.y, sinSpeDX.on) annotation (Line(
-      points={{-99,110},{-54,110},{-54,20},{-11,20}},
+      points={{-99,110},{-54,110},{-54,18},{-11,18}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(TCIn.y, TCIn_K.Celsius) annotation (Line(

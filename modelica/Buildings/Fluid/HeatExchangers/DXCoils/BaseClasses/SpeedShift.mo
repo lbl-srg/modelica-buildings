@@ -3,7 +3,8 @@ block SpeedShift "Interpolates values beween two speeds"
   parameter Integer nSpe "Number of standard compressor speeds";
   parameter Modelica.SIunits.AngularVelocity maxSpe(displayUnit="1/min")= speSet[nSpe]
     "Maximum rotational speed";
-  parameter Real speSet[nSpe] "Array of standard compressor speeds";
+  parameter Modelica.SIunits.AngularVelocity speSet[nSpe](each displayUnit="1/min")
+    "Compressor speeds";
   Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
     annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
   Modelica.Blocks.Interfaces.RealInput u[nSpe] "Array to be interpolated"

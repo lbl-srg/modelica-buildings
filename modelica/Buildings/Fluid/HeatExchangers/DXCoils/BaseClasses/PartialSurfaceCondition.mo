@@ -4,6 +4,9 @@ partial block PartialSurfaceCondition
   extends Modelica.Blocks.Interfaces.BlockIcon;
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
+  // fixme: this model should have an boolean parameter that determines whether
+  // performance need to be interpolated between stages. For the multi-stage
+  // coil, no interpolation is needed
   parameter Modelica.SIunits.MassFlowRate m_flow_small = datCoi.m_flow_small
     "Small mass flow rate in case of no-flow condition";
   parameter Modelica.SIunits.AngularVelocity maxSpe(displayUnit="1/min")= datCoi.per[nSpe].spe

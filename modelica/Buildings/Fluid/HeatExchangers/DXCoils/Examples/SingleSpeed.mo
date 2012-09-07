@@ -56,7 +56,7 @@ model SingleSpeed "Test model for single speed DX coil"
   Data.CoilData datCoi(
     per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
-        spe=1800,
+        spe=1800/60,
         nomVal=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
           Q_flow_nominal=-21000,
