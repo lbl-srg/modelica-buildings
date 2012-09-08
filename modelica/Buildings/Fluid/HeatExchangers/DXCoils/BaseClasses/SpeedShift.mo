@@ -1,25 +1,29 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-block SpeedShift "Interpolates values beween two speeds"
+block SpeedShift "Interpolates values between speeds"
   parameter Integer nSpe "Number of standard compressor speeds";
-  parameter Modelica.SIunits.AngularVelocity maxSpe(displayUnit="1/min")= speSet[nSpe]
-    "Maximum rotational speed";
   parameter Modelica.SIunits.AngularVelocity speSet[nSpe](each displayUnit="1/min")
     "Compressor speeds";
+  constant Boolean variableSpeedCoil "Flag, set to true to interpolate data";
+
   Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
-    annotation (Placement(transformation(extent={{-140,30},{-100,70}})));
+    annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput u[nSpe] "Array to be interpolated"
-    annotation (Placement(transformation(extent={{-140,-70},{-100,-30}})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput y "Interpolated value"
-    annotation (Placement(transformation(extent={{100,-60},{120,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput spe(displayUnit="1/min")
-    "Rotational speed"
-    annotation (Placement(transformation(extent={{100,40},{120,60}})));
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.IntegerInput stage
+    "Stage of coil, or 0/1 for variable-speed coil"
+    annotation (Placement(transformation(extent={{-140,70},{-100,110}}),
+        iconTransformation(extent={{-140,60},{-100,100}})));
 equation
-  spe=speRat*maxSpe;
-  y=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift(
-    spe=spe,
-    speSet=speSet,
-    u=u);
+  if variableSpeedCoil then
+    y=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift(
+      spe=speRat*speSet[nSpe],
+      speSet=speSet,
+      u=u);
+  else
+    y = if stage == 0 then 0  else u[stage];
+  end if;
   annotation (defaultComponentName="speSh",
   Documentation(info="<html>
 <p>
@@ -104,5 +108,6 @@ First implementation.
         Line(
           points={{54,42},{46,34}},
           color={0,0,0},
-          smooth=Smooth.None)}));
+          smooth=Smooth.None)}),
+    Diagram(graphics));
 end SpeedShift;

@@ -8,12 +8,13 @@ model WetCoil "Test model for WetCoil"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil wetCoi(
     redeclare package Medium = Medium,
-    datCoi=datCoi) "Performs calculation for wet coil condition"
+    datCoi=datCoi,
+    variableSpeedCoil=true) "Performs calculation for wet coil condition"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Modelica.Blocks.Sources.Constant TConIn(
     k=273.15 + 35) "Condenser inlet air temperature"
     annotation (Placement(transformation(extent={{-80,44},{-60,64}})));
-  Modelica.Blocks.Sources.BooleanStep onOff(
+  Modelica.Blocks.Sources.IntegerStep onOff(
     startTime=600) "Compressor on-off signal"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.Ramp m_flow(
@@ -94,10 +95,6 @@ equation
       points={{-59,54},{-44,54},{-44,15},{19,15}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(onOff.y, wetCoi.on)  annotation (Line(
-      points={{1,50},{8,50},{8,20},{19,20}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(m_flow.y, wetCoi.m_flow)  annotation (Line(
       points={{-59,20},{-50,20},{-50,12.4},{19,12.4}},
       color={0,0,127},
@@ -117,6 +114,10 @@ equation
   connect(speRat.y, wetCoi.speRat)     annotation (Line(
       points={{-59,84},{-38,84},{-38,17.6},{19,17.6}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(onOff.y, wetCoi.stage) annotation (Line(
+      points={{1,50},{10,50},{10,20},{19,20}},
+      color={255,127,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/WetCoil.mos"
         "Simulate and plot"),

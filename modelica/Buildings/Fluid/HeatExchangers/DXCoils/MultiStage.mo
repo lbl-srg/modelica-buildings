@@ -1,6 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils;
 model MultiStage "Multi-stage DX cooling coil"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil;
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
+      dxCoo(final variableSpeedCoil=false));
 
   Modelica.Blocks.Interfaces.IntegerInput stage
     "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)"
@@ -10,18 +11,14 @@ model MultiStage "Multi-stage DX cooling coil"
     annotation (Placement(transformation(extent={{-80,60},{-68,72}})));
   Modelica.Blocks.Math.IntegerToBoolean onSwi(final threshold=1)
     "On/off switch"
-    annotation (Placement(transformation(extent={{-60,80},{-48,92}})));
+    annotation (Placement(transformation(extent={{-56,-68},{-44,-56}})));
 equation
   connect(onSwi.y, eva.on) annotation (Line(
-      points={{-47.4,86},{-26,86},{-26,-62},{-10,-62}},
-      color={255,0,255},
-      smooth=Smooth.None));
-  connect(onSwi.y, dxCoo.on) annotation (Line(
-      points={{-47.4,86},{-26,86},{-26,60},{-21,60}},
+      points={{-43.4,-62},{-10,-62}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(onSwi.u, stage) annotation (Line(
-      points={{-61.2,86},{-92,86},{-92,80},{-110,80}},
+      points={{-57.2,-62},{-92,-62},{-92,80},{-110,80}},
       color={255,127,0},
       smooth=Smooth.None));
   connect(stage, speSel.stage) annotation (Line(
@@ -31,6 +28,10 @@ equation
   connect(speSel.speRat, dxCoo.speRat) annotation (Line(
       points={{-67.4,66},{-40,66},{-40,57.6},{-21,57.6}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(stage, dxCoo.stage) annotation (Line(
+      points={{-110,80},{-30,80},{-30,60},{-21,60}},
+      color={255,127,0},
       smooth=Smooth.None));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
 <p>

@@ -11,9 +11,10 @@ extends Modelica.Icons.Example;
     annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil dryCoi(
     redeclare package Medium = Medium,
-    datCoi=datCoi) "Performs calculation for dry coil condition"
+    datCoi=datCoi,
+    variableSpeedCoil=true) "Performs calculation for dry coil condition"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Modelica.Blocks.Sources.BooleanStep onOff(
+  Modelica.Blocks.Sources.IntegerStep onOff(
     startTime=1200) "Compressor on-off signal"
     annotation (Placement(transformation(extent={{-20,20},{0,40}})));
   Modelica.Blocks.Sources.Ramp m_flow(
@@ -94,10 +95,6 @@ equation
       points={{-59,-50},{-42,-50},{-42,-2.4},{19,-2.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(onOff.y, dryCoi.on)  annotation (Line(
-      points={{1,30},{12,30},{12,10},{19,10}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(m_flow.y, dryCoi.m_flow)  annotation (Line(
       points={{-59,22},{-48,22},{-48,2.4},{19,2.4}},
       color={0,0,127},
@@ -117,6 +114,10 @@ equation
   connect(speRat.y, dryCoi.speRat)     annotation (Line(
       points={{-59,86},{-36,86},{-36,7.6},{19,7.6}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(onOff.y, dryCoi.stage) annotation (Line(
+      points={{1,30},{10,30},{10,10},{19,10}},
+      color={255,127,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/DryCoil.mos"
         "Simulate and plot"),

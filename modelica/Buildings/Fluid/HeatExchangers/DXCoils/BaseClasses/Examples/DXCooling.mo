@@ -11,9 +11,10 @@ model DXCooling "Test model for DXCooling"
     annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling dxCoo(
     redeclare package Medium = Medium,
-    datCoi=datCoi)
+    datCoi=datCoi,
+    variableSpeedCoil=true)
     annotation (Placement(transformation(extent={{0,0},{20,20}})));
-  Modelica.Blocks.Sources.BooleanStep onOff(
+  Modelica.Blocks.Sources.IntegerStep onOff(
     startTime=600) "Compressor on-off signal"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Ramp m_flow(
@@ -94,10 +95,6 @@ equation
       points={{-59,-46},{-48,-46},{-48,7.6},{-1,7.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(onOff.y, dxCoo.on)  annotation (Line(
-      points={{-19,50},{-12,50},{-12,20},{-1,20}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(m_flow.y, dxCoo.m_flow)  annotation (Line(
       points={{-59,18},{-52,18},{-52,12.4},{-1,12.4}},
       color={0,0,127},
@@ -117,6 +114,10 @@ equation
   connect(speRat.y, dxCoo.speRat)     annotation (Line(
       points={{-59,84},{-44,84},{-44,17.6},{-1,17.6}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(onOff.y, dxCoo.stage) annotation (Line(
+      points={{-19,50},{-10,50},{-10,20},{-1,20}},
+      color={255,127,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/DXCooling.mos"
         "Simulate and plot"),

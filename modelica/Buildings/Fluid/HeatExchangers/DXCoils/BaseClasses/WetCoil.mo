@@ -24,6 +24,10 @@ public
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation conRat(
       redeclare package Medium = Medium) "Calculates rate of condensation"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
+protected
+  Modelica.Blocks.Math.IntegerToBoolean onSwi(final threshold=1)
+    "On/off switch"
+    annotation (Placement(transformation(extent={{-20,0},{-8,12}})));
 equation
 
   connect(appDewPt.TADP, TADP)
@@ -59,10 +63,6 @@ equation
   connect(speRat, appDewPt.speRat) annotation (Line(
       points={{-110,76},{-74,76},{-74,-43},{-21,-43}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(on, shr.on) annotation (Line(
-      points={{-110,100},{-64,100},{-64,5.55112e-16},{19,5.55112e-16}},
-      color={255,0,255},
       smooth=Smooth.None));
   connect(appDewPt.XADP, shr.XADP) annotation (Line(
       points={{1,-45},{6,-45},{6,-14},{19,-14}},
@@ -109,12 +109,20 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(speShiQ_flow.y, conRat.Q_flow) annotation (Line(
-      points={{34.7,43.5},{40,43.5},{40,40},{54,40},{54,-74},{59,-74}},
+      points={{46.7,51},{40,51},{40,40},{54,40},{54,-74},{59,-74}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(speShiQ_flow.y, appDewPt.Q_flow) annotation (Line(
-      points={{34.7,43.5},{40,43.5},{40,12},{-40,12},{-40,-46.1},{-21,-46.1}},
+      points={{46.7,51},{40,51},{40,16},{-40,16},{-40,-46.1},{-21,-46.1}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(onSwi.y, shr.on) annotation (Line(
+      points={{-7.4,6},{6,6},{6,5.55112e-16},{19,5.55112e-16}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(onSwi.u, stage) annotation (Line(
+      points={{-21.2,6},{-68,6},{-68,100},{-110,100}},
+      color={255,127,0},
       smooth=Smooth.None));
   annotation (defaultComponentName="wetCoi", Diagram(graphics), Documentation(info="<html>
 <p>

@@ -13,10 +13,10 @@ model DryCoil "Calculates dry coil condition"
     datCoi=datCoi) "Calculates air properties at dry coil condition"
     annotation (Placement(transformation(extent={{60,-50},{80,-30}})));
   Modelica.Blocks.Sources.Constant shrDry(
-    k=1) "Dry condition sensible heat ratio"
+    final k=1) "Dry condition sensible heat ratio"
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Sources.Constant noFlo(
-    k=0) "No condensation"
+    final k=0) "No condensation"
     annotation (Placement(transformation(extent={{60,-90},{80,-70}})));
 equation
   connect(appDryPt.TDry, TDry) annotation (Line(
@@ -58,7 +58,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(speShiQ_flow.y, appDryPt.Q_flow) annotation (Line(
-      points={{34.7,43.5},{40,43.5},{40,-36.1},{59,-36.1}},
+      points={{46.7,51},{52,51},{52,-36.1},{59,-36.1}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (defaultComponentName="dryCoi", Diagram(graphics), Documentation(info="<html>

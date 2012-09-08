@@ -2,6 +2,9 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 model DXCooling "DX cooling coil operation "
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface;
+  constant Boolean variableSpeedCoil
+    "Flag, set to true for coil with variable speed";
+
   Modelica.Blocks.Interfaces.RealOutput TCoiSur(
     quantity="Temperature",
     unit="K",
@@ -9,30 +12,33 @@ model DXCooling "DX cooling coil operation "
     max=400) "Coil surface temperature"
           annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
   WetCoil wetCoi(
-    redeclare package Medium = Medium,
-    datCoi=datCoi) "Wet coil condition"
+    redeclare final package Medium = Medium,
+    final variableSpeedCoil = variableSpeedCoil,
+    final datCoi=datCoi) "Wet coil condition"
     annotation (Placement(transformation(extent={{-50,40},{-30,60}})));
   DryCoil dryCoi(
-    redeclare package Medium = Medium,
-    datCoi=datCoi) "Dry coil condition"
+    redeclare final package Medium = Medium,
+    final variableSpeedCoil = variableSpeedCoil,
+    final datCoi=datCoi) "Dry coil condition"
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
   Modelica.Blocks.Routing.Multiplex5 mux1
     annotation (Placement(transformation(extent={{-10,40},{10,60}})));
   Modelica.Blocks.Routing.Multiplex5 mux2
     annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
+  // fixme: deltax must be scaled
   Buildings.Utilities.Math.Splice spl[5](
     each deltax=0.0001)
     annotation (Placement(transformation(extent={{30,-10},{50,10}})));
   Modelica.Blocks.Routing.DeMultiplex5 deMux
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
   Modelica.Blocks.Routing.Replicator rep(
-    nout=5) "Replicator"
+    final nout=5) "Replicator"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor dryWetPre
     "Predicts coil condition (1=wet; -1=dry)"
     annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
   Modelica.Blocks.Sources.RealExpression XADP(
-    y=wetCoi.appDewPt.XADP) "Mass fraction at ADP"
+    final y=wetCoi.appDewPt.XADP) "Mass fraction at ADP"
     annotation (Placement(transformation(extent={{-50,-36},{-30,-16}})));
 equation
 
@@ -76,10 +82,6 @@ equation
       points={{-110,-77},{-56,-77},{-56,-57.7},{-51,-57.7}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(on, dryCoi.on)  annotation (Line(
-      points={{-110,100},{-84,100},{-84,-40},{-51,-40}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(p, dryCoi.p)  annotation (Line(
       points={{-110,-24},{-64,-24},{-64,-52.4},{-51,-52.4}},
       color={0,0,127},
@@ -87,10 +89,6 @@ equation
   connect(XIn, dryCoi.XIn)  annotation (Line(
       points={{-110,-50},{-60,-50},{-60,-55},{-51,-55}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(on, wetCoi.on)  annotation (Line(
-      points={{-110,100},{-84,100},{-84,60},{-51,60}},
-      color={255,0,255},
       smooth=Smooth.None));
   connect(speRat, wetCoi.speRat)  annotation (Line(
       points={{-110,76},{-80,76},{-80,57.6},{-51,57.6}},
@@ -196,6 +194,14 @@ equation
   connect(XADP.y, dryWetPre.XADP) annotation (Line(
       points={{-29,-26},{-20,-26},{-20,-14},{-50,-14},{-50,-5},{-41,-5}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(stage, dryCoi.stage) annotation (Line(
+      points={{-110,100},{-54,100},{-54,-40},{-51,-40}},
+      color={255,127,0},
+      smooth=Smooth.None));
+  connect(stage, wetCoi.stage) annotation (Line(
+      points={{-110,100},{-54,100},{-54,60},{-51,60}},
+      color={255,127,0},
       smooth=Smooth.None));
   annotation (defaultComponentName="dxCoo", Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}),

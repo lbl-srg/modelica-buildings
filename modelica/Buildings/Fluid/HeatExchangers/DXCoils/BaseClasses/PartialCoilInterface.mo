@@ -3,8 +3,8 @@ partial block PartialCoilInterface "A partial block for air property inputs"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
-  Modelica.Blocks.Interfaces.BooleanInput on
-    "Set to true to enable compressor, or false to disable compressor"
+  Modelica.Blocks.Interfaces.IntegerInput stage
+    "Stage of coil, or 0/1 for variable-speed coil"
     annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
     annotation (Placement(transformation(extent={{-120,66},{-100,86}})));

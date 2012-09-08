@@ -3,9 +3,6 @@ block CoolingCapacity
   "Calculates cooling capacity at given temperature and flow fraction"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   //Performance curve variables
-  Modelica.Blocks.Interfaces.BooleanInput on
-    "Set to true to enable compressor, or false to disable compressor"
-    annotation (Placement(transformation(extent={{-120,90},{-100,110}})));
   Modelica.Blocks.Interfaces.RealInput TConIn(
     quantity="Temperature",
     unit="K",
@@ -23,7 +20,7 @@ block CoolingCapacity
     (Wet bulb for wet coil and drybulb for dry coil)"
     annotation (Placement(transformation(extent={{-120,-58},{-100,-38}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_small
-    "Small mass flow rate in case of no-flow condition";
+    "Small mass flow rate for regularization";
   parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic per
     "Performance data";
   parameter Real capFunT[:]=per.perCur.capFunT
@@ -36,7 +33,7 @@ block CoolingCapacity
     max=0)=per.nomVal.Q_flow_nominal
     "Nominal/rated total cooling capacity (negative number)"
     annotation (Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal= per.nomVal.m_flow_nominal
+  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal= per.nomVal.m_flow_nominal
     "Nominal/rated air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
   parameter Real EIRFunT[:]=per.perCur.EIRFunT
@@ -76,13 +73,18 @@ protected
     "Smooth Heaviside function value";
   Real heavUpLimit(min=0, max=1, nominal=0.8, start=0.8)
     "Heaviside function max value";
+public
+  Modelica.Blocks.Interfaces.IntegerInput stage
+    "Stage of coil, or 0/1 for variable-speed coil"
+    annotation (Placement(transformation(extent={{-124,88},{-100,112}}),
+        iconTransformation(extent={{-120,90},{-100,110}})));
 algorithm
   // fixme: deltaX must be scaled with nominal (or small) mass flow rate
   ff:=Buildings.Utilities.Math.Functions.smoothMax(
     x1=m_flow,
     x2=m_flow_small,
     deltaX=0.01)/m_flow_nominal;
-  if on then
+  if stage > 0 then
   //-------------------------Cooling capacity modifiers----------------------------//
     // Compute the DX coil capacity fractions, using a biquadratic curve.
     // Since the regression for capacity can have negative values
@@ -141,8 +143,8 @@ algorithm
   EIR :=EIR_T*EIR_FF/COP_nominal;
    annotation (
     defaultComponentName="cooCap",
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics={
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
+                    graphics={
         Text(
           extent={{-100,100},{100,-100}},
           lineColor={0,0,255},

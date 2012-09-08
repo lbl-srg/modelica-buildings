@@ -20,7 +20,7 @@ model CoolingCapacity "Test model for CoolingCapacity"
     offset={273.15 + 19.4,273.15 + 9.4,273.15 + 19.4})
     "Air wet bulb temperature entring the coil"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Modelica.Blocks.Sources.BooleanStep onOff[3](
+  Modelica.Blocks.Sources.IntegerStep onOff[3](
     each startTime=600) "Compressor on-off signal"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
   Modelica.Blocks.Sources.Ramp TConIn[3](
@@ -43,10 +43,6 @@ model CoolingCapacity "Test model for CoolingCapacity"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
 equation
-  connect(onOff.y, cooCap.on) annotation (Line(
-      points={{-59,60},{-40,60},{-40,10},{-21,10}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(TConIn.y, cooCap.TConIn) annotation (Line(
       points={{-59,20},{-46,20},{-46,4.8},{-21,4.8}},
       color={0,0,127},
@@ -58,6 +54,10 @@ equation
   connect(TWetBulIn.y, cooCap.TIn) annotation (Line(
       points={{-59,-60},{-40,-60},{-40,-4.8},{-21,-4.8}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(onOff.y, cooCap.stage) annotation (Line(
+      points={{-59,60},{-32,60},{-32,10},{-21,10}},
+      color={255,127,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/CoolingCapacity.mos"
         "Simulate and plot"),

@@ -1,14 +1,21 @@
 within Buildings.Fluid.HeatExchangers.DXCoils;
 model VariableSpeed "Variable speed DX cooling coil"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil;
+  extends Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil(
+  dxCoo(final variableSpeedCoil=true));
   parameter Real minSpeRat( min=0,max=1) "Minimum speed ratio";
   parameter Real speRatDeaBan= 0.05 "Deadband for minimum speed ratio";
   Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  Modelica.Blocks.Logical.Hysteresis deaBan(uLow=minSpeRat - speRatDeaBan/2,
-      uHigh=minSpeRat + speRatDeaBan/2) "Speed ratio deadband"
+protected
+  Modelica.Blocks.Logical.Hysteresis deaBan(
+     uLow=minSpeRat - speRatDeaBan/2,
+     uHigh=minSpeRat + speRatDeaBan/2) "Speed ratio deadband"
     annotation (Placement(transformation(extent={{-72,80},{-60,92}})));
+  Modelica.Blocks.Math.BooleanToInteger onSwi(
+    final integerTrue=1,
+    final integerFalse=0) "On/off switch"
+    annotation (Placement(transformation(extent={{-52,80},{-40,92}})));
 equation
   connect(speRat, dxCoo.speRat) annotation (Line(
       points={{-110,80},{-80,80},{-80,57.6},{-21,57.6}},
@@ -19,13 +26,16 @@ equation
       points={{-110,80},{-80,80},{-80,86},{-73.2,86}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(deaBan.y, dxCoo.on)
-                           annotation (Line(
-      points={{-59.4,86},{-32,86},{-32,60},{-21,60}},
+  connect(deaBan.y, eva.on) annotation (Line(
+      points={{-59.4,86},{-56,86},{-56,66},{-92,66},{-92,-62},{-10,-62}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(deaBan.y, eva.on) annotation (Line(
-      points={{-59.4,86},{-32,86},{-32,-62},{-10,-62}},
+  connect(onSwi.y, dxCoo.stage) annotation (Line(
+      points={{-39.4,86},{-30,86},{-30,60},{-21,60}},
+      color={255,127,0},
+      smooth=Smooth.None));
+  connect(deaBan.y, onSwi.u) annotation (Line(
+      points={{-59.4,86},{-53.2,86}},
       color={255,0,255},
       smooth=Smooth.None));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>

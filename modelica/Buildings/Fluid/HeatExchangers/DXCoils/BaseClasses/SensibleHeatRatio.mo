@@ -41,14 +41,13 @@ protected
     "Small value for enthalpy to avoid division by zero";
 equation
 //===================================Sensible heat ratio calculation===========================================//
-//Calculate enthalpy at inlet air temperature and absolute humidity at ADP i.e. h_TIn_wADP
-  h_TIn_XADP = Medium.h_pTX(
-    p=p,
-    T=TIn,
-    X={XADP, 1-(XADP)});
   //Coil on-off condition
   if on then
-
+   //Calculate enthalpy at inlet air temperature and absolute humidity at ADP i.e. h_TIn_wADP
+    h_TIn_XADP = Medium.h_pTX(
+      p=p,
+      T=TIn,
+      X={XADP, 1-(XADP)});
     del_hSen=h_TIn_XADP - hADP;
     del_hTot=hIn - hADP;
     //Calculate Sensible Heat Ratio
@@ -63,7 +62,7 @@ equation
       deltaX=0.01)
       "To restrict the value of SHR in case of zero mass flow rate or dry coil condition";
   else  //Coil off
-
+    h_TIn_XADP = 0;
     del_hSen=0;
     del_hTot=0;
     entRat=1;
@@ -88,5 +87,6 @@ First implementation.
           lineColor={0,0,255},
           fillColor={0,0,255},
           fillPattern=FillPattern.Solid,
-          textString="Qs/Q")}));
+          textString="Qs/Q")}),
+    Diagram(graphics));
 end SensibleHeatRatio;
