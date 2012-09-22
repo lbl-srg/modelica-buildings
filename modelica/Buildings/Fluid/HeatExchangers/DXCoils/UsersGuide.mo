@@ -47,7 +47,10 @@ The following three DX coil models are available:
 </p>
 <h4>Coil performance</h4>
 <p>
-fixme
+See
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity</a>.
+Fixme.
 </p>
 <h4>Evaporation of accumulated water vapor</h4>
 <p>

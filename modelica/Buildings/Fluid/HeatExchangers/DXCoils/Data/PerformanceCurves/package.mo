@@ -2,9 +2,6 @@ within Buildings.Fluid.HeatExchangers.DXCoils.Data;
 package PerformanceCurves "Package with sevral performance curves"
 
 
-
-
-
   annotation (Documentation(info="<html>
 This package contains default performance curves for cooling capacity and EIR 
 of DX cooling coil. Using default coefficents for coils (when coefficient 

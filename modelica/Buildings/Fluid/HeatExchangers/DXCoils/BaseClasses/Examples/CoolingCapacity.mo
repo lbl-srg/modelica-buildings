@@ -2,32 +2,31 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model CoolingCapacity "Test model for CoolingCapacity"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity cooCap[3](
-    each per=per,
-    each m_flow_small=0.00015) "Cooling capacity calculation"
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity cooCap(
+    per={per},
+    m_flow_small=0.0001*per.nomVal.m_flow_nominal,
+    nSta=1) "Cooling capacity calculation"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
-  Modelica.Blocks.Sources.Ramp m_flow[3](
-    height={per.nomVal.m_flow_nominal,0,0},
-    each duration=2400,
-    each startTime=600,
-    offset={0,per.nomVal.m_flow_nominal,per.nomVal.m_flow_nominal})
-    "Mass flow rate of air"
+  Modelica.Blocks.Sources.Ramp m_flow(
+    duration=2400,
+    startTime=600,
+    height=per.nomVal.m_flow_nominal,
+    offset=0) "Mass flow rate of air"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
-  Modelica.Blocks.Sources.Ramp TWetBulIn[3](
-    each duration=2400,
-    each startTime=600,
-    height={0,10,0},
-    offset={273.15 + 19.4,273.15 + 9.4,273.15 + 19.4})
-    "Air wet bulb temperature entring the coil"
+  Modelica.Blocks.Sources.Ramp TWetBulIn(
+    duration=2400,
+    startTime=600,
+    height=10,
+    offset=273.15 + 19.4) "Air wet bulb temperature entring the coil"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Modelica.Blocks.Sources.IntegerStep onOff[3](
-    each startTime=600) "Compressor on-off signal"
+  Modelica.Blocks.Sources.IntegerStep onOff(startTime=600)
+    "Compressor on-off signal"
     annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-  Modelica.Blocks.Sources.Ramp TConIn[3](
-    each duration=2400,
-    height={0,0,5},
-    each startTime=600,
-    offset={273.15 + 35,273.15 + 35,273.15 + 30})
+  Modelica.Blocks.Sources.Ramp TConIn(
+    duration=2400,
+    startTime=600,
+    height=5,
+    offset=273.15 + 30)
     "Condenser inlet temperature (Outside drybulb temperature)"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
   Data.BaseClasses.Generic per(
@@ -36,10 +35,9 @@ model CoolingCapacity "Test model for CoolingCapacity"
       COP_nominal=3,
       SHR_nominal=0.8,
       m_flow_nominal=1.5),
-    spe=188.49555921539,
     perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())
-    "Performance data"
+        Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III(),
+    spe=188.49555921539) "Performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
 equation

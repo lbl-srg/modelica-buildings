@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Data;
 record CoilData "Performance record for DX Cooling Coil"
   extends Modelica.Icons.Record;
-  parameter Integer nSpe(min=1) "Number of standard compressor speeds"
+  parameter Integer nSpe(min=1) "Number of stages"
     annotation (Evaluate = true,
                 Dialog(enable = not sinSpeOpe));
   parameter Real minSpeRat( min=0,max=1)=0.2
@@ -13,7 +13,8 @@ record CoilData "Performance record for DX Cooling Coil"
     annotation(Evaluate=true, HideResult=true);
 
   //performance data should be available for 'nSpe' speeds
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic per[nSpe]
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic
+    per[nSpe] "Data record for coil performance"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_small = 0.0001*per[1].nomVal.m_flow_nominal
     "Small mass flow rate for regularization near zero flow"

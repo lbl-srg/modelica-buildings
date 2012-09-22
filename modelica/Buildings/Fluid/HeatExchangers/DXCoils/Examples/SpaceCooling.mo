@@ -73,12 +73,12 @@ model SpaceCooling "Space cooling with DX coils"
         Medium, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for supply air"
     annotation (Placement(transformation(extent={{66,-70},{78,-58}})));
-  Modelica.Blocks.Logical.OnOffController con(bandwidth=1)
+  Modelica.Blocks.Logical.OnOffController con(bandwidth=1, pre_y_start=true)
     "Controller for coil water flow rate"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
+    annotation (Placement(transformation(extent={{-72,2},{-52,22}})));
   Modelica.Blocks.Sources.Constant TRooSetPoi(k=TRooSet)
     "Room temperature set point"
-    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
+    annotation (Placement(transformation(extent={{-120,8},{-100,28}})));
   Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed sinSpeDX(
     redeclare package Medium = Medium,
     datCoi=datCoi,
@@ -142,7 +142,7 @@ model SpaceCooling "Space cooling with DX coils"
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I())},
           nSpe=1)
-    annotation (Placement(transformation(extent={{-2,-40},{18,-20}})));
+    annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
   Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData datCoiMulSpe(nSpe=2, per=
        {Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
@@ -166,10 +166,10 @@ model SpaceCooling "Space cooling with DX coils"
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())})
     "Coil data"
-    annotation (Placement(transformation(extent={{-2,-140},{18,-120}})));
+    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   ControllerTwoStage mulSpeCon "Controller for multi-stage coil"
                                annotation (Placement(transformation(rotation=0,
-          extent={{-60,-136},{-40,-116}})));
+          extent={{-60,-140},{-40,-120}})));
   SimpleRoom rooVarSpe(
     redeclare package Medium = Medium,
     nPorts=2,
@@ -220,6 +220,8 @@ model SpaceCooling "Space cooling with DX coils"
   Modelica.Blocks.Continuous.Integrator varSpePow(y(unit="J"))
     "Power consumed by multi-stage coil"
     annotation (Placement(transformation(extent={{40,-220},{60,-200}})));
+  Modelica.Blocks.Logical.Not not1
+    annotation (Placement(transformation(extent={{-38,2},{-18,22}})));
 equation
   connect(out.ports[1], hex.port_a1) annotation (Line(
       points={{-154,-62.6667},{-125,-62.6667},{-125,-64},{-110,-64}},
@@ -231,8 +233,8 @@ equation
       smooth=Smooth.None));
 
   connect(weaDat.weaBus, out.weaBus) annotation (Line(
-      points={{-140,70},{-128,70},{-128,-40},{-180,-40},{-180,-66},{-170,-66},{
-          -170,-65.8},{-174,-65.8}},
+      points={{-140,70},{-128,70},{-128,-40},{-180,-40},{-180,-66},{-174,-66},{-174,
+          -66},{-174,-66},{-174,-66},{-174,-65.8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
@@ -348,10 +350,6 @@ public
   end SimpleRoom;
 equation
 
-  connect(con.y, sinSpeDX.on) annotation (Line(
-      points={{-59,10},{-50,10},{-50,-56},{-3,-56}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(sinSpeDX.TConIn, weaBus.TDryBul) annotation (Line(
       points={{-3,-61},{-56,-61},{-56,-50},{-128,-50},{-128,70}},
       color={0,0,127},
@@ -366,15 +364,6 @@ equation
       points={{133.517,40.1154},{134,-20},{134,-80},{-20,-80},{-20,-76},{-90,
           -76}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(TRooSetPoi.y, con.u) annotation (Line(
-      points={{-99,10},{-86,10},{-86,4},{-82,4}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(con.reference, rooSinSpe.TRoo) annotation (Line(
-      points={{-82,16},{-88,16},{-88,30},{150,30},{150,52.3077},{140.933,
-          52.3077}},
-      color={0,0,127},
       smooth=Smooth.None));
 
   connect(hex1.port_b1, senTemHXOut1.port_a)
@@ -415,19 +404,15 @@ equation
       points={{179.067,52.3077},{164,52.3077},{164,70},{-128,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TRooSetPoi.y, mulSpeCon.u) annotation (Line(
-      points={{-99,10},{-86,10},{-86,-130.633},{-60.65,-130.633}},
-      color={0,0,127},
-      smooth=Smooth.None));
 public
   model ControllerTwoStage "Controller for two stage coil"
     parameter Real bandwidth=1 "Bandwidth around reference signal";
-
-    Modelica.Blocks.Logical.OnOffController con1(bandwidth=bandwidth/2)
-      "Controller for coil water flow rate"
+    extends Buildings.BaseClasses.BaseIcon;
+    Modelica.Blocks.Logical.OnOffController con1(bandwidth=bandwidth/2,
+        pre_y_start=true) "Controller for coil water flow rate"
       annotation (Placement(transformation(extent={{-20,-120},{0,-100}})));
-    Modelica.Blocks.Logical.OnOffController con2(bandwidth=bandwidth/2)
-      "Controller for coil water flow rate"
+    Modelica.Blocks.Logical.OnOffController con2(bandwidth=bandwidth/2,
+        pre_y_start=true) "Controller for coil water flow rate"
       annotation (Placement(transformation(extent={{-20,-150},{0,-130}})));
     Modelica.Blocks.Interfaces.RealInput u annotation (Placement(transformation(
             rotation=0, extent={{-206,-133},{-180,-106}})));
@@ -445,9 +430,13 @@ public
       expr={2,1},
       y_default=0,
       use_pre_as_default=false,
-      nu=2) annotation (Placement(transformation(extent={{82,-50},{122,-30}})));
+      nu=2) annotation (Placement(transformation(extent={{140,-50},{180,-30}})));
     Modelica.Blocks.Interfaces.IntegerOutput stage "Coil stage control signal"
       annotation (Placement(transformation(extent={{218,-50},{238,-30}})));
+    Modelica.Blocks.Logical.Not not1
+      annotation (Placement(transformation(extent={{40,-120},{60,-100}})));
+    Modelica.Blocks.Logical.Not not2
+      annotation (Placement(transformation(extent={{40,-160},{60,-140}})));
   equation
     connect(con1.reference, reference) annotation (Line(
         points={{-22,-104},{-40,-104},{-40,40},{-200,40}},
@@ -482,29 +471,37 @@ public
         color={0,0,127},
         smooth=Smooth.None));
     connect(multiSwitch1.y, stage) annotation (Line(
-        points={{123,-40},{228,-40}},
+        points={{181,-40},{228,-40}},
         color={255,127,0},
         smooth=Smooth.None));
-    connect(con2.y, multiSwitch1.u[1]) annotation (Line(
-        points={{1,-140},{40,-140},{40,-38.5},{82,-38.5}},
+    connect(not2.y, multiSwitch1.u[1]) annotation (Line(
+        points={{61,-150},{120,-150},{120,-38.5},{140,-38.5}},
         color={255,0,255},
         smooth=Smooth.None));
-    connect(con1.y, multiSwitch1.u[2]) annotation (Line(
-        points={{1,-110},{20,-110},{20,-41.5},{82,-41.5}},
+    connect(not1.y, multiSwitch1.u[2]) annotation (Line(
+        points={{61,-110},{116,-110},{116,-41.5},{140,-41.5}},
+        color={255,0,255},
+        smooth=Smooth.None));
+    connect(con1.y, not1.u) annotation (Line(
+        points={{1,-110},{38,-110}},
+        color={255,0,255},
+        smooth=Smooth.None));
+    connect(con2.y, not2.u) annotation (Line(
+        points={{1,-140},{20,-140},{20,-150},{38,-150}},
         color={255,0,255},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(extent={{-180,-200},{220,100}},
             preserveAspectRatio=true), graphics),                          Icon(
-          coordinateSystem(extent={{-180,-200},{220,100}})));
+          coordinateSystem(extent={{-180,-200},{220,100}}, preserveAspectRatio=
+              true), graphics={Rectangle(
+            extent={{-180,100},{220,-200}},
+            lineColor={0,0,0},
+            fillColor={255,255,255},
+            fillPattern=FillPattern.Solid)}));
   end ControllerTwoStage;
 equation
-  connect(mulSpeCon.reference, rooMulSpe.TRoo) annotation (Line(
-      points={{-61,-120},{-80,-120},{-80,-100},{220,-100},{220,52.3077},{
-          200.933,52.3077}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(mulSpeCon.stage, mulStaDX.stage) annotation (Line(
-      points={{-39.6,-125.333},{-20,-125.333},{-20,-156},{-3,-156}},
+      points={{-39.6,-129.333},{-20,-129.333},{-20,-156},{-3,-156}},
       color={255,127,0},
       smooth=Smooth.None));
   connect(rooVarSpe.TOutDryBul, weaBus.TDryBul) annotation (Line(
@@ -576,7 +573,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TRooSetPoi.y, feedback.u2) annotation (Line(
-      points={{-99,10},{-86,10},{-86,-222},{-70,-222},{-70,-218},{-70,-218}},
+      points={{-99,18},{-86,18},{-86,-222},{-70,-222},{-70,-218}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(feedback.y, limiter.u) annotation (Line(
@@ -601,6 +598,32 @@ equation
       smooth=Smooth.None));
   connect(varSpeDX.P, varSpePow.u) annotation (Line(
       points={{17,-231},{30,-231},{30,-210},{38,-210}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TRooSetPoi.y, con.reference) annotation (Line(
+      points={{-99,18},{-74,18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(rooSinSpe.TRoo, con.u) annotation (Line(
+      points={{140.933,52.3077},{152,52.3077},{152,32},{-80,32},{-80,6},{-74,6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  connect(not1.u, con.y) annotation (Line(
+      points={{-40,12},{-51,12}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(not1.y, sinSpeDX.on) annotation (Line(
+      points={{-17,12},{-10,12},{-10,-56},{-3,-56}},
+      color={255,0,255},
+      smooth=Smooth.None));
+  connect(mulSpeCon.reference, TRooSetPoi.y) annotation (Line(
+      points={{-61,-124},{-86,-124},{-86,18},{-99,18}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(rooMulSpe.TRoo, mulSpeCon.u) annotation (Line(
+      points={{200.933,52.3077},{220,52.3077},{220,-100},{-70,-100},{-70,
+          -134.633},{-60.65,-134.633}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Documentation(info="<html>
@@ -651,7 +674,5 @@ First implementation.
     Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.mos"
         "Simulate and plot"),
-    experiment(StartTime=1.58112e7, StopTime=1.6416e7),
-    __Dymola_experimentSetupOutput,
-    Icon(coordinateSystem(extent={{-200,-300},{300,100}})));
+    experiment(StartTime=1.58112e7, StopTime=1.6416e7));
 end SpaceCooling;

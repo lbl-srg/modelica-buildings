@@ -3,6 +3,10 @@ block CoolingCapacity
   "Calculates cooling capacity at given temperature and flow fraction"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   //Performance curve variables
+  Modelica.Blocks.Interfaces.IntegerInput stage
+    "Stage of coil, or 0/1 for variable-speed coil"
+    annotation (Placement(transformation(extent={{-124,88},{-100,112}}),
+        iconTransformation(extent={{-120,90},{-100,110}})));
   Modelica.Blocks.Interfaces.RealInput TConIn(
     quantity="Temperature",
     unit="K",
@@ -13,134 +17,114 @@ block CoolingCapacity
     unit="kg/s")
     "Air mass flow rate flowing through the DX Coil at given instant"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealInput TIn(
+  Modelica.Blocks.Interfaces.RealInput TEvaIn(
     quantity="Temperature",
     unit="K",
-    displayUnit="degC") "Temperature of air entering the cooling coil 
-    (Wet bulb for wet coil and drybulb for dry coil)"
+    displayUnit="degC")
+    "Temperature of air entering the evaporator coil  (Wet bulb for wet coil and drybulb for dry coil)"
     annotation (Placement(transformation(extent={{-120,-58},{-100,-38}})));
+  parameter Integer nSta(min=1)
+    "Number of coil stages (not counting the off stage)"
+    annotation(Evaluate=true);
   parameter Modelica.SIunits.MassFlowRate m_flow_small
     "Small mass flow rate for regularization";
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic per
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic per[nSta]
     "Performance data";
-  parameter Real capFunT[:]=per.perCur.capFunT
-    "Biquadratic coefficients for capFunT"
-    annotation (Dialog(group="Curve coefficients"));
-  parameter Real capFunFF[:]=per.perCur.capFunFF
-    "Biquadratic coefficients for capFunFF"
-    annotation (Dialog(group="Curve coefficients"));
-  parameter Modelica.SIunits.HeatFlowRate Q_flow_nominal(
-    max=0)=per.nomVal.Q_flow_nominal
-    "Nominal/rated total cooling capacity (negative number)"
-    annotation (Dialog(group="Nominal condition"));
-  final parameter Modelica.SIunits.MassFlowRate m_flow_nominal= per.nomVal.m_flow_nominal
-    "Nominal/rated air mass flow rate"
-    annotation (Dialog(group="Nominal condition"));
-  parameter Real EIRFunT[:]=per.perCur.EIRFunT
-    "Biquadratic coefficients for EIRFunT"
-    annotation (Dialog(group="Curve coefficients"));
-  parameter Real EIRFunFF[:]=per.perCur.EIRFunFF
-    "Biquadratic coefficients for EIRFunFF"
-    annotation (Dialog(group="Curve coefficients"));
-  parameter Real COP_nominal = per.nomVal.COP_nominal
-    "Nominal/rated coefficient of performance"
-    annotation (Dialog(group="Nominal condition"));
-  output Real ff( min=0)
+  output Real[nSta] ff(each min=0)
     "Air flow fraction: ratio of actual air flow rate by rated mass flwo rate";
-  Modelica.Blocks.Interfaces.RealOutput Q_flow(
-    max=0,
-    unit="W") "Total cooling capacity"
+  Modelica.Blocks.Interfaces.RealOutput Q_flow[nSta](
+    each max=0,
+    each unit="W") "Total cooling capacity"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Modelica.Blocks.Interfaces.RealOutput EIR "Energy Input Ratio"
+  Modelica.Blocks.Interfaces.RealOutput EIR[nSta] "Energy Input Ratio"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
 //----------------------------Performance curves---------------------------------//
 //------------------------------Cooling capacity---------------------------------//
-  output Real cap_T(min=0, nominal=1, start=1)
+  output Real cap_T[nSta](each min=0, each nominal=1, each start=1)
     "Cooling capacity modification factor as function of temperature";
-  output Real cap_FF(min=0, nominal=1, start=1)
+  output Real cap_FF[nSta](each min=0, each nominal=1, each start=1)
     "Cooling capacity modification factor as function of flow fraction";
 //----------------------------Energy Input Ratio---------------------------------//
-  output Real EIR_T(min=0, nominal=1, start=1)
+  output Real EIR_T[nSta](each min=0, each nominal=1, each start=1)
     "EIR modification factor as function of temperature";
-  output Real EIR_FF(min=0, nominal=1, start=1)
+  output Real EIR_FF[nSta](each min=0, each nominal=1, each start=1)
     "EIR modification factor as function of flow fraction";
 protected
-  Real cap_FF_below(min=0, nominal=1, start=1)
+  Real cap_FF_below[nSta](each min=0, each nominal=1, each start=1)
     "Cooling capacity modification factor as function of flow fraction below minimum value of ff";
-  Real cap_FF_valid(min=0, nominal=1, start=1)
+  Real cap_FF_valid[nSta](each min=0, each nominal=1, each start=1)
     "Cooling capacity modification factor as function of flow fraction";
-  Real heav( min=0, max=1, nominal=0.5, start=0.5)
+  Real heav[nSta](each min=0, each max=1, each nominal=0.5, each start=0.5)
     "Smooth Heaviside function value";
-  Real heavUpLimit(min=0, max=1, nominal=0.8, start=0.8)
+  parameter Real heavUpLimit[nSta](
+     each min=0, each max=1)=
+       {Buildings.Utilities.Math.Functions.polynomial(
+       x=per[iSta].perCur.ffRanCap[1],
+       a=per[iSta].perCur.capFunFF) for iSta in 1:nSta}
     "Heaviside function max value";
-public
-  Modelica.Blocks.Interfaces.IntegerInput stage
-    "Stage of coil, or 0/1 for variable-speed coil"
-    annotation (Placement(transformation(extent={{-124,88},{-100,112}}),
-        iconTransformation(extent={{-120,90},{-100,110}})));
 algorithm
-  // fixme: deltaX must be scaled with nominal (or small) mass flow rate
-  ff:=Buildings.Utilities.Math.Functions.smoothMax(
-    x1=m_flow,
-    x2=m_flow_small,
-    deltaX=0.01)/m_flow_nominal;
   if stage > 0 then
+    for iSta in 1:nSta loop
+    ff[iSta]:=Buildings.Utilities.Math.Functions.smoothMax(
+      x1=m_flow,
+      x2=m_flow_small,
+      deltaX=m_flow_small/10)/per[iSta].nomVal.m_flow_nominal;
   //-------------------------Cooling capacity modifiers----------------------------//
     // Compute the DX coil capacity fractions, using a biquadratic curve.
     // Since the regression for capacity can have negative values
-    // (for unreasonable temperatures),we constrain its return value to be
+    // (for unreasonable temperatures), we constrain its return value to be
     // non-negative. This prevents the solver to pick the unrealistic solution.
-    cap_T :=Buildings.Utilities.Math.Functions.smoothMax(
+    cap_T[iSta] :=Buildings.Utilities.Math.Functions.smoothMax(
       x1=Buildings.Utilities.Math.Functions.biquadratic(
-        a=capFunT,
-        x1=Modelica.SIunits.Conversions.to_degC(TIn),
+        a=per[iSta].perCur.capFunT,
+        x1=Modelica.SIunits.Conversions.to_degC(TEvaIn),
         x2=Modelica.SIunits.Conversions.to_degC(TConIn)),
       x2=0.00,
       deltaX=0.01)
-      "Cooling capacity modification factor as function of temperature";
-    cap_FF_valid :=Buildings.Utilities.Math.Functions.polynomial(x=ff, a=
-      capFunFF) "Cooling capacity modification factor as function of flow fraction 
+        "Fixme: this can be negative. Cooling capacity modification factor as function of temperature";
+    cap_FF_valid[iSta] :=Buildings.Utilities.Math.Functions.polynomial(
+      x=ff[iSta],
+      a=per[iSta].perCur.capFunFF) "Cooling capacity modification factor as function of flow fraction 
       in user specified (valid) range";
-    heavUpLimit :=Buildings.Utilities.Math.Functions.polynomial(x=per.perCur.ffRanCap[
-      1], a=capFunFF);
-    heav :=Buildings.Utilities.Math.Functions.smoothHeaviside(x=ff - (per.perCur.ffRanCap[
-      1])/2, delta=(per.perCur.ffRanCap[1])/2);
-    cap_FF_below :=heavUpLimit*heav
-      "Cooling capacity modification factor as function of flow fraction below minimum value of ff";
-    cap_FF:=Buildings.Utilities.Math.Functions.spliceFunction(
-      pos=cap_FF_valid,
-      neg=cap_FF_below,
-      x=ff - per.perCur.ffRanCap[1],
+    heav[iSta] :=Buildings.Utilities.Math.Functions.smoothHeaviside(
+       x=ff[iSta] - (per[iSta].perCur.ffRanCap[1])/2,
+       delta=(per[iSta].perCur.ffRanCap[1])/2);
+    cap_FF_below[iSta] :=heavUpLimit[iSta]*heav[iSta] "Cooling capacity modification factor as function of 
+      flow fraction below minimum value of ff";
+    cap_FF[iSta]:=Buildings.Utilities.Math.Functions.spliceFunction(
+      pos=cap_FF_valid[iSta],
+      neg=cap_FF_below[iSta],
+      x=ff[iSta] - per[iSta].perCur.ffRanCap[1],
       deltax=0.01)
-      "For smooth transition from heaviside function to user defined curvefit";
+        "For smooth transition from heaviside function to user defined curvefit";
   //-----------------------Energy Input Ratio modifiers--------------------------//
-    EIR_T :=Buildings.Utilities.Math.Functions.smoothMax(
+    EIR_T[iSta] :=Buildings.Utilities.Math.Functions.smoothMax(
       x1=Buildings.Utilities.Math.Functions.biquadratic(
-        a=EIRFunT,
-        x1=Modelica.SIunits.Conversions.to_degC(TIn),
+        a=per[iSta].perCur.EIRFunT,
+        x1=Modelica.SIunits.Conversions.to_degC(TEvaIn),
         x2=Modelica.SIunits.Conversions.to_degC(TConIn)),
       x2=0.0,
       deltaX=0.01)
-      "Cooling capacity modification factor as function of temperature";
-    EIR_FF :=Buildings.Utilities.Math.Functions.polynomial(x=ff, a=EIRFunFF)
-      "Cooling capacity modification factor as function of flow fraction";
+        "fixme: this can attain negative values. Cooling capacity modification factor as function of temperature";
+    EIR_FF[iSta] :=Buildings.Utilities.Math.Functions.polynomial(
+       x=ff[iSta],
+       a=per[iSta].perCur.EIRFunFF)
+        "Cooling capacity modification factor as function of flow fraction";
+    Q_flow[iSta] := cap_T[iSta]*cap_FF[iSta]*per[iSta].nomVal.Q_flow_nominal;
+    EIR[iSta]    := EIR_T[iSta]*EIR_FF[iSta]/per[iSta].nomVal.COP_nominal;
+    end for;
   else //cooling coil off
-   cap_T:=0;
-   cap_FF:=0;
-   EIR_T :=0;
-   EIR_FF :=0;
-   cap_FF_valid:=0;
-   heavUpLimit:=0;
-   heav:=0;
-   cap_FF_below:=0;
+   ff    :=        fill(0, nSta);
+   cap_T :=        fill(0, nSta);
+   cap_FF :=       fill(0, nSta);
+   EIR_T :=        fill(0, nSta);
+   EIR_FF :=       fill(0, nSta);
+   cap_FF_valid := fill(0, nSta);
+   heav :=         fill(0, nSta);
+   cap_FF_below := fill(0, nSta);
+   Q_flow :=       fill(0, nSta);
+   EIR :=          fill(0, nSta);
   end if;
-//    Q_flow :=Buildings.Utilities.Math.Functions.smoothMin(
-//     x1=cap_T*cap_FF*Q_flow_nominal,
-//     x2=0.0000001*Q_flow_nominal,
-//     deltaX=0.01)
-//     "To avoid zero divided by zero condition (in further calculations) at zero mass flow rate";
-  Q_flow :=cap_T*cap_FF*Q_flow_nominal;
-  EIR :=EIR_T*EIR_FF/COP_nominal;
    annotation (
     defaultComponentName="cooCap",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
@@ -154,117 +138,109 @@ algorithm
 <h4>
 Cooling capacity modifiers
 </h4>
-<p>There are two cooling capacity modifier functions. 
-One is a function of air temperatures, the other is a function of flow rate.</p>
-<p>
-The temperature dependent cooling capacity modifier is based on 
-the time dependent variables <i>T<sub> In</sub></i> and <i>T<sub>c In</sub></i>. 
-TIn is either the dry-bulb or wet-bulb temperature depending 
-on dry or wet coil condition. It is calculated using the following biquadratic equation.
+<p>There are two cooling capacity modifier functions: The function
+<i>cap<sub>&theta;</sub></i> accounts for a performance change due to different
+air temperatures and the function
+cap<sub>FF </sub> accounts for a performance change due to different air flow rates,
+relative to the nominal condition.
+These cooling capacity modifiers are multiplied with nominal cooling capacity 
+to obtain the cooling capacity of the coil at given inlet temperatures and mass flow rate as
 </p>
+<p align=\"center\" style=\"font-style:italic;\">
+  Q&#775;(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>)
+            cap<sub>FF</sub>(ff) Q&#775;<sub>nom</sub>,
+</p>
+<p>
+where
+<i>&theta;<sub>e,in</sub></i> is the evaporator inlet temperature and 
+<i>&theta;<sub>c,in</sub></i> is the condenser inlet temperature in degrees Celsius.
+<i>&theta;<sub>e,in</sub></i> is the dry-bulb temperature if the coil is dry, 
+or the wet-bulb temperature if the coil is wet.
+</p>
+<p>
+The temperature dependent cooling capacity modifier function is
 <p align=\"center\" style=\"font-style:italic;\" >
-
-  cap<sub>T</sub> = a<sub> 1</sub> + b<sub> 1</sub> * T<sub> In</sub> 
-+ c<sub> 1</sub> * T<sub> In</sub> <sup>2</sup> + d<sub> 1</sub> * T<sub>ConIn</sub> + 
-e<sub> 1</sub> * T<sub>ConIn</sub> <sup>2</sup> + f<sub> 1</sub> * T<sub> In</sub> * T<sub>ConIn</sub>
-
+  cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = a<sub>1</sub> + a<sub>2</sub> &theta;<sub>e,in</sub> 
++ a<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + a<sub>4</sub> &theta;<sub>c,in</sub> + 
+a<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>,
 </p>
 <p>
-The six coefficients of the equation are entered as an array in performance data record. 
-The output of the function (i.e. temperature based cooling capacity modifier) 
-is used to calculate operating cooling capacity at a specific entering air temperature 
-by multiplying it with the rated cooling capacity. </p>
+where the six coefficients are obtained from the coil performance data record.
 <p>
-The flow fraction dependent cooling capacity modifier function is a quadratic (or cubic) 
-equation with <i>ff</i> (flow fraction) as the time dependent variable.
+The flow fraction dependent cooling capacity modifier function is a polynomial 
+with the normalized mass flow rate <i>ff</i> (flow fraction) as the time dependent variable.
+The normalized mass flow rate is defined as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  cap<sub>FF</sub> = a'<sub> 1</sub> + b'<sub> 1</sub> * ff + c'<sub> 1</sub> ff <sup>2</sup> 
-+ d'<sub> 1</sub> ff <sup>3</sup> 
+  ff = m&#775; &frasl;  m&#775;<sub>nom</sub>,
 </p>
 <p>
-where, 
-<p align=\"center\" style=\"font-style:italic;\">
-  ff = (Air mass flow rate / Nominal mass flow rate)
-</p>
-</p>
-<p>
-The coefficients of the equation are entered as array 
-<i>[a'<sub> 1</sub> b'<sub> 1</sub> c'<sub> 1</sub> d'<sub> 1</sub>]</i>. <br>
-
-It is important to specify limits of flow fraction to ensure validity of the cap<sub>FF</sub> function 
-in performance record. A non-zero value of cap<sub>FF</sub> at 'ff = 0' will lead to unrealistic 
-temperatures during no-flow conditions. When the result of the cap<sub>FF</sub> function 
-is below the lower limit this block will use the smooth Heaviside function to 
-connect the lower point of cap<sub>FF</sub> with the origin. <br>
-cap<sub>FF</sub> is used to calculate operating cooling capacity at a specific  
-air flow fraction by multiplying it with the rated total cooling capacity. 
-</p>
-<p>
-These cooling capacity modifiers are then multiplied with nominal cooling capacity 
-to get cooling capacity of the coil at a given inlet temperature and mass flow rate.
+where 
+<i>m&#775;</i> is the mass flow rate and
+<i>m&#775;<sub>nom</sub></i> is the nominal mass flow rate.
+If the coil has multiple stages, then the nominal mass flow rate of the respective stage is used.
+Hence,
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  Q<sub>flow</sub> = cap<sub> T </sub> * cap<sub> FF </sub> * Q <sub>flow nominal</sub>
+  cap<sub>FF</sub>(ff) = b<sub>1</sub> + b<sub>2</sub> ff + b<sub>3</sub> ff<sup>2</sup> 
++ b<sub>4</sub>ff<sup>3</sup> + ...
 </p>
+The coefficients of the equation are obtained from the coil performance data record.
+</p>
+<p>
+It is important to specify limits of the flow fraction to ensure validity of the 
+<i>cap<sub>FF</sub>(&sdot;)</i> function 
+in performance record. A non-zero value of 
+<i>cap<sub>FF</sub>(0)</i> will lead to an infinite large change in fluid temperatures because
+<i>Q&#775; &ne; 0</i> but 
+<i>m&#775; = 0</i>.
+Hence, when <i>m&#775; &ne; 0</i> is below the valid range of the flow modifier function,
+the coil capacity will be reduced and set to zero near <i>m&#775; = 0</i>.
+</p>
+<p>
 <h4>Energy Input Ratio (EIR) modifiers</h4>
 <p>
-Energy Input Ratio (<i>EIR</i>) is the inverse of the Coefficient of Performance (<i>COP</i>).
-The model uses two different modifying functions to account for variations in EIR 
-with changes in inlet temperatures and flow rate.<br> 
-The temperature dependant <i>EIR</i> modifier function is a biquadratic equation using 
-<i>T<sub>In</sub></i> and <i>T<sub>cIn</sub></i> as time dependent variables. <br>
-<i>T<sub>In</sub></i> is the inlet dry-bulb temperature 
-when the coil is dry and inlet wet-bulb temperature when the coil is wet.</p>
+The Energy Input Ratio (<i>EIR</i>) is the inverse of the Coefficient of Performance (<i>COP</i>).
+Similar to the cooling rate, the EIR of the coil is the product of a function
+that takes into account changes in condenser and evaporator inlet temperatures,
+and changes in mass flow rate.
+The EIR is computed as
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+  EIR(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>, ff) = EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>)
+           EIR<sub>FF</sub>(ff) &frasl; COP<sub>nominal</sub>
+</p>
+As for the cooling rate, 
+<i>EIR<sub>&theta;</sub>(&sdot;, &sdot;)</i> is
 <p align=\"center\" style=\"font-style:italic;\" >
-
-  EIR<sub>T</sub>(T) = a<sub> 2</sub> + b<sub> 2</sub> * T<sub>In</sub> + 
-c<sub> 2</sub> * T<sub>In</sub> <sup>2</sup> + d<sub> 2</sub> * T<sub>ConIn</sub> 
-+ e<sub> 2</sub> * T<sub>ConIn</sub> <sup>2</sup> + f<sub> 2</sub> * T<sub>In</sub> * T<sub>ConIn</sub>
-
+  EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = c<sub>1</sub> + c<sub>2</sub> &theta;<sub>e,in</sub> 
++ c<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + c<sub>4</sub> &theta;<sub>c,in</sub> + 
+c<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + c<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>.
 </p>
 <p>
-The six coefficients of the equation are entered as array. 
-The output of the function (i.e. Temperature based EIR<sub>T</sub>) is used to calculate 
-Energy Input Ratio at a specific entering air temperature by multiplying it with the rated EIR.
+where the six coefficients are obtained from the coil performance data record, and
+<i>&theta;<sub>e,in</sub></i> is the dry-bulb temperature if the coil is dry, or
+the wet-bulb temperature otherwise.
 </p>
 <p>
-The flow fraction dependent <i>EIR</i> modifier function is a quadratic (or cubic) equation 
-with <i>ff</i> (flow fraction) as the time dependent variable. 
-</p>
+Similar to the cooling ratio, the change in EIR due to a change in air mass flow rate
+is 
 <p align=\"center\" style=\"font-style:italic;\">
-  EIR<sub>FF</sub>(ff) = a'<sub> 2</sub> + b'<sub> 2</sub> * ff 
-+ c'<sub> 2</sub> ff <sup>2</sup> + d'<sub> 2</sub> ff <sup>3</sup> 
+  EIR<sub>FF</sub>(ff) = d<sub>1</sub> + d<sub>2</sub> ff + d<sub>3</sub> ff<sup>2</sup> 
++ d<sub>4</sub>ff<sup>3</sup> + ...
 </p>
 <p>
-where, 
-<p align=\"center\" style=\"font-style:italic;\">
-  ff = (Air mass flow rate / Nominal mass flow rate)
-</p>
-Note: At zero air mass flow rate value of EIR_FF is not set to zero (unlike cap<sub>FF</sub>) because
-at zero air mass flow rate, if the compressor of the unit is still running, it will consume electrical power.
-</p>
-<p>
-The coefficients of the equation are entered as array 
-<i>[a'<sub> 2</sub> b'<sub> 2</sub> c'<sub> 2</sub> d'<sub> 2</sub>]</i>. <br>
-<i>EIR<sub> FF </sub></i> is used to calculate EIR at specific mass flow rate of air by multiplying it 
-with the rated <i>EIR</i> .
-</p>
-<p>
-Multiplication of <i>EIR</i> modifiers are then divided by nominal <i>COP</i> to get <i>EIR</i> 
-of the coil at given air inlet temperatures and mass flow rate.
-</p>
-<p align=\"center\" style=\"font-style:italic;\">
-  EIR = EIR<sub>T</sub> * EIR<sub>FF</sub> / COP<sub>nominal</sub>
-</p>
-
-<h4>References</h4>
-<p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0 Engineering Reference</a>, May 24, 2012.
+Note that at zero air mass flow rate, the function 
+<i>EIR<sub>FF</sub>(&sdot;)</i>
+does not need to attain zero because if the compressor is still running, it will consume electrical power.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 19, 2012 by Michael Wetter:<br>
+Revised documentation.
+</li>
 <li>
 May 18, 2012 by Kaustubh Phalak:<br>
 Combined cooling capacity and EIR modifier function together to avoid repeatation of same variable calculations.

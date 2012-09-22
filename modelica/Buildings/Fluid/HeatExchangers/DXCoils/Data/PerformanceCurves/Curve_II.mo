@@ -1,11 +1,11 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves;
 record Curve_II "Curve_II"
-  extends Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Generic(
+  extends
+    Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.BaseClasses.Generic(
     each capFunT={0.766956,0.0107756,-0.0000414703,0.00134961,-0.000261144,
         0.000457488},
     each capFunFF={0.8,0.2,0,0},
     each EIRFunT={0.297145,0.0430933,-0.000748766,0.00597727,0.000482112,-0.000956448},
-
     each EIRFunFF={1.1552,-0.1808,0.0256,0},
     each TConInRanCap={291.15,319.26111},
     each TWetBulInRanCap={285.92778,297.03889},

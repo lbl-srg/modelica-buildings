@@ -70,7 +70,7 @@ initial equation
                     x2=((hOut_nominal-hADP_nominal)/(hIn_nominal-hADP_nominal)),
                     deltaX=0.00001),
               deltaX=0.00001);
-  uACp = -1 * per.m_flow_nominal * log(bypass_nominal);
+  uACp = -per.m_flow_nominal * log(bypass_nominal);
  annotation(defaultComponentName="uacp",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={

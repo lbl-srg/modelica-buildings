@@ -8,23 +8,12 @@ partial block PartialCoilCondition
   constant Boolean variableSpeedCoil
     "Flag, set to true for coil with variable speed";
 
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity cooCap[nSpe](
-    each final m_flow_small=datCoi.m_flow_small,
-    final per=datCoi.per) "Performance data"
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity cooCap(
+    final per=datCoi.per,
+    final nSta=datCoi.nSpe,
+    final m_flow_small=datCoi.m_flow_small) "Performance data"
     annotation (Placement(transformation(extent={{-14,40},{6,60}})));
-  Modelica.Blocks.Routing.Replicator repMFlo(
-    final nout=nSpe) "Massflow rate"
-    annotation (Placement(transformation(extent={{-40,40},{-28,52}})));
-  Modelica.Blocks.Routing.Replicator repTCon(
-    final nout=nSpe) "Condenser air inlet temperature"
-    annotation (Placement(transformation(extent={{-40,60},{-28,72}})));
-  Modelica.Blocks.Routing.Replicator repTIn(
-    final nout=nSpe) "Coil air inlet temperature"
-    annotation (Placement(transformation(extent={{-40,20},{-28,32}})));
 
-  Buildings.Utilities.Math.IntegerReplicator intRep(
-    final nout=nSpe) "Replicator for coil stage"
-    annotation (Placement(transformation(extent={{-40,80},{-28,92}})));
   SpeedShift speShiEIR(
     final variableSpeedCoil=variableSpeedCoil,
     final nSpe=nSpe,
@@ -36,27 +25,7 @@ partial block PartialCoilCondition
     final speSet=datCoi.per.spe) "Interpolates Q_flow"
     annotation (Placement(transformation(extent={{32,44},{46,58}})));
 equation
-  connect(repTCon.y, cooCap.TConIn) annotation (Line(
-      points={{-27.4,66},{-22,66},{-22,54.8},{-15,54.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(repMFlo.y, cooCap.m_flow)    annotation (Line(
-      points={{-27.4,46},{-24,46},{-24,50},{-15,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(repTIn.y, cooCap.TIn) annotation (Line(
-      points={{-27.4,26},{-22,26},{-22,45.2},{-15,45.2}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  connect(TConIn,repTCon. u) annotation (Line(
-      points={{-110,50},{-93.6,50},{-93.6,66},{-41.2,66}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(m_flow, repMFlo.u)    annotation (Line(
-      points={{-110,24},{-92,24},{-92,46},{-41.2,46}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(cooCap.EIR, speShiEIR.u)
                                   annotation (Line(
       points={{7,54},{10,54},{10,65.4},{30.6,65.4}},
@@ -87,20 +56,24 @@ equation
       points={{46.7,51},{60,51},{60,40},{110,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(stage, intRep.u) annotation (Line(
-      points={{-110,100},{-50,100},{-50,86},{-41.2,86}},
-      color={255,127,0},
-      smooth=Smooth.None));
-  connect(intRep.y, cooCap.stage) annotation (Line(
-      points={{-27.4,86},{-20,86},{-20,60},{-15,60}},
-      color={255,127,0},
-      smooth=Smooth.None));
   connect(stage, speShiQ_flow.stage) annotation (Line(
       points={{-110,100},{20,100},{20,56.6},{30.6,56.6}},
       color={255,127,0},
       smooth=Smooth.None));
   connect(speShiEIR.stage, stage) annotation (Line(
       points={{30.6,76.6},{20,76.6},{20,100},{-110,100}},
+      color={255,127,0},
+      smooth=Smooth.None));
+  connect(cooCap.m_flow, m_flow) annotation (Line(
+      points={{-15,50},{-58,50},{-58,24},{-110,24}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(cooCap.TConIn, TConIn) annotation (Line(
+      points={{-15,54.8},{-60.5,54.8},{-60.5,50},{-110,50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(cooCap.stage, stage) annotation (Line(
+      points={{-15,60},{-60,60},{-60,100},{-110,100}},
       color={255,127,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Documentation(info="<html>

@@ -313,8 +313,6 @@ equation
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SingleSpeedValidationPLR.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
-    experimentSetupOutput,
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},{160,140}})),
             Documentation(info="<html>
 <p>
 This validates single speed DX cooling coil: 

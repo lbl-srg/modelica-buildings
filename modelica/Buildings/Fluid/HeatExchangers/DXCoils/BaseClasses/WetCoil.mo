@@ -35,10 +35,6 @@ equation
       points={{1,-55},{30,-55},{30,-40},{110,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(wetBul.TWetBul, repTIn.u) annotation (Line(
-      points={{-47.4,26},{-41.2,26}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(XIn, appDewPt.XIn) annotation (Line(
       points={{-110,-50},{-86,-50},{-86,-55},{-21,-55}},
       color={0,0,127},
@@ -109,11 +105,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(speShiQ_flow.y, conRat.Q_flow) annotation (Line(
-      points={{46.7,51},{40,51},{40,40},{54,40},{54,-74},{59,-74}},
+      points={{46.7,51},{50,52},{50,-56},{50,-56},{50,-74},{50,-74},{59,-74}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(speShiQ_flow.y, appDewPt.Q_flow) annotation (Line(
-      points={{46.7,51},{40,51},{40,16},{-40,16},{-40,-46.1},{-21,-46.1}},
+      points={{46.7,51},{50,51},{50,20},{-40,20},{-40,-46.1},{-21,-46.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(onSwi.y, shr.on) annotation (Line(
@@ -123,6 +119,10 @@ equation
   connect(onSwi.u, stage) annotation (Line(
       points={{-21.2,6},{-68,6},{-68,100},{-110,100}},
       color={255,127,0},
+      smooth=Smooth.None));
+  connect(wetBul.TWetBul, cooCap.TEvaIn) annotation (Line(
+      points={{-47.4,26},{-32,26},{-32,45.2},{-15,45.2}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (defaultComponentName="wetCoi", Diagram(graphics), Documentation(info="<html>
 <p>

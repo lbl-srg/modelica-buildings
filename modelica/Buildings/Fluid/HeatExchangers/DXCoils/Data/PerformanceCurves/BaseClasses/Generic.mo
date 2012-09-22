@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves;
+within Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.BaseClasses;
 record Generic "Base performance curves data record"
   extends Modelica.Icons.Record;
 //-----------------------------Performance curves-----------------------------//

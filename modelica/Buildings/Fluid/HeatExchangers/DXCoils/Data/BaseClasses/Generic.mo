@@ -10,7 +10,8 @@ record Generic "Generic data record for DX coil"
     "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Generic perCur
+    Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.BaseClasses.Generic
+                                                                          perCur
     "Performance curves"
     annotation (choicesAllMatching = true, Placement(transformation(extent={{60,20},{80,40}})));
 annotation (defaultComponentName="per",
