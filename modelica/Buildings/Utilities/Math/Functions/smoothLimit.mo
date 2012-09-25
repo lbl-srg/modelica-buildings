@@ -16,7 +16,7 @@ algorithm
   annotation (Documentation(info="<html>
 <p>
 Once continuously differentiable approximation to the <code>limit(.,.)</code> function.
-The output is bounded to be in <i>[0, 1]</i>.
+The output is bounded to be in <i>[l, u]</i>.
 </p>
 </html>", revisions="<html>
 <ul>

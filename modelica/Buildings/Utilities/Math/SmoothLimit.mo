@@ -14,7 +14,7 @@ equation
 Documentation(info="<html>
 <p>
 Once continuously differentiable approximation to the <i>limit(.,.)</i> function.
-The output is bounded to be in <i>[0, 1]</i>.
+The output is bounded to be in <i>[lower, upper]</i>.
 </p>
 </html>",
 revisions="<html>

@@ -21,7 +21,7 @@ algorithm
     Documentation(info="<html>
 <p>
 Function to compute the water vapor concentration based on
-pressure, temperature and relative humidity.
+saturation pressure, absolute pressure and relative humidity.
 </p>
 </html>", revisions="<html>
 <ul>
