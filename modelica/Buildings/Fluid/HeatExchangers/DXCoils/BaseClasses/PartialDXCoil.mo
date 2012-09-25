@@ -79,8 +79,6 @@ protected
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor TVol
     "Temperature of the control volume"
     annotation (Placement(transformation(extent={{66,16},{78,28}})));
-//    fixme: add assert that checks the |Q_flow_nominal[i]| < |Q_flow_nominal[i+1]| for all i
-//    because nominal values are used from the record for m_flow_small and for the evaporation model
 initial algorithm
   // Make sure that |Q_flow_nominal[nSta]| >= |Q_flow_nominal[i]| for all stages because the data
   // of nSta are used in the evaporation model
