@@ -7,7 +7,7 @@ partial block EssentialParameters "A partial block for essential parameters"
     "Performance data"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 protected
-  parameter Integer nSpe=datCoi.nSpe "Number of stages";
+  parameter Integer nSta=datCoi.nSta "Number of stages";
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
 This partial block declares parameters that are required by most classes

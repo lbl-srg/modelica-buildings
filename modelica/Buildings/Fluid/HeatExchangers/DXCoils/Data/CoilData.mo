@@ -1,25 +1,24 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Data;
 record CoilData "Performance record for DX Cooling Coil"
   extends Modelica.Icons.Record;
-  parameter Integer nSpe(min=1) "Number of stages: fixme: must be nSta"
+  parameter Integer nSta(min=1) "Number of stages"
     annotation (Evaluate = true,
-                Dialog(enable = not sinSpeOpe));
-  parameter Real minSpeRat( min=0,max=1)=0.2
-    "Minimum speed ratio. Fixme: This is only needed for variable speed coils"
+                Dialog(enable = not sinStaOpe));
+  parameter Real minSpeRat( min=0,max=1)=0.2 "Minimum speed ratio"
     annotation (Evaluate = true,
-                Dialog(enable = not sinSpeOpe));
-  final parameter Boolean sinSpeOpe = nSpe == 1
+                Dialog(enable = not sinStaOpe));
+  final parameter Boolean sinStaOpe = nSta == 1
     "The data record is used for single speed operation"
     annotation(Evaluate=true, HideResult=true);
 
-  //performance data should be available for 'nSpe' speeds
   parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic
-    per[nSpe] "Data record for coil performance"
+    per[nSta] "Data record for coil performance"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   parameter Modelica.SIunits.MassFlowRate m_flow_small = 0.0001*per[1].nomVal.m_flow_nominal
     "Small mass flow rate for regularization near zero flow"
     annotation (Dialog(group="Minimum conditions"));
-annotation (defaultComponentName="datCoi", Documentation(info="<html>
+annotation (preferedView="info",
+defaultComponentName="datCoi", Documentation(info="<html>
 <p>
 This record declares the performance data for the DX cooling coil model.
 The performance data are structured as follows:

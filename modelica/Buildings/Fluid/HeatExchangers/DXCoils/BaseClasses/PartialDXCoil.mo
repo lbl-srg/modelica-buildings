@@ -5,7 +5,7 @@ partial model PartialDXCoil "Partial model for DX coil"
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare package Medium = Medium,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
-    final m_flow_nominal = datCoi.per[nSpe].nomVal.m_flow_nominal);
+    final m_flow_nominal = datCoi.per[nSta].nomVal.m_flow_nominal);
 
   // redeclare Medium with a more restricting base class. This improves the error
   // message if a user selects a medium that does not contain the function
@@ -35,7 +35,7 @@ partial model PartialDXCoil "Partial model for DX coil"
     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
 
   Evaporation eva(redeclare final package Medium = Medium,
-                  final nomVal=datCoi.per[nSpe].nomVal,
+                  final nomVal=datCoi.per[nSta].nomVal,
                   final computeReevaporation = computeReevaporation)
     "Model that computes evaporation of water that accumulated on the coil surface"
     annotation (Placement(transformation(extent={{-8,-80},{12,-60}})));
@@ -81,13 +81,13 @@ protected
 //    fixme: add assert that checks the |Q_flow_nominal[i]| < |Q_flow_nominal[i+1]| for all i
 //    because nominal values are used from the record for m_flow_small and for the evaporation model
 initial algorithm
-  // Make sure that |Q_flow_nominal[nSpe]| >= |Q_flow_nominal[i]| for all stages because the data
-  // of nSpe are used in the evaporation model
-  for i in 1:(nSpe-1) loop
-    assert(datCoi.per[i].nomVal.Q_flow_nominal >= datCoi.per[nSpe].nomVal.Q_flow_nominal,
+  // Make sure that |Q_flow_nominal[nSta]| >= |Q_flow_nominal[i]| for all stages because the data
+  // of nSta are used in the evaporation model
+  for i in 1:(nSta-1) loop
+    assert(datCoi.per[i].nomVal.Q_flow_nominal >= datCoi.per[nSta].nomVal.Q_flow_nominal,
     "Error in DX coil performance data: Q_flow_nominal of the highest stage must have
     the biggest value in magnitude. Obtained " + Modelica.Math.Vectors.toString(
-    {datCoi.per[i].nomVal.Q_flow_nominal for i in 1:nSpe}, "Q_flow_nominal"));
+    {datCoi.per[i].nomVal.Q_flow_nominal for i in 1:nSta}, "Q_flow_nominal"));
    end for;
 
 equation

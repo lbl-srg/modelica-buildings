@@ -43,7 +43,7 @@ model WetCoil "Test model for WetCoil"
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  Data.CoilData datCoi(nSpe=4, per={
+  Data.CoilData datCoi(nSta=4, per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=900/60,
         nomVal=

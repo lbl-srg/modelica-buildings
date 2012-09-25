@@ -141,10 +141,10 @@ model SpaceCooling "Space cooling with DX coils"
           m_flow_nominal=mA_flow_nominal),
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I())},
-          nSpe=1)
+          nSta=1)
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData datCoiMulSpe(nSpe=2, per=
+  Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData datCoiMulSpe(nSta=2, per=
        {Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=900/60,
         nomVal=

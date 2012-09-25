@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model ApparatusDewPoint "Test model for ApparatusDewPoint"
   extends Modelica.Icons.Example;
-  parameter Integer nSpe=4 "Number of standard compressor speeds";
+  parameter Integer nSta=4 "Number of standard compressor speeds";
   package Medium =
       Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   parameter Real minSpeRat(min=0,max=1) = 0.2 "Minimum speed ratio";
@@ -37,7 +37,7 @@ model ApparatusDewPoint "Test model for ApparatusDewPoint"
     startTime=0,
     table=[0.0,0.00; 600,0.25; 1800,0.5; 2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
-  Data.CoilData datCoi(nSpe=4, per={
+  Data.CoilData datCoi(nSta=4, per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=900/60,
         nomVal=

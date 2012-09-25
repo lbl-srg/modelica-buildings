@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.Examples;
 model SingleSpeed "Test model for single speed DX coil"
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   extends Modelica.Icons.Example;
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.per[datCoi.nSpe].nomVal.m_flow_nominal
+ parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.per[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
  parameter Modelica.SIunits.Pressure dp_nominal = 1000
     "Pressure drop at m_flow_nominal";
@@ -65,7 +65,7 @@ model SingleSpeed "Test model for single speed DX coil"
           SHR_nominal=0.8,
           m_flow_nominal=1.5),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_II())}, nSpe=
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_II())}, nSta=
        1) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation

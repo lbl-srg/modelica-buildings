@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model ApparatusDryPoint "Test model for ApparatusDryPoint"
   extends Modelica.Icons.Example;
-  parameter Integer nSpe=4;
+  parameter Integer nSta=4;
   package Medium =
       Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   parameter Real minSpeRat(min=0,max=1) = 0.2 "Minimum speed ratio";
@@ -37,7 +37,7 @@ model ApparatusDryPoint "Test model for ApparatusDryPoint"
     startTime=900) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
   Data.CoilData datCoi(
-    nSpe=4,
+    nSta=4,
     per={
       Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=900/60,

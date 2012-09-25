@@ -10,19 +10,19 @@ partial block PartialCoilCondition
 
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity cooCap(
     final per=datCoi.per,
-    final nSta=datCoi.nSpe,
+    final nSta=datCoi.nSta,
     final m_flow_small=datCoi.m_flow_small) "Performance data"
     annotation (Placement(transformation(extent={{-14,40},{6,60}})));
 
 protected
   SpeedShift speShiEIR(
     final variableSpeedCoil=variableSpeedCoil,
-    final nSpe=nSpe,
+    final nSta=nSta,
     final speSet=datCoi.per.spe) "Interpolates EIR"
     annotation (Placement(transformation(extent={{32,64},{46,78}})));
   SpeedShift speShiQ_flow(
     final variableSpeedCoil=variableSpeedCoil,
-    final nSpe=nSpe,
+    final nSta=nSta,
     final speSet=datCoi.per.spe) "Interpolates Q_flow"
     annotation (Placement(transformation(extent={{32,44},{46,58}})));
 equation

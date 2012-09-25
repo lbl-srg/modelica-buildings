@@ -112,7 +112,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Icon(coordinateSystem(extent={{-100,-120},{120,100}})),
     experiment(
       StopTime=2400,
       Tolerance=1e-05,

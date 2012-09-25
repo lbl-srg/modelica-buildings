@@ -175,6 +175,5 @@ August 23, 2012 by Michael Wetter:<br>
 First implementation. 
 </li>
 </ul>
-</html>"),
-    Icon(coordinateSystem(extent={{-120,-160},{120,140}})));
+</html>"));
 end EvaporationPulse;

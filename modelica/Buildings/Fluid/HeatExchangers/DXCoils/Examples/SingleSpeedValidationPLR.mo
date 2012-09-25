@@ -280,7 +280,7 @@ model SingleSpeedValidationPLR
         72000,0; 75600,0; 75600,0; 79200,0; 79200,0; 82800,0;
         82800,0; 86400,0]) "EnergyPlus result: heat flow"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Data.CoilData datCoi(nSpe=1, per={
+  Data.CoilData datCoi(nSta=1, per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=1800/60,
         nomVal=

@@ -83,7 +83,7 @@ model DXCooling "Test model for DXCooling"
           SHR_nominal=0.8,
           m_flow_nominal=1.8),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())}, nSpe=
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())}, nSta=
        4) "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 equation

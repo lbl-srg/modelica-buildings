@@ -3,10 +3,10 @@ model SpeedSelect "Test model for speed select"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect speSel(
-    nSpe=datCoi.nSpe,
+    nSta=datCoi.nSta,
     speSet=datCoi.per.spe) "Normalizes the input speed"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Data.CoilData datCoi(nSpe=4, per={
+  Data.CoilData datCoi(nSta=4, per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=900/60,
         nomVal=

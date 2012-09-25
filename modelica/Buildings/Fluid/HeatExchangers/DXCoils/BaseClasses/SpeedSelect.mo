@@ -3,8 +3,8 @@ block SpeedSelect
   "Selects the lower specified speed ratio for multispeed model"
   extends Modelica.Blocks.Interfaces.BlockIcon;
 
-  parameter Integer nSpe(min=1) "Number of standard compressor speeds";
-  parameter Real speSet[nSpe] "Array of standard compressor speeds";
+  parameter Integer nSta(min=1) "Number of standard compressor speeds";
+  parameter Real speSet[nSta] "Array of standard compressor speeds";
   Modelica.Blocks.Interfaces.IntegerInput stage
     "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
@@ -12,13 +12,13 @@ block SpeedSelect
   Modelica.Blocks.Interfaces.RealOutput speRat "Standard speed ratio"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-  final parameter Real speRatNor[nSpe](each min=0, max=1)=
-    {speSet[i]/speSet[nSpe] for i in 1:nSpe}
+  final parameter Real speRatNor[nSta](each min=0, max=1)=
+    {speSet[i]/speSet[nSta] for i in 1:nSta}
     "Array of normalized speed ratios for the compressor";
 
 algorithm
- assert(stage >= 0 and stage <= nSpe, "Compressor speed is out of range.
-  Model has " + String(nSpe) + " speeds, but received control signal " +
+ assert(stage >= 0 and stage <= nSta, "Compressor speed is out of range.
+  Model has " + String(nSta) + " speeds, but received control signal " +
   String(stage));
  speRat :=if stage == 0 then 0 else speRatNor[stage];
   annotation (defaultComponentName="speSel",Documentation(info="<html>

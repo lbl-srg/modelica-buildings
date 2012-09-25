@@ -1,7 +1,7 @@
 simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.CoolingCapacity", stopTime=3600, method="dassl", resultFile="CoolingCapacity");
 createPlot(id = 3,
  position = {13, 6, 400, 422},
- y = {"cooCap.TConIn", "cooCap.TIn"},
+ y = {"cooCap.TConIn", "cooCap.TEvaIn"},
  range = {0.0, 4000.0, 40.0, 15.0},
  autoscale = true,
  autoerase = true,

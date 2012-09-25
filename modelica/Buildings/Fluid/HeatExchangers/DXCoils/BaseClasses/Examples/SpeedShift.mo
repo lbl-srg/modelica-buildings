@@ -1,17 +1,17 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 model SpeedShift "Test model for SpeedShift block"
  extends Modelica.Icons.Example;
- parameter Integer nSpe=4 "Number of standard compressor speeds";
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift speShi(nSpe=nSpe, speSet=
+ parameter Integer nSta=4 "Number of standard compressor speeds";
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedShift speShi(nSta=nSta, speSet=
         datCoi.per.spe,
     variableSpeedCoil=true)
     annotation (Placement(transformation(extent={{42,-10},{62,10}})));
-  Modelica.Blocks.Sources.Constant u[nSpe](k={10,20,30,40}) "Inputs"
+  Modelica.Blocks.Sources.Constant u[nSta](k={10,20,30,40}) "Inputs"
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.25; 900,0.50; 1800,0.50;
         2700,0.75; 3600,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-92,40},{-72,60}})));
-  Data.CoilData datCoi(nSpe=4, per={
+  Data.CoilData datCoi(nSta=4, per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=900/60,
         nomVal=

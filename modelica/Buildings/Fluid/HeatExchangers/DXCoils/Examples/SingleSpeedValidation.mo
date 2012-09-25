@@ -34,7 +34,7 @@ model SingleSpeedValidation
     from_dp=true) "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
-  Data.CoilData datCoi(nSpe=1, per={
+  Data.CoilData datCoi(nSta=1, per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=1800/60,
         nomVal=

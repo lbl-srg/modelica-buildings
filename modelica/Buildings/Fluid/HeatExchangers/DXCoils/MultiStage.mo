@@ -7,7 +7,7 @@ model MultiStage "Multi-stage DX cooling coil"
     "Stage of cooling coil (0: off, 1: first stage, 2: second stage...)"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}}),
         iconTransformation(extent={{-120,70},{-100,90}})));
-  BaseClasses.SpeedSelect speSel(nSpe=datCoi.nSpe, speSet=datCoi.per.spe)
+  BaseClasses.SpeedSelect speSel(nSta=datCoi.nSta, speSet=datCoi.per.spe)
     annotation (Placement(transformation(extent={{-80,60},{-68,72}})));
   Modelica.Blocks.Math.IntegerToBoolean onSwi(final threshold=1)
     "On/off switch"

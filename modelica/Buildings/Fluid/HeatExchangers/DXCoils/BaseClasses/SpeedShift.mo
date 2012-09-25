@@ -1,13 +1,13 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block SpeedShift "Interpolates values between speeds"
-  parameter Integer nSpe "Number of standard compressor speeds";
-  parameter Modelica.SIunits.AngularVelocity speSet[nSpe](each displayUnit="1/min")
+  parameter Integer nSta "Number of standard compressor speeds";
+  parameter Modelica.SIunits.AngularVelocity speSet[nSta](each displayUnit="1/min")
     "Compressor speeds";
   constant Boolean variableSpeedCoil "Flag, set to true to interpolate data";
 
   Modelica.Blocks.Interfaces.RealInput speRat "Speed ratio"
     annotation (Placement(transformation(extent={{-140,-20},{-100,20}})));
-  Modelica.Blocks.Interfaces.RealInput u[nSpe] "Array to be interpolated"
+  Modelica.Blocks.Interfaces.RealInput u[nSta] "Array to be interpolated"
     annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
   Modelica.Blocks.Interfaces.RealOutput y "Interpolated value"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
@@ -18,7 +18,7 @@ block SpeedShift "Interpolates values between speeds"
 equation
   if variableSpeedCoil then
     y=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift(
-      spe=speRat*speSet[nSpe],
+      spe=speRat*speSet[nSta],
       speSet=speSet,
       u=u);
   else

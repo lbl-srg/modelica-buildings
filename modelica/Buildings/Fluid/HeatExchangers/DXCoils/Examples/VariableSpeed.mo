@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.DXCoils.Examples;
 model VariableSpeed "Test model for variable speed DX coil"
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   extends Modelica.Icons.Example;
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.per[datCoi.nSpe].nomVal.m_flow_nominal
+ parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.per[datCoi.nSta].nomVal.m_flow_nominal
     "Nominal mass flow rate";
  parameter Modelica.SIunits.Pressure dp_nominal = 1000
     "Pressure drop at m_flow_nominal";
@@ -54,7 +54,7 @@ model VariableSpeed "Test model for variable speed DX coil"
     offset=101325,
     startTime=100) "Mass flow rate of air"
     annotation (Placement(transformation(extent={{-100,-8},{-80,12}})));
-  Data.CoilData datCoi(nSpe=4, per={
+  Data.CoilData datCoi(nSta=4, per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
         spe=900/60,
         nomVal=
