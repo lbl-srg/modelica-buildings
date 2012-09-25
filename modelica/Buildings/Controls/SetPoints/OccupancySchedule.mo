@@ -110,7 +110,7 @@ initial algorithm
  end if;
 
 algorithm
-  when time >= tOcc then
+  when time >= pre(tOcc) then
     nexStaInd :=nexStaInd + 2;
     occupied := not occupied;
     // Wrap index around
@@ -122,7 +122,7 @@ algorithm
   end when;
 
   // Changed the index that computes the time until the next non-occupancy
-  when time >= tNonOcc then
+  when time >= pre(tNonOcc) then
     nexStoInd :=nexStoInd + 2;
     occupied := not occupied;
     // Wrap index around
@@ -135,9 +135,9 @@ algorithm
 
  tNexOcc    := tOcc-time;
  tNexNonOcc := tNonOcc-time;
- assert(tNexOcc > -1e-10 and tNexOcc < period+1E-10, "tNexOcc must be non-zero and smaller than period.
+ assert(tNexOcc > -1e-3 and tNexOcc < period+1E-3, "tNexOcc must be non-zero and smaller than period.
    Received tNexOcc = " + String(tNexOcc));
- assert(tNexNonOcc > -1e-10 and tNexOcc < period+1E-10, "tNexNonOcc must be non-zero and smaller than period.
+ assert(tNexNonOcc > -1e-3 and tNexOcc < period+1E-3, "tNexNonOcc must be non-zero and smaller than period.
    Received tNexNonOcc = " + String(tNexNonOcc));
 
   annotation (
@@ -194,6 +194,11 @@ The period always starts at <i>t=0</i> seconds.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+September 11, 2012, by Michael Wetter:<br>
+Added <code>pre</code> operator in <code>when</code> clause and relaxed
+tolerance in <code>assert</code> statement.
+</li>
 <li>
 July 26, 2012, by Michael Wetter:<br>
 Fixed a bug that caused an error in the schedule if the simulation start time was negative or equal to the first entry in the schedule.
