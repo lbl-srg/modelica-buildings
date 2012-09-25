@@ -10,14 +10,14 @@ partial block PartialCoilInterface "Partial block for DX coil"
     annotation (Placement(transformation(extent={{-120,66},{-100,86}})));
   Modelica.Blocks.Interfaces.RealInput m_flow "Air mass flow rate"
      annotation (Placement(transformation(extent={{-120,14},{-100,34}})));
-  Modelica.Blocks.Interfaces.RealInput TIn
+  Modelica.Blocks.Interfaces.RealInput TEvaIn
     "Temperature of air entering the cooling coil"
      annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
-  Modelica.Blocks.Interfaces.RealInput XIn "Inlet air mass fraction"
+  Modelica.Blocks.Interfaces.RealInput XEvaIn "Inlet air mass fraction"
     annotation (Placement(transformation(extent={{-120,-60},{-100,-40}})));
   Modelica.Blocks.Interfaces.RealInput p "Pressure at inlet of coil"
     annotation (Placement(transformation(extent={{-120,-34},{-100,-14}})));
-  Modelica.Blocks.Interfaces.RealInput hIn
+  Modelica.Blocks.Interfaces.RealInput hEvaIn
     "Specific enthalpy of air entering the coil"
             annotation (Placement(transformation(extent={{-120,-87},{-100,-67}})));
   Modelica.Blocks.Interfaces.RealInput TConIn(

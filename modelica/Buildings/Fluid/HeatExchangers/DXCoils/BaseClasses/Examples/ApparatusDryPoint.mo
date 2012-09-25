@@ -9,7 +9,7 @@ model ApparatusDryPoint "Test model for ApparatusDryPoint"
   Modelica.Blocks.Sources.Constant p(
     k=101325) "Pressure"
     annotation (Placement(transformation(extent={{-80,-28},{-60,-8}})));
-  Modelica.Blocks.Sources.Constant hIn(k=Medium.specificEnthalpy(
+  Modelica.Blocks.Sources.Constant hEvaIn(k=Medium.specificEnthalpy(
         Medium.setState_pTX(
         p=101325,
         T=30 + 273.15,
@@ -91,7 +91,7 @@ protected
     final integerFalse=0) "On/off switch"
     annotation (Placement(transformation(extent={{20,76},{32,88}})));
 public
-  Modelica.Blocks.Sources.Ramp XIn(
+  Modelica.Blocks.Sources.Ramp XEvaIn(
     duration=600,
     height=0.004,
     startTime=1800,
@@ -102,7 +102,7 @@ equation
       points={{-59,-18},{-30,-18},{-30,-2},{59,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hIn.y, appDryPt.hIn) annotation (Line(
+  connect(hEvaIn.y, appDryPt.hEvaIn) annotation (Line(
       points={{-59,-80},{-24,-80},{-24,-8},{59,-8}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -130,7 +130,7 @@ equation
       points={{32.6,82},{46,82},{46,10},{59,10}},
       color={255,127,0},
       smooth=Smooth.None));
-  connect(XIn.y, appDryPt.XIn) annotation (Line(
+  connect(XEvaIn.y, appDryPt.XEvaIn) annotation (Line(
       points={{-59,-50},{-28,-50},{-28,-5},{59,-5}},
       color={0,0,127},
       smooth=Smooth.None));

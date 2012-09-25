@@ -21,7 +21,7 @@ model ApparatusDewPoint "Test model for ApparatusDewPoint"
     height=1.35,
     startTime=600) "Mass flow rate of air"
     annotation (Placement(transformation(extent={{-80,6},{-60,26}})));
-  Modelica.Blocks.Sources.Ramp XIn(
+  Modelica.Blocks.Sources.Ramp XEvaIn(
     duration=600,
     height=0.004,
     startTime=1800,
@@ -90,7 +90,7 @@ protected
     final integerFalse=0) "On/off switch"
     annotation (Placement(transformation(extent={{-6,76},{6,88}})));
 public
-  Modelica.Blocks.Sources.Constant hIn(k=Medium.specificEnthalpy(
+  Modelica.Blocks.Sources.Constant hEvaIn(k=Medium.specificEnthalpy(
         Medium.setState_pTX(
         p=101325,
         T=30 + 273.15,
@@ -109,7 +109,7 @@ equation
       points={{-59,16},{-50,16},{-50,11},{39,11}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn.y, adp.XIn) annotation (Line(
+  connect(XEvaIn.y, adp.XEvaIn) annotation (Line(
       points={{-59,-50},{-46,-50},{-46,5},{39,5}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -129,7 +129,7 @@ equation
       points={{6.6,82},{20,82},{20,20},{39,20}},
       color={255,127,0},
       smooth=Smooth.None));
-  connect(hIn.y, adp.hIn) annotation (Line(
+  connect(hEvaIn.y, adp.hEvaIn) annotation (Line(
       points={{-59,-90},{-40,-90},{-40,2},{39,2}},
       color={0,0,127},
       smooth=Smooth.None));

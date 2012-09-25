@@ -13,16 +13,16 @@ model EvaporationFlowReversal
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
   parameter Modelica.SIunits.Temperature TOut_nominal=
-    nomVal.TIn_nominal + nomVal.SHR_nominal * nomVal.Q_flow_nominal/nomVal.m_flow_nominal/1006
+    nomVal.TEvaIn_nominal + nomVal.SHR_nominal * nomVal.Q_flow_nominal/nomVal.m_flow_nominal/1006
     "Nominal air outlet temperature";
 
-  parameter Modelica.SIunits.MassFraction XIn_nominal=
+  parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
     Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-     pSat=Medium.saturationPressure(nomVal.TIn_nominal),
+     pSat=Medium.saturationPressure(nomVal.TEvaIn_nominal),
      p=nomVal.p_nominal,
      phi=nomVal.phiIn_nominal) "Mass fraction at nominal inlet conditions";
 
-  parameter Modelica.SIunits.MassFraction XOut_nominal = XIn_nominal +
+  parameter Modelica.SIunits.MassFraction XEvaOut_nominal = XEvaIn_nominal +
    (1-nomVal.SHR_nominal) * nomVal.Q_flow_nominal/nomVal.m_flow_nominal/Medium.enthalpyOfVaporization(293.15)
     "Nominal air outlet humidity";
 
@@ -36,7 +36,7 @@ model EvaporationFlowReversal
   Modelica.Blocks.Sources.TimeTable mAir_flow(table=[0,1; 300,1; 900,-1; 1200,-1;
         1500,0; 1800,0]) "Air flow rate"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Modelica.Blocks.Sources.Constant XOut(k=XOut_nominal)
+  Modelica.Blocks.Sources.Constant XEvaOut(k=XEvaOut_nominal)
     "Outlet water vapor mass fraction"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Modelica.Blocks.Sources.Constant TOut(k=TOut_nominal) "Outlet Temperature"
@@ -49,7 +49,7 @@ model EvaporationFlowReversal
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Math.Gain gain(k=nomVal.m_flow_nominal)
     annotation (Placement(transformation(extent={{-48,0},{-28,20}})));
-  Modelica.Blocks.Sources.Constant XIn(k=XIn_nominal)
+  Modelica.Blocks.Sources.Constant XEvaIn(k=XEvaIn_nominal)
     "Inlet water vapor mass fraction"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
 equation
@@ -62,7 +62,7 @@ equation
       points={{38,20},{-34,20},{-34,40},{-59,40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XOut.y, eva.XOut)    annotation (Line(
+  connect(XEvaOut.y, eva.XEvaOut)    annotation (Line(
       points={{-59,-60},{50,-60},{50,8}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -82,7 +82,7 @@ equation
       points={{-27,10},{0,10},{0,14},{38,14}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn.y, eva.XIn) annotation (Line(
+  connect(XEvaIn.y, eva.XEvaIn) annotation (Line(
       points={{-59,-30},{44,-30},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));

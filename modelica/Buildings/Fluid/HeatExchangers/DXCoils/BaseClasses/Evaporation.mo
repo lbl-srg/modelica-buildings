@@ -44,12 +44,12 @@ model Evaporation
                                                  final unit = "kg/s")
     "Air mass flow rate"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealInput XIn(min=0, max=1, unit="1")
+  Modelica.Blocks.Interfaces.RealInput XEvaIn(min=0, max=1, unit="1")
     "Water mass fraction at coil inlet"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={-60,-120})));
-  Modelica.Blocks.Interfaces.RealInput XOut(min=0, max=1, unit="1")
+  Modelica.Blocks.Interfaces.RealInput XEvaOut(min=0, max=1, unit="1")
     "Water mass fraction at coil outlet"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
@@ -78,26 +78,26 @@ protected
   final parameter Modelica.SIunits.HeatFlowRate QLat_flow_nominal(max=0, fixed=false)
     "Nominal latent heat flow rate (negative number)";
 
-  final parameter Modelica.SIunits.MassFraction XIn_nominal(fixed=false)
+  final parameter Modelica.SIunits.MassFraction XEvaIn_nominal(fixed=false)
     "Mass fraction at nominal inlet conditions";
 
    final parameter Modelica.SIunits.Temperature TOut_nominal(fixed=false)
     "Nominal outlet temperature";
 
-   final parameter Modelica.SIunits.MassFraction XOut_nominal(fixed=false)
+   final parameter Modelica.SIunits.MassFraction XEvaOut_nominal(fixed=false)
     "Mass fraction at nominal outlet conditions";
 
-  final parameter Modelica.SIunits.MassFraction XOutSat_nominal(fixed=false)
+  final parameter Modelica.SIunits.MassFraction XEvaOutSat_nominal(fixed=false)
     "Saturated mass fraction at nominal outlet temperature";
 
   final parameter Medium.ThermodynamicState stateIn_nominal=
     if Medium.nX == 1 then
       Medium.ThermodynamicState(p=nomVal.p_nominal,
-                                T=nomVal.TIn_nominal,
-                                X={XIn_nominal}) else
+                                T=nomVal.TEvaIn_nominal,
+                                X={XEvaIn_nominal}) else
       Medium.ThermodynamicState(p=nomVal.p_nominal,
-                                T=nomVal.TIn_nominal,
-                                X={XIn_nominal,1-XIn_nominal})
+                                T=nomVal.TEvaIn_nominal,
+                                X={XEvaIn_nominal,1-XEvaIn_nominal})
     "Thermodynamic state at the nominal inlet condition";
 
   parameter Modelica.SIunits.SpecificEnthalpy h_fg(fixed=false)
@@ -109,7 +109,7 @@ protected
   parameter Real K2(min=0, fixed=false)
     "Coefficient used for convective mass transfer";
 
-  Modelica.SIunits.MassFraction XOutSat
+  Modelica.SIunits.MassFraction XEvaOutSat
     "Saturated mass fraction at outlet temperature";
 
    // off = not on is required because Dymola 2013 fails during model
@@ -121,47 +121,47 @@ protected
 initial equation
   QSen_flow_nominal=nomVal.SHR_nominal * nomVal.Q_flow_nominal;
   QLat_flow_nominal=nomVal.Q_flow_nominal-QSen_flow_nominal;
-  h_fg = Medium.enthalpyOfVaporization(nomVal.TIn_nominal);
+  h_fg = Medium.enthalpyOfVaporization(nomVal.TEvaIn_nominal);
 
   mMax = -QLat_flow_nominal * nomVal.tWet/h_fg;
 
-  XIn_nominal=Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-     pSat=Medium.saturationPressure(nomVal.TIn_nominal),
+  XEvaIn_nominal=Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+     pSat=Medium.saturationPressure(nomVal.TEvaIn_nominal),
      p=nomVal.p_nominal,
      phi=nomVal.phiIn_nominal);
 
   // Nominal outlet conditions
-  TOut_nominal = nomVal.TIn_nominal + QSen_flow_nominal/nomVal.m_flow_nominal/
+  TOut_nominal = nomVal.TEvaIn_nominal + QSen_flow_nominal/nomVal.m_flow_nominal/
      Medium.specificHeatCapacityCp(stateIn_nominal);
-  XOut_nominal =
-      (XIn_nominal * h_fg + QLat_flow_nominal/nomVal.m_flow_nominal)/h_fg;
+  XEvaOut_nominal =
+      (XEvaIn_nominal * h_fg + QLat_flow_nominal/nomVal.m_flow_nominal)/h_fg;
 
-  XOutSat_nominal= Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+  XEvaOutSat_nominal= Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
        pSat=Medium.saturationPressure(TOut_nominal),
        p=nomVal.p_nominal,
        phi=1);
-  gammaMax = 0.8 * nomVal.m_flow_nominal * (XOutSat_nominal-XIn_nominal) * h_fg / (-QLat_flow_nominal);
+  gammaMax = 0.8 * nomVal.m_flow_nominal * (XEvaOutSat_nominal-XEvaIn_nominal) * h_fg / (-QLat_flow_nominal);
   if (nomVal.gamma > gammaMax) then
      Modelica.Utilities.Streams.print("Warning: In DX coil model, gamma is too large for these coil conditions.
   Instead of gamma = " + String(nomVal.gamma) + ", a value of " + String(gammaMax) + ", which 
   corresponds to a mass transfer effectiveness of 0.8, will be used.\n");
   end if;
   logArg = 1+min(nomVal.gamma, gammaMax)*QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/
-          (XOutSat_nominal-XIn_nominal);
+          (XEvaOutSat_nominal-XEvaIn_nominal);
 
   K = -Modelica.Math.log(logArg);
   K2 = K/mMax*nomVal.m_flow_nominal^(-0.2);
 
   assert(QLat_flow_nominal < 0, "QLat_nominal must be a negative number. Check parameters.");
-  assert(XOut_nominal < XOutSat_nominal, "Require xOut_nominal < xOutSat_nominal, but obtained more than 100% relative humidity at outlet at nominal conditions.
+  assert(XEvaOut_nominal < XEvaOutSat_nominal, "Require xOut_nominal < xOutSat_nominal, but obtained more than 100% relative humidity at outlet at nominal conditions.
     nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
     SHR_nominal           = " + String(nomVal.SHR_nominal) + "
     QSen_flow_nominal     = " + String(QSen_flow_nominal) + "
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
-    XIn_nominal           = " + String(XIn_nominal) + "
-    XOut_nominal          = " + String(XOut_nominal) + "
-    XOutSat_nominal       = " + String(XOutSat_nominal) + "
-    TIn_nominal           = " + String(nomVal.TIn_nominal) + "
+    XEvaIn_nominal           = " + String(XEvaIn_nominal) + "
+    XEvaOut_nominal          = " + String(XEvaOut_nominal) + "
+    XEvaOutSat_nominal       = " + String(XEvaOutSat_nominal) + "
+    TEvaIn_nominal           = " + String(nomVal.TEvaIn_nominal) + "
     TOut_nominal          = " + String(TOut_nominal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
 
@@ -171,10 +171,10 @@ initial equation
     SHR_nominal           = " + String(nomVal.SHR_nominal) + "
     QSen_flow_nominal     = " + String(QSen_flow_nominal) + "
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
-    XIn_nominal           = " + String(XIn_nominal) + "
-    XOut_nominal          = " + String(XOut_nominal) + "
-    XOutSat_nominal       = " + String(XOutSat_nominal) + "
-    TIn_nominal           = " + String(nomVal.TIn_nominal) + "
+    XEvaIn_nominal           = " + String(XEvaIn_nominal) + "
+    XEvaOut_nominal          = " + String(XEvaOut_nominal) + "
+    XEvaOutSat_nominal       = " + String(XEvaOutSat_nominal) + "
+    TEvaIn_nominal           = " + String(nomVal.TEvaIn_nominal) + "
     TOut_nominal          = " + String(TOut_nominal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
 equation
@@ -186,20 +186,20 @@ equation
      end when;
 
   if on then
-    XOutSat = 0;
+    XEvaOutSat = 0;
     dX = 0;
     mEva_flow = 0;
     mTotWat_flow = mWat_flow;
     der(m) = -mWat_flow;
   else
-    XOutSat = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+    XEvaOutSat = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
       pSat=Medium.saturationPressure(TOut),
       p=nomVal.p_nominal,
       phi=1);
-    dX = XOutSat - smooth(1, noEvent(
+    dX = XEvaOutSat - smooth(1, noEvent(
        Buildings.Utilities.Math.Functions.spliceFunction(
-       pos=XIn,
-       neg=XOut,
+       pos=XEvaIn,
+       neg=XEvaOut,
        x=abs(mAir_flow)-nomVal.m_flow_nominal/2,
        deltax=nomVal.m_flow_nominal/3)));
     mEva_flow = smooth(1, noEvent(dX *
@@ -214,7 +214,7 @@ equation
 
   end if;
   else
-    XOutSat = 0;
+    XEvaOutSat = 0;
     dX = 0;
     mEva_flow = 0;
     mTotWat_flow = mWat_flow;

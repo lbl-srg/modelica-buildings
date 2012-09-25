@@ -12,29 +12,29 @@ block ApparatusDryPoint "Calculates air properties at dry coil surface"
   output Modelica.SIunits.SpecificEnthalpy hDry
     "Enthalpy of air at coil surface";
 protected
-  Modelica.SIunits.MassFraction XInVec[Medium.nX]
+  Modelica.SIunits.MassFraction XEvaInVec[Medium.nX]
     "Mass fraction of air inlet condition";
   Modelica.SIunits.Temperature TADP(start=283.15)
     "Apparatus dew point temperature";
   Modelica.SIunits.SpecificEnthalpy hMin
     "Minimum enthalpy of apparatus dew point";
 equation
-  XInVec =cat(1,{XIn},{1-sum({XIn})});
+  XEvaInVec =cat(1,{XEvaIn},{1-sum({XEvaIn})});
 
-  XIn = Buildings.Utilities.Psychrometrics.Functions.X_pW(p_w=Medium.saturationPressure(TADP), p=p);
+  XEvaIn = Buildings.Utilities.Psychrometrics.Functions.X_pW(p_w=Medium.saturationPressure(TADP), p=p);
 
-  hMin = Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TADP, X=XInVec));
+  hMin = Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TADP, X=XEvaInVec));
 
   hDry = Buildings.Utilities.Math.Functions.smoothMin(
     x1=  Buildings.Utilities.Math.Functions.smoothMax(
-      x1=hIn - delta_h,
+      x1=hEvaIn - delta_h,
       x2=hMin,
       deltaX=10),
-    x2=  hIn+100,
+    x2=  hEvaIn+100,
     deltaX=10);
 
-  TDry= Medium.temperature(Medium.setState_phX(p=p, h=hDry, X=XInVec))
-    "XIn=XDry assumption for dry coil";
+  TDry= Medium.temperature(Medium.setState_phX(p=p, h=hDry, X=XEvaInVec))
+    "XEvaIn=XDry assumption for dry coil";
 
  annotation(defaultComponentName="appDryPt",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

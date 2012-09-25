@@ -8,7 +8,7 @@ extends Modelica.Icons.Example;
     height=-0.002,
     offset=0.006) "Mass fraction at ADP"
     annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
-  Modelica.Blocks.Sources.Ramp XIn(
+  Modelica.Blocks.Sources.Ramp XEvaIn(
     startTime=20,
     height=0.002,
     offset=0.004,
@@ -34,7 +34,7 @@ extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Constant EIRDry(k=0.2)
     annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 equation
-  connect(XIn.y, dryWet.XIn)    annotation (Line(
+  connect(XEvaIn.y, dryWet.XEvaIn)    annotation (Line(
       points={{-39,-10},{-28,-10},{-28,-4},{-1,-4}},
       color={0,0,127},
       smooth=Smooth.None));

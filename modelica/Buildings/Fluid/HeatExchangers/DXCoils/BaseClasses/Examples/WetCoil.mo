@@ -22,19 +22,19 @@ model WetCoil "Test model for WetCoil"
     startTime=1200,
     height=1.05) "Mass flow rate of air"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Modelica.Blocks.Sources.Ramp XIn(
+  Modelica.Blocks.Sources.Ramp XEvaIn(
     duration=600,
     startTime=2400,
     height=-0.002,
     offset=0.012) "Inlet mass-fraction"
     annotation (Placement(transformation(extent={{-80,-94},{-60,-74}})));
-  Modelica.Blocks.Sources.Ramp hIn(
+  Modelica.Blocks.Sources.Ramp hEvaIn(
     duration=600,
     startTime=2400,
     offset=60000,
     height=-10000) "Specific enthalpy of air entring the coil"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
-  Modelica.Blocks.Sources.Ramp TIn(
+  Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
     startTime=2400,
     height=-5,
@@ -99,15 +99,15 @@ equation
       points={{-59,20},{-50,20},{-50,12.4},{19,12.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn.y, wetCoi.XIn)  annotation (Line(
+  connect(XEvaIn.y, wetCoi.XEvaIn)  annotation (Line(
       points={{-59,-84},{-38,-84},{-38,5},{19,5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hIn.y, wetCoi.hIn)  annotation (Line(
+  connect(hEvaIn.y, wetCoi.hEvaIn)  annotation (Line(
       points={{1,-30},{8,-30},{8,2.3},{19,2.3}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TIn.y, wetCoi.TIn)  annotation (Line(
+  connect(TEvaIn.y, wetCoi.TEvaIn)  annotation (Line(
       points={{-59,-16},{-50,-16},{-50,10},{19,10}},
       color={0,0,127},
       smooth=Smooth.None));

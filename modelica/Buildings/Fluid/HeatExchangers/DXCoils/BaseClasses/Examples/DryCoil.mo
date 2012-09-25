@@ -22,19 +22,19 @@ extends Modelica.Icons.Example;
     duration=600,
     height=1.5) "Mass flow rate of air"
     annotation (Placement(transformation(extent={{-80,12},{-60,32}})));
-  Modelica.Blocks.Sources.Ramp TIn(
+  Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
     startTime=2400,
     height=-4,
     offset=273.15 + 29) "Dry bulb temperature of air entring the coil"
     annotation (Placement(transformation(extent={{-80,-28},{-60,-8}})));
-  Modelica.Blocks.Sources.Ramp XIn(
+  Modelica.Blocks.Sources.Ramp XEvaIn(
     duration=600,
     startTime=2400,
     height=-0.002,
     offset=0.006) "Inlet mass-fraction"
     annotation (Placement(transformation(extent={{-80,-94},{-60,-74}})));
-  Modelica.Blocks.Sources.Ramp hIn(
+  Modelica.Blocks.Sources.Ramp hEvaIn(
     duration=600,
     startTime=2400,
     height=-10000,
@@ -99,15 +99,15 @@ equation
       points={{-59,22},{-48,22},{-48,2.4},{19,2.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TIn.y, dryCoi.TIn)  annotation (Line(
+  connect(TEvaIn.y, dryCoi.TEvaIn)  annotation (Line(
       points={{-59,-18},{-48,-18},{-48,6.10623e-16},{19,6.10623e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn.y, dryCoi.XIn)  annotation (Line(
+  connect(XEvaIn.y, dryCoi.XEvaIn)  annotation (Line(
       points={{-59,-84},{-36,-84},{-36,-5},{19,-5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hIn.y, dryCoi.hIn)  annotation (Line(
+  connect(hEvaIn.y, dryCoi.hEvaIn)  annotation (Line(
       points={{1,-30},{10,-30},{10,-7.7},{19,-7.7}},
       color={0,0,127},
       smooth=Smooth.None));

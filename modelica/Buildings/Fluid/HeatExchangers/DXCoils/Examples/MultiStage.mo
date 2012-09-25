@@ -34,11 +34,11 @@ model MultiStage "Test model for multi stage DX coil"
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
-    T_start=datCoi.per[1].nomVal.TIn_nominal,
+    T_start=datCoi.per[1].nomVal.TEvaIn_nominal,
     show_T=true,
     from_dp=true) "Multispeed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Modelica.Blocks.Sources.Ramp TIn(
+  Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
     startTime=2400,
     height=-5,
@@ -119,7 +119,7 @@ equation
       points={{10,10},{14,10},{14,-10},{20,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TIn.y, sou.T_in) annotation (Line(
+  connect(TEvaIn.y, sou.T_in) annotation (Line(
       points={{-79,-28},{-52,-28},{-52,-6},{-42,-6}},
       color={0,0,127},
       smooth=Smooth.None));

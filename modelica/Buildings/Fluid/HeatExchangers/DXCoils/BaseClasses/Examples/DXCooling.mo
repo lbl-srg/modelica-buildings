@@ -22,19 +22,19 @@ model DXCooling "Test model for DXCooling"
     startTime=1200,
     height=1.05) "Mass flow rate of air"
     annotation (Placement(transformation(extent={{-80,8},{-60,28}})));
-  Modelica.Blocks.Sources.Ramp TIn(
+  Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
     startTime=2400,
     height=-5,
     offset=273.15 + 29) "Dry bulb temperature of air entring the coil"
     annotation (Placement(transformation(extent={{-80,-24},{-60,-4}})));
-  Modelica.Blocks.Sources.Ramp XIn(
+  Modelica.Blocks.Sources.Ramp XEvaIn(
     duration=600,
     startTime=2400,
     height=-0.002,
     offset=0.012) "Inlet mass-fraction"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}})));
-  Modelica.Blocks.Sources.Ramp hIn(
+  Modelica.Blocks.Sources.Ramp hEvaIn(
     duration=600,
     startTime=2400,
     offset=60000,
@@ -99,15 +99,15 @@ equation
       points={{-59,18},{-52,18},{-52,12.4},{-1,12.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TIn.y, dxCoo.TIn)  annotation (Line(
+  connect(TEvaIn.y, dxCoo.TEvaIn)  annotation (Line(
       points={{-59,-14},{-52,-14},{-52,10},{-1,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn.y, dxCoo.XIn)  annotation (Line(
+  connect(XEvaIn.y, dxCoo.XEvaIn)  annotation (Line(
       points={{-59,-80},{-44,-80},{-44,5},{-1,5}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hIn.y, dxCoo.hIn)  annotation (Line(
+  connect(hEvaIn.y, dxCoo.hEvaIn)  annotation (Line(
       points={{-19,-30},{-10,-30},{-10,2.3},{-1,2.3}},
       color={0,0,127},
       smooth=Smooth.None));

@@ -30,16 +30,17 @@ model SingleSpeedValidationPLR
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
-    T_start=datCoi.per[1].nomVal.TIn_nominal,
+    T_start=datCoi.per[1].nomVal.TEvaIn_nominal,
     from_dp=true,
-    computeReevaporation=false) "Single speed DX coil"
+    computeReevaporation=true,
+    eva(m(start=0))) "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Modelica.Blocks.Routing.Multiplex2 mux "Converts in an array"
     annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
   Buildings.Utilities.IO.BCVTB.From_degC TCIn_K "Converts degC to K"
     annotation (Placement(transformation(extent={{-100,60},{-80,80}})));
-  Buildings.Utilities.IO.BCVTB.From_degC TIn_K "Converts degC to K"
+  Buildings.Utilities.IO.BCVTB.From_degC TEvaIn_K "Converts degC to K"
     annotation (Placement(transformation(extent={{-100,-20},{-80,0}})));
   Modelica.Blocks.Math.Mean TOutMea(f=1/3600)
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
@@ -47,9 +48,9 @@ model SingleSpeedValidationPLR
     annotation (Placement(transformation(extent={{120,80},{140,100}})));
   Modelica.Blocks.Sources.RealExpression TOut(y=sinSpeDX.vol.T)
     annotation (Placement(transformation(extent={{40,80},{60,100}})));
-  Modelica.Blocks.Math.Mean XOutMea(f=1/3600)
+  Modelica.Blocks.Math.Mean XEvaOutMea(f=1/3600)
     annotation (Placement(transformation(extent={{80,120},{100,140}})));
-  Modelica.Blocks.Sources.RealExpression XOut(y=sum(sinSpeDX.vol.Xi))
+  Modelica.Blocks.Sources.RealExpression XEvaOut(y=sum(sinSpeDX.vol.Xi))
     annotation (Placement(transformation(extent={{40,120},{60,140}})));
   Modelica.Blocks.Math.Mean Q_flowMea(f=1/3600) "Mean of cooling rate"
     annotation (Placement(transformation(extent={{0,80},{20,100}})));
@@ -60,7 +61,7 @@ model SingleSpeedValidationPLR
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Modelica.Blocks.Math.Add add(k1=-1)
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
-  Modelica.Blocks.Sources.Constant XInMoiAir(k=1.0) "Moist air fraction = 1"
+  Modelica.Blocks.Sources.Constant XEvaInMoiAir(k=1.0) "Moist air fraction = 1"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
   Modelica.Blocks.Math.Division shrEPlu "EnergyPlus result: SHR"
     annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
@@ -72,11 +73,11 @@ model SingleSpeedValidationPLR
     startTime=25200,
     amplitude=1086) "Pressure"
     annotation (Placement(transformation(extent={{-140,20},{-120,40}})));
-  Modelica.Blocks.Sources.RealExpression XInMod(y=XIn.y/(1 + XIn.y))
-    "Modified XIn"
+  Modelica.Blocks.Sources.RealExpression XEvaInMod(y=XEvaIn.y/(1 + XEvaIn.y))
+    "Modified XEvaIn"
     annotation (Placement(transformation(extent={{-140,-54},{-120,-34}})));
-  Modelica.Blocks.Sources.RealExpression XOutEPluMod(y=XOutEPlu.y/(1 + XOutEPlu.y))
-    "Modified XOut of energyPlus to comapre with the model results"
+  Modelica.Blocks.Sources.RealExpression XEvaOutEPluMod(y=XEvaOutEPlu.y/(1 + XEvaOutEPlu.y))
+    "Modified XEvaOut of energyPlus to comapre with the model results"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
   Modelica.Blocks.Sources.BooleanTable onOff(startValue=true, table={
  0,
@@ -115,7 +116,7 @@ model SingleSpeedValidationPLR
         21.35; 82800,21.35; 82800,21.1; 86400,21.1])
     "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Modelica.Blocks.Sources.TimeTable TIn(table=[
+  Modelica.Blocks.Sources.TimeTable TEvaIn(table=[
 0,29.34948133;
 3600,29.34948133;
 3600,29.01814876;
@@ -165,7 +166,7 @@ model SingleSpeedValidationPLR
 82800,29.61490681;
 86400,29.61490681]) "Coil inlet temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Modelica.Blocks.Sources.TimeTable XIn(table=[
+  Modelica.Blocks.Sources.TimeTable XEvaIn(table=[
 0,0.00946;
 3600,0.00946;
 3600,0.00946;
@@ -242,7 +243,7 @@ model SingleSpeedValidationPLR
         75600,0; 79200,0; 79200,0; 82800,0; 82800,0; 86400,0])
     "EnergyPlus result: electric power"
     annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
-  Modelica.Blocks.Sources.TimeTable XOutEPlu_ori(table=[0,0.009460927; 3600,0.009460927;
+  Modelica.Blocks.Sources.TimeTable XEvaOutEPlu_ori(table=[0,0.009460927; 3600,0.009460927;
         3600,0.009460927; 7200,0.009460927; 7200,0.009460927; 10800,0.009460927;
         10800,0.009460927; 14400,0.009460927; 14400,0.009460927; 18000,0.009460927;
         18000,0.009460927; 21600,0.009460927; 21600,0.009553929; 25200,0.009553929;
@@ -305,7 +306,7 @@ model SingleSpeedValidationPLR
     annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
   Modelica.Blocks.Discrete.UnitDelay TOutEPlu(samplePeriod=3600, y_start=29.34948133)
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Modelica.Blocks.Discrete.UnitDelay XOutEPlu(samplePeriod=3600)
+  Modelica.Blocks.Discrete.UnitDelay XEvaOutEPlu(samplePeriod=3600)
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   Modelica.Blocks.Math.MultiSum multiSum(nu=2)
     annotation (Placement(transformation(extent={{118,-120},{130,-108}})));
@@ -331,7 +332,7 @@ equation
       points={{-79,69.8},{-66.5,69.8},{-66.5,13},{-11,13}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TIn_K.Kelvin, sou.T_in)    annotation (Line(
+  connect(TEvaIn_K.Kelvin, sou.T_in)    annotation (Line(
       points={{-79,-10.2},{-51.7,-10.2},{-51.7,-6},{-42,-6}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -345,12 +346,12 @@ equation
       points={{101,90},{118,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XOut.y, XOutMea.u)
+  connect(XEvaOut.y, XEvaOutMea.u)
                            annotation (Line(
       points={{61,130},{78,130}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XInMoiAir.y, add.u2)
+  connect(XEvaInMoiAir.y, add.u2)
                            annotation (Line(
       points={{-119,-110},{-112,-110},{-112,-96},{-102,-96}},
       color={0,0,127},
@@ -367,11 +368,11 @@ equation
       points={{-119,30},{-74,30},{-74,-2},{-42,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XInMod.y, mux.u1[1]) annotation (Line(
+  connect(XEvaInMod.y, mux.u1[1]) annotation (Line(
       points={{-119,-44},{-82,-44}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XInMod.y, add.u1) annotation (Line(
+  connect(XEvaInMod.y, add.u1) annotation (Line(
       points={{-119,-44},{-110,-44},{-110,-84},{-102,-84}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -383,7 +384,7 @@ equation
       points={{-119,70},{-110.5,70},{-110.5,69.6},{-102,69.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TIn.y, TIn_K.Celsius) annotation (Line(
+  connect(TEvaIn.y, TEvaIn_K.Celsius) annotation (Line(
       points={{-119,-10},{-110.5,-10},{-110.5,-10.4},{-102,-10.4}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -423,7 +424,7 @@ equation
       points={{-19,-70},{-2,-70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XOutEPlu_ori.y, XOutEPlu.u) annotation (Line(
+  connect(XEvaOutEPlu_ori.y, XEvaOutEPlu.u) annotation (Line(
       points={{-19,-130},{-2,-130}},
       color={0,0,127},
       smooth=Smooth.None));

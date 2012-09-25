@@ -35,10 +35,10 @@ model VariableSpeed "Test model for variable speed DX coil"
     dp_nominal=dp_nominal,
     datCoi=datCoi,
     minSpeRat=datCoi.minSpeRat,
-    T_start=datCoi.per[1].nomVal.TIn_nominal,
+    T_start=datCoi.per[1].nomVal.TEvaIn_nominal,
     from_dp=true) "Variable speed DX coil"
     annotation (Placement(transformation(extent={{-10,2},{10,22}})));
-  Modelica.Blocks.Sources.Ramp TIn(
+  Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
     startTime=900,
     height=5,
@@ -116,7 +116,7 @@ equation
       points={{10,12},{14,12},{14,-10},{20,-10}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(TIn.y, sou.T_in) annotation (Line(
+  connect(TEvaIn.y, sou.T_in) annotation (Line(
       points={{-79,-30},{-52,-30},{-52,-6},{-42,-6}},
       color={0,0,127},
       smooth=Smooth.None));

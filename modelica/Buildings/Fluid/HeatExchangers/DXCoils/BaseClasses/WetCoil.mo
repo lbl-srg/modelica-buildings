@@ -51,7 +51,7 @@ equation
       points={{-9,-55},{30,-55},{30,-40},{110,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn, appDewPt.XIn) annotation (Line(
+  connect(XEvaIn, appDewPt.XEvaIn) annotation (Line(
       points={{-110,-50},{-86,-50},{-86,-55},{-31,-55}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -68,7 +68,7 @@ equation
       points={{-110,-24},{-82,-24},{-82,21.2},{-60.6,21.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn, wetBul.Xi[1]) annotation (Line(
+  connect(XEvaIn, wetBul.Xi[1]) annotation (Line(
       points={{-110,-50},{-86,-50},{-86,26},{-60.6,26}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -92,19 +92,19 @@ equation
       points={{-110,-24},{-82,-24},{-82,-10},{19,-10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TIn, wetBul.TDryBul) annotation (Line(
+  connect(TEvaIn, wetBul.TDryBul) annotation (Line(
       points={{-110,5.55112e-16},{-90,5.55112e-16},{-90,30.8},{-60.6,30.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TIn, shr.TIn) annotation (Line(
+  connect(TEvaIn, shr.TEvaIn) annotation (Line(
       points={{-110,5.55112e-16},{-90,5.55112e-16},{-90,-2.8},{19,-2.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hIn, shr.hIn) annotation (Line(
+  connect(hEvaIn, shr.hEvaIn) annotation (Line(
       points={{-110,-77},{-90,-77},{-90,-6.7},{19,-6.7}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hIn, appDewPt.hIn) annotation (Line(
+  connect(hEvaIn, appDewPt.hEvaIn) annotation (Line(
       points={{-110,-77},{-90,-77},{-90,-58},{-31,-58}},
       color={0,0,127},
       smooth=Smooth.None));

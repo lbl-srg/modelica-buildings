@@ -12,16 +12,16 @@ model EvaporationPulse "Test model for evaporation with pulse signal"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
   parameter Modelica.SIunits.Temperature TOut_nominal=
-    nomVal.TIn_nominal + nomVal.SHR_nominal * nomVal.Q_flow_nominal/nomVal.m_flow_nominal/1006
+    nomVal.TEvaIn_nominal + nomVal.SHR_nominal * nomVal.Q_flow_nominal/nomVal.m_flow_nominal/1006
     "Nominal air outlet temperature";
 
-  parameter Modelica.SIunits.MassFraction XIn_nominal=
+  parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
     Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-     pSat=Medium.saturationPressure(nomVal.TIn_nominal),
+     pSat=Medium.saturationPressure(nomVal.TEvaIn_nominal),
      p=nomVal.p_nominal,
      phi=nomVal.phiIn_nominal) "Mass fraction at nominal inlet conditions";
 
-  parameter Modelica.SIunits.MassFraction XOut_nominal = XIn_nominal +
+  parameter Modelica.SIunits.MassFraction XEvaOut_nominal = XEvaIn_nominal +
    (1-nomVal.SHR_nominal) * nomVal.Q_flow_nominal/nomVal.m_flow_nominal/Medium.enthalpyOfVaporization(293.15)
     "Nominal air outlet humidity";
 
@@ -38,7 +38,7 @@ model EvaporationPulse "Test model for evaporation with pulse signal"
   Modelica.Blocks.Sources.Constant mAir_flow(k=nomVal.m_flow_nominal)
     "Air flow rate"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Modelica.Blocks.Sources.Constant XOut(k=XOut_nominal)
+  Modelica.Blocks.Sources.Constant XEvaOut(k=XEvaOut_nominal)
     "Outlet water vapor mass fraction"
     annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
   Modelica.Blocks.Sources.Constant TOut(k=TOut_nominal) "Outlet Temperature"
@@ -65,7 +65,7 @@ model EvaporationPulse "Test model for evaporation with pulse signal"
         /Medium.enthalpyOfVaporization(293.15))
     "Water mass flow rate from air to coil surface"
     annotation (Placement(transformation(extent={{-60,-110},{-40,-90}})));
-  Modelica.Blocks.Sources.Constant XIn(k=XIn_nominal)
+  Modelica.Blocks.Sources.Constant XEvaIn(k=XEvaIn_nominal)
     "Inlet water vapor mass fraction"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation
@@ -87,7 +87,7 @@ equation
       points={{38,44},{0,44},{0,90},{-39,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XOut.y, evaSho.XOut) annotation (Line(
+  connect(XEvaOut.y, evaSho.XEvaOut) annotation (Line(
       points={{-39,20},{50,20},{50,38}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -103,7 +103,7 @@ equation
       points={{38,-36},{0,-36},{0,90},{-39,90}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XOut.y, evaNor.XOut) annotation (Line(
+  connect(XEvaOut.y, evaNor.XEvaOut) annotation (Line(
       points={{-39,20},{20,20},{20,-60},{50,-60},{50,-42}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -137,11 +137,11 @@ equation
       points={{-39,-40},{-12,-40},{-12,54},{38,54}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn.y, evaSho.XIn) annotation (Line(
+  connect(XEvaIn.y, evaSho.XEvaIn) annotation (Line(
       points={{-39,50},{-30,50},{-30,28},{44,28},{44,38}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn.y, evaNor.XIn) annotation (Line(
+  connect(XEvaIn.y, evaNor.XEvaIn) annotation (Line(
       points={{-39,50},{-30,50},{-30,-54},{44,-54},{44,-42}},
       color={0,0,127},
       smooth=Smooth.None));

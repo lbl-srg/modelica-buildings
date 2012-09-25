@@ -19,11 +19,11 @@ equation
       points={{81,-40},{110,-40}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hIn, appDryPt.hIn) annotation (Line(
+  connect(hEvaIn, appDryPt.hEvaIn) annotation (Line(
       points={{-110,-77},{-80,-77},{-80,-48},{59,-48}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn, appDryPt.XIn) annotation (Line(
+  connect(XEvaIn, appDryPt.XEvaIn) annotation (Line(
       points={{-110,-50},{-80,-50},{-80,-45},{59,-45}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -44,7 +44,7 @@ equation
       points={{46.7,51},{52,51},{52,-36.1},{59,-36.1}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TIn, cooCap.TEvaIn) annotation (Line(
+  connect(TEvaIn, cooCap.TEvaIn) annotation (Line(
       points={{-110,5.55112e-16},{-32,5.55112e-16},{-32,45.2},{-15,45.2}},
       color={0,0,127},
       smooth=Smooth.None));

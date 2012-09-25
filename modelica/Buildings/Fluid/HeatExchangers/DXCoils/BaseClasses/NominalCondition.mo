@@ -9,32 +9,32 @@ record NominalCondition
     Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues per
     "Performance data"
     annotation (choicesAllMatching = true);
-  final parameter Modelica.SIunits.MassFraction XIn_nominal=
+  final parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
      Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-        pSat=Medium.saturationPressure(per.TIn_nominal),
+        pSat=Medium.saturationPressure(per.TEvaIn_nominal),
         p=per.p_nominal,
         phi=per.phiIn_nominal)
     "Rated/Nominal mass fraction of air entering coil";
-  final parameter Modelica.SIunits.SpecificEnthalpy hIn_nominal=
+  final parameter Modelica.SIunits.SpecificEnthalpy hEvaIn_nominal=
    Medium.h_pTX(
      p=per.p_nominal,
-     T=per.TIn_nominal,
-     X=cat(1,{XIn_nominal}, {1-sum({XIn_nominal})}))
+     T=per.TEvaIn_nominal,
+     X=cat(1,{XEvaIn_nominal}, {1-sum({XEvaIn_nominal})}))
     "Rated enthalpy of air entering cooling coil";
   final parameter Modelica.SIunits.SpecificEnthalpy hOut_nominal=
-    hIn_nominal + per.Q_flow_nominal / per.m_flow_nominal
+    hEvaIn_nominal + per.Q_flow_nominal / per.m_flow_nominal
     "Rated enthalpy of air exiting cooling coil";
   final parameter Modelica.SIunits.Temperature TOut_nominal=
-    per.TIn_nominal + (per.SHR_nominal * per.Q_flow_nominal)/(per.m_flow_nominal * Cp_nominal)
+    per.TEvaIn_nominal + (per.SHR_nominal * per.Q_flow_nominal)/(per.m_flow_nominal * Cp_nominal)
     "Dry-bulb temperature of the air leaving the cooling coil at nominal condition";
-  final parameter Modelica.SIunits.MassFraction XOut_nominal(start=0.005, min=0, max=1.0)=
-     XIn_nominal + (hOut_nominal- hIn_nominal)*(1-per.SHR_nominal)/
-     Medium.enthalpyOfCondensingGas(T=per.TIn_nominal)
+  final parameter Modelica.SIunits.MassFraction XEvaOut_nominal(start=0.005, min=0, max=1.0)=
+     XEvaIn_nominal + (hOut_nominal- hEvaIn_nominal)*(1-per.SHR_nominal)/
+     Medium.enthalpyOfCondensingGas(T=per.TEvaIn_nominal)
     "Rated/Nominal mass fraction of air leaving the coil";
 protected
   parameter Modelica.SIunits.SpecificHeatCapacity Cp_nominal=
     Medium.specificHeatCapacityCp(Medium.setState_pTX(
-          p=per.p_nominal, T=per.TIn_nominal, X=cat(1,{XIn_nominal}, {1-sum({XIn_nominal})})))
+          p=per.p_nominal, T=per.TEvaIn_nominal, X=cat(1,{XEvaIn_nominal}, {1-sum({XEvaIn_nominal})})))
     "Specific heat of air at specified nominal condition";
  annotation(defaultComponentName="nomCon",
  Documentation(info="<html>

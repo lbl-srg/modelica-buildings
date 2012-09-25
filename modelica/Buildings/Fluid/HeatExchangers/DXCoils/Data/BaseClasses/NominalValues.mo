@@ -14,7 +14,7 @@ record NominalValues "Data record of nominal values"
     "Nominal air mass flow rate"
     annotation (Dialog(group="Nominal condition"));
 
-  parameter Modelica.SIunits.Temperature TIn_nominal=273.15+26.7
+  parameter Modelica.SIunits.Temperature TEvaIn_nominal=273.15+26.7
     "Dry-bulb temperature of entering air at nominal condition"
       annotation(Dialog(tab="General",group="Nominal condition"));
   parameter Real phiIn_nominal=0.5

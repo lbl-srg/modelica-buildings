@@ -47,27 +47,27 @@ partial model PartialDXCoil "Partial model for DX coil"
   // Q_flow and EIR are set the zero. Hence, it is safe to assume
   // forward flow, which will avoid an event
 protected
-  Modelica.SIunits.SpecificEnthalpy hIn=
+  Modelica.SIunits.SpecificEnthalpy hEvaIn=
     inStream(port_a.h_outflow) "Enthalpy of air entering the cooling coil";
-  Modelica.SIunits.Temperature TIn = Medium.T_phX(p=port_a.p, h=hIn, X=XIn)
+  Modelica.SIunits.Temperature TEvaIn = Medium.T_phX(p=port_a.p, h=hEvaIn, X=XEvaIn)
     "Dry bulb temperature of air entering the cooling coil";
-  Modelica.SIunits.MassFraction XIn[Medium.nXi] = inStream(port_a.Xi_outflow)
+  Modelica.SIunits.MassFraction XEvaIn[Medium.nXi] = inStream(port_a.Xi_outflow)
     "Mass fraction/absolute humidity of air entering the cooling coil";
   constant Integer iWat = 1
-    "Index of water component in XIn. fixme: this should be set dynamically";
+    "Index of water component in XEvaIn. fixme: this should be set dynamically";
 
   Modelica.Blocks.Sources.RealExpression p(final y=port_a.p)
     "Inlet air pressure"
     annotation (Placement(transformation(extent={{-90,4},{-70,24}})));
-  Modelica.Blocks.Sources.RealExpression X(final y=XIn[iWat])
+  Modelica.Blocks.Sources.RealExpression X(final y=XEvaIn[iWat])
     "Inlet air mass fraction"
     annotation (Placement(transformation(extent={{-56,26},{-36,46}})));
-  Modelica.Blocks.Sources.RealExpression T(final y=TIn) "Inlet air temperature"
+  Modelica.Blocks.Sources.RealExpression T(final y=TEvaIn) "Inlet air temperature"
     annotation (Placement(transformation(extent={{-90,18},{-70,38}})));
   Modelica.Blocks.Sources.RealExpression m(final y=port_a.m_flow)
     "Inlet air mass flow rate"
     annotation (Placement(transformation(extent={{-90,34},{-70,54}})));
-  Modelica.Blocks.Sources.RealExpression h(final y=hIn)
+  Modelica.Blocks.Sources.RealExpression h(final y=hEvaIn)
     "Inlet air specific enthalpy"
     annotation (Placement(transformation(extent={{-56,12},{-36,32}})));
   Buildings.HeatTransfer.Sources.PrescribedHeatFlow q "Heat extracted by coil"
@@ -99,7 +99,7 @@ equation
       points={{-69,44},{-66,44},{-66,52.4},{-21,52.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(T.y, dxCoo.TIn)       annotation (Line(
+  connect(T.y, dxCoo.TEvaIn)       annotation (Line(
       points={{-69,28},{-62,28},{-62,50},{-21,50}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -107,11 +107,11 @@ equation
       points={{-69,14},{-58,14},{-58,47.6},{-21,47.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(X.y, dxCoo.XIn)      annotation (Line(
+  connect(X.y, dxCoo.XEvaIn)      annotation (Line(
       points={{-35,36},{-30,36},{-30,45},{-21,45}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(h.y, dxCoo.hIn)     annotation (Line(
+  connect(h.y, dxCoo.hEvaIn)     annotation (Line(
       points={{-35,22},{-26,22},{-26,42.3},{-21,42.3}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -156,7 +156,7 @@ equation
       points={{-69,44},{-66,44},{-66,-76},{-10,-76}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(vol.X_w, eva.XOut) annotation (Line(
+  connect(vol.X_w, eva.XEvaOut) annotation (Line(
       points={{13,-6},{86,-6},{86,-94},{2,-94},{2,-82}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -176,7 +176,7 @@ equation
       points={{41,64},{94,64},{94,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(X.y, eva.XIn) annotation (Line(
+  connect(X.y, eva.XEvaIn) annotation (Line(
       points={{-35,36},{-30,36},{-30,-94},{-4,-94},{-4,-82}},
       color={0,0,127},
       smooth=Smooth.None));

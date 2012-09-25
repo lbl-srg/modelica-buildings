@@ -2,7 +2,7 @@ simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.Examples.VariableSpeed", s
 removePlots();
 createPlot(id = 1,
  position = {4, 0, 487, 690},
- y = {"varSpeDX.vol.T", "TIn.y"},
+ y = {"varSpeDX.vol.T", "TEvaIn.y"},
  range = {0.0, 4000.0, 26.0, 16.0},
  autoscale = true,
  autoerase = true,
@@ -47,7 +47,7 @@ createPlot(id = 1,
  colors = {{0,0,255}, {255,0,0}});
 createPlot(id = 1,
  position = {4, 0, 487, 168},
- y = {"varSpeDX.vol.X_w", "varSpeDX.dxCoo.XIn"},
+ y = {"varSpeDX.vol.X_w", "varSpeDX.dxCoo.XEvaIn"},
  range = {0.0, 4000.0, 0.012, 0.006},
  autoscale = true,
  autoerase = true,

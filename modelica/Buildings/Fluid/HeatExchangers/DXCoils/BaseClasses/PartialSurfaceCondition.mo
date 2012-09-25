@@ -25,11 +25,11 @@ partial block PartialSurfaceCondition
     quantity="Pressure",
     unit="Pa") "Evaporator air static pressure"
   annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Modelica.Blocks.Interfaces.RealInput XIn "Evaporator inlet air mass fraction"
+  Modelica.Blocks.Interfaces.RealInput XEvaIn "Evaporator inlet air mass fraction"
   annotation (Placement(transformation(extent={{-120,-60},{-100,-40}},
                                                                     rotation=
             0)));                         //(start=0.005, min=0, max=1.0)
-  Modelica.Blocks.Interfaces.RealInput hIn(
+  Modelica.Blocks.Interfaces.RealInput hEvaIn(
     quantity="SpecificEnergy",
     unit="J/kg") "Evaporator air inlet specific enthalpy"
   annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},rotation=
@@ -95,7 +95,7 @@ algorithm
       deltaX=  0.001);
    delta_h:=Buildings.Utilities.Math.Functions.smoothMin(
       x1=-Q_flow/m_flow_nonzero/(1 - bypass),
-      x2=0.999*hIn,
+      x2=0.999*hEvaIn,
       deltaX=0.0001);
  /*   delta_h := -Q_flow / m_flow_nonzero / (1 - bypass);
  */

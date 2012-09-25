@@ -33,7 +33,7 @@ model SingleSpeed "Test model for single speed DX coil"
   Modelica.Blocks.Sources.BooleanStep onOff(startTime=600)
     "Compressor on-off signal"
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
-  Modelica.Blocks.Sources.Ramp TIn(
+  Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
     startTime=2400,
     height=-5,
@@ -43,7 +43,7 @@ model SingleSpeed "Test model for single speed DX coil"
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
-    T_start=datCoi.per[1].nomVal.TIn_nominal,
+    T_start=datCoi.per[1].nomVal.TEvaIn_nominal,
     show_T=true,
     from_dp=true) "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
@@ -77,7 +77,7 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
-  connect(TIn.y, sou.T_in) annotation (Line(
+  connect(TEvaIn.y, sou.T_in) annotation (Line(
       points={{-79,-30},{-52,-30},{-52,-6},{-42,-6}},
       color={0,0,127},
       smooth=Smooth.None));

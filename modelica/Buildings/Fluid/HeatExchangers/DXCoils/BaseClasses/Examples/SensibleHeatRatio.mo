@@ -9,13 +9,13 @@ model SensibleHeatRatio "Test model for SensibleHeatRatio"
   Modelica.Blocks.Sources.BooleanStep onOff(
     startTime=600) "Compressor on-off signal"
     annotation (Placement(transformation(extent={{-20,50},{0,70}})));
-  Modelica.Blocks.Sources.Ramp hIn(
+  Modelica.Blocks.Sources.Ramp hEvaIn(
     duration=600,
     startTime=2400,
     offset=60000,
     height=-10000) "Specific enthalpy of air entring the coil"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
-  Modelica.Blocks.Sources.Ramp TIn(
+  Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,
     startTime=2400,
     height=-5,
@@ -32,11 +32,11 @@ equation
       points={{1,60},{10,60},{10,10},{19,10}},
       color={255,0,255},
       smooth=Smooth.None));
-  connect(hIn.y, shr.hIn) annotation (Line(
+  connect(hEvaIn.y, shr.hEvaIn) annotation (Line(
       points={{-59,40},{-40,40},{-40,3.3},{19,3.3}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TIn.y, shr.TIn) annotation (Line(
+  connect(TEvaIn.y, shr.TEvaIn) annotation (Line(
       points={{-59,80},{-34,80},{-34,7.2},{19,7.2}},
       color={0,0,127},
       smooth=Smooth.None));

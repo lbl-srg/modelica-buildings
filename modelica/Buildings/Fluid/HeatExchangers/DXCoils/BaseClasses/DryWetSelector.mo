@@ -3,7 +3,7 @@ block DryWetSelector "Selects results from dry or wet coil"
 
  constant Modelica.SIunits.MassFraction deltaX=0.0001
     "Range of x where transition between dry and wet coil occurs";
-  Modelica.Blocks.Interfaces.RealInput XIn "Inlet air mass fraction"
+  Modelica.Blocks.Interfaces.RealInput XEvaIn "Inlet air mass fraction"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
   Modelica.Blocks.Interfaces.RealInput XADP "Mass fraction at ADP"
     annotation (Placement(transformation(extent={{-120,50},{-100,30}})));
@@ -87,7 +87,7 @@ protected
   output Modelica.SIunits.MassFraction dX
     "Difference between apparatus dew point mass fraction of wet coil and inlet air mass fraction";
 equation
-  dX = XADP-XIn;
+  dX = XADP-XEvaIn;
   fraDry=Buildings.Utilities.Math.Functions.spliceFunction(
     pos=+1,
     neg=0,

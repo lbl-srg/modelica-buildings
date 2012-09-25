@@ -65,7 +65,7 @@ model SpaceCooling "Space cooling with DX coils"
   Modelica.Blocks.Sources.Constant mAir_flow(k=mA_flow_nominal)
     "Fan air flow rate"
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Fluid.Sensors.TemperatureTwoPort senTemHXOut(redeclare package Medium =
+  Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut(redeclare package Medium =
         Medium, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
     annotation (Placement(transformation(extent={{-76,-70},{-64,-58}})));
@@ -106,7 +106,7 @@ model SpaceCooling "Space cooling with DX coils"
     dp2_nominal=200,
     eps=eps) "Heat recovery"
     annotation (Placement(transformation(extent={{-110,-180},{-90,-160}})));
-  Fluid.Sensors.TemperatureTwoPort senTemHXOut1(
+  Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut1(
                                                redeclare package Medium =
         Medium, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
@@ -193,7 +193,7 @@ model SpaceCooling "Space cooling with DX coils"
     datCoi=datCoiMulSpe,
     minSpeRat=0.2) "Variable-speed DX coil"
     annotation (Placement(transformation(extent={{-4,-250},{16,-230}})));
-  Fluid.Sensors.TemperatureTwoPort senTemHXOut2(
+  Fluid.Sensors.TemperatureTwoPort senTemHXEvaOut2(
                                                redeclare package Medium =
         Medium, m_flow_nominal=mA_flow_nominal)
     "Temperature sensor for heat recovery outlet on supply side"
@@ -250,7 +250,7 @@ equation
       points={{109.8,-52},{109.8,-44},{92,-44},{92,10},{81,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hex.port_b1, senTemHXOut.port_a) annotation (Line(
+  connect(hex.port_b1, senTemHXEvaOut.port_a) annotation (Line(
       points={{-90,-64},{-76,-64}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -258,7 +258,7 @@ equation
       points={{78,-64},{100,-64}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemHXOut.port_b, sinSpeDX.port_a) annotation (Line(
+  connect(senTemHXEvaOut.port_b, sinSpeDX.port_a) annotation (Line(
       points={{-64,-64},{-2,-64}},
       color={0,127,255},
       smooth=Smooth.None));
@@ -366,7 +366,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
 
-  connect(hex1.port_b1, senTemHXOut1.port_a)
+  connect(hex1.port_b1, senTemHXEvaOut1.port_a)
                                            annotation (Line(
       points={{-90,-164},{-76,-164}},
       color={0,127,255},
@@ -376,7 +376,7 @@ equation
       points={{78,-164},{100,-164}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemHXOut1.port_b, mulStaDX.port_a)
+  connect(senTemHXEvaOut1.port_b, mulStaDX.port_a)
                                                annotation (Line(
       points={{-64,-164},{-2,-164}},
       color={0,127,255},
@@ -519,7 +519,7 @@ equation
       points={{16,-240},{64,-240}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(senTemHXOut2.port_b, varSpeDX.port_a)
+  connect(senTemHXEvaOut2.port_b, varSpeDX.port_a)
                                                annotation (Line(
       points={{-66,-240},{-4,-240}},
       color={0,127,255},
@@ -528,7 +528,7 @@ equation
       points={{-5,-237},{-64,-237},{-64,-226},{-128,-226},{-128,70}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hex2.port_b1,senTemHXOut2. port_a)
+  connect(hex2.port_b1,senTemHXEvaOut2. port_a)
                                            annotation (Line(
       points={{-92,-240},{-78,-240}},
       color={0,127,255},

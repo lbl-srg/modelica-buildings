@@ -35,8 +35,8 @@ initial equation
   //Solve Eq. 1 , 2 and 3 for air properties (XADP_nominal and TADP_nominal)
   //of saturated air at coil apparatus dew point
 //---------------------------------------Eq.1---------------------------------------//
-  (XIn_nominal - XOut_nominal)*(per.TIn_nominal - TADP_nominal)
-     =(XIn_nominal  - XADP_nominal)*(per.TIn_nominal - TOut_nominal);
+  (XEvaIn_nominal - XEvaOut_nominal)*(per.TEvaIn_nominal - TADP_nominal)
+     =(XEvaIn_nominal  - XADP_nominal)*(per.TEvaIn_nominal - TOut_nominal);
 //---------------------------------------Eq.2---------------------------------------//
   if homotopyInitialization then
     psat_ADP_nominal=homotopy(
@@ -70,7 +70,7 @@ initial equation
               T=TADP_nominal,
               X=cat(1,{XADP_nominal}, {1-sum({XADP_nominal})}));
   bypass_nominal=Buildings.Utilities.Math.Functions.smoothLimit(
-              x=(hOut_nominal-hADP_nominal)/(hIn_nominal-hADP_nominal),
+              x=(hOut_nominal-hADP_nominal)/(hEvaIn_nominal-hADP_nominal),
               l=1e-3,
               u=0.999,
               deltaX=1e-4);

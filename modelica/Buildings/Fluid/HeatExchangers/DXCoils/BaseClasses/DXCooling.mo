@@ -51,11 +51,11 @@ equation
       points={{-110,24},{-72,24},{-72,-47.6},{-51,-47.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TIn, wetCoi.TIn)  annotation (Line(
+  connect(TEvaIn, wetCoi.TEvaIn)  annotation (Line(
       points={{-110,5.55112e-16},{-68,5.55112e-16},{-68,50},{-51,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TIn, dryCoi.TIn)  annotation (Line(
+  connect(TEvaIn, dryCoi.TEvaIn)  annotation (Line(
       points={{-110,5.55112e-16},{-68,5.55112e-16},{-68,-50},{-51,-50}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -63,15 +63,15 @@ equation
       points={{-110,-24},{-64,-24},{-64,47.6},{-51,47.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn, wetCoi.XIn)  annotation (Line(
+  connect(XEvaIn, wetCoi.XEvaIn)  annotation (Line(
       points={{-110,-50},{-60,-50},{-60,45},{-51,45}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hIn, wetCoi.hIn)  annotation (Line(
+  connect(hEvaIn, wetCoi.hEvaIn)  annotation (Line(
       points={{-110,-77},{-56,-77},{-56,42.3},{-51,42.3}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(hIn, dryCoi.hIn)  annotation (Line(
+  connect(hEvaIn, dryCoi.hEvaIn)  annotation (Line(
       points={{-110,-77},{-56,-77},{-56,-57.7},{-51,-57.7}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -79,7 +79,7 @@ equation
       points={{-110,-24},{-64,-24},{-64,-52.4},{-51,-52.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XIn, dryCoi.XIn)  annotation (Line(
+  connect(XEvaIn, dryCoi.XEvaIn)  annotation (Line(
       points={{-110,-50},{-60,-50},{-60,-55},{-51,-55}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -92,7 +92,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  connect(XIn, dryWet.XIn)    annotation (Line(
+  connect(XEvaIn, dryWet.XEvaIn)    annotation (Line(
       points={{-110,-50},{-60,-50},{-60,-4},{39,-4}},
       color={0,0,127},
       smooth=Smooth.None));
