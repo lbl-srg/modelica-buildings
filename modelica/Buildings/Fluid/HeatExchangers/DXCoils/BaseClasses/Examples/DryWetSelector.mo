@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
-model DryWetPredictor "Test model for DryWetPredictor"
+model DryWetSelector "Test model for DryWetSelector"
 
 extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Ramp XADP(
@@ -14,7 +14,7 @@ extends Modelica.Icons.Example;
     offset=0.004,
     duration=20) "Inlet mass-fraction"
     annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor dryWet
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector dryWet
     "Averages dry and wet coil conditions"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
   Modelica.Blocks.Sources.Constant TWet(k=283.15)
@@ -74,13 +74,13 @@ equation
       points={{1,-80},{18,-80},{18,-11}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/DryWetPredictor.mos"
+  annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/DryWetSelector.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates working of DryWetPredictor block 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor</a>. 
+This example illustrates working of DryWetSelector block 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector</a>. 
 </p>
 </html>",
 revisions="<html>
@@ -91,4 +91,4 @@ First implementation.
 </li>
 </ul>
 </html>"));
-end DryWetPredictor;
+end DryWetSelector;

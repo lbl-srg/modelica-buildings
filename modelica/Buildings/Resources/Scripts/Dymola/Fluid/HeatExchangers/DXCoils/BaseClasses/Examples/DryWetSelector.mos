@@ -1,5 +1,5 @@
-simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.DryWetPredictor", 
-stopTime=60, method="dassl", resultFile="DryWetPredictor");
+simulateModel("Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.DryWetSelector", 
+stopTime=60, method="dassl", resultFile="DryWetSelector");
 removePlots();
 createPlot(id = 5,
  position = {12, 7, 400, 609},
@@ -12,7 +12,7 @@ createPlot(id = 5,
  grid = true,
  color = true,
  online = false,
- filename = "DryWetPredictor.mat",
+ filename = "DryWetSelector.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}, {255,0,0}});

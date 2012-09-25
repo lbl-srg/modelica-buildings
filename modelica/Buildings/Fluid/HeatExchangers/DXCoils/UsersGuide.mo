@@ -110,8 +110,8 @@ If
 <i>X<sub>w,o</sub>-X<sub>i</sub> &gt; 0</i> the coil is assumed to be dry,
 otherwise it is wet.
 This test is implemented in
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector</a>
 in such a way that the transition between wet and dry coil is differentiable.
 </p>
 <p>

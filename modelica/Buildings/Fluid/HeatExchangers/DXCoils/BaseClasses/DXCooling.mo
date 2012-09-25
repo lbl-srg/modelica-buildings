@@ -21,7 +21,7 @@ model DXCooling "DX cooling coil operation "
     final variableSpeedCoil = variableSpeedCoil,
     final datCoi=datCoi) "Dry coil condition"
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor dryWet
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector dryWet
     "Actual coil condition"
     annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   Modelica.Blocks.Interfaces.RealOutput mWat_flow(

@@ -3,7 +3,7 @@ ApparatusDryPoint
 Condensation
 CoolingCapacity
 DryCoil
-DryWetPredictor
+DryWetSelector
 DXCooling
 EssentialParameters
 Evaporation
