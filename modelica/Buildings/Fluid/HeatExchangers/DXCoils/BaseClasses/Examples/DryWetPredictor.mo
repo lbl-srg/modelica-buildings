@@ -7,23 +7,71 @@ extends Modelica.Icons.Example;
     startTime=20,
     height=-0.002,
     offset=0.006) "Mass fraction at ADP"
-    annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
+    annotation (Placement(transformation(extent={{-90,0},{-70,20}})));
   Modelica.Blocks.Sources.Ramp XIn(
     startTime=20,
     height=0.002,
     offset=0.004,
     duration=20) "Inlet mass-fraction"
-    annotation (Placement(transformation(extent={{-40,20},{-20,40}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor dryWetPre
-    "Predicts dry-wet coil condition"
+    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor dryWet
+    "Averages dry and wet coil conditions"
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+  Modelica.Blocks.Sources.Constant TWet(k=283.15)
+    annotation (Placement(transformation(extent={{-60,46},{-40,66}})));
+  Modelica.Blocks.Sources.Constant mWetWat_flow(k=0.01)
+    annotation (Placement(transformation(extent={{-88,30},{-68,50}})));
+  Modelica.Blocks.Sources.Constant SHRWet(k=0.5)
+    annotation (Placement(transformation(extent={{-34,62},{-14,82}})));
+  Modelica.Blocks.Sources.Constant QWet_flow(k=-3000)
+    annotation (Placement(transformation(extent={{-10,80},{10,100}})));
+  Modelica.Blocks.Sources.Constant EIRWet(k=0.3)
+    annotation (Placement(transformation(extent={{20,80},{40,100}})));
+  Modelica.Blocks.Sources.Constant TDry(k=293.15)
+    annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
+  Modelica.Blocks.Sources.Constant QDry_flow(k=-2000)
+    annotation (Placement(transformation(extent={{-48,-70},{-28,-50}})));
+  Modelica.Blocks.Sources.Constant EIRDry(k=0.2)
+    annotation (Placement(transformation(extent={{-20,-90},{0,-70}})));
 equation
-  connect(XIn.y, dryWetPre.XIn) annotation (Line(
-      points={{-19,30},{-10,30},{-10,5},{-1,5}},
+  connect(XIn.y, dryWet.XIn)    annotation (Line(
+      points={{-39,-10},{-28,-10},{-28,-4},{-1,-4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XADP.y, dryWetPre.XADP) annotation (Line(
-      points={{-19,-30},{-10,-30},{-10,-5},{-1,-5}},
+  connect(XADP.y, dryWet.XADP)    annotation (Line(
+      points={{-69,10},{-10,10},{-10,4},{-1,4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(mWetWat_flow.y, dryWet.mWetWat_flow) annotation (Line(
+      points={{-67,40},{2,40},{2,11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TWet.y, dryWet.TADPWet) annotation (Line(
+      points={{-39,56},{6,56},{6,11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(SHRWet.y, dryWet.SHRWet) annotation (Line(
+      points={{-13,72},{10,72},{10,11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QWet_flow.y, dryWet.QWet_flow) annotation (Line(
+      points={{11,90},{14,90},{14,11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(EIRWet.y, dryWet.EIRWet) annotation (Line(
+      points={{41,90},{52,90},{52,40},{18,40},{18,11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TDry.y, dryWet.TADPDry) annotation (Line(
+      points={{-59,-40},{6,-40},{6,-11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(QDry_flow.y, dryWet.QDry_flow) annotation (Line(
+      points={{-27,-60},{14,-60},{14,-11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(EIRDry.y, dryWet.EIRDry) annotation (Line(
+      points={{1,-80},{18,-80},{18,-11}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/DryWetPredictor.mos"

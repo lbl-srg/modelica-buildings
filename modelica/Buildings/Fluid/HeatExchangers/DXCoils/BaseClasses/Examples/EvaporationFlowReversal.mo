@@ -70,10 +70,6 @@ equation
       points={{-59,-90},{56,-90},{56,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(eva.mEva_flow, int.u)       annotation (Line(
-      points={{61,20},{78,20}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(mWat_flow.y, eva.mWat_flow) annotation (Line(
       points={{-59,70},{-30,70},{-30,24},{38,24}},
       color={0,0,127},
@@ -90,8 +86,12 @@ equation
       points={{-59,-30},{44,-30},{44,8}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(eva.mTotWat_flow, int.u) annotation (Line(
+      points={{61,20},{70.5,20},{70.5,20},{78,20}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-120},{120,100}},
-          preserveAspectRatio=true),
+          preserveAspectRatio=false),
                       graphics),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/EvaporationFlowReversal.mos"
         "Simulate and plot"),

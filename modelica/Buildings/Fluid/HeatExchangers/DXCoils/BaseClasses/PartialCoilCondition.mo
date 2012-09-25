@@ -1,6 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial block PartialCoilCondition
-  "Partial block for dry and wet coil condition"
+  "Partial block for dry and wet coil conditions"
   import Buildings;
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface;
@@ -14,6 +14,7 @@ partial block PartialCoilCondition
     final m_flow_small=datCoi.m_flow_small) "Performance data"
     annotation (Placement(transformation(extent={{-14,40},{6,60}})));
 
+protected
   SpeedShift speShiEIR(
     final variableSpeedCoil=variableSpeedCoil,
     final nSpe=nSpe,
@@ -65,11 +66,11 @@ equation
       color={255,127,0},
       smooth=Smooth.None));
   connect(cooCap.m_flow, m_flow) annotation (Line(
-      points={{-15,50},{-58,50},{-58,24},{-110,24}},
+      points={{-15,50},{-92,50},{-92,24},{-110,24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(cooCap.TConIn, TConIn) annotation (Line(
-      points={{-15,54.8},{-60.5,54.8},{-60.5,50},{-110,50}},
+      points={{-15,54.8},{-96,54.8},{-96,54},{-96,54},{-96,50},{-110,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(cooCap.stage, stage) annotation (Line(
@@ -78,7 +79,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
-This partial block provides initial calculations for 
+This partial block is the base class for 
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a> and
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil\"> 

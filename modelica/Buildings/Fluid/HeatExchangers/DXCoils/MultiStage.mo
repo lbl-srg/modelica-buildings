@@ -65,7 +65,6 @@ July 28, 2012 by Kaustubh Phalak:<br>
 First implementation. 
 </li>
 </ul>
-
 </html>"),
     Icon(graphics={Text(
           extent={{-102,94},{-44,76}},

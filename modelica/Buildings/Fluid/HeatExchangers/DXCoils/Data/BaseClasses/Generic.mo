@@ -17,10 +17,20 @@ record Generic "Generic data record for DX coil"
 annotation (defaultComponentName="per",
               preferedView="info",
   Documentation(info="<html>
-This is the base record for DX cooling coil model at a compressor speed. 
+<p>
+This is the base record for DX cooling coil model at a compressor speed.
+See the information section of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData\">
+Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData</a>
+for a description of the data.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 25, 2012 by Michael Wetter:<br>
+Revised documentation.
+</li>
 <li>
 August 13, 2012 by Kaustubh Phalak:<br>
 First implementation.

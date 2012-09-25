@@ -49,13 +49,13 @@ equation
       points={{-59,-20},{-46,-20},{-46,6.10623e-16},{-21,6.10623e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TWetBulIn.y, cooCap.TIn) annotation (Line(
-      points={{-59,-60},{-40,-60},{-40,-4.8},{-21,-4.8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(onOff.y, cooCap.stage) annotation (Line(
       points={{-59,60},{-32,60},{-32,10},{-21,10}},
       color={255,127,0},
+      smooth=Smooth.None));
+  connect(TWetBulIn.y, cooCap.TEvaIn) annotation (Line(
+      points={{-59,-60},{-32,-60},{-32,-4.8},{-21,-4.8}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/CoolingCapacity.mos"
         "Simulate and plot"),

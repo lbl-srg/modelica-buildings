@@ -30,7 +30,8 @@ model SingleSpeedValidation
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
-    T_start=datCoi.per[1].nomVal.TIn_nominal) "Single speed DX coil"
+    T_start=datCoi.per[1].nomVal.TIn_nominal,
+    from_dp=true) "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Data.CoilData datCoi(nSpe=1, per={
@@ -321,26 +322,31 @@ equation
     experiment(StopTime=3600),
     Documentation(info="<html>
 <p>
-This validates single speed DX cooling coil: 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SingleSpeed\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a> </p>
-
-<p> 
-The difference in results of T<sub>Out</sub> and 
-X<sub>Out</sub> at m = 0 kg/s is because EnergyPlus model assumes steady state condition 
-(i.e. T<sub>Out</sub> = T<sub>In</sub> and X<sub>Out</sub> = T<sub>In</sub> 
-at no flow rate condition)
-while this model is dynamic one (thus at no flow rate condition air properties remain at state 
-from earlier condition at which m_flow was non-zero or at start condition).
+This model validates the model
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\"> 
+Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>.
 </p>
-
+<p> 
+The difference in results of 
+<i>T<sub>Out</sub></i> and 
+<i>X<sub>Out</sub></i>
+at the beginning and end of the simulation is because the mass flow rate is zero.
+For zero mass flow rate, EnergyPlus assumes steady state condition,
+whereas the Modelica model is a dynamic model and hence the properties at the outlet
+are equal to the state variables of the model.
+</p>
 <p>
-EnergyPlus results are generated using example file DXCoilSystemAuto.idf from EnergyPlus 7.1 
-with nominal cooling capacity of 10500 W instead of autosize to run the cooling coil at 
-PLR=1 on summer design day. </p>
-Note: EnergyPlus mass fractions (<code>X</code>) are used/compred after dividing it by 
-(<code>1+X</code>) because water mass fraction in EnergyPlus is mass of water per unit 
-mass of dry air while in Modelica it is defined as mass of water per unit mass of moist air. 
+The EnergyPlus results were generated using the example file <code>DXCoilSystemAuto.idf</code>
+from EnergyPlus 7.1, 
+with a nominal cooling capacity of <i>10500</i> Watts instead of using
+autosizing. This allowed to have a part load ratio of one.
+</p>
+<p>
+Note that EnergyPlus mass fractions (<code>X</code>) are in mass of water vapor per mass of dry air,
+whereas Modelica uses the total mass as a reference. Hence, the EnergyPlus values
+are corrected by dividing them by 
+<code>1+X</code>.
+</p>
 </html>",
 revisions="<html>
 <ul>

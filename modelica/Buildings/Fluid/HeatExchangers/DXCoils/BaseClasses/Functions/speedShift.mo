@@ -14,20 +14,12 @@ protected
   Real modSpeSet[n] "Speed set with origin";
   Real modU[n];
 algorithm
-
-  if size(speSet, 1)>1 then //multi stage operation
     //y1d, y2d in cubic Hermite function
-    modSpeSet:=cat(
-      1,
-      {0.00},
-      speSet);
-    modU:=cat(
-      1,
-      {0.00},
-      u);
-    derv :=Buildings.Utilities.Math.Functions.splineDerivatives(
-      x=modSpeSet,
-      y=modU) "derivatives at standard speeds";
+    modSpeSet:= cat(1, {0.00}, speSet);
+    modU     := cat(1, {0.00}, u);
+    derv     := Buildings.Utilities.Math.Functions.splineDerivatives(
+                   x=modSpeSet,
+                   y=modU) "derivatives at standard speeds";
     //locate the range between which compressor operates
     for j in 1:size(modSpeSet, 1) - 1 loop
       if spe > modSpeSet[j] then
@@ -42,17 +34,13 @@ algorithm
       y2=modU[i + 1],
       y1d=derv[i],
       y2d=derv[i + 1]);
-  else //single speed operation
-    y:=u[i];
-  end if;
-  // fixme: This function requires the smoothOrder annotation
-  annotation (Documentation(info="<html>
+  annotation (smoothOrder=1,
+Documentation(info="<html>
 <p>
-The objective of this function is to smoothly interpolate results between 
-different speed ratios when the coil operates at intermidiate speeds. 
+This function interpolates data for intermediate compressor speeds
+using cubic hermite splines with linear extrapolation.
 To avoid linear extrapolation below minimum standard speed, 
 the origin is added to the modified arrays. 
-This leads to smooth continuation of the curve below standard rotational speeds.  
 </p>
 </html>",
 revisions="<html>

@@ -3,7 +3,7 @@ stopTime=60, method="dassl", resultFile="UACp");
 removePlots();
 createPlot(id = 1,
  position = {46, 7, 438, 456},
- y = {"uacp.uACp"},
+ y = {"uacp.UAcp"},
  range = {0.0, 65.0, 3, 2.2},
  autoscale = true,
  autoerase = true,

@@ -44,7 +44,8 @@ model SingleSpeed "Test model for single speed DX coil"
     dp_nominal=dp_nominal,
     datCoi=datCoi,
     T_start=datCoi.per[1].nomVal.TIn_nominal,
-    show_T=true) "Single speed DX coil"
+    show_T=true,
+    from_dp=true) "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Modelica.Blocks.Sources.Ramp p(
@@ -118,8 +119,10 @@ equation
             100}})),
             Documentation(info="<html>
 <p>
-This is a test model for Single Speed DX Cooling Coil: 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SingleSpeed\"> Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a> 
+This is a test model for
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>. 
+The model has open-loop control and time-varying input conditions.
 </p>
 </html>",
 revisions="<html>

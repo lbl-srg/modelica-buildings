@@ -35,7 +35,8 @@ model VariableSpeed "Test model for variable speed DX coil"
     dp_nominal=dp_nominal,
     datCoi=datCoi,
     minSpeRat=datCoi.minSpeRat,
-    T_start=datCoi.per[1].nomVal.TIn_nominal) "Variable speed DX coil"
+    T_start=datCoi.per[1].nomVal.TIn_nominal,
+    from_dp=true) "Variable speed DX coil"
     annotation (Placement(transformation(extent={{-10,2},{10,22}})));
   Modelica.Blocks.Sources.Ramp TIn(
     duration=600,
@@ -146,8 +147,10 @@ equation
             100}})),
             Documentation(info="<html>
 <p>
-This is a test model for variable speed DX Cooling Coil: 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\"> Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a> 
+This is a test model for 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a>.
+The model has open-loop control and time-varying input conditions.
 </p>
 </html>",
 revisions="<html>

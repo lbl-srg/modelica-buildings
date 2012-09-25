@@ -18,6 +18,9 @@ model Evaporation
   final parameter Modelica.SIunits.Mass mMax(min=0, fixed=false)
     "Maximum mass of water that can accumulate on the coil";
 
+  parameter Boolean computeReevaporation=true
+    "Set to true to compute reevaporation of water that accumulated on coil";
+
   Modelica.SIunits.Mass m(start=0, nominal=-5000*1400/2257E3)
     "Mass of water that accumulated on the coil";
 
@@ -60,11 +63,13 @@ model Evaporation
         rotation=90,
         origin={60,-120})));
 
-  Modelica.Blocks.Interfaces.RealOutput mEva_flow(final quantity="MassFlowRate",
-                                                  final unit = "kg/s",
-                                                  max=0)
-    "Moisture mass flow rate that evaporates into air stream"
+  Modelica.Blocks.Interfaces.RealOutput mTotWat_flow(final quantity="MassFlowRate",
+                                                  final unit = "kg/s")
+    "Total moisture mass flow rate into the air stream"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  Modelica.SIunits.MassFlowRate mEva_flow(max=0)
+    "Moisture mass flow rate that evaporates into air stream";
   ////////////////////////////////////////////////////////////////////////////////
   // Protected parameters and variables
 protected
@@ -175,14 +180,16 @@ initial equation
 equation
   // When the coil switches off, set accumulated water to
   // lower value of actual accumulated water or maximum water content
-  when edge(off) then
-    reinit(m, min(m, mMax));
-  end when;
+  if computeReevaporation then
+    when edge(off) then
+      reinit(m, min(m, mMax));
+     end when;
 
   if on then
     XOutSat = 0;
     dX = 0;
     mEva_flow = 0;
+    mTotWat_flow = mWat_flow;
     der(m) = -mWat_flow;
   else
     XOutSat = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
@@ -203,6 +210,15 @@ equation
        x=abs(mAir_flow)- 2*mAir_flow_small/3,
        deltax=2*mAir_flow_small/6)));
     der(m) = -mEva_flow;
+    mTotWat_flow = mWat_flow + mEva_flow;
+
+  end if;
+  else
+    XOutSat = 0;
+    dX = 0;
+    mEva_flow = 0;
+    mTotWat_flow = mWat_flow;
+    m = 0;
   end if;
 
   annotation (defaultComponentName="eva",

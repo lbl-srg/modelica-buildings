@@ -8,12 +8,9 @@ record Curve_III "Curve_III"
     each EIRFunT={0.632475,-0.0121321000,0.0005077730,0.0155377000,0.0002728400,
         -0.0006792010},
     each EIRFunFF={1.0079484,0.34544129,-.6922891,0.33889943},
-    each TConInRanCap={297.03889,319.26111},
-    each TWetBulInRanCap={285.92778,297.03889},
-    each ffRanCap={0.5,1.5},
-    each TConInRanEIR={297.03889,319.26111},
-    each TWetBulInRanEIR={285.92778,297.03889},
-    each ffRanEIR={0.5,1.5});
+    each TConInRan={297.03889,319.26111},
+    each TEvaInRan={285.92778,297.03889},
+    each ffRan={0.5,1.5});
   annotation (defaultComponentName="per", Documentation(info="<html>
 This record has default performance curves coefficents with min-max range 
 for cooling capacity and EIR curve-fits obtained from ExampleFiles of EnergyPlus 7.1 
@@ -21,6 +18,10 @@ for cooling capacity and EIR curve-fits obtained from ExampleFiles of EnergyPlus
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 25, 2012 by Michael Wetter:<br>
+Revised documentation.
+</li>
 <li>
 August 15, 2012 by Kaustubh Phalak:<br>
 First implementation.

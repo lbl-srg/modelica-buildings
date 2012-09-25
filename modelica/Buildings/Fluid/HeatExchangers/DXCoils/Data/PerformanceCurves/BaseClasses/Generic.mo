@@ -16,38 +16,34 @@ record Generic "Base performance curves data record"
     annotation (Dialog(group="Performance curves"));
 //------------------------Range for performance curves------------------------//
  // fixme: Instead of range, *Min and *Max should be used as is used for the chiller
-  parameter Modelica.SIunits.Temperature   TConInRanCap[2]
+ // fixme: These values are not yet used. Need to add linear extrapolation beyond these values
+  parameter Modelica.SIunits.Temperature   TConInRan[2]
     "Range of condenser inlet temperature for cooling capacity function"
     annotation (Dialog(group="Minimum and maximum values"));
-  parameter Modelica.SIunits.Temperature   TWetBulInRanCap[2]
+  parameter Modelica.SIunits.Temperature   TEvaInRan[2]
     "Range of coil wetbulb inlet temperature for cooling capacity function"
     annotation (Dialog(group="Minimum and maximum values"));
-  parameter Real  ffRanCap[2]
-    "Range of flow fraction for cooling capacity function"
+  parameter Real  ffRan[2]
+    "Range of flow fraction for which performance data are valid (below this range, the coil is assumed to be off)"
     annotation (Dialog(group="Minimum and maximum values"));
-  parameter Modelica.SIunits.Temperature   TConInRanEIR[2]
-    "Range of condenser inlet temperature for EIR function"
-    annotation (Dialog(group="Minimum and maximum values"));
-  parameter Modelica.SIunits.Temperature   TWetBulInRanEIR[2]
-    "Range of coil wetbulb inlet temperature for EIR function"
-    annotation (Dialog(group="Minimum and maximum values"));
-  parameter Real  ffRanEIR[2] "Range of flow fraction for EIR function"
-    annotation (Dialog(group="Minimum and maximum values"));
+
   annotation (defaultComponentName="per", Documentation(info="<html>
-This base record for performance curves coefficents for cooling capacity and EIR curve-fits.<br> 
-Note: In case of multispeed (or variable speed) operation with different capFunFF and EIRFunFF
-curves for each speed, user must ensure that array size of all capFunFF and EIRFunFF are same. 
-For example 
-in <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III</a> 
-capFunFF is a cubic curve where as in  
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I</a> 
-capFunFF is a linear function but its array size kept same in both performance curves.
-This allows using these performance curves for different speeds in the same model.
+<p>
+This record declares the data used to specify performance curves for DX coils.
+</p>
+<p>
+See the information section of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData\">
+Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData</a>
+for a description of the data.
+</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 25, 2012 by Michael Wetter:<br>
+Revised documentation.
+</li>
 <li>
 August 15, 2012 by Kaustubh Phalak:<br>
 First implementation.

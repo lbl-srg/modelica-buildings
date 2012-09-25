@@ -10,13 +10,32 @@ block ApparatusDryPoint "Calculates air properties at dry coil surface"
     max=373.15) "Dry bulb temperature of air at dry coil condition"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   output Modelica.SIunits.SpecificEnthalpy hDry
-    "Enthalpy of air at coil surface(i.e. at dry point)";
+    "Enthalpy of air at coil surface";
+protected
+  Modelica.SIunits.MassFraction XInVec[Medium.nX]
+    "Mass fraction of air inlet condition";
+  Modelica.SIunits.Temperature TADP(start=283.15)
+    "Apparatus dew point temperature";
+  Modelica.SIunits.SpecificEnthalpy hMin
+    "Minimum enthalpy of apparatus dew point";
 equation
-  hDry = hIn-delta_h;
-  TDry= Medium.temperature(Medium.setState_phX(
-    p=p,
-    h=hDry,
-    X=cat(1,{XIn},{1-sum({XIn})}))) "XIn=XDry Assumption for dry coil";
+  XInVec =cat(1,{XIn},{1-sum({XIn})});
+
+  XIn = Buildings.Utilities.Psychrometrics.Functions.X_pW(p_w=Medium.saturationPressure(TADP), p=p);
+
+  hMin = Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TADP, X=XInVec));
+
+  hDry = Buildings.Utilities.Math.Functions.smoothMin(
+    x1=  Buildings.Utilities.Math.Functions.smoothMax(
+      x1=hIn - delta_h,
+      x2=hMin,
+      deltaX=10),
+    x2=  hIn+100,
+    deltaX=10);
+
+  TDry= Medium.temperature(Medium.setState_phX(p=p, h=hDry, X=XInVec))
+    "XIn=XDry assumption for dry coil";
+
  annotation(defaultComponentName="appDryPt",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
@@ -50,24 +69,19 @@ equation
           fillPattern=FillPattern.Solid)}),
                                    Documentation(info="<html>
 <p>
-This block calculates bypass factor using a known value of UA/Cp of the coil. 
-Bypass factor is a function of the current mass flow rate. 
-Air properties at the dry point are determined using 
-the bypass factor and the assumption of a dry coil 
-i.e. X<sub>In</sub> = X<sub>Out</sub> = X<sub>Dry</sub> . 
-</p>
-<p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/BaseClasses/ApparatusDryPoint.png\" 
-border=\"1\" width=\"507.2\" height=\"452.8\">
-</p> 
-Note: Dry point implies dry coil condition (and not dry air condition).
-<h4>References</h4>
-<p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0 Engineering Reference</a>, May 24, 2012.
+This blocks outputs the state of the moist air at of the coil, assuming no condensation occurs.
+The bypass factor of the coil and the resulting enthalpy difference is
+computed by its base class
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialSurfaceCondition</a>.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 21, 2012 by Michael Wetter:<br>
+Revised implementation and documentation.
+</li>
 <li>
 April 9, 2012 by Kaustubh Phalak:<br>
 First implementation. 

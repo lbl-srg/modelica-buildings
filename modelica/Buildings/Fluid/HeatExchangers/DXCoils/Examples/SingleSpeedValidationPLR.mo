@@ -3,7 +3,6 @@ model SingleSpeedValidationPLR
   "Validation model for single speed DX coil with PLR=1"
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   extends Modelica.Icons.Example;
-  // fixme: check whether EnergyPlus uses the same values for gamma and tWet
  parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.per[1].nomVal.Q_flow_nominal
     "Nominal power";
  parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.per[1].nomVal.m_flow_nominal
@@ -31,7 +30,9 @@ model SingleSpeedValidationPLR
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
-    T_start=datCoi.per[1].nomVal.TIn_nominal) "Single speed DX coil"
+    T_start=datCoi.per[1].nomVal.TIn_nominal,
+    from_dp=true,
+    computeReevaporation=false) "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
   Modelica.Blocks.Routing.Multiplex2 mux "Converts in an array"
@@ -62,7 +63,7 @@ model SingleSpeedValidationPLR
   Modelica.Blocks.Sources.Constant XInMoiAir(k=1.0) "Moist air fraction = 1"
     annotation (Placement(transformation(extent={{-140,-120},{-120,-100}})));
   Modelica.Blocks.Math.Division shrEPlu "EnergyPlus result: SHR"
-    annotation (Placement(transformation(extent={{80,-120},{100,-100}})));
+    annotation (Placement(transformation(extent={{140,-100},{160,-80}})));
   Modelica.Blocks.Sources.Pulse p(
     nperiod=1,
     offset=101325,
@@ -77,11 +78,28 @@ model SingleSpeedValidationPLR
   Modelica.Blocks.Sources.RealExpression XOutEPluMod(y=XOutEPlu.y/(1 + XOutEPlu.y))
     "Modified XOut of energyPlus to comapre with the model results"
     annotation (Placement(transformation(extent={{0,-110},{20,-90}})));
-  Modelica.Blocks.Sources.BooleanTable onOff(startValue=true, table={0,25200,26412.08951,
-        28800,30665.60084,32400,34326.70384,36000,38060.56574,39600,41822.43884,
-        43200,45504.64424,46800,49239.58691,50400,52889.2799,54000,56492.0477,57600,
-        60017.41664})
-    "EnergyPlus PLR converted into on-off signal for this model"
+  Modelica.Blocks.Sources.BooleanTable onOff(startValue=true, table={
+ 0,
+25200,
+26223.8694421458,
+28800,
+30457.5364262964,
+32400,
+34157.5093643325,
+36000,
+37915.2504828207,
+39600,
+41687.2390146012,
+43200,
+45363.3505825759,
+46800,
+49129.0477925565,
+50400,
+52764.5288886473,
+54000,
+56361.5689116996,
+57600,
+59868.3223307805}) "EnergyPlus PLR converted into on-off signal for this model"
     annotation (Placement(transformation(extent={{-120,100},{-100,120}})));
   Modelica.Blocks.Sources.TimeTable TCIn(table=[0,21.1; 3600,21.1; 3600,
         20.80833333; 7200,20.80833333; 7200,20.89166667; 10800,20.89166667;
@@ -97,102 +115,170 @@ model SingleSpeedValidationPLR
         21.35; 82800,21.35; 82800,21.1; 86400,21.1])
     "Condenser inlet temperature"
     annotation (Placement(transformation(extent={{-140,60},{-120,80}})));
-  Modelica.Blocks.Sources.TimeTable TIn(table=[0,29.34912216; 3600,29.34912216;
-        3600,29.01780747; 7200,29.01780747; 7200,28.76316446; 10800,28.76316446;
-        10800,28.53370769; 14400,28.53370769; 14400,28.29481621; 18000,
-        28.29481621; 18000,28.08801492; 21600,28.08801492; 21600,28.04615077;
-        25200,28.04615077; 25200,24.08547489; 28800,24.08547489; 28800,
-        24.09291165; 32400,24.09291165; 32400,24.206805; 36000,24.206805; 36000,
-        24.37801616; 39600,24.37801616; 39600,24.56445536; 43200,24.56445536;
-        43200,24.52637397; 46800,24.52637397; 46800,24.39263734; 50400,
-        24.39263734; 50400,24.33303696; 54000,24.33303696; 54000,24.27485833;
-        57600,24.27485833; 57600,24.16657976; 61200,24.16657976; 61200,
-        35.62447215; 64800,35.62447215; 64800,32.89603218; 68400,32.89603218;
-        68400,31.14934092; 72000,31.14934092; 72000,30.65894707; 75600,
-        30.65894707; 75600,30.28881583; 79200,30.28881583; 79200,29.91834847;
-        82800,29.91834847; 82800,29.61457284; 86400,29.61457284])
-    "Coil inlet temperature"
+  Modelica.Blocks.Sources.TimeTable TIn(table=[
+0,29.34948133;
+3600,29.34948133;
+3600,29.01814876;
+7200,29.01814876;
+7200,28.76345897;
+10800,28.76345897;
+10800,28.53396626;
+14400,28.53396626;
+14400,28.29506697;
+18000,28.29506697;
+18000,28.08827214;
+21600,28.08827214;
+21600,28.04639166;
+25200,28.04639166;
+25200,24.08651629;
+28800,24.08651629;
+28800,24.09243025;
+32400,24.09243025;
+32400,24.20516777;
+36000,24.20516777;
+36000,24.37566383;
+39600,24.37566383;
+39600,24.56160617;
+43200,24.56160617;
+43200,24.52393669;
+46800,24.52393669;
+46800,24.39077471;
+50400,24.39077471;
+50400,24.33155125;
+54000,24.33155125;
+54000,24.27362306;
+57600,24.27362306;
+57600,24.16566121;
+61200,24.16566121;
+61200,35.62393274;
+64800,35.62393274;
+64800,32.89683519;
+68400,32.89683519;
+68400,31.14979083;
+72000,31.14979083;
+72000,30.65928154;
+75600,30.65928154;
+75600,30.28912721;
+79200,30.28912721;
+79200,29.91867206;
+82800,29.91867206;
+82800,29.61490681;
+86400,29.61490681]) "Coil inlet temperature"
     annotation (Placement(transformation(extent={{-140,-20},{-120,0}})));
-  Modelica.Blocks.Sources.TimeTable XIn(table=[0,0.007749604; 3600,0.007749604;
-        3600,0.007749604; 7200,0.007749604; 7200,0.007749604; 10800,0.007749604;
-        10800,0.007749604; 14400,0.007749604; 14400,0.007749604; 18000,0.007749604;
-        18000,0.007749604; 21600,0.007749604; 21600,0.007842352; 25200,0.007842352;
-        25200,0.008569019; 28800,0.008569019; 28800,0.008521115; 32400,0.008521115;
-        32400,0.008295639; 36000,0.008295639; 36000,0.008140504; 39600,0.008140504;
-        39600,0.007933561; 43200,0.007933561; 43200,0.007802791; 46800,0.007802791;
-        46800,0.007783859; 50400,0.007783859; 50400,0.007736453; 54000,0.007736453;
-        54000,0.007746831; 57600,0.007746831; 57600,0.007830508; 61200,0.007830508;
-        61200,0.007651088; 64800,0.007651088; 64800,0.007749378; 68400,0.007749378;
-        68400,0.00774935; 72000,0.00774935; 72000,0.00774935; 75600,0.00774935;
-        75600,0.00774935; 79200,0.00774935; 79200,0.00774935; 82800,0.00774935;
-        82800,0.00774935; 86400,0.00774935]) "Water fraction of moist air"
+  Modelica.Blocks.Sources.TimeTable XIn(table=[
+0,0.00946;
+3600,0.00946;
+3600,0.00946;
+7200,0.00946;
+7200,0.00946;
+10800,0.00946;
+10800,0.00946;
+14400,0.00946;
+14400,0.00946;
+18000,0.00946;
+18000,0.00946;
+21600,0.00946;
+21600,0.00955;
+25200,0.00955;
+25200,0.0103;
+28800,0.0103;
+28800,0.0109;
+32400,0.0109;
+32400,0.0108;
+36000,0.0108;
+36000,0.0105;
+39600,0.0105;
+39600,0.01;
+43200,0.01;
+43200,0.00969;
+46800,0.00969;
+46800,0.00947;
+50400,0.00947;
+50400,0.00926;
+54000,0.00926;
+54000,0.00923;
+57600,0.00923;
+57600,0.00937;
+61200,0.00937;
+61200,0.00936;
+64800,0.00936;
+64800,0.00946;
+68400,0.00946;
+68400,0.00946;
+72000,0.00946;
+72000,0.00946;
+75600,0.00946;
+75600,0.00946;
+79200,0.00946;
+79200,0.00946;
+82800,0.00946;
+82800,0.00946;
+86400,0.00946]) "Water fraction of moist air"
     annotation (Placement(transformation(extent={{-140,-80},{-120,-60}})));
-  Modelica.Blocks.Sources.TimeTable TOutEPlu(table=[0,29.34912216; 3600,29.34912216;
-        3600,29.01780747; 7200,29.01780747; 7200,28.76316446; 10800,28.76316446;
-        10800,28.53370769; 14400,28.53370769; 14400,28.29481621; 18000,28.29481621;
-        18000,28.08801492; 21600,28.08801492; 21600,28.04615077; 25200,28.04615077;
-        25200,19.7749043; 28800,19.7749043; 28800,17.55329917; 32400,17.55329917;
-        32400,17.32376986; 36000,17.32376986; 36000,16.92227906; 39600,16.92227906;
-        39600,16.40910685; 43200,16.40910685; 43200,16.00455777; 46800,16.00455777;
-        46800,15.38334539; 50400,15.38334539; 50400,15.12866538; 54000,15.12866538;
-        54000,15.0700847; 57600,15.0700847; 57600,15.29020079; 61200,15.29020079;
-        61200,35.62447215; 64800,35.62447215; 64800,32.89603218; 68400,32.89603218;
-        68400,31.14934092; 72000,31.14934092; 72000,30.65894707; 75600,30.65894707;
-        75600,30.28881583; 79200,30.28881583; 79200,29.91834847; 82800,29.91834847;
-        82800,29.61457284; 86400,29.61457284])
+  Modelica.Blocks.Sources.TimeTable TOutEPlu_ori(table=[0,29.34948133; 3600,29.34948133;
+        3600,29.01814876; 7200,29.01814876; 7200,28.76345897; 10800,28.76345897;
+        10800,28.53396626; 14400,28.53396626; 14400,28.29506697; 18000,28.29506697;
+        18000,28.08827214; 21600,28.08827214; 21600,28.04639166; 25200,28.04639166;
+        25200,19.79102221; 28800,19.79102221; 28800,17.58304653; 32400,17.58304653;
+        32400,17.35471965; 36000,17.35471965; 36000,16.95320861; 39600,16.95320861;
+        39600,16.4388043; 43200,16.4388043; 43200,16.03301122; 46800,16.03301122;
+        46800,15.41071946; 50400,15.41071946; 50400,15.15437515; 54000,15.15437515;
+        54000,15.09543443; 57600,15.09543443; 57600,15.3159498; 61200,15.3159498;
+        61200,35.62393274; 64800,35.62393274; 64800,32.89683519; 68400,32.89683519;
+        68400,31.14979083; 72000,31.14979083; 72000,30.65928154; 75600,30.65928154;
+        75600,30.28912721; 79200,30.28912721; 79200,29.91867206; 82800,29.91867206;
+        82800,29.61490681; 86400,29.61490681])
     "EnergyPlus result: outlet temperature"
-    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
-  Modelica.Blocks.Sources.TimeTable PEPlu(table=[0,0; 3600,0; 3600,0; 7200,0;
-        7200,0; 10800,0; 10800,0; 14400,0; 14400,0; 18000,0; 18000,0; 21600,0;
-        21600,0; 25200,0; 25200,2556.074454; 28800,2556.074454; 28800,
-        3900.758537; 32400,3900.758537; 32400,4038.437128; 36000,4038.437128;
-        36000,4413.349406; 39600,4413.349406; 39600,4879.89386; 43200,
-        4879.89386; 43200,5012.839823; 46800,5012.839823; 46800,5200.788337;
-        50400,5200.788337; 50400,5275.622452; 54000,5275.622452; 54000,
-        5235.32003; 57600,5235.32003; 57600,5003.222568; 61200,5003.222568;
+    annotation (Placement(transformation(extent={{-40,-80},{-20,-60}})));
+  Modelica.Blocks.Sources.TimeTable PEPlu_ori(table=[0,0; 3600,0; 3600,0; 7200,
+        0; 7200,0; 10800,0; 10800,0; 14400,0; 14400,0; 18000,0; 18000,0; 21600,
+        0; 21600,0; 25200,0; 25200,2221.47212; 28800,2221.47212; 28800,
+        3595.947729; 32400,3595.947729; 32400,3819.11052; 36000,3819.11052;
+        36000,4235.566014; 39600,4235.566014; 39600,4714.070326; 43200,
+        4714.070326; 43200,4835.805362; 46800,4835.805362; 46800,5089.357992;
+        50400,5089.357992; 50400,5132.912713; 54000,5132.912713; 54000,
+        5082.720823; 57600,5082.720823; 57600,4820.015593; 61200,4820.015593;
         61200,0; 64800,0; 64800,0; 68400,0; 68400,0; 72000,0; 72000,0; 75600,0;
         75600,0; 79200,0; 79200,0; 82800,0; 82800,0; 86400,0])
     "EnergyPlus result: electric power"
-    annotation (Placement(transformation(extent={{-80,-140},{-60,-120}})));
-  Modelica.Blocks.Sources.TimeTable XOutEPlu(table=[0,0.007749604; 3600,
-        0.007749604; 3600,0.007749604; 7200,0.007749604; 7200,0.007749604;
-        10800,0.007749604; 10800,0.007749604; 14400,0.007749604; 14400,
-        0.007749604; 18000,0.007749604; 18000,0.007749604; 21600,0.007749604;
-        21600,0.007842352; 25200,0.007842352; 25200,0.008284084; 28800,
-        0.008284084; 28800,0.008062422; 32400,0.008062422; 32400,0.007889653;
-        36000,0.007889653; 36000,0.007782043; 39600,0.007782043; 39600,
-        0.007651344; 43200,0.007651344; 43200,0.007539268; 46800,0.007539268;
-        46800,0.007482329; 50400,0.007482329; 50400,0.007434045; 54000,
-        0.007434045; 54000,0.007427886; 57600,0.007427886; 57600,0.00747109;
-        61200,0.00747109; 61200,0.007651088; 64800,0.007651088; 64800,
-        0.007749378; 68400,0.007749378; 68400,0.00774935; 72000,0.00774935;
-        72000,0.00774935; 75600,0.00774935; 75600,0.00774935; 79200,0.00774935;
-        79200,0.00774935; 82800,0.00774935; 82800,0.00774935; 86400,0.00774935])
+    annotation (Placement(transformation(extent={{-100,-140},{-80,-120}})));
+  Modelica.Blocks.Sources.TimeTable XOutEPlu_ori(table=[0,0.009460927; 3600,0.009460927;
+        3600,0.009460927; 7200,0.009460927; 7200,0.009460927; 10800,0.009460927;
+        10800,0.009460927; 14400,0.009460927; 14400,0.009460927; 18000,0.009460927;
+        18000,0.009460927; 21600,0.009460927; 21600,0.009553929; 25200,0.009553929;
+        25200,0.010316263; 28800,0.010316263; 28800,0.010677981; 32400,0.010677981;
+        32400,0.010521771; 36000,0.010521771; 36000,0.010225222; 39600,0.010225222;
+        39600,0.009821415; 43200,0.009821415; 43200,0.009523837; 46800,0.009523837;
+        46800,0.009220467; 50400,0.009220467; 50400,0.009042737; 54000,0.009042737;
+        54000,0.009012184; 57600,0.009012184; 57600,0.009145645; 61200,0.009145645;
+        61200,0.009361285; 64800,0.009361285; 64800,0.009459829; 68400,0.009459829;
+        68400,0.009459801; 72000,0.009459801; 72000,0.009459801; 75600,0.009459801;
+        75600,0.009459801; 79200,0.009459801; 79200,0.009459801; 82800,0.009459801;
+        82800,0.009459801; 86400,0.009459801])
     "EnergyPlus result: outlet water mass fraction"
-    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
-  Modelica.Blocks.Sources.TimeTable Q_flowSenEPlu(table=[0,0; 3600,0; 3600,0;
-        7200,0; 7200,0; 10800,0; 10800,0; 14400,0; 14400,0; 18000,0; 18000,0;
-        21600,0; 21600,0; 25200,0; 25200,-7377.624185; 28800,-7377.624185;
-        28800,-11188.63306; 32400,-11188.63306; 32400,-11772.51003; 36000,-11772.51003;
-        36000,-12749.52461; 39600,-12749.52461; 39600,-13942.56126; 43200,-13942.56126;
-        43200,-14566.11424; 46800,-14566.11424; 46800,-15397.75493; 50400,-15397.75493;
-        50400,-15729.77819; 54000,-15729.77819; 54000,-15730.28896; 57600,-15730.28896;
-        57600,-15170.2822; 61200,-15170.2822; 61200,0; 64800,0; 64800,0; 68400,
-        0; 68400,0; 72000,0; 72000,0; 75600,0; 75600,0; 79200,0; 79200,0; 82800,
-        0; 82800,0; 86400,0]) "EnergyPlus result: sensible heat flow "
-    annotation (Placement(transformation(extent={{40,-100},{60,-80}})));
-  Modelica.Blocks.Sources.TimeTable Q_flowEPlu(table=[0,-1e-09; 3600,-1e-09;
-        3600,-1e-09; 7200,-1e-09; 7200,-1e-09; 10800,-1e-09; 10800,-1e-09;
-        14400,-1e-09; 14400,-1e-09; 18000,-1e-09; 18000,-1e-09; 21600,-1e-09;
-        21600,-1e-09; 25200,-1e-09; 25200,-8594.25443; 28800,-8594.25443; 28800,
-        -13147.61467; 32400,-13147.61467; 32400,-13506.54954; 36000,-13506.54954;
-        36000,-14280.75933; 39600,-14280.75933; 39600,-15148.27499; 43200,-15148.27499;
-        43200,-15691.92779; 46800,-15691.92779; 46800,-16685.8164; 50400,-16685.8164;
-        50400,-17021.53647; 54000,-17021.53647; 54000,-17092.62738; 57600,-17092.62738;
-        57600,-16705.37339; 61200,-16705.37339; 61200,-1e-09; 64800,-1e-09;
-        64800,-1e-09; 68400,-1e-09; 68400,-1e-09; 72000,-1e-09; 72000,-1e-09;
-        75600,-1e-09; 75600,-1e-09; 79200,-1e-09; 79200,-1e-09; 82800,-1e-09;
-        82800,-1e-09; 86400,-1e-09]) "EnergyPlus result: heat flow"
+    annotation (Placement(transformation(extent={{-40,-140},{-20,-120}})));
+  Modelica.Blocks.Sources.TimeTable Q_flowSenEPlu_ori(table=[0,0; 3600,0; 3600,0;
+        7200,0; 7200,0; 10800,0; 10800,0; 14400,0; 14400,0; 18000,0; 18000,0; 21600,
+        0; 21600,0; 25200,0; 25200,7378.442557; 28800,7378.442557; 28800,11190.03413;
+        32400,11190.03413; 32400,11772.99874; 36000,11772.99874; 36000,12749.11676;
+        39600,12749.11676; 39600,13941.844; 43200,13941.844; 43200,14565.84942;
+        46800,14565.84942; 46800,15396.44898; 50400,15396.44898; 50400,15729.34223;
+        54000,15729.34223; 54000,15730.20543; 57600,15730.20543; 57600,15170.91533;
+        61200,15170.91533; 61200,0; 64800,0; 64800,0; 68400,0; 68400,0; 72000,0;
+        72000,0; 75600,0; 75600,0; 79200,0; 79200,0; 82800,0; 82800,0; 86400,0])
+    "EnergyPlus result: sensible heat flow "
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
+  Modelica.Blocks.Sources.TimeTable Q_flowEPlu_ori(table=[0,0; 3600,0; 3600,
+        0; 7200,0; 7200,0; 10800,0; 10800,0; 14400,0; 14400,
+        0; 18000,0; 18000,0; 21600,0; 21600,0; 25200,-1e-9;
+        25200,-7464.76568; 28800,-7464.76568; 28800,-12134.51902; 32400,-12134.51902;
+        32400,-12829.73888; 36000,-12829.73888; 36000,-13827.82263; 39600,-13827.82263;
+        39600,-14802.70071; 43200,-14802.70071; 43200,-15271.18519; 46800,-15271.18519;
+        46800,-16441.6341; 50400,-16441.6341; 50400,-16638.80981; 54000,-16638.80981;
+        54000,-16649.7802; 57600,-16649.7802; 57600,-16109.92984; 61200,-16109.92984;
+        61200,0; 64800,0; 64800,0; 68400,0; 68400,0; 72000,0;
+        72000,0; 75600,0; 75600,0; 79200,0; 79200,0; 82800,0;
+        82800,0; 86400,0]) "EnergyPlus result: heat flow"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
   Data.CoilData datCoi(nSpe=1, per={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
@@ -202,13 +288,30 @@ model SingleSpeedValidationPLR
           Q_flow_nominal=-25237.66,
           COP_nominal=3,
           SHR_nominal=0.775047,
-          m_flow_nominal=1.72),
+          m_flow_nominal=1.72,
+          tWet=1000,
+          gamma=1.5),
         perCur=
           Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_II())})
     "Coil data"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Modelica.Blocks.Math.Add QCoo_flow "Total cooling heat flow rate"
     annotation (Placement(transformation(extent={{-40,80},{-20,100}})));
+  Modelica.Blocks.Discrete.UnitDelay PEPlu(samplePeriod=3600)
+    annotation (Placement(transformation(extent={{-68,-140},{-48,-120}})));
+  Modelica.Blocks.Discrete.UnitDelay Q_flowSenEPlu(samplePeriod=3600)
+    annotation (Placement(transformation(extent={{80,-60},{100,-40}})));
+  Modelica.Blocks.Discrete.UnitDelay Q_flowEPlu(samplePeriod=3600)
+    annotation (Placement(transformation(extent={{80,-140},{100,-120}})));
+  Modelica.Blocks.Discrete.UnitDelay TOutEPlu(samplePeriod=3600, y_start=29.34948133)
+    annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
+  Modelica.Blocks.Discrete.UnitDelay XOutEPlu(samplePeriod=3600)
+    annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
+  Modelica.Blocks.Math.MultiSum multiSum(nu=2)
+    annotation (Placement(transformation(extent={{118,-120},{130,-108}})));
+  Modelica.Blocks.Sources.Constant small(k=-1e-9)
+    "Small value to avoid division by zero"
+    annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
 equation
   connect(sou.ports[1], sinSpeDX.port_a)
                                         annotation (Line(
@@ -284,14 +387,6 @@ equation
       points={{-119,-10},{-110.5,-10},{-110.5,-10.4},{-102,-10.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(Q_flowSenEPlu.y, shrEPlu.u1) annotation (Line(
-      points={{61,-90},{70,-90},{70,-104},{78,-104}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(Q_flowEPlu.y, shrEPlu.u2) annotation (Line(
-      points={{61,-130},{68,-130},{68,-116},{78,-116}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(sinSpeDX.QSen_flow, Q_flowSenMea.u) annotation (Line(
       points={{11,17},{20,17},{20,60},{-12,60},{-12,130},{-2,130}},
       color={0,0,127},
@@ -308,6 +403,42 @@ equation
       points={{11,15},{20,15},{20,32},{-48,32},{-48,84},{-42,84}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(PEPlu_ori.y, PEPlu.u) annotation (Line(
+      points={{-79,-130},{-70,-130}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Q_flowSenEPlu_ori.y, Q_flowSenEPlu.u) annotation (Line(
+      points={{61,-50},{78,-50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Q_flowSenEPlu.y, shrEPlu.u1) annotation (Line(
+      points={{101,-50},{108,-50},{108,-84},{138,-84}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Q_flowEPlu_ori.y, Q_flowEPlu.u) annotation (Line(
+      points={{61,-130},{78,-130}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TOutEPlu_ori.y, TOutEPlu.u) annotation (Line(
+      points={{-19,-70},{-2,-70}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(XOutEPlu_ori.y, XOutEPlu.u) annotation (Line(
+      points={{-19,-130},{-2,-130}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(multiSum.y, shrEPlu.u2) annotation (Line(
+      points={{131.02,-114},{134,-114},{134,-96},{138,-96}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(small.y, multiSum.u[1]) annotation (Line(
+      points={{101,-90},{110,-90},{110,-111.9},{118,-111.9}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(Q_flowEPlu.y, multiSum.u[2]) annotation (Line(
+      points={{101,-130},{108,-130},{108,-116.1},{118,-116.1}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-140},
             {160,140}}),       graphics),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SingleSpeedValidationPLR.mos"
@@ -315,19 +446,37 @@ equation
     experiment(StopTime=3600),
             Documentation(info="<html>
 <p>
-This validates single speed DX cooling coil: 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SingleSpeed\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a> 
+This model validates the model
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\"> 
+Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>.
+</p>
+<p> 
+The difference in results of 
+<i>T<sub>Out</sub></i> and 
+<i>X<sub>Out</sub></i>
+at the beginning and end of the simulation is because the mass flow rate is zero.
+For zero mass flow rate, EnergyPlus assumes steady state condition,
+whereas the Modelica model is a dynamic model and hence the properties at the outlet
+are equal to the state variables of the model.
 </p>
 <p>
-EnergyPlus results are generated using example file DXCoilSystemAuto.idf from EnergyPlus 7.1.
-On summer design day for mentioned input file in EnergyPlus PLR is &lt; 1. 
-Similar effect is achieved in this example by turning on the coil only for the period 
-t = EnergyPlus output reporting period * PLR.
-This results in on-off cycle and fluctuating results at output of the model.
-To compare the results, model outputs are averaged over 3600 sec. This leads to 3600 lag between 
-model results and EnergyPlus results observed in the plots. 
-fixme: remove time lag.
+The EnergyPlus results were generated using the example file <code>DXCoilSystemAuto.idf</code>
+from EnergyPlus 7.1.
+<p>
+The EnergyPlus results were generated using the example file 
+<code>DXCoilSystemAuto.idf</code> from EnergyPlus 7.1.
+On the summer design day, the PLR is below 1. 
+A similar effect has been achieved in this example by turning on the coil only for the period 
+during which it run in EnergyPlus.
+This results in on-off cycle and fluctuating results.
+To compare the results, the Modelica outputs are averaged over <i>3600</i> seconds,
+and the EnergyPlus outputs are used with a zero order delay to avoid the time shift in results.
+</p>
+<p>
+Note that EnergyPlus mass fractions (<code>X</code>) are in mass of water vapor per mass of dry air,
+whereas Modelica uses the total mass as a reference. Hence, the EnergyPlus values
+are corrected by dividing them by 
+<code>1+X</code>.
 </p>
 </html>",
 revisions="<html>

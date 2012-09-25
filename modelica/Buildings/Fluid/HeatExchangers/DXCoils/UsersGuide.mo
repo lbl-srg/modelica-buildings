@@ -47,18 +47,123 @@ The following three DX coil models are available:
 </p>
 <h4>Coil performance</h4>
 <p>
-See
+The steady-state total rate of cooling and the Energy Input Ratio (EIR) are
+computed using polynomials in the air mass flow fraction (relative to the 
+nominal mass flow rate),
+the evaporator air inlet temperature and the
+the condensor air inlet temperature.
+These polynomials are explained at
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity</a>.
-Fixme.
 </p>
 <h4>Evaporation of accumulated water vapor</h4>
 <p>
-fixme
+If a coil dehumidifies air, a water film builts up on the evaporator.
+When the compressor switches off, then this water film evaporates into the
+air stream. For coils that short-cycle, this effect can significantly decrease
+the dehumidification capacity of the coil.
+The accumulation and reevaporation of water on the evaporator coil is explained
+at
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>.
+</p>
+<p>
+For coils with an evaporatively cooled condensor, connect the outside wet bulb temperature
+instead of the outdoor dry bulb temperature to the port 
+<code>TConIn</code>.
 </p>
 <h4>Coil dynamics</h4>
 <p>
-fixme
+Two dynamic effects are modeled: The accumulation and reevaporation of 
+water at the evaporator, and the thermal response of the evaporator.
+The dynamics of the evaporation is described at 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>.
+The dynamics of the evaporator is approximated by a first order response
+where the time constant is a model parameter. Hence, the dynamic response
+is similar to other models of the <code>Buildings.Fluid</code> package
+and described at 
+<a href=\"modelica:Buildings.Fluid.UsersGuide\">
+Buildings.Fluid.UsersGuide</a>.
 </p>
+<h4>Sensible heat ratio</h4>
+<p>
+The coil models two separate performances, one assuming a dry coil, and one
+assuming a wet coil.
+The dry coil is modeled using
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a>
+and the wet coil is modeled using
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.WetCoil</a>.
+Both use the same model 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity</a>
+to compute the cooling capacity, but the wet coil uses 
+the wet-bulb temperature of the air inlet instead of the dry bulb temperature
+to compute the coil performance.
+The wet coil model computes the humidity of the leaving air
+<i>X<sub>w,o</sub></i>, using the bypass factor model.
+This humidity is compared to the humidity at the evaporator inlet
+<i>X<sub>i</sub></i>.
+If 
+<i>X<sub>w,o</sub>-X<sub>i</sub> &gt; 0</i> the coil is assumed to be dry,
+otherwise it is wet.
+This test is implemented in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor</a>
+in such a way that the transition between wet and dry coil is differentiable.
+</p>
+<p>
+The split between sensible and latent heat ratio is computed using the apparatus
+dew point. This calculation is implemented in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint</a>.
+Once the appartus dew point is known, the sensible to latent heat ratio can be
+determined as shown in the figure below.
+</p>
+<p align=\"center\">
+<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/BaseClasses/ApparatusDewPoint.png\" border=\"1\">
+</p> 
+The method used is the bypass factor method, which assumes that of the leaving air, a fraction is at the
+same condition as the entering air, and the other fraction is at the apparatus dew point.
+This computation requires the ratio <i>UA &frasl; c<sub>p</sub></i>, which 
+is computed in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp</a>. 
+</p>
+<p>
+Once the ratio <i>UA &frasl; c<sub>p</sub></i> is known,
+the bypass factor is a function of the current 
+mass flow rate only. (Under the assumption that the velocity dependence of <i>UA</i>
+can be neglected.
+</p>
+<h4>Limitations</h4>
+<p>
+This model has the following limitations:
+</p>
+<p>
+<ul>
+<li>
+It does not account for fan in the evaporator or in the condenser air stream.
+Fans can be modeled separately using models from the package
+<a href=\"modelica://Buildings.Fluid.Movers\">
+Buildings.Fluid.Movers</a>.
+However, if the performance curve for the energy input ratio contains electricity
+use for a condenser fan, then this is of course reflected by the model output.
+</li>
+<li>
+The air must flow from port a to port b. 
+If there is reverse flow, then no cooling is provided and no power is consumed.
+</li>
+</ul>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+September 24, 2012 by Michael Wetter:<br>
+First implementation. 
+</li>
+</ul>
 </html>"));
 end UsersGuide;

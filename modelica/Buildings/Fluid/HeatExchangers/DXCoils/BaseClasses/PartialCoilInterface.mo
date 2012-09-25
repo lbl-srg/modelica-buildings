@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
-partial block PartialCoilInterface "A partial block for air property inputs"
+partial block PartialCoilInterface "Partial block for DX coil"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
@@ -32,18 +32,9 @@ partial block PartialCoilInterface "A partial block for air property inputs"
     unit="W") "Total cooling capacity"
      annotation (Placement(transformation(extent={{100,30},{120,50}})));
 
-  Modelica.Blocks.Interfaces.RealOutput SHR(
-    min=0,
-    max=1.0)
-    "Sensible Heat Ratio: Ratio of sensible heat load to total heat load"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Modelica.Blocks.Interfaces.RealOutput mWat_flow(
-    quantity="MassFlowRate",
-    unit="kg/s") "Mass flow rate of water condensed at cooling coil"
-    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
-This partial block provides basic inputs and outputs for  
+This partial block declares the inputs and outputs that are common for  
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCondition\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoilCondition</a> and
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling\"> 

@@ -4,12 +4,14 @@ partial block EssentialParameters "A partial block for essential parameters"
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
      annotation (choicesAllMatching=true);
   parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData datCoi
-    "Performance data";
+    "Performance data"
+    annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 protected
   parameter Integer nSpe=datCoi.nSpe "Number of stages";
   annotation (Diagram(graphics), Documentation(info="<html>
 <p>
-This partial block is a set of basic parameters required for most of the blocks and models of 
+This partial block declares parameters that are required by most classes
+in the package
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils\"> 
 Buildings.Fluid.HeatExchangers.DXCoils</a>.
 </p>

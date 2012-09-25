@@ -35,7 +35,8 @@ model MultiStage "Test model for multi stage DX coil"
     dp_nominal=dp_nominal,
     datCoi=datCoi,
     T_start=datCoi.per[1].nomVal.TIn_nominal,
-    show_T=true) "Multispeed DX coil"
+    show_T=true,
+    from_dp=true) "Multispeed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Blocks.Sources.Ramp TIn(
     duration=600,
@@ -149,8 +150,10 @@ equation
             100}})),
             Documentation(info="<html>
 <p>
-This is a test model for Multispeed DX Cooling Coil: 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SingleSpeed\"> Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a> 
+This is a test model for 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.MultiStage\">
+Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</a>.
+The model has open-loop control and time-varying input conditions.
 </p>
 </html>",
 revisions="<html>

@@ -31,7 +31,7 @@ This block uses the
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a> function 
 to interpolate the input array.
-Depending on input speed ratio and speed set array the input array u is interpolated.  
+Depending on input speed ratio and speed set array the input array <i>u</i> is interpolated.  
 </p>
 </html>",
 revisions="<html>

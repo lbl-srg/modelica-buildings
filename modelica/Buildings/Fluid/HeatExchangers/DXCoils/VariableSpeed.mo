@@ -11,31 +11,31 @@ protected
   Modelica.Blocks.Logical.Hysteresis deaBan(
      uLow=minSpeRat - speRatDeaBan/2,
      uHigh=minSpeRat + speRatDeaBan/2) "Speed ratio deadband"
-    annotation (Placement(transformation(extent={{-72,80},{-60,92}})));
+    annotation (Placement(transformation(extent={{-64,64},{-52,76}})));
   Modelica.Blocks.Math.BooleanToInteger onSwi(
     final integerTrue=1,
     final integerFalse=0) "On/off switch"
-    annotation (Placement(transformation(extent={{-52,80},{-40,92}})));
+    annotation (Placement(transformation(extent={{-42,64},{-30,76}})));
 equation
   connect(speRat, dxCoo.speRat) annotation (Line(
-      points={{-110,80},{-80,80},{-80,57.6},{-21,57.6}},
+      points={{-110,80},{-90,80},{-90,57.6},{-21,57.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(speRat, deaBan.u)
                          annotation (Line(
-      points={{-110,80},{-80,80},{-80,86},{-73.2,86}},
+      points={{-110,80},{-90,80},{-90,70},{-65.2,70}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(deaBan.y, eva.on) annotation (Line(
-      points={{-59.4,86},{-56,86},{-56,66},{-92,66},{-92,-62},{-10,-62}},
+      points={{-51.4,70},{-48,70},{-48,62},{-92,62},{-92,-62},{-10,-62}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(onSwi.y, dxCoo.stage) annotation (Line(
-      points={{-39.4,86},{-30,86},{-30,60},{-21,60}},
+      points={{-29.4,70},{-26,70},{-26,60},{-21,60}},
       color={255,127,0},
       smooth=Smooth.None));
   connect(deaBan.y, onSwi.u) annotation (Line(
-      points={{-59.4,86},{-53.2,86}},
+      points={{-51.4,70},{-43.2,70}},
       color={255,0,255},
       smooth=Smooth.None));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>

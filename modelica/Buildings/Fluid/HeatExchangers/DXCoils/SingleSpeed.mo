@@ -4,7 +4,7 @@ model SingleSpeed "Single speed DX cooling coil"
     dxCoo(final variableSpeedCoil=false),
     final nSpe=1);
   Modelica.Blocks.Sources.Constant speRat(final k=1) "Speed ratio"
-    annotation (Placement(transformation(extent={{-72,58},{-60,70}})));
+    annotation (Placement(transformation(extent={{-56,58},{-44,70}})));
   Modelica.Blocks.Interfaces.BooleanInput on
     "Set to true to enable compressor, or false to disable compressor"
     annotation (Placement(transformation(extent={{-120,70},{-100,90}})));
@@ -12,10 +12,10 @@ protected
   Modelica.Blocks.Math.BooleanToInteger onSwi(
     final integerTrue=1,
     final integerFalse=0) "On/off switch"
-    annotation (Placement(transformation(extent={{-72,74},{-60,86}})));
+    annotation (Placement(transformation(extent={{-56,74},{-44,86}})));
 equation
   connect(speRat.y, dxCoo.speRat) annotation (Line(
-      points={{-59.4,64},{-40,64},{-40,57.6},{-21,57.6}},
+      points={{-43.4,64},{-40,64},{-40,57.6},{-21,57.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eva.on, on) annotation (Line(
@@ -23,11 +23,11 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(on, onSwi.u) annotation (Line(
-      points={{-110,80},{-73.2,80}},
+      points={{-110,80},{-57.2,80}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(onSwi.y, dxCoo.stage) annotation (Line(
-      points={{-59.4,80},{-34,80},{-34,60},{-21,60}},
+      points={{-43.4,80},{-34,80},{-34,60},{-21,60}},
       color={255,127,0},
       smooth=Smooth.None));
   annotation (defaultComponentName="sinSpeDX", Diagram(graphics), Documentation(info="<html>

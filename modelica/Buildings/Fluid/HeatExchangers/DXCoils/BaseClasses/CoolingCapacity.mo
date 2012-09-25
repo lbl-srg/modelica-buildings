@@ -2,8 +2,8 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block CoolingCapacity
   "Calculates cooling capacity at given temperature and flow fraction"
   extends Modelica.Blocks.Interfaces.BlockIcon;
-  //Performance curve variables
-  Modelica.Blocks.Interfaces.IntegerInput stage
+
+  Modelica.Blocks.Interfaces.IntegerInput stage(final min=0)
     "Stage of coil, or 0/1 for variable-speed coil"
     annotation (Placement(transformation(extent={{-124,88},{-100,112}}),
         iconTransformation(extent={{-120,90},{-100,110}})));
@@ -14,14 +14,13 @@ block CoolingCapacity
      annotation (Placement(transformation(extent={{-120,38},{-100,58}})));
   Modelica.Blocks.Interfaces.RealInput m_flow(
     quantity="MassFlowRate",
-    unit="kg/s")
-    "Air mass flow rate flowing through the DX Coil at given instant"
+    unit="kg/s") "Air mass flow rate at the evaporator"
     annotation (Placement(transformation(extent={{-120,-10},{-100,10}})));
   Modelica.Blocks.Interfaces.RealInput TEvaIn(
     quantity="Temperature",
     unit="K",
     displayUnit="degC")
-    "Temperature of air entering the evaporator coil  (Wet bulb for wet coil and drybulb for dry coil)"
+    "Temperature of air entering the evaporator (wet bulb for wet coil and dry bulb for dry coil)"
     annotation (Placement(transformation(extent={{-120,-58},{-100,-38}})));
   parameter Integer nSta(min=1)
     "Number of coil stages (not counting the off stage)"
@@ -36,32 +35,21 @@ block CoolingCapacity
     each max=0,
     each unit="W") "Total cooling capacity"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
-  Modelica.Blocks.Interfaces.RealOutput EIR[nSta] "Energy Input Ratio"
+  Modelica.Blocks.Interfaces.RealOutput EIR[nSta](each min=0)
+    "Energy Input Ratio"
     annotation (Placement(transformation(extent={{100,30},{120,50}})));
-//----------------------------Performance curves---------------------------------//
 //------------------------------Cooling capacity---------------------------------//
   output Real cap_T[nSta](each min=0, each nominal=1, each start=1)
-    "Cooling capacity modification factor as function of temperature";
+    "Cooling capacity modification factor as a function of temperature";
   output Real cap_FF[nSta](each min=0, each nominal=1, each start=1)
-    "Cooling capacity modification factor as function of flow fraction";
+    "Cooling capacity modification factor as a function of flow fraction";
 //----------------------------Energy Input Ratio---------------------------------//
   output Real EIR_T[nSta](each min=0, each nominal=1, each start=1)
-    "EIR modification factor as function of temperature";
+    "EIR modification factor as a function of temperature";
   output Real EIR_FF[nSta](each min=0, each nominal=1, each start=1)
-    "EIR modification factor as function of flow fraction";
-protected
-  Real cap_FF_below[nSta](each min=0, each nominal=1, each start=1)
-    "Cooling capacity modification factor as function of flow fraction below minimum value of ff";
-  Real cap_FF_valid[nSta](each min=0, each nominal=1, each start=1)
-    "Cooling capacity modification factor as function of flow fraction";
-  Real heav[nSta](each min=0, each max=1, each nominal=0.5, each start=0.5)
-    "Smooth Heaviside function value";
-  parameter Real heavUpLimit[nSta](
-     each min=0, each max=1)=
-       {Buildings.Utilities.Math.Functions.polynomial(
-       x=per[iSta].perCur.ffRanCap[1],
-       a=per[iSta].perCur.capFunFF) for iSta in 1:nSta}
-    "Heaviside function max value";
+    "EIR modification factor as a function of flow fraction";
+  output Real corFac[nSta](each min=0, each max=1, each nominal=1, each start=1)
+    "Correction factor that is one inside the valid flow fraction, and attains zero below the valid flow fraction";
 algorithm
   if stage > 0 then
     for iSta in 1:nSta loop
@@ -73,57 +61,47 @@ algorithm
     // Compute the DX coil capacity fractions, using a biquadratic curve.
     // Since the regression for capacity can have negative values
     // (for unreasonable temperatures), we constrain its return value to be
-    // non-negative. This prevents the solver to pick the unrealistic solution.
+    // non-negative.
     cap_T[iSta] :=Buildings.Utilities.Math.Functions.smoothMax(
       x1=Buildings.Utilities.Math.Functions.biquadratic(
         a=per[iSta].perCur.capFunT,
         x1=Modelica.SIunits.Conversions.to_degC(TEvaIn),
         x2=Modelica.SIunits.Conversions.to_degC(TConIn)),
-      x2=0.00,
-      deltaX=0.01)
-        "Fixme: this can be negative. Cooling capacity modification factor as function of temperature";
-    cap_FF_valid[iSta] :=Buildings.Utilities.Math.Functions.polynomial(
+      x2=0.001,
+      deltaX=0.0001)
+        "Cooling capacity modification factor as function of temperature";
+    cap_FF[iSta] :=Buildings.Utilities.Math.Functions.polynomial(
       x=ff[iSta],
-      a=per[iSta].perCur.capFunFF) "Cooling capacity modification factor as function of flow fraction 
-      in user specified (valid) range";
-    heav[iSta] :=Buildings.Utilities.Math.Functions.smoothHeaviside(
-       x=ff[iSta] - (per[iSta].perCur.ffRanCap[1])/2,
-       delta=(per[iSta].perCur.ffRanCap[1])/2);
-    cap_FF_below[iSta] :=heavUpLimit[iSta]*heav[iSta] "Cooling capacity modification factor as function of 
-      flow fraction below minimum value of ff";
-    cap_FF[iSta]:=Buildings.Utilities.Math.Functions.spliceFunction(
-      pos=cap_FF_valid[iSta],
-      neg=cap_FF_below[iSta],
-      x=ff[iSta] - per[iSta].perCur.ffRanCap[1],
-      deltax=0.01)
-        "For smooth transition from heaviside function to user defined curvefit";
-  //-----------------------Energy Input Ratio modifiers--------------------------//
+      a=per[iSta].perCur.capFunFF);
+    //-----------------------Energy Input Ratio modifiers--------------------------//
     EIR_T[iSta] :=Buildings.Utilities.Math.Functions.smoothMax(
       x1=Buildings.Utilities.Math.Functions.biquadratic(
         a=per[iSta].perCur.EIRFunT,
         x1=Modelica.SIunits.Conversions.to_degC(TEvaIn),
         x2=Modelica.SIunits.Conversions.to_degC(TConIn)),
-      x2=0.0,
-      deltaX=0.01)
-        "fixme: this can attain negative values. Cooling capacity modification factor as function of temperature";
+      x2=0.001,
+      deltaX=0.0001);
     EIR_FF[iSta] :=Buildings.Utilities.Math.Functions.polynomial(
        x=ff[iSta],
        a=per[iSta].perCur.EIRFunFF)
         "Cooling capacity modification factor as function of flow fraction";
-    Q_flow[iSta] := cap_T[iSta]*cap_FF[iSta]*per[iSta].nomVal.Q_flow_nominal;
-    EIR[iSta]    := EIR_T[iSta]*EIR_FF[iSta]/per[iSta].nomVal.COP_nominal;
+    //------------ Correction factor for flow rate outside of validity of data ---//
+    corFac[iSta] :=Buildings.Utilities.Math.Functions.smoothHeaviside(
+       x=ff[iSta] - per[iSta].perCur.ffRan[1]/4,
+       delta=per[iSta].perCur.ffRan[1]/4);
+
+    Q_flow[iSta] := corFac[iSta]*cap_T[iSta]*cap_FF[iSta]*per[iSta].nomVal.Q_flow_nominal;
+    EIR[iSta]    := corFac[iSta]*EIR_T[iSta]*EIR_FF[iSta]/per[iSta].nomVal.COP_nominal;
     end for;
   else //cooling coil off
-   ff    :=        fill(0, nSta);
-   cap_T :=        fill(0, nSta);
-   cap_FF :=       fill(0, nSta);
-   EIR_T :=        fill(0, nSta);
-   EIR_FF :=       fill(0, nSta);
-   cap_FF_valid := fill(0, nSta);
-   heav :=         fill(0, nSta);
-   cap_FF_below := fill(0, nSta);
-   Q_flow :=       fill(0, nSta);
-   EIR :=          fill(0, nSta);
+   ff     := fill(0, nSta);
+   cap_T  := fill(0, nSta);
+   cap_FF := fill(0, nSta);
+   EIR_T  := fill(0, nSta);
+   EIR_FF := fill(0, nSta);
+   corFac := fill(0, nSta);
+   Q_flow := fill(0, nSta);
+   EIR    := fill(0, nSta);
   end if;
    annotation (
     defaultComponentName="cooCap",
@@ -229,17 +207,108 @@ is
   EIR<sub>FF</sub>(ff) = d<sub>1</sub> + d<sub>2</sub> ff + d<sub>3</sub> ff<sup>2</sup> 
 + d<sub>4</sub>ff<sup>3</sup> + ...
 </p>
+<h4>Obtaining the polynomial coefficients</h4>
 <p>
-Note that at zero air mass flow rate, the function 
-<i>EIR<sub>FF</sub>(&sdot;)</i>
-does not need to attain zero because if the compressor is still running, it will consume electrical power.
+The package 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
+contains performance curves.
+Alternatively, users can enter their own performance curves by 
+making an instance of a curve in 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
+and specifying custom coefficients for the above polynomials.
+The polynomial coefficients can be obtained by doing a curve fit that fits the
+polynomials to a set of data. 
+The site 
+<a href=\"http://www.scipy.org/Cookbook/FittingData\">
+http://www.scipy.org/Cookbook/FittingData</a>
+shows examples for how to fit data.
+If a coil has multiple stages, then the fit need to be done for each stage.
+For variable frequency coils, multiple fits need to be done for user selected
+compressor speeds. For intermediate speeds, the performance data will be interpolated
+by the model 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\">
+Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a>.
+</p>
+<p>
+The table below shows the polynomials explained above,
+the name of the polynomial coefficients in 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves\">
+Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves</a>
+and the independent parameters against which the data need to be fitted.
+</p>
+<p>
+<p>
+  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <tr>
+      <th>Modelica name of coefficient in data record</th>
+      <th>Polynomial of the above info section</th>
+       <th>Parameters for curve fit</th>
+    </tr>
+    <tr>
+      <td><code>capFunT</code></td>
+      <td><i>
+        cap<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = a<sub>1</sub> + a<sub>2</sub> &theta;<sub>e,in</sub> 
++ a<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + a<sub>4</sub> &theta;<sub>c,in</sub> + 
+a<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>
+        </i></td>
+        <td><i>
+        cap<sub>&theta;</sub>, &theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>
+        </i></td>
+    </tr>
+    <tr>
+      <td><code>capFunFF</code></td>
+      <td><i>
+        cap<sub>FF</sub>(ff) = b<sub>1</sub> + b<sub>2</sub> ff + b<sub>3</sub> ff<sup>2</sup> 
+        + b<sub>4</sub>ff<sup>3</sup> + ...
+        </i></td>
+        <td><i>
+        cap<sub>FF</sub>, ff
+        </i></td>
+    </tr>
+
+
+    <tr>
+      <td><code>EIRFunT</code></td>
+      <td><i>
+        EIR<sub>&theta;</sub>(&theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>) = a<sub>1</sub> + a<sub>2</sub> &theta;<sub>e,in</sub> 
++ a<sub>3</sub> &theta;<sub>e,in</sub> <sup>2</sup> + a<sub>4</sub> &theta;<sub>c,in</sub> + 
+a<sub>5</sub> &theta;<sub>c,in</sub> <sup>2</sup> + a<sub>6</sub> &theta;<sub>e,in</sub> &theta;<sub>c,in</sub>
+        </i></td>
+        <td><i>
+        EIR<sub>&theta;</sub>, &theta;<sub>e,in</sub>, &theta;<sub>c,in</sub>
+        </i></td>
+    </tr>
+    <tr>
+      <td><code>EIRFunFF</code></td>
+      <td><i>
+        EIR<sub>FF</sub>(ff) = b<sub>1</sub> + b<sub>2</sub> ff + b<sub>3</sub> ff<sup>2</sup> 
+        + b<sub>4</sub>ff<sup>3</sup> + ...
+        </i></td>
+        <td><i>
+        EIR<sub>FF</sub>, ff
+        </i></td>
+    </tr>
+  </table>
+</p>
+<p>
+Note that for the above polynomials, the units for temperature is degree Celsius and not Kelvins.
+</p>
+<h4>Implementation</h4>
+<p>
+A parameter of the performance curve is the range of mass flow fraction <i>ff</i> for
+which the data are valid. 
+Below this range, this model reduces the cooling capacity and the energy input ratio 
+so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
+<i>ff<sub>min</sub></i> is the minimum flow fraction for which the performance curves are valid.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
-September 19, 2012 by Michael Wetter:<br>
-Revised documentation.
+September 20, 2012 by Michael Wetter:<br>
+Revised model and documentation.
 </li>
 <li>
 May 18, 2012 by Kaustubh Phalak:<br>

@@ -131,9 +131,9 @@ Version 1.3 build 1 is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.DXCoils
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Library with direct evaporative cooling coils.
     </td>
     </tr>
 </table>
@@ -171,12 +171,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Controls</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Controls.SetPoints.OccupancySchedule
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added <code>pre</code> operator and relaxed tolerance in <code>assert</code> statement.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -2756,6 +2756,10 @@ individual libraries.
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">Fluid.Actuators</a>
    </td>
    <td valign=\"top\">Library with valves and air dampers.</td>
+</tr>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">Fluid.HeatExchangers.DXCoils</a>
+   </td>
+   <td valign=\"top\">Library with direct evaporative cooling coils.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Fluid.Movers</a>
    </td>

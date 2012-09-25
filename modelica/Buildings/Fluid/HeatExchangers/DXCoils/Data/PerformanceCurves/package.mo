@@ -3,19 +3,15 @@ package PerformanceCurves "Package with sevral performance curves"
 
 
   annotation (Documentation(info="<html>
-This package contains default performance curves for cooling capacity and EIR 
-of DX cooling coil. Using default coefficents for coils (when coefficient 
-for actual coil are not available) will not affect accuracy significantly 
-(Griffith B., Pless S., Talbert B., Deru M., and Torcellini P.; 2003). 
-These coefficients are obtained from example files of EnergyPlus 7.1.
-<h4>
-References
-</h4>
 <p>
-B. Griffith, S. Pless, B. Talbert, M. Deru, and P. Torcellini (2003).
-<i>'DX Coil Performance Curves' in Energy Design Analysis and Evaluation of a 
-Proposed Air Rescue and Fire Fighting Administration Building for Teterboro Airport</i>. 
-National Renewable Energy Laboratory, p. 63. 
+This package contains default performance curves for cooling capacity and EIR 
+of DX cooling coil.
+</p>
+<p>
+See the information section of
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData\">
+Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData</a>
+for a description of the data.
 </p>
 </html>",
 revisions="<html>

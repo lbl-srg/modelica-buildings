@@ -21,25 +21,18 @@ model DXCooling "DX cooling coil operation "
     final variableSpeedCoil = variableSpeedCoil,
     final datCoi=datCoi) "Dry coil condition"
     annotation (Placement(transformation(extent={{-50,-60},{-30,-40}})));
-  Modelica.Blocks.Routing.Multiplex5 mux1
-    annotation (Placement(transformation(extent={{-10,40},{10,60}})));
-  Modelica.Blocks.Routing.Multiplex5 mux2
-    annotation (Placement(transformation(extent={{-10,-60},{10,-40}})));
-  // fixme: deltax must be scaled
-  Buildings.Utilities.Math.Splice spl[5](
-    each deltax=0.0001)
-    annotation (Placement(transformation(extent={{30,-10},{50,10}})));
-  Modelica.Blocks.Routing.DeMultiplex5 deMux
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Blocks.Routing.Replicator rep(
-    final nout=5) "Replicator"
-    annotation (Placement(transformation(extent={{-10,-10},{10,10}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor dryWetPre
-    "Predicts coil condition (1=wet; -1=dry)"
-    annotation (Placement(transformation(extent={{-40,-10},{-20,10}})));
-  Modelica.Blocks.Sources.RealExpression XADP(
-    final y=wetCoi.appDewPt.XADP) "Mass fraction at ADP"
-    annotation (Placement(transformation(extent={{-50,-36},{-30,-16}})));
+  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor dryWet
+    "Actual coil condition"
+    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
+  Modelica.Blocks.Interfaces.RealOutput mWat_flow(
+    quantity="MassFlowRate",
+    unit="kg/s") "Mass flow rate of water condensed at cooling coil"
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+  Modelica.Blocks.Interfaces.RealOutput SHR(
+    min=0,
+    max=1.0)
+    "Sensible Heat Ratio: Ratio of sensible heat load to total heat load"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 equation
 
   connect(TConIn, wetCoi.TConIn)  annotation (Line(
@@ -98,101 +91,9 @@ equation
       points={{-110,76},{-80,76},{-80,-42.4},{-51,-42.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(dryCoi.EIR, mux2.u1[1])          annotation (Line(
-      points={{-29,-42},{-18,-42},{-18,-40},{-12,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dryCoi.Q_flow, mux2.u2[1])          annotation (Line(
-      points={{-29,-46},{-16.5,-46},{-16.5,-45},{-12,-45}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dryCoi.SHR, mux2.u3[1])          annotation (Line(
-      points={{-29,-50},{-12,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dryCoi.TDry, mux2.u4[1])          annotation (Line(
-      points={{-29,-54},{-18,-54},{-18,-55},{-12,-55}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dryCoi.mWat_flow, mux2.u5[1])          annotation (Line(
-      points={{-29,-58},{-18,-58},{-18,-60},{-12,-60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(mux1.y, spl.u1)         annotation (Line(
-      points={{11,50},{20,50},{20,6},{28,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(mux2.y, spl.u2)         annotation (Line(
-      points={{11,-50},{20,-50},{20,-6},{28,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  connect(spl.y, deMux.u)          annotation (Line(
-      points={{51,6.10623e-16},{60.5,6.10623e-16},{60.5,6.66134e-16},{58,
-          6.66134e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-  connect(deMux.y1[1], EIR)          annotation (Line(
-      points={{81,8},{88,8},{88,80},{110,80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(deMux.y2[1], Q_flow)          annotation (Line(
-      points={{81,4},{94,4},{94,40},{110,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-  connect(deMux.y4[1], TCoiSur)            annotation (Line(
-      points={{81,-4},{94,-4},{94,-40},{110,-40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-  connect(deMux.y3[1], SHR) annotation (Line(
-      points={{81,5.55112e-16},{88.25,5.55112e-16},{88.25,5.55112e-16},{95.5,
-          5.55112e-16},{95.5,5.55112e-16},{110,5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(deMux.y5[1], mWat_flow) annotation (Line(
-      points={{81,-8},{88,-8},{88,-80},{110,-80}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(wetCoi.EIR, mux1.u1[1]) annotation (Line(
-      points={{-29,58},{-22,58},{-22,60},{-12,60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(wetCoi.Q_flow, mux1.u2[1]) annotation (Line(
-      points={{-29,54},{-20.5,54},{-20.5,55},{-12,55}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(wetCoi.SHR, mux1.u3[1]) annotation (Line(
-      points={{-29,50},{-12,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(wetCoi.TADP, mux1.u4[1]) annotation (Line(
-      points={{-29,46},{-20.5,46},{-20.5,45},{-12,45}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(wetCoi.mWat_flow, mux1.u5[1]) annotation (Line(
-      points={{-29,42},{-22,42},{-22,40},{-12,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(rep.y, spl.x) annotation (Line(
-      points={{11,6.10623e-16},{15.5,6.10623e-16},{15.5,6.66134e-16},{28,
-          6.66134e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-
-  connect(XIn, dryWetPre.XIn) annotation (Line(
-      points={{-110,-50},{-60,-50},{-60,5},{-41,5}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dryWetPre.dryWetCoi, rep.u) annotation (Line(
-      points={{-19,6.10623e-16},{-15.5,6.10623e-16},{-15.5,6.66134e-16},{-12,
-          6.66134e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(XADP.y, dryWetPre.XADP) annotation (Line(
-      points={{-29,-26},{-20,-26},{-20,-14},{-50,-14},{-50,-5},{-41,-5}},
+  connect(XIn, dryWet.XIn)    annotation (Line(
+      points={{-110,-50},{-60,-50},{-60,-4},{39,-4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(stage, dryCoi.stage) annotation (Line(
@@ -203,25 +104,85 @@ equation
       points={{-110,100},{-54,100},{-54,60},{-51,60}},
       color={255,127,0},
       smooth=Smooth.None));
+  connect(dryWet.EIRWet, wetCoi.EIR) annotation (Line(
+      points={{58,11},{58,58},{-29,58}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(wetCoi.Q_flow, dryWet.QWet_flow) annotation (Line(
+      points={{-29,54},{54,54},{54,11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(wetCoi.SHR, dryWet.SHRWet) annotation (Line(
+      points={{-29,50},{50,50},{50,11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(wetCoi.mWat_flow, dryWet.mWetWat_flow) annotation (Line(
+      points={{-29,42},{42,42},{42,11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dryCoi.EIR, dryWet.EIRDry) annotation (Line(
+      points={{-29,-42},{58,-42},{58,-11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dryCoi.Q_flow, dryWet.QDry_flow) annotation (Line(
+      points={{-29,-46},{54,-46},{54,-11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dryCoi.TDry, dryWet.TADPDry) annotation (Line(
+      points={{-29,-54},{46,-54},{46,-11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(wetCoi.TADP, dryWet.TADPWet) annotation (Line(
+      points={{-29,46},{46,46},{46,11}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dryWet.EIR, EIR) annotation (Line(
+      points={{61,8},{70,8},{70,80},{110,80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dryWet.Q_flow, Q_flow) annotation (Line(
+      points={{61,4},{80,4},{80,40},{110,40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dryWet.SHR, SHR) annotation (Line(
+      points={{61,6.10623e-16},{81.5,6.10623e-16},{81.5,5.55112e-16},{110,
+          5.55112e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dryWet.TADP, TCoiSur) annotation (Line(
+      points={{61,-4},{80,-4},{80,-40},{110,-40}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(dryWet.mWat_flow, mWat_flow) annotation (Line(
+      points={{61,-8},{70,-8},{70,-80},{110,-80}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(wetCoi.XADP, dryWet.XADP) annotation (Line(
+      points={{-40,39},{-40,4},{39,4}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (defaultComponentName="dxCoo", Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                                                      graphics), Documentation(info="<html>
 <p>
-This block preovides results of cooling operation. It encompasses 
-both cases i.e. dry and wet coil condition. The coil condition is decided by 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetPredictor</a>.
-Smooth transition is attained between results of these two conditions using 
-<a href=\"modelica://Buildings.Utilities.Math.Splice\"> 
-Buildings.Utilities.Math.Splice</a>.
+This block combines the models for the dry coil and the wet coil.
+Output of the block is the coil performance which, depending on the
+mass fraction at the apparatus dew point temperature and 
+the mass fraction of the coil inlet air,
+may be from the dry coil, the wet coil, or a weighted average of the two.
 </p>
 </html>",
 revisions="<html>
 <ul>
 <li>
+September 20, 2012 by Michael Wetter:<br>
+Revised implementation.
+</li>
+<li>
 September 4, 2012 by Michael Wetter:<br>
 Renamed connector to follow naming convention.
-</li><li>
+</li>
+<li>
 April 12, 2012 by Kaustubh Phalak:<br>
 First implementation. 
 </li>

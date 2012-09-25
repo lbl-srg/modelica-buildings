@@ -1,60 +1,118 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 block DryWetPredictor "Decides condition of the coil"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
-  Modelica.Blocks.Interfaces.RealInput XIn "Inlet air mass fraction"
-    annotation (Placement(transformation(extent={{-120,40},{-100,60}})));
-  Modelica.Blocks.Interfaces.RealInput XADP "Mass fraction at ADP"
-    annotation (Placement(transformation(extent={{-120,-40},{-100,-60}})));
-  Modelica.Blocks.Interfaces.RealOutput dryWetCoi(min=-1, max=1)
-    "Surface condition of the coil (1=wet; -1=dry)"
-     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
-  Buildings.Utilities.Math.Splice spl(deltax=0.00001) "splice"
-    annotation (Placement(transformation(extent={{40,-10},{60,10}})));
-  Modelica.Blocks.Sources.RealExpression pos(y=1) "Wet coil condition"
-    annotation (Placement(transformation(extent={{-20,30},{0,50}})));
-  Modelica.Blocks.Sources.RealExpression neg(y=-1) "Dry coil condition"
-    annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-  Modelica.Blocks.Math.Add dif(k2=-1) "Difference in mass fractions"
-    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-equation
-  connect(XIn, dif.u1) annotation (Line(
-      points={{-110,50},{-80,50},{-80,6},{-62,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(XADP, dif.u2) annotation (Line(
-      points={{-110,-50},{-80,-50},{-80,-6},{-62,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(dif.y, spl.x) annotation (Line(
-      points={{-39,6.10623e-16},{-1.5,6.10623e-16},{-1.5,6.66134e-16},{38,
-          6.66134e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
-  connect(pos.y, spl.u1) annotation (Line(
-      points={{1,40},{20,40},{20,6},{38,6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(neg.y, spl.u2) annotation (Line(
-      points={{1,-40},{20,-40},{20,-6},{38,-6}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(spl.y, dryWetCoi) annotation (Line(
-      points={{61,6.10623e-16},{81.5,6.10623e-16},{81.5,5.55112e-16},{110,
-          5.55112e-16}},
-      color={0,0,127},
-      smooth=Smooth.None));
+ constant Real deltaX=0.0001
+    "Range of x where transition between dry and wet coil occurs";
+  Modelica.Blocks.Interfaces.RealInput XIn "Inlet air mass fraction"
+    annotation (Placement(transformation(extent={{-120,-50},{-100,-30}})));
+  Modelica.Blocks.Interfaces.RealInput XADP "Mass fraction at ADP"
+    annotation (Placement(transformation(extent={{-120,50},{-100,30}})));
+
+  Modelica.Blocks.Interfaces.RealInput EIRWet "Energy Input Ratio"
+     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={80,110})));
+  Modelica.Blocks.Interfaces.RealInput QWet_flow(
+    max=0,
+    unit="W") "Total cooling capacity"
+     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={40,110})));
+  Modelica.Blocks.Interfaces.RealInput SHRWet(
+    min=0,
+    max=1.0)
+    "Sensible Heat Ratio: Ratio of sensible heat load to total heat load"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={0,110})));
+  Modelica.Blocks.Interfaces.RealInput TADPWet(
+    quantity="Temperature",
+    unit="K",
+    min=273.15,
+    max=373.15) "Dry bulb temperature of air at ADP"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-40,110})));
+  Modelica.Blocks.Interfaces.RealInput mWetWat_flow(
+    quantity="MassFlowRate",
+    unit="kg/s") "Mass flow rate of water condensed at cooling coil"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-80,110})));
+  Modelica.Blocks.Interfaces.RealInput EIRDry "Energy Input Ratio"
+     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={80,-110})));
+  Modelica.Blocks.Interfaces.RealInput QDry_flow(max=0, unit="W")
+    "Total cooling capacity"
+     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={40,-110})));
+  Modelica.Blocks.Interfaces.RealInput TADPDry(
+    quantity="Temperature",
+    unit="K",
+    min=273.15,
+    max=373.15) "Dry bulb temperature of air at ADP"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=90,
+        origin={-40,-110})));
+
+  Modelica.Blocks.Interfaces.RealOutput EIR "Energy Input Ratio"
+     annotation (Placement(transformation(extent={{100,70},{120,90}})));
+  Modelica.Blocks.Interfaces.RealOutput Q_flow(
+    max=0,
+    unit="W") "Total cooling capacity"
+     annotation (Placement(transformation(extent={{100,30},{120,50}})));
+  Modelica.Blocks.Interfaces.RealOutput SHR(
+    min=0,
+    max=1.0)
+    "Sensible Heat Ratio: Ratio of sensible heat load to total heat load"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput TADP(
+    quantity="Temperature",
+    unit="K",
+    min=273.15,
+    max=373.15) "Dry bulb temperature of air at ADP"
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput mWat_flow(
+    quantity="MassFlowRate",
+    unit="kg/s") "Mass flow rate of water condensed at cooling coil"
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
+
+ output Real fraDry(min=0, max=1)
+    "Fraction of results that are taken from the dry coil model";
+ output Real fraWet(min=0, max=1)
+    "Fraction of results that are taken from the wet coil model";
+
+equation
+  fraDry=Buildings.Utilities.Math.Functions.spliceFunction(
+    pos=+1,
+    neg=0,
+    x= XADP-XIn,
+    deltax= deltaX);
+  fraWet=1-fraDry;
+  EIR       = fraDry * EIRDry    + fraWet * EIRWet;
+  Q_flow    = fraDry * QDry_flow + fraWet * QWet_flow;
+  SHR       = fraDry             + fraWet * SHRWet;
+  TADP      = fraDry * TADPDry   + fraWet * TADPWet;
+  mWat_flow =                      fraWet * mWetWat_flow;
+
   annotation (defaultComponentName="dryWetPre",
       Documentation(info="<html>
 <p>
-This block smoothly transits the output signal between -1 and 1 for dry and wet coil respectively 
-by comparing water mass fractions at apparatus dew point and coil inlet 
-[i.e. if X<sub>ADP</sub> &gt; X<sub>In</sub> dry coil condition (-1) and 
-if X<sub>ADP</sub> &lt; X<sub>In</sub> wet coil condition (1)] 
+This block smoothly transitions the results from the dry coil and
+the wet coil computation.
+The independent variable for the transition is the difference between
+the water mass fractions at the apparatus dew point, as computed by the wet coil model,
+and the coil inlet mass fraction. 
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 20, 2012 by Michael Wetter:<br>
+Revised implementation. 
+</li>
 <li>
 August 9, 2012 by Kaustubh Phalak:<br>
 First implementation. 
@@ -62,13 +120,12 @@ First implementation.
 </ul>
 
 </html>"),
-      Icon(graphics={Text(
-          extent={{-16,86},{96,54}},
-          lineColor={0,0,255},
-          textString="Dry = -1"), Text(
-          extent={{-12,-46},{96,-78}},
-          lineColor={0,0,255},
-          textString="Wet = 1"),
+      Icon(graphics={
+        Rectangle(
+          extent={{-100,100},{100,-100}},
+          lineColor={0,0,127},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
         Ellipse(extent={{-58,28},{-2,-28}}, lineColor={0,0,255}),
         Line(
           points={{-100,50},{-82,50},{-50,20}},
@@ -83,25 +140,21 @@ First implementation.
           color={0,0,255},
           smooth=Smooth.None),
         Line(
-          points={{-2,0},{48,-48}},
-          color={0,0,255},
-          smooth=Smooth.None),
-        Line(
-          points={{-2,0},{48,48}},
+          points={{-2,0},{54,0}},
           color={0,0,255},
           smooth=Smooth.None,
           pattern=LinePattern.DashDotDot),
         Polygon(
-          points={{48,48},{20,32},{30,22},{48,48}},
+          points={{78,0},{48,8},{48,-8},{78,0}},
           lineColor={0,0,255},
           smooth=Smooth.None,
           fillColor={0,0,255},
           fillPattern=FillPattern.CrossDiag),
-        Polygon(
-          points={{48,-48},{20,-32},{30,-22},{48,-48}},
+        Text(
+          extent={{-70,94},{70,52}},
           lineColor={0,0,255},
-          smooth=Smooth.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid)}),
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid,
+          textString="%name")}),
     Diagram(graphics));
 end DryWetPredictor;

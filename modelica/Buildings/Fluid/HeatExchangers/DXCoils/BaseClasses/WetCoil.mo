@@ -8,16 +8,25 @@ model WetCoil "Calculates wet coil condition "
     min=273.15,
     max=373.15) "Dry bulb temperature of air at ADP"
     annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+  Modelica.Blocks.Interfaces.RealOutput SHR(
+    min=0,
+    max=1.0)
+    "Sensible Heat Ratio: Ratio of sensible heat load to total heat load"
+    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+  Modelica.Blocks.Interfaces.RealOutput mWat_flow(
+    quantity="MassFlowRate",
+    unit="kg/s") "Mass flow rate of water condensed at cooling coil"
+    annotation (Placement(transformation(extent={{100,-90},{120,-70}})));
 
-public
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi wetBul(
     redeclare package Medium = Medium) "Calculates wet-bulb temperature"
     annotation (Placement(transformation(extent={{-60,20},{-48,32}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint appDewPt(
     redeclare package Medium = Medium,
-    datCoi=datCoi)
+    final datCoi=datCoi,
+    final variableSpeedCoil=variableSpeedCoil)
     "Calculates air properties at apparatus dew point (ADP) at existing air-flow conditions"
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio shr(
     redeclare package Medium = Medium) "Calculates sensible heat ratio"
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
@@ -28,24 +37,31 @@ protected
   Modelica.Blocks.Math.IntegerToBoolean onSwi(final threshold=1)
     "On/off switch"
     annotation (Placement(transformation(extent={{-20,0},{-8,12}})));
+public
+  Modelica.Blocks.Interfaces.RealOutput XADP
+    "Humidity mass fraction of air at  apparatus dew point" annotation (
+      Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={0,-110})));
 equation
 
   connect(appDewPt.TADP, TADP)
                           annotation (Line(
-      points={{1,-55},{30,-55},{30,-40},{110,-40}},
+      points={{-9,-55},{30,-55},{30,-40},{110,-40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(XIn, appDewPt.XIn) annotation (Line(
-      points={{-110,-50},{-86,-50},{-86,-55},{-21,-55}},
+      points={{-110,-50},{-86,-50},{-86,-55},{-31,-55}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(p, appDewPt.p) annotation (Line(
-      points={{-110,-24},{-82,-24},{-82,-52},{-21,-52}},
+      points={{-110,-24},{-82,-24},{-82,-52},{-31,-52}},
       color={0,0,127},
       smooth=Smooth.None));
 
   connect(m_flow, appDewPt.m_flow) annotation (Line(
-      points={{-110,24},{-78,24},{-78,-49},{-21,-49}},
+      points={{-110,24},{-78,24},{-78,-49},{-31,-49}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(p, wetBul.p) annotation (Line(
@@ -57,15 +73,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(speRat, appDewPt.speRat) annotation (Line(
-      points={{-110,76},{-74,76},{-74,-43},{-21,-43}},
+      points={{-110,76},{-74,76},{-74,-43},{-31,-43}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(appDewPt.XADP, shr.XADP) annotation (Line(
-      points={{1,-45},{6,-45},{6,-14},{19,-14}},
+      points={{-9,-45},{6,-45},{6,-14},{19,-14}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(appDewPt.hADP, shr.hADP) annotation (Line(
-      points={{1,-50},{10,-50},{10,-18},{19,-18}},
+      points={{-9,-50},{10,-50},{10,-18},{19,-18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shr.SHR, SHR) annotation (Line(
@@ -89,11 +105,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(hIn, appDewPt.hIn) annotation (Line(
-      points={{-110,-77},{-90,-77},{-90,-58},{-21,-58}},
+      points={{-110,-77},{-90,-77},{-90,-58},{-31,-58}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(appDewPt.TADP, conRat.TDewPoi)       annotation (Line(
-      points={{1,-55},{29.5,-55},{29.5,-86},{59,-86}},
+      points={{-9,-55},{29.5,-55},{29.5,-86},{59,-86}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conRat.mWat_flow, mWat_flow)       annotation (Line(
@@ -109,7 +125,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(speShiQ_flow.y, appDewPt.Q_flow) annotation (Line(
-      points={{46.7,51},{50,51},{50,20},{-40,20},{-40,-46.1},{-21,-46.1}},
+      points={{46.7,51},{50,51},{50,20},{-40,20},{-40,-46.1},{-31,-46.1}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(onSwi.y, shr.on) annotation (Line(
@@ -124,28 +140,28 @@ equation
       points={{-47.4,26},{-32,26},{-32,45.2},{-15,45.2}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(appDewPt.XADP, XADP)  annotation (Line(
+      points={{-9,-45},{0,-45},{0,-110},{5.55112e-16,-110}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(appDewPt.stage, stage) annotation (Line(
+      points={{-31,-40},{-68,-40},{-68,100},{-110,100}},
+      color={255,127,0},
+      smooth=Smooth.None));
   annotation (defaultComponentName="wetCoi", Diagram(graphics), Documentation(info="<html>
 <p>
-This block encompasses 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint</a>, 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Condensation</a> and 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SensibleHeatRatio</a>. 
-The cooling capacity is determined assuming he surface of the coil is wet. 
-Using this cooling capacity, air properties at apparatus dew point are determined. 
-<p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Fluid/HeatExchangers/DXCoils/BaseClasses/ApparatusDewPoint.png\" border=\"1\" width=\"350\" height=\"330\">
+This block calculates the rate of cooling and the coil surface condition
+under the assumption that the coil is wet.
 </p>
 <p>
-Sensible heat ratio is calculated using the known air inlet conditions, 
-ADP conditions and similarity of triangles in the above figure.
-The value of the SHR is then used to determine the latent heat component of 
-the cooling capacity. 
-This latent heat component is then divided by the enthalpy of vaporization at 
-the coil surface temperature (i.e. T<sub>ADP</sub>) to calculate 
-the mass of water condensed at the coil.</p>
+The dry coil conditions are computed in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryCoil</a>.
+See 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
+Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
+for an explanation of the model.
+</p>
 </html>",
 revisions="<html>
 <ul>

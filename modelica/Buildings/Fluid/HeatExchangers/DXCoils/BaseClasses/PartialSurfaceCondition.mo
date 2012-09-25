@@ -4,12 +4,11 @@ partial block PartialSurfaceCondition
   extends Modelica.Blocks.Interfaces.BlockIcon;
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
-  // fixme: this model should have an boolean parameter that determines whether
-  // performance need to be interpolated between stages. For the multi-stage
-  // coil, no interpolation is needed
-  parameter Modelica.SIunits.MassFlowRate m_flow_small = datCoi.m_flow_small
-    "Small mass flow rate in case of no-flow condition";
-  parameter Modelica.SIunits.AngularVelocity maxSpe(displayUnit="1/min")= datCoi.per[nSpe].spe
+  constant Boolean variableSpeedCoil "Flag, set to true to interpolate data";
+
+  final parameter Modelica.SIunits.MassFlowRate m_flow_small = datCoi.m_flow_small
+    "Small mass flow rate for the evaporator, used for regularization";
+  final parameter Modelica.SIunits.AngularVelocity maxSpe(displayUnit="1/min")= datCoi.per[nSpe].spe
     "Maximum rotational speed";
   Modelica.Blocks.Interfaces.RealInput speRat "Speed index"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}}, rotation=
@@ -20,93 +19,118 @@ partial block PartialSurfaceCondition
    annotation (Placement(transformation(extent={{-120,29},{-100,49}})));
   Modelica.Blocks.Interfaces.RealInput m_flow(
     quantity="MassFlowRate",
-    unit="kg/s")
-    "Air mass flow rate flowing through the DX Coil at given instant"
+    unit="kg/s") "Evaporator air mass flow rate"
    annotation (Placement(transformation(extent={{-120,0},{-100,20}})));
   Modelica.Blocks.Interfaces.RealInput p(
     quantity="Pressure",
-    unit="Pa") "Pressure at coil"
+    unit="Pa") "Evaporator air static pressure"
   annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Modelica.Blocks.Interfaces.RealInput XIn "Inlet air mass fraction"
+  Modelica.Blocks.Interfaces.RealInput XIn "Evaporator inlet air mass fraction"
   annotation (Placement(transformation(extent={{-120,-60},{-100,-40}},
                                                                     rotation=
             0)));                         //(start=0.005, min=0, max=1.0)
   Modelica.Blocks.Interfaces.RealInput hIn(
     quantity="SpecificEnergy",
-    unit="J/kg") "Specific enthalpy of air at inlet of DX Coil"
+    unit="J/kg") "Evaporator air inlet specific enthalpy"
   annotation (Placement(transformation(extent={{-120,-90},{-100,-70}},rotation=
             0)));
   output Real bypass(
     start=0.25,
     min=0,
     max=1.0) "Bypass factor";
+  output Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm spe
+    "Rotational speed. Fixme. Do not use rpm!!!";
+
+  final parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSpe](
+      final per=datCoi.per.nomVal,
+      redeclare final package Medium = Medium) "Calculates UA/Cp of the coil"
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+
+protected
   output Modelica.SIunits.MassFlowRate m_flow_nonzero
-    "Minimum flow rate in case of no-flow condition";
+    "Evaporator air mass flow rate, bounded away from zero";
   output Modelica.SIunits.SpecificEnthalpy delta_h(
     start=40000,
     min=0.0)
     "Enthalpy required to be removed from the inlet air to attain apparatus dry point condition";
-  output Real uACp(
+  output Real UAcp(
     min=0,
     fixed=false) "UA/Cp of coil";
-  output Modelica.SIunits.Conversions.NonSIunits.AngularVelocity_rpm spe
-    "Rotational speed. Fixme. Do not use rpm!!!";
-  constant Real uACpLowSpe=0.000001 "Minimum Value for uACp";
-public
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSpe](final
-      per=datCoi.per.nomVal, redeclare final package Medium = Medium)
-    "Calculates UA/Cp of the coil"
-    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-equation
-  //To handle no-flow condtion
-  m_flow_nonzero=Buildings.Utilities.Math.Functions.smoothMax(
-    x1=m_flow,
-    x2=m_flow_small,
-    deltaX=0.01*m_flow_small);
-  spe=speRat*maxSpe;
-  // fixme: deltaX must be scaled with UACp
-  uACp=Buildings.Utilities.Math.Functions.smoothMax(
-     x1=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift(
-       spe=spe,
-       speSet=datCoi.per.spe,
-       u=uacp.uACp),
-     x2=uACpLowSpe,
-     deltaX=0.001);
-  //Bypass factor is a function of current mass flow rate
-  bypass = (Modelica.Constants.e)^(-1 * uACp / m_flow_nonzero);
-  //With known value for bypass factor, enthalpy of air
-  //at coil apparatus dew/dry point can be calculated at current condition.
-  //'delta_h' value is restricted below hIn to avoid the freezing condition (of wet coil) and
-  // also to handle the zero (or extremely low) mass flow rate condition.
 
-  // fixme: deltaX must be scaled with hIn
-  delta_h=Buildings.Utilities.Math.Functions.smoothMin(
-    x1=-1*(Q_flow / m_flow_nonzero) / (1 - bypass),
-    x2=0.999*hIn,
-    deltaX=0.0001);
+public
+  Modelica.Blocks.Interfaces.IntegerInput stage
+    "Stage of coil, or 0/1 for variable-speed coil"
+    annotation (Placement(transformation(extent={{-120,90},{-100,110}}),
+        iconTransformation(extent={{-120,90},{-100,110}})));
+algorithm
+  if not variableSpeedCoil and stage == 0 then
+    m_flow_nonzero := 0;
+    UAcp           := 0;
+    bypass         := 0;
+    delta_h        := 0;
+  else
+    // Small mass flow rate to avoid division by zero
+    m_flow_nonzero := Buildings.Utilities.Math.Functions.smoothMax(
+      x1=m_flow,
+      x2=m_flow_small,
+      deltaX=0.1*m_flow_small);
+    spe:=speRat*maxSpe;
+
+    if variableSpeedCoil then
+      UAcp := Buildings.Utilities.Math.Functions.smoothMax(
+         x1=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift(
+           spe=spe,
+           speSet={datCoi.per[iSpe].spe for iSpe in 1:nSpe},
+           u={uacp[iSpe].UAcp for iSpe in 1:nSpe}),
+         x2=uacp[nSpe].UAcp/1E3,
+         deltaX=uacp[nSpe].UAcp/1E4);
+     else
+      UAcp := uacp[stage].UAcp;
+     end if;
+
+    bypass := Buildings.Utilities.Math.Functions.smoothLimit(
+      x=  Modelica.Math.exp(-UAcp / m_flow_nonzero),
+      l=  0.01,
+      u=  0.99,
+      deltaX=  0.001);
+   delta_h:=Buildings.Utilities.Math.Functions.smoothMin(
+      x1=-Q_flow/m_flow_nonzero/(1 - bypass),
+      x2=0.999*hIn,
+      deltaX=0.0001);
+ /*   delta_h := -Q_flow / m_flow_nonzero / (1 - bypass);
+ */
+    end if;
   annotation (Documentation(info="<html>
 <p>
-This partial block provides initial calculations for 
+This partial block is the base class for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDewPoint</a> and
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint</a>.
 </p>
 <p>
-This block calculates the UA/Cp value of the coil and interpolates between different 
-speed ratios using the  
+This block calculates the <i>UA/c<sub>p</sub></i> value, the bypass factor and the
+enthalpy difference across the coil.
+It uses the function
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a> function.
-If the speed ratio falls below the minimum speed of the data set the 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a> function 
-smoothly connects to the origin (i.e. UA/Cp=0 at Speed ratio=0 condition).
-This avoids linear extrapolation of UA/Cp below the minimum speed of the data set
-which might lead to a negative value of UA/Cp and an unrealistic value of bypass factor. 
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a>
+for intermediate compressor speeds.
+</i>
+</p>
+<h4>Implementation</h4>
+<p>
+For coils that only have discrete compressor speeds, this block does not do an interpolation
+for intermediate speeds.
+For coils with variable speed compressors, the computations are also done if the coil is off,
+as this ensures that the derivatives are continuous near the off conditions.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+September 24, 2012 by Michael Wetter:<br>
+Revised implementation.
+</li>
 <li>
 August 24, 2012, by Michael Wetter:<br>
 Moved function from 
@@ -125,5 +149,5 @@ First implementation.
 </li>
 </ul>
 
-</html>"));
+</html>"), Icon(graphics));
 end PartialSurfaceCondition;
