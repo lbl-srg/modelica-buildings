@@ -39,7 +39,7 @@ model EvaporationFlowReversal
   Modelica.Blocks.Sources.Constant XEvaOut(k=XEvaOut_nominal)
     "Outlet water vapor mass fraction"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Modelica.Blocks.Sources.Constant TOut(k=TOut_nominal) "Outlet Temperature"
+  Modelica.Blocks.Sources.Constant TEvaOut(k=TOut_nominal) "Outlet Temperature"
     annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
   Modelica.Blocks.Continuous.Integrator int
     "Mass of water that evaporates into air stream"
@@ -66,10 +66,6 @@ equation
       points={{-59,-60},{50,-60},{50,8}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TOut.y, eva.TOut)    annotation (Line(
-      points={{-59,-90},{56,-90},{56,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(mWat_flow.y, eva.mWat_flow) annotation (Line(
       points={{-59,70},{-30,70},{-30,24},{38,24}},
       color={0,0,127},
@@ -90,8 +86,12 @@ equation
       points={{61,20},{70.5,20},{70.5,20},{78,20}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(TEvaOut.y, eva.TEvaOut) annotation (Line(
+      points={{-59,-90},{56,-90},{56,8}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-120},{120,100}},
-          preserveAspectRatio=false),
+          preserveAspectRatio=true),
                       graphics),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/EvaporationFlowReversal.mos"
         "Simulate and plot"),

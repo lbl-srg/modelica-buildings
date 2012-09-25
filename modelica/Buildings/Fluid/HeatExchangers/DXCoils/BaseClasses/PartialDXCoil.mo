@@ -62,7 +62,8 @@ protected
   Modelica.Blocks.Sources.RealExpression X(final y=XEvaIn[iWat])
     "Inlet air mass fraction"
     annotation (Placement(transformation(extent={{-56,26},{-36,46}})));
-  Modelica.Blocks.Sources.RealExpression T(final y=TEvaIn) "Inlet air temperature"
+  Modelica.Blocks.Sources.RealExpression T(final y=TEvaIn)
+    "Inlet air temperature"
     annotation (Placement(transformation(extent={{-90,18},{-70,38}})));
   Modelica.Blocks.Sources.RealExpression m(final y=port_a.m_flow)
     "Inlet air mass flow rate"
@@ -164,10 +165,6 @@ equation
       points={{66,22},{66,54},{62,54}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(TVol.T, eva.TOut) annotation (Line(
-      points={{78,22},{90,22},{90,-90},{8,-90},{8,-82}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(pwr.QSen_flow, QSen_flow) annotation (Line(
       points={{41,70},{110,70}},
       color={0,0,127},
@@ -185,7 +182,11 @@ equation
       points={{13,-70},{20,-70},{20,-32},{-16,-32},{-16,-18},{-11,-18}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+  connect(TVol.T, eva.TEvaOut) annotation (Line(
+      points={{78,22},{90,22},{90,-90},{8,-90},{8,-82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
               defaultComponentName="dxCoi", Diagram(graphics), Documentation(info="<html>

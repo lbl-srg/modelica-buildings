@@ -91,10 +91,6 @@ equation
       points={{-39,20},{50,20},{50,38}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TOut.y, evaSho.TOut) annotation (Line(
-      points={{-39,-10},{56,-10},{56,38}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(evaNor.TWat, TWat.y) annotation (Line(
       points={{38,-30},{12,-30},{12,120},{-39,120}},
       color={0,0,127},
@@ -105,10 +101,6 @@ equation
       smooth=Smooth.None));
   connect(XEvaOut.y, evaNor.XEvaOut) annotation (Line(
       points={{-39,20},{20,20},{20,-60},{50,-60},{50,-42}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(TOut.y, evaNor.TOut) annotation (Line(
-      points={{-39,-10},{-6,-10},{-6,-70},{56,-70},{56,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pulNor.y, realToBoolean1.u)
@@ -153,8 +145,16 @@ equation
       points={{61,50},{78,50}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(TOut.y, evaNor.TEvaOut) annotation (Line(
+      points={{-39,-10},{6,-10},{6,-68},{56,-68},{56,-42}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TOut.y, evaSho.TEvaOut) annotation (Line(
+      points={{-39,-10},{56,-10},{56,38}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-120,-160},{120,140}},
-          preserveAspectRatio=false),
+          preserveAspectRatio=true),
                       graphics),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/EvaporationPulse.mos"
         "Simulate and plot"),

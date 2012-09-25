@@ -55,10 +55,10 @@ model Evaporation
         rotation=90,
         origin={0,-120})));
 
-  Modelica.Blocks.Interfaces.RealInput TOut(final quantity="Temperature",
-                                            final unit="K",
-                                            displayUnit="degC")
-    "Coil outlet temperature"
+  Modelica.Blocks.Interfaces.RealInput TEvaOut(
+    final quantity="Temperature",
+    final unit="K",
+    displayUnit="degC") "Coil outlet temperature"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={60,-120})));
@@ -81,7 +81,7 @@ protected
   final parameter Modelica.SIunits.MassFraction XEvaIn_nominal(fixed=false)
     "Mass fraction at nominal inlet conditions";
 
-   final parameter Modelica.SIunits.Temperature TOut_nominal(fixed=false)
+   final parameter Modelica.SIunits.Temperature TEvaOut_nominal(fixed=false)
     "Nominal outlet temperature";
 
    final parameter Modelica.SIunits.MassFraction XEvaOut_nominal(fixed=false)
@@ -131,13 +131,13 @@ initial equation
      phi=nomVal.phiIn_nominal);
 
   // Nominal outlet conditions
-  TOut_nominal = nomVal.TEvaIn_nominal + QSen_flow_nominal/nomVal.m_flow_nominal/
+  TEvaOut_nominal = nomVal.TEvaIn_nominal + QSen_flow_nominal/nomVal.m_flow_nominal/
      Medium.specificHeatCapacityCp(stateIn_nominal);
   XEvaOut_nominal =
       (XEvaIn_nominal * h_fg + QLat_flow_nominal/nomVal.m_flow_nominal)/h_fg;
 
   XEvaOutSat_nominal= Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-       pSat=Medium.saturationPressure(TOut_nominal),
+       pSat=Medium.saturationPressure(TEvaOut_nominal),
        p=nomVal.p_nominal,
        phi=1);
   gammaMax = 0.8 * nomVal.m_flow_nominal * (XEvaOutSat_nominal-XEvaIn_nominal) * h_fg / (-QLat_flow_nominal);
@@ -158,11 +158,11 @@ initial equation
     SHR_nominal           = " + String(nomVal.SHR_nominal) + "
     QSen_flow_nominal     = " + String(QSen_flow_nominal) + "
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
-    XEvaIn_nominal           = " + String(XEvaIn_nominal) + "
-    XEvaOut_nominal          = " + String(XEvaOut_nominal) + "
-    XEvaOutSat_nominal       = " + String(XEvaOutSat_nominal) + "
-    TEvaIn_nominal           = " + String(nomVal.TEvaIn_nominal) + "
-    TOut_nominal          = " + String(TOut_nominal) + "
+    XEvaIn_nominal        = " + String(XEvaIn_nominal) + "
+    XEvaOut_nominal       = " + String(XEvaOut_nominal) + "
+    XEvaOutSat_nominal    = " + String(XEvaOutSat_nominal) + "
+    TEvaIn_nominal        = " + String(nomVal.TEvaIn_nominal) + "
+    TEvaOut_nominal       = " + String(TEvaOut_nominal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
 
   assert(K > 0, "Require K>0 but received " + String(K) + "
@@ -171,11 +171,11 @@ initial equation
     SHR_nominal           = " + String(nomVal.SHR_nominal) + "
     QSen_flow_nominal     = " + String(QSen_flow_nominal) + "
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
-    XEvaIn_nominal           = " + String(XEvaIn_nominal) + "
-    XEvaOut_nominal          = " + String(XEvaOut_nominal) + "
-    XEvaOutSat_nominal       = " + String(XEvaOutSat_nominal) + "
-    TEvaIn_nominal           = " + String(nomVal.TEvaIn_nominal) + "
-    TOut_nominal          = " + String(TOut_nominal) + "
+    XEvaIn_nominal        = " + String(XEvaIn_nominal) + "
+    XEvaOut_nominal       = " + String(XEvaOut_nominal) + "
+    XEvaOutSat_nominal    = " + String(XEvaOutSat_nominal) + "
+    TEvaIn_nominal        = " + String(nomVal.TEvaIn_nominal) + "
+    TEvaOut_nominal       = " + String(TEvaOut_nominal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
 equation
   // When the coil switches off, set accumulated water to
@@ -193,7 +193,7 @@ equation
     der(m) = -mWat_flow;
   else
     XEvaOutSat = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=Medium.saturationPressure(TOut),
+      pSat=Medium.saturationPressure(TEvaOut),
       p=nomVal.p_nominal,
       phi=1);
     dX = XEvaOutSat - smooth(1, noEvent(

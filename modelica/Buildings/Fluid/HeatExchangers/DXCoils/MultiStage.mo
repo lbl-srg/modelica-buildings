@@ -35,17 +35,16 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
 <p>
-This DX cooling coil model can be used to simulate coils with multiple
+This model can be used to simulate a DX cooling coil with multiple
 operating stages. Depending on the used performance curves, each
 stage could be a different compressor speed, or a different mode 
 of operation, such as with or without hot gas reheat.
 </p>
 <p>
-The model uses the operating stage as an input control signal.
-For a detailed description of cooling operation 
-please refer to the documentation at 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil</a>.
+See 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
+Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
+for an explanation of the model.
 </p>
 </html>",
 revisions="<html>

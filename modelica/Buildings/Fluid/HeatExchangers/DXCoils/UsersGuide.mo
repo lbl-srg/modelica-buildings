@@ -45,6 +45,17 @@ The following three DX coil models are available:
     </tr>
   </table>
 </p>
+<h4>Control of the coils</h4>
+<p>
+The DX coil models take as a control input 
+the stage of operation,
+an on/off signal, 
+or the speed of the compressor.
+Because the thermal response of the coil is very fast, it is important to use
+as the controlled variable the room air temperature, as the room air temperature
+has a much slower response compare to the supply air temperature. If the supply air temperature
+is used, then the control algorithm should be such that short-cycling is avoided.
+</p>
 <h4>Coil performance</h4>
 <p>
 The steady-state total rate of cooling and the Energy Input Ratio (EIR) are

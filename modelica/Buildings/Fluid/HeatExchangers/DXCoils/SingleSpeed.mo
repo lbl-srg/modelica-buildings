@@ -32,12 +32,13 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="sinSpeDX", Diagram(graphics), Documentation(info="<html>
 <p>
-This model can be used to simulate DX cooling coil with single speed compressors. 
-It uses an on/off control signal and should be controlled based on space 
-temperature (not the temperature at the outlet of the coil). For a detailed 
-description of cooling operation please refer to the documentation at
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil</a>
+This model can be used to simulate a DX cooling coil with single speed compressor.
+</p>
+<p>
+See 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
+Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
+for an explanation of the model.
 </p>
 </html>",
 revisions="<html>

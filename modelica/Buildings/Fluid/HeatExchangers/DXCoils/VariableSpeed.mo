@@ -40,13 +40,15 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="mulStaDX", Documentation(info="<html>
 <p>
-This DX cooling coil model can be used to simulate continuously variable speed compressors. 
-It uses speed ratio as the control signal and should be operated using 
-the temperature setpoint in the room. The system will cease operation 
-when conditions require a speed ratio below the minimum value. 
-For a detailed description of cooling operation please refer to the documentation at 
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialDXCoil</a>
+This model can be used to simulate a DX cooling coil with continuously variable speed compressors. 
+The control input is the speed ratio.
+The coil will switch off if the speed ratio is below a minimum value.
+</p>
+<p>
+See 
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">
+Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide</a>
+for an explanation of the model.
 </p>
 </html>",
 revisions="<html>
