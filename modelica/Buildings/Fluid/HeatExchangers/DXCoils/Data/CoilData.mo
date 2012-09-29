@@ -47,6 +47,9 @@ Each element of the array <code>per</code> has the following data.
 
      m_flow_nominal - Evaporator air mass flow rate at nominal conditions.
      TEvaIn_nominal    - Evaporator air inlet temperature at nominal conditions.
+     TConIn_nominal    - Condenser air inlet temperature at nominal conditions
+                         (for evaporative coils, use wet bulb, otherwise use dry bulb 
+                         temperature).
      phiIn_nominal  - Relative humidity at evaporator inlet at nominal conditions.
      p_nominal      - Atmospheric pressure at nominal conditions.
      
@@ -74,6 +77,21 @@ Each element of the array <code>per</code> has the following data.
                  for which the performance curves are valid.
                  Outside this range, they will be linearly extrapolated.      
 </pre>
+</p>
+<p>
+The data used to develop the performance curves
+<code>capFunT</code> and 
+<code>EIRFunT</code> should represent performance when the 
+cooling coil is wet, i.e., the coil providing sensible cooling and at least some dehumidification. 
+Performance data when the cooling coil is dry 
+(i.e., not providing any dehumidification) should not be included when developing these modifier curves. 
+The DX coil model automatically detects and adjusts for dry coil conditions by evaluating 
+the performance curves for the wet bulb and dry bulb temperatures at the evaporator inlet,
+and then selecting the corresponding performance.
+The selection of the corresponding performance is described and implemented
+in
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector\">
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector</a>.
 </p>
 <p>
 The parameters <code>tWet</code> and <code>gamma</code> characterize the amount of

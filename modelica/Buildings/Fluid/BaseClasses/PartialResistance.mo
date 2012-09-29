@@ -21,6 +21,7 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
   parameter Modelica.SIunits.MassFlowRate m_flow_turbulent(min=0)
     "Turbulent flow if |m_flow| >= m_flow_turbulent";
 
+  // fixme: should this be called sta_nominal for consistency?
 protected
   parameter Medium.ThermodynamicState sta0=
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);

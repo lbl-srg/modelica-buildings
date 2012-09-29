@@ -8,9 +8,12 @@ record Curve_I "Curve_I"
     each EIRFunT={0.342414409,0.034885008,-0.000623700,0.004977216,0.000437951,
         -0.000728028},
     each EIRFunFF={1.1552,-0.1808,0.0256,0},
-    each TConInRan={291.15,319.26111},
-    each TEvaInRan={285.92778,297.03889},
-    each ffRan={0.6,1.8});
+    TConInMin=291.15,
+    TConInMax = 319.26111,
+    TEvaInMin= 285.92778,
+    TEvaInMax= 297.03889,
+    ffMin=0.6,
+    ffMax=1.8);
   annotation (Documentation(info="<html>
 <p>
 This record has default performance curves coefficents with min-max range 

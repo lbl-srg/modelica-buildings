@@ -17,14 +17,24 @@ record Generic "Base performance curves data record"
 //------------------------Range for performance curves------------------------//
  // fixme: Instead of range, *Min and *Max should be used as is used for the chiller
  // fixme: These values are not yet used. Need to add linear extrapolation beyond these values
-  parameter Modelica.SIunits.Temperature   TConInRan[2]
-    "Range of condenser inlet temperature for cooling capacity function"
+  parameter Modelica.SIunits.Temperature   TConInMin
+    "Minimum condenser inlet temperature for cooling capacity function"
     annotation (Dialog(group="Minimum and maximum values"));
-  parameter Modelica.SIunits.Temperature   TEvaInRan[2]
-    "Range of coil wetbulb inlet temperature for cooling capacity function"
+  parameter Modelica.SIunits.Temperature   TConInMax
+    "Maximum condenser inlet temperature for cooling capacity function"
     annotation (Dialog(group="Minimum and maximum values"));
-  parameter Real  ffRan[2]
-    "Range of flow fraction for which performance data are valid (below this range, the coil is assumed to be off)"
+  parameter Modelica.SIunits.Temperature   TEvaInMin
+    "Minimum evaporator inlet temperature for cooling capacity function"
+    annotation (Dialog(group="Minimum and maximum values"));
+  parameter Modelica.SIunits.Temperature   TEvaInMax
+    "Maximum evaporator inlet temperature for cooling capacity function"
+    annotation (Dialog(group="Minimum and maximum values"));
+
+  parameter Real  ffMin
+    "Minimum flow fraction for which performance data are valid"
+    annotation (Dialog(group="Minimum and maximum values"));
+  parameter Real  ffMax
+    "Maximum flow fraction for which performance data are valid"
     annotation (Dialog(group="Minimum and maximum values"));
 
   annotation (defaultComponentName="per", Documentation(info="<html>

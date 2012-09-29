@@ -7,9 +7,12 @@ record Curve_II "Curve_II"
     each capFunFF={0.8,0.2,0,0},
     each EIRFunT={0.297145,0.0430933,-0.000748766,0.00597727,0.000482112,-0.000956448},
     each EIRFunFF={1.1552,-0.1808,0.0256,0},
-    each TConInRan={291.15,319.26111},
-    each TEvaInRan={285.92778,297.03889},
-    each ffRan={0.5,1.5});
+    TConInMin=291.15,
+    TConInMax = 319.26111,
+    TEvaInMin= 285.92778,
+    TEvaInMax= 297.03889,
+    ffMin=0.5,
+    ffMax=1.5);
 
   annotation (defaultComponentName="per", Documentation(info="<html>
 This record has default performance curves coefficents with min-max range 

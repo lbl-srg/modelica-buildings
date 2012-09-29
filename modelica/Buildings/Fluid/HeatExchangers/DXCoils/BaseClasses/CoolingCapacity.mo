@@ -50,6 +50,44 @@ block CoolingCapacity
     "EIR modification factor as a function of flow fraction";
   output Real corFac[nSta](each min=0, each max=1, each nominal=1, each start=1)
     "Correction factor that is one inside the valid flow fraction, and attains zero below the valid flow fraction";
+initial algorithm
+  // Verify correctness of performance curves, and write warning if error is bigger than 10%
+   for iSta in 1:nSta loop
+     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
+       Buildings.Utilities.Math.Functions.biquadratic(
+         a=per[iSta].perCur.capFunT,
+         x1=Modelica.SIunits.Conversions.to_degC(per[iSta].nomVal.TEvaIn_nominal),
+         x2=Modelica.SIunits.Conversions.to_degC(per[iSta].nomVal.TConIn_nominal)),
+         msg="Capacity as a function of temperature ",
+         curveName="per[" + String(iSta) + "].perCur.capFunT");
+
+     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
+       Buildings.Fluid.Utilities.extendedPolynomial(
+         x=1,
+         c=per[iSta].perCur.capFunFF,
+         xMin=per[iSta].perCur.ffMin,
+         xMax=per[iSta].perCur.ffMin),
+         msg="Capacity as a function of normalized mass flow rate ",
+         curveName="per[" + String(iSta) + "].perCur.capFunFF");
+
+     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
+       Buildings.Utilities.Math.Functions.biquadratic(
+         a=per[iSta].perCur.EIRFunT,
+         x1=Modelica.SIunits.Conversions.to_degC(per[iSta].nomVal.TEvaIn_nominal),
+         x2=Modelica.SIunits.Conversions.to_degC(per[iSta].nomVal.TConIn_nominal)),
+         msg="EIR as a function of temperature ",
+         curveName="per[" + String(iSta) + "].perCur.EIRFunT");
+
+     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.warnIfPerformanceOutOfBounds(
+       Buildings.Fluid.Utilities.extendedPolynomial(
+         x=1,
+         c=per[iSta].perCur.EIRFunFF,
+         xMin=per[iSta].perCur.ffMin,
+         xMax=per[iSta].perCur.ffMin),
+         msg="EIR as a function of normalized mass flow rate ",
+         curveName="per[" + String(iSta) + "].perCur.EIRFunFF");
+   end for;
+
 algorithm
   if stage > 0 then
     for iSta in 1:nSta loop
@@ -70,9 +108,11 @@ algorithm
       x2=0.001,
       deltaX=0.0001)
         "Cooling capacity modification factor as function of temperature";
-    cap_FF[iSta] :=Buildings.Utilities.Math.Functions.polynomial(
+    cap_FF[iSta] := Buildings.Fluid.Utilities.extendedPolynomial(
       x=ff[iSta],
-      a=per[iSta].perCur.capFunFF);
+      c=per[iSta].perCur.capFunFF,
+      xMin=per[iSta].perCur.ffMin,
+      xMax=per[iSta].perCur.ffMin);
     //-----------------------Energy Input Ratio modifiers--------------------------//
     EIR_T[iSta] :=Buildings.Utilities.Math.Functions.smoothMax(
       x1=Buildings.Utilities.Math.Functions.biquadratic(
@@ -81,14 +121,16 @@ algorithm
         x2=Modelica.SIunits.Conversions.to_degC(TConIn)),
       x2=0.001,
       deltaX=0.0001);
-    EIR_FF[iSta] :=Buildings.Utilities.Math.Functions.polynomial(
+    EIR_FF[iSta] := Buildings.Fluid.Utilities.extendedPolynomial(
        x=ff[iSta],
-       a=per[iSta].perCur.EIRFunFF)
+       c=per[iSta].perCur.EIRFunFF,
+       xMin=per[iSta].perCur.ffMin,
+       xMax=per[iSta].perCur.ffMin)
         "Cooling capacity modification factor as function of flow fraction";
     //------------ Correction factor for flow rate outside of validity of data ---//
     corFac[iSta] :=Buildings.Utilities.Math.Functions.smoothHeaviside(
-       x=ff[iSta] - per[iSta].perCur.ffRan[1]/4,
-       delta=per[iSta].perCur.ffRan[1]/4);
+       x=ff[iSta] - per[iSta].perCur.ffMin/4,
+       delta=per[iSta].perCur.ffMin/4);
 
     Q_flow[iSta] := corFac[iSta]*cap_T[iSta]*cap_FF[iSta]*per[iSta].nomVal.Q_flow_nominal;
     EIR[iSta]    := corFac[iSta]*EIR_T[iSta]*EIR_FF[iSta]/per[iSta].nomVal.COP_nominal;
