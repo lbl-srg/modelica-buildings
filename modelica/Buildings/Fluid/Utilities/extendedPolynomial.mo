@@ -32,13 +32,17 @@ this function defines a polynomial
 <p align=\"center\" style=\"font-style:italic;\">
  y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1<sup>
 </p>
-where <i>N &gt; 1</i> and <i>x<sub>min</sub>, x<sub>max</sub></i> 
+where <i>n &gt; 1</i> and <i>x<sub>min</sub>, x<sub>max</sub></i> 
 are parameters.
 For <i>x &lt; x<sub>min</sub></i> and <i>x &gt; x<sub>max</sub></i>,
 the polynomial is replaced by a linear function
 in such a way that the first derivative is continuous everywhere. 
 </html>", revisions="<html>
 <ul>
+<li>
+September 28, 2012 by Michael Wetter:<br>
+Fixed typo in the documentation.
+</li>
 <li>
 March 30, 2011 by Michael Wetter:<br>
 Added keyword <code>zeroDerivative</code>.
@@ -56,6 +60,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-smoothOrder=1, 
+smoothOrder=1,
 derivative(zeroDerivative=c, zeroDerivative=xMin, zeroDerivative=xMax)=BaseClasses.der_extendedPolynomial);
 end extendedPolynomial;
