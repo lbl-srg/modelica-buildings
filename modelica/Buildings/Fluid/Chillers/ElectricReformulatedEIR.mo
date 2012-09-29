@@ -29,7 +29,7 @@ initial equation
   Buildings.Fluid.Chillers.BaseClasses.warnIfPerformanceOutOfBounds(
      Buildings.Utilities.Math.Functions.biquadratic(a=per.capFunT,
      x1=TEvaLvg_nominal_degC, x2=TConLvg_nominal_degC),
-     "Capacity as function of temperature ",
+     "Capacity as a function of temperature ",
      "per.capFunT");
 equation
   TConLvg_degC=Modelica.SIunits.Conversions.to_degC(TConLvg);
