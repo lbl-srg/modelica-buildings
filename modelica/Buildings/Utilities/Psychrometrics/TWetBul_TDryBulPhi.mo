@@ -2,6 +2,8 @@ within Buildings.Utilities.Psychrometrics;
 block TWetBul_TDryBulPhi
   "Model to compute the wet bulb temperature based on relative humidity"
   extends Modelica.Blocks.Interfaces.BlockIcon;
+ // fixme: Validate this block with independent data, and also look
+ // at block that takes X as an input
   replaceable package Medium =
     Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
                                                             annotation (
