@@ -154,6 +154,12 @@ to <b style=\"color:blue\">existing</b> libraries:
                        humidity.
     </td> 
     </tr>
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi
+    </td>
+    <td valign=\"top\">Block that computes the wet bulb temperature for given
+                     dry bulb temperature, relative humidity and atmospheric pressure.
+    </td> 
+    </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -161,7 +167,6 @@ to <b style=\"color:blue\">existing</b> libraries:
     </td>
     <td valign=\"top\">xxx.
     </td> 
-    </tr>
 </table>
 </p>
 <!-- Backward compatbile changes -->
@@ -179,6 +184,20 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added <code>pre</code> operator and relaxed tolerance in <code>assert</code> statement.
     </td>
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi
+    </td>
+    <td valign=\"top\">Added option to approximate the wet bulb temperature using an
+                     explicit equation.
+                     Reformulated the original model to change the dimension of the
+                     nonlinear system of equations from two to one.
+    </td> 
+    </tr>
+
+
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -220,12 +239,14 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Examples.ChillerPlant.PrimaryOnlyWithEconomizer
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Fixed error in wet bulb temperature. The previous version used
+                     a model to compute the wet bulb temperature that takes as an
+                     input the relative humidity, but required mass fraction as an input.
     </td>
 </tr>
 </table>

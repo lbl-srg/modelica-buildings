@@ -43,12 +43,6 @@ model TemperatureWetBulb
           extent={{-100,-20},{-80,0}}, rotation=0)));
   Modelica.Blocks.Math.Feedback feedback annotation (Placement(transformation(
           extent={{-68,-20},{-48,0}}, rotation=0)));
-  Buildings.Utilities.Diagnostics.AssertEquality assertEquality(startTime=120 -
-        10, threShold=0.1)
-    annotation (Placement(transformation(extent={{30,60},{50,80}},   rotation=0)));
-  Modelica.Blocks.Sources.Constant TWetBulExp(k=273.15 + 25)
-    "Expected wet bulb temperature" annotation (Placement(transformation(extent={{-8,66},
-            {12,86}},           rotation=0)));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{80,-100},{100,-80}})));
   Buildings.Fluid.Sensors.MassFraction masFra(
@@ -74,14 +68,6 @@ equation
   connect(senWetBul.port_b, sin.ports[1]) annotation (Line(
       points={{20,20},{54,20}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(TWetBulExp.y, assertEquality.u1) annotation (Line(
-      points={{13,76},{28,76}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(senWetBul.T, assertEquality.u2) annotation (Line(
-      points={{10,31},{10,44},{20,44},{20,64},{28,64}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(senWetBul.port_a, masFra.port) annotation (Line(
       points={{-5.55112e-16,20},{-5.55112e-16,40},{-40,40},{-40,50}},

@@ -634,6 +634,14 @@ Stein, J. (2009). Waterside Economizing in Data Centers: Design and Control Cons
 ", revisions="<html>
 <ul>
 <li>
+October 1, 2012 by Michael Wetter:<br>
+Fixed error in weather data. The previous model used the relative humidity as an input
+to the wet bulb temperature calculation. However, in the previous version,
+the web bulb temperature was computed based on the water vapor mass fraction.
+In this version, the wet bulb temperature computation has been changed to take
+as an input the relative humidity.
+</li>
+<li>
 July 20, 2011, by Wangda Zuo:<br>
 Add comments and merge to library.
 </li>
