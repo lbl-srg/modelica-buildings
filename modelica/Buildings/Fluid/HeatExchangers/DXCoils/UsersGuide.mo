@@ -70,18 +70,13 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity</a>.
 <h4>Evaporation of accumulated water vapor</h4>
 <p>
 If a coil dehumidifies air, a water film builts up on the evaporator.
-When the compressor switches off, then this water film evaporates into the
-air stream. For coils that short-cycle, this effect can significantly decrease
+When the compressor is off, then this water film evaporates into the
+air stream. For coils that short-cycle, this significantly decrease
 the dehumidification capacity of the coil.
 The accumulation and reevaporation of water on the evaporator coil is explained
 at
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation\">
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>.
-</p>
-<p>
-For coils with an evaporatively cooled condensor, connect the outside wet bulb temperature
-instead of the outdoor dry bulb temperature to the port 
-<code>TConIn</code>.
 </p>
 <h4>Coil dynamics</h4>
 <p>
