@@ -12,10 +12,6 @@ model EvaporationFlowReversal
           m_flow_nominal=5000/1006/10) "Nominal values for DX coil"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
-  parameter Modelica.SIunits.Temperature TOut_nominal=
-    nomVal.TEvaIn_nominal + nomVal.SHR_nominal * nomVal.Q_flow_nominal/nomVal.m_flow_nominal/1006
-    "Nominal air outlet temperature";
-
   parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
     Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
      pSat=Medium.saturationPressure(nomVal.TEvaIn_nominal),
@@ -28,7 +24,7 @@ model EvaporationFlowReversal
 
   Evaporation eva(redeclare package Medium = Medium, nomVal=nomVal,
     m(start=0.55)) "Evaporation model"
-    annotation (Placement(transformation(extent={{40,10},{60,30}})));
+    annotation (Placement(transformation(extent={{40,6},{60,26}})));
   Modelica.Blocks.Sources.BooleanConstant offSignal(k=false)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
   Modelica.Blocks.Sources.Constant TWat(k=293.15)
@@ -36,14 +32,12 @@ model EvaporationFlowReversal
   Modelica.Blocks.Sources.TimeTable mAir_flow(table=[0,1; 300,1; 900,-1; 1200,-1;
         1500,0; 1800,0]) "Air flow rate"
     annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Modelica.Blocks.Sources.Constant XEvaOut(k=XEvaOut_nominal)
-    "Outlet water vapor mass fraction"
-    annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
-  Modelica.Blocks.Sources.Constant TEvaOut(k=TOut_nominal) "Outlet Temperature"
-    annotation (Placement(transformation(extent={{-80,-100},{-60,-80}})));
+  Modelica.Blocks.Sources.Constant TEva(k=nomVal.TEvaIn_nominal)
+    "Inlet Temperature"
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
   Modelica.Blocks.Continuous.Integrator int
     "Mass of water that evaporates into air stream"
-    annotation (Placement(transformation(extent={{80,10},{100,30}})));
+    annotation (Placement(transformation(extent={{80,6},{100,26}})));
   Modelica.Blocks.Sources.Constant mWat_flow(k=0)
     "Water flow rate added into the medium from the coil model (without reevaporation flow rate)"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
@@ -55,19 +49,15 @@ model EvaporationFlowReversal
 equation
 
   connect(offSignal.y, eva.on)        annotation (Line(
-      points={{1,70},{20,70},{20,28},{38,28}},
+      points={{1,70},{20,70},{20,24},{38,24}},
       color={255,0,255},
       smooth=Smooth.None));
   connect(eva.TWat, TWat.y)    annotation (Line(
-      points={{38,20},{-34,20},{-34,40},{-59,40}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(XEvaOut.y, eva.XEvaOut)    annotation (Line(
-      points={{-59,-60},{50,-60},{50,8}},
+      points={{38,14},{-34,14},{-34,40},{-59,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mWat_flow.y, eva.mWat_flow) annotation (Line(
-      points={{-59,70},{-30,70},{-30,24},{38,24}},
+      points={{-59,70},{-30,70},{-30,20},{38,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(mAir_flow.y, gain.u) annotation (Line(
@@ -75,19 +65,19 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, eva.mAir_flow) annotation (Line(
-      points={{-27,10},{0,10},{0,14},{38,14}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(XEvaIn.y, eva.XEvaIn) annotation (Line(
-      points={{-59,-30},{44,-30},{44,8}},
+      points={{-27,10},{3.5,10},{3.5,8},{38,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(eva.mTotWat_flow, int.u) annotation (Line(
-      points={{61,20},{70.5,20},{70.5,20},{78,20}},
+      points={{61,16},{78,16}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TEvaOut.y, eva.TEvaOut) annotation (Line(
-      points={{-59,-90},{56,-90},{56,8}},
+  connect(XEvaIn.y, eva.XEvaOut) annotation (Line(
+      points={{-59,-30},{44,-30},{44,4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(TEva.y, eva.TEvaOut) annotation (Line(
+      points={{-59,-70},{56,-70},{56,4}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-120},{120,100}},

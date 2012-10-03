@@ -160,6 +160,13 @@ to <b style=\"color:blue\">existing</b> libraries:
                      dry bulb temperature, relative humidity and atmospheric pressure.
     </td> 
     </tr>
+<tr><td valign=\"top\">Buildings.Utilities.Psychrometrics.WetBul_pTX
+    </td>
+    <td valign=\"top\">Block that computes the temperature and mass fraction 
+                       at the wet bulb state for given dry bulb temperature, 
+                       species concentration and atmospheric pressure.
+    </td> 
+    </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>

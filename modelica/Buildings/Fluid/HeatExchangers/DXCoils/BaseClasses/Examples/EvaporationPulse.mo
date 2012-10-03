@@ -11,10 +11,6 @@ model EvaporationPulse "Test model for evaporation with pulse signal"
           m_flow_nominal=5000/1006/10) "Nominal values for DX coil"
     annotation (Placement(transformation(extent={{80,80},{100,100}})));
 
-  parameter Modelica.SIunits.Temperature TOut_nominal=
-    nomVal.TEvaIn_nominal + nomVal.SHR_nominal * nomVal.Q_flow_nominal/nomVal.m_flow_nominal/1006
-    "Nominal air outlet temperature";
-
   parameter Modelica.SIunits.MassFraction XEvaIn_nominal=
     Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
      pSat=Medium.saturationPressure(nomVal.TEvaIn_nominal),
@@ -38,11 +34,9 @@ model EvaporationPulse "Test model for evaporation with pulse signal"
   Modelica.Blocks.Sources.Constant mAir_flow(k=nomVal.m_flow_nominal)
     "Air flow rate"
     annotation (Placement(transformation(extent={{-60,80},{-40,100}})));
-  Modelica.Blocks.Sources.Constant XEvaOut(k=XEvaOut_nominal)
-    "Outlet water vapor mass fraction"
-    annotation (Placement(transformation(extent={{-60,10},{-40,30}})));
-  Modelica.Blocks.Sources.Constant TOut(k=TOut_nominal) "Outlet Temperature"
-    annotation (Placement(transformation(extent={{-60,-20},{-40,0}})));
+  Modelica.Blocks.Sources.Constant TIn(k=nomVal.TEvaIn_nominal)
+    "Inlet temperature"
+    annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
   Modelica.Blocks.Continuous.Integrator intSho
     "Mass of water that evaporates into air stream"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
@@ -80,27 +74,19 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(evaSho.TWat, TWat.y) annotation (Line(
-      points={{38,50},{12,50},{12,120},{-39,120}},
+      points={{38,48},{12,48},{12,120},{-39,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(evaSho.mAir_flow, mAir_flow.y) annotation (Line(
-      points={{38,44},{0,44},{0,90},{-39,90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(XEvaOut.y, evaSho.XEvaOut) annotation (Line(
-      points={{-39,20},{50,20},{50,38}},
+      points={{38,42},{0,42},{0,90},{-39,90}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(evaNor.TWat, TWat.y) annotation (Line(
-      points={{38,-30},{12,-30},{12,120},{-39,120}},
+      points={{38,-32},{12,-32},{12,120},{-39,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(evaNor.mAir_flow, mAir_flow.y) annotation (Line(
-      points={{38,-36},{0,-36},{0,90},{-39,90}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(XEvaOut.y, evaNor.XEvaOut) annotation (Line(
-      points={{-39,20},{20,20},{20,-60},{50,-60},{50,-42}},
+      points={{38,-38},{0,-38},{0,90},{-39,90}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(pulNor.y, realToBoolean1.u)
@@ -129,11 +115,11 @@ equation
       points={{-39,-40},{-12,-40},{-12,54},{38,54}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XEvaIn.y, evaSho.XEvaIn) annotation (Line(
+  connect(XEvaIn.y, evaSho.XEvaOut) annotation (Line(
       points={{-39,50},{-30,50},{-30,28},{44,28},{44,38}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(XEvaIn.y, evaNor.XEvaIn) annotation (Line(
+  connect(XEvaIn.y, evaNor.XEvaOut) annotation (Line(
       points={{-39,50},{-30,50},{-30,-54},{44,-54},{44,-42}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -145,16 +131,16 @@ equation
       points={{61,50},{78,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TOut.y, evaNor.TEvaOut) annotation (Line(
-      points={{-39,-10},{6,-10},{6,-68},{56,-68},{56,-42}},
+  connect(TIn.y, evaSho.TEvaOut) annotation (Line(
+      points={{-39,6.10623e-16},{56,6.10623e-16},{56,38}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(TOut.y, evaSho.TEvaOut) annotation (Line(
-      points={{-39,-10},{56,-10},{56,38}},
+  connect(TIn.y, evaNor.TEvaOut) annotation (Line(
+      points={{-39,6.10623e-16},{20,6.10623e-16},{20,-68},{56,-68},{56,-42}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-120,-160},{120,140}},
-          preserveAspectRatio=true),
+          preserveAspectRatio=false),
                       graphics),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/EvaporationPulse.mos"
         "Simulate and plot"),

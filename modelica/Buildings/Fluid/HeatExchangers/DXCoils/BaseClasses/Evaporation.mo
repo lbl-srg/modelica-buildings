@@ -11,7 +11,8 @@ model Evaporation
      nomVal "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-    parameter Medium.MassFlowRate mAir_flow_small(min=0) = 0.1*abs(nomVal.m_flow_nominal)
+    parameter Medium.MassFlowRate mAir_flow_small(min=0)=
+      0.1*abs(nomVal.m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
 
@@ -21,52 +22,48 @@ model Evaporation
   parameter Boolean computeReevaporation=true
     "Set to true to compute reevaporation of water that accumulated on coil";
 
-  Modelica.SIunits.Mass m(start=0, nominal=-5000*1400/2257E3)
-    "Mass of water that accumulated on the coil";
-
   ////////////////////////////////////////////////////////////////////////////////
   // Input and output signals
   Modelica.Blocks.Interfaces.BooleanInput on
     "Control signal, true if compressor is on"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
+
   Modelica.Blocks.Interfaces.RealInput mWat_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Water flow rate added into the medium"
-    annotation (Placement(transformation(extent={{-140,20},{-100,60}}, rotation=
-           0)));
+    annotation (Placement(transformation(extent={{-140,20},{-100,60}}, rotation=0)));
+
   Modelica.Blocks.Interfaces.RealInput TWat(final quantity="Temperature",
                                             final unit = "K",
                                             displayUnit = "degC")
     "Temperature of liquid that is drained from or injected into volume"
-    annotation (Placement(transformation(extent={{-140,-20},{-100,20}},
-          rotation=0)));
+    annotation (Placement(transformation(extent={{-140,-40},{-100,0}},  rotation=0)));
+
   Modelica.Blocks.Interfaces.RealInput mAir_flow(final quantity="MassFlowRate",
                                                  final unit = "kg/s")
     "Air mass flow rate"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealInput XEvaIn(min=0, max=1, unit="1")
-    "Water mass fraction at coil inlet"
-    annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={-60,-120})));
+    annotation (Placement(transformation(extent={{-140,-100},{-100,-60}})));
+
   Modelica.Blocks.Interfaces.RealInput XEvaOut(min=0, max=1, unit="1")
-    "Water mass fraction at coil outlet"
+    "Water mass fraction"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
-        rotation=90,
-        origin={0,-120})));
+        rotation=90, origin={-60,-120})));
 
   Modelica.Blocks.Interfaces.RealInput TEvaOut(
     final quantity="Temperature",
     final unit="K",
-    displayUnit="degC") "Coil outlet temperature"
+    displayUnit="degC") "Air temperature"
     annotation (Placement(transformation(extent={{-20,-20},{20,20}},
         rotation=90,
         origin={60,-120})));
 
   Modelica.Blocks.Interfaces.RealOutput mTotWat_flow(final quantity="MassFlowRate",
-                                                  final unit = "kg/s")
+                                                     final unit = "kg/s")
     "Total moisture mass flow rate into the air stream"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+
+  Modelica.SIunits.Mass m(start=0, nominal=-5000*1400/2257E3)
+    "Mass of water that accumulated on the coil";
 
   Modelica.SIunits.MassFlowRate mEva_flow(max=0)
     "Moisture mass flow rate that evaporates into air stream";
@@ -77,47 +74,46 @@ protected
     "Nominal sensible heat flow rate (negative number)";
   final parameter Modelica.SIunits.HeatFlowRate QLat_flow_nominal(max=0, fixed=false)
     "Nominal latent heat flow rate (negative number)";
-
   final parameter Modelica.SIunits.MassFraction XEvaIn_nominal(fixed=false)
     "Mass fraction at nominal inlet conditions";
-
-   final parameter Modelica.SIunits.Temperature TEvaOut_nominal(fixed=false)
-    "Nominal outlet temperature";
-
-   final parameter Modelica.SIunits.MassFraction XEvaOut_nominal(fixed=false)
+  final parameter Modelica.SIunits.MassFraction XEvaOut_nominal(fixed=false)
     "Mass fraction at nominal outlet conditions";
+  final parameter Modelica.SIunits.Temperature TEvaOut_nominal(fixed=false)
+    "Dry bulb temperature at nominal outlet conditions";
+  final parameter Modelica.SIunits.Temperature TEvaWetBulOut_nominal(fixed=false)
+    "Wet bulb temperature at nominal outlet conditions";
+  final parameter Modelica.SIunits.MassFraction XEvaWetBulOut_nominal(fixed=false)
+    "Water vapor mass fraction at nominal outlet wet bulb condition";
+  final parameter Modelica.SIunits.MassFraction dX_nominal(max=0, fixed=false)
+    "Driving potential for mass transfer";
 
-  final parameter Modelica.SIunits.MassFraction XEvaOutSat_nominal(fixed=false)
-    "Saturated mass fraction at nominal outlet temperature";
-
-  final parameter Medium.ThermodynamicState stateIn_nominal=
-    if Medium.nX == 1 then
-      Medium.ThermodynamicState(p=nomVal.p_nominal,
-                                T=nomVal.TEvaIn_nominal,
-                                X={XEvaIn_nominal}) else
-      Medium.ThermodynamicState(p=nomVal.p_nominal,
-                                T=nomVal.TEvaIn_nominal,
-                                X={XEvaIn_nominal,1-XEvaIn_nominal})
-    "Thermodynamic state at the nominal inlet condition";
-
-  parameter Modelica.SIunits.SpecificEnthalpy h_fg(fixed=false)
+  final parameter Modelica.SIunits.SpecificEnthalpy h_fg(fixed=false)
     "Latent heat of vaporization";
-  parameter Real gammaMax(min=0, fixed=false) "Maximum value for gamma";
-  parameter Real logArg(min=0, fixed=false) "Argument for the log function";
-  parameter Real K(min=0, fixed=false)
+  final parameter Real gammaMax(min=0, fixed=false) "Maximum value for gamma";
+  final parameter Real logArg(min=0, fixed=false)
+    "Argument for the log function";
+  final parameter Real K(min=0, fixed=false)
     "Coefficient used for convective mass transfer";
-  parameter Real K2(min=0, fixed=false)
+  final parameter Real K2(min=0, fixed=false)
     "Coefficient used for convective mass transfer";
 
-  Modelica.SIunits.MassFraction XEvaOutSat
-    "Saturated mass fraction at outlet temperature";
+  Modelica.SIunits.MassFraction XEvaWetBulOut
+    "Water vapor mass fraction at wet bulb conditions at air inlet";
 
    // off = not on is required because Dymola 2013 fails during model
-   // check if the on, which is an input connector, is used in the edge() function
+   // check if on, which is an input connector, is used in the edge() function
   Boolean off=not on "Signal, true when component is off";
 
-  Real dX "Difference in water vapor concentration that drives mass transfer";
+  Modelica.SIunits.Temperature TEvaWetBulOut "Wet bulb temperature at coil";
+  Modelica.SIunits.MassFraction dX
+    "Difference in water vapor concentration that drives mass transfer";
 
+  constant Modelica.SIunits.SpecificHeatCapacity cpAir_nominal=
+     Buildings.Media.PerfectGases.Common.SingleGasData.Air.cp
+    "Specific heat capacity of air";
+  constant Modelica.SIunits.SpecificHeatCapacity cpSte_nominal=
+     Buildings.Media.PerfectGases.Common.SingleGasData.H2O.cp
+    "Specific heat capacity of water vapor";
 initial equation
   QSen_flow_nominal=nomVal.SHR_nominal * nomVal.Q_flow_nominal;
   QLat_flow_nominal=nomVal.Q_flow_nominal-QSen_flow_nominal;
@@ -129,96 +125,131 @@ initial equation
      pSat=Medium.saturationPressure(nomVal.TEvaIn_nominal),
      p=nomVal.p_nominal,
      phi=nomVal.phiIn_nominal);
+  XEvaOut_nominal = XEvaIn_nominal + QLat_flow_nominal/nomVal.m_flow_nominal/h_fg;
 
-  // Nominal outlet conditions
-  TEvaOut_nominal = nomVal.TEvaIn_nominal + QSen_flow_nominal/nomVal.m_flow_nominal/
-     Medium.specificHeatCapacityCp(stateIn_nominal);
-  XEvaOut_nominal =
-      (XEvaIn_nominal * h_fg + QLat_flow_nominal/nomVal.m_flow_nominal)/h_fg;
+  // Compute outlet air temperature
+  TEvaOut_nominal =
+  (nomVal.TEvaIn_nominal*Medium.specificHeatCapacityCp(
+      Medium.setState_pTX(p=nomVal.p_nominal,
+                          T=nomVal.TEvaIn_nominal,
+                          X=cat(1, {XEvaIn_nominal, 1-sum(XEvaIn_nominal)})))
+     + QSen_flow_nominal/nomVal.m_flow_nominal)
+     / Medium.specificHeatCapacityCp(
+      Medium.setState_pTX(p=nomVal.p_nominal,
+                          T=nomVal.TEvaIn_nominal,
+                          X=cat(1, {XEvaOut_nominal, 1-sum(XEvaOut_nominal)})));
+  // Compute wet bulb temperature.
+  // The computation of the wet bulb temperature requires an iterative
+  // solution. It therefore cannot be done in a function.
+  // The block Buildings.Utilities.Psychrometrics.WetBul_pTX
+  // implements the equation below, but it cannot
+  // be used here because blocks cannot be used to assign parameter
+  // values.
+  XEvaWetBulOut_nominal   = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+      pSat=  Medium.saturationPressureLiquid(Tsat=TEvaWetBulOut_nominal),
+      p=     nomVal.p_nominal,
+      phi=   1);
+  TEvaWetBulOut_nominal = (TEvaOut_nominal
+       * ((1-XEvaOut_nominal) * cpAir_nominal + XEvaOut_nominal * cpSte_nominal)
+       + (XEvaOut_nominal-XEvaWetBulOut_nominal) * h_fg)/
+            ( (1-XEvaWetBulOut_nominal)*cpAir_nominal + XEvaWetBulOut_nominal * cpSte_nominal);
 
-  XEvaOutSat_nominal= Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-       pSat=Medium.saturationPressure(TEvaOut_nominal),
-       p=nomVal.p_nominal,
-       phi=1);
-  gammaMax = 0.8 * nomVal.m_flow_nominal * (XEvaOutSat_nominal-XEvaIn_nominal) * h_fg / (-QLat_flow_nominal);
+  // Potential difference in moisture concentration that drives mass transfer at nominal condition
+  dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal;
+  if (dX_nominal > 1E-10) then
+     Modelica.Utilities.Streams.print("Warning: In DX coil model, dX_nominal = " + String(dX_nominal) + "
+       This means that the coil is not dehumidifying air at the nominal conditions.
+       Check nominal parameters.
+         " + Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.nominalValuesToString(nomVal));
+  end if;
+
+  gammaMax = 0.8 * nomVal.m_flow_nominal * dX_nominal * h_fg / QLat_flow_nominal;
+
+  // If gamma is bigger than a maximum value, write a warning and then
+  // use the smaller value.
   if (nomVal.gamma > gammaMax) then
      Modelica.Utilities.Streams.print("Warning: In DX coil model, gamma is too large for these coil conditions.
   Instead of gamma = " + String(nomVal.gamma) + ", a value of " + String(gammaMax) + ", which 
-  corresponds to a mass transfer effectiveness of 0.8, will be used.\n");
+  corresponds to a mass transfer effectiveness of 0.8, will be used.
+  Coil nominal performance data are:
+   nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
+   dX_nominal = XEvaOut_nominal-XEvaWetBulOut_nominal = " + String(XEvaOut_nominal) + " - " +
+      String(XEvaWetBulOut_nominal) + " = " + String(dX_nominal) + "
+   QLat_flow_nominal  = " + String(QLat_flow_nominal) + "\n");
   end if;
-  logArg = 1+min(nomVal.gamma, gammaMax)*QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/
-          (XEvaOutSat_nominal-XEvaIn_nominal);
+
+  logArg = 1-min(nomVal.gamma, gammaMax)*QLat_flow_nominal/nomVal.m_flow_nominal/h_fg/dX_nominal;
 
   K = -Modelica.Math.log(logArg);
   K2 = K/mMax*nomVal.m_flow_nominal^(-0.2);
 
   assert(QLat_flow_nominal < 0, "QLat_nominal must be a negative number. Check parameters.");
-  assert(XEvaOut_nominal < XEvaOutSat_nominal, "Require xOut_nominal < xOutSat_nominal, but obtained more than 100% relative humidity at outlet at nominal conditions.
-    nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
-    SHR_nominal           = " + String(nomVal.SHR_nominal) + "
-    QSen_flow_nominal     = " + String(QSen_flow_nominal) + "
-    QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
-    XEvaIn_nominal        = " + String(XEvaIn_nominal) + "
-    XEvaOut_nominal       = " + String(XEvaOut_nominal) + "
-    XEvaOutSat_nominal    = " + String(XEvaOutSat_nominal) + "
-    TEvaIn_nominal        = " + String(nomVal.TEvaIn_nominal) + "
-    TEvaOut_nominal       = " + String(TEvaOut_nominal) + "
-  Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
 
   assert(K > 0, "Require K>0 but received " + String(K) + "
     The parameter are:
-    nomVal.m_flow_nominal = " + String(nomVal.m_flow_nominal) + "
-    SHR_nominal           = " + String(nomVal.SHR_nominal) + "
     QSen_flow_nominal     = " + String(QSen_flow_nominal) + "
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
-    XEvaIn_nominal        = " + String(XEvaIn_nominal) + "
-    XEvaOut_nominal       = " + String(XEvaOut_nominal) + "
-    XEvaOutSat_nominal    = " + String(XEvaOutSat_nominal) + "
-    TEvaIn_nominal        = " + String(nomVal.TEvaIn_nominal) + "
-    TEvaOut_nominal       = " + String(TEvaOut_nominal) + "
+    XEvaOut_nominal        = " + String(XEvaOut_nominal) + "
+   " + Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.nominalValuesToString(nomVal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
+
 equation
   // When the coil switches off, set accumulated water to
   // lower value of actual accumulated water or maximum water content
   if computeReevaporation then
     when edge(off) then
       reinit(m, min(m, mMax));
-     end when;
+    end when;
 
-  if on then
-    XEvaOutSat = 0;
-    dX = 0;
-    mEva_flow = 0;
-    mTotWat_flow = mWat_flow;
-    der(m) = -mWat_flow;
-  else
-    XEvaOutSat = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
-      pSat=Medium.saturationPressure(TEvaOut),
-      p=nomVal.p_nominal,
-      phi=1);
-    dX = XEvaOutSat - smooth(1, noEvent(
-       Buildings.Utilities.Math.Functions.spliceFunction(
-       pos=XEvaIn,
-       neg=XEvaOut,
-       x=abs(mAir_flow)-nomVal.m_flow_nominal/2,
-       deltax=nomVal.m_flow_nominal/3)));
-    mEva_flow = smooth(1, noEvent(dX *
-      Buildings.Utilities.Math.Functions.spliceFunction(
-       pos=if abs(mAir_flow) > mAir_flow_small/3 then
-          abs(mAir_flow) * (1-Modelica.Math.exp(-K2*m*abs(mAir_flow)^(-0.2))) else 0,
-       neg=K2*mAir_flow_small^(-0.2)*m*mAir_flow^2,
-       x=abs(mAir_flow)- 2*mAir_flow_small/3,
-       deltax=2*mAir_flow_small/6)));
-    der(m) = -mEva_flow;
-    mTotWat_flow = mWat_flow + mEva_flow;
+    if on then
+      dX = 0;
+      mEva_flow = 0;
+      mTotWat_flow = mWat_flow;
+      der(m) = -mWat_flow;
+      TEvaWetBulOut = 293.15;
+      XEvaWetBulOut = 0;
+    else
+      // Compute wet bulb temperature.
+      // The computation of the wet bulb temperature requires an iterative
+      // solution. It therefore cannot be done in a function.
+      // The block Buildings.Utilities.Psychrometrics.WetBul_pTX
+      // implements the equation below, but it is not used here
+      // because otherwise, in each branch of the if-then construct,
+      // an iteration would be done. This would be inefficient because
+      // the wet bulb conditions are only needed in this branch.
+      XEvaWetBulOut = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(
+        pSat=  Medium.saturationPressureLiquid(Tsat=TEvaWetBulOut),
+        p=     nomVal.p_nominal,
+        phi=   1);
+      TEvaWetBulOut = (TEvaOut * ((1-XEvaOut) * cpAir_nominal + XEvaOut * cpSte_nominal)
+         + (XEvaOut-XEvaWetBulOut) * h_fg)/
+              ( (1-XEvaWetBulOut)*cpAir_nominal + XEvaWetBulOut * cpSte_nominal);
 
-  end if;
-  else
-    XEvaOutSat = 0;
+      dX = smooth(1, noEvent(
+         Buildings.Utilities.Math.Functions.spliceFunction(
+         pos=XEvaOut,
+         neg=XEvaWetBulOut,
+         x=abs(mAir_flow)-nomVal.m_flow_nominal/2,
+         deltax=nomVal.m_flow_nominal/3)))
+        - XEvaWetBulOut;
+      mEva_flow = -smooth(1, noEvent(dX *
+        Buildings.Utilities.Math.Functions.spliceFunction(
+         pos=if abs(mAir_flow) > mAir_flow_small/3 then
+            abs(mAir_flow) * (1-Modelica.Math.exp(-K2*m*abs(mAir_flow)^(-0.2))) else 0,
+         neg=K2*mAir_flow_small^(-0.2)*m*mAir_flow^2,
+         x=abs(mAir_flow)- 2*mAir_flow_small/3,
+         deltax=2*mAir_flow_small/6)));
+      der(m) = -mEva_flow;
+      mTotWat_flow = mWat_flow + mEva_flow;
+    end if;
+
+  else // The model is configured to not compute reevaporation
     dX = 0;
     mEva_flow = 0;
     mTotWat_flow = mWat_flow;
     m = 0;
+    TEvaWetBulOut = 293.15;
+    XEvaWetBulOut = 0;
   end if;
 
   annotation (defaultComponentName="eva",
@@ -358,13 +389,13 @@ and the rate of change of water on the coil surface is as before
 The maximum mass transfer is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  m&#775;<sub>max</sub> = m&#775;<sub>a</sub> (x<sub>sat</sub>(T<sub>a</sub>(t)) - x<sub>a,in</sub>(t)),
+  m&#775;<sub>max</sub> = m&#775;<sub>a</sub> (x<sub>wb</sub>(t) - x(t)),
 </p>
 <p>
 where
-<i>x<sub>sat</sub>(T<sub>a</sub>(t))</i> is the moisture content of saturated air
-at the current air outlet temperature and
-<i>x<sub>a,in</sub>(t)</i> is the moisture content of the air inlet.
+<i>x<sub>wb</sub>(t)</i> is the moisture content of air
+at the wet bulb state and
+<i>x(t)</i> is the actual moisture content of the air.
 </p>
 <p>
 The constant <i>K</i> is determined from the nominal conditions as follows:
@@ -389,25 +420,25 @@ it follows that
   K = -ln(    
   1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;
   m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;
-  (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,in,nom</sub>)
+  (x<sub>wb,nom</sub>-x<sub>nom</sub>)
 ),
 </p>
 <p>
 where
-<i>x<sub>a,in,nom</sub></i> is the humidity ratio at the coil inlet at nominal condition and
-<i>x<sub>sat</sub>(T<sub>a,nom</sub>)</i> is the humidity ratio at saturation at the coil 
-outlet condition. Note that the <i>ln(&middot;)</i> in the above equation requires that the argument
+<i>x<sub>nom</sub></i> is the humidity ratio at the coil at nominal condition and
+<i>x<sub>wb,nom</sub></i> is the humidity ratio at the wet bulb condition. 
+Note that the <i>ln(&middot;)</i> in the above equation requires that the argument
 is positive. See the implementation section below for how this is implemented.
 </p>
 <h4>Implementation</h4>
 <h5>Potential for moisture transfer</h5>
 <p>
-For the potential that causes the moisture transfer, the 
-the humidity ratio at saturation at the coil outlet minus
-the inlet humidity ratio is used, provided that
+For the potential that causes the moisture transfer,
+the difference in mass fraction between the current 
+coil air and the coil air at the wet bulb conditions is used, provided that
 the air mass flow rate is within <i>1&frasl;3</i> of the nominal mass flow rate.
-For smaller air mass flow rates, the outlet conditions are used to ensure that for
-small air mass flow rates, the outlet conditions are not supersaturated air.
+For smaller air mass flow rates, the outlet conditions are used to ensure that
+the outlet conditions are not supersaturated air.
 The transition between these two driving potential is continuously differentiable 
 in the mass flow rate.
 </p>
@@ -419,7 +450,7 @@ To evaluate
   K = -ln(    
   1 + &gamma;<sub>nom</sub> Q&#775;<sub>L,nom</sub> &frasl;
   m&#775;<sub>a,nom</sub> &frasl; h<sub>fg</sub> &frasl;
-  (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,in,nom</sub>)
+  (x<sub>wb,nom</sub>-x<sub>nom</sub>)
 ),
 </p>
 <p>
@@ -434,7 +465,7 @@ Note that <i>&gamma;<sub>nom</sub></i> must be such that
 This condition is equivalent to
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  0 &lt; &gamma;<sub>nom</sub> &lt; m&#775;<sub>a,nom</sub> (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,in,nom</sub>)
+  0 &lt; &gamma;<sub>nom</sub> &lt; m&#775;<sub>a,nom</sub> (x<sub>wb,nom</sub>-x<sub>nom</sub>)
   h<sub>fg</sub>
   &frasl; (-Q&#775;<sub>L,nom</sub>)
 </p>
@@ -444,9 +475,9 @@ mass transfer effectiveness would be one. Hence, we set the maximum value of
 &gamma;<sub>nom,max</sub> to 
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  &gamma;<sub>nom,max</sub> = 0.8  m&#775;<sub>a,nom</sub> (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,in,nom</sub>)
+  &gamma;<sub>nom,max</sub> = 0.8  m&#775;<sub>a,nom</sub> (x<sub>wb,nom</sub>-x<sub>nom</sub>)
   h<sub>fg</sub>
-  &frasl; (-Q&#775;<sub>L,nom</sub>),
+  &frasl; Q&#775;<sub>L,nom</sub>,
 </p>
 <p>
 which corresponds to a mass transfer effectiveness of <i>0.8</i>. If 
@@ -477,7 +508,7 @@ the equation for the evaporation mass flow rate by
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
  m&#775;<sub>wat</sub>(t) = C m m&#775;<sub>a</sub><sup>2</sup>(t) 
- (x<sub>sat</sub>(T<sub>a,nom</sub>)-x<sub>a,in,nom</sub>),
+ (x<sub>wb,nom</sub>-x<sub>nom</sub>),
 </p>
 <p>
 where
@@ -511,7 +542,9 @@ August 21, 2012 by Michael Wetter:<br>
 First implementation. 
 </li>
 </ul>
-</html>"), Diagram(graphics),
+</html>"), Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),
+                   graphics),
     Icon(graphics={
         Rectangle(
           extent={{-96,94},{96,-98}},

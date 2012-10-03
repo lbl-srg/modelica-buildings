@@ -148,15 +148,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(dxCoo.TCoiSur, eva.TWat) annotation (Line(
-      points={{1,46},{10,46},{10,6},{-22,6},{-22,-70},{-10,-70}},
+      points={{1,46},{10,46},{10,6},{-22,6},{-22,-72},{-10,-72}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(m.y, eva.mAir_flow) annotation (Line(
-      points={{-69,44},{-66,44},{-66,-76},{-10,-76}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(vol.X_w, eva.XEvaOut) annotation (Line(
-      points={{13,-6},{86,-6},{86,-94},{2,-94},{2,-82}},
+      points={{-69,44},{-66,44},{-66,-78},{-10,-78}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TVol.port, q.port) annotation (Line(
@@ -171,17 +167,17 @@ equation
       points={{41,64},{94,64},{94,50},{110,50}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(X.y, eva.XEvaIn) annotation (Line(
-      points={{-35,36},{-30,36},{-30,-94},{-4,-94},{-4,-82}},
-      color={0,0,127},
-      smooth=Smooth.None));
 
   connect(eva.mTotWat_flow, vol.mWat_flow) annotation (Line(
       points={{13,-70},{20,-70},{20,-32},{-16,-32},{-16,-18},{-11,-18}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TVol.T, eva.TEvaOut) annotation (Line(
-      points={{78,22},{90,22},{90,-90},{8,-90},{8,-82}},
+      points={{78,22},{88,22},{88,-94},{8,-94},{8,-82}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(vol.X_w, eva.XEvaOut) annotation (Line(
+      points={{13,-6},{40,-6},{40,-90},{-4,-90},{-4,-82}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
