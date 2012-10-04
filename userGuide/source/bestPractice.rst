@@ -482,6 +482,56 @@ for a robust implementation.
 .. note::
    In the package `Buildings.Utilities.Math <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Utilities_Math.html#Buildings.Utilities.Math>`_ the functions and blocks whose names start with ``smooth`` can be used to avoid events.
 
+Controls
+--------
+
+.. figure:: img/controlHysteresis.png
+   
+   Schematic diagram of a controller that switches a coil on and off.
+   In the top configuration, the hysteresis avoids numerical problems
+   (and short-cycling) if the control input remains close to the 
+   set point. The bottom configuration can cause the integration to
+   stall if the input signal to the threshold block is the solution
+   of an iterative solver and remains around 293.15 Kelvin.
+
+When implementing an on/off controller, always use a controller with
+hysteresis such as shown in the top configuration of the model above.
+If no hysteresis is used, then numerical problems can occur if the 
+variable that is input to the controller depends on a variable
+that is computed by an iterative algorithm.
+Examples of a iterative algorithms are nonlinear equation solvers
+or time integration algorithms with variable step size (such as
+the radau and dassl solver in Dymola).
+The problem is caused as follows:
+Let :math:`T(t) \in \Re` be the input into a controller, such as 
+a room air temperature.
+If :math:`T(t)` is the state variable computed by solving a differential equation,
+or if :math:`T(t)` depends on a variable that needs to be solved for iteratively,
+then :math:`T(t)` can only be approximated by some approximation
+:math:`T^*(\epsilon, t)`, where
+:math:`\epsilon` is the solver tolerance. Even if the system is at
+an equilibrium, the solver can cause the value of :math:`T^*(\epsilon, t)`
+to slightly change from one iteration to another. Hence, 
+:math:`T^*(\epsilon, t)` can exhibit what is called numerical noise.
+Now, if :math:`T^*(\epsilon, t)` is used to switch a heater on and off
+whenever it crosses at set point temperature, and if 
+:math:`T(t)` happens to be at an equilibrium near the set point temperature,
+then the heater can switch on and off rapidly due to the numerical noise.
+This can cause the time integration to stall.
+
+To illustrate this problem, try to simulate
+
+.. code-block:: modelica
+
+  model Unstable
+    Real x(start=0.1);
+  equation 
+    der(x) = if x > 0 then -1 else 1;
+  end Unstable;
+
+In Dymola 2013, as expected the model stalls at :math:`t=0.1`
+because the ``if-then-else`` construct triggers an event iteration whenever
+:math:`x` crosses zero.
 
 Numerical solvers
 -----------------
@@ -490,6 +540,16 @@ Dymola 2012 FD01 is configured to use dassl as a default solver with a tolerance
 We recommend to change this setting to radau with a tolerance of around
 1E-6, as this generally leads to faster and more robust
 simulation for thermo-fluid flow systems.
+
+Note that this is the error tolerance of the local integration time step.
+Most ordinary differential equation solvers only control the local
+integration error and not the global integration error.
+As a rule of thumb, the global integration error is one
+order of magnitude larger than the local integration error.
+However, the actual magnitude of the global integration error 
+depends on the stability of the differential equation. 
+As an extreme case, if a system is chaotic
+and uncontrolled, then the global integration error will grow rapidly.
 
 
 .. _FixedResistanceDpM: http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM
