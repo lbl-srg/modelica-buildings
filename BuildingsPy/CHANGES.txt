@@ -2,14 +2,14 @@ BuildingsPy Changelog
 ---------------------
 
 Version 1.1.1, October 9, 2012 -- Release 1.1
-------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Improved error reporting in unittest.py
 - Fixed bug in constructor of simulate.Simulator.py that caused
     TypeError: __init__() got an unexpected keyword argument 'directory'
 
 
 Version 1.1.0, July 26, 2012 -- Release 1.1
--------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Added class buildingspy.io.postprocess.Plotter.
   This simplifies the creation of boxplot and the
   plotting of data that repeat every day.
@@ -32,6 +32,6 @@ Version 1.1.0, July 26, 2012 -- Release 1.1
   24 core computer from 38 minutes to 21 minutes.
 
 Version 1.0.0, November 1, 2011
--------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Initial release.
