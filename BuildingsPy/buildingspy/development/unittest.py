@@ -583,9 +583,16 @@ class Tester:
         r = dict()
         for i in range(2, len(lines)):
             lin = lines[i].strip('\n')
-            (key, value) = lin.split("=")
-            s = (value[value.find('[')+1: value.rfind(']')]).strip()
-            numAsStr=s.split(',')
+
+            try:
+                (key, value) = lin.split("=")
+                s = (value[value.find('[')+1: value.rfind(']')]).strip()
+                numAsStr=s.split(',')
+            except ValueError as detail:
+                s =  "%s could not be parsed.\n" % refFilNam
+                self.__reporter.writeError(s)
+                raise TypeError(detail)
+
             val = []
             for num in numAsStr:
                 # We need to use numpy.float64 here for the comparison to work
