@@ -282,6 +282,12 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Fixed error in the documentation.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters
+    </td>
+    <td valign=\"top\">Fixed wrong <code>displayUnit</code> and 
+                       <code>max</code> attribute for power.
+    </td>
+</tr>
 <tr><td valign=\"top\">Buildings.Fluid.MixingVolumes
     </td>
     <td valign=\"top\">In documentation, removed reference to the parameter

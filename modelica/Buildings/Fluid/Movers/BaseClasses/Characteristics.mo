@@ -60,7 +60,7 @@ First implementation.
     parameter Modelica.SIunits.VolumeFlowRate V_flow[:](each min=0)= {0}
       "Volume flow rate at user-selected operating points";
     parameter Modelica.SIunits.Power P[size(V_flow,1)](
-       each min=0, max=1, each displayUnit="1") = {0}
+       each min=0) = {0}
       "Fan or pump electrical power at these flow rates";
     annotation (Documentation(info="<html>
 <p>
@@ -74,6 +74,11 @@ must have the same size.
 </html>",
   revisions="<html>
 <ul>
+<li>
+October 10, 2012, by Michael Wetter:<br>
+Fixed wrong <code>displayUnit</code> and 
+<code>max</code> attribute for power.
+</li>
 <li>
 September 28, 2011, by Michael Wetter:<br>
 First implementation.
