@@ -6,7 +6,7 @@ block ApparatusDryPoint "Calculates air properties at dry coil surface"
     quantity="Temperature",
     unit="K",
     displayUnit="degC",
-    min=273.15,
+    min=253.15,
     max=373.15) "Dry bulb temperature of air at dry coil condition"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   output Modelica.SIunits.SpecificEnthalpy hDry
@@ -21,7 +21,8 @@ protected
 equation
   XEvaInVec =cat(1,{XEvaIn},{1-sum({XEvaIn})});
 
-  XEvaIn = Buildings.Utilities.Psychrometrics.Functions.X_pW(p_w=Medium.saturationPressure(TADP), p=p);
+  XEvaIn = Buildings.Utilities.Psychrometrics.Functions.X_pW(
+     p_w=Medium.saturationPressureLiquid(TADP), p=p);
 
   hMin = Medium.specificEnthalpy(Medium.setState_pTX(p=p, T=TADP, X=XEvaInVec));
 
