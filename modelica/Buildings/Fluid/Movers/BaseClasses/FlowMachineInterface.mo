@@ -437,9 +437,18 @@ equation
     else
       PEle = (rho/rho_nominal)*cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer);
     end if;
+    // To compute the efficiency, we set a lower bound on the electricity consumption.
+    // This is needed because WFlo can be close to zero when PEle is zero, thereby
+    // causing a division by zero.
+    // Earlier versions of the model computed WFlo = eta * PEle, but this caused
+    // a division by zero.
+    eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=PEle, x2=1E-5, deltaX=1E-6);
     // In this configuration, we only now the total power consumption.
-    // Hence, we assign the efficiency in equal parts to the motor and the hydraulic losses
-    etaMot = sqrt(eta);
+    // Because nothing is known about etaMot versus etaHyd, we set etaHyd=1. This will
+    // cause etaMot=eta, because eta=etaHyd*etaMot.
+    // Earlier versions used etaMot=sqrt(eta), but as eta->0, this function has
+    // and infinite derivative.
+    etaHyd = 1;
   else
     if homotopyInitialization then
       etaHyd = homotopy(actual=cha.efficiency(data=hydraulicEfficiency,     r_V=r_V, d=hydDer),
@@ -450,6 +459,10 @@ equation
       etaHyd = cha.efficiency(data=hydraulicEfficiency, r_V=r_V, d=hydDer);
       etaMot = cha.efficiency(data=motorEfficiency,     r_V=r_V, d=motDer);
     end if;
+    // To compute the electrical power, we set a lower bound for eta to avoid
+    // a division by zero.
+    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
+
   end if;
 
   annotation (
@@ -509,6 +522,15 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+October 11, 2012, by Michael Wetter:<br>
+Added implementation of <code>WFlo = eta * PEle</code> with
+guard against division by zero.
+Changed implementation of <code>etaMot=sqrt(eta)</code> to 
+<code>etaHyd = 1</code> to avoid infinite derivative as <code>eta</code>
+converges to zero.
+</li>
+</li>
 <li>
 February 20, 2012, by Michael Wetter:<br>
 Assigned value to nominal attribute of <code>VMachine_flow</code>.

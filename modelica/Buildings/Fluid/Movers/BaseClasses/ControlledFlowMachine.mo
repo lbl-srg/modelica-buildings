@@ -38,6 +38,9 @@ equation
   etaMot = cha.efficiency(data=motorEfficiency,     r_V=r_V, d=motDer);
   dpMachine = -dp;
   VMachine_flow = -port_b.m_flow/rho_in;
+  // To compute the electrical power, we set a lower bound for eta to avoid
+  // a division by zero.
+  PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
 
   connect(PToMedium_flow.y, prePow.Q_flow) annotation (Line(
       points={{-79,20},{-70,20}},
@@ -74,6 +77,11 @@ the head or the mass flow rate.
 </html>",
       revisions="<html>
 <ul>
+<li>
+October 11, 2012, by Michael Wetter:<br>
+Added implementation of <code>WFlo = eta * PEle</code> with
+guard against division by zero.
+</li>
 <li>
 May 25, 2011, by Michael Wetter:<br>
 Revised implementation of energy balance to avoid having to use conditionally removed models.

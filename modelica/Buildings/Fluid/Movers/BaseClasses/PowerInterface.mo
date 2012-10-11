@@ -80,7 +80,7 @@ initial algorithm
                    y=hydraulicEfficiency.eta);
 equation
   eta = etaHyd * etaMot;
-  WFlo = eta * PEle;
+//  WFlo = eta * PEle;
   // Flow work
   WFlo = dpMachine*VMachine_flow;
   // Hydraulic power (transmitted by shaft), etaHyd = WFlo/WHyd
@@ -109,9 +109,20 @@ heat dissipation of fans and pumps. It is used by the model
 <a href=\"modelica://Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface\">
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>.
 </p>
+<h4>Implementation</h4>
+<p>
+Models that extend this model need to provide an implementation of
+<code>WFlo = eta * PEle</code>.
+This equation is not implemented in this model to allow other models
+to properly guard against division by zero.
+</p>
 </html>",
       revisions="<html>
 <ul>
+<li>October 11, 2012</i> by Michael Wetter:<br>
+    Removed <code>WFlo = eta * PEle</code> so that classes that use this partial model
+    can properly implement the equation so it guards against division by zero.
+</li>
 <li><i>March 1, 2010</i>
     by Michael Wetter:<br>
     Revised implementation to allow <code>N=0</code>.

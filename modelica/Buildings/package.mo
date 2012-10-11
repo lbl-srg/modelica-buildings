@@ -192,6 +192,20 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
 </tr>
 
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Movers.FlowMachine_dp<br>
+                       Buildings.Fluid.Movers.FlowMachine_m_flow<br>
+                       Buildings.Fluid.Movers.FlowMachine_Nrpm<br>
+                       Buildings.Fluid.Movers.FlowMachine_y<br>
+    </td>
+    <td valign=\"top\">Reformulated implementation of efficiency model
+                       to avoid a division by zero at zero mass flow rate 
+                       for models in which a user specifies
+                       a power instead of an efficiency performance curve.
+    </td> 
+    </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
     </td>
 </tr>
@@ -203,8 +217,6 @@ have been <b style=\"color:blue\">improved</b> in a
                      nonlinear system of equations from two to one.
     </td> 
     </tr>
-
-
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
