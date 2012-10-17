@@ -11,8 +11,9 @@ block TrimAndRespond "Trim and respond logic"
   parameter Integer nActDec
     "Number of actuators that can violate setpoints and y is still decreased";
   parameter Integer nActInc "Number of actuators requests needed to increase y";
-  Modelica.Blocks.Interfaces.RealInput u[n] "Input singal"
-    annotation (extent=[-190, 80; -150, 120]);
+  Modelica.Blocks.Interfaces.RealInput u[n] "Input singal" annotation (extent=[
+        -190, 80; -150, 120], Placement(transformation(extent={{-190,-20},{-150,
+            20}})));
   Modelica.Blocks.Logical.GreaterThreshold incY(threshold=nActInc - 0.5)
     "Outputs true if y needs to be increased"
     annotation (extent=[-20, 98; 0, 118]);
@@ -30,16 +31,13 @@ block TrimAndRespond "Trim and respond logic"
   Modelica.Blocks.Discrete.UnitDelay uniDel1(
     samplePeriod=tSam,
     startTime=tSam,
-    y_start=yEqu0) annotation (extent=[-52, -40; -32, -20]);
-  Modelica.Blocks.Math.Add add annotation (extent=[-20, -20; 0, 0]);
+    y_start=yEqu0) annotation (extent=[-52, -40; -32, -20], Placement(
+        transformation(extent={{-60,-40},{-40,-20}})));
+  Modelica.Blocks.Math.Add add annotation (extent=[-20, -20; 0, 0], Placement(
+        transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Nonlinear.Limiter lim(uMax=yMax, uMin=yMin) "State limiter"
-    annotation (extent=[20, -20; 40, 0]);
-  Modelica.Blocks.Logical.Switch onSetPoi
-    "Set point selecter when equipment switches on"
-    annotation (extent=[94, -10; 114, 10]);
-  Modelica.Blocks.Sources.Constant equSta(k=yEqu0) "equipment start signal"
-    annotation (extent=[52, -2; 72, 18], Placement(transformation(extent={{20,
-            -52},{40,-32}})));
+    annotation (extent=[20, -20; 40, 0], Placement(transformation(extent={{20,-10},
+            {40,10}})));
   Modelica.Blocks.Interfaces.RealOutput y "Connector of Real output signal"
     annotation (extent=[148, -10; 168, 10], Placement(transformation(extent={{
             150,-10},{170,10}})));
@@ -49,11 +47,6 @@ block TrimAndRespond "Trim and respond logic"
   Modelica.Blocks.Logical.Switch swi1 annotation (extent=[64, 70; 84, 90]);
   Modelica.Blocks.Sources.Constant zer1(k=0) "Set point when equipment is off"
     annotation (extent=[26, 52; 46, 72]);
-  Modelica.Blocks.Interfaces.BooleanInput sta
-    "Status indicator, true if equipment is on"
-    annotation (extent=[-190, -120; -150, -80]);
-  ZeroOrderHold zerOrdHol(samplePeriod=tSam) "Zero order hold"
-    annotation (extent=[-100, -110; -80, -90]);
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.RequestCounter req(uTri=
         uTri, nAct=n) "Count the number of request"
     annotation (Placement(transformation(extent={{-140,90},{-120,110}})));
@@ -62,22 +55,10 @@ equation
       style(color=5, rgbcolor={255,0,255}));
   connect(sam.y, incY.u) annotation (points=[-39, 100; -32, 100; -32, 108; -22,
         108], style(color=74, rgbcolor={0,0,127}));
-  connect(uniDel1.y, add.u2) annotation (points=[-31, -30; -28, -30; -28, -16;
-        -22, -16], style(color=74, rgbcolor={0,0,127}));
-  connect(add.y, lim.u)
-    annotation (points=[1, -10; 18, -10], style(color=74, rgbcolor={0,0,127}));
-  connect(onSetPoi.y, y) annotation (points=[115, 6.10623e-16; 108.5,
-        6.10623e-16; 108.5, 5.55112e-16; 158, 5.55112e-16], style(color=74,
-        rgbcolor={0,0,127}));
   connect(zer1.y, swi1.u3) annotation (points=[47, 62; 56, 62; 56, 72; 62, 72],
       style(color=74, rgbcolor={0,0,127}));
   connect(swi1.y, swi.u3) annotation (points=[85, 80; 92, 80; 92, 112; 98, 112],
       style(color=74, rgbcolor={0,0,127}));
-  connect(onSetPoi.y, uniDel1.u) annotation (points=[115, 6.10623e-16; 132,
-        6.10623e-16; 132, -60; -60, -60; -60, -30; -54, -30], style(color=74,
-        rgbcolor={0,0,127}));
-  connect(sta, zerOrdHol.u) annotation (points=[-170, -100; -102, -100], style(
-        color=5, rgbcolor={255,0,255}));
   connect(req.nInc, intToRea.u) annotation (Line(
       points={{-119,100},{-102,100}},
       color={255,127,0},
@@ -102,24 +83,34 @@ equation
       points={{47,100},{52,100},{52,88},{62,88}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(u, req.uAct) annotation (Line(
-      points={{-170,100},{-142,100}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(equSta.y, onSetPoi.u3) annotation (Line(
-      points={{41,-42},{86,-42},{86,-8},{92,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(lim.y, onSetPoi.u1) annotation (Line(
-      points={{41,-10},{56,-10},{56,8},{92,8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(onSetPoi.u2, zerOrdHol.y) annotation (Line(
-      points={{92,6.66134e-16},{68,6.66134e-16},{68,-100},{-79,-100}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(swi.y, add.u1) annotation (Line(
-      points={{121,120},{132,120},{132,30},{-36,30},{-36,-4},{-22,-4}},
+      points={{121,120},{132,120},{132,30},{-36,30},{-36,6},{-22,6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(lim.y, y) annotation (Line(
+      points={{41,6.10623e-16},{70,6.10623e-16},{70,5.55112e-16},{160,
+          5.55112e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  connect(add.y, lim.u) annotation (Line(
+      points={{1,6.10623e-16},{9.5,6.10623e-16},{9.5,6.66134e-16},{18,
+          6.66134e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  connect(uniDel1.y, add.u2) annotation (Line(
+      points={{-39,-30},{-32,-30},{-32,-6},{-22,-6}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(uniDel1.u, lim.y) annotation (Line(
+      points={{-62,-30},{-66,-30},{-66,-50},{60,-50},{60,6.10623e-16},{41,
+          6.10623e-16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
+  connect(u, req.uAct) annotation (Line(
+      points={{-170,1.11022e-15},{-144,1.11022e-15},{-144,100},{-142,100}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
@@ -168,21 +159,20 @@ equation
    This model implements the trim and respond logic. The model samples the outputs of actuators every <code>tSam</code>.
    The control sequence is as follows:
    <ul>
-    <li>If <code>sta = false</code>, then <code>y = yEqu0</code>.</li>
-<li>If <code>sta = true</code>, then, 
-<ul>
 <li>If <code>nReq &gt; nActInc</code>, then <code>y = y + nActInc</code>,</li> 
 <li>If <code>nReq &lt; nActDec</code>, then <code>y = y - yDec</code>,</li>
 <li>else <code>y = y</code>.</li>
-</ul>
-</li>
 </ul>
 </p>
    </html>", revisions="<html>
 <ul>
 <li>
+September 21, 2012, by Wangda Zuo:<br>
+Deleted the status input that was not needed for new control.
+</li>
+<li>
 July 20, 2011, by Wangda Zuo:<br>
-Add comments, redefine variable names, and merge to library.
+Added comments, redefine variable names, and merged to library.
 </li>
 <li>
 January 6 2011, by Michael Wetter and Wangda Zuo:<br>

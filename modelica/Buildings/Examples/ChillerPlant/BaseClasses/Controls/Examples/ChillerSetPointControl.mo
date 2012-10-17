@@ -25,7 +25,7 @@ model ChillerSetPointControl
     tSam=120,
     yDec=-0.03,
     yInc=0.03)
-    annotation (Placement(transformation(extent={{-98,20},{-78,40}})));
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo
     linPieTwo(
     x0=0,
@@ -85,16 +85,14 @@ model ChillerSetPointControl
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-150,30})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TRet(
-    redeclare package Medium = MediumAir,
-    m_flow_nominal=999)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TRet(redeclare package Medium =
+        MediumAir, m_flow_nominal=999)
     annotation (Placement(transformation(extent={{4,-74},{24,-54}})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(
     m_flow_nominal=1.2*mCHW_flow_nominal,
     dp(start=40474),
     redeclare package Medium = Medium2,
-    init=Modelica.Blocks.Types.Init.NoInit) "Chilled water pump"
-                                                             annotation (
+    init=Modelica.Blocks.Types.Init.NoInit) "Chilled water pump" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -129,9 +127,8 @@ model ChillerSetPointControl
         origin={114,-92})));
   Modelica.Blocks.Continuous.FirstOrder firstOrder1(y_start=273.15 + 10, T=chi.tau1
         /2) annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Buildings.Fluid.Sensors.TemperatureTwoPort TSup(
-    redeclare package Medium = MediumAir,
-    m_flow_nominal=999)
+  Buildings.Fluid.Sensors.TemperatureTwoPort TSup(redeclare package Medium =
+        MediumAir, m_flow_nominal=999)
     annotation (Placement(transformation(extent={{136,-70},{156,-50}})));
 equation
   connect(sou1.ports[1], chi.port_a1) annotation (Line(
@@ -175,11 +172,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(triAndRes.y, linPieTwo.u) annotation (Line(
-      points={{-77.3333,30},{-62,30}},
+      points={{-79.3333,30},{-62,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(limPID.y, triAndRes.u[1]) annotation (Line(
-      points={{-139,30},{-126,30},{-126,36.6667},{-99.3333,36.6667}},
+      points={{-139,30},{-101.333,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(const.y, limPID.u_s) annotation (Line(
@@ -210,10 +207,6 @@ equation
       points={{156,-60},{190,-60},{190,-92},{180,-92}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(booleanConstant1.y, triAndRes.sta) annotation (Line(
-      points={{-159,72},{-120,72},{-120,23.3333},{-99.3333,23.3333}},
-      color={255,0,255},
-      smooth=Smooth.None));
   connect(linPieTwo.y[1], gain.u) annotation (Line(
       points={{-39,29.3},{-20,29.3},{-20,-8},{84,-8}},
       color={0,0,127},
@@ -229,8 +222,12 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
+October 17, 2012, by Wangda Zuo:<br>
+Revised for the new trim and respond control.
+</li>
+<li>
 July 21, 2011, by Wangda Zuo:<br>
-Add mos file and merge to library.
+Added mos file and merged to library.
 </li>
 <li>
 January 18, 2011, by Wangda Zuo:<br>

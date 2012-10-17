@@ -234,21 +234,33 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">non-backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3<br> 
-                       Buildings.BoundaryConditions.Types 
+                       Buildings.BoundaryConditions.Types
     </td>
     <td valign=\"top\">Improved the optional inputs for the radiation data global horizontal, diffuse horizontal and direct normal radiation. 
     If a user specifies two of them, the third will be automatically calculated.
     </td>
+</tr>    
 <tr><td valign=\"top\">Buildings.BoundaryConditions.SkyTemperature.BlackBody
     </td>
     <td valign=\"top\">Renamed <code>radHor</code> to <code>radHorIR</code>
                        to indicate that the radiation is in the infrared
                        spectrum.
+</tr>
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.ChillerPlant.PrimaryOnlyWithEconomizer<br> 
+                       Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond<br>
+                       Buildings.Examples.ChillerPlant.BaseClasses.Controls.ZeroOrderHold
+    </td>
+    <td valign=\"top\">Re-implemented the controls for setpoint reset. 
+    Revised the model <code>TrimAndRespond</code> and deleted the model <code>ZeroOrderHold</code> according to the new control.
+    Improved the documentation.
+    </td>
 </tr>
 </table>
 </p>

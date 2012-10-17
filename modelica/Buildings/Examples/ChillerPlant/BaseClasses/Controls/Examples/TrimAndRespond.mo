@@ -19,24 +19,18 @@ model TrimAndRespond "Test model for TrimAndRespond"
     yDec=-0.01,
     yInc=0.02,
     tSam=20) annotation (Placement(transformation(extent={{0,20},{20,40}})));
-  Modelica.Blocks.Sources.BooleanPulse equSta(width=50, period=5000)
-    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 equation
   connect(act1.y, triAndRes.u[1]) annotation (Line(
-      points={{-59,70},{-50,70},{-50,35.7778},{-1.33333,35.7778}},
+      points={{-59,70},{-50,70},{-50,29.1111},{-1.33333,29.1111}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(act2.y, triAndRes.u[2]) annotation (Line(
-      points={{-59,30},{-50,30},{-50,36.6667},{-1.33333,36.6667}},
+      points={{-59,30},{-50,30},{-50,30},{-1.33333,30}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(act3.y, triAndRes.u[3]) annotation (Line(
-      points={{-59,-10},{-50,-10},{-50,37.5556},{-1.33333,37.5556}},
+      points={{-59,-10},{-50,-10},{-50,30.8889},{-1.33333,30.8889}},
       color={0,0,127},
-      smooth=Smooth.None));
-  connect(triAndRes.sta, equSta.y) annotation (Line(
-      points={{-1.33333,23.3333},{-14,23.3333},{-14,-10},{-19,-10}},
-      color={255,0,255},
       smooth=Smooth.None));
   annotation (
     Diagram(graphics),
@@ -46,11 +40,15 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-July 21, 2011, by Wangda Zuo:<br>
-Merge to library.
+October 17, 2012, by Wangda Zuo:<br>
+Revised the example according to the new control.
 </li>
 <li>
-January 6 2011, by Wangda Zuo:<br>
+July 21, 2011, by Wangda Zuo:<br>
+Merged to library.
+</li>
+<li>
+January 6, 2011, by Wangda Zuo:<br>
 First implementation.
 </li>
 </ul>
