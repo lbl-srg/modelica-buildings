@@ -147,11 +147,16 @@ Buildings.Fluid.Boilers.BoilerPolynomial</a>.
 <h4>Implementation</h4>
 <p>
 The variable names follow the conventions used in 
-<a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
-Modelica.Fluid.HeatExchangers.BasicHX</a>.
+<a href=\"modelica://Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX\">
+Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
+</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+October 17, 2012, by Michael Wetter:<br>
+Fixed broken link in documentation.
+</li>
 <li>
 February 3, 2012, by Michael Wetter:<br>
 Removed assignment of <code>m_flow_small</code> as it is no
