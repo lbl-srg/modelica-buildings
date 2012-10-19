@@ -253,7 +253,7 @@ model PrimaryOnlyWithEconomizer
         extent={{10,10},{-10,-10}},
         rotation=270,
         origin={160,-80})));
-  BaseClasses.WeatherData weaData(filNam=
+  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaData(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-360,-100},{-340,-80}})));
   BoundaryConditions.WeatherData.Bus weaBus

@@ -1,5 +1,5 @@
 within Buildings.BoundaryConditions.WeatherData.Examples;
-model ReaderTMY3 "Test model for read requested weather data"
+model ReaderTMY3 "Test model for reading weather data"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(

@@ -1,5 +1,9 @@
 within Buildings.BoundaryConditions.WeatherData;
 block ReaderTMY3 "Reader for TMY3 weather data"
+
+  parameter Boolean computeWetBulbTemperature = true
+    "If true, then this model computes the wet bulb temperature"
+    annotation(Evaluate=true);
   //--------------------------------------------------------------
   // Atmospheric pressure
   parameter Buildings.BoundaryConditions.Types.DataSource pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter
@@ -129,7 +133,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     Evaluate=true,
     Dialog(group="Sky temperature"));
 
-  parameter Real epsCos = 1e-6 "Small value to avoid divided by 0";
+  constant Real epsCos = 1e-6 "Small value to avoid division by 0";
 
 protected
   Modelica.Blocks.Tables.CombiTable1Ds datRea(
@@ -263,6 +267,16 @@ protected
     annotation (Placement(transformation(extent={{-180,-280},{-160,-260}})));
   Modelica.Blocks.Sources.Constant longitude(final k=lon) "Longitude"
     annotation (Placement(transformation(extent={{-140,-280},{-120,-260}})));
+
+  //---------------------------------------------------------------------------
+  // Optional instanciation of a block that computes the wet bulb temperature.
+  // This block may be needed for evaporative cooling towers.
+  // By default, it is enabled. This introduces a nonlinear equation, but
+  // we have not observed an increase in computing time because of this equation.
+  Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi tWetBul_TDryBulXi(
+      redeclare package Medium = Buildings.Media.PerfectGases.MoistAir, 
+      TDryBul(displayUnit="degC")) if computeWetBulbTemperature
+    annotation (Placement(transformation(extent={{244,-66},{264,-46}})));
 
 equation
   //---------------------------------------------------------------------------
@@ -652,6 +666,30 @@ equation
       string="%second",
       index=1,
       extent={{6,3},{6,3}}));
+
+  // Connectors for wet bulb temperature.
+  // These are removed if computeWetBulbTemperature = false
+  connect(chePre.POut, tWetBul_TDryBulXi.p) annotation (Line(
+      points={{181,70},{220,70},{220,-64},{243,-64}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(tWetBul_TDryBulXi.TWetBul, weaBus.TWetBul) annotation (Line(
+      points={{265,-56},{280,-56},{280,0},{292,0},{292,5.55112e-16},{304,
+          5.55112e-16}},
+      color={0,0,127},
+      smooth=Smooth.None), Text(
+      string="%second",
+      index=1,
+      extent={{6,3},{6,3}}));
+  connect(cheTemDryBul.TOut, tWetBul_TDryBulXi.TDryBul) annotation (Line(
+      points={{181,-190},{220,-190},{220,-48},{243,-48}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(cheRelHum.relHumOut, tWetBul_TDryBulXi.phi) annotation (Line(
+      points={{181,30},{208,30},{208,-56},{243,-56}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
   annotation (
     defaultComponentName="weaDat",
     Icon(coordinateSystem(
@@ -779,6 +817,14 @@ the time zone relative to Greenwich Mean Time, <code>timZone</code>.
 </li>
 </ul>
 <p>
+By default, the data bus contains the wet bulb temperature.
+This introduces a nonlinear equation.
+However, we have not observed an increase in computing time because
+of this equation.
+To disable the computation of the wet bulb temperature, set
+<code>computeWetBulbTemperature=false</code>.
+</p>
+<p>
 This model has the option of using a constant value, using the data from the weather file, 
 or using data from an input connector for the following variables: 
 atmospheric pressure, relative humidity, dry bulb temperature, 
@@ -791,22 +837,106 @@ parameter <code>pAtm=101325</code> Pascals.
 </p>
 <p>
 The parameter <code>*Sou</code> configures the source of the data.
-<!-- ------- -->
-fixme: This example is incorrect for the radiation data.
-The documentation needs to be updated.
-<!-- ------- -->
-For example, the parameter 
-<code>pAtmSou</code> is used to change the source that is used as the atmospheric pressure.
-If <code>pAtmSou=Buildings.BoundaryConditions.Types.DataSource.Parameter</code>,
-the parameter value is used.
-If <code>pAtmSou = Buildings.BoundaryConditions.Types.DataSource.Input</code>,
-the input connector will be enabled and the value from the input 
-connector will be used.
-If <code>pAtmSou = Buildings.BoundaryConditions.Types.DataSource.File</code>,
-the values from the weather file will be used.
+For the atmospheric pressure, dry bulb temperature, relative humidity, wind speed and wind direction,
+the enumeration
+<a href=\"modelica://Buildings.BoundaryConditions.Types.DataSource\">
+Buildings.BoundaryConditions.Types.DataSource</a>
+is used as follows:
 </p>
-<ol>
+<p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<!-- -------------------------------- -->
+<tr>
+  <th>Parameter <code>*Sou</code>
+  </th>
+  <th>Data used to compute weather data.
+  </th>
+</tr>
+<!-- ------- -->
+<tr>
+  <td>
+    File
+  </td>
+  <td>
+    Use data from file.
+  </td>
+</tr>
+<!-- ------- -->
+<tr>
+  <td>
+    Parameter
+  </td>
+  <td>
+    Use value specified by the parameter.
+  </td>
+</tr>
+<!-- ------- -->
+<tr>
+  <td>
+    Input
+  </td>
+  <td>
+    Use value from the input connector.
+  </td>
+</tr>
+</table>
+</p>
+<p>
+Because global, diffuse and direct radiation are related to each other, the parameter
+<code>HSou</code> is treated differently.
+It is set to a value of the enumeration
+<a href=\"modelica://Buildings.BoundaryConditions.Types.RadiationDataSource\">
+Buildings.BoundaryConditions.Types.RadiationDataSource</a>,
+and allows the following configurations:
+</p>
+<p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<!-- -------------------------------- -->
+<tr>
+  <th>Parameter <code>HSou</code>
+  </th>
+  <th>Data used to compute weather data.
+  </th>
+</tr>
+<!-- ------- -->
+<tr>
+  <td>
+    File
+  </td>
+  <td>
+    Use data from file.
+  </td>
+</tr>
+<!-- ------- -->
+<tr>
+  <td>
+    Input_HGloHor_HDifHor
+  </td>
+  <td>
+    Use global horizontal and diffuse horizontal radiation from input connector.
+  </td>
+</tr>
+<tr>
+  <td>
+    Input_HDirNor_HDifHor
+  </td>
+  <td>
+    Use direct normal and diffuse horizontal radiation from input connector.
+  </td>
+</tr>
+<tr>
+  <td>
+    Input_HDirNor_HGloHor
+  </td>
+  <td>
+    Use direct normal and global horizontal radiation from input connector.
+  </td>
+</tr>
+</table>
+</p>
+<p>
 <b>Notes</b>
+<ol>
 <li>
 <p>
 In HVAC systems, when the fan is off, changes in atmospheric pressure can cause small air flow rates
@@ -888,6 +1018,17 @@ Technical Report, NREL/TP-581-43156, revised May 2008.
 </html>
 ", revisions="<html>
 <ul>
+<li>
+October 16, 2012, by Michael Wetter:<br>
+Added computation of the wet bulb temperature.
+Computing the wet bulb temperature introduces a nonlinear
+equation. As we have not observed an increase in computing time
+because of computing the wet bulb temperature, it is computed
+by default. By setting the parameter 
+<code>computeWetBulbTemperature=false</code>, the computation of the
+wet bulb temperature can be removed.
+Revised documentation.
+</li>
 <li>
 August 11, 2012, by Wangda Zuo:<br>
 Renamed <code>radHor</code> to <code>radHorIR</code> and 

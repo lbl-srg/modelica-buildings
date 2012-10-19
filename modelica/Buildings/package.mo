@@ -183,6 +183,25 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+
+
+
+<tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.BoundaryConditions.WeatherData.ReaderTMY3
+    </td>
+    <td valign=\"top\">Added computation of the wet bulb temperature.
+                       Computing the wet bulb temperature introduces a nonlinear
+                       equation. As we have not observed an increase in computing time
+                       because of computing the wet bulb temperature, it is computed
+                       by default. By setting the parameter 
+                       <code>computeWetBulbTemperature=false</code>, the computation of the
+                       wet bulb temperature can be removed.
+    </td>
+</tr>
+
 <tr><td colspan=\"2\"><b>Buildings.Controls</b>
     </td>
 </tr>
@@ -304,6 +323,11 @@ units are wrong or errors in documentation):
 <tr><td valign=\"top\">Buildings.Fluid.BaseClasses.FlowModels.Examples.InverseFlowFunction
     </td>
     <td valign=\"top\">Fixed error in the documentation.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger
+    </td>
+    <td valign=\"top\">Fixed broken link in the documentation.
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Fluid.Movers.BaseClasses.Characteristics.powerParameters
