@@ -677,5 +677,9 @@ First implementation.
 </li>
 </ul></HTML>"),
     __Dymola_experimentSetupOutput,
-    experiment);
+    experiment(
+      StartTime=1.30464e+07,
+      StopTime=1.36512e+07,
+      Tolerance=1e-06,
+      Algorithm="Radau"));
 end PrimaryOnlyWithEconomizer;
