@@ -189,7 +189,7 @@ This partial model is the base class for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed</a>
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.MultiStage\"> 
-Buildings.Fluid.HeatExchangers.DXCoils.MultiStage\</a> and
+Buildings.Fluid.HeatExchangers.DXCoils.MultiStage</a> and
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed</a>.
 </p>
