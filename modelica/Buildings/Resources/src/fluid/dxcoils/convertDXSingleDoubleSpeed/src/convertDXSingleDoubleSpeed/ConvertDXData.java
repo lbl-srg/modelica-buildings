@@ -60,15 +60,15 @@ public class ConvertDXData {
         Parser parser = new Parser();
         try {
             ParserResultObject result = parser.parseFile(fileName);
-            result.toMoDXSingleSpeedsFile("DXSingleSpeed.mo");
+            result.toMoDXSingleSpeedsFile("SingleSpeed.mo");
             if (result.cardinalDXSingleSpeedsDuplicatesFile(fileName) != 0) {
                 // the report file will be generated only if they are duplicates
                 // existing
-                result.dxSingleSpeedsDuplicates("DXSingleSpeed_Report.txt");
+                result.dxSingleSpeedsDuplicates("SingleSpeed_Report.txt");
             }
             ;
             
-            result.toMoDXDoubleSpeedsFile("DXDoubleSpeed.mo");
+            result.toMoDXDoubleSpeedsFile("DoubleSpeed.mo");
           /*
             if (result.cardinalDXDoubleSpeedsDuplicatesFile(fileName) != 0) {
                 // the report file will be generated only if they are duplicates
@@ -97,8 +97,8 @@ public class ConvertDXData {
      */
     static void printUsage() {
 
-        System.out
+        System.err
                 .println("To convert performance curves, run this program as");
-        System.out.println("java -jar ConvertDXData.jar inputFile.idf");
+        System.err.println("java -jar ConvertDXData.jar inputFile.idf");
     }
 }
