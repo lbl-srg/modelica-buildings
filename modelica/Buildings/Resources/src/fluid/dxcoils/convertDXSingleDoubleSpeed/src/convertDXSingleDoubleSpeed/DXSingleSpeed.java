@@ -109,7 +109,7 @@ public class DXSingleSpeed {
 
         stringHeaderBeginOfDXSingleSpeedObject
                 + "per = {" + "\n"
-                + "     Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(" + "\n"
+                + "     Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic( " + "spe=1800" + "\n"
                 + "     nomVal = "
                 + "Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(" + "\n"
                 + String.format(format, "", "Q_flow_nominal", "=      ", " "
