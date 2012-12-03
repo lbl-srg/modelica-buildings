@@ -294,29 +294,14 @@ class Simulator:
         # Copy directory
         shutil.copytree(os.path.abspath("."), worDir)
 
-
         # Construct the model instance with all parameter values
         # and the package redeclarations
         dec = list()
-        k=self.__parameters__.keys()
-        v=self.__parameters__.values()
-        nK=len(k)
-        for i in range(nK):
-            if isinstance(v[i], str):
-                dec.append('"' + k[i] + '=" + "' + str(v[i]) + '"')
-            else:
-                dec.append('"' + k[i] + '=" + String(' + str(v[i]) + ')')
+        for k, v in self.__parameters__.items():
+            dec.append('{param}={value}'.format(param=k, value=v))
+        dec.extend(self.__modelModifiers__)
 
-        nK=len(self.__modelModifiers__)
-        for i in range(nK):
-            dec.append('"' + self.__modelModifiers__[i] + '"')
-
-        mi='"' + self.modelName + '("'
-        for i in range(len(dec)):
-            mi += " + " + dec[i]
-            if i < len(dec)-1:
-                mi += ' + ","'
-        mi += ' + ")";\n'
+        mi = '"{mn}({dec})"'.format(mn=self.modelName, dec=','.join(dec))
 
         try:
             # Write the Modelica script
@@ -332,7 +317,7 @@ class Simulator:
             for prePro in self.__preProcessing__:
                 fil.write(prePro + '\n')
 
-            fil.write('modelInstance=' + mi + '\n')
+            fil.write('modelInstance=' + mi + ';\n')
             fil.write('simulateModel(modelInstance, ')
             fil.write('startTime=' + str(self.__simulator__.get('t0')) + \
                           ', stopTime='  + str(self.__simulator__.get('t1')) + \
