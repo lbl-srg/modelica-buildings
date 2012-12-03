@@ -302,7 +302,10 @@ class Simulator:
         v=self.__parameters__.values()
         nK=len(k)
         for i in range(nK):
-            dec.append('"' + k[i] + '=" + String(' + str(v[i]) + ')')
+            if isinstance(v[i], str):
+                dec.append('"' + k[i] + '=" + "' + str(v[i]) + '"')
+            else:
+                dec.append('"' + k[i] + '=" + String(' + str(v[i]) + ')')
 
         nK=len(self.__modelModifiers__)
         for i in range(nK):

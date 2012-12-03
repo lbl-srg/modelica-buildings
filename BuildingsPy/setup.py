@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name = "buildingspy",
-    version = "1.1.1",
+    version = "1.1.2",
     author = "Michael Wetter",
     author_email = "mwetter@lbl.gov",
     description = ("Package for running and post-processing models from the Modelica Buildings library"),
