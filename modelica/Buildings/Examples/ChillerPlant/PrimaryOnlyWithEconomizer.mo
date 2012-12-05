@@ -109,7 +109,8 @@ model PrimaryOnlyWithEconomizer
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
-    dpFixed_nominal=89580) "Control valve for condenser water loop of chiller"
+    dpFixed_nominal=89580,
+    filteredOpening=false) "Control valve for condenser water loop of chiller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -117,7 +118,8 @@ model PrimaryOnlyWithEconomizer
   Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
-    dpValve_nominal=20902)
+    dpValve_nominal=20902,
+    filteredOpening=false)
     "Bypass control valve for economizer. 1: disable economizer, 0: enable economoizer"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -149,7 +151,8 @@ model PrimaryOnlyWithEconomizer
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
-    dpFixed_nominal=14930 + 89580)
+    dpFixed_nominal=14930 + 89580,
+    filteredOpening=false)
     "Control valve for chilled water leaving from chiller" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
@@ -192,7 +195,8 @@ model PrimaryOnlyWithEconomizer
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
-    dpFixed_nominal=59720)
+    dpFixed_nominal=59720,
+    filteredOpening=false)
     "Control valve for condenser water loop of economizer" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -228,7 +232,8 @@ model PrimaryOnlyWithEconomizer
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
-    dpFixed_nominal=14930) "Bypass valve for chiller."
+    dpFixed_nominal=14930,
+    filteredOpening=false) "Bypass valve for chiller."
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
@@ -239,7 +244,8 @@ model PrimaryOnlyWithEconomizer
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
-    dpFixed_nominal=59720 + 1000)
+    dpFixed_nominal=59720 + 1000,
+    filteredOpening=false)
     "Control valve for economizer. 0: disable economizer, 1: enable economoizer"
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
@@ -567,7 +573,7 @@ equation
       smooth=Smooth.None,
       thickness=0.5));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-300},{400,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-300},{400,
             300}}), graphics),
     Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/PrimaryOnlyWithEconomizer.mos"
@@ -663,6 +669,10 @@ Taylor, S.T. (2007). Increasing Efficiency with VAV System Static Pressure Setpo
 </HTML>
 ", revisions="<html>
 <ul>
+<li>
+December 5, 2012, by Michael Wetter:<br>
+Removed the filtered speed calculation for the valves to reduce computing time by 25%.
+</li>
 <li>
 October 16, 2012, by Wangda Zuo:<br>
 Reimplemented the controls.
