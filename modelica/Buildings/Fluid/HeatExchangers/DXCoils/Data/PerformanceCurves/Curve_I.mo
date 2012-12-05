@@ -16,9 +16,9 @@ record Curve_I "Curve_I"
     ffMax=1.8);
   annotation (Documentation(info="<html>
 <p>
-This record has default performance curves coefficents with min-max range 
-for cooling capacity and EIR curve-fits obtained from ExampleFiles of EnergyPlus 7.1 
-(AirflowNetwork_MultiZone_House.idf). 
+This record declares performance curves for the cooling capacity and the EIR.
+It has been obtained from the EnergyPlus 7.1 example file
+<tt>AirflowNetwork_MultiZone_House.idf</tt>.
 </p>
 </html>",
 revisions="<html>

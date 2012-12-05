@@ -15,9 +15,11 @@ record Curve_III "Curve_III"
     ffMin = 0.5,
     ffMax = 1.5);
   annotation (defaultComponentName="per", Documentation(info="<html>
-This record has default performance curves coefficents with min-max range 
-for cooling capacity and EIR curve-fits obtained from ExampleFiles of EnergyPlus 7.1 
-(5ZoneAutoDXVAV.idf). 
+<p>
+This record declares performance curves for the cooling capacity and the EIR.
+It has been obtained from the EnergyPlus 7.1 example file
+<tt>5ZoneAutoDXVAV.idf</tt>.
+</p>
 </html>",
 revisions="<html>
 <ul>
