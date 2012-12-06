@@ -1,4 +1,4 @@
-stopTime=24*3600;
+stopTime=3600;
 simulateModel("Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples.TrimAndRespond", stopTime=stopTime, method="dassl", tolerance=1e-6, resultFile="TrimAndRespond");
 createPlot(id = 1,
  position = {10, 30, 719, 536},
@@ -14,7 +14,7 @@ createPlot(id = 1,
  bottomTitleType = 1);
 createPlot(id = 1,
  position = {10, 30, 719, 256},
-y = {"triAndRes.y"},
+y = {"triAndRes[1].y", "triAndRes[2].y", "triAndRes[3].y"},
  range = {0, stopTime, 80.0, 0},
  autoscale = true,
  autoerase = true,

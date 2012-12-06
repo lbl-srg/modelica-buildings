@@ -3,5 +3,6 @@ KMinusU
 LinearPiecewiseTwo
 RequestCounter
 TrimAndRespond
+TrimAndRespondContinuousTimeApproximation
 WSEControl
 Examples

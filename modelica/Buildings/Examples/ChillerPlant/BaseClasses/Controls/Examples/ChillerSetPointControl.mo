@@ -16,15 +16,10 @@ model ChillerSetPointControl
   parameter Real QRoo=100;
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond triAndRes(
     yEqu0=0.1,
-    yMax=1,
-    yMin=0,
-    nActDec=0,
-    nActInc=1,
-    n=1,
     uTri=0.8,
-    tSam=120,
     yDec=-0.03,
-    yInc=0.03)
+    yInc=0.03,
+    samplePeriod=120)
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo
     linPieTwo(
@@ -171,14 +166,6 @@ equation
       points={{104,34},{122,34},{122,88},{164,88}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(triAndRes.y, linPieTwo.u) annotation (Line(
-      points={{-79.3333,30},{-62,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(limPID.y, triAndRes.u[1]) annotation (Line(
-      points={{-139,30},{-101.333,30}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(const.y, limPID.u_s) annotation (Line(
       points={{-171,30},{-162,30}},
       color={0,0,127},
@@ -211,8 +198,16 @@ equation
       points={{-39,29.3},{-20,29.3},{-20,-8},{84,-8}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(limPID.y, triAndRes.u) annotation (Line(
+      points={{-139,30},{-120,30},{-120,30},{-102,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(triAndRes.y, linPieTwo.u) annotation (Line(
+      points={{-79,30},{-62,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-200},{200,
             200}}), graphics),
     Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/ChillerSetPointControl.mos"

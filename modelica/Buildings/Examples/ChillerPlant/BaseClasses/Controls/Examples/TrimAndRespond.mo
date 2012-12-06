@@ -8,32 +8,29 @@ model TrimAndRespond "Test model for TrimAndRespond"
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Sine act2(freqHz=0.001, offset=0.3)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond triAndRes(
-    n=3,
-    uTri=0.9,
-    yEqu0=0.1,
-    yMax=1,
-    yMin=0,
-    nActDec=0,
-    nActInc=1,
-    yDec=-0.01,
-    yInc=0.02,
-    tSam=20) annotation (Placement(transformation(extent={{0,20},{20,40}})));
+  Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond triAndRes[3](
+    each uTri=0.9,
+    each yEqu0=0.1,
+    each yDec=-0.01,
+    each yInc=0.02,
+    each samplePeriod=20) annotation (Placement(transformation(extent={{0,20},{20,40}})));
 equation
-  connect(act1.y, triAndRes.u[1]) annotation (Line(
-      points={{-59,70},{-50,70},{-50,29.1111},{-1.33333,29.1111}},
+  connect(act1.y, triAndRes[1].u) annotation (Line(
+      points={{-59,70},{-30,70},{-30,30},{-2,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(act2.y, triAndRes.u[2]) annotation (Line(
-      points={{-59,30},{-50,30},{-50,30},{-1.33333,30}},
+  connect(act2.y, triAndRes[2].u) annotation (Line(
+      points={{-59,30},{-2,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(act3.y, triAndRes.u[3]) annotation (Line(
-      points={{-59,-10},{-50,-10},{-50,30.8889},{-1.33333,30.8889}},
+  connect(act3.y, triAndRes[3].u) annotation (Line(
+      points={{-59,-10},{-30,-10},{-30,30},{-2,30}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
+            graphics),
     Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/TrimAndRespond.mos"
         "Simulate and plot"),

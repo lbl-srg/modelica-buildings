@@ -1,5 +1,5 @@
 within Buildings.Examples.ChillerPlant;
-model PrimaryOnlyWithEconomizer
+model DataCenterDiscreteTimeControl
   "Primary only chiller plant system with water-side economizer"
   extends Modelica.Icons.Example;
   package MediumAir = Buildings.Media.GasesPTDecoupled.SimpleAir "Medium model";
@@ -30,7 +30,7 @@ model PrimaryOnlyWithEconomizer
     m_flow(start=mAir_flow_nominal),
     T_start=293.15,
     filteredSpeed=false)
-    annotation (Placement(transformation(extent={{290,-235},{270,-215}})));
+    annotation (Placement(transformation(extent={{348,-235},{328,-215}})));
   Buildings.Fluid.HeatExchangers.DryCoilCounterFlow cooCoi(
     redeclare package Medium1 = MediumCHW,
     redeclare package Medium2 = MediumAir,
@@ -41,10 +41,11 @@ model PrimaryOnlyWithEconomizer
     m2_flow(start=mAir_flow_nominal),
     dp1_nominal(displayUnit="Pa") = 1000,
     dp2_nominal=249*3) "Cooling coil"
-    annotation (Placement(transformation(extent={{240,-185},{220,-165}})));
+    annotation (Placement(transformation(extent={{298,-185},{278,-165}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
-    "Mass flow rate of fan" annotation (Placement(transformation(extent={{240,-210},
-            {260,-190}}, rotation=0)));
+    "Mass flow rate of fan" annotation (Placement(transformation(extent={{298,
+            -210},{318,-190}},
+                         rotation=0)));
   BaseClasses.SimplifiedRoom roo(
     redeclare package Medium = MediumAir,
     nPorts=2,
@@ -55,7 +56,7 @@ model PrimaryOnlyWithEconomizer
     QRoo_flow=500000) "Room model" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={190,-238})));
+        origin={248,-238})));
   inner Modelica.Fluid.System system(T_ambient=283.15)
     annotation (Placement(transformation(extent={{-322,-151},{-302,-131}})));
   Fluid.Movers.FlowMachine_dp pumCHW(
@@ -67,10 +68,10 @@ model PrimaryOnlyWithEconomizer
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={160,-120})));
+        origin={218,-120})));
   Buildings.Fluid.Storage.ExpansionVessel expVesCHW(redeclare package Medium =
         MediumCHW, VTot=1) "Expansion vessel"
-    annotation (Placement(transformation(extent={{190,-147},{210,-127}})));
+    annotation (Placement(transformation(extent={{248,-147},{268,-127}})));
   Buildings.Fluid.HeatExchangers.CoolingTowers.YorkCalc cooTow(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
@@ -81,7 +82,7 @@ model PrimaryOnlyWithEconomizer
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={211,239})));
+        origin={269,239})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pumCW(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
@@ -90,12 +91,7 @@ model PrimaryOnlyWithEconomizer
         transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={300,200})));
-  Modelica.Blocks.Sources.Constant mCWFlo(k=mCW_flow_nominal)
-    "Flow rate of condenser water side" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={250,200})));
+        origin={358,200})));
   Buildings.Fluid.HeatExchangers.ConstantEffectiveness wse(
     redeclare package Medium1 = MediumCW,
     redeclare package Medium2 = MediumCHW,
@@ -104,17 +100,18 @@ model PrimaryOnlyWithEconomizer
     eps=0.8,
     dp2_nominal=0,
     dp1_nominal=0) "Water side economizer (Heat exchanger)"
-    annotation (Placement(transformation(extent={{68,83},{48,103}})));
+    annotation (Placement(transformation(extent={{126,83},{106,103}})));
   Fluid.Actuators.Valves.TwoWayLinear val5(
     redeclare package Medium = MediumCW,
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=89580,
+    y_start=1,
     filteredOpening=false) "Control valve for condenser water loop of chiller"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={160,180})));
+        origin={218,180})));
   Fluid.Actuators.Valves.TwoWayLinear val1(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
@@ -124,10 +121,10 @@ model PrimaryOnlyWithEconomizer
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={160,-40})));
+        origin={218,-40})));
   Buildings.Fluid.Storage.ExpansionVessel expVesChi(redeclare package Medium =
         MediumCW, VTot=1)
-    annotation (Placement(transformation(extent={{178,143},{198,163}})));
+    annotation (Placement(transformation(extent={{236,143},{256,163}})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl wseCon
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
@@ -137,7 +134,7 @@ model PrimaryOnlyWithEconomizer
     "Cooling tower approach" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={-210,-60})));
+        origin={-212,-20})));
   Fluid.Chillers.ElectricEIR chi(
     redeclare package Medium1 = MediumCW,
     redeclare package Medium2 = MediumCHW,
@@ -146,33 +143,31 @@ model PrimaryOnlyWithEconomizer
     dp2_nominal=0,
     dp1_nominal=0,
     per=Buildings.Fluid.Chillers.Data.ElectricEIR.ElectricEIRChiller_Carrier_19XR_742kW_5_42COP_VSD())
-    annotation (Placement(transformation(extent={{216,83},{196,103}})));
+    annotation (Placement(transformation(extent={{274,83},{254,103}})));
   Fluid.Actuators.Valves.TwoWayLinear val6(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=14930 + 89580,
+    y_start=1,
     filteredOpening=false)
     "Control valve for chilled water leaving from chiller" annotation (
       Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=270,
-        origin={300,40})));
+        origin={358,40})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch chiSwi(
       deaBan(displayUnit="K") = 2.2)
     "Control unit switching chiller on or off "
     annotation (Placement(transformation(extent={{-226,83},{-206,103}})));
-  Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond triAndRes(
-    yMax=1,
-    yMin=0,
-    nActDec=0,
-    nActInc=1,
-    n=1,
+  replaceable
+    Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond triAndRes(
     yEqu0=0,
-    tSam=120,
+    samplePeriod=120,
     uTri=0,
     yDec=-0.03,
-    yInc=0.03) "Trim and respond logic"
+    yInc=0.03) constrainedby Modelica.Blocks.Interfaces.BlockIcon
+    "Trim and respond logic"
     annotation (Placement(transformation(extent={{-160,190},{-140,210}})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo
     linPieTwo(
@@ -196,50 +191,52 @@ model PrimaryOnlyWithEconomizer
     m_flow_nominal=mCW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=59720,
+    y_start=0,
     filteredOpening=false)
     "Control valve for condenser water loop of economizer" annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
-        origin={40,180})));
+        origin={98,180})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TAirSup(redeclare package Medium
       = MediumAir, m_flow_nominal=mAir_flow_nominal)
     "Supply air temperature to data center" annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={230,-225})));
+        origin={288,-225})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWEntChi(redeclare package
       Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal)
     "Temperature of chilled water entering chiller" annotation (Placement(
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={160,0})));
+        origin={218,0})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCWLeaTow(redeclare package Medium
       = MediumCW, m_flow_nominal=mCW_flow_nominal)
     "Temperature of condenser water leaving the cooling tower"      annotation (
      Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={272,119})));
+        origin={330,119})));
   Modelica.Blocks.Sources.Constant cooTowFanCon(k=1)
     "Control singal for cooling tower fan" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={172,271})));
+        origin={230,271})));
   Fluid.Actuators.Valves.TwoWayEqualPercentage valByp(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dpValve_nominal=20902,
     dpFixed_nominal=14930,
+    y_start=0,
     filteredOpening=false) "Bypass valve for chiller."
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
-        origin={230,20})));
+        origin={288,20})));
   Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU KMinusU(k=1)
-    annotation (Placement(transformation(extent={{-60,50},{-40,70}})));
+    annotation (Placement(transformation(extent={{-60,28},{-40,48}})));
   Fluid.Actuators.Valves.TwoWayLinear val3(
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
@@ -250,7 +247,7 @@ model PrimaryOnlyWithEconomizer
     annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=0,
-        origin={60,-60})));
+        origin={118,-60})));
   Buildings.Fluid.Sensors.TemperatureTwoPort TCHWLeaCoi(redeclare package
       Medium = MediumCHW, m_flow_nominal=mCHW_flow_nominal)
     "Temperature of chilled water leaving the cooling coil"
@@ -258,7 +255,7 @@ model PrimaryOnlyWithEconomizer
         transformation(
         extent={{10,10},{-10,-10}},
         rotation=270,
-        origin={160,-80})));
+        origin={218,-80})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaData(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-360,-100},{-340,-80}})));
@@ -268,64 +265,67 @@ model PrimaryOnlyWithEconomizer
     redeclare package Medium = MediumCHW,
     m_flow_nominal=mCHW_flow_nominal,
     dp_nominal=89580)
-    annotation (Placement(transformation(extent={{270,-170},{290,-150}})));
+    annotation (Placement(transformation(extent={{328,-170},{348,-150}})));
   Modelica.Blocks.Math.Gain gain(k=20*6485)
     annotation (Placement(transformation(extent={{-60,90},{-40,110}})));
   Modelica.Blocks.Math.Feedback feedback
     annotation (Placement(transformation(extent={{-210,190},{-190,210}})));
+  Modelica.Blocks.Logical.GreaterThreshold greaterThreshold
+    annotation (Placement(transformation(extent={{-10,190},{10,210}})));
+  Modelica.Blocks.Logical.Or or1
+    annotation (Placement(transformation(extent={{20,190},{40,210}})));
+  Modelica.Blocks.Math.BooleanToReal mCWFlo(realTrue=mCW_flow_nominal)
+    "Mass flow rate of condensor loop"
+    annotation (Placement(transformation(extent={{60,190},{80,210}})));
 equation
   connect(expVesCHW.port_a, cooCoi.port_b1) annotation (Line(
-      points={{200,-147},{200,-169},{220,-169}},
+      points={{258,-147},{258,-169},{278,-169}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(expTowTApp.y, wseCon.towTApp) annotation (Line(
-      points={{-199,-60},{-178,-60},{-178,-36.6},{-160.8,-36.6}},
+      points={{-201,-20},{-178,-20},{-178,-32.75},{-162,-32.75}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(chiSwi.y, chiCon.u) annotation (Line(
-      points={{-205,92.4},{-196,92.4},{-196,50},{-162,50}},
+      points={{-205,92.4},{-182,92.4},{-182,50},{-162,50}},
       color={255,0,255},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(cooTow.port_b, pumCW.port_a) annotation (Line(
-      points={{221,239},{300,239},{300,210}},
+      points={{279,239},{358,239},{358,210}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
-  connect(pumCW.m_flow_in, mCWFlo.y) annotation (Line(
-      points={{288,200.2},{261,200.2},{261,200}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
   connect(val5.port_a, chi.port_b1) annotation (Line(
-      points={{160,170},{160,99},{196,99}},
+      points={{218,170},{218,99},{254,99}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(expVesChi.port_a, chi.port_b1) annotation (Line(
-      points={{188,143},{188,99},{196,99}},
+      points={{246,143},{246,99},{254,99}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(val4.port_a, wse.port_b1) annotation (Line(
-      points={{40,170},{40,99},{48,99}},
+      points={{98,170},{98,99},{106,99}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(chiSwi.y, chi.on) annotation (Line(
-      points={{-205,92.4},{-170,92.4},{-170,129},{234,129},{234,96},{218,96}},
+      points={{-205,92.4},{-182,92.4},{-182,129},{276,129},{276,96}},
       color={255,0,255},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(linPieTwo.y[2], chi.TSet) annotation (Line(
-      points={{-99,200.3},{-64,200.3},{-64,125},{226,125},{226,90},{218,90}},
+      points={{-99,200.3},{-82,200},{-82,200},{-64,200},{-64,125},{284,125},{
+          284,90},{276,90}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(chiCon.y, val5.y) annotation (Line(
-      points={{-139,50},{-80,50},{-80,40},{140,40},{140,180},{148,180}},
+      points={{-139,50},{-80,50},{-80,60},{196,60},{196,180},{206,180}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -336,114 +336,114 @@ equation
       pattern=LinePattern.Dash));
 
   connect(cooTowFanCon.y, cooTow.y) annotation (Line(
-      points={{183,271},{192,271},{192,247},{199,247}},
+      points={{241,271},{250,271},{250,247},{257,247}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(cooCoi.port_b2, fan.port_a) annotation (Line(
-      points={{240,-181},{301,-181},{301,-225},{290,-225}},
+      points={{298,-181},{359,-181},{359,-225},{348,-225}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(mFanFlo.y, fan.m_flow_in) annotation (Line(
-      points={{261,-200},{280.2,-200},{280.2,-213}},
+      points={{319,-200},{338.2,-200},{338.2,-213}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
 
   connect(wse.port_a2, val3.port_b) annotation (Line(
-      points={{48,87},{40,87},{40,-60},{50,-60}},
+      points={{106,87},{98,87},{98,-60},{108,-60}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(wseCon.y2, val1.y) annotation (Line(
-      points={{-139.6,-35.24},{134,-35.24},{134,-40},{148,-40}},
+      points={{-139,-34},{134,-34},{134,-40},{206,-40}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(wseCon.y1, val3.y) annotation (Line(
-      points={{-139.6,-24.6},{0,-24.6},{0,-40},{60,-40},{60,-48}},
+      points={{-139,-24},{58,-24},{58,-40},{118,-40},{118,-48}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(wseCon.y1, val4.y) annotation (Line(
-      points={{-139.6,-24.6},{0,-24.6},{0,180},{28,180}},
+      points={{-139,-24},{-20,-24},{-20,180},{86,180}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TAirSup.port_a, fan.port_b) annotation (Line(
-      points={{240,-225},{270,-225}},
+      points={{298,-225},{328,-225}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(roo.airPorts[1],TAirSup. port_b) annotation (Line(
-      points={{188.15,-228},{188.15,-225},{220,-225}},
+      points={{246.15,-228},{246.15,-225},{278,-225}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(roo.airPorts[2], cooCoi.port_a2) annotation (Line(
-      points={{191.85,-228},{191.85,-225},{160,-225},{160,-181},{220,-181}},
+      points={{249.85,-228},{249.85,-225},{218,-225},{218,-181},{278,-181}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(TCHWLeaCoi.port_a, pumCHW.port_b)
                                            annotation (Line(
-      points={{160,-90},{160,-110}},
+      points={{218,-90},{218,-110}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(TCHWEntChi.port_b, valByp.port_a)
                                          annotation (Line(
-      points={{160,10},{160,20},{220,20}},
+      points={{218,10},{218,20},{278,20}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(TCHWEntChi.port_a, val1.port_b)
                                          annotation (Line(
-      points={{160,-10},{160,-30}},
+      points={{218,-10},{218,-30}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(val1.port_a, TCHWLeaCoi.port_b)
                                          annotation (Line(
-      points={{160,-50},{160,-70}},
+      points={{218,-50},{218,-70}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(val3.port_a, TCHWLeaCoi.port_b)
                                          annotation (Line(
-      points={{70,-60},{160,-60},{160,-70}},
+      points={{128,-60},{218,-60},{218,-70}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(TCWLeaTow.port_b, chi.port_a1)
                                         annotation (Line(
-      points={{262,119},{242,119},{242,99},{216,99}},
+      points={{320,119},{300,119},{300,99},{274,99}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(TCWLeaTow.port_b, wse.port_a1)
                                         annotation (Line(
-      points={{262,119},{80,119},{80,99},{68,99}},
+      points={{320,119},{138,119},{138,99},{126,99}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(TCHWEntChi.T, chiSwi.chiCHWST)
                                         annotation (Line(
-      points={{149,1.40998e-15},{-244,1.40998e-15},{-244,100},{-227,100}},
+      points={{207,1.40998e-15},{-18,0},{-18,0},{-242,-2},{-242,100},{-227,100}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(wseCon.wseCWST, TCWLeaTow.T)
                                       annotation (Line(
-      points={{-160.8,-21.4},{-296,-21.4},{-296,289},{328,289},{328,133},{272,
-          133},{272,130}},
+      points={{-162,-37.625},{-300,-37.625},{-300,290},{380,290},{380,137},{330,
+          137},{330,130}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(wseCon.wseCHWST, TCHWLeaCoi.T)
                                         annotation (Line(
-      points={{-160.8,-27},{-234,-27},{-234,-80},{149,-80}},
+      points={{-162,-22.75},{-176,-22.75},{-176,-80},{207,-80}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -456,7 +456,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(wseCon.TWetBul, weaBus.TWetBul) annotation (Line(
-      points={{-160.8,-32.6},{-322,-32.6},{-322,-88}},
+      points={{-162,-29},{-322,-29},{-322,-88}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash), Text(
@@ -464,7 +464,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   connect(cooTow.TAir, weaBus.TWetBul) annotation (Line(
-      points={{199,243},{24,243},{24,268},{-322,268},{-322,-88}},
+      points={{257,243},{82,243},{82,268},{-322,268},{-322,-88}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash), Text(
@@ -473,57 +473,57 @@ equation
       extent={{6,3},{6,3}}));
   connect(TCHWEntChi.port_a, wse.port_b2)
                                          annotation (Line(
-      points={{160,-10},{160,-20},{80,-20},{80,87},{68,87}},
+      points={{218,-10},{218,-20},{138,-20},{138,87},{126,87}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(valByp.port_b, val6.port_b)
                                     annotation (Line(
-      points={{240,20},{300,20},{300,30}},
+      points={{298,20},{358,20},{358,30}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(TCHWEntChi.port_b, chi.port_a2)
                                          annotation (Line(
-      points={{160,10},{160,88},{196,88},{196,87}},
+      points={{218,10},{218,88},{254,88},{254,87}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(val5.port_b, cooTow.port_a) annotation (Line(
-      points={{160,190},{160,239},{201,239}},
+      points={{218,190},{218,239},{259,239}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(val4.port_b, cooTow.port_a) annotation (Line(
-      points={{40,190},{40,239},{201,239}},
+      points={{98,190},{98,239},{259,239}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(pumCW.port_b, TCWLeaTow.port_a)
                                          annotation (Line(
-      points={{300,190},{300,119},{282,119}},
+      points={{358,190},{358,119},{340,119}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
 
   connect(cooCoi.port_a1, res.port_a) annotation (Line(
-      points={{240,-169},{260,-169},{260,-160},{270,-160}},
+      points={{298,-169},{318,-169},{318,-160},{328,-160}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(chiCon.y, KMinusU.u) annotation (Line(
-      points={{-139,50},{-80,50},{-80,60},{-61.8,60}},
+      points={{-139,50},{-80,50},{-80,38},{-61.8,38}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(KMinusU.y, valByp.y)
                              annotation (Line(
-      points={{-39,60},{230,60},{230,32}},
+      points={{-39,38},{288,38},{288,32}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(chiCon.y, val6.y) annotation (Line(
-      points={{-139,50},{-80,50},{-80,40},{288,40}},
+      points={{-139,50},{-80,50},{-80,60},{338,60},{338,40},{346,40}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -533,18 +533,13 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(gain.y, pumCHW.dp_in) annotation (Line(
-      points={{-39,100},{20,100},{20,-120.2},{148,-120.2}},
+      points={{-39,100},{20,100},{20,-120.2},{206,-120.2}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
 
   connect(triAndRes.y, linPieTwo.u) annotation (Line(
-      points={{-139.333,200},{-122,200}},
-      color={0,0,127},
-      smooth=Smooth.None,
-      pattern=LinePattern.Dash));
-  connect(feedback.y, triAndRes.u[1]) annotation (Line(
-      points={{-191,200},{-161.333,200}},
+      points={{-139,200},{-122,200}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
@@ -554,118 +549,69 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(TAirSup.T, feedback.u1) annotation (Line(
-      points={{230,-214},{230,-190},{-258,-190},{-258,200},{-208,200}},
+      points={{288,-214},{288,-202},{-264,-202},{-264,200},{-208,200}},
       color={0,0,127},
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(chi.port_b2, val6.port_a) annotation (Line(
-      points={{216,87},{300,87},{300,50}},
+      points={{274,87},{358,87},{358,50}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
   connect(res.port_b, val6.port_b) annotation (Line(
-      points={{290,-160},{300,-160},{300,30}},
+      points={{348,-160},{358,-160},{358,30}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(pumCHW.port_a, cooCoi.port_b1) annotation (Line(
-      points={{160,-130},{160,-160},{200,-160},{200,-169},{220,-169}},
+      points={{218,-130},{218,-160},{258,-160},{258,-169},{278,-169}},
       color={0,127,255},
       smooth=Smooth.None,
       thickness=0.5));
+  connect(feedback.y, triAndRes.u) annotation (Line(
+      points={{-191,200},{-162,200}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(greaterThreshold.u, wseCon.y1) annotation (Line(
+      points={{-12,200},{-20,200},{-20,-24},{-139,-24}},
+      color={0,0,127},
+      smooth=Smooth.None,
+      pattern=LinePattern.Dash));
+  connect(or1.u1, greaterThreshold.y) annotation (Line(
+      points={{18,200},{11,200}},
+      color={255,0,255},
+      pattern=LinePattern.Dash,
+      smooth=Smooth.None));
+  connect(or1.u2, chiSwi.y) annotation (Line(
+      points={{18,192},{18,192},{16,192},{16,192},{12,192},{12,128},{-182,128},
+          {-182,92},{-205,92},{-205,92.4}},
+      color={255,0,255},
+      pattern=LinePattern.Dash,
+      smooth=Smooth.None));
+  connect(or1.y, mCWFlo.u) annotation (Line(
+      points={{41,200},{58,200}},
+      color={255,0,255},
+      pattern=LinePattern.Dash,
+      smooth=Smooth.None));
+  connect(mCWFlo.y, pumCW.m_flow_in) annotation (Line(
+      points={{81,200},{218,200},{218,200.2},{346,200.2}},
+      color={0,0,127},
+      pattern=LinePattern.Dash,
+      smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-300},{400,
             300}}), graphics),
     Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/PrimaryOnlyWithEconomizer.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenterDiscreteTimeControl.mos"
         "Simulate and plot"),
     Icon(graphics),
     Documentation(info="<HTML>
-<h4>System Configuration</h4>
-<p>This example demonstrates the implementation of a chiller plant with water-side economizer (WSE) to cool a data center.
-The system schematics is as shown below.
-</p>
-<p align=\"center\">
-<img src=\"modelica://Buildings/Resources/Images/Examples/ChillerPlant/chillerSchematics.png\" border=\"1\">
-</p>
 <p>
-The system is a primary-only chiller plant with integrated WSE.
-The objective was to improve the energy efficiency of the chilled water plant by optimizing the control setpoints. 
-The room of the data center was modeled using a mixed air volume with a heat source. 
-Heat conduction and air infiltration through the building envelope were neglected since the heat exchange between the room and the ambient environment was small compared to the heat released by the computers.
+This model is the chilled water plant with discrete time control and
+trim and response logic for a data center. The model is described at
+<a href=\"Buildings.Examples.ChillerPlant\">
+Buildings.Examples.ChillerPlant</a>.
 </p>
-<p>
-The control objective was to maintain the temperature of the supply air to the room, while reducing energy consumption of the chilled water plant.
-The control was based on the control sequence proposed by Stein (2009). 
-To simplify the implementation, we only applied the controls for the differential pressure of the chilled water loop, the setpoint temperature of the chilled water leaving the chiller, and the chiller and WSE on/off control.
-</p>
-<h4>Enabling/Disabling the WSE</h4>
-<p>
-The WSE is enabled when
-<ol>
-<li>The WSE has been disabled for at least 20 minutes, and</li>
-<li align=\"left\" style=\"font-style:italic;\">
-  T<sub>ws</sub> &gt; 0.9 T<sub>wet</sub> + &Delta;T<sub>t</sub> + &Delta;T<sub>w</sub> </li>
-</ol>
-where <i>T<sub>ws</sub></i> is the temperature of chilled water leaving the cooling coil, 
-<i>T<sub>wet</sub></i> is the wet bulb temperature, 
-<i>&Delta;T<sub>t</sub></i> is the temperature difference between the water leaving the cooling tower and the air entering the cooling tower, 
-<i>&Delta;T<sub>w</sub></i> is the temperature difference between the chilled water leaving the WSE and the condenser water entering the WSE.
-<br/>
-<br/>
-The WSE is disabled when
-<ol>
-<li>The WSE has been enabled for at least 20 minutes, and</li>
-<li align=\"left\" style=\"font-style:italic;\">
-  T<sub>ws</sub> &lt; T<sub>wc</sub> + &Delta;T<sub>wse,off</sub> </li>
-</li>
-</ol>
-where <i>T<sub>wc</sub></i> is the temperature of condenser water leaving the cooling tower,  <i>&Delta;T<sub>wse,off</sub> = 0.6 K</i> is the offset temperature.
-</p> 
-
-<h4>Enabling/Disabling the Chiller</h4>
-<p>
-The control strategy is as follows:<ul>
-<li>The chiller is enabled when 
-<i>
-  T<sub>chw,ent</sub> &gt; T<sub>chi,set</sub> + &Delta;T<sub>chi,ban</sub> </i>
-<li>The chiller is disabled when 
-<i>
-  T<sub>chw,ent</sub> &le; T<sub>chi,set</sub></i>
-</li>
-</ul>
-where <i>T<sub>chw,ent</sub></i> is the tempearture of chilled water entering the chiller, <i>T<sub>chi,set</sub></i> is the setpoint temperature of the chilled water leaving the chiller, and <i>&Delta;T<sub>chi,ban</sub></i> is the dead-band to prevent short cycling. 
-</p>
-<h4>Setpoint Reset</h4>
-<p>
-The setpoint reset strategy is to first increase the different pressure, <i>&Delta;p</i>, of the chilled water loop to increase the mass flow rate. 
-If <i>&Delta;p</i> reaches the maximum value and further cooling is still needed, the chiller remperature setpoint, <i>T<sub>chi,set</sub></i>, is reduced.
-If there is too much cooling, the <i>T<sub>chi,set</sub></i> and <i>&Delta;p</i>  will be changed in the reverse direction.
-This strategy is realized by using a trim and respond logic as follows:
-<ul>
-<li>A cooling request is triggered if the input signal, <i>y</i>, is larger than 0. 
-<i>y</i> is the difference between the actual and set temperature of the suppuly air to the data center room.</li>
-<li>The request is sampled every 2 minutes. If there is a cooling request, the control signal <i>u</i> is increased by <i>0.03</i>, where <i>0 &le; u &le; 1</i>. 
-If there is no cooling request,  <i>u</i> is decreased by <i>0.03</i>. </li>
-</ul>
-<br/>
-The control singal <i>u</i> is converted to setpoints for <i>&Delta;p</i> and <i>T<sub>chi,set</sub></i> as follows:
-<ul>
-<li>
-If <i>u &isin; [0, x]</i> then <i>&Delta;p = &Delta;p<sub>min</sub> + u &nbsp;(&Delta;p<sub>max</sub>-&Delta;p<sub>min</sub>)/x</i>
-and <i>T = T<sub>max</sub></i></li>
-<li>
-If <i>u &isin; (x, 1]</i> then <i>&Delta;p = &Delta;p<sub>max</sub></i>
-and
-<i>T = T<sub>max</sub> - (u-x)&nbsp;(T<sub>max</sub>-T<sub>min</sub>)/(1-x)
-</i></li>
-</ul>
-where <i>&Delta;p<sub>min</sub></i> and <i>&Delta;p<sub>max</sub></i> are minimum and maximum values for <i>&Delta;p</i>,
-and <i>T<sub>min</sub></i> and <i>T<sub>max</sub></i> are the minimum and maximum values for <i>T<sub>chi,set</sub></i>.
-
-</p>
-<h4>Reference</h4>
-Stein, J. (2009). Waterside Economizing in Data Centers: Design and Control Considerations. ASHRAE Transactions, 115(2), 192-200.<br>
-Taylor, S.T. (2007). Increasing Efficiency with VAV System Static Pressure Setpoint Reset. ASHRAE Journal, June, 24-32.
 </HTML>
 ", revisions="<html>
 <ul>
@@ -685,11 +631,12 @@ Added comments and merge to library.
 January 18, 2011, by Wangda Zuo:<br>
 First implementation.
 </li>
-</ul></HTML>"),
+</ul>
+</html>"),
     __Dymola_experimentSetupOutput,
     experiment(
       StartTime=1.30464e+07,
       StopTime=1.36512e+07,
       Tolerance=1e-06,
       Algorithm="Radau"));
-end PrimaryOnlyWithEconomizer;
+end DataCenterDiscreteTimeControl;

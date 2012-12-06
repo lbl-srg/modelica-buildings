@@ -144,6 +144,16 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl
+    </td>
+    <td valign=\"top\">Added chilled water plant model with continuous time control that
+                       replaces the discrete time control in 
+                       <code>Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</code>.
+    </td> 
+    </tr>
 <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
     </td>
 </tr>
@@ -272,12 +282,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Examples.ChillerPlant.PrimaryOnlyWithEconomizer<br> 
+<tr><td valign=\"top\">Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl<br> 
                        Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond<br>
                        Buildings.Examples.ChillerPlant.BaseClasses.Controls.ZeroOrderHold
     </td>
     <td valign=\"top\">Re-implemented the controls for setpoint reset. 
-    Revised the model <code>TrimAndRespond</code> and deleted the model <code>ZeroOrderHold</code> according to the new control.
+    Revised the model <code>TrimAndRespond</code> and deleted the model <code>ZeroOrderHold</code>.
     Improved the documentation.
     </td>
 </tr>
@@ -292,7 +302,7 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Examples.ChillerPlant.PrimaryOnlyWithEconomizer
+<tr><td valign=\"top\">Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl
     </td>
     <td valign=\"top\">Fixed error in wet bulb temperature. The previous version used
                      a model to compute the wet bulb temperature that takes as an
