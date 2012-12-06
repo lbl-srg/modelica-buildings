@@ -276,7 +276,7 @@ However, when the medium model is changed to a model that models
 `Buildings.Media.ConstantPropertyLiquidWater <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater>`_,
 then the density is constant. Consequently, there is no equation that 
 can be used to compute the pressure based on the volume. 
-In this situation, trying to translate the model leads in Dymola to the error message:
+In this situation, trying to translate the model leads, in Dymola, to this error message:
 
 .. code-block:: none
 
@@ -336,7 +336,7 @@ parameters in various model to help the user understand how they are used.
 +---------------------+---------------------------+--------------------------------------------------------------------------+
 | Parameter           | Model                     | Functionality                                                            |
 +=====================+===========================+==========================================================================+
-| ``m_flow_nominal``  | | Flow resistance models. | These parameter may be used to define a point on the flow rate           |
+| ``m_flow_nominal``  | | Flow resistance models. | These parameters may be used to define a point on the flow rate           |
 | ``dp_nominal``      |                           | versus pressure drop curve. For other mass flow rates, the pressure drop |
 |                     |                           | is typically adjusted using similarity laws.                             |
 |                     |                           | See FixedResistanceDpM_.                                                 |

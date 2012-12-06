@@ -125,7 +125,7 @@ then the valve will compute the composite flow coefficient
 
 where :math:`k_v(y) = \dot m(y)/\sqrt{\Delta p}` is the flow coefficient of the valve at the lift :math:`y`, and
 :math:`k_f` is equal to the ratio ``m_flow_nominal/sqrt(dpFixed_nominal)``.
-The valve model then computes the pressure drop using :math:`\bar k` and the same equations as the described above for the fixed resistances.
+The valve model then computes the pressure drop using :math:`\bar k` and the same equations as described above for the fixed resistances.
 Thus, the composite model has the same :term:`valve authority` and mass flow rate, but a nonlinear equation can be avoided.
 
 For more details, see the

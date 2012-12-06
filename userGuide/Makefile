@@ -74,6 +74,21 @@ latex:
 	@echo "Run \`make all-pdf' or \`make all-ps' in that directory to" \
 	      "run these through (pdf)latex."
 
+odt:
+	mkdir -p build/odt
+	touch /tmp/tmpUserGuide.rst
+	cat source/gettingStarted.rst > /tmp/tmpUserGuide.rst
+	cat source/bestPractice.rst >> /tmp/tmpUserGuide.rst
+	cat source/workArounds.rst >> /tmp/tmpUserGuide.rst
+	cat source/prePostProcessing.rst >> /tmp/tmpUserGuide.rst
+	cat source/development.rst >> /tmp/tmpUserGuide.rst
+	cat source/help.rst >> /tmp/tmpUserGuide.rst
+	cat source/glossary.rst >> /tmp/tmpUserGuide.rst
+	cat source/acknowledgments.rst >> /tmp/tmpUserGuide.rst
+	sed -e 's/.. highlight:: rest//g' -i /tmp/tmpUserGuide.rst
+	sed -e 's/.. code-block:: modelica/.. code-block::/g'  -i /tmp/tmpUserGuide.rst
+	rst2odt /tmp/tmpUserGuide.rst build/odt/userGuide.odt
+
 changes:
 	$(SPHINXBUILD) -b changes $(ALLSPHINXOPTS) $(BUILDDIR)/changes
 	@echo

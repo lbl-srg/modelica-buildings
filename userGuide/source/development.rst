@@ -10,7 +10,7 @@ Contributing
 We welcome contributions of new models and suggestions for how to improve the library.
 Models that are contributed need to follow the following guidelines, as this is needed to integrate them in the library, make them accessible to users and further maintain them:
 
- * They should be of general interest also to other users and well documented and tested.
+ * They should be of general interest to other users and well documented and tested.
  * They need to follow the coding conventions described in
 
   - the `Buildings library user guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_,
@@ -20,7 +20,7 @@ Models that are contributed need to follow the following guidelines, as this is 
  * They need to be made available under the `Modelica license <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License>`_.
  * For models of fluid flow components, they need to be based on the base classes in `Buildings.Fluid.Interfaces <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html>`_, which are described in the `user guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ of this package. Otherwise, it becomes difficult to ensure that the implementation is numerically robust.
 
-The web site for the development of the library is https://corbu.lbl.gov/trac/bie
+The website for the development of the library is https://corbu.lbl.gov/trac/bie
 
 
 Adding a new class
@@ -84,18 +84,20 @@ the equation by a linear model of the form
 .. note::
 
    Equations for pressure drop are implemented as a function of mass flow rate
-   and not volume flow rate. This allows to decouple for some models
+   and not volume flow rate. For some models, this allows decoupling
    the mass flow balance from the energy balance.
    Otherwise, computing the mass flow distribution would require knowledge
    of the density, which may depend on temperature, and temperature is only
    known after solving the energy balance.
 
-When implementing the pressure drop model, also provide means
+When implementing the pressure drop model, also provide means to
 
-1. to use homotopy, which should be used by default, and
-2. to disable the pressure drop model.
+1. use homotopy, which should be used by default, and
+2. disable the pressure drop model.
 
-Disabling the pressure drop model allows for example a user to 
+Disabling the pressure drop model allows, for example, a user to 
 set in a series connection of a heating coil and a cooling coil
-to lump the pressure drop of the heating coil into the model of the 
-cooling coil. This often reduces the size of the system of nonlinear equations.
+the pressure drop of the heating coil to zero, and
+to lump the pressure drop of the heating coil into the pressure drop model 
+of the cooling coil. 
+This often reduces the size of the system of nonlinear equations.

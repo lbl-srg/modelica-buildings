@@ -13,7 +13,7 @@ The user guide covers how to
 - get started,
 - follow best practices when createing models and running simulations,
 - fix common problems in translating or simulating models,
-- pre- and post-process model input and output,
+- automate pre- and post-processing of model inputs and outputs,
 - develop and contribute new models to the library, and
 - get help.
 

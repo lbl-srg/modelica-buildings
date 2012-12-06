@@ -18,7 +18,7 @@ Links to papers that describe or used the `Buildings` library are available at h
 Literature for Developers
 -------------------------
 
-It is essential for the users who develop new thermo-fluid models to  understand the concept of stream connectors. Stream connectors are explained in the Modelica language definition, available at https://www.modelica.org/documents, and in the paper Franke et al. [Fra2009a]_. 
+It is essential that users who develop new thermo-fluid models to  understand the concept of stream connectors. Stream connectors are explained in the Modelica language definition, available at https://www.modelica.org/documents, and in the paper Franke et al. [Fra2009a]_. 
 The `Buildings` library uses similar modeling principles, and the same base classes, as the `Modelica.Fluid` library. Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.
 
 
