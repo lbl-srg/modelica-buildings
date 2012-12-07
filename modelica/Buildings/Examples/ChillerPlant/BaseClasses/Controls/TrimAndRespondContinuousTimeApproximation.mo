@@ -4,13 +4,13 @@ block TrimAndRespondContinuousTimeApproximation "Trim and respond logic"
   extends Modelica.Blocks.Interfaces.SISO;
 
   Buildings.Controls.Continuous.LimPID conPID(
-    controllerType=Modelica.Blocks.Types.SimpleController.PI,
-    Ti=120,
     Td=1,
     yMax=1,
     yMin=0,
     reverseAction=true,
-    k=1)       annotation (Placement(transformation(extent={{-20,40},{0,60}})));
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    Ti=120,
+    k=0.1)     annotation (Placement(transformation(extent={{-20,40},{0,60}})));
   Modelica.Blocks.Sources.Constant const(k=0)
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
 equation

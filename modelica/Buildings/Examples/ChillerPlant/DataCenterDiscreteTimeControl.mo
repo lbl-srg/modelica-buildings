@@ -36,11 +36,11 @@ model DataCenterDiscreteTimeControl
     redeclare package Medium2 = MediumAir,
     m2_flow_nominal=mAir_flow_nominal,
     m1_flow_nominal=mCHW_flow_nominal,
-    UA_nominal=1e6,
     m1_flow(start=mCHW_flow_nominal),
     m2_flow(start=mAir_flow_nominal),
     dp1_nominal(displayUnit="Pa") = 1000,
-    dp2_nominal=249*3) "Cooling coil"
+    dp2_nominal=249*3,
+    UA_nominal=mAir_flow_nominal*1006*5) "Cooling coil"
     annotation (Placement(transformation(extent={{298,-185},{278,-165}})));
   Modelica.Blocks.Sources.Constant mFanFlo(k=mAir_flow_nominal)
     "Mass flow rate of fan" annotation (Placement(transformation(extent={{298,
@@ -277,6 +277,23 @@ model DataCenterDiscreteTimeControl
   Modelica.Blocks.Math.BooleanToReal mCWFlo(realTrue=mCW_flow_nominal)
     "Mass flow rate of condensor loop"
     annotation (Placement(transformation(extent={{60,190},{80,210}})));
+  Modelica.Blocks.Sources.RealExpression PHVAC(y=fan.PEle + pumCHW.PEle + pumCW.PEle
+         + cooTow.PFan + chi.P) "Power consumed by HVAC system"
+                             annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-290,-250})));
+  Modelica.Blocks.Sources.RealExpression PIT(y=roo.QSou.Q_flow)
+    "Power consumed by IT"   annotation (Placement(transformation(
+        extent={{-10,-10},{10,10}},
+        rotation=0,
+        origin={-290,-280})));
+  Modelica.Blocks.Continuous.Integrator EHVAC(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0) "Energy consumed by HVAC"
+    annotation (Placement(transformation(extent={{-240,-260},{-220,-240}})));
+  Modelica.Blocks.Continuous.Integrator EIT(initType=Modelica.Blocks.Types.Init.InitialState,
+      y_start=0) "Energy consumed by IT"
+    annotation (Placement(transformation(extent={{-240,-290},{-220,-270}})));
 equation
   connect(expVesCHW.port_a, cooCoi.port_b1) annotation (Line(
       points={{258,-147},{258,-169},{278,-169}},
@@ -597,6 +614,14 @@ equation
       points={{81,200},{218,200},{218,200.2},{346,200.2}},
       color={0,0,127},
       pattern=LinePattern.Dash,
+      smooth=Smooth.None));
+  connect(PHVAC.y, EHVAC.u) annotation (Line(
+      points={{-279,-250},{-242,-250}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(PIT.y, EIT.u) annotation (Line(
+      points={{-279,-280},{-242,-280}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-300},{400,
