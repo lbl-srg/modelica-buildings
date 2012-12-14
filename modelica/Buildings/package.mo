@@ -297,7 +297,10 @@ have been <b style=\"color:blue\">improved</b> in a
                      Buildings.Fluid.Storage.BaseClasses.Buoyancy<br>
                      Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange
     </td>
-    <td valign=\"top\">Renamed protected parameters for consistency with naming convention.
+    <td valign=\"top\">Renamed protected parameters for consistency with the naming conventions.
+                     In previous releases, fluid properties had the suffix <code>0</code>
+                     or <code>_nominal</code> instead of <code>_default</code> when they
+                     where computed based on the medium default properties.
     </td>
 </tr>    
 <tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier
