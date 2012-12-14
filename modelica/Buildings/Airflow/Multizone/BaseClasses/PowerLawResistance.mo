@@ -1,7 +1,7 @@
 within Buildings.Airflow.Multizone.BaseClasses;
 partial model PowerLawResistance "Flow resistance that uses the power law"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(final
-      m_flow_nominal=rho_nominal*k*dp_turbulent, final show_V_flow=true,
+      m_flow_nominal=rho_default*k*dp_turbulent, final show_V_flow=true,
       final show_T=true);
   extends Buildings.Airflow.Multizone.BaseClasses.ErrorControl;
 
@@ -23,11 +23,11 @@ partial model PowerLawResistance "Flow resistance that uses the power law"
 protected
   parameter Real k "Flow coefficient, k = V_flow/ dp^m";
 
-  parameter Medium.ThermodynamicState sta0=Medium.setState_pTX(
+  parameter Medium.ThermodynamicState sta_default=Medium.setState_pTX(
       T=Medium.T_default,
       p=Medium.p_default,
       X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
+  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
 
   constant Real gamma(min=1) = 1.5
@@ -53,7 +53,7 @@ equation
     der(mExc) = 0;
   end if;
 
-  rho = if useConstantDensity then rho_nominal else Medium.density(sta_a);
+  rho = if useConstantDensity then rho_default else Medium.density(sta_a);
   dynVis = Medium.dynamicViscosity(sta_a);
   port_a.m_flow = rho*Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
     k=k,
@@ -99,14 +99,18 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
-<li><i>December 6, 2011</i> by Michael Wetter:<br>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
+<li>December 6, 2011 by Michael Wetter:<br>
        Removed <code>fixed=false</code> attribute of protected parameter
        <code>k</code>.
 </li>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li>July 20, 2010 by Michael Wetter:<br>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li><i>February 4, 2005</i> by Michael Wetter:<br>
+<li>February 4, 2005 by Michael Wetter:<br>
        Released first version.
 </ul>
 </html>"));
