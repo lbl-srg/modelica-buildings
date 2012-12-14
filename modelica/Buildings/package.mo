@@ -279,6 +279,15 @@ have been <b style=\"color:blue\">improved</b> in a
                        to indicate that the radiation is in the infrared
                        spectrum.
 </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier
+    </td>
+    <td valign=\"top\">Removed unused protected parameters <code>sta0</code> and <code>cp0</code>.
+    </td>
+</tr>    
 <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>

@@ -45,14 +45,6 @@ protected
   Real comSig
     "Sign used to implement the third order upwind scheme without triggering a state event";
 
-  parameter Medium.ThermodynamicState sta0=Medium.setState_pTX(
-      T=Medium.T_default,
-      p=Medium.p_default,
-      X=Medium.X_default[1:Medium.nXi]);
-  parameter Modelica.SIunits.SpecificHeatCapacity cp0=
-      Medium.specificHeatCapacityCp(sta0)
-    "Density, used to compute fluid volume";
-
 equation
   assert(nSeg >= 4, "
 Number of segments of the enhanced stratified tank should be no less than 4 (nSeg>=4).");
@@ -148,6 +140,10 @@ The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Removed unused protected parameters <code>sta0</code> and <code>cp0</code>.
+</li>
 <li>
 March 29, 2012 by Wangda Zuo:<br>
 Revised the implementation to reduce the temperature overshoot.
