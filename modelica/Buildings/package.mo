@@ -283,12 +283,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClasses.Buoyancy
+    </td>
+    <td valign=\"top\">Renamed protected parameters for consistency with naming convention.
+    </td>
+</tr>    
 <tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier
     </td>
     <td valign=\"top\">Removed unused protected parameters <code>sta0</code> and <code>cp0</code>.
     </td>
-</tr>    
-<tr><td colspan=\"2\"><b>Buildings.Examples</b>
+</tr> <tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl<br> 

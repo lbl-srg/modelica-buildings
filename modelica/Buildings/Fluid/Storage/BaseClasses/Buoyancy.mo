@@ -16,13 +16,13 @@ model Buoyancy
   Modelica.SIunits.HeatFlowRate[nSeg-1] Q_flow
     "Heat flow rate from segment i+1 to i";
 protected
-   parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=Medium.T_default,
+   parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=Medium.T_default,
          p=Medium.p_default, X=Medium.X_default[1:Medium.nXi]);
-   parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
+   parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid mass";
-   parameter Modelica.SIunits.SpecificHeatCapacity cp0=Medium.specificHeatCapacityCp(sta0)
+   parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(sta_default)
     "Specific heat capacity";
-   parameter Real k(unit="W/K") = V*rho_nominal*cp0/tau/nSeg
+   parameter Real k(unit="W/K") = V*rho_default*cp_default/tau/nSeg
     "Proportionality constant, since we use dT instead of dH";
    Modelica.SIunits.TemperatureDifference dT[nSeg-1]
     "Temperature difference between adjoining volumes";
@@ -47,6 +47,10 @@ associated with the buoyancy induced mass flow rate.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with naming convention.
+</li>
 <li>
 October 8, 2011 by Michael Wetter:<br>
 Added <code>noEvent(...)</code> to
