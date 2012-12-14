@@ -29,7 +29,8 @@ partial model PowerInterface
                Dialog(group="Characteristics"),
                enable = not use_powerCharacteristic);
 
-  parameter Modelica.SIunits.Density rho_nominal "Nominal fluid density";
+  parameter Modelica.SIunits.Density rho_default
+    "Fluid density at medium default state";
 
   Modelica.SIunits.Power PEle "Electrical power input";
   Modelica.SIunits.Power WHyd
@@ -119,6 +120,10 @@ to properly guard against division by zero.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
 <li>October 11, 2012</i> by Michael Wetter:<br>
     Removed <code>WFlo = eta * PEle</code> so that classes that use this partial model
     can properly implement the equation so it guards against division by zero.

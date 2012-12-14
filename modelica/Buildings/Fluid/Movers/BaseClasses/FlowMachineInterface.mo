@@ -435,7 +435,7 @@ equation
                       simplified=VMachine_flow/V_flow_nominal*
                             cha.power(data=power, V_flow=V_flow_nominal, r_N=1, d=powDer));
     else
-      PEle = (rho/rho_nominal)*cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer);
+      PEle = (rho/rho_default)*cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer);
     end if;
     // To compute the efficiency, we set a lower bound on the electricity consumption.
     // This is needed because WFlo can be close to zero when PEle is zero, thereby

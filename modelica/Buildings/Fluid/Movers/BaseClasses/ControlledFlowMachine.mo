@@ -7,7 +7,7 @@ model ControlledFlowMachine
 
   extends Buildings.Fluid.Movers.BaseClasses.PowerInterface(
      final use_powerCharacteristic = false,
-     final rho_nominal = Medium.density(sta_nominal));
+     final rho_default = Medium.density(sta_default));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
 //  parameter Medium.MassFlowRate m_flow_nominal
@@ -22,16 +22,16 @@ model ControlledFlowMachine
     "Ratio V_flow/V_flow_max = V_flow/V_flow(dp=0, N=N_nominal)";
 
 protected
-  final parameter Medium.AbsolutePressure p_a_nominal(displayUnit="Pa") = Medium.p_default
+  final parameter Medium.AbsolutePressure p_a_default(displayUnit="Pa") = Medium.p_default
     "Nominal inlet pressure for predefined fan or pump characteristics";
-  parameter Medium.ThermodynamicState sta_nominal = Medium.setState_pTX(T=T_start,
-     p=p_a_nominal, X=X_start[1:Medium.nXi]);
+  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=T_start,
+     p=p_a_default, X=X_start[1:Medium.nXi]);
 
   Modelica.Blocks.Sources.RealExpression PToMedium_flow(y=Q_flow + WFlo) if  addPowerToMedium
     "Heat and work input into medium"
     annotation (Placement(transformation(extent={{-100,10},{-80,30}})));
 initial equation
-  V_flow_max=m_flow_nominal/rho_nominal;
+  V_flow_max=m_flow_nominal/rho_default;
 equation
   r_V = VMachine_flow/V_flow_max;
   etaHyd = cha.efficiency(data=hydraulicEfficiency, r_V=r_V, d=hydDer);
@@ -77,6 +77,10 @@ the head or the mass flow rate.
 </html>",
       revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
 <li>
 October 11, 2012, by Michael Wetter:<br>
 Added implementation of <code>WFlo = eta * PEle</code> with

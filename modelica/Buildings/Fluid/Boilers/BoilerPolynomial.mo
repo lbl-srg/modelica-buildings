@@ -3,7 +3,7 @@ model BoilerPolynomial
   "Boiler with efficiency curve described by a polynomial of the temperature"
   extends Interfaces.TwoPortHeatMassExchanger(
     show_T = true,
-    final tau=VWat*rho_nominal/m_flow_nominal);
+    final tau=VWat*rho_default/m_flow_nominal);
 
   parameter Modelica.SIunits.Power Q_flow_nominal "Nominal heating power";
   parameter Modelica.SIunits.Temperature T_nominal = 353.15
@@ -38,10 +38,6 @@ model BoilerPolynomial
           rotation=0)));
 protected
   Real eta_nominal "Boiler efficiency at nominal condition";
-
-  parameter Modelica.SIunits.SpecificHeatCapacity cp_nominal=
-      Medium.specificHeatCapacityCp(sta_nominal)
-    "Specific heat capacity of fluid in boiler" annotation (Evaluate=true);
 
   Modelica.Thermal.HeatTransfer.Components.ThermalConductor UAOve(G=UA)
     "Overall thermal conductance (if heatPort is connected)"
@@ -249,6 +245,10 @@ which are lumped into one state. The boiler outlet temperature is equal to this 
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
 <li>
 December 22, 2011 by Michael Wetter:<br>
 Added computation of fuel usage and improved the documentation.

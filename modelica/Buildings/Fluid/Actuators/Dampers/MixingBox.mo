@@ -53,7 +53,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     "Reynolds number where transition to turbulent starts"
     annotation(Dialog(enable=not use_deltaM));
 
-  parameter Modelica.SIunits.Area AOut=mOut_flow_nominal/rho_nominal/v_nominal
+  parameter Modelica.SIunits.Area AOut=mOut_flow_nominal/rho_default/v_nominal
     "Face area outside air damper"
     annotation(Dialog(enable=not use_v_nominal));
   VAVBoxExponential damExh(A=AExh,
@@ -80,7 +80,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
     final filteredOpening=false) "Exhaust air damper"
     annotation (Placement(transformation(extent={{-20,-70},{-40,-50}}, rotation=
            0)));
-  parameter Modelica.SIunits.Area AExh=mExh_flow_nominal/rho_nominal/v_nominal
+  parameter Modelica.SIunits.Area AExh=mExh_flow_nominal/rho_default/v_nominal
     "Face area exhaust air damper"
     annotation(Dialog(enable=not use_v_nominal));
   VAVBoxExponential damRec(A=ARec,
@@ -109,7 +109,7 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
         origin={30,0},
         extent={{-10,-10},{10,10}},
         rotation=90)));
-  parameter Modelica.SIunits.Area ARec=mRec_flow_nominal/rho_nominal/v_nominal
+  parameter Modelica.SIunits.Area ARec=mRec_flow_nominal/rho_default/v_nominal
     "Face area recirculation air damper"
     annotation(Dialog(enable=not use_v_nominal));
 
@@ -193,9 +193,9 @@ model MixingBox "Outside air mixing box with interlocked air dampers"
             {-20,10}},    rotation=0)));
 
 protected
-  parameter Medium.Density rho_nominal=Medium.density(sta_nominal)
+  parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
-  parameter Medium.ThermodynamicState sta_nominal=
+  parameter Medium.ThermodynamicState sta_default=
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
 equation
   connect(uni.y, add.u1) annotation (Line(points={{-69,6},{-42,6},{-42,6}},
@@ -318,6 +318,10 @@ equation
 defaultComponentName="eco",
 Documentation(revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
 <li>
 February 14, 2012 by Michael Wetter:<br>
 Added filter to approximate the travel time of the actuator.

@@ -289,8 +289,11 @@ have been <b style=\"color:blue\">improved</b> in a
                      Buildings.Airflow.Multizone.Orifice<br>
                      Buildings.Airflow.Multizone.ZonalFlow_ACS<br>
                      Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential<br>
+                     Buildings.Fluid.Actuators.Dampers.MixingBox<br>
                      Buildings.Fluid.Actuators.Dampers.VAVBoxExponential<br>
                      Buildings.Fluid.BaseClasses.PartialResistance<br>
+                     Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger<br>
+                     Buildings.Fluid.Movers.BaseClasses.PowerInterface<br>
                      Buildings.Fluid.Storage.BaseClasses.Buoyancy<br>
                      Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange
     </td>

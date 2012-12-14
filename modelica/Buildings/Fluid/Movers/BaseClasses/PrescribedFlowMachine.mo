@@ -3,11 +3,11 @@ partial model PrescribedFlowMachine
   "Partial model for fan or pump with speed (y or Nrpm) as input signal"
   extends Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface(
     V_flow_max(start=V_flow_nominal),
-    final rho_nominal = Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default));
+    final rho_default = Medium.density_pTX(Medium.p_default, Medium.T_default, Medium.X_default));
 
   extends Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine(
       final show_V_flow = false,
-      final m_flow_nominal = max(pressure.V_flow)*rho_nominal,
+      final m_flow_nominal = max(pressure.V_flow)*rho_default,
       preSou(final control_m_flow=false));
 
   // Models
