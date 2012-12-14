@@ -35,8 +35,8 @@ equation
   assert(y           <= 1, "Input error. Opening signal must be between 0 and 1.\n"
     + "  Received y.signal[1] = " + String(y));
   fraOpe =y;
-  kClo = CDClo * AClo/nCom * sqrt(2/rho_nominal);
-  kOpe = CDOpe * AOpe/nCom * sqrt(2/rho_nominal);
+  kClo = CDClo * AClo/nCom * sqrt(2/rho_default);
+  kOpe = CDOpe * AOpe/nCom * sqrt(2/rho_default);
 
   // flow exponent
   m    = fraOpe*mOpe + (1-fraOpe)*mClo;
@@ -101,6 +101,10 @@ Buildings.Airflow.Multizone.Crack
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
 <li><i>December 6, 2011</i> by Michael Wetter:<br>
        Changed the computation of the discharge coefficient to use the 
        nominal density instead of the actual density. 

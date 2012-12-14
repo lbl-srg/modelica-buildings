@@ -18,7 +18,7 @@ protected
 equation
   m=mFixed;
   A = wOpe*hOpe;
-  kVal = CD*dA*sqrt(2/rho_nominal);
+  kVal = CD*dA*sqrt(2/rho_default);
   // orifice equation
   for i in 1:nCom loop
     dV_flow[i] = Buildings.Airflow.Multizone.BaseClasses.powerLawFixedM(
@@ -54,6 +54,10 @@ for a door that can either be open or closed.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
 <li><i>December 6, 2011</i> by Michael Wetter:<br>
        Changed the computation of the discharge coefficient to use the 
        nominal density instead of the actual density. 
