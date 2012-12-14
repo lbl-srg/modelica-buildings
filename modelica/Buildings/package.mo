@@ -256,7 +256,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 </table>
 </p>
-<!-- Non-backward compatbile changes to existing components -->
+<!-- Non-backward compatible changes to existing components -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
@@ -283,7 +283,8 @@ have been <b style=\"color:blue\">improved</b> in a
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClasses.Buoyancy
+<tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClasses.Buoyancy<br>
+                     Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange
     </td>
     <td valign=\"top\">Renamed protected parameters for consistency with naming convention.
     </td>

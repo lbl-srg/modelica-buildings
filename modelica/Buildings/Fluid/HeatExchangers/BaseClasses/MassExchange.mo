@@ -31,13 +31,13 @@ model MassExchange
   parameter Real n = 1/3
     "Exponent in bondary layer ratio, delta/delta_t = Pr^n";
 public
-  Buildings.Utilities.Psychrometrics.X_pW humRatPre(              use_p_in=
-        false) "Model to convert water vapor pressure into humidity ratio"
+  Buildings.Utilities.Psychrometrics.X_pW humRatPre(use_p_in=false)
+    "Model to convert water vapor pressure into humidity ratio"
     annotation (Placement(transformation(extent={{0,0},{20,20}}, rotation=0)));
   Buildings.Utilities.Psychrometrics.pW_TDewPoi TDewPoi
     "Model to compute the water vapor pressure at the dew point"
     annotation (Placement(transformation(extent={{-60,40},{-40,60}}, rotation=0)));
-  Modelica.Blocks.Math.Gain gain(k=1/cpLe)
+  Modelica.Blocks.Math.Gain gain(k=1/cpLe_default)
     "Constant to convert from heat transfer to mass transfer"
     annotation (Placement(transformation(extent={{-80,-90},{-60,-70}}, rotation=
            0)));
@@ -51,11 +51,11 @@ public
     annotation (Placement(transformation(extent={{-40,-66},{-20,-46}}, rotation=
            0)));
 protected
- parameter Medium.ThermodynamicState sta0 = Medium.setState_phX(h=Medium.h_default,
+ parameter Medium.ThermodynamicState sta_default = Medium.setState_phX(h=Medium.h_default,
        p=Medium.p_default, X=Medium.X_default);
- parameter Modelica.SIunits.SpecificHeatCapacity cp=Medium.specificHeatCapacityCp(sta0)
+ parameter Modelica.SIunits.SpecificHeatCapacity cp_default=Medium.specificHeatCapacityCp(sta_default)
     "Density, used to compute fluid volume";
- parameter Real cpLe(unit="J/(kg.K)") = cp * Le^(1-n);
+ parameter Real cpLe_default(unit="J/(kg.K)") = cp_default * Le^(1-n);
 equation
   connect(TSur, TDewPoi.T) annotation (Line(points={{-120,80},{-80,80},{-80,50},
           {-61,50}}, color={0,0,127}));
@@ -189,6 +189,10 @@ corresponding to the temperature <i>T<sub>sur</sub></i> which is an input.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
 <li>
 August 13, 2008 by Michael Wetter:<br>
 First implementation.
