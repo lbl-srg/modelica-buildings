@@ -3,7 +3,7 @@ partial model PartialDamperExponential
   "Partial model for air dampers with exponential opening characteristics"
    extends Buildings.Fluid.BaseClasses.PartialResistance(
       m_flow_turbulent=if use_deltaM then deltaM * m_flow_nominal else
-      eta_nominal*ReC*sqrt(area)*facRouDuc);
+      eta_default*ReC*sqrt(area)*facRouDuc);
    extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
  parameter Boolean use_deltaM = true
     "Set to true to use deltaM for turbulent transition, else ReC is used";
@@ -14,7 +14,7 @@ partial model PartialDamperExponential
     "Set to true to use face velocity to compute area";
  parameter Modelica.SIunits.Velocity v_nominal=1 "Nominal face velocity"
    annotation(Dialog(enable=use_v_nominal));
- parameter Modelica.SIunits.Area A=m_flow_nominal/rho_nominal/v_nominal
+ parameter Modelica.SIunits.Area A=m_flow_nominal/rho_default/v_nominal
     "Face area"
    annotation(Dialog(enable=not use_v_nominal));
  parameter Boolean roundDuct = false
@@ -47,7 +47,7 @@ partial model PartialDamperExponential
  Real k(unit="")
     "Flow coefficient of damper plus fixed resistance, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)";
 protected
- parameter Medium.Density rho_nominal=Medium.density(sta0)
+ parameter Medium.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
  parameter Real[3] cL=
     {(Modelica.Math.log(k0) - b - a)/yL^2,
@@ -60,14 +60,14 @@ protected
     "Polynomial coefficients for curve fit for y > yu";
  parameter Real facRouDuc= if roundDuct then sqrt(Modelica.Constants.pi)/2 else 1;
  parameter Modelica.SIunits.Area area=
-    if use_v_nominal then m_flow_nominal/rho_nominal/v_nominal else A
+    if use_v_nominal then m_flow_nominal/rho_default/v_nominal else A
     "Face velocity used in the computation";
 initial equation
   assert(k0 > k1, "k0 must be bigger than k1.");
   assert(m_flow_turbulent > 0, "m_flow_turbulent must be bigger than zero.");
 equation
   rho = if use_constant_density then
-         rho_nominal else
+         rho_default else
          Medium.density(Medium.setState_phX(port_a.p, inStream(port_a.h_outflow), inStream(port_a.Xi_outflow)));
   // flow coefficient, k=m_flow/sqrt(dp)
   kDam=sqrt(2*rho)*area/Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
@@ -124,6 +124,10 @@ Exponential</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
 <li>
 January 16, 2012 by Michael Wetter:<br>
 To simplify object inheritance tree, revised base classes

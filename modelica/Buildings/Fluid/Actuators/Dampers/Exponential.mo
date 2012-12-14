@@ -1,16 +1,16 @@
 within Buildings.Fluid.Actuators.Dampers;
 model Exponential "Air damper with exponential opening characteristics"
   extends Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential(
-  final dp_nominal=(m_flow_nominal/kDam_nominal)^2,
+  final dp_nominal=(m_flow_nominal/kDam_default)^2,
   dp(nominal=10),
   final kFixed=0);
 protected
-   parameter Real kDam_nominal(fixed=false)
+   parameter Real kDam_default(fixed=false)
     "Flow coefficient for damper, k=m_flow/sqrt(dp), with unit=(kg*m)^(1/2)";
-   parameter Real kThetaSqRt_nominal(min=0, fixed=false)
+   parameter Real kThetaSqRt_default(min=0, fixed=false)
     "Flow coefficient, kThetaSqRt = sqrt(pressure drop divided by dynamic pressure)";
 initial algorithm
-   kThetaSqRt_nominal :=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
+   kThetaSqRt_default :=Buildings.Fluid.Actuators.BaseClasses.exponentialDamper(
     y=1,
     a=a,
     b=b,
@@ -18,8 +18,8 @@ initial algorithm
     cU=cU,
     yL=yL,
     yU=yU) "y=0 is closed";
-   assert(kThetaSqRt_nominal>0, "Flow coefficient must be strictly positive.");
-   kDam_nominal :=sqrt(2*rho_nominal)*A/kThetaSqRt_nominal
+   assert(kThetaSqRt_default>0, "Flow coefficient must be strictly positive.");
+   kDam_default :=sqrt(2*rho_default)*A/kThetaSqRt_default
     "flow coefficient for resistance base model, kDam=k=m_flow/sqrt(dp)";
    annotation (
 defaultComponentName="dam",
@@ -72,6 +72,10 @@ P. Haves, L. K. Norford, M. DeSimone and L. Mei,
 ASHRAE, Final Report 825-RP, Atlanta, GA.
 </html>", revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
 <li>
 June 22, 2008 by Michael Wetter:<br>
 Extended range of control signal from 0 to 1 by implementing the function 

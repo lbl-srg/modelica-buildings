@@ -23,9 +23,9 @@ partial model PartialResistance "Partial model for a hydraulic resistance"
 
   // fixme: should this be called sta_nominal for consistency?
 protected
-  parameter Medium.ThermodynamicState sta0=
+  parameter Medium.ThermodynamicState sta_default=
      Medium.setState_pTX(T=Medium.T_default, p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.DynamicViscosity eta_nominal=Medium.dynamicViscosity(sta0)
+  parameter Modelica.SIunits.DynamicViscosity eta_default=Medium.dynamicViscosity(sta_default)
     "Dynamic viscosity, used to compute transition to turbulent flow regime";
 protected
   final parameter Modelica.SIunits.MassFlowRate m_flow_nominal_pos = abs(m_flow_nominal)
@@ -82,6 +82,10 @@ this base class.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
 <li>
 February 12, 2012, by Michael Wetter:<br>
 Removed duplicate declaration of <code>m_flow_nominal</code>.

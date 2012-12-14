@@ -8,7 +8,7 @@ model VAVBoxExponential
     "set to true if dp_nominal includes the pressure loss of the open damper"
                                               annotation(Dialog(group = "Nominal condition"));
 protected
-  parameter Modelica.SIunits.Pressure dpDamOpe_nominal = k1*m_flow_nominal^2/2/Medium.density(sta0)/A^2
+  parameter Modelica.SIunits.Pressure dpDamOpe_nominal = k1*m_flow_nominal^2/2/Medium.density(sta_default)/A^2
     "Pressure drop of fully open damper at nominal flow rate";
   parameter Real kResSqu(unit="kg.m", fixed=false)
     "Resistance coefficient for fixed resistance element";
@@ -36,6 +36,10 @@ does not include the flow resistance of the air damper.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
 <li>
 April 13, 2010 by Michael Wetter:<br>
 Added <code>noEvent</code> to guard evaluation of the square root
