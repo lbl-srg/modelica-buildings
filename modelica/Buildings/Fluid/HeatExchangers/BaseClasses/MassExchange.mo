@@ -166,8 +166,8 @@ diffusion coefficients, one can obtain the ratio between convection
 heat transfer coefficient <i>h</i> in (W/(m^2*K)) and
 mass transfer coefficient <i>h<sub>m</sub></i> in (m/s) as follows:
 <p align=\"center\" style=\"font-style:italic;\">
-  h &frasl; h<sub>m</sub> = &rho;  c<sub>p</sub>  Le<sup>(1-n)</sup>,
- h_m
+  h &frasl; h<sub>m</sub> = &rho;  c<sub>p</sub>  Le<sup>(1-n)</sup> &frasl;
+ h<sub>m</sub>
 </p>
 where <i>&rho;</i> is the mass density,
 <i>c<sub>p</sub></i> is the specific heat capacity
@@ -191,7 +191,7 @@ corresponding to the temperature <i>T<sub>sur</sub></i> which is an input.
 <ul>
 <li>
 December 14, 2012 by Michael Wetter:<br>
-Renamed protected parameters for consistency with the naming conventions.
+Renamed protected parameters for consistency with the naming conventions and fixed error in the documentation.
 </li>
 <li>
 August 13, 2008 by Michael Wetter:<br>
