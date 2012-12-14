@@ -14,9 +14,9 @@ protected
   Modelica.SIunits.VolumeFlowRate V_flow
     "Volume flow rate at standard pressure";
   Modelica.SIunits.MassFlowRate m_flow "Mass flow rate";
-  parameter Medium.ThermodynamicState sta0 = Medium.setState_pTX(T=Medium.T_default,
+  parameter Medium.ThermodynamicState sta_default = Medium.setState_pTX(T=Medium.T_default,
          p=Medium.p_default, X=Medium.X_default);
-  parameter Modelica.SIunits.Density rho_nominal=Medium.density(sta0)
+  parameter Modelica.SIunits.Density rho_default=Medium.density(sta_default)
     "Density, used to compute fluid volume";
 
   Medium.ThermodynamicState sta_a1_inflow=
@@ -28,14 +28,14 @@ protected
 
 equation
   when useConstantDensity and initial() then
-   assert( abs(1-rho_nominal/((Medium.density(sta_a1_inflow) + Medium.density(sta_a2_inflow))/2))  < 0.2,
+   assert( abs(1-rho_default/((Medium.density(sta_a1_inflow) + Medium.density(sta_a2_inflow))/2))  < 0.2,
     "Wrong density. Densities need to match."
     + "\n Medium.density(sta_a1) = " + String(Medium.density(sta_a1_inflow))
     + "\n Medium.density(sta_a2) = " + String(Medium.density(sta_a2_inflow))
-    + "\n rho_nominal            = " + String(rho_nominal));
+    + "\n rho_nominal            = " + String(rho_default));
   end when;
   V_flow = V * ACS;
-  m_flow / V_flow = if useConstantDensity then rho_nominal else (Medium.density(sta_a1_inflow) + Medium.density(sta_a2_inflow))/2;
+  m_flow / V_flow = if useConstantDensity then rho_default else (Medium.density(sta_a1_inflow) + Medium.density(sta_a2_inflow))/2;
   // assign variable in base class
   port_a1.m_flow = m_flow;
   port_a2.m_flow = m_flow;
@@ -60,11 +60,14 @@ where <code>ACS</code> is an input and the volume <code>V</code> is a parameter.
 </html>",
 revisions="<html>
 <ul>
-<li><i>July 20, 2010</i> by Michael Wetter:<br>
+<li>
+December 14, 2012 by Michael Wetter:<br>
+Renamed protected parameters for consistency with the naming conventions.
+</li>
+<li>July 20, 2010 by Michael Wetter:<br>
        Migrated model to Modelica 3.1 and integrated it into the Buildings library.
 </li>
-<li><i>January 4, 2006</i>
-       by Michael Wetter:<br>
+<li>January 4, 2006 by Michael Wetter:<br>
        Implemented first version.
 </li>
 </ul>
