@@ -12,3 +12,4 @@ When submitting a bug report, please provide:
 
 To report the bug, send email to https://groups.google.com/group/modelica-buildings. This is an open group and everyone can join it. No invitation is needed. 
 
+For questions that are specific to Modelica but not the `Buildings` libray, see http://stackoverflow.com/search?q=modelica
