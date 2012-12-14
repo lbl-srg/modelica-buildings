@@ -336,7 +336,7 @@ parameters in various model to help the user understand how they are used.
 +---------------------+---------------------------+--------------------------------------------------------------------------+
 | Parameter           | Model                     | Functionality                                                            |
 +=====================+===========================+==========================================================================+
-| ``m_flow_nominal``  | | Flow resistance models. | These parameters may be used to define a point on the flow rate           |
+| ``m_flow_nominal``  | | Flow resistance models. | These parameters may be used to define a point on the flow rate          |
 | ``dp_nominal``      |                           | versus pressure drop curve. For other mass flow rates, the pressure drop |
 |                     |                           | is typically adjusted using similarity laws.                             |
 |                     |                           | See FixedResistanceDpM_.                                                 |
