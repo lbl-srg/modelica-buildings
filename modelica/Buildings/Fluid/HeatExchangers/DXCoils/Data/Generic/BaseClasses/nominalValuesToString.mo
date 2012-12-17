@@ -1,9 +1,10 @@
-within Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses;
+within Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses;
 function nominalValuesToString
   "Converts the nominal values to a string representation"
   extends Modelica.Icons.Function;
-  input Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues nomVal
-    "Nominal values";
+  input
+    Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues
+    nomVal "Nominal values";
   output String s "A string representation of the nominal values";
 algorithm
  s :="Nominal values:

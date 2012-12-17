@@ -1,4 +1,4 @@
-within Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses;
+within Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses;
 record NominalValues "Data record of nominal values"
   extends Modelica.Icons.Record;
 
@@ -43,8 +43,8 @@ This is the base record of nominal values for DX cooling coil models.
 </p>
 <p>
 See the information section of
-<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData\">
-Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData</a>
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil\">
+Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>
 for a description of the data.
 </p>
 </html>",
