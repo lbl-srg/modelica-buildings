@@ -108,10 +108,10 @@ public class DXSingleSpeed {
         return
 
         stringHeaderBeginOfDXSingleSpeedObject
-                + "per = {" + "\n"
-                + "     Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(" + "spe=1800," + "\n"
+                + "sta = {" + "\n"
+                + "     Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(" + "spe=1800," + "\n"
                 + "     nomVal = "
-                + "Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(" + "\n"
+                + "Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(" + "\n"
                 + String.format(format, "", "Q_flow_nominal", "=      ", " "
                         + "-"+ ratTotCooCapacity + ",")
                 + String.format(format, "", "COP_nominal", "=     ", "     "
@@ -121,7 +121,7 @@ public class DXSingleSpeed {
                 + String.format(format, "", "m_flow_nominal", "=     ", "  "
                         + "1.2*" + ratAirFlowRate + "),")
                 + "      perCur = " + "\n"
-                + "      Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.BaseClasses.Generic( " + "\n"
+                + "      Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(\n"
                 + String.format(format, "", "capFunT", "=  ", "           "
                         + CurveToString[0] + ",")
                 + String.format(format, "", "capFunFF", "= ", "           "

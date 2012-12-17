@@ -4,49 +4,50 @@ model SpeedSelect "Test model for speed select"
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect speSel(
     nSta=datCoi.nSta,
-    speSet=datCoi.per.spe) "Normalizes the input speed"
+    speSet=datCoi.sta.spe) "Normalizes the input speed"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Data.CoilData datCoi(nSta=4, per={
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
+  Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
+                datCoi(nSta=4, sta={
+        Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-12000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=0.9),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I()),
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I()),
+        Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=1200/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-18000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=1.2),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I()),
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_I()),
+        Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-21000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=1.5),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_II()),
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_II()),
+        Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-30000,
           COP_nominal=3,
           SHR_nominal=0.8,
           m_flow_nominal=1.8),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())})
+          Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III())})
     "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Modelica.Blocks.Sources.IntegerTable sta(table=[0,0; 10,1; 20,2; 30,3; 40,4;

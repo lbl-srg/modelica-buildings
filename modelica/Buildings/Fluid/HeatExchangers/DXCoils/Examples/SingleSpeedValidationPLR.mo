@@ -3,9 +3,9 @@ model SingleSpeedValidationPLR
   "Validation model for single speed DX coil with PLR=1"
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   extends Modelica.Icons.Example;
- parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.per[1].nomVal.Q_flow_nominal
+ parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.sta[1].nomVal.Q_flow_nominal
     "Nominal power";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.per[1].nomVal.m_flow_nominal
+ parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[1].nomVal.m_flow_nominal
     "Nominal mass flow rate";
  parameter Modelica.SIunits.Pressure dp_nominal = 1141
     "Pressure drop at m_flow_nominal";
@@ -30,7 +30,7 @@ model SingleSpeedValidationPLR
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
-    T_start=datCoi.per[1].nomVal.TEvaIn_nominal,
+    T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     from_dp=true,
     computeReevaporation=true,
     eva(m(start=0))) "Single speed DX coil"
@@ -281,11 +281,12 @@ model SingleSpeedValidationPLR
         72000,0; 75600,0; 75600,0; 79200,0; 79200,0; 82800,0;
         82800,0; 86400,0]) "EnergyPlus result: heat flow"
     annotation (Placement(transformation(extent={{40,-140},{60,-120}})));
-  Data.CoilData datCoi(nSta=1, per={
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
+  Data.Generic.DXCoil
+                datCoi(nSta=1, sta={
+        Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-25237.66,
           COP_nominal=3,
           SHR_nominal=0.775047,
@@ -293,7 +294,7 @@ model SingleSpeedValidationPLR
           tWet=1000,
           gamma=1.5),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_II())})
+          Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_II())})
     "Coil data"
     annotation (Placement(transformation(extent={{80,40},{100,60}})));
   Modelica.Blocks.Math.Add QCoo_flow "Total cooling heat flow rate"

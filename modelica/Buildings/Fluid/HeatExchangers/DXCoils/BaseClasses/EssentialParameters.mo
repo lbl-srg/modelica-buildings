@@ -3,7 +3,8 @@ partial block EssentialParameters "A partial block for essential parameters"
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
      annotation (choicesAllMatching=true);
-  parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData datCoi
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
+                                                                 datCoi
     "Performance data"
     annotation (Placement(transformation(extent={{-80,82},{-68,94}})));
 protected

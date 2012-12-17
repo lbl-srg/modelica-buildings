@@ -7,7 +7,8 @@ model NominalCondition "Test model for NominalCondition"
       redeclare package Medium = Medium, per=nomVal)
     "Calculates nominal values"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Data.BaseClasses.NominalValues nomVal(
+  Data.Generic.BaseClasses.NominalValues
+                                 nomVal(
     Q_flow_nominal=-21000,
     COP_nominal=3,
     SHR_nominal=0.8,

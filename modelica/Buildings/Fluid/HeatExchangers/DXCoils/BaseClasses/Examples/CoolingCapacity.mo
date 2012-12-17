@@ -3,14 +3,14 @@ model CoolingCapacity "Test model for CoolingCapacity"
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity cooCap(
-    per={per},
-    m_flow_small=0.0001*per.nomVal.m_flow_nominal,
+    sta={sta},
+    m_flow_small=0.0001*sta.nomVal.m_flow_nominal,
     nSta=1) "Cooling capacity calculation"
     annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
   Modelica.Blocks.Sources.Ramp m_flow(
     duration=2400,
     startTime=600,
-    height=per.nomVal.m_flow_nominal,
+    height=sta.nomVal.m_flow_nominal,
     offset=0) "Mass flow rate of air"
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Modelica.Blocks.Sources.Ramp TWetBulIn(
@@ -29,14 +29,15 @@ model CoolingCapacity "Test model for CoolingCapacity"
     offset=273.15 + 30)
     "Condenser inlet temperature (Outside drybulb temperature)"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Data.BaseClasses.Generic per(
+  Data.Generic.BaseClasses.Stage
+    sta(
     nomVal(
       Q_flow_nominal=-21000,
       COP_nominal=3,
       SHR_nominal=0.8,
       m_flow_nominal=1.5),
     perCur=
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III(),
+        Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples.PerformanceCurves.Curve_III(),
     spe=188.49555921539) "Performance data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 

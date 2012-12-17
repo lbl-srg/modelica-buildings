@@ -7,7 +7,7 @@ model Evaporation
      annotation (choicesAllMatching=true);
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues
+    Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues
      nomVal "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -160,7 +160,8 @@ initial equation
      Modelica.Utilities.Streams.print("Warning: In DX coil model, dX_nominal = " + String(dX_nominal) + "
        This means that the coil is not dehumidifying air at the nominal conditions.
        Check nominal parameters.
-         " + Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.nominalValuesToString(nomVal));
+         " + Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(
+                                                                                           nomVal));
   end if;
 
   gammaMax = 0.8 * nomVal.m_flow_nominal * dX_nominal * h_fg / QLat_flow_nominal;
@@ -190,7 +191,8 @@ initial equation
     QSen_flow_nominal     = " + String(QSen_flow_nominal) + "
     QLat_flow_nominal     = " + String(QLat_flow_nominal) + "
     XEvaOut_nominal        = " + String(XEvaOut_nominal) + "
-   " + Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.nominalValuesToString(nomVal) + "
+   " + Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.nominalValuesToString(
+                                                                                     nomVal) + "
   Check parameters. Maybe the sensible heat ratio is too big, or the mass flow rate too small.");
 
 equation

@@ -98,7 +98,7 @@ model SpaceCooling "Space cooling with DX coils"
       m_flow_nominal=mA_flow_nominal) "Supply air fan"
     annotation (Placement(transformation(extent={{100,-174},{120,-154}})));
   Fluid.HeatExchangers.ConstantEffectiveness hex1(
-                                                 redeclare package Medium1 =
+    redeclare package Medium1 =
         Medium, redeclare package Medium2 = Medium,
     m1_flow_nominal=mA_flow_nominal,
     m2_flow_nominal=mA_flow_nominal,
@@ -129,42 +129,44 @@ model SpaceCooling "Space cooling with DX coils"
                                      annotation (Placement(transformation(
           rotation=0, extent={{180,40},{200,60}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData datCoi(
-     per={
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
+  Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
+    datCoi(
+     sta={
+        Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal,
           COP_nominal=3,
           SHR_nominal=0.7,
           m_flow_nominal=mA_flow_nominal),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I())},
+          Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_I())},
           nSta=1)
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
 
-  Buildings.Fluid.HeatExchangers.DXCoils.Data.CoilData datCoiMulSpe(nSta=2, per=
-       {Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
+  Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
+       datCoiMulSpe(nSta=2, sta=
+       {Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=900/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal*900/2400,
           COP_nominal=3,
           SHR_nominal=0.7,
           m_flow_nominal=mA_flow_nominal*900/2400),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_I()),
-              Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
+          Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_I()),
+              Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=2400/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=QCoiC_flow_nominal,
           COP_nominal=3,
           SHR_nominal=0.7,
           m_flow_nominal=mA_flow_nominal),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_III())})
+          Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_III())})
     "Coil data"
     annotation (Placement(transformation(extent={{0,-140},{20,-120}})));
   ControllerTwoStage mulSpeCon "Controller for multi-stage coil"

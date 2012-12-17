@@ -3,9 +3,9 @@ model SingleSpeedValidation
   "Validation model for single speed DX coil with PLR=1"
   package Medium = Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   extends Modelica.Icons.Example;
- parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.per[1].nomVal.Q_flow_nominal
+ parameter Modelica.SIunits.Power Q_flow_nominal = datCoi.sta[1].nomVal.Q_flow_nominal
     "Nominal power";
- parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.per[1].nomVal.m_flow_nominal
+ parameter Modelica.SIunits.MassFlowRate m_flow_nominal = datCoi.sta[1].nomVal.m_flow_nominal
     "Nominal mass flow rate";
  parameter Modelica.SIunits.Pressure dp_nominal = 1141
     "Pressure drop at m_flow_nominal";
@@ -30,21 +30,22 @@ model SingleSpeedValidation
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     datCoi=datCoi,
-    T_start=datCoi.per[1].nomVal.TEvaIn_nominal,
+    T_start=datCoi.sta[1].nomVal.TEvaIn_nominal,
     from_dp=true) "Single speed DX coil"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
 
-  Data.CoilData datCoi(nSta=1, per={
-        Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic(
+  Data.Generic.DXCoil
+                datCoi(nSta=1, sta={
+        Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=1800/60,
         nomVal=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues(
+          Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues(
           Q_flow_nominal=-10500,
           COP_nominal=3,
           SHR_nominal=0.798655,
           m_flow_nominal=1.72),
         perCur=
-          Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.Curve_II())})
+          Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_II())})
     "Coil data"
     annotation (Placement(transformation(extent={{120,40},{140,60}})));
   Modelica.Blocks.Sources.TimeTable plr_onOff(table=[0,0; 3600,0; 3600,0; 7200,0;

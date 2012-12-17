@@ -1,24 +1,24 @@
-within Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves;
-record Curve_III "Curve_III"
+within Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves;
+record Curve_II "Curve_II"
   extends
-    Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.BaseClasses.Generic(
-    each capFunT={0.476428,0.0401147000,0.0002264110,-0.0008271360,-0.0000073224,
-        -0.0004462780},
-    each capFunFF={0.47278589,1.2433415,-1.0387055,0.32257813},
-    each EIRFunT={0.632475,-0.0121321000,0.0005077730,0.0155377000,0.0002728400,
-        -0.0006792010},
-    each EIRFunFF={1.0079484,0.34544129,-0.6922891, 0.33889943},
-    TConInMin = 297.03889,
+    Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
+    each capFunT={0.766956,0.0107756,-0.0000414703,0.00134961,-0.000261144,
+        0.000457488},
+    each capFunFF={0.8,0.2,0,0},
+    each EIRFunT={0.297145,0.0430933,-0.000748766,0.00597727,0.000482112,-0.000956448},
+    each EIRFunFF={1.1552,-0.1808,0.0256,0},
+    TConInMin=291.15,
     TConInMax = 319.26111,
-    TEvaInMin = 285.92778,
-    TEvaInMax = 297.03889,
-    ffMin = 0.5,
-    ffMax = 1.5);
+    TEvaInMin= 285.92778,
+    TEvaInMax= 297.03889,
+    ffMin=0.5,
+    ffMax=1.5);
+
   annotation (defaultComponentName="per", Documentation(info="<html>
 <p>
 This record declares performance curves for the cooling capacity and the EIR.
 It has been obtained from the EnergyPlus 7.1 example file
-<tt>5ZoneAutoDXVAV.idf</tt>.
+<tt>DXCoilSystemAuto.idf</tt>.
 </p>
 </html>",
 revisions="<html>
@@ -58,4 +58,4 @@ First implementation.
           extent={{7,-53},{84,-94}},
           lineColor={0,0,255},
           textString="%EIRFunT")}));
-end Curve_III;
+end Curve_II;

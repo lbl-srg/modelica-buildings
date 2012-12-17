@@ -174,13 +174,13 @@ public class DXDoubleSpeed {
                         + sfloFractionMax.get(2) + "))"));
 
         return stringHeaderBeginOfDXDoubleSpeedObject
-                + "per = {"
+                + "sta = {"
                 + "\n"
-                + "     Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic("
+                + "     Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage("
                 + "spe = 1200,"
                 + "\n"
                 + "     nomVal = "
-                + "Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues("
+                + "Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues("
                 + "\n"
                 + String.format(format, "", "Q_flow_nominal", "=      ", " "
                         + "-" + sratTotCooCapacity.get(0) + ",")
@@ -192,7 +192,7 @@ public class DXDoubleSpeed {
                         + "1.2*"+ sratAirFlowRate.get(0) + "),")
                 + "      perCur = "
                 + "\n"
-                + "      Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.BaseClasses.Generic( "
+                + "     Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve( "
                 + "\n"
                 + String.format(format, "", "capFunT", "=  ", "           "
                         + CurveToString[0] + ",")
@@ -203,7 +203,7 @@ public class DXDoubleSpeed {
                 + String.format(format, "", "EIRFunFF", "=   ", "         "
                         + CurveToString[3] + ",")
                 + dxDoubleSpeedSpecificParameters.get(0)
-                + "     Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.Generic("
+                + "     Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage("
                 + "spe = 1200*"
                 + sratTotCooCapacity.get(1)
                 + "/"
@@ -211,7 +211,7 @@ public class DXDoubleSpeed {
                 + ","
                 + "\n"
                 + "     nomVal = "
-                + "Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues("
+                + "Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues("
                 + "\n"
                 + String.format(format, "", "Q_flow_nominal", "=      ", " "
                         + "-" + sratTotCooCapacity.get(1) + ",")
@@ -224,7 +224,7 @@ public class DXDoubleSpeed {
                 + "      perCur = "
                 + "\n"
                 + "      "
-                + "Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.BaseClasses.Generic( "
+                + "   Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve( "
                 + "\n"
                 + String.format(format, "", "capFunT", "=  ", "           "
                         + CurveToString[4] + ",")

@@ -8,7 +8,7 @@ partial block PartialSurfaceCondition
 
   final parameter Modelica.SIunits.MassFlowRate m_flow_small = datCoi.m_flow_small
     "Small mass flow rate for the evaporator, used for regularization";
-  final parameter Modelica.SIunits.AngularVelocity maxSpe(displayUnit="1/min")= datCoi.per[nSta].spe
+  final parameter Modelica.SIunits.AngularVelocity maxSpe(displayUnit="1/min")= datCoi.sta[nSta].spe
     "Maximum rotational speed";
   Modelica.Blocks.Interfaces.RealInput speRat "Speed index"
     annotation (Placement(transformation(extent={{-120,60},{-100,80}}, rotation=
@@ -42,7 +42,7 @@ partial block PartialSurfaceCondition
     "Rotational speed";
 
   final parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.UACp uacp[nSta](
-      final per=datCoi.per.nomVal,
+      final per=datCoi.sta.nomVal,
       redeclare final package Medium = Medium) "Calculates UA/Cp of the coil"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
 
@@ -80,7 +80,7 @@ algorithm
       UAcp := Buildings.Utilities.Math.Functions.smoothMax(
          x1=Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift(
            spe=spe,
-           speSet={datCoi.per[iSpe].spe for iSpe in 1:nSta},
+           speSet={datCoi.sta[iSpe].spe for iSpe in 1:nSta},
            u={uacp[iSpe].UAcp for iSpe in 1:nSta}),
          x2=uacp[nSta].UAcp/1E3,
          deltaX=uacp[nSta].UAcp/1E4);

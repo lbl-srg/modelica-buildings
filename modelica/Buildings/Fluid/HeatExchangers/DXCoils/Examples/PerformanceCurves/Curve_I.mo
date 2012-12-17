@@ -1,7 +1,7 @@
-within Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves;
+within Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves;
 record Curve_I "Curve_I"
   extends
-    Buildings.Fluid.HeatExchangers.DXCoils.Data.PerformanceCurves.BaseClasses.Generic(
+    Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.PerformanceCurve(
     each capFunT={0.942587793,0.009543347,0.000683770,-0.011042676,0.000005249,
         -0.000009720},
     each capFunFF={0.8,0.2,0,0},

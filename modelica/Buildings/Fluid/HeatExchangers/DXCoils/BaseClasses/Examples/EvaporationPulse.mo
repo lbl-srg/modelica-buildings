@@ -4,7 +4,8 @@ model EvaporationPulse "Test model for evaporation with pulse signal"
   package Medium =Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
 
   parameter
-    Buildings.Fluid.HeatExchangers.DXCoils.Data.BaseClasses.NominalValues nomVal(
+    Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.NominalValues
+                                                                          nomVal(
           Q_flow_nominal=-5000,
           COP_nominal=3,
           SHR_nominal=0.8,
