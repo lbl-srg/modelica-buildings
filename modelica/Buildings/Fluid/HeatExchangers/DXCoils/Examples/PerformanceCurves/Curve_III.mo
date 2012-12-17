@@ -18,7 +18,7 @@ record Curve_III "Curve_III"
 <p>
 This record declares performance curves for the cooling capacity and the EIR.
 It has been obtained from the EnergyPlus 7.1 example file
-<tt>5ZoneAutoDXVAV.idf</tt>.
+<code>>5ZoneAutoDXVAV.idf</code>>.
 </p>
 </html>",
 revisions="<html>

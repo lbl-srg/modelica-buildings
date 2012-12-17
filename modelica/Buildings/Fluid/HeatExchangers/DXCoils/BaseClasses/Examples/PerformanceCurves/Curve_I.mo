@@ -18,7 +18,7 @@ record Curve_I "Curve_I"
 <p>
 This record declares performance curves for the cooling capacity and the EIR.
 It has been obtained from the EnergyPlus 7.1 example file
-<tt>AirflowNetwork_MultiZone_House.idf</tt>.
+<code>>AirflowNetwork_MultiZone_House.idf</code>>.
 </p>
 </html>",
 revisions="<html>
