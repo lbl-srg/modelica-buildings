@@ -20,14 +20,6 @@ model MultiStage "Test model for multi stage DX coil"
     use_p_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-78,40},{-58,60}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-   "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
-    relHumSou=Buildings.BoundaryConditions.Types.DataSource.File)
-    "Weather data"
-    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Fluid.HeatExchangers.DXCoils.MultiStage mulStaDX(
@@ -42,7 +34,7 @@ model MultiStage "Test model for multi stage DX coil"
     duration=600,
     startTime=2400,
     height=-5,
-    offset=273.15 + 24) "Temperature"
+    offset=273.15 + 23) "Temperature"
     annotation (Placement(transformation(extent={{-100,-38},{-80,-18}})));
   Modelica.Blocks.Sources.Ramp p(
     duration=600,
@@ -101,15 +93,10 @@ model MultiStage "Test model for multi stage DX coil"
     2700,3;
     3600,2]) "Speed ratio "
     annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+  Modelica.Blocks.Sources.Constant TConIn(k=273.15 + 25)
+    "Condensor inlet temperature"
+    annotation (Placement(transformation(extent={{-100,40},{-80,60}})));
 equation
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-80,50},{-68,50}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(sou.ports[1], mulStaDX.port_a)
                                         annotation (Line(
       points={{-20,-10},{-16,-10},{-16,10},{-10,10}},
@@ -124,15 +111,6 @@ equation
       points={{-79,-28},{-52,-28},{-52,-6},{-42,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.TDryBul, mulStaDX.TConIn)
-                                          annotation (Line(
-      points={{-68,50},{-34,50},{-34,13},{-11,13}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   connect(p.y, sou.p_in) annotation (Line(
       points={{-79,10},{-62,10},{-62,-2},{-42,-2}},
       color={0,0,127},
@@ -141,8 +119,12 @@ equation
       points={{-39,70},{-18,70},{-18,18},{-11,18}},
       color={255,127,0},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}),       graphics),
+  connect(TConIn.y, mulStaDX.TConIn) annotation (Line(
+      points={{-79,50},{-46,50},{-46,13},{-11,13}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+            -100},{100,100}}), graphics),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/MultiStage.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),

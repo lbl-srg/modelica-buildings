@@ -20,14 +20,6 @@ model VariableSpeed "Test model for variable speed DX coil"
     use_p_in=true,
     T=299.85) "Source"
     annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
-  Buildings.BoundaryConditions.WeatherData.Bus weaBus
-    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
-   "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos",
-    TDryBulSou=Buildings.BoundaryConditions.Types.DataSource.File,
-    relHumSou=Buildings.BoundaryConditions.Types.DataSource.File)
-    "weather data"
-    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
   Buildings.Fluid.HeatExchangers.DXCoils.VariableSpeed varSpeDX(
@@ -98,15 +90,10 @@ model VariableSpeed "Test model for variable speed DX coil"
           Buildings.Fluid.HeatExchangers.DXCoils.Examples.PerformanceCurves.Curve_III())})
     "Coil data"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  Modelica.Blocks.Sources.Constant TConIn(k=273.15 + 25)
+    "Condensor inlet temperature"
+    annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
 equation
-  connect(weaDat.weaBus, weaBus) annotation (Line(
-      points={{-80,30},{-70,30}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%second",
-      index=1,
-      extent={{6,3},{6,3}}));
   connect(sou.ports[1], varSpeDX.port_a)
                                         annotation (Line(
       points={{-20,-10},{-16,-10},{-16,12},{-10,12}},
@@ -121,15 +108,6 @@ equation
       points={{-79,-30},{-52,-30},{-52,-6},{-42,-6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(weaBus.TDryBul, varSpeDX.TConIn)
-                                          annotation (Line(
-      points={{-70,30},{-34,30},{-34,15},{-11,15}},
-      color={255,204,51},
-      thickness=0.5,
-      smooth=Smooth.None), Text(
-      string="%first",
-      index=-1,
-      extent={{-6,3},{-6,3}}));
   connect(speRat.y, varSpeDX.speRat)   annotation (Line(
       points={{-63,60},{-22,60},{-22,20},{-11,20}},
       color={0,0,127},
@@ -138,7 +116,11 @@ equation
       points={{-79,2},{-61.5,2},{-61.5,-2},{-42,-2}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+  connect(varSpeDX.TConIn, TConIn.y) annotation (Line(
+      points={{-11,15},{-40.5,15},{-40.5,30},{-79,30}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}), graphics),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/VariableSpeed.mos"
         "Simulate and plot"),

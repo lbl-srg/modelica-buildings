@@ -19,7 +19,7 @@ record NominalValues "Data record of nominal values"
       annotation(Dialog(tab="General",group="Nominal condition"));
 
   parameter Modelica.SIunits.Temperature TConIn_nominal=308.15
-    "Fixme: add rating condition. Condenser entering air temperature at rating condition (wet bulb for evaporative cooled coils, dry bulb otherwise)"
+    "Condenser entering air temperature at rating condition (wet bulb for evaporative cooled coils, dry bulb otherwise)"
       annotation(Dialog(tab="General",group="Nominal condition"));
 
   parameter Real phiIn_nominal=0.5

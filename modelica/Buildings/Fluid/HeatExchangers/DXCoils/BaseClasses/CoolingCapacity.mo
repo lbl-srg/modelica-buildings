@@ -51,6 +51,12 @@ block CoolingCapacity
     "EIR modification factor as a function of flow fraction";
   output Real corFac[nSta](each min=0, each max=1, each nominal=1, each start=1)
     "Correction factor that is one inside the valid flow fraction, and attains zero below the valid flow fraction";
+protected
+  output Boolean checkBoundsTEva[nSta]
+    "Flag, used to check for out of bounds data";
+  output Boolean checkBoundsTCon[nSta]
+    "Flag, used to check for out of bounds data";
+
 initial algorithm
   // Verify correctness of performance curves, and write warning if error is bigger than 10%
    for iSta in 1:nSta loop
@@ -88,11 +94,52 @@ initial algorithm
          msg="EIR as a function of normalized mass flow rate ",
          curveName="sta[" + String(iSta) + "].perCur.EIRFunFF");
    end for;
+   for iSta in 1:nSta loop
+     checkBoundsTEva[iSta] :=true;
+     checkBoundsTCon[iSta] :=true;
+   end for;
 
-algorithm
-  if stage > 0 then
+equation
+    // Modelica requires to evaluate the when() block for each element in iSta=1...nSta.
+    // But we only want to check the stage that is currently running.
+    // Hence, the test starts with stage == iSta.
     for iSta in 1:nSta loop
-    ff[iSta]:=Buildings.Utilities.Math.Functions.smoothMax(
+   // Check whether data are outside of bounds
+      when ( stage == iSta and pre(checkBoundsTEva[stage])) then
+        assert( not (TEvaIn > sta[stage].perCur.TEvaInMax or TEvaIn < sta[stage].perCur.TEvaInMin),
+        "*** Warning: Evaporator temperature TEvaIn is out of bounds in DX coil model at time = " + String(time) + ".
+        stage     = " + String(iSta) + "
+        TEvaInMin = " + String(sta[iSta].perCur.TEvaInMin) + " Kelvin (" +
+                        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TEvaInMin)) + " degC)
+        TEvaIn    = " + String(TEvaIn) + " Kelvin (" + String(Modelica.SIunits.Conversions.to_degC(TEvaIn)) + " degC)
+        TEvaInMax = " + String(sta[iSta].perCur.TEvaInMax) + " Kelvin (" +
+                        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TEvaInMax)) + " degC)
+        Extrapolation can introduce large errors.
+        This warning will only be reported once for each stage.",
+        level=  AssertionLevel.warning);
+        checkBoundsTEva[iSta] = false;
+      end when;
+      when ( stage == iSta and pre(checkBoundsTCon[stage])) then
+        assert( not ( TConIn > sta[stage].perCur.TConInMax or TConIn < sta[stage].perCur.TConInMin),
+        "*** Warning: Condenser temperature TConIn is out of bounds in DX coil model at time = " + String(time) + ".
+        stage     = " + String(iSta) + "
+        TConInMin = " + String(sta[iSta].perCur.TConInMin) + " Kelvin (" +
+                        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TConInMin)) + " degC)
+        TConIn    = " + String(TConIn) + " Kelvin (" + String(Modelica.SIunits.Conversions.to_degC(TConIn)) + " degC)
+        TConInMax = " + String(sta[iSta].perCur.TConInMax) + " Kelvin (" +
+                        String(Modelica.SIunits.Conversions.to_degC(sta[iSta].perCur.TConInMax)) + " degC)
+        Extrapolation can introduce large errors.
+        This warning will only be reported once for each stage.",
+        level=  AssertionLevel.warning);
+        checkBoundsTCon[iSta] = false;
+      end when;
+    end for;
+
+if stage > 0 then
+    for iSta in 1:nSta loop
+
+    // Compute performance
+    ff[iSta]=Buildings.Utilities.Math.Functions.smoothMax(
       x1=m_flow,
       x2=m_flow_small,
       deltaX=m_flow_small/10)/sta[iSta].nomVal.m_flow_nominal;
@@ -101,7 +148,7 @@ algorithm
     // Since the regression for capacity can have negative values
     // (for unreasonable temperatures), we constrain its return value to be
     // non-negative.
-    cap_T[iSta] :=Buildings.Utilities.Math.Functions.smoothMax(
+    cap_T[iSta] =Buildings.Utilities.Math.Functions.smoothMax(
       x1=Buildings.Utilities.Math.Functions.biquadratic(
         a=sta[iSta].perCur.capFunT,
         x1=Modelica.SIunits.Conversions.to_degC(TEvaIn),
@@ -109,42 +156,42 @@ algorithm
       x2=0.001,
       deltaX=0.0001)
         "Cooling capacity modification factor as function of temperature";
-    cap_FF[iSta] := Buildings.Fluid.Utilities.extendedPolynomial(
+    cap_FF[iSta] = Buildings.Fluid.Utilities.extendedPolynomial(
       x=ff[iSta],
       c=sta[iSta].perCur.capFunFF,
       xMin=sta[iSta].perCur.ffMin,
       xMax=sta[iSta].perCur.ffMin);
     //-----------------------Energy Input Ratio modifiers--------------------------//
-    EIR_T[iSta] :=Buildings.Utilities.Math.Functions.smoothMax(
+    EIR_T[iSta] =Buildings.Utilities.Math.Functions.smoothMax(
       x1=Buildings.Utilities.Math.Functions.biquadratic(
         a=sta[iSta].perCur.EIRFunT,
         x1=Modelica.SIunits.Conversions.to_degC(TEvaIn),
         x2=Modelica.SIunits.Conversions.to_degC(TConIn)),
       x2=0.001,
       deltaX=0.0001);
-    EIR_FF[iSta] := Buildings.Fluid.Utilities.extendedPolynomial(
+    EIR_FF[iSta] = Buildings.Fluid.Utilities.extendedPolynomial(
        x=ff[iSta],
        c=sta[iSta].perCur.EIRFunFF,
        xMin=sta[iSta].perCur.ffMin,
        xMax=sta[iSta].perCur.ffMin)
         "Cooling capacity modification factor as function of flow fraction";
     //------------ Correction factor for flow rate outside of validity of data ---//
-    corFac[iSta] :=Buildings.Utilities.Math.Functions.smoothHeaviside(
+    corFac[iSta] =Buildings.Utilities.Math.Functions.smoothHeaviside(
        x=ff[iSta] - sta[iSta].perCur.ffMin/4,
        delta=sta[iSta].perCur.ffMin/4);
 
-    Q_flow[iSta] := corFac[iSta]*cap_T[iSta]*cap_FF[iSta]*sta[iSta].nomVal.Q_flow_nominal;
-    EIR[iSta]    := corFac[iSta]*EIR_T[iSta]*EIR_FF[iSta]/sta[iSta].nomVal.COP_nominal;
+    Q_flow[iSta] = corFac[iSta]*cap_T[iSta]*cap_FF[iSta]*sta[iSta].nomVal.Q_flow_nominal;
+    EIR[iSta]    = corFac[iSta]*EIR_T[iSta]*EIR_FF[iSta]/sta[iSta].nomVal.COP_nominal;
     end for;
   else //cooling coil off
-   ff     := fill(0, nSta);
-   cap_T  := fill(0, nSta);
-   cap_FF := fill(0, nSta);
-   EIR_T  := fill(0, nSta);
-   EIR_FF := fill(0, nSta);
-   corFac := fill(0, nSta);
-   Q_flow := fill(0, nSta);
-   EIR    := fill(0, nSta);
+   ff     = fill(0, nSta);
+   cap_T  = fill(0, nSta);
+   cap_FF = fill(0, nSta);
+   EIR_T  = fill(0, nSta);
+   EIR_FF = fill(0, nSta);
+   corFac = fill(0, nSta);
+   Q_flow = fill(0, nSta);
+   EIR    = fill(0, nSta);
   end if;
    annotation (
     defaultComponentName="cooCap",
@@ -349,6 +396,11 @@ so that both are zero if <i>ff &lt; ff<sub>min</sub>/4</i>, where
 </html>",
 revisions="<html>
 <ul>
+<li>
+December 18, 2012 by Michael Wetter:<br>
+Added warning if the evaporator or condenser inlet temperature of the current stage
+cross the minimum and maximum allowed values.
+</li>
 <li>
 September 20, 2012 by Michael Wetter:<br>
 Revised model and documentation.

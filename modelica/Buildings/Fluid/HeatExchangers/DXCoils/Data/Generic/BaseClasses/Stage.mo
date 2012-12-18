@@ -1,8 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses;
 record Stage "Generic data record for a stage of a DX coil"
   extends Modelica.Icons.Record;
-  // fixme: check why spe is used. In particular the single speed coil should not
-  // require this parameter
+
   parameter Modelica.SIunits.AngularVelocity spe(displayUnit="1/min")
     "Rotational speed";
   parameter
