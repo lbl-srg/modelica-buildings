@@ -15,7 +15,6 @@ record PerformanceCurve "Data record for a performance curve"
     "Polynomial coefficients for EIR function of flow fration"
     annotation (Dialog(group="Performance curves"));
 //------------------------Range for performance curves------------------------//
- // fixme: These values are not yet used. Need to add linear extrapolation beyond these values
   parameter Modelica.SIunits.Temperature   TConInMin
     "Minimum condenser inlet temperature for cooling capacity function"
     annotation (Dialog(group="Minimum and maximum values"));
