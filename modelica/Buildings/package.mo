@@ -292,11 +292,21 @@ have been <b style=\"color:blue\">improved</b> in a
                      where computed based on the medium default properties.
     </td>
 </tr>    
+<tr><td valign=\"top\">Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate<br>
+                     Buildings.Fluid.Sensors.LatentEnthalpyFlowRate
+    </td>
+    <td valign=\"top\">Moved computation of parameter <code>i_w</code> to new base class
+                     <code>Buildings.Fluid.BaseClasses.IndexWater</code>
+                     The value of this parameter is now assigned dynamically and does not require to be specified
+                     by the user.
+    </td>
+</tr> 
 <tr><td valign=\"top\">Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier
     </td>
     <td valign=\"top\">Removed unused protected parameters <code>sta0</code> and <code>cp0</code>.
     </td>
-</tr> <tr><td colspan=\"2\"><b>Buildings.Examples</b>
+</tr> 
+<tr><td colspan=\"2\"><b>Buildings.Examples</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl<br> 
@@ -2871,11 +2881,12 @@ The tutorial contains step by step instructions for how to build system models.
 </html>"));
 end UsersGuide;
 
+                          // fixme: update date
 
 annotation (
 version="1.3",
 versionBuild=1,
-versionDate="2012-07-26", // fixme: update date
+versionDate="2012-07-26",
 dateModified = "$Date$",
 uses(Modelica(version="3.2")),
 conversion(

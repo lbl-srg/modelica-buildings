@@ -2,16 +2,11 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial model PartialDXCoil "Partial model for DX coil"
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
+  extends Buildings.Fluid.BaseClasses.IndexWater;
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
     redeclare package Medium = Medium,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
     final m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
-
-  // redeclare Medium with a more restricting base class. This improves the error
-  // message if a user selects a medium that does not contain the function
-  // enthalpyOfLiquid(.)
-  replaceable package Medium = Modelica.Media.Interfaces.PartialCondensingGases
-      annotation (choicesAllMatching = true);
 
   Modelica.Blocks.Interfaces.RealInput TConIn(
     unit="K",
@@ -53,13 +48,11 @@ protected
     "Dry bulb temperature of air entering the cooling coil";
   Modelica.SIunits.MassFraction XEvaIn[Medium.nXi] = inStream(port_a.Xi_outflow)
     "Mass fraction/absolute humidity of air entering the cooling coil";
-  constant Integer iWat = 1
-    "Index of water component in XEvaIn. fixme: this should be set dynamically";
 
   Modelica.Blocks.Sources.RealExpression p(final y=port_a.p)
     "Inlet air pressure"
     annotation (Placement(transformation(extent={{-90,4},{-70,24}})));
-  Modelica.Blocks.Sources.RealExpression X(final y=XEvaIn[iWat])
+  Modelica.Blocks.Sources.RealExpression X(final y=XEvaIn[i_w])
     "Inlet air mass fraction"
     annotation (Placement(transformation(extent={{-56,26},{-36,46}})));
   Modelica.Blocks.Sources.RealExpression T(final y=TEvaIn)

@@ -2,14 +2,9 @@ within Buildings.Fluid.Sensors;
 model LatentEnthalpyFlowRate
   "Ideal enthalphy flow rate sensor that outputs the latent enthalpy flow rate only"
   extends Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor(tau=0);
+  extends Buildings.Fluid.BaseClasses.IndexWater;
   extends Modelica.Icons.RotationalSensor;
-  // redeclare Medium with a more restricting base class. This improves the error
-  // message if a user selects a medium that does not contain the function
-  // enthalpyOfLiquid(.)
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialCondensingGases
-      annotation (choicesAllMatching = true);
-  parameter Integer i_w = 1 "Index for water substance";
+
   Modelica.Blocks.Interfaces.RealOutput H_flow(unit="W")
     "Latent enthalpy flow rate, positive if from port_a to port_b"
     annotation (Placement(transformation(
@@ -33,21 +28,6 @@ protected
   Medium.SpecificEnthalpy hActual
     "Medium enthalpy to which sensor is exposed to";
   Medium.ThermodynamicState sta "Medium state to which sensor is exposed to";
-  parameter Integer i_w_internal(fixed=false) "Index for water substance";
-initial algorithm
-  // Compute index of species vector that carries the water vapor concentration
-  i_w_internal :=-1;
-    for i in 1:Medium.nXi loop
-      if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
-                                            string2="Water",
-                                            caseSensitive=false) then
-        i_w_internal :=i;
-      end if;
-    end for;
-  assert(i_w_internal > 0, "Substance 'water' is not present in medium '"
-                  + Medium.mediumName + "'.\n"
-                  + "Change medium model to one that has 'water' as a substance.");
-  assert(i_w == i_w_internal, "Parameter 'i_w' must be set to '" + String(i_w) + "'.\n");
 initial equation
  // Compute initial state
  if dynamic then
@@ -153,6 +133,14 @@ The sensor can only be used with medium models that implement the function
 </html>
 ", revisions="<html>
 <ul>
+<li>
+December 18, 2012, by Michael Wetter:<br>
+Moved computation of <code>i_w</code> to new base class
+<a href=\"modelica://Buildings.Fluid.BaseClasses.IndexWater\">
+Buildings.Fluid.BaseClasses.IndexWater</a>.
+The value of this parameter is now assigned dynamically and does not require to be specified
+by the user.
+</li>
 <li>
 November 3, 2011, by Michael Wetter:<br>
 Moved <code>der(h_out) := 0;</code> from the initial algorithm section to 

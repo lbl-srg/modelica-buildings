@@ -25,7 +25,8 @@ partial block PartialSurfaceCondition
     quantity="Pressure",
     unit="Pa") "Evaporator air static pressure"
   annotation (Placement(transformation(extent={{-120,-30},{-100,-10}})));
-  Modelica.Blocks.Interfaces.RealInput XEvaIn "Evaporator inlet air mass fraction"
+  Modelica.Blocks.Interfaces.RealInput XEvaIn
+    "Evaporator inlet air mass fraction"
   annotation (Placement(transformation(extent={{-120,-60},{-100,-40}},
                                                                     rotation=
             0)));                         //(start=0.005, min=0, max=1.0)
@@ -97,8 +98,6 @@ algorithm
       x1=-Q_flow/m_flow_nonzero/(1 - bypass),
       x2=0.999*hEvaIn,
       deltaX=0.0001);
- /*   delta_h := -Q_flow / m_flow_nonzero / (1 - bypass);
- */
     end if;
   annotation (Documentation(info="<html>
 <p>
