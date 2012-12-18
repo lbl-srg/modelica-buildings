@@ -124,7 +124,11 @@ its class name ends with the string <code>Beta</code>.
     extends Modelica.Icons.ReleaseNotes;
      annotation (Documentation(info="<html>
 <p>
-Version 1.3 build 1 is ... xxx
+In version 1.3 build 1, models for direct evaporative cooling coils with multiple stages or with
+a variable speed compressor have been added.
+It also contains improvements to the fan and pump models to better treat zero mass flow rate.
+Various other improvements have been made to improve the numerics and to use consistent variable name.
+A detailed list of changes is shown below.
 </p>
 <!-- New libraries -->
 <p>
@@ -177,13 +181,6 @@ to <b style=\"color:blue\">existing</b> libraries:
                        species concentration and atmospheric pressure.
     </td> 
     </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td> 
 </table>
 </p>
 <!-- Backward compatbile changes -->
@@ -246,14 +243,6 @@ have been <b style=\"color:blue\">improved</b> in a
                      nonlinear system of equations from two to one.
     </td> 
     </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 </p>
 <!-- Non-backward compatible changes to existing components -->
@@ -388,41 +377,10 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Improved the documentation for implementation and added comments for model limitations.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\">xxx
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
 </table>
 </p>
 <!-- Trac tickets -->
-<p>
-The following
-<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
-have been fixed:
-</p>
-<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
-    </td>
-</tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/xxx\">#xxx</a>
-    </td>
-    <td valign=\"top\">xxx.
-    </td>
-</tr>
-</table>
-<p>
-Note:
-</p>
-<ul>
-<li> 
-xxx
-</li>
-</ul>
-</p>
+<!-- none -->
 </html>"));
   end Version_1_3_build1;
 
@@ -2916,13 +2874,12 @@ end UsersGuide;
 
 annotation (
 version="1.3",
-versionBuild=0,
-versionDate="2012-07-26",
+versionBuild=1,
+versionDate="2012-07-26", // fixme: update date
 dateModified = "$Date$",
 uses(Modelica(version="3.2")),
 conversion(
- from(version="1.2",
-      script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.2_to_1.3fixme.mos"),
+ noneFromVersion="1.2",
  from(version="1.1",
       script="modelica://Buildings/Resources/Scripts/Dymola/ConvertBuildings_from_1.1_to_1.2.mos"),
  from(version="1.0",
