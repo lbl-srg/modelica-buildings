@@ -126,8 +126,8 @@ its class name ends with the string <code>Beta</code>.
 <p>
 In version 1.3 build 1, models for direct evaporative cooling coils with multiple stages or with
 a variable speed compressor have been added.
-It also contains improvements to the fan and pump models to better treat zero mass flow rate.
-Various other improvements have been made to improve the numerics and to use consistent variable name.
+This version also contains improvements to the fan and pump models to better treat zero mass flow rate.
+Various other improvements have been made to improve the numerics and to use consistent variable names.
 A detailed list of changes is shown below.
 </p>
 <!-- New libraries -->
