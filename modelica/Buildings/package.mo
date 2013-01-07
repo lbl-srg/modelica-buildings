@@ -2462,6 +2462,10 @@ on the Buildings library
 <p>
 <ul>
 <li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_3_build1\">
+Version 1.3 build1</a>(January 8, 2013)</li>
+</li>
+<li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_2_build1\">
 Version 1.2 build1</a>(July 26, 2012)</li>
 </li>
@@ -2881,12 +2885,10 @@ The tutorial contains step by step instructions for how to build system models.
 </html>"));
 end UsersGuide;
 
-                          // fixme: update date
-
 annotation (
 version="1.3",
 versionBuild=1,
-versionDate="2012-07-26",
+versionDate="2013-01-08",
 dateModified = "$Date$",
 uses(Modelica(version="3.2")),
 conversion(
