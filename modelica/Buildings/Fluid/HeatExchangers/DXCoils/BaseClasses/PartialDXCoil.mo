@@ -4,7 +4,6 @@ partial model PartialDXCoil "Partial model for DX coil"
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
   extends Buildings.Fluid.BaseClasses.IndexWater;
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
-    redeclare package Medium = Medium,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
     final m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
 
