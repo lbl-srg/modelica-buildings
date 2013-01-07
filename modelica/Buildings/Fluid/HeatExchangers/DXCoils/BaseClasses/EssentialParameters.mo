@@ -1,8 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 partial block EssentialParameters "A partial block for essential parameters"
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
-     annotation (choicesAllMatching=true);
+
   parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
                                                                  datCoi
     "Performance data"
@@ -19,6 +17,10 @@ Buildings.Fluid.HeatExchangers.DXCoils</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 7, 2013 by Michael Wetter:<br>
+Removed medium declaration to avoid multiple definitions of the medium.
+</li>
 <li>
 August 1, 2012 by Kaustubh Phalak:<br>
 First implementation. 

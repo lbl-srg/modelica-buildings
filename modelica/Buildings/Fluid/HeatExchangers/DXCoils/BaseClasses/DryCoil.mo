@@ -2,6 +2,9 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 model DryCoil "Calculates dry coil condition"
  extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition;
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
+      annotation (choicesAllMatching=true);
   Modelica.Blocks.Interfaces.RealOutput TDry(
     quantity="Temperature",
     unit="K",

@@ -4,6 +4,10 @@ partial block PartialSurfaceCondition
   extends Modelica.Blocks.Interfaces.BlockIcon;
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
+      annotation (choicesAllMatching=true);
+
   constant Boolean variableSpeedCoil "Flag, set to true to interpolate data";
 
   final parameter Modelica.SIunits.MassFlowRate m_flow_small = datCoi.m_flow_small

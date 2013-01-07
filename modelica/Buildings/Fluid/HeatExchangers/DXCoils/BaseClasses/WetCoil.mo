@@ -2,6 +2,9 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 model WetCoil "Calculates wet coil condition "
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilCondition;
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
+      annotation (choicesAllMatching=true);
   Modelica.Blocks.Interfaces.RealOutput TADP(
     quantity="Temperature",
     unit="K",

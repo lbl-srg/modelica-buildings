@@ -2,6 +2,10 @@ within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses;
 model DXCooling "DX cooling coil operation "
   extends
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.PartialCoilInterface;
+  replaceable package Medium =
+      Modelica.Media.Interfaces.PartialCondensingGases "Medium model"
+      annotation (choicesAllMatching=true);
+
   constant Boolean variableSpeedCoil
     "Flag, set to true for coil with variable speed";
 
