@@ -1,7 +1,7 @@
 BuildingsPy Changelog
 ---------------------
 
-Version 1.1.2, xxxx -- Release 1.1
+Version 1.1.2, January 8, 2013 -- Release 1.1
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Fixed bug in Simulator.py to allow setting Modelica parameters
   that are of type string.
