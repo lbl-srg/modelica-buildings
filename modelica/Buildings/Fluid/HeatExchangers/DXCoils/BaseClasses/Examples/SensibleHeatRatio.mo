@@ -13,7 +13,7 @@ model SensibleHeatRatio "Test model for SensibleHeatRatio"
     duration=600,
     startTime=2400,
     offset=60000,
-    height=-10000) "Specific enthalpy of air entring the coil"
+    height=-10000) "Specific enthalpy of air entering the coil"
     annotation (Placement(transformation(extent={{-80,30},{-60,50}})));
   Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,

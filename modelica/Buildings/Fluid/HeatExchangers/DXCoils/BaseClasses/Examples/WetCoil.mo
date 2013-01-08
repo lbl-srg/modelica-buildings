@@ -32,7 +32,7 @@ model WetCoil "Test model for WetCoil"
     duration=600,
     startTime=2400,
     offset=60000,
-    height=-10000) "Specific enthalpy of air entring the coil"
+    height=-10000) "Specific enthalpy of air entering the coil"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Modelica.Blocks.Sources.Ramp TEvaIn(
     duration=600,

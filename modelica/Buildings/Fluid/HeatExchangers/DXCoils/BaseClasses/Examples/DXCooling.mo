@@ -26,7 +26,7 @@ model DXCooling "Test model for DXCooling"
     duration=600,
     startTime=2400,
     height=-5,
-    offset=273.15 + 29) "Dry bulb temperature of air entring the coil"
+    offset=273.15 + 29) "Dry bulb temperature of air entering the coil"
     annotation (Placement(transformation(extent={{-80,-24},{-60,-4}})));
   Modelica.Blocks.Sources.Ramp XEvaIn(
     duration=600,
@@ -38,7 +38,7 @@ model DXCooling "Test model for DXCooling"
     duration=600,
     startTime=2400,
     offset=60000,
-    height=-10000) "Specific enthalpy of air entring the coil"
+    height=-10000) "Specific enthalpy of air entering the coil"
     annotation (Placement(transformation(extent={{-40,-40},{-20,-20}})));
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "

@@ -26,7 +26,7 @@ extends Modelica.Icons.Example;
     duration=600,
     startTime=2400,
     height=-4,
-    offset=273.15 + 29) "Dry bulb temperature of air entring the coil"
+    offset=273.15 + 29) "Dry bulb temperature of air entering the coil"
     annotation (Placement(transformation(extent={{-80,-28},{-60,-8}})));
   Modelica.Blocks.Sources.Ramp XEvaIn(
     duration=600,
@@ -38,7 +38,7 @@ extends Modelica.Icons.Example;
     duration=600,
     startTime=2400,
     height=-10000,
-    offset=45000) "Specific enthalpy of air entring the coil"
+    offset=45000) "Specific enthalpy of air entering the coil"
     annotation (Placement(transformation(extent={{-20,-40},{0,-20}})));
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "

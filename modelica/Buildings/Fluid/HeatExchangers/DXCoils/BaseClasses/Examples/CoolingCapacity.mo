@@ -17,7 +17,7 @@ model CoolingCapacity "Test model for CoolingCapacity"
     duration=2400,
     startTime=600,
     height=10,
-    offset=273.15 + 19.4) "Air wet bulb temperature entring the coil"
+    offset=273.15 + 19.4) "Air wet bulb temperature entering the coil"
     annotation (Placement(transformation(extent={{-80,-70},{-60,-50}})));
   Modelica.Blocks.Sources.IntegerStep onOff(startTime=600)
     "Compressor on-off signal"
