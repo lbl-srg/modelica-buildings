@@ -311,12 +311,17 @@ class Tester:
                                     break
 
                         plotVars = []
+                        print "---- Test ", os.path.join(root, mosFil)
+                        iLin=0
                         for lin in Lines:
+                            iLin=iLin+1
                             if 'y={' in lin:
                                 try:
                                     var=re.search('{.*?}', lin).group()
                                 except AttributeError as e:
-                                    s =  "%s could not be parsed.\n" % mosFil
+                                    s =  "%s, line %s, could not be parsed.\n" % (mosFil, iLin)
+                                    s +=  "The problem occurred at the line below:\n"
+                                    s +=  "%s\n" % lin
                                     s += "Make sure that each assignment of the plot command is on one line.\n"
                                     s += "Unit tests failed with error.\n"
                                     self.__reporter.writeError(s)

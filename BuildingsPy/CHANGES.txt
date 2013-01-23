@@ -1,6 +1,12 @@
 BuildingsPy Changelog
 ---------------------
 
+Version 1.1.3, xxxx, 2013 -- Release 1.1
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- Improved error reporting of the package that runs
+  the unit tests.
+
+
 Version 1.1.2, January 8, 2013 -- Release 1.1
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Fixed bug in Simulator.py to allow setting Modelica parameters
