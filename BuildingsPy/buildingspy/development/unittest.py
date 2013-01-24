@@ -311,7 +311,6 @@ class Tester:
                                     break
 
                         plotVars = []
-                        print "---- Test ", os.path.join(root, mosFil)
                         iLin=0
                         for lin in Lines:
                             iLin=iLin+1
