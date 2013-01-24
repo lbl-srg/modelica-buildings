@@ -29,9 +29,9 @@ model ConductorSingleLayer "Test model for heat conductor"
     annotation (Placement(transformation(extent={{-6,4},{6,16}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-8)
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
-  parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete200(x=0.2, nStaRef=4)
+  parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete200(x=0.2, nSta=4)
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nStaRef=4)
+  parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nSta=2)
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
   Buildings.HeatTransfer.Convection.Interior conv1(      A=1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
     "Convective heat transfer"
@@ -104,6 +104,10 @@ The <code>assert</code> block will stop the simulation if the heat exchange with
 condition differs.
 </html>", revisions="<html>
 <ul>
+<li>
+January 23 2013, by Michael Wetter:<br>
+Assigned fixed value to <code>nSta</code> of constructions.
+</li>
 <li>
 March 6 2010, by Michael Wetter:<br>
 First implementation.

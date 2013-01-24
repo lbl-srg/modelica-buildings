@@ -11,7 +11,9 @@ model HeaterCoolerPrescribed
       Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
-    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{-14,90},{6,110}},   rotation=0)));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
     annotation (Placement(transformation(extent={{-200,94},{-180,114}},
@@ -55,7 +57,9 @@ model HeaterCoolerPrescribed
                                                  redeclare package Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
-    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{28,134},{48,154}}, rotation=0)));
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
           extent={{-50,174},{-30,194}}, rotation=0)));
@@ -64,7 +68,9 @@ model HeaterCoolerPrescribed
       Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
-    dp_nominal=200) "Heater and cooler"                   annotation (Placement(
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                                   annotation (Placement(
         transformation(extent={{-14,-30},{6,-10}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_2(
     redeclare package Medium = Medium,
@@ -82,7 +88,9 @@ model HeaterCoolerPrescribed
                                                  redeclare package Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
-    dp_nominal=200) "Heater and cooler"                   annotation (Placement(
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                                   annotation (Placement(
         transformation(extent={{20,22},{40,42}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_4(
     redeclare package Medium = Medium,
@@ -96,15 +104,16 @@ model HeaterCoolerPrescribed
                                            redeclare package Medium = Medium, V=
        0.000001,
     nPorts=2,
-    m_flow_nominal=0.5)
+    m_flow_nominal=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{62,-20},{82,0}},
           rotation=0)));
-  Buildings.Utilities.Diagnostics.AssertEquality ass1(startTime=0.2, threShold=
-        0.05)
+  Buildings.Utilities.Diagnostics.AssertEquality ass1(               threShold=
+        0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,160},{180,180}}, rotation=
            0)));
-  Buildings.Utilities.Diagnostics.AssertEquality ass2(startTime=0.2, threShold=
-        0.05)
+  Buildings.Utilities.Diagnostics.AssertEquality ass2(               threShold=
+        0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,116},{180,136}}, rotation=
            0)));
   Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea5(
@@ -112,7 +121,9 @@ model HeaterCoolerPrescribed
       Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
-    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{-10,-190},{10,-170}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_1(
     redeclare package Medium = Medium,
@@ -130,14 +141,18 @@ model HeaterCoolerPrescribed
                                                  redeclare package Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
-    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{0,-130},{20,-110}},rotation=0)));
   Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed hea7(
                                                          redeclare package
       Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
-    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{-10,-330},{10,-310}},  rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_6(
     redeclare package Medium = Medium,
@@ -155,7 +170,9 @@ model HeaterCoolerPrescribed
                                                  redeclare package Medium =
         Medium, Q_flow_nominal=5000,
     m_flow_nominal=0.5,
-    dp_nominal=200) "Heater and cooler"                  annotation (Placement(
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                                  annotation (Placement(
         transformation(extent={{0,-270},{20,-250}},  rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_8(
     redeclare package Medium = Medium,
@@ -169,15 +186,16 @@ model HeaterCoolerPrescribed
                                            redeclare package Medium = Medium, V=
        0.000001,
     nPorts=2,
-    m_flow_nominal=0.5)
+    m_flow_nominal=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{60,-320},{80,
             -300}}, rotation=0)));
-  Buildings.Utilities.Diagnostics.AssertEquality ass9(                startTime=
-        0.3, threShold=0.05)
+  Buildings.Utilities.Diagnostics.AssertEquality ass9(
+             threShold=0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,-400},{180,-380}},
           rotation=0)));
-  Buildings.Utilities.Diagnostics.AssertEquality ass10(                startTime=
-        0.3, threShold=0.05)
+  Buildings.Utilities.Diagnostics.AssertEquality ass10(
+             threShold=0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,-360},{180,-340}},
           rotation=0)));
   inner Modelica.Fluid.System system(m_flow_start=0, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
@@ -222,21 +240,21 @@ model HeaterCoolerPrescribed
     m_flow_nominal=0.5,
     tau=0) "Temperature sensor"
     annotation (Placement(transformation(extent={{50,22},{70,42}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass3(startTime=0.2, threShold=
-        0.05)
+  Buildings.Utilities.Diagnostics.AssertEquality ass3(               threShold=
+        0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,0},{180,20}},    rotation=
            0)));
-  Buildings.Utilities.Diagnostics.AssertEquality ass4(startTime=0.2, threShold=
-        0.05)
+  Buildings.Utilities.Diagnostics.AssertEquality ass4(               threShold=
+        0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,60},{180,80}},   rotation=
            0)));
-  Buildings.Utilities.Diagnostics.AssertEquality ass5(startTime=0.2, threShold=
-        0.05)
+  Buildings.Utilities.Diagnostics.AssertEquality ass5(               threShold=
+        0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,-164},{180,-144}},
                                                                        rotation=
            0)));
-  Buildings.Utilities.Diagnostics.AssertEquality ass6(startTime=0.2, threShold=
-        0.05)
+  Buildings.Utilities.Diagnostics.AssertEquality ass6(               threShold=
+        0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,-100},{180,-80}},rotation=
            0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort
@@ -259,13 +277,13 @@ model HeaterCoolerPrescribed
     m_flow_nominal=0.5,
     tau=0) "Temperature sensor"
     annotation (Placement(transformation(extent={{-60,-190},{-40,-170}})));
-  Buildings.Utilities.Diagnostics.AssertEquality ass7(startTime=0.2, threShold=
-        0.05)
+  Buildings.Utilities.Diagnostics.AssertEquality ass7(               threShold=
+        0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,-284},{180,-264}},
                                                                        rotation=
            0)));
-  Buildings.Utilities.Diagnostics.AssertEquality ass8(startTime=0.2, threShold=
-        0.05)
+  Buildings.Utilities.Diagnostics.AssertEquality ass8(               threShold=
+        0.05, startTime=600)
     annotation (Placement(transformation(extent={{160,-240},{180,-220}},
                                                                        rotation=
            0)));
@@ -564,7 +582,7 @@ equation
       points={{-60,-320},{-80,-320}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-200,
+  annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -400},{200,240}}), graphics={Text(
           extent={{30,234},{158,192}},
           lineColor={0,0,255},
@@ -579,6 +597,12 @@ Documentation(info="<html>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 24, 2013, by Michael Wetter:<br>
+Increased parameter <code>startTime</code> of the assert block
+and set initial conditions to 
+<code>Modelica.Fluid.Types.Dynamics.FixedInitial</code>.
+</li>
 <li>
 July 11, 2011, by Michael Wetter:<br>
 Changed model to sensors with two fluid ports.

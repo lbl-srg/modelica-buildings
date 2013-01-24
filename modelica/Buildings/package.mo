@@ -203,12 +203,16 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Utilities.Diagnostics.AssertEquality<br>
+                       Buildings.Utilities.Diagnostics.AssertInequality
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Replaced <code>when</code> test with <code>if</code> test as
+                       equations within a <code>when</code> section are only evaluated
+                       when the condition becomes true.
+                       This fixes <a href=\"https://corbu.lbl.gov/trac/bie/ticket/72\">ticket 72</a>.
     </td>
 </tr>
 </table>
@@ -237,12 +241,17 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Assert statement does not fire.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/xxx\">#xxx</a>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/xxx\">#72</a>
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">
+    The blocks <code>Buildings.Utilities.Diagnostics.AssertEquality</code> and
+    <code>Buildings.Utilities.Diagnostics.AssertInequality</code> did not fire because
+    the test on the time was in a <code>when</code> instead of an <code>if</code> statement.
+    This was wrong because <code>when</code> sections are only evaluated
+    when the condition becomes true.
     </td>
 </tr>
 </table>
@@ -3026,6 +3035,7 @@ The tutorial contains step by step instructions for how to build system models.
 </p>
 </html>"));
 end UsersGuide;
+
 
 annotation (
 version="1.4",

@@ -12,7 +12,9 @@ model HumidifierPrescribed
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true) "Heater and cooler"              annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,92},{-34,112}}, rotation=0)));
   Modelica.Blocks.Sources.Constant TDb(k=293.15) "Drybulb temperature"
     annotation (Placement(transformation(extent={{-200,92},{-180,112}},
@@ -58,7 +60,9 @@ model HumidifierPrescribed
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true) "Heater and cooler"              annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,134},{8,154}}, rotation=0)));
   Modelica.Blocks.Math.Gain gain(k=-1) annotation (Placement(transformation(
           extent={{-50,174},{-30,194}}, rotation=0)));
@@ -68,7 +72,9 @@ model HumidifierPrescribed
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true) "Heater and cooler"              annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,12},{-34,32}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_2(
     redeclare package Medium = Medium,
@@ -88,7 +94,9 @@ model HumidifierPrescribed
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true) "Heater and cooler"              annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,54},{8,74}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_4(
     redeclare package Medium = Medium,
@@ -102,7 +110,8 @@ model HumidifierPrescribed
                                            redeclare package Medium = Medium, V=
        0.000001,
     nPorts=2,
-    m_flow_nominal=0.5)
+    m_flow_nominal=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{-20,22},{0,42}},
           rotation=0)));
   Buildings.Utilities.Diagnostics.AssertEquality ass1(                startTime=
@@ -144,7 +153,9 @@ model HumidifierPrescribed
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true) "Heater and cooler"              annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-110},{-34,-90}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_1(
     redeclare package Medium = Medium,
@@ -164,7 +175,9 @@ model HumidifierPrescribed
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true) "Heater and cooler"              annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,-68},{8,-48}}, rotation=0)));
   Buildings.Fluid.MassExchangers.HumidifierPrescribed hea7(redeclare package
       Medium =
@@ -172,7 +185,9 @@ model HumidifierPrescribed
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true) "Heater and cooler"              annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-54,-190},{-34,-170}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_6(
     redeclare package Medium = Medium,
@@ -192,7 +207,9 @@ model HumidifierPrescribed
     m_flow_nominal=0.5,
     mWat_flow_nominal=mWat_flow_nominal,
     dp_nominal=50,
-    show_T=true) "Heater and cooler"              annotation (Placement(
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    "Heater and cooler"                           annotation (Placement(
         transformation(extent={{-12,-148},{8,-128}}, rotation=0)));
     Buildings.Fluid.FixedResistances.FixedResistanceDpM res_8(
     redeclare package Medium = Medium,
@@ -206,7 +223,8 @@ model HumidifierPrescribed
                                            redeclare package Medium = Medium, V=
        0.000001,
     nPorts=2,
-    m_flow_nominal=0.5)
+    m_flow_nominal=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
                  annotation (Placement(transformation(extent={{-20,-180},{0,
             -160}}, rotation=0)));
   Buildings.Utilities.Diagnostics.AssertEquality ass5(                startTime=
@@ -628,6 +646,11 @@ than a prescribed threshold.</p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 24, 2013, by Michael Wetter:<br>
+Set initial conditions to 
+<code>Modelica.Fluid.Types.Dynamics.FixedInitial</code>.
+</li>
 <li>
 July 11, 2011, by Michael Wetter:<br>
 Moved model to <code>Buildings.Fluid.Interfaces.Examples</code>.

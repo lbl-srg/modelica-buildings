@@ -31,8 +31,8 @@ model MoistAirEnthalpyFlowRate
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(redeclare package Medium
-      = Medium, m_flow_nominal=1)
-                annotation (Placement(transformation(extent={{0,10},{20,30}})));
+      = Medium, m_flow_nominal=1,
+    tau=0)      annotation (Placement(transformation(extent={{0,10},{20,30}})));
   Buildings.Fluid.Sensors.MassFlowRate senM_flow(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{28,10},{48,30}})));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu1
@@ -118,5 +118,14 @@ equation
         coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
         graphics),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+January 23 2013, by Michael Wetter:<br>
+Changed time constant of <code>senH</code> so that it has
+the same transient response model as <code>senH_flow</code>.
+</li>
+</ul>
+</html>"));
 end MoistAirEnthalpyFlowRate;
