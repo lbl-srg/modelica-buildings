@@ -4,15 +4,16 @@
 #
 # This script 
 # - creates temporary directories for each processors, 
-# - copies the directory 'Buildings' into these
+# - copies the library directory into these
 #   temporary directories,
 # - creates run scripts that run all unit tests,
 # - runs these unit tests,
 # - collects the dymola log files from each process,
 # - writes the combined log file 'unitTests.log'
 #   in the current directory, 
-# - checks the md5sum of the .mat files versus the number
-#   that is stored in Buildings/../md5sum, and
+# - checks whether all unit tests run successfully,
+#   and produced the same results as the reference
+#   results, and
 # - exits with the message 
 #    'Unit tests completed successfully.' or with
 #   an error message.

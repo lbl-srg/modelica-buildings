@@ -5,6 +5,8 @@ Version 1.1.3, xxxx, 2013 -- Release 1.1
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Improved error reporting of the package that runs
   the unit tests.
+- Updated buildingspy.development.unittest to allow testing
+  of other libraries than the Buildings library.
 
 
 Version 1.1.2, January 8, 2013 -- Release 1.1
