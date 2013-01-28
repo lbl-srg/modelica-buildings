@@ -53,6 +53,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{200,200}}), graphics), 
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowMassFlow.mos" "Simulate and plot"));
+            -100},{200,200}}), graphics),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowMassFlow.mos"
+        "Simulate and plot"));
 end DryCoilCounterFlowMassFlow;

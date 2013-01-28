@@ -10,5 +10,6 @@ WetCoilCounterFlow
 DryCoilDiscretized
 WetCoilDiscretized
 HeaterCoolerPrescribed
+IndirectTankHeatExchanger
 Examples
 BaseClasses
