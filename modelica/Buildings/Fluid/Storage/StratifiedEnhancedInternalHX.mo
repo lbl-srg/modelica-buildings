@@ -30,6 +30,7 @@ protected
   parameter Integer nSegHX = TopHXSeg - BotHXSeg + 1
     "Number of segments in the heat exchanger";
 
+public
   HeatExchangers.IndirectTankHeatExchanger indTanHX(redeclare package Medium =
         Medium_2,
     nSeg=nSegHX,
@@ -54,11 +55,6 @@ equation
   for i in 1:nSegHX loop
     connect(indTanHX.port_b1[i], heaPorVol[i]);
   end for;
-           annotation (Line(
-      points={{-73.2,69},{-70,69},{-70,28},{-16,28},{-16,-2.22045e-16},{0,-2.22045e-16}},
-      color={191,0,0},
-      smooth=Smooth.None), Icon(coordinateSystem(preserveAspectRatio=false,
-          extent={{-100,-100},{100,100}}), graphics));
   connect(port_a1, indTanHX.port_a) annotation (Line(
       points={{-100,52},{-87,52},{-87,59}},
       color={0,127,255},
@@ -67,6 +63,11 @@ equation
       points={{-87,78.8},{-87,88},{100,88}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+           annotation (Line(
+      points={{-73.2,69},{-70,69},{-70,28},{-16,28},{-16,-2.22045e-16},{0,-2.22045e-16}},
+      color={191,0,0},
+      smooth=Smooth.None), Icon(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}), graphics),
+              Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics));
 end StratifiedEnhancedInternalHX;
