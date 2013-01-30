@@ -11,5 +11,4 @@ DryCoilDiscretized
 WetCoilDiscretized
 DryCoilDiscretizedPControl
 WetCoilDiscretizedPControl
-IndirectTankHeatExchanger
 BaseClasses

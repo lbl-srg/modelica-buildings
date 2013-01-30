@@ -1,7 +1,6 @@
 within Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Examples;
 package PerformanceCurves "Package with sevral performance curves"
 
-
   annotation (Documentation(info="<html>
 <p>
 This package contains performance curves for the cooling capacity and the EIR 

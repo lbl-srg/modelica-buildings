@@ -4,6 +4,10 @@ package BaseClasses "Package with base classes for performance data"
 
 
 
+
+
+
+
   annotation (Documentation(info="<html>
 <p>
 This package contains performance curves for the cooling capacity and the EIR 
@@ -29,4 +33,5 @@ First implementation.
 </li>
 </ul>
 </html>"));
+
 end BaseClasses;

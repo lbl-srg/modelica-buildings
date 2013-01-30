@@ -1,7 +1,8 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HexElement "Element of a heat exchanger"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
-    vol1( V=m1_flow_nominal*tau1/rho1_nominal,
+    vol1(
+          V=m1_flow_nominal*tau1/rho1_nominal,
           nPorts=2,
           final energyDynamics=energyDynamics1,
           final massDynamics=energyDynamics1),
