@@ -10,11 +10,11 @@ package Examples "Package with example models"
              5.5,   100;
              12, 900;
              14, 1000;
-             25, 1000]) "Wind turbine"
+             25, 1000], h=10) "Wind turbine"
       annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
-          origin={-52,40})));
+          origin={-50,40})));
     Modelica.Electrical.Analog.Basic.Ground groDC "Ground for DC grid"
       annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
     Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground groAC
@@ -37,15 +37,15 @@ package Examples "Package with example models"
         color={85,170,255},
         smooth=Smooth.None));
     connect(conACDC.pin_pDC, tur.p)            annotation (Line(
-        points={{4,8},{-80,8},{-80,40},{-62,40}},
+        points={{4,8},{-80,8},{-80,40},{-60,40}},
         color={0,0,255},
         smooth=Smooth.None));
     connect(tur.n, conACDC.pin_nDC) annotation (Line(
-        points={{-42,40},{-20,40},{-20,-12},{4,-12}},
+        points={{-40,40},{-20,40},{-20,-12},{4,-12}},
         color={0,0,255},
         smooth=Smooth.None));
     connect(tur.n, groDC.p)  annotation (Line(
-        points={{-42,40},{-20,40},{-20,-40}},
+        points={{-40,40},{-20,40},{-20,-40}},
         color={0,0,255},
         smooth=Smooth.None));
     connect(conACDC.pin_pQS, grid.pin) annotation (Line(
@@ -58,7 +58,7 @@ package Examples "Package with example models"
         thickness=0.5,
         smooth=Smooth.None));
     connect(weaBus.winSpe, tur.vWin) annotation (Line(
-        points={{-50,70},{-50,52},{-52,52}},
+        points={{-50,70},{-50,52}},
         color={255,204,51},
         thickness=0.5,
         smooth=Smooth.None));

@@ -1,222 +1,6 @@
 within Districts.Electrical.Analog;
 package Sources "Package with source models"
   extends Modelica.Icons.SourcesPackage;
-  package Examples "Package with example models"
-    extends Modelica.Icons.ExamplesPackage;
-    model PVSimple "Example for the PVSimple model with constant load"
-      import Districts;
-      extends Modelica.Icons.Example;
-      Districts.Electrical.Analog.Sources.PVSimple pv(A=10) "PV module"
-        annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=0,
-            origin={10,40})));
-      Modelica.Electrical.Analog.Basic.Ground ground
-        annotation (Placement(transformation(extent={{70,-80},{90,-60}})));
-      Modelica.Electrical.Analog.Basic.Resistor res(R=0.5)
-        annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
-      Modelica.Electrical.Analog.Sources.ConstantVoltage sou(V=12)
-        "Voltage source"
-        annotation (Placement(transformation(extent={{0,-10},{20,10}})));
-      Modelica.Electrical.Analog.Sensors.PowerSensor powSen "Power sensor"
-        annotation (Placement(transformation(extent={{38,-10},{58,10}})));
-      Districts.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
-        til=0.34906585039887,
-        lat=0.65798912800186,
-        azi=-0.78539816339745) "Diffuse irradiation on tilted surface"
-        annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
-      Districts.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
-        til=0.34906585039887,
-        lat=0.65798912800186,
-        azi=-0.78539816339745) "Direct irradiation on tilted surface"
-        annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
-      Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-          computeWetBulbTemperature=false, filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
-        annotation (Placement(transformation(extent={{-128,90},{-108,110}})));
-      Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
-        annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
-    equation
-      connect(pv.p, res.p) annotation (Line(
-          points={{0,40},{-20,40},{-20,-40},{0,-40}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(res.n, pv.n) annotation (Line(
-          points={{20,-40},{80,-40},{80,40},{20,40}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(ground.p, res.n) annotation (Line(
-          points={{80,-60},{80,-40},{20,-40}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(sou.p, res.p) annotation (Line(
-          points={{0,0},{-20,0},{-20,-40},{0,-40}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(sou.n, powSen.pc) annotation (Line(
-          points={{20,0},{38,0}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(powSen.nc, res.n) annotation (Line(
-          points={{58,0},{80,0},{80,-40},{20,-40}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(powSen.nv, sou.p) annotation (Line(
-          points={{48,-10},{48,-20},{0,-20},{0,0}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(powSen.pv, powSen.nc) annotation (Line(
-          points={{48,10},{58,10},{58,0}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(weaDat.weaBus, HDifTil.weaBus) annotation (Line(
-          points={{-108,100},{-80,100}},
-          color={255,204,51},
-          thickness=0.5,
-          smooth=Smooth.None));
-      connect(weaDat.weaBus, HDirTil.weaBus) annotation (Line(
-          points={{-108,100},{-94,100},{-94,60},{-80,60}},
-          color={255,204,51},
-          thickness=0.5,
-          smooth=Smooth.None));
-      connect(HDifTil.H, G.u1) annotation (Line(
-          points={{-59,100},{-52,100},{-52,86},{-42,86}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(HDirTil.H, G.u2) annotation (Line(
-          points={{-59,60},{-52,60},{-52,74},{-42,74}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      connect(G.y, pv.G) annotation (Line(
-          points={{-19,80},{10,80},{10,52}},
-          color={0,0,127},
-          smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
-                -100},{100,140}}),      graphics),
-        experiment(StopTime=172800, Tolerance=1e-05),
-        __Dymola_experimentSetupOutput,
-        Documentation(info="<html>
-<p>
-This model illustrates the use of the photovoltaic model.
-The total solar irradiation is computed based
-on a weather data file. 
-The PV is connected to a circuit that has a constant voltage
-source and a resistance.
-This voltage source may be a DC grid to which the 
-circuit is connected.
-The power sensor shows how much electrical power is consumed or fed into the voltage source.
-In actual systems, the voltage source may be an AC/DC converter.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-January 4, 2012, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"),
-        Commands(file=
-              "Resources/Scripts/Dymola/Electrical/Analog/Sources/Examples/PVSimple.mos"
-            "Simulate and plot"),
-        Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
-    end PVSimple;
-
-    model WindTurbine "Example for the WindTurbine model"
-      import Districts;
-      extends Modelica.Icons.Example;
-      Districts.Electrical.Analog.Sources.WindTurbine       tur(
-        table=[3.5, 0;
-               5.5,   100;
-               12, 900;
-               14, 1000;
-               25, 1000]) "Wind turbine"
-        annotation (Placement(transformation(
-            extent={{-10,-10},{10,10}},
-            rotation=0,
-            origin={-10,36})));
-      Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
-          computeWetBulbTemperature=false, filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
-        annotation (Placement(transformation(extent={{-62,76},{-42,96}})));
-      Districts.BoundaryConditions.WeatherData.Bus weaBus
-        annotation (Placement(transformation(extent={{6,76},{26,96}})));
-      Modelica.Electrical.Analog.Basic.Ground ground
-        annotation (Placement(transformation(extent={{32,-88},{52,-68}})));
-      Modelica.Electrical.Analog.Basic.Resistor res(R=0.5)
-        annotation (Placement(transformation(extent={{-14,-18},{6,2}})));
-      Modelica.Electrical.Analog.Sources.ConstantVoltage sou(V=12)
-        "Voltage source"
-        annotation (Placement(transformation(extent={{-38,-70},{-18,-50}})));
-      Modelica.Electrical.Analog.Sensors.PowerSensor powSen "Power sensor"
-        annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
-    equation
-      connect(weaDat.weaBus,weaBus)  annotation (Line(
-          points={{-42,86},{16,86}},
-          color={255,204,51},
-          thickness=0.5,
-          smooth=Smooth.None));
-      connect(weaBus.winSpe,tur. vWin) annotation (Line(
-          points={{16,86},{16,48},{-10,48}},
-          color={255,204,51},
-          thickness=0.5,
-          smooth=Smooth.None));
-      connect(ground.p,res. n) annotation (Line(
-          points={{42,-68},{42,-8},{6,-8}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(tur.p, res.p) annotation (Line(
-          points={{-20,36},{-56,36},{-56,-8},{-14,-8}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(tur.n, ground.p) annotation (Line(
-          points={{0,36},{42,36},{42,-68}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(sou.p, res.p) annotation (Line(
-          points={{-38,-60},{-56,-60},{-56,-8},{-14,-8}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(sou.n,powSen. pc) annotation (Line(
-          points={{-18,-60},{0,-60}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(powSen.nc, res.n) annotation (Line(
-          points={{20,-60},{42,-60},{42,-8},{6,-8}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(powSen.nv,sou. p) annotation (Line(
-          points={{10,-70},{10,-80},{-38,-80},{-38,-60}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      connect(powSen.pv,powSen. nc) annotation (Line(
-          points={{10,-50},{20,-50},{20,-60}},
-          color={0,0,255},
-          smooth=Smooth.None));
-      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
-                -100},{100,140}}),      graphics),
-        experiment(StopTime=172800, Tolerance=1e-05),
-        __Dymola_experimentSetupOutput,
-        Documentation(info="<html>
-<p>
-This model illustrates the use of the wind turbine model which is connected to a DC voltage source and a resistance.
-This voltage source may be a DC grid to which the 
-circuit is connected.
-Wind data for San Francisco, CA, are used.
-The turbine cut-in wind speed is <i>3.5</i> m/s,
-and hence it is off in the first day when the wind speed is low.
-</p>
-</html>", revisions="<html>
-<ul>
-<li>
-January 29, 2013, by Thierry S. Nouidui:<br>
-First implementation.
-</li>
-</ul>
-</html>"),
-        Commands(file=
-              "Resources/Scripts/Dymola/Electrical/Analog/Sources/Examples/WindTurbine.mos"
-            "Simulate and plot"),
-        Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
-    end WindTurbine;
-  end Examples;
 
   model PVSimple "Simple PV model"
     extends Modelica.Electrical.Analog.Interfaces.OnePort;
@@ -404,7 +188,14 @@ Districts.Electrical.Analog.Sources.Examples.PVSimple</a>.
     parameter Real scale(min=0)=1
       "Scaling factor, used to easily adjust the power output without changing the table";
 
-    parameter Real h=1 "height over ground";
+    parameter Real h "Height over ground"
+      annotation (Dialog(group="Wind correction"));
+    parameter Modelica.SIunits.Height hRef = 10
+      "Reference height for wind measurement"
+      annotation (Dialog(group="Wind correction"));
+   parameter Real nWin(min=0) = 0.4
+      "Height exponent for wind profile calculation"
+     annotation (Dialog(group="Wind correction"));
 
     parameter Boolean tableOnFile=false
       "true, if table is defined on file or in function usertab";
@@ -440,20 +231,22 @@ Districts.Electrical.Analog.Sources.Examples.PVSimple</a>.
       final columns=2:2,
       final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
       "Performance table that maps wind speed to electrical power output"
-      annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
+      annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
     Loads.VariableConductor               con
       "Conductor, used to interface power with electrical circuit"
       annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
     Modelica.Blocks.Math.Gain gain(final k=scale)
       "Gain, used to allow a user to easily scale the power"
-      annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
+      annotation (Placement(transformation(extent={{-8,10},{12,30}})));
 
-  public
-    BaseClasses.WindCorrection cor( h=h) annotation (Placement(transformation(
+    BaseClasses.WindCorrection cor(final h=h,
+                                   final hRef=hRef,
+                                   final n=nWin)
+    annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
-          rotation=-90,
-          origin={-80,64})));
+          rotation=0,
+          origin={-60,20})));
   initial equation
   assert(abs(table[1,2]) == 0,
     "First data point of performance table must be at cut-in wind speed,
@@ -470,23 +263,23 @@ Districts.Electrical.Analog.Sources.Examples.PVSimple</a>.
         color={0,0,255},
         smooth=Smooth.None));
     connect(per.y[1], gain.u) annotation (Line(
-        points={{-49,20},{-32,20}},
+        points={{-19,20},{-10,20}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(gain.y, con.P) annotation (Line(
-        points={{-9,20},{24,20},{24,8},{58,8}},
+        points={{13,20},{24,20},{24,8},{58,8}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(gain.y, P)     annotation (Line(
-        points={{-9,20},{24,20},{24,60},{110,60}},
+        points={{13,20},{24,20},{24,60},{110,60}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(vWin, cor.vRef) annotation (Line(
-        points={{0,120},{0,84},{-80,84},{-80,76.2}},
+        points={{1.11022e-15,120},{1.11022e-15,80},{-80,80},{-80,20},{-72.2,20}},
         color={0,0,127},
         smooth=Smooth.None));
     connect(cor.vLoc, per.u) annotation (Line(
-        points={{-80,53},{-80,20},{-72,20}},
+        points={{-49,20},{-42,20}},
         color={0,0,127},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -613,33 +406,247 @@ First implementation.
 </html>"));
   end WindTurbine;
 
+  package Examples "Package with example models"
+    extends Modelica.Icons.ExamplesPackage;
+    model PVSimple "Example for the PVSimple model with constant load"
+      import Districts;
+      extends Modelica.Icons.Example;
+      Districts.Electrical.Analog.Sources.PVSimple pv(A=10) "PV module"
+        annotation (Placement(transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=0,
+            origin={10,40})));
+      Modelica.Electrical.Analog.Basic.Ground ground
+        annotation (Placement(transformation(extent={{70,-80},{90,-60}})));
+      Modelica.Electrical.Analog.Basic.Resistor res(R=0.5)
+        annotation (Placement(transformation(extent={{0,-50},{20,-30}})));
+      Modelica.Electrical.Analog.Sources.ConstantVoltage sou(V=12)
+        "Voltage source"
+        annotation (Placement(transformation(extent={{0,-10},{20,10}})));
+      Modelica.Electrical.Analog.Sensors.PowerSensor powSen "Power sensor"
+        annotation (Placement(transformation(extent={{38,-10},{58,10}})));
+      Districts.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
+        til=0.34906585039887,
+        lat=0.65798912800186,
+        azi=-0.78539816339745) "Diffuse irradiation on tilted surface"
+        annotation (Placement(transformation(extent={{-80,90},{-60,110}})));
+      Districts.BoundaryConditions.SolarIrradiation.DirectTiltedSurface HDirTil(
+        til=0.34906585039887,
+        lat=0.65798912800186,
+        azi=-0.78539816339745) "Direct irradiation on tilted surface"
+        annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+      Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+          computeWetBulbTemperature=false, filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        annotation (Placement(transformation(extent={{-128,90},{-108,110}})));
+      Modelica.Blocks.Math.Add G "Total irradiation on tilted surface"
+        annotation (Placement(transformation(extent={{-40,70},{-20,90}})));
+    equation
+      connect(pv.p, res.p) annotation (Line(
+          points={{0,40},{-20,40},{-20,-40},{0,-40}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(res.n, pv.n) annotation (Line(
+          points={{20,-40},{80,-40},{80,40},{20,40}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(ground.p, res.n) annotation (Line(
+          points={{80,-60},{80,-40},{20,-40}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(sou.p, res.p) annotation (Line(
+          points={{0,0},{-20,0},{-20,-40},{0,-40}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(sou.n, powSen.pc) annotation (Line(
+          points={{20,0},{38,0}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(powSen.nc, res.n) annotation (Line(
+          points={{58,0},{80,0},{80,-40},{20,-40}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(powSen.nv, sou.p) annotation (Line(
+          points={{48,-10},{48,-20},{0,-20},{0,0}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(powSen.pv, powSen.nc) annotation (Line(
+          points={{48,10},{58,10},{58,0}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(weaDat.weaBus, HDifTil.weaBus) annotation (Line(
+          points={{-108,100},{-80,100}},
+          color={255,204,51},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(weaDat.weaBus, HDirTil.weaBus) annotation (Line(
+          points={{-108,100},{-94,100},{-94,60},{-80,60}},
+          color={255,204,51},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(HDifTil.H, G.u1) annotation (Line(
+          points={{-59,100},{-52,100},{-52,86},{-42,86}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(HDirTil.H, G.u2) annotation (Line(
+          points={{-59,60},{-52,60},{-52,74},{-42,74}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      connect(G.y, pv.G) annotation (Line(
+          points={{-19,80},{10,80},{10,52}},
+          color={0,0,127},
+          smooth=Smooth.None));
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+                -100},{100,140}}),      graphics),
+        experiment(StopTime=172800, Tolerance=1e-05),
+        __Dymola_experimentSetupOutput,
+        Documentation(info="<html>
+<p>
+This model illustrates the use of the photovoltaic model.
+The total solar irradiation is computed based
+on a weather data file. 
+The PV is connected to a circuit that has a constant voltage
+source and a resistance.
+This voltage source may be a DC grid to which the 
+circuit is connected.
+The power sensor shows how much electrical power is consumed or fed into the voltage source.
+In actual systems, the voltage source may be an AC/DC converter.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 4, 2012, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"),
+        Commands(file=
+              "Resources/Scripts/Dymola/Electrical/Analog/Sources/Examples/PVSimple.mos"
+            "Simulate and plot"),
+        Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
+    end PVSimple;
+
+    model WindTurbine "Example for the WindTurbine model"
+      import Districts;
+      extends Modelica.Icons.Example;
+      Districts.Electrical.Analog.Sources.WindTurbine       tur(
+        table=[3.5, 0;
+               5.5,   100;
+               12, 900;
+               14, 1000;
+               25, 1000], h=10) "Wind turbine"
+        annotation (Placement(transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=0,
+            origin={-10,36})));
+      Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+          computeWetBulbTemperature=false, filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        annotation (Placement(transformation(extent={{-62,76},{-42,96}})));
+      Districts.BoundaryConditions.WeatherData.Bus weaBus
+        annotation (Placement(transformation(extent={{6,76},{26,96}})));
+      Modelica.Electrical.Analog.Basic.Ground ground
+        annotation (Placement(transformation(extent={{32,-88},{52,-68}})));
+      Modelica.Electrical.Analog.Basic.Resistor res(R=0.5)
+        annotation (Placement(transformation(extent={{-14,-18},{6,2}})));
+      Modelica.Electrical.Analog.Sources.ConstantVoltage sou(V=12)
+        "Voltage source"
+        annotation (Placement(transformation(extent={{-38,-70},{-18,-50}})));
+      Modelica.Electrical.Analog.Sensors.PowerSensor powSen "Power sensor"
+        annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    equation
+      connect(weaDat.weaBus,weaBus)  annotation (Line(
+          points={{-42,86},{16,86}},
+          color={255,204,51},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(weaBus.winSpe,tur. vWin) annotation (Line(
+          points={{16,86},{16,60},{-10,60},{-10,48}},
+          color={255,204,51},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(ground.p,res. n) annotation (Line(
+          points={{42,-68},{42,-8},{6,-8}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(tur.p, res.p) annotation (Line(
+          points={{-20,36},{-56,36},{-56,-8},{-14,-8}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(tur.n, ground.p) annotation (Line(
+          points={{0,36},{42,36},{42,-68}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(sou.p, res.p) annotation (Line(
+          points={{-38,-60},{-56,-60},{-56,-8},{-14,-8}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(sou.n,powSen. pc) annotation (Line(
+          points={{-18,-60},{0,-60}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(powSen.nc, res.n) annotation (Line(
+          points={{20,-60},{42,-60},{42,-8},{6,-8}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(powSen.nv,sou. p) annotation (Line(
+          points={{10,-70},{10,-80},{-38,-80},{-38,-60}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(powSen.pv,powSen. nc) annotation (Line(
+          points={{10,-50},{20,-50},{20,-60}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+                -100},{100,140}}),      graphics),
+        experiment(StopTime=172800, Tolerance=1e-05),
+        __Dymola_experimentSetupOutput,
+        Documentation(info="<html>
+<p>
+This model illustrates the use of the wind turbine model which is connected to a DC voltage source and a resistance.
+This voltage source may be a DC grid to which the 
+circuit is connected.
+Wind data for San Francisco, CA, are used.
+The turbine cut-in wind speed is <i>3.5</i> m/s,
+and hence it is off in the first day when the wind speed is low.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 29, 2013, by Thierry S. Nouidui:<br>
+First implementation.
+</li>
+</ul>
+</html>"),
+        Commands(file=
+              "Resources/Scripts/Dymola/Electrical/Analog/Sources/Examples/WindTurbine.mos"
+            "Simulate and plot"),
+        Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
+    end WindTurbine;
+  end Examples;
+
   package BaseClasses "Package with base classes for analog sources"
     extends Modelica.Icons.BasesPackage;
 
     block WindCorrection "Block for wind correction"
-
+      extends Modelica.Blocks.Interfaces.BlockIcon;
       Modelica.Blocks.Interfaces.RealOutput vLoc( unit="m/s")
         "Wind velocity at the location"
         annotation (Placement(transformation(extent={{100,-10},{120,10}})));
       Modelica.Blocks.Interfaces.RealInput vRef(unit="m/s")
-        " Wind velocity at the reference height"
+        "Wind velocity at the reference height"
         annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
             iconTransformation(extent={{-142,-20},{-102,20}})));
-    final parameter Real P = 0.4 "height exponent for wind profil calculation";
-    final parameter Modelica.SIunits.Height hRef = 10.0
-        "reference height for wind measurement";
-    parameter Modelica.SIunits.Height h "height over ground";
+     parameter Modelica.SIunits.Height h "Height over ground";
+     parameter Modelica.SIunits.Height hRef
+        "Reference height for wind measurement";
+     parameter Real n(min=0) = 0.4
+        "Height exponent for wind profile calculation";
+
     equation
-      vLoc=vRef * (h / hRef)^P;
+      vLoc=vRef * (h / hRef)^n;
       annotation (
       defaultComponentName = "cor",
       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
            graphics={
-            Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
             Text(
               extent={{-92,48},{-32,-50}},
               lineColor={0,128,255},
@@ -662,17 +669,23 @@ First implementation.
 This model calculates the wind velocity at the location as a function of the height over ground. The equation is based on Gash (1991).
 
 The model computes the wind velocity <i>vLoc</i> as
-<i>vLoc = vRef * (h / hRef)<sup>P</sup> </i>,
+<i>vLoc = vRef * (h / hRef)<sup>n</sup> </i>,
 where <i>vRef</i> is the wind velocity at the reference height, <i>h</i> is the height over ground, <i>hRef</i> 
-is the reference height, and <i>P</i> is the height exponent for wind calculation.
+is the reference height, and <i>n</i> is the height exponent for wind calculation.
 
 <h4>Reference</h4>
 <p>
 Gasch, R. 1991. Windkraftanlagen. Grundlagen und Entwurf (German). Teubner, Stuttgart.
 </p>
 </p>
-</html>", revisions="<html>
+</html>",
+    revisions="<html>
 <ul>
+<li>
+February 7, 2013, by Michael Wetter:<br>
+Removed <code>final</code> keyword for parameters to allow users to adjust them,
+and removed default value for <code>h</code>.
+</li>
 <li>
 February 1, 2013, by Thierry S. Nouidui:<br>
 First implementation.

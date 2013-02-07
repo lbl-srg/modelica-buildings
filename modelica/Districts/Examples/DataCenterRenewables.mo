@@ -4,7 +4,7 @@ model DataCenterRenewables
   extends Modelica.Icons.Example;
   BaseClasses.DataCenterContinuousTimeControl dataCenterContinuousTimeControl
     annotation (Placement(transformation(extent={{-150,-100},{-130,-80}})));
-  Electrical.Analog.Sources.WindTurbine       winTur(scale=200e3)
+  Electrical.Analog.Sources.WindTurbine       winTur(scale=200e3, h=50)
     "Wind turbines"
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Electrical.Analog.Sources.PVSimple pv(A=200e3/800/0.12) "PV array"
@@ -115,7 +115,7 @@ equation
       smooth=Smooth.None));
   connect(dataCenterContinuousTimeControl.PDC, varResDC.P)         annotation (
       Line(
-      points={{-129,-94},{-100,-94},{-100,-60},{-30,-60},{-30,-69}},
+      points={{-129,-94},{-100,-94},{-100,-72},{-42,-72},{-42,-72}},
       color={0,0,127},
       smooth=Smooth.None));
 
