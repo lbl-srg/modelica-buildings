@@ -3,7 +3,7 @@ package Sources "Package with source models"
   extends Modelica.Icons.SourcesPackage;
   package Examples "Package with example models"
     extends Modelica.Icons.ExamplesPackage;
-    model PVConstantLoad "Example for the PV model with constant load"
+    model PVSimple "Example for the PVSimple model with constant load"
       import Districts;
       extends Modelica.Icons.Example;
       Districts.Electrical.Analog.Sources.PVSimple pv(A=10) "PV module"
@@ -115,12 +115,107 @@ First implementation.
 </ul>
 </html>"),
         Commands(file=
-              "Resources/Scripts/Dymola/Electrical/Analog/Sources/Examples/PVConstantLoad.mos"
+              "Resources/Scripts/Dymola/Electrical/Analog/Sources/Examples/PVSimple.mos"
             "Simulate and plot"),
         Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
-    end PVConstantLoad;
+    end PVSimple;
 
-
+    model WindTurbine "Example for the WindTurbine model"
+      import Districts;
+      extends Modelica.Icons.Example;
+      Districts.Electrical.Analog.Sources.WindTurbine       tur(
+        table=[3.5, 0;
+               5.5,   100;
+               12, 900;
+               14, 1000;
+               25, 1000]) "Wind turbine"
+        annotation (Placement(transformation(
+            extent={{-10,-10},{10,10}},
+            rotation=0,
+            origin={-10,36})));
+      Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
+          computeWetBulbTemperature=false, filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
+        annotation (Placement(transformation(extent={{-62,76},{-42,96}})));
+      Districts.BoundaryConditions.WeatherData.Bus weaBus
+        annotation (Placement(transformation(extent={{6,76},{26,96}})));
+      Modelica.Electrical.Analog.Basic.Ground ground
+        annotation (Placement(transformation(extent={{32,-88},{52,-68}})));
+      Modelica.Electrical.Analog.Basic.Resistor res(R=0.5)
+        annotation (Placement(transformation(extent={{-14,-18},{6,2}})));
+      Modelica.Electrical.Analog.Sources.ConstantVoltage sou(V=12)
+        "Voltage source"
+        annotation (Placement(transformation(extent={{-38,-70},{-18,-50}})));
+      Modelica.Electrical.Analog.Sensors.PowerSensor powSen "Power sensor"
+        annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    equation
+      connect(weaDat.weaBus,weaBus)  annotation (Line(
+          points={{-42,86},{16,86}},
+          color={255,204,51},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(weaBus.winSpe,tur. vWin) annotation (Line(
+          points={{16,86},{16,48},{-10,48}},
+          color={255,204,51},
+          thickness=0.5,
+          smooth=Smooth.None));
+      connect(ground.p,res. n) annotation (Line(
+          points={{42,-68},{42,-8},{6,-8}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(tur.p, res.p) annotation (Line(
+          points={{-20,36},{-56,36},{-56,-8},{-14,-8}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(tur.n, ground.p) annotation (Line(
+          points={{0,36},{42,36},{42,-68}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(sou.p, res.p) annotation (Line(
+          points={{-38,-60},{-56,-60},{-56,-8},{-14,-8}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(sou.n,powSen. pc) annotation (Line(
+          points={{-18,-60},{0,-60}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(powSen.nc, res.n) annotation (Line(
+          points={{20,-60},{42,-60},{42,-8},{6,-8}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(powSen.nv,sou. p) annotation (Line(
+          points={{10,-70},{10,-80},{-38,-80},{-38,-60}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      connect(powSen.pv,powSen. nc) annotation (Line(
+          points={{10,-50},{20,-50},{20,-60}},
+          color={0,0,255},
+          smooth=Smooth.None));
+      annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
+                -100},{100,140}}),      graphics),
+        experiment(StopTime=172800, Tolerance=1e-05),
+        __Dymola_experimentSetupOutput,
+        Documentation(info="<html>
+<p>
+This model illustrates the use of the wind turbine model which is connected to a DC voltage source and a resistance.
+This voltage source may be a DC grid to which the 
+circuit is connected.
+Wind data for San Francisco, CA, are used.
+The turbine cut-in wind speed is <i>3.5</i> m/s,
+and hence it is off in the first day when the wind speed is low.
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+January 29, 2013, by Thierry S. Nouidui:<br>
+First implementation.
+</li>
+</ul>
+</html>"),
+        Commands(file=
+              "Resources/Scripts/Dymola/Electrical/Analog/Sources/Examples/WindTurbine.mos"
+            "Simulate and plot"),
+        Icon(coordinateSystem(extent={{-140,-100},{100,140}})));
+    end WindTurbine;
   end Examples;
 
   model PVSimple "Simple PV model"
@@ -266,7 +361,7 @@ First implementation.
       Documentation(revisions="<html>
 <ul>
 <li>
-January 4, 2012, by Michael Wetter:<br>
+January 4, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
@@ -309,6 +404,8 @@ Districts.Electrical.Analog.Sources.Examples.PVSimple</a>.
     parameter Real scale(min=0)=1
       "Scaling factor, used to easily adjust the power output without changing the table";
 
+    parameter Real h=1 "height over ground";
+
     parameter Boolean tableOnFile=false
       "true, if table is defined on file or in function usertab";
     parameter Real table[:,2]=
@@ -344,7 +441,7 @@ Districts.Electrical.Analog.Sources.Examples.PVSimple</a>.
       final smoothness=Modelica.Blocks.Types.Smoothness.LinearSegments)
       "Performance table that maps wind speed to electrical power output"
       annotation (Placement(transformation(extent={{-70,10},{-50,30}})));
-    Storage.BaseClasses.VariableConductor con
+    Loads.VariableConductor               con
       "Conductor, used to interface power with electrical circuit"
       annotation (Placement(transformation(extent={{60,-10},{80,10}})));
 
@@ -352,6 +449,11 @@ Districts.Electrical.Analog.Sources.Examples.PVSimple</a>.
       "Gain, used to allow a user to easily scale the power"
       annotation (Placement(transformation(extent={{-30,10},{-10,30}})));
 
+  public
+    BaseClasses.WindCorrection cor( h=h) annotation (Placement(transformation(
+          extent={{-10,-10},{10,10}},
+          rotation=-90,
+          origin={-80,64})));
   initial equation
   assert(abs(table[1,2]) == 0,
     "First data point of performance table must be at cut-in wind speed,
@@ -371,10 +473,6 @@ Districts.Electrical.Analog.Sources.Examples.PVSimple</a>.
         points={{-49,20},{-32,20}},
         color={0,0,127},
         smooth=Smooth.None));
-    connect(vWin, per.u) annotation (Line(
-        points={{8.88178e-16,120},{8.88178e-16,92},{-92,92},{-92,20},{-72,20}},
-        color={0,0,127},
-        smooth=Smooth.None));
     connect(gain.y, con.P) annotation (Line(
         points={{-9,20},{24,20},{24,8},{58,8}},
         color={0,0,127},
@@ -383,13 +481,21 @@ Districts.Electrical.Analog.Sources.Examples.PVSimple</a>.
         points={{-9,20},{24,20},{24,60},{110,60}},
         color={0,0,127},
         smooth=Smooth.None));
+    connect(vWin, cor.vRef) annotation (Line(
+        points={{0,120},{0,84},{-80,84},{-80,76.2}},
+        color={0,0,127},
+        smooth=Smooth.None));
+    connect(cor.vLoc, per.u) annotation (Line(
+        points={{-80,53},{-80,20},{-72,20}},
+        color={0,0,127},
+        smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics),
       Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
               100}}),
           graphics={
           Rectangle(
-            extent={{-100,100},{100,-100}},
+            extent={{-100,102},{100,-98}},
             pattern=LinePattern.None,
             fillColor={202,230,255},
             fillPattern=FillPattern.Solid,
@@ -500,10 +606,85 @@ Below and above these wind speeds, the generated power is zero.
 </html>",   revisions="<html>
 <ul>
 <li>
-January 10, 2012, by Michael Wetter:<br>
+January 10, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
 </html>"));
   end WindTurbine;
+
+  package BaseClasses "Package with base classes for analog sources"
+    extends Modelica.Icons.BasesPackage;
+
+    block WindCorrection "Block for wind correction"
+
+      Modelica.Blocks.Interfaces.RealOutput vLoc( unit="m/s")
+        "Wind velocity at the location"
+        annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+      Modelica.Blocks.Interfaces.RealInput vRef(unit="m/s")
+        " Wind velocity at the reference height"
+        annotation (Placement(transformation(extent={{-120,-10},{-100,10}}),
+            iconTransformation(extent={{-142,-20},{-102,20}})));
+    final parameter Real P = 0.4 "height exponent for wind profil calculation";
+    final parameter Modelica.SIunits.Height hRef = 10.0
+        "reference height for wind measurement";
+    parameter Modelica.SIunits.Height h "height over ground";
+    equation
+      vLoc=vRef * (h / hRef)^P;
+      annotation (
+      defaultComponentName = "cor",
+      Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+           graphics={
+            Rectangle(
+              extent={{-100,100},{100,-100}},
+              lineColor={0,0,0},
+              fillColor={255,255,255},
+              fillPattern=FillPattern.Solid),
+            Text(
+              extent={{-92,48},{-32,-50}},
+              lineColor={0,128,255},
+              fillColor={85,170,255},
+              fillPattern=FillPattern.Solid,
+              textString="vRef"),
+            Polygon(
+              points={{26,0},{6,20},{6,10},{-24,10},{-24,-10},{6,-10},{6,-20},{26,0}},
+              lineColor={0,128,255},
+              fillColor={85,170,255},
+              fillPattern=FillPattern.Solid),
+            Text(
+              extent={{30,50},{90,-48}},
+              lineColor={0,128,0},
+              fillColor={85,170,255},
+              fillPattern=FillPattern.Solid,
+              textString="vLoc")}),             Diagram(coordinateSystem(
+              preserveAspectRatio=false, extent={{-100,-100},{100,100}}), graphics),Documentation(info="<html>
+<p>
+This model calculates the wind velocity at the location as a function of the height over ground. The equation is based on Gash (1991).
+
+The model computes the wind velocity <i>vLoc</i> as
+<i>vLoc = vRef * (h / hRef)<sup>P</sup> </i>,
+where <i>vRef</i> is the wind velocity at the reference height, <i>h</i> is the height over ground, <i>hRef</i> 
+is the reference height, and <i>P</i> is the height exponent for wind calculation.
+
+<h4>Reference</h4>
+<p>
+Gasch, R. 1991. Windkraftanlagen. Grundlagen und Entwurf (German). Teubner, Stuttgart.
+</p>
+</p>
+</html>", revisions="<html>
+<ul>
+<li>
+February 1, 2013, by Thierry S. Nouidui:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
+    end WindCorrection;
+  annotation (preferedView="info", Documentation(info="<html>
+<p>
+This package contains base classes that are used to construct the models in
+<a href=\"modelica://Districts.Electrical\">Districts.Electrical</a>.
+</p>
+</html>"));
+  end BaseClasses;
 end Sources;

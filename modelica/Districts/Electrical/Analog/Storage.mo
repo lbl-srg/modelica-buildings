@@ -34,7 +34,7 @@ package Storage "Package with models for electrical storage"
       etaDis=etaDis) "Charge model"
       annotation (Placement(transformation(extent={{40,50},{60,70}})));
 
-    BaseClasses.VariableConductor bat "Power exchanged with battery pack"
+    Loads.VariableConductor       bat "Power exchanged with battery pack"
       annotation (Placement(transformation(extent={{40,-10},{60,10}})));
   equation
     connect(cha.SOC, SOC)    annotation (Line(
@@ -152,7 +152,7 @@ and that the state of charge remains between zero and one.
 </html>", revisions="<html>
 <ul>
 <li>
-January 8, 2012, by Michael Wetter:<br>
+January 8, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
@@ -173,8 +173,8 @@ First implementation.
         annotation (Placement(transformation(extent={{130,-30},{150,-10}})));
       Modelica.Electrical.Analog.Basic.Ground ground
         annotation (Placement(transformation(extent={{150,-68},{170,-48}})));
-      Districts.Electrical.Analog.Loads.VariableResistor loa "Electrical load"
-        annotation (Placement(transformation(extent={{100,10},{120,30}})));
+      Districts.Electrical.Analog.Loads.VariableConductor loa "Electrical load"
+        annotation (Placement(transformation(extent={{120,12},{140,32}})));
       Modelica.Blocks.Sources.Constant const1(k=10e3)
         annotation (Placement(transformation(extent={{80,30},{100,50}})));
       Modelica.Blocks.Sources.SampleTrigger startCharge(period=24*3600,
@@ -263,16 +263,12 @@ First implementation.
           color={0,0,255},
           smooth=Smooth.None));
       connect(loa.p, sou.p) annotation (Line(
-          points={{100,20},{70,20},{70,-20},{100,-20}},
+          points={{120,22},{70,22},{70,-20},{100,-20}},
           color={0,0,255},
           smooth=Smooth.None));
       connect(loa.n, ground.p) annotation (Line(
-          points={{120,20},{160,20},{160,-48}},
+          points={{140,22},{160,22},{160,-48}},
           color={0,0,255},
-          smooth=Smooth.None));
-      connect(const1.y, loa.P) annotation (Line(
-          points={{101,40},{110,40},{110,31}},
-          color={0,0,127},
           smooth=Smooth.None));
       connect(startCharge.y, TOn.conditionPort) annotation (Line(
           points={{-119,50},{-105,50}},
@@ -368,6 +364,10 @@ First implementation.
           points={{-119,-40},{-105,-40}},
           color={255,0,255},
           smooth=Smooth.None));
+      connect(const1.y, loa.P) annotation (Line(
+          points={{101,40},{112,40},{112,30},{118,30}},
+          color={0,0,127},
+          smooth=Smooth.None));
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,
                 -100},{180,120}}),      graphics),
         experiment(StopTime=432000),
@@ -389,7 +389,7 @@ a constant value of <i>10,000</i> Watts.
 </html>", revisions="<html>
 <ul>
 <li>
-January 10, 2012, by Michael Wetter:<br>
+January 10, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
@@ -446,66 +446,5 @@ First implementation.
                 {100,100}}), graphics));
     end Charge;
 
-    model VariableConductor "Model of a variable conductive load"
-    extends Modelica.Electrical.Analog.Interfaces.OnePort;
-
-      Modelica.Blocks.Interfaces.RealInput P(unit="W")
-        "Power stored in battery (if positive) or extracted from battery (if negative)"
-        annotation (Placement(transformation(extent={{-140,60},{-100,100}}),
-            iconTransformation(extent={{-140,60},{-100,100}})));
-
-    protected
-      Modelica.SIunits.Conductance G(start=1) "Conductance";
-
-    equation
-      P = v*i;
-      i = v*G;
-      annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-                {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
-                lineColor={255,255,255}),
-            Rectangle(
-              extent={{-100,100},{100,-100}},
-              lineColor={0,0,0},
-              fillColor={255,255,255},
-              fillPattern=FillPattern.Solid),
-              Rectangle(
-                extent={{-70,30},{70,-30}},
-                lineColor={0,0,0},
-                fillColor={255,255,255},
-                fillPattern=FillPattern.Solid,
-              origin={-3.55271e-15,2},
-              rotation=180),
-              Line(points={{-10,0},{10,0}},  color={0,0,0},
-              origin={80,0},
-              rotation=180),
-              Line(points={{-10,0},{10,0}},color={0,0,0},
-              origin={-80,2},
-              rotation=180),
-            Text(
-              extent={{-44,146},{46,104}},
-              lineColor={0,0,255},
-              textString="%name"),
-            Text(
-              extent={{-120,98},{-100,126}},
-              lineColor={0,0,255},
-              textString="P")}),
-              Documentation(info="<html>
-<p>
-Model of a resistive load that takes as an input the dissipated power.
-</p>
-<p>
-The model computes the power as
-<i>P = v &nbsp; i</i>,
-where <i>v</i> is the voltage and <i>i</i> is the current.
-</p>
-</html>",     revisions="<html>
-<ul>
-<li>
-January 8, 2012, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
-    end VariableConductor;
   end BaseClasses;
 end Storage;
