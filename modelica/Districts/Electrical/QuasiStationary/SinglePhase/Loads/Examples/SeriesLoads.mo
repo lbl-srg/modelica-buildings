@@ -81,7 +81,7 @@ equation
       color={85,170,255},
       smooth=Smooth.None));
   connect(indRes.pin_n, conRes.pin_p) annotation (Line(
-      points={{70,1.33227e-15},{70,-20},{70,-20}},
+      points={{70,1.33227e-015},{70,-20}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(varConRes.pin_n, gro.pin) annotation (Line(
@@ -118,7 +118,7 @@ Both circuits have an inductive and capactive load in series.
     revisions="<html>
 <ul>
 <li>
-January 3, 2012, by Michael Wetter:<br>
+January 3, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

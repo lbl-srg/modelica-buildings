@@ -62,7 +62,7 @@ where <i>i<sup>*</sup></i> is the complex conjugate of the current.
 </html>",   revisions="<html>
 <ul>
 <li>
-January 2, 2012, by Michael Wetter:<br>
+January 2, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
@@ -175,7 +175,7 @@ the signal <i>y<sub>int</sub> = 1E-12 + y * (1 - 1E-12)</i>.
 </html>",   revisions="<html>
 <ul>
 <li>
-January 3, 2012, by Michael Wetter:<br>
+January 3, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

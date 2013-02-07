@@ -2,6 +2,7 @@ within Districts.Electrical.QuasiStationary;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
+
     annotation (preferedView="info",
 Documentation(info="<html>
 <p>
