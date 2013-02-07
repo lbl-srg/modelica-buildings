@@ -1,4 +1,5 @@
-simulateModel("Districts.Electrical.Analog.Sources.Examples.PVConstantLoad", stopTime=172800, method="dassl", tolerance=1e-05, resultFile="PVConstantLoad");
+simulateModel("Districts.Electrical.Analog.Sources.Examples.PVSimple", stopTime=172800, method="dassl", tolerance=1e-05, resultFile="PVSimple");
+removePlots();
 createPlot(id = 1,
  position = {15, 10, 407, 281},
  y = {"pv.P", "powSen.power"},
@@ -10,7 +11,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "PVConstantLoad.mat",
+ filename = "PVSimple.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}, {255,0,0}});
