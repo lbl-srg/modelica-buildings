@@ -1,7 +1,7 @@
 within Districts.Electrical;
 package Examples "Package with example models"
   extends Modelica.Icons.ExamplesPackage;
-  model WindTurbine
+  model WindTurbineGridConnected
     "Test model for wind turbine whose power is specified by a table"
     import Districts;
     extends Modelica.Icons.Example;
@@ -14,8 +14,7 @@ package Examples "Package with example models"
       annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
-          origin={-50,40})));
-
+          origin={-52,40})));
     Modelica.Electrical.Analog.Basic.Ground groDC "Ground for DC grid"
       annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
     Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground groAC
@@ -38,15 +37,15 @@ package Examples "Package with example models"
         color={85,170,255},
         smooth=Smooth.None));
     connect(conACDC.pin_pDC, tur.p)            annotation (Line(
-        points={{4,8},{-80,8},{-80,40},{-60,40}},
+        points={{4,8},{-80,8},{-80,40},{-62,40}},
         color={0,0,255},
         smooth=Smooth.None));
     connect(tur.n, conACDC.pin_nDC) annotation (Line(
-        points={{-40,40},{-20,40},{-20,-12},{4,-12}},
+        points={{-42,40},{-20,40},{-20,-12},{4,-12}},
         color={0,0,255},
         smooth=Smooth.None));
     connect(tur.n, groDC.p)  annotation (Line(
-        points={{-40,40},{-20,40},{-20,-40}},
+        points={{-42,40},{-20,40},{-20,-40}},
         color={0,0,255},
         smooth=Smooth.None));
     connect(conACDC.pin_pQS, grid.pin) annotation (Line(
@@ -59,7 +58,7 @@ package Examples "Package with example models"
         thickness=0.5,
         smooth=Smooth.None));
     connect(weaBus.winSpe, tur.vWin) annotation (Line(
-        points={{-50,70},{-50,52}},
+        points={{-50,70},{-50,52},{-52,52}},
         color={255,204,51},
         thickness=0.5,
         smooth=Smooth.None));
@@ -77,17 +76,17 @@ and hence it is off in the first day when the wind speed is low.
         revisions="<html>
 <ul>
 <li>
-January 10, 2012, by Michael Wetter:<br>
+January 10, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
 </html>"),
       Commands(file=
-            "Resources/Scripts/Dymola/Electrical/Examples/WindTurbine.mos"
+            "Resources/Scripts/Dymola/Electrical/Examples/WindTurbineGridConnected.mos"
           "Simulate and plot"),
       experiment(StopTime=259200, Tolerance=1e-05),
       __Dymola_experimentSetupOutput);
-  end WindTurbine;
+  end WindTurbineGridConnected;
 
   model PVGridConnected
     "Example for the simple PV model that is connected to the grid"
@@ -201,7 +200,7 @@ that shows the amount of power exchanged with the grid.
         revisions="<html>
 <ul>
 <li>
-January 4, 2012, by Michael Wetter:<br>
+January 4, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
