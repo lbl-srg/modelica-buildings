@@ -30,7 +30,8 @@ model DataCenterRenewables
   Districts.BoundaryConditions.WeatherData.Bus
     weaBus "Weather data bus"
     annotation (Placement(transformation(extent={{-90,-128},{-70,-108}})));
-  Electrical.Analog.Loads.VariableResistor varResDC "Resistor to model DC load"
+  Electrical.Analog.Loads.VariableConductor varResDC
+    "Resistor to model DC load"
     annotation (Placement(transformation(extent={{-40,-90},{-20,-70}})));
   BaseClasses.BatteryControl con "Battery controller"
     annotation (Placement(transformation(extent={{-50,-30},{-30,-10}})));
@@ -172,7 +173,7 @@ equation
     Documentation(revisions="<html>
 <ul>
 <li>
-January 10, 2012, by Michael Wetter:<br>
+January 10, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>

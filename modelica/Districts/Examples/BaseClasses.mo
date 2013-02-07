@@ -36,7 +36,7 @@ package BaseClasses "Model with base classes"
       Documentation(revisions="<html>
 <ul>
 <li>
-January 11, 2012, by Michael Wetter:<br>
+January 11, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
@@ -223,7 +223,7 @@ discharging until it is empty.
 </html>", revisions="<html>
 <ul>
 <li>
-January 11, 2012, by Michael Wetter:<br>
+January 11, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
@@ -297,8 +297,26 @@ First implementation.
       annotation (
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
                 {100,100}}), graphics),
-        experiment(StopTime=345600),
-        __Dymola_experimentSetupOutput);
+        experiment(
+          StopTime=604800,
+          Tolerance=1e-05,
+          __Dymola_Algorithm="Radau"),
+        __Dymola_experimentSetupOutput,
+        Commands(file=
+              "Resources/Scripts/Dymola/Examples/BaseClasses/Examples/BatteryControl.mos"
+            "Simulate and plot"),
+        Documentation(revisions="<html>
+<ul>
+<li>
+January 31, 2013, by Thierry S. Nouidui:<br>
+First implementation.
+</li>
+</ul>
+</html>",     info="<html>
+<p>
+This model simulates a battery block controller.
+</p>
+</html>"));
     end BatteryControl;
   end Examples;
 end BaseClasses;
