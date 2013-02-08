@@ -131,9 +131,14 @@ Version X.Y build Z is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Utilities.IO.Python27
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">
+         Package that contains blocks and functions that embed Python 2.7 in Modelica.
+         Data can be sent to Python functions and received from Python functions.
+         This allows for example data analysis in Python as part of a Modelica model,
+         or data exchange as part of a hardware-in-the-loop simulation in which
+         Python is used to communicate with hardware.
     </td>
     </tr>
 </table>
