@@ -61,7 +61,7 @@ equation
  // Relative heating load, compared to nominal conditions
  qRel = max(0, (TRoo_in_internal-TOutOffSet)/(TRoo_nominal-TOutOffSet_nominal));
  TSup = TRoo_in_internal
-          + ((TSup_nominal+TRet_nominal)/2-TRoo_in_internal) * qRel^(1/m)
+          + ((TSup_nominal+TRet_nominal)/2-TRoo_nominal) * qRel^(1/m)
           + (TSup_nominal-TRet_nominal)/2 * qRel;
  TRet = TSup - qRel * (TSup_nominal-TRet_nominal);
   annotation (
@@ -85,6 +85,12 @@ shift the heating curve.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 13, 2013, by Michael Wetter:<br>
+Corrected error that led to wrong results if the room air temperature is
+different from its nominal value <code>TRoo_nominal</code>.
+See ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/74\">#74</a>.
+</li>
 <li>
 November 21, 2011, by Michael Wetter:<br>
 Improved documentation.

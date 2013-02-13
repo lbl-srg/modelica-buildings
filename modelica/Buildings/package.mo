@@ -159,7 +159,7 @@ to <b style=\"color:blue\">existing</b> libraries:
     </tr>
 </table>
 </p>
-<!-- Backward compatbile changes -->
+<!-- Backward compatible changes -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
@@ -184,7 +184,7 @@ have been <b style=\"color:blue\">improved</b> in a
 </tr>
 </table>
 </p>
-<!-- Non-backward compatbile changes to existing components -->
+<!-- Non-backward compatible changes to existing components -->
 <p>
 The following <b style=\"color:blue\">existing components</b>
 have been <b style=\"color:blue\">improved</b> in a
@@ -208,6 +208,19 @@ The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., 
 that can lead to wrong simulation results):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>Buildings.Controls</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Controls.SetPoints.HotWaterTemperatureReset
+    </td>
+    <td valign=\"top\">Corrected error that led to wrong results if the room air temperature is
+                     different from its nominal value <code>TRoo_nominal</code>.
+                     This fixes <a href=\"https://corbu.lbl.gov/trac/bie/ticket/74\">ticket 74</a>.
+    </td>
+</tr>
+
+
 <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
     </td>
 </tr>
@@ -257,6 +270,21 @@ have been fixed:
     the test on the time was in a <code>when</code> instead of an <code>if</code> statement.
     This was wrong because <code>when</code> sections are only evaluated
     when the condition becomes true.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b><code>HotWaterTemperatureReset</code> computes wrong results if room temperature differs from nominal value.</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/xxx\">#74</a>
+    </td>
+    <td valign=\"top\">The equation
+<pre>TSup = TRoo_in_internal
+          + ((TSup_nominal+TRet_nominal)/2-TRoo_in_internal) * qRel^(1/m)
+          + (TSup_nominal-TRet_nominal)/2 * qRel;</pre>
+should be formulated as
+<pre>TSup = TRoo_in_internal
+          + ((TSup_nominal+TRet_nominal)/2-TRoo_nominal) * qRel^(1/m)
+          + (TSup_nominal-TRet_nominal)/2 * qRel;</pre>
     </td>
 </tr>
 </table>
