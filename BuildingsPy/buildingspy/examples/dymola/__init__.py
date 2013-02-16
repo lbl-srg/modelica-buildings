@@ -32,13 +32,13 @@ Dymola output file. To run the example, proceed as follows:
 
  1. Open a terminal or dos-shell.
  2. Set the PYTHONPATH environment variables to the 
-    directory ```bie/BuildingsPy/buildingspy```, such as
+    directory that contains ```buildingspy``` as a subdirectory, such as
 
     .. code-block:: bash
 
-       export PYTHONPATH=${PYTHONPATH}:../..
+       cd buildingspy/examples/dymola
+       export PYTHONPATH=${PYTHONPATH}:../../..
 
-    where the directory ``../..`` contains the subdirectory ``buildingspy``
  3. Type
 
     .. code-block:: bash
