@@ -220,6 +220,18 @@ that can lead to wrong simulation results):
     </td>
 </tr>
 
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab<br>
+                     Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitSlab
+    </td>
+    <td valign=\"top\">Fixed bug in the assignment of the fictitious thermal resistance by replacing
+                     <code>RFic[nSeg](each G=A/Rx)</code> with
+                     <code>RFic[nSeg](each G=A/nSeg/Rx)</code>.
+                     This fixes <a href=\"https://corbu.lbl.gov/trac/bie/ticket/79\">ticket 79</a>.
+    </td>
+</tr>
 
 <tr><td colspan=\"2\"><b>Buildings.Utilities</b>
     </td>
@@ -262,7 +274,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Assert statement does not fire.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/xxx\">#72</a>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/72\">#72</a>
     </td>
     <td valign=\"top\">
     The blocks <code>Buildings.Utilities.Diagnostics.AssertEquality</code> and
@@ -275,7 +287,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b><code>HotWaterTemperatureReset</code> computes wrong results if room temperature differs from nominal value.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/xxx\">#74</a>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/74\">#74</a>
     </td>
     <td valign=\"top\">The equation
 <pre>TSup = TRoo_in_internal
@@ -285,6 +297,17 @@ should be formulated as
 <pre>TSup = TRoo_in_internal
           + ((TSup_nominal+TRet_nominal)/2-TRoo_nominal) * qRel^(1/m)
           + (TSup_nominal-TRet_nominal)/2 * qRel;</pre>
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>Bug in <code>RadiantSlabs.SingleCircuitSlab</code> fictitious resistance RFic.</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/79\">#79</a>
+    </td>
+    <td valign=\"top\">This bug has been fixed in the assignment of the fictitious thermal resistance by replacing
+                     <code>RFic[nSeg](each G=A/Rx)</code> with
+                     <code>RFic[nSeg](each G=A/nSeg/Rx)</code>.
+                     The bug also affected <code>RadiantSlabs.ParallelCircuitSlab</code>.
     </td>
 </tr>
 </table>

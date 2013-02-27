@@ -90,7 +90,7 @@ protected
         extent={{-6,-6},{6,6}},
         rotation=180,
         origin={40,76})));
- Modelica.Thermal.HeatTransfer.Components.ThermalConductor RFic[nSeg](each G=A/Rx)
+ Modelica.Thermal.HeatTransfer.Components.ThermalConductor RFic[nSeg](each G=A/nSeg/Rx)
     "Average fictitious thermal resistance between pipe surface and plane that contains pipe"
     annotation (Placement(transformation(extent={{-86,-60},{-66,-40}})));
 
@@ -333,6 +333,12 @@ plane with the pipes and the construction surfaces, <code>con_a</code> and <code
 ",
 revisions="<html>
 <ul>
+<li>
+February 27, 2013, by Michael Wetter:<br>
+Fixed bug in the assignment of the fictitious thermal resistance by replacing
+<code>RFic[nSeg](each G=A/Rx)</code> with
+<code>RFic[nSeg](each G=A/nSeg/Rx)</code>.
+</li>
 <li>
 April 5, 2012, by Michael Wetter:<br>
 Revised implementation.
