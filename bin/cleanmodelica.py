@@ -13,7 +13,7 @@ if __name__ == "__main__":
     # List of files that should be deleted
     DELETEFILES=['buildlog.txt', 'dsfinal.txt', 'dsin.txt', 'dslog.txt', 
                  'dsmodel*', 'dymosim', 'dymosim.lib', 'dymosim.exp', 
-                 'dymosim.exe', '*.mat', '*.mof', 
+                 'dymosim.dll', 'dymola.log', 'dymosim.exe', '*.mat', '*.mof', 
                  '*.bak-mo', 'request.', 'status.', 'status', 'failure', 
                  'success.',
                  'stop', 'stop.',
