@@ -62,7 +62,7 @@ algorithm
        end if;
     end if;
   end while;
-  annotation(preferedView="info",
+  annotation(preferredView="info",
            Documentation(info="<html>
 This function computes iteratively the apparatus dew point temperature for a cooling coil.
 The apparatus dew point temperature is defined as in the HVAC2 Toolkit (Brandemuehl <i>et al.</i>

@@ -16,7 +16,7 @@ protected
     "Transmittance of the interior shading device";
   Real refIntShaDev=traRefShaDev[2, 2]
     "Reflectance of the interior shading device";
-  annotation (preferedView="info",
+  annotation (preferredView="info",
   Documentation(info="<html>
 This is a partial function that is used to implement the radiation functions for windows. It defines basic input variables and parameters. 
 </html>", revisions="<html>

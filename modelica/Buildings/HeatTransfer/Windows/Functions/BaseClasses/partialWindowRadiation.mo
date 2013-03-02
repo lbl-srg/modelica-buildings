@@ -6,7 +6,7 @@ partial function partialWindowRadiation
   extends
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation;
 
-  annotation (preferedView="info",
+  annotation (preferredView="info",
   Documentation(info="<html>
 This is a partial function that is used to implement the radiation functions for windows. It defines basic input variables and constants. 
 </html>", revisions="<html>

@@ -1,7 +1,7 @@
 within Buildings.Utilities;
 package Math "Library with functions such as for smoothing"
   extends Modelica.Icons.VariantsPackage;
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains blocks and functions for commonly used
 mathematical operations. 

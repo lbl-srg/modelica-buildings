@@ -1,7 +1,7 @@
 within Buildings.Fluid;
 package Chillers "Package with chiller models"
   extends Modelica.Icons.VariantsPackage;
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 This package contains components models for chillers.
 The model 
 <a href=\"modelica://Buildings.Fluid.Chillers.Carnot\">

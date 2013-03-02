@@ -69,7 +69,7 @@ model FourPort "Partial model with four ports"
              0), iconTransformation(extent={{-90,-70},{-110,-50}})));
 
   annotation (
-    preferedView="info",
+    preferredView="info",
     Diagram(coordinateSystem(
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}},

@@ -14,7 +14,7 @@ import SI = Modelica.SIunits;
  end specificInternalEnergy;
 
 
-  annotation (preferedView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium model is identical to 
 <a href=\"modelica://Modelica.Media.Water.ConstantPropertyLiquidWater\">

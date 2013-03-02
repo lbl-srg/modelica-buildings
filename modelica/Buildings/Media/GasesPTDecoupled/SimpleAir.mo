@@ -195,7 +195,7 @@ First implementation to allow using the room model with a medium that does not c
 </html>"));
 end saturationPressure;
 
-  annotation (preferedView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium model is identical to 
 <a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>

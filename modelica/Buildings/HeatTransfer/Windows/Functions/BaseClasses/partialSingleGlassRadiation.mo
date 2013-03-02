@@ -8,7 +8,7 @@ protected
   constant Integer Ra=2 "Index of front reflectance (outside facing side)";
   constant Integer Rb=3 "Index of back reflectance (room-facing side)";
 
-  annotation (preferedView="info",
+  annotation (preferredView="info",
   Documentation(info="<html>
 This is a partial function that is used to implement the radiation functions for windows. It defines basic constants.
 </html>", revisions="<html>

@@ -105,7 +105,7 @@ protected
     Medium2.setState_phX(port_b2.p, inStream(port_b2.h_outflow), inStream(port_b2.Xi_outflow))
     "state for medium inflowing through port_b2";
   annotation (
-  preferedView="info",
+  preferredView="info",
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

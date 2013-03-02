@@ -22,7 +22,7 @@ equation
           extent={{-56,-12},{54,-72}},
           lineColor={255,255,255},
           textString="eps=%eps")}),
-          preferedView="info",
+          preferredView="info",
 defaultComponentName="hex",
 Documentation(info="<html>
 <p>

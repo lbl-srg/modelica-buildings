@@ -3,7 +3,7 @@ package SpaceCooling "Package with example for how to build a model for space co
   extends Modelica.Icons.ExamplesPackage;
 
 
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>This package contains examples with step-by-step instructions for how to build a system model for space cooling as shown in the figure below. The temperautures correspond to design conditions that will be used to size the components. The room heat capacity has been increased by a factor of three to approximate the thermal storage effect of furniture and building constructions. </p>
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/SpaceCooling/schematics.png\"/> </p>
 <p>The model consists of </p>

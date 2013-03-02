@@ -111,7 +111,7 @@ equation
   // No pressure drop in this model
   port_a.p = port_b.p;
   annotation (
-    preferedView="info",
+    preferredView="info",
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},

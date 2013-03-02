@@ -15,7 +15,7 @@ equation
        + "   T0 = " + String(T0) + "\n"
        + "   T  = " + String(T));
     end if;
-    annotation (preferedView="info", Documentation(info="<html>
+    annotation (preferredView="info", Documentation(info="<html>
 This model computes <code>h=f(T0)</code> and
 <code>T=g(h)</code>. It then checks whether <code>T=T0</code>.
 Hence, it checks whether the function <code>T_phX</code> is 

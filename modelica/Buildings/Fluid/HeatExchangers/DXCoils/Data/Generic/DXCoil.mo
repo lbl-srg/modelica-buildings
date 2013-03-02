@@ -18,7 +18,7 @@ record DXCoil
   parameter Modelica.SIunits.MassFlowRate m_flow_small = 0.0001*sta[1].nomVal.m_flow_nominal
     "Small mass flow rate for regularization near zero flow"
     annotation (Dialog(group="Minimum conditions"));
-annotation (preferedView="info",
+annotation (preferredView="info",
 defaultComponentName="datCoi", Documentation(info="<html>
 <p>
 This record declares the performance data for the DX cooling coil model.

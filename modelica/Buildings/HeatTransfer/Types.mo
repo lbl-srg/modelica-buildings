@@ -67,7 +67,7 @@ heat transfer coefficient for interior (room-side facing) surfaces.</p>
       "Tilt for wall";
     constant Modelica.SIunits.Angle Floor =   Modelica.Constants.pi
       "Tilt for floor";
-    annotation(preferedView="info", Documentation(info="<html>
+    annotation(preferredView="info", Documentation(info="<html>
 <p>
  Enumeration to define the tilt of a surface for the room model.
   For example, for a construction that is a floor, use
@@ -93,7 +93,7 @@ First implementation.
       "Azimuth for an exterior wall whose outer surface faces north";
      constant Modelica.SIunits.Angle W = +Modelica.Constants.pi/2
       "Azimuth for an exterior wall whose outer surface faces west";
-    annotation(preferedView="info",
+    annotation(preferredView="info",
     Documentation(info="<html>
 <p>
  Enumeration to define the azimuth of a surface for the room model.
@@ -111,7 +111,7 @@ First implementation.
 </ul>
 </html>"));
   end Azimuth;
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 This package contains type definitions.
 </html>"));
 end Types;

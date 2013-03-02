@@ -111,7 +111,7 @@ First implementation.
 end Generic;
 
     annotation (
-preferedView="info",
+preferredView="info",
 Documentation(info="<html>
 <p>
 Package with records for pipes.

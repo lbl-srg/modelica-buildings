@@ -176,7 +176,7 @@ equation
           pattern=LinePattern.None,
           fillColor={95,95,95},
           fillPattern=FillPattern.Solid)}),
-    preferedView="info",
+    preferredView="info",
 defaultComponentName="hex",
     Documentation(info="<html>
 <p>

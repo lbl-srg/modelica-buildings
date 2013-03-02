@@ -3,7 +3,7 @@ package Data "Package with performance data for DX cooling coil"
   extends Modelica.Icons.MaterialPropertiesPackage;
 
 
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 This package contains performance data for DX cooling coil.
 </html>"));
 end Data;

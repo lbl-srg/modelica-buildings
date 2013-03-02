@@ -9,7 +9,7 @@ package Sources "Package with boundary condition models"
 
 
 
-annotation (preferedView="info",
+annotation (preferredView="info",
 Documentation(info="<html>
 <p>
 Package <b>Sources</b> contains generic sources for fluid connectors

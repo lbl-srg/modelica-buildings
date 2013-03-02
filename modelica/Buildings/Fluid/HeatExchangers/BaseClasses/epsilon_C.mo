@@ -64,7 +64,7 @@ algorithm
     eps := gai*Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(NTU=NTU, Z=Z, flowRegime=flowRegime);
   end if;
 
-  annotation(preferedView="info",
+  annotation(preferredView="info",
            smoothOrder=1,
            Documentation(info="<html>
 This function computes the heat exchanger effectiveness,

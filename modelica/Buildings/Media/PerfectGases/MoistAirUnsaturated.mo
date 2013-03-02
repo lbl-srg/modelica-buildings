@@ -429,7 +429,7 @@ is independent of the pressure.
 </html>"));
 end T_phX;
 
-  annotation (preferedView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This is a medium model that is similar to 
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">

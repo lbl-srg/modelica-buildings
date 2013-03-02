@@ -295,7 +295,7 @@ end UsersGuide;
 
 
 annotation (
-preferedView="info", Documentation(info="<html>
+preferredView="info", Documentation(info="<html>
 This package contains components for fluid flow systems such as
 pumps, valves and sensors. For other fluid flow models, see 
 <a href=\"Modelica:Modelica.Fluid\">Modelica.Fluid</a>.

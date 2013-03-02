@@ -16,7 +16,7 @@ package BoreholeFillings
       k=3.1,
       d=2000,
       c=840) "Concrete (k=3.1)";
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>
 Package with material definitions for borehole fillings.

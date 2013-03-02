@@ -301,7 +301,7 @@ quantities are assumed to be constant.
   algorithm
     MM := MM_const;
   end molarMass;
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 This package is identical to <a href=\"Modelica:Modelica.Media.Interfaces.PartialSimpleIdealGasMedium\">
 Modelica.Media.Interfaces.PartialSimpleIdealGasMedium</a>

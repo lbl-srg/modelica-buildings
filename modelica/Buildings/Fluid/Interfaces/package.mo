@@ -204,7 +204,7 @@ see the <i>info</i> section of the class.
 end UsersGuide;
 
 
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 This package contains basic classes that are used to build
 component models that change the state of the
 fluid. The classes are not directly usable, but can

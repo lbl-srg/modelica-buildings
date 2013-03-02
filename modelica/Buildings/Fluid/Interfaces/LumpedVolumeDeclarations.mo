@@ -43,7 +43,7 @@ record LumpedVolumeDeclarations "Declarations for lumped volumes"
     "Nominal value of trace substances. (Set to typical order of magnitude.)"
    annotation (Dialog(tab="Initialization", enable=Medium.nC > 0));
 
-annotation (preferedView="info",
+annotation (preferredView="info",
 Documentation(info="<html>
 <p>
 This class contains parameters and medium properties

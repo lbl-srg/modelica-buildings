@@ -3,7 +3,7 @@ package BaseClasses "Package with base classes for Buildings.HeatTransfer.Window
   extends Modelica.Icons.BasesPackage;
 
 
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains base classes that are used to construct the models in
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Functions\">Buildings.HeatTransfer.Windows.Functions</a>.

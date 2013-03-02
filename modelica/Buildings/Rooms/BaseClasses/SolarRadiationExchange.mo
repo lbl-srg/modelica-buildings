@@ -210,7 +210,7 @@ equation
   end for;
 
   annotation (
-preferedView="info",
+preferredView="info",
 Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},
             {240,240}}),
                       graphics), Icon(coordinateSystem(preserveAspectRatio=true,

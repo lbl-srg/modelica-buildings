@@ -36,7 +36,7 @@ record NominalValues "Data record of nominal values"
      annotation(Dialog(tab="General",group="Re-evaporation data"));
 
 annotation (defaultComponentName="nomVal",
-              preferedView="info",
+              preferredView="info",
   Documentation(info="<html>
   <p>
 This is the base record of nominal values for DX cooling coil models. 

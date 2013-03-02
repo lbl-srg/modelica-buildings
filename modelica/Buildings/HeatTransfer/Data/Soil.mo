@@ -46,7 +46,7 @@ First implementation.
       d=540,
       c=1210) "Sandstone (k=2.8)";
 
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(
 info="<html>
 <p>

@@ -5,7 +5,7 @@ partial function partialGlassRadiation
   input Integer N(min=1) "Number of glass layers";
   extends
     Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation;
-  annotation (preferedView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 This is a partial function that is used to implement the radiation functions for windows. It defines basic input variables and constants.
 </html>", revisions="<html>
 <ul>

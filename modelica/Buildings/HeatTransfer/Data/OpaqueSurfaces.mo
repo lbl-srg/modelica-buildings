@@ -45,7 +45,7 @@ First implementation.
         absSol=0.0) "White surface with absIR=0.0, absSol=0.0";
 
   annotation (
-preferedView="info",
+preferredView="info",
 Documentation(info="<html>
 <p>
 Package with records for opaque surfaces.

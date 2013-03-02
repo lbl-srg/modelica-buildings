@@ -11,7 +11,7 @@ record DataRecord "Coefficient data record for properties of perfect gases"
     "Specific heat capacity at constant volume";
   annotation (
 defaultComponentName="gas",
-Documentation(preferedView="info", info="<html>
+Documentation(preferredView="info", info="<html>
 <p>
 This data record contains the coefficients for perfect gases.
 </p>

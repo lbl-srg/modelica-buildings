@@ -33,7 +33,7 @@ to the bottom port.
  </table>
 </p>
 </html>"));
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 This package contains type definitions.
 </html>"));
 end Types;

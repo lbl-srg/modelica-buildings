@@ -13,7 +13,7 @@ record Stage "Generic data record for a stage of a DX coil"
     perCur "Performance curves for this stage"
     annotation (choicesAllMatching = true, Placement(transformation(extent={{60,20},{80,40}})));
 annotation (defaultComponentName="per",
-              preferedView="info",
+              preferredView="info",
   Documentation(info="<html>
 <p>
 This is the base record for DX cooling coil model at a compressor speed.

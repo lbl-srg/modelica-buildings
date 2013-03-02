@@ -348,7 +348,7 @@ function T_phX "Compute temperature from specific enthalpy and mass fraction"
   extends Buildings.Media.PerfectGases.MoistAir.T_phX;
 end T_phX;
 
-  annotation (preferedView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This is a medium model that is similar to 
 <a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">

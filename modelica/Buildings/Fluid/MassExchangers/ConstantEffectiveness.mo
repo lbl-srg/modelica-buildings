@@ -72,7 +72,7 @@ equation
           extent={{-60,4},{50,-56}},
           lineColor={255,255,255},
           textString="epsL=%epsL")}),
-          preferedView="info",
+          preferredView="info",
 defaultComponentName="masExc",
 Documentation(info="<html>
 <p>

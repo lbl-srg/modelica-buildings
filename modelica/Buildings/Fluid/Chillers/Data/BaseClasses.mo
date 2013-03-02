@@ -46,7 +46,7 @@ package BaseClasses "Base classes for package Data"
       "Maximum value for leaving evaporator temperature"
       annotation (Dialog(group="Performance curves"));
 
-    annotation (preferedView="info",
+    annotation (preferredView="info",
     Documentation(info="<html>
 This is the base record for chiller models. 
 </html>",
@@ -85,7 +85,7 @@ First implementation.
             textString="%PLRMinUnl")}));
   end Chiller;
 
-  annotation(preferedView="info",
+  annotation(preferredView="info",
   Documentation(info="<html>
 This package contains the common parameters that are used 
 to specify the performance data 

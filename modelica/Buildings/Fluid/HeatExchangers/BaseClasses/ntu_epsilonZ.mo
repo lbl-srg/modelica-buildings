@@ -56,7 +56,7 @@ algorithm
     assert(0 < flowRegime and flowRegime < 6, "Flow regime is not implemented.");
   end if;
 
-  annotation (preferedView="info",
+  annotation (preferredView="info",
              inverse(eps=Buildings.Fluid.HeatExchangers.BaseClasses.epsilon_ntuZ(NTU=NTU, Z=Z, flowRegime=flowRegime)),
            smoothOrder=1,
 Documentation(info="<html>

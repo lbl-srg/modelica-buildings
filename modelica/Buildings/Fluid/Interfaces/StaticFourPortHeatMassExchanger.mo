@@ -55,7 +55,7 @@ equation
   connect(bal2.port_a, port_a2);
   connect(bal2.port_b, port_b2);
   annotation (
-    preferedView="info",
+    preferredView="info",
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

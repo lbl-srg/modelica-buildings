@@ -52,7 +52,7 @@ Sep. 3 2010, by Michael Wetter, Wangda Zuo:<br>
 First implementation.
 </li>
 </ul>
-</html>"),   preferedView="info",
+</html>"),   preferredView="info",
             Documentation(info="<html>
 This package implements thermophysical properties for window shades.
 </html>"));

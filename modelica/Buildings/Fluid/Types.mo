@@ -123,7 +123,7 @@ The following heat exchanger flow regimes are available in this enumeration:
 <tr><td>CrossFlowCMinUnmixedCMaxMixed</td><td>Cross flow, CMin unmixed, CMax mixed</td></tr>
 </table>
 </html>"));
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 This package contains type definitions.
 </html>"));
 end Types;

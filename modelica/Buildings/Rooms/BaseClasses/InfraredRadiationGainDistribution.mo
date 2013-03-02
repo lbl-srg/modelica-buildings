@@ -92,7 +92,7 @@ equation
            - sum(fraConBou) - sum(fraSurBou))  < 1E-5,
            "Programming error: Radiation balance is wrong. Check equations.");
   annotation (
-preferedView="info",
+preferredView="info",
 Documentation(info = "<html>
 This model computes the distribution of the infrared radiant heat gain
 to the room surfaces. 

@@ -1,7 +1,7 @@
 within Buildings.Utilities;
 package IO "Package with I/O functions"
   extends Modelica.Icons.VariantsPackage;
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains components models for input and output.
 Its package

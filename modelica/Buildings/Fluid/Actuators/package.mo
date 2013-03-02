@@ -170,7 +170,7 @@ because it generates a state event whenever the valve position changes.
 end UsersGuide;
 
 
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 This package contains components models for actuators.
 </html>"));
 end Actuators;

@@ -430,7 +430,7 @@ Temperature is computed from pressure, specific enthalpy and composition via num
 </html>"));
 end T_phX;
 
-  annotation (preferedView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 <p>
 This is a medium model that is similar to 
 <a href=\"Modelica:Modelica.Media.Air.MoistAir\">

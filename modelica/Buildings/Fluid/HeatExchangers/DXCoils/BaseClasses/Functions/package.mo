@@ -3,7 +3,7 @@ package Functions "Package with functions"
   extends Modelica.Icons.BasesPackage;
 
 
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains functions that are used in
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses\">

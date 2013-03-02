@@ -95,7 +95,7 @@ First implementation.
           Solids.Concrete(x=0.2)}, final nLay=1)
     "Construction with 200mm concrete";
 
-  annotation (preferedView="info",
+  annotation (preferredView="info",
 Documentation(info="<html>
 <p>
 Package with material definitions for constructions

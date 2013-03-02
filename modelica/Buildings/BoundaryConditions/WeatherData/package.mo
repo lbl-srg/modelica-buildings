@@ -6,7 +6,7 @@ package WeatherData "Weather data reader"
 
 
 
-annotation (preferedView="info",
+annotation (preferredView="info",
 Documentation(info="<html>
 This package contains models to read weather data. It also contains
 an expandable connector called <code>Bus</code> that

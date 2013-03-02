@@ -60,7 +60,7 @@ First implementation.
 </ul>
 </html>"));
 
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 This package contains type definitions.
 </html>"));
 end Types;

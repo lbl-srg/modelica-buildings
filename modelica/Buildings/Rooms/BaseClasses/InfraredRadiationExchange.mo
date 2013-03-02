@@ -257,7 +257,7 @@ equation
     "Program error: Energy is not conserved in InfraredRadiationExchange." +
     "\n  Sum of all energy is " + String(sumEBal));
   annotation (
-    preferedView="info",
+    preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
             240}}), graphics),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,

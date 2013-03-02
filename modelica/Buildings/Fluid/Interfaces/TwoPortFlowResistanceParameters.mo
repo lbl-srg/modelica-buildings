@@ -20,7 +20,7 @@ record TwoPortFlowResistanceParameters
     "Fraction of nominal flow rate where flow transitions to laminar"
     annotation(Dialog(enable = computeFlowResistance, tab="Flow resistance"));
 
-annotation (preferedView="info",
+annotation (preferredView="info",
 Documentation(info="<html>
 This class contains parameters that are used to
 compute the pressure drop in models that have one fluid stream.

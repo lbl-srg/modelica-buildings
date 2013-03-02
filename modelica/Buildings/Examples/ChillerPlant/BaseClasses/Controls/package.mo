@@ -3,7 +3,7 @@ package Controls "Package with control components for Buildings.Examples.Chiller
 extends Modelica.Icons.VariantsPackage;
 
 
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains component models that are used to construct the control system in
 <a href=\"modelica://Buildings.Examples.ChillerPlant\">Buildings.Examples.ChillerPlant</a>.

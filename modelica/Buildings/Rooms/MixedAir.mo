@@ -431,7 +431,7 @@ equation
           fillColor={61,61,61},
           fillPattern=FillPattern.Solid,
           textString="surface")}),
-    preferedView="info",
+    preferredView="info",
     defaultComponentName="roo",
     Documentation(info="<html>
 <p>The package <b>Buildings.Rooms</b> contains models for heat transfer 

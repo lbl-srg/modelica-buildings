@@ -1,7 +1,7 @@
 within Buildings.Media;
 package PerfectGases "Package with models for perfect gases"
   extends Modelica.Icons.MaterialPropertiesPackage;
-annotation (preferedView="info", Documentation(info="<html>
+annotation (preferredView="info", Documentation(info="<html>
 <p>
 This package contains models of <i>thermally perfect</i> gases.
 </p>

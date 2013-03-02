@@ -407,7 +407,7 @@ replaceable function der_enthalpyOfNonCondensingGas
 algorithm
   der_h := der_enthalpyOfDryAir(T, der_T);
 end der_enthalpyOfNonCondensingGas;
-  annotation (preferedView="info", Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info="<html>
 This is a medium model that is identical to 
 <a href=\"modelica://Buildings.Media.GasesConstantDensity.MoistAir\">
 Buildings.Media.GasesConstantDensity.MoistAir</a>,  but 

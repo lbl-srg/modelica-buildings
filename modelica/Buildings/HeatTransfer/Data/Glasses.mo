@@ -124,7 +124,7 @@ First implementation.
       tauIR=0,
       absIR_a=0.84,
       absIR_b=0.84) "Generic Clear Glass 5.7mm. Manufacturer: Generic.";
-  annotation(preferedView="info",
+  annotation(preferredView="info",
             Documentation(info="<html>
 This package implements thermophysical properties for window glas.
 </p>

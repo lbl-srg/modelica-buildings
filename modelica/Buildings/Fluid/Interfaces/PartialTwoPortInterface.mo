@@ -58,7 +58,7 @@ partial model PartialTwoPortInterface
           show_T "Medium properties in port_b";
 
   annotation (
-    preferedView="info",
+    preferredView="info",
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

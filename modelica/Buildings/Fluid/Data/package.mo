@@ -3,7 +3,7 @@ package Data "Data for fluid models"
     extends Modelica.Icons.MaterialPropertiesPackage;
 
   annotation (
-preferedView="info",
+preferredView="info",
 Documentation(info="<html>
 <p>
 Package with physical properties that are used by models in the package

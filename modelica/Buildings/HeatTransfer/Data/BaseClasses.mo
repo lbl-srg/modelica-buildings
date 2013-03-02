@@ -26,7 +26,7 @@ package BaseClasses "Base classes for package Data"
     parameter Real nStaReal(min=0) = nStaRef*piMat/piRef
       "Number of states as a real number"
       annotation (Dialog(tab="Advanced"));
-    annotation (preferedView="info",
+    annotation (preferredView="info",
     Documentation(info="<html>
 Base record for materials that declares the thermal properties. 
 </p>
@@ -99,7 +99,7 @@ First implementation.
     parameter Boolean steadyState= (c == 0 or d == 0)
       "Flag, if true, then material is computed using steady-state heat conduction"
       annotation(Evaluate=true);
-   annotation (preferedView="info",
+   annotation (preferredView="info",
     Documentation(info="<html>
 Base record for materials, used in circular geometry or other configurations, that only declares the thermal properties. 
 </p>

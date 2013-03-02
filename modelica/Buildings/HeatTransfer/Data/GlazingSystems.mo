@@ -69,7 +69,7 @@ First implementation.
       final nLay=3)
     "Triple pane, clear glass 3mm, air 12.7, clear glass 3mm, air 12.7, clear glass 3mm";
 
-annotation (preferedView="info",
+annotation (preferredView="info",
 Documentation(info="<html>
 Package with generic records that implement thermophysical properties for glazing systems.
 </html>",
