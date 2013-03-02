@@ -65,7 +65,8 @@ model DryCoilCounterFlowPControl
     annotation (Placement(transformation(extent={{20,10},{0,30}}, rotation=0)));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = Medium1,
-    m_flow_nominal=m1_flow_nominal) "Valve model" annotation (Placement(
+    m_flow_nominal=m1_flow_nominal,
+    dpValve_nominal=6000) "Valve model"           annotation (Placement(
         transformation(extent={{30,50},{50,70}}, rotation=0)));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,288.15; 600,288.15; 600,
         298.15; 1200,298.15; 1800,283.15; 2400,283.15; 2400,288.15])
@@ -165,7 +166,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(con.y, val.y)    annotation (Line(
-      points={{21,100},{40,100},{40,68}},
+      points={{21,100},{40,100},{40,72}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSen.port_a, hex.port_b2) annotation (Line(
@@ -175,5 +176,14 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,200}}), graphics),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowPControl.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 1, 2013, by Michael Wetter:<br>
+Added nominal pressure drop for valve as
+this parameter no longer has a default value.
+</li>
+</ul>
+</html>"));
 end DryCoilCounterFlowPControl;

@@ -192,12 +192,22 @@ have been <b style=\"color:blue\">improved</b> in a
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">All valves now require the declaration of <code>dp_nominal</code>
+                       if the parameter assignment is
+                       <code>CvData = Buildings.Fluid.Types.CvTypes.OpPoint</code>.
+                       This change was needed because in the previous version, 
+                       <code>dp_nominal</code> had
+                       a default value of <i>6000</i> Pascals. However, if 
+                       <code>CvData &gt;&lt; Buildings.Fluid.Types.CvTypes.OpPoint</code>, then 
+                       <code>dp_nominal</code> is computed in the initial algorithm section and hence
+                       providing a default value is not allowed according to 
+                       the Modelica Language Specification.
+                       Hence, it had to be removed.
     </td>
 </tr>
 </table>
@@ -254,12 +264,18 @@ that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
 units are wrong or errors in documentation):
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear<br/>
+                       Buildings.Fluid.Actuators.Valves.ThreeWayLinear
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">The documenation was
+                       <i>Fraction Kv(port_1->port_2)/Kv(port_3->port_2)</i> instead of
+                       <i>Fraction Kv(port_3->port_2)/Kv(port_1->port_2)</i>.
+                       Because the parameter set correctly its attributes 
+                       <code>min=0</code> and <code>max=1</code>,
+                       instances of these models used the correct value.
     </td>
 </tr>
 </table>
@@ -1060,7 +1076,7 @@ have been <b style=\"color:blue\">improved</b> in a
     </td>
     <td valign=\"top\">Changed models to allow modeling of a fixed resistance that is 
                        within the controlled flow leg. This allows in some cases
-                       the avoidance of a nonlinear equation if a flow resistance is
+                       to avoid a nonlinear equation if a flow resistance is
                        in series to the valve.
                        This change required changing the parameter for the valve resistance
                        <code>dp_nominal</code> to <code>dpValve_nominal</code>, 

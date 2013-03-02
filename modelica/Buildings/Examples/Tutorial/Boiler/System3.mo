@@ -164,7 +164,8 @@ model System3
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRad(
     redeclare package Medium = MediumW,
     m_flow_nominal=mRadVal_flow_nominal,
-    l={0.01,0.01}) "Three-way valve"
+    l={0.01,0.01},
+    dpValve_nominal=6000) "Three-way valve for radiator loop"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -178,7 +179,8 @@ model System3
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valBoi(
     redeclare package Medium = MediumW,
     m_flow_nominal=mBoi_flow_nominal,
-    l={0.01,0.01}) "Three-way valve for boiler"
+    l={0.01,0.01},
+    dpValve_nominal=6000) "Three-way valve for boiler"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -477,12 +479,16 @@ This allowed us to configure the valve as
 </p>
 <pre>
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRad(
-    redeclare package Medium = MediumW, 
+    redeclare package Medium = MediumW,
     m_flow_nominal=mRadVal_flow_nominal,
-    l={0.01,0.01}) \"Three-way valve for radiator\";
+    l={0.01,0.01},
+    dpValve_nominal=6000) \"Three-way valve for radiator loop\"
 </pre>
 <p>
-where <code>l={0.01,0.01}</code> is a valve leakage of 1%.
+where <code>l={0.01,0.01}</code> is a valve leakage of 1%
+and <code>dpValve_nominal=6000</code> is the pressure drop of the valve 
+if it is fully open
+and if the mass flow rate is equal to <code>m_flow_nominal</code>.
 It is recommended to set the valve leakage to a non-zero value to avoid numerical problems.
 A non-zero value also represent a more realistic situation, as most valves have some leakage.
 </p>
@@ -568,12 +574,17 @@ this indicates that the model is correct.
 </html>", revisions="<html>
 <ul>
 <li>
+March 1, 2013, by Michael Wetter:<br>
+Added nominal pressure drop for valves as
+this parameter no longer has a default value.
+</li>
+<li>
 January 27, 2012, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(coordinateSystem(preserveAspectRatio=true,
+    Diagram(coordinateSystem(preserveAspectRatio=false,
             extent={{-240,-360},{100,100}}),
             graphics),
     Commands(file=

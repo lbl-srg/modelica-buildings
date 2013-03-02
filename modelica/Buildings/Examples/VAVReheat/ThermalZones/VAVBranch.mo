@@ -80,7 +80,8 @@ model VAVBranch "Supply branch of a VAV system"
     m_flow_nominal=m_flow_nominal*1000*15/4200/10,
     CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
     from_dp=true,
-    dpFixed_nominal=6000) "Valve at reaheat coil"
+    dpFixed_nominal=6000,
+    dpValve_nominal=6000) "Valve at reaheat coil"
     annotation (Placement(transformation(extent={{82,34},{102,14}})));
   Buildings.Fluid.Sources.FixedBoundary souTer(
     redeclare package Medium = MediumW,

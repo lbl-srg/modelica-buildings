@@ -181,7 +181,6 @@ model TwoRoomsWithStorage
   Fluid.Actuators.Valves.TwoWayEqualPercentage val2(
     redeclare package Medium = Medium,
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
-    Kv_SI=mRad_flow_nominal/nRoo/sqrt(dpVal_nominal),
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
     from_dp=true) "Radiator valve"
@@ -199,7 +198,6 @@ model TwoRoomsWithStorage
   Fluid.Actuators.Valves.TwoWayEqualPercentage val1(
     redeclare package Medium = Medium,
     dpValve_nominal(displayUnit="Pa") = dpVal_nominal,
-    Kv_SI=mRad_flow_nominal/nRoo/sqrt(dpVal_nominal),
     m_flow_nominal=mRad_flow_nominal/nRoo,
     dpFixed_nominal=dpRoo_nominal,
     from_dp=true) "Radiator valve"
@@ -225,7 +223,7 @@ model TwoRoomsWithStorage
     T_b_nominal=313.15) "Radiator"
     annotation (Placement(transformation(extent={{392,118},{412,138}})));
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear thrWayVal(
-                                            redeclare package Medium = Medium,
+    redeclare package Medium = Medium,
     dpValve_nominal=dpThrWayVal_nominal,
     l={0.01,0.01},
     tau=10,
@@ -1022,6 +1020,10 @@ system.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2013, by Michael Wetter:<br>
+Removed assignment of <code>Kv_SI</code> because this is now a protected parameter.
+</li>
 <li>
 December 6, 2011, by Michael Wetter:<br>
 Added internal heat gains, which were set to zero in the previous version.

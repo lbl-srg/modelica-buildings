@@ -25,15 +25,15 @@ This often introduces an additional nonlinear equation.
 Suppose that in the above model, the parameters for the flow resistance are
 </p>
 <pre>
-  val(dpValve_nominal=6000, dpFixed=0, m_flow_nominal);
-  res(dp_nominal=10000,                m_flow_nominal);
+  val(dpValve_nominal=6000, dpFixed=0, m_flow_nominal=0.1);
+  res(dp_nominal=10000,                m_flow_nominal=0.1);
 </pre>
 <p>
 Instead of this arrangement, the model <code>res</code> can be deleted
 and the valve configured as
 </p>
 <pre>
-  val(dpValve_nominal=6000, dpFixed=10000, m_flow_nominal);
+  val(dpValve_nominal=6000, dpFixed=10000, m_flow_nominal=0.1);
 </pre>
 <p>
 This yields the same simulation results, but a nonlinear equation can be avoided
@@ -53,16 +53,16 @@ consider the configuration below.
 Suppose the parameters are
 </p>
 <pre>
-  val(dpValve_nominal=6000, dpFixed={0, 0}, m_flow_nominal);
-  res1(dp_nominal=10000,                    m_flow_nominal);
-  res3(dp_nominal=100,                      m_flow_nominal);
+  val(dpValve_nominal=6000, dpFixed={0, 0}, m_flow_nominal=0.1);
+  res1(dp_nominal=10000,                    m_flow_nominal=0.1);
+  res3(dp_nominal=100,                      m_flow_nominal=0.1);
 </pre>
 <p>
 An equivalent model could be created by deleting the two resistance models 
 <code>res1</code> and <code>res3</code>, and configuring the valve as
 </p>
 <pre>
-  val(dpValve_nominal=6000, dpFixed={10000, 100}, m_flow_nominal);
+  val(dpValve_nominal=6000, dpFixed={10000, 100}, m_flow_nominal=0.1);
 </pre>
 <p>
 </p>

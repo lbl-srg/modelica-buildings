@@ -56,7 +56,8 @@ model DryEffectivenessNTUPControl
     l=0.005,
     Kv_SI=5/sqrt(4000),
     m_flow_nominal=m1_flow_nominal,
-    dpFixed_nominal=2000 + 3000) "Valve model"
+    dpFixed_nominal=2000 + 3000,
+    dpValve_nominal=6000) "Valve model"
              annotation (Placement(transformation(extent={{30,50},{50,70}},
           rotation=0)));
   Buildings.Controls.Continuous.LimPID P(
@@ -125,5 +126,14 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{200,200}}), graphics),
                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTUPControl.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 1, 2013, by Michael Wetter:<br>
+Added nominal pressure drop for valve as
+this parameter no longer has a default value.
+</li>
+</ul>
+</html>"));
 end DryEffectivenessNTUPControl;

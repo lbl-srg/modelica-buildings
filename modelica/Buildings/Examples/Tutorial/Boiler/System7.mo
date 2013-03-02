@@ -149,7 +149,8 @@ model System7
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valRad(
     redeclare package Medium = MediumW,
     m_flow_nominal=mRadVal_flow_nominal,
-    l={0.01,0.01}) "Three-way valve"
+    l={0.01,0.01},
+    dpValve_nominal=6000) "Three-way valve"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -161,7 +162,8 @@ model System7
   Buildings.Fluid.Actuators.Valves.ThreeWayEqualPercentageLinear valBoi(
     redeclare package Medium = MediumW,
     m_flow_nominal=mBoi_flow_nominal,
-    l={0.01,0.01}) "Three-way valve for boiler"
+    l={0.01,0.01},
+    dpValve_nominal=6000) "Three-way valve for boiler"
                         annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -647,6 +649,11 @@ response shown below should be seen.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2013, by Michael Wetter:<br>
+Added nominal pressure drop for valves as
+this parameter no longer has a default value.
+</li>
 <li>
 April 13, 2012, by Michael Wetter:<br>
 Removed first order filter at boiler pump input.

@@ -1,26 +1,22 @@
 within Buildings.Fluid.Actuators.BaseClasses;
 partial model PartialThreeWayValve "Partial three way valve"
-    extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
+  extends Buildings.Fluid.BaseClasses.PartialThreeWayResistance(
       final mDyn_flow_nominal = m_flow_nominal,
         redeclare replaceable
       Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve
             res1 constrainedby
       Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
-               redeclare package Medium = Medium,
-               l=l[1],
                deltaM=deltaM,
-               dpValve_nominal=dpValve_nominal,
-               dpFixed_nominal=dpFixed_nominal[1],
                dp(start=dpValve_nominal/2),
                from_dp=from_dp,
-               linearized=linearized[1],
-               homotopyInitialization=homotopyInitialization,
-               m_flow_nominal=m_flow_nominal,
-               CvData=CvData,
-               Kv_SI=Kv_SI,
-               Kv=Kv,
-               Cv=Cv,
-               Av=Av,
+               redeclare final package Medium = Medium,
+               final l=l[1],
+               final linearized=linearized[1],
+               final homotopyInitialization=homotopyInitialization,
+               final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+               final m_flow_nominal=m_flow_nominal,
+               final dpValve_nominal=dpValve_nominal,
+               final dpFixed_nominal=dpFixed_nominal[1],
                final filteredOpening=false),
         redeclare FixedResistances.LosslessPipe res2(
           redeclare package Medium = Medium, m_flow_nominal=m_flow_nominal),
@@ -28,38 +24,33 @@ partial model PartialThreeWayValve "Partial three way valve"
       Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve
             res3 constrainedby
       Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve(
-               redeclare package Medium = Medium,
-               l=l[2],
                deltaM=deltaM,
-               dpValve_nominal=dpValve_nominal,
-               dpFixed_nominal=dpFixed_nominal[2],
                dp(start=dpValve_nominal/2),
                from_dp=from_dp,
-               linearized=linearized[2],
-               homotopyInitialization=homotopyInitialization,
-               m_flow_nominal=m_flow_nominal,
-               CvData=CvData,
-               Kv_SI=fraK*Kv_SI,
-               Kv=fraK*Kv,
-               Cv=fraK*Cv,
-               Av=fraK*Av,
+               redeclare final package Medium = Medium,
+               final l=l[2],
+               final linearized=linearized[2],
+               final homotopyInitialization=homotopyInitialization,
+               final CvData=Buildings.Fluid.Types.CvTypes.OpPoint,
+               final m_flow_nominal=m_flow_nominal,
+               final dpValve_nominal=dpValve_nominal/fraK^2,
+               final dpFixed_nominal=dpFixed_nominal[2],
                final filteredOpening=false));
-    extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
-      dpValve_nominal=6000,
-      rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
     extends Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal;
+    extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
+      rhoStd=Medium.density_pTX(101325, 273.15+4, Medium.X_default));
+  parameter Modelica.SIunits.Pressure dpFixed_nominal[2](each displayUnit="Pa",
+                                                         each min=0) = {0, 0}
+    "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
+    annotation(Dialog(group="Nominal condition"));
 
   parameter Real fraK(min=0, max=1) = 0.7
-    "Fraction Kv_SI(port_1->port_2)/Kv_SI(port_3->port_2)";
+    "Fraction Kv(port_3->port_2)/Kv(port_1->port_2)";
   parameter Real[2] l(min=0, max=1) = {0, 0} "Valve leakage, l=Cv(y=0)/Cvs";
   parameter Real deltaM = 0.02
     "Fraction of nominal flow rate where linearization starts, if y=1"
     annotation(Dialog(group="Pressure-flow linearization"));
 
-  parameter Modelica.SIunits.Pressure dpFixed_nominal[2](each displayUnit="Pa",
-                                                         each min=0) = {0, 0}
-    "Nominal pressure drop of pipes and other equipment in flow legs at port_1 and port_3"
-    annotation(Dialog(group="Nominal condition"));
   parameter Boolean[2] linearized = {false, false}
     "= true, use linear relation between m_flow and dp for any flow rate"
     annotation(Dialog(tab="Advanced"));
@@ -166,14 +157,21 @@ with different opening characteristics, such as linear, equal percentage
 or quick opening. The three way valve model consists of a mixer where 
 valves are placed in two of the flow legs. The third flow leg
 has no friction. 
-The flow coefficient <code>Kv_SI</code> for flow from <code>port_1 -> port_2</code> is
-a parameter and the flow coefficient for flow from <code>port_3 -> port_2</code>
-is computed as<pre>
-         Kv_SI(port_1 -> port_2)
+The flow coefficient <code>Kv</code> for flow from <code>port_1 -> port_2</code> is
+a parameter. 
+The flow coefficient for the bypass flow from <code>port_3 -> port_2</code>
+is computed as
+</p>
+<p>
+<pre>
+         Kv(port_3 -> port_2)
   fraK = ----------------------
-         Kv_SI(port_3 -> port_2)
+         Kv(port_1 -> port_2)
 </pre> 
-where <code>fraK</code> is a parameter.
+</p>
+<p>
+where <code>0 &lt; fraK &le; 1</code> is a parameter with a default value
+of <code>fraK=0.7</code>.
 </p><p>
 Since this model uses two way valves to construct a three way valve, see 
 <a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve\">
@@ -181,6 +179,19 @@ PartialTwoWayValve</a> for details regarding the valve implementation.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 28, 2013, by Michael Wetter:<br>
+Reformulated assignment of parameters.
+Removed default value for <code>dpValve_nominal</code>, as this
+parameter has the attribute <code>fixed=false</code> for some values
+of <code>CvData</code>. In this case, assigning a value is not allowed.
+Corrected wrong documentation of parameter <code>fraK(min=0, max=1) = 0.7</code>.
+The documenation was
+<i>Fraction Kv(port_1->port_2)/Kv(port_3->port_2)</i> instead of
+<i>Fraction Kv(port_3->port_2)/Kv(port_1->port_2)</i>.
+Because the parameter set correctly its attributes <code>min=0</code> and <code>max=1</code>,
+instances of this model used the correct value.
+</li>
 <li>
 April 12, 2012 by Michael Wetter:<br>
 Removed duplicate declaration of <code>m_flow_nominal</code>.

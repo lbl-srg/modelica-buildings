@@ -42,7 +42,6 @@ model ValveParameterization
     CvData=Buildings.Fluid.Types.CvTypes.Kv,
     m_flow_nominal=150/3600,
     Kv=0.73,
-    dpValve_nominal=450000,
     filteredOpening=false) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{-10,-10},{10,10}},
                                                                        rotation=
@@ -54,7 +53,6 @@ model ValveParameterization
     m_flow_nominal=150/3600,
     CvData=Buildings.Fluid.Types.CvTypes.Cv,
     Cv=0.84,
-    dpValve_nominal=450000,
     filteredOpening=false) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{-10,-50},{10,-30}},
                                                                        rotation=
@@ -183,6 +181,12 @@ The top and bottom two valves need to have the same flow rates.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2013, by Michael Wetter:<br>
+Removed assignment of <code>dpValve_nominal</code> if
+<code>CvData &lt;&gt; Buildings.Fluid.Types.CvTypes.OpPoint</code>,
+as in this case, it is computed by the model.
+</li>
 <li>
 February 18, 2009 by Michael Wetter:<br>
 First implementation.

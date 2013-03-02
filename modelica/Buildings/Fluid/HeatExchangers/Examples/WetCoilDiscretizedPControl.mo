@@ -61,7 +61,8 @@ model WetCoilDiscretizedPControl
     Kv_SI=m1_flow_nominal/sqrt(5000),
     m_flow_nominal=m1_flow_nominal,
     filteredOpening=false,
-    dpFixed_nominal=2000)
+    dpFixed_nominal=2000,
+    dpValve_nominal=6000)
              annotation (Placement(transformation(extent={{18,38},{38,58}},
           rotation=0)));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,293.15; 600,293.15; 600,
@@ -166,5 +167,14 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},
             {200,200}}),       graphics),
                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/WetCoilDiscretizedPControl.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 1, 2013, by Michael Wetter:<br>
+Added nominal pressure drop for valve as
+this parameter no longer has a default value.
+</li>
+</ul>
+</html>"));
 end WetCoilDiscretizedPControl;

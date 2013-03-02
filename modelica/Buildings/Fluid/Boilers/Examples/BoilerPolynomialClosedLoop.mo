@@ -29,7 +29,8 @@ model BoilerPolynomialClosedLoop "Boiler with closed loop control"
                           redeclare package Medium = Medium,
     l={0.01,0.01},
     dynamicBalance=false,
-    m_flow_nominal=m_flow_nominal)                   annotation (Placement(
+    m_flow_nominal=m_flow_nominal,
+    dpValve_nominal=6000)                            annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -266,6 +267,11 @@ and it is used to accomodate for the thermal expansion of the water.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 1, 2013, by Michael Wetter:<br>
+Added nominal pressure drop for valve as
+this parameter no longer has a default value.
+</li>
 <li>
 November 1, 2011 by Michael Wetter:<br>
 First implementation.

@@ -9,7 +9,8 @@ model ThreeWayValves
     redeclare package Medium = Medium,
     l={0.05,0.05},
     m_flow_nominal=2,
-    filteredOpening=false) "Valve model, linear opening characteristics"
+    filteredOpening=false,
+    dpValve_nominal=6000) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{0,-8},{20,12}},
           rotation=0)));
     Modelica.Blocks.Sources.Ramp y(
@@ -40,7 +41,8 @@ model ThreeWayValves
     redeclare package Medium = Medium,
     R=10,
     m_flow_nominal=2,
-    filteredOpening=false)
+    filteredOpening=false,
+    dpValve_nominal=6000)
     annotation (Placement(transformation(extent={{0,-60},{20,-40}}, rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT ret(
     redeclare package Medium = Medium,
@@ -62,7 +64,7 @@ equation
           -28},{10,-28},{10,-38}},
                           color={0,0,127}));
   connect(sou.ports[1], valLin.port_1) annotation (Line(
-      points={{-30,2},{-22.5,2},{-22.5,2},{-15,2},{-15,2},{-5.55112e-16,2}},
+      points={{-30,2},{-5.55112e-16,2}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], valEquPerLin.port_1) annotation (Line(
@@ -70,7 +72,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(valLin.port_2, sin.ports[1]) annotation (Line(
-      points={{20,2},{27.5,2},{27.5,2},{35,2},{35,2},{50,2}},
+      points={{20,2},{50,2}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valEquPerLin.port_2, sin.ports[2]) annotation (Line(
@@ -108,6 +110,10 @@ To use common values, use the default values.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 28, 2013, by Michael Wetter:<br>
+Added default value for <code>dpValve_nominal</code>.
+</li>
 <li>
 June 16, 2008 by Michael Wetter:<br>
 First implementation.

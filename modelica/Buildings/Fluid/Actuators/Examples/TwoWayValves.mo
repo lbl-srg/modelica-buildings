@@ -7,7 +7,8 @@ model TwoWayValves
     redeclare package Medium = Medium,
     l=0.05,
     m_flow_nominal=2,
-    filteredOpening=false) "Valve model, linear opening characteristics"
+    filteredOpening=false,
+    dpValve_nominal=6000) "Valve model, linear opening characteristics"
          annotation (Placement(transformation(extent={{0,20},{20,40}}, rotation=
            0)));
     Modelica.Blocks.Sources.Ramp y(
@@ -33,7 +34,8 @@ model TwoWayValves
     redeclare package Medium = Medium,
     l=0.05,
     m_flow_nominal=2,
-    filteredOpening=false) "Valve model, quick opening characteristics"
+    filteredOpening=false,
+    dpValve_nominal=6000) "Valve model, quick opening characteristics"
          annotation (Placement(transformation(extent={{0,-20},{20,0}}, rotation=
            0)));
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage valEqu(
@@ -42,7 +44,8 @@ model TwoWayValves
     R=10,
     delta0=0.1,
     m_flow_nominal=2,
-    filteredOpening=false)
+    filteredOpening=false,
+    dpValve_nominal=6000)
     "Valve model, equal percentage opening characteristics"
          annotation (Placement(transformation(extent={{0,-60},{20,-40}},
           rotation=0)));
@@ -105,6 +108,10 @@ without taking into account the travel time of the actuator.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+February 28, 2013, by Michael Wetter:<br>
+Added default value for <code>dpValve_nominal</code>.
+</li>
 <li>
 June 16, 2008 by Michael Wetter:<br>
 First implementation.
