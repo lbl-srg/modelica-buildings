@@ -1,7 +1,7 @@
 # Modelica Buildings library
 *This repository is under construction. For the current version control, use https://corbu.lbl.gov/trac/bie/wiki*
 
-A Modelica library, user guide and python scripts for modeling of building energy and control systems.
+A Modelica library and user guide for modeling of building energy and control systems.
 
 ## Library description
 
