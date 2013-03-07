@@ -1,5 +1,0 @@
-Revisions
-=========
-
-
-.. include:: ../../CHANGES.txt
