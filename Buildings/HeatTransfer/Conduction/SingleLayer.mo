@@ -10,12 +10,21 @@ model SingleLayer "Model for single layer heat conductance"
   Modelica.SIunits.Temperature T[nSta](start=
      {T_a_start+(T_b_start-T_a_start) * UA *
         sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i) for i in 1:nSta},
-      each nominal = 300) "Temperature at the states";
+      each nominal = 300,
+      each stateSelect = if (not material.phasechange and (not material.steadyState))
+          then StateSelect.always else StateSelect.default)
+    "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
     "Heat flow rate from state i to i+1";
-
+  Modelica.SIunits.SpecificInternalEnergy u[nSta](start=
+     material.c*{T_a_start+(T_b_start-T_a_start) * UA *
+        sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i) for i in 1:nSta},
+        each nominal = 270000,
+        each stateSelect = if (material.phasechange and (not material.steadyState))
+          then StateSelect.always else StateSelect.default)
+    "Definition of specific internal energy (enthalpy in solids)!";
   replaceable parameter Data.BaseClasses.Material material
-    "Material from Data.Solids or Data.Resistances"
+    "Material from Data.Solids, Data.SolidsPCM or Data.Resistances"
     annotation (choicesAllMatching=true);
 
   parameter Boolean steadyStateInitial=false
@@ -27,48 +36,107 @@ model SingleLayer "Model for single layer heat conductance"
   parameter Modelica.SIunits.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
+  constant Boolean ensureMonotonicity = false
+    "Set to true to force derivatives dT/du to be monotone";
+
 protected
-  parameter Modelica.SIunits.HeatCapacity C = A*material.x*material.d*material.c/material.nSta
-    "Heat capacity associated with the temperature state";
   final parameter Integer nSta(min=1) = material.nSta
     "Number of state variables";
   final parameter Modelica.SIunits.ThermalConductance UAnSta = UA*nSta
     "Thermal conductance between nodes";
   final parameter Modelica.SIunits.ThermalConductance UAnSta2 = 2*UAnSta
     "Thermal conductance between nodes and surface boundary";
-initial equation
- // G={UA*nSta * (if (i==1 or i==nSta+1) then 2 else 1) for i in 1:nSta+1};
-  // The initialization is only done for materials that store energy.
-  if not material.steadyState then
-    if steadyStateInitial then
-      der(T) = zeros(nSta);
-    else
-      for i in 1:nSta loop
-        T[i] = T_a_start+(T_b_start-T_a_start) * UA *
-          sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i);
-      end for;
-      end if;
-   end if;
+  parameter Modelica.SIunits.Mass m = A*material.x*material.d/material.nSta
+    "Mass associated with the temperature state";
+  parameter Modelica.SIunits.HeatCapacity C = m*material.c
+    "Heat capacity associated with the temperature state";
 
+  parameter Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSup](each fixed=false)
+    "Support points for derivatives (used for PCM)";
+  parameter Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSup](each fixed=false)
+    "Support points for derivatives (used for PCM)";
+  parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSup](each fixed=false, unit="kg.K2/J")
+    "Derivatives dT/du at the support points (used for PCM)";
+
+initial equation
+  // The initialization is only done for materials that store energy.
+    if not material.steadyState then
+      if steadyStateInitial then
+        if material.phasechange then
+          der(u) = zeros(nSta);
+        else
+          der(T) = zeros(nSta);
+        end if;
+      else
+        for i in 1:nSta loop
+          T[i] = T_a_start+(T_b_start-T_a_start) * UA *
+            sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i);
+        end for;
+      end if;
+    end if;
+
+  if material.phasechange then
+     (ud, Td, dT_du) = Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
+       TSol=material.TSol,
+       TLiq=material.TLiq,
+       LHea=material.LHea,
+       c=material.c,
+       ensureMonotonicity=ensureMonotonicity);
+   else
+     ud    = zeros(Buildings.HeatTransfer.Conduction.nSup);
+     Td    = zeros(Buildings.HeatTransfer.Conduction.nSup);
+     dT_du = zeros(Buildings.HeatTransfer.Conduction.nSup);
+   end if;
 equation
     port_a.Q_flow = +Q_flow[1];
     port_b.Q_flow = -Q_flow[nSta+1];
 
     port_a.T-T[1] = Q_flow[1]/UAnSta2;
     T[nSta] -port_b.T = Q_flow[nSta+1]/UAnSta2;
+
     for i in 2:nSta loop
        // Q_flow[i] is heat flowing from (i-1) to (i)
        T[i-1]-T[i] = Q_flow[i]/UAnSta;
     end for;
+
+    // Steady-state heat balance
     if material.steadyState then
       for i in 2:nSta+1 loop
         Q_flow[i] = Q_flow[1];
+        if material.phasechange then
+          // Phase change material
+          T[i-1]=Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u(
+                    ud=ud,
+                    Td=Td,
+                    dT_du=dT_du,
+                    u=u[i-1]);
+        else
+          // Regular material
+          u[i-1]=material.c*T[i-1];
+        end if;
       end for;
+    else
+      // Transient heat conduction
+      if material.phasechange then
+        // Phase change material
+        for i in 1:nSta loop
+          der(u[i]) = (Q_flow[i]-Q_flow[i+1])/m;
+          // Recalculation of temperature based on specific internal energy
+          T[i]=Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u(
+                    ud=ud,
+                    Td=Td,
+                    dT_du=dT_du,
+                    u=u[i]);
+        end for;
       else
+        // Regular material
         for i in 1:nSta loop
           der(T[i]) = (Q_flow[i]-Q_flow[i+1])/C;
+          u[i]=material.c*T[i];
         end for;
+      end if;
     end if;
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
@@ -114,7 +182,7 @@ equation
 defaultComponentName="lay",
     Documentation(info="<html>
 This is a model of a heat conductor for a single material
-that computes transient or steady-state heat conductions.
+that computes transient or steady-state heat conduction.
 </p>
 <p>
 If the material is a record that extends
@@ -125,8 +193,8 @@ is non-zero, then this model computes <i>transient</i> heat conduction, i.e., it
 computes a numerical approximation to the solution of the heat equation
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-   &rho; c (&part; T(u,t) &frasl; &part;t) = 
-    k (&part;&sup2; T(u,t) &frasl; &part;u&sup2;),
+   &rho; c (&part; T(s,t) &frasl; &part;t) = 
+    k (&part;&sup2; T(s,t) &frasl; &part;s&sup2;),
 </p>
 <p>
 where 
@@ -135,11 +203,32 @@ is the mass density,
 <i>c</i>
 is the specific heat capacity per unit mass,
 <i>T</i>
-is the temperature at location <i>u</i> and time <i>t</i> and
+is the temperature at location <i>s</i> and time <i>t</i> and
 <i>k</i> is the heat conductivity. 
-At the locations <i>u=0</i> and <i>u=x</i>, where <i>x</i> is the
+At the locations <i>s=0</i> and <i>s=x</i>, where <i>x</i> is the
 material thickness, the temperature and heat flow rate is equal to the 
 temperature and heat flow rate of the heat heat ports.
+</p>
+<p>
+A special case are materials with phase change.
+If a layer contains a phase change material, then the specific internal energy
+is the dependent variable, rather than the temperature as described above.
+Therefore, the governing equation is
+</p>
+<p align=\"center\" style=\"font-style:italic;\">
+   &rho; (&part; u(s,t) &frasl; &part;t) = 
+    k (&part;&sup2; T(s,t) &frasl; &part;s&sup2;),
+</p>
+<p>
+where 
+<i>u</i> is the specific internal energy of the layer. Phase-change parameters
+such as <code>TSol</code>, <code>TLiq</code> and <code>LHea</code> defining the solidus,
+liquidus temperature and latent heat of phase transformation are 
+defined in material record <code>material</code>. The constitutive 
+relation between specific internal energy and temperature is defined in
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.enthalpyTemperature\"> 
+Buildings.HeatTransfer.Conduction.BaseClasses.enthalyTemperature</a> by using Hermite
+cubic interpolation with linear extrapolation.
 </p>
 <p>
 To spatially discretize the heat equation, the construction is 
@@ -175,6 +264,12 @@ where
 </html>",
 revisions="<html>
 <ul>
+<li>
+January 22, 2013, by Armin Teskeredzic:<br>
+Implementation of phase-change materials based on enthalpy-linearisation method.
+Phase-change properties defined in <code>material</code> record and relationship
+between enthalpy and temperature defined in the <code>EnthalpyTemperature</code> function.
+</li>
 <li>
 March 9, 2012, by Michael Wetter:<br>
 Removed protected variable <code>der_T</code> as it is not required.
