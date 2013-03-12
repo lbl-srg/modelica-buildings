@@ -116,24 +116,24 @@ algorithm
 This example tests and demonstrates the implementation of the specific internal 
 energy-temperature (u-T) relationship for phase-change problems. 
 Cubic hermite interpolation and linear extrapolation is used to approximate 
-the u-T relationship. 
+the piece-wise linear u-T relationship. 
 A piece-wise linear u-T relationship is assumed in all three chracteristic regions (solid, mushy and liquid).
-The example uses the the functions
+The example uses the functions
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u\">
 Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</a> 
-and the
+and 
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.temeprature_u\">
 Buildings.HeatTransfer.Conduction.BaseClasses.temeprature_u</a>.
-The first function is used for calculation 
-of derivatives at prescribed points,
-and the second function returns the temperature 
+The first function is used to compute 
+the derivatives at the support points,
+and the second function computes the temperature 
 for a given specific internal energy. 
 </p>
 <p>
-The example demonstrates also the use of the cubic hermite spline interpolation with 
-two different settings: One produces an approximation of u-T that is monotone, 
+The example also demonstrates the use of cubic hermite spline interpolation with 
+two different settings: One produces an approximation of the u-T relationship that is monotone, 
 whereas the other does not enforce monotonicity. 
-The latter one is used as default in the <code>Buildings</code> library, 
+The latter one is used by default in the <code>Buildings</code> library, 
 since it produces a higher accuracy in the mushy
 region, especially for materials in which phase-change transformation occurs in a wide
 temperature interval (see the figure below). 
@@ -142,6 +142,7 @@ The curves <code>errNonMonotone</code> and
 represent the relative error between approximated and exact temperatures 
 obtained for different enthalpy values (right hand side figure).
 </p>
+fixme: The axis in the figure requires labels, and the x-axis should be u, not time.
 <p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/EnthalpyTemperaturePCM.png\"/>
 </p>
 </html>", revisions="<html>

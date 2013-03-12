@@ -2,25 +2,34 @@ within Buildings.HeatTransfer.Data;
 package SolidsPCM
   "Package with solid material, characterized by thermal conductance, density and specific heat capacity"
     extends Modelica.Icons.MaterialPropertiesPackage;
+
   record Generic "Thermal properties of solids with heat storage"
-      extends Buildings.HeatTransfer.Data.BaseClasses.Material(final R=x/k);
+      extends Buildings.HeatTransfer.Data.BaseClasses.Material(final R=x/k,
+                                                               final nSupPCM=6,
+                                                               final phasechange=true);
+
     annotation (defaultComponentName="mat", Documentation(info=
      "<html>
 <p>
-Generic record for solid materials.
-The material is characterized by its 
-thermal conductivity, mass density and specific
-heat capacity.
+Generic record for phase change materials.
+The record extends from 
+<a href=\"modelica:Buildings.HeatTransfer.Data.BaseClasses.Material\">
+Buildings.HeatTransfer.Data.BaseClasses.Material</a>
+and declares parameters and constants for phase change materials.
 </p>
-</html>", revisions=
-          "<html>
+</html>", revisions="<html>
 <ul>
 <li>
-September 9, 2010, by Michael Wetter:<br>
+March 9, 2013, by Michael Wetter:<br>
+Revised implementation.
+</li>
+<li>
+February 20, 2013, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
 </html>"));
+
   end Generic;
 
   record PCM020 =Buildings.HeatTransfer.Data.SolidsPCM.Generic (

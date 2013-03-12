@@ -36,8 +36,6 @@ model SingleLayer "Model for single layer heat conductance"
   parameter Modelica.SIunits.Temperature T_b_start=293.15
     "Initial temperature at port_b, used if steadyStateInitial = false"
     annotation (Dialog(group="Initialization", enable=not steadyStateInitial));
-  constant Boolean ensureMonotonicity = false
-    "Set to true to force derivatives dT/du to be monotone";
 
 protected
   final parameter Integer nSta(min=1) = material.nSta
@@ -51,11 +49,11 @@ protected
   parameter Modelica.SIunits.HeatCapacity C = m*material.c
     "Heat capacity associated with the temperature state";
 
-  parameter Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSup](each fixed=false)
+  parameter Modelica.SIunits.SpecificInternalEnergy ud[material.nSupPCM](each fixed=false)
     "Support points for derivatives (used for PCM)";
-  parameter Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSup](each fixed=false)
+  parameter Modelica.SIunits.Temperature Td[material.nSupPCM](each fixed=false)
     "Support points for derivatives (used for PCM)";
-  parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSup](each fixed=false, unit="kg.K2/J")
+  parameter Real dT_du[material.nSupPCM](each fixed=false, unit="kg.K2/J")
     "Derivatives dT/du at the support points (used for PCM)";
 
 initial equation
@@ -77,15 +75,11 @@ initial equation
 
   if material.phasechange then
      (ud, Td, dT_du) = Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
-       TSol=material.TSol,
-       TLiq=material.TLiq,
-       LHea=material.LHea,
-       c=material.c,
-       ensureMonotonicity=ensureMonotonicity);
+       material=material);
    else
-     ud    = zeros(Buildings.HeatTransfer.Conduction.nSup);
-     Td    = zeros(Buildings.HeatTransfer.Conduction.nSup);
-     dT_du = zeros(Buildings.HeatTransfer.Conduction.nSup);
+     ud    = zeros(material.nSupPCM);
+     Td    = zeros(material.nSupPCM);
+     dT_du = zeros(material.nSupPCM);
    end if;
 equation
     port_a.Q_flow = +Q_flow[1];
@@ -181,9 +175,10 @@ equation
           textString="%nSta")}),
 defaultComponentName="lay",
     Documentation(info="<html>
-This is a model of a heat conductor for a single material
+This is a model of a heat conductor for a single layer of homogeneous material
 that computes transient or steady-state heat conduction.
 </p>
+<h4>Transient heat conduction in materials without phase change</h4>
 <p>
 If the material is a record that extends
 <a href=\"modelica://Buildings.HeatTransfer.Data.Solids\">
@@ -207,43 +202,35 @@ is the temperature at location <i>s</i> and time <i>t</i> and
 <i>k</i> is the heat conductivity. 
 At the locations <i>s=0</i> and <i>s=x</i>, where <i>x</i> is the
 material thickness, the temperature and heat flow rate is equal to the 
-temperature and heat flow rate of the heat heat ports.
+temperature and heat flow rate of the heat ports.
 </p>
+<h4>Transient heat conduction in phase change materials</h4>
 <p>
-A special case are materials with phase change.
-If a layer contains a phase change material, then the specific internal energy
-is the dependent variable, rather than the temperature as described above.
+If the material is declared using a record of type
+<a href=\"modelica://Buildings.HeatTransfer.Data.SolidsPCM\">
+Buildings.HeatTransfer.Data.SolidsPCM</a>, the heat transfer
+in a phase change material is computed.
+The record <a href=\"modelica://Buildings.HeatTransfer.Data.SolidsPCM\">
+Buildings.HeatTransfer.Data.SolidsPCM</a>
+declares the solidus temperature <code>TSol</code>,
+the liquidus temperature <code>TLiq</code> and the latent heat of
+phase transformation <code>LHea</code>. 
+For heat transfer with phase change, the specific internal energy <i>u</i>
+is the dependent variable, rather than the temperature.
 Therefore, the governing equation is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
    &rho; (&part; u(s,t) &frasl; &part;t) = 
-    k (&part;&sup2; T(s,t) &frasl; &part;s&sup2;),
+    k (&part;&sup2; T(s,t) &frasl; &part;s&sup2;).
 </p>
 <p>
-where 
-<i>u</i> is the specific internal energy of the layer. Phase-change parameters
-such as <code>TSol</code>, <code>TLiq</code> and <code>LHea</code> defining the solidus,
-liquidus temperature and latent heat of phase transformation are 
-defined in material record <code>material</code>. The constitutive 
-relation between specific internal energy and temperature is defined in
+The constitutive 
+relation between specific internal energy <i>u</i> and temperature <i>T</i> is defined in
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.enthalpyTemperature\"> 
-Buildings.HeatTransfer.Conduction.BaseClasses.enthalyTemperature</a> by using Hermite
-cubic interpolation with linear extrapolation.
+Buildings.HeatTransfer.Conduction.BaseClasses.enthalyTemperature</a> by using 
+cubic hermite spline interpolation with linear extrapolation.
 </p>
-<p>
-To spatially discretize the heat equation, the construction is 
-divided into compartments with <code>material.nSta &ge; 1</code> state variables. 
-The state variables are connected to each other through thermal conductors. 
-There is also a thermal conductor
-between the surfaces and the outermost state variables. Thus, to obtain
-the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)
-and not the variable <code>T[1]</code>.
-Each compartment has the same material properties.
-To build multi-layer constructions,
-use
-<a href=\"Buildings.HeatTransfer.Conduction.MultiLayer\">
-Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
-</p>
+<h4>Steady-state heat conduction</h4>
 <p>
 If <code>material.c=0</code>, or if the material extends
 <a href=\"modelica://Buildings.HeatTransfer.Data.Resistances\">
@@ -261,6 +248,22 @@ where
 <i>T<sub>a</sub></i> is the temperature at port a and
 <i>T<sub>b</sub></i> is the temperature at port b.
 </p>
+<h4>Spatial discretization</h4>
+<p>
+To spatially discretize the heat equation, the construction is 
+divided into compartments with <code>material.nSta &ge; 1</code> state variables. 
+The state variables are connected to each other through thermal conductors. 
+There is also a thermal conductor
+between the surfaces and the outermost state variables. Thus, to obtain
+the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)
+and not the variable <code>T[1]</code>.
+Each compartment has the same material properties.
+To build multi-layer constructions,
+use
+<a href=\"Buildings.HeatTransfer.Conduction.MultiLayer\">
+Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
+</p>
+
 </html>",
 revisions="<html>
 <ul>

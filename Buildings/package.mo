@@ -166,12 +166,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.SingleLayer
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added option to model layers with phase change material.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -2799,6 +2799,8 @@ helped improve the organization and structure of the library.
 The following people have directly contributed to the implementation of the Buildings library
 (many others have contributed by other means than model implementation):
 <ul>
+<li>Armin Teskeredzic, fixme (add affiliation).
+</li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
