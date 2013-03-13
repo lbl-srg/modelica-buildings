@@ -49,11 +49,11 @@ protected
   parameter Modelica.SIunits.HeatCapacity C = m*material.c
     "Heat capacity associated with the temperature state";
 
-  parameter Modelica.SIunits.SpecificInternalEnergy ud[material.nSupPCM](each fixed=false)
+  parameter Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
     "Support points for derivatives (used for PCM)";
-  parameter Modelica.SIunits.Temperature Td[material.nSupPCM](each fixed=false)
+  parameter Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
     "Support points for derivatives (used for PCM)";
-  parameter Real dT_du[material.nSupPCM](each fixed=false, unit="kg.K2/J")
+  parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, unit="kg.K2/J")
     "Derivatives dT/du at the support points (used for PCM)";
 
 initial equation
@@ -73,13 +73,13 @@ initial equation
       end if;
     end if;
 
-  if material.phasechange then
+   if material.phasechange then
      (ud, Td, dT_du) = Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
        material=material);
    else
-     ud    = zeros(material.nSupPCM);
-     Td    = zeros(material.nSupPCM);
-     dT_du = zeros(material.nSupPCM);
+     ud    = zeros(Buildings.HeatTransfer.Conduction.nSupPCM);
+     Td    = zeros(Buildings.HeatTransfer.Conduction.nSupPCM);
+     dT_du = zeros(Buildings.HeatTransfer.Conduction.nSupPCM);
    end if;
 equation
     port_a.Q_flow = +Q_flow[1];
@@ -133,7 +133,7 @@ equation
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
+          preserveAspectRatio=false,extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-94,4},{92,-4}},
           lineColor={0,0,0},
