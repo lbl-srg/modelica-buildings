@@ -23,15 +23,6 @@ model ConstructionWithWindow
     annotation (Dialog(group="Glazing system"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{140,80},
             {160,100}})));
 
-  HeatTransfer.Conduction.MultiLayer opa(
-    final A=AOpa,
-    final layers=layers,
-    final steadyStateInitial=steadyStateInitial,
-    final T_a_start=T_a_start,
-    final T_b_start=T_b_start)
-    "Model for heat transfer through opaque construction"
-    annotation (Placement(transformation(extent={{-52,148},{52,252}})));
-
   HeatTransfer.Windows.Window win(
     final glaSys=glaSys,
     final A=AWin,
