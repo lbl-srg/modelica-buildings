@@ -2,28 +2,34 @@ within Buildings.HeatTransfer.Examples;
 model ConductorSingleLayerPCM "Test model for heat conductor"
   extends Modelica.Icons.Example;
   import Buildings;
-  // fixme: add comments
   Buildings.HeatTransfer.Sources.FixedTemperature TB(T=293.15)
+    "Temperature boundary condition"
     annotation (Placement(transformation(extent={{100,0},{80,20}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA
+    "Temperature boundary condition"
     annotation (Placement(transformation(extent={{-60,0},{-40,20}})));
   Modelica.Blocks.Sources.Step step(
     height=10,
     offset=293.15,
     startTime=360)
     annotation (Placement(transformation(extent={{-100,0},{-80,20}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TB1(      T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB1(T=293.15)
+    "Temperature boundary condition"
     annotation (Placement(transformation(extent={{100,-40},{80,-20}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA1
+    "Temperature boundary condition"
     annotation (Placement(transformation(extent={{-60,-40},{-40,-20}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo2
+    "Heat flow sensor"
     annotation (Placement(transformation(extent={{2,-36},{14,-24}})));
   Modelica.Thermal.HeatTransfer.Sensors.HeatFlowSensor heaFlo1
+    "Heat flow sensor"
     annotation (Placement(transformation(extent={{-6,4},{6,16}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality(threShold=1E-8,
       startTime=0)
     annotation (Placement(transformation(extent={{20,-80},{40,-60}})));
   parameter Buildings.HeatTransfer.Data.Solids.Concrete concrete100(x=0.1, nStaRef=4)
+    "Non-PCM material"
     annotation (Placement(transformation(extent={{62,70},{82,90}})));
   Buildings.HeatTransfer.Convection.Interior conv1(      A=1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
     "Convective heat transfer"
@@ -33,13 +39,13 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
     annotation (Placement(transformation(extent={{-12,-40},{-32,-20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer conPCM(
     A=1,
-    material=matPCM)
+    material=matPCM) "Construction with phase change around 40 degC"
     annotation (Placement(transformation(extent={{24,0},{44,20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con1(
-    A=1, material=concrete100)
+    A=1, material=concrete100) "Construction without PCM"
     annotation (Placement(transformation(extent={{22,-40},{42,-20}})));
   Buildings.HeatTransfer.Conduction.SingleLayer con2(
-    A=1, material=concrete100)
+    A=1, material=concrete100) "Construction without PCM"
     annotation (Placement(transformation(extent={{50,-40},{70,-20}})));
   parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic
                                                        matPCM(
@@ -50,19 +56,20 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
     nSta=4,
     TSol=273.15 + 40.49,
     TLiq=273.15 + 40.51,
-    LHea=100000)
+    LHea=100000) "PCM material with phase change near 40 degC"
             annotation (Placement(transformation(extent={{-62,70},{-42,90}})));
   Buildings.HeatTransfer.Sources.PrescribedTemperature TA2
+    "Temperature boundary condition"
     annotation (Placement(transformation(extent={{-60,34},{-40,54}})));
   Buildings.HeatTransfer.Convection.Interior conv3(      A=1, til=Buildings.HeatTransfer.Types.Tilt.Wall)
     "Convective heat transfer"
     annotation (Placement(transformation(extent={{-12,34},{-32,54}})));
   Buildings.HeatTransfer.Conduction.SingleLayer conPCM2(
     A=1,
-    material=matPCM2)
+    material=matPCM2) "Construction with phase change near room temperature"
     annotation (Placement(transformation(extent={{24,34},{44,54}})));
-  Buildings.HeatTransfer.Sources.FixedTemperature TB2(
-                                                     T=293.15)
+  Buildings.HeatTransfer.Sources.FixedTemperature TB2(T=293.15)
+    "Temperature boundary condition"
     annotation (Placement(transformation(extent={{100,34},{80,54}})));
   parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic
                                                        matPCM2(
@@ -73,7 +80,7 @@ model ConductorSingleLayerPCM "Test model for heat conductor"
     nSta=4,
     TSol=273.15 + 20.49,
     TLiq=273.15 + 20.51,
-    LHea=100000)
+    LHea=100000) "PCM material with phase change near room temperature"
             annotation (Placement(transformation(extent={{-12,70},{8,90}})));
 equation
   connect(step.y, TA.T) annotation (Line(
@@ -159,9 +166,11 @@ This example tests the implementation of the phase-change material (PCM) model.
 <p>
 The phase-change material <code>matPCM</code> is exposed to the same boundary
 conditions as the non phase-change material.
-Its solidus and liquidus temperatures
-are set to be higher than the expected temperatures in the calculation domain. 
-Therefore, the same result is expected for the PCM material as for two conductors in series. 
+In the construction <code>conPCM2</code>, the phase change is around <i>20.5</i> &deg;C.
+In the construction <code>conPCM</code>, the phase change is around <i>40.5</i> &deg;C, which 
+is above the temperature range simulated in this model.
+Therefore, the same result is expected for the PCM material <code>conPCM</code>
+as is for two conductors in series. 
 Note that in case of using <code>matPCM</code>, the internal energy is
 the dependent variable, whereas in case of two conductors in series, the temperature
 is the dependent variable. However, both models will 
