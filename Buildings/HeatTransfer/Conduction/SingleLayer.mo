@@ -10,18 +10,13 @@ model SingleLayer "Model for single layer heat conductance"
   Modelica.SIunits.Temperature T[nSta](start=
      {T_a_start+(T_b_start-T_a_start) * UA *
         sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i) for i in 1:nSta},
-      each nominal = 300,
-      each stateSelect = if (not material.phasechange and (not material.steadyState))
-          then StateSelect.always else StateSelect.default)
-    "Temperature at the states";
+      each nominal = 300) "Temperature at the states";
   Modelica.SIunits.HeatFlowRate Q_flow[nSta+1]
     "Heat flow rate from state i to i+1";
   Modelica.SIunits.SpecificInternalEnergy u[nSta](start=
      material.c*{T_a_start+(T_b_start-T_a_start) * UA *
         sum(1/(if (k==1 or k==nSta+1) then UAnSta2 else UAnSta) for k in 1:i) for i in 1:nSta},
-        each nominal = 270000,
-        each stateSelect = if (material.phasechange and (not material.steadyState))
-          then StateSelect.always else StateSelect.default)
+        each nominal = 270000)
     "Definition of specific internal energy (enthalpy in solids)!";
   replaceable parameter Data.BaseClasses.Material material
     "Material from Data.Solids, Data.SolidsPCM or Data.Resistances"
