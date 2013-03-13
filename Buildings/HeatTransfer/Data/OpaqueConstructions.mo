@@ -4,7 +4,7 @@ package OpaqueConstructions
     extends Modelica.Icons.MaterialPropertiesPackage;
   record Generic "Thermal properties of opaque constructions"
     parameter Integer nLay(min=1, fixed=true) "Number of layers";
-    parameter Solids.Generic material[nLay]
+    parameter Buildings.HeatTransfer.Data.BaseClasses.Material material[nLay]
       "Layer by layer declaration of material, starting from outside to room-side"
       annotation (choicesAllMatching=true, Evaluate=true, Placement(transformation(extent={{60,60},{80,80}})));
    final parameter Real R(unit="m2.K/W")=sum(material[:].R)
@@ -72,6 +72,13 @@ Buildings.HeatTransfer.Convection.Exterior</a>.
 </html>", revisions=
           "<html>
 <ul>
+<li>
+March 13, 2013, by Michael Wetter:<br>
+Replaced <code>Buildings.HeatTransfer.Data.Solids.Generic</code>
+with
+<code>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</code>
+to allow use of phase change material.
+</li>
 <li>
 November 16, 2010, by Michael Wetter:<br>
 First implementation.
