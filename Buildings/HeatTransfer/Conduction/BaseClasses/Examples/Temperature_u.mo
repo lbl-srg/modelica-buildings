@@ -1,6 +1,6 @@
 within Buildings.HeatTransfer.Conduction.BaseClasses.Examples;
-model EnthalpyTemperaturePCM
-  "Approximation of enthalpy-temperature curve with cubic hermite cubic spline"
+model Temperature_u
+  "Approximation of specific internal energy versus temperature curve with cubic hermite cubic spline"
   extends Modelica.Icons.Example;
   // Phase-change properties
   parameter Buildings.HeatTransfer.Data.SolidsPCM.Generic
@@ -67,10 +67,8 @@ initial algorithm
  (ud, Td, dT_duMonotone) :=
     Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u(
     materialMonotone);
-equation
-  // Current value of specific internal energy for which the temperature will be computed.
 algorithm
-  u :=  time*(materialMonotone.c*(materialMonotone.TSol+materialMonotone.TLiq)+materialMonotone.LHea)*conFac;
+  u :=  2.5e5+time*(1.5*materialMonotone.c*(materialMonotone.TLiq-273.15)+materialMonotone.LHea)*conFac;
 
   // Calculate T based on non-monotone interpolation
   T := Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u(
@@ -85,7 +83,7 @@ algorithm
        dT_du=dT_duMonotone,
        u=u);
   //Relative errors of obtained temperatures by using monotone and non-monotone
-  //interpolation against exact values of tempratures taken from the u-T curve
+  //interpolation against exact values of tempratures taken from the T(u) curve
   if time>=1.e-05 then
     if u <= materialMonotone.c*materialMonotone.TSol then
       // Solid region
@@ -109,15 +107,15 @@ algorithm
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
             100,100}}), graphics),
     __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Conduction/BaseClasses/Examples/EnthalpyTemperaturePCM.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example tests and demonstrates the implementation of the specific internal 
-energy-temperature (u-T) relationship for phase-change problems. 
+energy versus temperature <i>T(u)</i> relationship for phase-change problems. 
 Cubic hermite interpolation and linear extrapolation is used to approximate 
-the piece-wise linear u-T relationship. 
-A piece-wise linear u-T relationship is assumed in all three chracteristic regions (solid, mushy and liquid).
+the piece-wise linear <i>T(u)</i> relationship. 
+A piece-wise linear <i>T(u)</i> relationship is assumed in all three chracteristic regions (solid, mushy and liquid).
 The example uses the functions
 <a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u\">
 Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</a> 
@@ -131,7 +129,7 @@ for a given specific internal energy.
 </p>
 <p>
 The example also demonstrates the use of cubic hermite spline interpolation with 
-two different settings: One produces an approximation of the u-T relationship that is monotone, 
+two different settings: One produces an approximation of the <i>T(u)</i> relationship that is monotone, 
 whereas the other does not enforce monotonicity. 
 The latter one is used by default in the <code>Buildings</code> library, 
 since it produces a higher accuracy in the mushy
@@ -140,10 +138,9 @@ temperature interval (see the figure below).
 The curves <code>errNonMonotone</code> and 
 <code>errMonotone</code>
 represent the relative error between approximated and exact temperatures 
-obtained for different enthalpy values (right hand side figure).
+obtained for different specific internal energy values (right hand side figure).
 </p>
-fixme: The axis in the figure requires labels, and the x-axis should be u, not time.
-<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/EnthalpyTemperaturePCM.png\"/>
+<p align=\"center\"><img src=\"modelica://Buildings/Resources/Images/HeatTransfer/Conduction/BaseClasses/Examples/Temperature_u.png\"/>
 </p>
 </html>", revisions="<html>
 <ul>
@@ -157,4 +154,4 @@ First implementations.
 </li>
 </ul>
 </html>"));
-end EnthalpyTemperaturePCM;
+end Temperature_u;

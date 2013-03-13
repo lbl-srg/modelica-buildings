@@ -8,7 +8,6 @@ package Solids
                                                                final TSol=293.15,
                                                                final TLiq=293.15,
                                                                final LHea=0,
-                                                               final nSupPCM=0,
                                                                final phasechange=false);
     annotation (defaultComponentName="mat", Documentation(info=
      "<html>

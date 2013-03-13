@@ -5,7 +5,6 @@ package SolidsPCM
 
   record Generic "Thermal properties of solids with heat storage"
       extends Buildings.HeatTransfer.Data.BaseClasses.Material(final R=x/k,
-                                                               final nSupPCM=6,
                                                                final phasechange=true);
 
     annotation (defaultComponentName="mat", Documentation(info=

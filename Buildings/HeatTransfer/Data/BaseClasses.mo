@@ -28,7 +28,7 @@ package BaseClasses "Base classes for package Data"
       annotation (Dialog(tab="Advanced"));
 
     parameter Modelica.SIunits.Temperature TSol
-      "Solidus temperature, used only for PCM. Fixme: should this be in a separate record?"
+      "Solidus temperature, used only for PCM."
       annotation (Dialog(group="Properties for phase change material"));
     parameter Modelica.SIunits.Temperature TLiq
       "Liquidus temperature, used only for PCM"
@@ -39,9 +39,6 @@ package BaseClasses "Base classes for package Data"
 
     constant Boolean ensureMonotonicity = false
       "Set to true to force derivatives dT/du to be monotone";
-
-    constant Integer nSupPCM = 0
-      "Number of support points to approximate u-T releation, used only for phase change material";
 
     constant Boolean phasechange
       "Flag, true if the material is a phase change material"

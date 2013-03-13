@@ -2,9 +2,10 @@ within Buildings.HeatTransfer.Conduction.BaseClasses;
 function temperature_u
   "Computes the temperature of a phase change material for a given specific internal energy"
 
-  input Modelica.SIunits.SpecificInternalEnergy ud[:]
+  input Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
     "Support points for derivatives";
-  input Modelica.SIunits.Temperature Td[:] "Support points for derivatives";
+  input Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
+    "Support points for derivatives";
   input Real dT_du[:](each fixed=false, unit="kg.K2/J")
     "Derivatives dT/du at the support points";
 
@@ -34,7 +35,18 @@ algorithm
   annotation(smoothOrder=1,
       Documentation(info="<html>
 <p>
-fixme: add documentation.
+This function computes for a given specific internal energy <i>u</i>
+the temperature <i>T(u)</i>, using a cubic hermite spline approximation to the 
+temperature vs. specific internal energy relation.
+Input to the function are the derivatives <i>dT/du</i> at the support points.
+These derivatives can be computed using
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u\">
+Buildings.HeatTransfer.Conduction.BaseClasses.der_temperature_u</a>.
+</p>
+<h4>Implementation</h4>
+<p>
+The derivatives <i>dT/du</i> are an input to this function because they typically only need 
+to be computed once, whereas <i>T(u)</i> must be evaluated at each time step.
 </p>
 </html>",
 revisions="<html>

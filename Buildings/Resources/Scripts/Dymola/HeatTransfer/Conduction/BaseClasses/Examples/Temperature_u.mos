@@ -1,4 +1,4 @@
-simulateModel("Buildings.HeatTransfer.Conduction.BaseClasses.Examples.EnthalpyTemperaturePCM", method="dassl", resultFile="EnthalpyTemperaturePCM");
+simulateModel("Buildings.HeatTransfer.Conduction.BaseClasses.Examples.Temperature_u", method="dassl", resultFile="Temperature_u");
 createPlot(id = 2,
  position = {35, 30, 733, 681},
  x = "u",
@@ -11,7 +11,7 @@ createPlot(id = 2,
  grid = true,
  color = true,
  online = false,
- filename = "EnthalpyTemperaturePCM.mat",
+ filename = "Temperature_u.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}, {255,0,0}});

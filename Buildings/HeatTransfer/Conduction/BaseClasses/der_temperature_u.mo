@@ -1,20 +1,23 @@
 within Buildings.HeatTransfer.Conduction.BaseClasses;
 function der_temperature_u
   "Computes the derivative of the temperature of a phase change material with respect to specific internal energy"
-  input Buildings.HeatTransfer.Data.SolidsPCM.Generic material
+  input Buildings.HeatTransfer.Data.Solids.Generic material
     "Material properties";
-  output Modelica.SIunits.SpecificInternalEnergy ud[6]
+  output Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM]
     "Support points for derivatives";
-  output Modelica.SIunits.Temperature Td[6] "Support points for derivatives";
-  output Real dT_du[6](fixed=false, unit="kg.K2/J")
+  output Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM]
+    "Support points for derivatives";
+  output Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](fixed=false, unit="kg.K2/J")
     "Derivatives dT/du at the support points";
 protected
   parameter Real scale=0.999 "Used to place points on the phase transition";
   parameter Modelica.SIunits.Temperature Tm1=material.TSol+(1-scale)*(material.TLiq-material.TSol);
   parameter Modelica.SIunits.Temperature Tm2=material.TSol+scale*(material.TLiq-material.TSol);
 algorithm
-  assert(material.nSupPCM == 6, "The material must have 6 support points for the u-T relation.");
-  assert(material.TLiq > material.TSol, "TLiq has to be larger than TSol.");
+  assert(Buildings.HeatTransfer.Conduction.nSupPCM == 6,
+    "The material must have exactly 6 support points for the u(T) relation.");
+  assert(material.TLiq > material.TSol,
+    "TLiq has to be larger than TSol.");
   // Get the derivative values at the support points
   ud:={material.c*scale*material.TSol,
        material.c*material.TSol,
@@ -35,7 +38,13 @@ algorithm
   annotation(smoothOrder=1,
       Documentation(info="<html>
 <p>
-fixme: add documentation.
+This function computes at the support points <i>T<sub>d</sub></i> the derivatives
+<i>dT/du</i> of the cubic hermite spline approximation to the 
+temperature vs. specific internal energy relation.
+These derivatives are then used by the function
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u\">
+Buildings.HeatTransfer.Conduction.BaseClasses.temperature_u</a>
+to compute for a given specific internal energy the temperature.
 </p>
 </html>",
 revisions="<html>
