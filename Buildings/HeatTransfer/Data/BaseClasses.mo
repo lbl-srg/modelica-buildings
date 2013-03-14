@@ -40,7 +40,7 @@ package BaseClasses "Base classes for package Data"
     constant Boolean ensureMonotonicity = false
       "Set to true to force derivatives dT/du to be monotone";
 
-    constant Boolean phasechange
+    constant Boolean phasechange = false
       "Flag, true if the material is a phase change material"
           annotation (Dialog(group="Properties for phase change material"));
 
