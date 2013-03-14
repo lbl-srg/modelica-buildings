@@ -22,15 +22,15 @@ model Temperature_u
                d=1000,
                k=1,
                x=0.2) "Phase change material with non-monotone u-T relation";
-  parameter Modelica.SIunits.SpecificInternalEnergy ud[materialMonotone.nSupPCM](each fixed=false)
+  parameter Modelica.SIunits.SpecificInternalEnergy ud[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
     "Support points";
-  parameter Modelica.SIunits.Temperature Td[materialMonotone.nSupPCM](each fixed=false)
+  parameter Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
     "Support points";
   parameter Real scale=0.999
     "Scale used to position the points 1,3,4 and 6 while T2=TSol and T5=TLiq";
-  parameter Real dT_du[materialMonotone.nSupPCM](fixed=false, unit="kg.K2/J")
+  parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](fixed=false, unit="kg.K2/J")
     "Derivatives at the support points - non-monotone, default in Modelica PCM";
-  parameter Real[materialMonotone.nSupPCM] dT_duMonotone(fixed=false, unit="kg.K2/J")
+  parameter Real[Buildings.HeatTransfer.Conduction.nSupPCM] dT_duMonotone(fixed=false, unit="kg.K2/J")
     "Derivatives at the support points for monotone increasing cubic splines";
   Modelica.SIunits.SpecificInternalEnergy u "Specific internal energy";
   Modelica.SIunits.Temperature T
