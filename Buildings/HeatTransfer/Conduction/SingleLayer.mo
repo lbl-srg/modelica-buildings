@@ -20,7 +20,8 @@ model SingleLayer "Model for single layer heat conductance"
     "Definition of specific internal energy (enthalpy in solids)!";
   replaceable parameter Data.BaseClasses.Material material
     "Material from Data.Solids, Data.SolidsPCM or Data.Resistances"
-    annotation (choicesAllMatching=true);
+    annotation (Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{60,60},
+            {80,80}})));
 
   parameter Boolean steadyStateInitial=false
     "=true initializes dT(0)/dt=0, false initializes T(0) at fixed temperature using T_a_start and T_b_start"
