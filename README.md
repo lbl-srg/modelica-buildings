@@ -30,3 +30,4 @@ Python modules are available under the 3-clause BSD-license. See [BuildingsPy li
 You may report any issues with using the [Issues](https://github.com/lbl-srg/modelica-buildings/issues) button.
 
 Contributions in the form of [Pull Requests](https://github.com/lbl-srg/modelica-buildings/pulls) are always welcome.
+Prior to issuing a pull request, make sure your code follows the [style guide and coding conventions](https://github.com/lbl-srg/modelica-buildings/wiki/Style-Guide)
