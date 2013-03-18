@@ -2799,7 +2799,7 @@ helped improve the organization and structure of the library.
 The following people have directly contributed to the implementation of the Buildings library
 (many others have contributed by other means than model implementation):
 <ul>
-<li>Armin Teskeredzic, fixme (add affiliation).
+<li>Armin Teskeredzic, Mechanical Engineering Faculty Sarajevo and GIZ, Bosnia and Herzegovina
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
