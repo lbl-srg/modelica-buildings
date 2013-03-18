@@ -32,28 +32,75 @@ First implementation.
   end Generic;
 
   record PCM020 =Buildings.HeatTransfer.Data.SolidsPCM.Generic (
-      k=0.0337,
-      d=29,
-      c=960,
-      TSol=273.15+29.49,
-      TLiq=273.15+29.51,
-      LHea=34000)
-    "Material with 20% weight of microencapsulated PCM in wall layer";
+      k=0.204,
+      d=800,
+      c=1341,
+      TSol=273.15+23,
+      TLiq=273.15+27,
+      LHea=38900) "Wallboard with 20% of microencapsulated paraffin"
+    annotation (Documentation(info="<html>
+<p>
+This material record is for PCM treated wallboard. The data source is Feustel (1995).
+</p>
+<h4>References</h4>
+<p>
+Feustel, Helmut E.
+Simplified numerical description of latent storage characteristics for phase change wallboard.
+<i>LBNL-Technical Report 36933</i>. 1995.
+<a href=\"http://dx.doi.org/10.2172/70723\">DOI: 10.2172/70723</a>.
+</p>
+</html>",
+  revisions="<html>
+<ul>
+<li>
+March 18, 2013, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
   record PCM030 =Buildings.HeatTransfer.Data.SolidsPCM.Generic (
-      k=0.23,
-      d=1000,
-      c=1400,
-      TSol=273.15+29.49,
-      TLiq=273.15+29.51,
-      LHea=33000)
-    "Material with 30% weight of microencapsulated PCM in wall layer. fixme: LHea is lower than for PCM020";
-  record PCM100 =Buildings.HeatTransfer.Data.SolidsPCM.Generic (
-      k=0.16,
-      d=850,
-      c=2500,
-      TSol=273.15+29.49,
-      TLiq=273.15+29.51,
-      LHea=130000) "PCM material, 100%";
+      k=0.232,
+      d=998,
+      c=1467,
+      TSol=273.15+24,
+      TLiq=273.15+26,
+      LHea=58300) "Wallboard with 30% of microencapsulated paraffin"
+        annotation (Documentation(info="<html>
+<p>
+This material record is for PCM treated wallboard. The data source is Feustel (1995).
+</p>
+<h4>References</h4>
+<p>
+Feustel, Helmut E.
+Simplified numerical description of latent storage characteristics for phase change wallboard.
+<i>LBNL-Technical Report 36933</i>. 1995.
+<a href=\"http://dx.doi.org/10.2172/70723\">DOI: 10.2172/70723</a>.
+</p>
+</html>",
+  revisions="<html>
+<ul>
+<li>
+March 18, 2013, by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
+  record MicronalSmartBoard23 =
+                        Buildings.HeatTransfer.Data.SolidsPCM.Generic (
+      k=0.18,
+      d=767,
+      c=1200,
+      TSol=273.15+22.99,
+      TLiq=273.15+23.01,
+      LHea=28696) "Micronal PCM SmartBoard 23";
+  record MicronalSmartBoard26 =
+                        Buildings.HeatTransfer.Data.SolidsPCM.Generic (
+      k=0.18,
+      d=767,
+      c=1200,
+      TSol=273.15+25.99,
+      TLiq=273.15+26.01,
+      LHea=28696) "Micronal PCM SmartBoard 26";
   annotation (
 Documentation(
 info="<html>
