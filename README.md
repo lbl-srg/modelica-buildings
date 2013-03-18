@@ -1,7 +1,11 @@
 # Modelica Buildings library
 *This repository is under construction. For the current version control, use https://corbu.lbl.gov/trac/bie/wiki*
 
-A Modelica library and user guide for modeling of building energy and control systems.
+This is the development site for the Modelica _Buildings_ library and its user guide.
+
+Stable releases are available from the main project site at http://simulationresearch.lbl.gov/modelica.
+
+Instructions for developers are available on the [wiki](https://github.com/lbl-srg/modelica-buildings/wiki).
 
 ## Library description
 
@@ -15,9 +19,6 @@ The Modelica Buildings library is a free open-source library with dynamic simula
 
 The main project site is http://simulationresearch.lbl.gov/modelica.
 
-## Stable releases
-
-Stable releases are available from the main project site at http://simulationresearch.lbl.gov/modelica.
 
 ## License
 
@@ -29,3 +30,4 @@ Python modules are available under the 3-clause BSD-license. See [BuildingsPy li
 You may report any issues with using the [Issues](https://github.com/lbl-srg/modelica-buildings/issues) button.
 
 Contributions in the form of [Pull Requests](https://github.com/lbl-srg/modelica-buildings/pulls) are always welcome.
+Prior to issuing a pull request, make sure your code follows the [style guide and coding conventions](https://github.com/lbl-srg/modelica-buildings/wiki/Style-Guide).
