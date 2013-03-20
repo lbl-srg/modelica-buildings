@@ -83,13 +83,13 @@ protected
   parameter Integer curve(min=1, max=3, fixed=false)
     "Flag, used to pick the right representatio of the fan or pump pressure curve";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pCur1(
-    V_flow(each fixed=false)=zeros(nOri), dp(each fixed=false))
+    V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pCur2(
-    V_flow(each fixed=false)=zeros(nOri+1), dp(each fixed=false))
+    V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParameters pCur3(
-    V_flow(each fixed=false)=zeros(nOri+2), dp(each fixed=false))
+    V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
   parameter Integer nOri = size(pressure.V_flow,1)
     "Number of data points for pressure curve";
@@ -522,6 +522,11 @@ to be used during the simulation.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 20, 2013, by Michael Wetter:<br>
+Removed assignment in declaration of <code>pCur?.V_flow</code> as
+these parameters have the attribute <code>fixed=false</code> set.
+</li>
 <li>
 October 11, 2012, by Michael Wetter:<br>
 Added implementation of <code>WFlo = eta * PEle</code> with
