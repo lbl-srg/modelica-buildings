@@ -207,7 +207,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        <code>dp_nominal</code> is computed in the initial algorithm section and hence
                        providing a default value is not allowed according to 
                        the Modelica Language Specification.
-                       Hence, it had to be removed.
+                       Hence, it had to be removed.<br/>
+                       As part of this change, we set <code>dp(nominal=6000)</code> for all valves,
+                       because the earlier formulation uses a value that is not known during compilation,
+                       and hence leads to an error in Dymola 2014.
     </td>
 </tr>
 </table>
