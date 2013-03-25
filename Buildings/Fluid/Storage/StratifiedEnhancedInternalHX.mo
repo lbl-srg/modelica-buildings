@@ -37,13 +37,13 @@ model StratifiedEnhancedInternalHX
 
 protected
   parameter Modelica.SIunits.Height SegHeight = hTan/nSeg
-    "Height of each tank segment (relative to bottom of same seg)";
-  parameter Integer TopHXSeg = ceil(HXTopHeight/SegHeight)
-    "Segment the top of the heat exchanger is located in";
-  parameter Integer BotHXSeg = floor(HXBotHeight/SegHeight)
-    "Segment the bottom of the heat exchanger is located in";
+    "Height of each tank segment (relative to bottom of same segment)";
+  parameter Integer TopHXSeg(max=nSeg) = ceil(HXTopHeight/SegHeight)
+    "Segment the top of the heat exchanger is located in";            // fixme: add min(...)
+  parameter Integer BotHXSeg(min=1) = floor(HXBotHeight/SegHeight)
+    "Segment the bottom of the heat exchanger is located in";      // fixme: add max(1, ...)
   parameter Integer nSegHX = (TopHXSeg - BotHXSeg + 1)*HXSegMult
-    "Number of segments in the heat exchanger";
+    "Number of segments in thDiagnosticse heat exchanger";
   parameter Integer nSegHXTan = TopHXSeg - BotHXSeg + 1
     "Number of tank segments the HX resides in";
 
@@ -100,9 +100,11 @@ equation
             Documentation(info = "<html>
             This model is an extension of <a href=\"Buildings.Fluid.Storage.StratifiedEnhanced\"> Buildings.Fluid.Storage.StratifiedEnhanced</a>.</p>
             <p>
-            The changes made to the model consist of adding a heat exchanger (<a href=\"Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger\"> Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.<br>
+            The changes made to the model consist of adding a heat exchanger 
+            (<a href=\"Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger\"> Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.<br>
             The modifications allow the ability to run a fluid through the tank causing heat transfer to the stored fluid. An example of when this would be useful is modeling<br>
-            a storage tank which includes a glycol loop connedted to a solar thermal collector.</p>
+            a storage tank which includes a glycol loop connedted to a solar thermal collector.
+            </p>
             <p>
             The heat exchanger models assumes flow through the inside of a helical coil heat exchanger, and stagnant fluid on the outside. Inputs are used to describe the <br>
             heat transfer on the inside of the heat exchanger at nominal conditions, and geometry of the outside of the heat exchanger. This information is used to compute <br>

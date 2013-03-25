@@ -83,6 +83,8 @@ model IndirectTankHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={66,136})));
+  Modelica.Blocks.Sources.RealExpression realExpression
+    annotation (Placement(transformation(extent={{-140,-38},{-120,-18}})));
 equation
 
   for i in 1:(nSeg - 1) loop
