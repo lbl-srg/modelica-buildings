@@ -281,6 +281,13 @@ units are wrong or errors in documentation):
                        instances of these models used the correct value.
     </td>
 </tr>
+
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.ValveParameters
+    </td>
+    <td valign=\"top\">Removed stray backslash in write statement.
+    </td>
+</tr>
+
 </table>
 </p>
 <!-- Trac tickets -->
