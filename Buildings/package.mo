@@ -131,6 +131,13 @@ Version X.Y build Z is ... xxx
 The following <b style=\"color:blue\">new libraries</b> have been added:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2>
+<tr><td valign=\"top\">Buildings.Fluid.SolarCollectors
+    </td>
+    <td valign=\"top\">
+         Package that contains models for flat plate, concentrating and tubular 
+         solar collectors.
+    </td>
+    </tr>
 <tr><td valign=\"top\">Buildings.Utilities.IO.Python27
     </td>
     <td valign=\"top\">
@@ -149,6 +156,25 @@ The following <b style=\"color:blue\">new components</b> have been added
 to <b style=\"color:blue\">existing</b> libraries:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger
+    </td>
+    <td valign=\"top\">Coil heat exchanger that can be inserted into a storage tank.
+    </td> 
+    </tr>
+
+<tr><td colspan=\"2\"><b>Buildings.Fluid.Storage</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.Storage.StratifiedEnhancedInternalHX
+    </td>
+    <td valign=\"top\">Storage tank with built-in coil heat exchanger for a secondary loop.
+    </td> 
+    </tr>
+
 <tr><td colspan=\"2\"><b>xxx</b>
     </td>
 </tr>
@@ -2807,6 +2833,8 @@ The following people have directly contributed to the implementation of the Buil
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Peter Grant, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
 </li>

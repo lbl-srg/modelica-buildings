@@ -1,0 +1,12 @@
+within Buildings.Fluid.SolarCollector;
+package BaseClasses "Package with base classes for Buildings.Solar"
+extends Modelica.Icons.BasesPackage;
+
+
+annotation (preferedView="info", Documentation(info="<html>
+<p>
+This package contains base classes that are used to construct the models in
+<a href=\"modelica://Buildings.Fluid.Storage\">Buildings.Fluid.Storage</a>.
+</p>
+</html>"));
+end BaseClasses;
