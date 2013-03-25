@@ -3,6 +3,7 @@ model Concentrating "Model of a concentrating solar collector"
 extends Buildings.Fluid.SolarCollector.BaseClasses.PartialSolarCollector;
     Buildings.Fluid.SolarCollector.Data.Concentrating.GenericConcentrating per
     "Performance data"  annotation (choicesAllMatching=true);
+
   parameter Modelica.SIunits.Temperature TMean_nominal
     "Inlet temperature at nominal condition";
   BaseClasses.EN12975SolarGain solHeaGaiNom(
