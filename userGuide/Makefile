@@ -108,4 +108,4 @@ doctest:
 dist:	html, linkcheck, copytowww
 
 copytowww:
-	scp -r build/html/* simulationresearch.lbl.gov:/usr/local/www/gundog/modelica/userGuide/
+	scp -r build/html/* simulationresearch.lbl.gov:/usr/local/www/simulationresearch/modelica/userGuide/
