@@ -1,5 +1,4 @@
 # Modelica Buildings library
-*This repository is under construction. For the current version control, use https://corbu.lbl.gov/trac/bie/wiki*
 
 This is the development site for the Modelica _Buildings_ library and its user guide.
 
