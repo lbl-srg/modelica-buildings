@@ -26,6 +26,24 @@ package BaseClasses "Base classes for package Data"
     parameter Real nStaReal(min=0) = nStaRef*piMat/piRef
       "Number of states as a real number"
       annotation (Dialog(tab="Advanced"));
+
+    parameter Modelica.SIunits.Temperature TSol
+      "Solidus temperature, used only for PCM."
+      annotation (Dialog(group="Properties for phase change material"));
+    parameter Modelica.SIunits.Temperature TLiq
+      "Liquidus temperature, used only for PCM"
+      annotation (Dialog(group="Properties for phase change material"));
+    parameter Modelica.SIunits.SpecificInternalEnergy LHea
+      "Latent heat of phase change"
+      annotation (Dialog(group="Properties for phase change material"));
+
+    constant Boolean ensureMonotonicity = false
+      "Set to true to force derivatives dT/du to be monotone";
+
+    constant Boolean phasechange = false
+      "Flag, true if the material is a phase change material"
+          annotation (Dialog(group="Properties for phase change material"));
+
     annotation (preferredView="info",
     Documentation(info="<html>
 Base record for materials that declares the thermal properties. 

@@ -61,7 +61,7 @@ initial algorithm
     Av    :=           Kv_SI/sqrt(rhoStd);
     dpValve_nominal := (m_flow_nominal/Kv_SI)^2;
   else
-    assert(CvData == Buildings.Fluid.Types.CvTypes.Av, "Invalid value for CvData.\
+    assert(CvData == Buildings.Fluid.Types.CvTypes.Av, "Invalid value for CvData.
 Obtained CvData = " + String(CvData) + ".");
     Kv_SI :=           Av*sqrt(rhoStd);
     Kv    :=           Kv_SI/(rhoStd/3600/sqrt(1E5));
@@ -114,6 +114,10 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 25, 2013, by Michael Wetter:<br>
+Removed stray backslash in write statement.
+</li>
 <li>
 February 28, 2013, by Michael Wetter:<br>
 Reformulated assignment of parameters, and removed <code>Kv_SI</code> as

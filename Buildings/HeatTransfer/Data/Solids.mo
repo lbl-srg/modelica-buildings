@@ -4,7 +4,11 @@ package Solids
     extends Modelica.Icons.MaterialPropertiesPackage;
 
   record Generic "Thermal properties of solids with heat storage"
-      extends Buildings.HeatTransfer.Data.BaseClasses.Material(final R=x/k);
+      extends Buildings.HeatTransfer.Data.BaseClasses.Material(final R=x/k,
+                                                               final TSol=293.15,
+                                                               final TLiq=293.15,
+                                                               final LHea=0,
+                                                               final phasechange=false);
     annotation (defaultComponentName="mat", Documentation(info=
      "<html>
 <p>

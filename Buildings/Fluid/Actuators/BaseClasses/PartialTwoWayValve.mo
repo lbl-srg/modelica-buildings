@@ -3,15 +3,7 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
 
   extends Buildings.Fluid.BaseClasses.PartialResistance(
        final dp_nominal=dpValve_nominal + dpFixed_nominal,
-       dp(nominal=
- if CvData == Buildings.Fluid.Types.CvTypes.OpPoint then
-    dpValve_nominal
- elseif CvData == Buildings.Fluid.Types.CvTypes.Kv then
-    (m_flow_nominal/(Kv*rhoStd/3600/sqrt(1E5)))^2
-  elseif CvData == Buildings.Fluid.Types.CvTypes.Cv then
-    (m_flow_nominal/( Cv*rhoStd*0.0631/1000/sqrt(6895))) ^2
-  else
-    (m_flow_nominal/( Av*sqrt(rhoStd)))^2),
+       dp(nominal=6000),
        final m_flow_turbulent = deltaM * abs(m_flow_nominal));
 
   extends Buildings.Fluid.Actuators.BaseClasses.ValveParameters(
@@ -136,6 +128,12 @@ each valve opening characteristics has different parameters.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 20, 2013, by Michael Wetter:<br>
+Set <code>dp(nominal=6000)</code> as the previous formulation gives an error during model check
+in Dymola 2014. The reason is that the previous formulation used <code>dpValve_nominal</code>, which
+is not known at translation time.
+</li>
 <li>
 February 28, 2013, by Michael Wetter:<br>
 Reformulated assignment of parameters.

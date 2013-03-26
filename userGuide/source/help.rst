@@ -2,7 +2,7 @@ Help
 ====
 
 Before submitting a bug report, 
- * check https://corbu.lbl.gov/trac/bie/report/1 if the bug is already known, and
+ * check https://github.com/lbl-srg/modelica-buildings/issues if the bug is already known, and
  * make sure that it is a bug of the model and not the modeling or simulation environment.
  
 When submitting a bug report, please provide:
@@ -10,6 +10,8 @@ When submitting a bug report, please provide:
  * A description of the expected and the observed results.
  * Information about the operating system and the used Modelica simulation environment.
 
-To report the bug, send email to https://groups.google.com/group/modelica-buildings. This is an open group and everyone can join it. No invitation is needed. 
+To report the bug, enter a new issue at https://github.com/lbl-srg/modelica-buildings/issues
+
+For general questions regarding the `Buildings` library, send email to https://groups.google.com/group/modelica-buildings. This is an open group and everyone can join it. No invitation is needed. 
 
 For questions that are specific to Modelica but not the `Buildings` libray, see http://stackoverflow.com/search?q=modelica
