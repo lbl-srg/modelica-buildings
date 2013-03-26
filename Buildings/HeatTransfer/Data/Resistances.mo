@@ -9,7 +9,11 @@ package Resistances "Package with thermal resistances"
       final x=0,
       final nStaRef=0,
       final nSta=1,
-      final steadyState=true);
+      final steadyState=true,
+      final TSol=293.15,
+      final TLiq=293.15,
+      final LHea=0,
+      final phasechange=false);
 
     annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics={Rectangle(

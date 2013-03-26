@@ -195,5 +195,5 @@ avoid a singularity at the origin.
 First implementation.
 </li>
 </ul>
-</html>"),    Diagram);
+</html>"));
 end FlowMachine_y_pumpCurves;

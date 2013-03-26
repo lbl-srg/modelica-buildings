@@ -166,12 +166,12 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.SingleLayer
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Added option to model layers with phase change material.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>xxx</b>
@@ -207,7 +207,10 @@ have been <b style=\"color:blue\">improved</b> in a
                        <code>dp_nominal</code> is computed in the initial algorithm section and hence
                        providing a default value is not allowed according to 
                        the Modelica Language Specification.
-                       Hence, it had to be removed.
+                       Hence, it had to be removed.<br/>
+                       As part of this change, we set <code>dp(nominal=6000)</code> for all valves,
+                       because the earlier formulation uses a value that is not known during compilation,
+                       and hence leads to an error in Dymola 2014.
     </td>
 </tr>
 </table>
@@ -278,6 +281,13 @@ units are wrong or errors in documentation):
                        instances of these models used the correct value.
     </td>
 </tr>
+
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.ValveParameters
+    </td>
+    <td valign=\"top\">Removed stray backslash in write statement.
+    </td>
+</tr>
+
 </table>
 </p>
 <!-- Trac tickets -->
@@ -2799,6 +2809,8 @@ helped improve the organization and structure of the library.
 The following people have directly contributed to the implementation of the Buildings library
 (many others have contributed by other means than model implementation):
 <ul>
+<li>Armin Teskeredzic, Mechanical Engineering Faculty Sarajevo and GIZ, Bosnia and Herzegovina
+</li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
