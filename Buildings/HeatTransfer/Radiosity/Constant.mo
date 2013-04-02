@@ -34,7 +34,7 @@ equation
     Diagram(coordinateSystem(
     preserveAspectRatio=true,
     extent={{-100,-100},{100,100}},
-    grid={2,2}), graphics),
+    grid={2,2})),
 Documentation(info="<html>
 <p>
 Constant radiosity source. This model requires <i>k &le; 0</i> because the

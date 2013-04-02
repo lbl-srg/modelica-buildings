@@ -10,7 +10,7 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
     m_flow=1,
     T=313.15) "Flow source and sink"
     annotation (Placement(transformation(extent={{-60,-10},{-40,10}})));
-  Modelica.Fluid.Sources.FixedBoundary bou(
+  Sources.Boundary_pT                  bou(
     redeclare package Medium = Medium,
     T=303.15,
     nPorts=1) "Boundary condition"                         annotation (
@@ -23,7 +23,8 @@ model MixingVolumeMassFlow "Test model for mass flow into and out of volume"
     redeclare package Medium = Medium,
     m_flow_nominal=0.01,
     nPorts=2,
-    allowFlowReversal=false)
+    allowFlowReversal=false,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
               annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,60},{80,80}})));

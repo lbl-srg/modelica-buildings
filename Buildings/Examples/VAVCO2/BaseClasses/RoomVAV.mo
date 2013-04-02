@@ -161,7 +161,7 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-160},{160,
-            160}}), graphics),
+            160}})),
     Coordsys(extent=[-160,-160; 160,160]),
     Icon(
       Rectangle(extent=[-132,90; 130,-112], style(

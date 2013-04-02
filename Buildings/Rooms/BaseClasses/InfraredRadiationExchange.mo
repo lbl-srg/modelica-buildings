@@ -259,7 +259,7 @@ equation
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
-            240}}), graphics),
+            240}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-240,-240},{240,
             240}}), graphics={
         Line(

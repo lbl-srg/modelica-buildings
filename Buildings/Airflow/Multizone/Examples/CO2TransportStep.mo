@@ -51,15 +51,12 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-150},{300,
-            250}}), graphics),
+            250}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/CO2TransportStep.mos"
         "Simulate and plot"),
-    Diagram,
     experiment(
       StopTime=86400,
-      Tolerance=1e-05,
-      Algorithm="Radau"),
-    experimentSetupOutput,
+      Tolerance=1e-05),
     Documentation(info="<html>
 <p>
 This model is based on

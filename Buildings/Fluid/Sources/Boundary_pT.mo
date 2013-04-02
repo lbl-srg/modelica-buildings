@@ -81,7 +81,7 @@ equation
   medium.T = T_in_internal;
   medium.Xi = X_in_internal[1:Medium.nXi];
   ports.C_outflow = fill(C_in_internal, nPorts);
-  annotation (defaultComponentName="boundary",
+  annotation (defaultComponentName="bou",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
@@ -171,5 +171,5 @@ Implementation is based on <code>Modelica.Fluid</code>.
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics));
+        grid={2,2})));
 end Boundary_pT;

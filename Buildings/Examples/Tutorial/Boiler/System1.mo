@@ -293,8 +293,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(graphics),
-    Commands(file=
+    __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System1.mos"
         "Simulate and plot"),
     experiment(StopTime=172800));

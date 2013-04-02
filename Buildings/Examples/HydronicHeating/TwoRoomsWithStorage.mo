@@ -962,7 +962,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,
-            -200},{700,600}}), graphics),
+            -200},{700,600}})),
 Documentation(info="<html>
 <p>
 This example demonstrates the implementation of a building that has the following properties:</p>
@@ -1038,7 +1038,5 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StopTime=172800,
-      Tolerance=1e-006,
-      Algorithm="radau"),
-    experimentSetupOutput);
+      Tolerance=1e-006));
 end TwoRoomsWithStorage;

@@ -1,7 +1,7 @@
 within Buildings.Fluid.Chillers.Examples;
 model Carnot "Test model for chiller based on Carnot efficiency"
   import Buildings;
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
  package Medium1 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
  package Medium2 = Buildings.Media.ConstantPropertyLiquidWater "Medium model";
 
@@ -26,7 +26,6 @@ model Carnot "Test model for chiller based on Carnot efficiency"
     P_nominal=P_nominal,
     dTEva_nominal=dTEva_nominal,
     dTCon_nominal=dTCon_nominal,
-    COP_nominal=COPc_nominal,
     use_eta_Carnot=true,
     etaCar=0.3,
     dp1_nominal=6000,
@@ -84,7 +83,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou2.ports[1], chi.port_a2)    annotation (Line(
-      points={{40,4},{35,4},{35,4},{30,4},{30,4},{20,4}},
+      points={{40,4},{20,4}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(chi.port_b1, sin1.ports[1])    annotation (Line(
@@ -108,6 +107,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), 
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Carnot.mos" "Simulate and plot"));
+            -100},{100,100}})),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Chillers/Examples/Carnot.mos"
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+March 26, 2013 by Michael Wetter:<br>
+Removed assignment of parameter that had attribute <code>fixed=false</code>.
+</li>
+</ul>
+</html>"));
 end Carnot;

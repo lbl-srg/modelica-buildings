@@ -1,5 +1,5 @@
 within Buildings.Fluid.Sensors.Examples;
-model EnthalpyFlowRate "Test model for enthalpy flow rate"
+model EnthalpyFlowRate "Test model for the enthalpy flow rate sensors"
   extends Modelica.Icons.Example;
   import Buildings;
 
@@ -32,8 +32,7 @@ model EnthalpyFlowRate "Test model for enthalpy flow rate"
     annotation (Placement(transformation(extent={{-100,-100},{-80,-80}})));
   Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort senH(redeclare package Medium
       = Medium, m_flow_nominal=2,
-      tau=0)
-                annotation (Placement(transformation(extent={{0,-20},{20,0}})));
+      tau=0)    annotation (Placement(transformation(extent={{0,-20},{20,0}})));
   Buildings.Fluid.Sensors.MassFlowRate senM_flow(redeclare package Medium =
         Medium) annotation (Placement(transformation(extent={{28,-20},{48,0}})));
   Buildings.Utilities.Diagnostics.AssertEquality assertEquality
@@ -85,9 +84,7 @@ equation
       points={{21,64},{38,64}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos" "Simulate and plot"), Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-        graphics),
-              Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics));
+    annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/EnthalpyFlowRate.mos"
+        "Simulate and plot"),  Diagram(
+        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
 end EnthalpyFlowRate;

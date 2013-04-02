@@ -9,10 +9,14 @@ model DryEffectivenessNTUPControl
  //package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAir;
  // package Medium2 = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
  package Medium2 = Buildings.Media.GasesPTDecoupled.SimpleAir;
-  parameter Modelica.SIunits.Temperature T_a1_nominal = 60+273.15;
-  parameter Modelica.SIunits.Temperature T_b1_nominal = 50+273.15;
-  parameter Modelica.SIunits.Temperature T_a2_nominal = 20+273.15;
-  parameter Modelica.SIunits.Temperature T_b2_nominal = 40+273.15;
+  parameter Modelica.SIunits.Temperature T_a1_nominal = 60+273.15
+    "Temperature at nominal conditions as port a1";
+  parameter Modelica.SIunits.Temperature T_b1_nominal = 50+273.15
+    "Temperature at nominal conditions as port b1";
+  parameter Modelica.SIunits.Temperature T_a2_nominal = 20+273.15
+    "Temperature at nominal conditions as port a2";
+  parameter Modelica.SIunits.Temperature T_b2_nominal = 40+273.15
+    "Temperature at nominal conditions as port b2";
   parameter Modelica.SIunits.MassFlowRate m1_flow_nominal = 5
     "Nominal mass flow rate medium 1";
   parameter Modelica.SIunits.MassFlowRate m2_flow_nominal = m1_flow_nominal*4200/1000*(T_a1_nominal-T_b1_nominal)/(T_b2_nominal-T_a2_nominal)
@@ -54,7 +58,6 @@ model DryEffectivenessNTUPControl
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = Medium1,
     l=0.005,
-    Kv_SI=5/sqrt(4000),
     m_flow_nominal=m1_flow_nominal,
     dpFixed_nominal=2000 + 3000,
     dpValve_nominal=6000) "Valve model"
@@ -63,7 +66,8 @@ model DryEffectivenessNTUPControl
   Buildings.Controls.Continuous.LimPID P(
     controllerType=Modelica.Blocks.Types.SimpleController.PI,
     Ti=30,
-    k=0.1)                            annotation (Placement(transformation(
+    k=0.1,
+    Td=1)                             annotation (Placement(transformation(
           extent={{-24,80},{-4,100}},   rotation=0)));
   Modelica.Blocks.Sources.Pulse     TSet(
     amplitude=5,
@@ -124,7 +128,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{200,200}}), graphics),
+            -100},{200,200}})),
                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTUPControl.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

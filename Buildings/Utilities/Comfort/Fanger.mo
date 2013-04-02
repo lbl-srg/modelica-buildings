@@ -3,11 +3,9 @@ model Fanger "Thermal comfort model according to Fanger"
 extends Buildings.BaseClasses.BaseIcon;
 
   Modelica.Blocks.Interfaces.RealOutput PMV "PMV"
-    annotation (extent=[100,40; 120,60], Placement(transformation(extent={{100,30},
-            {120,50}})));
+    annotation (Placement(transformation(extent={{100,30},{120,50}})));
   Modelica.Blocks.Interfaces.RealOutput PPD "PPD [0.05...1]"
-                                        annotation (extent=[100,-80; 120,-60],
-      Placement(transformation(extent={{100,-50},{120,-30}})));
+    annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 
   parameter Modelica.SIunits.HeatFlux W(max=0)=0
     "Rate of mechanical work accomplished (must be non-positive, typically equal to 0)";
@@ -49,36 +47,39 @@ extends Buildings.BaseClasses.BaseIcon;
 
   Modelica.Blocks.Interfaces.RealInput TAir(final quantity="Temperature",
                                           final unit = "K", displayUnit = "degC")
-    "Air temperature"        annotation (extent=[-120,80; -100,100], Placement(
+    "Air temperature"
+    annotation (Placement(
         transformation(extent={{-120,90},{-100,110}})));
   Modelica.Blocks.Interfaces.RealInput TRad(final quantity="Temperature",
                                           final unit = "K", displayUnit = "degC")
-    "Radiation temperature"       annotation (extent=[-120,50; -100,70],
+    "Radiation temperature"
+    annotation (
       Placement(transformation(extent={{-120,50},{-100,70}}),
         iconTransformation(extent={{-120,50},{-100,70}})));
 
   Modelica.SIunits.Temperature TOpe "Operative temperature";
   Modelica.SIunits.Temperature TClo "Surface temperature of clothing";
   Modelica.SIunits.Temperature TSki(
-    min=273.15+20,
+    min=273.15+10,
     max=273.15+42) "Skin temperature";
 
   Modelica.Blocks.Interfaces.RealInput phi(min=0, max=1) "Relative humidity"
-                                    annotation (extent=[-120,-50; -100,-30],
+    annotation (
       Placement(transformation(extent={{-120,10},{-100,30}}),
         iconTransformation(extent={{-120,10},{-100,30}})));
   Modelica.Blocks.Interfaces.RealInput pAir_in(
     final quantity="Pressure",
     final unit="Pa",
     min=0) if use_pAir_in "Air pressure"
-    annotation (extent=[-120,-80; -100,-60], Placement(transformation(extent={{-120,
+    annotation (Placement(transformation(extent={{-120,
             -110},{-100,-90}}), iconTransformation(extent={{-120,-110},{-100,-90}})));
   Modelica.Blocks.Interfaces.RealInput ICl_in if use_ICl_in
-    "Clothing thermal resistance in clo"  annotation (extent=[-120,-110; -100,-90], Placement(transformation(extent={{
+    "Clothing thermal resistance in clo"
+    annotation (Placement(transformation(extent={{
             -120,-80},{-100,-60}}), iconTransformation(extent={{-120,-80},{-100,
             -60}})));
   Modelica.Blocks.Interfaces.RealInput vAir_in if
-       use_vAir_in "Air velocity" annotation (extent=[-120,20; -100,40],
+       use_vAir_in "Air velocity" annotation (
       Placement(transformation(extent={{-120,-20},{-100,0}}),
         iconTransformation(extent={{-120,-20},{-100,0}})));
   Modelica.Blocks.Interfaces.RealInput M_in(
@@ -86,7 +87,7 @@ extends Buildings.BaseClasses.BaseIcon;
     max=600,
     final quantity="HeatFlux",
     final unit="W/m2") if use_M_in
-    "Metabolic heat generation in W/m2 (not in met)" annotation (extent=[-120,-12; -100,8],
+    "Metabolic heat generation in W/m2 (not in met)" annotation (
       Placement(transformation(extent={{-120,-50},{-100,-30}}),
         iconTransformation(extent={{-120,-50},{-100,-30}})));
 

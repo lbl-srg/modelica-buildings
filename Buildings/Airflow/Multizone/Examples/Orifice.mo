@@ -30,11 +30,13 @@ model Orifice "Model with an orifice"
   Modelica.Blocks.Math.Add Add1 annotation (Placement(transformation(extent={{
             44,-30},{64,-10}}, rotation=0)));
   Fluid.Sensors.DensityTwoPort    den1(redeclare package Medium = Medium,
-      m_flow_nominal=0.1) "Density sensor"
+      m_flow_nominal=0.1,
+    initType=Modelica.Blocks.Types.Init.InitialState) "Density sensor"
                      annotation (Placement(transformation(extent={{-30,20},{-10,
             40}}, rotation=0)));
   Fluid.Sensors.DensityTwoPort    den2(redeclare package Medium = Medium,
-      m_flow_nominal=0.1) "Density sensor"
+      m_flow_nominal=0.1,
+    initType=Modelica.Blocks.Types.Init.InitialState) "Density sensor"
                      annotation (Placement(transformation(extent={{30,20},{50,40}},
                   rotation=0)));
   inner Modelica.Fluid.System system
@@ -69,10 +71,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Orifice.mos"
         "Simulate and plot"),
-    Diagram,
     Documentation(info="<html>
 <p>
 This model demonstrates the use of the orifice model.

@@ -17,12 +17,13 @@ record BoundsYorkCalc
 <p>
 This data record contains the bounds for the YorkCalc cooling tower correlations.
 </p>
-</html>"), revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 May 16, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
 end BoundsYorkCalc;

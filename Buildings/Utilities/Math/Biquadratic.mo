@@ -7,7 +7,7 @@ equation
   annotation (Icon(graphics={Text(
           extent={{-88,40},{92,-32}},
           lineColor={160,160,164},
-          textString="biquadratic()")}),      Diagram(graphics),
+          textString="biquadratic()")}),     
 Documentation(info="<html>
 <p>
 This block computes

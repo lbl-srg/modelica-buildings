@@ -294,7 +294,7 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.Dash)}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},{300,
-            300}}), graphics),
+            300}})),
     Documentation(info="<html>
 This model computes the boundary conditions for the outside-facing surface of
 opaque constructions and of windows.
@@ -332,7 +332,7 @@ Fixed bug that caused too high a surface temperature of the window frame.
 The previous version did not compute the infrared radiation exchange between the
 window frame and the sky. This has been corrected by adding the instance
 <code>skyRadExcWin</code> and adding the parameter <code>absIRFra</code>.
-This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/36\">ticket 36</a>.
+This closes ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">issue 36</a>.
 </li>
 <li>
 November 23, 2010, by Michael Wetter:<br>

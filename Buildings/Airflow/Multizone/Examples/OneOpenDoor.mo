@@ -1,8 +1,7 @@
 within Buildings.Airflow.Multizone.Examples;
 model OneOpenDoor "Model with one open and one closed door"
   extends Modelica.Icons.Example;
-//  package Medium = Buildings.Media.IdealGases.SimpleAir;
-//  package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir;
+
   package Medium = Modelica.Media.Air.SimpleAir;
 
   Buildings.Airflow.Multizone.DoorDiscretizedOpen dooOpe(redeclare package
@@ -90,14 +89,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneOpenDoor.mos"
         "Simulate and plot"),
-    Diagram,
     experiment(
       StopTime=3600,
-      Tolerance=1e-05,
-      Algorithm="Radau"),
+      Tolerance=1e-05),
     Documentation(info="<html>
 <p>
 This model consists of two doors with the same geometry.

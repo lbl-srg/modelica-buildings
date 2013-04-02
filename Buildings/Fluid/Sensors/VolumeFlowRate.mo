@@ -60,7 +60,7 @@ equation
   V_flow = port_a.m_flow/d;
 annotation (defaultComponentName="senVolFlo",
   Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}), graphics),
+            100,100}})),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Text(

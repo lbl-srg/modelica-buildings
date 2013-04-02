@@ -62,7 +62,7 @@ equation
           smooth=Smooth.None,
           fillColor={0,128,255},
           fillPattern=FillPattern.Solid)}),
-    Diagram(graphics),
+   
     Documentation(info="<html>
 <p>
 The relative temperature \"T(port_a) - T(port_b)\" is determined between

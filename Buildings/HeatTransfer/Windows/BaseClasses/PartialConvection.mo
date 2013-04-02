@@ -200,7 +200,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     annotation (Dialog(group="Shading"),
-              Diagram(graphics),
     Icon(graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

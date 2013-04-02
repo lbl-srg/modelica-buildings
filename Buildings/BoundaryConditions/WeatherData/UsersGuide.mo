@@ -1,7 +1,7 @@
 within Buildings.BoundaryConditions.WeatherData;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Info;
-annotation (DocumentationClass=true, Documentation(info="<html>
+annotation (Documentation(info="<html>
 This package contains models to read weather data.
 The weather data format is the Typical Meteorological Year (TMY3)
 as obtained from the EnergyPlus web site at

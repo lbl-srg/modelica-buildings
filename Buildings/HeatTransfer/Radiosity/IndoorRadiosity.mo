@@ -25,7 +25,6 @@ equation
   JOut = -A*Modelica.Constants.sigma*T4;
   0 = heatPort.Q_flow + JIn + JOut;
   annotation (
-    Diagram(graphics),
     Icon(graphics={
         Rectangle(
           extent={{-80,80},{-60,-80}},

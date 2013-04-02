@@ -41,7 +41,6 @@ equation
   TRad = if linearize then (TRad4 + 3*T04)/(4*T03) else TRad4^(1/4);
 
   annotation (
-    Diagram(graphics),
     Icon(graphics={
         Text(
           extent={{-96,-10},{-54,-52}},

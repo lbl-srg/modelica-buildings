@@ -7,7 +7,7 @@ model ConductorSingleLayerCylinder
   Buildings.HeatTransfer.Conduction.SingleLayerCylinder
                      con( material=concrete,
                      steadyStateInitial=false,
-                     nSta=8,
+                     final nSta=8,
                      r_a=0.1,
                      r_b=3,
     h=10,
@@ -42,7 +42,7 @@ equation
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayerCylinder.mos"
         "Simulate and plot"),
         Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics),
+            -100},{100,100}})),
     Documentation(info="<html>
 This example tests a circular conductor with a constant temperature at his boundary.
 

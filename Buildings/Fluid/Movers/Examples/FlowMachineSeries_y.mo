@@ -74,7 +74,7 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
-            160}}), graphics),
+            160}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/FlowMachineSeries_y.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -95,10 +95,8 @@ March 24 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"),    Diagram,
+</html>"),
     experiment(
       StopTime=300,
-      Tolerance=1e-06,
-      Algorithm="Radau"),
-    __Dymola_experimentSetupOutput);
+      Tolerance=1e-06));
 end FlowMachineSeries_y;

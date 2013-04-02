@@ -206,7 +206,7 @@ equation
           lineColor={0,0,127},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid,
-          textString="y")}), Diagram(graphics),
+          textString="y")}),
 defaultComponentName="chi",
 Documentation(info="<html>
 This is model of a chiller whose coefficient of performance (COP) changes

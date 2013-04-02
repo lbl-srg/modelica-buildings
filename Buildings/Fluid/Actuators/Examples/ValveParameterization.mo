@@ -21,16 +21,16 @@ model ValveParameterization
   Buildings.Fluid.Sources.Boundary_pT sou(             redeclare package Medium
       = Medium,
     use_p_in=true,
-    nPorts=4,
+    nPorts=3,
     T=293.15)                                       annotation (Placement(
         transformation(extent={{-70,-10},{-50,10}},rotation=0)));
   Buildings.Fluid.Sources.Boundary_pT sin(             redeclare package Medium
       = Medium,
-    nPorts=4,
+    nPorts=3,
     use_p_in=false,
     p=300000,
     T=293.15)                                       annotation (Placement(
-        transformation(extent={{80,-10},{60,10}},rotation=0)));
+        transformation(extent={{90,-10},{70,10}},rotation=0)));
     Modelica.Blocks.Sources.Ramp PSou(
     duration=1,
     offset=3E5,
@@ -64,23 +64,10 @@ model ValveParameterization
   Buildings.Fluid.Sensors.MassFlowRate senM_flowCv(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{20,-50},{40,-30}})));
-  Modelica.Fluid.Valves.ValveIncompressible valFlu(
-    redeclare package Medium = Medium,
-    dp_nominal(displayUnit="Pa") = 4500,
-    m_flow_nominal=0.0416,
-    CvData=Modelica.Fluid.Types.CvTypes.Cv,
-    Cv=0.84) "Valve model, linear opening characteristics"
-         annotation (Placement(transformation(extent={{-10,-90},{10,-70}},
-                                                                       rotation=
-           0)));
-  Buildings.Fluid.Sensors.MassFlowRate senM_flowFlu(
-                                                  redeclare package Medium =
-        Medium)
-    annotation (Placement(transformation(extent={{20,-90},{40,-70}})));
   Buildings.Utilities.Diagnostics.AssertEquality equ1(threShold=0.01)
-    annotation (Placement(transformation(extent={{70,60},{90,80}})));
+    annotation (Placement(transformation(extent={{80,60},{100,80}})));
   Buildings.Utilities.Diagnostics.AssertEquality equ2(threShold=0.01)
-    annotation (Placement(transformation(extent={{72,-40},{92,-20}})));
+    annotation (Placement(transformation(extent={{80,20},{100,40}})));
 equation
   connect(y.y, valOPPoi.y)
                          annotation (Line(
@@ -95,11 +82,11 @@ equation
       color={0,0,127},
       pattern=LinePattern.None));
   connect(valKv.port_a, sou.ports[2])  annotation (Line(
-      points={{-10,6.10623e-16},{-30,6.10623e-16},{-30,1},{-50,1}},
+      points={{-10,6.10623e-16},{-30,6.10623e-16},{-30,5.55112e-16},{-50,5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[3], valCv.port_a) annotation (Line(
-      points={{-50,-1},{-40,-1},{-40,-40},{-10,-40}},
+      points={{-50,-2.66667},{-40,-2.66667},{-40,-40},{-10,-40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(y.y, valCv.y) annotation (Line(
@@ -107,7 +94,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.ports[1], valOPPoi.port_a) annotation (Line(
-      points={{-50,3},{-40,3},{-40,40},{-10,40}},
+      points={{-50,2.66667},{-40,2.66667},{-40,40},{-10,40}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(valOPPoi.port_b, senM_flowOpPoi.port_a) annotation (Line(
@@ -124,51 +111,34 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(senM_flowCv.port_b, sin.ports[3]) annotation (Line(
-      points={{40,-40},{50,-40},{50,-1},{60,-1}},
+      points={{40,-40},{60,-40},{60,-2.66667},{70,-2.66667}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senM_flowKv.port_b, sin.ports[2]) annotation (Line(
-      points={{40,6.10623e-16},{50,6.10623e-16},{50,1},{60,1}},
+      points={{40,6.10623e-16},{50,6.10623e-16},{50,4.44089e-16},{70,4.44089e-16}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(senM_flowOpPoi.port_b, sin.ports[1]) annotation (Line(
-      points={{40,40},{50,40},{50,3},{60,3}},
+      points={{40,40},{60,40},{60,2},{66,2},{66,2.66667},{70,2.66667}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(valFlu.port_b, senM_flowFlu.port_a)
-                                            annotation (Line(
-      points={{10,-80},{20,-80}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(sou.ports[4],valFlu. port_a) annotation (Line(
-      points={{-50,-3},{-44,-3},{-44,-80},{-10,-80}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(senM_flowFlu.port_b, sin.ports[4]) annotation (Line(
-      points={{40,-80},{50,-80},{50,-3},{60,-3}},
-      color={0,127,255},
-      smooth=Smooth.None));
-  connect(y.y,valFlu. opening) annotation (Line(
-      points={{-39,70},{-20,70},{-20,-68},{6.66134e-16,-68},{6.66134e-16,-72}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(senM_flowOpPoi.m_flow, equ1.u1) annotation (Line(
-      points={{30,51},{30,76},{68,76}},
+      points={{30,51},{30,76},{78,76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(senM_flowKv.m_flow, equ1.u2) annotation (Line(
-      points={{30,11},{30,20},{60,20},{60,64},{68,64}},
+      points={{30,11},{30,20},{46,20},{46,64},{78,64}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senM_flowCv.m_flow, equ2.u1) annotation (Line(
-      points={{30,-29},{30,-24},{70,-24}},
+  connect(senM_flowKv.m_flow, equ2.u1) annotation (Line(
+      points={{30,11},{30,20},{46,20},{46,36},{78,36}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(senM_flowFlu.m_flow, equ2.u2) annotation (Line(
-      points={{30,-69},{30,-60},{60,-60},{60,-36},{70,-36}},
+  connect(senM_flowCv.m_flow, equ2.u2) annotation (Line(
+      points={{30,-29},{30,-20},{50,-20},{50,24},{78,24}},
       color={0,0,127},
       smooth=Smooth.None));
-    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
+    annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
             -100},{100,100}}),
                         graphics),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/ValveParameterization.mos"
@@ -177,10 +147,19 @@ equation
 <p>
 Test model for two way valves. This model tests the
 different parameterization of the valve model.
-The top and bottom two valves need to have the same flow rates.
+All valves have approximately the same mass flow rates.
+Small differences exist due to differences in the mass density that is used
+to compute the parameters.
+If the mass flow rates differ by more than 1%, then the assert blocks
+will terminate the simulation with an error message.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 1, 2013, by Michael Wetter:<br>
+Removed the valve from <code>Modelica.Fluid</code> to allow a successful check
+of the model in the pedantic mode in Dymola 2014.
+</li>
 <li>
 March 1, 2013, by Michael Wetter:<br>
 Removed assignment of <code>dpValve_nominal</code> if

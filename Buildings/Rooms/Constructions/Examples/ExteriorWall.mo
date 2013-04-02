@@ -75,7 +75,7 @@ equation
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Constructions/Examples/ExteriorWall.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
-            100}}), graphics),
+            100}})),
     Documentation(info="<html>
 <p>
 This model tests the exterior construction without windows.

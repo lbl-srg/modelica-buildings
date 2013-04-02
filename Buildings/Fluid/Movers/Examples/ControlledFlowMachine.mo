@@ -19,7 +19,5 @@ Dymola computes the enthalpy change of the component as a fraction <code>(k*m_fl
 which leads to an error because of <code>0/0</code> at zero flow rate.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-160,-100},{160,
-            160}}),
-            graphics),
-              Diagram);
+            160}})));
 end ControlledFlowMachine;

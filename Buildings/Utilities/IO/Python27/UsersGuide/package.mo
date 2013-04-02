@@ -3,7 +3,7 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
 
-annotation (DocumentationClass=true, Documentation(info="<html>
+annotation (Documentation(info="<html>
 <p>
 This package contains classes that call Python functions.
 The classes can be used to send data to Python functions,

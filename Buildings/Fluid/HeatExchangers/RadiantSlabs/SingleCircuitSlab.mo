@@ -164,7 +164,7 @@ Icon(graphics={
           points={{74,-74},{74,2},{92,2}},
           color={0,128,255},
           thickness=1,
-          smooth=Smooth.None)}), Diagram(graphics),
+          smooth=Smooth.None)}),
     Documentation(info="<html>
 <p>
 This is a model of a single flow circuit of a radiant slab with pipes or a capillary heat exchanger

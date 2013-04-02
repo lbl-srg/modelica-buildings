@@ -20,7 +20,7 @@ equation
   y = time - entryTime;
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
     Icon(graphics={
         Line(points={{-78,16},{-60,30},{-60,-8},{42,82},{42,-8},{72,18}}, color=
              {0,0,255}),

@@ -6,26 +6,26 @@ model Fanger "Test of Comfort Model"
     use_vAir_in=true,
     use_M_in=true,
     use_pAir_in=true) "Thermal comfort model"
-                                            annotation (extent=[50,-32; 70,-12],
+                                            annotation (
       Placement(transformation(extent={{70,-40},{90,-20}})));
   Modelica.Blocks.Sources.Constant ICl(k=0.9) "Clothing insulation"
-    annotation (extent=[-14,-90; 6,-70]);
+    annotation (Placement(transformation(extent=[-14,-90; 6,-70])));
   Modelica.Blocks.Sources.Constant vAir(k=0.05) "Air velocity"
-    annotation (extent=[-80,-56; -60,-36]);
+    annotation (Placement(transformation(extent=[-80,-56; -60,-36])));
   Modelica.Blocks.Sources.Constant M(k=60) "Metabolic heat generated"
-    annotation (extent=[-80,-86; -60,-66]);
+    annotation (Placement(transformation(extent=[-80,-86; -60,-66])));
   Modelica.Blocks.Sources.Ramp TAir(
     duration=1,
     height=10,
     offset=273.15 + 20) "Air temperature"
-                        annotation (extent=[-80,42; -60,62], Placement(
+                        annotation (Placement(
         transformation(extent={{-80,50},{-60,70}})));
   Modelica.Blocks.Sources.Constant TRad(k=273.15 + 22) "Radiation temperature"
-    annotation (extent=[-80,-26; -60,-6]);
+    annotation (Placement(transformation(extent=[-80,-26; -60,-6])));
   Modelica.Blocks.Sources.Constant pAtm(k=101325)
-    annotation (extent=[0,68; 20,88]);
+    annotation (Placement(transformation(extent=[0,68; 20,88])));
   Modelica.Blocks.Sources.Constant phi(k=0.5) "Relative humidity"
-    annotation (extent=[-24,30; -4,50], Placement(transformation(extent={{-20,
+    annotation (Placement(transformation(extent={{-20,
             30},{0,50}})));
   Buildings.Utilities.Comfort.Fanger theComFixPar(
     use_vAir_in=false,
@@ -33,7 +33,7 @@ model Fanger "Test of Comfort Model"
     use_ICl_in=false,
     use_pAir_in=false,
     ICl=0.9) "Thermal comfort model with fixed parameters"
-                                            annotation (extent=[50,-32; 70,-12],
+                                            annotation (
       Placement(transformation(extent={{70,-6},{90,14}})));
 equation
   connect(pAtm.y, theCom.pAir_in) annotation (Line(
@@ -80,7 +80,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
  annotation (Diagram(graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Comfort/Examples/Fanger.mos" "Simulate and plot"),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Comfort/Examples/Fanger.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This is a test of the Thermal Comfort Model.
 </html>"));

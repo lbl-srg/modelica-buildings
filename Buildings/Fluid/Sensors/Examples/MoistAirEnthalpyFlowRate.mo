@@ -1,6 +1,6 @@
 within Buildings.Fluid.Sensors.Examples;
 model MoistAirEnthalpyFlowRate
-  "Test model for sensible and latent enthalpy flow rate"
+  "Test model for the sensible and latent enthalpy flow rate sensors"
   extends Modelica.Icons.Example;
   import Buildings;
 
@@ -114,11 +114,9 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
     annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MoistAirEnthalpyFlowRate.mos"
-        "Simulate and plot"),                                                                                                    Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-        graphics),
-              Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics),
+        "Simulate and plot"),
+        Diagram(
+        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(revisions="<html>
 <ul>
 <li>

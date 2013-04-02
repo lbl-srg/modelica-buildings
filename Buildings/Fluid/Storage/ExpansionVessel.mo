@@ -74,7 +74,7 @@ equation
         Text(
           extent={{-148,98},{152,138}},
           textString="%name",
-          lineColor={0,0,255})}), Diagram(graphics),
+          lineColor={0,0,255})}),
 defaultComponentName="exp",
 Documentation(info="<html>
 <p>
