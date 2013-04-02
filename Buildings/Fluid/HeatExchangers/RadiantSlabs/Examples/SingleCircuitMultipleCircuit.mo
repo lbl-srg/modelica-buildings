@@ -26,7 +26,7 @@ model SingleCircuitMultipleCircuit "Model that tests the radiant slab"
     nSeg=nSeg) "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{-14,10},{6,30}})));
 
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_nominal=
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
      0.167 "Nominal mass flow rate for each circuit";
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAbo(T=293.15)
     "Air temperature above the slab"
@@ -213,11 +213,8 @@ equation
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/SingleCircuitMultipleCircuit.mos"
         "Simulate and plot"),
           Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-160},
-            {160,160}}),
-                     graphics),
-    experimentSetupOutput,
-              Diagram,
-                  Documentation(info="<html>
+            {160,160}})),
+Documentation(info="<html>
 <p>
 This example compares the results of two models of a single circuit that are arranged in 
 parallel, versus a model that directly implements two parallel circuits.
@@ -227,7 +224,8 @@ which is independent of the temperature difference has been used.
 The model is exposed to a step change in pressure, which causes forward and reverse
 flow.
 </p>
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 June 27, 2012, by Michael Wetter:<br>
@@ -237,21 +235,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=86400,
-      Tolerance=1e-05,
-      Algorithm="Radau"),
-    Icon(coordinateSystem(extent={{-100,-100},{100,100}})),
-    Documentation(info="<html>
-<p>
-This example models the step response for a radiant slab.
-</p>
-</html>
-",
-revisions="<html>
-<ul>
-<li>
-April 5, 2012, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
+      Tolerance=1e-05));
 end SingleCircuitMultipleCircuit;

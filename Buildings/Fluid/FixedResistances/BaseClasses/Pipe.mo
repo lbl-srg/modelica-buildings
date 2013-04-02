@@ -82,7 +82,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
     Icon(graphics={
         Rectangle(
           extent={{-100,60},{100,-60}},

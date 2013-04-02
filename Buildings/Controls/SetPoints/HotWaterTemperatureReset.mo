@@ -143,5 +143,5 @@ First implementation.
           lineColor={0,0,127},
           textString="TRet")}),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}})));
 end HotWaterTemperatureReset;

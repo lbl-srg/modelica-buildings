@@ -172,7 +172,7 @@ algorithm
           lineColor={0,0,255},
           textString="occupied")}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
 defaultComponentName="occSch",
 Documentation(info="<html>
 <p>

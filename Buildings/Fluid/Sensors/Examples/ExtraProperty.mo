@@ -1,5 +1,5 @@
 within Buildings.Fluid.Sensors.Examples;
-model ExtraProperty
+model ExtraProperty "Test model for the extra property sensor"
   extends Modelica.Icons.Example;
   import Buildings;
  package Medium = Buildings.Media.GasesPTDecoupled.SimpleAir(extraPropertiesNames={"CO2"});

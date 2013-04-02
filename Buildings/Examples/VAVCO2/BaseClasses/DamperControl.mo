@@ -45,7 +45,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics),
+            -100},{100,100}})),
                        Icon(
       Line(points=[-60,-68; -60,42],
                                    style(color=8)),

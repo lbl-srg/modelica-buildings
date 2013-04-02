@@ -88,7 +88,6 @@ equation
   port_b2.C_outflow = inStream(port_a2.C_outflow);
 
   annotation (
-    Diagram(graphics),
     Icon(graphics={Rectangle(
           extent={{-100,100},{100,-100}},
           fillColor={255,255,255},

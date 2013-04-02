@@ -29,7 +29,7 @@ equation
   connect(X_w.y, masExc.XInf) annotation (Line(points={{-59,10},{-20,10},{18,
           10}},         color={0,0,127}));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{180,100}}), graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/MassExchange.mos" "Simulate and plot"),
-              Diagram);
+            -100},{180,100}})),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/MassExchange.mos"
+        "Simulate and plot"));
 end MassExchange;

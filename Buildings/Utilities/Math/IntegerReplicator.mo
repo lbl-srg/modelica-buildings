@@ -33,7 +33,7 @@ equation
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={2,2}), graphics),
+        grid={2,2})),
     Documentation(info="<html>
 <p>
 This block replicates the integer input signal to an array of <code>nout</code> identical output signals.

@@ -530,9 +530,8 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-180,-140},{100,
-            100}}),
-            graphics),
-    Commands(file=
+            100}})),
+    __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/SpaceCooling/System2.mos"
         "Simulate and plot"),
     experiment(StopTime=10800));

@@ -150,9 +150,10 @@ equation
       points={{-39,130},{50,130},{50,-9},{58,-9}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(preserveAspectRatio=true, coordinateSystem(extent={{-100,-100},
-            {140,180}}),       graphics), 
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Convection/Examples/Exterior.mos" "Simulate and plot"),
+  annotation (Diagram(coordinateSystem(extent={{-100,-100},
+            {140,180}})),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Convection/Examples/Exterior.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example tests the convective heat transfer models for exterior surfaces.
 From <i>t=0...3600</i> seconds, the wind traverses from North to West to South to East and back to

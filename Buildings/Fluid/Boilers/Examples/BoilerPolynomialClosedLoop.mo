@@ -244,9 +244,7 @@ equation
         "Simulate and plot"),
     experiment(
       StopTime=14400,
-      Tolerance=1e-05,
-      Algorithm="Radau"),
-    experimentSetupOutput,
+      Tolerance=1e-05),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
     Documentation(info="<html>

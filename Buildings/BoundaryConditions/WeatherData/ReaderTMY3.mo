@@ -107,7 +107,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     annotation (Placement(transformation(extent={{-240,-240},{-200,-200}}),
         iconTransformation(extent={{-240,-220},{-200,-180}})));
 
-  parameter String filNam "Name of weather data file" annotation (Dialog(
+  parameter String filNam="" "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
@@ -122,8 +122,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
             294,-10},{314,10}}), iconTransformation(extent={{190,-10},{210,10}})));
   BaseClasses.SolarSubBus solBus "Sub bus with solar position"
-    annotation (Placement(transformation(visible=false,
-                                         extent={{-2,-304},{18,-284}}),
+    annotation (Placement(transformation(extent={{-2,-304},{18,-284}}),
         iconTransformation(extent={{-2,-200},{18,-180}})));
 
   parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation
@@ -274,7 +273,7 @@ protected
   // By default, it is enabled. This introduces a nonlinear equation, but
   // we have not observed an increase in computing time because of this equation.
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi tWetBul_TDryBulXi(
-      redeclare package Medium = Buildings.Media.PerfectGases.MoistAir, 
+      redeclare package Medium = Buildings.Media.PerfectGases.MoistAir,
       TDryBul(displayUnit="degC")) if computeWetBulbTemperature
     annotation (Placement(transformation(extent={{244,-66},{264,-46}})));
 
@@ -1089,5 +1088,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-300},{300,
-            300}}), graphics));
+            300}})));
 end ReaderTMY3;

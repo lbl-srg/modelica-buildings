@@ -29,9 +29,8 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
-            graphics),
-    Commands(file=
+            100}})),
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/TrimAndRespond.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

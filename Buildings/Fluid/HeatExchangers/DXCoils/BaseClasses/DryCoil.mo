@@ -55,7 +55,7 @@ equation
       points={{59,-30},{20,-30},{20,100},{-110,100}},
       color={255,127,0},
       smooth=Smooth.None));
-  annotation (defaultComponentName="dryCoi", Diagram(graphics), Documentation(info="<html>
+  annotation (defaultComponentName="dryCoi", Documentation(info="<html>
 <p>
 This block calculates the rate of cooling and the coil surface condition
 under the assumption that the coil is dry.

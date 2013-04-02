@@ -43,14 +43,14 @@ model WSEControl "Control unit for WSE"
     use_activePort=true,
     nOut=1,
     nIn=1,
-    initialStep=true)
+    final initialStep=true)
            annotation (Placement(transformation(extent={{30,172},{48,190}})));
   Modelica_StateGraph2.Transition T1(delayedTransition=true, waitTime=1200,
     use_conditionPort=false,
     condition=wseCHWST > 0.9*TWetBul + towTApp + dTW)
     annotation (Placement(transformation(extent={{20,100},{58,138}})));
   Modelica_StateGraph2.Step on(nIn=1, nOut=1,
-    initialStep=false)
+    final initialStep=false)
     annotation (Placement(transformation(extent={{30,40},{50,60}})));
   Modelica_StateGraph2.Transition T2(delayedTransition=true, waitTime=1200,
     use_conditionPort=false,
@@ -133,12 +133,17 @@ where <i>T<sub>WSE_CHWST</sub></i> is the chilled water supply temperature for t
 ", revisions="<html>
 <ul>
 <li>
+April 1, 2013, by Wangda Zuo:<br>
+Added <code>final</code> attribute to initial state declaration.
+This is required for a successful model check in Dymola 2014 using the pedantic check. 
+</li>
+<li>
 September 12, 2011, by Wangda Zuo:<br>
-Delete the first order continuous block and reformat the model for SI units. 
+Deleted the first order continuous block and changed the model to use SI units. 
 </li>
 <li>
 July 20, 2011, by Wangda Zuo:<br>
-Add comments, redefine variables names, and merge to library. 
+Added comments, redefined variables names, and merged to library. 
 </li>
 <li>
 January 18, 2011, by Wangda Zuo:<br>

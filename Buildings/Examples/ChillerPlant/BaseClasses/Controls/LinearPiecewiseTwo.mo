@@ -68,7 +68,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(graphics),
     Icon(graphics={
         Line(
           points={{-68,62},{-68,-50},{62,-50}},

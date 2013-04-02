@@ -13,7 +13,7 @@ equation
           inStream(port.h_outflow), inStream(port.Xi_outflow)));
 annotation (defaultComponentName="senSpeEnt",
   Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+            100,100}})),
   Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics={
         Line(points={{0,-70},{0,-100}}, color={0,0,127}),

@@ -51,7 +51,7 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         initialScale=0.01,
-        grid={2,2}), graphics),
+        grid={2,2})),
     Documentation(info="<HTML>
 The controls for enabling/disabling chiller are as follows:</h4>
 <ul>

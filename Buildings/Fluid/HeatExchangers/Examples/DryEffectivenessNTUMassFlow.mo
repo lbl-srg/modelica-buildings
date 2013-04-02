@@ -28,7 +28,8 @@ model DryEffectivenessNTUMassFlow
 
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort senRelHum(
                                                      redeclare package Medium
-      = Medium2, m_flow_nominal=m2_flow_nominal)
+      = Medium2, m_flow_nominal=m2_flow_nominal,
+    initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{20,14},{0,34}})));
 equation
   connect(sou_1.ports[1], hex.port_a1) annotation (Line(
@@ -52,7 +53,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{200,200}}), graphics),
+            -100},{200,200}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryEffectivenessNTUMassFlow.mos"
         "Simulate and plot"));
 end DryEffectivenessNTUMassFlow;

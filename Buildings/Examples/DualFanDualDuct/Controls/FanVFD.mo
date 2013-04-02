@@ -96,7 +96,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={Text(
+            -100},{100,100}})), Icon(graphics={Text(
           extent={{-90,-50},{96,-96}},
           lineColor={0,0,255},
           textString="r_N_min=%r_N_min")}));

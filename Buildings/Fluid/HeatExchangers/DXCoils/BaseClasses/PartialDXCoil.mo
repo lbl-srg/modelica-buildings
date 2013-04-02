@@ -4,6 +4,7 @@ partial model PartialDXCoil "Partial model for DX coil"
     Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.EssentialParameters;
   extends Buildings.Fluid.BaseClasses.IndexWater;
   extends Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger(
+    redeclare package Medium = Medium,
     redeclare final Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol,
     final m_flow_nominal = datCoi.sta[nSta].nomVal.m_flow_nominal);
 
@@ -175,7 +176,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                       graphics),
-              defaultComponentName="dxCoi", Diagram(graphics), Documentation(info="<html>
+              defaultComponentName="dxCoi", Documentation(info="<html>
 <p>
 This partial model is the base class for
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.SingleSpeed\"> 

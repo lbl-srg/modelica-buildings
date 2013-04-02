@@ -123,5 +123,5 @@ equation
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/GasConvection.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-140},{100,
-            100}}), graphics));
+            100}})));
 end GasConvection;

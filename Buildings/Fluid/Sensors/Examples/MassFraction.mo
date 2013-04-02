@@ -1,5 +1,5 @@
 within Buildings.Fluid.Sensors.Examples;
-model MassFraction
+model MassFraction "Test model for the mass fraction sensor"
   extends Modelica.Icons.Example;
   import Buildings;
 
@@ -60,8 +60,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{100,100}}),
-                        graphics),
+            -100},{100,100}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos"
         "Simulate and plot"),
     Documentation(info="<html>

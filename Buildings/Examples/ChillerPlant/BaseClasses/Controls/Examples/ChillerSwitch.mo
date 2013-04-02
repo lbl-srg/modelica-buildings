@@ -1,5 +1,5 @@
 within Buildings.Examples.ChillerPlant.BaseClasses.Controls.Examples;
-model ChillerSwitch "Test model for ChillerSwtich"
+model ChillerSwitch "Test model for ChillerSwitch"
   extends Modelica.Icons.Example;
   Modelica.Blocks.Sources.Sine TSet(
     freqHz=0.0002,
@@ -24,15 +24,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
-    Commands(file=
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/ChillerSwitch.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>
 July 20, 2011, by Wangda Zuo:<br>
-Add mos file and merge to library.
+Added <code>.mos</code> file and merged to library.
 </li>
 <li>
 January 18, 2011, by Wangda Zuo:<br>

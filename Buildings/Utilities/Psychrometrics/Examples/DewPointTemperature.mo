@@ -29,8 +29,7 @@ equation
       points={{21,10},{39,10}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/DewPointTemperature.mos" "Simulate and plot"), Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-                                                                     graphics),
-              Diagram);
+  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/DewPointTemperature.mos"
+        "Simulate and plot"),                                                                                                    Diagram(
+        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
 end DewPointTemperature;

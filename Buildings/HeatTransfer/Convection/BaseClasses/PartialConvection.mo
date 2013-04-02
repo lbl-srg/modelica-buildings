@@ -35,7 +35,7 @@ equation
   fluid.Q_flow = -Q_flow;
   Q_flow = A*q_flow;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+            -100},{100,100}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-100,100},{100,-100}},

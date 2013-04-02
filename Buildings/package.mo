@@ -288,6 +288,14 @@ units are wrong or errors in documentation):
     </td>
 </tr>
 
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                       Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation<br/>
+                       Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger
+    </td>
+    <td valign=\"top\">Removed wrong unit attribute of <code>COut</code>.
+    </td>
+</tr>
+
 </table>
 </p>
 <!-- Trac tickets -->
@@ -3024,7 +3032,7 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
 </html>
 "));
   end Copyright;
-  annotation (DocumentationClass=true, Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 The <code>Buildings</code> library is a free open-source library for modeling of building energy and control systems. 
 Many models are based on models from the package

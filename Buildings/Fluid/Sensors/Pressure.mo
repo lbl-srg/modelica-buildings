@@ -13,7 +13,7 @@ equation
   Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
+        grid={1,1})),
   Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

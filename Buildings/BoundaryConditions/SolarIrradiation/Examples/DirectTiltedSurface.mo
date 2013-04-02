@@ -75,7 +75,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DirectTiltedSurface.mos"
         "Simulate and plot"),
     Icon(graphics),

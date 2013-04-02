@@ -45,10 +45,7 @@ equation
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/Examples/UTube.mos"
         "Simulate and plot"),
           Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}),
-                     graphics),
-    experimentSetupOutput,
-              Diagram,
+            {100,100}})),
                   Documentation(info="<html>
 <p>
 This example models a borehole heat exchanger with two pipes that are
@@ -72,6 +69,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=3.1536e+07,
-      Tolerance=1e-05,
-      Algorithm="Radau"));
+      Tolerance=1e-05));
 end UTube;
