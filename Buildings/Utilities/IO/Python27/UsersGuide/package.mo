@@ -17,8 +17,7 @@ inside a Python module.
 To use classes from this package, a Python
 runtime environment must be installed.
 The code has been tested with Python 2.7 on
-Linux 32 bit, Linux 64 bit, Windows 32 bit and Windows 64 bit
-(fixme: to tests on Windows).
+Linux 32 bit, Linux 64 bit, and Windows 32 bit.
 The examples of this package use Python modules
 that are stored in the directory
 <code>Buildings/Resources/Python-Sources</code>.
@@ -34,7 +33,7 @@ export PYTHONPATH=$PYTHONPATH:\"Path_To_Buildings_Library\"/Resources/Python-Sou
 Alternatively, this line could be added to the file <code>~/.bashrc</code>.
 </li>
 <li>
-On Windows, fixme: add description.
+On Windows, set in System the PYTHONPATH system variable to the directory \"Path_To_Buildings_Library\"\Resources\Python-Sources
 </li>
 </ul>
 </p>
@@ -47,9 +46,8 @@ where <code>\"os\"</code>
 is 
 <code>linux32</code>,
 <code>linux64</code>,
-<code>win32</code>,
-<code>win64</code>.
-Since Dymola 2013 FD01 does not add these directories
+<code>win32</code>.
+Since on Linux, Dymola 2013 FD01 does not add these directories
 to the search path for dynamically linked libraries,
 a user needs to do the following so that Dymola can find
 the library:
@@ -77,9 +75,6 @@ with
 Then, restart Dymola and the examples should compile and simulate successfully.
 If you start Dymola from a different directory than from the <code>Buildings</code> directory,
 then add the full path to <code>Resources/Library/linux32</code>.
-</li>
-<li>
-On Windows, fixme: add description
 </li>
 </ul>
 </p>
