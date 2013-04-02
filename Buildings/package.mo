@@ -229,7 +229,7 @@ that can lead to wrong simulation results):
     </td>
     <td valign=\"top\">Corrected error that led to wrong results if the room air temperature is
                      different from its nominal value <code>TRoo_nominal</code>.
-                     This fixes <a href=\"https://corbu.lbl.gov/trac/bie/ticket/74\">ticket 74</a>.
+                     This fixes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">issue 74</a>.
     </td>
 </tr>
 
@@ -242,7 +242,7 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Fixed bug in the assignment of the fictitious thermal resistance by replacing
                      <code>RFic[nSeg](each G=A/Rx)</code> with
                      <code>RFic[nSeg](each G=A/nSeg/Rx)</code>.
-                     This fixes <a href=\"https://corbu.lbl.gov/trac/bie/ticket/79\">ticket 79</a>.
+                     This fixes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/79\">issue 79</a>.
     </td>
 </tr>
 
@@ -255,7 +255,7 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Replaced <code>when</code> test with <code>if</code> test as
                        equations within a <code>when</code> section are only evaluated
                        when the condition becomes true.
-                       This fixes <a href=\"https://corbu.lbl.gov/trac/bie/ticket/72\">ticket 72</a>.
+                       This fixes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/72\">issue 72</a>.
     </td>
 </tr>
 </table>
@@ -298,17 +298,17 @@ units are wrong or errors in documentation):
 
 </table>
 </p>
-<!-- Trac tickets -->
+<!-- Github issues -->
 <p>
 The following
-<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Assert statement does not fire.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/72\">#72</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/72\">#72</a>
     </td>
     <td valign=\"top\">
     The blocks <code>Buildings.Utilities.Diagnostics.AssertEquality</code> and
@@ -321,7 +321,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b><code>HotWaterTemperatureReset</code> computes wrong results if room temperature differs from nominal value.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/74\">#74</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">#74</a>
     </td>
     <td valign=\"top\">The equation
 <pre>TSup = TRoo_in_internal
@@ -336,7 +336,7 @@ should be formulated as
 <tr><td colspan=\"2\"><b>Bug in <code>RadiantSlabs.SingleCircuitSlab</code> fictitious resistance RFic.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/79\">#79</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/79\">#79</a>
     </td>
     <td valign=\"top\">This bug has been fixed in the assignment of the fictitious thermal resistance by replacing
                      <code>RFic[nSeg](each G=A/Rx)</code> with
@@ -628,7 +628,7 @@ units are wrong or errors in documentation):
 </tr>
 </table>
 </p>
-<!-- Trac tickets -->
+<!-- Github issues -->
 <!-- none -->
 </html>"));
   end Version_1_3_build1;
@@ -890,22 +890,22 @@ units are wrong or errors in documentation):
 </tr>
 </table>
 </p>
-<!-- Trac tickets -->
+<!-- Github issues -->
 <p>
 The following
-<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Heat transfer in glass layer</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/56\">#56</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/56\">#56</a>
     </td>
     <td valign=\"top\">Fixed bug in heat flow through the glass layer if the infrared transmissivity is non-zero.
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/57\">#57</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/57\">#57</a>
     </td>
     <td valign=\"top\">Fixed bug in temperature linearization of window glass.
     </td>
@@ -913,7 +913,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Overshooting in enhanced stratified tank</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/15\">#15</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/15\">#15</a>
     </td>
     <td valign=\"top\">Revised the implementation to reduce the temperature over-shoot.
     </td>
@@ -1203,17 +1203,17 @@ units are wrong or errors in documentation):
 </tr>
 </table>
 </p>
-<!-- Trac tickets -->
+<!-- Github issues -->
 <p>
 The following
-<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Exterior longwave radiation exchange in window model</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/51\">#51</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/51\">#51</a>
     </td>
     <td valign=\"top\">Changed model to use new implementation of
                        Buildings.HeatTransfer.Radiosity.OutdoorRadiosity.
@@ -1222,7 +1222,7 @@ have been fixed:
                        the opaque constructions.
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/53\">#53</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/53\">#53</a>
     </td>
     <td valign=\"top\">Fixed bug in Buildings.Controls.SetPoints.OccupancySchedule that 
                        led to wrong results when the simulation started at a time different from zero.
@@ -1348,17 +1348,17 @@ that can lead to wrong simulation results):
 </table>
 </p>
 <!-- Uncritical errors -->
-<!-- Trac tickets -->
+<!-- Github issues -->
 <p>
 The following
-<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Boreholes</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/45\">#45</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/45\">#45</a>
     </td>
     <td valign=\"top\">Dymola 2012 FD01 hangs when simulating a borehole heat exchanger.
     This was caused by a wrong release of memory in <code>freeArray.c</code>.
@@ -1367,7 +1367,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/46\">#46</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/46\">#46</a>
     </td>
     <td valign=\"top\">The convective internal heat gain has the wrong sign.
     </td>
@@ -1746,7 +1746,7 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
 <tr><td valign=\"top\">Buildings.Rooms.MixedAir</br>
                      Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions</td>
-    <td valign=\"top\">Fixed bug (<a href=\"https://corbu.lbl.gov/trac/bie/ticket/35\">ticket 35</a>) 
+    <td valign=\"top\">Fixed bug (<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">issue 35</a>) 
                      that leads to the wrong solar heat gain for
                      roofs and for floors. Prior to this bug fix, the outside facing surface
                      of a ceiling received solar irradiation as if it were a floor 
@@ -1754,7 +1754,7 @@ that can lead to wrong simulation results):
 </td></tr>
 <tr><td valign=\"top\">Buildings.Rooms.MixedAir</br>
                      Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</td>
-    <td valign=\"top\">Fixed bug (<a href=\"https://corbu.lbl.gov/trac/bie/ticket/36\">ticket 36</a>) 
+    <td valign=\"top\">Fixed bug (<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">issue 36</a>) 
                      that leads to too high a surface temperature of the window frame when
                      it receives solar radiation. The previous version did not compute 
                      the infrared radiation exchange between the
@@ -1776,38 +1776,38 @@ units are wrong or errors in documentation):
 </table>
 <p>
 The following
-<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/8\">#8</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/8\">#8</a></td>
     <td valign=\"top\">
          Add switches for new data.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/19\">#19</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/19\">#19</a></td>
     <td valign=\"top\">
          Shift the time for the radiation data 30 min forth and output the local civil time in the data reader. 
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/41\">#41</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/41\">#41</a></td>
     <td valign=\"top\">
        Using when-then sentences to reduce CPU time.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/43\">#43</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/43\">#43</a></td>
     <td valign=\"top\">
          Add a ConvertRadiation to convert the unit of radiation from TMY3.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/28\">#28</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/28\">#28</a></td>
     <td valign=\"top\">
          Move scripts to Buildings\\Resources\\Scripts\\Dymola.
     </td>
@@ -1815,7 +1815,7 @@ have been fixed:
 
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/18\">#18</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/18\">#18</a></td>
     <td valign=\"top\">
          Add a smooth interpolation function to avoid the event.
     </td>
@@ -1823,7 +1823,7 @@ have been fixed:
 
 <tr><td colspan=\"2\"><b>Buildings.Media</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/30\">#30</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/30\">#30</a></td>
     <td valign=\"top\">
          Removed non-required structurally incomplete annotation.
     </td>
@@ -1831,13 +1831,13 @@ have been fixed:
 
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/35\">#35</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">#35</a></td>
     <td valign=\"top\">
          Wrong surface tilt for radiation at exterior surfaces of floors and ceilings.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/36\">#36</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">#36</a></td>
     <td valign=\"top\">
          High window frame temperatures.
     </td>
