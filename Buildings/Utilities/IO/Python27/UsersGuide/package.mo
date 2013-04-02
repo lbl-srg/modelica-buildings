@@ -57,7 +57,7 @@ the library:
 <li>
 On Linux 32 bit, run
 <pre>
-  sudo ln -s `pwd`/Resources/Library/linux32/libModelicaBuildingsPython.so /usr/lib/libModelicaBuildingsPython.so
+  sudo ln -s `pwd`/Resources/Library/linux32/libModelicaBuildingsPython2.7.so /usr/lib/libModelicaBuildingsPython2.7.so
 </pre>
 </li>
 <li>
