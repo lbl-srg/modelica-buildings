@@ -10,8 +10,8 @@ partial model Slab "Base class for radiant slab"
     "Record for pipe geometry and material"
     annotation (choicesAllMatching = true, Placement(transformation(extent={{-60,60},{-40,80}})));
 
-  parameter HeatTransfer.Data.OpaqueConstructions.Generic layers
-    "Construction definition"
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic layers(nLay(min=2))
+    "Definition of the construction, which must have at least two material layers"
     annotation (Dialog(group="Construction"), Evaluate=true, choicesAllMatching=true, Placement(transformation(extent={{-20,60},
             {0,80}})));
   parameter Boolean steadyStateInitial=false
@@ -19,7 +19,7 @@ partial model Slab "Base class for radiant slab"
     annotation(Dialog(tab="Initialization", group="Construction"));
 
   parameter Integer iLayPip(min=1)
-    "Number of interface layer in which pipes are located"
+    "Number of the interface layer in which the pipes are located"
   annotation(Dialog(group="Construction"), Evaluate=true);
 
   parameter Modelica.SIunits.Temperature T_a_start=293.15

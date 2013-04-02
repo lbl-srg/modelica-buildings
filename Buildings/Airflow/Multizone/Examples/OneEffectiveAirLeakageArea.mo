@@ -70,12 +70,11 @@ equation
       points={{-42,30},{-59,30}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneEffectiveAirLeakageArea.mos"
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/OneEffectiveAirLeakageArea.mos"
         "Simulate and plot"),
         experiment(
       StopTime=7200,
-      Tolerance=1e-05,
-      Algorithm="Radau"),
+      Tolerance=1e-05),
     Documentation(info="<html>
 <p>
 This model consists of a model for an effective air leakage area

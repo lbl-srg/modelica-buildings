@@ -5,9 +5,9 @@ model HumidifierPrescribed "Model that demonstrates the ideal heater model"
 
   package Medium = Buildings.Media.PerfectGases.MoistAirUnsaturated;
 
-  inner Modelica.Fluid.System system(m_flow_start=0, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
+  inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_nominal=
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
      3000/1000/20 "Nominal mass flow rate";
 
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -116,7 +116,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(const.y, fan.m_flow_in) annotation (Line(
-      points={{121,10},{145,10},{145,-1.8}},
+      points={{121,10},{149.8,10},{149.8,2}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(fan.port_b, sou.ports[3]) annotation (Line(
@@ -127,7 +127,7 @@ equation
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
-            200}}), graphics),
+            200}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/HumidifierPrescribed.mos"
         "Simulate and plot"),
@@ -151,7 +151,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=1200,
-      Tolerance=1e-05,
-      Algorithm="Radau"),
-    __Dymola_experimentSetupOutput);
+      Tolerance=1e-05));
 end HumidifierPrescribed;

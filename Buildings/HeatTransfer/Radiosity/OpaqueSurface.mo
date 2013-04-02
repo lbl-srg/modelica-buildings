@@ -26,7 +26,6 @@ equation
   0 = heatPort.Q_flow + JIn + JOut;
 
   annotation (
-    Diagram(graphics),
     Icon(graphics={
         Rectangle(
           extent={{-34,94},{8,-94}},

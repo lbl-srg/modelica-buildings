@@ -1,5 +1,5 @@
 within Buildings.Fluid.Sensors.Examples;
-model TemperatureDryBulb
+model TemperatureDryBulb "Test model for the dry bulb temperature sensor"
   extends Modelica.Icons.Example;
 
  package Medium = Buildings.Media.PerfectGases.MoistAir "Medium model";
@@ -26,7 +26,8 @@ model TemperatureDryBulb
     duration=60) "Humidity concentration"
                  annotation (Placement(transformation(extent={{-100,-60},{-80,
             -40}}, rotation=0)));
-  Modelica.Blocks.Sources.Constant const annotation (Placement(transformation(
+  Modelica.Blocks.Sources.Constant const(k=1)
+                                         annotation (Placement(transformation(
           extent={{-100,-20},{-80,0}}, rotation=0)));
   Modelica.Blocks.Math.Feedback feedback annotation (Placement(transformation(
           extent={{-70,-20},{-50,0}}, rotation=0)));
@@ -45,9 +46,9 @@ model TemperatureDryBulb
           rotation=0)));
   Buildings.Fluid.Sensors.TemperatureTwoPort temDyn(
     redeclare package Medium = Medium,
+    m_flow_nominal=2,
     initType=Modelica.Blocks.Types.Init.InitialState,
-    T_start=293.15,
-    m_flow_nominal=2)
+    T_start=293.15)
     annotation (Placement(transformation(extent={{30,-2},{50,18}})));
 equation
   connect(TDryBul.y, masFloRat.T_in)    annotation (Line(points={{-79,30},{-60,30},

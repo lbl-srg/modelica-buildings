@@ -24,7 +24,7 @@ model EvaporationFlowReversal
     "Nominal air outlet humidity";
 
   Evaporation eva(redeclare package Medium = Medium, nomVal=nomVal,
-    m(start=0.55)) "Evaporation model"
+    m(start=0.55, fixed=true)) "Evaporation model"
     annotation (Placement(transformation(extent={{40,6},{60,26}})));
   Modelica.Blocks.Sources.BooleanConstant offSignal(k=false)
     annotation (Placement(transformation(extent={{-20,60},{0,80}})));
@@ -82,8 +82,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-120},{120,100}},
-          preserveAspectRatio=true),
-                      graphics),
+          preserveAspectRatio=true)),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/EvaporationFlowReversal.mos"
         "Simulate and plot"),
           Documentation(info="<html>
@@ -105,7 +104,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=2400,
-      Tolerance=1e-05,
-      Algorithm="Radau"),
-    __Dymola_experimentSetupOutput);
+      Tolerance=1e-05));
 end EvaporationFlowReversal;

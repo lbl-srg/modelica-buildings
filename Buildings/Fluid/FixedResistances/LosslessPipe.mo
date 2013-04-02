@@ -38,12 +38,15 @@ equation
 defaultComponentName="pip",
     Documentation(info="<html>
 <p>
-Model of a pipe with no flow resistance and no heat loss.
+Model of a pipe with no flow resistance, no heat loss and no transport delay.
 This model can be used to replace a <code>replaceable</code> pipe model
-in flow legs in which no friction should be modeled, such as
-in the outlet port of a three way valve.
+in flow legs in which no friction should be modeled.
+This is for example done in the outlet port of the
+base class for three way valves,
+<a href=\"modelica://Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve\">
+Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>.
 </p>
-</html>"),
+</html>",
 revisions="<html>
 <ul>
 <li>
@@ -51,5 +54,5 @@ June 13, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>");
+</html>"));
 end LosslessPipe;

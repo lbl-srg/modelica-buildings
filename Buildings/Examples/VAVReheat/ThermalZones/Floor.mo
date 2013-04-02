@@ -679,7 +679,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{400,500}}), graphics), Icon(coordinateSystem(
+            -100},{400,500}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{400,500}}), graphics={
         Rectangle(
           extent={{-80,-80},{380,180}},

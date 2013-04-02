@@ -6,8 +6,8 @@ model ConstantEffectiveness
  package Medium1 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
  package Medium2 = Buildings.Media.PerfectGases.MoistAirUnsaturated;
 
-  Buildings.Fluid.Sources.Boundary_pT sin_2(                       redeclare
-      package Medium = Medium2, T=273.15 + 10,
+  Buildings.Fluid.Sources.Boundary_pT sin_2(
+    redeclare package Medium = Medium2, T=273.15 + 10,
     use_p_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{-58,-10},
             {-38,10}}, rotation=0)));
@@ -17,8 +17,8 @@ model ConstantEffectiveness
     offset=101330)
                  annotation (Placement(transformation(extent={{-20,-50},{0,-30}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sou_2(                       redeclare
-      package Medium = Medium2, T=273.15 + 5,
+  Buildings.Fluid.Sources.Boundary_pT sou_2(
+    redeclare package Medium = Medium2, T=273.15 + 5,
     use_p_in=true,
     use_T_in=true,
     nPorts=1)             annotation (Placement(transformation(extent={{40,-70},
@@ -35,8 +35,8 @@ model ConstantEffectiveness
     Modelica.Blocks.Sources.Constant POut(k=101325)
       annotation (Placement(transformation(extent={{-100,-2},{-80,18}},
           rotation=0)));
-  Buildings.Fluid.Sources.Boundary_pT sin_1(                       redeclare
-      package Medium = Medium1,
+  Buildings.Fluid.Sources.Boundary_pT sin_1(
+    redeclare package Medium = Medium1,
     T=273.15 + 30,
     X={0.012,1 - 0.012},
     use_p_in=true,
@@ -58,9 +58,9 @@ model ConstantEffectiveness
     offset=1E5 - 110)
                  annotation (Placement(transformation(extent={{40,60},{60,80}},
           rotation=0)));
-  Buildings.Fluid.MassExchangers.ConstantEffectiveness hex(redeclare package
-      Medium1 =
-        Medium1, redeclare package Medium2 = Medium2,
+  Buildings.Fluid.MassExchangers.ConstantEffectiveness hex(
+    redeclare package Medium1 = Medium1,
+    redeclare package Medium2 = Medium2,
     m1_flow(start=5),
     m2_flow(start=5),
     m1_flow_nominal=5,

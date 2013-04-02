@@ -40,5 +40,5 @@ First implementation.
           fillPattern=FillPattern.Solid,
           textString="XiTotal")}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}), graphics));
+            100,100}})));
 end ToDryAir;

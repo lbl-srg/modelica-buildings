@@ -107,5 +107,5 @@ First implementation.
           fillColor={255,255,0},
           fillPattern=FillPattern.Solid)}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}), graphics));
+            100,100}})));
 end StratifiedEnhanced;

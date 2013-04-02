@@ -390,9 +390,8 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true,
-            extent={{-240,-160},{100,100}}),
-            graphics),
-    Commands(file=
+            extent={{-240,-160},{100,100}})),
+    __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System2.mos"
         "Simulate and plot"),
     experiment(StopTime=172800));

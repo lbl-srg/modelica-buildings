@@ -32,9 +32,8 @@ equation
       smooth=Smooth.None));
    annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlyExteriorWallWithWindowInteriorShade.mos" "Simulate and plot"),
    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            200,160}}), graphics),
+            200,160}})),
     experiment(
       StopTime=172800,
-      Tolerance=1e-05,
-      Algorithm="Radau"));
+      Tolerance=1e-05));
 end OnlyExteriorWallWithWindowInteriorShade;

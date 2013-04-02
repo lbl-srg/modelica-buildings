@@ -14,5 +14,5 @@ equation
           lineColor={0,0,0},
           textString="k=%k")}),
                           Diagram(coordinateSystem(preserveAspectRatio=true,
-          extent={{-100,-100},{100,100}}), graphics));
+          extent={{-100,-100},{100,100}})));
 end IntegerSum;

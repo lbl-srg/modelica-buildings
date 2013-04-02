@@ -14,8 +14,7 @@ model UTube "Single U-tube borehole heat exchanger"
     annotation (Dialog(group="Tubes"));
 
   replaceable parameter Buildings.HeatTransfer.Data.BoreholeFillings.Generic
-    matFil
-    "Thermal properties of the borehole filling"
+    matFil "Thermal properties of the borehole filling"
     annotation (choicesAllMatching=true, Dialog(group="Borehole"));
   parameter Modelica.SIunits.Height hBor "Total height of the borehole"
     annotation(Dialog(group="Borehole"));
@@ -25,8 +24,7 @@ model UTube "Single U-tube borehole heat exchanger"
   parameter Modelica.SIunits.Radius rBor=0.1 "Radius of the borehole";
 
   replaceable parameter Buildings.HeatTransfer.Data.Soil.Generic
-    matSoi[nVer]
-    "Thermal properties of the soil"
+    matSoi[nVer] "Thermal properties of the soil"
     annotation (choicesAllMatching=true, Dialog(group="Soil"));
 
   parameter Modelica.SIunits.Radius rExt=3
@@ -136,8 +134,7 @@ equation
         color={0,127,255},
         smooth=Smooth.None));
   end for;
-    annotation(Dialog(group="Borehole"),
-               Dialog(group="Borehole"),
+    annotation (
     defaultComponentName="borehole",
     Icon(coordinateSystem(
         preserveAspectRatio=true,
@@ -194,13 +191,7 @@ equation
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
         grid={2,2},
-        initialScale=0.5), graphics={Text(
-          extent={{60,72},{84,58}},
-          lineColor={0,0,255},
-          textString=""), Text(
-          extent={{50,-32},{90,-38}},
-          lineColor={0,0,255},
-          textString="")}),
+        initialScale=0.5)),
     Documentation(info="<html>
 <p>
 Model of a single U-tube borehole heat exchanger. 

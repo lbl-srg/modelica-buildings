@@ -216,10 +216,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(graphics),
-    Commands(file=
+    __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/SpaceCooling/System1.mos"
         "Simulate and plot"),
-    experiment(StopTime=10800),
-    __Dymola_experimentSetupOutput);
+    experiment(StopTime=10800));
 end System1;

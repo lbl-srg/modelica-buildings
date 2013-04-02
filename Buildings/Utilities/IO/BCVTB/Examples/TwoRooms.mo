@@ -45,11 +45,11 @@ model TwoRooms
     "Room temperature"
     annotation (Placement(transformation(extent={{90,-40},{110,-20}})));
   Buildings.Utilities.IO.BCVTB.BCVTB bcvtb(
-    nDblWri=2,
-    nDblRea=2,
     xmlFileName="socket.cfg",
     uStart={TStart - 273.15,TStart - 273.15},
-    timeStep=60)
+    timeStep=60,
+    final nDblWri=2,
+    final nDblRea=2)
     annotation (Placement(transformation(extent={{-80,-10},{-60,10}})));
   Modelica.Blocks.Routing.Multiplex2 multiplex2_1
     annotation (Placement(transformation(extent={{200,-10},{220,10}})));
@@ -135,7 +135,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{240,100}}), graphics),
+            -100},{240,100}})),
     experiment(StopTime=21600),
     Documentation(info="<html>
 This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.

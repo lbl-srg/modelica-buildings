@@ -283,7 +283,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(graphics),
     Icon(graphics={
         Text(
           extent={{26,86},{102,74}},

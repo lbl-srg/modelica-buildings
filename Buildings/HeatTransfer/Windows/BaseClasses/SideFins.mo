@@ -163,7 +163,7 @@ equation
     crShdArea  = 0;
     fraSun     = 0;
   end if;
-  annotation ( Diagram(graphics), Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
+  annotation ( Icon(graphics={Bitmap(extent={{-92,92},{92,-92}},
             fileName="modelica://Buildings/Resources/Images/HeatTransfer/Windows/BaseClasses/SideFins.png")}),
 defaultComponentName="fin",
 Documentation(info="<html>

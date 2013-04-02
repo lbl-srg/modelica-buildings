@@ -30,7 +30,7 @@ equation
       points={{-43.4,80},{-34,80},{-34,60},{-21,60}},
       color={255,127,0},
       smooth=Smooth.None));
-  annotation (defaultComponentName="sinSpeDX", Diagram(graphics), Documentation(info="<html>
+  annotation (defaultComponentName="sinSpeDX", Documentation(info="<html>
 <p>
 This model can be used to simulate a DX cooling coil with single speed compressor.
 </p>

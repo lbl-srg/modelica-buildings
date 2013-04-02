@@ -1,7 +1,7 @@
 within Buildings.HeatTransfer;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Info;
-  annotation (DocumentationClass=true, Documentation(info="<html>
+  annotation (Documentation(info="<html>
 The package <code>Buildings.HeatTransfer</code> consists of models
 for heat transfer.
 The models have the same interface as models of the package

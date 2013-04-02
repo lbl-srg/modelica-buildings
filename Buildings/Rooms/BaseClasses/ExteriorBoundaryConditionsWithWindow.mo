@@ -294,7 +294,7 @@ equation
           fillPattern=FillPattern.Solid,
           pattern=LinePattern.Dash)}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,-300},{300,
-            300}}), graphics),
+            300}})),
     Documentation(info="<html>
 This model computes the boundary conditions for the outside-facing surface of
 opaque constructions and of windows.

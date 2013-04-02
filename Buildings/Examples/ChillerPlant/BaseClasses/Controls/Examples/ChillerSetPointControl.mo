@@ -208,8 +208,8 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-200},{200,
-            200}}), graphics),
-    Commands(file=
+            200}})),
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/ChillerSetPointControl.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,

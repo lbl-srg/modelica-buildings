@@ -32,7 +32,7 @@ equation
   P = -EIR*Q_flow;
   QSen_flow = Q_flow * SHR;
   QLat_flow = Q_flow - QSen_flow;
-  annotation(defaultComponentName="pwr", Diagram(graphics),
+  annotation(defaultComponentName="pwr",
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={
         Text(

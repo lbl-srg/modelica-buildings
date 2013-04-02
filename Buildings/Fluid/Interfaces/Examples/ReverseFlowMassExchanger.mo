@@ -314,7 +314,7 @@ equation
   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowMassExchanger.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-200},{200,
-            200}}), graphics),
+            200}})),
     Documentation(info="<html>
 <p>
 This model tests whether the results for a mass exchanger are

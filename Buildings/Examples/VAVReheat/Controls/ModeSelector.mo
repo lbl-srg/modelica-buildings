@@ -306,7 +306,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-220,
-            -220},{220,220}}), graphics), Icon(coordinateSystem(
+            -220},{220,220}})), Icon(coordinateSystem(
           preserveAspectRatio=true, extent={{-220,-220},{220,220}}), graphics={
           Rectangle(
           extent={{-200,200},{200,-200}},

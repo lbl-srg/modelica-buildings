@@ -85,7 +85,7 @@ equation
       smooth=Smooth.None));
   annotation (defaultComponentName="bouBCVTB",
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics),
+            -100},{100,100}})),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Line(points={{-100,40},{-92,40}}, color={0,0,255}),

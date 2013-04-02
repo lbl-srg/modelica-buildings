@@ -73,7 +73,7 @@ model FourPort "Partial model with four ports"
     Diagram(coordinateSystem(
           preserveAspectRatio=true,
           extent={{-100,-100},{100,100}},
-          grid={1,1}), graphics),
+          grid={1,1})),
     Documentation(info="<html>
 <p>
 This model defines an interface for components with four ports. 

@@ -30,7 +30,7 @@ model StepResponse "Model that tests the radiant slab"
     A=A) "Slabe with embedded pipes"
     annotation (Placement(transformation(extent={{10,-30},{30,-10}})));
 
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_nominal=
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
      0.167 "Nominal mass flow rate";
   Modelica.Thermal.HeatTransfer.Sources.FixedTemperature TAirAbo(T=293.15)
     "Air temperature above the slab"
@@ -130,15 +130,13 @@ equation
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/RadiantSlabs/Examples/StepResponse.mos"
         "Simulate and plot"),
           Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-120},
-            {100,100}}),
-                     graphics),
-    experimentSetupOutput,
-              Diagram,
-                  Documentation(info="<html>
+            {100,100}})),
+Documentation(info="<html>
 <p>
 This example models the step response of a radiant slab.
 </p>
-</html>", revisions="<html>
+</html>",
+revisions="<html>
 <ul>
 <li>
 April 5, 2012, by Michael Wetter:<br>
@@ -148,21 +146,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=86400,
-      Tolerance=1e-05,
-      Algorithm="Radau"),
-    Icon(coordinateSystem(extent={{-100,-120},{100,100}})),
-    Documentation(info="<html>
-<p>
-This example models the step response for a radiant slab.
-</p>
-</html>
-",
-revisions="<html>
-<ul>
-<li>
-April 5, 2012, by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>"));
+      Tolerance=1e-05));
 end StepResponse;

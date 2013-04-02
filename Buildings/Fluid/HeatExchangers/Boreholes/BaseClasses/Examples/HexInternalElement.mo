@@ -55,9 +55,7 @@ equation
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/HexInternalElement.mos"
         "Simulate and plot"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
-    experimentSetupOutput,
-    Diagram,
+            100}})),
     Documentation(info="<html>
 This example illustrates modeling the internal part of a borehole heat exchanger.
 The borehole is constitued with two pipes that are symetricaly spaced in the borehole. 

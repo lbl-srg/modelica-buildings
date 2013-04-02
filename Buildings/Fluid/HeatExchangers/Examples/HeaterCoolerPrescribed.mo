@@ -7,7 +7,7 @@ model HeaterCoolerPrescribed "Model that demonstrates the ideal heater model"
 
   inner Modelica.Fluid.System system(m_flow_start=0, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_nominal=
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
      3000/1000/20 "Nominal mass flow rate";
 
   Buildings.Fluid.Sources.Boundary_pT sou(
@@ -124,7 +124,7 @@ equation
 
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
-            200}}), graphics),
+            200}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/HeaterCoolerPrescribed.mos"
         "Simulate and plot"),
@@ -146,7 +146,5 @@ First implementation.
 </html>"),
     experiment(
       StopTime=1200,
-      Tolerance=1e-05,
-      Algorithm="Radau"),
-    __Dymola_experimentSetupOutput);
+      Tolerance=1e-05));
 end HeaterCoolerPrescribed;

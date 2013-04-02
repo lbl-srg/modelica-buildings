@@ -20,16 +20,20 @@ model StaticTwoPortConservationEquation
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,110})));
-  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](unit="1")
+
+  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
+                                                          each min=0,
+                                                          each max=1)
     "Leaving species concentration of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
-  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](unit="1")
+  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
     "Leaving trace substances of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={50,110})));
+
   constant Boolean use_safeDivision=true
     "Set to true to improve numerical robustness";
 protected
@@ -115,7 +119,7 @@ equation
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
+        grid={1,1})),
     Documentation(info="<html>
 <p>
 This model transports fluid between its two ports, without storing mass or energy. 
@@ -147,6 +151,11 @@ or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 27, 2013 by Michael Wetter:<br>
+Removed wrong unit attribute of <code>COut</code>,
+and added min and max attributes for <code>XiOut</code>.
+</li>
 <li>
 June 22, 2012 by Michael Wetter:<br>
 Reformulated implementation with <code>m_flowInv</code> to use <code>port_a.m_flow * ...</code>

@@ -5,9 +5,9 @@ partial model PartialDynamicFlowSensor
 
   parameter Modelica.SIunits.Time tau(min=0) = 1
     "Time constant at nominal flow rate" annotation (Evaluate=true);
-  parameter Modelica.Blocks.Types.Init initType = Modelica.Blocks.Types.Init.NoInit
-    "Type of initialization (InitialState and InitialOutput are identical)"
-     annotation(Evaluate=true, Dialog(group="Initialization"));
+  parameter Modelica.Blocks.Types.Init initType = Modelica.Blocks.Types.Init.InitialState
+"Type of initialization (InitialState and InitialOutput are identical)"
+  annotation(Evaluate=true, Dialog(group="Initialization"));
 protected
   Real k(start=1)
     "Gain to take flow rate into account for sensor time constant";
@@ -40,6 +40,14 @@ improving the numerical efficiency.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2013, by Michael Wetter:<br>
+Changed the parameter <code>initType</code> to
+<code>Modelica.Blocks.Types.Init.InitialState</code>.
+This allows a pedantic model check in Dymola 2014 of models that instanciate sensors
+but do not set this parameter. It also ensures that different Modelica simulators solve
+the same initialization problem.
+</li>
 <li>
 July 7, 2011, by Michael Wetter:<br>
 First implementation.

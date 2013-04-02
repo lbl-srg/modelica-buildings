@@ -14,7 +14,8 @@ model FlowMachineParallel_y "Test model for two flow machines in parallel"
     annotation (Placement(transformation(extent={{-20,100},{0,120}})));
   Buildings.Fluid.Movers.FlowMachine_y floMac1(
     redeclare package Medium = Medium,
-    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}))
+    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Model of a flow machine"
     annotation (Placement(transformation(extent={{20,100},{40,120}})));
 
@@ -59,7 +60,8 @@ model FlowMachineParallel_y "Test model for two flow machines in parallel"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
   Buildings.Fluid.Movers.FlowMachine_y floMac2(
     redeclare package Medium = Medium,
-    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}))
+    pressure(V_flow={0, m_flow_nominal/1000}, dp={2*4*1000, 0}),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     "Model of a flow machine"
     annotation (Placement(transformation(extent={{20,0},{40,20}})));
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dpOut2(
@@ -124,7 +126,7 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
-            160}}), graphics),
+            160}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/FlowMachineParallel_y.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -144,10 +146,8 @@ March 24 2010, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"),    Diagram,
+</html>"),
     experiment(
       StopTime=300,
-      Tolerance=1e-06,
-      Algorithm="Radau"),
-    __Dymola_experimentSetupOutput);
+      Tolerance=1e-06));
 end FlowMachineParallel_y;

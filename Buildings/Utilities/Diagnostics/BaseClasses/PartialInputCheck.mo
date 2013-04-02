@@ -28,7 +28,7 @@ equation
   annotation (Icon(graphics={Text(
           extent={{-62,-38},{54,-68}},
           lineColor={0,0,255},
-          textString="%threShold")}),         Diagram(graphics),
+          textString="%threShold")}),        
 Documentation(info="<html>
 <p>
 Partial model that can be used to check whether its

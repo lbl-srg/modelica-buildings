@@ -19,10 +19,9 @@ model Case610 "Case 600 with south shading"
         experiment(
       StopTime=3.1536e+007,
       Interval=3600,
-      Tolerance=1e-006,
-      Algorithm="Radau"),                  Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics),
-    experimentSetupOutput,
+      Tolerance=1e-006),
+Diagram(coordinateSystem(
+          preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     Documentation(
     info="<html>
 <p>

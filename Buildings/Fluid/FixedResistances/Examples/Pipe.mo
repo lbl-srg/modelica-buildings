@@ -5,7 +5,6 @@ model Pipe "Test of a pipe with multiple segments"
 
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater;
 
-
   Modelica.Blocks.Sources.Ramp P(
     duration=1,
     height=2*pip.dp_nominal,
@@ -35,7 +34,8 @@ model Pipe "Test of a pipe with multiple segments"
     lambdaIns=0.01,
     m_flow_nominal=10,
     redeclare package Medium = Medium,
-    length=10)
+    length=10,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{0,20},{20,40}})));
   HeatTransfer.Sources.FixedTemperature TEnv1[10](each T=263.15)
     annotation (Placement(transformation(extent={{-40,-50},{-20,-30}})));
@@ -45,7 +45,8 @@ model Pipe "Test of a pipe with multiple segments"
     m_flow_nominal=10,
     redeclare package Medium = Medium,
     length=10,
-    useMultipleHeatPorts=true)
+    useMultipleHeatPorts=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{0,-40},{20,-20}})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem(redeclare package Medium =
         Medium, m_flow_nominal=pip.m_flow_nominal) "Temperature sensor"
@@ -102,14 +103,10 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{140,
-            100}}), graphics),
+            100}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/Pipe.mos"
         "Simulate and plot"),
-    Diagram(Text(
-        extent=[-20, 58; 30, 44],
-        style(color=3, rgbcolor={0,0,255}),
-        string="nRes resistances  in series")),
     Documentation(info="<html>
 <p>
 This model demonstrates the use of a pipe model.

@@ -61,7 +61,7 @@ equation
             ( (1-XWetBul)*cpAir + XWetBul * cpSte);
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
     Documentation(info="<html>
 <p>
 Block to compute the temperature and mass fraction at the wet bulb condition

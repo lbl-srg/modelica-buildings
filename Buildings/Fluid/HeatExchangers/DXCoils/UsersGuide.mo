@@ -1,7 +1,7 @@
 within Buildings.Fluid.HeatExchangers.DXCoils;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Info;
-  annotation (DocumentationClass=true, Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 This package contains models for direct evaporation cooling coils 
 (DX coils).

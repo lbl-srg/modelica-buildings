@@ -14,13 +14,11 @@ equation
   assert(abs(x - y) < 1E-2, "Model has an error");
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+            100,100}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/DewPointTemperatureDerivativeCheck_amb.mos" "Simulate and plot"),
     experiment(
       StartTime=273.15,
-      StopTime=473.15,
-      Algorithm="Euler"),
-    experimentSetupOutput,
+      StopTime=473.15),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative
