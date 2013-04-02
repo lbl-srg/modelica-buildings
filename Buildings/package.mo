@@ -350,7 +350,9 @@ Note:
 </p>
 <ul>
 <li> 
-xxx
+This version contains various updates that allow
+the syntax of the example models to be checked in the pedantic mode
+in Dymola 2014.
 </li>
 </ul>
 </p>
