@@ -28,7 +28,10 @@ function exchange "Function that communicates with Python"
                                     intValWri, nIntWri,
                                     intValRea, nIntRea,
                                     strValWri, nStrWri)
-    annotation (Library={"ModelicaBuildingsPython2.7", "python2.7"});
+    annotation (Library={"ModelicaBuildingsPython2.7",  "python2.7"},
+      LibraryDirectory={"modelica://Buildings/Resources/Library"},
+      IncludeDirectory="modelica://Buildings/Resources/src/python",
+      Include="#include \"python27Wrapper.c\"");
   annotation (Documentation(info="<html>
 <p>
 This function exchanges data with Python.
@@ -42,6 +45,10 @@ for examples.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2013, by Thierry S. Nouidui:<br>
+Added  a wrapper to <code>ModelicaFormatError</code> to support Windows OS.
+</li>
 <li>
 January 31, 2013, by Michael Wetter:<br>
 First implementation.
