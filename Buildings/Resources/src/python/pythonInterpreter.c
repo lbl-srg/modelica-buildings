@@ -1,12 +1,12 @@
 #include "pythonInterpreter.h"
-
-void pythonExchangeValues(const char * moduleName,
+void pythonExchangeValuesNoModelica(const char * moduleName,
                           const char * functionName,
                           double * dblValWri, size_t nDblWri,
                           double * dblValRea, size_t nDblRea,
                           int * intValWri, size_t nIntWri,
                           int * intValRea, size_t nIntRea,
-                          const char ** strValWri, size_t nStrWri)
+                          const char ** strValWri, size_t nStrWri,
+			  void (*ModelicaFormatError)(const char *string,...))
 {
   PyObject *pName, *pModule, *pFunc;
   PyObject *pArgsDbl, *pArgsInt, *pArgsStr;
@@ -26,7 +26,7 @@ void pythonExchangeValues(const char * moduleName,
   // Load Python module
   pName = PyString_FromString(moduleName);
   if (!pName) {
-    ModelicaFormatError("Failed to convert moduleName '%s' to Python object.\n", moduleName);
+    (*ModelicaFormatError)("Failed to convert moduleName '%s' to Python object.\n", moduleName);
   }
   
   pModule = PyImport_Import(pName);
@@ -40,7 +40,7 @@ void pythonExchangeValues(const char * moduleName,
     if (pTraceBack != NULL)
       Py_DECREF(pTraceBack);
     // Py_Finalize(); // removed, see note at other Py_Finalize() statement
-    ModelicaFormatError("Failed to load \"%s\".\n\
+    (*ModelicaFormatError)("Failed to load \"%s\".\n\
 This may occur if you did not set the PYTHONPATH environment variable\n\
 or if the Python module contains a syntax error.\n\
 The error message is \"%s\"", 
@@ -58,7 +58,7 @@ The error message is \"%s\"",
     if (PyErr_Occurred())
       PyErr_Print();
     // Py_Finalize(); // removed, see note at other Py_Finalize() statement
-    ModelicaFormatError(
+    (*ModelicaFormatError)(
 			"Cannot find function \"%s\".\nMake sure PYTHONPATH contains the path of the module that contains this function.\n", 
 			functionName);
     
@@ -91,7 +91,7 @@ The error message is \"%s\"",
 	Py_DECREF(pModule);
 	// According to the Modelica specification, 
 	// the function ModelicaError never returns to the calling function.
-	ModelicaFormatError("Cannot convert double argument number %i to Python format.", i);
+	(*ModelicaFormatError)("Cannot convert double argument number %i to Python format.", i);
       }
       // pValue reference stolen here
       PyList_SetItem(pArgsDbl, i, pValue);
@@ -117,7 +117,7 @@ The error message is \"%s\"",
 	  Py_DECREF(pModule);
 	  // According to the Modelica specification, 
 	  // the function ModelicaError never returns to the calling function.
-	  ModelicaFormatError("Cannot convert integer argument number %i to Python format.", i);
+	  (*ModelicaFormatError)("Cannot convert integer argument number %i to Python format.", i);
 	}
 	// pValue reference stolen here
 	PyList_SetItem(pArgsInt, i, pValue);
@@ -151,7 +151,7 @@ The error message is \"%s\"",
 	Py_DECREF(pModule);
 	// According to the Modelica specification, 
 	// the function ModelicaError never returns to the calling function.
-	ModelicaFormatError("Cannot convert string argument number %i to Python format.", i);
+	(*ModelicaFormatError)("Cannot convert string argument number %i to Python format.", i);
       }
       // pValue reference stolen here
       PyList_SetItem(pArgsStr, i, pValue);
@@ -185,7 +185,7 @@ The error message is \"%s\"",
     Py_DECREF(pFunc);
     Py_DECREF(pModule);
     // Py_Finalize(); // removed, see note at other Py_Finalize() statement
-    ModelicaFormatError("Call to Python function failed.\n \
+    (*ModelicaFormatError)("Call to Python function failed.\n \
 This is often due to an error in the Python script,\n \
 or because the list of arguments of the Python function is incorrect.\n \
 Check the module \"%s\".\n \
@@ -209,7 +209,7 @@ The error message is \"%s\"",
     if (nRet > 1){
       // Check whether it is a list
       if (!PyList_Check(pValue)){
-	ModelicaFormatError("Python function \"%s\" does not return a list.\n\
+	(*ModelicaFormatError)("Python function \"%s\" does not return a list.\n\
 The returned object is \"%s\"",
 			    functionName, PyString_AsString(PyObject_Repr(pValue)));
       }
@@ -220,7 +220,7 @@ The returned object is \"%s\"",
     // Hence, we only check for nRet==2.
     if ( nRet == 2){
       if ( nRet != PyList_Size(pValue) ){
-	ModelicaFormatError("Python function \"%s\", returns a list with %i elements,\n \
+	(*ModelicaFormatError)("Python function \"%s\", returns a list with %i elements,\n \
 but expected two elements.\n\
 The returned object is \"%s\"",
 			    functionName, 
@@ -240,7 +240,7 @@ The returned object is \"%s\"",
       }
       // Check the number of return arguments
       if ( nDblRea > 1 && nDblRea != PyList_Size(pItemDbl) )
-	ModelicaFormatError("For Python function \"%s\", Modelica declares that Python returns %i doubles,\
+	(*ModelicaFormatError)("For Python function \"%s\", Modelica declares that Python returns %i doubles,\
  but Python returned %i values.\n\
 The returned object is \"%s\"",
 			    functionName, nDblRea, PyList_Size(pItemDbl),
@@ -254,7 +254,7 @@ The returned object is \"%s\"",
 	if (PyFloat_Check(pItemDbl) || PyLong_Check(pItemDbl) || PyInt_Check(pItemDbl))
 	  dblValRea[0] = PyFloat_AsDouble( pItemDbl );
 	else
-	  ModelicaFormatError("Python function \"%s\" returns an invalid object for a scalar double value.\n\
+	  (*ModelicaFormatError)("Python function \"%s\" returns an invalid object for a scalar double value.\n\
 There should only be one double value returned.\n\
 The returned object is \"%s\".", 
 			      functionName, PyString_AsString(PyObject_Repr(pValue)));
@@ -268,7 +268,7 @@ The returned object is \"%s\".",
 	    dblValRea[pIndVal] = PyFloat_AsDouble( p );
 	  }
 	  else
-	    ModelicaFormatError("Python function \"%s\" returns an invalid object for a scalar double value.\n\
+	    (*ModelicaFormatError)("Python function \"%s\" returns an invalid object for a scalar double value.\n\
 The returned object is \"%s\".", 
 				functionName, PyString_AsString(PyObject_Repr(pValue)));
 	} // for(...)
@@ -293,7 +293,7 @@ The returned object is \"%s\".",
       }
       // Check the number of return arguments
       if ( nIntRea > 1 && nIntRea != PyList_Size(pItemInt) )
-	ModelicaFormatError("For Python function \"%s\", Modelica declares that Python returns %i integers,\
+	(*ModelicaFormatError)("For Python function \"%s\", Modelica declares that Python returns %i integers,\
  but Python returned %i values.\n\
 The returned object is \"%s\"",
 			    functionName, nIntRea, PyList_Size(pItemInt),
@@ -304,7 +304,7 @@ The returned object is \"%s\"",
       if (nIntRea == 1){
 	// Check whether it is an integer.
 	if (! (PyLong_Check(pItemInt)  || PyInt_Check(pItemDbl)) )
-	  ModelicaFormatError("Python function \"%s\" returns an invalid object for a scalar integer value.\n\
+	  (*ModelicaFormatError)("Python function \"%s\" returns an invalid object for a scalar integer value.\n\
 The returned object is \"%s\".", 
 			      functionName, PyString_AsString(PyObject_Repr(pValue)));
 	  intValRea[0] = PyInt_AsLong( pItemInt );
@@ -313,7 +313,7 @@ The returned object is \"%s\".",
 	for(pIndVal = 0; pIndVal < PyList_Size(pItemInt); ++pIndVal){
 	  PyObject *p = PyList_GetItem(pItemInt, pIndVal);
 	  if (!PyLong_Check(p))
-	    ModelicaFormatError("Python function \"%s\" returns an invalid object for a scalar integer value.\n\
+	    (*ModelicaFormatError)("Python function \"%s\" returns an invalid object for a scalar integer value.\n\
 The returned object is \"%s\".", 
 				functionName, PyString_AsString(PyObject_Repr(pValue)));
 	  intValRea[pIndVal] = PyInt_AsLong( p );
@@ -348,6 +348,8 @@ The returned object is \"%s\".",
   return;
 }
 
+/*
+// 3/26/2013- TN: checkStringLength is commented out since it is not used.
 void checkStringLength(const char * str, size_t strLen){
   int i;
   int n;
@@ -365,3 +367,4 @@ void checkStringLength(const char * str, size_t strLen){
                         str, strLen);
   return;
 }
+*/
