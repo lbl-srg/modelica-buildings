@@ -34,11 +34,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(p.y, humRat.p_in) annotation (Line(
-      points={{-59,30},{30,30},{30,16},{39,16}},
+      points={{-59,30},{30,30},{30,16},{38,16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(p.y, vapPre.p_in) annotation (Line(
-      points={{-59,30},{-20,30},{-20,16},{-1,16}},
+      points={{-59,30},{-20,30},{-20,16},{-2,16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(XHumDryAir.y, toTotalAir.XiDry) annotation (Line(
@@ -53,8 +53,7 @@ equation
       points={{-19,-10},{24,-10},{24,-36},{78,-36}},
       color={0,0,127},
       smooth=Smooth.None));
- annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/HumidityRatioPressure.mos" "Simulate and plot"), Diagram(
-        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
-                                                                      graphics),
-              Diagram);
+ annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Examples/HumidityRatioPressure.mos"
+        "Simulate and plot"),                                                                                                    Diagram(
+        coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,100}})));
 end HumidityRatioPressure;

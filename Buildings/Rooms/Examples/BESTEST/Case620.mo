@@ -29,9 +29,9 @@ model Case620 "Case 600, but with windows on East and West side walls"
         experiment(
       StopTime=3.1536e+007,
       Interval=3600,
-      Tolerance=1e-006,
-      Algorithm="Radau"),                  Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics),
+      Tolerance=1e-006),
+Diagram(coordinateSystem(
+          preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     experimentSetupOutput,
     Documentation(info="<html>
 <p>

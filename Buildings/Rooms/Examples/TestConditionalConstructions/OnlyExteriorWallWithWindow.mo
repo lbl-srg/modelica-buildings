@@ -18,9 +18,7 @@ model OnlyExteriorWallWithWindow "Test model for room model"
                  each azi=Buildings.HeatTransfer.Types.Azimuth.W)));
    annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/TestConditionalConstructions/OnlyExteriorWallWithWindow.mos" "Simulate and plot"),
    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
-            200,160}}), graphics),
+            200,160}})),
     experiment(
-      StopTime=172800,
-      Tolerance=1e-05,
-      Algorithm="Radau"));
+      StopTime=172800));
 end OnlyExteriorWallWithWindow;

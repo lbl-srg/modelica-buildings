@@ -10,7 +10,7 @@ expandable connector SolarSubBus "Data bus that stores solar position"
           lineColor={255,204,51},
           lineThickness=0.5)}),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
     Documentation(info="<html>
 <p>
 This component is an expandable connector that is used to implement a bus that contains the solar position.

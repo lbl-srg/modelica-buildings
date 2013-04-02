@@ -334,7 +334,7 @@ Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>.
 
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics),   Documentation(info="<html>
+            -100},{100,100}})),   Documentation(info="<html>
 This package is identical to
 <a href=\"modelica:Modelica.Thermal.HeatTransfer.Sources\">
 Modelica.Thermal.HeatTransfer.Sources</a>, except that

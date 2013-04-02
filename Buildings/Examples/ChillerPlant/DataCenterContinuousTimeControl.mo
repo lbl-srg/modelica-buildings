@@ -4,7 +4,7 @@ model DataCenterContinuousTimeControl
   extends Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl(redeclare
       BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation triAndRes);
   annotation (
-    Commands(file=
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenterContinuousTimeControl.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

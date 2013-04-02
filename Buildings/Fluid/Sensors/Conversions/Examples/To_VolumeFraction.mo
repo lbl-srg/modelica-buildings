@@ -24,11 +24,10 @@ model To_VolumeFraction "Example problem for conversion model"
   Buildings.Fluid.MixingVolumes.MixingVolume vol(
     nPorts=4,
     redeclare package Medium = Medium,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
-    massDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial,
     V=4*4*2.7,
     C_start={300E-6}*44.009544/28.9651159,
-    m_flow_nominal=0.1) "Volume of air"
+    m_flow_nominal=0.1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Volume of air"
     annotation (Placement(transformation(extent={{90,60},{110,80}})));
   Buildings.Fluid.Sources.PrescribedExtraPropertyFlowRate souCO2(
     use_m_flow_in=true,
@@ -71,12 +70,24 @@ model To_VolumeFraction "Example problem for conversion model"
     annotation (Placement(transformation(extent={{40,20},{60,40}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubPeo(m_flow_nominal=0.1,
       redeclare package Medium = Medium,
-    C_start=0) "CO2 concentration in absorptance from people"
+    C_start=0,
+    initType=Modelica.Blocks.Types.Init.InitialState)
+    "CO2 concentration in absorptance from people"
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
   Buildings.Fluid.Sensors.TraceSubstancesTwoPort senTraSubFre(m_flow_nominal=0.1,
       redeclare package Medium = Medium,
-    C_start=0) "CO2 concentration in fresh air supply"
+    C_start=0,
+    initType=Modelica.Blocks.Types.Init.InitialState)
+    "CO2 concentration in fresh air supply"
     annotation (Placement(transformation(extent={{60,-20},{80,0}})));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{-180,60},{-160,80}})));
+  Buildings.Fluid.FixedResistances.FixedResistanceDpM res(
+    redeclare package Medium = Medium,
+    dp_nominal=10,
+    m_flow_nominal=50/3600)
+    "Pressure drop to decouple the state of the volume from the state of the boundary condition"
+    annotation (Placement(transformation(extent={{122,30},{142,50}})));
 equation
 
   connect(souCO2.m_flow_in, CO2Per.y) annotation (Line(
@@ -143,15 +154,18 @@ equation
       points={{101,60},{101,-10},{130,-10},{130,-5.55112e-16}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(vol.ports[4], sin.ports[1]) annotation (Line(
-      points={{103,60},{102,60},{102,40},{160,40}},
+  connect(vol.ports[4], res.port_a) annotation (Line(
+      points={{103,60},{102,60},{102,38},{122,38},{122,40}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  connect(res.port_b, sin.ports[1]) annotation (Line(
+      points={{142,40},{160,40}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Conversions/Examples/To_VolumeFraction.mos"
         "Simulate and plot"),
-  Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-100},{200,
-            100}}),   graphics),
+  Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-200,-100},{200,100}})),
     Documentation(info="<html>
 This example demonstrates the modeling of a room with one person and CO<sub>2</sub> control.
 The room has a volume of <i>4*4*2.7 m<sup>3</sub></i>, and the CO<sub>2</sub> inflow is from 
@@ -162,6 +176,13 @@ Note that for simplicity, we allow zero outside air flow rate if the CO<sub>2</s
 the setpoint, which does not comply with ASHRAE regulations.
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2013 by Michael Wetter:<br>
+Added a flow resistance between the volume and the ambient to decouple the
+state of the volume from the boundary conditions. This is needed to allow
+a pedantic model check in Dymola 2014, as otherwise, the initial conditions of
+the volume could not be specified without introducing redundant equations.
+</li>
 <li>
 February 13, 2010 by Michael Wetter:<br>
 First implementation.

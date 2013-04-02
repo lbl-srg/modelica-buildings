@@ -1,7 +1,7 @@
 within Buildings.Fluid.Sensors;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Info;
-  annotation (DocumentationClass=true, Documentation(info="<html>
+  annotation (Documentation(info="<html>
 <p>
 This package contains models of sensors.
 There are models with one and with two fluid ports.

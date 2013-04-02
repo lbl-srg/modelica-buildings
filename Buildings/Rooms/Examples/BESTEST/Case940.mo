@@ -19,9 +19,9 @@ model Case940 "Case 900, but with heating schedule"
         experiment(
       StopTime=3.1536e+007,
       Interval=3600,
-      Tolerance=1e-006,
-      Algorithm="Radau"),                  Diagram(coordinateSystem(
-          preserveAspectRatio=true, extent={{-100,-100},{100,100}}), graphics),
+      Tolerance=1e-006),
+Diagram(coordinateSystem(
+          preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
     experimentSetupOutput,
     Documentation(revisions="<html>
 <ul>

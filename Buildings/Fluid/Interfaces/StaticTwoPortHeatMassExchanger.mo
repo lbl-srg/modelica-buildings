@@ -40,10 +40,14 @@ model StaticTwoPortHeatMassExchanger
   // Outputs that are needed in models that extend this model
   Modelica.Blocks.Interfaces.RealOutput hOut(unit="J/kg")
     "Leaving temperature of the component";
-  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](unit="1")
+
+  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
+                                                          each min=0,
+                                                          each max=1)
     "Leaving species concentration of the component";
-  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](unit="1")
+  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
     "Leaving trace substances of the component";
+
   constant Boolean sensibleOnly "Set to true if sensible exchange only";
   constant Boolean use_safeDivision=true
     "Set to true to improve numerical robustness";
@@ -129,6 +133,11 @@ or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2013 by Michael Wetter:<br>
+Removed wrong unit attribute of <code>COut</code>,
+and added min and max attributes for <code>XiOut</code>.
+</li>
 <li>
 February 8, 2012 by Michael Wetter:<br>
 Changed model to use graphical modeling.

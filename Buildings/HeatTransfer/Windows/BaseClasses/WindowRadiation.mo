@@ -244,7 +244,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(graphics),
     Icon(graphics={
         Text(
           extent={{0,86},{90,72}},

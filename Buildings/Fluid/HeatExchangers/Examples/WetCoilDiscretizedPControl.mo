@@ -58,11 +58,10 @@ model WetCoilDiscretizedPControl
           rotation=0)));
   Buildings.Fluid.Actuators.Valves.TwoWayLinear val(
     redeclare package Medium = Medium1,
-    Kv_SI=m1_flow_nominal/sqrt(5000),
     m_flow_nominal=m1_flow_nominal,
     filteredOpening=false,
     dpFixed_nominal=2000,
-    dpValve_nominal=6000)
+    dpValve_nominal=5000)
              annotation (Placement(transformation(extent={{18,38},{38,58}},
           rotation=0)));
   Modelica.Blocks.Sources.TimeTable TSet(table=[0,293.15; 600,293.15; 600,

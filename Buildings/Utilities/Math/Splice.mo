@@ -64,7 +64,7 @@ equation
     Text(
       extent={{54,48},{76,36}},
       lineColor={160,160,164},
-          textString="u1")}),                   Diagram(graphics),
+          textString="u1")}),                  
 Documentation(info="<html>
 <p>
 This block implements <a href=\"modelica://Buildings.Utilities.Math.Functions.spliceFunction\">

@@ -89,7 +89,7 @@ shift the heating curve.
 February 13, 2013, by Michael Wetter:<br>
 Corrected error that led to wrong results if the room air temperature is
 different from its nominal value <code>TRoo_nominal</code>.
-See ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/74\">#74</a>.
+See ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">#74</a>.
 </li>
 <li>
 November 21, 2011, by Michael Wetter:<br>
@@ -143,5 +143,5 @@ First implementation.
           lineColor={0,0,127},
           textString="TRet")}),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}})));
 end HotWaterTemperatureReset;

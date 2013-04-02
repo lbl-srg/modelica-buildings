@@ -14,7 +14,7 @@ defaultComponentName="assEqu",
 Icon(graphics={Text(
           extent={{-84,108},{90,-28}},
           lineColor={255,0,0},
-          textString="u1 = u2")}),            Diagram(graphics),
+          textString="u1 = u2")}),           
 Documentation(info="<html>
 <p>
 Model that triggers an assert if 
@@ -29,7 +29,7 @@ January 23, 2013, by Michael Wetter:<br>
 Replaced <code>when</code> test with <code>if</code> test as
 equations within a <code>when</code> section are only evaluated
 when the condition becomes true.
-This fixes <a href=\"https://corbu.lbl.gov/trac/bie/ticket/72\">ticket 72</a>.
+This fixes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/72\">issue 72</a>.
 </li>
 <li>
 April 17, 2008, by Michael Wetter:<br>

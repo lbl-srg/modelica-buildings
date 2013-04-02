@@ -60,10 +60,7 @@ equation
  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/BoreholeSegment.mos"
         "Simulate and plot"),
         Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}),
-                     graphics),
-    experimentSetupOutput,
-              Diagram,
+            {100,100}})),
                   Documentation(info="<html>
 This example illustrates modeling a segment of a borehole heat exchanger.
 It simulates the behavior of the borehole on a single horizontal section including the ground and the

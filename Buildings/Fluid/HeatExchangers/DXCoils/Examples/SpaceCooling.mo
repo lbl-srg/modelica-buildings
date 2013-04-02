@@ -363,8 +363,8 @@ equation
       smooth=Smooth.None));
   connect(rooSinSpe.ports[2], hex.port_a2)
                                      annotation (Line(
-      points={{133.517,40.1154},{134,-20},{134,-80},{-20,-80},{-20,-76},{-90,
-          -76}},
+      points={{133.517,40.1154},{133.517,-20},{133.517,-80},{-20,-80},{-20,-76},
+          {-90,-76}},
       color={0,127,255},
       smooth=Smooth.None));
 
@@ -671,10 +671,10 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-300},{300,
-            100}}),
-            graphics),
-    Commands(file=
+            100}})),
+    __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SpaceCooling.mos"
         "Simulate and plot"),
-    experiment(StartTime=1.58112e7, StopTime=1.6416e7));
+    experiment(StartTime=1.58112e7,
+               StopTime=1.6416e7));
 end SpaceCooling;

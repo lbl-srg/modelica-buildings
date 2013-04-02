@@ -359,7 +359,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{300,200}}), graphics),
+            -100},{300,200}})),
                        Icon(
       Rectangle(extent=[-98,-38; 284,-42],   style(
           color=69,

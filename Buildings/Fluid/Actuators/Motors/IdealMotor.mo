@@ -190,7 +190,5 @@ First implementation.
         Line(
           points={{6,-13},{16,-18},{6,-23}},
           color={0,0,0},
-          thickness=0.5)}),
-    Diagram(graphics),
-              Diagram);
+          thickness=0.5)}));
 end IdealMotor;

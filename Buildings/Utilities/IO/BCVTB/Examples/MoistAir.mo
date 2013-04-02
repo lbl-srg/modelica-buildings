@@ -4,8 +4,7 @@ model MoistAir
   import Buildings;
   extends Modelica.Icons.Example;
   package Medium = Buildings.Media.GasesPTDecoupled.MoistAirUnsaturated;
-
-  parameter Modelica.Media.Interfaces.PartialMedium.MassFlowRate m_flow_nominal=
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal=
       259.2*6/1.2/3600 "Nominal mass flow rate";
   Buildings.Fluid.FixedResistances.FixedResistanceDpM dp1(
     redeclare package Medium = Medium,
@@ -108,9 +107,9 @@ model MoistAir
       m_flow_nominal=m_flow_nominal) "Supply air temperature"
     annotation (Placement(transformation(extent={{310,62},{330,82}})));
   Buildings.Fluid.Movers.FlowMachine_y fan(redeclare package Medium = Medium,
-					   pressure(V_flow={0,m_flow_nominal/1.2},
-						    dp={2*400,400}),
-					   dynamicBalance=false)
+        pressure(V_flow={0,m_flow_nominal/1.2},
+          dp={2*400,400}),
+        dynamicBalance=false)
     annotation (Placement(transformation(extent={{140,62},{160,82}})));
   Modelica.Blocks.Sources.Constant yFan(k=1) "Fan control signal"
     annotation (Placement(transformation(extent={{120,100},{140,120}})));
@@ -229,7 +228,7 @@ equation
       smooth=Smooth.None,
       pattern=LinePattern.Dash));
   connect(yFan.y, fan.y) annotation (Line(
-      points={{141,110},{150,110},{150,82}},
+      points={{141,110},{150,110},{150,84}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(occSch.occupied, switch1.u2) annotation (Line(
@@ -305,7 +304,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{460,200}}), graphics),
+            -100},{460,200}})),
     Documentation(info="<html>
 This example illustrates the use of Modelica with the Building Controls Virtual Test Bed.
 </p>
@@ -341,9 +340,5 @@ September 11, 2009, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"),
-    experiment(
-      Tolerance=1e-05,
-      Algorithm="Lsodar"),
-    experimentSetupOutput);
+</html>"));
 end MoistAir;

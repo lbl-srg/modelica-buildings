@@ -174,7 +174,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{200,200}}), graphics),
+            -100},{200,200}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilCounterFlowPControl.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

@@ -152,9 +152,9 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/Stratified.mos" "Simulate and plot"),
+            -100},{100,100}})),
+                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/Stratified.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This test model compares two tank models. The only difference between
 the two tank models is that one uses the third order upwind discretization

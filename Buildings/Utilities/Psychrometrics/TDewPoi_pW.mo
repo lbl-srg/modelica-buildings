@@ -99,5 +99,5 @@ First implementation.
         Line(points={{70,6},{12,6}}, color={175,175,175}),
         Line(points={{68,32},{22,32}}, color={175,175,175})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}), graphics));
+            100,100}})));
 end TDewPoi_pW;

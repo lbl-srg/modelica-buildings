@@ -65,7 +65,7 @@ equation
       index=1,
       extent={{6,3},{6,3}}));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Icon(graphics={
+            -100},{100,100}})), Icon(graphics={
         Text(
           extent={{-92,90},{-52,70}},
           lineColor={0,0,255},

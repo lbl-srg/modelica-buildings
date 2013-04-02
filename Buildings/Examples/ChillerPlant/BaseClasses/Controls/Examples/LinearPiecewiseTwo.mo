@@ -22,15 +22,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
-    Commands(file=
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/LinearPiecewiseTwo.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>
 July 20, 2011, by Wangda Zuo:<br>
-Add mos file and merge to library.
+Added <code>.mos</code> file and merged to library.
 </li>
 <li>
 January 18, 2011, by Wangda Zuo:<br>

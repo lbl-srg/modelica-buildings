@@ -147,7 +147,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(graphics),
     Icon(graphics={Text(
           extent={{-32,-80},{22,-96}},
           lineColor={0,0,127},

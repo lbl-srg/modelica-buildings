@@ -155,8 +155,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
-            {100,100}}),
-                     graphics),
+            {100,100}})),
                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedLoadingUnloading.mos"
         "Simulate and plot"),
     Documentation(info="<html>
@@ -165,6 +164,5 @@ the two tank models is that one uses the third order upwind discretization
 scheme that reduces numerical diffusion that is induced when connecting 
 volumes in series.
 </html>"),
-    experiment(StopTime=36000),
-    experimentSetupOutput);
+    experiment(StopTime=36000));
 end StratifiedLoadingUnloading;

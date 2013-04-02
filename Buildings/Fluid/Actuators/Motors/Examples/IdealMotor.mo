@@ -1,6 +1,6 @@
 within Buildings.Fluid.Actuators.Motors.Examples;
 model IdealMotor "Test model for IdealMotor"
-  extends Modelica.Icons.Example; 
+  extends Modelica.Icons.Example;
   Buildings.Fluid.Actuators.Motors.IdealMotor mot(tOpe=60) "Motor model"
     annotation (Placement(transformation(extent={{-20,20},{0,40}}, rotation=0)));
   Modelica.Blocks.Sources.TimeTable ySet(table=[0,0; 60,0; 60,1; 120,1; 180,0.5;
@@ -10,7 +10,6 @@ model IdealMotor "Test model for IdealMotor"
 equation
   connect(ySet.y, mot.u)
     annotation (Line(points={{-59,30},{-22,30}}, color={0,0,127}));
-  annotation (Diagram(graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Motors/Examples/IdealMotor.mos" "Simulate and plot"),
-              Diagram);
+  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Motors/Examples/IdealMotor.mos"
+        "Simulate and plot"));
 end IdealMotor;

@@ -208,7 +208,7 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-300,
             -300},{300,300}},
-        initialScale=0.1), graphics),
+        initialScale=0.1)),
                           Icon(coordinateSystem(preserveAspectRatio=true,
           extent={{-300,-300},{300,300}},
         initialScale=0.1), graphics={

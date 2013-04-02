@@ -44,11 +44,10 @@ equation
       points={{-59,-30},{-40,-30},{-40,4},{-22,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  annotation (
    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/DualFanDualDuct/Controls/Examples/RoomMixingBox.mos"
         "Simulate and plot"),
     experiment(
       StopTime=10800,
-      Tolerance=1e-006,
-      Algorithm="radau"));
+      Tolerance=1e-006));
 end RoomMixingBox;

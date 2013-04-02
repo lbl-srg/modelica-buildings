@@ -116,6 +116,5 @@ First implementation.
           points={{-22,-32},{26,10},{26,-2},{-22,-44},{-22,-32}},
           lineColor={0,0,0},
           smooth=Smooth.None,
-          fillPattern=FillPattern.Solid)}),
-    Diagram(graphics));
+          fillPattern=FillPattern.Solid)}));
 end Exponential;

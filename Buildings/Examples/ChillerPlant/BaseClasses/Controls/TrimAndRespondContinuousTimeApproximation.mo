@@ -42,5 +42,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}), graphics));
+            100}})));
 end TrimAndRespondContinuousTimeApproximation;

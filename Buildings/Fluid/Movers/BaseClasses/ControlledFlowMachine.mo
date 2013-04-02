@@ -68,7 +68,7 @@ equation
           textString="M",
           textStyle={TextStyle.Bold})}),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
-            100,100}}), graphics),
+            100,100}})),
     Documentation(info="<html>
 <p>
 This model describes a fan or pump that takes as an input

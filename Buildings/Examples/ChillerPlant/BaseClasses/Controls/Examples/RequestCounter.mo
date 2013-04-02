@@ -24,15 +24,14 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
-    Commands(file=
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/BaseClasses/Controls/Examples/RequestCounter.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>
 <ul>
 <li>
 July 20, 2011, by Wangda Zuo:<br>
-Merge to library.
+Merged to library.
 </li>
 <li>
 January 6, 2011, by Wangda Zuo:<br>

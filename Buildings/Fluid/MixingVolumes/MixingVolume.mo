@@ -160,7 +160,7 @@ Changed base class to
 Buildings.Fluid.MixingVolumes.BaseClasses.ClosedVolume</a>.
 </li>
 </ul>
-</html>"), Diagram(graphics),
+</html>"),
     Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={Ellipse(
           extent={{-100,98},{100,-102}},

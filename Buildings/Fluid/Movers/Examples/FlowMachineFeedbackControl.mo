@@ -40,7 +40,8 @@ model FlowMachineFeedbackControl "Flow machine with feedback control"
   Buildings.Fluid.Movers.FlowMachine_y fan(
       redeclare package Medium = Medium,
       pressure(V_flow={0,m_flow_nominal,2*m_flow_nominal}/1.2,
-               dp={2*dp_nominal,dp_nominal,0})) "Fan"
+               dp={2*dp_nominal,dp_nominal,0}),
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Fan"
     annotation (Placement(transformation(extent={{40,40},{60,60}})));
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium)
@@ -91,8 +92,6 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
-            160}}), graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
     Documentation(info="<html>
 <p>
@@ -111,7 +110,5 @@ First implementation.
         "Simulate and plot"),
     experiment(
       StopTime=3600,
-      Tolerance=1e-06,
-      Algorithm="Radau"),
-    __Dymola_experimentSetupOutput);
+      Tolerance=1e-06));
 end FlowMachineFeedbackControl;

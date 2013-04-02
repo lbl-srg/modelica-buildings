@@ -83,7 +83,7 @@ annotation (
           points={{40,-18},{40,22},{80,2},{40,-18}},
           lineColor={191,0,0},
           fillColor={191,0,0},
-          fillPattern=FillPattern.Solid)}), Diagram(graphics),
+          fillPattern=FillPattern.Solid)}),
           Documentation(info="<html>
 <p>
 This model computes the temperature boundary condition at the outer boundary of the borehole.

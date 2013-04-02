@@ -3,12 +3,12 @@ model RadiationTemperature "Test model for the radiation temperature"
   extends Modelica.Icons.Example;
   extends
     Buildings.Rooms.BaseClasses.Examples.BaseClasses.PartialInfraredRadiation(
-    bouConExt(T=289.15),
-    bouConExtWin(T=290.15),
-    bouConExtWinFra(T=285.15),
-    bouConPar_b(T=291.15),
-    bouConBou(T=295.15),
-    bouSurBou(T=296.15));
+    bouConExt(each T=289.15),
+    bouConExtWin(each T=290.15),
+    bouConExtWinFra(each T=285.15),
+    bouConPar_b(each T=291.15),
+    bouConBou(each T=295.15),
+    bouSurBou(each T=296.15));
   import Buildings;
 
   Buildings.Rooms.BaseClasses.RadiationTemperature radTem(
@@ -115,7 +115,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},
-            {100,100}}),
-                      graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/RadiationTemperature.mos"
+            {100,100}})),
+            __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/RadiationTemperature.mos"
         "Simulate and plot"));
 end RadiationTemperature;

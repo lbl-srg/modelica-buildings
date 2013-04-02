@@ -63,12 +63,14 @@ model ConservationEquation "Lumped volume with mass and energy balance"
      annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-50,110})));
-  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](unit="1")
+  Modelica.Blocks.Interfaces.RealOutput XiOut[Medium.nXi](each unit="1",
+                                                          each min=0,
+                                                          each max=1)
     "Leaving species concentration of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={0,110})));
-  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](unit="1")
+  Modelica.Blocks.Interfaces.RealOutput COut[Medium.nC](each min=0)
     "Leaving trace substances of the component"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
@@ -164,18 +166,10 @@ initial equation
 
   // initialization of balances
   if energyDynamics == Modelica.Fluid.Types.Dynamics.FixedInitial then
-//    if use_T_start then
       medium.T = T_start;
-//    else
-//      medium.h = h_start;
-//    end if;
   else
     if energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyStateInitial then
-//      if use_T_start then
         der(medium.T) = 0;
-//      else
-//        der(medium.h) = 0;
-//      end if;
     end if;
   end if;
 
@@ -250,6 +244,11 @@ Buildings.Fluid.Storage.ExpansionVessel</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2013 by Michael Wetter:<br>
+Removed wrong unit attribute of <code>COut</code>,
+and added min and max attributes for <code>XiOut</code>.
+</li>
 <li>
 July 31, 2011 by Michael Wetter:<br>
 Added test to stop model translation if the setting for

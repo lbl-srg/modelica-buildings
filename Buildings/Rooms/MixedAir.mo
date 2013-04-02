@@ -369,7 +369,7 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
-            200}}), graphics),
+            200}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-200,-200},{200,
             200}}), graphics={
         Text(
@@ -931,7 +931,7 @@ removed from the room instead of added to the room.
 This error was caused by a wrong sign in
 <a href=\"modelica://Buildings.Rooms.BaseClasses.HeatGain\">
 Buildings.Rooms.BaseClasses.HeatGain</a>.
-This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/46\">ticket 46</a>.
+This closes ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/46\">issue 46</a>.
 </li>
 <li>
 August 9, 2011, by Michael Wetter:<br>
@@ -942,12 +942,12 @@ window frame and the sky. This has been corrected by adding the instance
 model 
 <a href=\"modelica://Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow\">
 Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
-This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/36\">ticket 36</a>.
+This closes ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">issue 36</a>.
 </li>
 <li>
 August 9, 2011 by Michael Wetter:<br>
 Changed assignment of tilt in instances <code>bouConExt</code> and <code>bouConExtWin</code>.
-This fixes the bug in <a href=\"https://corbu.lbl.gov/trac/bie/ticket/35\">ticket 35</a>
+This fixes the bug in <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">issue 35</a>
 that led to the wrong solar radiation gain for roofs and floors.
 </li>
 <li>

@@ -56,7 +56,7 @@ package SimpleAir
     parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
       annotation (Evaluate=true, Dialog(tab="Advanced"));
-    parameter Boolean standardOrderComponents = true
+    final parameter Boolean standardOrderComponents = true
       "if true, and reducedX = true, the last element of X will be computed from the other ones";
     SI.Conversions.NonSIunits.Temperature_degC T_degC=
         Modelica.SIunits.Conversions.to_degC(T)
@@ -219,6 +219,12 @@ quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2013, by Michael Wetter:<br>
+Added qualifier <code>final</code> to <code>standardOrderComponents=true</code> in the
+<code>BaseProperties</code> declaration. This avoids an error
+when models are checked in Dymola 2014 in the pedenatic mode.
+</li>
 <li>
 August 3, 2011, by Michael Wetter:<br>
 Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 

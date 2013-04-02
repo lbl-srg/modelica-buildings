@@ -249,7 +249,6 @@ equation
           lineThickness=1)}),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation3Rooms.mos"
         "Simulate and plot"),
-    Diagram,
     Documentation(info="<html>
 <p>
 This is a model of three rooms that exchange air among each based
