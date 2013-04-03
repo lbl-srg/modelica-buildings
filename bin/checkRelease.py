@@ -64,6 +64,10 @@ def reportErrorIfMissing(fileName, listOfStrings):
 
 #########################################################
 # Main method
+
+# Name of top-level package file
+maiPac=LIBHOME.split(os.path.sep)[-1] + os.path.sep + 'package.mo'
+
 # Walk the directory tree, but skip svn folders
 for (path, dirs, files) in os.walk(LIBHOME):
     pos=path.find('svn')
@@ -86,6 +90,8 @@ for (path, dirs, files) in os.walk(LIBHOME):
             if foundMo:
                 if (filFulNam.find('Examples') == -1):
                     reportErrorIfMissing(filFulNam, REQUIRED_IN_MO)
+                if not filFulNam.endswith(maiPac):
+                    reportErrorIfContains(filFulNam, ["uses("])
         
 
 
