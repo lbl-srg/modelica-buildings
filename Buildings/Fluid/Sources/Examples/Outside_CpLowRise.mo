@@ -78,6 +78,5 @@ First implementation.
     experiment(
       StartTime=1.728e+07,
       StopTime=1.78848e+07,
-      Tolerance=1e-05),
-    __Dymola_experimentSetupOutput);
+      Tolerance=1e-05));
 end Outside_CpLowRise;
