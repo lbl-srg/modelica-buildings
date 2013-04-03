@@ -1,0 +1,51 @@
+#######################################################
+# WINDOWS OPERATING SYSTEMS
+#######################################################
+# Makefile to compile Python interface
+# Thierry S. Nouidui (TSNouidui@lbl.gov) March 27, 2013
+
+# Directory with python include files
+PYTHONSrc=C:/Python27/include
+# Directory with python libraries
+PYTHONLibs=C:/Python27/libs
+
+
+#######################################################
+## Compilation flags
+CC_FLAGS += -D WIN32
+ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
+  $(error Windows 64 bit is not implemented yet!)
+endif
+ifeq ($(PROCESSOR_ARCHITECTURE),x86)
+  CC_FLAGS += -D IA32 -Wall -I$(PYTHONSrc)
+  # Directory where executable will be copied
+  BINDIR = ../../Library/win32
+endif
+
+CC = gcc
+LM = lib
+
+SRCS = pythonInterpreter.c 
+OBJS = pythonInterpreter.o
+
+DLL  = ModelicaBuildingsPython2.7.dll 
+LIB  = ModelicaBuildingsPython2.7.lib
+DEF  = ModelicaBuildingsPython2.7.def
+EXP  = ModelicaBuildingsPython2.7.exp
+
+all: clean
+	$(CC) $(CC_FLAGS) -c $(SRCS)
+	$(CC)  -shared -o $(DLL) $(OBJS) -L$(PYTHONLibs) -lpython27
+	# Note that import library is required on Windows OS.
+	# This set-up requires the library manager (lib.exe) to generate the
+	# import library. lib.exe is available in Microsoft Visual Studio.
+	$(LM) /def:$(DEF) /OUT:$(LIB)
+	mv $(LIB) $(DLL) $(BINDIR)
+	@echo "==== libraries generated in $(BINDIR)"   
+	
+prg: clean
+	$(CC) -g testProgram.c $(SRCS) -o testProgram  $(CC_FLAGS) -L$(PYTHONLibs) -lpython27
+
+clean:
+	rm -f $(OBJS) $(LIB) $(DLL) $(EXP) main.o main
+	

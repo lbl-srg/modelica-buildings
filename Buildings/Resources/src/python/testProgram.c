@@ -28,13 +28,14 @@ int main(int nArgs, char ** args){
   
   for(i=0; i < 10; i++){
     printf("Calling with i = %d.\n", i);
-    pythonExchangeValues(moduleName,
+    pythonExchangeValuesNoModelica(moduleName,
                          functionName,
                          dblValWri, nDblWri,
                          dblValRea, nDblRea,
                          intValWri, nIntWri,
                          intValRea, nIntRea,
-                         strValWri, nStrWri);
+                         strValWri, nStrWri,
+	                 ModelicaFormatError);
   }
 
   return 0;
