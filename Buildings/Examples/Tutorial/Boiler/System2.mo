@@ -252,7 +252,7 @@ heat flow rate of <i>20</i> kW.
 <li>
 <p>
 Next, we computed the design mass flow rate for the radiator.
-According to the schematic diagram, the radiator should have at
+According to the schematic drawing, the radiator should have at
 the design conditions a supply water temperature of 
 <i>50</i>&deg;C and a return water temperature of
 <i>40</i>&deg;C.

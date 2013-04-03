@@ -12,77 +12,106 @@ This allows for example to use Python to communicate
 with web services, with hardware, or to do other computations
 inside a Python module.
 </p>
+<p>
+The code has been tested with Python 2.7 on
+Linux 32 bit, Linux 64 bit, and Windows 32 bit.
+Windows 64 bit is currently not supported.
+</p>
 <h4>Software requirements and configuration</h4>
 <p>
 To use classes from this package, a Python
 runtime environment must be installed.
-The code has been tested with Python 2.7 on
-Linux 32 bit, Linux 64 bit, Windows 32 bit and Windows 64 bit
-(fixme: to tests on Windows).
+</p>
+<h5>Path to Python source files</h5>
+<p>
 The examples of this package use Python modules
 that are stored in the directory
 <code>Buildings/Resources/Python-Sources</code>.
 Therefore, to run the examples, the above directory
-must be on the PYTHONPATH system variables.
-Setting the PYTHONPATH can be done as follows:
+must be on the <code>PYTHONPATH</code> system variables.
+Setting the <code>PYTHONPATH</code> can be done as follows:
 <ul>
 <li>
 On Linux, enter on a console the command
 <pre>
-export PYTHONPATH=$PYTHONPATH:\"Path_To_Buildings_Library\"/Resources/Python-Sources
+  export PYTHONPATH=$PYTHONPATH:\"Path_To_Buildings_Library\"/Resources/Python-Sources
 </pre>
 Alternatively, this line could be added to the file <code>~/.bashrc</code>.
 </li>
 <li>
-On Windows, fixme: add description.
+On Windows, set in the system settings the <code>PYTHONPATH</code> system variable to 
+the directory <code>\"Path_To_Buildings_Library\"\\Resources\\Python-Sources</code>.
 </li>
 </ul>
 </p>
+<h5>Path to dynamically linked libraries</h5>
 <p>
-To simulate models that use this interface, 
-a dynamically linked library is needed. 
-The library is in the directory
+To run Python from Modelica, a dynamically linked library is used.
+The dynamically linked library is stored in the directory
 <code>Buildings/Resources/Library/\"os\"</code>,
 where <code>\"os\"</code>
 is 
 <code>linux32</code>,
 <code>linux64</code>,
-<code>win32</code>,
-<code>win64</code>.
-Since Dymola 2013 FD01 does not add these directories
-to the search path for dynamically linked libraries,
-a user needs to do the following so that Dymola can find
-the library:
+<code>win32</code>.
+</p>
+<ul>
+<li><b>Configuration for Dymola 2013 FD01 on Linux</b>
 </p>
 <p>
-<ul>
-<li>
+<i>This step is no longer needed for Dymola 2014.</i><br/>
+Dymola 2013 FD01 on Linux does not add the existing values of
+the <code>LD_LIBRARY_PATH</code> environment variable
+to the search path for dynamically linked libraries.
+Therefore, the following command must be used:
+</p>
+<p>
 On Linux 32 bit, run
 <pre>
-  sudo ln -s `pwd`/Resources/Library/linux32/libModelicaBuildingsPython.so /usr/lib/libModelicaBuildingsPython.so
+  sudo ln -s `pwd`/Resources/Library/linux32/libModelicaBuildingsPython2.7.so /usr/lib/libModelicaBuildingsPython2.7.so
 </pre>
-</li>
-<li>
+</p>
+<p>
 On Linux 64 bit, the above should also work if 32 is replaced with 64. 
 However, Dymola 2013 FD01 is an exception because it generates 32 bit code even on a 64 bit computer.
-We could copy the files to <code>/usr/lib</code>, but this may potentially overwrite 64 bit libraries.
+(One could copy the <code>.so</code> files to <code>/usr/lib</code>, but this may potentially overwrite 64 bit libraries.)
 A work-around is to modify <code>/opt/dymola/bin/dymola.sh</code> by replacing the line
 <pre>
   export LD_LIBRARY_PATH=$DYMOLA/bin/lib
 </pre>
+<p>
 with
+</p>
 <pre>
   export LD_LIBRARY_PATH=$DYMOLA/bin/lib:Resources/Library/linux32
 </pre>
-Then, restart Dymola and the examples should compile and simulate successfully.
-If you start Dymola from a different directory than from the <code>Buildings</code> directory,
+<p>
+If Dymola is started from a different directory than from the <code>Buildings</code> directory,
 then add the full path to <code>Resources/Library/linux32</code>.
+</p>
 </li>
 <li>
-On Windows, fixme: add description
+<b>Configuration for Dymola 2014 on Linux</b>
+</p>
+<p>
+For Dymola 2014 on Linux, enter on the command line prior to starting Dymola
+</p>
+<p>
+<pre>
+  cd \"Path_To_Buildings_Library\"
+  export LD_LIBRARY_PATH=`pwd`/Resources/Library/linux32
+</pre>
+</p>
+<p>
+Use the same command for Linux 64 bit, as Dymola 2014 only generates 32 bit code.
+</p>
+</li>
+<li><b>Configuration for Windows 32 bit</b>
+<p>
+fixme: add description for how to set path to dlls.
+</p>
 </li>
 </ul>
-</p>
 <h4>Number of values to read to Python and write from Python</h4>
 <p>
 The parameters <code>nDblWri</code> (or <code>nIntWri</code> or <code>nStrWri</code>)

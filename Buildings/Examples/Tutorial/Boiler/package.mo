@@ -12,7 +12,7 @@ The heating system shall be designed to provide <i>20</i> kW, which is the load
 needed at <i>-10</i>&deg;C outdoor temperature.
 This load already takes into account the heat required for air infiltration and
 ventilation.
-Using this load and the temperatures shown in the schematic diagram, 
+Using this load and the temperatures shown in the schematic drawing, 
 the nominal mass flow rates of the individual flow branches should be computed.
 From <i>8:00</i> to <i>18:00</i>, there is an internal heat gain of <i>4</i>kW,
 which should not be accounted for when sizing the system.
