@@ -11,9 +11,24 @@ import os, string, fnmatch, os.path, sys
 LIBHOME=os.path.abspath(".")
 
 # List of invalid strings
+# Regarding the strings __Dymola_*, see https://trac.modelica.org/Modelica/ticket/786
+# for possible replacements.
 INVALID_IN_ALL=["fixme", "import \"", "<h1", "<h2", "<h3", "todo", "xxx", "tt>", 
                 "realString", "integerString", "structurallyIncomplete",
-                "preferedView", "Algorithm=", "Diagram,", "DocumentationClass"]
+                "preferedView", "Algorithm=", "Diagram,", "DocumentationClass",
+                "__Dymola_absoluteValue",
+                "__Dymola_checkBox",
+                "__Dymola_choicesAllMatching",
+                "__Dymola_classOrder",
+                "__Dymola_colorSelector",
+                "__Dymola_editButton",
+                "__Dymola_experimentSetupOutput",
+                "__Dymola_InlineAfterIndexReduction",
+                "__Dymola_keepConstant",
+                "__Dymola_normallyConstant",
+                "__Dymola_NumberOfIntervals",
+                "__Dymola_saveSelector",
+                "__Dymola_Text"]
 # List of invalid strings in .mos files
 INVALID_IN_MOS=[]
 # List of strings that are required in .mo files, except in Examples
