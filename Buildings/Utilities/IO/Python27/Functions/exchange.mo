@@ -4,9 +4,9 @@ function exchange "Function that communicates with Python"
     "Name of the python module that contains the function";
   input String functionName=moduleName "Name of the python function";
 
-  input Real    dblValWri[max(1, nDblWri)] "Double values to write";
-  input Integer intValWri[max(1, nIntWri)] "Integer values to write";
-  input String  strValWri[max(1, nStrWri)] "String values to write";
+  input Real    dblWri[max(1, nDblWri)] "Double values to write";
+  input Integer intWri[max(1, nIntWri)] "Integer values to write";
+  input String  strWri[max(1, nStrWri)] "String values to write";
 
   input Integer nDblWri(min=0) "Number of double values to write";
   input Integer nDblRea(min=0) "Number of double values to read";
@@ -19,19 +19,20 @@ function exchange "Function that communicates with Python"
 //  input Integer strLenRea(min=0)
 //    "Maximum length of each string that is read. If exceeded, the simulation stops with an error";
 
-  output Real    dblValRea[max(1, nDblRea)] "Double values returned by Python";
-  output Integer intValRea[max(1, nIntRea)] "Integer values returned by Python";
+  output Real    dblRea[max(1, nDblRea)] "Double values returned by Python";
+  output Integer intRea[max(1, nIntRea)] "Integer values returned by Python";
 
   external "C" pythonExchangeValues(moduleName, functionName,
-                                    dblValWri, nDblWri,
-                                    dblValRea, nDblRea,
-                                    intValWri, nIntWri,
-                                    intValRea, nIntRea,
-                                    strValWri, nStrWri)
+                                    dblWri, nDblWri,
+                                    dblRea, nDblRea,
+                                    intWri, nIntWri,
+                                    intRea, nIntRea,
+                                    strWri, nStrWri)
     annotation (Library={"ModelicaBuildingsPython2.7",  "python2.7"},
       LibraryDirectory={"modelica://Buildings/Resources/Library"},
       IncludeDirectory="modelica://Buildings/Resources/src/python",
       Include="#include \"python27Wrapper.c\"");
+
   annotation (Documentation(info="<html>
 <p>
 This function exchanges data with Python.
