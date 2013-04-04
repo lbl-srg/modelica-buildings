@@ -10,10 +10,11 @@
 # MWetter@lbl.gov                                          2013-04-04
 #####################################################################
 import os
-for root, dirs, filenames in os.walk("."):
+curDir=os.path.abspath(".")
+for root, dirs, filenames in os.walk(curDir):
     for fn in filenames:
         if fn.endswith(".html"):
-            fi = open(os.path.join(helpDir, fn), 'r')
+            fi = open(os.path.join(curDir, fn), 'r')
             fc = fi.read()
             fi.close()
             # Add the style sheet
@@ -22,6 +23,6 @@ for root, dirs, filenames in os.walk("."):
             # Remove unnecessary html code
             fc = fc.replace("<PRE></pre>", "")
             fc = fc.replace("<pre></PRE>", "")
-            fi = open(os.path.join(helpDir, fn), 'w')
+            fi = open(os.path.join(curDir, fn), 'w')
             fi.write(fc)
             fi.close()
