@@ -2,7 +2,8 @@
 
 This is the development site for the Modelica _Buildings_ library and its user guide.
 
-Stable releases are available from the main project site at http://simulationresearch.lbl.gov/modelica.
+Stable releases including all previous releases are available from the main project site 
+at http://simulationresearch.lbl.gov/modelica.
 
 Instructions for developers are available on the [wiki](https://github.com/lbl-srg/modelica-buildings/wiki).
 
@@ -18,6 +19,9 @@ The Modelica Buildings library is a free open-source library with dynamic simula
 
 The main project site is http://simulationresearch.lbl.gov/modelica.
 
+## Current release
+
+Download [Buildings Library v1.4 (2013-xx-xx)](../../archive/v1.4.zip)
 
 ## License
 
