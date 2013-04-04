@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with base classes for Buildings.Fluid.HeatExchangers.RadiantSlabs</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
 >Buildings.Fluid.HeatExchangers.RadiantSlabs</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -66,7 +67,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Convective heat transfer in pipes</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchaaff3281bbde9533fctionD.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.InternalFlowConvection">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model to compute the convective heat transfer inside a straight pipe.
 The convective heat transfer coefficient is computed as a function of the mass flow rate
@@ -157,7 +158,7 @@ Modelica.Fluid.Dissipation.HeatTransfer.StraightPipe.kc_overall_KC</a>.
 <B>Multiplies the heat flow rate</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha030f973d3b9efc21plierD.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.HeatFlowRateMultiplier">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model multiplies the heat flow rate so that
 <code>0 = port_b.Q_flow + k * port_Q.m_flow</code>.
@@ -172,7 +173,7 @@ Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab</a>
 to avoid having to instanciate multiple slab models in parallel, with each
 having the same mass flow rate and temperatures.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -215,7 +216,7 @@ having the same mass flow rate and temperatures.
 <B>Model that multiplies the mass flow rate</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha61828715279ef668plierD.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.MassFlowRateMultiplier">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model multiplies the mass flow rate so that
 <code>0 = port_b.m_flow + k * port_a.m_flow</code>.
@@ -231,7 +232,7 @@ Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab</a>
 to avoid having to instanciate multiple slab models in parallel, with each
 having the same mass flow rate and temperatures.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort"
 >Modelica.Fluid.Interfaces.PartialTwoPort</A> (Partial component with two ports).
 <P><H3>Parameters</H3><P>
@@ -291,11 +292,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Base class for radiant slab</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha049ddb8c66f37f25.SlabD.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Slab">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This partial model is used to construct radiant slab models with one circuit or with multiple parallel circuits.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

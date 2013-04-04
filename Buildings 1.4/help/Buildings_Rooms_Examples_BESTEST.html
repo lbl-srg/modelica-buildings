@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>BESTEST validation models</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains the models that were used
 for the BESTEST validation (ANSI/ASHRAE 2007).
@@ -83,7 +84,7 @@ Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
 Validation of the window model of the Modelica Buildings library.</a>
 <i>Proc. of the 5th SimBuild Conference</i>, Madison, WI, USA, August 2012.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
 <P></P><H3>Package Content</H3>
@@ -154,13 +155,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Basic test with light-weight construction and free floating temperature</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFD.png" ALT="Buildings.Rooms.Examples.BESTEST.Case600FF">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is used for the test case 600FF of the BESTEST validation suite.
 Case 600FF is a light-weight building.
 The room temperature is free floating.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -451,14 +452,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Case 600FF, but with dual-setpoint for heating and cooling</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.BESTEST.Case600D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case600">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is used for the basic test case 600 of the BESTEST validation suite.
 Case 600 is a light-weight building with room temperature control set to
 <i>20&deg;C</i> for heating and <i>27&deg;C</i> for cooling.
 The room has no shade and a window that faces south.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600FF"
 >Case600FF</A> (Basic test with light-weight construction and free floating temperature).
 <P><H3>Parameters</H3><P>
@@ -581,7 +582,7 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 600 with south shading</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.BESTEST.Case600D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case610">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is the case 610 of the BESTEST validation suite.
 Case 610 differs from case 600 in that the window has an overhang.
@@ -591,7 +592,7 @@ Case 610 differs from case 600 in that the window has an overhang.
 Two overhangs have been added, one for each window, because
 each window only sees its own overhang.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
 >Buildings.Rooms.Examples.BESTEST.Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
 <P><H3>Parameters</H3><P>
@@ -656,13 +657,13 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 600, but with windows on East and West side walls</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.BESTEST.Case600D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case620">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is the case 620 of the BESTEST validation suite.
 Case 620 differs from case 600 in that the west and east facing walls
 have a window, but there is no window in the south facing wall.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
 >Buildings.Rooms.Examples.BESTEST.Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
 <P><H3>Parameters</H3><P>
@@ -738,13 +739,13 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 620, but with added overhang and sidefins</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.BESTEST.Case600D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case630">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is case 630 of the BESTEST validation suite.
 Case 630 differs from case 620 in that the 
 windows on the west and east walls have an overhang and side fins.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case620"
 >Buildings.Rooms.Examples.BESTEST.Case620</A> (Case 600, but with windows on East and West side walls).
 <P><H3>Parameters</H3><P>
@@ -813,7 +814,7 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 600, but with heating schedule</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.BESTEST.Case600D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case640">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is used for the basic test case 640 of the BESTEST validation suite.
 Case640 is the same as Case600, but with the following modifications:
@@ -832,7 +833,7 @@ All hours, cool = on if zone temperature below 27&deg;C
 Otherwise, mechanical equipment is off.
 </li>
 </ul>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
 >Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
 <P><H3>Parameters</H3><P>
@@ -896,13 +897,13 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 600, no heating, no cooling, and ventilation as in case 650</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.dff7d1f5a6221f22650FFD.png" ALT="Buildings.Rooms.Examples.BESTEST.Case650FF">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is used for the test case 650FF of the BESTEST validation suite.
 Case 650FF is identical to case 650, except that there is no 
 heating and no cooling.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600FF"
 >Case600FF</A> (Basic test with light-weight construction and free floating temperature).
 <P><H3>Parameters</H3><P>
@@ -971,7 +972,7 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 600, but cooling based on schedule, night venting, and no heating</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.BESTEST.Case650D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case650">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is used for the test case 650 of the BESTEST validation suite.
 Case650 is the same as Case600, but with the following modifications:
@@ -1003,7 +1004,7 @@ No waste heat from fan.
 </li>
 </ul>
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
 >Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
 <P><H3>Parameters</H3><P>
@@ -1081,13 +1082,13 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 600FF, but with high thermal mass</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.13f570e1a6d09f22900FFD.png" ALT="Buildings.Rooms.Examples.BESTEST.Case900FF">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is used for the test case 900FF of the BESTEST validation suite.
 Case 900FF is a heavy-weight building.
 The room temperature is free floating.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600FF"
 >Case600FF</A> (Basic test with light-weight construction and free floating temperature).
 <P><H3>Parameters</H3><P>
@@ -1154,14 +1155,14 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 600, but with high thermal mass</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.BESTEST.Case900D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case900">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is used for the basic test case 900 of the BESTEST validation suite.
 Case 900 is a heavy-weight building with room temperature control set to
 <i>20&deg;C</i> for heating and <i>27&deg;C</i> for cooling.
 The room has no shade and a window that faces south.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
 >Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
 <P><H3>Parameters</H3><P>
@@ -1229,13 +1230,13 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 900, but with windows on East and West side walls</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.BESTEST.Case900D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case920">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is the case 920 of the BESTEST validation suite.
 Case 920 differs from case 900 in that the west and east facing walls
 have a window, but there is no window in the south facing wall.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900"
 >Buildings.Rooms.Examples.BESTEST.Case900</A> (Case 600, but with high thermal mass).
 <P><H3>Parameters</H3><P>
@@ -1311,7 +1312,7 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 900, but with heating schedule</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.BESTEST.Case900D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case940">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is used for the basic test case 940 of the BESTEST validation suite.
 Case940 is the same as Case900, but with the following modifications:
@@ -1330,7 +1331,7 @@ All hours, cool = on if zone temperature below 27&deg;C
 Otherwise, mechanical equipment is off.
 </li>
 </ul>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900"
 >Case900</A> (Case 600, but with high thermal mass).
 <P><H3>Parameters</H3><P>
@@ -1394,7 +1395,7 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 900, but cooling based on schedule, night venting, and no heating</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.BESTEST.Case950D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case950">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is used for the test case 950 of the BESTEST validation suite.
 Case950 is the same as Case900, but with the following modifications:
@@ -1426,7 +1427,7 @@ No waste heat from fan.
 </li>
 </ul>
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900"
 >Case900</A> (Case 600, but with high thermal mass).
 <P><H3>Parameters</H3><P>
@@ -1504,13 +1505,13 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 900, but no heating, no cooling, and ventilation as in case 650</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.14a0f4e8a6d21f22950FFD.png" ALT="Buildings.Rooms.Examples.BESTEST.Case950FF">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is used for the test case 950FF of the BESTEST validation suite.
 Case 950FF is identical to case 950, except that there is no 
 heating and no cooling.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900FF"
 >Case900FF</A> (Case 600FF, but with high thermal mass).
 <P><H3>Parameters</H3><P>
@@ -1580,13 +1581,13 @@ Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Exam
 <B>Case 600, but with an unconditioned sun-space</B><p></P>
 <IMG SRC="Buildings.Rooms.Examples.BESTEST.Case960D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case960">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is used for the test case 960 of the BESTEST validation suite.
 Case 960 is a two zones building, whereas the south-facing zone is
 an unconditioned sun-space.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
 >Buildings.Rooms.Examples.BESTEST.Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
 <P><H3>Parameters</H3><P>

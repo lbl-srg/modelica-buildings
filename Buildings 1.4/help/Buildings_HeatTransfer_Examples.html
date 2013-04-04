@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,14 +26,14 @@ table   { solid #000; border-collapse: collapse;}
 <B>Collection of models that illustrate model use and test models</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains examples for the use of models that can be found in
 <A HREF="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
 >
 Buildings.HeatTransfer</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
 <P></P><H3>Package Content</H3>
@@ -70,14 +71,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Test model for heat conductor</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Excbe60f8f8448f728ponseD.png" ALT="Buildings.HeatTransfer.Examples.ConductorStepResponse">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This example illustrates modeling of multi-layer materials. It also tests if the 
 multi-layer material computes the same heat transfer with its boundary condition 
 as two instances of a single layer material. 
 The insulation and the brick are computed using transient heat conduction.
 The <code>assert</code> block will stop the simulation if the heat exchange with the boundary
 condition differs.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -177,7 +178,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Test model for heat conductor</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Exf7f3e669949874f8sientD.png" ALT="Buildings.HeatTransfer.Examples.ConductorSteadyStateTransient">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This example illustrates modeling of multi-layer materials. It also tests if the 
 multi-layer material computes the same heat transfer with its boundary condition 
 as two instances of a single layer material. 
@@ -185,7 +186,7 @@ The insulation is computed in steady-state, whereas the brick is computed using 
 heat conduction.
 The <code>assert</code> block will stop the simulation if the heat exchange with the boundary
 condition differs.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -279,12 +280,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Test model for heat conductor</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Exd66f366fefd9357cLayerD.png" ALT="Buildings.HeatTransfer.Examples.ConductorSingleLayer">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This example tests if two conductors in series computes the same heat transfer
 as one conductor with twice the thickness.
 The <code>assert</code> block will stop the simulation if the heat exchange with the boundary
 condition differs.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -365,7 +366,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Test model for heat conductor</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Ex83886d9b9aa73fc1erPCMD.png" ALT="Buildings.HeatTransfer.Examples.ConductorSingleLayerPCM">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This example tests the implementation of the phase-change material (PCM) model. 
 </p>
@@ -384,7 +385,7 @@ produce the same results.
 The <code>assert</code> block will stop the simulation
 if there is a difference in heat fluxes.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -514,10 +515,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Test model for heat conduction in a cylinder</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Ex4fd06b3d4793623binderD.png" ALT="Buildings.HeatTransfer.Examples.ConductorSingleLayerCylinder">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This example tests a circular conductor with a constant temperature at his boundary.
 
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -576,12 +577,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Test model for heat conductor</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Ex88c9f8c63ffbf628LayerD.png" ALT="Buildings.HeatTransfer.Examples.ConductorMultiLayer">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This example illustrates how to use a solid material, set its heat capacity to zero, 
 and then use this material in a multi-layer construction.
 The plot window shows that the insulation is computed in steady state, where
 as the brick is computed using transient heat conduction.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -627,10 +628,10 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Test model for heat conductor initialization</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Ex83ffafa6ef287b54ationD.png" ALT="Buildings.HeatTransfer.Examples.ConductorInitialization">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This example illustrates how to initialize heat conductors in steady state and with
 predefined temperatures.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>

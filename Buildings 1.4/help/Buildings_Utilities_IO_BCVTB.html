@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -62,7 +63,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Fluid interface that can be coupled to BCVTB for medium that model the air humidity</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BC7a3aa3d7dbf53696rfaceD.png" ALT="Buildings.Utilities.IO.BCVTB.MoistAirInterface">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model allows interfacing to the 
 <a href="http://simulationresearch.lbl.gov/bcvtb">Building Controls Virtual Test Bed</a>
 an air-conditioning system
@@ -93,7 +94,7 @@ needs to be converted. The conversion can be done with the model
 <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.ToTotalAir"
 >
 Buildings.Utilities.Psychrometrics.ToTotalAir</a>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface"
 >Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface</A> (Partial class for fluid interface that can be coupled to BCVTB).
 <P><H3>Parameters</H3><P>
@@ -179,7 +180,7 @@ Extends from <A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Ut
 <B>Block that exchanges data with the Building Controls Virtual Test Bed</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BCVTB.BCVTBD.png" ALT="Buildings.Utilities.IO.BCVTB.BCVTB">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Block that exchanges data with the 
 <a href="http://simulationresearch.lbl.gov/bcvtb">Building Controls Virtual Test Bed</a> (BCVTB).
 <p>
@@ -247,7 +248,7 @@ This option can be helpful during debugging. Since during model translation, the
 still linked to the C library, the header files and libraries need to be present in the current working 
 directory even if <code>activateInterface=false</code>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteBlock"
 >Modelica.Blocks.Interfaces.DiscreteBlock</A> (Base class of discrete control blocks).
 <P><H3>Parameters</H3><P>
@@ -434,7 +435,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Converts Kelvin to Celsius</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BCVTB.To_degCD.png" ALT="Buildings.Utilities.IO.BCVTB.To_degC">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Converts the input from degree Celsius to Kelvin.
 Note that inside Modelica, it is strongly recommended to use
@@ -442,7 +443,7 @@ Kelvin. This block is provided for convenience since the BCVTB
 interface may couple Modelica to programs that use Celsius 
 as the unit for temperature.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
@@ -481,7 +482,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Converts Celsius to Kelvin</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BCVTB.From_degCD.png" ALT="Buildings.Utilities.IO.BCVTB.From_degC">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Converts the input from Kelvin to degree Celsius.
 Note that inside Modelica, by convention, all models use
@@ -489,7 +490,7 @@ Kelvin. This block is provided for convenience since the BCVTB
 interface may couple Modelica to programs that use Celsius 
 as the unit for temperature.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>

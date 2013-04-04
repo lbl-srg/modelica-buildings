@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with base classes for Buildings.Utilities.IO.BCVTB</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
 >Buildings.Utilities.IO.BCVTB</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -60,12 +61,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Partial class for fluid interface that can be coupled to BCVTB</B><p></P>
 <IMG SRC="Buildings.Utilities.IO.BC1519a5ec2cbeff6brfaceD.png" ALT="Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This is a partial model that is used to construct models for
 interfacing fluid flow systems with the BCVTB interface.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
@@ -180,14 +181,14 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.Utilities.IO.BCVTB.BaseClasses</A>.establishClientSocket</H2>
 <B>Establishes the client socket connection</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Function that establishes a socket connection to the BCVTB.
 <p>
 For the xml file name, on Windows use two backslashes to separate directories, i.e., use
 <pre>
   xmlFileName="C:\\examples\\dymola-room\\socket.cfg"
 </pre>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -220,11 +221,11 @@ For the xml file name, on Windows use two backslashes to separate directories, i
 >Buildings.Utilities.IO.BCVTB.BaseClasses</A>.exchangeReals</H2>
 <B>Exchanges values of type Real with the socket</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Function to exchange data of type <code>Real</code> with the socket.
 This function must only be called once in each 
 communication interval.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -282,9 +283,9 @@ communication interval.
 >Buildings.Utilities.IO.BCVTB.BaseClasses</A>.closeClientSocket</H2>
 <B>Closes the socket for the inter process communication</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Function that closes the inter-process communication.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

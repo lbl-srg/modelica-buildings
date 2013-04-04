@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with models for heat conduction</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package provides component models to compute heat conduction.
 </p>
@@ -39,7 +40,7 @@ This approximation is used by
 to replace the piece-wise linear function by a cubic hermite spline, with 
 linear extrapolation, in order to avoid state events during the simulation.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
 <P></P><H3>Package Content</H3>
@@ -72,7 +73,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model for single layer heat conductance</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Cob4c036f3e70672a0LayerD.png" ALT="Buildings.HeatTransfer.Conduction.SingleLayer">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This is a model of a heat conductor for a single layer of homogeneous material
 that computes transient or steady-state heat conduction.
 </p>
@@ -167,7 +168,7 @@ use
 Buildings.HeatTransfer.Conduction.MultiLayer</a> instead of this model.
 </p>
 
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor"
 >Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor</A> (Partial model for heat conductor).
 <P><H3>Parameters</H3><P>
@@ -344,7 +345,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildin
 <B>Heat conduction in a cylinder</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Coe2a9524198d40e33inderD.png" ALT="Buildings.HeatTransfer.Conduction.SingleLayerCylinder">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 </p>
 Model for radial heat transfer in a hollow cylinder.
 </p>
@@ -393,7 +394,7 @@ the surface temperature, use <code>port_a.T</code> (or <code>port_b.T</code>)
 and not the variable <code>T[1]</code>.
 </p>
 <p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -559,7 +560,7 @@ and not the variable <code>T[1]</code>.
 <B>Model for heat conductance through a solid with multiple material layers</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Co57ad46f24fbd0c15LayerD.png" ALT="Buildings.HeatTransfer.Conduction.MultiLayer">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This is a model of a heat conductor with multiple material layers and energy storage.
 The construction has at least one material layer, and each layer has
 at least one temperature node. The layers are modeled using an instance of 
@@ -579,7 +580,7 @@ To obtain the surface temperature of the construction, use <code>port_a.T</code>
 and not the variable <code>T[1]</code> because there is a thermal resistance between the surface
 and the temperature state.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor"
 >Buildings.HeatTransfer.Conduction.BaseClasses.PartialConductor</A> (Partial model for heat conductor), <A HREF="Buildings_HeatTransfer_Conduction_BaseClasses.html#Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction"
 >Buildings.HeatTransfer.Conduction.BaseClasses.PartialConstruction</A> (Partial model for multi-layer constructions).

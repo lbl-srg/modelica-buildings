@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,12 +26,12 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with air damper models</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package contains components models for air dampers.
 For motor models, see
 <A HREF="Buildings_Fluid_Actuators_Motors.html#Buildings.Fluid.Actuators.Motors"
 >Buildings.Fluid.Actuators.Motors</a>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
 <P></P><H3>Package Content</H3>
@@ -59,7 +60,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Air damper with exponential opening characteristics</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuatorsb0bd0c96b762b30fntialD.png" ALT="Buildings.Fluid.Actuators.Dampers.Exponential">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model is an air damper with flow coefficient that is an exponential function 
 of the opening angle. The model is as in ASHRAE 825-RP.
 A control signal of <code>y=0</code> means the damper is closed, and <code>y=1</code> means the damper 
@@ -106,7 +107,7 @@ ASHRAE 825-RP lists the following parameter values as typical:
 P. Haves, L. K. Norford, M. DeSimone and L. Mei,
 <i>A Standard Simulation Testbed for the Evaluation of Control Algorithms & Strategies</i>,
 ASHRAE, Final Report 825-RP, Atlanta, GA.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential"
 >Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</A> (Partial model for air dampers with exponential opening characteristics).
 <P><H3>Parameters</H3><P>
@@ -210,7 +211,7 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <B>VAV box with a fixed resistance plus a damper model withe exponential characteristics</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuatorsb0bd0c96b762b30fntialD.png" ALT="Buildings.Fluid.Actuators.Dampers.VAVBoxExponential">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of two resistances in series. One resistance has a fixed flow coefficient, the
 other resistance is an air damper whose flow coefficient is an exponential function of the opening angle.
@@ -222,7 +223,7 @@ flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential"
 >Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential</A> (Partial model for air dampers with exponential opening characteristics).
 <P><H3>Parameters</H3><P>
@@ -325,7 +326,7 @@ Extends from <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid
 <B>Outside air mixing box with interlocked air dampers</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators7813deb2dfec6354ngBoxD.png" ALT="Buildings.Fluid.Actuators.Dampers.MixingBox">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of an outside air mixing box with air dampers.
 Set <code>y=0</code> to close the outside air and exhast air dampers.
@@ -337,7 +338,7 @@ flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconLow"
 >Buildings.BaseClasses.BaseIconLow</A> (Base icon with model name below the icon), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
 >Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal</A> (Partial model that implements the filtered opening for valves and dampers).
@@ -619,7 +620,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIconL
 <B>Outside air mixing box with parallel damper for minimum outside air flow rate</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators0eb1af8a07a346f5mFlowD.png" ALT="Buildings.Fluid.Actuators.Dampers.MixingBoxMinimumFlow">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of an outside air mixing box with air dampers and a flow path for the minimum outside air flow rate.
 </p>
@@ -630,7 +631,7 @@ flow rate.
 If <code>dp_nominalIncludesDamper=false</code>, then <code>dp_nominal</code>
 does not include the flow resistance of the air damper.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Actuators_Dampers.html#Buildings.Fluid.Actuators.Dampers.MixingBox"
 >Buildings.Fluid.Actuators.Dampers.MixingBox</A> (Outside air mixing box with interlocked air dampers).
 <P><H3>Parameters</H3><P>

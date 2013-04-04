@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,9 +26,9 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with thermal energy storage models</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package contains thermal energy storage models.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
 <P></P><H3>Package Content</H3>
@@ -59,7 +60,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Pressure expansion vessel with fixed gas cushion</B><p></P>
 <IMG SRC="Buildings.Fluid.Storage.ExpansionVesselD.png" ALT="Buildings.Fluid.Storage.ExpansionVessel">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This is a model of a pressure expansion vessel. The vessel has a fixed total volume. 
 A fraction of the volume is occupied by a fixed mass of gas, and the other fraction is occupied 
@@ -100,7 +101,7 @@ Therefore, <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.FixedBo
 Buildings.Fluid.Sources.FixedBoundary</a> leads to smaller systems
 of equations, which may result in faster simulation.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes).
 <P><H3>Parameters</H3><P>
@@ -208,7 +209,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Model of a stratified tank for thermal energy storage</B><p></P>
 <IMG SRC="Buildings.Fluid.Storage.StratifiedD.png" ALT="Buildings.Fluid.Storage.Stratified">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This is a model of a stratified storage tank.
 The tank uses several volumes to model the stratification.
@@ -240,7 +241,7 @@ For a model with enhanced stratification, use
 >
 Buildings.Fluid.Storage.StratifiedEnhanced</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -511,7 +512,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Stratified tank model with enhanced discretization</B><p></P>
 <IMG SRC="Buildings.Fluid.Storage.S0445f3df34178cb6ancedD.png" ALT="Buildings.Fluid.Storage.StratifiedEnhanced">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This is a model of a stratified storage tank for thermal energy storage.
 The model is identical to
@@ -531,7 +532,7 @@ Buildings.Fluid.Storage.BaseClasses.ThirdOrderStratifier</a>.
 <p>
 The model requires at least 4 fluid segments. Hence, set <code>nSeg</code> to 4 or higher.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Storage.html#Buildings.Fluid.Storage.Stratified"
 >Stratified</A> (Model of a stratified tank for thermal energy storage).
 <P><H3>Parameters</H3><P>

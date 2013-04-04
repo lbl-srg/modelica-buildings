@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with base classes for Buildings.BoundaryConditions.WeatherData</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData"
 >Buildings.BoundaryConditions.WeatherData</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -108,7 +109,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Ensures that the ceiling height is above a lower bound</B><p></P>
 <IMG SRC="Buildings.BoundaryConditid4282976bdca1c9aeightD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckCeilingHeight">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component ensures that the ceiling height is at least <i>0</i> meters.
 </p>
@@ -158,7 +159,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Ensure that the radiation is not smaller than 0</B><p></P>
 <IMG SRC="Buildings.BoundaryConditi39ad3eefba51c617ationD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRadiation">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component ensures that the radiation is not smaller than 0. 
 Modelica Table will interpolate data when it reads the data from a file.
@@ -211,7 +212,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Check the validity of relative humidity</B><p></P>
 <IMG SRC="Buildings.BoundaryConditi97a067a1c4fe7079idityD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckRelativeHumidity">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component constrains the value of relative humidity to a range of <i>[0, 1]</i>.
 </p>
@@ -262,7 +263,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Ensures that the interpolated pressure is between prescribed bounds</B><p></P>
 <IMG SRC="Buildings.BoundaryConditi14f4ce1b0e7b8d4dssureD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckPressure">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component ensures that the interpolated pressure is between <i>31,000</i> Pa and <i>120,000</i> Pa.
 </p>
@@ -312,7 +313,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Constrains the sky cover to [0, 1]</B><p></P>
 <IMG SRC="Buildings.BoundaryConditie57e871c757583a4CoverD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckSkyCover">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component constrains the interpolated sky cover between <i>0</i> and <i>10</i>.
 </p>
@@ -361,7 +362,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Check the validity of temperature data</B><p></P>
 <IMG SRC="Buildings.BoundaryConditif0f8e132478d3505atureD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckTemperature">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component checks the value of temperature. 
 If the temperature is outside <code>TMin</code> and <code>TMax</code>, 
@@ -430,7 +431,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Constrains the wind direction to [0, 2*pi] degree</B><p></P>
 <IMG SRC="Buildings.BoundaryConditieb2217f1e1b9895cctionD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindDirection">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component constrains the interpolated wind direction between <i>0</i> and <i>360</i> degree.
 </p>
@@ -487,7 +488,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Ensures that the wind speed is non-negative</B><p></P>
 <IMG SRC="Buildings.BoundaryConditia14bf8812373f21fSpeedD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.CheckWindSpeed">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component ensures that the wind speed is non-negative.
 </p>
@@ -539,7 +540,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Convert the unit of solar radiation received from the TMY3 data file</B><p></P>
 <IMG SRC="Buildings.BoundaryConditi43983e98661758f1ationD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRadiation">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 The TMY3 data for solar radiation is the radiation accumulated in one hour. Thus, it used a unit of <code>Wh/m2</code>.
 This component converts <code>Wh/m2</code> to <code>W/m2</code> that is the standard unit in Modelica.
@@ -588,7 +589,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Convert the relative humidity from percentage to real</B><p></P>
 <IMG SRC="Buildings.BoundaryConditib12523e4b6ee874fidityD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertRelativeHumidity">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component converts the relative humidity from percentage to real.
 Input is the relative humidity in percentage, as this is the data
@@ -633,7 +634,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Converts the simulation time to calendar time in scale of 1 year (365 days)</B><p></P>
 <IMG SRC="Buildings.BoundaryConditi2ce70f9a1e7b9e99tTimeD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.ConvertTime">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component converts the simulation time to calendar time in a scale of 1 year (365 days).
 </p>
@@ -689,7 +690,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Equation of time</B><p></P>
 <IMG SRC="Buildings.BoundaryConditid85d73eaee3a1d23fTimeD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.EquationOfTime">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component computes the difference between solar noon and noon of local civic time.
 </p>
@@ -738,7 +739,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Converts the clock time to local civil time.</B><p></P>
 <IMG SRC="Buildings.BoundaryConditi30e002c349993706lTimeD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.LocalCivilTime">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component converts the clock time to local civil time. 
 The parameter <code>timZon</code> represents the time zone of the facility  (relative to Greenwich Mean Time or the 0th meridian). Time zones west of GMT (e.g. North America) are represented as negative; 
@@ -801,7 +802,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Data bus that stores solar position</B><p></P>
 <IMG SRC="Buildings.BoundaryConditi6825a7ab9c303332ubBusD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarSubBus">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component is an expandable connector that is used to implement a bus that contains the solar position.
 </p>
@@ -828,7 +829,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Solar time</B><p></P>
 <IMG SRC="Buildings.BoundaryConditid50f98c467e4fdc8rTimeD.png" ALT="Buildings.BoundaryConditions.WeatherData.BaseClasses.SolarTime">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component computes the local solar time.
 </p>
@@ -879,7 +880,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.getHeaderElementTMY3</H2>
 <B>Gets an element from the header of a TMY3 weather data file</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function scans the weather data file for a line that starts with the string <pre>
 start
 </pre>
@@ -887,7 +888,7 @@ where <code>start</code> is a parameter.
 When this line is found, the function returns the element at the position number
 <code>position</code>, where <code>position</code> is a parameter.
 A comma is used as the delimiter of the elements.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -970,9 +971,9 @@ A comma is used as the delimiter of the elements.
 >Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.getLatitudeTMY3</H2>
 <B>Gets the latitude from a TMY3 weather data file</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function returns the latitude of the TMY3 weather data file.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1025,9 +1026,9 @@ This function returns the latitude of the TMY3 weather data file.
 >Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.getLongitudeTMY3</H2>
 <B>Gets the longitude from a TMY3 weather data file</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function returns the longitude of the TMY3 weather data file.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1080,9 +1081,9 @@ This function returns the longitude of the TMY3 weather data file.
 >Buildings.BoundaryConditions.WeatherData.BaseClasses</A>.getTimeZoneTMY3</H2>
 <B>Gets the time zone from a TMY3 weather data file</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function returns the time zone of the TMY3 weather data file.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,12 +26,12 @@ table   { solid #000; border-collapse: collapse;}
 <B>Functions used in window radiation model</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains functions that are used to compute 
 heat transfer in the window model.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
 >Modelica.Icons.Package</A> (Icon for standard packages).
 <P></P><H3>Package Content</H3>
@@ -105,12 +106,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.HeatTransfer.Windows.Functions</A>.devAbsExteriorIrradiationInteriorShading</H2>
 <B>Angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the angular and hemispherical absorptance of a shading device for exterior irradiation with interior shading.
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -155,11 +156,11 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.devAbsInteriorIrradiationInteriorShading</H2>
 <B>Hemiperical absorptance of a shading device for interior irradiation with interior shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the hemiperical absorbtance of a shading device for interior irradiation with interior shading. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -205,11 +206,11 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.getAngle</H2>
 <B>Generate incident angles</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes discrete incident angles for the window radiation calculation. The range is from 0 to 90 degree. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -247,7 +248,7 @@ This function computes discrete incident angles for the window radiation calcula
 >Buildings.HeatTransfer.Windows.Functions</A>.getGlassTR</H2>
 <B>Transmittance and reflectance of glass</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the angular variation of the transmittance and reflectance of each glass pane.
 It accounts for the transmittance and reflectance among different panes. 
@@ -255,7 +256,7 @@ Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room
 For instance, <code>traRef[TRA, 1, N, iD]</code> means transmittance between layer <code>1</code> to <code>N</code> for exterior irradiation and 
 <code>traRef[TRA, N, 1, iD]</code> means the transmittance for interior irradiation.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</A> (Partial function for glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -318,12 +319,12 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsExteriorIrradiationExteriorShading</H2>
 <B>Angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes angular and hemispherical absorptance of each glass pane for exterior irradiation with exterior shading.
 Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -374,12 +375,12 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsExteriorIrradiationInteriorShading</H2>
 <B>Angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes angular and hemispherical absorptance of each glass pane for exterior irradiation with interior shading. 
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -463,13 +464,13 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsExteriorIrradiationNoShading</H2>
 <B>Angular and hemispherical absorptance of each glass pane for exterior irradiation without shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes specular and hemispherical absorptance of each glass pane for exterior irradiation without shading.
 It counts the transmittance and reflectance among different panes.
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation</A> (Partial function for window radiation property).
 <P><H3>Inputs</H3><P>
@@ -563,12 +564,12 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsInteriorIrradiationExteriorShading</H2>
 <B>Hemispherical absorptance of each glass pane for interior irradiation with exterior shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the hemispherical absorptance of each glass pane for interior irradiation with exterior shading. 
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -645,12 +646,12 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsInteriorIrradiationInteriorShading</H2>
 <B>Hemispherical absorptance of each glass pane for interior irradiation with interior shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the hemispherical absorbtance of each glass pane for interior irradiation with interior shading. 
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -699,7 +700,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.glassAbsInteriorIrradiationNoShading</H2>
 <B>Hemispherical absorptance of each glass pane for interior irradiation without shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the hemispherical absorptance of each glass pane for interior irradiation without no shading. 
 The angular irradiation is not considered since the interior irradiation (from the room) is assumed to be diffusive.
@@ -707,7 +708,7 @@ It is a reverse of the function
 <a href="modelica://Buildings.HeatTransfer.Windows.Functions.glassAbsInterirorIrradiationNoShading">
 Buildings.HeatTransfer.Windows.Functions.glassAbsInterirorIrradiationNoShading</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowRadiation</A> (Partial function for window radiation property).
 <P><H3>Inputs</H3><P>
@@ -772,7 +773,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.glassProperty</H2>
 <B>Compute angular variation and hemispherical integration of the transmittance and reflectance for each glass pane without shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for each glass pane.
 There are two schemes for the calculation. One is for coated glass and the other is for uncoated glass. 
@@ -780,7 +781,7 @@ The function checks the difference between front and back reflectances.
 If the difference is less than the tolerance (0.005), it uses the formula for uncoated glass. 
 Otherwise, the formula for coated glass will be used.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</A> (Partial function for glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -857,11 +858,11 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.glassPropertyCoated</H2>
 <B>Compute angular variation and hemispherical integration of the transmittance and reflectance for a coated glass pane without shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for one coated glass pane.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</A> (Partial function for single glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -960,7 +961,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.glassPropertyUncoated</H2>
 <B>Compute angular variation and hemispherical integration of the transmittance and reflectance for a uncoated glass pane without shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the angular variation and the hemispherical integration of the transmittance and reflectance for one uncoated glass pane.
 The equations are mainly based on Finlayson et al. (1990) and Fuler et al. (1991) with some modifications. 
@@ -1126,7 +1127,7 @@ Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
 Validation of the window model of the Modelica Buildings library.</a>
 <i>Proc. of the 5th SimBuild Conference</i>, Madison, WI, USA, August 2012.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialSingleGlassRadiation</A> (Partial function for single glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -1274,13 +1275,13 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.glassTRExteriorIrradiationNoShading</H2>
 <B>Transmittance and reflectance of glass panes for exterior irradiation without shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the angular variation of the transmittance and reflectance of each glass pane for exteior irradiation without shading. 
 It accounts for the transmittance and reflectance among different panes. 
 Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</A> (Partial function for glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -1360,13 +1361,13 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.glassTRInteriorIrradiationNoShading</H2>
 <B>Transmittance and reflectance of each glass pane for interior irradiation without shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the angular variation of the transmittance and reflectance of each glass pane for interior irradiation without shading. 
 It accounts for the transmittance and reflectance among different panes. 
 Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialGlassRadiation</A> (Partial function for glass radiation property).
 <P><H3>Inputs</H3><P>
@@ -1439,12 +1440,12 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.winTExteriorIrradiationInteriorShading</H2>
 <B>Angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the angular and hemispherical transmittance of a window system (glass and shading device) for exterior irradiation with interior shading. 
 Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -1488,12 +1489,12 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.winTExteriorIrradiatrionExteriorShading</H2>
 <B>Angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the angular and hemispherical transmittance of a window system (glass + shading device) for exterior irradiation with exterior shading. 
 Pane <code>1</code> is facing outside and pane <code>N</code> is facing the room. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -1540,7 +1541,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.winTRInteriorIrradiationExteriorShading</H2>
 <B>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with exterior shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes hemispherical transmittance and back reflectance of a window for interior irradiation with exterior shading. 
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
@@ -1550,7 +1551,7 @@ traRefIntIrrExtSha[2]: Back reflectance;
 traRefIntIrrExtSha[3]: Dummy value
 </pre>
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>
@@ -1591,12 +1592,12 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#
 >Buildings.HeatTransfer.Windows.Functions</A>.winTRInteriorIrradiationInteriorShading</H2>
 <B>Hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the hemispherical transmittance and back reflectance of a window system (glass and shading device) for interior irradiation with interior shading. 
 Pane <code>1</code> is facing the outside and pane <code>N</code> is facing the room.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_Functions_BaseClasses.html#Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation"
 >Buildings.HeatTransfer.Windows.Functions.BaseClasses.partialWindowShadingRadiation</A> (Partial function for window radiation property with shading device).
 <P><H3>Inputs</H3><P>

@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with psychrometric functions</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package contains functions for psychrometric calculations.
 </p>
 <p>
@@ -33,7 +34,7 @@ The nomenclature used in this package is described at
 <A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions"
 >
 Buildings.UsersGuide.Conventions</a>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_Package.html#Modelica.Icons.Package"
 >Modelica.Icons.Package</A> (Icon for standard packages).
 <P></P><H3>Package Content</H3>
@@ -78,11 +79,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Utilities.Psychrometrics.Functions</A>.pW_X</H2>
 <B>Water vapor pressure for given humidity ratio</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function to compute the water vapor partial pressure for a given humidity ratio.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -131,7 +132,7 @@ Function to compute the water vapor partial pressure for a given humidity ratio.
 >Buildings.Utilities.Psychrometrics.Functions</A>.pW_TDewPoi</H2>
 <B>Function to compute the water vapor partial pressure for a given dew point temperature of moist air</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Dew point temperature calculation for moist air above freezing temperature.
 </p>
@@ -142,7 +143,7 @@ ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
 Peppers has been used, but this equation yielded about 15 Kelvin lower dew point 
 temperatures.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -189,7 +190,7 @@ temperatures.
 >Buildings.Utilities.Psychrometrics.Functions</A>.pW_TDewPoi_amb</H2>
 <B>Function to compute the water vapor partial pressure for a given dew point temperature of moist air</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Dew point temperature calculation for moist air between <i>0 degC</i> and <i>30 degC</i>.
 </p>
@@ -206,7 +207,7 @@ temperature of <code>0 degC</code> to <code>30 degC</code>.
 The benefit of this simpler function is that it can be inverted analytically,
 whereas the other function requires a numerical solution.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb"
 >Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb</A> (Partial function to compute the water vapor partial pressure for a given dew point temperature of moist air and its inverse).
 <P><H3>Inputs</H3><P>
@@ -248,7 +249,7 @@ Extends from <A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses.h
 >Buildings.Utilities.Psychrometrics.Functions</A>.TDewPoi_pW</H2>
 <B>Function to compute the water vapor partial pressure for a given dew point temperature of moist air</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Dew point temperature calculation for moist air above freezing temperature.
 </p>
@@ -259,7 +260,7 @@ ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
 Peppers has been used, but this equation yielded about 15 Kelvin lower dew point 
 temperatures.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -299,7 +300,7 @@ temperatures.
 >Buildings.Utilities.Psychrometrics.Functions</A>.TDewPoi_pW_amb</H2>
 <B>Function to compute the dew point temperature of moist air for a given water vapor partial pressure</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Dew point temperature calculation for moist air between <i>0 degC</i> and <i>30 degC</i>
 with partial pressure of water vapor as an input.
@@ -317,7 +318,7 @@ temperature of <code>0 degC</code> to <code>30 degC</code>.
 The benefit of this simpler function is that it can be inverted analytically,
 whereas the other function requires a numerical solution.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb"
 >Buildings.Utilities.Psychrometrics.Functions.BaseClasses.pW_TDewPoi_amb</A> (Partial function to compute the water vapor partial pressure for a given dew point temperature of moist air and its inverse).
 <P><H3>Inputs</H3><P>
@@ -359,12 +360,12 @@ Extends from <A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses.h
 >Buildings.Utilities.Psychrometrics.Functions</A>.X_pSatpphi</H2>
 <B>Humidity ratio for given water vapor pressure</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function to compute the water vapor concentration based on
 saturation pressure, absolute pressure and relative humidity.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -410,11 +411,11 @@ saturation pressure, absolute pressure and relative humidity.
 >Buildings.Utilities.Psychrometrics.Functions</A>.X_pW</H2>
 <B>Humidity ratio for given water vapor pressure</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function to compute the humidity ratio for a given water vapor partial pressure.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

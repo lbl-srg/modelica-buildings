@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,9 +26,9 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with heat exchanger models</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package contains models for heat exchangers with and without humidity condensation.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
 <P></P><H3>Package Content</H3>
@@ -86,7 +87,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Heat exchanger with constant effectiveness</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha5646c6cf54136ee9enessD.png" ALT="Buildings.Fluid.HeatExchangers.ConstantEffectiveness">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model for a heat exchanger with constant effectiveness.
 </p>
@@ -111,7 +112,7 @@ For a heat and moisture exchanger, use
 Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
 instead of this model.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness"
 >Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness</A> (Partial model to implement heat exchangers based on effectiveness model).
 <P><H3>Parameters</H3><P>
@@ -222,7 +223,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <B>Heat exchanger with effectiveness - NTU relation and no moisture condensation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha5646c6cf54136ee9enessD.png" ALT="Buildings.Fluid.HeatExchangers.DryEffectivenessNTU">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of a heat exchanger without humidity condensation. 
 This model transfers heat in the amount of 
@@ -254,7 +255,7 @@ For a heat and moisture exchanger, use
 Buildings.Fluid.MassExchangers.ConstantEffectiveness</a>
 instead of this model.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness"
 >Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness</A> (Partial model to implement heat exchangers based on effectiveness model).
 <P><H3>Parameters</H3><P>
@@ -534,7 +535,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <B>Counterflow coil with discretization along the flow paths and without humidity condensation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha6f338ce72407a60erFlowD.png" ALT="Buildings.Fluid.HeatExchangers.DryCoilCounterFlow">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of a discretized coil without water vapor condensation.
 The coil consists of two flow paths which are, at the design flow direction,
@@ -564,7 +565,7 @@ To model humidity condensation, use the model
 Buildings.Fluid.HeatExchangers.WetCoilCounterFlow</a> instead of this model, as
 this model computes only sensible heat transfer.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
 >Fluid.Interfaces.PartialFourPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</A> (Parameters for flow resistance for models with four ports).
@@ -835,7 +836,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Counterflow coil with discretization along the flow paths and humidity condensation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha84a9dffc2670ce0erFlowD.png" ALT="Buildings.Fluid.HeatExchangers.WetCoilCounterFlow">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of a discretized coil with water vapor condensation.
 The coil consists of two flow paths which are, at the design flow direction,
@@ -889,7 +890,7 @@ To model this coil for conditions without humidity condensation, use the model
 >
 Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</a> instead of this model.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.DryCoilCounterFlow"
 >Buildings.Fluid.HeatExchangers.DryCoilCounterFlow</A> (Counterflow coil with discretization along the flow paths and without humidity condensation).
 <P><H3>Parameters</H3><P>
@@ -1024,7 +1025,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatEx
 <B>Coil with discretization along the flow paths and no humidity condensation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha49e904f1a46cb934tizedD.png" ALT="Buildings.Fluid.HeatExchangers.DryCoilDiscretized">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of a discretized coil with no water vapor condensation.
 The coil consists of <code>nReg</code> registers
@@ -1063,7 +1064,7 @@ To model humidity condensation, use the model
 Buildings.Fluid.HeatExchangers.WetCoilDiscretized</a> instead of this model, as
 this model computes only sensible heat transfer.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
 >Fluid.Interfaces.PartialFourPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</A> (Parameters for flow resistance for models with four ports).
@@ -1456,7 +1457,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Coil with discretization along the flow paths and humidity condensation</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha49e904f1a46cb934tizedD.png" ALT="Buildings.Fluid.HeatExchangers.WetCoilDiscretized">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of a discretized coil with humidity condensation.
 This model is identical to 
@@ -1484,7 +1485,7 @@ Buildings.Media.PerfectGases.MoistAir</a> and
 >
 Modelica.Media.Air.MoistAir</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.DryCoilDiscretized"
 >DryCoilDiscretized</A> (Coil with discretization along the flow paths and no humidity condensation).
 <P><H3>Parameters</H3><P>
@@ -1619,7 +1620,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatEx
 <B>Heater or cooler with prescribed heat flow rate</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchaf13a6bf1f04387dcribedD.png" ALT="Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model for an ideal heater or cooler with prescribed heat flow rate to the medium.
 </p>
@@ -1628,7 +1629,7 @@ This model adds heat in the amount of <code>Q_flow = u Q_flow_nominal</code> to 
 The input signal <code>u</code> and the nominal heat flow rate <code>Q_flow_nominal</code> 
 can be positive or negative.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger</A> (Partial model transporting one fluid stream with storing mass or energy).
 <P><H3>Parameters</H3><P>

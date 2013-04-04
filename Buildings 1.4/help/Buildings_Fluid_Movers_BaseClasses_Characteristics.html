@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Functions for fan or pump characteristics</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package implements performance curves for fans and pumps,
 and records for parameter that can be used with these performance
@@ -72,7 +73,7 @@ power</a></td>
 </tr>
 </table>
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
@@ -111,7 +112,7 @@ power</a></td>
 >Buildings.Fluid.Movers.BaseClasses.Characteristics</A>.flowParameters</H2>
 <B>Record for flow parameters</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Data record for performance data that describe volume flow rate versus
 pressure rise.
@@ -120,7 +121,7 @@ The volume flow rate <code>V_flow</code> must be increasing, i.e.,
 Both vectors, <code>V_flow</code> and <code>dp</code>
 must have the same size.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
@@ -154,7 +155,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Movers.BaseClasses.Characteristics</A>.flowParametersInternal</H2>
 <B>Record for flow parameters with prescribed size</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Data record for performance data that describe volume flow rate versus
 pressure rise.
@@ -174,7 +175,7 @@ in Dymola 2014. Otherwise, the array size would need to be computed in
 Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</a>
 in the <code>initial algorithm</code> section, which is not supported.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
@@ -211,7 +212,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Movers.BaseClasses.Characteristics</A>.efficiencyParameters</H2>
 <B>Record for efficiency parameters</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Data record for performance data that describe volume flow rate versus
 efficiency.
@@ -220,7 +221,7 @@ The volume flow rate <code>r_V</code> must be increasing, i.e.,
 Both vectors, <code>r_V</code> and <code>eta</code>
 must have the same size.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
@@ -250,7 +251,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Movers.BaseClasses.Characteristics</A>.powerParameters</H2>
 <B>Record for electrical power parameters</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Data record for performance data that describe volume flow rate versus
 electrical power.
@@ -259,7 +260,7 @@ The volume flow rate <code>V_flow</code> must be increasing, i.e.,
 Both vectors, <code>V_flow</code> and <code>P</code>
 must have the same size.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
@@ -292,7 +293,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Movers.BaseClasses.Characteristics</A>.pressure</H2>
 <B>Flow vs. head characteristics for fan or pump pressure raise</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the fan static
 pressure raise as a function of volume flow rate and revolution in the form
@@ -333,7 +334,7 @@ For <i>r<sub>N</sub> &lt; &delta;</i>, the polynomial is replaced with an other 
 a singularity at the origin. The composite model is once continuously differentiable
 in all input variables.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -469,14 +470,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Movers.BaseClasses.Characteristics</A>.flowApproximationAtOrigin</H2>
 <B>Approximation for fan or pump pressure raise at origin</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the fan static
 pressure raise as a function of volume flow rate and revolution near the origin.
 It is used to avoid a singularity in the pump or fan curve if the revolution 
 approaches zero.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -529,7 +530,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Movers.BaseClasses.Characteristics</A>.power</H2>
 <B>Flow vs. electrical power characteristics for fan or pump</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the fan power consumption for given volume flow rate,
 speed and performance data. The power consumption is
@@ -550,7 +551,7 @@ The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline.
 If the data <i>d</i> define a monotone decreasing sequence, then 
 <i>s(&middot;, d)</i> is a monotone decreasing function.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -626,7 +627,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Movers.BaseClasses.Characteristics</A>.efficiency</H2>
 <B>Flow vs. efficiency characteristics for fan or pump</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the fan or pump efficiency for given normalized volume flow rate
 and performance data. The efficiency is
@@ -646,7 +647,7 @@ The function <i>s(&middot;, &middot;)</i> is a cubic hermite spline.
 If the data <i>d</i> define a monotone decreasing sequence, then 
 <i>s(&middot;, d)</i> is a monotone decreasing function.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>

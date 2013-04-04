@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with mixing volumes</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains models for completely mixed volumes.
 </p>
@@ -38,7 +39,7 @@ The other models are only of interest if water should be added to
 or subtracted from the fluid volume, such as in a 
 coil with water vapor condensation.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
 <P></P><H3>Package Content</H3>
@@ -70,7 +71,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Mixing volume with inlet and outlet ports (flow reversal is allowed)</B><p></P>
 <IMG SRC="Buildings.Fluid.MixingVol2b1c22d6332a5efcolumeD.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolume">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model represents an instantaneously mixed volume. 
 Potential and kinetic energy at the port are neglected,
 and there is no pressure drop at the ports.
@@ -131,7 +132,7 @@ Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</a> and
 >
 Buildings.Fluid.MassExchangers.HumidifierPrescribed</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume"
 >Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</A> (Partial mixing volume with inlet and outlet ports (flow reversal is allowed)).
 <P><H3>Parameters</H3><P>
@@ -208,7 +209,7 @@ Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.F
 <B>Mixing volume with heat port for latent heat exchange, to be used with dry air</B><p></P>
 <IMG SRC="Buildings.Fluid.MixingVolf5443dbd83cd1eedryAirD.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolumeDryAir">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Model for an ideally mixed fluid volume and the ability 
 to store mass and energy. The volume is fixed, 
 and sensible heat can be exchanged.
@@ -228,7 +229,7 @@ Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir</a> to add
 or subtract moisture using a signal that is connected to the port
 <code>mWat_flow</code> and <code>TWat</code>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort"
 >BaseClasses.PartialMixingVolumeWaterPort</A> (Partial mixing volume that allows adding or subtracting water vapor).
 <P><H3>Parameters</H3><P>
@@ -325,7 +326,7 @@ Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.F
 <B>Mixing volume with heat port for latent heat exchange, to be used with media that contain water</B><p></P>
 <IMG SRC="Buildings.Fluid.MixingVol46e02b3c5f55f712stAirD.png" ALT="Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Model for an ideally mixed fluid volume and the ability 
 to store mass and energy. The volume is fixed, 
 and latent and sensible heat can be exchanged.
@@ -354,7 +355,7 @@ functionality, use
 >
 Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort"
 >BaseClasses.PartialMixingVolumeWaterPort</A> (Partial mixing volume that allows adding or subtracting water vapor).
 <P><H3>Parameters</H3><P>

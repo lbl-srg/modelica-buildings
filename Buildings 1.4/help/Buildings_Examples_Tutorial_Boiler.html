@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with example for how to build a model for boiler with a heating load</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains examples with step-by-step instructions for how to build 
 a system model for a boiler with a heat load as shown in the figure below. 
@@ -120,7 +121,7 @@ replaces the boiler and pump control using a state machine.
 </li>
 </ol>
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
 <P></P><H3>Package Content</H3>
@@ -158,7 +159,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>1st part of the system model, consisting of the room with heat transfer</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681cb9fd28122stem1D.png" ALT="Buildings.Examples.Tutorial.Boiler.System1">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This part of the system model implements the room with a heat gain.
 The room is simplified as a volume of air, a prescribed heat source for
@@ -398,7 +399,7 @@ package
 Buildings.HeatTransfer.Conduction</a>
 could have been used.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -482,7 +483,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>2nd part of the system model, consisting of the room with heat transfer and a radiator</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681cc9fd28121stem2D.png" ALT="Buildings.Examples.Tutorial.Boiler.System2">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This part of the system model adds a radiator with a prescribed mass flow
 rate to the system that is implemented in
@@ -695,7 +696,7 @@ package
 Buildings.HeatTransfer.Conduction</a>
 could have been used.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -872,7 +873,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>3rd part of the system model, which adds the boiler loop with open loop control</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681cd9fd28120stem3D.png" ALT="Buildings.Examples.Tutorial.Boiler.System3">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This part of the system model adds the boiler loop with
 open loop control to the model that is implemented in
@@ -1083,7 +1084,7 @@ and the room design temperature.
 Since the boiler control signal is <i>0.5</i>, 
 this indicates that the model is correct.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -1382,7 +1383,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>4th part of the system model, which adds closed-loop control for the pumps and the boiler</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681ce9fd28127stem4D.png" ALT="Buildings.Examples.Tutorial.Boiler.System4">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This part of the system model adds to the model that is implemented in
 <A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler.System3"
@@ -1471,7 +1472,7 @@ We will fix these issues by adding closed loop control for the valves in model
 >
 Buildings.Examples.Tutorial.Boiler.System5</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -1798,7 +1799,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>5th part of the system model, which adds closed-loop control for the valves</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681cf9fd28126stem5D.png" ALT="Buildings.Examples.Tutorial.Boiler.System5">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This part of the system model adds to the model that is implemented in
 <A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler.System4"
@@ -1901,7 +1902,7 @@ has smaller oscillations compared to
 >
 Buildings.Examples.Tutorial.Boiler.System4</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -2241,7 +2242,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>6th part of the system model, which adds weather data and changes to PI control</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681d09fd28125stem6D.png" ALT="Buildings.Examples.Tutorial.Boiler.System6">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This part of the system model adds to the model that is implemented in
 <A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler.System5"
@@ -2322,7 +2323,7 @@ the boiler inlet temperature is above
 and that the room temperature and the supply water temperature are
 maintained at their set point.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -2677,7 +2678,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>7th part of the system model, which implements the on/off control using a state machine</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori183681d19fd28124stem7D.png" ALT="Buildings.Examples.Tutorial.Boiler.System7">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This part of the system model changes the implementation of the control in
 <A HREF="Buildings_Examples_Tutorial_Boiler.html#Buildings.Examples.Tutorial.Boiler.System6"
@@ -2763,7 +2764,7 @@ response shown below should be seen.
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings 1.4/Resources/Images/Examples/Tutorial/Boiler/System7Temperatures1.png" border="1">
 <img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings 1.4/Resources/Images/Examples/Tutorial/Boiler/System7Temperatures2.png" border="1">
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>

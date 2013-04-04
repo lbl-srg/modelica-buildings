@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with mathematical functions</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains functions for commonly used
 mathematical operations. The functions are used in 
@@ -34,7 +35,7 @@ the blocks
 >
 Buildings.Utilities.Math</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -106,7 +107,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Utilities.Math.Functions</A>.bicubic</H2>
 <B>Bicubic function</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes
 <p align="center" style="font-style:italic;">
  y = a<sub>1</sub> 
@@ -118,7 +119,7 @@ This function computes
     + a<sub>9</sub>  x<sub>1</sub><sup>2</sup>  x<sub>2</sub> 
     + a<sub>1</sub>0  x<sub>1</sub>  x<sub>2</sub><sup>2</sup>
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -163,7 +164,7 @@ This function computes
 >Buildings.Utilities.Math.Functions</A>.biquadratic</H2>
 <B>Biquadratic function</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes
 <p align="center" style="font-style:italic;">
   y =   a<sub>1</sub> + a<sub>2</sub>  x<sub>1</sub> 
@@ -171,7 +172,7 @@ This function computes
         + a<sub>4</sub>  x<sub>2</sub> + a<sub>5</sub>  x<sub>2</sub><sup>2</sup>
         + a<sub>6</sub>  x<sub>1</sub>  x<sub>2</sub>
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -205,7 +206,7 @@ This function computes
 >Buildings.Utilities.Math.Functions</A>.cubicHermiteLinearExtrapolation</H2>
 <B>Interpolate using a cubic Hermite spline with linear extrapolation</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 For <i>x<sub>1</sub> &lt; x &lt; x<sub>2</sub></i>, this function interpolates
 using cubic hermite spline. For <i>x</i> outside this interval, the function 
@@ -217,7 +218,7 @@ For how to use this function, see
 >
 Buildings.Utilities.Math.Functions.Examples.CubicHermite</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -273,13 +274,13 @@ Buildings.Utilities.Math.Functions.Examples.CubicHermite</a>.
 >Buildings.Utilities.Math.Functions</A>.polynomial</H2>
 <B>Polynomial function</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes a polynomial of arbitrary order.
 The polynomial has the form
 <p align="center" style="font-style:italic;">
   y = a<sub>1</sub> + a<sub>2</sub> x + a<sub>3</sub> x<sup>2</sup> + ...
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -319,7 +320,7 @@ The polynomial has the form
 >Buildings.Utilities.Math.Functions</A>.powerLinearized</H2>
 <B>Power function that is linearized below a user-defined threshold</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function that approximates <i>y=x<sup>n</sup></i> 
 where <i>0 &lt; n</i> so that
@@ -342,7 +343,7 @@ when a solver may be far from a solution and hence <i>T4 &lt; 0</i>.
 <p>
 See the package <code>Examples</code> for the graph.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -381,7 +382,7 @@ See the package <code>Examples</code> for the graph.
 >Buildings.Utilities.Math.Functions</A>.quadraticLinear</H2>
 <B>Function that is quadratic in first argument and linear in second argument</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes
 <p align="center" style="font-style:italic;">
   y =   a<sub>1</sub> + a<sub>2</sub>  x<sub>1</sub> 
@@ -389,7 +390,7 @@ This function computes
         + (a<sub>4</sub> + a<sub>5</sub>  x<sub>1</sub> 
         + a<sub>6</sub> x<sub>1</sub><sup>2</sup>)  x<sub>2</sub>
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -427,7 +428,7 @@ This function computes
 >Buildings.Utilities.Math.Functions</A>.regNonZeroPower</H2>
 <B>Power function, regularized near zero, but nonzero value for x=0</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function that approximates <i>y=|x|<sup>n</sup></i> where <i>n &gt; 0</i> 
 so that
@@ -457,7 +458,7 @@ where heat conduction dominates convection in the boundary layer.
 <p>
 See the package <code>Examples</code> for the graph.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -516,13 +517,13 @@ See the package <code>Examples</code> for the graph.
 >Buildings.Utilities.Math.Functions</A>.smoothExponential</H2>
 <B>Once continuously differentiable approximation to exp(-|x|) in interval |x| &lt; delta</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function to provide a once continuously differentiable approximation 
 to <i>exp(- |x| )</i>
 in the interval <i>|x| < &delta;</i> for some positive <i>&delta;</i>
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -572,12 +573,12 @@ in the interval <i>|x| < &delta;</i> for some positive <i>&delta;</i>
 >Buildings.Utilities.Math.Functions</A>.smoothHeaviside</H2>
 <B>Once continuously differentiable approximation to the Heaviside function</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Once Lipschitz continuously differentiable approximation to the 
 <code>Heaviside(.,.)</code> function.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -609,11 +610,11 @@ Once Lipschitz continuously differentiable approximation to the
 >Buildings.Utilities.Math.Functions</A>.smoothMax</H2>
 <B>Once continuously differentiable approximation to the maximum function</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Once continuously differentiable approximation to the <code>max(.,.)</code> function.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -648,11 +649,11 @@ Once continuously differentiable approximation to the <code>max(.,.)</code> func
 >Buildings.Utilities.Math.Functions</A>.smoothMin</H2>
 <B>Once continuously differentiable approximation to the minimum function</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Once continuously differentiable approximation to the <code>max(.,.)</code> function.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -687,12 +688,12 @@ Once continuously differentiable approximation to the <code>max(.,.)</code> func
 >Buildings.Utilities.Math.Functions</A>.smoothLimit</H2>
 <B>Once continuously differentiable approximation to the limit function</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Once continuously differentiable approximation to the <code>limit(.,.)</code> function.
 The output is bounded to be in <i>[l, u]</i>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -732,7 +733,7 @@ The output is bounded to be in <i>[l, u]</i>.
 <H2><A NAME="Buildings.Utilities.Math.Functions.spliceFunction"></A><A HREF="Buildings_Utilities_Math_Functions.html#Buildings.Utilities.Math.Functions"
 >Buildings.Utilities.Math.Functions</A>.spliceFunction</H2>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function to provide a once continuously differentialbe transition between 
 to arguments.
@@ -742,7 +743,7 @@ The function is adapted from
 >
 Modelica.Media.Air.MoistAir.Utilities.spliceFunction</a> and provided here
 for easier accessability to model developers.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -792,7 +793,7 @@ for easier accessability to model developers.
 >Buildings.Utilities.Math.Functions</A>.splineDerivatives</H2>
 <B>Function to compute the derivatives for cubic hermite spline interpolation</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the derivatives at the support points <i>x<sub>i</sub></i>
 that can be used as input for evaluating a cubic hermite spline.
@@ -818,7 +819,7 @@ in which the above function may be called.
 F.N. Fritsch and R.E. Carlson, <a href="http://dx.doi.org/10.1137/0717021">Monotone piecewise cubic interpolation</a>. 
 <i>SIAM J. Numer. Anal.</i>, 17 (1980), pp. 238?246.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -913,11 +914,11 @@ F.N. Fritsch and R.E. Carlson, <a href="http://dx.doi.org/10.1137/0717021">Monot
 >Buildings.Utilities.Math.Functions</A>.trapezoidalIntegration</H2>
 <B>Integration using the trapezoidal rule</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes a definite integral using the trapezoidal rule.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -959,7 +960,7 @@ This function computes a definite integral using the trapezoidal rule.
 >Buildings.Utilities.Math.Functions</A>.inverseXRegularized</H2>
 <B>Function that approximates 1/x by a twice continuously differentiable function</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function that approximates <i>y=1 &frasl; x</i> 
 inside the interval <i>-&delta; &le; x &le; &delta;</i>.
@@ -968,7 +969,7 @@ real line.
 <p>
 See the package <code>Examples</code> for the graph.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1006,14 +1007,14 @@ See the package <code>Examples</code> for the graph.
 >Buildings.Utilities.Math.Functions</A>.isMonotonic</H2>
 <B>Returns true if the argument is a monotonic sequence</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function returns <code>true</code> if its argument is 
 monotonic increasing or decreasing, and <code>false</code> otherwise.
 If <code>strict=true</code>, then strict monotonicity is tested,
 otherwise weak monotonicity is tested.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

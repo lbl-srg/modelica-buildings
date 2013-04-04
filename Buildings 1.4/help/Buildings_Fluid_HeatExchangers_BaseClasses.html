@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with base classes for Buildings.Fluid.HeatExchangers</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
 >Buildings.Fluid.HeatExchangers</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -108,7 +109,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Header for a heat exchanger register</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha2dc65984bd9ae1dceaderD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.CoilHeader">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Header for a heat exchanger coil.
 </p>
@@ -119,7 +120,7 @@ Currently, the ports are connected without redistributing
 the flow. In latter versions, the model may be changed to define
 different flow reroutings in the coil header.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
@@ -190,7 +191,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <B>Register for a heat exchanger</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha6e1f7f06674c66f4isterD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.CoilRegister">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Register of a heat exchanger with dynamics on the fluids and the solid. 
 The register represents one array of pipes that are perpendicular to the
@@ -201,7 +202,7 @@ between the fluid volumes and the solid in each heat exchanger element.
 </p>
 <p>
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</A> (Parameters for flow resistance for models with four ports).
 <P><H3>Parameters</H3><P>
@@ -444,7 +445,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Manifold for a heat exchanger air duct connection</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha56c1cfbb2cf2d87btanceD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldFixedResistance">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Duct manifold with a fixed flow resistance.</p>
 </p>
@@ -453,7 +454,7 @@ This model causes the flow to be distributed equally
 into each flow path by using a fixed flow resistance
 for each flow path.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialDuctManifold"
 >PartialDuctManifold</A> (Partial manifold for heat exchanger duct connection).
 <P><H3>Parameters</H3><P>
@@ -567,7 +568,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <B>Duct manifold without resistance</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchada98fd043097efb4tanceD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.DuctManifoldNoResistance">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Duct manifold without flow resistance.</p>
 </p>
@@ -577,7 +578,7 @@ modeling flow friction. The model is used in conjunction with
 a manifold which contains pressure drop elements and that
 is added to the other side of the heat exchanger registers.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialDuctManifold"
 >PartialDuctManifold</A> (Partial manifold for heat exchanger duct connection).
 <P><H3>Parameters</H3><P>
@@ -625,7 +626,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <B>Sensible convective heat transfer model for air to water coil</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha7670ce850aefe4cfyCoilD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.HADryCoil">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model for sensible convective heat transfer coefficients for an air to water coil.
 </p>
@@ -659,7 +660,7 @@ Berkeley, CA, 1999.
 </li>
 </ul>
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
@@ -813,7 +814,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <B>Element of a heat exchanger</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha2e41d1d5b59d8e38ementD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.HexElement">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Element of a heat exchanger with dynamics on the fluids and the solid. 
 The <i>hA</i> value for both fluids is an input.
@@ -847,7 +848,7 @@ where <i>&tau;<sub>m</sub></i> is the time constant that the metal
 of the heat exchanger has if the metal is approximated by a lumped
 thermal mass.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</A> (Model transporting two fluid streams between four ports with storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -1064,7 +1065,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Block to compute the latent heat transfer based on the Lewis number</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha4f3d4227286e511changeD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model computes the mass transfer based on similarity laws between
 the convective sensible heat transfer coefficient and the mass transfer coefficient.
@@ -1096,7 +1097,7 @@ bulk of the medium. In this model,
 <i>X<sub>s</sub></i> is the saturation water vapor pressure
 corresponding to the temperature <i>T<sub>sur</sub></i> which is an input.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
@@ -1202,7 +1203,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <B>Partial model to implement heat exchangers based on effectiveness model</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha58f2ae39d7b1a5d3enessD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.PartialEffectiveness">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial model to implement heat exchanger models
 </p>
@@ -1220,7 +1221,7 @@ mass balance equations in a form like<pre>
 Thus, if medium 1 is heated in this device, then <code>Q1_flow &gt; 0</code>
 and <code>QMax_flow &gt; 0</code>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger"
 >Fluid.Interfaces.StaticFourPortHeatMassExchanger</A> (Partial model transporting two fluid streams between four ports without storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -1406,7 +1407,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Partial manifold for heat exchanger duct connection</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchaf5169d3349c0b86fifoldD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.PartialDuctManifold">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial duct manifold for a heat exchanger.</p>
 </p>
@@ -1415,7 +1416,7 @@ This model defines the duct connection to a heat exchanger.
 It is extended by other models that model the flow connection 
 between the ports with and without flow friction.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialDuctPipeManifold"
 >PartialDuctPipeManifold</A> (Partial heat exchanger duct and pipe manifold).
 <P><H3>Parameters</H3><P>
@@ -1466,13 +1467,13 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <B>Partial heat exchanger duct and pipe manifold</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchac048acf90cb410b4ifoldD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.PartialDuctPipeManifold">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial heat exchanger manifold.
 This partial model defines ports and parameters that are used
 for air-side and water-side heat exchanger manifolds.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
@@ -1533,7 +1534,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <B>Partial pipe manifold for a heat exchanger</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchade69b8a343b2c96fifoldD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.PartialPipeManifold">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial pipe manifold for a heat exchanger.</p>
 </p>
@@ -1542,7 +1543,7 @@ This model defines the pipe connection to a heat exchanger.
 It is extended by other models that model the flow connection 
 between the ports with and without flow friction.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialDuctPipeManifold"
 >PartialDuctPipeManifold</A> (Partial heat exchanger duct and pipe manifold).
 <P><H3>Parameters</H3><P>
@@ -1588,7 +1589,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <B>Pipe manifold for a heat exchanger connection</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha201daf8bbf7ad828tanceD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldFixedResistance">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Pipe manifold with a fixed flow resistance.</p>
 </p>
@@ -1597,7 +1598,7 @@ This model causes the flow to be distributed equally
 into each flow path by using a fixed flow resistance
 for each flow path.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialPipeManifold"
 >PartialPipeManifold</A> (Partial pipe manifold for a heat exchanger).
 <P><H3>Parameters</H3><P>
@@ -1687,7 +1688,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 <B>Manifold for heat exchanger register</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchaa9fb81743030c8a4tanceD.png" ALT="Buildings.Fluid.HeatExchangers.BaseClasses.PipeManifoldNoResistance">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Pipe manifold without flow resistance.</p>
 </p>
@@ -1697,7 +1698,7 @@ modeling flow friction. The model is used in conjunction with
 a manifold which contains pressure drop elements and that
 is added to the other side of the heat exchanger registers.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.Fluid.HeatExchangers.BaseClasses.PartialPipeManifold"
 >PartialPipeManifold</A> (Partial pipe manifold for a heat exchanger).
 <P><H3>Parameters</H3><P>
@@ -1744,7 +1745,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_BaseClasses.html#Buildings.
 >Buildings.Fluid.HeatExchangers.BaseClasses</A>.appartusDewPoint</H2>
 <B>Computes the apparatus dewpoint temperature</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes iteratively the apparatus dew point temperature for a cooling coil.
 The apparatus dew point temperature is defined as in the HVAC2 Toolkit (Brandemuehl <i>et al.</i>
 1993), namely as the intersection of the line between coil air inlet state <i>(T,X)</i> and
@@ -1765,7 +1766,7 @@ If no solution can be found, the function stops the simulation.
 Brandemuehl, Michael, Shauna Gabel and Inger Andresen. <i>HVAC2 Toolkit, A toolkit for secondary HVAC system
 energy calculations</i>. ASHRAE, Atlanta. 1993.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1874,7 +1875,7 @@ energy calculations</i>. ASHRAE, Atlanta. 1993.
 >Buildings.Fluid.HeatExchangers.BaseClasses</A>.epsilon_C</H2>
 <B>Computes heat exchanger effectiveness for given capacity flow rates and heat exchanger flow regime</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes the heat exchanger effectiveness,
 the Number of Transfer Units, and the capacity flow ratio
 for given capacity flow rates.
@@ -1884,7 +1885,7 @@ The implementation allows for zero flow rate.
 As <code>CMin_flow</code> crosses <code>delta*CMin_flow_nominal</code> from above,
 the Number of Transfer Units and the heat exchanger effectiveness go to zero.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2000,9 +2001,9 @@ the Number of Transfer Units and the heat exchanger effectiveness go to zero.
 >Buildings.Fluid.HeatExchangers.BaseClasses</A>.epsilon_ntuZ</H2>
 <B>Computes heat exchanger effectiveness for given number of transfer units and heat exchanger flow regime</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes the heat exchanger effectiveness for a given number of transfer units, capacity flow ratio and heat exchanger flow regime.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2070,7 +2071,7 @@ This function computes the heat exchanger effectiveness for a given number of tr
 >Buildings.Fluid.HeatExchangers.BaseClasses</A>.ntu_epsilonZ</H2>
 <B>Computes number of transfer units for given heat exchanger effectiveness and heat exchanger flow regime</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes the number of transfer units for a given heat exchanger effectiveness,
 capacity flow ratio and heat exchanger flow regime.
 </p>
@@ -2079,7 +2080,7 @@ Note that for the flow regime <code>CrossFlowUnmixed</code>, computing the
 function requires the numerical solution of an equation in one variable.
 This is handled internally and not exposed to the global solver.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2165,14 +2166,14 @@ This is handled internally and not exposed to the global solver.
 >Buildings.Fluid.HeatExchangers.BaseClasses</A>.lmtd</H2>
 <B>Log-mean temperature difference</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the log mean temperature difference of a heat exchanger.
 </p>
 <p>
 Note that the implementation requires the temperature differences to be non-zero.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with base classes for Buildings.Rooms</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Rooms.html#Buildings.Rooms"
 >Buildings.Rooms</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -105,7 +106,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model for convection and radiation bounary condition of exterior constructions</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClass463e41028452bddftionsD.png" ALT="Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model computes the boundary conditions for the outside-facing surface of
 opaque constructions.
 </p>
@@ -135,7 +136,7 @@ The heat transfer of windows are not computed in this model. They are implemente
 >
 Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -279,7 +280,7 @@ Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</a>.
 <B>Model for exterior boundary conditions for constructions with a window</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClassc134fdd45fd20611indowD.png" ALT="Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model computes the boundary conditions for the outside-facing surface of
 opaque constructions and of windows.
 </p>
@@ -302,7 +303,7 @@ the model
 <A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.ExteriorHeatTransfer"
 >
 Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions"
 >Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions</A> (Model for convection and radiation bounary condition of exterior constructions).
 <P><H3>Parameters</H3><P>
@@ -515,7 +516,7 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 <B>Model to convert internal heat gain signals</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClasses.HeatGainD.png" ALT="Buildings.Rooms.BaseClasses.HeatGain">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model computes the radiant, convective and latent heat flow.
 Input into this model are these three components in units of [W/m2].
 The inputs need to be positive quantities if heat or moisture is added
@@ -535,7 +536,7 @@ the water vapor released into the air.
 If the medium model does not contain water vapor, then
 the water vapor released into the air is zero, i.e., 
 the mass flow rate at the fluid port is equal to zero.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
@@ -648,7 +649,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <B>Infrared radiation heat exchange between the room facing surfaces</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClass39076b6d16b239c0hangeD.png" ALT="Buildings.Rooms.BaseClasses.InfraredRadiationExchange">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model computes the infrared radiative heat transfer between the interior
 surfaces of a room. Each opaque surface emits radiation according to
@@ -718,7 +719,7 @@ The view factor from surface <i>i</i> to <i>j</i> is approximated as
 <p align="center" style="font-style:italic;">
   F<sup>i,j</sup> = A<sup>j</sup> &frasl; &sum;<sub>k </sub> A<sup>k</sup>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.PartialSurfaceInterface"
 >Buildings.Rooms.BaseClasses.PartialSurfaceInterface</A> (Partial model that is used for infrared radiation balance).
 <P><H3>Parameters</H3><P>
@@ -1047,7 +1048,7 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 <B>Infrared radiative heat gain distribution between the room facing surfaces</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClassef6fd50d43dced46utionD.png" ALT="Buildings.Rooms.BaseClasses.InfraredRadiationGainDistribution">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model computes the distribution of the infrared radiant heat gain
 to the room surfaces. 
 The infrared radiant heat gain <i>Q</i> is an input to this model.
@@ -1066,7 +1067,7 @@ For the glass of the windows, the heat flow rate
 <i>J<sup>i</sup></i>
 that will strike the glass or the window shade.
 <p/>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.PartialSurfaceInterface"
 >Buildings.Rooms.BaseClasses.PartialSurfaceInterface</A> (Partial model that is used for infrared radiation balance).
 <P><H3>Parameters</H3><P>
@@ -1220,7 +1221,7 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 <B>Model for room air that is completely mixed</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClasses.MixedAirD.png" ALT="Buildings.Rooms.BaseClasses.MixedAir">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Model for the heat exchange inside a room.
 This model integrates various components that model
 heat exchange between the room-facing surfaces of constructions
@@ -1297,7 +1298,7 @@ solar absorptivity.
 </p>
 
 
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes), <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.PartialSurfaceInterface"
 >Buildings.Rooms.BaseClasses.PartialSurfaceInterface</A> (Partial model that is used for infrared radiation balance).
@@ -1818,7 +1819,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Model to connect between signals and heat port for radiative gains of the room</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClass396027b42b0f60aaapterD.png" ALT="Buildings.Rooms.BaseClasses.RadiationAdapter">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model can be used as a thermal adapter in situations where the temperature
 and the heat flow rate are computed in separate models. 
 For example, this thermal adapter is used in the room model, which computes
@@ -1833,7 +1834,7 @@ Buildings.Rooms.BaseClasses.RadiationTemperature</a>.
 This adapter combines the heat flow rate and the temperatures that are computed in these
 separate models, and exposes these two quantities at its heat port.
 
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Connectors</H3><P>
@@ -1876,7 +1877,7 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 <B>Radiative temperature of the room</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClass0cb9284165e146d7atureD.png" ALT="Buildings.Rooms.BaseClasses.RadiationTemperature">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model computes the radiative temperature in the room.
 For a room with windows but no shade, the radiative temperature is
@@ -1916,7 +1917,7 @@ For the unshaded part of the window, the radiative power is
 where
 <i>T<sub>gn</sub></i> is the glass temperature of the non-shaded part of the window.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.PartialSurfaceInterface"
 >Buildings.Rooms.BaseClasses.PartialSurfaceInterface</A> (Partial model that is used for infrared radiation balance).
 <P><H3>Parameters</H3><P>
@@ -2182,7 +2183,7 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 <B>Solar radiation heat exchange between the room facing surfaces</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClass124701a598175785hangeD.png" ALT="Buildings.Rooms.BaseClasses.SolarRadiationExchange">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model computes the distribution of the solar radiation gain
 to the room surfaces.
@@ -2245,7 +2246,7 @@ For the glass of the windows, the heat flow rate
 <i>J<sub>out</sub><sup>i</sup></i>
 that will strike the glass or the window shade as diffuse solar
 radiation.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.PartialSurfaceInterface"
 >Buildings.Rooms.BaseClasses.PartialSurfaceInterface</A> (Partial model that is used for infrared radiation balance).
 <P><H3>Parameters</H3><P>
@@ -2531,7 +2532,7 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 <B>Partial model that is used for infrared radiation balance</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClassfed177a79783e66erfaceD.png" ALT="Buildings.Rooms.BaseClasses.PartialSurfaceInterface">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This partial model is used as a base class for models that need to exchange
 heat with room-facing surfaces. It defines parameters for the surface area,
 the absorptivity, and the products of area times absorptivity.
@@ -2558,7 +2559,7 @@ such as <code>haveConExt</code>, which is set to
 
 </pre>
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ConstructionRecords"
 >Buildings.Rooms.BaseClasses.ConstructionRecords</A> (Data records for construction data).
 <P><H3>Parameters</H3><P>
@@ -2729,13 +2730,13 @@ Check the parameters of the room model.&quot;);
 <B>Radiative heat exchange with the sky and the ambient</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClassfb194bf94115eed8hangeD.png" ALT="Buildings.Rooms.BaseClasses.SkyRadiationExchange">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model computes the infrared radiative heat flow 
 between exterior building surfaces and the ambient. The ambient consists
 of the sky black-body radiation and the outdoor temperature 
 (which is used as an approximation to the surface temperature of
 the ground and neighboring buildings).
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
 <P><H3>Parameters</H3><P>
@@ -2815,12 +2816,12 @@ Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.Rooms.BaseClasses</A>.ConstructionNumbers</H2>
 <B>Data records for construction data</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Record that defines the number of constructions that are 
 used in the room model.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2891,12 +2892,12 @@ used in the room model.
 <B>Data records for construction data</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClass7a7debdf919d9749cordsD.png" ALT="Buildings.Rooms.BaseClasses.ConstructionRecords">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Record that defines the number of constructions that are
 used in the room model.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.ConstructionNumbers"
 >Buildings.Rooms.BaseClasses.ConstructionNumbers</A> (Data records for construction data).
 <P><H3>Parameters</H3><P>
@@ -2979,7 +2980,7 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 >Buildings.Rooms.BaseClasses</A>.Overhang</H2>
 <B>Record for window overhang</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This record declares parameters for window overhangs.
 </p>
@@ -2992,7 +2993,7 @@ for an explanation of the parameters, and
 for the assumptions and limitations
 of the overhang model.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
@@ -3044,7 +3045,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Record for exterior constructions that have a window</B><p></P>
 <IMG SRC="Buildings.Rooms.BaseClass9e633c7ec4500d5eindowD.png" ALT="Buildings.Rooms.BaseClasses.ParameterConstructionWithWindow">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This data record is used to set the parameters of constructions that do have a window.
 </p>
@@ -3057,7 +3058,7 @@ and the surface tilt is defined in <A HREF="Buildings_HeatTransfer_Types_Tilt.ht
 >
 Buildings.HeatTransfer.Types.Tilt</a>
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.PartialParameterConstruction"
 >Buildings.Rooms.BaseClasses.PartialParameterConstruction</A> (Partial record for constructions).
 <P><H3>Parameters</H3><P>
@@ -3147,7 +3148,7 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 >Buildings.Rooms.BaseClasses</A>.ParameterConstruction</H2>
 <B>Record for exterior constructions that have no window</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This data record is used to set the parameters of constructions that do not have a window.
 </p>
@@ -3160,7 +3161,7 @@ and the surface tilt is defined in <A HREF="Buildings_HeatTransfer_Types_Tilt.ht
 >
 Buildings.HeatTransfer.Types.Tilt</a>
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.PartialParameterConstruction"
 >Buildings.Rooms.BaseClasses.PartialParameterConstruction</A> (Partial record for constructions).
 <P><H3>Parameters</H3><P>
@@ -3203,7 +3204,7 @@ Extends from <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClass
 >Buildings.Rooms.BaseClasses</A>.PartialParameterConstruction</H2>
 <B>Partial record for constructions</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This data record is used to set the parameters of constructions that do not have a window.
 </p>
@@ -3216,7 +3217,7 @@ and the surface tilt is defined in <A HREF="Buildings_HeatTransfer_Types_Tilt.ht
 >
 Buildings.HeatTransfer.Types.Tilt</a>
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>
@@ -3278,7 +3279,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Rooms.BaseClasses</A>.SideFins</H2>
 <B>Record for window side fins</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This record declares parameters for window side fins.
 </p>
@@ -3291,7 +3292,7 @@ for an explanation of the parameters, and
 for the assumptions and limitations
 of the model for side fins.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records).
 <P><H3>Parameters</H3><P>

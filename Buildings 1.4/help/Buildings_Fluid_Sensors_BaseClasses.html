@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with base classes for Buildings.Fluid.Sensors</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors"
 >Buildings.Fluid.Sensors</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -57,7 +58,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Partial component to model a sensor that measures a potential variable</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.B622c2e39ea7a1c8bensorD.png" ALT="Buildings.Fluid.Sensors.BaseClasses.PartialAbsoluteSensor">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial component to model an absolute sensor. 
 The component can be used for pressure sensor models.
@@ -66,7 +67,7 @@ Use for other properties such as temperature or density is discouraged, because 
 >
 Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -109,7 +110,7 @@ Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor</a>.
 <B>Partial component to model sensors that measure flow properties using a dynamic model</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.Bf9bc578f10b7e4a5ensorD.png" ALT="Buildings.Fluid.Sensors.BaseClasses.PartialDynamicFlowSensor">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial component to model a sensor that measures any intensive properties
 of a flow, e.g., to get temperature or density in the flow
@@ -119,7 +120,7 @@ The sensor computes a gain that is zero at zero mass flow rate.
 This avoids fast transients if the flow is close to zero, thereby
 improving the numerical efficiency.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor"
 >PartialFlowSensor</A> (Partial component to model sensors that measure flow properties).
 <P><H3>Parameters</H3><P>
@@ -190,13 +191,13 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Partial component to model sensors that measure flow properties</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.Bf9bc578f10b7e4a5ensorD.png" ALT="Buildings.Fluid.Sensors.BaseClasses.PartialFlowSensor">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial component to model a sensor.
 The sensor is ideal. It does not influence mass, energy,
 species or substance balance, and it has no flow friction.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort"
 >Modelica.Fluid.Interfaces.PartialTwoPort</A> (Partial component with two ports).
 <P><H3>Parameters</H3><P>

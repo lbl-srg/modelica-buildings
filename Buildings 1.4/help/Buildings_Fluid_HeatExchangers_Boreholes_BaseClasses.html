@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Base classes for Borehole</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_HeatExchangers_Boreholes.html#Buildings.Fluid.HeatExchangers.Boreholes"
 >Buildings.Fluid.HeatExchangers.Boreholes</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -90,7 +91,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Vertical segment of a borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha1feb32104c7120c0gmentD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeSegment">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Horizontal layer that is used to model a U-tube borehole heat exchanger. 
 This model combines three models, each simulating a different aspect 
@@ -115,7 +116,7 @@ The computation is done using the model
 <a href="modelica://Buildings.Fluid.Boreholes.BaseClasses.TemperatureBoundaryCondition">
 Buildings.Fluid.Boreholes.BaseClasses.TemperatureBoundaryCondition</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
 >Buildings.Fluid.Interfaces.PartialFourPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</A> (Parameters for flow resistance for models with two ports), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
@@ -395,7 +396,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Internal part of a borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchabc95f273374cc0cbementD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.HexInternalElement">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model for the heat transfer between the fluid and within the borehole filling.
 This model computes the dynamic response of the fluid in the tubes, and the heat transfer between the
@@ -450,7 +451,7 @@ The resistance for the interference of the pipes is computed in
 >
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.InterferenceResistance</a>. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
 >Buildings.Fluid.Interfaces.FourPortHeatMassExchanger</A> (Model transporting two fluid streams between four ports with storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -732,7 +733,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Thermal resistance of the borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchad1d9b408bdcb3284tanceD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.BoreholeResistance">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model computes the total thermal resistance from the fluid to the borehole wall. 
 This thermal resistance is then used for a three-resistance model.
@@ -771,7 +772,7 @@ Hellstrom, G (1991). <br>
  Thermal Performance of Borehole Heat Exchangers</a>.<br> 
 Department of Mathematical Physics, Lund Institute of Technology.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance</A> (Partial model for thermal resistance of the borehole).
 <P><H3>Parameters</H3><P>
@@ -845,7 +846,7 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#
 <B>Total interference resistance between the two pipes of a borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchad1d9b408bdcb3284tanceD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.InterferenceResistance">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model computes the interference resistance between the two pipes of a U-tube borehole. 
 It computes the resistance using the 
@@ -869,7 +870,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.boreholeThermalResistance</
 >
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.boreholeInternalResistance</a> for <i>R<sub>a</sub></i>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance"
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance</A> (Partial model for thermal resistance of the borehole).
 <P><H3>Parameters</H3><P>
@@ -967,11 +968,11 @@ Extends from <A HREF="Buildings_Fluid_HeatExchangers_Boreholes_BaseClasses.html#
 <B>Partial model for thermal resistance of the borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExchafa2039679592bb5etanceD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.PartialBoreholeResistance">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial model for the thermal resistance of the borehole.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1089,7 +1090,7 @@ Partial model for the thermal resistance of the borehole.
 <B>Prescribed temperature at the outer boundary of a single U tube borehole</B><p></P>
 <IMG SRC="Buildings.Fluid.HeatExcha08bcfd6b3be32707itionD.png" ALT="Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.SingleUTubeBoundaryCondition">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model computes the temperature boundary condition at the outer boundary of the borehole.
 It takes as an input the heat flow rate at the center of the borehole.
@@ -1104,7 +1105,7 @@ The computation of the temperature change of the boundary is computed using the 
 >
 Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1210,7 +1211,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.temperatureDrop</a>.
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.ExtendableArray</H2>
 <B>class used to create the external object: ExtendableArray</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Class derived from <code>ExternalObject</code> having two local external function definition, 
 named <code>destructor</code> and <code>constructor</code> respectively.
@@ -1218,7 +1219,7 @@ named <code>destructor</code> and <code>constructor</code> respectively.
 These functions create and release an external object that allows the the storage 
 of real parameters in an array of extendable dimension.
 
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/help/ExternalObject.html#ExternalObject"
 >ExternalObject</A>.
 <P></P><H3>Modelica definition</H3>
@@ -1250,7 +1251,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/help/ExternalObject.html#Exte
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.boreholeInternalResistance</H2>
 <B>Calculate the internal resistance of the borehole</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model computes the internal resistance <i>R</i> of a single U-tube borehole, 
 as defined by Hellstrom (1991), as 
@@ -1279,7 +1280,7 @@ Hellstrom, G (1991). <br>
  Thermal Performance of Borehole Heat Exchangers</a>.<br> 
 Department of Mathematical Physics, Lund Institute of Technology.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1353,7 +1354,7 @@ Department of Mathematical Physics, Lund Institute of Technology.
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.boreholeThermalResistance</H2>
 <B>Calculate the total thermal resistance of the borehole from the fluid to the soil</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model computes the borehole total thermal resistance for a single U-tube.
 The computation is as defined in Hellstom (1991).
@@ -1432,7 +1433,7 @@ Paul, N.D (1996). <i>The effect of grout thermal conductivity on vertical geothe
 and performance.</i> 
 Master of Science Thesis, South Dakota State University.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1538,7 +1539,7 @@ Master of Science Thesis, South Dakota State University.
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.exchangeValues</H2>
 <B>Store the value u at the element n in the external object, and return the value of the element i</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 External function that stores the input value <code>x</code> as the element
 <code>a[iX]</code> in the array 
@@ -1546,7 +1547,7 @@ External function that stores the input value <code>x</code> as the element
 and that returns the element <code>a[iY]</code>.
 The size of the array <code>a</code> is automatically enlarged as needed.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1585,11 +1586,11 @@ The size of the array <code>a</code> is automatically enlarged as needed.
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.factorial</H2>
 <B>Calculates the factorial value of the input</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes <i>y = j!</i>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1621,12 +1622,12 @@ This function computes <i>y = j!</i>.
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.powerSeries</H2>
 <B>Power series used to compute far-field temperature</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
           <p>
 This function computes the power series that is used to compute the far-field 
 temperature.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1659,7 +1660,7 @@ temperature.
 >Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses</A>.temperatureDrop</H2>
 <B>Calculate the temperature drop of the soil at the external boundary of the cylinder</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function calculates the temperature drop of the soil at the outer boundary of the cylinder.
 The analytical formula of Hart and Couvillion (1986) for constant 
 heat extraction is adapted to a non-constant heat flux. 
@@ -1702,7 +1703,7 @@ Buildings.Fluid.HeatExchangers.Boreholes.BaseClasses.exchangeValues</a>.
 Hart and Couvillion, (1986). <i>Earth Coupled Heat Transfer.</i>
 Publication of the National Water Well Association. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

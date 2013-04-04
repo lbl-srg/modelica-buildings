@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -244,7 +245,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Modelica.Media.Interfaces.PartialMedium</A>.isentropicEnthalpy</H2>
 <B>Return isentropic enthalpy</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes an isentropic state transformation:
 </p>
@@ -256,7 +257,7 @@ This function computes an isentropic state transformation:
      is p_downstream and the composition X upstream and downstream is assumed to be the same.</li>
 </ol>
 
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -296,11 +297,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Modelica.Media.Interfaces.PartialMedium</A>.isobaricExpansionCoefficient</H2>
 <B>Return overall the isobaric expansion coefficient beta</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <pre>
 beta is defined as  1/v * der(v,T), with v = 1/d, at constant pressure p.
 </pre>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -362,13 +363,13 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Modelica.Media.Interfaces.PartialMedium</A>.isothermalCompressibility</H2>
 <B>Return overall the isothermal compressibility factor</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <pre>
 
 kappa is defined as - 1/v * der(v,p), with v = 1/d at constant temperature T.
 
 </pre>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -910,7 +911,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Modelica.Media.Interfaces.PartialMedium</A>.setSmoothState</H2>
 <B>Return thermodynamic state so that it smoothly approximates: if x &gt; 0 then state_a else state_b</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function is used to approximate the equation
 </p>
@@ -970,7 +971,7 @@ Summing all mass fractions together results in
            = 1
 </pre>
 
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>

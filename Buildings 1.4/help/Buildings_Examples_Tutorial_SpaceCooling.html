@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with example for how to build a model for space cooling</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>This package contains examples with step-by-step instructions for how to build a system model for space cooling as shown in the figure below. The temperautures correspond to design conditions that will be used to size the components. The room heat capacity has been increased by a factor of three to approximate the thermal storage effect of furniture and building constructions. </p>
 <p align="center"><img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings 1.4/Resources/Images/Examples/Tutorial/SpaceCooling/schematics.png"/> </p>
 <p>The model consists of </p>
@@ -42,7 +43,7 @@ table   { solid #000; border-collapse: collapse;}
 <li><A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System3"
 >Buildings.Examples.Tutorial.SpaceCooling.System3</a> adds closed-loop control. </li>
 </ol></p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
 <P></P><H3>Package Content</H3>
@@ -68,7 +69,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>First part of the system model, consisting of the room with heat transfer</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori92999cf1e5017510stem1D.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System1">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This part of the system model implements the room with a heat gain.
 The room is simplified as a volume of air, a prescribed heat source for
@@ -237,7 +238,7 @@ package
 Buildings.HeatTransfer.Conduction</a>
 could have been used.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -311,7 +312,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Second part of the system model with air supply and open loop control</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori92999cf2e5017513stem2D.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System2">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This part of the system model adds a space cooling with
 open loop control to the model
@@ -619,7 +620,7 @@ pressure drop of the cooling coil, we could have modeled the cooling coil pressu
 <code>dp2_nominal = 0</code>. Setting the nominal pressure drop to zero will remove this equation 
 from the model.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -857,7 +858,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Third part of the system model with air supply and closed loop control</B><p></P>
 <IMG SRC="Buildings.Examples.Tutori92999cf3e5017512stem3D.png" ALT="Buildings.Examples.Tutorial.SpaceCooling.System3">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This part of the system model modifies
 <A HREF="Buildings_Examples_Tutorial_SpaceCooling.html#Buildings.Examples.Tutorial.SpaceCooling.System2"
@@ -974,7 +975,7 @@ To add a continuous controller for the coil water flow rate, we could have used 
 >
 Buildings.Controls.Continuous.LimPID</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>

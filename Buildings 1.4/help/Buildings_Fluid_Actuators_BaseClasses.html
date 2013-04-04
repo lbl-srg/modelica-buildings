@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with base classes for Buildings.Fluid.Actuators</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
 >Buildings.Fluid.Actuators</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -75,7 +76,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Partial model that implements the filtered opening for valves and dampers</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators05b8ecb1449abd53ignalD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model implements the filter that is used to approximate the travel
 time of the actuator.
@@ -90,7 +91,7 @@ See
 Buildings.Fluid.Actuators.UsersGuide</a>
 for a description of the filter.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -173,7 +174,7 @@ for a description of the filter.
 <B>Partial model for air dampers with exponential opening characteristics</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators2c08592b56e2d47fntialD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialDamperExponential">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial model for air dampers with exponential opening characteristics. 
 This is the base model for air dampers and variable air volume flow boxes.
@@ -188,7 +189,7 @@ For a description of the opening characteristics and typical parameter values, s
 >
 Exponential</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance"
 >Buildings.Fluid.BaseClasses.PartialResistance</A> (Partial model for a hydraulic resistance), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
 >Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal</A> (Partial model that implements the filtered opening for valves and dampers).
@@ -374,7 +375,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <B>Partial three way valve</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators8b7314e2935a9e36ValveD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial model of a three way valve. This is the base model for valves
 with different opening characteristics, such as linear, equal percentage
@@ -402,7 +403,7 @@ Since this model uses two way valves to construct a three way valve, see
 >
 PartialTwoWayValve</a> for details regarding the valve implementation.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialThreeWayResistance"
 >Buildings.Fluid.BaseClasses.PartialThreeWayResistance</A> (Flow splitter with partial resistance model at each port), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
 >Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal</A> (Partial model that implements the filtered opening for valves and dampers), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ValveParameters"
@@ -563,7 +564,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <B>Partial model for a two way valve</B><p></P>
 <IMG SRC="Buildings.Fluid.Actuators8f28c1b0799bc0dcValveD.png" ALT="Buildings.Fluid.Actuators.BaseClasses.PartialTwoWayValve">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial model for a two way valve. This is the base model for valves
 with different opening characteristics, such as linear, equal percentage
@@ -600,7 +601,7 @@ changes.
 The two way valve models are implemented using this partial model, as opposed to using
 different functions for the valve opening characteristics, because
 each valve opening characteristics has different parameters.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance"
 >Buildings.Fluid.BaseClasses.PartialResistance</A> (Partial model for a hydraulic resistance), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ValveParameters"
 >Buildings.Fluid.Actuators.BaseClasses.ValveParameters</A> (Model with parameters for valves), <A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.ActuatorSignal"
@@ -741,7 +742,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 >Buildings.Fluid.Actuators.BaseClasses</A>.ValveParameters</H2>
 <B>Model with parameters for valves</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model that computes the flow coefficients of valves. This base class allows the following modeling options,
 which have been adapted from the valve implementation 
@@ -785,7 +786,7 @@ Therefore, if
 <code>CvData &lt;&gt; Buildings.Fluid.Types.CvTypes.OpPoint</code>,
 then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -884,7 +885,7 @@ Obtained CvData = &quot; +<font color="red"> String</font>(CvData) + &quot;.&quo
 >Buildings.Fluid.Actuators.BaseClasses</A>.der_equalPercentage</H2>
 <B>Derivative of valve opening characteristics for equal percentage valve</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the derivative of the opening characteristics of an equal percentage valve.
 </p><p>
@@ -893,7 +894,7 @@ The function is the derivative of
 >
 TwoWayValveEqualPercentage</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -956,7 +957,7 @@ TwoWayValveEqualPercentage</a>.
 >Buildings.Fluid.Actuators.BaseClasses</A>.equalPercentage</H2>
 <B>Valve opening characteristics for equal percentage valve</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the opening characteristics of an equal percentage valve.
 </p><p>
@@ -968,7 +969,7 @@ For <code>y &lt; delta/2</code>, the valve characteristics is linear. For <code>
 the valve characteristics is equal percentage. In between, a cubic spline is used to ensure
 that the valve characteristics is once continuously differentiable with respect to <code>y</code>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1032,7 +1033,7 @@ that the valve characteristics is once continuously differentiable with respect 
 >Buildings.Fluid.Actuators.BaseClasses</A>.exponentialDamper</H2>
 <B>Damper opening characteristics for an exponential damper</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This function computes the opening characteristics of an exponential damper.
 </p><p>
@@ -1055,7 +1056,7 @@ This is done for numerical reason since otherwise <code>k</code> may be an itera
 variable, which may cause a lot of warnings and slower convergence if the solver
 attempts <code>k &lt; 0</code> during the iterative solution procedure.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

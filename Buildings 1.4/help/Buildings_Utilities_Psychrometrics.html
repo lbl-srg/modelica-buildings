@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Library with psychrometric functions</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package contains blocks and functions for psychrometric calculations.
 </p>
 <p>
@@ -33,7 +34,7 @@ The nomenclature used in this package is described at
 <A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions"
 >
 Buildings.UsersGuide.Conventions</a>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
 <P></P><H3>Package Content</H3>
@@ -89,7 +90,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Humidity ratio for given water vapor pressure</B><p></P>
 <IMG SRC="Buildings.Utilities.Psychrometrics.X_pWD.png" ALT="Buildings.Utilities.Psychrometrics.X_pW">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Block to compute the humidity ratio for a given water vapor partial pressure.
 </p>
@@ -99,7 +100,7 @@ and the <code>p_in</code> input connector is disabled;
 if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored, 
 and the value provided by the input connector is used instead.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure"
 >Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure</A> (Humidity ratio for given water vapor pressure).
 <P><H3>Parameters</H3><P>
@@ -150,7 +151,7 @@ Extends from <A HREF="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildi
 <B>Water vapor pressure for given humidity ratio</B><p></P>
 <IMG SRC="Buildings.Utilities.Psychrometrics.pW_XD.png" ALT="Buildings.Utilities.Psychrometrics.pW_X">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Block to compute the water vapor partial pressure for a given humidity ratio.
 </p>
@@ -160,7 +161,7 @@ and the <code>p_in</code> input connector is disabled;
 if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored, 
 and the value provided by the input connector is used instead.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure"
 >Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure</A> (Humidity ratio for given water vapor pressure).
 <P><H3>Parameters</H3><P>
@@ -213,7 +214,7 @@ Extends from <A HREF="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildi
 <B>Return steam mass fraction as a function of relative humidity phi and temperature T</B><p></P>
 <IMG SRC="Buildings.Utilities.Psychdca8185efdb3cacdpTphiD.png" ALT="Buildings.Utilities.Psychrometrics.X_pTphi">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Block to compute the water vapor concentration based on
 pressure, temperature and relative humidity.
@@ -224,7 +225,7 @@ and the <code>p_in</code> input connector is disabled;
 if <code>use_p_in</code> is true, then the <code>p</code> parameter is ignored, 
 and the value provided by the input connector is used instead.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure"
 >Buildings.Utilities.Psychrometrics.BaseClasses.HumidityRatioVaporPressure</A> (Humidity ratio for given water vapor pressure).
 <P><H3>Parameters</H3><P>
@@ -307,7 +308,7 @@ Extends from <A HREF="Buildings_Utilities_Psychrometrics_BaseClasses.html#Buildi
 <B>Model to compute the dew point temperature for given water vapor pressure of moist air</B><p></P>
 <IMG SRC="Buildings.Utilities.Psych0ee5df6a65161720oi_pWD.png" ALT="Buildings.Utilities.Psychrometrics.TDewPoi_pW">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Dew point temperature calculation for moist air above freezing temperature.
 </p>
@@ -318,7 +319,7 @@ ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
 Peppers has been used, but this equation yielded about 15 Kelvin lower dew point 
 temperatures.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
@@ -359,11 +360,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Block to convert absolute humidity from [kg/kg total air] to [kg/kg dry air]</B><p></P>
 <IMG SRC="Buildings.Utilities.Psych2ca01fbedc9d7da1ryAirD.png" ALT="Buildings.Utilities.Psychrometrics.ToDryAir">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Block that converts humidity concentration from [kg/kg total air] to [kg/kg dry air].
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
@@ -401,7 +402,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Block to convert absolute humidity from [kg/kg dry air] to [kg/kg total air]</B><p></P>
 <IMG SRC="Buildings.Utilities.Psych1aaf9ff92df4c6abalAirD.png" ALT="Buildings.Utilities.Psychrometrics.ToTotalAir">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Block that converts humidity concentration from [kg/kg dry air] to [kg/kg total air].
 </p>
@@ -409,7 +410,7 @@ Block that converts humidity concentration from [kg/kg dry air] to [kg/kg total 
 This block may be used, for example, to convert absolute humidity that is received from
 EnergyPlus to [kg/kg total air], which is the convention used by Modelica.Media.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
@@ -453,7 +454,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model to compute the wet bulb temperature based on relative humidity</B><p></P>
 <IMG SRC="Buildings.Utilities.Psychdbde90cf77e7cd67ulPhiD.png" ALT="Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This block computes the the wet bulb temperature for a given dry bulb temperature, relative air humidity
 and atmospheric pressure.
@@ -609,7 +610,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model to compute the wet bulb temperature based on mass fraction</B><p></P>
 <IMG SRC="Buildings.Utilities.Psych7111593b73bf3f79BulXiD.png" ALT="Buildings.Utilities.Psychrometrics.TWetBul_TDryBulXi">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This block computes the the wet bulb temperature for a given dry bulb temperature, mass fraction
 and atmospheric pressure.
@@ -773,7 +774,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model to compute the water vapor pressure for a given dew point temperature of moist air</B><p></P>
 <IMG SRC="Buildings.Utilities.Psych1df98a388dbdba26ewPoiD.png" ALT="Buildings.Utilities.Psychrometrics.pW_TDewPoi">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Block to compute the water vapor pressure for a given dew point temperature.
 </p>
@@ -784,7 +785,7 @@ ASHRAE Handbook, p. 6.2. In an earlier version of this model, the equation from
 Peppers has been used, but this equation yielded about 15 Kelvin lower dew point 
 temperatures.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
@@ -824,12 +825,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Block to compute the wet bulb condition for given dry bulb temperature and humidity</B><p></P>
 <IMG SRC="Buildings.Utilities.Psych7fc2dbf06f3dee2al_pTXD.png" ALT="Buildings.Utilities.Psychrometrics.WetBul_pTX">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Block to compute the temperature and mass fraction at the wet bulb condition
 for a given dry bulb state.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>

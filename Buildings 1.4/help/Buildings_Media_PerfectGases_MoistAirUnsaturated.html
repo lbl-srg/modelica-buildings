@@ -14,6 +14,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -22,7 +23,7 @@ table   { solid #000; border-collapse: collapse;}
 <H2><A NAME="Buildings.Media.PerfectGases.MoistAirUnsaturated"></A><A HREF="Buildings_Media_PerfectGases.html#Buildings.Media.PerfectGases"
 >Buildings.Media.PerfectGases</A>.MoistAirUnsaturated</H2>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This is a medium model that is similar to 
 <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
@@ -42,7 +43,7 @@ with a continuous derivative. This allows obtaining an analytic
 expression for the Jacobian, and therefore simplifies the computation
 of initial conditions that can be numerically challenging for 
 thermo-fluid systems.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >Modelica.Media.Interfaces.PartialCondensingGases</A> (Base class for mixtures of condensing and non-condensing gases).
 <P></P><H3>Package Content</H3>
@@ -559,14 +560,14 @@ Extends from <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media
 >Buildings.Media.PerfectGases.MoistAirUnsaturated</A>.setState_phX</H2>
 <B>Thermodynamic state as function of p, h and composition X</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
 the implementation of <code>T_phX</code> provided by this package as opposed to the 
 implementation provided by <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir.setState_pTX"
 >
 Buildings.Media.PerfectGases.MoistAir.setState_pTX</a>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -679,10 +680,10 @@ Extends from <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media
 >Buildings.Media.PerfectGases.MoistAirUnsaturated</A>.saturationPressureLiquid</H2>
 <B>Return saturation pressure of water as a function of temperature T in the range of 273.16 to 373.16 K</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Saturation pressure of water above the triple point temperature is computed from temperature. It's range of validity is between
 273.16 and 373.16 K. Outside these limits a less accurate result is returned.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -726,9 +727,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Media.PerfectGases.MoistAirUnsaturated</A>.saturationPressureLiquid_der</H2>
 <B>Time derivative of saturationPressureLiquid</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Derivative function of <a href=Modelica:Modelica.Media.Air.MoistAir.saturationPressureLiquid>saturationPressureLiquid</a>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -1747,11 +1748,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Media.PerfectGases.MoistAirUnsaturated</A>.T_phX</H2>
 <B>Compute temperature from specific enthalpy and mass fraction</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Temperature as a function of specific enthalpy and species concentration.
 The pressure is input for compatibility with the medium models, but the temperature
 is independent of the pressure.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

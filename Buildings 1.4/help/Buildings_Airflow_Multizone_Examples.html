@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,14 +26,14 @@ table   { solid #000; border-collapse: collapse;}
 <B>Collection of models that illustrate model use and test models</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains examples for the use of models that can be found in
 <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
 >
 Buildings.Airflow.Multizone</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
 <P></P><H3>Package Content</H3>
@@ -88,7 +89,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model that demonstrates the chimney effect with a steady-state model of a shaft</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo4553ac8313060cf8olumeD.png" ALT="Buildings.Airflow.Multizone.Examples.ChimneyShaftNoVolume">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model demonstrate buoyancy-induced air flow 
 through a vertical shaft.
@@ -135,7 +136,7 @@ shaft <code>sha</code> is now filed with air at 0&deg;C,
 there is a counter clock-wise flow; down the shaft, and
 up the other flow path.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -253,7 +254,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model that demonstrates the chimney effect with a dynamic model of a shaft</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo3876fc04ad900b98olumeD.png" ALT="Buildings.Airflow.Multizone.Examples.ChimneyShaftWithVolume">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is identical to
 <A HREF="Buildings_Airflow_Multizone_Examples.html#Buildings.Airflow.Multizone.Examples.ChimneyShaftNoVolume"
@@ -265,7 +266,7 @@ as being well-mixed. (Stratified volumes could be approximated by
 using multiple instances of the model <code>sha</code> that are
 connected in series.)
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -385,7 +386,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model that transport CO2 through buoyancy driven flow</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo9289896a2b4feafatStepD.png" ALT="Buildings.Airflow.Multizone.Examples.CO2TransportStep">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is based on
 <A HREF="Buildings_Airflow_Multizone_Examples.html#Buildings.Airflow.Multizone.Examples.Validation3Rooms"
@@ -398,7 +399,7 @@ At <i>t=3600</i> seconds, CO<sub>2</sub> is added to <code>volWes</code>.
 As time progresses, the CO<sub>2</sub> is transported to 
 the other rooms, and eventually its concentration decays.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone_Examples.html#Buildings.Airflow.Multizone.Examples.Validation3Rooms"
 >Buildings.Airflow.Multizone.Examples.Validation3Rooms</A> (Model with three rooms for the validation of the multizone air exchange models).
 <P></P><H3>Modelica definition</H3>
@@ -451,7 +452,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_Examples.html#Buildings.Airflo
 <B>Model with one open and one closed door</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizoba2e88979bf19ecenDoorD.png" ALT="Buildings.Airflow.Multizone.Examples.OneOpenDoor">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model consists of two doors with the same geometry.
 For <i>t &le; 1000</i> seconds, the door <code>dooOpeClo</code>
@@ -462,7 +463,7 @@ a density difference between <code>volA</code> and <code>volB</code>.
 This density difference induces a bi-directional airflow through both doors.
 Both doors have exactly the same bi-directional airflow rates.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -537,7 +538,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model with three closed doors</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo6ad81f3edb74568aDoorsD.png" ALT="Buildings.Airflow.Multizone.Examples.ClosedDoors">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model consists of three volumes that are connected among
 each other through three doors that all have the same geometry.
@@ -545,7 +546,7 @@ All doors are closed, but they are not air-tight.
 Heat is added and removed from <code>volB</code> which induces
 a small air flow through the doors. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -637,14 +638,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model with an effective air leakage area</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo4f8a2d73cbdf67afeAreaD.png" ALT="Buildings.Airflow.Multizone.Examples.OneEffectiveAirLeakageArea">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model consists of a model for an effective air leakage area
 that is connected to two air volumes.
 Air flows due to the addition of air to the volume <code>volA</code>
 and because heat is exchanged with <code>volB</code>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -714,14 +715,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model with an orifice</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizoda91c464da212d77ificeD.png" ALT="Buildings.Airflow.Multizone.Examples.Orifice">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model demonstrates the use of the orifice model.
 The pressure difference across the orifice model changes
 between <i>-1</i> Pascal and <i>+1</i> Pascal, which 
 causes air to flow through the orifice.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -787,7 +788,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model with four rooms and buoyancy-driven air circulation that reverses direction</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizoc9ff5bdf49624721yancyD.png" ALT="Buildings.Airflow.Multizone.Examples.ReverseBuoyancy">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is similar than
 <A HREF="Buildings_Airflow_Multizone_Examples.html#Buildings.Airflow.Multizone.Examples.Validation3Rooms"
@@ -803,7 +804,7 @@ asymptotically approach each other. The bottom floor eventually cools below
 the temperature of the top floor, because the
 bottom floor directly exchanges air with the outside.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -990,7 +991,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model with three rooms and buoyancy-driven air circulation that reverses direction</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizod94cad9f31cea523ZonesD.png" ALT="Buildings.Airflow.Multizone.Examples.ReverseBuoyancy3Zones">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is similar than
 <A HREF="Buildings_Airflow_Multizone_Examples.html#Buildings.Airflow.Multizone.Examples.Validation3Rooms"
@@ -1013,7 +1014,7 @@ it cools down fast. Once it cooled down sufficiently,
 the flow direction between the three rooms reverses
 because the air in the bottom east is heaviest.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -1175,14 +1176,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model with one room for the validation of the multizone air exchange models</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizob337509c69a193e21RoomD.png" ALT="Buildings.Airflow.Multizone.Examples.Validation1Room">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model has been used to validate buoyancy-driven air flow between two volumes.
 The volume <code>volEas</code> is at <i>20</i>&deg;C and the volume 
 <code>volOut</code> is at <i>10</i>&deg;C.
 This initial condition induces a clock-wise airflow between the two volumes.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -1269,7 +1270,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model with three rooms for the validation of the multizone air exchange models</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizoac56d72d30327e3eRoomsD.png" ALT="Buildings.Airflow.Multizone.Examples.Validation3Rooms">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This is a model of three rooms that exchange air among each based
 on density difference between the air in the rooms and the outside.
@@ -1288,7 +1289,7 @@ Michael Wetter.
 Multizone Airflow Model in Modelica.</a>
 Proc. of the 5th International Modelica Conference, p. 431-440. Vienna, Austria, September 2006.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -1455,7 +1456,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Airflow.Multizone.Examples</A>.NaturalVentilation</H2>
 <IMG SRC="Buildings.Airflow.Multizo973ba86b00f99854ationD.png" ALT="Buildings.Airflow.Multizone.Examples.NaturalVentilation">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model illustrates buoyancy-driven natural ventilation between 
 two volumes of air.
@@ -1467,7 +1468,7 @@ The outside air is <i>20</i>&deg;C and at initial time, the room air is
 This induces an airflow in counter clock-wise direction. Since
 heat is added to the room air volume, its temperature raises above the temperature of the outside, which causes the air flow to reverse its direction.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -1550,7 +1551,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Airflow.Multizone.Examples</A>.ZonalFlow</H2>
 <IMG SRC="Buildings.Airflow.Multizo51c2ca334af76396lFlowD.png" ALT="Buildings.Airflow.Multizone.Examples.ZonalFlow">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This example illustrates the use of the model that
 exchanges a prescribed air exchange rate between the
@@ -1561,7 +1562,7 @@ This amount of air flows from
 <code>rooA</code> to <code>rooB</code>, and
 from <code>rooB</code> to <code>rooA</code>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>

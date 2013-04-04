@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with base classes for Buildings.Fluid.Movers</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid.Movers"
 >Buildings.Fluid.Movers</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -69,12 +70,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Partial model for fan or pump with ideally controlled mass flow rate or head as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Ba33a31b119732db57chineD.png" ALT="Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model describes a fan or pump that takes as an input
 the head or the mass flow rate.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</A> (Partial model to interface fan or pump models with the medium), <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PowerInterface"
 >Buildings.Fluid.Movers.BaseClasses.PowerInterface</A> (Partial model to compute power draw and heat dissipation of fans and pumps).
@@ -205,12 +206,12 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <B>Partial model for fan or pump with speed (y or Nrpm) as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Baeff1f2f43bc33335chineD.png" ALT="Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>This is the base model for fans and pumps that take as 
 input a control signal in the form of the pump speed <code>Nrpm</code>
 or the normalized pump speed <code>y=Nrpm/N_nominal</code>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface"
 >Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface</A> (Partial model with performance curves for fans or pumps), <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine</A> (Partial model to interface fan or pump models with the medium).
@@ -336,7 +337,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <B>Partial model to interface fan or pump models with the medium</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Ba18ff640e5a705f7dchineD.png" ALT="Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>This is the base model for fans and pumps.
 It provides an interface
 between the equations that compute head and power consumption,
@@ -358,7 +359,7 @@ The setting <code>addPowerToMedium=false</code> is physically incorrect
 the enthalpy of the medium), but this setting does in some cases lead to simpler equations
 and more robust simulation, in particular if the mass flow is equal to zero.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy).
@@ -503,7 +504,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Base class for pressure and mass flow source with optional power input</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Ba6547dcb65f83f622ourceD.png" ALT="Buildings.Fluid.Movers.BaseClasses.IdealSource">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of a fictious pipe that is used as a base class
 for a pressure source or to prescribe a mass flow rate.
@@ -514,7 +515,7 @@ both the heat and the flow work are added to the volume of
 air or water. This simplifies the equations compared to 
 adding heat to the volume, and flow work to this model.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPortTransport"
 >Modelica.Fluid.Interfaces.PartialTwoPortTransport</A> (Partial element transporting fluid between two ports without storage of mass or energy).
 <P><H3>Parameters</H3><P>
@@ -601,7 +602,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Partial model to compute power draw and heat dissipation of fans and pumps</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Ba6bdb383a2ef2fdferfaceD.png" ALT="Buildings.Fluid.Movers.BaseClasses.PowerInterface">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>This is an interface that implements the functions to compute the power draw and the
 heat dissipation of fans and pumps. It is used by the model 
 <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface"
@@ -615,7 +616,7 @@ Models that extend this model need to provide an implementation of
 This equation is not implemented in this model to allow other models
 to properly guard against division by zero.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -745,7 +746,7 @@ to properly guard against division by zero.
 <B>Partial model with performance curves for fans or pumps</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Ba07507f66cffd8d06rfaceD.png" ALT="Buildings.Fluid.Movers.BaseClasses.FlowMachineInterface">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This is an interface that implements the functions to compute the head, power draw 
 and efficiency of fans and pumps. It is used by the model 
@@ -789,7 +790,7 @@ point is added and where two additional points are added.
 The parameter <code>curve</code> causes the correct data record
 to be used during the simulation.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PowerInterface"
 >Buildings.Fluid.Movers.BaseClasses.PowerInterface</A> (Partial model to compute power draw and heat dissipation of fans and pumps).
 <P><H3>Parameters</H3><P>

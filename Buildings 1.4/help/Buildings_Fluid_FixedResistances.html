@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with models for fixed flow resistances (pipes, diffusers etc.)</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package contains components models for fixed flow resistances. 
 By fixed flow resistance, we mean resistances that do not change the 
 flow coefficient
@@ -65,7 +66,7 @@ The model
 Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a>
 can be used to model flow splitters or flow merges.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
 <P></P><H3>Package Content</H3>
@@ -100,7 +101,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Fixed flow resistance with dp and m_flow as parameter</B><p></P>
 <IMG SRC="Buildings.Fluid.FixedResiefe411e95f8cd6d1ceDpMD.png" ALT="Buildings.Fluid.FixedResistances.FixedResistanceDpM">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This is a model of a resistance with a fixed flow coefficient.
 The mass flow rate is computed as
@@ -211,7 +212,7 @@ the pressure drop is a function of the mass flow rate,
 and not the volume flow rate.
 This leads to simpler equations.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance"
 >Buildings.Fluid.BaseClasses.PartialResistance</A> (Partial model for a hydraulic resistance).
 <P><H3>Parameters</H3><P>
@@ -338,7 +339,7 @@ Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClass
 <B>Pipe with no flow friction and no heat transfer</B><p></P>
 <IMG SRC="Buildings.Fluid.FixedResiefe411e95f8cd6d1ceDpMD.png" ALT="Buildings.Fluid.FixedResistances.LosslessPipe">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of a pipe with no flow resistance, no heat loss and no transport delay.
 This model can be used to replace a <code>replaceable</code> pipe model
@@ -349,7 +350,7 @@ base class for three way valves,
 >
 Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
@@ -420,7 +421,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Pipe with finite volume discretization along flow path</B><p></P>
 <IMG SRC="Buildings.Fluid.FixedResistances.PipeD.png" ALT="Buildings.Fluid.FixedResistances.Pipe">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of a pipe with flow resistance and optional heat exchange with environment.
 </p>
@@ -456,7 +457,7 @@ For a steady-state model of a flow resistance, use
 >
 Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Buildings.Fluid.FixedResistances.BaseClasses.Pipe"
 >Buildings.Fluid.FixedResistances.BaseClasses.Pipe</A> (Model of a pipe with finite volume discretization along the flow path).
 <P><H3>Parameters</H3><P>
@@ -607,7 +608,7 @@ Extends from <A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Building
 <B>Flow splitter with fixed resistance at each port</B><p></P>
 <IMG SRC="Buildings.Fluid.FixedResi51e52f70be5315dfceDpMD.png" ALT="Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of a flow splitter or mixer with a fixed resistance in each flow leg.
 In each flow lag, a pressure drop can be modelled, and at the fluid junction,
@@ -654,7 +655,7 @@ of the medium in the volume at nominal condition.
 Setting <code>dynamicBalance=true</code> can help reducing the size of the nonlinear
 system of equations.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon), <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialThreeWayResistance"
 >Buildings.Fluid.BaseClasses.PartialThreeWayResistance</A> (Flow splitter with partial resistance model at each port).

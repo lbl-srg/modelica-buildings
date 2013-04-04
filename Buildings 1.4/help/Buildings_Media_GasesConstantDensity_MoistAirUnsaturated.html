@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with moist air model that decouples pressure and temperature and that has no liquid water</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This is a medium model that is identical to 
 <A HREF="Buildings_Media_GasesConstantDensity_MoistAir.html#Buildings.Media.GasesConstantDensity.MoistAir"
 >
@@ -49,7 +50,7 @@ thermo-fluid systems.
 This new formulation often leads to smaller systems of nonlinear equations 
 because it allows to invert the function <code>T_phX</code> analytically.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialCondensingGases.html#Modelica.Media.Interfaces.PartialCondensingGases"
 >Modelica.Media.Interfaces.PartialCondensingGases</A> (Base class for mixtures of condensing and non-condensing gases).
 <P></P><H3>Package Content</H3>
@@ -573,12 +574,12 @@ Extends from <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media
 >Buildings.Media.GasesConstantDensity.MoistAirUnsaturated</A>.setState_phX</H2>
 <B>Thermodynamic state as function of p, h and composition X</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Function to set the state for given pressure, enthalpy and species concentration.
 This function needed to be reimplemented in order for the medium model to use
 the implementation of <code>T_phX</code> provided by this package as opposed to the 
 implementation provided by its parent package.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
 >Modelica.Icons.Function</A> (Icon for functions).
 <P><H3>Inputs</H3><P>
@@ -732,14 +733,14 @@ Extends from <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media
 >Buildings.Media.GasesConstantDensity.MoistAirUnsaturated</A>.saturationPressureLiquid_der</H2>
 <B>Saturation curve valid for 273.16 &lt;= T &lt;= 373.16. Outside of these limits a (less accurate) result is returned</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function declares the first derivative of
 <A HREF="Buildings_Media_GasesConstantDensity_MoistAir.html#Buildings.Media.GasesConstantDensity.MoistAir.saturationPressureLiquid"
 >
 Buildings.Media.GasesConstantDensity.MoistAir.saturationPressureLiquid</a>.
 It is required since otherwise, Dymola 7.3 cannot find the derivative of the inherited function 
 <code>saturationPressureLiquid</code>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir.saturationPressureLiquid_der"
 >Buildings.Media.PerfectGases.MoistAir.saturationPressureLiquid_der</A> (Time derivative of saturationPressureLiquid).
 <P><H3>Inputs</H3><P>

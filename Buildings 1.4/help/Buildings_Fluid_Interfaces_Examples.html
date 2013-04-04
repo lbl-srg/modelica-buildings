@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,14 +26,14 @@ table   { solid #000; border-collapse: collapse;}
 <B>Collection of models that illustrate model use and test models</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains examples for the use of models that can be found in
 <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
 >
 Buildings.Fluid.Interfaces</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
 <P></P><H3>Package Content</H3>
@@ -61,9 +62,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model that tests a heat exchanger model with reverse flow</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfaceb6826e7a8d5def05ribedD.png" ALT="Buildings.Fluid.Interfaces.Examples.HeaterCoolerPrescribed">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>Model that tests the basic class that is used for the heater models. It adds and removes heat for forward and reverse flow. The top and bottom models should give similar results, although the sign of the temperature difference over the components differ because of the reverse flow. The model uses assert statements that will be triggered if results that are expected to be close to each other differ by more than a prescribed threshold. All temperature sensors are configured as steady-state sensors to avoid differences in temperature due to the dynamic response of the sensor.</p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -430,7 +431,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.Fluid.Interfaces.Examples</A>.HumidifierPrescribed</H2>
 <IMG SRC="Buildings.Fluid.Interface2a272df99a95b9dcribedD.png" ALT="Buildings.Fluid.Interfaces.Examples.HumidifierPrescribed">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model that tests the basic class that is used for the humidifier model.
 It adds and removes water for forward and reverse flow.
@@ -440,7 +441,7 @@ because of the reverse flow.
 The model uses assert statements that will be triggered if
 results that are expected to be close to each other differ by more
 than a prescribed threshold.</p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P><H3>Parameters</H3><P>
@@ -882,11 +883,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model that tests the reverse flow for a humidifier</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfacea9716c9a2d388a05ifierD.png" ALT="Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model tests whether the results for a humidifer are
 identical for forward flow and reverse flow.
 If the results differ, then an assert is triggered.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>
@@ -1001,7 +1002,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model that tests the reverse flow for a mass exchanger</B><p></P>
 <IMG SRC="Buildings.Fluid.Interface42517b635d3637c7angerD.png" ALT="Buildings.Fluid.Interfaces.Examples.ReverseFlowMassExchanger">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model tests whether the results for a mass exchanger are
 identical for forward flow and reverse flow.
@@ -1022,7 +1023,7 @@ and <code>port_a2</code>.
 <b>Note:</b> This problem fails to translate in Dymola 2012 due to an error in Dymola's support
 of stream connector. This bug will be corrected in future versions of Dymola.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
 >Modelica.Icons.Example</A> (Icon for runnable examples).
 <P></P><H3>Modelica definition</H3>

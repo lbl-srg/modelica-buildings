@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Thermal sources</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package is identical to
 <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources"
 >
@@ -39,7 +40,7 @@ Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a> and
 >
 Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</a>
  as these can cause division by zero in some fluid flow models.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_SourcesPackage.html#Modelica.Icons.SourcesPackage"
 >Modelica.Icons.SourcesPackage</A> (Icon for packages containing sources).
 <P></P><H3>Package Content</H3>
@@ -68,7 +69,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Fixed temperature boundary condition in Kelvin</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Soa73a5e56000c3e1fatureD.png" ALT="Buildings.HeatTransfer.Sources.FixedTemperature">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model defines a fixed temperature T at its port in Kelvin,
 i.e., it defines a fixed temperature as a boundary condition.
@@ -111,7 +112,7 @@ i.e., it defines a fixed temperature as a boundary condition.
 <B>Variable temperature boundary condition in Kelvin</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.So87eeec3b70f568b6atureD.png" ALT="Buildings.HeatTransfer.Sources.PrescribedTemperature">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model represents a variable temperature boundary condition.
 The temperature in [K] is given as input signal <b>T</b>
@@ -153,7 +154,7 @@ as required to keep the temperature at the specified value.
 <B>Fixed heat flow boundary condition</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Soc09986e8e025f938tFlowD.png" ALT="Buildings.HeatTransfer.Sources.FixedHeatFlow">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model allows a specified amount of heat flow rate to be "injected"
 into a thermal system at a given port.  The constant amount of heat
@@ -169,7 +170,7 @@ Modelica.Thermal.HeatTransfer.Sources.FixedHeatFlow</a>, except that
 the parameters <code>alpha</code> and <code>T_ref</code> have
 been deleted as these can cause division by zero in some fluid flow models.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -204,7 +205,7 @@ been deleted as these can cause division by zero in some fluid flow models.
 <B>Prescribed heat flow boundary condition</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.So891191677dd718catFlowD.png" ALT="Buildings.HeatTransfer.Sources.PrescribedHeatFlow">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model allows a specified amount of heat flow rate to be "injected"
 into a thermal system at a given port.  The amount of heat

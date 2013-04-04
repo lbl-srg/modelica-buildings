@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with base classes for Buildings.HeatTransfer.Windows</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows"
 >Buildings.HeatTransfer.Windows</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -123,7 +124,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Absorbed radiation by window</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wib3529e957ffd9a22ationD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.AbsorbedRadiation">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 The model calculates absorbed solar radiation on the window. 
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 </p>
@@ -188,7 +189,7 @@ Simulation-based Building Energy Optimization</a>.<br>
 Dissertation. University of California at Berkeley. 2004.
 </li>
 </ul>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation"
 >Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation</A> (Partial model for variables and data used in radiation calculation).
 <P><H3>Parameters</H3><P>
@@ -441,7 +442,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 <B>Model for the heat transfer coefficient at the outside of the window</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wia2645b093e456d79cientD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.ExteriorConvectionCoefficient">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Model for the convective heat transfer coefficient at the outside of a window.
 The computation is according to TARCOG 2006, which specifies the convection
 coefficient as
@@ -456,7 +457,7 @@ where <i>v</i> is the wind speed in <i>m/s</i> and
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -502,7 +503,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model for the heat transfer coefficient at the inside of the window</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi9101e37f3e45a679cientD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.InteriorConvectionCoefficient">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Model for the convective heat transfer coefficient at the room-facing surface of a window.
 The computation is according to TARCOG 2006, which specifies the convection
 coefficient as
@@ -515,7 +516,7 @@ coefficient as
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -557,7 +558,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model for center of glass of a window construction</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wicc148e58c19b2724GlassD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.CenterOfGlass">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This is a model for the heat transfer through the center of the glass.
 The properties of the glazing system is defined by the parameter
 <code>glaSys</code>. 
@@ -599,7 +600,7 @@ Buildings.HeatTransfer.Windows.ExteriorHeatTransfer</a>, and
 <A HREF="Buildings_HeatTransfer_Windows.html#Buildings.HeatTransfer.Windows.InteriorHeatTransfer"
 >
 Buildings.HeatTransfer.Windows.InteriorHeatTransfer</a>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces"
 >Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces</A> (Model for the radiosity balance of a device with two surfaces).
 <P><H3>Parameters</H3><P>
@@ -722,7 +723,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Building
 <B>Model for heat convection through gas in a window assembly</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi5ef1d72fc7a5ee57ctionD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.GasConvection">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Model for convective heat tranfer in a single layer of window gas.
 Currently, the model only implements equations for vertical windows
 and for horizontal windows.
@@ -746,7 +747,7 @@ then all equations are linearized.
 TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.Element1D"
 >Modelica.Thermal.HeatTransfer.Interfaces.Element1D</A> (Partial heat transfer element with two HeatPort connectors that does not store energy), <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
 >Buildings.BaseClasses.BaseIcon</A> (Base icon).
@@ -906,7 +907,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model for a glass layer of a window assembly</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wia6657059b5986812LayerD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.GlassLayer">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Model of a single layer of window glass. The input port <code>QAbs_flow</code>
 needs to be connected to the solar radiation that is absorbed
 by the glass pane.
@@ -917,7 +918,7 @@ of the model
 <a href="Buildings.HeatTransfer.Radiosity.WindowPane">
 Buildings.HeatTransfer.Radiosity.WindowPane</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces"
 >Buildings.HeatTransfer.Radiosity.BaseClasses.RadiosityTwoSurfaces</A> (Model for the radiosity balance of a device with two surfaces), <A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersTwoSurfaces"
 >Buildings.HeatTransfer.Radiosity.BaseClasses.ParametersTwoSurfaces</A> (Parameters that are used to model two surfaces with the same area).
@@ -1059,7 +1060,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Radiosity_BaseClasses.html#Building
 <B>For a window with an overhang, outputs the fraction of the area that is sun exposed</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi21b30f6eb83053a2rhangD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.Overhang">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 For a window with an overhang, this block outputs the fraction of 
 the area that is exposed to the sun.
@@ -1115,7 +1116,7 @@ should be subtracted from that of <i>DEGI</i> and <i>BFGH</i>.
 This shaded area of the window is then divided by the total window area 
 to calculate the shaded fraction of the window. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block), <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.Overhang"
 >Buildings.Rooms.BaseClasses.Overhang</A> (Record for window overhang).
@@ -1357,7 +1358,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Lumped thermal element with variable area, transporting heat without storing it</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi10948b5c7db343c9uctorD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.ThermalConductor">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This is a model for transport of heat without storing it.
 It is identical to the thermal conductor from the Modelica Standard Library,
@@ -1411,7 +1412,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model for infrared radiative heat balance of a layer that may or may not have a shade</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi759747b5b5c762aeShadeD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.Shade">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model for the convective and the infrared radiative heat balance 
 of a shade that is in the outside or the room-side of a window.
@@ -1446,7 +1447,7 @@ of Glazing Systems with Shading Devices.<br>
 <i>ASHRAE Transactions</i>, SL-08-020. 2008.
 </li>
 </ul>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -1625,11 +1626,11 @@ of Glazing Systems with Shading Devices.<br>
 <B>Base class for models of window shade and overhangs</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi0027dbf7b84a234cerBusD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial model to implement overhang and side fin model with weather bus as a connector.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Connectors</H3><P>
@@ -1691,14 +1692,14 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Converts the shading signal to be strictly bigger than 0 and smaller than 1</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi5d45a82eafc09590ignalD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.ShadingSignal">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model changes the shading control signal to avoid a singularity 
 in the window model if the input signal is zero or one.
 Since the window heat balance multiplies the area of the window by <code>u</code>
 or by <code>1-u</code> (if a shade is present), the heat balance can be singular
 for <code>u=0</code> or for <code>u=1</code>.
 This model avoids this singularity by slightly changing the control signal.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SO"
 >Modelica.Blocks.Interfaces.SO</A> (Single Output continuous control block).
 <P><H3>Parameters</H3><P>
@@ -1758,7 +1759,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>For a window with side fins, outputs the fraction of the area that is sun exposed</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wiedf561c37b577351eFinsD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.SideFins">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 For a window with side fins, this block outputs the fraction of 
 the area that is exposed to the sun.
@@ -1816,7 +1817,7 @@ To find the shaded area in the window <i>ABCD</i>, the shaded portion of
 This shaded area of the window is then divided by the total window area 
 to calculate the shaded fraction of the window. 
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block), <A HREF="Buildings_Rooms_BaseClasses.html#Buildings.Rooms.BaseClasses.SideFins"
 >Buildings.Rooms.BaseClasses.SideFins</A> (Record for window side fins).
@@ -2043,7 +2044,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Partial model for heat convection between a possibly shaded window that can be outside or inside the room</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi5c147f6b566c5f29ctionD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.PartialConvection">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial model for heat convection of a window surface with or without shade,
 that is outside or inside the room. 
@@ -2058,7 +2059,7 @@ If <code>haveShade=true</code>, then the model <code>shade</code> and the
 connectors <code>QAbs_flow</code>, <code>glaSha</code>, 
 <code>JInSha</code> and <code>JOutSha</code> are removed.
 This allows using the model as a base class for windows with inside shade, outside shade, or no shade.</p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2252,7 +2253,7 @@ This allows using the model as a base class for windows with inside shade, outsi
 <B>Partial model for variables and data used in radiation calculation</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wiea1882b884f884c9ationD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 The model calculates solar absorbance on the window. 
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 
@@ -2265,7 +2266,7 @@ Simulation-based Building Energy Optimization</a>.<br>
 Dissertation. University of California at Berkeley. 2004.
 </li>
 </ul>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block), <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.RadiationBaseData"
 >Buildings.HeatTransfer.Windows.BaseClasses.RadiationBaseData</A> (Basic parameters for window radiation calculation).
@@ -2384,11 +2385,11 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Partial model to implement overhang and side fins with weather bus connector</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi482ac2bf230204b0erBusD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.PartialShade_weatherBus">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Partial model to implement overhang and side fin model with weather bus as a connector.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus"
 >Buildings.HeatTransfer.Windows.BaseClasses.ShadeInterface_weatherBus</A> (Base class for models of window shade and overhangs).
 <P><H3>Parameters</H3><P>
@@ -2451,7 +2452,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 <B>Transmitted radiation through window</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wid0ddea1e04aca6a7ationD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.TransmittedRadiation">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 The model calculates solar radiation through the window. 
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 </p>
@@ -2483,7 +2484,7 @@ Simulation-based Building Energy Optimization</a>.<br>
 Dissertation. University of California at Berkeley. 2004.
 </li>
 </ul>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation"
 >Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation</A> (Partial model for variables and data used in radiation calculation).
 <P><H3>Parameters</H3><P>
@@ -2630,7 +2631,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 <B>Calculation radiation for window</B><p></P>
 <IMG SRC="Buildings.HeatTransfer.Wi0c894215aeb7cea8ationD.png" ALT="Buildings.HeatTransfer.Windows.BaseClasses.WindowRadiation">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 The model calculates solar radiation through the window. 
 The calculations follow the description in Wetter (2004), Appendix A.4.3.
 </p>
@@ -2713,7 +2714,7 @@ Simulation-based Building Energy Optimization</a>.<br>
 Dissertation. University of California at Berkeley. 2004.
 </li>
 </ul>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation"
 >Buildings.HeatTransfer.Windows.BaseClasses.PartialRadiation</A> (Partial model for variables and data used in radiation calculation).
 <P><H3>Parameters</H3><P>
@@ -2860,9 +2861,9 @@ Extends from <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.
 >Buildings.HeatTransfer.Windows.BaseClasses</A>.RadiationBaseData</H2>
 <B>Basic parameters for window radiation calculation</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Record that defines basic parameters for the window radiation calculation.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2929,9 +2930,9 @@ Record that defines basic parameters for the window radiation calculation.
 >Buildings.HeatTransfer.Windows.BaseClasses</A>.RadiationData</H2>
 <B>Radiation data of a window</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 Record that computes the solar radiation data for a glazing system.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
 >Modelica.Icons.Record</A> (Icon for records), <A HREF="Buildings_HeatTransfer_Windows_BaseClasses.html#Buildings.HeatTransfer.Windows.BaseClasses.RadiationBaseData"
 >Buildings.HeatTransfer.Windows.BaseClasses.RadiationBaseData</A> (Basic parameters for window radiation calculation).
@@ -3086,7 +3087,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 >Buildings.HeatTransfer.Windows.BaseClasses</A>.convectionVerticalCavity</H2>
 <B>Free convection in vertical cavity</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function for convective heat transfer in vertical window cavity.
 The computation is according to TARCOG 2006,
@@ -3099,7 +3100,7 @@ TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -3191,7 +3192,7 @@ shading devices, Technical Report, Oct. 17, 2006.
 >Buildings.HeatTransfer.Windows.BaseClasses</A>.convectionHorizontalCavity</H2>
 <B>Free convection in horizontal cavity</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function for convective heat transfer in horizontal window cavity.
 The computation is according to TARCOG 2006,
@@ -3204,7 +3205,7 @@ TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -3326,7 +3327,7 @@ shading devices, Technical Report, Oct. 17, 2006.
 >Buildings.HeatTransfer.Windows.BaseClasses</A>.nusseltHorizontalCavityEnhanced</H2>
 <B>Nusselt number for horizontal cavity, bottom surface warmer than top surface</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function for Nusselt number in horizontal window cavity.
 The computation is according to TARCOG 2006,
@@ -3339,7 +3340,7 @@ TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -3407,7 +3408,7 @@ shading devices, Technical Report, Oct. 17, 2006.
 >Buildings.HeatTransfer.Windows.BaseClasses</A>.nusseltHorizontalCavityReduced</H2>
 <B>Nusselt number for horizontal cavity, bottom surface colder than top surface</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function for Nusselt number in horizontal window cavity.
 The computation is according to TARCOG 2006,
@@ -3420,7 +3421,7 @@ TARCOG 2006: Carli, Inc., TARCOG: Mathematical models for calculation
 of thermal performance of glazing systems with our without
 shading devices, Technical Report, Oct. 17, 2006.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -3488,11 +3489,11 @@ shading devices, Technical Report, Oct. 17, 2006.
 >Buildings.HeatTransfer.Windows.BaseClasses</A>.smoothInterpolation</H2>
 <B>Get interpolated data without triggering events</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Function to interpolate within a data array without triggerring events.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

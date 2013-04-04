@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Chiller plant with water side economizer for data center</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <h4>System Configuration</h4>
 <p>This example demonstrates the implementation of a chiller plant with water-side economizer (WSE) to cool a data center.
 The system schematics is as shown below.
@@ -134,7 +135,7 @@ and <i>T<sub>min</sub></i> and <i>T<sub>max</sub></i> are the minimum and maximu
 Stein, J. (2009). Waterside Economizing in Data Centers: Design and Control Considerations. ASHRAE Transactions, 115(2), 192-200.<br>
 Taylor, S.T. (2007). Increasing Efficiency with VAV System Static Pressure Setpoint Reset. ASHRAE Journal, June, 24-32.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
 >Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
 <P></P><H3>Package Content</H3>
@@ -160,7 +161,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Model of data center that approximates the trim and response logic</B><p></P>
 <IMG SRC="Buildings.Examples.Chille7a424d00a711b732ntrolD.png" ALT="Buildings.Examples.ChillerPlant.DataCenterContinuousTimeControl">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is the chilled water plant with continuous time control.
 The trim and response logic is approximated by a PI controller which 
@@ -169,7 +170,7 @@ significantly reduces computing time. The model is described at
 >
 Buildings.Examples.ChillerPlant</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl"
 >Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl</A> (Primary only chiller plant system with water-side economizer).
 <P><H3>Parameters</H3><P>
@@ -217,7 +218,7 @@ Extends from <A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.Ch
 <B>Primary only chiller plant system with water-side economizer</B><p></P>
 <IMG SRC="Buildings.Examples.Chillebac61742302af0adntrolD.png" ALT="Buildings.Examples.ChillerPlant.DataCenterDiscreteTimeControl">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model is the chilled water plant with discrete time control and
 trim and response logic for a data center. The model is described at

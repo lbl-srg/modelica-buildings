@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Correlations for convective heat flux</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package contains functions for the convective heat transfer.
 Input into the functions is the temperature difference between 
 the solid and the fluid. 
@@ -36,7 +37,7 @@ is not differentiable around zero for certain flow configurations,
 such as buoyancy driven flow at a horizontal surface. However, the
 product of convective heat transfer coefficient times temperature 
 difference is differentiable around zero.
-<pre></PRE><P></P>
+<P></P>
 
 <P></P><H3>Package Content</H3>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
@@ -68,13 +69,13 @@ difference is differentiable around zero.
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.constantCoefficient</H2>
 <B>Constant convective heat transfer coefficient</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes the convective heat transfer coefficient as
 <code>h=hCon</code>, where <code>hCon=3</code> is a default input argument.
 The convective convective heat flux is
 <code>q_flow = h * dT</code>,
 where <code>dT</code> is the solid temperature minus the fluid temperature.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
@@ -112,14 +113,14 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.wall</H2>
 <B>Free convection, wall</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a wall as
 <code>h=1.3*|dT|^0.3333</code>,
 where <code>dT</code> is the solid temperature minus the fluid temperature.
 The convective convective heat flux is then
 <code>q_flow = h * dT</code>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
@@ -152,7 +153,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.floor</H2>
 <B>Free convection, floor</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a floor as
 <code>h=k*|dT|^0.3333</code>,
@@ -162,7 +163,7 @@ or <code>k=0.76</code> otherwise, and where
 <code>dT</code> is the solid temperature minus the fluid temperature.
 The convective convective heat flux is then
 <code>q_flow = h * dT</code>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
@@ -195,7 +196,7 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.ceiling</H2>
 <B>Free convection, ceiling</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function computes the buoyancy-driven convective heat transfer coefficient 
 for a ceiling as
 <code>h=k*|dT|^0.3333</code>,
@@ -205,7 +206,7 @@ or <code>k=0.76</code> otherwise, and where
 <code>dT</code> is the solid temperature minus the fluid temperature.
 The convective convective heat flux is then
 <code>q_flow = h * dT</code>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseClasses.html#Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux"
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux.BaseClasses.PartialHeatFlux</A> (Partial function for convective heat flux).
 <P><H3>Inputs</H3><P>
@@ -238,14 +239,14 @@ Extends from <A HREF="Buildings_HeatTransfer_Convection_Functions_HeatFlux_BaseC
 >Buildings.HeatTransfer.Convection.Functions.HeatFlux</A>.raleigh</H2>
 <B>Raleigh number with smooth transition to lower limit</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This function returns the Raleigh number.
 The parameter <code>RaMin</code> is used to transition
 to a lower limit for the Raleigh number.
 This is helpful to avoid a Raleigh number of zero or
 to avoid an expression for a convection coefficient that
 has an infinite derivative near zero, i.e., if <i>h=f(Ra<sup>(1/2)</sup>)</i>.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Inputs</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with base classes for Buildings.Fluid.MixingVolumes</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains base classes that are used to construct the models in
 <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
 >Buildings.Fluid.MixingVolumes</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
 >Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
 <P></P><H3>Package Content</H3>
@@ -54,7 +55,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Partial mixing volume with inlet and outlet ports (flow reversal is allowed)</B><p></P>
 <IMG SRC="Buildings.Fluid.MixingVol3d9a71fa0c317127olumeD.png" ALT="Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This is a partial model of an instantaneously mixed volume.
 It is used as the base class for all fluid volumes of the package
 <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
@@ -75,7 +76,7 @@ For simple models that uses this model, see
 >
 Buildings.Fluid.MixingVolumes</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes).
 <P><H3>Parameters</H3><P>
@@ -283,7 +284,7 @@ of the modeller. Increase nPorts to add an additional port.
 <B>Partial mixing volume that allows adding or subtracting water vapor</B><p></P>
 <IMG SRC="Buildings.Fluid.MixingVol03e1da76232d07b9rPortD.png" ALT="Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This is a partial model of an instantaneously mixed volume.
 It is used as the base class for all fluid volumes of the package
 <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes"
@@ -301,7 +302,7 @@ Having separate models is required because calls to the medium property function
 >Modelica.Media.Air.SimpleAir</a>
 is used that does not implement this function.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_MixingVolumes_BaseClasses.html#Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume"
 >Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume</A> (Partial mixing volume with inlet and outlet ports (flow reversal is allowed)).
 <P><H3>Parameters</H3><P>

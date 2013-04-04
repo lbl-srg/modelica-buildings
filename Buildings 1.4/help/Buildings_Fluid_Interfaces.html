@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,12 +26,12 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with interfaces for fluid models</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package contains basic classes that are used to build
 component models that change the state of the
 fluid. The classes are not directly usable, but can
 be extended when building a new model.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_InterfacesPackage.html#Modelica.Icons.InterfacesPackage"
 >Modelica.Icons.InterfacesPackage</A> (Icon for packages containing interfaces).
 <P></P><H3>Package Content</H3>
@@ -89,7 +90,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Partial model with four ports</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfaces.FourPortD.png" ALT="Buildings.Fluid.Interfaces.FourPort">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model defines an interface for components with four ports. 
 The parameters <code>allowFlowReversal1</code> and
@@ -102,7 +103,7 @@ This model is identical to
 >
 Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -219,7 +220,7 @@ Modelica.Fluid.Interfaces.PartialTwoPort</a>, except that it has four ports.
 <B>Partial model transporting one fluid stream with storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfaceaa717523098d688cangerD.png" ALT="Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component transports one fluid stream. 
 It provides the basic model for implementing dynamic and steady-state
@@ -267,7 +268,7 @@ The variable names follow the conventions used in
 Modelica.Fluid.Examples.HeatExchanger.BaseClasses.BasicHX
 </a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</A> (Parameters for flow resistance for models with two ports).
@@ -435,7 +436,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Model transporting two fluid streams between four ports with storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interface997284f3a7348477angerD.png" ALT="Buildings.Fluid.Interfaces.FourPortHeatMassExchanger">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component transports two fluid streams between four ports. 
 It provides the basic model for implementing a dynamic heat exchanger.
@@ -459,7 +460,7 @@ Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 The variable names follow the conventions used in 
 <a href="modelica://Modelica.Fluid.HeatExchangers.BasicHX">
 </p>Modelica.Fluid.HeatExchangers.BasicHX</a>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
 >Buildings.Fluid.Interfaces.PartialFourPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</A> (Parameters for flow resistance for models with four ports).
@@ -763,7 +764,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Partial model transporting fluid between two ports without storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfacee19327459e14118bangerD.png" ALT="Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component transports fluid between its two ports, without
 storing mass or energy. It is based on 
@@ -801,7 +802,7 @@ The following inputs need to be assigned:
 Set the constant <code>sensibleOnly=true</code> if the model that extends
 or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters</A> (Parameters for flow resistance for models with two ports).
@@ -942,7 +943,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Partial model transporting two fluid streams between four ports without storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfacecfb0ac59541ba4f9angerD.png" ALT="Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component transports two fluid streams between four ports, without
 storing mass or energy. It is similar to
@@ -992,7 +993,7 @@ or instantiates this model sets <code>mXi<i>N</i>_flow = zeros(Medium.nXi<i>N</i
      equations.
 </p>
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialFourPortInterface"
 >Buildings.Fluid.Interfaces.PartialFourPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters"
 >Buildings.Fluid.Interfaces.FourPortFlowResistanceParameters</A> (Parameters for flow resistance for models with four ports).
@@ -1148,7 +1149,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Partial model transporting fluid between two ports without storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfacece5744ecb2dac5c0rfaceD.png" ALT="Buildings.Fluid.Interfaces.PartialTwoPortInterface">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component defines the interface for models that 
 transports a fluid between two ports. It is similar to 
@@ -1168,7 +1169,7 @@ mass transfer and pressure drop equations. See for example
 >
 Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.PartialTwoPort"
 >Modelica.Fluid.Interfaces.PartialTwoPort</A> (Partial component with two ports).
 <P><H3>Parameters</H3><P>
@@ -1265,7 +1266,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Partial model transporting fluid between two ports without storing mass or energy</B><p></P>
 <IMG SRC="Buildings.Fluid.Interface0bf626e24a9671a0rfaceD.png" ALT="Buildings.Fluid.Interfaces.PartialFourPortInterface">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component defines the interface for models that 
 transport two fluid streams between four ports. 
@@ -1278,7 +1279,7 @@ but it has four ports instead of two.
 The model is used by other models in this package that add heat transfer,
 mass transfer and pressure drop equations.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPort"
 >Buildings.Fluid.Interfaces.FourPort</A> (Partial model with four ports).
 <P><H3>Parameters</H3><P>
@@ -1447,7 +1448,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Lumped volume with mass and energy balance</B><p></P>
 <IMG SRC="Buildings.Fluid.Interface1d8308de49633a59ationD.png" ALT="Buildings.Fluid.Interfaces.ConservationEquation">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Basic model for an ideally mixed fluid volume with the ability to store mass and energy.
 It implements a dynamic or a steady-state conservation equation for energy and mass fractions.
@@ -1490,7 +1491,7 @@ Buildings.Fluid.MixingVolumes.MixingVolume</a> and
 >
 Buildings.Fluid.Storage.ExpansionVessel</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes).
 <P><H3>Parameters</H3><P>
@@ -1756,7 +1757,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Partial model for static energy and mass conservation equations</B><p></P>
 <IMG SRC="Buildings.Fluid.Interfacea868bbaf7da4f56dationD.png" ALT="Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model transports fluid between its two ports, without storing mass or energy. 
 It implements a steady-state conservation equation for energy and mass fractions.
@@ -1785,7 +1786,7 @@ Buildings.Fluid.Interfaces.ConservationEquation</a>.
 Set the constant <code>sensibleOnly=true</code> if the model that extends
 or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -1949,7 +1950,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 >Buildings.Fluid.Interfaces</A>.TwoPortFlowResistanceParameters</H2>
 <B>Parameters for flow resistance for models with two ports</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This class contains parameters that are used to
 compute the pressure drop in models that have one fluid stream.
 Note that the nominal mass flow rate is not declared here because
@@ -1958,7 +1959,7 @@ the model
 >
 PartialTwoPortInterface</a>
 already declares it.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2000,7 +2001,7 @@ already declares it.
 >Buildings.Fluid.Interfaces</A>.FourPortFlowResistanceParameters</H2>
 <B>Parameters for flow resistance for models with four ports</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This class contains parameters that are used to
 compute the pressure drop in components that have two fluid streams.
 Note that the nominal mass flow rate is not declared here because
@@ -2009,7 +2010,7 @@ the model
 >
 PartialFourPortInterface</a>
 already declares it.
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -2070,7 +2071,7 @@ already declares it.
 >Buildings.Fluid.Interfaces</A>.LumpedVolumeDeclarations</H2>
 <B>Declarations for lumped volumes</B><p></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This class contains parameters and medium properties
 that are used in the lumped  volume model, and in models that extend the 
@@ -2091,7 +2092,7 @@ Buildings.Rooms.MixedAir</a>, and by
 >
 Buildings.Rooms.BaseClasses.MixedAir</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>

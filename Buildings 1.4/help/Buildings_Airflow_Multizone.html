@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,14 +26,14 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with models for multizone airflow and contaminant transport</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package provides
 models to compute the airflow and contaminant transport between different rooms and between
 a room and the exterior environment.
 See the <A HREF="Buildings_Airflow_Multizone_UsersGuide.html#Buildings.Airflow.Multizone.UsersGuide"
 >
 User's Guide</a> for more information.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
 <P></P><H3>Package Content</H3>
@@ -85,7 +86,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Door model using discretization along height coordinate</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo429dd7a2e1448ad2dOpenD.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOpen">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model describes the bi-directional air flow through an open door.
 </p>
@@ -102,7 +103,7 @@ Use the model
 Buildings.Airflow.Multizone.DoorDiscretizedOperable</a>
 for a door that can either be open or closed.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
 >Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</A> (Door model using discretization along height coordinate).
 <P><H3>Parameters</H3><P>
@@ -219,7 +220,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <B>Door model using discretization along height coordinate</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo24c8885cacdf11a3rableD.png" ALT="Buildings.Airflow.Multizone.DoorDiscretizedOperable">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model describes the bi-directional air flow through an open door.
 </p>
@@ -237,7 +238,7 @@ Use the model
 <a href="modelica://Buildings.Airflow.Multizone.Crack">
 Buildings.Airflow.Multizone.Crack
 </a> for a door that is always closed.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized"
 >Buildings.Airflow.Multizone.BaseClasses.DoorDiscretized</A> (Door model using discretization along height coordinate).
 <P><H3>Parameters</H3><P>
@@ -393,7 +394,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <B>Effective air leakage area</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo90b343542b5dabb1eAreaD.png" ALT="Buildings.Airflow.Multizone.EffectiveAirLeakageArea">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model describes the one-directional pressure driven
 air flow through a crack-like opening.
@@ -427,7 +428,7 @@ National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
 </UL>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone.Orifice"
 >Buildings.Airflow.Multizone.Orifice</A> (Orifice).
 <P><H3>Parameters</H3><P>
@@ -500,7 +501,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizo
 <B>Vertical shaft with no friction and no storage of heat and mass</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizone.MediumColumnD.png" ALT="Buildings.Airflow.Multizone.MediumColumn">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model describes the pressure difference of a vertical medium
 column. It can be used to model the pressure difference caused by 
@@ -544,7 +545,7 @@ For a steady-state model, use
 >
 Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </p>
-<pre></PRE><P></P>
+<P></P>
 
 <P><H3>Parameters</H3><P>
 <TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
@@ -675,7 +676,7 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 <B>Vertical shaft with no friction and storage of heat and mass</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo04c266c67ac23223namicD.png" ALT="Buildings.Airflow.Multizone.MediumColumnDynamic">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model contains a completely mixed fluid volume and
 models that take into account the pressure difference of 
@@ -697,7 +698,7 @@ Buildings.Airflow.Multizone.MediumColumn</a> instead of this model.
 </p>
 <p>In this model, the parameter <code>h</code> must always be positive, and the port <code>port_a</code> must be
 at the top of the column.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
 >Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes).
 <P><H3>Parameters</H3><P>
@@ -850,7 +851,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Orifice</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizone.OrificeD.png" ALT="Buildings.Airflow.Multizone.Orifice">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model describes the mass flow rate and pressure difference relation
 of an orifice in the form
@@ -874,7 +875,7 @@ National Institute of Standards and Technology,
 Tech. Report NISTIR 6921,
 November, 2002.
 </UL>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance"
 >Buildings.Airflow.Multizone.BaseClasses.PowerLawResistance</A> (Flow resistance that uses the power law).
 <P><H3>Parameters</H3><P>
@@ -934,7 +935,7 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <B>Zonal flow with input air change per second</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo8d72ccaa8cc04067w_ACSD.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_ACS">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model computes the air exchange between volumes.
 </p>
@@ -945,7 +946,7 @@ Input is the air change per seconds. The volume flow rate is computed as
 </pre>
 where <code>ACS</code> is an input and the volume <code>V</code> is a parameter.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
 >Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</A> (Flow across zonal boundaries of a room).
 <P><H3>Parameters</H3><P>
@@ -1060,13 +1061,13 @@ Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Air
 <B>Zonal flow with input air change per second</B><p></P>
 <IMG SRC="Buildings.Airflow.Multizo838a391f29e8fbf7_flowD.png" ALT="Buildings.Airflow.Multizone.ZonalFlow_m_flow">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model computes the air exchange between volumes.
 </p>
 <p>
 Input is the mass flow rate from <i>A</i> to <i>B</i> and from <i>B</i> to <i>A</i>.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Airflow_Multizone_BaseClasses.html#Buildings.Airflow.Multizone.BaseClasses.ZonalFlow"
 >Buildings.Airflow.Multizone.BaseClasses.ZonalFlow</A> (Flow across zonal boundaries of a room).
 <P><H3>Parameters</H3><P>

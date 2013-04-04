@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,9 +26,9 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with fan and pump models</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package contains components models for fans and pumps.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
 <P></P><H3>Package Content</H3>
@@ -68,7 +69,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Fan or pump with ideally controlled normalized speed y as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.FlowMachine_yD.png" ALT="Buildings.Fluid.Movers.FlowMachine_y">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model describes a fan or pump with prescribed normalized speed.
 The input connector provides the normalized rotational speed (between 0 and 1).
@@ -86,7 +87,7 @@ See the
 >
 User's Guide</a> for more information.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</A> (Partial model for fan or pump with speed (y or Nrpm) as input signal).
 <P><H3>Parameters</H3><P>
@@ -208,7 +209,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <B>Fan or pump with ideally controlled speed Nrpm as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.FlowMachine_NrpmD.png" ALT="Buildings.Fluid.Movers.FlowMachine_Nrpm">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This model describes a fan or pump with prescribed speed in revolutions per minute.
 The head is computed based on the performance curve that take as an argument
 the actual volume flow rate divided by the maximum flow rate and the relative
@@ -224,7 +225,7 @@ See the
 >
 User's Guide</a> for more information.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.PrescribedFlowMachine</A> (Partial model for fan or pump with speed (y or Nrpm) as input signal).
 <P><H3>Parameters</H3><P>
@@ -336,7 +337,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <B>Fan or pump with ideally controlled head dp as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.FlowMachine_dpD.png" ALT="Buildings.Fluid.Movers.FlowMachine_dp">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model describes a fan or pump with prescribed head.
 The input connector provides the difference between 
@@ -359,7 +360,7 @@ See the
 >
 User's Guide</a> for more information.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</A> (Partial model for fan or pump with ideally controlled mass flow rate or head as input signal).
 <P><H3>Parameters</H3><P>
@@ -518,7 +519,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <B>Fan or pump with ideally controlled mass flow rate as input signal</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Flf8e290cf7e0ae8d8_flowD.png" ALT="Buildings.Fluid.Movers.FlowMachine_m_flow">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This model describes a fan or pump with prescribed mass flow rate.
 The efficiency of the device is computed based
@@ -531,7 +532,7 @@ See the
 >
 User's Guide</a> for more information.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine"
 >Buildings.Fluid.Movers.BaseClasses.ControlledFlowMachine</A> (Partial model for fan or pump with ideally controlled mass flow rate or head as input signal).
 <P><H3>Parameters</H3><P>
@@ -681,7 +682,7 @@ Extends from <A HREF="Buildings_Fluid_Movers_BaseClasses.html#Buildings.Fluid.Mo
 <B>Fan or pump with head and efficiency declared by a non-dimensional polynomial</B><p></P>
 <IMG SRC="Buildings.Fluid.Movers.Fl4a02980ce06174d6omialD.png" ALT="Buildings.Fluid.Movers.FlowMachinePolynomial">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This is a model of a flow machine (pump or fan).
 </p>
@@ -694,7 +695,7 @@ For new models, use instead <A HREF="Buildings_Fluid_Movers.html#Buildings.Fluid
 >
 Buildings.Fluid.Movers.FlowMachine_y</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
 >Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.ObsoleteModel"
 >Modelica.Icons.ObsoleteModel</A> (Icon for classes that are obsolete and will be removed in later versions).

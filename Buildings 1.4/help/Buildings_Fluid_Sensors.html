@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with sensor models</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p align = justify>
 Package <code>Sensors</code> consists of idealized sensor components that
 provide variables of a medium model and/or fluid ports as
@@ -42,7 +43,7 @@ processing (e.g., by attaching block
 Modelica.Blocks.Continuous.FirstOrder</a> to
 model the time constant of the sensor).
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_SensorsPackage.html#Modelica.Icons.SensorsPackage"
 >Modelica.Icons.SensorsPackage</A> (Icon for packages containing sensors).
 <P></P><H3>Package Content</H3>
@@ -140,7 +141,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Ideal one port density sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.DensityD.png" ALT="Buildings.Fluid.Sensors.Density">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the density of the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -193,7 +194,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal two port density sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.DensityTwoPortD.png" ALT="Buildings.Fluid.Sensors.DensityTwoPort">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the density of the fluid flowing from port_a to port_b. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -316,7 +317,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal enthalphy flow rate sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.EnthalpyFlowRateD.png" ALT="Buildings.Fluid.Sensors.EnthalpyFlowRate">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the enthalphy flow rate of the medium in the flow
 between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
@@ -430,7 +431,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal enthalphy flow rate sensor that outputs the sensible enthalpy flow rate only</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.EnthalpyFlowRateD.png" ALT="Buildings.Fluid.Sensors.SensibleEnthalpyFlowRate">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the <i>sensible</i> enthalphy flow rate of the medium in the flow
 between fluid ports. In particular, if the total enthalpy flow rate is
@@ -583,7 +584,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal enthalphy flow rate sensor that outputs the latent enthalpy flow rate only</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.EnthalpyFlowRateD.png" ALT="Buildings.Fluid.Sensors.LatentEnthalpyFlowRate">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the <i>latent</i> enthalphy flow rate of the medium in the flow
 between fluid ports. In particular, if the total enthalpy flow rate is
@@ -740,7 +741,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal sensor for mass flow rate</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.MassFlowRateD.png" ALT="Buildings.Fluid.Sensors.MassFlowRate">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the mass flow rate flowing from port_a to port_b. 
 The sensor is ideal, i.e., it does not influence the fluid.
@@ -802,7 +803,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal one port mass fraction sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.MassFractionD.png" ALT="Buildings.Fluid.Sensors.MassFraction">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the mass fraction contained in the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -874,7 +875,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal two port mass fraction sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.Md81f541b809781a9oPortD.png" ALT="Buildings.Fluid.Sensors.MassFractionTwoPort">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the mass fraction of the passing fluid. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -995,7 +996,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal pressure sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.PressureD.png" ALT="Buildings.Fluid.Sensors.Pressure">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the absolute pressure at its fluid port. The sensor is 
 ideal, i.e., it does not influence the fluid.
@@ -1044,7 +1045,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal one port relative humidity sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.RelativeHumidityD.png" ALT="Buildings.Fluid.Sensors.RelativeHumidity">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the relative humidity contained in the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -1106,7 +1107,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal two port relative humidity sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.Rd67ba12a3932b7cboPortD.png" ALT="Buildings.Fluid.Sensors.RelativeHumidityTwoPort">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the relative humidity of the fluid flowing from port_a to port_b. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -1223,14 +1224,14 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal relative pressure sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.RelativePressureD.png" ALT="Buildings.Fluid.Sensors.RelativePressure">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 The relative pressure "port_a.p - port_b.p" is determined between
 the two ports of this component and is provided as output signal. The
 sensor should be connected in parallel with other equipment, no flow
 through the sensor is allowed.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.TranslationalSensor"
 >Modelica.Icons.TranslationalSensor</A> (Icon representing a linear measurement device).
 <P><H3>Parameters</H3><P>
@@ -1299,7 +1300,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Ideal relative temperature sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.Ra57f73acc57bf7f3atureD.png" ALT="Buildings.Fluid.Sensors.RelativeTemperature">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 The relative temperature "T(port_a) - T(port_b)" is determined between
 the two ports of this component and is provided as output signal. The
@@ -1383,7 +1384,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Ideal one port specific enthalpy sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.SpecificEnthalpyD.png" ALT="Buildings.Fluid.Sensors.SpecificEnthalpy">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the specific enthalpy of the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -1432,7 +1433,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal two port sensor for the specific enthalpy</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.S0953a63adc594a2doPortD.png" ALT="Buildings.Fluid.Sensors.SpecificEnthalpyTwoPort">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the specific enthalpy of a passing fluid. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -1534,7 +1535,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal one port specific entropy sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.SpecificEntropyD.png" ALT="Buildings.Fluid.Sensors.SpecificEntropy">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the specific entropy of the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -1585,7 +1586,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal two port sensor for the specific entropy</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.S08db80dec91469f7oPortD.png" ALT="Buildings.Fluid.Sensors.SpecificEntropyTwoPort">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the specific entropy of the passing fluid. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -1696,7 +1697,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal one port temperature sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.TemperatureD.png" ALT="Buildings.Fluid.Sensors.Temperature">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the temperature of the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -1745,7 +1746,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal two port temperature sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.T8e9fdae128e70870oPortD.png" ALT="Buildings.Fluid.Sensors.TemperatureTwoPort">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the temperature of the medium in the flow
 between fluid ports. The sensor does not influence the fluid. 
@@ -1852,7 +1853,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal wet bulb temperature sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.Tf9e5d48a814aaf17oPortD.png" ALT="Buildings.Fluid.Sensors.TemperatureWetBulbTwoPort">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the wet bulb temperature of the medium in the flow
 between fluid ports. The sensor is ideal, i.e., it does not influence the fluid.
@@ -1965,7 +1966,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal one port trace substances sensor</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.TraceSubstancesD.png" ALT="Buildings.Fluid.Sensors.TraceSubstances">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the trace substances contained in the fluid passing its port. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -2036,7 +2037,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal two port sensor for trace substance</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.T08b0a06d625012a8oPortD.png" ALT="Buildings.Fluid.Sensors.TraceSubstancesTwoPort">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the trace substance of the passing fluid. 
 The sensor is ideal, i.e. it does not influence the fluid.
@@ -2149,7 +2150,7 @@ Extends from <A HREF="Buildings_Fluid_Sensors_BaseClasses.html#Buildings.Fluid.S
 <B>Ideal sensor for volume flow rate</B><p></P>
 <IMG SRC="Buildings.Fluid.Sensors.VolumeFlowRateD.png" ALT="Buildings.Fluid.Sensors.VolumeFlowRate">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component monitors the volume flow rate flowing from port_a to port_b. 
 The sensor is ideal, i.e. it does not influence the fluid.

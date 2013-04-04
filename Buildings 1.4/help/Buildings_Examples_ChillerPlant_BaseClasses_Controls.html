@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,13 +26,13 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with control components for Buildings.Examples.ChillerPlant</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This package contains component models that are used to construct the control system in
 <A HREF="Buildings_Examples_ChillerPlant.html#Buildings.Examples.ChillerPlant"
 >Buildings.Examples.ChillerPlant</a>.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
 <P></P><H3>Package Content</H3>
@@ -72,7 +73,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Control unit for enabling/disabling chiller</B><p></P>
 <IMG SRC="Buildings.Examples.Chille185e20d8bdde5cc2witchD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.ChillerSwitch">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 The controls for enabling/disabling chiller are as follows:</h4>
 <ul>
 <li>
@@ -152,7 +153,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Output y=k-u</B><p></P>
 <IMG SRC="Buildings.Examples.Chille68f475eb386a85cdinusUD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.KMinusU">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This component computes the value of
 <p align="left" style="font-style:italic;"> y = k - u. </p>
 <pre>
@@ -197,7 +198,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>A two-pieces linear piecewise function</B><p></P>
 <IMG SRC="Buildings.Examples.Chille53ac86a0e07312c8seTwoD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.LinearPiecewiseTwo">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component calcuates the output according to two piecewise linear function as 
 </p>
@@ -215,7 +216,7 @@ This component calcuates the output according to two piecewise linear function a
        (y<sub>21</sub>-y<sub>20</sub>)/(x<sub>2</sub>-x<sub>1</sub>)</i></td>
 </tr>
 </table> 
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -276,9 +277,9 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Count the number of actuators that have request</B><p></P>
 <IMG SRC="Buildings.Examples.Chillea603ef0e56637393unterD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.RequestCounter">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
    This model counts the number of requests sent by actuators. A request is triggerred when an input singal <code>uAct[i]</code> is larger than <code>uTri</code>.
-   <pre></PRE><P></P>
+   <P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.BlockIcon"
 >Modelica.Blocks.Interfaces.BlockIcon</A> (Basic graphical layout of input/output block).
 <P><H3>Parameters</H3><P>
@@ -327,7 +328,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Trim and respond logic</B><p></P>
 <IMG SRC="Buildings.Examples.Chillecc60e43d7e68836cspondD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespond">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
    This model implements the trim and respond logic. The model samples the outputs of actuators every <code>tSam</code>.
    The control sequence is as follows:
@@ -336,7 +337,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <li>If <code>u &lt; 0</code>, then <code>y = y - yDec</code>.</li>
 </ul>
 </p>
-   <pre></PRE><P></P>
+   <P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.DiscreteSISO"
 >Modelica.Blocks.Interfaces.DiscreteSISO</A> (Single Input Single Output discrete control block).
 <P><H3>Parameters</H3><P>
@@ -417,12 +418,12 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Trim and respond logic</B><p></P>
 <IMG SRC="Buildings.Examples.Chille204c27065169fa82ationD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.TrimAndRespondContinuousTimeApproximation">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
    This model implements a continuous time approximation to the trim and respond
    control algorithm.
 </p>
-   <pre></PRE><P></P>
+   <P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.SISO"
 >Modelica.Blocks.Interfaces.SISO</A> (Single Input Single Output continuous control block).
 <P><H3>Connectors</H3><P>
@@ -469,7 +470,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Control unit for WSE</B><p></P>
 <IMG SRC="Buildings.Examples.Chillee4403c6d2f2446d2ntrolD.png" ALT="Buildings.Examples.ChillerPlant.BaseClasses.Controls.WSEControl">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 This component decides if the WSE is set to on or off.
 The WSE is enabled when

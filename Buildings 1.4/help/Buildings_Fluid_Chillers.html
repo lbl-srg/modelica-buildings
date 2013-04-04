@@ -15,6 +15,7 @@ td      { solid #000; vertical-align:top; }
 th      { solid #000; vertical-align:top; font-weight: bold; }
 table   { solid #000; border-collapse: collapse;}
 </style>
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="../Resources/www/modelicaDoc.css">
 </HEAD>
 <BODY><P></P>
 <!--[if supportFields]><span style='mso-element:field-begin'></span>
@@ -25,7 +26,7 @@ table   { solid #000; border-collapse: collapse;}
 <B>Package with chiller models</B>
 <P></P>
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This package contains components models for chillers.
 The model 
 <A HREF="Buildings_Fluid_Chillers.html#Buildings.Fluid.Chillers.Carnot"
@@ -45,7 +46,7 @@ use performance curves from the package
 >
 Buildings.Fluid.Chillers.Data</a>
 to compute the chiller performance.
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
 >Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
 <P></P><H3>Package Content</H3>
@@ -80,7 +81,7 @@ Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Mod
 <B>Chiller with performance curve adjusted based on Carnot efficiency</B><p></P>
 <IMG SRC="Buildings.Fluid.Chillers.CarnotD.png" ALT="Buildings.Fluid.Chillers.Carnot">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 This is model of a chiller whose coefficient of performance (COP) changes
 with temperatures in the same way as the Carnot efficiency changes.
 The COP at the nominal conditions can be specified by a parameter, or
@@ -116,7 +117,7 @@ The transient response of the model is computed using a first
 order differential equation for the evaporator and condenser fluid volumes.
 The chiller outlet temperatures are equal to the temperatures of these lumped volumes.
 </p>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.FourPortHeatMassExchanger"
 >Interfaces.FourPortHeatMassExchanger</A> (Model transporting two fluid streams between four ports with storing mass or energy).
 <P><H3>Parameters</H3><P>
@@ -366,7 +367,7 @@ Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces
 <B>Electric chiller based on the DOE-2.1 model, but with performance as a function of condenser leaving instead of entering temperature</B><p></P>
 <IMG SRC="Buildings.Fluid.Chillers.e7420d146fd92f17edEIRD.png" ALT="Buildings.Fluid.Chillers.ElectricReformulatedEIR">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of an electric chiller, based on the model by 
 Hydeman et al. (2002) that has been developed in the CoolTools project
@@ -462,7 +463,7 @@ Hydeman, M. and K.L. Gillespie. 2002. Tools and Techniques to Calibrate Electric
 Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 </li>
 </ul>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses.PartialElectric"
 >Buildings.Fluid.Chillers.BaseClasses.PartialElectric</A> (Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus).
 <P><H3>Parameters</H3><P>
@@ -645,7 +646,7 @@ Extends from <A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.
 <B>Electric chiller based on the DOE-2.1 model</B><p></P>
 <IMG SRC="Buildings.Fluid.Chillers.e7420d146fd92f17edEIRD.png" ALT="Buildings.Fluid.Chillers.ElectricEIR">
 <P></P><H3>Information</H3>
-<PRE></pre>
+
 <p>
 Model of an electric chiller, based on the DOE-2.1 chiller model and
 the EnergyPlus chiller model <code>Chiller:Electric:EIR</code>.
@@ -727,7 +728,7 @@ Hydeman, M. and K.L. Gillespie. 2002. Tools and Techniques to Calibrate Electric
 Component Models. <i>ASHRAE Transactions</i>, AC-02-9-1.
 </li>
 </ul>
-<pre></PRE><P></P>
+<P></P>
 Extends from <A HREF="Buildings_Fluid_Chillers_BaseClasses.html#Buildings.Fluid.Chillers.BaseClasses.PartialElectric"
 >Buildings.Fluid.Chillers.BaseClasses.PartialElectric</A> (Partial model for electric chiller based on the model in DOE-2, CoolTools and EnergyPlus).
 <P><H3>Parameters</H3><P>
