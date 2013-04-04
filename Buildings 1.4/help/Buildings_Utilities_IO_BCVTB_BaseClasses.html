@@ -1,0 +1,315 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Utilities.IO.BCVTB.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with base classes for Buildings.Utilities.IO.BCVTB&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.IO.BCVTB.BaseClasses"></A><A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
+>Buildings.Utilities.IO.BCVTB</A>.BaseClasses</H2>
+<B>Package with base classes for Buildings.Utilities.IO.BCVTB</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains base classes that are used to construct the models in
+<A HREF="Buildings_Utilities_IO_BCVTB.html#Buildings.Utilities.IO.BCVTB"
+>Buildings.Utilities.IO.BCVTB</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.IO.BC1519a5ec2cbeff6brfaceS.png" ALT="Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface"
+>FluidInterface</A>
+</TD><TD>Partial class for fluid interface that can be coupled to BCVTB</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.IO.BCa0190f428ad9f639ocketS.png" ALT="Buildings.Utilities.IO.BCVTB.BaseClasses.establishClientSocket" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses.establishClientSocket"
+>establishClientSocket</A>
+</TD><TD>Establishes the client socket connection</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.IO.BCa0190f428ad9f639ocketS.png" ALT="Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals"
+>exchangeReals</A>
+</TD><TD>Exchanges values of type Real with the socket</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.IO.BCa0190f428ad9f639ocketS.png" ALT="Buildings.Utilities.IO.BCVTB.BaseClasses.closeClientSocket" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses.closeClientSocket"
+>closeClientSocket</A>
+</TD><TD>Closes the socket for the inter process communication</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE FluidInterface<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.IO.BC1519a5ec2cbeff6brfaceI.png" ALT="Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface"></A><A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses"
+>Buildings.Utilities.IO.BCVTB.BaseClasses</A>.FluidInterface</H2>
+<B>Partial class for fluid interface that can be coupled to BCVTB</B><p></P>
+<IMG SRC="Buildings.Utilities.IO.BC1519a5ec2cbeff6brfaceD.png" ALT="Buildings.Utilities.IO.BCVTB.BaseClasses.FluidInterface">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This is a partial model that is used to construct models for
+interfacing fluid flow systems with the BCVTB interface.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</A> (Base icon).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>Modelica.Media.Interfaces.Pa...</TD><TD>Medium model within the source</TD></TR>
+<TR><TD>Boolean</TD><TD>use_m_flow_in</TD><TD>false</TD><TD>Get the mass flow rate from the input connector</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow</TD><TD>0</TD><TD>Fixed mass flow rate going out of the fluid port [kg/s]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate, used for regularization near zero flow [kg/s]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Advanced</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*m_flow_nominal</TD><TD>For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required) [kg/s]</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD>Medium model within the source</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>m_flow_in</TD><TD>Prescribed mass flow rate</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>T_in</TD><TD>Prescribed boundary temperature</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b"
+>FluidPorts_b</A></TD><TD>ports[nPorts]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>output <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>RealOutput</A></TD><TD>HSen_flow</TD><TD>Sensible enthalpy flow rate, positive if flow into the component [W]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">partial </font><font color="blue">model</font> FluidInterface <font color="darkgreen">
+  &quot;Partial class for fluid interface that can be coupled to BCVTB&quot;</font>
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+  <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</A>;
+
+  <font color="blue">replaceable </font><font color="blue">package</font> Medium =
+      <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>Modelica.Media.Interfaces.PartialMedium</A> <font color="darkgreen">&quot;Medium model within the source&quot;</font>;
+
+  <font color="blue">parameter </font>Integer nPorts=0 <font color="darkgreen">&quot;Number of ports&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> m_flow_in <font color="blue">if </font>    use_m_flow_in <font color="darkgreen">
+    &quot;Prescribed mass flow rate&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> T_in <font color="darkgreen">&quot;Prescribed boundary temperature&quot;</font>;</textblock>
+
+   <font color="blue">parameter </font>Boolean use_m_flow_in = false <font color="darkgreen">
+    &quot;Get the mass flow rate from the input connector&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>Medium.MassFlowRate</A> m_flow = 0 <font color="darkgreen">
+    &quot;Fixed mass flow rate going out of the fluid port&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>Medium.MassFlowRate</A> m_flow_nominal(min=0) <font color="darkgreen">
+    &quot;Nominal mass flow rate, used for regularization near zero flow&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>Medium.MassFlowRate</A> m_flow_small(min=0) = 1E-4*m_flow_nominal <font color="darkgreen">
+    &quot;For bi-directional flow, temperature is regularized in the region |m_flow| &lt; m_flow_small (m_flow_small &gt; 0 required)&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.EnthalpyFlowRate"
+>Buildings.Fluid.Sensors.EnthalpyFlowRate</A> totEntFloRat[nPorts](
+    <font color="blue">redeclare </font><font color="blue">final </font><font color="blue">package</font> Medium = Medium,
+    <font color="blue">each </font><font color="blue">final </font>m_flow_nominal=m_flow_nominal) <font color="darkgreen">
+    &quot;Total enthalpy flow rate (sensible plus latent)&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b"
+>Modelica.Fluid.Interfaces.FluidPorts_b</A> ports[
+                                nPorts](
+                     <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium,
+                     m_flow(<font color="blue">each </font>max=<font color="blue">if </font>flowDirection==Modelica.Fluid.Types.PortFlowDirection.Leaving<font color="blue"> then </font>0<font color="blue"> else </font>
+                                     +Modelica.Constants.inf,
+                            <font color="blue">each </font>min=<font color="blue">if </font>flowDirection==Modelica.Fluid.Types.PortFlowDirection.Entering<font color="blue"> then </font>0<font color="blue"> else </font>
+                                     -Modelica.Constants.inf));</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+>Modelica.Blocks.Math.Sum</A> sumHTot_flow(nin=nPorts) <font color="darkgreen">
+    &quot;Sum of total enthalpy flow rates&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealOutput"
+>Modelica.Blocks.Interfaces.RealOutput</A> HSen_flow(unit=&quot;W&quot;) <font color="darkgreen">
+    &quot;Sensible enthalpy flow rate, positive if flow into the component&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</A> bou(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    <font color="blue">final </font>use_T_in=true,
+    <font color="blue">final </font>nPorts=nPorts,
+    use_X_in=false,
+    use_C_in=false,
+    <font color="blue">final </font>use_m_flow_in=true);</textblock>
+<font color="blue">protected </font>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.PortFlowDirection"
+>Modelica.Fluid.Types.PortFlowDirection</A> flowDirection=
+                   Modelica.Fluid.Types.PortFlowDirection.Bidirectional <font color="darkgreen">
+    &quot;Allowed flow direction&quot;</font>;
+<font color="blue">equation </font>
+  <font color="red">connect</font>(m_flow_in, bou.m_flow_in);
+  <font color="blue">if </font><font color="blue">not </font>use_m_flow_in<font color="blue"> then</font>
+    bou.m_flow_in = m_flow;
+  <font color="blue">end if</font>;
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(totEntFloRat.port_b, bou.ports);
+  <font color="red">connect</font>(sumHTot_flow.u, totEntFloRat.H_flow);
+  <font color="red">connect</font>(bou.T_in, T_in);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FluidInterface;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE establishClientSocket<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.IO.BCVTB.BaseClasses.establishClientSocket"></A><A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses"
+>Buildings.Utilities.IO.BCVTB.BaseClasses</A>.establishClientSocket</H2>
+<B>Establishes the client socket connection</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+Function that establishes a socket connection to the BCVTB.
+<p>
+For the xml file name, on Windows use two backslashes to separate directories, i.e., use
+<pre>
+  xmlFileName="C:\\examples\\dymola-room\\socket.cfg"
+</pre>
+<pre></PRE><P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>String</TD><TD>xmlFileName</TD><TD>&quot;socket.cfg&quot;</TD><TD>Name of xml file that contains the socket information</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>socketFD</TD><TD>Socket file descripter, or a negative value if an error occured</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> establishClientSocket <font color="darkgreen">
+  &quot;Establishes the client socket connection&quot;</font>
+
+  <font color="blue">input </font>String xmlFileName = &quot;socket.cfg&quot; <font color="darkgreen">
+    &quot;Name of xml file that contains the socket information&quot;</font>;
+  <font color="blue">output </font>Integer socketFD <font color="darkgreen">
+    &quot;Socket file descripter, or a negative value if an error occured&quot;</font>;
+  <font color="blue">external</font> &quot;C&quot;
+     socketFD=<font color="red">establishModelicaClient</font>(xmlFileName);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>establishClientSocket;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE exchangeReals<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.IO.BCVTB.BaseClasses.exchangeReals"></A><A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses"
+>Buildings.Utilities.IO.BCVTB.BaseClasses</A>.exchangeReals</H2>
+<B>Exchanges values of type Real with the socket</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+Function to exchange data of type <code>Real</code> with the socket.
+This function must only be called once in each 
+communication interval.
+<pre></PRE><P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>socketFD</TD><TD>&nbsp;</TD><TD>Socket file descripter</TD></TR>
+<TR><TD>Integer</TD><TD>flaWri</TD><TD>&nbsp;</TD><TD>Communication flag to write to the socket stream</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>simTimWri</TD><TD>&nbsp;</TD><TD>Current simulation time in seconds to write [s]</TD></TR>
+<TR><TD>Real</TD><TD>dblValWri[nDblWri]</TD><TD>&nbsp;</TD><TD>Double values to write</TD></TR>
+<TR><TD>Integer</TD><TD>nDblWri</TD><TD>&nbsp;</TD><TD>Number of double values to write</TD></TR>
+<TR><TD>Integer</TD><TD>nDblRea</TD><TD>&nbsp;</TD><TD>Number of double values to read</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>flaRea</TD><TD>Communication flag read from the socket stream</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>simTimRea</TD><TD>Current simulation time in seconds read from socket [s]</TD></TR>
+<TR><TD>Real</TD><TD>dblValRea[nDblRea]</TD><TD>Double values read from socket</TD></TR>
+<TR><TD>Integer</TD><TD>retVal</TD><TD>The exit value, which is negative if an error occured</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> exchangeReals <font color="darkgreen">
+  &quot;Exchanges values of type Real with the socket&quot;</font>
+
+  <font color="blue">input </font>Integer socketFD(min=1) <font color="darkgreen">&quot;Socket file descripter&quot;</font>;
+  <font color="blue">input </font>Integer flaWri <font color="darkgreen">&quot;Communication flag to write to the socket stream&quot;</font>;
+  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> simTimWri <font color="darkgreen">
+    &quot;Current simulation time in seconds to write&quot;</font>;
+  <font color="blue">input </font>Real[nDblWri] dblValWri <font color="darkgreen">&quot;Double values to write&quot;</font>;
+  <font color="blue">input </font>Integer nDblWri <font color="darkgreen">&quot;Number of double values to write&quot;</font>;
+  <font color="blue">input </font>Integer nDblRea <font color="darkgreen">&quot;Number of double values to read&quot;</font>;
+  <font color="blue">output </font>Integer flaRea <font color="darkgreen">&quot;Communication flag read from the socket stream&quot;</font>;
+  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> simTimRea <font color="darkgreen">
+    &quot;Current simulation time in seconds read from socket&quot;</font>;
+  <font color="blue">output </font>Real[nDblRea] dblValRea <font color="darkgreen">&quot;Double values read from socket&quot;</font>;
+  <font color="blue">output </font>Integer retVal <font color="darkgreen">&quot;The exit value, which is negative if an error occured&quot;</font>;
+  <font color="blue">external</font> &quot;C&quot;
+     retVal=<font color="red">exchangeModelicaClient</font>(socketFD,
+       flaWri, flaRea,
+       simTimWri,
+       dblValWri, nDblWri,
+       simTimRea,
+       dblValRea, nDblRea);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>exchangeReals;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE closeClientSocket<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.IO.BCVTB.BaseClasses.closeClientSocket"></A><A HREF="Buildings_Utilities_IO_BCVTB_BaseClasses.html#Buildings.Utilities.IO.BCVTB.BaseClasses"
+>Buildings.Utilities.IO.BCVTB.BaseClasses</A>.closeClientSocket</H2>
+<B>Closes the socket for the inter process communication</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+Function that closes the inter-process communication.
+<pre></PRE><P></P>
+
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>socketFD</TD><TD>&nbsp;</TD><TD>Socket file descripter, or a negative value if an error occured</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>retVal</TD><TD>Return value of the function that closes the socket connection</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> closeClientSocket <font color="darkgreen">
+  &quot;Closes the socket for the inter process communication&quot;</font>
+
+  <font color="blue">input </font>Integer socketFD <font color="darkgreen">
+    &quot;Socket file descripter, or a negative value if an error occured&quot;</font>;
+  <font color="blue">output </font>Integer retVal <font color="darkgreen">
+    &quot;Return value of the function that closes the socket connection&quot;</font>;
+  <font color="blue">external</font> &quot;C&quot;
+     retVal=<font color="red">closeModelicaClient</font>(socketFD);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>closeClientSocket;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:58:07 2013.
+</address></BODY>
+</HTML>

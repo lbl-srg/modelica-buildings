@@ -1,0 +1,1783 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Rooms.Examples.BESTEST</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;BESTEST validation models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BESTEST<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Rooms.Examples.BESTEST"></A><A HREF="Buildings_Rooms_Examples.html#Buildings.Rooms.Examples"
+>Buildings.Rooms.Examples</A>.BESTEST</H2>
+<B>BESTEST validation models</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains the models that were used
+for the BESTEST validation (ANSI/ASHRAE 2007).
+The basic model from which all other models extend from is
+<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600FF"
+>
+Buildings.Rooms.Examples.BESTEST.Case600FF</a>.
+</p>
+<p>
+All examples have a script that runs an annual simulation and
+plots the results with the minimum, mean and maximum value
+listed in the ANSI/ASHRAE Standard 140-2007.
+</p>
+<p>
+The script compares the following quantities
+</p>
+<p>
+<ul>
+<li>
+For free floating cases, the annual hourly integrated minimum (and maximum)
+zone air temperature, and the annual mean zone air temperature. 
+</li>
+<li>
+For cases with heating and cooling, the annual heating and cooling energy,
+and the annual hourly integrated minimum (and maximum) peak heating and cooling power.
+</li>
+</ul>
+</p>
+<p>
+Note that in addition to the BESTESTs, the window model has been validated separately
+in Nouidui et al. (2012).
+</p>
+<h4>Implementation</h4>
+<p>
+Heating and cooling is controlled using the PI controller
+<A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>
+Buildings.Controls.Continuous.LimPID</a>
+with anti-windup.
+</p>
+<p>
+Hourly averaged values, and annual mean values,
+are computed using an instance of
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Mean"
+>
+Modelica.Blocks.Math.Mean</a>.
+</p>
+<h4>References</h4>
+<p>
+ANSI/ASHRAE. 2007. ANSI/ASHRAE Standard 140-2007, Standard Method of Test for the Evaluation of Building Energy Analysis Computer Programs.
+</p>
+<p>
+Thierry Stephane Nouidui, Michael Wetter, and Wangda Zuo.
+<a href="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings 1.4/Resources/Images/HeatTransfer/Windows/2012-simBuild-windowValidation.pdf">
+Validation of the window model of the Modelica Buildings library.</a>
+<i>Proc. of the 5th SimBuild Conference</i>, Madison, WI, USA, August 2012.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case600FF" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600FF"
+>Case600FF</A>
+</TD><TD>Basic test with light-weight construction and free floating temperature</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case600" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Case600</A>
+</TD><TD>Case 600FF, but with dual-setpoint for heating and cooling</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case610" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case610"
+>Case610</A>
+</TD><TD>Case 600 with south shading</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case620" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case620"
+>Case620</A>
+</TD><TD>Case 600, but with windows on East and West side walls</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case630" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case630"
+>Case630</A>
+</TD><TD>Case 620, but with added overhang and sidefins</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case640" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case640"
+>Case640</A>
+</TD><TD>Case 600, but with heating schedule</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case650FF" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case650FF"
+>Case650FF</A>
+</TD><TD>Case 600, no heating, no cooling, and ventilation as in case 650</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case650" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case650"
+>Case650</A>
+</TD><TD>Case 600, but cooling based on schedule, night venting, and no heating</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case900FF" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900FF"
+>Case900FF</A>
+</TD><TD>Case 600FF, but with high thermal mass</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case900" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900"
+>Case900</A>
+</TD><TD>Case 600, but with high thermal mass</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case920" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case920"
+>Case920</A>
+</TD><TD>Case 900, but with windows on East and West side walls</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case940" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case940"
+>Case940</A>
+</TD><TD>Case 900, but with heating schedule</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case950" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case950"
+>Case950</A>
+</TD><TD>Case 900, but cooling based on schedule, night venting, and no heating</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFS.png" ALT="Buildings.Rooms.Examples.BESTEST.Case950FF" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case950FF"
+>Case950FF</A>
+</TD><TD>Case 900, but no heating, no cooling, and ventilation as in case 650</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.BESTEST.Case960S.png" ALT="Buildings.Rooms.Examples.BESTEST.Case960" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case960"
+>Case960</A>
+</TD><TD>Case 600, but with an unconditioned sun-space</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.BESTEST.DataS.png" ALT="Buildings.Rooms.Examples.BESTEST.Data" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST_Data.html#Buildings.Rooms.Examples.BESTEST.Data"
+>Data</A>
+</TD><TD>Data for BESTEST models</TD></TR>
+<TR><TD><IMG SRC="Buildings.Rooms.Examples.ed8691251f72d256assesS.png" ALT="Buildings.Rooms.Examples.BESTEST.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms_Examples_BESTEST_BaseClasses.html#Buildings.Rooms.Examples.BESTEST.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for Buildings.Rooms.Examples.BESTEST</TD></TR>
+<TR><TD>nStaRef=6</TD><TD>Number of states in a reference material</TD></TR>
+</TABLE>
+<P></p><H3>Types and constants</H3>
+<PRE>  <font color="blue">constant </font>Integer nStaRef = 6 <font color="darkgreen">&quot;Number of states in a reference material&quot;</font>;</PRE><P></p>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case600FF<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case600FF" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case600FF"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case600FF</H2>
+<B>Basic test with light-weight construction and free floating temperature</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFD.png" ALT="Buildings.Rooms.Examples.BESTEST.Case600FF">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is used for the test case 600FF of the BESTEST validation suite.
+Case 600FF is a light-weight building.
+The room temperature is free floating.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>&nbsp;</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>&nbsp;</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+<TR><TD><A HREF="Buildings_Rooms_Examples_BESTEST_Data.html#Buildings.Rooms.Examples.BESTEST.Data.StandardResultsFreeFloating"
+>StandardResultsFreeFloating</A></TD><TD>staRes</TD><TD>redeclare parameter Building...</TD><TD>Reference results from ASHRAE/ANSI Standard 140</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case600FF <font color="darkgreen">
+  &quot;Basic test with light-weight construction and free floating temperature&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+  <font color="blue">package</font> MediumA = <A HREF="Buildings_Media_GasesConstantDensity_SimpleAir.html#Buildings.Media.GasesConstantDensity.SimpleAir"
+>Buildings.Media.GasesConstantDensity.SimpleAir</A> <font color="darkgreen">
+    &quot;Medium model&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> S_=
+    Buildings.HeatTransfer.Types.Azimuth.S <font color="darkgreen">&quot;Azimuth for south walls&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> E_=
+    Buildings.HeatTransfer.Types.Azimuth.E <font color="darkgreen">&quot;Azimuth for east walls&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> W_=
+    Buildings.HeatTransfer.Types.Azimuth.W <font color="darkgreen">&quot;Azimuth for west walls&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> N_=
+    Buildings.HeatTransfer.Types.Azimuth.N <font color="darkgreen">&quot;Azimuth for north walls&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> C_=
+    Buildings.HeatTransfer.Types.Tilt.Ceiling <font color="darkgreen">&quot;Tilt for ceiling&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> F_=
+    Buildings.HeatTransfer.Types.Tilt.Floor <font color="darkgreen">&quot;Tilt for floor&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Modelica.SIunits.Angle</A> Z_=
+    Buildings.HeatTransfer.Types.Tilt.Wall <font color="darkgreen">&quot;Tilt for wall&quot;</font>;
+  <font color="blue">parameter </font>Integer nConExtWin = 1 <font color="darkgreen">&quot;Number of constructions with a window&quot;</font>;
+  <font color="blue">parameter </font>Integer nConBou = 1 <font color="darkgreen">
+    &quot;Number of surface that are connected to constructions that are modeled inside the room&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</A> matExtWal(
+    nLay=3,
+    absIR_a=0.9,
+    absIR_b=0.9,
+    absSol_a=0.6,
+    absSol_b=0.6,
+    material={<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.009,
+        k=0.140,
+        c=900,
+        d=530,
+        nStaRef=nStaRef),<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.066,
+        k=0.040,
+        c=840,
+        d=12,
+        nStaRef=nStaRef),<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.012,
+        k=0.160,
+        c=840,
+        d=950,
+        nStaRef=nStaRef)}) <font color="darkgreen">&quot;Exterior wall&quot;</font>;
+  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</A>
+                                                          matFlo(<font color="blue">final </font>nLay=
+           2,
+    absIR_a=0.9,
+    absIR_b=0.9,
+    absSol_a=0.6,
+    absSol_b=0.6,
+    material={<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=1.003,
+        k=0.040,
+        c=0,
+        d=0,
+        nStaRef=nStaRef),<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.025,
+        k=0.140,
+        c=1200,
+        d=650,
+        nStaRef=nStaRef)}) <font color="darkgreen">&quot;Floor&quot;</font>;
+  <A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</A> roo(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    hRoo=2.7,
+    nConExtWin=nConExtWin,
+    nConBou=1,
+    nPorts=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    AFlo=48,
+    datConBou(
+      layers={matFlo},
+      <font color="blue">each </font>A=48,
+      <font color="blue">each </font>til=F_),
+    datConExt(
+      layers={roof,matExtWal,matExtWal,matExtWal},
+      A={48,6*2.7,6*2.7,8*2.7},
+      til={C_,Z_,Z_,Z_},
+      azi={S_,W_,E_,N_}),
+    nConExt=4,
+    nConPar=0,
+    nSurBou=0,
+    linearizeRadiation=false,
+    datConExtWin(
+      layers={matExtWal},
+      A={8*2.7},
+      glaSys={window600},
+      wWin={2*3},
+      hWin={2},
+      fFra={0.001},
+      til={Z_},
+      azi={S_}),
+    lat=weaDat.lat) <font color="darkgreen">&quot;Room model for Case 600&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qConGai_flow(k=80/48) <font color="darkgreen">&quot;Convective heat gain&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qRadGai_flow(k=120/48) <font color="darkgreen">&quot;Radiative heat gain&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</A> multiplex3_1;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qLatGai_flow(k=0) <font color="darkgreen">&quot;Latent heat gain&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=
+        &quot;Resources/weatherdata/DRYCOLD.mos&quot;);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> uSha(k=0) <font color="darkgreen">
+    &quot;Control signal for the shading device&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Replicator"
+>Modelica.Blocks.Routing.Replicator</A> replicator(nout=<font color="red">max</font>(1,nConExtWin));
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</A> TSoi[nConBou](<font color="blue">each </font>T=
+        283.15) <font color="darkgreen">&quot;Boundary condition for construction&quot;</font>;
+  <font color="blue">parameter </font><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Generic</A> roof(nLay=3,
+    absIR_a=0.9,
+    absIR_b=0.9,
+    absSol_a=0.6,
+    absSol_b=0.6,
+    material={<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.019,
+        k=0.140,
+        c=900,
+        d=530,
+        nStaRef=nStaRef),<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.1118,
+        k=0.040,
+        c=840,
+        d=12,
+        nStaRef=nStaRef),<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.010,
+        k=0.160,
+        c=840,
+        d=950,
+        nStaRef=nStaRef)}) <font color="darkgreen">&quot;Roof&quot;</font>;
+  <A HREF="Buildings_Rooms_Examples_BESTEST_Data.html#Buildings.Rooms.Examples.BESTEST.Data.Win600"
+>Buildings.Rooms.Examples.BESTEST.Data.Win600</A>
+         window600(
+    UFra=3,
+    haveExteriorShade=false,
+    haveInteriorShade=false) <font color="darkgreen">&quot;Window&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.SingleLayer"
+>Buildings.HeatTransfer.Conduction.SingleLayer</A> soil(
+    A=48,
+    material(
+      x=2,
+      k=1.3,
+      c=800,
+      d=1500,
+      R=0),
+    steadyStateInitial=true,
+    T_a_start=283.15,
+    T_b_start=283.75) <font color="darkgreen">&quot;2m deep soil (per definition on p.4 of ASHRAE 140-2007)&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</A> sinInf(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    m_flow=1,
+    use_m_flow_in=true,
+    use_T_in=false,
+    use_X_in=false,
+    use_C_in=false,
+    nPorts=1) <font color="darkgreen">&quot;Sink model for air infiltration&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Outside"
+>Buildings.Fluid.Sources.Outside</A> souInf(<font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+      nPorts=1) <font color="darkgreen">&quot;Source model for air infiltration&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> InfiltrationRate(k=-48*2.7*0.5/3600) <font color="darkgreen">
+    &quot;0.41 ACH adjusted for the altitude (0.5 at sea level)&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
+>Modelica.Blocks.Math.Product</A> product;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.Density"
+>Buildings.Fluid.Sensors.Density</A> density(<font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA) <font color="darkgreen">
+    &quot;Air density inside the building&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Buildings.BoundaryConditions.WeatherData.Bus</A> weaBus;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> TRooAir <font color="darkgreen">
+    &quot;Room air temperature&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A>   heaCoo(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    allowFlowReversal=false,
+    m_flow_nominal=48*2.7*0.41/3600*1.2,
+    dp_nominal=1,
+    linearized=true,
+    from_dp=true) <font color="darkgreen">&quot;Heater and cooler&quot;</font>;
+  <font color="blue">replaceable </font><font color="blue">parameter </font><A HREF="Buildings_Rooms_Examples_BESTEST_Data.html#Buildings.Rooms.Examples.BESTEST.Data.StandardResultsFreeFloating"
+>Buildings.Rooms.Examples.BESTEST.Data.StandardResultsFreeFloating</A>
+      staRes(
+        minT( Min=-18.8+273.15, Max=-15.6+273.15, Mean=-17.6+273.15),
+        maxT( Min=64.9+273.15,  Max=69.5+273.15,  Mean=66.2+273.15),
+        meanT(Min=24.2+273.15,  Max=25.9+273.15,  Mean=25.1+273.15))
+          <font color="blue">constrainedby </font>Modelica.Icons.Record <font color="darkgreen">
+    &quot;Reference results from ASHRAE/ANSI Standard 140&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.MultiSum"
+>Modelica.Blocks.Math.MultiSum</A> multiSum(nu=1);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Mean"
+>Modelica.Blocks.Math.Mean</A> TRooHou(f=1/3600, y(start=293.15)) <font color="darkgreen">
+    &quot;Hourly averaged room air temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Mean"
+>Modelica.Blocks.Math.Mean</A> TRooAnn(f=1/86400/365, y(start=293.15)) <font color="darkgreen">
+    &quot;Annual averaged room air temperature&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(qRadGai_flow.y,multiplex3_1. u1[1]);
+  <font color="red">connect</font>(qLatGai_flow.y,multiplex3_1. u3[1]);
+  <font color="red">connect</font>(multiplex3_1.y, roo.qGai_flow);
+  <font color="red">connect</font>(roo.uSha, replicator.y);
+  <font color="red">connect</font>(qConGai_flow.y, multiplex3_1.u2[1]);
+  <font color="red">connect</font>(weaDat.weaBus, roo.weaBus);
+  <font color="red">connect</font>(uSha.y, replicator.u);
+  <font color="red">connect</font>(product.y, sinInf.m_flow_in);
+  <font color="red">connect</font>(density.port, roo.ports[1]);
+  <font color="red">connect</font>(density.d, product.u2);
+  <font color="red">connect</font>(weaDat.weaBus, weaBus);
+  <font color="red">connect</font>(TSoi[1].port, soil.port_a);
+  <font color="red">connect</font>(soil.port_b, roo.surf_conBou[1]);
+  <font color="red">connect</font>(weaBus, souInf.weaBus);
+  <font color="red">connect</font>(roo.heaPorAir, TRooAir.port);
+  <font color="red">connect</font>(souInf.ports[1], heaCoo.port_a);
+  <font color="red">connect</font>(heaCoo.port_b, roo.ports[2]);
+  <font color="red">connect</font>(sinInf.ports[1], roo.ports[3]);
+  <font color="red">connect</font>(multiSum.y, product.u1);
+  <font color="red">connect</font>(InfiltrationRate.y, multiSum.u[1]);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TRooAir.T, TRooHou.u);
+  <font color="red">connect</font>(TRooAir.T, TRooAnn.u);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case600FF;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case600<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case600" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case600"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case600</H2>
+<B>Case 600FF, but with dual-setpoint for heating and cooling</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.BESTEST.Case600D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case600">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is used for the basic test case 600 of the BESTEST validation suite.
+Case 600 is a light-weight building with room temperature control set to
+<i>20&deg;C</i> for heating and <i>27&deg;C</i> for cooling.
+The room has no shade and a window that faces south.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600FF"
+>Case600FF</A> (Basic test with light-weight construction and free floating temperature).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>&nbsp;</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>&nbsp;</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case600 <font color="darkgreen">
+  &quot;Case 600FF, but with dual-setpoint for heating and cooling&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600FF"
+>Case600FF</A>(
+    <font color="blue">redeclare </font><A HREF="Buildings_Rooms_Examples_BESTEST_Data.html#Buildings.Rooms.Examples.BESTEST.Data.StandardResults"
+>Buildings.Rooms.Examples.BESTEST.Data.StandardResults</A> staRes(
+    annualHea(Min=4.296*3.6e9, Max=5.709*3.6e9, Mean=5.090*3.6e9),
+    annualCoo(Min=-6.137*3.6e9, Max=-7.964*3.6e9, Mean=-6.832*3.6e9),
+    peakHea(Min=3.437*1000, Max=4.354*1000, Mean=4.000*1000),
+    peakCoo(Min=-5.965*1000, Max=-6.827*1000, Mean=-6.461*1000)));
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Controls.Continuous.LimPID</A>           conHea(
+    Td=60,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    Ti=300,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1) <font color="darkgreen">&quot;Controller for heating&quot;</font>;
+  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Controls.Continuous.LimPID</A>           conCoo(
+    Td=60,
+    reverseAction=true,
+    initType=Modelica.Blocks.Types.InitPID.InitialState,
+    Ti=300,
+    controllerType=Modelica.Blocks.Types.SimpleController.PI,
+    k=0.1) <font color="darkgreen">&quot;Controller for cooling&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gaiHea(k=1E6) <font color="darkgreen">&quot;Gain for heating&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gaiCoo(k=-1E6) <font color="darkgreen">&quot;Gain for cooling&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Sum"
+>Modelica.Blocks.Math.Sum</A> sum1(nin=2);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex2"
+>Modelica.Blocks.Routing.Multiplex2</A> multiplex2;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</A> preHea <font color="darkgreen">
+    &quot;Prescribed heat flow for heating and cooling&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+>Modelica.Blocks.Continuous.Integrator</A> EHea(
+    k=1,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=0,
+    u(unit=&quot;W&quot;),
+    y(unit=&quot;J&quot;)) <font color="darkgreen">&quot;Heating energy in Joules&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Continuous.html#Modelica.Blocks.Continuous.Integrator"
+>Modelica.Blocks.Continuous.Integrator</A> ECoo(
+    k=1,
+    initType=Modelica.Blocks.Types.Init.InitialState,
+    y_start=0,
+    u(unit=&quot;W&quot;),
+    y(unit=&quot;J&quot;)) <font color="darkgreen">&quot;Cooling energy in Joules&quot;</font>;
+  <A HREF="Buildings_Rooms_Examples_BESTEST_BaseClasses.html#Buildings.Rooms.Examples.BESTEST.BaseClasses.DaySchedule"
+>BaseClasses.DaySchedule</A> TSetHea(table=[0.0,273.15 + 20]) <font color="darkgreen">&quot;Heating setpoint&quot;</font>;
+  <A HREF="Buildings_Rooms_Examples_BESTEST_BaseClasses.html#Buildings.Rooms.Examples.BESTEST.BaseClasses.DaySchedule"
+>BaseClasses.DaySchedule</A> TSetCoo(table=[0.0,273.15 + 27]) <font color="darkgreen">&quot;Cooling setpoint&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Mean"
+>Modelica.Blocks.Math.Mean</A> PHea(f=1/3600) <font color="darkgreen">&quot;Hourly averaged heating power&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Mean"
+>Modelica.Blocks.Math.Mean</A> PCoo(f=1/3600) <font color="darkgreen">&quot;Hourly averaged cooling power&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TRooAir.T,conHea. u_m);
+  <font color="red">connect</font>(conCoo.u_m, TRooAir.T);
+  <font color="red">connect</font>(conHea.y,gaiHea. u);
+  <font color="red">connect</font>(conCoo.y,gaiCoo. u);
+  <font color="red">connect</font>(gaiHea.y,multiplex2. u1[1]);
+  <font color="red">connect</font>(gaiCoo.y,multiplex2. u2[1]);
+  <font color="red">connect</font>(multiplex2.y,sum1. u);
+  <font color="red">connect</font>(sum1.y,preHea. Q_flow);
+  <font color="red">connect</font>(EHea.u,gaiHea. y);
+  <font color="red">connect</font>(ECoo.u,gaiCoo. y);
+  <font color="red">connect</font>(TSetHea.y[1],conHea. u_s);
+  <font color="red">connect</font>(TSetCoo.y[1],conCoo. u_s);
+  <font color="red">connect</font>(PCoo.u,gaiCoo. y);
+  <font color="red">connect</font>(PHea.u,gaiHea. y);
+  <font color="red">connect</font>(preHea.port, roo.heaPorAir);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case600;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case610<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case610" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case610"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case610</H2>
+<B>Case 600 with south shading</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.BESTEST.Case600D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case610">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is the case 610 of the BESTEST validation suite.
+Case 610 differs from case 600 in that the window has an overhang.
+</p>
+<h4>Implementation</h4>
+<p>
+Two overhangs have been added, one for each window, because
+each window only sees its own overhang.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Buildings.Rooms.Examples.BESTEST.Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>&nbsp;</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>&nbsp;</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case610 <font color="darkgreen">&quot;Case 600 with south shading&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Buildings.Rooms.Examples.BESTEST.Case600</A>(
+  roo(
+     datConExtWin(
+      ove(
+        wR={4.5,0.5},
+        wL={0.5,4.5},
+        <font color="blue">each </font>dep=1,
+        <font color="blue">each </font>gap=0.5))),
+   staRes(
+    annualHea(Min=4.355*3.6e9, Max=5.786*3.6e9, Mean=5.146*3.6e9),
+    annualCoo(Min=-3.915*3.6e9, Max=-5.778*3.6e9, Mean=-4.964*3.6e9),
+    peakHea(Min=3.437*1000, Max=4.354*1000, Mean=3.998*1000),
+    peakCoo(Min=-5.689*1000, Max=-6.371*1000, Mean=-5.988*1000)));
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case610;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case620<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case620" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case620"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case620</H2>
+<B>Case 600, but with windows on East and West side walls</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.BESTEST.Case600D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case620">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is the case 620 of the BESTEST validation suite.
+Case 620 differs from case 600 in that the west and east facing walls
+have a window, but there is no window in the south facing wall.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Buildings.Rooms.Examples.BESTEST.Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>&nbsp;</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>&nbsp;</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case620 <font color="darkgreen">
+  &quot;Case 600, but with windows on East and West side walls&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Buildings.Rooms.Examples.BESTEST.Case600</A>(
+  roo(
+    nConExtWin=2,
+    datConExtWin(
+      layers={matExtWal, matExtWal},
+      <font color="blue">each </font>A=6*2.7,
+      glaSys={window600, window600},
+      <font color="blue">each </font>wWin=3,
+      <font color="blue">each </font>hWin=2,
+      <font color="blue">each </font>fFra=0.001,
+      <font color="blue">each </font>til=Z_,
+      azi={W_,E_}),
+    nConExt=3,
+    datConExt(
+      layers={roof,matExtWal,matExtWal},
+      A={48,8*2.7,8*2.7},
+      til={C_,Z_,Z_},
+      azi={S_,S_,N_})),
+   staRes(
+    annualHea(Min=4.613*3.6e9, Max=5.944*3.6e9, Mean=5.407*3.6e9),
+    annualCoo(Min=-3.417*3.6e9, Max=-5.004*3.6e9, Mean=-4.218*3.6e9),
+    peakHea(Min=3.591*1000, Max=4.379*1000, Mean=4.062*1000),
+    peakCoo(Min=-3.634*1000, Max=-5.096*1000, Mean=-4.343*1000)));
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case620;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case630<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case630" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case630"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case630</H2>
+<B>Case 620, but with added overhang and sidefins</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.BESTEST.Case600D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case630">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is case 630 of the BESTEST validation suite.
+Case 630 differs from case 620 in that the 
+windows on the west and east walls have an overhang and side fins.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case620"
+>Buildings.Rooms.Examples.BESTEST.Case620</A> (Case 600, but with windows on East and West side walls).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>&nbsp;</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>&nbsp;</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case630 <font color="darkgreen">&quot;Case 620, but with added overhang and sidefins&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case620"
+>Buildings.Rooms.Examples.BESTEST.Case620</A>(
+  roo(
+    datConExtWin(
+      ove(
+        <font color="blue">each </font>wR=0.0,
+        <font color="blue">each </font>wL=0.0,
+        <font color="blue">each </font>dep=1.0,
+        <font color="blue">each </font>gap=0.5),
+      sidFin(
+        <font color="blue">each </font>h=0.5,
+        <font color="blue">each </font>dep=1.0,
+        <font color="blue">each </font>gap=0.0))),
+   staRes(
+    annualHea(Min=5.050*3.6e9, Max=6.469*3.6e9, Mean=5.783*3.6e9),
+    annualCoo(Min=-2.129*3.6e9, Max=-3.701*3.6e9, Mean=-2.832*3.6e9),
+    peakHea(Min=3.592*1000, Max=4.280*1000, Mean=4.006*1000),
+    peakCoo(Min=-3.072*1000, Max=-4.116*1000, Mean=-3.626*1000)));
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case630;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case640<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case640" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case640"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case640</H2>
+<B>Case 600, but with heating schedule</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.BESTEST.Case600D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case640">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is used for the basic test case 640 of the BESTEST validation suite.
+Case640 is the same as Case600, but with the following modifications:
+</p>
+<ul>
+<li>
+From 2300 hours to 0700 hours, heat = on if zone temperature is below 10&deg;C
+</li>
+<li>
+From 0700 hours to 2300 hours, heat = on if zone temperature is above 20&deg;C
+</li>
+<li>
+All hours, cool = on if zone temperature below 27&deg;C
+</li>
+<li>
+Otherwise, mechanical equipment is off.
+</li>
+</ul>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>&nbsp;</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>&nbsp;</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case640 <font color="darkgreen">&quot;Case 600, but with heating schedule&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Case600</A>(
+    TSetHea(table=[      0, 273.15 + 10;
+                    7*3600, 273.15 + 10;
+                    7*3600, 273.15 + 20;
+                   23*3600, 273.15 + 20;
+                   23*3600,273.15 + 10;
+                   24*3600,273.15 + 10]),
+  staRes(
+    annualHea(Min=2.751*3.6e9, Max=3.803*3.6e9, Mean=3.207*3.6e9),
+    annualCoo(Min=-5.952*3.6e9, Max=-7.811*3.6e9, Mean=-6.592*3.6e9),
+    peakHea(Min = 5.232*1000, Max = 6.954*1000, Mean = 6.031 * 1000),
+    peakCoo(Min= -5.892*1000, Max = 6.776*1000, Mean= -6.410 * 1000)));
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case640;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case650FF<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case650FF" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case650FF"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case650FF</H2>
+<B>Case 600, no heating, no cooling, and ventilation as in case 650</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.dff7d1f5a6221f22650FFD.png" ALT="Buildings.Rooms.Examples.BESTEST.Case650FF">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is used for the test case 650FF of the BESTEST validation suite.
+Case 650FF is identical to case 650, except that there is no 
+heating and no cooling.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600FF"
+>Case600FF</A> (Basic test with light-weight construction and free floating temperature).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>&nbsp;</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>&nbsp;</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case650FF <font color="darkgreen">
+  &quot;Case 600, no heating, no cooling, and ventilation as in case 650&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600FF"
+>Case600FF</A>(
+  staRes(
+      minT( Min=-23.0+273.15, Max=-21.6+273.15, Mean=-22.7+273.15),
+      maxT( Min=63.2+273.15, Max=68.2+273.15, Mean=64.7+273.15),
+      meanT(Min=18.0+273.15, Max=19.6+273.15, Mean=18.7+273.15)),
+  multiSum(nu=2));
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_Examples_BESTEST_BaseClasses.html#Buildings.Rooms.Examples.BESTEST.BaseClasses.DaySchedule"
+>BaseClasses.DaySchedule</A> vent(table=[      0, -1703.16/3600;
+                                       7*3600, -1703.16/3600;
+                                       7*3600,             0;
+                                      18*3600,             0;
+                                      18*3600, -1703.16/3600;
+                                      24*3600, -1703.16/3600]) <font color="darkgreen">
+    &quot;Ventilation air flow rate&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(multiSum.u[2],vent.y[1]);</textblock>
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case650FF;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case650<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case650" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case650"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case650</H2>
+<B>Case 600, but cooling based on schedule, night venting, and no heating</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.BESTEST.Case650D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case650">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is used for the test case 650 of the BESTEST validation suite.
+Case650 is the same as Case600, but with the following modifications:
+</p>
+<p>
+<ul>
+<li>
+From 1800 hours to 0700 hours, vent fan = on
+</li>
+<li>
+From 0700 hours to 1800 hours, vent fan = off
+</li>
+<li>
+Heating is always off
+</li>
+<li>
+From 0700 hours to 1800 hours, cooling is on if zone temperature &gt; 27&deg;C,
+otherwise cool = off.
+</li>
+<li>
+From 1800 hours to 0700 hours, cooling is always off.
+</li>
+<li>
+Ventilation fan capacity is 1703.16 standard m<sup>3</sup>/h (in addition to specified
+infiltration rate).
+</li>
+<li>
+No waste heat from fan.
+</li>
+</ul>
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>&nbsp;</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>&nbsp;</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case650 <font color="darkgreen">
+  &quot;Case 600, but cooling based on schedule, night venting, and no heating&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Case600</A>(
+    TSetHea(table=[0, 273.15 -200]),
+    TSetCoo(table=[      0, 273.15+100;
+                    7*3600, 273.15+100;
+                    7*3600, 273.15+27;
+                   18*3600, 273.15+27;
+                   18*3600, 273.15+100;
+                   24*3600, 273.15+100]),
+  staRes(
+    annualHea(Min=0*3.6e9, Max=0*3.6e9, Mean=0*3.6e9),
+    annualCoo(Min=-4.816*3.6e9, Max=-6.545*3.6e9, Mean=-5.482*3.6e9),
+    peakHea(Min = 0*1000, Max = 0*1000, Mean = 0 * 1000),
+    peakCoo(Min= -5.831*1000, Max = -6.679*1000, Mean= -6.321*1000)),
+    gaiHea(k=0),
+    multiSum(nu=2));
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_Examples_BESTEST_BaseClasses.html#Buildings.Rooms.Examples.BESTEST.BaseClasses.DaySchedule"
+>BaseClasses.DaySchedule</A> vent(table=[      0, -1703.16/3600;
+                                       7*3600, -1703.16/3600;
+                                       7*3600,             0;
+                                      18*3600,             0;
+                                      18*3600, -1703.16/3600;
+                                      24*3600, -1703.16/3600]) <font color="darkgreen">
+    &quot;Ventilation air flow rate&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(multiSum.u[2], vent.y[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case650;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case900FF<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case900FF" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case900FF"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case900FF</H2>
+<B>Case 600FF, but with high thermal mass</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.13f570e1a6d09f22900FFD.png" ALT="Buildings.Rooms.Examples.BESTEST.Case900FF">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is used for the test case 900FF of the BESTEST validation suite.
+Case 900FF is a heavy-weight building.
+The room temperature is free floating.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600FF"
+>Case600FF</A> (Basic test with light-weight construction and free floating temperature).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>extWalCase900</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>floorCase900</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case900FF <font color="darkgreen">&quot;Case 600FF, but with high thermal mass&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600FF"
+>Case600FF</A>(
+    matExtWal = extWalCase900,
+    matFlo =    floorCase900,
+    staRes(
+      minT( Min=-6.4+273.15, Max=-1.6+273.15, Mean=-4.2+273.15),
+      maxT( Min=41.6+273.15, Max=44.8+273.15, Mean=43.1+273.15),
+      meanT(Min=24.5+273.15, Max=25.9+273.15, Mean=25.2+273.15)));
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_Examples_BESTEST_Data.html#Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900"
+>Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900</A>
+     extWalCase900 <font color="darkgreen">&quot;Exterior wall&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_Examples_BESTEST_Data.html#Buildings.Rooms.Examples.BESTEST.Data.FloorCase900"
+>Buildings.Rooms.Examples.BESTEST.Data.FloorCase900</A>
+    floorCase900 <font color="darkgreen">&quot;Floor&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case900FF;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case900<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case900" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case900"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case900</H2>
+<B>Case 600, but with high thermal mass</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.BESTEST.Case900D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case900">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is used for the basic test case 900 of the BESTEST validation suite.
+Case 900 is a heavy-weight building with room temperature control set to
+<i>20&deg;C</i> for heating and <i>27&deg;C</i> for cooling.
+The room has no shade and a window that faces south.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>extWalCase900</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>floorCase900</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case900 <font color="darkgreen">&quot;Case 600, but with high thermal mass&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Case600</A>(
+   matExtWal = extWalCase900,
+   matFlo =    floorCase900,
+   staRes(
+    annualHea(Min=1.170*3.6e9, Max=2.041*3.6e9, Mean=1.745*3.6e9),
+    annualCoo(Min=-2.132*3.6e9, Max=-3.415*3.6e9, Mean=-2.678*3.6e9),
+    peakHea(Min=2.850*1000, Max=3.797*1000, Mean=3.506*1000),
+    peakCoo(Min=-2.888*1000, Max=-3.871*1000, Mean=-3.390*1000)));
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_Examples_BESTEST_Data.html#Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900"
+>Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900</A>
+     extWalCase900 <font color="darkgreen">&quot;Exterior wall&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_Examples_BESTEST_Data.html#Buildings.Rooms.Examples.BESTEST.Data.FloorCase900"
+>Buildings.Rooms.Examples.BESTEST.Data.FloorCase900</A>
+    floorCase900 <font color="darkgreen">&quot;Floor&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case900;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case920<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case920" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case920"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case920</H2>
+<B>Case 900, but with windows on East and West side walls</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.BESTEST.Case900D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case920">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is the case 920 of the BESTEST validation suite.
+Case 920 differs from case 900 in that the west and east facing walls
+have a window, but there is no window in the south facing wall.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900"
+>Buildings.Rooms.Examples.BESTEST.Case900</A> (Case 600, but with high thermal mass).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>extWalCase900</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>floorCase900</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case920 <font color="darkgreen">
+  &quot;Case 900, but with windows on East and West side walls&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900"
+>Buildings.Rooms.Examples.BESTEST.Case900</A>(
+  roo(
+    nConExtWin=2,
+    datConExtWin(
+      layers={matExtWal, matExtWal},
+      <font color="blue">each </font>A=6*2.7,
+      glaSys={window600, window600},
+      <font color="blue">each </font>wWin=3,
+      <font color="blue">each </font>hWin=2,
+      <font color="blue">each </font>fFra=0.001,
+      <font color="blue">each </font>til=Z_,
+      azi={W_,E_}),
+    nConExt=3,
+    datConExt(
+      layers={roof,matExtWal,matExtWal},
+      A={48,8*2.7,8*2.7},
+      til={C_,Z_,Z_},
+      azi={S_,S_,N_})),
+   staRes(
+    annualHea(Min=3.313*3.6e9, Max=4.300*3.6e9, Mean=3.973*3.6e9),
+    annualCoo(Min=-1.840*3.6e9, Max=-3.092*3.6e9, Mean=-2.552*3.6e9),
+    peakHea(Min=3.308*1000, Max=4.061*1000, Mean=3.804*1000),
+    peakCoo(Min=-2.385*1000, Max=-3.505*1000, Mean=-3.077*1000)));
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case920;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case940<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case940" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case940"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case940</H2>
+<B>Case 900, but with heating schedule</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.BESTEST.Case900D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case940">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is used for the basic test case 940 of the BESTEST validation suite.
+Case940 is the same as Case900, but with the following modifications:
+</p>
+<ul>
+<li>
+From 2300 hours to 0700 hours, heat = on if zone temperature is below 10&deg;C
+</li>
+<li>
+From 0700 hours to 2300 hours, heat = on if zone temperature is above 20&deg;C
+</li>
+<li>
+All hours, cool = on if zone temperature below 27&deg;C
+</li>
+<li>
+Otherwise, mechanical equipment is off.
+</li>
+</ul>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900"
+>Case900</A> (Case 600, but with high thermal mass).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>extWalCase900</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>floorCase900</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case940 <font color="darkgreen">&quot;Case 900, but with heating schedule&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900"
+>Case900</A>(
+    TSetHea(table=[      0, 273.15 + 10;
+                    7*3600, 273.15 + 10;
+                    7*3600, 273.15 + 20;
+                   23*3600, 273.15 + 20;
+                   23*3600,273.15 + 10;
+                   24*3600,273.15 + 10]),
+    staRes(
+      annualHea(Min=0.793*3.6e9, Max=1.411*3.6e9, Mean=1.160*3.6e9),
+      annualCoo(Min=-2.079*3.6e9, Max=-3.241*3.6e9, Mean=-2.578*3.6e9),
+      peakHea(Min=3.980*1000, Max=6.428*1000, Mean=5.494*1000),
+      peakCoo(Min=-2.886*1000, Max=-3.871*1000, Mean=-1.340*1000)));
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case940;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case950<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case950" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case950"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case950</H2>
+<B>Case 900, but cooling based on schedule, night venting, and no heating</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.BESTEST.Case950D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case950">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is used for the test case 950 of the BESTEST validation suite.
+Case950 is the same as Case900, but with the following modifications:
+</p>
+<p>
+<ul>
+<li>
+From 1800 hours to 0700 hours, vent fan = on
+</li>
+<li>
+From 0700 hours to 1800 hours, vent fan = off
+</li>
+<li>
+Heating is always off
+</li>
+<li>
+From 0700 hours to 1800 hours, cooling is on if zone temperature &gt; 27&deg;C,
+otherwise cool = off.
+</li>
+<li>
+From 1800 hours to 0700 hours, cooling is always off.
+</li>
+<li>
+Ventilation fan capacity is 1703.16 standard m<sup>3</sup>/h (in addition to specified
+infiltration rate).
+</li>
+<li>
+No waste heat from fan.
+</li>
+</ul>
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900"
+>Case900</A> (Case 600, but with high thermal mass).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>extWalCase900</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>floorCase900</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case950 <font color="darkgreen">
+  &quot;Case 900, but cooling based on schedule, night venting, and no heating&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900"
+>Case900</A>(
+    TSetHea(table=[0, 273.15 -200]),
+    TSetCoo(table=[      0, 273.15+100;
+                    7*3600, 273.15+100;
+                    7*3600, 273.15+27;
+                   18*3600, 273.15+27;
+                   18*3600, 273.15+100;
+                   24*3600, 273.15+100]),
+    staRes(
+      annualHea(Min=0*3.6e9, Max=0*3.6e9, Mean=0*3.6e9),
+      annualCoo(Min=-0.387*3.6e9, Max=-0.921*3.6e9, Mean=-0.605*3.6e9),
+      peakHea(Min=0*1000, Max=0*1000, Mean=0*1000),
+      peakCoo(Min=-2.033*1000, Max=-3.170*1000, Mean=-2.674*1000)),
+    gaiHea(k=0),
+    multiSum(nu=2));
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_Examples_BESTEST_BaseClasses.html#Buildings.Rooms.Examples.BESTEST.BaseClasses.DaySchedule"
+>BaseClasses.DaySchedule</A> vent(table=[      0, -1703.16/3600;
+                                       7*3600, -1703.16/3600;
+                                       7*3600,             0;
+                                      18*3600,             0;
+                                      18*3600, -1703.16/3600;
+                                      24*3600, -1703.16/3600]) <font color="darkgreen">
+    &quot;Ventilation air flow rate&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(multiSum.u[2], vent.y[1]);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case950;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case950FF<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.df4c4deea6209f22600FFI.png" ALT="Buildings.Rooms.Examples.BESTEST.Case950FF" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case950FF"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case950FF</H2>
+<B>Case 900, but no heating, no cooling, and ventilation as in case 650</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.14a0f4e8a6d21f22950FFD.png" ALT="Buildings.Rooms.Examples.BESTEST.Case950FF">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is used for the test case 950FF of the BESTEST validation suite.
+Case 950FF is identical to case 950, except that there is no 
+heating and no cooling.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900FF"
+>Case900FF</A> (Case 600FF, but with high thermal mass).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>extWalCase900</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>floorCase900</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case950FF <font color="darkgreen">
+  &quot;Case 900, but no heating, no cooling, and ventilation as in case 650&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case900FF"
+>Case900FF</A>(
+  staRes(
+      minT( Min=-20.2+273.15, Max=-18.6+273.15, Mean=-19.6+273.15),
+      maxT( Min=35.5+273.15, Max=38.5+273.15, Mean=36.5+273.15),
+      meanT(Min=14.0+273.15, Max=15.0+273.15, Mean=14.4+273.15)),
+  multiSum(nu=2));
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_Examples_BESTEST_BaseClasses.html#Buildings.Rooms.Examples.BESTEST.BaseClasses.DaySchedule"
+>BaseClasses.DaySchedule</A> vent(table=[      0, -1703.16/3600;
+                                       7*3600, -1703.16/3600;
+                                       7*3600,             0;
+                                      18*3600,             0;
+                                      18*3600, -1703.16/3600;
+                                      24*3600, -1703.16/3600]) <font color="darkgreen">
+    &quot;Ventilation air flow rate&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(multiSum.u[2],vent.y[1]);</textblock>
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case950FF;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Case960<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Rooms.Examples.BESTEST.Case960I.png" ALT="Buildings.Rooms.Examples.BESTEST.Case960" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Rooms.Examples.BESTEST.Case960"></A><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST"
+>Buildings.Rooms.Examples.BESTEST</A>.Case960</H2>
+<B>Case 600, but with an unconditioned sun-space</B><p></P>
+<IMG SRC="Buildings.Rooms.Examples.BESTEST.Case960D.png" ALT="Buildings.Rooms.Examples.BESTEST.Case960">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model is used for the test case 960 of the BESTEST validation suite.
+Case 960 is a two zones building, whereas the south-facing zone is
+an unconditioned sun-space.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Buildings.Rooms.Examples.BESTEST.Case600</A> (Case 600FF, but with dual-setpoint for heating and cooling).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>S_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for south walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>E_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for east walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>W_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for west walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>N_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Azimuth for north walls [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>C_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for ceiling [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>F_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for floor [rad]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Angle"
+>Angle</A></TD><TD>Z_</TD><TD>Buildings.HeatTransfer.Types...</TD><TD>Tilt for wall [rad]</TD></TR>
+<TR><TD>Integer</TD><TD>nConExtWin</TD><TD>1</TD><TD>Number of constructions with a window</TD></TR>
+<TR><TD>Integer</TD><TD>nConBou</TD><TD>1</TD><TD>Number of surface that are connected to constructions that are modeled inside the room</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matExtWal</TD><TD>&nbsp;</TD><TD>Exterior wall</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>matFlo</TD><TD>&nbsp;</TD><TD>Floor</TD></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>Generic</A></TD><TD>roof</TD><TD>&nbsp;</TD><TD>Roof</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Case960 <font color="darkgreen">&quot;Case 600, but with an unconditioned sun-space&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Rooms_Examples_BESTEST.html#Buildings.Rooms.Examples.BESTEST.Case600"
+>Buildings.Rooms.Examples.BESTEST.Case600</A>(
+    roo(
+    nConExt=4,
+    datConExt(
+      layers={roof,matExtWal,matExtWal,matExtWal},
+      A={48,6*2.7,6*2.7,8*2.7},
+      til={C_,Z_,Z_,Z_},
+      azi={S_,W_,E_,N_}),
+    nConExtWin=0,
+      datConExtWin(A={0}, hWin={0}, wWin={0}),
+    nSurBou=1,
+    surBou(
+      <font color="blue">each </font>A=8*2.7,
+      <font color="blue">each </font>absIR=0.9,
+      <font color="blue">each </font>absSol=0.6,
+      <font color="blue">each </font>til=Buildings.HeatTransfer.Types.Tilt.Wall)),
+    souInf(nPorts=2),
+    staRes(
+      annualHea(Min=2.311*3.6e9, Max=3.373*3.6e9, Mean=2.846*3.6e9),
+      annualCoo(Min=-0.411*3.6e9, Max=-0.803*3.6e9, Mean=-0.618*3.6e9),
+      peakHea(Min=2.410*1000, Max=2.863*1000, Mean=2.701*1000),
+      peakCoo(Min=-0.953*1000, Max=-1.404*1000, Mean=-1.212*1000)));
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.MultiLayer"
+>Buildings.HeatTransfer.Conduction.MultiLayer</A>
+    parWal(layers=matLayPar, A=8*2.7) <font color="darkgreen">&quot;Partition wall between the two rooms&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120"
+>Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120</A>
+    matLayPar(material={
+        <font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.2,
+        k=0.510,
+        c=1000,
+        d=1400)}) <font color="darkgreen">&quot;Construction material for partition walls&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_Examples_BESTEST_Data.html#Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900"
+>Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900</A>
+     extWalCase900 <font color="darkgreen">&quot;Exterior wall&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms_Examples_BESTEST_Data.html#Buildings.Rooms.Examples.BESTEST.Data.FloorCase900"
+>Buildings.Rooms.Examples.BESTEST.Data.FloorCase900</A>
+    floorCase900 <font color="darkgreen">&quot;Floor&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Rooms.html#Buildings.Rooms.MixedAir"
+>Buildings.Rooms.MixedAir</A> sunSpa(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    hRoo=2.7,
+    nPorts=3,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
+    nConPar=0,
+    nConExt=3,
+    datConExt(
+      layers={roof,extWalCase900,extWalCase900},
+      A={8*2,2*2.7,2*2.7},
+      til={C_,Z_,Z_},
+      azi={S_,W_,E_}),
+    nSurBou=1,
+    surBou(
+      <font color="blue">each </font>A=8*2.7,
+      <font color="blue">each </font>absIR=0.9,
+      <font color="blue">each </font>absSol=0.6,
+      <font color="blue">each </font>til=Buildings.HeatTransfer.Types.Tilt.Wall),
+    linearizeRadiation=false,
+    nConExtWin=1,
+    datConExtWin(
+      layers={extWalCase900},
+      A={8*2.7},
+      glaSys={window600},
+      wWin={2*3},
+      hWin={2},
+      fFra={0.001},
+      til={Z_},
+      azi={S_}),
+    nConBou=1,
+    datConBou(
+      layers={floorCase900},
+      <font color="blue">each </font>A=2*8,
+      <font color="blue">each </font>til=F_),
+    AFlo=16,
+    lat=0.69464104229374) <font color="darkgreen">&quot;Room model for sun-space&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qConGai_flow1(k=0) <font color="darkgreen">&quot;Convective heat gain&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qRadGai_flow1(k=0) <font color="darkgreen">&quot;Radiative heat gain&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.Multiplex3"
+>Modelica.Blocks.Routing.Multiplex3</A> multiplex3_2;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> qLatGai_flow1(k=0) <font color="darkgreen">&quot;Latent heat gain&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Conduction.html#Buildings.HeatTransfer.Conduction.SingleLayer"
+>Buildings.HeatTransfer.Conduction.SingleLayer</A> soil1(
+    material(
+      x=2,
+      k=1.3,
+      c=800,
+      d=1500,
+      R=0),
+    steadyStateInitial=true,
+    A=16,
+    T_a_start=283.15,
+    T_b_start=283.75) <font color="darkgreen">&quot;2m deep soil (per definition on p.4 of ASHRAE 140-2007)&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Buildings.Fluid.Sources.MassFlowSource_T</A> sinInf2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    m_flow=1,
+    use_m_flow_in=true,
+    use_T_in=false,
+    use_X_in=false,
+    use_C_in=false,
+    nPorts=1) <font color="darkgreen">&quot;Sink model for sunspace infiltration&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> InfiltrationRate1(k=-16*2.7*0.5/3600) <font color="darkgreen">
+    &quot;0.41 ACH adjusted for the altitude (0.5 at sea level)&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Product"
+>Modelica.Blocks.Math.Product</A> product1;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.Density"
+>Buildings.Fluid.Sensors.Density</A> density1(<font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA) <font color="darkgreen">
+    &quot;Air density inside the building&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</A> TSoi1[nConBou](
+    <font color="blue">each </font>T=283.15) <font color="darkgreen">&quot;Boundary condition for construction&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Fluid.FixedResistances.FixedResistanceDpM</A> heaCoo1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = MediumA,
+    allowFlowReversal=false,
+    m_flow_nominal=48*2.7*0.41/3600*1.2,
+    dp_nominal=1,
+    linearized=true,
+    from_dp=true) <font color="darkgreen">&quot;Heater and cooler&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sunSpa.uSha, replicator.y);
+  <font color="red">connect</font>(parWal.port_a, roo.surf_surBou[1]);
+  <font color="red">connect</font>(parWal.port_b, sunSpa.surf_surBou[1]);
+  <font color="red">connect</font>(sunSpa.surf_conBou[1], soil1.port_b);
+  <font color="red">connect</font>(TSoi1[1].port, soil1.port_a);
+  <font color="red">connect</font>(weaDat.weaBus, sunSpa.weaBus);
+  <font color="red">connect</font>(qRadGai_flow1.y, multiplex3_2.u1[1]);
+  <font color="red">connect</font>(qConGai_flow1.y, multiplex3_2.u2[1]);
+  <font color="red">connect</font>(qLatGai_flow1.y, multiplex3_2.u3[1]);
+  <font color="red">connect</font>(multiplex3_2.y, sunSpa.qGai_flow);
+  <font color="red">connect</font>(InfiltrationRate1.y, product1.u1);
+  <font color="red">connect</font>(density1.d, product1.u2);
+  <font color="red">connect</font>(product1.y, sinInf2.m_flow_in);
+  <font color="red">connect</font>(heaCoo1.port_b, sunSpa.ports[1]);
+  <font color="red">connect</font>(sinInf2.ports[1], sunSpa.ports[2]);
+  <font color="red">connect</font>(density1.port, sunSpa.ports[3]);
+  <font color="red">connect</font>(souInf.ports[2], heaCoo1.port_a);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Case960;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:57:24 2013.
+</address></BODY>
+</HTML>

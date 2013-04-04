@@ -1,0 +1,359 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples"></A><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs"
+>
+Buildings.Fluid.HeatExchangers.RadiantSlabs</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExchaab7e91456ddd9cd3ponseS.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse"
+>StepResponse</A>
+</TD><TD>Model that tests the radiant slab</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExchaab7e91456ddd9cd3ponseS.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit"
+>SingleCircuitMultipleCircuit</A>
+</TD><TD>Model that tests the radiant slab</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE StepResponse<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExchaab7e91456ddd9cd3ponseI.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse"></A><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples</A>.StepResponse</H2>
+<B>Model that tests the radiant slab</B><p></P>
+<IMG SRC="Buildings.Fluid.HeatExchaab7e91456ddd9cd3ponseD.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.StepResponse">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This example models the step response of a radiant slab.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>0.167</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>A</TD><TD>10</TD><TD>Heat transfer area [m2]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> StepResponse <font color="darkgreen">&quot;Model that tests the radiant slab&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+ <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>;
+<textblock type="annotcomp" expanded="false">      <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_ph"
+>Sources.Boundary_ph</A> sin(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, nPorts=1) <font color="darkgreen">&quot;Sink&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.MassFlowSource_T"
+>Sources.MassFlowSource_T</A> sou(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_m_flow_in=true,
+    T=298.15,
+    nPorts=1) <font color="darkgreen">&quot;Source&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</A> pulse(
+    period=86400,
+    startTime=0,
+    amplitude=-m_flow_nominal,
+    offset=m_flow_nominal);
+  <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</A>
+       sla(
+    m_flow_nominal=m_flow_nominal,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    layers=layers,
+    iLayPip=1,
+    pipe=pipe,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    disPip=0.2,
+    A=A) <font color="darkgreen">&quot;Slabe with embedded pipes&quot;</font>;</textblock>
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> m_flow_nominal=
+     0.167 <font color="darkgreen">&quot;Nominal mass flow rate&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</A> TAirAbo(T=293.15) <font color="darkgreen">
+    &quot;Air temperature above the slab&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</A> TRadAbo(T=293.15) <font color="darkgreen">
+    &quot;Radiant temperature above the slab&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</A> TAirBel(T=293.15) <font color="darkgreen">
+    &quot;Air temperature below the slab&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</A> TRadBel(T=293.15) <font color="darkgreen">
+    &quot;Radiant temperature below the slab&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Interior"
+>HeatTransfer.Convection.Interior</A> conAbo(
+    A=A,
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    til=Buildings.HeatTransfer.Types.Tilt.Floor) <font color="darkgreen">
+    &quot;Convective heat transfer above the slab&quot;</font>;</textblock>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</A> A=10 <font color="darkgreen">&quot;Heat transfer area&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Convection.html#Buildings.HeatTransfer.Convection.Interior"
+>HeatTransfer.Convection.Interior</A> conBel(
+    A=A,
+    conMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+    til=Buildings.HeatTransfer.Types.Tilt.Ceiling) <font color="darkgreen">
+    &quot;Convective heat transfer below the slab&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.BodyRadiation"
+>Modelica.Thermal.HeatTransfer.Components.BodyRadiation</A> hRadAbo(Gr=A/(1/0.7 + 1
+        /0.7 - 1)) <font color="darkgreen">&quot;Radiative heat transfer above the slab&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.BodyRadiation"
+>Modelica.Thermal.HeatTransfer.Components.BodyRadiation</A> hRadBel(Gr=A/(1/0.7 + 1
+        /0.7 - 1)) <font color="darkgreen">&quot;Radiative heat transfer below the slab&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>HeatTransfer.Data.OpaqueConstructions.Generic</A> layers(nLay=3, material={
+        <font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.08,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.05,
+        k=0.04,
+        c=1400,
+        d=10),<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) <font color="darkgreen">
+    &quot;Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)&quot;</font>;
+  <A HREF="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>Data.Pipes.PEX_RADTEST</A> pipe <font color="darkgreen">&quot;Pipe material&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(pulse.y, sou.m_flow_in);
+  <font color="red">connect</font>(sou.ports[1], sla.port_a);
+  <font color="red">connect</font>(sla.port_b, sin.ports[1]);
+  <font color="red">connect</font>(TAirAbo.port, conAbo.fluid);
+  <font color="red">connect</font>(TRadAbo.port, hRadAbo.port_a);
+  <font color="red">connect</font>(TAirBel.port, conBel.fluid);
+  <font color="red">connect</font>(TRadBel.port, hRadBel.port_a);
+  <font color="red">connect</font>(conAbo.solid, sla.surf_a);
+  <font color="red">connect</font>(hRadAbo.port_b, sla.surf_a);
+  <font color="red">connect</font>(conBel.solid, sla.surf_b);
+  <font color="red">connect</font>(hRadBel.port_b, sla.surf_b);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>StepResponse;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SingleCircuitMultipleCircuit<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExchaab7e91456ddd9cd3ponseI.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit"></A><A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs_Examples.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples</A>.SingleCircuitMultipleCircuit</H2>
+<B>Model that tests the radiant slab</B><p></P>
+<IMG SRC="Buildings.Fluid.HeatExcha9d9694c4b25689f6rcuitD.png" ALT="Buildings.Fluid.HeatExchangers.RadiantSlabs.Examples.SingleCircuitMultipleCircuit">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This example compares the results of two models of a single circuit that are arranged in 
+parallel, versus a model that directly implements two parallel circuits.
+Both configurations have the same mass flow rate and temperatures.
+For simplicity, a combined convective and radiative resistance 
+which is independent of the temperature difference has been used.
+The model is exposed to a step change in pressure, which causes forward and reverse
+flow.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>0.167</TD><TD>Nominal mass flow rate for each circuit [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Area</A></TD><TD>A</TD><TD>10</TD><TD>Heat transfer area for each circuit [m2]</TD></TR>
+<TR><TD>Integer</TD><TD>nSeg</TD><TD>3</TD><TD>Number of volume segments</TD></TR>
+<TR><TD>Integer</TD><TD>nCir</TD><TD>2</TD><TD>Number of parallel circuits for slab 3</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> SingleCircuitMultipleCircuit <font color="darkgreen">
+  &quot;Model that tests the radiant slab&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+ <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>;
+<textblock type="annotcomp" expanded="false">      <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_ph"
+>Sources.Boundary_ph</A> sin(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, nPorts=3,
+    p(displayUnit=&quot;Pa&quot;) = 300000) <font color="darkgreen">&quot;Sink&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Pulse"
+>Modelica.Blocks.Sources.Pulse</A> pulse(
+    startTime=0,
+    amplitude=50*400,
+    offset=300000 - 50*200,
+    width=50,
+    period=86400/2);
+  <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</A> sla1(
+    m_flow_nominal=m_flow_nominal,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    layers=layers,
+    iLayPip=1,
+    pipe=pipe,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    disPip=0.2,
+    A=A,
+    nSeg=nSeg) <font color="darkgreen">&quot;Slabe with embedded pipes&quot;</font>;</textblock>
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> m_flow_nominal=
+     0.167 <font color="darkgreen">&quot;Nominal mass flow rate for each circuit&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</A> TAbo(T=293.15) <font color="darkgreen">
+    &quot;Air temperature above the slab&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</A> TBel(T=293.15) <font color="darkgreen">
+    &quot;Radiant temperature below the slab&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conAbo1(G=20*A) <font color="darkgreen">
+    &quot;Combined convection and radiation resistance above the slab&quot;</font>;</textblock>
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Area"
+>Modelica.SIunits.Area</A> A=10 <font color="darkgreen">&quot;Heat transfer area for each circuit&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conBel1(G=20*A) <font color="darkgreen">
+    &quot;Combined convection and radiation resistance below the slab&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Data_OpaqueConstructions.html#Buildings.HeatTransfer.Data.OpaqueConstructions.Generic"
+>HeatTransfer.Data.OpaqueConstructions.Generic</A> layers(nLay=3, material={
+        <font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.08,
+        k=1.13,
+        c=1000,
+        d=1400,
+        nSta=5),<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.05,
+        k=0.04,
+        c=1400,
+        d=10),<font color="red">Buildings.HeatTransfer.Data.Solids.Generic</font>(
+        x=0.2,
+        k=1.8,
+        c=1100,
+        d=2400)}) <font color="darkgreen">
+    &quot;Material layers from surface a to b (8cm concrete, 5 cm insulation, 20 cm reinforced concrete)&quot;</font>;
+  <A HREF="Buildings_Fluid_Data_Pipes.html#Buildings.Fluid.Data.Pipes.PEX_RADTEST"
+>Data.Pipes.PEX_RADTEST</A> pipe <font color="darkgreen">&quot;Pipe material&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conAbo2(G=20*A) <font color="darkgreen">
+    &quot;Combined convection and radiation resistance above the slab&quot;</font>;
+  <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab"
+>Buildings.Fluid.HeatExchangers.RadiantSlabs.SingleCircuitSlab</A> sla2(
+    m_flow_nominal=m_flow_nominal,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    layers=layers,
+    iLayPip=1,
+    pipe=pipe,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    disPip=0.2,
+    A=A,
+    nSeg=nSeg) <font color="darkgreen">&quot;Slabe with embedded pipes&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conBel2(G=20*A) <font color="darkgreen">
+    &quot;Combined convection and radiation resistance below the slab&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conBel3(G=nCir*20*A) <font color="darkgreen">
+    &quot;Combined convection and radiation resistance below the slab&quot;</font>;
+  <A HREF="Buildings_Fluid_HeatExchangers_RadiantSlabs.html#Buildings.Fluid.HeatExchangers.RadiantSlabs.ParallelCircuitsSlab"
+>ParallelCircuitsSlab</A> sla3(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    layers=layers,
+    iLayPip=1,
+    pipe=pipe,
+    sysTyp=Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Floor,
+    disPip=0.2,
+    nSeg=nSeg,
+    nCir=nCir,
+    A=nCir*A,
+    m_flow_nominal=nCir*m_flow_nominal) <font color="darkgreen">&quot;Slabe with embedded pipes&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conAbo3(G=nCir*20*A) <font color="darkgreen">
+    &quot;Combined convection and radiation resistance above the slab&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Sensors.TemperatureTwoPort</A> senTem1(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      m_flow_nominal=m_flow_nominal/2) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Sensors.TemperatureTwoPort</A> senTem2(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      m_flow_nominal=m_flow_nominal/2) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Sensors.TemperatureTwoPort</A> senTem3(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      m_flow_nominal=nCir*m_flow_nominal) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;</textblock>
+  <font color="blue">parameter </font>Integer nSeg=3 <font color="darkgreen">&quot;Number of volume segments&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Sources.Boundary_pT</A> sou(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=3,
+    use_p_in=true,
+    T=313.15) <font color="darkgreen">&quot;Source&quot;</font>;</textblock>
+  <font color="blue">parameter </font>Integer nCir=2 <font color="darkgreen">&quot;Number of parallel circuits for slab 3&quot;</font>;
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(TBel.port, conBel1.port_a);
+  <font color="red">connect</font>(conBel1.port_b, sla1.surf_b);
+  <font color="red">connect</font>(sla1.surf_a, conAbo1.port_a);
+  <font color="red">connect</font>(TAbo.port, conAbo1.port_b);
+  <font color="red">connect</font>(TAbo.port, conAbo2.port_b);
+  <font color="red">connect</font>(conAbo2.port_a, sla2.surf_a);
+  <font color="red">connect</font>(TBel.port, conBel2.port_a);
+  <font color="red">connect</font>(TBel.port, conBel3.port_a);
+  <font color="red">connect</font>(TAbo.port, conAbo3.port_b);
+  <font color="red">connect</font>(conAbo3.port_a, sla3.surf_a);
+  <font color="red">connect</font>(conBel3.port_b, sla3.surf_b);
+  <font color="red">connect</font>(sla1.port_b, senTem1.port_a);
+  <font color="red">connect</font>(sla2.port_b, senTem2.port_a);
+  <font color="red">connect</font>(sla3.port_b, senTem3.port_a);
+  <font color="red">connect</font>(senTem1.port_b, sin.ports[1]);
+  <font color="red">connect</font>(senTem2.port_b, sin.ports[2]);
+  <font color="red">connect</font>(senTem3.port_b, sin.ports[3]);
+  <font color="red">connect</font>(conBel2.port_b, sla2.surf_b);
+  <font color="red">connect</font>(pulse.y, sou.p_in);
+  <font color="red">connect</font>(sou.ports[1], sla1.port_a);
+  <font color="red">connect</font>(sou.ports[2], sla2.port_a);
+  <font color="red">connect</font>(sou.ports[3], sla3.port_a);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>SingleCircuitMultipleCircuit;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:55:33 2013.
+</address></BODY>
+</HTML>

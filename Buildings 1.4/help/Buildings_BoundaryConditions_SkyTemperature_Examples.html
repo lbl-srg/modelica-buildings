@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.BoundaryConditions.SkyTemperature.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.SkyTemperature.Examples"></A><A HREF="Buildings_BoundaryConditions_SkyTemperature.html#Buildings.BoundaryConditions.SkyTemperature"
+>Buildings.BoundaryConditions.SkyTemperature</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_BoundaryConditions_SkyTemperature.html#Buildings.BoundaryConditions.SkyTemperature"
+>
+Buildings.BoundaryConditions.SkyTemperature</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditid5f29eeae7a9bfe3kBodyS.png" ALT="Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_SkyTemperature_Examples.html#Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody"
+>BlackBody</A>
+</TD><TD>Test model for black body sky temperature</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BlackBody<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditid5f29eeae7a9bfe3kBodyI.png" ALT="Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody"></A><A HREF="Buildings_BoundaryConditions_SkyTemperature_Examples.html#Buildings.BoundaryConditions.SkyTemperature.Examples"
+>Buildings.BoundaryConditions.SkyTemperature.Examples</A>.BlackBody</H2>
+<B>Test model for black body sky temperature</B><p></P>
+<IMG SRC="Buildings.BoundaryConditid5f29eeae7a9bfe3kBodyD.png" ALT="Buildings.BoundaryConditions.SkyTemperature.Examples.BlackBody">
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> BlackBody <font color="darkgreen">&quot;Test model for black body sky temperature&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(filNam=
+        &quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;);
+  <A HREF="Buildings_BoundaryConditions_SkyTemperature.html#Buildings.BoundaryConditions.SkyTemperature.BlackBody"
+>Buildings.BoundaryConditions.SkyTemperature.BlackBody</A> TBlaSky;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Buildings.BoundaryConditions.WeatherData.Bus</A> weaBus;</textblock>
+<font color="blue">equation </font>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaBus, weaDat.weaBus);
+  <font color="red">connect</font>(weaBus.TDewPoi, TBlaSky.TDewPoi);
+  <font color="red">connect</font>(weaBus.nOpa, TBlaSky.nOpa);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(weaBus.TDryBul, TBlaSky.TDryBul);
+  <font color="red">connect</font>(weaBus.radHorIR, TBlaSky.radHorIR);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>BlackBody;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:54:12 2013.
+</address></BODY>
+</HTML>

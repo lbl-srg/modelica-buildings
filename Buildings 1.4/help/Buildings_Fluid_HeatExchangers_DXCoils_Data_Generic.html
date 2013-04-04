@@ -1,0 +1,199 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with generic performance curves&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Generic<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data.html#Buildings.Fluid.HeatExchangers.DXCoils.Data"
+>Buildings.Fluid.HeatExchangers.DXCoils.Data</A>.Generic</H2>
+<B>Package with generic performance curves</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains performance curves for the cooling capacity and the EIR 
+of DX cooling coils.
+For performance data of specific DX cooling coils, see the packages
+<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_SingleSpeed.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed"
+>
+Buildings.Fluid.HeatExchangers.DXCoils.Data.SingleSpeed</a>
+and
+<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_DoubleSpeed.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed"
+>
+Buildings.Fluid.HeatExchangers.DXCoils.Data.DoubleSpeed</a>.
+</p>
+<p>
+The data are described in 
+<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
+>
+Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExchacbda96459db20e98XCoilS.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"
+>DXCoil</A>
+</TD><TD>Performance record for a DX Cooling Coil with one or multiple stages</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExcha51a7e7339f0c3494assesS.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for performance data</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE DXCoil<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExchacbda96459db20e98XCoilI.png" ALT="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil"></A><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic"
+>Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic</A>.DXCoil</H2>
+<B>Performance record for a DX Cooling Coil with one or multiple stages</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This record declares the performance data for the DX cooling coil model.
+The performance data are structured as follows:
+</p>
+<p>
+<pre>
+  nSta      - Number of stages. Set to 1 for single speed coil, 
+              2 for dual-speed (or dual stage coils), etc.
+  minSpeRat - Minimum speed ratio, used only for variable speed coils.
+  sta       - Array of records with one performance curve for each stage,
+              as described below.
+</pre>
+</p>
+<p>
+Each element of the array <code>per</code> has the following data.
+</p>
+<p>
+<pre>
+  spe       - Rotational speed for the respective stage.
+              (This is only used for variable speed coils to interpolate for 
+              intermediate speeds).
+  nomVal    - Nominal performance values for the respective stage. Data of the
+              nomVal record are
+     Q_flow_nominal - Total rate of cooling at nominal conditions.
+     COP_nominal    - Coefficient of performance at nominal conditions.
+     SHR_nominal    - Sensible heat ratio at nominal conditions.
+
+     m_flow_nominal - Evaporator air mass flow rate at nominal conditions.
+     TEvaIn_nominal    - Evaporator air inlet temperature at nominal conditions.
+     TConIn_nominal    - Condenser air inlet temperature at nominal conditions
+                         (for evaporative coils, use wet bulb, otherwise use dry bulb 
+                         temperature).
+     phiIn_nominal  - Relative humidity at evaporator inlet at nominal conditions.
+     p_nominal      - Atmospheric pressure at nominal conditions.
+     
+     tWet           - Time until moisture drips from coil when coil is switched on
+     gamma          - Ratio of evaporation heat transfer divided by latent
+                      heat transfer at nominal condition.
+
+  per       - Array of records with one performance curve for the respective 
+              stage of the coil. That is, the performance curves will be used
+              in conjunction with the nominal values defined in the record spe.
+     capFunT  - Coefficients of biquadratic polynomial for cooling capacity 
+                as a function of temperature.
+     capFunFF - Polynomial coefficients for cooling capacity 
+                as a function of the mass flow fraction.
+     EIRFunT  - Coefficients of biquadratic polynomial for EIR as a function of temperature.
+     EIRFunFF - Polynomial coefficients for EIR
+                as a function of the mass flow fraction.
+     TConInRan - Minimum and maximum condenser air inlet temperatures 
+                 for which the performance curves are valid.
+                 Outside this range, they will be linearly extrapolated.
+     TEvaInRan - Minimum and maximum evaporator air inlet temperatures 
+                 for which the performance curves are valid.
+                 Outside this range, they will be linearly extrapolated.
+     ffRan     - Minimum and maximum air mass flow fraction (relative to m_flow_nominal)
+                 for which the performance curves are valid.
+                 Outside this range, they will be linearly extrapolated.      
+</pre>
+</p>
+<p>
+The data used to develop the performance curves
+<code>capFunT</code> and 
+<code>EIRFunT</code> should represent performance when the 
+cooling coil is wet, i.e., the coil providing sensible cooling and at least some dehumidification. 
+Performance data when the cooling coil is dry 
+(i.e., not providing any dehumidification) should not be included when developing these modifier curves. 
+The DX coil model automatically detects and adjusts for dry coil conditions by evaluating 
+the performance curves for the wet bulb and dry bulb temperatures at the evaporator inlet,
+and then selecting the corresponding performance.
+The selection of the corresponding performance is described and implemented
+in
+<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector"
+>
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DryWetSelector</a>.
+</p>
+<p>
+The parameters <code>tWet</code> and <code>gamma</code> characterize the amount of
+moisture that evaporates from the coil surface into the air stream when the coil is 
+wet and switched off. For an examplanation of the parameters, see
+<A HREF="Buildings_Fluid_HeatExchangers_DXCoils_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation"
+>
+Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Evaporation</a>.
+</p>
+<p>
+There can be an arbitrary number of polynomial coefficients for the record
+<code>capFunFF</code> and <code>EIRFunFF</code>.
+However, if a coil has multiple stages, then each stage must declare the
+same amount of polynomial coefficients. For example, if a 
+quadratic function is used for stage one, then stage two must also use 
+a quadratic function.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A> (Icon for records).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Integer</TD><TD>nSta</TD><TD>&nbsp;</TD><TD>Number of stages</TD></TR>
+<TR><TD>Real</TD><TD>minSpeRat</TD><TD>0.2</TD><TD>Minimum speed ratio</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage"
+>Stage</A></TD><TD>sta[nSta]</TD><TD>&nbsp;</TD><TD>Data record for coil performance at each stage</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Minimum conditions</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_small</TD><TD>0.0001*sta[1].nomVal.m_flow_...</TD><TD>Small mass flow rate for regularization near zero flow [kg/s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> DXCoil <font color="darkgreen">
+  &quot;Performance record for a DX Cooling Coil with one or multiple stages&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A>;
+  <font color="blue">parameter </font>Integer nSta(min=1) <font color="darkgreen">&quot;Number of stages&quot;</font>;
+  <font color="blue">parameter </font>Real minSpeRat( min=0,max=1)=0.2 <font color="darkgreen">&quot;Minimum speed ratio&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean sinStaOpe = nSta == 1 <font color="darkgreen">
+    &quot;The data record is used for single speed operation&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="Buildings_Fluid_HeatExchangers_DXCoils_Data_Generic_BaseClasses.html#Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage"
+>Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage</A>
+                                                                                  sta[nSta] <font color="darkgreen">
+    &quot;Data record for coil performance at each stage&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> m_flow_small = 0.0001*sta[1].nomVal.m_flow_nominal <font color="darkgreen">
+    &quot;Small mass flow rate for regularization near zero flow&quot;</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>DXCoil;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:55:07 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,174 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.HeatExchangers.Radiators.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.HeatExchangers.Radiators.Examples"></A><A HREF="Buildings_Fluid_HeatExchangers_Radiators.html#Buildings.Fluid.HeatExchangers.Radiators"
+>Buildings.Fluid.HeatExchangers.Radiators</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Fluid_HeatExchangers_Radiators.html#Buildings.Fluid.HeatExchangers.Radiators"
+>
+Buildings.Fluid.HeatExchangers.Radiators</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExcha7d1d189135ddbb6f442_2S.png" ALT="Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Radiators_Examples.html#Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2"
+>RadiatorEN442_2</A>
+</TD><TD>Test model for radiator</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE RadiatorEN442_2<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExcha7d1d189135ddbb6f442_2I.png" ALT="Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2"></A><A HREF="Buildings_Fluid_HeatExchangers_Radiators_Examples.html#Buildings.Fluid.HeatExchangers.Radiators.Examples"
+>Buildings.Fluid.HeatExchangers.Radiators.Examples</A>.RadiatorEN442_2</H2>
+<B>Test model for radiator</B><p></P>
+<IMG SRC="Buildings.Fluid.HeatExcha7d1d189135ddbb6f442_2D.png" ALT="Buildings.Fluid.HeatExchangers.Radiators.Examples.RadiatorEN442_2">
+<P></P><H3>Information</H3>
+<PRE></pre>
+This test model compares the radiator model when 
+used as a steady-state and a dynamic model.
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TRoo</TD><TD>20 + 273.15</TD><TD>Room temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</A></TD><TD>Q_flow_nominal</TD><TD>500</TD><TD>Nominal power [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T_a_nominal</TD><TD>273.15 + 40</TD><TD>Radiator inlet temperature at nominal condition [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T_b_nominal</TD><TD>273.15 + 30</TD><TD>Radiator outlet temperature at nominal condition [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>Q_flow_nominal/(T_a_nominal ...</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp_nominal</TD><TD>3000</TD><TD>Pressure drop at m_flow_nominal [Pa]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> RadiatorEN442_2 <font color="darkgreen">&quot;Test model for radiator&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+ <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRoo = 20+273.15 <font color="darkgreen">&quot;Room temperature&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</A> Q_flow_nominal = 500 <font color="darkgreen">&quot;Nominal power&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T_a_nominal=273.15 + 40 <font color="darkgreen">
+    &quot;Radiator inlet temperature at nominal condition&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T_b_nominal = 273.15+30 <font color="darkgreen">
+    &quot;Radiator outlet temperature at nominal condition&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> m_flow_nominal=
+    Q_flow_nominal/(T_a_nominal-T_b_nominal)/Medium.cp_const <font color="darkgreen">
+    &quot;Nominal mass flow rate&quot;</font>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> dp_nominal = 3000 <font color="darkgreen">
+    &quot;Pressure drop at m_flow_nominal&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sou(
+    nPorts=2,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_p_in=true,
+    T=T_a_nominal);
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Fluid.FixedResistances.FixedResistanceDpM</A> res2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal);
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Fluid.FixedResistances.FixedResistanceDpM</A> res1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=m_flow_nominal,
+    dp_nominal=dp_nominal);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sin(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    nPorts=2,
+    p(displayUnit=&quot;Pa&quot;) = 300000,
+    T=T_b_nominal) <font color="darkgreen">&quot;Sink&quot;</font>;
+  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;
+  <A HREF="Buildings_Fluid_HeatExchangers_Radiators.html#Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2"
+>Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</A> rad1(<font color="blue">redeclare </font><font color="blue">
+      package</font> Medium =
+               Medium,
+    T_a_nominal=T_a_nominal,
+    T_b_nominal=T_b_nominal,
+    Q_flow_nominal=Q_flow_nominal,
+    TAir_nominal=TRoo) <font color="darkgreen">&quot;Radiator&quot;</font>;
+  <A HREF="Buildings_Fluid_HeatExchangers_Radiators.html#Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2"
+>Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2</A> rad2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
+    T_a_nominal=T_a_nominal,
+    T_b_nominal=T_b_nominal,
+    Q_flow_nominal=Q_flow_nominal,
+    TAir_nominal=TRoo) <font color="darkgreen">&quot;Radiator&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> TBCCon1(T=TRoo);
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> TBCCon2(T=TRoo);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Step"
+>Modelica.Blocks.Sources.Step</A> step(
+    startTime=3600,
+    offset=300000 + dp_nominal,
+    height=-dp_nominal);
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> TBCRad2(T=TRoo);
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.FixedTemperature"
+>Buildings.HeatTransfer.Sources.FixedTemperature</A> TBCRad1(T=TRoo);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(sou.ports[1], rad1.port_a);
+  <font color="red">connect</font>(sou.ports[2], rad2.port_a);
+  <font color="red">connect</font>(rad1.port_b, res1.port_a);
+  <font color="red">connect</font>(rad2.port_b, res2.port_a);
+  <font color="red">connect</font>(res1.port_b, sin.ports[1]);
+  <font color="red">connect</font>(res2.port_b, sin.ports[2]);
+  <font color="red">connect</font>(step.y, sou.p_in);
+  <font color="red">connect</font>(TBCRad2.port, rad2.heatPortRad);
+  <font color="red">connect</font>(TBCRad1.port, rad1.heatPortRad);
+  <font color="red">connect</font>(TBCCon2.port, rad2.heatPortCon);
+  <font color="red">connect</font>(TBCCon1.port, rad1.heatPortCon);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>RadiatorEN442_2;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:55:31 2013.
+</address></BODY>
+</HTML>

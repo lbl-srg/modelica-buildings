@@ -1,0 +1,164 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.Sources.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with base classes for Buildings.Fluid.Sources&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Sources.BaseClasses"></A><A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
+>Buildings.Fluid.Sources</A>.BaseClasses</H2>
+<B>Package with base classes for Buildings.Fluid.Sources</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains base classes that are used to construct the models in
+<A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources"
+>Buildings.Fluid.Sources</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Sources.Bd208942b2a201a03tsideS.png" ALT="Buildings.Fluid.Sources.BaseClasses.Outside" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Sources_BaseClasses.html#Buildings.Fluid.Sources.BaseClasses.Outside"
+>Outside</A>
+</TD><TD>Boundary that takes weather data, and optionally trace substances, as an input</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Outside<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Sources.Bd208942b2a201a03tsideI.png" ALT="Buildings.Fluid.Sources.BaseClasses.Outside" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Sources.BaseClasses.Outside"></A><A HREF="Buildings_Fluid_Sources_BaseClasses.html#Buildings.Fluid.Sources.BaseClasses"
+>Buildings.Fluid.Sources.BaseClasses</A>.Outside</H2>
+<B>Boundary that takes weather data, and optionally trace substances, as an input</B><p></P>
+<IMG SRC="Buildings.Fluid.Sources.Bd208942b2a201a03tsideD.png" ALT="Buildings.Fluid.Sources.BaseClasses.Outside">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This is the base class for models that describes boundary conditions for
+pressure, enthalpy, and species concentration that can be obtained 
+from weather data, and that may be modified based on the wind pressure.
+</p>
+<p>If the parameter <code>use_C_in</code> is <code>false</code> (default option), 
+the <code>C</code> parameter
+is used as the trace substance for flow that leaves the component, and the 
+<code>C_in</code> input connector is disabled; if <code>use_C_in</code> is <code>true</code>, 
+then the <code>C</code> parameter is ignored, and the value provided by the input connector is used instead.</p> 
+<p>
+Note that boundary temperature,
+mass fractions and trace substances have only an effect if the mass flow
+is from the boundary into the port. If mass is flowing from
+the port into the boundary, the boundary definitions,
+with exception of boundary pressure, do not have an effect.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource"
+>Modelica.Fluid.Sources.BaseClasses.PartialSource</A> (Partial component source with one fluid connector).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium model within the source</TD></TR>
+<TR><TD>Boolean</TD><TD>use_C_in</TD><TD>false</TD><TD>Get the trace substances from the input connector</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Fixed values of trace substances</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPorts_b"
+>FluidPorts_b</A></TD><TD>ports[nPorts]</TD><TD>&nbsp;</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>C_in[Medium.nC]</TD><TD>Prescribed boundary trace substances</TD></TR>
+<TR><TD><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Bus</A></TD><TD>weaBus</TD><TD>Bus with weather data</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">partial </font><font color="blue">model</font> Outside <font color="darkgreen">
+  &quot;Boundary that takes weather data, and optionally trace substances, as an input&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources_BaseClasses.html#Modelica.Fluid.Sources.BaseClasses.PartialSource"
+>Modelica.Fluid.Sources.BaseClasses.PartialSource</A>;
+  <font color="blue">parameter </font>Boolean use_C_in = false <font color="darkgreen">
+    &quot;Get the trace substances from the input connector&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>Medium.ExtraProperty</A> C[Medium.nC](
+       quantity=Medium.extraPropertiesNames)=<font color="red">fill</font>(0, Medium.nC) <font color="darkgreen">
+    &quot;Fixed values of trace substances&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> C_in[Medium.nC] <font color="blue">if </font>use_C_in <font color="darkgreen">
+    &quot;Prescribed boundary trace substances&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.Bus"
+>Buildings.BoundaryConditions.WeatherData.Bus</A> weaBus <font color="darkgreen">&quot;Bus with weather data&quot;</font>;</textblock>
+<font color="blue">protected </font>
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean singleSubstance = ( Medium.nX == 1) <font color="darkgreen">
+    &quot;True if single substance medium&quot;</font>;
+  <A HREF="Buildings_Utilities_Psychrometrics.html#Buildings.Utilities.Psychrometrics.X_pTphi"
+>Buildings.Utilities.Psychrometrics.X_pTphi</A> x_pTphi(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium) <font color="blue">if </font>
+       <font color="blue">not </font>singleSubstance <font color="darkgreen">&quot;Block to compute water vapor concentration&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> X_in_internal[Medium.nX] <font color="darkgreen">
+    &quot;Needed to connect to conditional connector&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> T_in_internal <font color="darkgreen">
+    &quot;Needed to connect to conditional connector&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> p_in_internal <font color="darkgreen">
+    &quot;Needed to connect to conditional connector&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>Modelica.Blocks.Interfaces.RealInput</A> C_in_internal[Medium.nC] <font color="darkgreen">
+    &quot;Needed to connect to conditional connector&quot;</font>;
+
+<font color="blue">equation </font>
+  <font color="darkgreen">// Check medium properties</font>
+  <font color="red">Modelica.Fluid.Utilities.checkBoundary</font>(Medium.mediumName, Medium.substanceNames,
+    Medium.singleState, true, medium.X, &quot;Boundary_pT&quot;);
+
+  <font color="darkgreen">// Conditional connectors for trace substances</font>
+  <font color="red">connect</font>(C_in, C_in_internal);
+  <font color="blue">if </font><font color="blue">not </font>use_C_in<font color="blue"> then</font>
+    C_in_internal = C;
+  <font color="blue">end if</font>;
+  <font color="darkgreen">// Connections to input. This is required to obtain the data from</font>
+  <font color="darkgreen">// the weather bus in case that the component x_pTphi is conditionally removed</font>
+  <font color="red">connect</font>(weaBus.TDryBul, T_in_internal);
+
+  <font color="darkgreen">// Connections to compute species concentration</font>
+  <font color="red">connect</font>(p_in_internal, x_pTphi.p_in);
+  <font color="red">connect</font>(T_in_internal, x_pTphi.T);
+  <font color="red">connect</font>(weaBus.relHum, x_pTphi.phi);
+
+  <font color="red">connect</font>(X_in_internal, x_pTphi.X);
+  <font color="blue">if </font>singleSubstance<font color="blue"> then</font>
+    X_in_internal =<font color="red"> zeros</font>(Medium.nX);
+  <font color="blue">end if</font>;
+  <font color="darkgreen">// Assign medium properties</font>
+  medium.p = p_in_internal;
+  medium.T = T_in_internal;
+  medium.Xi = X_in_internal[1:Medium.nXi];
+  ports.C_outflow =<font color="red"> fill</font>(C_in_internal, nPorts);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Outside;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:56:08 2013.
+</address></BODY>
+</HTML>

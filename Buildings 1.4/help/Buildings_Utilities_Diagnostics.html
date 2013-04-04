@@ -1,0 +1,154 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Utilities.Diagnostics</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Library with models to diagnose model errors&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Diagnostics<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Diagnostics"></A><A HREF="Buildings_Utilities.html#Buildings.Utilities"
+>Buildings.Utilities</A>.Diagnostics</H2>
+<B>Library with models to diagnose model errors</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains components models for run-time diagnostics. 
+The models in this package can be used to stop a simulation if a 
+test is violated.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Diagnacbd2d59074fc015alityS.png" ALT="Buildings.Utilities.Diagnostics.AssertEquality" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>AssertEquality</A>
+</TD><TD>Assert when condition is violated</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Diagnacbd2d59074fc015alityS.png" ALT="Buildings.Utilities.Diagnostics.AssertInequality" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertInequality"
+>AssertInequality</A>
+</TD><TD>Assert when condition is violated</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Diagna2402b80a517560fassesS.png" ALT="Buildings.Utilities.Diagnostics.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Diagnostics_BaseClasses.html#Buildings.Utilities.Diagnostics.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for Buildings.Utilities.Diagnostics</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE AssertEquality<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Diagnacbd2d59074fc015alityI.png" ALT="Buildings.Utilities.Diagnostics.AssertEquality" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Diagnostics.AssertEquality"></A><A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics"
+>Buildings.Utilities.Diagnostics</A>.AssertEquality</H2>
+<B>Assert when condition is violated</B><p></P>
+<IMG SRC="Buildings.Utilities.Diagnacbd2d59074fc015alityD.png" ALT="Buildings.Utilities.Diagnostics.AssertEquality">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+Model that triggers an assert if 
+<i>|u1-u2| &gt; threShold</i>
+and <i>t &gt; t<sub>0</sub></i>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Utilities_Diagnostics_BaseClasses.html#Buildings.Utilities.Diagnostics.BaseClasses.PartialInputCheck"
+>BaseClasses.PartialInputCheck</A> (Assert when condition is violated).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>startTime</TD><TD>0</TD><TD>Start time for activating the assert [s]</TD></TR>
+<TR><TD>Real</TD><TD>threShold</TD><TD>1E-2</TD><TD>Threshold for equality comparison</TD></TR>
+<TR><TD>String</TD><TD>message</TD><TD>&quot;Inputs differ by more than ...</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>u1</TD><TD>Value to check, equal to 0 if unconnected</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>u2</TD><TD>Value to check, equal to 0 if unconnected</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> AssertEquality <font color="darkgreen">&quot;Assert when condition is violated&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Utilities_Diagnostics_BaseClasses.html#Buildings.Utilities.Diagnostics.BaseClasses.PartialInputCheck"
+>BaseClasses.PartialInputCheck</A>(message = &quot;Inputs differ by more than threShold&quot;);
+<font color="blue">equation </font>
+  <font color="blue">if </font>(time &gt; t0)<font color="blue"> then</font>
+    <font color="red">assert</font>(<font color="red">abs</font>(u1 - u2) &lt; threShold, message + &quot;\n&quot;
+      + &quot;  u1         = &quot; +<font color="red"> String</font>(u1) + &quot;\n&quot;
+      + &quot;  u2         = &quot; +<font color="red"> String</font>(u2) + &quot;\n&quot;
+      + &quot;  abs(u1-u2) = &quot; +<font color="red"> String</font>(<font color="red">abs</font>(u1-u2)) + &quot;\n&quot;
+      + &quot;  threShold  = &quot; +<font color="red"> String</font>(threShold));
+  <font color="blue">end if</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>AssertEquality;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE AssertInequality<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Diagnacbd2d59074fc015alityI.png" ALT="Buildings.Utilities.Diagnostics.AssertInequality" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Diagnostics.AssertInequality"></A><A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics"
+>Buildings.Utilities.Diagnostics</A>.AssertInequality</H2>
+<B>Assert when condition is violated</B><p></P>
+<IMG SRC="Buildings.Utilities.Diagnacbd2d59074fc015alityD.png" ALT="Buildings.Utilities.Diagnostics.AssertInequality">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+Model that triggers an assert if 
+<i>u1 > u2 - threShold</i>
+and <i>t &gt; t<sub>0</sub></i>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Utilities_Diagnostics_BaseClasses.html#Buildings.Utilities.Diagnostics.BaseClasses.PartialInputCheck"
+>BaseClasses.PartialInputCheck</A> (Assert when condition is violated).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>startTime</TD><TD>0</TD><TD>Start time for activating the assert [s]</TD></TR>
+<TR><TD>Real</TD><TD>threShold</TD><TD>0</TD><TD>Threshold for equality comparison</TD></TR>
+<TR><TD>String</TD><TD>message</TD><TD>&quot;Inputs differ by more than ...</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>u1</TD><TD>Value to check, equal to 0 if unconnected</TD></TR>
+<TR><TD>input <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Interfaces.html#Modelica.Blocks.Interfaces.RealInput"
+>RealInput</A></TD><TD>u2</TD><TD>Value to check, equal to 0 if unconnected</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">block</font> AssertInequality <font color="darkgreen">&quot;Assert when condition is violated&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Utilities_Diagnostics_BaseClasses.html#Buildings.Utilities.Diagnostics.BaseClasses.PartialInputCheck"
+>BaseClasses.PartialInputCheck</A>(message = &quot;Inputs differ by more than threShold&quot;,
+     threShold = 0);
+<font color="blue">equation </font>
+  <font color="blue">if </font>(time &gt; t0)<font color="blue"> then</font>
+    <font color="red">assert</font>(u1 &gt; u2 - threShold, message + &quot;\n&quot;
+      + &quot;  u1         = &quot; +<font color="red"> String</font>(u1) + &quot;\n&quot;
+      + &quot;  u2         = &quot; +<font color="red"> String</font>(u2) + &quot;\n&quot;
+      + &quot;  abs(u1-u2) = &quot; +<font color="red"> String</font>(<font color="red">abs</font>(u1-u2)) + &quot;\n&quot;
+      + &quot;  threShold  = &quot; +<font color="red"> String</font>(threShold));
+  <font color="blue">end if</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>AssertInequality;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:58:05 2013.
+</address></BODY>
+</HTML>

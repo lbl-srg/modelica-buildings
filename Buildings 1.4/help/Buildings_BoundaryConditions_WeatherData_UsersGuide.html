@@ -1,0 +1,87 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.BoundaryConditions.WeatherData.UsersGuide</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;User&#39;s Guide&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE UsersGuide<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.WeatherData.UsersGuide"></A><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData"
+>Buildings.BoundaryConditions.WeatherData</A>.UsersGuide</H2>
+<B>User&#39;s Guide</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+This package contains models to read weather data.
+The weather data format is the Typical Meteorological Year (TMY3)
+as obtained from the EnergyPlus web site at
+<a href="http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm">
+http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm</a>.
+</p>
+<h4>Adding new weather data</h4>
+<p>
+To add new weather data, proceed as follows:
+<ol>
+<li>
+Download the weather data file with the <code>epw</code> extension from
+<a href="http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm">
+http://apps1.eere.energy.gov/buildings/energyplus/cfm/weather_data.cfm</a>.
+</li>
+<li>
+Add the file to <code>Buildings/Resources/weatherdata</code> (or to any directory
+for which you have write permission).
+</li>
+<li>
+On a console window, type<pre>
+  cd Buildings/Resources/weatherdata
+  java -jar ../bin/ConvertWeatherData.jar inputFile.epw
+</pre>
+This will generate the weather data file <code>inputFile.mos</code>, which can be read
+by the model
+<A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>
+Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>.
+</li>
+</ol>
+</p>
+<h4>Implementation</h4>
+<p>
+The TMY3 weather data, as well as the EnergyPlus weather data, start at 1:00 AM
+on January 1, and provide hourly data until midnight on December 31.
+Thus, the first entry for temperatures, humidity, wind speed etc. are values
+at 1:00 AM and not at midnight. Furthermore, the TMY3 weather data files can have
+values at midnight of December 31 that may be significantly different from the values
+at 1:00 AM on January 1.
+Since annual simulations require weather data that start at 0:00 on January 1, 
+data need to be provided for this hour. Due to the possibly large change in
+weatherdata between 1:00 AM on January 1 and midnight at December 31, 
+the weather data files in the Buildings library do not use the data entry from 
+midnight at December 31 as the value for <i>t=0</i>. Rather, the
+value from 1:00 AM on January 1 is duplicated and used for 0:00 on January 1.
+To maintain a data record with <i>8760</i> hours, the weather data record from
+midnight at December 31 is deleted.
+These changes in the weather data file are done in the Java program that converts
+EnergyPlus weather data file to Modelica weather data files, and which is described
+below.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Info"
+>Modelica.Icons.Info</A> (Icon for general information packages).
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:54:17 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,221 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples"></A><A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses"
+>Buildings.Utilities.Psychrometrics.Functions.BaseClasses</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses"
+>
+Buildings.Utilities.Psychrometrics.Functions.BaseClasses</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Psychc68238ac211d6579CheckS.png" ALT="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.DewPointTemperatureDerivativeCheck" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses_Examples.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.DewPointTemperatureDerivativeCheck"
+>DewPointTemperatureDerivativeCheck</A>
+</TD><TD>Model to test correct implementation of derivative</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Psychc68238ac211d6579CheckS.png" ALT="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.DewPointTemperatureDerivativeCheck_amb" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses_Examples.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.DewPointTemperatureDerivativeCheck_amb"
+>DewPointTemperatureDerivativeCheck_amb</A>
+</TD><TD>Model to test correct implementation of derivative</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Psychc68238ac211d6579CheckS.png" ALT="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.InverseDewPointTemperatureDerivativeCheck_amb" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses_Examples.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.InverseDewPointTemperatureDerivativeCheck_amb"
+>InverseDewPointTemperatureDerivativeCheck_amb</A>
+</TD><TD>Model to test correct implementation of derivative</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Psychc68238ac211d6579CheckS.png" ALT="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.WaterVaporPressureDerivativeCheck" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses_Examples.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.WaterVaporPressureDerivativeCheck"
+>WaterVaporPressureDerivativeCheck</A>
+</TD><TD>Model to test correct implementation of derivative</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE DewPointTemperatureDerivativeCheck<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Psychc68238ac211d6579CheckI.png" ALT="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.DewPointTemperatureDerivativeCheck" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.DewPointTemperatureDerivativeCheck"></A><A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses_Examples.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples"
+>Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples</A>.DewPointTemperatureDerivativeCheck</H2>
+<B>Model to test correct implementation of derivative</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This example checks whether the function derivative
+is implemented correctly. If the derivative implementation
+is not correct, the model will stop with an assert statement.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>uniCon</TD><TD>1</TD><TD>Constant to convert units [K/s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> DewPointTemperatureDerivativeCheck <font color="darkgreen">
+  &quot;Model to test correct implementation of derivative&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+    Real x;
+    Real y;
+    <font color="blue">parameter </font>Real uniCon(unit=&quot;K/s&quot;) = 1 <font color="darkgreen">&quot;Constant to convert units&quot;</font>;
+<font color="blue">initial </font><font color="blue">equation </font>
+     y=x;
+<font color="blue">equation </font>
+    x=<font color="red">Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi</font>(  T=time*uniCon);
+  <font color="red">  der</font>(y)=<font color="red">der</font>(x);
+  <font color="red">  assert</font>(<font color="red">abs</font>(x-y) &lt; 1E-2, &quot;Model has an error&quot;);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>DewPointTemperatureDerivativeCheck;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE DewPointTemperatureDerivativeCheck_amb<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Psychc68238ac211d6579CheckI.png" ALT="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.DewPointTemperatureDerivativeCheck_amb" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.DewPointTemperatureDerivativeCheck_amb"></A><A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses_Examples.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples"
+>Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples</A>.DewPointTemperatureDerivativeCheck_amb</H2>
+<B>Model to test correct implementation of derivative</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This example checks whether the function derivative
+is implemented correctly. If the derivative implementation
+is not correct, the model will stop with an assert statement.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>uniCon</TD><TD>1</TD><TD>Constant to convert units [K/s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> DewPointTemperatureDerivativeCheck_amb <font color="darkgreen">
+  &quot;Model to test correct implementation of derivative&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+  Real x;
+  Real y;
+  <font color="blue">parameter </font>Real uniCon(unit=&quot;K/s&quot;) = 1 <font color="darkgreen">&quot;Constant to convert units&quot;</font>;
+<font color="blue">initial </font><font color="blue">equation </font>
+  y = x;
+<font color="blue">equation </font>
+  x =<font color="red"> Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb</font>(T=time*uniCon);
+  <font color="red">der</font>(y) =<font color="red"> der</font>(x);
+  <font color="red">assert</font>(<font color="red">abs</font>(x - y) &lt; 1E-2, &quot;Model has an error&quot;);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>DewPointTemperatureDerivativeCheck_amb;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE InverseDewPointTemperatureDerivativeCheck_amb<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Psychc68238ac211d6579CheckI.png" ALT="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.InverseDewPointTemperatureDerivativeCheck_amb" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.InverseDewPointTemperatureDerivativeCheck_amb"></A><A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses_Examples.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples"
+>Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples</A>.InverseDewPointTemperatureDerivativeCheck_amb</H2>
+<B>Model to test correct implementation of derivative</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This example checks whether the function derivative
+is implemented correctly. If the derivative implementation
+is not correct, the model will stop with an assert statement.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>uniCon</TD><TD>1</TD><TD>Constant to convert units [Pa/s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> InverseDewPointTemperatureDerivativeCheck_amb <font color="darkgreen">
+  &quot;Model to test correct implementation of derivative&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+  Real x;
+  Real y;
+  <font color="blue">parameter </font>Real uniCon(unit=&quot;Pa/s&quot;) = 1 <font color="darkgreen">&quot;Constant to convert units&quot;</font>;
+<font color="blue">initial </font><font color="blue">equation </font>
+  y = x;
+<font color="blue">equation </font>
+  x =<font color="red"> Buildings.Utilities.Psychrometrics.Functions.TDewPoi_pW_amb</font>(p_w=time*uniCon);
+  <font color="red">der</font>(y) =<font color="red"> der</font>(x);
+  <font color="red">assert</font>(<font color="red">abs</font>(x - y) &lt; 1E-2, &quot;Model has an error&quot;);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>InverseDewPointTemperatureDerivativeCheck_amb;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE WaterVaporPressureDerivativeCheck<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Psychc68238ac211d6579CheckI.png" ALT="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.WaterVaporPressureDerivativeCheck" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples.WaterVaporPressureDerivativeCheck"></A><A HREF="Buildings_Utilities_Psychrometrics_Functions_BaseClasses_Examples.html#Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples"
+>Buildings.Utilities.Psychrometrics.Functions.BaseClasses.Examples</A>.WaterVaporPressureDerivativeCheck</H2>
+<B>Model to test correct implementation of derivative</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This example checks whether the function derivative
+is implemented correctly. If the derivative implementation
+is not correct, the model will stop with an assert statement.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>uniCon</TD><TD>0.99</TD><TD>Constant to convert units [1/s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> WaterVaporPressureDerivativeCheck <font color="darkgreen">
+  &quot;Model to test correct implementation of derivative&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+    Real x;
+    Real y;
+    <font color="blue">parameter </font>Real uniCon(unit=&quot;1/s&quot;) = 0.99 <font color="darkgreen">&quot;Constant to convert units&quot;</font>;
+<font color="blue">initial </font><font color="blue">equation </font>
+     y=x;
+<font color="blue">equation </font>
+    x=<font color="red">Buildings.Utilities.Psychrometrics.Functions.pW_X</font>(X_w=time*uniCon,p=101525);
+  <font color="red">  der</font>(y)=<font color="red">der</font>(x);
+  <font color="red">  assert</font>(<font color="red">abs</font>(x-y) &lt; 1E-2, &quot;Model has an error&quot;);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>WaterVaporPressureDerivativeCheck;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:58:09 2013.
+</address></BODY>
+</HTML>

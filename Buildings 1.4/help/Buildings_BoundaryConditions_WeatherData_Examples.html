@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.BoundaryConditions.WeatherData.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.BoundaryConditions.WeatherData.Examples"></A><A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData"
+>Buildings.BoundaryConditions.WeatherData</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData"
+>
+Buildings.BoundaryConditions.WeatherData</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.BoundaryConditi3585110288e31c73rTMY3S.png" ALT="Buildings.BoundaryConditions.WeatherData.Examples.ReaderTMY3" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions_WeatherData_Examples.html#Buildings.BoundaryConditions.WeatherData.Examples.ReaderTMY3"
+>ReaderTMY3</A>
+</TD><TD>Test model for reading weather data</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ReaderTMY3<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.BoundaryConditi3585110288e31c73rTMY3I.png" ALT="Buildings.BoundaryConditions.WeatherData.Examples.ReaderTMY3" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.BoundaryConditions.WeatherData.Examples.ReaderTMY3"></A><A HREF="Buildings_BoundaryConditions_WeatherData_Examples.html#Buildings.BoundaryConditions.WeatherData.Examples"
+>Buildings.BoundaryConditions.WeatherData.Examples</A>.ReaderTMY3</H2>
+<B>Test model for reading weather data</B><p></P>
+<IMG SRC="Buildings.BoundaryConditi3585110288e31c73rTMY3D.png" ALT="Buildings.BoundaryConditions.WeatherData.Examples.ReaderTMY3">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model tests the TMY3 data reader.
+The instance <code>weaDat</code> obtains all weather data from the weather file,
+whereas the instance <code>weaDatInpCon</code> obtains the global horizontal and 
+the diffuse horizontal solar radiation from its input connectors.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> ReaderTMY3 <font color="darkgreen">&quot;Test model for reading weather data&quot;</font>
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDat(
+    filNam=&quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;) <font color="darkgreen">
+    &quot;Weather data reader&quot;</font>;
+  <A HREF="Buildings_BoundaryConditions_WeatherData.html#Buildings.BoundaryConditions.WeatherData.ReaderTMY3"
+>Buildings.BoundaryConditions.WeatherData.ReaderTMY3</A> weaDatInpCon(filNam=
+        &quot;Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos&quot;,
+      HSou=Buildings.BoundaryConditions.Types.RadiationDataSource.Input_HGloHor_HDifHor) <font color="darkgreen">
+    &quot;Weather data reader with radiation data obtained from input connector&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> HDifHor(k=0) <font color="darkgreen">&quot;Diffuse horizontal radiation&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> HGloHor(k=0) <font color="darkgreen">&quot;Horizontal global radiation&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(HGloHor.y, weaDatInpCon.HGloHor_in);
+  <font color="red">connect</font>(HDifHor.y, weaDatInpCon.HDifHor_in);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ReaderTMY3;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:54:17 2013.
+</address></BODY>
+</HTML>

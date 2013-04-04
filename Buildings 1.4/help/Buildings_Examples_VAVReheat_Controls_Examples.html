@@ -1,0 +1,299 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Examples.VAVReheat.Controls.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Example models to test the components&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Examples.VAVReheat.Controls.Examples"></A><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls"
+>Buildings.Examples.VAVReheat.Controls</A>.Examples</H2>
+<B>Example models to test the components</B>
+<P></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVReh169264983673c1b5UsageS.png" ALT="Buildings.Examples.VAVReheat.Controls.Examples.BusUsage" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls_Examples.html#Buildings.Examples.VAVReheat.Controls.Examples.BusUsage"
+>BusUsage</A>
+</TD><TD>Demonstrates the usage of a signal bus</TD></TR>
+<TR><TD><IMG SRC="Buildings.Examples.VAVRehaf4020f44ef0b9d6ModesS.png" ALT="Buildings.Examples.VAVReheat.Controls.Examples.OperationModes" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples_VAVReheat_Controls_Examples.html#Buildings.Examples.VAVReheat.Controls.Examples.OperationModes"
+>OperationModes</A>
+</TD><TD>Test model for operation modes</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BusUsage<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVReh169264983673c1b5UsageI.png" ALT="Buildings.Examples.VAVReheat.Controls.Examples.BusUsage" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.Examples.BusUsage"></A><A HREF="Buildings_Examples_VAVReheat_Controls_Examples.html#Buildings.Examples.VAVReheat.Controls.Examples"
+>Buildings.Examples.VAVReheat.Controls.Examples</A>.BusUsage</H2>
+<B>Demonstrates the usage of a signal bus</B><p></P>
+<IMG SRC="Buildings.Examples.VAVReh169264983673c1b5UsageD.png" ALT="Buildings.Examples.VAVReheat.Controls.Examples.BusUsage">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p><b>Signal bus concept</b></p>
+<p>
+In technical systems, such as vehicles, robots or satellites, many signals
+are exchanged between components. In a simulation system, these signals
+are  usually modelled by signal connections of input/output blocks.
+Unfortunately, the signal connection structure may become very complicated,
+especially for hierarchical models.
+</p>
+
+<p>
+The same is also true for real technical systems. To reduce complexity
+and get higher flexibility, many technical systems use data buses to
+exchange data between components. For the same reasons, it is often better
+to use a "signal bus" concept also in a Modelica model. This is demonstrated
+at hand of this model (Modelica.Blocks.Examples.BusUsage):
+</p>
+
+<p align="center">
+<img src="../Images/Blocks/BusUsage.png">
+</p>
+
+<ul>
+<li> Connector instance "controlBus" is a hierarchical connector that is
+     used to exchange signals between different components. It is
+     defined as "expandable connector" in order that <b>no</b> central definition
+     of the connector is needed but is automatically constructed by the
+     signals connected to it (see also Modelica specification 2.2.1).</li>
+<li> Input/output signals can be directly connected to the "controlBus".</li>
+<li> A component, such as "part", can be directly connected to the "controlBus",
+     provided it has also a bus connector, or the "part" connector is a
+     sub-connector contained in the "controlBus". </li>
+</ul>
+
+<p>
+The control and sub-control bus icons are provided within Modelica.Icons.
+In <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Examples_BusUsage_Utilities_Interfaces.html#Modelica.Blocks.Examples.BusUsage_Utilities.Interfaces"
+>Modelica.Blocks.Examples.BusUsage_Utilities.Interfaces</a>
+the buses for this example are defined. Both the "ControlBus" and the "SubControlBus" are
+<b>expandable</b> connectors that do not define any variable. For example,
+<a href="/opt/dymola/Modelica/Library/Modelica 3.2/Blocks/Examples/BusUsage_Utilities/Interfaces/ControlBus">Interfaces.ControlBus</a>
+is defined as:
+</p>
+<pre>  <b>expandable connector</b> ControlBus
+      <b>extends</b> Modelica.Icons.ControlBus;
+      <b>annotation</b> (Icon(Rectangle(extent=[-20, 2; 22, -2],
+                       style(rgbcolor={255,204,51}, thickness=0.5))));
+  <b>end</b> ControlBus;
+</pre>
+<p>
+Note, the "annotation" in the connector is important since the color
+and thickness of a connector line are taken from the first
+line element in the icon annotation of a connector class. Above, a small rectangle in the
+color of the bus is defined (and therefore this rectangle is not
+visible). As a result, when connecting from an instance of this
+connector to another connector instance, the connecting line has
+the color of the "ControlBus" with double width (due to "thickness=0.5").
+</p>
+
+<p>
+An <b>expandable</b> connector is a connector where the content of the connector
+is constructed by the variables connected to instances of this connector.
+For example, if "sine.y" is connected to the "controlBus", the following
+menu pops-up in Dymola:
+</p>
+
+<p align="center">
+<img src="../Images/Blocks/BusUsage2.png">
+</p>
+
+<p>
+The "Add variable/New name" field allows the user to define the name of the signal on
+the "controlBus". When typing "realSignal1" as "New name", a connection of the form:
+</p>
+
+<pre>     <b>connect</b>(sine.y, controlBus.realSignal1)
+</pre>
+
+<p>
+is generated and the "controlBus" contains the new signal "realSignal1". Modelica tools
+may give more support in order to list potential signals for a connection.
+For example, in Dymola all variables are listed in the menu that are contained in
+connectors which are derived by inheritance from "controlBus". Therefore, in
+<a href="Modelica://Modelica.Blocks.Examples.BusUsage_Utilities.Interfaces.InternalConnectors">BusUsage_Utilities.Interfaces.InternalConnectors</a>
+the expected implementation of the "ControlBus" and of the "SubControlBus" are given.
+For example "Internal.ControlBus" is defined as:
+</p>
+
+<pre>  <b>expandable connector</b> StandardControlBus
+    <b>extends</b> BusUsage_Utilities.Interfaces.ControlBus;
+
+    <b>import</b> SI = Modelica.SIunits;
+    SI.AngularVelocity    realSignal1   "First Real signal";
+    SI.Velocity           realSignal2   "Second Real signal";
+    Integer               integerSignal "Integer signal";
+    Boolean               booleanSignal "Boolean signal";
+    StandardSubControlBus subControlBus "Combined signal";
+  <b>end</b> StandardControlBus;
+</pre>
+
+<p>
+Consequently, when connecting now from "sine.y" to "controlBus", the menu
+looks differently:
+</p>
+<p align="center">
+<img src="../Images/Blocks/BusUsage3.png">
+</p>
+<p>
+Note, even if the signals from "Internal.StandardControlBus" are listed, these are
+just potential signals. The user might still add different signal names.
+</p>
+
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> BusUsage <font color="darkgreen">&quot;Demonstrates the usage of a signal bus&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.IntegerStep"
+>Modelica.Blocks.Sources.IntegerStep</A> integerStep(
+    height=1,
+    offset=2,
+    startTime=0.5);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanStep"
+>Modelica.Blocks.Sources.BooleanStep</A> booleanStep(startTime=0.5);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> sine;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Examples_BusUsage_Utilities.html#Modelica.Blocks.Examples.BusUsage_Utilities.Part"
+>Modelica.Blocks.Examples.BusUsage_Utilities.Part</A> part;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain;
+<font color="blue">protected </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Examples_BusUsage_Utilities_Interfaces.html#Modelica.Blocks.Examples.BusUsage_Utilities.Interfaces.ControlBus"
+>Modelica.Blocks.Examples.BusUsage_Utilities.Interfaces.ControlBus</A> controlBus;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(booleanStep.y, controlBus.booleanSignal);
+  <font color="red">connect</font>(integerStep.y, controlBus.integerSignal);
+  <font color="red">connect</font>(part.subControlBus, controlBus.subControlBus);
+  <font color="red">connect</font>(sine.y, controlBus.test);
+  <font color="red">connect</font>(controlBus.test, gain.u);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>BusUsage;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE OperationModes<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Examples.VAVRehaf4020f44ef0b9d6ModesI.png" ALT="Buildings.Examples.VAVReheat.Controls.Examples.OperationModes" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Examples.VAVReheat.Controls.Examples.OperationModes"></A><A HREF="Buildings_Examples_VAVReheat_Controls_Examples.html#Buildings.Examples.VAVReheat.Controls.Examples"
+>Buildings.Examples.VAVReheat.Controls.Examples</A>.OperationModes</H2>
+<B>Test model for operation modes</B><p></P>
+<IMG SRC="Buildings.Examples.VAVRehaf4020f44ef0b9d6ModesD.png" ALT="Buildings.Examples.VAVReheat.Controls.Examples.OperationModes">
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ControlBus</A></TD><TD>controlBus</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> OperationModes <font color="darkgreen">&quot;Test model for operation modes&quot;</font>
+    <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">import </font>ModelicaVAV = <A HREF="Buildings_Examples_VAVReheat.html#Buildings.Examples.VAVReheat"
+>Buildings.Examples.VAVReheat</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ModeSelector"
+>ModelicaVAV.Controls.ModeSelector</A> operationModes;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</A> preHeaFlo;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.FixedTemperature"
+>Modelica.Thermal.HeatTransfer.Sources.FixedTemperature</A> fixTem(T=273.15);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</A> cap(C=20000);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> con(G=1);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</A> switch1;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> on(k=200);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> off(k=0);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> temperatureSensor;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> TRooSetHea(y=<font color="blue">if </font>mode.y == ModelicaVAV.Controls.OperationModes.occupied<font color="blue"> then </font>
+              293.15<font color="blue"> else </font>287.15);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> TCoiHea(k=283.15) <font color="darkgreen">
+    &quot;Temperature after heating coil&quot;</font>;
+  <A HREF="Buildings_Examples_VAVReheat_Controls.html#Buildings.Examples.VAVReheat.Controls.ControlBus"
+>ModelicaVAV.Controls.ControlBus</A> controlBus;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Routing.html#Modelica.Blocks.Routing.IntegerPassThrough"
+>Modelica.Blocks.Routing.IntegerPassThrough</A> mode <font color="darkgreen">&quot;Outputs the control mode&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanExpression"
+>Modelica.Blocks.Sources.BooleanExpression</A> modSel(y=mode.y == ModelicaVAV.Controls.OperationModes.unoccupiedNightSetBack<font color="blue">
+         or </font>mode.y == ModelicaVAV.Controls.OperationModes.unoccupiedWarmUp);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> TOut(k=283.15) <font color="darkgreen">&quot;Outside temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sensors.html#Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor"
+>Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor</A> temperatureSensor1;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanExpression"
+>Modelica.Blocks.Sources.BooleanExpression</A> modSel1(y=mode.y == ModelicaVAV.Controls.OperationModes.occupied);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Sources.html#Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow"
+>Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow</A> preHeaFlo1;
+  <A HREF="Buildings_Controls_Continuous.html#Buildings.Controls.Continuous.LimPID"
+>Buildings.Controls.Continuous.LimPID</A> PID;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Logical.html#Modelica.Blocks.Logical.Switch"
+>Modelica.Blocks.Logical.Switch</A> switch2;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain(k=200);
+  <A HREF="Buildings_Controls_SetPoints.html#Buildings.Controls.SetPoints.OccupancySchedule"
+>Buildings.Controls.SetPoints.OccupancySchedule</A> occSch <font color="darkgreen">&quot;Occupancy schedule&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(fixTem.port, con.port_a);
+  <font color="red">connect</font>(preHeaFlo.port, cap.port);
+  <font color="red">connect</font>(con.port_b, cap.port);
+  <font color="red">connect</font>(switch1.y, preHeaFlo.Q_flow);
+  <font color="red">connect</font>(on.y, switch1.u1);
+  <font color="red">connect</font>(off.y, switch1.u3);
+  <font color="red">connect</font>(cap.port, temperatureSensor.port);
+  <font color="red">connect</font>(controlBus, operationModes.cb);
+  <font color="red">connect</font>(temperatureSensor.T, controlBus.TRooMin);
+  <font color="red">connect</font>(TCoiHea.y, controlBus.TCoiHeaOut);
+  <font color="red">connect</font>(controlBus.controlMode, mode.u);
+  <font color="red">connect</font>(modSel.y, switch1.u2);
+  <font color="red">connect</font>(TOut.y, controlBus.TOut);
+  <font color="red">connect</font>(cap.port, temperatureSensor1.port);
+  <font color="red">connect</font>(temperatureSensor1.T, controlBus.TRooAve);
+  <font color="red">connect</font>(TRooSetHea.y, PID.u_s);
+  <font color="red">connect</font>(temperatureSensor.T, PID.u_m);
+  <font color="red">connect</font>(modSel1.y, switch2.u2);
+  <font color="red">connect</font>(off.y, switch2.u3);
+  <font color="red">connect</font>(preHeaFlo1.port, cap.port);
+  <font color="red">connect</font>(PID.y, switch2.u1);
+  <font color="red">connect</font>(gain.y, preHeaFlo1.Q_flow);
+  <font color="red">connect</font>(switch2.y, gain.u);
+  <font color="red">connect</font>(occSch.tNexOcc, controlBus.dTNexOcc);
+  <font color="red">connect</font>(TRooSetHea.y, controlBus.TRooSetHea);
+  <font color="red">connect</font>(occSch.occupied, controlBus.occupied);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>OperationModes;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 12:04:08 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.Utilities.BaseClasses</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with base classes for Buildings.Fluid.Utilities&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BaseClasses<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Utilities.BaseClasses"></A><A HREF="Buildings_Fluid_Utilities.html#Buildings.Fluid.Utilities"
+>Buildings.Fluid.Utilities</A>.BaseClasses</H2>
+<B>Package with base classes for Buildings.Fluid.Utilities</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains base classes that are used to construct the models in
+<A HREF="Buildings_Fluid_Utilities.html#Buildings.Fluid.Utilities"
+>Buildings.Fluid.Utilities</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_BasesPackage.html#Modelica.Icons.BasesPackage"
+>Modelica.Icons.BasesPackage</A> (Icon for packages containing base classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Utilities598436af7ef7f5efomialS.png" ALT="Buildings.Fluid.Utilities.BaseClasses.der_extendedPolynomial" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Utilities_BaseClasses.html#Buildings.Fluid.Utilities.BaseClasses.der_extendedPolynomial"
+>der_extendedPolynomial</A>
+</TD><TD>Polynomial that is linearly extended at user specified values</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE der_extendedPolynomial<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Utilities598436af7ef7f5efomialI.png" ALT="Buildings.Fluid.Utilities.BaseClasses.der_extendedPolynomial" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Utilities.BaseClasses.der_extendedPolynomial"></A><A HREF="Buildings_Fluid_Utilities_BaseClasses.html#Buildings.Fluid.Utilities.BaseClasses"
+>Buildings.Fluid.Utilities.BaseClasses</A>.der_extendedPolynomial</H2>
+<B>Polynomial that is linearly extended at user specified values</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This function is the derivative of  
+<A HREF="Buildings_Fluid_Utilities.html#Buildings.Fluid.Utilities.extendedPolynomial"
+>
+extendedPolynomial</a> with respect to <code>x</code>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</A> (Icon for functions).
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>x</TD><TD>&nbsp;</TD><TD>x value</TD></TR>
+<TR><TD>Real</TD><TD>c[:]</TD><TD>&nbsp;</TD><TD>Polynomial coefficients</TD></TR>
+<TR><TD>Real</TD><TD>xMin</TD><TD>&nbsp;</TD><TD>Minimum x value for polynomial</TD></TR>
+<TR><TD>Real</TD><TD>xMax</TD><TD>&nbsp;</TD><TD>Maximum x value for polynomial</TD></TR>
+<TR><TD>Real</TD><TD>der_x</TD><TD>&nbsp;</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD>Real</TD><TD>der_y</TD><TD>Derivative dy/dx</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> der_extendedPolynomial <font color="darkgreen">
+  &quot;Polynomial that is linearly extended at user specified values&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Function"
+>Modelica.Icons.Function</A>;
+  <font color="blue">input </font>Real x <font color="darkgreen">&quot;x value&quot;</font>;
+  <font color="blue">input </font>Real[:] c <font color="darkgreen">&quot;Polynomial coefficients&quot;</font>;
+  <font color="blue">input </font>Real xMin <font color="darkgreen">&quot;Minimum x value for polynomial&quot;</font>;
+  <font color="blue">input </font>Real xMax <font color="darkgreen">&quot;Maximum x value for polynomial&quot;</font>;
+  <font color="blue">input </font>Real der_x;
+  <font color="blue">output </font>Real der_y <font color="darkgreen">&quot;Derivative dy/dx&quot;</font>;
+<font color="blue">protected </font>
+ Integer N =<font color="red"> size</font>(c,1) <font color="darkgreen">&quot;Number of coefficients&quot;</font>;
+<font color="blue">algorithm </font>
+<font color="blue">if </font>x &lt; xMin<font color="blue"> then</font>
+   der_y := 0;
+   <font color="blue">for </font>i<font color="blue"> in </font>2:N<font color="blue"> loop</font>
+     der_y := der_y + (i - 1)*xMin^(i - 2)*c[i];
+   <font color="blue">end for</font>;
+  <font color="blue">elseif </font>x &lt; xMax<font color="blue"> then</font>
+   der_y := 0;
+   <font color="blue">for </font>i<font color="blue"> in </font>2:N<font color="blue"> loop</font>
+     der_y := der_y + (i - 1)*x^(i - 2)*c[i];
+  <font color="blue">end for</font>;
+  <font color="blue">else</font>
+     der_y := 0;
+     <font color="blue">for </font>i<font color="blue"> in </font>2:N<font color="blue"> loop</font>
+       der_y := der_y + (i - 1)*xMax^(i - 2)*c[i];
+    <font color="blue">end for</font>;
+  <font color="blue">end if</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>der_extendedPolynomial;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:56:10 2013.
+</address></BODY>
+</HTML>

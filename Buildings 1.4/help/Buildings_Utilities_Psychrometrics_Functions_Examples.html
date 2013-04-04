@@ -1,0 +1,222 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Utilities.Psychrometrics.Functions.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.Psychrometrics.Functions.Examples"></A><A HREF="Buildings_Utilities_Psychrometrics_Functions.html#Buildings.Utilities.Psychrometrics.Functions"
+>Buildings.Utilities.Psychrometrics.Functions</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Utilities_Psychrometrics_Functions.html#Buildings.Utilities.Psychrometrics.Functions"
+>
+Buildings.Utilities.Psychrometrics.Functions</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Psych9430ec6693bfc051.pW_XS.png" ALT="Buildings.Utilities.Psychrometrics.Functions.Examples.pW_X" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Psychrometrics_Functions_Examples.html#Buildings.Utilities.Psychrometrics.Functions.Examples.pW_X"
+>pW_X</A>
+</TD><TD>Model to test pW_X and its inverse function</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Psych9430ec6693bfc051.pW_XS.png" ALT="Buildings.Utilities.Psychrometrics.Functions.Examples.pW_TDewPoi" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Psychrometrics_Functions_Examples.html#Buildings.Utilities.Psychrometrics.Functions.Examples.pW_TDewPoi"
+>pW_TDewPoi</A>
+</TD><TD>Model to test pW_TDewPoi and its inverse function</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Psych9430ec6693bfc051.pW_XS.png" ALT="Buildings.Utilities.Psychrometrics.Functions.Examples.pW_TDewPoi_comparison" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Psychrometrics_Functions_Examples.html#Buildings.Utilities.Psychrometrics.Functions.Examples.pW_TDewPoi_comparison"
+>pW_TDewPoi_comparison</A>
+</TD><TD>Model to test the approximation for pW_TDewPoi and its inverse function</TD></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.Psych9430ec6693bfc051.pW_XS.png" ALT="Buildings.Utilities.Psychrometrics.Functions.Examples.X_pSatpphi" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_Psychrometrics_Functions_Examples.html#Buildings.Utilities.Psychrometrics.Functions.Examples.X_pSatpphi"
+>X_pSatpphi</A>
+</TD><TD>Model to test X_pSatpphi function</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE pW_X<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Psych9430ec6693bfc051.pW_XI.png" ALT="Buildings.Utilities.Psychrometrics.Functions.Examples.pW_X" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Psychrometrics.Functions.Examples.pW_X"></A><A HREF="Buildings_Utilities_Psychrometrics_Functions_Examples.html#Buildings.Utilities.Psychrometrics.Functions.Examples"
+>Buildings.Utilities.Psychrometrics.Functions.Examples</A>.pW_X</H2>
+<B>Model to test pW_X and its inverse function</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> pW_X <font color="darkgreen">&quot;Model to test pW_X and its inverse function&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</A> X <font color="darkgreen">&quot;Mass fraction&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</A> XInv <font color="darkgreen">&quot;Mass fraction&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</A> dX <font color="darkgreen">&quot;Difference between mass fraction&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> p_w <font color="darkgreen">&quot;Water vapor partial pressure&quot;</font>;
+  <font color="blue">constant </font>Real conv(unit=&quot;1/s&quot;) = 0.999 <font color="darkgreen">&quot;Conversion factor&quot;</font>;
+<font color="blue">equation </font>
+  X = conv*time;
+  p_w =<font color="red"> Buildings.Utilities.Psychrometrics.Functions.pW_X</font>(X);
+  XInv =<font color="red"> Buildings.Utilities.Psychrometrics.Functions.X_pW</font>(p_w);
+  dX = X - XInv;
+  <font color="red">assert</font>(<font color="red">abs</font>(dX) &lt; 10E-12, &quot;Error in function implementation.&quot;);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>pW_X;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE pW_TDewPoi<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Psych9430ec6693bfc051.pW_XI.png" ALT="Buildings.Utilities.Psychrometrics.Functions.Examples.pW_TDewPoi" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Psychrometrics.Functions.Examples.pW_TDewPoi"></A><A HREF="Buildings_Utilities_Psychrometrics_Functions_Examples.html#Buildings.Utilities.Psychrometrics.Functions.Examples"
+>Buildings.Utilities.Psychrometrics.Functions.Examples</A>.pW_TDewPoi</H2>
+<B>Model to test pW_TDewPoi and its inverse function</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> pW_TDewPoi <font color="darkgreen">&quot;Model to test pW_TDewPoi and its inverse function&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T <font color="darkgreen">&quot;Dew point temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TInv <font color="darkgreen">&quot;Dew point temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dT <font color="darkgreen">&quot;Difference between temperatures&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> p_w <font color="darkgreen">&quot;Water vapor partial pressure&quot;</font>;
+  <font color="blue">constant </font>Real conv(unit=&quot;K/s&quot;) = 100 <font color="darkgreen">&quot;Conversion factor&quot;</font>;
+<font color="blue">equation </font>
+  T = conv*time + 273.15;
+  p_w =<font color="red"> Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi</font>(T);
+  TInv =<font color="red"> Buildings.Utilities.Psychrometrics.Functions.TDewPoi_pW</font>(p_w);
+  dT = T - TInv;
+  <font color="red">assert</font>(<font color="red">abs</font>(dT) &lt; 10E-12, &quot;Error in function implementation.&quot;);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>pW_TDewPoi;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE pW_TDewPoi_comparison<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Psych9430ec6693bfc051.pW_XI.png" ALT="Buildings.Utilities.Psychrometrics.Functions.Examples.pW_TDewPoi_comparison" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Psychrometrics.Functions.Examples.pW_TDewPoi_comparison"></A><A HREF="Buildings_Utilities_Psychrometrics_Functions_Examples.html#Buildings.Utilities.Psychrometrics.Functions.Examples"
+>Buildings.Utilities.Psychrometrics.Functions.Examples</A>.pW_TDewPoi_comparison</H2>
+<B>Model to test the approximation for pW_TDewPoi and its inverse function</B><p></P>
+<P></P><H3>Information</H3>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> pW_TDewPoi_comparison <font color="darkgreen">
+  &quot;Model to test the approximation for pW_TDewPoi and its inverse function&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T <font color="darkgreen">&quot;Dew point temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TInv <font color="darkgreen">&quot;Dew point temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dT <font color="darkgreen">&quot;Difference between temperatures&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> p_w_ashrae <font color="darkgreen">
+    &quot;Water vapor partial pressure according to the ASHRAE handbook&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> p_w <font color="darkgreen">&quot;Water vapor partial pressure&quot;</font>;
+
+  <font color="blue">constant </font>Real conv(unit=&quot;K/s&quot;) = 30 <font color="darkgreen">&quot;Conversion factor&quot;</font>;
+  Real r_p <font color="darkgreen">&quot;Ratio of the two approximations&quot;</font>;
+<font color="blue">equation </font>
+  T = conv*time + 273.15;
+  p_w_ashrae =<font color="red"> Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi</font>(T);
+  p_w =<font color="red"> Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb</font>(T);
+  r_p = p_w_ashrae/p_w;
+  p_w =<font color="red"> Buildings.Utilities.Psychrometrics.Functions.pW_TDewPoi_amb</font>(TInv);
+  dT = T - TInv;
+  <font color="red">assert</font>(<font color="red">abs</font>(dT) &lt; 10E-12, &quot;Error in function implementation.&quot;);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>pW_TDewPoi_comparison;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE X_pSatpphi<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.Psych9430ec6693bfc051.pW_XI.png" ALT="Buildings.Utilities.Psychrometrics.Functions.Examples.X_pSatpphi" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.Psychrometrics.Functions.Examples.X_pSatpphi"></A><A HREF="Buildings_Utilities_Psychrometrics_Functions_Examples.html#Buildings.Utilities.Psychrometrics.Functions.Examples"
+>Buildings.Utilities.Psychrometrics.Functions.Examples</A>.X_pSatpphi</H2>
+<B>Model to test X_pSatpphi function</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This example computes the water content of air for a relative humidity between
+<i>0</i> and <i>100%</i>,
+a temperature of <i>20&circ;C</i>
+and atmospheric pressure.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T</TD><TD>293.15</TD><TD>Temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>p</TD><TD>101325</TD><TD>Pressure of the fluid [Pa]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> X_pSatpphi <font color="darkgreen">&quot;Model to test X_pSatpphi function&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+  <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
+>Buildings.Media.PerfectGases.MoistAir</A> <font color="darkgreen">&quot;Medium model&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T = 293.15 <font color="darkgreen">&quot;Temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.AbsolutePressure"
+>Modelica.SIunits.AbsolutePressure</A> pSat <font color="darkgreen">&quot;Saturation pressure&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> p = 101325 <font color="darkgreen">&quot;Pressure of the fluid&quot;</font>;
+  Real phi(min=0, max=1) <font color="darkgreen">&quot;Relative humidity&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFraction"
+>Modelica.SIunits.MassFraction</A> X_w(
+    min=0,
+    max=1,
+    nominal=0.01) <font color="darkgreen">&quot;Water vapor concentration per total mass of air&quot;</font>;
+
+  <font color="blue">constant </font>Real conv(unit=&quot;1/s&quot;) = 1 <font color="darkgreen">&quot;Conversion factor&quot;</font>;
+<font color="blue">equation </font>
+  phi = time;
+  pSat =<font color="red"> Medium.saturationPressure</font>(T);
+  X_w =<font color="red"> Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi</font>(pSat=pSat, p=p, phi=phi);
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>X_pSatpphi;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:58:09 2013.
+</address></BODY>
+</HTML>

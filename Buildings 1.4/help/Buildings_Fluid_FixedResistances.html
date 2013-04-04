@@ -1,0 +1,783 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.FixedResistances</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with models for fixed flow resistances (pipes, diffusers etc.)&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE FixedResistances<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.FixedResistances"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
+>Buildings.Fluid</A>.FixedResistances</H2>
+<B>Package with models for fixed flow resistances (pipes, diffusers etc.)</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+This package contains components models for fixed flow resistances. 
+By fixed flow resistance, we mean resistances that do not change the 
+flow coefficient
+<p align="center" style="font-style:italic;">
+k = m &frasl; 
+&radic;<span style="text-decoration:overline;">&Delta;P</span>.
+</p>
+<p>
+For models of valves and air dampers, see
+<A HREF="Buildings_Fluid_Actuators.html#Buildings.Fluid.Actuators"
+>
+Buildings.Fluid.Actuators</a>.
+For models of flow resistances as part of the building constructions, see 
+<A HREF="Buildings_Airflow_Multizone.html#Buildings.Airflow.Multizone"
+>
+Buildings.Airflow.Multizone</a>.
+</p>
+<p>
+The model
+<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>
+Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>
+is a fixed flow resistance that takes as parameter a nominal flow rate and a nominal pressure drop. The actual resistance is scaled using the above equation.
+</p>
+<p>
+The model
+<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.LosslessPipe"
+>
+Buildings.Fluid.FixedResistances.LosslessPipe</a>
+is an ideal pipe segment with no pressure drop. It is primarily used
+in models in which the above pressure drop model need to be replaced by a model with no pressure drop.
+</p>
+<p>
+The model
+<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>
+Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM</a>
+can be used to model flow splitters or flow merges.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.FixedResiefe411e95f8cd6d1ceDpMS.png" ALT="Buildings.Fluid.FixedResistances.FixedResistanceDpM" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistanceDpM</A>
+</TD><TD>Fixed flow resistance with dp and m_flow as parameter</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.FixedResi0fb31093ff38bc87sPipeS.png" ALT="Buildings.Fluid.FixedResistances.LosslessPipe" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.LosslessPipe"
+>LosslessPipe</A>
+</TD><TD>Pipe with no flow friction and no heat transfer</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.FixedResistances.PipeS.png" ALT="Buildings.Fluid.FixedResistances.Pipe" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.Pipe"
+>Pipe</A>
+</TD><TD>Pipe with finite volume discretization along flow path</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.FixedResi51e52f70be5315dfceDpMS.png" ALT="Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"
+>SplitterFixedResistanceDpM</A>
+</TD><TD>Flow splitter with fixed resistance at each port</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.FixedResi42b79e86f480897cmplesS.png" ALT="Buildings.Fluid.FixedResistances.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_FixedResistances_Examples.html#Buildings.Fluid.FixedResistances.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.FixedResi6f6c0000d4e088dfassesS.png" ALT="Buildings.Fluid.FixedResistances.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Buildings.Fluid.FixedResistances.BaseClasses"
+>BaseClasses</A>
+</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE FixedResistanceDpM<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.FixedResiefe411e95f8cd6d1ceDpMI.png" ALT="Buildings.Fluid.FixedResistances.FixedResistanceDpM" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.FixedResistances.FixedResistanceDpM"></A><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances"
+>Buildings.Fluid.FixedResistances</A>.FixedResistanceDpM</H2>
+<B>Fixed flow resistance with dp and m_flow as parameter</B><p></P>
+<IMG SRC="Buildings.Fluid.FixedResiefe411e95f8cd6d1ceDpMD.png" ALT="Buildings.Fluid.FixedResistances.FixedResistanceDpM">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This is a model of a resistance with a fixed flow coefficient.
+The mass flow rate is computed as
+<p align="center" style="font-style:italic;">
+m&#775; = k  
+&radic;<span style="text-decoration:overline;">&Delta;P</span>,
+</p>
+where 
+<i>k</i> is a constant and 
+<i>&Delta;P</i> is the pressure drop.
+The constant <i>k</i> is equal to
+<code>k=m_flow_nominal/dp_nominal</code>,
+where <code>m_flow_nominal</code> and <code>dp_nominal</code>
+are parameters.
+In the region
+<code>abs(m_flow) &lt; m_flow_turbulent</code>, 
+the square root is replaced by a differentiable function
+with finite slope.
+The value of <code>m_flow_turbulent</code> is
+computed as follows:
+</p>
+<p>
+<ul>
+<li>
+If the parameter <code>use_dh</code> is <code>false</code>
+(the default setting), 
+the equation 
+<code>m_flow_turbulent = deltaM * abs(m_flow_nominal)</code>,
+where <code>deltaM=0.3</code> and 
+<code>m_flow_nominal</code> are parameters that can be set by the user.
+</li>
+<li>
+Otherwise, the equation
+<code>m_flow_turbulent = eta_nominal*dh/4*&pi;*ReC</code> is used,
+where 
+<code>eta_nominal</code> is the dynamic viscosity, obtained from
+the medium model. The parameter
+<code>dh</code> is the hydraulic diameter and
+<code>ReC=4000</code> is the critical Reynolds number, which both
+can be set by the user.
+</li>
+</ul>
+</p>
+<p>
+The figure below shows the pressure drop for the parameters
+<code>m_flow_nominal=5</code> kg/s,
+<code>dp_nominal=10</code> Pa and
+<code>deltaM=0.3</code>.
+</p>
+<p align="center">
+<img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings 1.4/Resources/Images/Fluid/FixedResistances/FixedResistanceDpM.png"/>
+</p>
+<p>
+If the parameters 
+<code>show_V_flow</code> or
+<code>show_T</code> are set to <code>true</code>,
+then the model will compute the volume flow rate and the
+temperature at its ports. Note that this can lead to state events
+when the mass flow rate approaches zero,
+which can increase computing time.
+</p>
+<p>
+The parameter <code>from_dp</code> is used to determine
+whether the mass flow rate is computed as a function of the 
+pressure drop (if <code>from_dp=true</code>), or vice versa.
+This setting can affect the size of the nonlinear system of equations.
+</p>
+<p>
+If the parameter <code>linearized</code> is set to <code>true</code>,
+then the pressure drop is computed as a linear function of the
+mass flow rate.
+</p>
+<p>
+Setting <code>allowFlowReversal=false</code> can lead to simpler
+equations. However, this should only be set to <code>false</code>
+if one can guarantee that the flow never reverses its direction.
+This can be difficult to guarantee, as pressure imbalance after 
+the initialization, or due to medium expansion and contraction,
+can lead to reverse flow.
+</p>
+<p>
+<h4>Notes</h4>
+<p>
+For more detailed models that compute the actual flow friction, 
+models from the package 
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid"
+>
+Modelica.Fluid</a>
+can be used and combined with models from the 
+<code>Buildings</code> library.
+</p>
+<h4>Implementation</h4>
+<p>
+The pressure drop is computed by calling a function in the package
+<A HREF="Buildings_Fluid_BaseClasses_FlowModels.html#Buildings.Fluid.BaseClasses.FlowModels"
+>
+Buildings.Fluid.BaseClasses.FlowModels</a>,
+This package contains regularized implementations of the equation
+<p align="center" style="font-style:italic;">
+  m = sign(&Delta;p) k  &radic;<span style="text-decoration:overline;">&nbsp;&Delta;p &nbsp;</span>
+</p>
+<p>
+and its inverse function.
+</p>
+<p>
+To decouple the energy equation from the mass equations,
+the pressure drop is a function of the mass flow rate,
+and not the volume flow rate.
+This leads to simpler equations.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance"
+>Buildings.Fluid.BaseClasses.PartialResistance</A> (Partial model for a hydraulic resistance).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_turbulent</TD><TD>if (computeFlowResistance an...</TD><TD>Turbulent flow if |m_flow| &gt;= m_flow_turbulent [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>use_dh</TD><TD>false</TD><TD>Set to true to specify hydraulic diameter</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>dh</TD><TD>1</TD><TD>Hydraulic diameter [m]</TD></TR>
+<TR><TD>Real</TD><TD>ReC</TD><TD>4000</TD><TD>Reynolds number where transition to turbulent starts</TD></TR>
+<TR><TD>Real</TD><TD>deltaM</TD><TD>0.3</TD><TD>Fraction of nominal mass flow rate where transition to turbulent occurs</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp_nominal</TD><TD>&nbsp;</TD><TD>Pressure drop at nominal mass flow rate [Pa]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearized</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> FixedResistanceDpM <font color="darkgreen">
+  &quot;Fixed flow resistance with dp and m_flow as parameter&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialResistance"
+>Buildings.Fluid.BaseClasses.PartialResistance</A>(
+    <font color="blue">final </font>m_flow_turbulent = <font color="blue">if </font>(computeFlowResistance<font color="blue"> and </font>use_dh)<font color="blue"> then </font>
+                       eta_default*dh/4*Modelica.Constants.pi*ReC<font color="blue">
+                       elseif </font>(computeFlowResistance)<font color="blue"> then </font>
+                       deltaM * m_flow_nominal_pos<font color="blue">
+         else </font>0);
+  <font color="blue">parameter </font>Boolean use_dh = false <font color="darkgreen">&quot;Set to true to specify hydraulic diameter&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</A> dh=1 <font color="darkgreen">&quot;Hydraulic diameter&quot;</font>;
+  <font color="blue">parameter </font>Real ReC(min=0)=4000 <font color="darkgreen">
+    &quot;Reynolds number where transition to turbulent starts&quot;</font>;
+  <font color="blue">parameter </font>Real deltaM(min=0.01) = 0.3 <font color="darkgreen">
+    &quot;Fraction of nominal mass flow rate where transition to turbulent occurs&quot;</font>;
+
+  <font color="blue">final </font><font color="blue">parameter </font>Real k(unit=&quot;&quot;) = <font color="blue">if </font>computeFlowResistance<font color="blue"> then </font>
+        m_flow_nominal_pos /<font color="red"> sqrt</font>(dp_nominal_pos)<font color="blue"> else </font>0 <font color="darkgreen">
+    &quot;Flow coefficient, k=m_flow/sqrt(dp), with unit=(kg.m)^(1/2)&quot;</font>;
+<font color="blue">protected </font>
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean computeFlowResistance=(dp_nominal_pos &gt; Modelica.Constants.eps) <font color="darkgreen">
+    &quot;Flag to enable/disable computation of flow resistance&quot;</font>;
+<font color="blue">initial </font><font color="blue">equation </font>
+ <font color="blue">if </font>computeFlowResistance<font color="blue"> then</font>
+   <font color="red">assert</font>(m_flow_turbulent &gt; 0, &quot;m_flow_turbulent must be bigger than zero.&quot;);
+ <font color="blue">end if</font>;
+
+ <font color="red">assert</font>(m_flow_nominal_pos &gt; 0, &quot;m_flow_nominal_pos must be non-zero. Check parameters.&quot;);
+ <font color="blue">if </font>( m_flow_turbulent &gt; m_flow_nominal_pos)<font color="blue"> then</font>
+   <font color="red">Modelica.Utilities.Streams.print</font>(&quot;Warning: In FixedResistanceDpM, m_flow_nominal is smaller than m_flow_turbulent.&quot;
+           + &quot;\n&quot;
+           + &quot;  m_flow_nominal = &quot; +<font color="red"> String</font>(m_flow_nominal) + &quot;\n&quot;
+           + &quot;  dh      = &quot; +<font color="red"> String</font>(dh) + &quot;\n&quot;
+           + &quot;  To fix, set dh &lt; &quot; +
+                <font color="red">String</font>(     4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC) + &quot;\n&quot;
+           + &quot;  Suggested value: dh = &quot; +
+                <font color="red">String</font>(1/10*4*m_flow_nominal/eta_default/Modelica.Constants.pi/ReC));
+ <font color="blue">end if</font>;
+
+<font color="blue">equation </font>
+  <font color="darkgreen">// Pressure drop calculation</font>
+  <font color="blue">if </font>computeFlowResistance<font color="blue"> then</font>
+    <font color="blue">if </font>linearized<font color="blue"> then</font>
+      m_flow*m_flow_nominal_pos = k^2*dp;
+    <font color="blue">else</font>
+      <font color="blue">if </font>homotopyInitialization<font color="blue"> then</font>
+        <font color="blue">if </font>from_dp<font color="blue"> then</font>
+          m_flow=<font color="red">homotopy</font>(actual=<font color="red">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</font>(dp=dp, k=k,
+                                   m_flow_turbulent=m_flow_turbulent),
+                                   simplified=m_flow_nominal_pos*dp/dp_nominal_pos);
+        <font color="blue">else</font>
+          dp=<font color="red">homotopy</font>(actual=<font color="red">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</font>(m_flow=m_flow, k=k,
+                                   m_flow_turbulent=m_flow_turbulent),
+                    simplified=dp_nominal_pos*m_flow/m_flow_nominal_pos);
+         <font color="blue">end if</font>;<font color="darkgreen">  // from_dp</font>
+      <font color="blue">else</font><font color="darkgreen"> // do not use homotopy</font>
+        <font color="blue">if </font>from_dp<font color="blue"> then</font>
+          m_flow=<font color="red">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_dp</font>(dp=dp, k=k,
+                                   m_flow_turbulent=m_flow_turbulent);
+        <font color="blue">else</font>
+          dp=<font color="red">Buildings.Fluid.BaseClasses.FlowModels.basicFlowFunction_m_flow</font>(m_flow=m_flow, k=k,
+                                   m_flow_turbulent=m_flow_turbulent);
+        <font color="blue">end if</font>;<font color="darkgreen">  // from_dp</font>
+      <font color="blue">end if</font>;<font color="darkgreen"> // homotopyInitialization</font>
+    <font color="blue">end if</font>;<font color="darkgreen"> // linearized</font>
+  <font color="blue">else</font><font color="darkgreen"> // do not compute flow resistance</font>
+    dp = 0;
+  <font color="blue">end if</font>;<font color="darkgreen">  // computeFlowResistance</font>
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>FixedResistanceDpM;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE LosslessPipe<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.FixedResi0fb31093ff38bc87sPipeI.png" ALT="Buildings.Fluid.FixedResistances.LosslessPipe" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.FixedResistances.LosslessPipe"></A><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances"
+>Buildings.Fluid.FixedResistances</A>.LosslessPipe</H2>
+<B>Pipe with no flow friction and no heat transfer</B><p></P>
+<IMG SRC="Buildings.Fluid.FixedResiefe411e95f8cd6d1ceDpMD.png" ALT="Buildings.Fluid.FixedResistances.LosslessPipe">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+Model of a pipe with no flow resistance, no heat loss and no transport delay.
+This model can be used to replace a <code>replaceable</code> pipe model
+in flow legs in which no friction should be modeled.
+This is for example done in the outlet port of the
+base class for three way valves,
+<A HREF="Buildings_Fluid_Actuators_BaseClasses.html#Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve"
+>
+Buildings.Fluid.Actuators.BaseClasses.PartialThreeWayValve</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Buildings.Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</A> (Base icon).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>false</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> LosslessPipe <font color="darkgreen">&quot;Pipe with no flow friction and no heat transfer&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Buildings.Fluid.Interfaces.PartialTwoPortInterface</A>(
+     show_T=false, show_V_flow=false);
+  <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</A>;
+  <font color="blue">final </font><font color="blue">parameter </font>Boolean from_dp=true <font color="darkgreen">&quot;Used to satisfy replaceable models&quot;</font>;
+<font color="blue">equation </font>
+  dp=0;
+  <font color="darkgreen">// Isenthalpic state transformation (no storage and no loss of energy)</font>
+  port_a.h_outflow =<font color="red"> inStream</font>(port_b.h_outflow);
+  port_b.h_outflow =<font color="red"> inStream</font>(port_a.h_outflow);
+
+  <font color="darkgreen">// Mass balance (no storage)</font>
+  port_a.m_flow + port_b.m_flow = 0;
+
+  <font color="darkgreen">// Transport of substances</font>
+  port_a.Xi_outflow =<font color="red"> inStream</font>(port_b.Xi_outflow);
+  port_b.Xi_outflow =<font color="red"> inStream</font>(port_a.Xi_outflow);
+
+  port_a.C_outflow =<font color="red"> inStream</font>(port_b.C_outflow);
+  port_b.C_outflow =<font color="red"> inStream</font>(port_a.C_outflow);
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>LosslessPipe;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Pipe<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.FixedResistances.PipeI.png" ALT="Buildings.Fluid.FixedResistances.Pipe" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.FixedResistances.Pipe"></A><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances"
+>Buildings.Fluid.FixedResistances</A>.Pipe</H2>
+<B>Pipe with finite volume discretization along flow path</B><p></P>
+<IMG SRC="Buildings.Fluid.FixedResistances.PipeD.png" ALT="Buildings.Fluid.FixedResistances.Pipe">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+Model of a pipe with flow resistance and optional heat exchange with environment.
+</p>
+<p>
+If <code>useMultipleHeatPorts=false</code> (default option), the pipe uses a single heat port 
+for the heat exchange with the environment.
+If <code>useMultipleHeatPorts=true</code>, then one heat port for each segment of the pipe is
+used for the heat exchange with the environment.
+If the heat port is unconnected, then the pipe has no heat loss.
+</p>
+<p>
+The default value for the parameter <code>diameter</code> is computed such that the flow velocity
+is equal to <code>v_nominal=0.15</code> for a mass flow rate of <code>m_flow_nominal</code>.
+Both parameters, <code>diameter</code> and <code>v_nominal</code>, can be overwritten
+by the user.
+The default value for <code>dp_nominal</code> is two times the pressure drop that the pipe
+would have if it were straight with no fittings.
+The factor of two that takes into account the pressure loss of fittings can be overwritten.
+These fittings could also be explicitely modeled outside of this component using models from
+the package
+<A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Fittings.html#Modelica.Fluid.Fittings"
+>
+Modelica.Fluid.Fittings</a>.
+For mass flow rates other than <code>m_flow_nominal</code>, the model 
+<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>
+Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> is used to
+compute the pressure drop.
+</p>
+<p>
+For a steady-state model of a flow resistance, use
+<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>
+Buildings.Fluid.FixedResistances.FixedResistanceDpM</a> instead of this model.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Buildings.Fluid.FixedResistances.BaseClasses.Pipe"
+>Buildings.Fluid.FixedResistances.BaseClasses.Pipe</A> (Model of a pipe with finite volume discretization along the flow path).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR><TD>Integer</TD><TD>nSeg</TD><TD>10</TD><TD>Number of volume segments</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>thicknessIns</TD><TD>&nbsp;</TD><TD>Thickness of insulation [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>lambdaIns</TD><TD>&nbsp;</TD><TD>Heat conductivity of insulation [W/(m.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>diameter</TD><TD>sqrt(4*m_flow_nominal/rho_no...</TD><TD>Pipe diameter (without insulation) [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>length</TD><TD>&nbsp;</TD><TD>Length of the pipe [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+>Velocity</A></TD><TD>v_nominal</TD><TD>0.15</TD><TD>Velocity at m_flow_nominal (used to compute default diameter) [m/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>roughness</TD><TD>2.5e-5</TD><TD>Absolute roughness of pipe, with a default for a smooth steel pipe (dummy if use_roughness = false) [m]</TD></TR>
+<TR><TD>Boolean</TD><TD>useMultipleHeatPorts</TD><TD>false</TD><TD>= true to use one heat port for each segment of the pipe, false to use a single heat port for the entire pipe</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp_nominal</TD><TD>2*dpStraightPipe_nominal</TD><TD>Pressure [Pa]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Flow resistance</B></TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp</TD><TD>false</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>linearizeFlowResistance</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+<TR><TD>Real</TD><TD>deltaM</TD><TD>0.1</TD><TD>Fraction of nominal flow rate where flow transitions to laminar</TD></TR>
+<TR><TD>Real</TD><TD>ReC</TD><TD>4000</TD><TD>Reynolds number where transition to turbulent starts</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>heatPort</TD><TD>Single heat port that connects to outside of pipe wall (default, enabled when useMultipleHeatPorts=false)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.HeatPorts_a"
+>HeatPorts_a</A></TD><TD>heatPorts[nSeg]</TD><TD>Multiple heat ports that connect to outside of pipe wall (enabled if useMultipleHeatPorts=true)</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> Pipe <font color="darkgreen">&quot;Pipe with finite volume discretization along flow path&quot;</font>
+  <font color="blue">extends </font><A HREF="Buildings_Fluid_FixedResistances_BaseClasses.html#Buildings.Fluid.FixedResistances.BaseClasses.Pipe"
+>Buildings.Fluid.FixedResistances.BaseClasses.Pipe</A>(
+   diameter=<font color="red">sqrt</font>(4*m_flow_nominal/rho_nominal/v_nominal/Modelica.Constants.pi),
+   dp_nominal=2*dpStraightPipe_nominal,
+   res(dp(nominal=length*10)));
+  <font color="darkgreen">// Because dp_nominal is a non-literal value, we set</font>
+  <font color="darkgreen">// dp.nominal=100 instead of the default dp.nominal=dp_nominal,</font>
+  <font color="darkgreen">// because the latter is ignored by Dymola 2012 FD 01.</font>
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Velocity"
+>Modelica.SIunits.Velocity</A> v_nominal = 0.15 <font color="darkgreen">
+    &quot;Velocity at m_flow_nominal (used to compute default diameter)&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</A> roughness(min=0) = 2.5e-5 <font color="darkgreen">
+    &quot;Absolute roughness of pipe, with a default for a smooth steel pipe (dummy if use_roughness = false)&quot;</font>;
+  <font color="blue">final </font><font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> dpStraightPipe_nominal=
+      <font color="red">Modelica.Fluid.Pipes.BaseClasses.WallFriction.Detailed.pressureLoss_m_flow</font>(
+      m_flow=m_flow_nominal,
+      rho_a=rho_nominal,
+      rho_b=rho_nominal,
+      mu_a=mu_nominal,
+      mu_b=mu_nominal,
+      length=length,
+      diameter=diameter,
+      roughness=roughness,
+      m_flow_small=m_flow_small) <font color="darkgreen">
+    &quot;Pressure loss of a straight pipe at m_flow_nominal&quot;</font>;
+
+  <font color="blue">parameter </font>Boolean useMultipleHeatPorts=false <font color="darkgreen">
+    &quot;= true to use one heat port for each segment of the pipe, false to use a single heat port for the entire pipe&quot;</font>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalConductor"
+>Modelica.Thermal.HeatTransfer.Components.ThermalConductor</A> conPipWal[nSeg](
+      <font color="blue">each </font>G=2*Modelica.Constants.pi*lambdaIns*length/nSeg/<font color="red">Modelica.Math.log</font>((
+        diameter/2.0 + thicknessIns)/(diameter/2.0))) <font color="darkgreen">
+    &quot;Thermal conductance through pipe wall&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.ThermalCollector"
+>Modelica.Thermal.HeatTransfer.Components.ThermalCollector</A> colAllToOne(m=nSeg) <font color="blue">if </font>
+       <font color="blue">not </font>useMultipleHeatPorts <font color="darkgreen">
+    &quot;Connector to assign multiple heat ports to one heat port&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> heatPort <font color="blue">if </font><font color="blue">not </font>
+    useMultipleHeatPorts <font color="darkgreen">
+    &quot;Single heat port that connects to outside of pipe wall (default, enabled when useMultipleHeatPorts=false)&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.HeatPorts_a"
+>Modelica.Fluid.Interfaces.HeatPorts_a</A> heatPorts[nSeg] <font color="blue">if </font>
+       useMultipleHeatPorts <font color="darkgreen">
+    &quot;Multiple heat ports that connect to outside of pipe wall (enabled if useMultipleHeatPorts=true)&quot;</font>;
+    </textblock>
+<font color="blue">equation </font>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(conPipWal.port_b, vol.heatPort);</textblock>
+  <font color="blue">if </font>useMultipleHeatPorts<font color="blue"> then</font>
+<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(heatPorts, conPipWal.port_a);</textblock>
+  <font color="blue">else</font>
+<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(colAllToOne.port_a, conPipWal.port_a);
+    <font color="red">connect</font>(colAllToOne.port_b, heatPort);</textblock>
+
+  <font color="blue">end if</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Pipe;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE SplitterFixedResistanceDpM<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.FixedResi51e52f70be5315dfceDpMI.png" ALT="Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM"></A><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances"
+>Buildings.Fluid.FixedResistances</A>.SplitterFixedResistanceDpM</H2>
+<B>Flow splitter with fixed resistance at each port</B><p></P>
+<IMG SRC="Buildings.Fluid.FixedResi51e52f70be5315dfceDpMD.png" ALT="Buildings.Fluid.FixedResistances.SplitterFixedResistanceDpM">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+Model of a flow splitter or mixer with a fixed resistance in each flow leg.
+In each flow lag, a pressure drop can be modelled, and at the fluid junction,
+a mixing volume can be modelled.
+</p>
+<p>
+The pressure drop is implemented using the model
+<A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>
+Buildings.Fluid.FixedResistances.FixedResistanceDpM</a>.
+If its nominal pressure drop is set to zero, then the pressure drop
+model will be removed.
+For example, the pressure drop declaration
+</p>
+<pre>
+  m_flow_nominal={ 0.1, 0.1,  -0.2},
+  dp_nominal =   {500,    0, -6000}
+</pre>
+<p>
+would model a mixer that has the nominal flow rates and associated pressure drops
+as shown in the figure below. Note that <code>port_3</code> is set to negative values.
+The negative values indicate that at the nominal conditions, fluid is leaving the component.
+</p>
+<p align="center">
+<img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings 1.4/Resources/Images/Fluid/FixedResistances/SplitterFixedResistanceDpM.png"/>
+</p>
+<p>
+Optionally, at the fluid junction, a control volume can be modelled. 
+This is implemented using the model
+<A HREF="Buildings_Fluid_Delays.html#Buildings.Fluid.Delays.DelayFirstOrder"
+>
+Buildings.Fluid.Delays.DelayFirstOrder</a>.
+The fluid volume is modelled if
+<code>dynamicBalance=true</code>, and it is removed if
+<code>dynamicBalance=false</code>.
+The control volume has the size
+</p>
+<pre>
+  V = sum(abs(m_flow_nominal[:])/3)*tau/rho_nominal
+</pre>
+<p>
+where <code>tau</code> is a parameter and <code>rho_nominal</code> is the density 
+of the medium in the volume at nominal condition.
+Setting <code>dynamicBalance=true</code> can help reducing the size of the nonlinear
+system of equations.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</A> (Base icon), <A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialThreeWayResistance"
+>Buildings.Fluid.BaseClasses.PartialThreeWayResistance</A> (Flow splitter with partial resistance model at each port).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR><TD>Boolean</TD><TD>use_dh</TD><TD>false</TD><TD>Set to true to specify hydraulic diameter</TD></TR>
+<TR><TD>Real</TD><TD>deltaM</TD><TD>0.3</TD><TD>Fraction of nominal mass flow rate where transition to turbulent occurs</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>dh[3]</TD><TD>{1,1,1}</TD><TD>Hydraulic diameter [m]</TD></TR>
+<TR><TD>Real</TD><TD>ReC[3]</TD><TD>{4000,4000,4000}</TD><TD>Reynolds number where transition to turbulent starts</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal[3]</TD><TD>&nbsp;</TD><TD>Mass flow rate. Set negative at outflowing ports. [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp_nominal[3]</TD><TD>&nbsp;</TD><TD>Pressure. Set negative at outflowing ports. [Pa]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
+<TR><TD>Boolean</TD><TD>dynamicBalance</TD><TD>true</TD><TD>Set to true to use a dynamic balance, which often leads to smaller systems of equations</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mDyn_flow_nominal</TD><TD>sum(abs(m_flow_nominal[:])/3)</TD><TD>Nominal mass flow rate for dynamic momentum and energy balance [kg/s]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>tau</TD><TD>10</TD><TD>Time constant at nominal flow for dynamic energy and momentum balance [s]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD>Boolean</TD><TD>from_dp</TD><TD>true</TD><TD>= true, use m_flow = f(dp) else dp = f(m_flow)</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR><TD>Boolean</TD><TD>linearized</TD><TD>false</TD><TD>= true, use linear relation between m_flow and dp for any flow rate</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_1</TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_2</TD><TD>&nbsp;</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_3</TD><TD>&nbsp;</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> SplitterFixedResistanceDpM <font color="darkgreen">
+  &quot;Flow splitter with fixed resistance at each port&quot;</font>
+    <font color="blue">extends </font><A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses.BaseIcon"
+>Buildings.BaseClasses.BaseIcon</A>;
+    <font color="blue">extends </font><A HREF="Buildings_Fluid_BaseClasses.html#Buildings.Fluid.BaseClasses.PartialThreeWayResistance"
+>Buildings.Fluid.BaseClasses.PartialThreeWayResistance</A>(
+    mDyn_flow_nominal =<font color="red"> sum</font>(<font color="red">abs</font>(m_flow_nominal[:])/3),
+      <font color="blue">redeclare </font><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res1(
+         <font color="blue">redeclare </font><font color="blue">package</font> Medium=Medium,
+            <font color="blue">final </font>allowFlowReversal=true,
+            from_dp=from_dp,
+            <font color="blue">final </font>m_flow_nominal=m_flow_nominal[1],
+            <font color="blue">final </font>dp_nominal=dp_nominal[1],
+            <font color="blue">final </font>ReC=ReC[1],
+            <font color="blue">final </font>dh=dh[1],
+            linearized=linearized,
+            homotopyInitialization=homotopyInitialization,
+            deltaM=deltaM),
+      <font color="blue">redeclare </font><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res2(
+         <font color="blue">redeclare </font><font color="blue">package</font> Medium=Medium,
+            <font color="blue">final </font>allowFlowReversal=true,
+            from_dp=from_dp,
+            <font color="blue">final </font>m_flow_nominal=m_flow_nominal[2],
+            <font color="blue">final </font>dp_nominal=dp_nominal[2],
+            <font color="blue">final </font>ReC=ReC[2],
+            <font color="blue">final </font>dh=dh[2],
+            linearized=linearized,
+            homotopyInitialization=homotopyInitialization,
+            deltaM=deltaM),
+      <font color="blue">redeclare </font><A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res3(
+         <font color="blue">redeclare </font><font color="blue">package</font> Medium=Medium,
+            <font color="blue">final </font>allowFlowReversal=true,
+            from_dp=from_dp,
+            <font color="blue">final </font>m_flow_nominal=m_flow_nominal[3],
+            <font color="blue">final </font>dp_nominal=dp_nominal[3],
+            <font color="blue">final </font>ReC=ReC[3],
+            <font color="blue">final </font>dh=dh[3],
+            linearized=linearized,
+            homotopyInitialization=homotopyInitialization,
+            deltaM=deltaM));
+
+  <font color="blue">parameter </font>Boolean use_dh = false <font color="darkgreen">&quot;Set to true to specify hydraulic diameter&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A>[3] m_flow_nominal <font color="darkgreen">
+    &quot;Mass flow rate. Set negative at outflowing ports.&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A>[3] dp_nominal(<font color="blue">each </font>displayUnit = &quot;Pa&quot;) <font color="darkgreen">
+    &quot;Pressure. Set negative at outflowing ports.&quot;</font>;
+  <font color="blue">parameter </font>Real deltaM(min=0) = 0.3 <font color="darkgreen">
+    &quot;Fraction of nominal mass flow rate where transition to turbulent occurs&quot;</font>;
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</A>[3] dh={1, 1, 1} <font color="darkgreen">&quot;Hydraulic diameter&quot;</font>;
+  <font color="blue">parameter </font>Real[3] ReC(<font color="blue">each </font>min=0)={4000, 4000, 4000} <font color="darkgreen">
+    &quot;Reynolds number where transition to turbulent starts&quot;</font>;
+  <font color="blue">parameter </font>Boolean linearized = false <font color="darkgreen">
+    &quot;= true, use linear relation between m_flow and dp for any flow rate&quot;</font>;
+  <font color="blue">parameter </font>Boolean homotopyInitialization = true <font color="darkgreen">&quot;= true, use homotopy method&quot;</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>SplitterFixedResistanceDpM;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:54:44 2013.
+</address></BODY>
+</HTML>

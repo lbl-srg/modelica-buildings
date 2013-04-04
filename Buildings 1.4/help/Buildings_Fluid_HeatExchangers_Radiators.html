@@ -1,0 +1,372 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.HeatExchangers.Radiators</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with radiators models for hydronic space heating systems&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Radiators<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.HeatExchangers.Radiators"></A><A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers"
+>Buildings.Fluid.HeatExchangers</A>.Radiators</H2>
+<B>Package with radiators models for hydronic space heating systems</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+This package contains models for radiators that are typically found in hydronic heating systems.
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_VariantsPackage.html#Modelica.Icons.VariantsPackage"
+>Modelica.Icons.VariantsPackage</A> (Icon for package containing variants).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExchaee95f75277d9305e442_2S.png" ALT="Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Radiators.html#Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2"
+>RadiatorEN442_2</A>
+</TD><TD>Dynamic radiator for space heating</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.HeatExcha2e83aea9fe789f8cmplesS.png" ALT="Buildings.Fluid.HeatExchangers.Radiators.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_HeatExchangers_Radiators_Examples.html#Buildings.Fluid.HeatExchangers.Radiators.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE RadiatorEN442_2<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.HeatExchaee95f75277d9305e442_2I.png" ALT="Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2"></A><A HREF="Buildings_Fluid_HeatExchangers_Radiators.html#Buildings.Fluid.HeatExchangers.Radiators"
+>Buildings.Fluid.HeatExchangers.Radiators</A>.RadiatorEN442_2</H2>
+<B>Dynamic radiator for space heating</B><p></P>
+<IMG SRC="Buildings.Fluid.HeatExchaee95f75277d9305e442_2D.png" ALT="Buildings.Fluid.HeatExchangers.Radiators.RadiatorEN442_2">
+<P></P><H3>Information</H3>
+<PRE></pre>
+This is a model of a radiator that can be used as a dynamic or steady-state model.
+The required parameters are data that are typically available from
+manufacturers that follow the European Norm EN 442-2.
+</p>
+<p>
+However, to allow for varying mass flow rates, the transferred heat is computed
+using a discretization along the water flow path, and heat is exchanged between
+each compartment and a uniform room air and radiation temperature.
+This discretization is different from the computation in EN 442-2, which 
+may yield water outlet temperatures that are below
+the room temperature at low mass flow rates.
+Furthermore, rather than using only one room temperature, this model uses
+a room air and room radiation temperature.
+</p>
+<p>
+The transferred heat is modeled as follows:
+Let <i>N</i> denote the number of elements used to discretize the radiator model.
+For each element <i>i &isin; {1, &hellip; , N}</i>,
+the convective and radiative heat transfer
+<i>Q<sup>i</sup><sub>c</sub></i> and
+<i>Q<sup>i</sup><sub>r</sub></i>
+from the radiator to the room is
+<p align="center" style="font-style:italic;">
+  Q<sup>i</sup><sub>c</sub> = sign(T<sup>i</sup>-T<sub>a</sub>)
+     (1-f<sub>r</sub>) UA &frasl; N |T<sup>i</sup>-T<sub>a</sub>|<sup>n</sup> 
+  <br> <br>
+  Q<sup>i</sup><sub>r</sub> = sign(T<sup>i</sup>-T<sub>r</sub>)
+     f<sub>r</sub> UA &frasl; N |T<sup>i</sup>-T<sub>r</sub>|<sup>n</sup>
+</p>
+where
+<i>T<sup>i</sup></i> is the water temperature of the element,
+<i>T<sub>a</sub></i> is the temperature of the room air,
+<i>T<sub>r</sub></i> is the radiative temperature,
+<i>0 &lt; f<sub>r</sub> &lt; 1</i> is the fraction of radiant to total heat transfer,
+<i>UA</i> is the UA-value of the radiator,
+and
+<i>n</i> is an exponent for the heat transfer.
+The model computes the UA-value by numerically solving the above equations
+for given
+nominal heating power, nominal temperatures, fraction radiant to total heat transfer
+and exponent for heat transfer.
+</p>
+<p>
+The parameter <code>energyDynamics</code> (in the Assumptions tab),
+determines whether the model computes the dynamic or the steady-state response.
+For the transient response, heat storage is computed using a 
+finite volume approach for the 
+water and the metal mass, which are both assumed to be at the same
+temperature. 
+</p>
+<p>
+The default parameters for the heat capacities are valid for a flat plate radiator without fins, 
+with one plate of water carying fluid, and a height of 0.42 meters.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Fluid.Interfaces.PartialTwoPortInterface</A> (Partial model transporting fluid between two ports without storing mass or energy), <A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A> (Declarations for lumped volumes).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD colspan="2">replaceable package Medium</TD><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium"
+>PartialMedium</A></TD><TD>Medium in the component</TD></TR>
+<TR><TD>Integer</TD><TD>nEle</TD><TD>5</TD><TD>Number of elements used in the discretization</TD></TR>
+<TR><TD>Real</TD><TD>fraRad</TD><TD>0.35</TD><TD>Fraction radiant heat transfer</TD></TR>
+<TR><TD>Real</TD><TD>n</TD><TD>1.24</TD><TD>Exponent for heat transfer</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Nominal condition</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_nominal</TD><TD>abs(Q_flow_nominal/cp_nomina...</TD><TD>Nominal mass flow rate [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Power</A></TD><TD>Q_flow_nominal</TD><TD>&nbsp;</TD><TD>Nominal heating power (positive for heating) [W]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T_a_nominal</TD><TD>&nbsp;</TD><TD>Water inlet temperature at nominal condition [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T_b_nominal</TD><TD>&nbsp;</TD><TD>Water outlet temperature at nominal condition [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TAir_nominal</TD><TD>293.15</TD><TD>Air temperature at nominal condition [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>TRad_nominal</TD><TD>TAir_nominal</TD><TD>Radiative temperature at nominal condition [K]</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Initialization</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow.start</TD><TD>0</TD><TD>Mass flow rate from port_a to port_b (m_flow &gt; 0 is design flow direction) [kg/s]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Pressure</A></TD><TD>dp.start</TD><TD>0</TD><TD>Pressure difference between port_a and port_b [Pa]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Assumptions</B></TD></TR>
+<TR><TD>Boolean</TD><TD>allowFlowReversal</TD><TD>system.allowFlowReversal</TD><TD>= true to allow flow reversal, false restricts to design direction (port_a -&gt; port_b)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Advanced</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFlowRate"
+>MassFlowRate</A></TD><TD>m_flow_small</TD><TD>1E-4*abs(m_flow_nominal)</TD><TD>Small mass flow rate for regularization of zero flow [kg/s]</TD></TR>
+<TR><TD>Boolean</TD><TD>homotopyInitialization</TD><TD>true</TD><TD>= true, use homotopy method</TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Diagnostics</TD></TR>
+<TR><TD>Boolean</TD><TD>show_V_flow</TD><TD>false</TD><TD>= true, if volume flow rate at inflowing port is computed</TD></TR>
+<TR><TD>Boolean</TD><TD>show_T</TD><TD>true</TD><TD>= true, if actual temperature at port is computed (may lead to events)</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Dynamics</B></TD></TR>
+<TR bgcolor="#e0e0e0"><TD colspan=4>Equations</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>energyDynamics</TD><TD>Modelica.Fluid.Types.Dynamic...</TD><TD>Formulation of energy balance</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Types.html#Modelica.Fluid.Types.Dynamics"
+>Dynamics</A></TD><TD>massDynamics</TD><TD>energyDynamics</TD><TD>Formulation of mass balance</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Volume</A></TD><TD>VWat</TD><TD>5.8E-6*abs(Q_flow_nominal)</TD><TD>Water volume of radiator [m3]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
+>Mass</A></TD><TD>mDry</TD><TD>0.0263*abs(Q_flow_nominal)</TD><TD>Dry mass of radiator that will be lumped to water heat capacity [kg]</TD></TR>
+<TR bgcolor="#c0c0c0"><TD colspan=4><B>Initialization</B></TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.AbsolutePressure"
+>AbsolutePressure</A></TD><TD>p_start</TD><TD>Medium.p_default</TD><TD>Start value of pressure [Pa]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.Temperature"
+>Temperature</A></TD><TD>T_start</TD><TD>Medium.T_default</TD><TD>Start value of temperature [K]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.MassFraction"
+>MassFraction</A></TD><TD>X_start[Medium.nX]</TD><TD>Medium.X_default</TD><TD>Start value of mass fractions m_i/m [kg/kg]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_start[Medium.nC]</TD><TD>fill(0, Medium.nC)</TD><TD>Start value of trace substances</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Media_Interfaces_PartialMedium.html#Modelica.Media.Interfaces.PartialMedium.ExtraProperty"
+>ExtraProperty</A></TD><TD>C_nominal[Medium.nC]</TD><TD>fill(1E-2, Medium.nC)</TD><TD>Nominal value of trace substances. (Set to typical order of magnitude.)</TD></TR>
+</TABLE>
+<P><H3>Connectors</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_a"
+>FluidPort_a</A></TD><TD>port_a</TD><TD>Fluid connector a (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Interfaces.html#Modelica.Fluid.Interfaces.FluidPort_b"
+>FluidPort_b</A></TD><TD>port_b</TD><TD>Fluid connector b (positive design flow direction is from port_a to port_b)</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>heatPortCon</TD><TD>Heat port for convective heat transfer with room air temperature</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>HeatPort_a</A></TD><TD>heatPortRad</TD><TD>Heat port for radiative heat transfer with room radiation temperature</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> RadiatorEN442_2 <font color="darkgreen">&quot;Dynamic radiator for space heating&quot;</font>
+   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.PartialTwoPortInterface"
+>Fluid.Interfaces.PartialTwoPortInterface</A>(
+   showDesignFlowDirection = false,
+   show_T=true,
+   m_flow_nominal=<font color="red">abs</font>(Q_flow_nominal/cp_nominal/(T_a_nominal-T_b_nominal)));
+   <font color="blue">extends </font><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces.LumpedVolumeDeclarations"
+>Buildings.Fluid.Interfaces.LumpedVolumeDeclarations</A>(
+     <font color="blue">final </font>X_start = Medium.X_default,
+     <font color="blue">final </font>C_start =<font color="red"> fill</font>(0, Medium.nC),
+     <font color="blue">final </font>C_nominal =<font color="red"> fill</font>(1E-2, Medium.nC));
+
+  <font color="blue">parameter </font>Integer nEle(min=1) = 5 <font color="darkgreen">
+    &quot;Number of elements used in the discretization&quot;</font>;
+  <font color="blue">parameter </font>Real fraRad(min=0, max=1) = 0.35 <font color="darkgreen">&quot;Fraction radiant heat transfer&quot;</font>;
+  <font color="darkgreen">// Assumptions</font>
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Power"
+>Modelica.SIunits.Power</A> Q_flow_nominal <font color="darkgreen">
+    &quot;Nominal heating power (positive for heating)&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T_a_nominal <font color="darkgreen">
+    &quot;Water inlet temperature at nominal condition&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T_b_nominal <font color="darkgreen">
+    &quot;Water outlet temperature at nominal condition&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TAir_nominal = 293.15 <font color="darkgreen">
+    &quot;Air temperature at nominal condition&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TRad_nominal = TAir_nominal <font color="darkgreen">
+    &quot;Radiative temperature at nominal condition&quot;</font>;
+
+  <font color="blue">parameter </font>Real n = 1.24 <font color="darkgreen">&quot;Exponent for heat transfer&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Volume"
+>Modelica.SIunits.Volume</A> VWat = 5.8E-6*<font color="red">abs</font>(Q_flow_nominal) <font color="darkgreen">
+    &quot;Water volume of radiator&quot;</font>;
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Mass"
+>Modelica.SIunits.Mass</A> mDry = 0.0263*<font color="red">abs</font>(Q_flow_nominal) <font color="blue">if </font>
+        <font color="blue">not </font>(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) <font color="darkgreen">
+    &quot;Dry mass of radiator that will be lumped to water heat capacity&quot;</font>;
+  <font color="blue">parameter </font>Boolean homotopyInitialization = true <font color="darkgreen">&quot;= true, use homotopy method&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QCon_flow <font color="darkgreen">
+    &quot;Heat input into the water due to convective heat transfer with room air&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QRad_flow <font color="darkgreen">
+    &quot;Heat input into the water due to radiative heat transfer with room&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> Q_flow <font color="darkgreen">&quot;Heat input into the water&quot;</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">public </font>
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> heatPortCon <font color="darkgreen">
+    &quot;Heat port for convective heat transfer with room air temperature&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Interfaces.html#Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a"
+>Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a</A> heatPortRad <font color="darkgreen">
+    &quot;Heat port for radiative heat transfer with room radiation temperature&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Thermal_HeatTransfer_Components.html#Modelica.Thermal.HeatTransfer.Components.HeatCapacitor"
+>Modelica.Thermal.HeatTransfer.Components.HeatCapacitor</A>[nEle] heaCap(
+    <font color="blue">each </font>C=500*mDry/nEle,
+    <font color="blue">each </font>T(start=T_start)) <font color="blue">if </font>
+     <font color="blue">not </font>(energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState) <font color="darkgreen">
+    &quot;heat capacity of radiator metal&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>Buildings.HeatTransfer.Sources.PrescribedHeatFlow</A>[nEle] preHeaFloCon <font color="darkgreen">
+    &quot;Heat input into radiator from convective heat transfer&quot;</font>;
+  <A HREF="Buildings_HeatTransfer_Sources.html#Buildings.HeatTransfer.Sources.PrescribedHeatFlow"
+>Buildings.HeatTransfer.Sources.PrescribedHeatFlow</A>[nEle] preHeaFloRad <font color="darkgreen">
+    &quot;Heat input into radiator from radiative heat transfer&quot;</font>;</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Fluid.MixingVolumes.MixingVolume</A>[nEle] vol(
+    <font color="blue">redeclare </font><font color="blue">each </font><font color="blue">package</font> Medium = Medium,
+    <font color="blue">each </font>nPorts = 2,
+    <font color="blue">each </font>V=VWat/nEle,
+    <font color="blue">each </font><font color="blue">final </font>m_flow_nominal = m_flow_nominal,
+    <font color="blue">each </font><font color="blue">final </font>energyDynamics=energyDynamics,
+    <font color="blue">each </font><font color="blue">final </font>massDynamics=energyDynamics,
+    <font color="blue">each </font><font color="blue">final </font>p_start=p_start,
+    <font color="blue">each </font><font color="blue">final </font>T_start=T_start,
+    <font color="blue">each </font><font color="blue">final </font>X_start=X_start,
+    <font color="blue">each </font><font color="blue">final </font>C_start=C_start) <font color="darkgreen">&quot;Volume for fluid stream&quot;</font>;</textblock>
+<font color="blue">protected </font>
+   <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>Modelica.SIunits.SpecificHeatCapacity</A> cp_nominal=
+      <font color="red">Medium.specificHeatCapacityCp</font>(
+        <font color="red">Medium.setState_pTX</font>(Medium.p_default, T_a_nominal, Medium.X_default)) <font color="darkgreen">
+    &quot;Specific heat capacity at nominal conditions&quot;</font>;
+   <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.HeatFlowRate"
+>Modelica.SIunits.HeatFlowRate</A> QEle_flow_nominal[nEle](
+      <font color="blue">each </font>fixed=false, <font color="blue">each </font>start=Q_flow_nominal/nEle) <font color="darkgreen">
+    &quot;Nominal heating power of each element&quot;</font>;
+   <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> TWat_nominal[nEle](
+      <font color="blue">each </font>fixed=false,
+      start={T_a_nominal - i/nEle * (T_a_nominal-T_b_nominal) <font color="blue">for </font>i<font color="blue"> in </font>1:nEle}) <font color="darkgreen">
+    &quot;Water temperature in each element at nominal conditions&quot;</font>;
+   <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A>[nEle] dTRad_nominal(
+    <font color="blue">each </font>fixed=false, start={T_a_nominal - i/nEle * (T_a_nominal-T_b_nominal) - TRad_nominal
+    <font color="blue">for </font>i<font color="blue"> in </font>1:nEle}) <font color="darkgreen">
+    &quot;Temperature difference for radiative heat transfer at nominal conditions&quot;</font>;
+   <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A>[nEle] dTCon_nominal(
+    <font color="blue">each </font>fixed=false, start={T_a_nominal - i/nEle * (T_a_nominal-T_b_nominal) - TAir_nominal
+    <font color="blue">for </font>i<font color="blue"> in </font>1:nEle}) <font color="darkgreen">
+    &quot;Temperature difference for convective heat transfer at nominal conditions&quot;</font>;
+
+   <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductance"
+>Modelica.SIunits.ThermalConductance</A> UAEle(fixed=false, min=0,
+     start=Q_flow_nominal/((T_a_nominal+T_b_nominal)/2-((1-fraRad)*TAir_nominal+fraRad*TRad_nominal))/nEle) <font color="darkgreen">
+    &quot;UA value at nominal condition for each element&quot;</font>;
+
+   <font color="blue">final </font><font color="blue">parameter </font>Real k = <font color="blue">if </font>T_b_nominal &gt; TAir_nominal<font color="blue"> then </font>1<font color="blue"> else </font>-1 <font color="darkgreen">
+    &quot;Parameter that is used to compute QEle_flow_nominal for heating or cooling mode&quot;</font>;
+   <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dTCon[nEle] <font color="darkgreen">
+    &quot;Temperature difference for convective heat transfer&quot;</font>;
+   <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.TemperatureDifference"
+>Modelica.SIunits.TemperatureDifference</A> dTRad[nEle] <font color="darkgreen">
+    &quot;Temperature difference for radiative heat transfer&quot;</font>;
+
+<font color="blue">initial </font><font color="blue">equation </font>
+  <font color="blue">if </font>T_b_nominal &gt; TAir_nominal<font color="blue"> then</font>
+    <font color="red"> assert</font>(T_a_nominal &gt; T_b_nominal, &quot;In RadiatorEN442_2, T_a_nominal must be higher than T_b_nominal&quot;);
+    <font color="red"> assert</font>(Q_flow_nominal &gt; 0, &quot;In RadiatorEN442_2, nominal power must be bigger than zero if T_b_nominal &gt; TAir_nominal&quot;);
+  <font color="blue">else</font>
+    <font color="red"> assert</font>(T_a_nominal &lt; T_b_nominal, &quot;In RadiatorEN442_2, T_a_nominal must be lower than T_b_nominal&quot;);
+    <font color="red"> assert</font>(Q_flow_nominal &lt; 0, &quot;In RadiatorEN442_2, nominal power must be smaller than zero if T_b_nominal &lt; TAir_nominal&quot;);
+  <font color="blue">end if</font>;
+  TWat_nominal[1] = T_a_nominal - QEle_flow_nominal[1]/m_flow_nominal/
+  <font color="red">Medium.specificHeatCapacityCp</font>(
+        <font color="red">Medium.setState_pTX</font>(Medium.p_default, T_a_nominal, Medium.X_default));
+  <font color="blue">for </font>i<font color="blue"> in </font>2:nEle<font color="blue"> loop</font>
+    TWat_nominal[i] = TWat_nominal[i-1] - QEle_flow_nominal[i]/m_flow_nominal/
+    <font color="red">Medium.specificHeatCapacityCp</font>(
+        <font color="red">Medium.setState_pTX</font>(Medium.p_default, TWat_nominal[i-1], Medium.X_default));
+  <font color="blue">end for</font>;
+  dTRad_nominal = TWat_nominal .- TRad_nominal;
+  dTCon_nominal = TWat_nominal .- TAir_nominal;
+  Q_flow_nominal =<font color="red"> sum</font>(QEle_flow_nominal);
+
+  <font color="blue">for </font>i<font color="blue"> in </font>1:nEle<font color="blue"> loop</font>
+    QEle_flow_nominal[i] = k * UAEle * ((1-fraRad) *
+                   <font color="red">Buildings.Utilities.Math.Functions.powerLinearized</font>(x=k*dTRad_nominal[i],
+                   n=n,
+                   x0=0.1*k*(T_b_nominal-TRad_nominal))
+                   + fraRad *
+                   <font color="red">Buildings.Utilities.Math.Functions.powerLinearized</font>(x=k*dTCon_nominal[i],
+                   n=n,
+                   x0=0.1*k*(T_b_nominal-TAir_nominal)));
+   <font color="blue">end for</font>;
+
+<font color="blue">equation </font>
+  dTCon = heatPortCon.T .- vol.T;
+  dTRad = heatPortRad.T .- vol.T;
+  <font color="blue">if </font>homotopyInitialization<font color="blue"> then</font>
+    preHeaFloCon.Q_flow =<font color="red"> homotopy</font>(actual=(1-fraRad) .* UAEle .* dTCon .*
+                                          <font color="red">Buildings.Utilities.Math.Functions.regNonZeroPower</font>(x=dTCon, n=n-1, delta=0.05),
+                                   simplified= (1-fraRad) .* UAEle .*<font color="red"> abs</font>(dTCon_nominal).^(n-1) .* dTCon);
+    preHeaFloRad.Q_flow =<font color="red"> homotopy</font>(actual=fraRad     .* UAEle .* dTRad .*
+                                          <font color="red">Buildings.Utilities.Math.Functions.regNonZeroPower</font>(x=dTRad, n=n-1, delta=0.05),
+                                   simplified=fraRad .* UAEle .*<font color="red"> abs</font>(dTRad_nominal).^(n-1) .* dTRad);
+  <font color="blue">else</font>
+    preHeaFloCon.Q_flow = (1-fraRad) .* UAEle .* dTCon .*<font color="red"> Buildings.Utilities.Math.Functions.regNonZeroPower</font>(x=dTCon, n=n-1, delta=0.05);
+    preHeaFloRad.Q_flow = fraRad     .* UAEle .* dTRad .*<font color="red"> Buildings.Utilities.Math.Functions.regNonZeroPower</font>(x=dTRad, n=n-1, delta=0.05);
+  <font color="blue">end if</font>;
+
+  QCon_flow =<font color="red"> sum</font>(preHeaFloCon.Q_flow);
+  QRad_flow =<font color="red"> sum</font>(preHeaFloRad.Q_flow);
+  Q_flow = QCon_flow + QRad_flow;
+  heatPortCon.Q_flow = QCon_flow;
+  heatPortRad.Q_flow = QRad_flow;
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(preHeaFloCon.port, vol.heatPort);
+  <font color="red">connect</font>(preHeaFloRad.port, vol.heatPort);
+  <font color="red">connect</font>(heaCap.port, vol.heatPort);
+  <font color="red">connect</font>(port_a, vol[1].ports[1]);
+  <font color="red">connect</font>(vol[nEle].ports[2], port_b);</textblock>
+  <font color="blue">for </font>i<font color="blue"> in </font>1:nEle-1<font color="blue"> loop</font>
+<textblock type="annotconnect" expanded="false">    <font color="red">connect</font>(vol[i].ports[2], vol[i+1].ports[1]);</textblock>
+  <font color="blue">end for</font>;
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>RadiatorEN442_2;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:55:30 2013.
+</address></BODY>
+</HTML>

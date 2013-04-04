@@ -1,0 +1,139 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Utilities.IO.Python27.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Utilities.IO.Python27.Examples"></A><A HREF="Buildings_Utilities_IO_Python27.html#Buildings.Utilities.IO.Python27"
+>Buildings.Utilities.IO.Python27</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Utilities_IO_Python27.html#Buildings.Utilities.IO.Python27"
+>
+Buildings.Utilities.IO.Python27</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Utilities.IO.Py85484a3964c158bdhangeS.png" ALT="Buildings.Utilities.IO.Python27.Examples.KalmanFilter" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities_IO_Python27_Examples.html#Buildings.Utilities.IO.Python27.Examples.KalmanFilter"
+>KalmanFilter</A>
+</TD><TD>Kalman filter implemented in Python and called from Modelica</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE KalmanFilter<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Utilities.IO.Py2cf573251ad9e606ilterI.png" ALT="Buildings.Utilities.IO.Python27.Examples.KalmanFilter" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Utilities.IO.Python27.Examples.KalmanFilter"></A><A HREF="Buildings_Utilities_IO_Python27_Examples.html#Buildings.Utilities.IO.Python27.Examples"
+>Buildings.Utilities.IO.Python27.Examples</A>.KalmanFilter</H2>
+<B>Kalman filter implemented in Python and called from Modelica</B><p></P>
+<IMG SRC="Buildings.Utilities.IO.Py2cf573251ad9e606ilterD.png" ALT="Buildings.Utilities.IO.Python27.Examples.KalmanFilter">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This example demonstrates the implementation of a Kalman filter
+in Python.
+The model generates a uniform random number, which is computed
+in the Python file <code>KalmanFilter.py</code> by the function
+<code>random(seed)</code>.
+This random number is added to a sine wave and then sent to 
+the function <code>filter(u)</code> in the above Python file.
+The function <code>filter(u)</code> implements a Kalman filter that estimates and returns
+the state.
+The function saves its temporary variables to a file called
+<code>tmp-kalman.pkl</code>.
+</p>
+<p>
+When simulating this model, the figure below will be generated which
+shows the sine wave, the sine wave plus noise, which is input to the Kalman filter,
+and the estimated state which is the output of the Kalman filter.
+</p>
+<p align="center">
+<img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings 1.4/Resources/Images/Utilities/IO/Python27/Examples/KalmanFilter.png"/>
+</p>
+<h4>Implementation</h4>
+<p>
+The code is based on
+<a href="http://www.scipy.org/Cookbook/KalmanFiltering">
+http://www.scipy.org/Cookbook/KalmanFiltering</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Time</A></TD><TD>samplePeriod</TD><TD>0.001</TD><TD>Sample period of component [s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> KalmanFilter <font color="darkgreen">
+  &quot;Kalman filter implemented in Python and called from Modelica&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Utilities_IO_Python27.html#Buildings.Utilities.IO.Python27.Real_Real"
+>Real_Real</A> ran(
+    nDblWri=1,
+    nDblRea=1,
+    functionName=&quot;random&quot;,
+    moduleName=&quot;KalmanFilter&quot;,
+    samplePeriod=samplePeriod) <font color="darkgreen">&quot;Generate a random number in Python&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Clock"
+>Modelica.Blocks.Sources.Clock</A> clock;
+  <A HREF="Buildings_Utilities_IO_Python27.html#Buildings.Utilities.IO.Python27.Real_Real"
+>Real_Real</A> kalFil(
+    moduleName=&quot;KalmanFilter&quot;,
+    functionName=&quot;filter&quot;,
+    nDblWri=1,
+    nDblRea=1,
+    samplePeriod=samplePeriod) <font color="darkgreen">&quot;Kalman filter in Python&quot;</font>;</textblock>
+
+  <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Time"
+>Modelica.SIunits.Time</A> samplePeriod=0.001 <font color="darkgreen">
+    &quot;Sample period of component&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Sine"
+>Modelica.Blocks.Sources.Sine</A> sine(freqHz=1) <font color="darkgreen">&quot;Sine wave&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Add"
+>Modelica.Blocks.Math.Add</A> add;</textblock>
+<font color="blue">equation </font>
+ <font color="darkgreen">// Delete the temporary file generated by the Python file</font>
+ <font color="darkgreen">// at the start and end of the simulation.</font>
+ <font color="blue">when </font>{<font color="red">initial</font>(),<font color="red"> terminal</font>()}<font color="blue"> then</font>
+  <font color="red">Modelica.Utilities.Files.removeFile</font>(&quot;tmp-kalman.pkl&quot;);
+<font color="blue">end when</font>;
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(clock.y, ran.uR[1]);</textblock>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(add.y, kalFil.uR[1]);
+  <font color="red">connect</font>(ran.yR[1], add.u2);
+  <font color="red">connect</font>(sine.y, add.u1);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>KalmanFilter;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:58:08 2013.
+</address></BODY>
+</HTML>

@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.Types</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with type definitions&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Types<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Types"></A><A HREF="Buildings_Fluid.html#Buildings.Fluid"
+>Buildings.Fluid</A>.Types</H2>
+<B>Package with type definitions</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+This package contains type definitions.
+<pre></PRE><P></P>
+
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_Fluid_Types.html#Buildings.Fluid.Types.EfficiencyCurves"
+>EfficiencyCurves</A>
+</TD><TD>Enumeration to define the efficiency curves</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_Types.html#Buildings.Fluid.Types.CvTypes"
+>CvTypes</A>
+</TD><TD>Enumeration to define the choice of valve flow coefficient</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_Types.html#Buildings.Fluid.Types.EfficiencyInput"
+>EfficiencyInput</A>
+</TD><TD>Enumeration to define the input for efficiency curves</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_Types.html#Buildings.Fluid.Types.HeatExchangerConfiguration"
+>HeatExchangerConfiguration</A>
+</TD><TD>Enumeration for heat exchanger construction</TD></TR>
+<TR><TD><A HREF="Buildings_Fluid_Types.html#Buildings.Fluid.Types.HeatExchangerFlowRegime"
+>HeatExchangerFlowRegime</A>
+</TD><TD>Enumeration for heat exchanger flow configuration</TD></TR>
+</TABLE>
+<P></p><H3>Types and constants</H3>
+<A NAME="Buildings.Fluid.Types.EfficiencyCurves"></A><PRE>  <font color="blue">type</font> EfficiencyCurves = <font color="blue">enumeration</font>(
+    Constant <font color="darkgreen">&quot;constant&quot;</font>,
+    Polynomial <font color="darkgreen">&quot;Polynomial&quot;</font>,
+    QuadraticLinear <font color="darkgreen">&quot;quadratic in x1, linear in x2&quot;</font>) <font color="darkgreen">
+  &quot;Enumeration to define the efficiency curves&quot;</font>;</PRE><P></p>
+<A NAME="Buildings.Fluid.Types.CvTypes"></A><PRE>  <font color="blue">type</font> CvTypes = <font color="blue">enumeration</font>(
+    OpPoint <font color="darkgreen">&quot;flow coefficient defined by m_flow_nominal/sqrt(dp_nominal)&quot;</font>,
+    Kv <font color="darkgreen">&quot;Kv (metric) flow coefficient&quot;</font>,
+    Cv <font color="darkgreen">&quot;Cv (US) flow coefficient&quot;</font>,
+    Av <font color="darkgreen">&quot;Av (metric) flow coefficient&quot;</font>) <font color="darkgreen">
+  &quot;Enumeration to define the choice of valve flow coefficient&quot;</font>;</PRE><P></p>
+<A NAME="Buildings.Fluid.Types.EfficiencyInput"></A><PRE>  <font color="blue">type</font> EfficiencyInput = <font color="blue">enumeration</font>(
+    volume <font color="darkgreen">&quot;use state of fluid volume&quot;</font>,
+    port_a <font color="darkgreen">&quot;use port_a&quot;</font>,
+    port_b <font color="darkgreen">&quot;use port_b&quot;</font>,
+    average <font color="darkgreen">&quot;use (port_a+port_b)/2)&quot;</font>) <font color="darkgreen">
+  &quot;Enumeration to define the input for efficiency curves&quot;</font>;</PRE><P></p>
+<A NAME="Buildings.Fluid.Types.HeatExchangerConfiguration"></A><PRE>  <font color="blue">type</font> HeatExchangerConfiguration = <font color="blue">enumeration</font>(
+    ParallelFlow <font color="darkgreen">&quot;Parallel flow&quot;</font>,
+    CounterFlow <font color="darkgreen">&quot;Counter flow&quot;</font>,
+    CrossFlowUnmixed <font color="darkgreen">&quot;Cross flow, both streams unmixed&quot;</font>,
+    CrossFlowStream1MixedStream2Unmixed <font color="darkgreen">
+      &quot;Cross flow, stream 1 mixed, stream 2 unmixed&quot;</font>,
+    CrossFlowStream1UnmixedStream2Mixed <font color="darkgreen">
+      &quot;Cross flow, stream 1 unmixed, stream 2 mixed&quot;</font>) <font color="darkgreen">
+  &quot;Enumeration for heat exchanger construction&quot;</font>;</PRE><P></p>
+<A NAME="Buildings.Fluid.Types.HeatExchangerFlowRegime"></A><PRE>  <font color="blue">type</font> HeatExchangerFlowRegime = <font color="blue">enumeration</font>(
+    ParallelFlow <font color="darkgreen">&quot;Parallel flow&quot;</font>,
+    CounterFlow <font color="darkgreen">&quot;Counter flow&quot;</font>,
+    CrossFlowUnmixed <font color="darkgreen">&quot;Cross flow, both streams unmixed&quot;</font>,
+    CrossFlowCMinMixedCMaxUnmixed <font color="darkgreen">&quot;Cross flow, CMin mixed,   CMax unmixed&quot;</font>,
+    CrossFlowCMinUnmixedCMaxMixed <font color="darkgreen">&quot;Cross flow, CMin unmixed, CMax mixed&quot;</font>) <font color="darkgreen">
+  &quot;Enumeration for heat exchanger flow configuration&quot;</font>;</PRE><P></p>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:56:10 2013.
+</address></BODY>
+</HTML>

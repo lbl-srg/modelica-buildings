@@ -1,0 +1,409 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.HeatTransfer.Data.Gases</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Package with thermophysical properties for window fill gases&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Gases<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Data.Gases"></A><A HREF="Buildings_HeatTransfer_Data.html#Buildings.HeatTransfer.Data"
+>Buildings.HeatTransfer.Data</A>.Gases</H2>
+<B>Package with thermophysical properties for window fill gases</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+Package with records for thermophysical properties for window
+gas fills.
+The implementation is according to 
+<a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425">ISO 15099:2003, 
+Thermal performance of windows, doors and shading devices -- Detailed calculations</a>.
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_MaterialPropertiesPackage.html#Modelica.Icons.MaterialPropertiesPackage"
+>Modelica.Icons.MaterialPropertiesPackage</A> (Icon for package containing property classes).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da4c6078594fbcc76fnericS.png" ALT="Buildings.HeatTransfer.Data.Gases.Generic" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A>
+</TD><TD>Thermal properties of fill gas for windows</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da4c6078594fbcc76fnericS.png" ALT="Buildings.HeatTransfer.Data.Gases.Air" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Air"
+>Air</A>
+</TD><TD>Thermophysical properties for air</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da4c6078594fbcc76fnericS.png" ALT="Buildings.HeatTransfer.Data.Gases.Argon" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Argon"
+>Argon</A>
+</TD><TD>Thermophysical properties for argon</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da4c6078594fbcc76fnericS.png" ALT="Buildings.HeatTransfer.Data.Gases.Krypton" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Krypton"
+>Krypton</A>
+</TD><TD>Thermophysical properties for krypton</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Da4c6078594fbcc76fnericS.png" ALT="Buildings.HeatTransfer.Data.Gases.Xenon" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Xenon"
+>Xenon</A>
+</TD><TD>Thermophysical properties for krypton</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Dab0523179e10a9f2bivityS.png" ALT="Buildings.HeatTransfer.Data.Gases.thermalConductivity" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.thermalConductivity"
+>thermalConductivity</A>
+</TD><TD>Function to compute the thermal conductivity of gases</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Dab0523179e10a9f2bivityS.png" ALT="Buildings.HeatTransfer.Data.Gases.density" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.density"
+>density</A>
+</TD><TD>Function to compute the mass density</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Dab0523179e10a9f2bivityS.png" ALT="Buildings.HeatTransfer.Data.Gases.dynamicViscosity" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.dynamicViscosity"
+>dynamicViscosity</A>
+</TD><TD>Function to compute the dynamic viscosity for gases</TD></TR>
+<TR><TD><IMG SRC="Buildings.HeatTransfer.Dab0523179e10a9f2bivityS.png" ALT="Buildings.HeatTransfer.Data.Gases.specificHeatCapacity" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.specificHeatCapacity"
+>specificHeatCapacity</A>
+</TD><TD>Function to compute the specific heat capacity for gases</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Generic<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da302bf64c23a15b2dnericI.png" ALT="Buildings.HeatTransfer.Data.Gases.Generic" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Gases.Generic"></A><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases"
+>Buildings.HeatTransfer.Data.Gases</A>.Generic</H2>
+<B>Thermal properties of fill gas for windows</B><p></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+Generic record for thermophysical properties for window
+gas fills.
+The implementation is according to 
+<a href="http://www.iso.org/iso/catalogue_detail.htm?csnumber=26425">ISO 15099:2003, 
+Thermal performance of windows, doors and shading devices -- Detailed calculations</a>.
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A> (Icon for records).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Gas layer thickness [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>a_k</TD><TD>&nbsp;</TD><TD>Constant coefficient for thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD>Real</TD><TD>b_k</TD><TD>&nbsp;</TD><TD>Temperature dependent coefficient for thermal conductivity [W/(m.K2)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
+>DynamicViscosity</A></TD><TD>a_mu</TD><TD>&nbsp;</TD><TD>Constant coefficient for dynamic viscosity [Pa.s]</TD></TR>
+<TR><TD>Real</TD><TD>b_mu</TD><TD>&nbsp;</TD><TD>Temperature dependent coefficient for dynamic viscosity [N.s/(m2.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>a_c</TD><TD>&nbsp;</TD><TD>Constant coefficient for specific heat capacity [J/(kg.K)]</TD></TR>
+<TR><TD>Real</TD><TD>b_c</TD><TD>&nbsp;</TD><TD>Temperature dependent coefficient for specific heat capacity [J/(kg.K2)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+>MolarMass</A></TD><TD>MM</TD><TD>&nbsp;</TD><TD>Molar mass (of mixture or single fluid) [kg/mol]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Generic <font color="darkgreen">&quot;Thermal properties of fill gas for windows&quot;</font>
+    <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Record"
+>Modelica.Icons.Record</A>;
+    <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Modelica.SIunits.Length</A> x <font color="darkgreen">&quot;Gas layer thickness&quot;</font>;
+    <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>Modelica.SIunits.ThermalConductivity</A> a_k <font color="darkgreen">
+    &quot;Constant coefficient for thermal conductivity&quot;</font>;
+    <font color="blue">parameter </font>Real b_k(unit=&quot;W/(m.K2)&quot;) <font color="darkgreen">
+    &quot;Temperature dependent coefficient for thermal conductivity&quot;</font>;
+    <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
+>Modelica.SIunits.DynamicViscosity</A> a_mu <font color="darkgreen">
+    &quot;Constant coefficient for dynamic viscosity&quot;</font>;
+    <font color="blue">parameter </font>Real b_mu(unit=&quot;N.s/(m2.K)&quot;) <font color="darkgreen">
+    &quot;Temperature dependent coefficient for dynamic viscosity&quot;</font>;
+    <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>Modelica.SIunits.SpecificHeatCapacity</A> a_c <font color="darkgreen">
+    &quot;Constant coefficient for specific heat capacity&quot;</font>;
+    <font color="blue">parameter </font>Real b_c(unit=&quot;J/(kg.K2)&quot;) <font color="darkgreen">
+    &quot;Temperature dependent coefficient for specific heat capacity&quot;</font>;
+
+    <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+>Modelica.SIunits.MolarMass</A> MM <font color="darkgreen">
+    &quot;Molar mass (of mixture or single fluid)&quot;</font>;
+
+    <font color="blue">constant </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Pressure"
+>Modelica.SIunits.Pressure</A> P0 = 101325 <font color="darkgreen">&quot;Normal pressure&quot;</font>;
+
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>Generic;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Air<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da302bf64c23a15b2dnericI.png" ALT="Buildings.HeatTransfer.Data.Gases.Air" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Gases.Air"></A><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases"
+>Buildings.HeatTransfer.Data.Gases</A>.Air</H2>
+<B>Thermophysical properties for air</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Gas layer thickness [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>a_k</TD><TD>2.873E-3</TD><TD>Constant coefficient for thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD>Real</TD><TD>b_k</TD><TD>7.760E-5</TD><TD>Temperature dependent coefficient for thermal conductivity [W/(m.K2)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
+>DynamicViscosity</A></TD><TD>a_mu</TD><TD>3.723E-6</TD><TD>Constant coefficient for dynamic viscosity [Pa.s]</TD></TR>
+<TR><TD>Real</TD><TD>b_mu</TD><TD>4.940E-8</TD><TD>Temperature dependent coefficient for dynamic viscosity [N.s/(m2.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>a_c</TD><TD>1002.737</TD><TD>Constant coefficient for specific heat capacity [J/(kg.K)]</TD></TR>
+<TR><TD>Real</TD><TD>b_c</TD><TD>1.2324E-2</TD><TD>Temperature dependent coefficient for specific heat capacity [J/(kg.K2)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+>MolarMass</A></TD><TD>MM</TD><TD>28.97E-3</TD><TD>Molar mass (of mixture or single fluid) [kg/mol]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Air = <A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A>(a_k= 2.873E-3, b_k= 7.760E-5,
+                     a_mu=3.723E-6, b_mu=4.940E-8,
+                     a_c=1002.737,  b_c= 1.2324E-2,
+                     MM=28.97E-3) <font color="darkgreen">&quot;Thermophysical properties for air&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Argon<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da302bf64c23a15b2dnericI.png" ALT="Buildings.HeatTransfer.Data.Gases.Argon" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Gases.Argon"></A><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases"
+>Buildings.HeatTransfer.Data.Gases</A>.Argon</H2>
+<B>Thermophysical properties for argon</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Gas layer thickness [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>a_k</TD><TD>2.285E-3</TD><TD>Constant coefficient for thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD>Real</TD><TD>b_k</TD><TD>5.149E-5</TD><TD>Temperature dependent coefficient for thermal conductivity [W/(m.K2)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
+>DynamicViscosity</A></TD><TD>a_mu</TD><TD>3.379E-6</TD><TD>Constant coefficient for dynamic viscosity [Pa.s]</TD></TR>
+<TR><TD>Real</TD><TD>b_mu</TD><TD>6.451E-8</TD><TD>Temperature dependent coefficient for dynamic viscosity [N.s/(m2.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>a_c</TD><TD>521.9285</TD><TD>Constant coefficient for specific heat capacity [J/(kg.K)]</TD></TR>
+<TR><TD>Real</TD><TD>b_c</TD><TD>0</TD><TD>Temperature dependent coefficient for specific heat capacity [J/(kg.K2)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+>MolarMass</A></TD><TD>MM</TD><TD>39.948E-3</TD><TD>Molar mass (of mixture or single fluid) [kg/mol]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Argon = <A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A>(a_k= 2.285E-3, b_k= 5.149E-5,
+                       a_mu=3.379E-6, b_mu=6.451E-8,
+                       a_c=521.9285,  b_c= 0,
+                       MM=39.948E-3) <font color="darkgreen">&quot;Thermophysical properties for argon&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Krypton<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da302bf64c23a15b2dnericI.png" ALT="Buildings.HeatTransfer.Data.Gases.Krypton" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Gases.Krypton"></A><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases"
+>Buildings.HeatTransfer.Data.Gases</A>.Krypton</H2>
+<B>Thermophysical properties for krypton</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Gas layer thickness [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>a_k</TD><TD>9.443E-4</TD><TD>Constant coefficient for thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD>Real</TD><TD>b_k</TD><TD>2.826E-5</TD><TD>Temperature dependent coefficient for thermal conductivity [W/(m.K2)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
+>DynamicViscosity</A></TD><TD>a_mu</TD><TD>2.213E-6</TD><TD>Constant coefficient for dynamic viscosity [Pa.s]</TD></TR>
+<TR><TD>Real</TD><TD>b_mu</TD><TD>7.777E-8</TD><TD>Temperature dependent coefficient for dynamic viscosity [N.s/(m2.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>a_c</TD><TD>248.0907</TD><TD>Constant coefficient for specific heat capacity [J/(kg.K)]</TD></TR>
+<TR><TD>Real</TD><TD>b_c</TD><TD>0</TD><TD>Temperature dependent coefficient for specific heat capacity [J/(kg.K2)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+>MolarMass</A></TD><TD>MM</TD><TD>83.80E-3</TD><TD>Molar mass (of mixture or single fluid) [kg/mol]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Krypton = <A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A>(a_k= 9.443E-4, b_k= 2.826E-5,
+                         a_mu=2.213E-6, b_mu=7.777E-8,
+                         a_c=248.0907,  b_c= 0,
+                         MM=83.80E-3) <font color="darkgreen">&quot;Thermophysical properties for krypton&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Xenon<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.HeatTransfer.Da302bf64c23a15b2dnericI.png" ALT="Buildings.HeatTransfer.Data.Gases.Xenon" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.HeatTransfer.Data.Gases.Xenon"></A><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases"
+>Buildings.HeatTransfer.Data.Gases</A>.Xenon</H2>
+<B>Thermophysical properties for krypton</B><p></P>
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Length"
+>Length</A></TD><TD>x</TD><TD>&nbsp;</TD><TD>Gas layer thickness [m]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>a_k</TD><TD>4.538E-4</TD><TD>Constant coefficient for thermal conductivity [W/(m.K)]</TD></TR>
+<TR><TD>Real</TD><TD>b_k</TD><TD>1.723E-5</TD><TD>Temperature dependent coefficient for thermal conductivity [W/(m.K2)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
+>DynamicViscosity</A></TD><TD>a_mu</TD><TD>1.069E-6</TD><TD>Constant coefficient for dynamic viscosity [Pa.s]</TD></TR>
+<TR><TD>Real</TD><TD>b_mu</TD><TD>7.414E-8</TD><TD>Temperature dependent coefficient for dynamic viscosity [N.s/(m2.K)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>a_c</TD><TD>158.3397</TD><TD>Constant coefficient for specific heat capacity [J/(kg.K)]</TD></TR>
+<TR><TD>Real</TD><TD>b_c</TD><TD>0</TD><TD>Temperature dependent coefficient for specific heat capacity [J/(kg.K2)]</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MolarMass"
+>MolarMass</A></TD><TD>MM</TD><TD>131.3E-3</TD><TD>Molar mass (of mixture or single fluid) [kg/mol]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">record</font> Xenon = <A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A>(a_k= 4.538E-4, b_k= 1.723E-5,
+                       a_mu=1.069E-6, b_mu=7.414E-8,
+                       a_c=158.3397,  b_c= 0,
+                       MM=131.3E-3) <font color="darkgreen">&quot;Thermophysical properties for krypton&quot;</font>;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE thermalConductivity<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Data.Gases.thermalConductivity"></A><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases"
+>Buildings.HeatTransfer.Data.Gases</A>.thermalConductivity</H2>
+<B>Function to compute the thermal conductivity of gases</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A></TD><TD>gas</TD><TD>&nbsp;</TD><TD>Record of gas data</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T</TD><TD>&nbsp;</TD><TD>Gas temperature [K]</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>ThermalConductivity</A></TD><TD>k</TD><TD>Thermal conductivity [W/(m.K)]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> thermalConductivity <font color="darkgreen">
+  &quot;Function to compute the thermal conductivity of gases&quot;</font>
+ <font color="blue">input </font><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Buildings.HeatTransfer.Data.Gases.Generic</A> gas <font color="darkgreen">&quot;Record of gas data&quot;</font>;
+ <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T <font color="darkgreen">&quot;Gas temperature&quot;</font>;
+ <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.ThermalConductivity"
+>Modelica.SIunits.ThermalConductivity</A> k <font color="darkgreen">&quot;Thermal conductivity&quot;</font>;
+<font color="blue">algorithm </font>
+ k := gas.a_k + gas.b_k*T;
+<font color="blue">end </font>thermalConductivity;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE density<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Data.Gases.density"></A><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases"
+>Buildings.HeatTransfer.Data.Gases</A>.density</H2>
+<B>Function to compute the mass density</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A></TD><TD>gas</TD><TD>&nbsp;</TD><TD>Record of gas data</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T</TD><TD>&nbsp;</TD><TD>Gas temperature [K]</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Density</A></TD><TD>rho</TD><TD>Mass density [kg/m3]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> density <font color="darkgreen">&quot;Function to compute the mass density&quot;</font>
+  <font color="blue">input </font><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Buildings.HeatTransfer.Data.Gases.Generic</A> gas <font color="darkgreen">&quot;Record of gas data&quot;</font>;
+  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T <font color="darkgreen">&quot;Gas temperature&quot;</font>;
+  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Density"
+>Modelica.SIunits.Density</A> rho <font color="darkgreen">&quot;Mass density&quot;</font>;
+<font color="blue">algorithm </font>
+    rho := gas.P0*gas.MM/Modelica.Constants.R/T;
+<font color="blue">end </font>density;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE dynamicViscosity<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Data.Gases.dynamicViscosity"></A><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases"
+>Buildings.HeatTransfer.Data.Gases</A>.dynamicViscosity</H2>
+<B>Function to compute the dynamic viscosity for gases</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A></TD><TD>gas</TD><TD>&nbsp;</TD><TD>Record of gas data</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T</TD><TD>&nbsp;</TD><TD>Gas temperature [K]</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
+>DynamicViscosity</A></TD><TD>mu</TD><TD>Dynamic viscosity [Pa.s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> dynamicViscosity <font color="darkgreen">
+  &quot;Function to compute the dynamic viscosity for gases&quot;</font>
+  <font color="blue">input </font><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Buildings.HeatTransfer.Data.Gases.Generic</A> gas <font color="darkgreen">&quot;Record of gas data&quot;</font>;
+  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T <font color="darkgreen">&quot;Gas temperature&quot;</font>;
+  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.DynamicViscosity"
+>Modelica.SIunits.DynamicViscosity</A> mu <font color="darkgreen">&quot;Dynamic viscosity&quot;</font>;
+<font color="blue">algorithm </font>
+    mu := gas.a_mu + gas.b_mu*T;
+<font color="blue">end </font>dynamicViscosity;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE specificHeatCapacity<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.HeatTransfer.Data.Gases.specificHeatCapacity"></A><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases"
+>Buildings.HeatTransfer.Data.Gases</A>.specificHeatCapacity</H2>
+<B>Function to compute the specific heat capacity for gases</B><p></P>
+<P><H3>Inputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Generic</A></TD><TD>gas</TD><TD>&nbsp;</TD><TD>Record of gas data</TD></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Temperature</A></TD><TD>T</TD><TD>&nbsp;</TD><TD>Gas temperature [K]</TD></TR>
+</TABLE>
+<P><H3>Outputs</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>SpecificHeatCapacity</A></TD><TD>c_p</TD><TD>Specific heat capacity [J/(kg.K)]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">function</font> specificHeatCapacity <font color="darkgreen">
+  &quot;Function to compute the specific heat capacity for gases&quot;</font>
+  <font color="blue">input </font><A HREF="Buildings_HeatTransfer_Data_Gases.html#Buildings.HeatTransfer.Data.Gases.Generic"
+>Buildings.HeatTransfer.Data.Gases.Generic</A> gas <font color="darkgreen">&quot;Record of gas data&quot;</font>;
+  <font color="blue">input </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.Temperature"
+>Modelica.SIunits.Temperature</A> T <font color="darkgreen">&quot;Gas temperature&quot;</font>;
+  <font color="blue">output </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.SpecificHeatCapacity"
+>Modelica.SIunits.SpecificHeatCapacity</A> c_p <font color="darkgreen">&quot;Specific heat capacity&quot;</font>;
+<font color="blue">algorithm </font>
+  c_p := gas.a_c + gas.b_c*T;
+<font color="blue">end </font>specificHeatCapacity;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:56:45 2013.
+</address></BODY>
+</HTML>

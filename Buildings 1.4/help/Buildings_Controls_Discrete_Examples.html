@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Controls.Discrete.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Controls.Discrete.Examples"></A><A HREF="Buildings_Controls_Discrete.html#Buildings.Controls.Discrete"
+>Buildings.Controls.Discrete</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Controls_Discrete.html#Buildings.Controls.Discrete"
+>
+Buildings.Controls.Discrete</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Controls.Discre204694780f289fd3DelayS.png" ALT="Buildings.Controls.Discrete.Examples.BooleanDelay" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls_Discrete_Examples.html#Buildings.Controls.Discrete.Examples.BooleanDelay"
+>BooleanDelay</A>
+</TD><TD>Example model for boolean delay</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE BooleanDelay<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Controls.Discre204694780f289fd3DelayI.png" ALT="Buildings.Controls.Discrete.Examples.BooleanDelay" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Controls.Discrete.Examples.BooleanDelay"></A><A HREF="Buildings_Controls_Discrete_Examples.html#Buildings.Controls.Discrete.Examples"
+>Buildings.Controls.Discrete.Examples</A>.BooleanDelay</H2>
+<B>Example model for boolean delay</B><p></P>
+<IMG SRC="Buildings.Controls.Discre204694780f289fd3DelayD.png" ALT="Buildings.Controls.Discrete.Examples.BooleanDelay">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+Example that demonstrates the use of the boolean delay block.
+The output signal of the block is delayed by one sampling interval
+to produce a response as shown in the figure below in which the sampling
+interval is <i>0.1</i> second, as indicated by the markers.
+</p>
+<p align="center">
+<img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings 1.4/Resources/Images/Controls/Discrete/Examples/BooleanDelay.png" border="1">
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> BooleanDelay <font color="darkgreen">&quot;Example model for boolean delay&quot;</font>
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Controls_Discrete.html#Buildings.Controls.Discrete.BooleanDelay"
+>Buildings.Controls.Discrete.BooleanDelay</A> del(samplePeriod=0.1);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.BooleanPulse"
+>Modelica.Blocks.Sources.BooleanPulse</A> booleanPulse(period=0.25);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(booleanPulse.y, del.u);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>BooleanDelay;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:54:22 2013.
+</address></BODY>
+</HTML>

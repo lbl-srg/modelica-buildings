@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Library with models for building energy and control systems&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Buildings<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings"></A>Buildings</H2>
+<B>Library with models for building energy and control systems</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+The <code>Buildings</code> library is a free library
+for modeling building energy and control systems. 
+Many models are based on models from the package
+<code>Modelica.Fluid</code> and use
+the same ports to ensure compatibility with the Modelica Standard
+Library.
+</p>
+<p>
+The figure below shows a section of the schematic view of the model 
+<A HREF="Buildings_Examples_HydronicHeating.html#Buildings.Examples.HydronicHeating"
+>
+Buildings.Examples.HydronicHeating</a>.
+In the lower part of the figure, there is a dynamic model of a boiler, a pump and a stratified energy storage tank. Based on the temperatures of the storage tank, a finite state machine switches the boiler and its pump on and off. 
+The heat distribution is done using a hydronic heating system with a three way valve and a pump with variable revolutions. The upper right hand corner shows a room model that is connected to a radiator whose flow is controlled by a thermostatic valve.
+</p>
+<p align="center">
+<img src="/home/mwetter/proj/ldrd/bie/modeling/github/lbl-srg/modelica-buildings/Buildings 1.4/Resources/Images/UsersGuide/HydronicHeating.png" border="1">
+</p>
+<p>
+The web page for this library is
+<a href="http://simulationresearch.lbl.gov/modelica">http://simulationresearch.lbl.gov/modelica</a>. 
+Contributions from different users to further advance this library are
+welcomed.
+Contributions may not only be in the form of model development, but also
+through model use, model testing,
+requirements definition or providing feedback regarding the model applicability
+to solve specific problems.
+</p>
+<pre></PRE><P></P>
+
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.UsersGuideS.png" ALT="Buildings.UsersGuide" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_UsersGuide.html#Buildings.UsersGuide"
+>UsersGuide</A>
+</TD><TD>User&#39;s Guide</TD></TR>
+<TR><TD><IMG SRC="Buildings.AirflowS.png" ALT="Buildings.Airflow" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Airflow.html#Buildings.Airflow"
+>Airflow</A>
+</TD><TD>Package to compute airflow and contaminant transport between rooms</TD></TR>
+<TR><TD><IMG SRC="Buildings.AirflowS.png" ALT="Buildings.BoundaryConditions" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BoundaryConditions.html#Buildings.BoundaryConditions"
+>BoundaryConditions</A>
+</TD><TD>Package with models for boundary conditions</TD></TR>
+<TR><TD><IMG SRC="Buildings.AirflowS.png" ALT="Buildings.Controls" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Controls.html#Buildings.Controls"
+>Controls</A>
+</TD><TD>Package with models for controls</TD></TR>
+<TR><TD><IMG SRC="Buildings.AirflowS.png" ALT="Buildings.Fluid" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid.html#Buildings.Fluid"
+>Fluid</A>
+</TD><TD>Package with models for fluid flow systems</TD></TR>
+<TR><TD><IMG SRC="Buildings.AirflowS.png" ALT="Buildings.HeatTransfer" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_HeatTransfer.html#Buildings.HeatTransfer"
+>HeatTransfer</A>
+</TD><TD>Package with heat transfer models</TD></TR>
+<TR><TD><IMG SRC="Buildings.MediaS.png" ALT="Buildings.Media" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Media.html#Buildings.Media"
+>Media</A>
+</TD><TD>Package with medium models</TD></TR>
+<TR><TD><IMG SRC="Buildings.RoomsS.png" ALT="Buildings.Rooms" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Rooms.html#Buildings.Rooms"
+>Rooms</A>
+</TD><TD>Package with models for rooms</TD></TR>
+<TR><TD><IMG SRC="Buildings.RoomsS.png" ALT="Buildings.Utilities" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Utilities.html#Buildings.Utilities"
+>Utilities</A>
+</TD><TD>Package with utility functions such as for I/O</TD></TR>
+<TR><TD><IMG SRC="Buildings.ExamplesS.png" ALT="Buildings.Examples" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Examples.html#Buildings.Examples"
+>Examples</A>
+</TD><TD>Collection of models that illustrate model use and test models</TD></TR>
+<TR><TD><IMG SRC="Buildings.BaseClassesS.png" ALT="Buildings.BaseClasses" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_BaseClasses.html#Buildings.BaseClasses"
+>BaseClasses</A>
+</TD><TD>Package with base classes for the Buildings library</TD></TR>
+</TABLE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:54:06 2013.
+</address></BODY>
+</HTML>

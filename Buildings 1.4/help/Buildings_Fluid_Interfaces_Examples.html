@@ -1,0 +1,1226 @@
+<HTML>
+<HEAD>
+<TITLE>Buildings.Fluid.Interfaces.Examples</TITLE>
+<META name="HTML-Generator" content="Dymola">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="description" content="&quot;Collection of models that illustrate model use and test models&quot;">
+<style type="text/css">
+*       { font-size: 10pt; font-family: Arial,sans-serif; }
+pre     { font-size:  9pt; font-family: Courier,monospace;}
+h4      { font-size: 10pt; font-weight: bold; color: green; }
+h3      { font-size: 11pt; font-weight: bold; color: green; }
+h2      { font-size: 13pt; font-weight: bold; color: green; }
+address {                  font-weight: normal} 
+td      { solid #000; vertical-align:top; }
+th      { solid #000; vertical-align:top; font-weight: bold; }
+table   { solid #000; border-collapse: collapse;}
+</style>
+</HEAD>
+<BODY><P></P>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE Examples<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><A NAME="Buildings.Fluid.Interfaces.Examples"></A><A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
+>Buildings.Fluid.Interfaces</A>.Examples</H2>
+<B>Collection of models that illustrate model use and test models</B>
+<P></P>
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This package contains examples for the use of models that can be found in
+<A HREF="Buildings_Fluid_Interfaces.html#Buildings.Fluid.Interfaces"
+>
+Buildings.Fluid.Interfaces</a>.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons_ExamplesPackage.html#Modelica.Icons.ExamplesPackage"
+>Modelica.Icons.ExamplesPackage</A> (Icon for packages containing runnable examples).
+<P></P><H3>Package Content</H3>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2 >
+<TR><TH >Name</TH><TH>Description</TH></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Interfaceb6826e7a8d5def05ribedS.png" ALT="Buildings.Fluid.Interfaces.Examples.HeaterCoolerPrescribed" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Interfaces_Examples.html#Buildings.Fluid.Interfaces.Examples.HeaterCoolerPrescribed"
+>HeaterCoolerPrescribed</A>
+</TD><TD>Model that tests a heat exchanger model with reverse flow</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Interfaceb6826e7a8d5def05ribedS.png" ALT="Buildings.Fluid.Interfaces.Examples.HumidifierPrescribed" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Interfaces_Examples.html#Buildings.Fluid.Interfaces.Examples.HumidifierPrescribed"
+>HumidifierPrescribed</A>
+</TD><TD>&nbsp;</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Interfaceb6826e7a8d5def05ribedS.png" ALT="Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Interfaces_Examples.html#Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier"
+>ReverseFlowHumidifier</A>
+</TD><TD>Model that tests the reverse flow for a humidifier</TD></TR>
+<TR><TD><IMG SRC="Buildings.Fluid.Interfaceb6826e7a8d5def05ribedS.png" ALT="Buildings.Fluid.Interfaces.Examples.ReverseFlowMassExchanger" WIDTH=20  HEIGHT=20 ALIGN = TOP >&nbsp;<A HREF="Buildings_Fluid_Interfaces_Examples.html#Buildings.Fluid.Interfaces.Examples.ReverseFlowMassExchanger"
+>ReverseFlowMassExchanger</A>
+</TD><TD>Model that tests the reverse flow for a mass exchanger</TD></TR>
+</TABLE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE HeaterCoolerPrescribed<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Interfaceb6826e7a8d5def05ribedI.png" ALT="Buildings.Fluid.Interfaces.Examples.HeaterCoolerPrescribed" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Interfaces.Examples.HeaterCoolerPrescribed"></A><A HREF="Buildings_Fluid_Interfaces_Examples.html#Buildings.Fluid.Interfaces.Examples"
+>Buildings.Fluid.Interfaces.Examples</A>.HeaterCoolerPrescribed</H2>
+<B>Model that tests a heat exchanger model with reverse flow</B><p></P>
+<IMG SRC="Buildings.Fluid.Interfaceb6826e7a8d5def05ribedD.png" ALT="Buildings.Fluid.Interfaces.Examples.HeaterCoolerPrescribed">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>Model that tests the basic class that is used for the heater models. It adds and removes heat for forward and reverse flow. The top and bottom models should give similar results, although the sign of the temperature difference over the components differ because of the reverse flow. The model uses assert statements that will be triggered if results that are expected to be close to each other differ by more than a prescribed threshold. All temperature sensors are configured as steady-state sensors to avoid differences in temperature due to the dynamic response of the sensor.</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> HeaterCoolerPrescribed <font color="darkgreen">
+  &quot;Model that tests a heat exchanger model with reverse flow&quot;</font>
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+ <font color="blue">package</font> Medium = <A HREF="Buildings_Media_ConstantPropertyLiquidWater.html#Buildings.Media.ConstantPropertyLiquidWater"
+>Buildings.Media.ConstantPropertyLiquidWater</A>;
+
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"
+>Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</A> hea1(
+                                                         <font color="blue">redeclare </font><font color="blue">package</font>
+      Medium =
+        Medium, Q_flow_nominal=5000,
+    m_flow_nominal=0.5,
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> TDb(k=293.15) <font color="darkgreen">&quot;Drybulb temperature&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sou_1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_T_in=true,
+    nPorts=4,
+    p(displayUnit=&quot;Pa&quot;) = 101735,
+    T=293.15);
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_11(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_12(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sin_1(                       <font color="blue">redeclare </font><font color="blue">
+      package</font> Medium = Medium,
+    use_p_in=true,
+    T=288.15,
+    nPorts=4);
+    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> POut(k=101325);
+    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</A> u(
+    height=2,
+    duration=3600,
+    offset=-1,
+    startTime=0) <font color="darkgreen">&quot;Control signal&quot;</font>;
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"
+>Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</A> hea2(
+                                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium, Q_flow_nominal=5000,
+    m_flow_nominal=0.5,
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain(k=-1);
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"
+>Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</A> hea3(
+                                                         <font color="blue">redeclare </font><font color="blue">package</font>
+      Medium =
+        Medium, Q_flow_nominal=5000,
+    m_flow_nominal=0.5,
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_3(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"
+>Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</A> hea4(
+                                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium, Q_flow_nominal=5000,
+    m_flow_nominal=0.5,
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_4(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> mix1(
+                                           <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, V=
+       0.000001,
+    nPorts=2,
+    m_flow_nominal=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass1(               threShold=
+        0.05, startTime=600);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass2(               threShold=
+        0.05, startTime=600);
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"
+>Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</A> hea5(
+                                                         <font color="blue">redeclare </font><font color="blue">package</font>
+      Medium =
+        Medium, Q_flow_nominal=5000,
+    m_flow_nominal=0.5,
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_5(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"
+>Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</A> hea6(
+                                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium, Q_flow_nominal=5000,
+    m_flow_nominal=0.5,
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"
+>Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</A> hea7(
+                                                         <font color="blue">redeclare </font><font color="blue">package</font>
+      Medium =
+        Medium, Q_flow_nominal=5000,
+    m_flow_nominal=0.5,
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_6(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_7(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_HeatExchangers.html#Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed"
+>Buildings.Fluid.HeatExchangers.HeaterCoolerPrescribed</A> hea8(
+                                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium, Q_flow_nominal=5000,
+    m_flow_nominal=0.5,
+    dp_nominal=200,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_8(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> mix2(
+                                           <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, V=
+       0.000001,
+    nPorts=2,
+    m_flow_nominal=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass9(
+             threShold=0.05, startTime=600);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass10(
+             threShold=0.05, startTime=600);
+  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system(m_flow_start=0, energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem2a(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem2b(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem1a(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem1b(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem3a(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem3b(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem4a(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem4b(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass3(               threShold=
+        0.05, startTime=600);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass4(               threShold=
+        0.05, startTime=600);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass5(               threShold=
+        0.05, startTime=600);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass6(               threShold=
+        0.05, startTime=600);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem6b(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem6a(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem5b(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem5a(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass7(               threShold=
+        0.05, startTime=600);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass8(               threShold=
+        0.05, startTime=600);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem8b(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem8a(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem7b(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.TemperatureTwoPort"
+>Buildings.Fluid.Sensors.TemperatureTwoPort</A>
+                                      senTem7a(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=0.5,
+    tau=0) <font color="darkgreen">&quot;Temperature sensor&quot;</font>;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(POut.y,sin_1. p_in);
+  <font color="red">connect</font>(TDb.y,sou_1. T_in);
+  <font color="red">connect</font>(u.y, hea1.u);
+  <font color="red">connect</font>(gain.y, hea2.u);
+  <font color="red">connect</font>(u.y, gain.u);
+  <font color="red">connect</font>(u.y, hea3.u);
+  <font color="red">connect</font>(gain.y, hea4.u);
+  <font color="red">connect</font>(u.y, hea6.u);
+  <font color="red">connect</font>(u.y, hea8.u);
+  <font color="red">connect</font>(gain.y, hea5.u);
+  <font color="red">connect</font>(gain.y, hea7.u);
+  <font color="red">connect</font>(sin_1.ports[1], res_12.port_a);
+  <font color="red">connect</font>(sin_1.ports[2], res_3.port_a);
+  <font color="red">connect</font>(sou_1.ports[1], res_11.port_a);
+  <font color="red">connect</font>(sou_1.ports[2], res_2.port_a);
+  <font color="red">connect</font>(sin_1.ports[3], res_1.port_a);
+  <font color="red">connect</font>(sin_1.ports[4], res_6.port_a);
+  <font color="red">connect</font>(sou_1.ports[3], res_5.port_a);
+  <font color="red">connect</font>(sou_1.ports[4], res_7.port_a);
+  <font color="red">connect</font>(mix1.ports[1], res_4.port_a);
+  <font color="red">connect</font>(mix2.ports[1], res_8.port_a);
+  <font color="red">connect</font>(senTem1a.T, ass1.u1);
+  <font color="red">connect</font>(senTem2a.T, ass1.u2);
+  <font color="red">connect</font>(senTem1b.T, ass2.u2);
+  <font color="red">connect</font>(senTem2b.T, ass2.u1);
+  <font color="red">connect</font>(senTem4a.T, ass4.u2);
+  <font color="red">connect</font>(senTem3a.T, ass4.u1);
+  <font color="red">connect</font>(senTem4b.T, ass3.u1);
+  <font color="red">connect</font>(senTem3b.T, ass3.u2);
+  <font color="red">connect</font>(senTem6a.T, ass6.u2);
+  <font color="red">connect</font>(senTem5a.T, ass6.u1);
+  <font color="red">connect</font>(senTem6b.T, ass5.u1);
+  <font color="red">connect</font>(senTem5b.T, ass5.u2);
+  <font color="red">connect</font>(senTem8a.T, ass8.u2);
+  <font color="red">connect</font>(senTem7a.T, ass8.u1);
+  <font color="red">connect</font>(senTem8b.T, ass7.u1);
+  <font color="red">connect</font>(senTem7b.T, ass7.u2);
+  <font color="red">connect</font>(senTem3a.T, ass10.u1);
+  <font color="red">connect</font>(senTem7a.T, ass10.u2);
+  <font color="red">connect</font>(senTem2b.T, ass9.u1);
+  <font color="red">connect</font>(senTem5b.T, ass9.u2);
+  <font color="red">connect</font>(res_12.port_b, senTem2a.port_a);
+  <font color="red">connect</font>(senTem2a.port_b, hea2.port_a);
+  <font color="red">connect</font>(hea2.port_b, senTem2b.port_a);
+  <font color="red">connect</font>(senTem2b.port_b, senTem1b.port_b);
+  <font color="red">connect</font>(hea1.port_b, senTem1b.port_a);
+  <font color="red">connect</font>(res_11.port_b, senTem1a.port_a);
+  <font color="red">connect</font>(senTem1a.port_b, hea1.port_a);
+  <font color="red">connect</font>(res_2.port_b, senTem3a.port_a);
+  <font color="red">connect</font>(senTem3a.port_b, hea3.port_a);
+  <font color="red">connect</font>(hea3.port_b, senTem3b.port_a);
+  <font color="red">connect</font>(senTem3b.port_b, mix1.ports[2]);
+  <font color="red">connect</font>(hea4.port_b, senTem4b.port_a);
+  <font color="red">connect</font>(res_3.port_b, senTem4a.port_a);
+  <font color="red">connect</font>(senTem4a.port_b, hea4.port_a);
+  <font color="red">connect</font>(senTem4b.port_b, res_4.port_b);
+  <font color="red">connect</font>(res_5.port_b, senTem6a.port_a);
+  <font color="red">connect</font>(senTem6a.port_b, hea6.port_a);
+  <font color="red">connect</font>(hea6.port_b, senTem6b.port_a);
+  <font color="red">connect</font>(senTem6b.port_b, senTem5b.port_b);
+  <font color="red">connect</font>(senTem5b.port_a, hea5.port_b);
+  <font color="red">connect</font>(hea5.port_a, senTem5a.port_b);
+  <font color="red">connect</font>(senTem5a.port_a, res_1.port_b);
+  <font color="red">connect</font>(res_7.port_b, senTem8a.port_a);
+  <font color="red">connect</font>(senTem8a.port_b, hea8.port_a);
+  <font color="red">connect</font>(hea8.port_b, senTem8b.port_a);
+  <font color="red">connect</font>(senTem8b.port_b, res_8.port_b);
+  <font color="red">connect</font>(mix2.ports[2], senTem7b.port_b);
+  <font color="red">connect</font>(senTem7b.port_a, hea7.port_b);
+  <font color="red">connect</font>(hea7.port_a, senTem7a.port_b);
+  <font color="red">connect</font>(senTem7a.port_a, res_6.port_b);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>HeaterCoolerPrescribed;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE HumidifierPrescribed<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Interfaceb6826e7a8d5def05ribedI.png" ALT="Buildings.Fluid.Interfaces.Examples.HumidifierPrescribed" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Interfaces.Examples.HumidifierPrescribed"></A><A HREF="Buildings_Fluid_Interfaces_Examples.html#Buildings.Fluid.Interfaces.Examples"
+>Buildings.Fluid.Interfaces.Examples</A>.HumidifierPrescribed</H2>
+<IMG SRC="Buildings.Fluid.Interface2a272df99a95b9dcribedD.png" ALT="Buildings.Fluid.Interfaces.Examples.HumidifierPrescribed">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+Model that tests the basic class that is used for the humidifier model.
+It adds and removes water for forward and reverse flow.
+The top and bottom models should give similar results, although 
+the sign of the humidity difference over the components differ
+because of the reverse flow.
+The model uses assert statements that will be triggered if
+results that are expected to be close to each other differ by more
+than a prescribed threshold.</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P><H3>Parameters</H3><P>
+<TABLE BORDER=1 CELLSPACING=0 CELLPADDING=2>
+<TR><TH>Type</TH><TH>Name</TH><TH>Default</TH><TH>Description</TH></TR>
+<TR><TD><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>MassFlowRate</A></TD><TD>mWat_flow_nominal</TD><TD>0.001</TD><TD>Nominal water mass flow rate [kg/s]</TD></TR>
+</TABLE>
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> HumidifierPrescribed
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+
+ <font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAirUnsaturated.html#Buildings.Media.PerfectGases.MoistAirUnsaturated"
+>Buildings.Media.PerfectGases.MoistAirUnsaturated</A>;
+ <font color="blue">parameter </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_SIunits.html#Modelica.SIunits.MassFlowRate"
+>Modelica.SIunits.MassFlowRate</A> mWat_flow_nominal = 0.001 <font color="darkgreen">
+    &quot;Nominal water mass flow rate&quot;</font>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed"
+>Buildings.Fluid.MassExchangers.HumidifierPrescribed</A> hea1(<font color="blue">redeclare </font><font color="blue">package</font>
+      Medium =
+        Medium,
+    m_flow_nominal=0.5,
+    mWat_flow_nominal=mWat_flow_nominal,
+    dp_nominal=50,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> TDb(k=293.15) <font color="darkgreen">&quot;Drybulb temperature&quot;</font>;
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sou_1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_T_in=true,
+    nPorts=4,
+    p(displayUnit=&quot;Pa&quot;) = 101435,
+    T=293.15);
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_11(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_12(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_Sources.html#Buildings.Fluid.Sources.Boundary_pT"
+>Buildings.Fluid.Sources.Boundary_pT</A> sin_1(                       <font color="blue">redeclare </font><font color="blue">
+      package</font> Medium = Medium,
+    use_p_in=true,
+    T=288.15,
+    nPorts=4);
+    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> POut(k=101325);
+    <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Ramp"
+>Modelica.Blocks.Sources.Ramp</A> u(
+    duration=3600,
+    startTime=0,
+    height=1,
+    offset=0) <font color="darkgreen">&quot;Control signal&quot;</font>;
+  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed"
+>Buildings.Fluid.MassExchangers.HumidifierPrescribed</A> hea2(
+                                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium,
+    m_flow_nominal=0.5,
+    mWat_flow_nominal=mWat_flow_nominal,
+    dp_nominal=50,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Math.html#Modelica.Blocks.Math.Gain"
+>Modelica.Blocks.Math.Gain</A> gain(k=-1);
+  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed"
+>Buildings.Fluid.MassExchangers.HumidifierPrescribed</A> hea3(<font color="blue">redeclare </font><font color="blue">package</font>
+      Medium =
+        Medium,
+    m_flow_nominal=0.5,
+    mWat_flow_nominal=mWat_flow_nominal,
+    dp_nominal=50,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_3(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed"
+>Buildings.Fluid.MassExchangers.HumidifierPrescribed</A> hea4(
+                                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium,
+    m_flow_nominal=0.5,
+    mWat_flow_nominal=mWat_flow_nominal,
+    dp_nominal=50,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_4(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> mix1(
+                                           <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, V=
+       0.000001,
+    nPorts=2,
+    m_flow_nominal=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass1(                startTime=
+        0.3, threShold=0.05);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y1(y=hea2.sta_b.T);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y2(y=hea1.sta_b.T);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass2(                startTime=
+        0.3, threShold=0.05);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y3(y=hea2.sta_a.T);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y4(y=hea1.sta_a.T);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass3(                startTime=
+        0.3, threShold=0.05);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y5(y=hea4.sta_b.T);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y6(y=hea3.sta_b.T);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass4(                startTime=
+        0.3, threShold=0.05);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y7(y=hea4.sta_a.T);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y8(y=hea3.sta_a.T);
+  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed"
+>Buildings.Fluid.MassExchangers.HumidifierPrescribed</A> hea5(<font color="blue">redeclare </font><font color="blue">package</font>
+      Medium =
+        Medium,
+    m_flow_nominal=0.5,
+    mWat_flow_nominal=mWat_flow_nominal,
+    dp_nominal=50,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_5(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed"
+>Buildings.Fluid.MassExchangers.HumidifierPrescribed</A> hea6(
+                                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium,
+    m_flow_nominal=0.5,
+    mWat_flow_nominal=mWat_flow_nominal,
+    dp_nominal=50,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed"
+>Buildings.Fluid.MassExchangers.HumidifierPrescribed</A> hea7(<font color="blue">redeclare </font><font color="blue">package</font>
+      Medium =
+        Medium,
+    m_flow_nominal=0.5,
+    mWat_flow_nominal=mWat_flow_nominal,
+    dp_nominal=50,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_6(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_7(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed"
+>Buildings.Fluid.MassExchangers.HumidifierPrescribed</A> hea8(
+                                                 <font color="blue">redeclare </font><font color="blue">package</font> Medium =
+        Medium,
+    m_flow_nominal=0.5,
+    mWat_flow_nominal=mWat_flow_nominal,
+    dp_nominal=50,
+    show_T=true,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) <font color="darkgreen">
+    &quot;Heater and cooler&quot;</font>;
+    <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>Buildings.Fluid.FixedResistances.FixedResistanceDpM</A> res_8(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=5,
+    m_flow_nominal=0.5);
+  <A HREF="Buildings_Fluid_MixingVolumes.html#Buildings.Fluid.MixingVolumes.MixingVolume"
+>Buildings.Fluid.MixingVolumes.MixingVolume</A> mix2(
+                                           <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium, V=
+       0.000001,
+    nPorts=2,
+    m_flow_nominal=0.5,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass5(                startTime=
+        0.3, threShold=0.05);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y9(y=hea6.sta_b.T);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y10(
+                                            y=hea5.sta_b.T);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass6(                startTime=
+        0.3, threShold=0.05);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y11(
+                                            y=hea6.sta_a.T);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y12(
+                                            y=hea5.sta_a.T);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass7(                startTime=
+        0.3, threShold=0.05);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y13(
+                                            y=hea8.sta_b.T);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y14(
+                                            y=hea7.sta_b.T);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass8(                startTime=
+        0.3, threShold=0.05);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y15(
+                                            y=hea8.sta_a.T);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y16(
+                                            y=hea7.sta_a.T);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass9(                startTime=
+        0.3, threShold=0.05);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y17(y=hea2.sta_b.T);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y18(y=hea5.sta_b.T);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass10(                startTime=
+        0.3, threShold=0.05);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y19(y=hea4.sta_a.T);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y20(y=hea7.sta_a.T);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass11(threShold=1E-2, startTime=
+        0.3);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y21(y=hea2.sta_b.X[1]);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y22(y=hea1.sta_b.X[1]);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass12(threShold=1E-2, startTime=
+        0.3);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y23(
+                                            y=hea2.sta_a.X[1]);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y24(
+                                            y=hea1.sta_a.X[1]);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass13(threShold=1E-2, startTime=
+        0.3);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y25(
+                                            y=hea4.sta_b.X[1]);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y26(
+                                            y=hea3.sta_b.X[1]);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass14(threShold=1E-2, startTime=
+        0.3);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y27(
+                                            y=hea4.sta_a.X[1]);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y28(
+                                            y=hea3.sta_a.X[1]);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass15(threShold=1E-2, startTime=
+        0.3);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y29(
+                                            y=hea6.sta_b.X[1]);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y30(
+                                            y=hea5.sta_b.X[1]);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass16(threShold=1E-2, startTime=
+        0.3);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y31(
+                                            y=hea6.sta_a.X[1]);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y32(
+                                            y=hea5.sta_a.X[1]);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass17(threShold=1E-2, startTime=
+        0.3);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y33(
+                                            y=hea8.sta_b.X[1]);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y34(
+                                            y=hea7.sta_b.X[1]);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass18(threShold=1E-2, startTime=
+        0.3);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y35(
+                                            y=hea8.sta_a.X[1]);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y36(
+                                            y=hea7.sta_a.X[1]);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass19(threShold=1E-2, startTime=
+        0.3);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y37(y=hea2.sta_b.X[1]);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y38(y=hea5.sta_b.X[1]);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> ass20(threShold=1E-2, startTime=
+        0.3);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y39(y=hea4.sta_a.X[1]);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.RealExpression"
+>Modelica.Blocks.Sources.RealExpression</A> y40(y=hea7.sta_a.X[1]);
+  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system(energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState);</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(POut.y,sin_1. p_in);
+  <font color="red">connect</font>(TDb.y,sou_1. T_in);
+  <font color="red">connect</font>(res_11.port_b, hea1.port_a);
+  <font color="red">connect</font>(u.y, hea1.u);
+  <font color="red">connect</font>(gain.y, hea2.u);
+  <font color="red">connect</font>(u.y, gain.u);
+  <font color="red">connect</font>(res_12.port_b, hea2.port_a);
+  <font color="red">connect</font>(res_2.port_b, hea3.port_a);
+  <font color="red">connect</font>(u.y, hea3.u);
+  <font color="red">connect</font>(gain.y, hea4.u);
+  <font color="red">connect</font>(res_3.port_b, hea4.port_a);
+  <font color="red">connect</font>(hea4.port_b, res_4.port_b);
+  <font color="red">connect</font>(hea1.port_b, hea2.port_b);
+  <font color="red">connect</font>(y1.y, ass1.u1);
+  <font color="red">connect</font>(y2.y, ass1.u2);
+  <font color="red">connect</font>(y3.y, ass2.u1);
+  <font color="red">connect</font>(y4.y, ass2.u2);
+  <font color="red">connect</font>(y5.y, ass3.u1);
+  <font color="red">connect</font>(y6.y, ass3.u2);
+  <font color="red">connect</font>(y7.y, ass4.u1);
+  <font color="red">connect</font>(y8.y, ass4.u2);
+  <font color="red">connect</font>(res_1.port_b, hea5.port_a);
+  <font color="red">connect</font>(res_5.port_b, hea6.port_a);
+  <font color="red">connect</font>(res_6.port_b,hea7. port_a);
+  <font color="red">connect</font>(res_7.port_b,hea8. port_a);
+  <font color="red">connect</font>(hea8.port_b,res_8. port_b);
+  <font color="red">connect</font>(hea5.port_b,hea6. port_b);
+  <font color="red">connect</font>(y9.y,ass5. u1);
+  <font color="red">connect</font>(y10.y, ass5.u2);
+  <font color="red">connect</font>(y11.y, ass6.u1);
+  <font color="red">connect</font>(y12.y, ass6.u2);
+  <font color="red">connect</font>(y13.y, ass7.u1);
+  <font color="red">connect</font>(y14.y, ass7.u2);
+  <font color="red">connect</font>(y15.y, ass8.u1);
+  <font color="red">connect</font>(y16.y, ass8.u2);
+  <font color="red">connect</font>(y17.y,ass9. u1);
+  <font color="red">connect</font>(y18.y,ass9. u2);
+  <font color="red">connect</font>(y19.y, ass10.u1);
+  <font color="red">connect</font>(y20.y, ass10.u2);
+  <font color="red">connect</font>(u.y, hea6.u);
+  <font color="red">connect</font>(u.y, hea8.u);
+  <font color="red">connect</font>(gain.y, hea5.u);
+  <font color="red">connect</font>(gain.y, hea7.u);
+  <font color="red">connect</font>(y21.y, ass11.u1);
+  <font color="red">connect</font>(y22.y, ass11.u2);
+  <font color="red">connect</font>(y23.y, ass12.u1);
+  <font color="red">connect</font>(y24.y, ass12.u2);
+  <font color="red">connect</font>(y25.y, ass13.u1);
+  <font color="red">connect</font>(y26.y, ass13.u2);
+  <font color="red">connect</font>(y27.y, ass14.u1);
+  <font color="red">connect</font>(y28.y, ass14.u2);
+  <font color="red">connect</font>(y29.y, ass15.u1);
+  <font color="red">connect</font>(y30.y, ass15.u2);
+  <font color="red">connect</font>(y31.y, ass16.u1);
+  <font color="red">connect</font>(y32.y, ass16.u2);
+  <font color="red">connect</font>(y33.y, ass17.u1);
+  <font color="red">connect</font>(y34.y, ass17.u2);
+  <font color="red">connect</font>(y35.y, ass18.u1);
+  <font color="red">connect</font>(y36.y, ass18.u2);
+  <font color="red">connect</font>(y37.y, ass19.u1);
+  <font color="red">connect</font>(y38.y, ass19.u2);
+  <font color="red">connect</font>(y39.y, ass20.u1);
+  <font color="red">connect</font>(y40.y, ass20.u2);
+  <font color="red">connect</font>(sin_1.ports[1], res_12.port_a);
+  <font color="red">connect</font>(sin_1.ports[2], res_3.port_a);
+  <font color="red">connect</font>(sou_1.ports[1], res_11.port_a);
+  <font color="red">connect</font>(sou_1.ports[2], res_2.port_a);
+  <font color="red">connect</font>(sin_1.ports[3], res_1.port_a);
+  <font color="red">connect</font>(sin_1.ports[4], res_6.port_a);
+  <font color="red">connect</font>(sou_1.ports[3], res_5.port_a);
+  <font color="red">connect</font>(sou_1.ports[4], res_7.port_a);
+  <font color="red">connect</font>(hea3.port_b, mix1.ports[1]);
+  <font color="red">connect</font>(mix1.ports[2], res_4.port_a);
+  <font color="red">connect</font>(hea7.port_b, mix2.ports[1]);
+  <font color="red">connect</font>(mix2.ports[2], res_8.port_a);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>HumidifierPrescribed;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ReverseFlowHumidifier<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Interfaceb6826e7a8d5def05ribedI.png" ALT="Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier"></A><A HREF="Buildings_Fluid_Interfaces_Examples.html#Buildings.Fluid.Interfaces.Examples"
+>Buildings.Fluid.Interfaces.Examples</A>.ReverseFlowHumidifier</H2>
+<B>Model that tests the reverse flow for a humidifier</B><p></P>
+<IMG SRC="Buildings.Fluid.Interfacea9716c9a2d388a05ifierD.png" ALT="Buildings.Fluid.Interfaces.Examples.ReverseFlowHumidifier">
+<P></P><H3>Information</H3>
+<PRE></pre>
+This model tests whether the results for a humidifer are
+identical for forward flow and reverse flow.
+If the results differ, then an assert is triggered.
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> ReverseFlowHumidifier <font color="darkgreen">
+  &quot;Model that tests the reverse flow for a humidifier&quot;</font>
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
+>Buildings.Media.PerfectGases.MoistAir</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assTem(threShold=0.01) <font color="darkgreen">
+    &quot;Assert to test if the outputs of the forward flow and reverse flow model are identical&quot;</font>;
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assEnt(threShold=0.5) <font color="darkgreen">
+    &quot;Assert to test if the outputs of the forward flow and reverse flow model are identical&quot;</font>;
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assMas(threShold=1E-5) <font color="darkgreen">
+    &quot;Assert to test if the outputs of the forward flow and reverse flow model are identical&quot;</font>;
+  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed"
+>Buildings.Fluid.MassExchangers.HumidifierPrescribed</A> humBac(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=0,
+    m_flow(start=1),
+    m_flow_nominal=1,
+    T=283.15,
+    mWat_flow_nominal=0.1) <font color="darkgreen">&quot;Humidifier with backward flow&quot;</font>;
+  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.HumidifierPrescribed"
+>Buildings.Fluid.MassExchangers.HumidifierPrescribed</A> humFor(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    dp_nominal=0,
+    m_flow(start=1),
+    m_flow_nominal=1,
+    T=283.15,
+    mWat_flow_nominal=0.1) <font color="darkgreen">&quot;Humidifier with forward flow&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Blocks_Sources.html#Modelica.Blocks.Sources.Constant"
+>Modelica.Blocks.Sources.Constant</A> u2(k=0.01) <font color="darkgreen">&quot;Control input&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T"
+>Modelica.Fluid.Sources.MassFlowSource_T</A> source1(
+    m_flow=1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_m_flow_in=false,
+    use_T_in=false,
+    use_X_in=false,
+    T(displayUnit=&quot;K&quot;) = 323.15,
+    X={0.01,0.99},
+    nPorts=2);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.FixedBoundary"
+>Modelica.Fluid.Sources.FixedBoundary</A> sink1(
+                                            <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      nPorts=2);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpy"
+>Sensors.SpecificEnthalpy</A> senEnt1(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.Temperature"
+>Sensors.Temperature</A> senTem1(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFraction"
+>Sensors.MassFraction</A> senMas1(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.Temperature"
+>Sensors.Temperature</A> senTem2(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpy"
+>Sensors.SpecificEnthalpy</A> senEnt2(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFraction"
+>Sensors.MassFraction</A> senMas2(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> res1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=1,
+    from_dp=true,
+    linearized=false,
+    dp_nominal=1000) <font color="darkgreen">&quot;Fixed resistance&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> res2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=1,
+    from_dp=true,
+    linearized=false,
+    dp_nominal=1000) <font color="darkgreen">&quot;Fixed resistance&quot;</font>;
+  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;</textblock>
+<font color="blue">equation </font>
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(u2.y, humFor.u);
+  <font color="red">connect</font>(source1.ports[1], humFor.port_a);
+  <font color="red">connect</font>(humBac.port_b, source1.ports[2]);
+  <font color="red">connect</font>(u2.y, humBac.u);
+  <font color="red">connect</font>(humFor.port_b, senTem1.port);
+  <font color="red">connect</font>(humFor.port_b, senEnt1.port);
+  <font color="red">connect</font>(humFor.port_b, senMas1.port);
+  <font color="red">connect</font>(humBac.port_a, senTem2.port);
+  <font color="red">connect</font>(humBac.port_a, senEnt2.port);
+  <font color="red">connect</font>(humBac.port_a, senMas2.port);
+  <font color="red">connect</font>(humFor.port_b, res1.port_a);
+  <font color="red">connect</font>(res1.port_b, sink1.ports[1]);
+  <font color="red">connect</font>(humBac.port_a, res2.port_a);
+  <font color="red">connect</font>(res2.port_b, sink1.ports[2]);
+  <font color="red">connect</font>(senTem1.T, assTem.u1);
+  <font color="red">connect</font>(senEnt1.h_out, assEnt.u1);
+  <font color="red">connect</font>(senMas1.X, assMas.u1);
+  <font color="red">connect</font>(senTem2.T, assTem.u2);
+  <font color="red">connect</font>(senEnt2.h_out, assEnt.u2);
+  <font color="red">connect</font>(senMas2.X, assMas.u2);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ReverseFlowHumidifier;
+</PRE>
+<HR>
+<!--[if supportFields]><span style='mso-element:field-begin'></span>
+<span style='mso-spacerun:yes'></span>XE ReverseFlowMassExchanger<![endif]-->
+<!--[if supportFields]><span style='mso-element:field-end'></span><![endif]-->
+<H2><IMG SRC="Buildings.Fluid.Interfaceb6826e7a8d5def05ribedI.png" ALT="Buildings.Fluid.Interfaces.Examples.ReverseFlowMassExchanger" ALIGN=RIGHT BORDER=1 WIDTH=80  HEIGHT=80 >
+<A NAME="Buildings.Fluid.Interfaces.Examples.ReverseFlowMassExchanger"></A><A HREF="Buildings_Fluid_Interfaces_Examples.html#Buildings.Fluid.Interfaces.Examples"
+>Buildings.Fluid.Interfaces.Examples</A>.ReverseFlowMassExchanger</H2>
+<B>Model that tests the reverse flow for a mass exchanger</B><p></P>
+<IMG SRC="Buildings.Fluid.Interface42517b635d3637c7angerD.png" ALT="Buildings.Fluid.Interfaces.Examples.ReverseFlowMassExchanger">
+<P></P><H3>Information</H3>
+<PRE></pre>
+<p>
+This model tests whether the results for a mass exchanger are
+identical for forward flow and reverse flow.
+If the results differ, then an assert is triggered.
+</p>
+<p>
+Note that if the latent heat transfer effectiveness is non-zero, then
+the results will differ. The reason is that the maximum capacity stream 
+is computed using the mass flow rates at <code>port_a1</code>
+and <code>port_a2</code>. For reverse flow, they are not equal if
+moisture is added to the mass flow rate. Using an average mass flow rate
+in computing the heat and moisture transfer would lead to identical results,
+but it would introduce additional nonlinear equations that need to be solved.
+Therefore, the model uses the mass flow rates at <code>port_a1</code>
+and <code>port_a2</code>.
+</p>
+<p>
+<b>Note:</b> This problem fails to translate in Dymola 2012 due to an error in Dymola's support
+of stream connector. This bug will be corrected in future versions of Dymola.
+</p>
+<pre></PRE><P></P>
+Extends from <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A> (Icon for runnable examples).
+<P></P><H3>Modelica definition</H3>
+<PRE>
+<font color="blue">model</font> ReverseFlowMassExchanger <font color="darkgreen">
+  &quot;Model that tests the reverse flow for a mass exchanger&quot;</font>
+  <font color="blue">import </font><A HREF="Buildings.html#Buildings"
+>Buildings</A>;
+  <font color="blue">extends </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Icons.html#Modelica.Icons.Example"
+>Modelica.Icons.Example</A>;
+<font color="blue">package</font> Medium = <A HREF="Buildings_Media_PerfectGases_MoistAir.html#Buildings.Media.PerfectGases.MoistAir"
+>Buildings.Media.PerfectGases.MoistAir</A>;
+<textblock type="annotcomp" expanded="false">  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assTem(threShold=1E-8,
+      startTime=0) <font color="darkgreen">
+    &quot;Assert to test if the outputs of the forward flow and reverse flow model are identical&quot;</font>;
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assEnt(threShold=1E-8,
+      startTime=0) <font color="darkgreen">
+    &quot;Assert to test if the outputs of the forward flow and reverse flow model are identical&quot;</font>;
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assMas(threShold=1E-8,
+      startTime=0) <font color="darkgreen">
+    &quot;Assert to test if the outputs of the forward flow and reverse flow model are identical&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T"
+>Modelica.Fluid.Sources.MassFlowSource_T</A> source2(
+    m_flow=1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_m_flow_in=false,
+    use_T_in=false,
+    use_X_in=false,
+    nPorts=1,
+    T(displayUnit=&quot;degC&quot;) = 303.15,
+    X={0.02,0.98});
+  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness"
+>Buildings.Fluid.MassExchangers.ConstantEffectiveness</A> masExcFor(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium1 = Medium,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = Medium,
+    m1_flow_nominal=1,
+    m2_flow_nominal=1,
+    dp1_nominal=0,
+    dp2_nominal=0,
+    epsL=0) <font color="darkgreen">&quot;Mass exchanger with forward flow&quot;</font>;
+  <A HREF="Buildings_Fluid_MassExchangers.html#Buildings.Fluid.MassExchangers.ConstantEffectiveness"
+>Buildings.Fluid.MassExchangers.ConstantEffectiveness</A> masExcRev(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium1 = Medium,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium2 = Medium,
+    m1_flow_nominal=1,
+    m2_flow_nominal=1,
+    dp1_nominal=0,
+    dp2_nominal=0,
+    epsL=0) <font color="darkgreen">&quot;Mass exchanger with reverse flow&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.FixedBoundary"
+>Modelica.Fluid.Sources.FixedBoundary</A> sink2(
+                                            <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      nPorts=2);
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> res3(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=1,
+    from_dp=true,
+    linearized=false,
+    dp_nominal=1000) <font color="darkgreen">&quot;Fixed resistance&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> res4(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=1,
+    from_dp=true,
+    linearized=false,
+    dp_nominal=1000) <font color="darkgreen">&quot;Fixed resistance&quot;</font>;
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpy"
+>Sensors.SpecificEnthalpy</A> senEnt3(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.Temperature"
+>Sensors.Temperature</A> senTem3(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFraction"
+>Sensors.MassFraction</A> senMas3(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpy"
+>Sensors.SpecificEnthalpy</A> senEnt4(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.Temperature"
+>Sensors.Temperature</A> senTem4(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFraction"
+>Sensors.MassFraction</A> senMas4(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assTem1(threShold=1E-8,
+      startTime=0) <font color="darkgreen">
+    &quot;Assert to test if the outputs of the forward flow and reverse flow model are identical&quot;</font>;
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assEnt1(threShold=1E-8,
+      startTime=0) <font color="darkgreen">
+    &quot;Assert to test if the outputs of the forward flow and reverse flow model are identical&quot;</font>;
+  <A HREF="Buildings_Utilities_Diagnostics.html#Buildings.Utilities.Diagnostics.AssertEquality"
+>Buildings.Utilities.Diagnostics.AssertEquality</A> assMas1(threShold=1E-8,
+      startTime=0) <font color="darkgreen">
+    &quot;Assert to test if the outputs of the forward flow and reverse flow model are identical&quot;</font>;
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T"
+>Modelica.Fluid.Sources.MassFlowSource_T</A> source3(
+    m_flow=1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_m_flow_in=false,
+    use_T_in=false,
+    use_X_in=false,
+    X={0.01,0.99},
+    nPorts=1,
+    T(displayUnit=&quot;degC&quot;) = 293.15);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T"
+>Modelica.Fluid.Sources.MassFlowSource_T</A> source4(
+    m_flow=1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_m_flow_in=false,
+    use_T_in=false,
+    use_X_in=false,
+    nPorts=1,
+    T(displayUnit=&quot;degC&quot;) = 303.15,
+    X={0.02,0.98});</textblock>
+
+<textblock type="annotcomp" expanded="false">  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.MassFlowSource_T"
+>Modelica.Fluid.Sources.MassFlowSource_T</A> source1(
+    m_flow=1,
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    use_m_flow_in=false,
+    use_T_in=false,
+    use_X_in=false,
+    X={0.01,0.99},
+    nPorts=1,
+    T(displayUnit=&quot;degC&quot;) = 293.15);
+  <A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid_Sources.html#Modelica.Fluid.Sources.FixedBoundary"
+>Modelica.Fluid.Sources.FixedBoundary</A> sink1(
+                                            <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+      nPorts=2);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpy"
+>Sensors.SpecificEnthalpy</A> senEnt1(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.Temperature"
+>Sensors.Temperature</A> senTem1(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFraction"
+>Sensors.MassFraction</A> senMas1(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.Temperature"
+>Sensors.Temperature</A> senTem2(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.SpecificEnthalpy"
+>Sensors.SpecificEnthalpy</A> senEnt2(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_Sensors.html#Buildings.Fluid.Sensors.MassFraction"
+>Sensors.MassFraction</A> senMas2(<font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium);
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> res1(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=1,
+    from_dp=true,
+    linearized=false,
+    dp_nominal=1000) <font color="darkgreen">&quot;Fixed resistance&quot;</font>;
+  <A HREF="Buildings_Fluid_FixedResistances.html#Buildings.Fluid.FixedResistances.FixedResistanceDpM"
+>FixedResistances.FixedResistanceDpM</A> res2(
+    <font color="blue">redeclare </font><font color="blue">package</font> Medium = Medium,
+    m_flow_nominal=1,
+    from_dp=true,
+    linearized=false,
+    dp_nominal=1000) <font color="darkgreen">&quot;Fixed resistance&quot;</font>;
+  <font color="blue">inner </font><A HREF="file:////opt/dymola/Modelica/Library/Modelica 3.2/help/Modelica_Fluid.html#Modelica.Fluid.System"
+>Modelica.Fluid.System</A> system;</textblock>
+<font color="blue">equation </font>
+
+<textblock type="annotconnect" expanded="false">  <font color="red">connect</font>(res1.port_b, sink1.ports[1]);
+  <font color="red">connect</font>(res2.port_b, sink1.ports[2]);
+  <font color="red">connect</font>(senTem1.T, assTem.u1);
+  <font color="red">connect</font>(senEnt1.h_out, assEnt.u1);
+  <font color="red">connect</font>(senMas1.X, assMas.u1);
+  <font color="red">connect</font>(senTem2.T, assTem.u2);
+  <font color="red">connect</font>(senEnt2.h_out, assEnt.u2);
+  <font color="red">connect</font>(senMas2.X, assMas.u2);
+  <font color="red">connect</font>(masExcFor.port_b1, res1.port_a);
+  <font color="red">connect</font>(masExcFor.port_a1, source1.ports[1]);
+  <font color="red">connect</font>(masExcRev.port_a1, res2.port_a);
+  <font color="red">connect</font>(source2.ports[1], masExcFor.port_a2);
+  <font color="red">connect</font>(masExcRev.port_a1, senTem2.port);
+  <font color="red">connect</font>(masExcRev.port_a1, senEnt2.port);
+  <font color="red">connect</font>(masExcRev.port_a1, senMas2.port);
+  <font color="red">connect</font>(masExcFor.port_b1, senTem1.port);
+  <font color="red">connect</font>(masExcFor.port_b1, senEnt1.port);
+  <font color="red">connect</font>(masExcFor.port_b1, senMas1.port);
+  <font color="red">connect</font>(masExcFor.port_b2, res3.port_a);
+  <font color="red">connect</font>(masExcRev.port_a2, res4.port_a);
+  <font color="red">connect</font>(res3.port_b, sink2.ports[1]);
+  <font color="red">connect</font>(res4.port_b, sink2.ports[2]);
+  <font color="red">connect</font>(senTem3.T, assTem1.u1);
+  <font color="red">connect</font>(senTem4.T, assTem1.u2);
+  <font color="red">connect</font>(senEnt3.h_out, assEnt1.u1);
+  <font color="red">connect</font>(senEnt4.h_out, assEnt1.u2);
+  <font color="red">connect</font>(senMas3.X, assMas1.u1);
+  <font color="red">connect</font>(senMas4.X, assMas1.u2);
+  <font color="red">connect</font>(masExcFor.port_b2, senTem3.port);
+  <font color="red">connect</font>(masExcFor.port_b2, senEnt3.port);
+  <font color="red">connect</font>(masExcFor.port_b2, senMas3.port);
+  <font color="red">connect</font>(masExcRev.port_a2, senTem4.port);
+  <font color="red">connect</font>(masExcRev.port_a2, senEnt4.port);
+  <font color="red">connect</font>(masExcRev.port_a2, senMas4.port);
+  <font color="red">connect</font>(source3.ports[1], masExcRev.port_b1);
+  <font color="red">connect</font>(source4.ports[1], masExcRev.port_b2);</textblock>
+<textblock type="annotcomp" expanded="false"><font color="blue">end </font>ReverseFlowMassExchanger;
+</PRE>
+<HR>
+<address><a href="http://www.3ds.com/">Automatically generated</a> Thu Apr  4 11:56:25 2013.
+</address></BODY>
+</HTML>
