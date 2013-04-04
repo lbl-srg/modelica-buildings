@@ -5,7 +5,8 @@ package Interfaces "Package with interfaces for fluid models"
 
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info",
+  Documentation(info="<html>
 <p>
 The package <code>Buildings.Fluid.Interface</code> consists of basic
 classes that can be used by developers to create new component models.

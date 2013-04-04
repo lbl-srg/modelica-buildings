@@ -5,7 +5,8 @@ package Fluid "Package with models for fluid flow systems"
 
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info",
+  Documentation(info="<html>
 The package <code>Buildings.Fluid</code> consists of models
 for pressure driven mass flow rate and for heat and moisture
 exchange in fluid flow networks.

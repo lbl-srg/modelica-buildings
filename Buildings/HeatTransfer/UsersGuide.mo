@@ -1,7 +1,8 @@
 within Buildings.HeatTransfer;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Info;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info",
+  Documentation(info="<html>
 The package <code>Buildings.HeatTransfer</code> consists of models
 for heat transfer.
 The models have the same interface as models of the package
@@ -18,21 +19,21 @@ The models that compute heat transfer in solids consist of data records for
 the materials and of models that compute the heat transfer.
 The data records are composed hierarchically and consist of
 data records that define material properties with thermal storage
-(<a href=\"modelica://Buildings.HeatTransfer.Data.Solids\"\\>
+(<a href=\"modelica://Buildings.HeatTransfer.Data.Solids\">
 Buildings.HeatTransfer.Data.Solids</a>)
 and of material properties of thermal resistors with no heat storage
-(<a href=\"modelica://Buildings.HeatTransfer.Data.Resistances\"\\>
+(<a href=\"modelica://Buildings.HeatTransfer.Data.Resistances\">
 Buildings.HeatTransfer.Data.Resistances</a>).
 These records are used to assemble layers that define
 the thermal properties of constructions
-(<a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\"\\>
+(<a href=\"modelica://Buildings.HeatTransfer.Data.OpaqueConstructions\">
 Buildings.HeatTransfer.Data.OpaqueConstructions</a>).
 </p>
 <p>
 This layer definition is then used in models that compute the heat conduction.
 Like the materials, these models are assembled hierarchically.
 The simplest model is
-<a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\"\\>
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>
 for heat conduction through a single layer of material.
 If the material's specific heat capacity is non-zero, then the model
@@ -52,10 +53,10 @@ The boundary conditions for
 this model are the temperatures and heat flow rates at the material interface.
 </p>
 <p>
-The model <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\"\\>
+The model <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\">
 Buildings.HeatTransfer.Conduction.SingleLayer</a>
 is then used to construct the heat conductor 
-<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\"\\>
+<a href=\"modelica://Buildings.HeatTransfer.Conduction.MultiLayer\">
 Buildings.HeatTransfer.Conduction.MultiLayer</a>
 that has multiple layers of material. 
 Some layers may be computed transient (if <i>&rho; c &gt; 0</i>)
@@ -65,7 +66,7 @@ this model are its surface temperatures and heat flow rates.
 </p>
 <p>
 To model convective heat transfer, instances of the model
-<a href=\"modelica://Buildings.HeatTransfer.Convection\"\\>
+<a href=\"modelica://Buildings.HeatTransfer.Convection\">
 Buildings.HeatTransfer.Convection</a> are used, which allow
 using a convective heat transfer coefficient that is fixed
 or that is a function of the temperature difference between the

@@ -4,7 +4,8 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   class Conventions "Conventions"
     extends Modelica.Icons.Information;
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <p>
 This library follows the conventions of the 
 <a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>, which are as follows:
@@ -120,11 +121,23 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_X_Y_buildY "Version X.Y build Z"
+  class Version_1_4_build1 "Version 1.4 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info",
+     Documentation(info="<html>
 <p>
-Version X.Y build Z is ... xxx
+Version 1.4 build 1 contains the new package <a href=\"modelica://Buildings.Utilities.IO.Python27\">
+Buildings.Utilities.IO.Python27</a> that allows calling Python functions from Modelica.
+It also contains in the package <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\">
+Buildings.HeatTransfer.Conduction.SingleLayer</a>
+a new model for heat conduction in phase change material. This model can be used as a layer
+of the room heat transfer model.
+</p>
+<p>
+Non-backward compatible changes had to be introduced in the valve models
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves\">
+Buildings.Fluid.Actuators.Valves</a> to fully comply with the Modelica language specification.
+See below for details.
 </p>
 <!-- New libraries -->
 <p>
@@ -357,11 +370,12 @@ in Dymola 2014.
 </ul>
 </p>
 </html>"));
-  end Version_X_Y_buildY;
+  end Version_1_4_build1;
 
   class Version_1_3_build1 "Version 1.3 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 In version 1.3 build 1, models for direct evaporative cooling coils with multiple stages or with
 a variable speed compressor have been added.
@@ -635,7 +649,8 @@ units are wrong or errors in documentation):
 
   class Version_1_2_build1 "Version 1.2 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 In version 1.2 build 1, models for radiant slabs and window overhangs and sidefins have been added.
 This version also contains various improvements to existing models.
@@ -924,7 +939,8 @@ have been fixed:
 
   class Version_1_1_build1 "Version 1.1 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 Version 1.1 build 1 contains improvements to models that address numerical problems.
 In particular, flow machines and actuators now have an optional filter
@@ -1251,7 +1267,8 @@ gains and further details.
 
   class Version_1_0_build2 "Version 1.0 build 2"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 Version 1.0 build 2 has been released to correct model errors that
 were present in version 1.0 build 1. Both versions are compatible.
@@ -1380,7 +1397,8 @@ have been fixed:
 
   class Version_1_0_build1 "Version 1.0 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 Version 1.0 is the first official release of the <code>Buildings</code>
 library.
@@ -1870,7 +1888,8 @@ generates the entry in the <code>Command</code> pull down menu has been changed 
 
   class Version_0_12_0 "Version 0.12.0"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <b>Note:</b> The packages whose name ends with <code>Beta</code>
 are still being validated.
@@ -1937,7 +1956,8 @@ to allow use of the room model with media that do not contain water vapor.
 
   class Version_0_11_0 "Version 0.11.0"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <b>Note:</b> The packages whose name ends with <code>Beta</code>
 are still being validated.
@@ -2042,7 +2062,8 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 
   class Version_0_10_0 "Version 0.10.0"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2108,7 +2129,8 @@ by the parameters. This also required a change in the parameters.
 
   class Version_0_9_1 "Version 0.9.1"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 The following <b style=\"color:red\">critical error</b> has been fixed (i.e. error
 that can lead to wrong simulation results):
@@ -2143,7 +2165,8 @@ that can lead to wrong simulation results):
 
   class Version_0_9_0 "Version 0.9.0"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2261,7 +2284,8 @@ pressure drop and height.
 
   class Version_0_8_0 "Version 0.8.0"
     extends Modelica.Icons.ReleaseNotes;
-              annotation (Documentation(info="<html>
+              annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2399,7 +2423,8 @@ and hence to the flow splitter and to the three-way valves. This often breaks al
 
   class Version_0_7_0 "Version 0.7.0"
     extends Modelica.Icons.ReleaseNotes;
-              annotation (Documentation(info="<html>
+              annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2424,7 +2449,8 @@ Virtual Test Bed.
 
   class Version_0_6_0 "Version 0.6.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2534,7 +2560,8 @@ convention used in Modelica.Fluid 1.0.
 
   class Version_0_5_0 "Version 0.5.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2574,7 +2601,8 @@ be used as the flow coefficient (in [m3/h] or [USG/min]).
 
   class Version_0_4_0 "Version 0.4.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2598,7 +2626,8 @@ The package contains models that facilitate reporting.
 
   class Version_0_3_0 "Version 0.3.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2661,7 +2690,8 @@ inside the volume. The condensate is removed from the volume in its liquid phase
 
   class Version_0_2_0 "Version 0.2.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 New in this version are models for two and three way valves.
 In addition, the <code>Fluids</code> package has been slightly revised.
@@ -2675,7 +2705,8 @@ where part of the <code>Actuator</code> package.
 
   class Version_0_1_0 "Version 0.1.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 First release of the library.
 </p>
@@ -2693,7 +2724,8 @@ to the medium properties.
 "));
   end Version_0_1_0;
 
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <p>
 This section summarizes the changes that have been performed
 on the Buildings library.
@@ -2772,7 +2804,8 @@ Version 0.1.0 </a>(May 27, 2008)</li>
 
   class Contact "Contact"
     extends Modelica.Icons.Contact;
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Contact</font></h4>
 <p>
 The development of the Buildings library is organized by<br>
@@ -2790,7 +2823,8 @@ The development of the Buildings library is organized by<br>
 
   class Acknowledgements "Acknowledgements"
     extends Modelica.Icons.Information;
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Acknowledgements</font></h4>
 <p>
  The development of this library was supported
@@ -2857,7 +2891,8 @@ The following people have directly contributed to the implementation of the Buil
 
   class License "Modelica License 2"
     extends Modelica.Icons.Information;
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>The Modelica License 2</font></h4>
 <p>
 <strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work. 
@@ -3021,7 +3056,8 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
 
   class Copyright "Copyright"
     extends Modelica.Icons.Information;
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Copyright</font></h4>
 <p>
 Copyright (c) 2009-2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
@@ -3034,7 +3070,8 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
 </html>
 "));
   end Copyright;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info",
+  Documentation(info="<html>
 <p>
 The <code>Buildings</code> library is a free open-source library for modeling of building energy and control systems. 
 Many models are based on models from the package
@@ -3076,35 +3113,35 @@ individual libraries.
 <table border=1 cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Airflow.Multizone.UsersGuide\">Airflow.Multizone</a>
    </td>
-   <td valign=\"top\">Library for multizone airflow and contaminant transport.</td>
+   <td valign=\"top\">Package for multizone airflow and contaminant transport.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">BoundaryConditions</a>
    </td>
-   <td valign=\"top\">Library for computing boundary conditions, such as solar irradiation.</td>
+   <td valign=\"top\">Package for computing boundary conditions, such as solar irradiation.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.BoundaryConditions.WeatherData.UsersGuide\">BoundaryConditions.WeatherData</a>
    </td>
-   <td valign=\"top\">Library for reading weather data.</td>
+   <td valign=\"top\">Package for reading weather data.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.UsersGuide\">Fluid</a>
    </td>
-   <td valign=\"top\">Library for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
+   <td valign=\"top\">Package for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">Fluid.Actuators</a>
    </td>
-   <td valign=\"top\">Library with valves and air dampers.</td>
+   <td valign=\"top\">Package with valves and air dampers.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">Fluid.HeatExchangers.DXCoils</a>
    </td>
-   <td valign=\"top\">Library with direct evaporative cooling coils.</td>
+   <td valign=\"top\">Package with direct evaporative cooling coils.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Fluid.Movers</a>
    </td>
-   <td valign=\"top\">Library with fans and pumps.</td>
+   <td valign=\"top\">Package with fans and pumps.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">Fluid.Sensors</a>
    </td>
-   <td valign=\"top\">Library with sensors.</td>
+   <td valign=\"top\">Package with sensors.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Interfaces.UsersGuide\">Fluid.Interfaces</a>
    </td>
@@ -3112,9 +3149,12 @@ individual libraries.
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.HeatTransfer.UsersGuide\">HeatTransfer</a>
    </td>
-   <td valign=\"top\">Library heat transfer in building constructions.</td>
+   <td valign=\"top\">Package for heat transfer in building constructions.</td>
 </tr>
-</table>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
+   </td>
+   <td valign=\"top\">Package to call Python functions from Modelica.</td>
+</tr></table>
 </p>
 </li>
 <li>
@@ -3132,10 +3172,11 @@ end UsersGuide;
 
 
 annotation (
+preferredView="info",
 version="1.4",
 versionBuild=0,
-versionDate="2013-01-08",
-dateModified = "$Date$",
+versionDate="2013-04-04",
+dateModified = "2013-04-04",
 uses(Modelica(version="3.2")),
 conversion(
  noneFromVersion="1.3",
