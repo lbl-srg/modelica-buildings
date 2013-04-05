@@ -28,7 +28,6 @@ LIB  = libModelicaBuildingsPython2.7.so
 all: clean
 	$(CC) $(CC_FLAGS_$(ARCH)) -fPIC -c $(SRCS)
 	$(CC) -shared -fPIC -Wl,-soname,$(LIB) -o $(LIB) $(OBJS) -lc
-#	ar -cvq $(LIB) $(OBJS)
 	mv $(LIB) $(BINDIR)
 	@echo "==== library generated in $(BINDIR)"
 
