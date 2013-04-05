@@ -2,6 +2,7 @@ within Buildings.Utilities.IO.Python27;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
+
 annotation (preferredView="info",
 Documentation(info="<html>
 <p>
@@ -15,13 +16,14 @@ inside a Python module.
 <p>
 The code has been tested with Python 2.7 on
 Linux 32 bit, Linux 64 bit, and Windows 32 bit.
-Windows 64 bit is currently not supported.
+Windows 64 bit is currently supported if Dymola is run
+as a <b>32 bit</b> application.
 </p>
 <h4>Software configuration to use classes from this package</h4>
 <p>
 To use classes from this package, a Python 2.7
 runtime environment must be installed.
-Also, the system environment variables
+Also, the system environment variable
 <code>PYTHONPATH</code> must be set in order for Python
 to find the modules that contain the functions.
 These modules are stored in the directory
@@ -89,34 +91,12 @@ Use the same commands as for <i>Linux 32 bit, Dymola 2013 FD01</i> because Dymol
     </tr>
   <!-- ------------------------------------------------------------------------- -->
     <tr>
-      <td>Windows 32 bit, Dymola 2014</td>
+      <td>Windows 32 bit, Dymola 2014 
+      <br>Windows 64 bit, Dymola 2014
+      <br>Windows 32 bit, Dymola 2013 FD01 
+      <br>Windows 64 bit, Dymola 2013 FD01 </td>
       <td>
-       fixme: add description.
-      </td>
-    </tr>
-  <!-- ------------------------------------------------------------------------- -->
-    <tr>
-      <td>Windows 64 bit, Dymola 2014</td>
-      <td>
-       This configuration is not supported. [Is this correct even if Dymola is run
-       as a 32 bit application on Windows 64bit? Please explain and adjust the documentation
-       accordingly.]
-      </td>
-    </tr>
-  <!-- ------------------------------------------------------------------------- -->
-    <tr>
-      <td>Windows 32 bit, Dymola 2013 FD01</td>
-      <td>
-       fixme: add description
-      </td>
-    </tr>
-  <!-- ------------------------------------------------------------------------- -->
-    <tr>
-      <td>Windows 64 bit, Dymola 2013 FD01</td>
-      <td>
-       This configuration is not supported. [Is this correct even if Dymola is run
-       as a 32 bit application on Windows 64bit? Please explain and adjust the documentation
-       accordingly.]
+        Add to the system environment variable <code>PYTHONPATH</code> the directory \"Path_To_Buildings_Library\"\Resources\Python-Sources.
       </td>
     </tr>
   <!-- ------------------------------------------------------------------------- -->
