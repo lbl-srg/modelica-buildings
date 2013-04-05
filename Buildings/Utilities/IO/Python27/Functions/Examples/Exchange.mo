@@ -10,81 +10,81 @@ algorithm
   yR1 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r1_r1",
-      dblValWri={2},
-      intValWri={0},
+      dblWri={2},
+      intWri={0},
       nDblWri=1,
       nDblRea=1,
       nIntWri=0,
       nIntRea=0,
       nStrWri=0,
-      strValWri={""});
+      strWri={""});
     assert(abs(4-yR1[1]) < 1e-5, "Error in function r1_r1");
 
     yR1 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r2_r1",
-      dblValWri={2, 3},
-      intValWri={0},
+      dblWri={2, 3},
+      intWri={0},
       nDblWri=2,
       nDblRea=1,
       nIntWri=0,
       nIntRea=0,
       nStrWri=0,
-      strValWri={""});
+      strWri={""});
     assert(abs(6-yR1[1]) < 1e-5, "Error in function r2_r1");
 
   yR2 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r1_r2",
-      dblValWri={2},
-      intValWri={0},
+      dblWri={2},
+      intWri={0},
       nDblWri=1,
       nDblRea=2,
       nIntWri=0,
       nIntRea=0,
       nStrWri=0,
-      strValWri={""});
+      strWri={""});
   assert(abs(yR2[1]-2) + abs(yR2[2]-4) < 1E-5, "Error in function r1_r2");
 
   // In the call below, yR1 is a dummy variable, as exchange returns (Real[1], Integer[1])
   (yR1, yI1) := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="i1_i1",
-      dblValWri={0},
-      intValWri={3},
+      dblWri={0},
+      intWri={3},
       nDblWri=0,
       nDblRea=0,
       nIntWri=1,
       nIntRea=1,
       nStrWri=0,
-      strValWri={""});
+      strWri={""});
   assert((6-yI1[1]) < 1e-5, "Error in function i1_i1");
 
   // In the call below, yR1 is a dummy variable, as exchange returns (Real[1], Integer[2])
   (yR1, yI2) := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="i1_i2",
-      dblValWri={0},
-      intValWri={2},
+      dblWri={0},
+      intWri={2},
       nDblWri=0,
       nDblRea=0,
       nIntWri=1,
       nIntRea=2,
       nStrWri=0,
-      strValWri={""});
+      strWri={""});
   assert(abs(yI2[1]-2) + abs(yI2[2]-4) < 1E-5, "Error in function i1_i2");
 
   yR2 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="r1i1_r2",
-      dblValWri={0.3},
-      intValWri={2},
+      dblWri={0.3},
+      intWri={2},
       nDblWri=1,
       nDblRea=2,
       nIntWri=1,
       nIntRea=0,
       nStrWri=0,
-      strValWri={""});
+      strWri={""});
   assert(abs(yR2[1]-0.6) + abs(yI2[2]-4) < 1E-5, "Error in function r1i1_r2");
 
   // From Modelica, write a number to a text file, and from Python, read the text file
@@ -94,14 +94,14 @@ algorithm
   yR1 := Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName="testFunctions",
       functionName="s2_r1",
-      dblValWri={0},
-      intValWri={0},
+      dblWri={0},
+      intWri={0},
       nDblWri=0,
       nDblRea=1,
       nIntWri=0,
       nIntRea=0,
       nStrWri=2,
-      strValWri={"tmp-TestPythonInterface", "txt"});
+      strWri={"tmp-TestPythonInterface", "txt"});
    assert(abs(yR1[1]-1.23) < 1E-5, "Error in function s2_r1");
 
   annotation (
