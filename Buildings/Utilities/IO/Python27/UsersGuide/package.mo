@@ -17,7 +17,7 @@ inside a Python module.
 The code has been tested with Python 2.7 on
 Linux 32 bit, Linux 64 bit, and Windows 32 bit.
 Windows 64 bit is currently supported if Dymola is run
-as a <b>32 bit</b> application.
+as a 32 bit application.
 </p>
 <h4>Software configuration to use classes from this package</h4>
 <p>
@@ -96,7 +96,8 @@ Use the same commands as for <i>Linux 32 bit, Dymola 2013 FD01</i> because Dymol
       <br>Windows 32 bit, Dymola 2013 FD01 
       <br>Windows 64 bit, Dymola 2013 FD01 </td>
       <td>
-        Add to the system environment variable <code>PYTHONPATH</code> the directory \"Path_To_Buildings_Library\"\Resources\Python-Sources.
+        Add to the system environment variable <code>PYTHONPATH</code> the directory 
+        <code>\"Path_To_Buildings_Library\"\\Resources\\Python-Sources</code>.
       </td>
     </tr>
   <!-- ------------------------------------------------------------------------- -->
@@ -194,12 +195,18 @@ of pure and impure functions.
 -->
 <h4>Examples</h4>
 <p>
-The package
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples\">
-Buildings.Utilities.IO.Python27.Functions.Examples</a>
-contains various examples that call Python functions which are implemented
-in files that are stored in the directory
+The example
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.Exchange\">
+Buildings.Utilities.IO.Python27.Functions.Examples.Exchange</a>
+contains various calls to different Python functions.
+The Python functions are stored in the directory
 <code>Buildings/Resources/Python-Sources</code>.
+</p>
+<p>
+The example 
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.KalmanFilter\">
+Buildings.Utilities.IO.Python27.Examples.KalmanFilter</a>
+shows how to implement in a Modelica block a call to a Python function.
 </p>
 <h4>Implementation notes</h4>
 <p>
