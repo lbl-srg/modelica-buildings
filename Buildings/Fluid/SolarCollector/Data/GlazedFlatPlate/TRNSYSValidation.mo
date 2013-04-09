@@ -3,6 +3,7 @@ record TRNSYSValidation =
     Buildings.Fluid.SolarCollector.Data.GlazedFlatPlate.GenericGlazedFlatPlate
     (
     ATyp=Buildings.Fluid.SolarCollector.Types.Area.Gross,
+    Fluid = Buildings.Fluid.SolarCollector.Types.DesignFluid.Water,
     A=5,
     mDry=8.6,
     V=0.6/1000,
@@ -14,4 +15,4 @@ record TRNSYSValidation =
     slope= - 3.6111,
     IAMDiff = 0,
     C1 = 0,
-    C2 = 0) "Water-based, ACR Solar International: Skyline 10-01";
+    C2 = 0) "Default values in the TRNSYS Simulation Studio SDHW example";

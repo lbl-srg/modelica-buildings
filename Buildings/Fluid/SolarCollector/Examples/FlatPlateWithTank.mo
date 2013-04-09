@@ -168,5 +168,34 @@ equation
             -100},{100,100}}),
                       graphics), Commands(file=
           "Resources/Scripts/Dymola/Fluid/SolarCollector/Examples/FlatPlateWithTank.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+        Documentation(info="<html>
+        <p>
+        This model shows how several different examples can be combined to create an entire solar water heating system. The StratifiedEnhancedInternalHX (tan) model is used to represent
+        the tank filled with hot water. A loop, powered by a pump (pum) passes the water through an expansion tank (exp), a temperature sensor(TIn), the solar collector (solCol) and a
+        second temperature sensor (TOut) before re-entering the tank.
+        </p>
+        <p>
+        The solar collector is connected to the weather model (weaDat) which passes information for the San Francisco, CA, USA climate. This information is used to identify both
+        the heat gain in the water from the sun and the heat loss to the ambient conditions.
+        </p>
+        <p>
+        The flow rate through the pump is controlled the SolarPumpController model (pumCon) and a gain model. The SolarPumpController outputs a binary on (1) / off (0) signal. The
+        on/off signal is passed through the gain model, multiplying by 0.04, to represent a flow rate of 0.04 kg/s when the pump is active.
+        </p>
+        <p>
+        The heat ports for the tank are connected to an ambient temperature of 20 degrees C representing the temperature of the room the tank is stored in.
+        </p>
+        <p>
+        bou1 provides a constant mass flow rate for a hot water draw while bou provides an outlet boundary condition for the outlet of the draw.<br>
+        </p>
+        </html>",
+        revisions="<html>
+        <ul>
+        <li>
+        Mar 27, 2013 by Peter Grant:<br>
+        First implementation
+        </li>
+        </ul>
+        </html>"));
 end FlatPlateWithTank;

@@ -3,9 +3,10 @@ package BaseClasses
   extends Modelica.Icons.BasesPackage;
   model FlatPlateValidation "Model of a flat plate solar thermal collector"
     import Buildings;
-    extends Buildings.Fluid.SolarCollector.BaseClasses.PartialSolarCollector;
+    extends Buildings.Fluid.SolarCollector.BaseClasses.PartialSolarCollector(perPar=per);
+    parameter
       Buildings.Fluid.SolarCollector.Data.GlazedFlatPlate.GenericGlazedFlatPlate
-                                                                                 per
+                                                                                         per
       "Performance data"  annotation (choicesAllMatching=true);
     parameter Modelica.SIunits.Temperature TIn_nominal
       "Inlet temperature at nominal condition";

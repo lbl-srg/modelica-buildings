@@ -4,7 +4,8 @@ model Tubular
     Buildings.Fluid.SolarCollector.Data.GlazedFlatPlate.GenericGlazedFlatPlate per
     "Performance data"  annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Temperature TIn_nominal
-    "Inlet temperature at nominal condition";
+    "Inlet temperature at nominal condition"
+    annotation(Dialog(group="Nominal condition"));
   BaseClasses.ASHRAESolarGain solHeaGaiNom(
     nSeg=nSeg,
     y_intercept=per.y_intercept,
@@ -77,6 +78,7 @@ equation
  Because these curves can be valid yet behave poorly for angles greater than 60 degrees, the model cuts off collectors' gains of both direct and diffuse solar radiation for incident angles greater than 60 degrees. 
  <br>
  2. By default, the esitimated heat capacity of the collector without fluid is calculated based on the dry mass and the specific heat capacity of copper.
+ </p>
  <h4>References</h4>
  <p>
  <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.

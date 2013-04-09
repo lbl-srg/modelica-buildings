@@ -9,12 +9,13 @@ model FlatPlateSolarCollector "Test model for FlatPlateSolarCollector"
     Cp=4189,
     shaCoe=0,
     I_nominal=800,
-    per=Buildings.Fluid.SolarCollector.Data.GlazedFlatPlate.SRCC2001002B(),
     from_dp=true,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5,
     TEnv_nominal=283.15,
+    per=Buildings.Fluid.SolarCollector.Data.GlazedFlatPlate.TRNSYSValidation(),
+
     TIn_nominal=293.15)
              annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -73,7 +74,8 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This examples demonstrates the implementation of FlatPlateSolarCollector.
+This examples demonstrates the implementation of FlatPlateSolarCollector. In it water is passed through a solar collector while being heated by the sun in the San Francisco, CA,
+ USA climate.
 </p>
 </html>",revisions="<html>
 <ul>

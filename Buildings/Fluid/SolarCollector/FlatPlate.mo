@@ -4,9 +4,9 @@ model FlatPlate "Model of a flat plate solar thermal collector"
   parameter
     Buildings.Fluid.SolarCollector.Data.GlazedFlatPlate.GenericGlazedFlatPlate per
     annotation(choicesAllMatching=true);
-   // "fixme"
   parameter Modelica.SIunits.Temperature TIn_nominal
-    "Inlet temperature at nominal condition";
+    "Inlet temperature at nominal condition"
+    annotation(Dialog(group="Nominal condition"));
   Buildings.Fluid.SolarCollector.BaseClasses.ASHRAESolarGain
     solHeaGai(
     B0=per.B0,
@@ -163,7 +163,8 @@ This component models the flat plate solar thermal collector. By default this mo
 1. As metioned in the reference, the SRCC incident angle modifier equation coefficients are only valid for incident angles of 60 degrees or less. 
 Because these curves can be valid yet behave poorly for angles greater than 60 degrees the model cuts off collectors' gains of both direct and diffuse solar radiation for incident angles greater than 60 degrees. 
 <br>
-2. By default, the esitimated heat capacity of the collector without fluid is calculated based on the dry mass and the specific heat capacity of copper.
+2. By default, the esitimated hea capacity of the collector without fluid is calculated based on the dry mass and the specific heat capacity of copper.
+</p>
 <h4>References</h4>
 <p>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.

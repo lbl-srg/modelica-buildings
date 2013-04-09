@@ -20,14 +20,14 @@ record GenericGlazedFlatPlate "Variable types for data records from SRCC data"
   parameter Real C2
     "Temperature dependance of heat loss from EN12975 ratings data";
   annotation (defaultComponentName="gas", Documentation(info="<html>
-Generic record for solar information from SRCC certified solar collecotr. This generic record is intended for flat plate collectors using data collected according to ASHRAE93.
+Generic record for solar information from SRCC certified solar collectors. This generic record is intended for flat plate collectors using data collected according to ASHRAE93.
 The implementation is according to 
 <a href=\"http://www.solar-rating.org/ratings/og100.html\">SRCC OG-100 Directory, 
 SRCC Certified Solar Collecotr Ratings</a>.
 </html>", revisions="<html>
 <ul>
 <li>
-May 24, 2012, by Wangda Zuo:<br>
+Feb 28, 2013, by Peter Grant:<br>
 First implementation.
 </li>
 </ul>

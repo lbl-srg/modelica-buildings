@@ -70,5 +70,19 @@ equation
       smooth=Smooth.None));
   annotation (Commands(file=
           "Resources/Scripts/Dymola/Fluid/SolarCollector/Examples/TubularSolarCollector.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+        Documentation(info="<html>
+        <p>
+        This model provides an example of how the Tubular solar collector model is used. In it water is passed through a tubular solar collector while being heated by the sun in
+        the San Francisco, CA, USA climate.<br>
+        </p>
+        </html>",
+        revisions="<html>
+        <ul>
+        <li>
+        Mar 27, 2013 by Peter Grant:<br>
+        First implementation
+        </li>
+        </ul>
+        </html>"));
 end TubularSolarCollector;
