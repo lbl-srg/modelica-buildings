@@ -59,8 +59,8 @@ Ra<sub>L</sub> = Gr<sub>L</sub> * Pr * (g * B * (T<sub>S</sub> - T<sub>F</sub>)*
 </p>
 <p>
 where:<br>
-  Ra<sub>L</sub> is the Rayleigh number, Gr<sub>L</sub> is the Grashof number, Pr is the Prandtl number, g is gravity, B is the isobaric expansion coefficient, <br>
-  T<sub>S</sub> is the temperature of the surface, T<sub>F</sub> is the temperature of the fluid, L is the characteristic length, &nu; is the kinematic viscosity <br>
+  Ra<sub>L</sub> is the Rayleigh number, Gr<sub>L</sub> is the Grashof number, Pr is the Prandtl number, g is gravity, B is the isobaric expansion coefficient,
+  T<sub>S</sub> is the temperature of the surface, T<sub>F</sub> is the temperature of the fluid, L is the characteristic length, &nu; is the kinematic viscosity
   and &alpha; is the thermal diffusivity.
 </p>
 <p>

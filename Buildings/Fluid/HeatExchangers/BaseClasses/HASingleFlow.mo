@@ -96,7 +96,7 @@ Documentation(info="<html>
 Model for sensible convective heat transfer coefficients for a fluid to fluid coil. This model assumes the heated fluid is in a cylinder submerged in water.
 </p>
 <p>
-This model computes the convective heat transfer coefficient between a fluid in a submerged coil and the surrounding fluid. User inputs describe the nominal conditions<br>
+This model computes the convective heat transfer coefficient between a fluid in a submerged coil and the surrounding fluid. User inputs describe the nominal conditions
 for the fluid inside the heat exchanger and the geometry dictating the behavior outside of the coil.
 </p>
 
