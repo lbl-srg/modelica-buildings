@@ -48,12 +48,12 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This examples demonstrates the implementation of FlatPlateSolarGain.
+This examples demonstrates the implementation of ASHRAESolarGain. All of the inputs are constant resulting in a very simple model and constants for the output.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 8, 2012, by Wangda Zuo:<br>
+Mat 27, 2013 by Peter Grant:<br>
 First implementation.
 </li>
 </ul>

@@ -62,12 +62,12 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This examples demonstrates the implementation of FlatPlateSolarGain.
+This examples demonstrates the implementation of EN12975HeatLoss. All of the inputs are constants resulting in a very simple model and a constant output.
 </p>
 </html>", revisions="<html>
 <ul>
 <li>
-June 8, 2012, by Wangda Zuo:<br>
+Mar 27, 2013 by Peter Grant:<br>
 First implementation.
 </li>
 </ul>

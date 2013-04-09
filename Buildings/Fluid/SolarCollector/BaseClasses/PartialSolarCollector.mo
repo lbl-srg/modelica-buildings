@@ -35,11 +35,14 @@ model PartialSolarCollector "Partial model for solar collectors"
     til=til,
     lat=lat,
     azi=azi) annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
-  parameter Modelica.SIunits.Temperature TEnv_nominal "Outside air temperature";
+  parameter Modelica.SIunits.Temperature TEnv_nominal "Outside air temperature"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Irradiance I_nominal
-    "Irradiance at nominal condition";
+    "Irradiance at nominal condition"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.SpecificHeatCapacity Cp
-    "Specific heat capacity of the fluid";
+    "Specific heat capacity of the fluid"
+    annotation(group="Nominal condition");
 protected
   parameter Medium.ThermodynamicState sta_nominal=Medium.setState_pTX(
       T=Medium.T_default,
@@ -116,7 +119,7 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
       connect(vol[nSeg].ports[2], port_b) annotation (Line(
-      points={{50,-6},{50,-6},{50,0},{100,0}},
+      points={{50,-6},{50,0},{100,0}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(vol[1].ports[1], res.port_b) annotation (Line(
@@ -228,10 +231,11 @@ This component is a partial model of a solar thermal collector. It can be expand
 </p>
 <h4>Notice</h4>
 <p>
-1. As metioned in the reference, the SRCC incident angle modifier equation coefficients are only valid for incident angles of 60 degrees or less. <br>
+1. As metioned in the reference, the SRCC incident angle modifier equation coefficients are only valid for incident angles of 60 degrees or less.
 Because these curves can be valid yet behave poorly for angles greater than 60 degrees, the model cuts off collectors' gains of both direct and diffuse solar radiation for incident angles greater than 60 degrees. 
 <br>
 2. By default, the esitimated heat capacity of the collector without fluid is calculated based on the dry mass and the specific heat capacity of copper.
+</p>
 <h4>References</h4>
 <p>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.

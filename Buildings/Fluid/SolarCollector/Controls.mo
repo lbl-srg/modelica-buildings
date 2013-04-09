@@ -66,13 +66,12 @@ package Controls
     Documentation(info = "<html>
   <p>
   This component models a pump controller which might be used in a solar thermal system. It sets a flow rate for the system and controls whether the pump is active or inactive.
-  <br>
   The pump is activated when the incident solar radiation is greater than the critical radiation and the inlet temperature is lower than a user specified value.
   </p>
   <h4>Equations</h4>
   <p>
   The critical radiation is defined per Duffe and Beckman. It is calculated using Equation 6.8.2.
-  <p>
+  </p>
   <p align=\"center\" style=\"font-style:italic;\">
   G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub>*(T<sub>i</sub>-T<sub>a</sub>))/(F<sub>R</sub>(&tau;&alpha;))
   </p>
@@ -80,7 +79,6 @@ package Controls
   <p>
   J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.
   </p>
-  <br>
   </html>",
     revisions = "<html>
   <ul>
@@ -93,7 +91,8 @@ package Controls
   end SolarPumpController;
 
   package Examples
-    model CriticalSolarPumpController
+    extends Modelica.Icons.ExamplesPackage;
+    model SolarPumpController
       "Example showing the use of CriticalSolarPumpController"
       import Buildings;
       extends Modelica.Icons.Example;
@@ -120,8 +119,22 @@ package Controls
           color={0,0,127},
           smooth=Smooth.None));
       annotation (Diagram(graphics), Commands(file=
-              "Resources/Scripts/Dymola/Fluid/SolarCollector/Examples/CriticalSolarPumpController.mos"
-            "Simulate and Plot"));
-    end CriticalSolarPumpController;
+              "Resources/Scripts/Dymola/Fluid/SolarCollector/Controls/Examples/CriticalSolarPumpController.mos"
+            "Simulate and Plot"),
+            Documentation(info="<html>
+        <p>
+        This model provides an example of how the SolarPumpController model is used. In it a SolarPumpController model reads weather data and inlet temperature data to determine
+        whether the pump should be active or not.<br>
+        </p>
+        </html>",
+            revisions="<html>
+        <ul>
+        <li>
+        Mar 27, 2013 by Peter Grant:<br>
+        First implementation
+        </ul>
+        </li>
+        </html>"));
+    end SolarPumpController;
   end Examples;
 end Controls;

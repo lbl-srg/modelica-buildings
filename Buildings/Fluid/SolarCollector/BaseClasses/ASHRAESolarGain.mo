@@ -85,7 +85,6 @@ equation
     Documentation(info="<html>
 <p>
 This component computes the solar heat gain of thesolar thermal collector. It only calculates the solar heat gain without considering the heat loss to the evironment. This model uses ratings data according to ASHRAE93.
-<br>
 The solar heat gain is calculated using Equations 555 - 559 in the referenced E+ documentation.
 </p>
 <h4>Equations</h4>
@@ -95,8 +94,8 @@ The solar radiation absorbed by the panel is identified using Eq 559 from the E+
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg * (F<sub>R</sub>(&tau;&alpha;)*K<sub>(&tau;&alpha;)<sub>net</sub></sub>*(G<sub>Dir</sub>*(1-P<sub>sha</sub>)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
 </p>
-The solar radiation equation indicates that the collector is divided into multiple segments. The number of segments used in the simulation is specified by the user (variable: nSeg).<br>
-The area of an individual segment is identified by dividing the collector area by the total number of segments. The term P<sub>sha</sub> is used to define the percentage of the collector which is shaded.<br>
+The solar radiation equation indicates that the collector is divided into multiple segments. The number of segments used in the simulation is specified by the user (variable: nSeg).
+The area of an individual segment is identified by dividing the collector area by the total number of segments. The term P<sub>sha</sub> is used to define the percentage of the collector which is shaded.
 </p>
 <p>
 The incidence angle modifier used in the solar radiation equation is found using Eq 556 from the E+ documentation. It is:

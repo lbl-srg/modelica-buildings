@@ -24,13 +24,17 @@ public
   parameter Modelica.SIunits.CoefficientOfHeatTransfer slope
     "slope from ratings data";
   parameter Modelica.SIunits.Irradiance I_nominal
-    "Irradiance at nominal conditions";
+    "Irradiance at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature TIn_nominal
-    "Inlet temperature at nominal conditions";
+    "Inlet temperature at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature TEnv_nominal
-    "Ambient temperature at nomincal conditions";
+    "Ambient temperature at nomincal conditions"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Fluid flow rate at nominal conditions";
+    "Fluid flow rate at nominal conditions"
+    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.SpecificHeatCapacity Cp
     "Specific heat capacity of the fluid";
 protected
@@ -71,9 +75,10 @@ equation
 <p>
 This component computes the heat loss from the flat plate solar collector to the environment. It is designed anticipating ratings data collected in accordance with ASHRAE93.
 A negative QLos[i] indicates that heat is being lost to the environment.
+</p>
 <h4>Equations</h4>
 <p>
-This model calculates the heat lost from a multiple-segment model using ratings data based solely on the inlet temperature. As a resuly, the slope from the ratings data must be converted to a UA value which,<br>
+This model calculates the heat lost from a multiple-segment model using ratings data based solely on the inlet temperature. As a resuly, the slope from the ratings data must be converted to a UA value which,
 for a given number of segments, returns the same heat loss as the ratings data would at nominal conditions. The equations used to identify the UA value are shown below:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">

@@ -24,7 +24,7 @@ model EN12975SolarGain "Model calculating solar gains per the EN12975 standard"
     min=0.0,
     max=1.0) = 0 "Shading coefficient 0.0: no shading, 1.0: full shading";
   parameter Modelica.SIunits.Angle til "Surface tilt";
-  parameter Real IAMDiff "Incidence angle modifier for diffuse radiation";
+  parameter Real iamDiff "Incidence angle modifier for diffuse radiation";
 protected
   Real iamBea "Incidence angle modifier for director solar radiation";
 equation
@@ -38,14 +38,13 @@ equation
   // Modified from EnergyPlus Equ (559) by applying shade effect for direct solar radiation
   // Only solar heat gain is considered here
   for i in 1 : nSeg loop
-  QSol_flow[i] = A_c/nSeg*(y_intercept*(iamBea*HDirTil*(1.0 - shaCoe) + IAMDiff * HSkyDifTil));
+  QSol_flow[i] = A_c/nSeg*(y_intercept*(iamBea*HDirTil*(1.0 - shaCoe) + iamDiff * HSkyDifTil));
   end for;
   annotation (
     defaultComponentName="solHeaGai",
     Documentation(info="<html>
 <p>
 This component computes the solar heat gain of the solar thermal collector. It only calculates the solar heat gain without considering the heat loss to the evironment. This model performs calculations using ratings data from EN12975.
-<br>
 The solar heat gain is calculated using Equations 555 - 559 in the referenced E+ documentation. The calculation is modified somewhat to use coefficients from EN12975.
 <h4> Equations</h4>
 <p>
@@ -55,9 +54,9 @@ The final equation to calculate solar gain is a modified version of EQ 559 from 
 Q<sub>flow</sub>[i] = A<sub>c</sub>/nSeg * F<sub>R</sub>(&tau;&alpha;)*(K<sub>(&tau;&alpha;),beam</sub>*G<sub>bea</sub>*(1-P<sub>sha</sub>)+K<sub>Diff</sub>*G<sub>sky</sub>)
 </p>
 <p>
-The solar radiation equation indicates that the collector is divided into multiple segments. The number of segments used in the simulation is specified by the user parameter <code>nSeg</code>.<br>
-The area of an individual segment is identified by dividing the collector area by the total number of segments. The term P<sub>sha</sub> is used to define the percentage of the collector which is shaded.<br>
-The main difference between this model and the ASHRAE model is the handling of diffuse radiation. The ASHRAE model contains calculated incidence angle modifiers for both sky and ground diffuse radiation while<br>
+The solar radiation equation indicates that the collector is divided into multiple segments. The number of segments used in the simulation is specified by the user parameter <code>nSeg</code>.
+The area of an individual segment is identified by dividing the collector area by the total number of segments. The term P<sub>sha</sub> is used to define the percentage of the collector which is shaded.
+The main difference between this model and the ASHRAE model is the handling of diffuse radiation. The ASHRAE model contains calculated incidence angle modifiers for both sky and ground diffuse radiation while
 this model uses a coefficient from test data to for diffuse radiation.
 </p>
 

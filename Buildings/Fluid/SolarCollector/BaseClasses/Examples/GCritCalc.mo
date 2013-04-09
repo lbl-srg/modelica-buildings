@@ -24,5 +24,18 @@ equation
       points={{-59,-10},{-40,-10},{-40,4},{-14,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics));
+  annotation (Diagram(graphics),
+  Documentation(info="<html>
+  <p>
+  This model provides an example of how to use the GCritCalc model.<br>
+  </p>
+  </html>",
+  revisions="<html>
+  <ul>
+  <li>
+  Mar 27, 2013 by Peter Grant:<br>
+  First implementation
+  </li>
+  </ul>
+  </html>"));
 end GCritCalc;
