@@ -62,7 +62,7 @@ package Examples
           Documentation(info="<html>
         <p>
         This model provides an example of how the IndirectTankHeatExchanger model is used. In the model water flows from a flow source through the heat exchanger to a low
-         pressure environment. The stagnant fluid on the outside of the heat exchanger is modelled as a constant temperature.<br>
+         pressure environment. The stagnant fluid on the outside of the heat exchanger is modeled as a constant temperature.<br>
          </p>
          </html>
         ",revisions="<html>

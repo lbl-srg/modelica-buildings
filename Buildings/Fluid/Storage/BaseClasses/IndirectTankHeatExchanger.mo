@@ -32,6 +32,7 @@ model IndirectTankHeatExchanger
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
   Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium_2)
+    "Mass flow rate of the heat transfer fluid"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-60}})));
   MixingVolumes.MixingVolume vol[nSeg](each nPorts=3,
     each m_flow_nominal=m_flow_nominal_htf,
@@ -40,24 +41,29 @@ model IndirectTankHeatExchanger
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
   Modelica.Thermal.HeatTransfer.Components.HeatCapacitor Cap[nSeg](each C=C/nSeg) if
        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
+    "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
 
   Modelica.Thermal.HeatTransfer.Components.Convection htfToHX[nSeg]
+    "Convection coefficient between the heat transfer fluid and heat exchanger"
     annotation (Placement(transformation(extent={{-10,12},{-30,-8}})));
   Modelica.Thermal.HeatTransfer.Components.Convection HXToWat[nSeg]
+    "Convection coefficient between the heat exchanger and the surrounding medium"
     annotation (Placement(transformation(extent={{20,12},{40,-8}})));
   Modelica.Fluid.Sensors.Temperature temSenHtf[nSeg](redeclare package Medium
-      = Medium_2)                                    annotation (Placement(
+      = Medium_2) "Temperature of the heat transfer fluid"                                    annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-6,-72})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenWat[nSeg]
+    "Temperature sensor of the fluid surrounding the heat exchanger"
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={68,40})));
   Modelica.Blocks.Routing.Replicator rep(nout=nSeg)
+    "Replicates senMasFlo signal from 1 seg to nSeg"
     annotation (Placement(transformation(extent={{-44,-108},{-24,-88}})));
   HeatExchangers.BaseClasses.HASingleFlow hASingleFlow[nSeg](
     each UA_nominal=UA_nominal,
@@ -69,6 +75,7 @@ model IndirectTankHeatExchanger
         origin={24,-78})));
   HeatExchangers.BaseClasses.hNatCyl hNatCyl[nSeg](each ChaLen=dHXExt,
       redeclare package Medium = Medium)
+    "Calculates an hA value for each side of the heat exchanger"
                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -81,6 +88,7 @@ model IndirectTankHeatExchanger
         origin={20,42})));
   HeatExchangers.BaseClasses.RayleighNumber rayleighNumber[nSeg](each ChaLen=
         dHXExt, redeclare package Medium = Medium)
+    "Calculates the Ra and Pr on the outside of the heat exchanger"
                                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
@@ -93,6 +101,7 @@ model IndirectTankHeatExchanger
     redeclare package Medium = Medium,
     dp_nominal=dp_nominal,
     m_flow_nominal=m_flow_nominal_htf)
+    "Calculates the flow resistance and pressure drop through the heat exchanger"
     annotation (Placement(transformation(extent={{46,-60},{66,-40}})));
 equation
 
