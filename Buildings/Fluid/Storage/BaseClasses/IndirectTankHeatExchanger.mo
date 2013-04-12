@@ -230,5 +230,23 @@ equation
           lineColor={0,0,255},
           pattern=LinePattern.None,
           fillColor={0,0,0},
-          fillPattern=FillPattern.Solid)}));
+          fillPattern=FillPattern.Solid)}),
+        Documentation(info = "<html>
+          <p>
+          This model is a heat exchanger with a fluid loop on one side and a heat exchanger on the other. It is intended for use when a heat exchanger is submerged in a stagnant fluid.<br>
+          Example: A heat exchanger in a storage tank connected to a solar thermal collector.</p>
+          <p>
+          This component models the fluid in the heat exchanger, convection between the fluid and the heat exchanger, and convection from the heat exchanger to the surrounding fluid.</p>
+          <p>
+          The model is based on <a href=\"Buildings.Fluid.HeatExchangers.BaseClasses.HASingleFlow\">Buildings.Fluid.HeatExchangers.BaseClasses.HASingleFlow</a><p>
+          <p>
+          The fluid ports are intended to be connected to a circulated heat transfer fluid while the heat port is intended to be connected to a stagnant fluid.</p>          
+          </html>",
+          revisions = "<html>
+          <ul>
+          <li> Peter Grant, Jan 29, 2013<br>
+          First implementation.
+          </li>
+          </ul>
+          </html>"));
 end IndirectTankHeatExchanger;

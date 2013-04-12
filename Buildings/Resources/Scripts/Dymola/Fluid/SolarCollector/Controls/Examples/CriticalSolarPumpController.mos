@@ -1,4 +1,7 @@
-simulateModel("Buildings.Fluid.SolarCollector.Controls.Examples.SolarPumpController", stopTime = 86400, method = "dassl", resultFile = "CriticalSolarPumpController");
+removePlots();
+
+simulateModel("Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpController", stopTime = 86400, method = "dassl", resultFile = "CriticalSolarPumpController");
+
 createPlot(id = 1,
  position = {35, 30, 400, 137},
  y = {"pumCon.conSig"},

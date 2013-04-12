@@ -45,5 +45,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics));
+            -100},{100,100}}), graphics), Commands(file=
+          "Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/hNatCyl.mos"
+        "Simulate and Plot"));
 end hNatCyl;
