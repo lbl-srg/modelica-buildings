@@ -52,7 +52,7 @@ equation
 annotation (
 Documentation(info = "<html>
 <p>
-This model calcualtes the rayleight number for a given fluid and characteristic length. It is calculated using Eq 9.25 in the referenced material. The equation is
+This model calculates the rayleigh number for a given fluid and characteristic length. It is calculated using Eq 9.25 in the referenced material. The equation is
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Ra<sub>L</sub> = Gr<sub>L</sub> * Pr * (g * B * (T<sub>S</sub> - T<sub>F</sub>)*L^3) /(&nu;*&alpha;)
@@ -72,6 +72,8 @@ The thermophysical properties are calculated using the functions of the medium s
 <p>
 Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David DeWitt, John Wiley and Sons, 1996
 </p>
+</html>",
+revisions="<html>
 <h4>Revisions</h4>
 <ul>
 <li>
