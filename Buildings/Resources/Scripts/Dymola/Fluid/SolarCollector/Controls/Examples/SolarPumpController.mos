@@ -2,7 +2,7 @@ simulateModel("Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpContro
 
 createPlot(id = 1,
  position = {35, 30, 400, 137},
- y = {"pumCon.conSig"},
+ y = {"pumCon.y"},
  range = {0,86400,-0.1, 1.1},
  autoscale = true,
  autoerase = true,
