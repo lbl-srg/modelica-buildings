@@ -4,25 +4,26 @@ model SolarPumpController
   import Buildings;
   extends Modelica.Blocks.Interfaces.BlockIcon;
   parameter Real conDel "Width of the smoothHeaviside function";
-  Modelica.Blocks.Interfaces.RealInput TIn(
-  final unit = "K") "Water temperature entering the collector"
+  Modelica.Blocks.Interfaces.RealInput TIn(final unit = "K")
+    "Fluid temperature entering the collector"
     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
-parameter Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.Generic         per
+  parameter Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.Generic per
     "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
-public
-  Modelica.Blocks.Interfaces.RealOutput conSig
-    "On/off control signal from the pump"
+
+  Modelica.Blocks.Interfaces.RealOutput y "On/off control signal for the pump"
     annotation (Placement(transformation(extent={{100,-18},{136,18}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data input"
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
-  BaseClasses.GCritCalc gCritCalc(slope=per.slope, y_intercept=per.y_intercept)
+  BaseClasses.GCritCalc gCritCalc(
+    final slope=per.slope,
+    final y_intercept=per.y_intercept)
     "Calculates the critical insolation based on collector design and current weather conditions"
     annotation (Placement(transformation(extent={{-64,-18},{-44,2}})));
-  Buildings.Utilities.Math.SmoothHeaviside smoothHeaviside(delta=conDel)
-    "Creates a smooth 1/0 output"
+  Buildings.Utilities.Math.SmoothHeaviside smoothHeaviside(
+    delta=conDel) "Creates a smooth 1/0 output"
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
-  Modelica.Blocks.Math.Add add(k2=-1)
+  Modelica.Blocks.Math.Add add(final k2=-1)
     "Compares the current insolation to the critical insolation"
     annotation (Placement(transformation(extent={{-22,-10},{-2,10}})));
 
@@ -51,7 +52,7 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(smoothHeaviside.y, conSig) annotation (Line(
+  connect(smoothHeaviside.y, y) annotation (Line(
       points={{49,0},{118,0}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -62,13 +63,14 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                       graphics),
-  defaultComponentName = "pumpCon",
+  defaultComponentName = "pumCon",
   Documentation(info = "<html>
   <p>
-  This component models a pump controller which might be used in a solar thermal system. It sets a flow rate for the system and controls whether the pump is active or inactive.
-  The pump is activated when the incident solar radiation is greater than the critical radiation and the inlet temperature is lower than a user specified value.
+  This component models a pump controller which might be used in a solar thermal system. 
+  It sets a flow rate for the system and controls whether the pump is active or inactive.
+  The pump is activated when the incident solar radiation is greater than the critical radiation 
+  and the inlet temperature is lower than a user specified value.
   </p>
-  <h4>Equations</h4>
   <p>
   The critical radiation is defined per Duffie and Beckman. It is calculated using Equation 6.8.2.
   </p>
@@ -77,7 +79,8 @@ equation
   </p>
   <h4>References</h4>
   <p>
-  J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.
+  J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), 
+  John Wiley & Sons, Inc.
   </p>
   </html>",
   revisions = "<html>
