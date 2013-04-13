@@ -4,8 +4,8 @@ model SolarPumpController "Example for the solar pump controller"
   extends Modelica.Icons.Example;
   Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
         pumCon(per=
-        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B(),
-        conDel=0.01) "Model controlling the on/off status of the pump"
+        Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B())
+    "Model controlling the on/off status of the pump"
     annotation (Placement(transformation(extent={{-6,0},{14,20}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
      filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")

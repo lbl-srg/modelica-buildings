@@ -3,37 +3,39 @@ model SolarPumpController
   "Controller which activates a circulation pump when solar radiation is above a critical level"
   import Buildings;
   extends Modelica.Blocks.Interfaces.BlockIcon;
-  parameter Real conDel "Width of the smoothHeaviside function";
-  Modelica.Blocks.Interfaces.RealInput TIn(final unit = "K")
-    "Fluid temperature entering the collector"
-    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+  parameter Real delY = 0.01 "Width of the smoothHeaviside function";
   parameter Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.Generic per
     "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
 
-  Modelica.Blocks.Interfaces.RealOutput y "On/off control signal for the pump"
+  Modelica.Blocks.Interfaces.RealInput TIn(final unit = "K")
+    "Fluid temperature entering the collector"
+    annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
+  Modelica.Blocks.Interfaces.RealOutput y(min=0, max=1, unit="1")
+    "On/off control signal for the pump"
     annotation (Placement(transformation(extent={{100,-18},{136,18}})));
   Buildings.BoundaryConditions.WeatherData.Bus weaBus "Weather data input"
     annotation (Placement(transformation(extent={{-112,50},{-92,70}})));
+protected
   BaseClasses.GCritCalc gCritCalc(
     final slope=per.slope,
     final y_intercept=per.y_intercept)
     "Calculates the critical insolation based on collector design and current weather conditions"
-    annotation (Placement(transformation(extent={{-64,-18},{-44,2}})));
-  Buildings.Utilities.Math.SmoothHeaviside smoothHeaviside(
-    delta=conDel) "Creates a smooth 1/0 output"
+    annotation (Placement(transformation(extent={{-58,-20},{-38,0}})));
+  Buildings.Utilities.Math.SmoothHeaviside smoHea(final delta=delY)
+    "Creates a smooth 1/0 output"
     annotation (Placement(transformation(extent={{28,-10},{48,10}})));
   Modelica.Blocks.Math.Add add(final k2=-1)
     "Compares the current insolation to the critical insolation"
-    annotation (Placement(transformation(extent={{-22,-10},{-2,10}})));
+    annotation (Placement(transformation(extent={{-20,-10},{0,10}})));
 
 equation
   connect(TIn, gCritCalc.TIn) annotation (Line(
-      points={{-120,-40},{-84,-40},{-84,-14},{-66,-14}},
+      points={{-120,-40},{-84,-40},{-84,-16},{-60,-16}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.TDryBul, gCritCalc.TEnv) annotation (Line(
-      points={{-102,60},{-84,60},{-84,-2},{-66,-2}},
+      points={{-102,60},{-84,60},{-84,-4},{-60,-4}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -41,23 +43,23 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(gCritCalc.GCrit, add.u2) annotation (Line(
-      points={{-42.4,-8},{-32,-8},{-32,-6},{-24,-6}},
+      points={{-36.4,-10},{-32,-10},{-32,-6},{-22,-6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(weaBus.HDirNor, add.u1) annotation (Line(
-      points={{-102,60},{-34,60},{-34,6},{-24,6}},
+      points={{-102,60},{-34,60},{-34,6},{-22,6}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(smoothHeaviside.y, y) annotation (Line(
+  connect(smoHea.y, y)          annotation (Line(
       points={{49,0},{118,0}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add.y, smoothHeaviside.u) annotation (Line(
-      points={{-1,0},{26,0}},
+  connect(add.y, smoHea.u)          annotation (Line(
+      points={{1,6.66134e-16},{14,6.66134e-16},{14,0},{26,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
