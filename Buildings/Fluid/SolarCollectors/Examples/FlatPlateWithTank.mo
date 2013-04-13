@@ -8,7 +8,7 @@ model FlatPlateWithTank "Example showing use of the flat plate solar collector"
       Buildings.Media.ConstantPropertyLiquidWater
     "Fluid flowing through the collector";
 
-  Buildings.Fluid.SolarCollectors.FlatPlate         solCol(
+  Buildings.Fluid.SolarCollectors.FlatPlate solCol(
     nSeg=3,
     Cp=4189,
     shaCoe=0,
@@ -60,8 +60,8 @@ model FlatPlateWithTank "Example showing use of the flat plate solar collector"
         origin={27,-33})));
   Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
                                                      pumCon(
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B(),conDel=
-       0.0001) "Pump controller"                                                              annotation (Placement(transformation(
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B())
+    "Pump controller"                                                                                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-88,50})));
@@ -140,7 +140,7 @@ equation
       points={{-20,-82},{18.6,-82},{18.6,-33}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(pumCon.conSig, gain.u) annotation (Line(
+  connect(pumCon.y, gain.u) annotation (Line(
       points={{-88,38.2},{-88,19.6}},
       color={0,0,127},
       smooth=Smooth.None));
