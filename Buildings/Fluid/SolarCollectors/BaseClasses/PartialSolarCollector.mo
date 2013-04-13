@@ -41,6 +41,7 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Modelica.SIunits.Irradiance I_nominal
     "Irradiance at nominal condition"
     annotation(Dialog(group="Nominal condition"));
+  // Cp should be cp_nominal, and be computed using the functions provided by the Medium model.
   parameter Modelica.SIunits.SpecificHeatCapacity Cp
     "Specific heat capacity of the fluid"
     annotation(group="Nominal condition");

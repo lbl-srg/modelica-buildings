@@ -37,6 +37,7 @@ block EN12975HeatLoss
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Fluid flow rate at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
+  // This should be cp_nominal
   parameter Modelica.SIunits.SpecificHeatCapacity Cp
     "Specific heat capacity of the fluid";
 protected
