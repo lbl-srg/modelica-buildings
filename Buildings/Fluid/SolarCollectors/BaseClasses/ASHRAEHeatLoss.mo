@@ -73,27 +73,35 @@ equation
     defaultComponentName="heaLos",
     Documentation(info="<html>
 <p>
-This component computes the heat loss from the flat plate solar collector to the environment. It is designed anticipating ratings data collected in accordance with ASHRAE93.
-A negative QLos[i] indicates that heat is being lost to the environment.
+<!-- fixme: the next sentence says that the model is used for flat plate solar collectors, but
+the tubular collector also uses this model. This need to be checked if it is indeed correct,
+and the documentation must be updated accordingly.
+-->
+This component computes the heat loss from the flat plate solar collector to the environment. 
+It is designed anticipating ratings data collected in accordance with ASHRAE Standard 93.
+A negative <code>QLos[i]</code> indicates that heat is being lost to the environment.
 </p>
-<h4>Equations</h4>
 <p>
-This model calculates the heat lost from a multiple-segment model using ratings data based solely on the inlet temperature. As a result, the slope from the ratings data must be converted to a UA value which,
-for a given number of segments, returns the same heat loss as the ratings data would at nominal conditions. The equations used to identify the UA value are shown below:
+This model calculates the heat lost from a multiple-segment model using ratings data based 
+solely on the inlet temperature. As a result, the slope from the ratings data must be converted 
+to a <i>UA</i> value which,
+for a given number of segments, yields the same heat loss as the ratings data 
+would at nominal conditions. The equations used to identify the UA value are shown below:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
 Q<sub>Use,nom</sub> = I<sub>nom</sub>*A<sub>c</sub> * F<sub>R</sub>*(&tau;&alpha;) + F<sub>R</sub>U<sub>L</sub>*A<sub>c</sub>*(T<sub>In,nom</sub> - T<sub>Amb,nom</sub>)<br>
 T<sub>Fluid,nom</sub>[nSeg]=T<sub>In,nom</sub>+Q<sub>Use,nom</sub>/(m<sub>flow,nom</sub>*C<sub>p</sub>)<br>
 Q<sub>Los,nom</sub>=-F<sub>R</sub>U<sub>L</sub>*A<sub>c</sub>*(T<sub>In,nom</sub>-T<sub>Env,nom</sub>)<br>
-T<sub>Fluid,nom</sub>[i] = T<sub>Fluid,nom</sub>[i-1] + (G<sub>nom</sub>*F<sub>R</sub>*(&tau;&alpha;) * A<sub>c</sub>/nSeg - UA/nSeg*(T<sub>Fluid,nom</sub>[i-1]-T<sub>Env,nom</sub>))/(m<sub>Flow,nom</sub>*c<sub>p</sub>)<br>
-Q<sub>Loss,UA</sub>=UA/nSeg * (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom</sub>)<br>
+T<sub>Fluid,nom</sub>[i] = T<sub>Fluid,nom</sub>[i-1] + (G<sub>nom</sub>*F<sub>R</sub>*(&tau;&alpha;) * A<sub>c</sub>/nSeg - UA<sub>nom</sub>/nSeg*(T<sub>Fluid,nom</sub>[i-1]-T<sub>Env,nom</sub>))/(m<sub>Flow,nom</sub>*c<sub>p</sub>)<br>
+Q<sub>Loss,UA</sub>=UA<sub>nom</sub>/nSeg * (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom</sub>)<br>
 sum(Q<sub>Loss,UA</sub>[1:nSeg])=Q<sub>Loss,nom</sub>
 </p>
-The effective UA value is calculated at the beginning of the simulation and used as a constant through the rest of the simulation. The actual heat loss from the collector is calculated using:
+The effective <i>UA<sub>nom</sub></i> value is calculated at the 
+beginning of the simulation and used as a constant through the rest of the simulation.
+The actual heat loss from the collector is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
--Q<sub>Loss</sub>[i] = UA/nSeg * (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
+-Q<sub>Loss</sub>[i] = UA<sub>nom</sub>/nSeg * (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
 </p>
-
 <h4>References</h4>
 <p>
 J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.  
