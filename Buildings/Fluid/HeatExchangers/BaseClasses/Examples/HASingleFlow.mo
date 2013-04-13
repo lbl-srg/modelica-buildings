@@ -2,7 +2,7 @@ within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model HASingleFlow
   extends Modelica.Icons.Example;
 
-  HASingleFlow hASingleFlow(
+  Buildings.Fluid.HeatExchangers.BaseClasses.HASingleFlow hASingleFlow(
     UA_nominal=13,
     m_flow_nominal_w=0.063,
     A_2=1) annotation (Placement(transformation(extent={{-14,-10},{6,10}})));
