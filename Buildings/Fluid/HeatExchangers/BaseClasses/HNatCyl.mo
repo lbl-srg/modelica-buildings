@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model hNatCyl
+model HNatCyl
   "Calculates the convection coefficient for natural convection around a cylinder"
   extends Modelica.Blocks.Interfaces.BlockIcon;
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
@@ -68,4 +68,4 @@ equation
             </li>
             </ul>
             </html>"));
-end hNatCyl;
+end HNatCyl;

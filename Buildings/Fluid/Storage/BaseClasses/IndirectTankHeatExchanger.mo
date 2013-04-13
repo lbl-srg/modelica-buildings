@@ -73,7 +73,7 @@ model IndirectTankHeatExchanger
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={24,-78})));
-  HeatExchangers.BaseClasses.hNatCyl hNatCyl[nSeg](each ChaLen=dHXExt,
+  HeatExchangers.BaseClasses.HNatCyl hNatCyl[nSeg](each ChaLen=dHXExt,
       redeclare package Medium = Medium)
     "Calculates an hA value for each side of the heat exchanger"
                                     annotation (Placement(transformation(

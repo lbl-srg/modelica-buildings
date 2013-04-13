@@ -1,8 +1,8 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
-model hNatCyl
+model HNatCyl
   import Buildings;
   extends Modelica.Icons.Example;
-  Buildings.Fluid.HeatExchangers.BaseClasses.hNatCyl hNatCyl(redeclare package
+  Buildings.Fluid.HeatExchangers.BaseClasses.HNatCyl hNatCyl(redeclare package
       Medium = Modelica.Media.Water.WaterIF97_pT, ChaLen=0.01905)
     annotation (Placement(transformation(extent={{36,-4},{56,16}})));
   Modelica.Blocks.Sources.Ramp TSur(
@@ -46,6 +46,6 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Commands(file=
-          "Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/hNatCyl.mos"
+          "Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HNatCyl.mos"
         "Simulate and Plot"));
-end hNatCyl;
+end HNatCyl;
