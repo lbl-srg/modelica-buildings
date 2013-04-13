@@ -73,7 +73,7 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  annotation (Commands(file=
+  annotation (__Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/SolarCollector/Examples/ConcentratingSolarCollector.mos"
         "Simulate and Plot"),
         Documentation(info="<html>

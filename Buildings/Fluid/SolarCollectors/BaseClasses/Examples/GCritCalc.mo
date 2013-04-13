@@ -25,7 +25,7 @@ equation
       points={{-59,-10},{-40,-10},{-40,4},{-14,4}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),
+  annotation (
   Documentation(info="<html>
   <p>
   This model provides an example of how to use the GCritCalc model.<br>
@@ -39,7 +39,7 @@ equation
   </li>
   </ul>
   </html>"),
-    Commands(file=
+    __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/SolarCollector/BaseClasses/Examples/GCritCalc.mos"
         "Simulate and Plot"));
 end GCritCalc;

@@ -173,8 +173,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics), Commands(file=
+            -100},{100,100}})),
+                      __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/SolarCollector/Examples/FlatPlateWithTank.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
