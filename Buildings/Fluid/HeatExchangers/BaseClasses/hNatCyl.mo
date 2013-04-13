@@ -38,14 +38,14 @@ equation
             -100},{100,100}}), graphics),
             Documentation(info="<html>
             <p>
-            This model calculates the convection coefficient (h) for natural convection from a cylinder submerged in fluid. h is calculated using Eq 9.34 from the referenced text.
+            This model calculates the convection coefficient (h) for natural convection from a cylinder submerged in fluid. h is calcualted using Eq 9.34 from the referenced text.
             </p>
             <p align=\"center\" style=\"font-style:italic;\">
             Nu<sub>D</sub> = (0.6 + (0.387*Ra<sub>D</sub>^(1/6))/(1+(0.559*Pr)^(9/16))^(8/27))^2);
             </p>
             <p>
-            Where Nu<sub>D</sub> is the Nusselt number, Ra<sub>D</sub> is the Rayleigh number and Pr is the Prandtl number.
-            This correlation is accurate for Ra<sub>D</sub> less than 10^12.
+            Where Nu<sub>D</sub> is the Nusselt number, Ra<sub>D</sub> is the Rayleigh number and Pr is the Prandtl number.<br>
+            This correclation is accurate for Ra<sub>D</sub> less than 10^12.
             </p>
             <p>
             h is then calculated from the Nusselt number. The equation is
@@ -59,9 +59,8 @@ equation
             <h4>References</h4>
             <p>
             Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera and David DeWitt, John Wiley and Sons, 1996
-            </p>
-            </html>",
-            revisions="<html>
+            </p>  
+            <h4>Revisions</h4>
             <ul>
             <li>
             February 26, 2013 by Peter Grant <br>
