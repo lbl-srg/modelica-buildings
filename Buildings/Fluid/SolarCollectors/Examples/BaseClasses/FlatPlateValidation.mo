@@ -1,9 +1,8 @@
 within Buildings.Fluid.SolarCollectors.Examples.BaseClasses;
 model FlatPlateValidation "Model of a flat plate solar thermal collector"
   import Buildings;
-  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(
-                                                                           perPar=per);
-  parameter Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.Generic               per
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector(perPar=per);
+  parameter Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.Generic per
     "Performance data"  annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Temperature TIn_nominal
     "Inlet temperature at nominal condition";
@@ -17,7 +16,7 @@ model FlatPlateValidation "Model of a flat plate solar thermal collector"
     y_intercept=per.y_intercept,
     A_c=per.A) "Solar gain model calculated using standard ASHRAE calculations"
              annotation (Placement(transformation(extent={{12,60},{32,80}})));
-public
+
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
     Cp=Cp,
     nSeg=nSeg,
@@ -72,8 +71,7 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
-            graphics),
+            100,100}})),
     Icon(graphics={
         Rectangle(
           extent={{-86,100},{88,-100}},
@@ -157,23 +155,38 @@ equation
           rotation=90)}),
     defaultComponentName="solCol",
     Documentation(info="<html>
-<h4>Overview</h4>
 <p>
-This component models the flat plate solar thermal collector. By default this model uses ASHRAE 93 ratings data and references the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate\">
+This component models the flat plate solar thermal collector. 
+This model uses ASHRAE 93 ratings data and references 
+the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate\">
 Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a> data library.
 </p>
 <h4>Notice</h4>
 <p>
-1. As mentioned in the reference, the SRCC incident angle modifier equation coefficients are only valid for incident angles of 60 degrees or less. 
-Because these curves can be valid yet behave poorly for angles greater than 60 degrees the model cuts off collectors' gains of both direct and diffuse solar radiation for incident angles greater than 60 degrees. 
-<br>
-2. By default, the estimated heat capacity of the collector without fluid is calculated based on the dry mass and the specific heat capacity of copper.
+<ul>
+<li>
+As mentioned in the reference, the SRCC incident angle modifier equation coefficients 
+are only valid for incident angles of 60 degrees or less. 
+Because these curves can be valid yet behave poorly for angles greater than 
+60 degrees, the model cuts off the collectors' gains of both direct and diffuse solar radiation 
+for incident angles greater than 60 degrees. 
+</li>
+<li>
+By default, the estimated heat capacity of the collector without fluid is calculated 
+based on the dry mass and the specific heat capacity of copper.
+</li>
+</ul>
+</p>
 <h4>References</h4>
 <p>
+<ul>
+<li>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
-<br>
+</li>
+<li>
 J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.  
-</p>
+</li>
+</ul>
 </html>", revisions="<html>
 <ul>
 <li>
