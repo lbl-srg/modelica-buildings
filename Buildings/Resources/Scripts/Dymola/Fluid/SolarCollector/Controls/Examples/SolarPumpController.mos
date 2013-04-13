@@ -1,6 +1,4 @@
-removePlots();
-
-simulateModel("Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpController", stopTime = 86400, method = "dassl", resultFile = "CriticalSolarPumpController");
+simulateModel("Buildings.Fluid.SolarCollectors.Controls.Examples.SolarPumpController", stopTime = 86400, method = "dassl", resultFile = "SolarPumpController");
 
 createPlot(id = 1,
  position = {35, 30, 400, 137},
@@ -12,6 +10,6 @@ createPlot(id = 1,
  grid = true,
  color = true, 
  subPlot = 1,
- filename = "CriticalSolarPumpController.mat",
+ filename = "SolarPumpController.mat",
  leftTitleType = 1,
  bottomTitleType = 1);
