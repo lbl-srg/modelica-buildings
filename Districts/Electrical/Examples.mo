@@ -14,12 +14,9 @@ package Examples "Package with example models"
       annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,
-          origin={-50,40})));
+          origin={-52,-12})));
     Modelica.Electrical.Analog.Basic.Ground groDC "Ground for DC grid"
       annotation (Placement(transformation(extent={{-30,-60},{-10,-40}})));
-    Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground groAC
-      "Ground for AC grid"
-      annotation (Placement(transformation(extent={{30,-60},{50,-40}})));
     Districts.Electrical.AC.Sources.Grid
       grid(V=380, f=60, phi=0)
       annotation (Placement(transformation(extent={{30,28},{50,48}})));
@@ -28,39 +25,35 @@ package Examples "Package with example models"
       annotation (Placement(transformation(extent={{24,-12},{4,8}})));
     Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
         computeWetBulbTemperature=false, filNam="Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
-      annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
+      annotation (Placement(transformation(extent={{-90,60},{-70,80}})));
     Districts.BoundaryConditions.WeatherData.Bus weaBus
-      annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
+      annotation (Placement(transformation(extent={{-62,60},{-42,80}})));
   equation
-    connect(conACDC.pin_nQS, groAC.pin)              annotation (Line(
-        points={{24,-12},{40,-12},{40,-40}},
-        color={85,170,255},
-        smooth=Smooth.None));
     connect(conACDC.pin_pDC, tur.p)            annotation (Line(
-        points={{4,8},{-80,8},{-80,40},{-60,40}},
+        points={{4,8},{-80,8},{-80,-12},{-62,-12}},
         color={0,0,255},
         smooth=Smooth.None));
     connect(tur.n, conACDC.pin_nDC) annotation (Line(
-        points={{-40,40},{-20,40},{-20,-12},{4,-12}},
+        points={{-42,-12},{4,-12}},
         color={0,0,255},
         smooth=Smooth.None));
     connect(tur.n, groDC.p)  annotation (Line(
-        points={{-40,40},{-20,40},{-20,-40}},
+        points={{-42,-12},{-20,-12},{-20,-40}},
         color={0,0,255},
         smooth=Smooth.None));
-    connect(conACDC.pin_pQS, grid.pin) annotation (Line(
-        points={{24,8},{40,8},{40,28}},
-        color={85,170,255},
-        smooth=Smooth.None));
     connect(weaDat.weaBus, weaBus) annotation (Line(
-        points={{-60,70},{-50,70}},
+        points={{-70,70},{-52,70}},
         color={255,204,51},
         thickness=0.5,
         smooth=Smooth.None));
     connect(weaBus.winSpe, tur.vWin) annotation (Line(
-        points={{-50,70},{-50,52}},
+        points={{-52,70},{-52,8.88178e-16}},
         color={255,204,51},
         thickness=0.5,
+        smooth=Smooth.None));
+    connect(conACDC.plug1, grid.sPhasePlug) annotation (Line(
+        points={{24,-2},{39.9,-2},{39.9,28}},
+        color={0,0,0},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
               -100},{100,100}}), graphics), Documentation(info="<html>
@@ -101,9 +94,6 @@ First implementation.
       annotation (Placement(transformation(extent={{10,-80},{30,-60}})));
     Modelica.Electrical.Analog.Basic.Resistor res(R=0.5)
       annotation (Placement(transformation(extent={{-20,-50},{0,-30}})));
-    Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground groAC
-      "Ground for AC grid"
-      annotation (Placement(transformation(extent={{70,-80},{90,-60}})));
     Districts.Electrical.AC.Sources.Grid
                  grid(
       V=380,
@@ -141,10 +131,6 @@ First implementation.
         points={{20,-60},{20,-40},{0,-40}},
         color={0,0,255},
         smooth=Smooth.None));
-    connect(conACDC.pin_nQS, groAC.pin)              annotation (Line(
-        points={{64,-12},{80,-12},{80,-60}},
-        color={85,170,255},
-        smooth=Smooth.None));
     connect(conACDC.pin_pDC, pv.p)             annotation (Line(
         points={{44,8},{-40,8},{-40,40},{-20,40}},
         color={0,0,255},
@@ -152,10 +138,6 @@ First implementation.
     connect(conACDC.pin_nDC, res.n)             annotation (Line(
         points={{44,-12},{20,-12},{20,-40},{0,-40}},
         color={0,0,255},
-        smooth=Smooth.None));
-    connect(conACDC.pin_pQS, grid.pin) annotation (Line(
-        points={{64,8},{80,8},{80,30}},
-        color={85,170,255},
         smooth=Smooth.None));
     connect(weaDat.weaBus,HDifTil. weaBus) annotation (Line(
         points={{-108,110},{-80,110}},
@@ -178,6 +160,10 @@ First implementation.
     connect(G.y, pv.G) annotation (Line(
         points={{-19,90},{-10,90},{-10,52}},
         color={0,0,127},
+        smooth=Smooth.None));
+    connect(conACDC.plug1, grid.sPhasePlug) annotation (Line(
+        points={{64,-2},{79.9,-2},{79.9,30}},
+        color={0,0,0},
         smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,
               -100},{100,140}}),      graphics),

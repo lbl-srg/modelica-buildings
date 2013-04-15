@@ -102,775 +102,579 @@ int settings(13,1)
 
 
 #    Names of initial variables
-char initialName(383,60)
-generator.ground.pin.v.re
-generator.ground.pin.v.im
-generator.ground.pin.i.re
-generator.ground.pin.i.im
-generator.ground.pin.reference.gamma
-generator.threePhasePlug.n
-generator.threePhasePlug.phase[1].v.re
-generator.threePhasePlug.phase[1].v.im
-generator.threePhasePlug.phase[1].i.re
-generator.threePhasePlug.phase[1].i.im
-generator.threePhasePlug.phase[2].v.re
-generator.threePhasePlug.phase[2].v.im
-generator.threePhasePlug.phase[2].i.re
-generator.threePhasePlug.phase[2].i.im
-generator.threePhasePlug.phase[3].v.re
-generator.threePhasePlug.phase[3].v.im
-generator.threePhasePlug.phase[3].i.re
-generator.threePhasePlug.phase[3].i.im
-generator.threePhasePlug.neutral.v.re
-generator.threePhasePlug.neutral.v.im
-generator.threePhasePlug.neutral.i.re
-generator.threePhasePlug.neutral.i.im
-generator.V
-generator.freqHz
-generator.phase2.pin_p.reference.gamma
-generator.phase2.pin_p.reference.der(gamma)
-generator.phase2.pin_n.v.re
-generator.phase2.pin_n.v.im
-generator.phase2.pin_n.reference.gamma
-generator.phase2.f
-generator.phase2.V
-generator.phase2.phi
-generator.phase1.pin_p.reference.gamma
-generator.phase1.pin_p.reference.der(gamma)
-generator.phase1.pin_n.v.re
-generator.phase1.pin_n.v.im
-generator.phase1.f
-generator.phase1.V
-generator.phase1.phi
-generator.phase3.pin_n.v.re
-generator.phase3.pin_n.v.im
-generator.phase3.pin_n.reference.gamma
-generator.phase3.f
-generator.phase3.V
-generator.phase3.phi
-R_Load.resistor.v.re
-R_Load.resistor.v.im
-R_Load.resistor.R_ref
-R_Load.resistor.T_ref
-R_Load.resistor.alpha_ref
-R_Load.resistor.useHeatPort
-R_Load.resistor.T
-R_Load.resistor.LossPower
-R_Load.resistor.R_actual
-R_Load.R
-R_Load.singlePhasePlug.n
-R_Load.singlePhasePlug.phase[1].v.re
-R_Load.singlePhasePlug.phase[1].v.im
-R_Load.singlePhasePlug.neutral.v.re
-R_Load.singlePhasePlug.neutral.v.im
-C_Load.capacitor.v.re
-C_Load.capacitor.v.im
-C_Load.capacitor.C
-C_Load.singlePhasePlug.n
-C_Load.singlePhasePlug.phase[1].v.re
-C_Load.singlePhasePlug.phase[1].v.im
-C_Load.singlePhasePlug.neutral.v.re
-C_Load.singlePhasePlug.neutral.v.im
-C_Load.C
-L_Load.inductance.v.re
-L_Load.inductance.v.im
-L_Load.inductance.L
-L_Load.singlePhasePlug.n
-L_Load.singlePhasePlug.phase[1].v.re
-L_Load.singlePhasePlug.phase[1].v.im
-L_Load.singlePhasePlug.neutral.v.re
-L_Load.singlePhasePlug.neutral.v.im
-L_Load.L
-adaptor.threePhasePlug.n
-adaptor.threePhasePlug.phase[1].v.re
-adaptor.threePhasePlug.phase[1].v.im
-adaptor.threePhasePlug.phase[2].v.re
-adaptor.threePhasePlug.phase[2].v.im
-adaptor.threePhasePlug.phase[3].v.re
-adaptor.threePhasePlug.phase[3].v.im
-adaptor.threePhasePlug.neutral.v.re
-adaptor.threePhasePlug.neutral.v.im
-adaptor.phase1.n
-adaptor.phase2.n
-adaptor.phase3.n
-singlePhaseLine.line.Length
-singlePhaseLine.line.k
-singlePhaseLine.line.T_ref
-singlePhaseLine.line.alpha
-singlePhaseLine.line.R
-singlePhaseLine.line.L
-singlePhaseLine.line.resistorLine.v.re
-singlePhaseLine.line.resistorLine.v.im
-singlePhaseLine.line.resistorLine.pin_n.v.re
-singlePhaseLine.line.resistorLine.pin_n.v.im
-singlePhaseLine.line.resistorLine.R_ref
-singlePhaseLine.line.resistorLine.T_ref
-singlePhaseLine.line.resistorLine.alpha_ref
-singlePhaseLine.line.resistorLine.useHeatPort
-singlePhaseLine.line.resistorLine.T
-singlePhaseLine.line.resistorLine.LossPower
-singlePhaseLine.line.resistorLine.T_heatPort
-singlePhaseLine.line.resistorLine.R_actual
-singlePhaseLine.line.inductorLine.v.re
-singlePhaseLine.line.inductorLine.v.im
-singlePhaseLine.line.inductorLine.L
-singlePhaseLine.line.cable.d
-singlePhaseLine.line.cable.i
-singlePhaseLine.line.cable.S
-singlePhaseLine.line.wireMaterial.r0
-singlePhaseLine.line.wireMaterial.alphaT0
-singlePhaseLine.line.wireMaterial.T0
-singlePhaseLine.line1.Length
-singlePhaseLine.line1.k
-singlePhaseLine.line1.T_ref
-singlePhaseLine.line1.alpha
-singlePhaseLine.line1.R
-singlePhaseLine.line1.L
-singlePhaseLine.line1.resistorLine.v.re
-singlePhaseLine.line1.resistorLine.v.im
-singlePhaseLine.line1.resistorLine.pin_n.v.re
-singlePhaseLine.line1.resistorLine.pin_n.v.im
-singlePhaseLine.line1.resistorLine.R_ref
-singlePhaseLine.line1.resistorLine.T_ref
-singlePhaseLine.line1.resistorLine.alpha_ref
-singlePhaseLine.line1.resistorLine.useHeatPort
-singlePhaseLine.line1.resistorLine.T
-singlePhaseLine.line1.resistorLine.LossPower
-singlePhaseLine.line1.resistorLine.T_heatPort
-singlePhaseLine.line1.resistorLine.R_actual
-singlePhaseLine.line1.inductorLine.v.re
-singlePhaseLine.line1.inductorLine.v.im
-singlePhaseLine.line1.inductorLine.L
-singlePhaseLine.line1.cable.d
-singlePhaseLine.line1.cable.i
-singlePhaseLine.line1.cable.S
-singlePhaseLine.line1.wireMaterial.r0
-singlePhaseLine.line1.wireMaterial.alphaT0
-singlePhaseLine.line1.wireMaterial.T0
-singlePhaseLine.singlePhasePlug.n
-singlePhaseLine.singlePhasePlug1.n
-singlePhaseLine.Length
-singlePhaseLine1.line.Length
-singlePhaseLine1.line.k
-singlePhaseLine1.line.T_ref
-singlePhaseLine1.line.alpha
-singlePhaseLine1.line.R
-singlePhaseLine1.line.L
-singlePhaseLine1.line.resistorLine.v.re
-singlePhaseLine1.line.resistorLine.v.im
-singlePhaseLine1.line.resistorLine.pin_n.v.re
-singlePhaseLine1.line.resistorLine.pin_n.v.im
-singlePhaseLine1.line.resistorLine.R_ref
-singlePhaseLine1.line.resistorLine.T_ref
-singlePhaseLine1.line.resistorLine.alpha_ref
-singlePhaseLine1.line.resistorLine.useHeatPort
-singlePhaseLine1.line.resistorLine.T
-singlePhaseLine1.line.resistorLine.LossPower
-singlePhaseLine1.line.resistorLine.T_heatPort
-singlePhaseLine1.line.resistorLine.R_actual
-singlePhaseLine1.line.inductorLine.v.re
-singlePhaseLine1.line.inductorLine.v.im
-singlePhaseLine1.line.inductorLine.L
-singlePhaseLine1.line.cable.d
-singlePhaseLine1.line.cable.i
-singlePhaseLine1.line.cable.S
-singlePhaseLine1.line.wireMaterial.r0
-singlePhaseLine1.line.wireMaterial.alphaT0
-singlePhaseLine1.line.wireMaterial.T0
-singlePhaseLine1.line1.Length
-singlePhaseLine1.line1.k
-singlePhaseLine1.line1.T_ref
-singlePhaseLine1.line1.alpha
-singlePhaseLine1.line1.R
-singlePhaseLine1.line1.L
-singlePhaseLine1.line1.resistorLine.v.re
-singlePhaseLine1.line1.resistorLine.v.im
-singlePhaseLine1.line1.resistorLine.pin_n.v.re
-singlePhaseLine1.line1.resistorLine.pin_n.v.im
-singlePhaseLine1.line1.resistorLine.R_ref
-singlePhaseLine1.line1.resistorLine.T_ref
-singlePhaseLine1.line1.resistorLine.alpha_ref
-singlePhaseLine1.line1.resistorLine.useHeatPort
-singlePhaseLine1.line1.resistorLine.T
-singlePhaseLine1.line1.resistorLine.LossPower
-singlePhaseLine1.line1.resistorLine.T_heatPort
-singlePhaseLine1.line1.resistorLine.R_actual
-singlePhaseLine1.line1.inductorLine.v.re
-singlePhaseLine1.line1.inductorLine.v.im
-singlePhaseLine1.line1.inductorLine.L
-singlePhaseLine1.line1.cable.d
-singlePhaseLine1.line1.cable.i
-singlePhaseLine1.line1.cable.S
-singlePhaseLine1.line1.wireMaterial.r0
-singlePhaseLine1.line1.wireMaterial.alphaT0
-singlePhaseLine1.line1.wireMaterial.T0
-singlePhaseLine1.singlePhasePlug.n
-singlePhaseLine1.singlePhasePlug1.n
-singlePhaseLine1.Length
-singlePhaseLine2.line.Length
-singlePhaseLine2.line.k
-singlePhaseLine2.line.T_ref
-singlePhaseLine2.line.alpha
-singlePhaseLine2.line.R
-singlePhaseLine2.line.L
-singlePhaseLine2.line.resistorLine.v.re
-singlePhaseLine2.line.resistorLine.v.im
-singlePhaseLine2.line.resistorLine.pin_n.v.re
-singlePhaseLine2.line.resistorLine.pin_n.v.im
-singlePhaseLine2.line.resistorLine.R_ref
-singlePhaseLine2.line.resistorLine.T_ref
-singlePhaseLine2.line.resistorLine.alpha_ref
-singlePhaseLine2.line.resistorLine.useHeatPort
-singlePhaseLine2.line.resistorLine.T
-singlePhaseLine2.line.resistorLine.LossPower
-singlePhaseLine2.line.resistorLine.T_heatPort
-singlePhaseLine2.line.resistorLine.R_actual
-singlePhaseLine2.line.inductorLine.v.re
-singlePhaseLine2.line.inductorLine.v.im
-singlePhaseLine2.line.inductorLine.L
-singlePhaseLine2.line.cable.d
-singlePhaseLine2.line.cable.i
-singlePhaseLine2.line.cable.S
-singlePhaseLine2.line.wireMaterial.r0
-singlePhaseLine2.line.wireMaterial.alphaT0
-singlePhaseLine2.line.wireMaterial.T0
-singlePhaseLine2.line1.Length
-singlePhaseLine2.line1.k
-singlePhaseLine2.line1.T_ref
-singlePhaseLine2.line1.alpha
-singlePhaseLine2.line1.R
-singlePhaseLine2.line1.L
-singlePhaseLine2.line1.resistorLine.v.re
-singlePhaseLine2.line1.resistorLine.v.im
-singlePhaseLine2.line1.resistorLine.pin_n.v.re
-singlePhaseLine2.line1.resistorLine.pin_n.v.im
-singlePhaseLine2.line1.resistorLine.R_ref
-singlePhaseLine2.line1.resistorLine.T_ref
-singlePhaseLine2.line1.resistorLine.alpha_ref
-singlePhaseLine2.line1.resistorLine.useHeatPort
-singlePhaseLine2.line1.resistorLine.T
-singlePhaseLine2.line1.resistorLine.LossPower
-singlePhaseLine2.line1.resistorLine.T_heatPort
-singlePhaseLine2.line1.resistorLine.R_actual
-singlePhaseLine2.line1.inductorLine.v.re
-singlePhaseLine2.line1.inductorLine.v.im
-singlePhaseLine2.line1.inductorLine.L
-singlePhaseLine2.line1.cable.d
-singlePhaseLine2.line1.cable.i
-singlePhaseLine2.line1.cable.S
-singlePhaseLine2.line1.wireMaterial.r0
-singlePhaseLine2.line1.wireMaterial.alphaT0
-singlePhaseLine2.line1.wireMaterial.T0
-singlePhaseLine2.singlePhasePlug.n
-singlePhaseLine2.singlePhasePlug1.n
-singlePhaseLine2.Length
-threePhaseLine.Length
-threePhaseLine.line.Length
-threePhaseLine.line.k
-threePhaseLine.line.T_ref
-threePhaseLine.line.alpha
-threePhaseLine.line.R
-threePhaseLine.line.L
-threePhaseLine.line.resistorLine.v.re
-threePhaseLine.line.resistorLine.v.im
-threePhaseLine.line.resistorLine.pin_n.v.re
-threePhaseLine.line.resistorLine.pin_n.v.im
-threePhaseLine.line.resistorLine.R_ref
-threePhaseLine.line.resistorLine.T_ref
-threePhaseLine.line.resistorLine.alpha_ref
-threePhaseLine.line.resistorLine.useHeatPort
-threePhaseLine.line.resistorLine.T
-threePhaseLine.line.resistorLine.LossPower
-threePhaseLine.line.resistorLine.T_heatPort
-threePhaseLine.line.resistorLine.R_actual
-threePhaseLine.line.inductorLine.v.re
-threePhaseLine.line.inductorLine.v.im
-threePhaseLine.line.inductorLine.L
-threePhaseLine.line.cable.d
-threePhaseLine.line.cable.i
-threePhaseLine.line.cable.S
-threePhaseLine.line.wireMaterial.r0
-threePhaseLine.line.wireMaterial.alphaT0
-threePhaseLine.line.wireMaterial.T0
-threePhaseLine.line1.Length
-threePhaseLine.line1.k
-threePhaseLine.line1.T_ref
-threePhaseLine.line1.alpha
-threePhaseLine.line1.R
-threePhaseLine.line1.L
-threePhaseLine.line1.resistorLine.v.re
-threePhaseLine.line1.resistorLine.v.im
-threePhaseLine.line1.resistorLine.pin_p.v.re
-threePhaseLine.line1.resistorLine.pin_p.v.im
-threePhaseLine.line1.resistorLine.pin_n.reference.gamma
-threePhaseLine.line1.resistorLine.R_ref
-threePhaseLine.line1.resistorLine.T_ref
-threePhaseLine.line1.resistorLine.alpha_ref
-threePhaseLine.line1.resistorLine.useHeatPort
-threePhaseLine.line1.resistorLine.T
-threePhaseLine.line1.resistorLine.LossPower
-threePhaseLine.line1.resistorLine.T_heatPort
-threePhaseLine.line1.resistorLine.R_actual
-threePhaseLine.line1.inductorLine.v.re
-threePhaseLine.line1.inductorLine.v.im
-threePhaseLine.line1.inductorLine.pin_p.reference.gamma
-threePhaseLine.line1.inductorLine.pin_p.reference.der(gamma)
-threePhaseLine.line1.inductorLine.L
-threePhaseLine.line1.cable.d
-threePhaseLine.line1.cable.i
-threePhaseLine.line1.cable.S
-threePhaseLine.line1.wireMaterial.r0
-threePhaseLine.line1.wireMaterial.alphaT0
-threePhaseLine.line1.wireMaterial.T0
-threePhaseLine.line1.A.v.re
-threePhaseLine.line1.A.v.im
-threePhaseLine.singlePhasePlug.n
-threePhaseLine.singlePhasePlug.neutral.v.re
-threePhaseLine.singlePhasePlug.neutral.v.im
-threePhaseLine.singlePhasePlug1.n
-threePhaseLine.line2.Length
-threePhaseLine.line2.k
-threePhaseLine.line2.T_ref
-threePhaseLine.line2.alpha
-threePhaseLine.line2.R
-threePhaseLine.line2.L
-threePhaseLine.line2.resistorLine.v.re
-threePhaseLine.line2.resistorLine.v.im
-threePhaseLine.line2.resistorLine.pin_n.v.re
-threePhaseLine.line2.resistorLine.pin_n.v.im
-threePhaseLine.line2.resistorLine.pin_n.reference.gamma
-threePhaseLine.line2.resistorLine.R_ref
-threePhaseLine.line2.resistorLine.T_ref
-threePhaseLine.line2.resistorLine.alpha_ref
-threePhaseLine.line2.resistorLine.useHeatPort
-threePhaseLine.line2.resistorLine.T
-threePhaseLine.line2.resistorLine.LossPower
-threePhaseLine.line2.resistorLine.T_heatPort
-threePhaseLine.line2.resistorLine.R_actual
-threePhaseLine.line2.inductorLine.v.re
-threePhaseLine.line2.inductorLine.v.im
-threePhaseLine.line2.inductorLine.pin_p.reference.gamma
-threePhaseLine.line2.inductorLine.L
-threePhaseLine.line2.cable.d
-threePhaseLine.line2.cable.i
-threePhaseLine.line2.cable.S
-threePhaseLine.line2.wireMaterial.r0
-threePhaseLine.line2.wireMaterial.alphaT0
-threePhaseLine.line2.wireMaterial.T0
-threePhaseLine.line3.Length
-threePhaseLine.line3.k
-threePhaseLine.line3.T_ref
-threePhaseLine.line3.alpha
-threePhaseLine.line3.R
-threePhaseLine.line3.L
-threePhaseLine.line3.resistorLine.v.re
-threePhaseLine.line3.resistorLine.v.im
-threePhaseLine.line3.resistorLine.pin_n.v.re
-threePhaseLine.line3.resistorLine.pin_n.v.im
-threePhaseLine.line3.resistorLine.pin_n.reference.gamma
-threePhaseLine.line3.resistorLine.R_ref
-threePhaseLine.line3.resistorLine.T_ref
-threePhaseLine.line3.resistorLine.alpha_ref
-threePhaseLine.line3.resistorLine.useHeatPort
-threePhaseLine.line3.resistorLine.T
-threePhaseLine.line3.resistorLine.LossPower
-threePhaseLine.line3.resistorLine.T_heatPort
-threePhaseLine.line3.resistorLine.R_actual
-threePhaseLine.line3.inductorLine.v.re
-threePhaseLine.line3.inductorLine.v.im
-threePhaseLine.line3.inductorLine.pin_p.reference.gamma
-threePhaseLine.line3.inductorLine.L
-threePhaseLine.line3.cable.d
-threePhaseLine.line3.cable.i
-threePhaseLine.line3.cable.S
-threePhaseLine.line3.wireMaterial.r0
-threePhaseLine.line3.wireMaterial.alphaT0
-threePhaseLine.line3.wireMaterial.T0
+char initialName(190,57)
+varIndRes.measureP
+varIndRes.measureI
+varIndRes.measureV
+varIndRes.v.re
+varIndRes.v.im
+varIndRes.i.re
+varIndRes.i.im
+varIndRes.sPhasePlug.n
+varIndRes.sPhasePlug.phase[1].v.re
+varIndRes.sPhasePlug.phase[1].v.im
+varIndRes.sPhasePlug.neutral.v.re
+varIndRes.sPhasePlug.neutral.v.im
+varIndRes.P_in.real
+varIndRes.P_in.apparent
+varIndRes.P_in.phi
+varIndRes.P_in.cosPhi
+varIndRes.va_in.re
+varIndRes.va_in.im
+varIndRes.amp_in.re
+varIndRes.amp_in.im
+varIndRes.volt_in.re
+varIndRes.volt_in.im
+varIndRes.y
+varIndRes.P_nominal
+varIndRes.pf
+varIndRes.S.re
+varIndRes.S.im
+varIndRes.phi
+varIndRes.lagging
+varIndRes.eps
+varIndRes.oneEps
+varIndRes.isLoad
+varIndRes.yInt
+gro.pin.v.re
+gro.pin.v.im
+gro.pin.i.re
+gro.pin.i.im
+ramp.height
+ramp.duration
+ramp.offset
+ramp.startTime
+indRes.measureP
+indRes.measureI
+indRes.measureV
+indRes.v.re
+indRes.v.im
+indRes.i.re
+indRes.i.im
+indRes.sPhasePlug.n
+indRes.sPhasePlug.neutral.v.re
+indRes.sPhasePlug.neutral.v.im
+indRes.P_in.real
+indRes.P_in.apparent
+indRes.P_in.phi
+indRes.P_in.cosPhi
+indRes.va_in.re
+indRes.va_in.im
+indRes.amp_in.re
+indRes.amp_in.im
+indRes.volt_in.re
+indRes.volt_in.im
+indRes.P_nominal
+indRes.pf
+indRes.S.re
+indRes.S.im
+indRes.phi
+indRes.lagging
+varConRes.measureP
+varConRes.measureI
+varConRes.measureV
+varConRes.sPhasePlug.n
+varConRes.sPhasePlug.phase[1].reference.gamma
+varConRes.sPhasePlug.phase[1].reference.der(gamma)
+varConRes.sPhasePlug.neutral.v.re
+varConRes.sPhasePlug.neutral.v.im
+varConRes.P_in.real
+varConRes.P_in.apparent
+varConRes.P_in.phi
+varConRes.P_in.cosPhi
+varConRes.va_in.re
+varConRes.va_in.im
+varConRes.amp_in.re
+varConRes.amp_in.im
+varConRes.volt_in.re
+varConRes.volt_in.im
+varConRes.P_nominal
+varConRes.pf
+varConRes.S.re
+varConRes.S.im
+varConRes.phi
+varConRes.lagging
+varConRes.eps
+varConRes.oneEps
+varConRes.isLoad
+varConRes.yInt
+conRes.measureP
+conRes.measureI
+conRes.measureV
+conRes.sPhasePlug.n
+conRes.sPhasePlug.neutral.v.re
+conRes.sPhasePlug.neutral.v.im
+conRes.P_in.real
+conRes.P_in.apparent
+conRes.P_in.phi
+conRes.P_in.cosPhi
+conRes.va_in.re
+conRes.va_in.im
+conRes.amp_in.re
+conRes.amp_in.im
+conRes.volt_in.re
+conRes.volt_in.im
+conRes.P_nominal
+conRes.pf
+conRes.S.re
+conRes.S.im
+conRes.phi
+conRes.lagging
+sou.measureP
+sou.i.re
+sou.i.im
+sou.sPhasePlug.n
+sou.sPhasePlug.phase[1].reference.gamma
+sou.sPhasePlug.neutral.v.re
+sou.sPhasePlug.neutral.v.im
+sou.sPhasePlug.neutral.i.re
+sou.sPhasePlug.neutral.i.im
+sou.P_in.real
+sou.P_in.apparent
+sou.P_in.phi
+sou.P_in.cosPhi
+sou.va_in.re
+sou.va_in.im
+sou.f
+sou.V
+sou.phi
+sou.voltageSource.pin_p.reference.gamma
+sou.voltageSource.pin_n.v.re
+sou.voltageSource.pin_n.v.im
+sou.voltageSource.f
+sou.voltageSource.V
+sou.voltageSource.phi
+sou.n.v.re
+sou.n.v.im
+seriesConnection1.measureP
+seriesConnection1.measureI
+seriesConnection1.measureV
+seriesConnection1.sPhasePlug.n
+seriesConnection1.sPhasePlug.phase[1].reference.gamma
+seriesConnection1.sPhasePlug.neutral.v.re
+seriesConnection1.sPhasePlug.neutral.v.im
+seriesConnection1.P_in.real
+seriesConnection1.P_in.apparent
+seriesConnection1.P_in.phi
+seriesConnection1.P_in.cosPhi
+seriesConnection1.va_in.re
+seriesConnection1.va_in.im
+seriesConnection1.amp_in.re
+seriesConnection1.amp_in.im
+seriesConnection1.volt_in.re
+seriesConnection1.volt_in.im
+seriesConnection1.N
+seriesConnection1.seriesLoads[1].n
+seriesConnection1.seriesLoads[2].n
+seriesConnection1.seriesLoads[2].phase[1].reference.gamma
+seriesConnection1.seriesLoads[2].neutral.v.re
+seriesConnection1.seriesLoads[2].neutral.v.im
+seriesConnection2.measureP
+seriesConnection2.measureI
+seriesConnection2.measureV
+seriesConnection2.sPhasePlug.n
+seriesConnection2.sPhasePlug.phase[1].reference.gamma
+seriesConnection2.sPhasePlug.neutral.v.re
+seriesConnection2.sPhasePlug.neutral.v.im
+seriesConnection2.P_in.real
+seriesConnection2.P_in.apparent
+seriesConnection2.P_in.phi
+seriesConnection2.P_in.cosPhi
+seriesConnection2.va_in.re
+seriesConnection2.va_in.im
+seriesConnection2.amp_in.re
+seriesConnection2.amp_in.im
+seriesConnection2.volt_in.re
+seriesConnection2.volt_in.im
+seriesConnection2.N
+seriesConnection2.seriesLoads[1].n
+seriesConnection2.seriesLoads[1].neutral.reference.gamma
+seriesConnection2.seriesLoads[2].n
+seriesConnection2.seriesLoads[2].phase[1].reference.gamma
+seriesConnection2.seriesLoads[2].neutral.v.re
+seriesConnection2.seriesLoads[2].neutral.v.im
 
-double initialValue(383,6)
-  0       0                  0       0                  6  256   # generator.ground.pin.v.re
-  0       0                  0       0                  6  256   # generator.ground.pin.v.im
-  0       0                  0       0                  6  384   # generator.ground.pin.i.re
-  0       0                  0       0                  6  384   # generator.ground.pin.i.im
-  0       0                  0       0                  6  256   # generator.ground.pin.reference.gamma
-  0       3                  0       0                  6  262   # generator.threePhasePlug.n
-  0       0                  0       0                  6  256   # generator.threePhasePlug.phase[1].v.re
-  0       0                  0       0                  6  256   # generator.threePhasePlug.phase[1].v.im
-  0       0                  0       0                  6  384   # generator.threePhasePlug.phase[1].i.re
-  0       0                  0       0                  6  384   # generator.threePhasePlug.phase[1].i.im
-  0       0                  0       0                  6  256   # generator.threePhasePlug.phase[2].v.re
-  0       0                  0       0                  6  256   # generator.threePhasePlug.phase[2].v.im
-  0       0                  0       0                  6  384   # generator.threePhasePlug.phase[2].i.re
-  0       0                  0       0                  6  384   # generator.threePhasePlug.phase[2].i.im
-  0       0                  0       0                  6  256   # generator.threePhasePlug.phase[3].v.re
-  0       0                  0       0                  6  256   # generator.threePhasePlug.phase[3].v.im
-  0       0                  0       0                  6  384   # generator.threePhasePlug.phase[3].i.re
-  0       0                  0       0                  6  384   # generator.threePhasePlug.phase[3].i.im
-  0       0                  0       0                  6  256   # generator.threePhasePlug.neutral.v.re
-  0       0                  0       0                  6  256   # generator.threePhasePlug.neutral.v.im
-  0       0                  0       0                  6  384   # generator.threePhasePlug.neutral.i.re
-  0       0                  0       0                  6  384   # generator.threePhasePlug.neutral.i.im
- -1     220                  0       0                  1  280   # generator.V
- -1      50                  0       0                  1  280   # generator.freqHz
- -1       0                  0       0                  2  280   # generator.phase2.pin_p.reference.gamma
-  0       0                  0       0                  3  256   # generator.phase2.pin_p.reference.der(gamma)
-  0       0                  0       0                  6  256   # generator.phase2.pin_n.v.re
-  0       0                  0       0                  6  256   # generator.phase2.pin_n.v.im
-  0       0                  0       0                  6  256   # generator.phase2.pin_n.reference.gamma
-  0       1                  0       0                  6  256   # generator.phase2.f
-  0       1                  0       0                  6  256   # generator.phase2.V
- -1 -2.0943951023931953E+00  0       0                  1  280   # generator.phase2.phi
- -1       0                  0       0                  2  280   # generator.phase1.pin_p.reference.gamma
-  0       0                  0       0                  3  256   # generator.phase1.pin_p.reference.der(gamma)
-  0       0                  0       0                  6  256   # generator.phase1.pin_n.v.re
-  0       0                  0       0                  6  256   # generator.phase1.pin_n.v.im
-  0       1                  0       0                  6  256   # generator.phase1.f
-  0       1                  0       0                  6  256   # generator.phase1.V
- -1       0                  0       0                  1  280   # generator.phase1.phi
-  0       0                  0       0                  6  256   # generator.phase3.pin_n.v.re
-  0       0                  0       0                  6  256   # generator.phase3.pin_n.v.im
-  0       0                  0       0                  6  256   # generator.phase3.pin_n.reference.gamma
-  0       1                  0       0                  6  256   # generator.phase3.f
-  0       1                  0       0                  6  256   # generator.phase3.V
- -1 -4.1887902047863905E+00  0       0                  1  280   # generator.phase3.phi
-  0       0                  0       0                  6  256   # R_Load.resistor.v.re
-  0       0                  0       0                  6  256   # R_Load.resistor.v.im
- -1       1                  0       0                  1  280   # R_Load.resistor.R_ref
- -1  2.9314999999999998E+02  0 1.0000000000000000E+100  1  280   # R_Load.resistor.T_ref
- -1       0                  0       0                  1  280   # R_Load.resistor.alpha_ref
-  0       0                  0       0                  6  769   # R_Load.resistor.useHeatPort
-  0  2.8814999999999998E+02  0 1.0000000000000000E+100  6  256   # R_Load.resistor.T
-  0       0                  0       0                  6  256   # R_Load.resistor.LossPower
-  0       0                  0       0                  6  256   # R_Load.resistor.R_actual
- -1      10                  0       0                  1  280   # R_Load.R
-  0       1                  0       0                  6  262   # R_Load.singlePhasePlug.n
-  0       0                  0       0                  6  256   # R_Load.singlePhasePlug.phase[1].v.re
-  0       0                  0       0                  6  256   # R_Load.singlePhasePlug.phase[1].v.im
-  0       0                  0       0                  6  256   # R_Load.singlePhasePlug.neutral.v.re
-  0       0                  0       0                  6  256   # R_Load.singlePhasePlug.neutral.v.im
-  0       0                  0       0                  6  256   # C_Load.capacitor.v.re
-  0       0                  0       0                  6  256   # C_Load.capacitor.v.im
-  0       1                  0 1.0000000000000000E+100  6  256   # C_Load.capacitor.C
-  0       1                  0       0                  6  262   # C_Load.singlePhasePlug.n
-  0       0                  0       0                  6  256   # C_Load.singlePhasePlug.phase[1].v.re
-  0       0                  0       0                  6  256   # C_Load.singlePhasePlug.phase[1].v.im
-  0       0                  0       0                  6  256   # C_Load.singlePhasePlug.neutral.v.re
-  0       0                  0       0                  6  256   # C_Load.singlePhasePlug.neutral.v.im
- -1  1.0000000000000000E-03  0 1.0000000000000000E+100  1  280   # C_Load.C
-  0       0                  0       0                  6  256   # L_Load.inductance.v.re
-  0       0                  0       0                  6  256   # L_Load.inductance.v.im
-  0       1                  0       0                  6  256   # L_Load.inductance.L
-  0       1                  0       0                  6  262   # L_Load.singlePhasePlug.n
-  0       0                  0       0                  6  256   # L_Load.singlePhasePlug.phase[1].v.re
-  0       0                  0       0                  6  256   # L_Load.singlePhasePlug.phase[1].v.im
-  0       0                  0       0                  6  256   # L_Load.singlePhasePlug.neutral.v.re
-  0       0                  0       0                  6  256   # L_Load.singlePhasePlug.neutral.v.im
- -1  5.0000000000000001E-03  0       0                  1  280   # L_Load.L
-  0       3                  0       0                  6  262   # adaptor.threePhasePlug.n
-  0       0                  0       0                  6  256   # adaptor.threePhasePlug.phase[1].v.re
-  0       0                  0       0                  6  256   # adaptor.threePhasePlug.phase[1].v.im
-  0       0                  0       0                  6  256   # adaptor.threePhasePlug.phase[2].v.re
-  0       0                  0       0                  6  256   # adaptor.threePhasePlug.phase[2].v.im
-  0       0                  0       0                  6  256   # adaptor.threePhasePlug.phase[3].v.re
-  0       0                  0       0                  6  256   # adaptor.threePhasePlug.phase[3].v.im
-  0       0                  0       0                  6  256   # adaptor.threePhasePlug.neutral.v.re
-  0       0                  0       0                  6  256   # adaptor.threePhasePlug.neutral.v.im
-  0       1                  0       0                  6  262   # adaptor.phase1.n
-  0       1                  0       0                  6  262   # adaptor.phase2.n
-  0       1                  0       0                  6  262   # adaptor.phase3.n
-  0    1000                  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line.Length
-  0  5.0000000000000003E-02  0       0                  6  256   # singlePhaseLine.line.k
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line.T_ref
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine.line.alpha
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine.line.R
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine.line.L
-  0       0                  0       0                  6  256   # singlePhaseLine.line.resistorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine.line.resistorLine.v.im
-  0       0                  0       0                  6  256   # singlePhaseLine.line.resistorLine.pin_n.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine.line.resistorLine.pin_n.v.im
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine.line.resistorLine.R_ref
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line.resistorLine.T_ref
- -1       0                  0       0                  1  280   # singlePhaseLine.line.resistorLine.alpha_ref
-  0       0                  0       0                  6  769   # singlePhaseLine.line.resistorLine.useHeatPort
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line.resistorLine.T
-  0       0                  0       0                  6  256   # singlePhaseLine.line.resistorLine.LossPower
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line.resistorLine.T_heatPort
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine.line.resistorLine.R_actual
-  0       0                  0       0                  6  256   # singlePhaseLine.line.inductorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine.line.inductorLine.v.im
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine.line.inductorLine.L
-  0  1.5000000000000000E-03  0       0                  6  256   # singlePhaseLine.line.cable.d
-  0  6.9999999999999999E-04  0       0                  6  256   # singlePhaseLine.line.cable.i
-  0  1.5000000000000000E-06  0       0                  6  256   # singlePhaseLine.line.cable.S
-  0  1.7200000000000000E-02  0       0                  6  256   # singlePhaseLine.line.wireMaterial.r0
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine.line.wireMaterial.alphaT0
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line.wireMaterial.T0
-  0    1000                  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line1.Length
-  0  5.0000000000000003E-02  0       0                  6  256   # singlePhaseLine.line1.k
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line1.T_ref
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine.line1.alpha
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine.line1.R
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine.line1.L
-  0       0                  0       0                  6  256   # singlePhaseLine.line1.resistorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine.line1.resistorLine.v.im
-  0       0                  0       0                  6  256   # singlePhaseLine.line1.resistorLine.pin_n.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine.line1.resistorLine.pin_n.v.im
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine.line1.resistorLine.R_ref
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line1.resistorLine.T_ref
- -1       0                  0       0                  1  280   # singlePhaseLine.line1.resistorLine.alpha_ref
-  0       0                  0       0                  6  769   # singlePhaseLine.line1.resistorLine.useHeatPort
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line1.resistorLine.T
-  0       0                  0       0                  6  256   # singlePhaseLine.line1.resistorLine.LossPower
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line1.resistorLine.T_heatPort
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine.line1.resistorLine.R_actual
-  0       0                  0       0                  6  256   # singlePhaseLine.line1.inductorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine.line1.inductorLine.v.im
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine.line1.inductorLine.L
-  0  1.5000000000000000E-03  0       0                  6  256   # singlePhaseLine.line1.cable.d
-  0  6.9999999999999999E-04  0       0                  6  256   # singlePhaseLine.line1.cable.i
-  0  1.5000000000000000E-06  0       0                  6  256   # singlePhaseLine.line1.cable.S
-  0  1.7200000000000000E-02  0       0                  6  256   # singlePhaseLine.line1.wireMaterial.r0
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine.line1.wireMaterial.alphaT0
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine.line1.wireMaterial.T0
-  0       1                  0       0                  6  262   # singlePhaseLine.singlePhasePlug.n
-  0       1                  0       0                  6  262   # singlePhaseLine.singlePhasePlug1.n
-  0    1000                  0 1.0000000000000000E+100  6  256   # singlePhaseLine.Length
-  0    1000                  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line.Length
-  0  5.0000000000000003E-02  0       0                  6  256   # singlePhaseLine1.line.k
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line.T_ref
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine1.line.alpha
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine1.line.R
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine1.line.L
-  0       0                  0       0                  6  256   # singlePhaseLine1.line.resistorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine1.line.resistorLine.v.im
-  0       0                  0       0                  6  256   # singlePhaseLine1.line.resistorLine.pin_n.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine1.line.resistorLine.pin_n.v.im
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine1.line.resistorLine.R_ref
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line.resistorLine.T_ref
- -1       0                  0       0                  1  280   # singlePhaseLine1.line.resistorLine.alpha_ref
-  0       0                  0       0                  6  769   # singlePhaseLine1.line.resistorLine.useHeatPort
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line.resistorLine.T
-  0       0                  0       0                  6  256   # singlePhaseLine1.line.resistorLine.LossPower
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line.resistorLine.T_heatPort
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine1.line.resistorLine.R_actual
-  0       0                  0       0                  6  256   # singlePhaseLine1.line.inductorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine1.line.inductorLine.v.im
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine1.line.inductorLine.L
-  0  1.5000000000000000E-03  0       0                  6  256   # singlePhaseLine1.line.cable.d
-  0  6.9999999999999999E-04  0       0                  6  256   # singlePhaseLine1.line.cable.i
-  0  1.5000000000000000E-06  0       0                  6  256   # singlePhaseLine1.line.cable.S
-  0  1.7200000000000000E-02  0       0                  6  256   # singlePhaseLine1.line.wireMaterial.r0
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine1.line.wireMaterial.alphaT0
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line.wireMaterial.T0
-  0    1000                  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line1.Length
-  0  5.0000000000000003E-02  0       0                  6  256   # singlePhaseLine1.line1.k
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line1.T_ref
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine1.line1.alpha
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine1.line1.R
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine1.line1.L
-  0       0                  0       0                  6  256   # singlePhaseLine1.line1.resistorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine1.line1.resistorLine.v.im
-  0       0                  0       0                  6  256   # singlePhaseLine1.line1.resistorLine.pin_n.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine1.line1.resistorLine.pin_n.v.im
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine1.line1.resistorLine.R_ref
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line1.resistorLine.T_ref
- -1       0                  0       0                  1  280   # singlePhaseLine1.line1.resistorLine.alpha_ref
-  0       0                  0       0                  6  769   # singlePhaseLine1.line1.resistorLine.useHeatPort
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line1.resistorLine.T
-  0       0                  0       0                  6  256   # singlePhaseLine1.line1.resistorLine.LossPower
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line1.resistorLine.T_heatPort
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine1.line1.resistorLine.R_actual
-  0       0                  0       0                  6  256   # singlePhaseLine1.line1.inductorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine1.line1.inductorLine.v.im
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine1.line1.inductorLine.L
-  0  1.5000000000000000E-03  0       0                  6  256   # singlePhaseLine1.line1.cable.d
-  0  6.9999999999999999E-04  0       0                  6  256   # singlePhaseLine1.line1.cable.i
-  0  1.5000000000000000E-06  0       0                  6  256   # singlePhaseLine1.line1.cable.S
-  0  1.7200000000000000E-02  0       0                  6  256   # singlePhaseLine1.line1.wireMaterial.r0
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine1.line1.wireMaterial.alphaT0
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.line1.wireMaterial.T0
-  0       1                  0       0                  6  262   # singlePhaseLine1.singlePhasePlug.n
-  0       1                  0       0                  6  262   # singlePhaseLine1.singlePhasePlug1.n
-  0    1000                  0 1.0000000000000000E+100  6  256   # singlePhaseLine1.Length
-  0    1000                  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line.Length
-  0  5.0000000000000003E-02  0       0                  6  256   # singlePhaseLine2.line.k
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line.T_ref
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine2.line.alpha
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine2.line.R
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine2.line.L
-  0       0                  0       0                  6  256   # singlePhaseLine2.line.resistorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine2.line.resistorLine.v.im
-  0       0                  0       0                  6  256   # singlePhaseLine2.line.resistorLine.pin_n.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine2.line.resistorLine.pin_n.v.im
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine2.line.resistorLine.R_ref
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line.resistorLine.T_ref
- -1       0                  0       0                  1  280   # singlePhaseLine2.line.resistorLine.alpha_ref
-  0       0                  0       0                  6  769   # singlePhaseLine2.line.resistorLine.useHeatPort
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line.resistorLine.T
-  0       0                  0       0                  6  256   # singlePhaseLine2.line.resistorLine.LossPower
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line.resistorLine.T_heatPort
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine2.line.resistorLine.R_actual
-  0       0                  0       0                  6  256   # singlePhaseLine2.line.inductorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine2.line.inductorLine.v.im
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine2.line.inductorLine.L
-  0  1.5000000000000000E-03  0       0                  6  256   # singlePhaseLine2.line.cable.d
-  0  6.9999999999999999E-04  0       0                  6  256   # singlePhaseLine2.line.cable.i
-  0  1.5000000000000000E-06  0       0                  6  256   # singlePhaseLine2.line.cable.S
-  0  1.7200000000000000E-02  0       0                  6  256   # singlePhaseLine2.line.wireMaterial.r0
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine2.line.wireMaterial.alphaT0
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line.wireMaterial.T0
-  0    1000                  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line1.Length
-  0  5.0000000000000003E-02  0       0                  6  256   # singlePhaseLine2.line1.k
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line1.T_ref
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine2.line1.alpha
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine2.line1.R
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine2.line1.L
-  0       0                  0       0                  6  256   # singlePhaseLine2.line1.resistorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine2.line1.resistorLine.v.im
-  0       0                  0       0                  6  256   # singlePhaseLine2.line1.resistorLine.pin_n.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine2.line1.resistorLine.pin_n.v.im
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine2.line1.resistorLine.R_ref
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line1.resistorLine.T_ref
- -1       0                  0       0                  1  280   # singlePhaseLine2.line1.resistorLine.alpha_ref
-  0       0                  0       0                  6  769   # singlePhaseLine2.line1.resistorLine.useHeatPort
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line1.resistorLine.T
-  0       0                  0       0                  6  256   # singlePhaseLine2.line1.resistorLine.LossPower
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line1.resistorLine.T_heatPort
-  0  1.1581333333333332E+07  0       0                  6  256   # singlePhaseLine2.line1.resistorLine.R_actual
-  0       0                  0       0                  6  256   # singlePhaseLine2.line1.inductorLine.v.re
-  0       0                  0       0                  6  256   # singlePhaseLine2.line1.inductorLine.v.im
-  0  1.8221883393110172E+01  0       0                  6  256   # singlePhaseLine2.line1.inductorLine.L
-  0  1.5000000000000000E-03  0       0                  6  256   # singlePhaseLine2.line1.cable.d
-  0  6.9999999999999999E-04  0       0                  6  256   # singlePhaseLine2.line1.cable.i
-  0  1.5000000000000000E-06  0       0                  6  256   # singlePhaseLine2.line1.cable.S
-  0  1.7200000000000000E-02  0       0                  6  256   # singlePhaseLine2.line1.wireMaterial.r0
-  0  3.6200000000000000E-03  0       0                  6  256   # singlePhaseLine2.line1.wireMaterial.alphaT0
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.line1.wireMaterial.T0
-  0       1                  0       0                  6  262   # singlePhaseLine2.singlePhasePlug.n
-  0       1                  0       0                  6  262   # singlePhaseLine2.singlePhasePlug1.n
-  0    1000                  0 1.0000000000000000E+100  6  256   # singlePhaseLine2.Length
-  0    1000                  0 1.0000000000000000E+100  6  256   # threePhaseLine.Length
-  0    1000                  0 1.0000000000000000E+100  6  256   # threePhaseLine.line.Length
-  0  5.0000000000000003E-02  0       0                  6  256   # threePhaseLine.line.k
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line.T_ref
-  0  3.6200000000000000E-03  0       0                  6  256   # threePhaseLine.line.alpha
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line.R
-  0  1.8221883393110172E+01  0       0                  6  256   # threePhaseLine.line.L
-  0       0                  0       0                  6  256   # threePhaseLine.line.resistorLine.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line.resistorLine.v.im
-  0       0                  0       0                  6  256   # threePhaseLine.line.resistorLine.pin_n.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line.resistorLine.pin_n.v.im
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line.resistorLine.R_ref
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line.resistorLine.T_ref
- -1       0                  0       0                  1  280   # threePhaseLine.line.resistorLine.alpha_ref
-  0       0                  0       0                  6  769   # threePhaseLine.line.resistorLine.useHeatPort
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line.resistorLine.T
-  0       0                  0       0                  6  256   # threePhaseLine.line.resistorLine.LossPower
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line.resistorLine.T_heatPort
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line.resistorLine.R_actual
-  0       0                  0       0                  6  256   # threePhaseLine.line.inductorLine.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line.inductorLine.v.im
-  0  1.8221883393110172E+01  0       0                  6  256   # threePhaseLine.line.inductorLine.L
-  0  1.5000000000000000E-03  0       0                  6  256   # threePhaseLine.line.cable.d
-  0  6.9999999999999999E-04  0       0                  6  256   # threePhaseLine.line.cable.i
-  0  1.5000000000000000E-06  0       0                  6  256   # threePhaseLine.line.cable.S
-  0  1.7200000000000000E-02  0       0                  6  256   # threePhaseLine.line.wireMaterial.r0
-  0  3.6200000000000000E-03  0       0                  6  256   # threePhaseLine.line.wireMaterial.alphaT0
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line.wireMaterial.T0
-  0    1000                  0 1.0000000000000000E+100  6  256   # threePhaseLine.line1.Length
-  0  5.0000000000000003E-02  0       0                  6  256   # threePhaseLine.line1.k
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line1.T_ref
-  0  3.6200000000000000E-03  0       0                  6  256   # threePhaseLine.line1.alpha
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line1.R
-  0  1.8221883393110172E+01  0       0                  6  256   # threePhaseLine.line1.L
-  0       0                  0       0                  6  256   # threePhaseLine.line1.resistorLine.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line1.resistorLine.v.im
-  0       0                  0       0                  6  256   # threePhaseLine.line1.resistorLine.pin_p.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line1.resistorLine.pin_p.v.im
-  0       0                  0       0                  6  256   # threePhaseLine.line1.resistorLine.pin_n.reference.gamma
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line1.resistorLine.R_ref
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line1.resistorLine.T_ref
- -1       0                  0       0                  1  280   # threePhaseLine.line1.resistorLine.alpha_ref
-  0       0                  0       0                  6  769   # threePhaseLine.line1.resistorLine.useHeatPort
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line1.resistorLine.T
-  0       0                  0       0                  6  256   # threePhaseLine.line1.resistorLine.LossPower
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line1.resistorLine.T_heatPort
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line1.resistorLine.R_actual
-  0       0                  0       0                  6  256   # threePhaseLine.line1.inductorLine.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line1.inductorLine.v.im
- -1       0                  0       0                  2  280   # threePhaseLine.line1.inductorLine.pin_p.reference.gamma
-  0       0                  0       0                  3  256   # threePhaseLine.line1.inductorLine.pin_p.reference.der(gamma)
-  0  1.8221883393110172E+01  0       0                  6  256   # threePhaseLine.line1.inductorLine.L
-  0  1.5000000000000000E-03  0       0                  6  256   # threePhaseLine.line1.cable.d
-  0  6.9999999999999999E-04  0       0                  6  256   # threePhaseLine.line1.cable.i
-  0  1.5000000000000000E-06  0       0                  6  256   # threePhaseLine.line1.cable.S
-  0  1.7200000000000000E-02  0       0                  6  256   # threePhaseLine.line1.wireMaterial.r0
-  0  3.6200000000000000E-03  0       0                  6  256   # threePhaseLine.line1.wireMaterial.alphaT0
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line1.wireMaterial.T0
-  0       0                  0       0                  6  256   # threePhaseLine.line1.A.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line1.A.v.im
-  0       3                  0       0                  6  262   # threePhaseLine.singlePhasePlug.n
-  0       0                  0       0                  6  256   # threePhaseLine.singlePhasePlug.neutral.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.singlePhasePlug.neutral.v.im
-  0       3                  0       0                  6  262   # threePhaseLine.singlePhasePlug1.n
-  0    1000                  0 1.0000000000000000E+100  6  256   # threePhaseLine.line2.Length
-  0  5.0000000000000003E-02  0       0                  6  256   # threePhaseLine.line2.k
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line2.T_ref
-  0  3.6200000000000000E-03  0       0                  6  256   # threePhaseLine.line2.alpha
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line2.R
-  0  1.8221883393110172E+01  0       0                  6  256   # threePhaseLine.line2.L
-  0       0                  0       0                  6  256   # threePhaseLine.line2.resistorLine.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line2.resistorLine.v.im
-  0       0                  0       0                  6  256   # threePhaseLine.line2.resistorLine.pin_n.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line2.resistorLine.pin_n.v.im
-  0       0                  0       0                  6  256   # threePhaseLine.line2.resistorLine.pin_n.reference.gamma
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line2.resistorLine.R_ref
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line2.resistorLine.T_ref
- -1       0                  0       0                  1  280   # threePhaseLine.line2.resistorLine.alpha_ref
-  0       0                  0       0                  6  769   # threePhaseLine.line2.resistorLine.useHeatPort
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line2.resistorLine.T
-  0       0                  0       0                  6  256   # threePhaseLine.line2.resistorLine.LossPower
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line2.resistorLine.T_heatPort
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line2.resistorLine.R_actual
-  0       0                  0       0                  6  256   # threePhaseLine.line2.inductorLine.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line2.inductorLine.v.im
-  0       0                  0       0                  6  256   # threePhaseLine.line2.inductorLine.pin_p.reference.gamma
-  0  1.8221883393110172E+01  0       0                  6  256   # threePhaseLine.line2.inductorLine.L
-  0  1.5000000000000000E-03  0       0                  6  256   # threePhaseLine.line2.cable.d
-  0  6.9999999999999999E-04  0       0                  6  256   # threePhaseLine.line2.cable.i
-  0  1.5000000000000000E-06  0       0                  6  256   # threePhaseLine.line2.cable.S
-  0  1.7200000000000000E-02  0       0                  6  256   # threePhaseLine.line2.wireMaterial.r0
-  0  3.6200000000000000E-03  0       0                  6  256   # threePhaseLine.line2.wireMaterial.alphaT0
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line2.wireMaterial.T0
-  0    1000                  0 1.0000000000000000E+100  6  256   # threePhaseLine.line3.Length
-  0  5.0000000000000003E-02  0       0                  6  256   # threePhaseLine.line3.k
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line3.T_ref
-  0  3.6200000000000000E-03  0       0                  6  256   # threePhaseLine.line3.alpha
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line3.R
-  0  1.8221883393110172E+01  0       0                  6  256   # threePhaseLine.line3.L
-  0       0                  0       0                  6  256   # threePhaseLine.line3.resistorLine.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line3.resistorLine.v.im
-  0       0                  0       0                  6  256   # threePhaseLine.line3.resistorLine.pin_n.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line3.resistorLine.pin_n.v.im
-  0       0                  0       0                  6  256   # threePhaseLine.line3.resistorLine.pin_n.reference.gamma
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line3.resistorLine.R_ref
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line3.resistorLine.T_ref
- -1       0                  0       0                  1  280   # threePhaseLine.line3.resistorLine.alpha_ref
-  0       0                  0       0                  6  769   # threePhaseLine.line3.resistorLine.useHeatPort
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line3.resistorLine.T
-  0       0                  0       0                  6  256   # threePhaseLine.line3.resistorLine.LossPower
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line3.resistorLine.T_heatPort
-  0  1.1581333333333332E+07  0       0                  6  256   # threePhaseLine.line3.resistorLine.R_actual
-  0       0                  0       0                  6  256   # threePhaseLine.line3.inductorLine.v.re
-  0       0                  0       0                  6  256   # threePhaseLine.line3.inductorLine.v.im
-  0       0                  0       0                  6  256   # threePhaseLine.line3.inductorLine.pin_p.reference.gamma
-  0  1.8221883393110172E+01  0       0                  6  256   # threePhaseLine.line3.inductorLine.L
-  0  1.5000000000000000E-03  0       0                  6  256   # threePhaseLine.line3.cable.d
-  0  6.9999999999999999E-04  0       0                  6  256   # threePhaseLine.line3.cable.i
-  0  1.5000000000000000E-06  0       0                  6  256   # threePhaseLine.line3.cable.S
-  0  1.7200000000000000E-02  0       0                  6  256   # threePhaseLine.line3.wireMaterial.r0
-  0  3.6200000000000000E-03  0       0                  6  256   # threePhaseLine.line3.wireMaterial.alphaT0
-  0  2.9314999999999998E+02  0 1.0000000000000000E+100  6  256   # threePhaseLine.line3.wireMaterial.T0
+double initialValue(190,6)
+  0       0                       0                       0                
+  6   257   # varIndRes.measureP
+  0       0                       0                       0                
+  6   257   # varIndRes.measureI
+  0       0                       0                       0                
+  6   257   # varIndRes.measureV
+  0       0                       0                       0                
+  6   288   # varIndRes.v.re
+  0       0                       0                       0                
+  6   288   # varIndRes.v.im
+  0       0                       0                       0                
+  6   288   # varIndRes.i.re
+  0       0                       0                       0                
+  6   288   # varIndRes.i.im
+  0       1                       0                       0                
+  6   262   # varIndRes.sPhasePlug.n
+  0       0                       0                       0                
+  6   256   # varIndRes.sPhasePlug.phase[1].v.re
+  0       0                       0                       0                
+  6   256   # varIndRes.sPhasePlug.phase[1].v.im
+  0       0                       0                       0                
+  6   256   # varIndRes.sPhasePlug.neutral.v.re
+  0       0                       0                       0                
+  6   256   # varIndRes.sPhasePlug.neutral.v.im
+  0       0                       0                       0                
+  6  1284   # varIndRes.P_in.real
+  0       0                       0                       0                
+  6  1284   # varIndRes.P_in.apparent
+  0       0                       0                       0                
+  6  1284   # varIndRes.P_in.phi
+  0       0                       0                       0                
+  6  1284   # varIndRes.P_in.cosPhi
+  0       0                       0                       0                
+  6  1284   # varIndRes.va_in.re
+  0       0                       0                       0                
+  6  1284   # varIndRes.va_in.im
+  0       0                       0                       0                
+  6  1284   # varIndRes.amp_in.re
+  0       0                       0                       0                
+  6  1284   # varIndRes.amp_in.im
+  0       0                       0                       0                
+  6  1284   # varIndRes.volt_in.re
+  0       0                       0                       0                
+  6  1284   # varIndRes.volt_in.im
+  0       0                       0                       1                
+  6   256   # varIndRes.y
+ -1    1000                       0                 1.0000000000000000E+100
+  1   280   # varIndRes.P_nominal
+ -1  8.0000000000000004E-01       0                       1                
+  1   280   # varIndRes.pf
+  0       0                       0                       0                
+  6   256   # varIndRes.S.re
+  0       0                       0                       0                
+  6   256   # varIndRes.S.im
+  0       0                       0                       0                
+  6   256   # varIndRes.phi
+  0       1                       0                       0                
+  6  1281   # varIndRes.lagging
+  0  9.9999999999999998E-13       0                       0                
+  6  1280   # varIndRes.eps
+  0  9.9999999999900002E-01       0                       0                
+  6  1280   # varIndRes.oneEps
+  0       1                       0                       0                
+  6  1281   # varIndRes.isLoad
+  0  9.9999999999999998E-13  9.9999999999999998E-13 1.0000000000000000E+100
+  6  1280   # varIndRes.yInt
+  0       0                       0                       0                
+  6   256   # gro.pin.v.re
+  0       0                       0                       0                
+  6   256   # gro.pin.v.im
+  0       0                       0                       0                
+  6   384   # gro.pin.i.re
+  0       0                       0                       0                
+  6   384   # gro.pin.i.im
+ -1       1                       0                       0                
+  1   280   # ramp.height
+ -1       1                  9.9999999999999997E-61 1.0000000000000000E+100
+  1   280   # ramp.duration
+ -1       0                       0                       0                
+  1   280   # ramp.offset
+ -1       0                       0                       0                
+  1   280   # ramp.startTime
+  0       0                       0                       0                
+  6   257   # indRes.measureP
+  0       0                       0                       0                
+  6   257   # indRes.measureI
+  0       0                       0                       0                
+  6   257   # indRes.measureV
+  0       1                       0                       0                
+  6   288   # indRes.v.re
+  0       1                       0                       0                
+  6   288   # indRes.v.im
+  0       0                       0                       0                
+  6   288   # indRes.i.re
+  0       0                       0                       0                
+  6   288   # indRes.i.im
+  0       1                       0                       0                
+  6   262   # indRes.sPhasePlug.n
+  0       1                       0                       0                
+  6   256   # indRes.sPhasePlug.neutral.v.re
+  0       1                       0                       0                
+  6   256   # indRes.sPhasePlug.neutral.v.im
+  0       0                       0                       0                
+  6  1284   # indRes.P_in.real
+  0       0                       0                       0                
+  6  1284   # indRes.P_in.apparent
+  0       0                       0                       0                
+  6  1284   # indRes.P_in.phi
+  0       0                       0                       0                
+  6  1284   # indRes.P_in.cosPhi
+  0       0                       0                       0                
+  6  1284   # indRes.va_in.re
+  0       0                       0                       0                
+  6  1284   # indRes.va_in.im
+  0       0                       0                       0                
+  6  1284   # indRes.amp_in.re
+  0       0                       0                       0                
+  6  1284   # indRes.amp_in.im
+  0       0                       0                       0                
+  6  1284   # indRes.volt_in.re
+  0       0                       0                       0                
+  6  1284   # indRes.volt_in.im
+ -1    1000                       0                 1.0000000000000000E+100
+  1   280   # indRes.P_nominal
+ -1  8.0000000000000004E-01       0                       1                
+  1   280   # indRes.pf
+  0       0                       0                       0                
+  6   256   # indRes.S.re
+  0       0                       0                       0                
+  6   256   # indRes.S.im
+  0       0                       0                       0                
+  6   256   # indRes.phi
+  0       1                       0                       0                
+  6  1281   # indRes.lagging
+  0       0                       0                       0                
+  6   257   # varConRes.measureP
+  0       0                       0                       0                
+  6   257   # varConRes.measureI
+  0       0                       0                       0                
+  6   257   # varConRes.measureV
+  0       1                       0                       0                
+  6   262   # varConRes.sPhasePlug.n
+ -1       0                       0                       0                
+  2   280   # varConRes.sPhasePlug.phase[1].reference.gamma
+  0       0                       0                       0                
+  3   256   # varConRes.sPhasePlug.phase[1].reference.der(gamma)
+  0       0                       0                       0                
+  6   256   # varConRes.sPhasePlug.neutral.v.re
+  0       0                       0                       0                
+  6   256   # varConRes.sPhasePlug.neutral.v.im
+  0       0                       0                       0                
+  6  1284   # varConRes.P_in.real
+  0       0                       0                       0                
+  6  1284   # varConRes.P_in.apparent
+  0       0                       0                       0                
+  6  1284   # varConRes.P_in.phi
+  0       0                       0                       0                
+  6  1284   # varConRes.P_in.cosPhi
+  0       0                       0                       0                
+  6  1284   # varConRes.va_in.re
+  0       0                       0                       0                
+  6  1284   # varConRes.va_in.im
+  0       0                       0                       0                
+  6  1284   # varConRes.amp_in.re
+  0       0                       0                       0                
+  6  1284   # varConRes.amp_in.im
+  0       0                       0                       0                
+  6  1284   # varConRes.volt_in.re
+  0       0                       0                       0                
+  6  1284   # varConRes.volt_in.im
+ -1    1000                       0                 1.0000000000000000E+100
+  1   280   # varConRes.P_nominal
+ -1  8.0000000000000004E-01       0                       1                
+  1   280   # varConRes.pf
+  0       0                       0                       0                
+  6   256   # varConRes.S.re
+  0       0                       0                       0                
+  6   256   # varConRes.S.im
+  0       0                       0                       0                
+  6   256   # varConRes.phi
+  0       0                       0                       0                
+  6  1281   # varConRes.lagging
+  0  9.9999999999999998E-13       0                       0                
+  6  1280   # varConRes.eps
+  0  9.9999999999900002E-01       0                       0                
+  6  1280   # varConRes.oneEps
+  0       1                       0                       0                
+  6  1281   # varConRes.isLoad
+  0  9.9999999999999998E-13  9.9999999999999998E-13 1.0000000000000000E+100
+  6  1280   # varConRes.yInt
+  0       0                       0                       0                
+  6   257   # conRes.measureP
+  0       0                       0                       0                
+  6   257   # conRes.measureI
+  0       0                       0                       0                
+  6   257   # conRes.measureV
+  0       1                       0                       0                
+  6   262   # conRes.sPhasePlug.n
+  0       0                       0                       0                
+  6   256   # conRes.sPhasePlug.neutral.v.re
+  0       0                       0                       0                
+  6   256   # conRes.sPhasePlug.neutral.v.im
+  0       0                       0                       0                
+  6  1284   # conRes.P_in.real
+  0       0                       0                       0                
+  6  1284   # conRes.P_in.apparent
+  0       0                       0                       0                
+  6  1284   # conRes.P_in.phi
+  0       0                       0                       0                
+  6  1284   # conRes.P_in.cosPhi
+  0       0                       0                       0                
+  6  1284   # conRes.va_in.re
+  0       0                       0                       0                
+  6  1284   # conRes.va_in.im
+  0       0                       0                       0                
+  6  1284   # conRes.amp_in.re
+  0       0                       0                       0                
+  6  1284   # conRes.amp_in.im
+  0       0                       0                       0                
+  6  1284   # conRes.volt_in.re
+  0       0                       0                       0                
+  6  1284   # conRes.volt_in.im
+ -1    1000                       0                 1.0000000000000000E+100
+  1   280   # conRes.P_nominal
+ -1  9.0000000000000002E-01       0                       1                
+  1   280   # conRes.pf
+  0       0                       0                       0                
+  6   256   # conRes.S.re
+  0       0                       0                       0                
+  6   256   # conRes.S.im
+  0       0                       0                       0                
+  6   256   # conRes.phi
+  0       0                       0                       0                
+  6  1281   # conRes.lagging
+  0       0                       0                       0                
+  6   257   # sou.measureP
+  0       0                       0                       0                
+  6   256   # sou.i.re
+  0       0                       0                       0                
+  6   256   # sou.i.im
+  0       1                       0                       0                
+  6   262   # sou.sPhasePlug.n
+  0       0                       0                       0                
+  6   256   # sou.sPhasePlug.phase[1].reference.gamma
+  0       0                       0                       0                
+  6   256   # sou.sPhasePlug.neutral.v.re
+  0       0                       0                       0                
+  6   256   # sou.sPhasePlug.neutral.v.im
+  0       0                       0                       0                
+  6   384   # sou.sPhasePlug.neutral.i.re
+  0       0                       0                       0                
+  6   384   # sou.sPhasePlug.neutral.i.im
+  0       0                       0                       0                
+  6  1284   # sou.P_in.real
+  0       0                       0                       0                
+  6  1284   # sou.P_in.apparent
+  0       0                       0                       0                
+  6  1284   # sou.P_in.phi
+  0       0                       0                       0                
+  6  1284   # sou.P_in.cosPhi
+  0       0                       0                       0                
+  6  1284   # sou.va_in.re
+  0       0                       0                       0                
+  6  1284   # sou.va_in.im
+ -1      60                       0                       0                
+  1   280   # sou.f
+ -1     120                       0                       0                
+  1   280   # sou.V
+ -1       0                       0                       0                
+  1   280   # sou.phi
+  0       0                       0                       0                
+  6   256   # sou.voltageSource.pin_p.reference.gamma
+  0       0                       0                       0                
+  6   256   # sou.voltageSource.pin_n.v.re
+  0       0                       0                       0                
+  6   256   # sou.voltageSource.pin_n.v.im
+  0       1                       0                       0                
+  6   256   # sou.voltageSource.f
+  0       1                       0                       0                
+  6   256   # sou.voltageSource.V
+  0       0                       0                       0                
+  6   256   # sou.voltageSource.phi
+  0       0                       0                       0                
+  6   256   # sou.n.v.re
+  0       0                       0                       0                
+  6   256   # sou.n.v.im
+  0       0                       0                       0                
+  6   257   # seriesConnection1.measureP
+  0       0                       0                       0                
+  6   257   # seriesConnection1.measureI
+  0       0                       0                       0                
+  6   257   # seriesConnection1.measureV
+  0       1                       0                       0                
+  6   262   # seriesConnection1.sPhasePlug.n
+  0       0                       0                       0                
+  6   256   # seriesConnection1.sPhasePlug.phase[1].reference.gamma
+  0       0                       0                       0                
+  6   256   # seriesConnection1.sPhasePlug.neutral.v.re
+  0       0                       0                       0                
+  6   256   # seriesConnection1.sPhasePlug.neutral.v.im
+  0       0                       0                       0                
+  6  1284   # seriesConnection1.P_in.real
+  0       0                       0                       0                
+  6  1284   # seriesConnection1.P_in.apparent
+  0       0                       0                       0                
+  6  1284   # seriesConnection1.P_in.phi
+  0       0                       0                       0                
+  6  1284   # seriesConnection1.P_in.cosPhi
+  0       0                       0                       0                
+  6  1284   # seriesConnection1.va_in.re
+  0       0                       0                       0                
+  6  1284   # seriesConnection1.va_in.im
+  0       0                       0                       0                
+  6  1284   # seriesConnection1.amp_in.re
+  0       0                       0                       0                
+  6  1284   # seriesConnection1.amp_in.im
+  0       0                       0                       0                
+  6  1284   # seriesConnection1.volt_in.re
+  0       0                       0                       0                
+  6  1284   # seriesConnection1.volt_in.im
+  0       2                       0                       0                
+  6   258   # seriesConnection1.N
+  0       1                       0                       0                
+  6   262   # seriesConnection1.seriesLoads[1].n
+  0       1                       0                       0                
+  6   262   # seriesConnection1.seriesLoads[2].n
+  0       0                       0                       0                
+  6   256   # seriesConnection1.seriesLoads[2].phase[1].reference.gamma
+  0       0                       0                       0                
+  6   256   # seriesConnection1.seriesLoads[2].neutral.v.re
+  0       0                       0                       0                
+  6   256   # seriesConnection1.seriesLoads[2].neutral.v.im
+  0       0                       0                       0                
+  6   257   # seriesConnection2.measureP
+  0       0                       0                       0                
+  6   257   # seriesConnection2.measureI
+  0       0                       0                       0                
+  6   257   # seriesConnection2.measureV
+  0       1                       0                       0                
+  6   262   # seriesConnection2.sPhasePlug.n
+  0       0                       0                       0                
+  6   256   # seriesConnection2.sPhasePlug.phase[1].reference.gamma
+  0       0                       0                       0                
+  6   256   # seriesConnection2.sPhasePlug.neutral.v.re
+  0       0                       0                       0                
+  6   256   # seriesConnection2.sPhasePlug.neutral.v.im
+  0       0                       0                       0                
+  6  1284   # seriesConnection2.P_in.real
+  0       0                       0                       0                
+  6  1284   # seriesConnection2.P_in.apparent
+  0       0                       0                       0                
+  6  1284   # seriesConnection2.P_in.phi
+  0       0                       0                       0                
+  6  1284   # seriesConnection2.P_in.cosPhi
+  0       0                       0                       0                
+  6  1284   # seriesConnection2.va_in.re
+  0       0                       0                       0                
+  6  1284   # seriesConnection2.va_in.im
+  0       0                       0                       0                
+  6  1284   # seriesConnection2.amp_in.re
+  0       0                       0                       0                
+  6  1284   # seriesConnection2.amp_in.im
+  0       0                       0                       0                
+  6  1284   # seriesConnection2.volt_in.re
+  0       0                       0                       0                
+  6  1284   # seriesConnection2.volt_in.im
+  0       2                       0                       0                
+  6   258   # seriesConnection2.N
+  0       1                       0                       0                
+  6   262   # seriesConnection2.seriesLoads[1].n
+  0       0                       0                       0                
+  6   256   # seriesConnection2.seriesLoads[1].neutral.reference.gamma
+  0       1                       0                       0                
+  6   262   # seriesConnection2.seriesLoads[2].n
+  0       0                       0                       0                
+  6   256   # seriesConnection2.seriesLoads[2].phase[1].reference.gamma
+  0       0                       0                       0                
+  6   256   # seriesConnection2.seriesLoads[2].neutral.v.re
+  0       0                       0                       0                
+  6   256   # seriesConnection2.seriesLoads[2].neutral.v.im
 
 
 # Matrix with 6 columns defining the initial value calculation
@@ -921,41 +725,143 @@ double initialValue(383,6)
 #   nominal value (and maybe minimum and maximum values given in 
 #   column 3 and 4). If these values are zero, scale(i)=1 is used).
 #
-char initialDescription(383,98)
+char initialDescription(190,91)
+This flag activate the power output [:#(type=Boolean)]
+This flag activate the complex current output [:#(type=Boolean)]
+This flag activate the complex voltage output [:#(type=Boolean)]
 [V]
 [V]
 [A]
 [A]
-[rad|deg]
 number of phases [:#(type=Integer)]
 [V]
 [V]
-[A]
-[A]
+[V]
+[V]
+Real power [W]
+Apparent power [var]
+Phase shift [rad|deg]
+Power factor
+Real part of complex number
+Imaginary part of complex number
+Real part of complex number [A]
+Imaginary part of complex number [A]
+Real part of complex number [V]
+Imaginary part of complex number [V]
+Control signal
+Nominal power (P_nominal >= 0) [W]
+Power factor. fixme: this should be a spline
+[W]
+[var]
+Phase shift [rad|deg]
+Set to true for inductive loads (motor, transformer), or false otherwise [:#(type=Boolean)]
+Small number used to avoid a singularity if the power is zero
+Small number used to avoid a singularity if the power is zero
+Flag, set to true if component is a load, or false if it generates power [:#(type=Boolean)]
+Internal representation of control signal, used to avoid singularity
 [V]
 [V]
 [A]
 [A]
+Height of ramps
+Durations of ramp [s]
+Offset of output signal
+Output = offset for time < startTime [s]
+This flag activate the power output [:#(type=Boolean)]
+This flag activate the complex current output [:#(type=Boolean)]
+This flag activate the complex voltage output [:#(type=Boolean)]
 [V]
 [V]
 [A]
 [A]
+number of phases [:#(type=Integer)]
 [V]
 [V]
-[A]
-[A]
-Phase voltage [V]
-Frequency of sine wave [Hz]
+Real power [W]
+Apparent power [var]
+Phase shift [rad|deg]
+Power factor
+Real part of complex number
+Imaginary part of complex number
+Real part of complex number [A]
+Imaginary part of complex number [A]
+Real part of complex number [V]
+Imaginary part of complex number [V]
+Nominal power (P_nominal >= 0) [W]
+Power factor
+[W]
+[var]
+Phase shift [rad|deg]
+Set to true for inductive loads (motor, transformer), or false otherwise [:#(type=Boolean)]
+This flag activate the power output [:#(type=Boolean)]
+This flag activate the complex current output [:#(type=Boolean)]
+This flag activate the complex voltage output [:#(type=Boolean)]
+number of phases [:#(type=Integer)]
 [rad|deg]
 [rad/s]
 [V]
 [V]
+Real power [W]
+Apparent power [var]
+Phase shift [rad|deg]
+Power factor
+Real part of complex number
+Imaginary part of complex number
+Real part of complex number [A]
+Imaginary part of complex number [A]
+Real part of complex number [V]
+Imaginary part of complex number [V]
+Nominal power (P_nominal >= 0) [W]
+Power factor. fixme: this should be a spline
+[W]
+[var]
+Phase shift [rad|deg]
+Set to true for inductive loads (motor, transformer), or false otherwise [:#(type=Boolean)]
+Small number used to avoid a singularity if the power is zero
+Small number used to avoid a singularity if the power is zero
+Flag, set to true if component is a load, or false if it generates power [:#(type=Boolean)]
+Internal representation of control signal, used to avoid singularity
+This flag activate the power output [:#(type=Boolean)]
+This flag activate the complex current output [:#(type=Boolean)]
+This flag activate the complex voltage output [:#(type=Boolean)]
+number of phases [:#(type=Integer)]
+[V]
+[V]
+Real power [W]
+Apparent power [var]
+Phase shift [rad|deg]
+Power factor
+Real part of complex number
+Imaginary part of complex number
+Real part of complex number [A]
+Imaginary part of complex number [A]
+Real part of complex number [V]
+Imaginary part of complex number [V]
+Nominal power (P_nominal >= 0) [W]
+Power factor
+[W]
+[var]
+Phase shift [rad|deg]
+Set to true for inductive loads (motor, transformer), or false otherwise [:#(type=Boolean)]
+This flag activate the power output [:#(type=Boolean)]
+[A]
+[A]
+number of phases [:#(type=Integer)]
 [rad|deg]
+[V]
+[V]
+[A]
+[A]
+Real power [W]
+Apparent power [var]
+Phase shift [rad|deg]
+Power factor
+Real part of complex number
+Imaginary part of complex number
 frequency of the source [Hz]
 RMS voltage of the source [V]
 phase shift of the source [rad|deg]
 [rad|deg]
-[rad/s]
 [V]
 [V]
 frequency of the source [Hz]
@@ -963,346 +869,51 @@ RMS voltage of the source [V]
 phase shift of the source [rad|deg]
 [V]
 [V]
+This flag activate the power output [:#(type=Boolean)]
+This flag activate the complex current output [:#(type=Boolean)]
+This flag activate the complex voltage output [:#(type=Boolean)]
+number of phases [:#(type=Integer)]
 [rad|deg]
-frequency of the source [Hz]
-RMS voltage of the source [V]
-phase shift of the source [rad|deg]
 [V]
 [V]
-Reference resistance at T_ref [Ohm]
-Reference temperature [K|degC]
-Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [1/K]
-=true, if HeatPort is enabled [:#(type=Boolean)]
-Fixed device temperature if useHeatPort = false [K|degC]
-Loss power leaving component via HeatPort [W]
-Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [Ohm]
-[Ohm]
-number of phases [:#(type=Integer)]
-[V]
-[V]
-[V]
-[V]
-[V]
-[V]
-Capacitance [F]
-number of phases [:#(type=Integer)]
-[V]
-[V]
-[V]
-[V]
-[F]
-[V]
-[V]
-Inductance [H]
-number of phases [:#(type=Integer)]
-[V]
-[V]
-[V]
-[V]
-Inductance [H]
-number of phases [:#(type=Integer)]
-[V]
-[V]
-[V]
-[V]
-[V]
-[V]
-[V]
-[V]
+Real power [W]
+Apparent power [var]
+Phase shift [rad|deg]
+Power factor
+Real part of complex number
+Imaginary part of complex number
+Real part of complex number [A]
+Imaginary part of complex number [A]
+Real part of complex number [V]
+Imaginary part of complex number [V]
+number of loads connected in series [:#(type=Integer)]
 number of phases [:#(type=Integer)]
 number of phases [:#(type=Integer)]
-number of phases [:#(type=Integer)]
-length of the line [m]
-self inductance [H/m]
-Reference temperature of the line [K|degC]
-[1/K]
-Resistance of the cable [Ohm]
-Inductance of the cable due to mutual and self inductance [H]
-[V]
-[V]
-[V]
-[V]
-Reference resistance at T_ref [Ohm]
-Reference temperature [K|degC]
-Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [1/K]
-=true, if HeatPort is enabled [:#(type=Boolean)]
-Fixed device temperature if useHeatPort = false [K|degC]
-Loss power leaving component via HeatPort [W]
-Temperature of HeatPort [K|degC]
-Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [Ohm]
-[V]
-[V]
-Inductance [H]
-diameter of the cable [m]
-width of the insulating material [m]
-nominal area of the cable [m2]
-Material electrical resistivity per unit length at T0 [Ohm.m]
-Linear temperature electrical resistivity coefficient [1/K]
-reference temperature for linear electrical resistivity [K|degC]
-length of the line [m]
-self inductance [H/m]
-Reference temperature of the line [K|degC]
-[1/K]
-Resistance of the cable [Ohm]
-Inductance of the cable due to mutual and self inductance [H]
-[V]
-[V]
-[V]
-[V]
-Reference resistance at T_ref [Ohm]
-Reference temperature [K|degC]
-Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [1/K]
-=true, if HeatPort is enabled [:#(type=Boolean)]
-Fixed device temperature if useHeatPort = false [K|degC]
-Loss power leaving component via HeatPort [W]
-Temperature of HeatPort [K|degC]
-Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [Ohm]
-[V]
-[V]
-Inductance [H]
-diameter of the cable [m]
-width of the insulating material [m]
-nominal area of the cable [m2]
-Material electrical resistivity per unit length at T0 [Ohm.m]
-Linear temperature electrical resistivity coefficient [1/K]
-reference temperature for linear electrical resistivity [K|degC]
-number of phases [:#(type=Integer)]
-number of phases [:#(type=Integer)]
-[m]
-length of the line [m]
-self inductance [H/m]
-Reference temperature of the line [K|degC]
-[1/K]
-Resistance of the cable [Ohm]
-Inductance of the cable due to mutual and self inductance [H]
-[V]
-[V]
-[V]
-[V]
-Reference resistance at T_ref [Ohm]
-Reference temperature [K|degC]
-Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [1/K]
-=true, if HeatPort is enabled [:#(type=Boolean)]
-Fixed device temperature if useHeatPort = false [K|degC]
-Loss power leaving component via HeatPort [W]
-Temperature of HeatPort [K|degC]
-Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [Ohm]
-[V]
-[V]
-Inductance [H]
-diameter of the cable [m]
-width of the insulating material [m]
-nominal area of the cable [m2]
-Material electrical resistivity per unit length at T0 [Ohm.m]
-Linear temperature electrical resistivity coefficient [1/K]
-reference temperature for linear electrical resistivity [K|degC]
-length of the line [m]
-self inductance [H/m]
-Reference temperature of the line [K|degC]
-[1/K]
-Resistance of the cable [Ohm]
-Inductance of the cable due to mutual and self inductance [H]
-[V]
-[V]
-[V]
-[V]
-Reference resistance at T_ref [Ohm]
-Reference temperature [K|degC]
-Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [1/K]
-=true, if HeatPort is enabled [:#(type=Boolean)]
-Fixed device temperature if useHeatPort = false [K|degC]
-Loss power leaving component via HeatPort [W]
-Temperature of HeatPort [K|degC]
-Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [Ohm]
-[V]
-[V]
-Inductance [H]
-diameter of the cable [m]
-width of the insulating material [m]
-nominal area of the cable [m2]
-Material electrical resistivity per unit length at T0 [Ohm.m]
-Linear temperature electrical resistivity coefficient [1/K]
-reference temperature for linear electrical resistivity [K|degC]
-number of phases [:#(type=Integer)]
-number of phases [:#(type=Integer)]
-[m]
-length of the line [m]
-self inductance [H/m]
-Reference temperature of the line [K|degC]
-[1/K]
-Resistance of the cable [Ohm]
-Inductance of the cable due to mutual and self inductance [H]
-[V]
-[V]
-[V]
-[V]
-Reference resistance at T_ref [Ohm]
-Reference temperature [K|degC]
-Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [1/K]
-=true, if HeatPort is enabled [:#(type=Boolean)]
-Fixed device temperature if useHeatPort = false [K|degC]
-Loss power leaving component via HeatPort [W]
-Temperature of HeatPort [K|degC]
-Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [Ohm]
-[V]
-[V]
-Inductance [H]
-diameter of the cable [m]
-width of the insulating material [m]
-nominal area of the cable [m2]
-Material electrical resistivity per unit length at T0 [Ohm.m]
-Linear temperature electrical resistivity coefficient [1/K]
-reference temperature for linear electrical resistivity [K|degC]
-length of the line [m]
-self inductance [H/m]
-Reference temperature of the line [K|degC]
-[1/K]
-Resistance of the cable [Ohm]
-Inductance of the cable due to mutual and self inductance [H]
-[V]
-[V]
-[V]
-[V]
-Reference resistance at T_ref [Ohm]
-Reference temperature [K|degC]
-Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [1/K]
-=true, if HeatPort is enabled [:#(type=Boolean)]
-Fixed device temperature if useHeatPort = false [K|degC]
-Loss power leaving component via HeatPort [W]
-Temperature of HeatPort [K|degC]
-Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [Ohm]
-[V]
-[V]
-Inductance [H]
-diameter of the cable [m]
-width of the insulating material [m]
-nominal area of the cable [m2]
-Material electrical resistivity per unit length at T0 [Ohm.m]
-Linear temperature electrical resistivity coefficient [1/K]
-reference temperature for linear electrical resistivity [K|degC]
-number of phases [:#(type=Integer)]
-number of phases [:#(type=Integer)]
-[m]
-[m]
-length of the line [m]
-self inductance [H/m]
-Reference temperature of the line [K|degC]
-[1/K]
-Resistance of the cable [Ohm]
-Inductance of the cable due to mutual and self inductance [H]
-[V]
-[V]
-[V]
-[V]
-Reference resistance at T_ref [Ohm]
-Reference temperature [K|degC]
-Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [1/K]
-=true, if HeatPort is enabled [:#(type=Boolean)]
-Fixed device temperature if useHeatPort = false [K|degC]
-Loss power leaving component via HeatPort [W]
-Temperature of HeatPort [K|degC]
-Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [Ohm]
-[V]
-[V]
-Inductance [H]
-diameter of the cable [m]
-width of the insulating material [m]
-nominal area of the cable [m2]
-Material electrical resistivity per unit length at T0 [Ohm.m]
-Linear temperature electrical resistivity coefficient [1/K]
-reference temperature for linear electrical resistivity [K|degC]
-length of the line [m]
-self inductance [H/m]
-Reference temperature of the line [K|degC]
-[1/K]
-Resistance of the cable [Ohm]
-Inductance of the cable due to mutual and self inductance [H]
-[V]
-[V]
-[V]
-[V]
 [rad|deg]
-Reference resistance at T_ref [Ohm]
-Reference temperature [K|degC]
-Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [1/K]
-=true, if HeatPort is enabled [:#(type=Boolean)]
-Fixed device temperature if useHeatPort = false [K|degC]
-Loss power leaving component via HeatPort [W]
-Temperature of HeatPort [K|degC]
-Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [Ohm]
 [V]
 [V]
-[rad|deg]
-[rad/s]
-Inductance [H]
-diameter of the cable [m]
-width of the insulating material [m]
-nominal area of the cable [m2]
-Material electrical resistivity per unit length at T0 [Ohm.m]
-Linear temperature electrical resistivity coefficient [1/K]
-reference temperature for linear electrical resistivity [K|degC]
-[V]
-[V]
+This flag activate the power output [:#(type=Boolean)]
+This flag activate the complex current output [:#(type=Boolean)]
+This flag activate the complex voltage output [:#(type=Boolean)]
 number of phases [:#(type=Integer)]
+[rad|deg]
 [V]
 [V]
+Real power [W]
+Apparent power [var]
+Phase shift [rad|deg]
+Power factor
+Real part of complex number
+Imaginary part of complex number
+Real part of complex number [A]
+Imaginary part of complex number [A]
+Real part of complex number [V]
+Imaginary part of complex number [V]
+number of loads connected in series [:#(type=Integer)]
 number of phases [:#(type=Integer)]
-length of the line [m]
-self inductance [H/m]
-Reference temperature of the line [K|degC]
-[1/K]
-Resistance of the cable [Ohm]
-Inductance of the cable due to mutual and self inductance [H]
-[V]
-[V]
-[V]
-[V]
 [rad|deg]
-Reference resistance at T_ref [Ohm]
-Reference temperature [K|degC]
-Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [1/K]
-=true, if HeatPort is enabled [:#(type=Boolean)]
-Fixed device temperature if useHeatPort = false [K|degC]
-Loss power leaving component via HeatPort [W]
-Temperature of HeatPort [K|degC]
-Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [Ohm]
-[V]
-[V]
+number of phases [:#(type=Integer)]
 [rad|deg]
-Inductance [H]
-diameter of the cable [m]
-width of the insulating material [m]
-nominal area of the cable [m2]
-Material electrical resistivity per unit length at T0 [Ohm.m]
-Linear temperature electrical resistivity coefficient [1/K]
-reference temperature for linear electrical resistivity [K|degC]
-length of the line [m]
-self inductance [H/m]
-Reference temperature of the line [K|degC]
-[1/K]
-Resistance of the cable [Ohm]
-Inductance of the cable due to mutual and self inductance [H]
 [V]
 [V]
-[V]
-[V]
-[rad|deg]
-Reference resistance at T_ref [Ohm]
-Reference temperature [K|degC]
-Temperature coefficient of resistance (R_actual = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [1/K]
-=true, if HeatPort is enabled [:#(type=Boolean)]
-Fixed device temperature if useHeatPort = false [K|degC]
-Loss power leaving component via HeatPort [W]
-Temperature of HeatPort [K|degC]
-Resistance = R_ref*(1 + alpha_ref*(heatPort.T - T_ref)) [Ohm]
-[V]
-[V]
-[rad|deg]
-Inductance [H]
-diameter of the cable [m]
-width of the insulating material [m]
-nominal area of the cable [m2]
-Material electrical resistivity per unit length at T0 [Ohm.m]
-Linear temperature electrical resistivity coefficient [1/K]
-reference temperature for linear electrical resistivity [K|degC]
 
