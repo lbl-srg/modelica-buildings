@@ -4,7 +4,7 @@ model ACACConverter "Test model AC to AC converter"
   extends Modelica.Icons.Example;
 
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground gro
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
 //protected
   //fixme. I need to specify a value for the real or imaginary part of resitor.i
 public
@@ -17,41 +17,43 @@ public
         rotation=270,
         origin={50,14})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground gro1
-    annotation (Placement(transformation(extent={{0,-60},{20,-40}})));
+    annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Districts.Electrical.AC.Conversion.ACACConverter
     conACAC(conversionFactor=0.5, eta=0.9)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource sou(
+  Districts.Electrical.AC.Sources.VoltageSource                         sou(
     f=60,
     V=120,
     phi=0)                annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-44,10})));
+        rotation=0,
+        origin={-60,10})));
+  Districts.Electrical.AC.Interfaces.SinglePhasePlug plug1
+    "Single phase connector side 2"
+    annotation (Placement(transformation(extent={{6,0},{26,20}})));
 equation
   connect(res.pin_n, gro1.pin)         annotation (Line(
-      points={{50,4},{50,-40},{10,-40}},
+      points={{50,4},{50,-40}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(conACAC.pin2_pQS, res.pin_p)            annotation (Line(
-      points={{10,20},{10,60},{50,60},{50,24}},
+  connect(conACAC.plug2, plug1) annotation (Line(
+      points={{10,10},{16,10}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(gro1.pin, plug1.neutral) annotation (Line(
+      points={{50,-40},{22,-40},{22,10},{16,10}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(gro1.pin, conACAC.pin2_nQS)          annotation (Line(
-      points={{10,-40},{10,0}},
+  connect(plug1.phase[1], res.pin_p) annotation (Line(
+      points={{16,10},{22,10},{22,46},{50,46},{50,24}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(sou.pin_p, conACAC.pin1_pQS)                         annotation (
-      Line(
-      points={{-44,20},{-44,60},{-10,60},{-10,20}},
-      color={85,170,255},
+  connect(sou.sPhasePlug, conACAC.plug1) annotation (Line(
+      points={{-50,10},{-10,10}},
+      color={0,0,0},
       smooth=Smooth.None));
-  connect(sou.pin_n, gro.pin)                      annotation (Line(
-      points={{-44,0},{-44,-40},{-10,-40}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(gro.pin, conACAC.pin1_nQS)          annotation (Line(
-      points={{-10,-40},{-10,0}},
+  connect(gro.pin, sou.n) annotation (Line(
+      points={{-70,4.44089e-16},{-70,10}},
       color={85,170,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

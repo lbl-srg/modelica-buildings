@@ -1,8 +1,9 @@
-CapacitorResistor
 Resistor
+VariableResistor
+CapacitorResistor
 InductorResistor
 VariableCapacitorResistor
-VariableResistor
 VariableInductorResistor
+SeriesConnection
 Examples
 BaseClasses

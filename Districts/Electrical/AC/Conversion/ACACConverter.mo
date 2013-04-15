@@ -13,50 +13,40 @@ model ACACConverter "AC AC converter"
   parameter Real eta(min=0, max=1)
     "Converter efficiency, pLoss = (1-eta) * 'abs'(v2QS)";
   Modelica.SIunits.Power LossPower "Loss power";
-
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin pin1_pQS
-    "Positive pin on side 1"
-    annotation (Placement(transformation(extent={{-110,110},{-90,90}}),
-        iconTransformation(extent={{-110,110},{-90,90}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin pin1_nQS
-    "Negative pin on side 1"
-    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}}),
-        iconTransformation(extent={{-110,-110},{-90,-90}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin pin2_pQS
-    "Positive pin on side 2"
-    annotation (Placement(transformation(extent={{90,110},{110,90}}),
-        iconTransformation(extent={{90,110},{110,90}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin pin2_nQS
-    "Negative pin on side 2"
-    annotation (Placement(transformation(extent={{90,-110},{110,-90}}),
-        iconTransformation(extent={{90,-110},{110,-90}})));
 protected
-  Modelica.SIunits.ComplexVoltage  v1QS= pin1_pQS.v - pin1_nQS.v
+  Modelica.SIunits.ComplexVoltage  v1QS= plug1.phase[1].v - plug1.neutral.v
     "AC QS voltage";
-  Modelica.SIunits.ComplexCurrent  i1QS= pin1_pQS.i "AC QS current";
+  Modelica.SIunits.ComplexCurrent  i1QS= plug1.phase[1].i "AC QS current";
   output Modelica.SIunits.Voltage v1QSabs='abs'(v1QS) "Abs(AC QS voltage)";
   output Modelica.SIunits.Current i1QSabs='abs'(i1QS) "Abs(AC QS current)";
   Modelica.SIunits.ComplexPower  s1QS= v1QS*conj(i1QS) "AC QS apparent power";
   Modelica.SIunits.ActivePower p1QS = real(s1QS) "AC QS active power";
   Modelica.SIunits.ReactivePower q1QS = imag(s1QS) "AC QS reactive power";
 
-  Modelica.SIunits.ComplexVoltage  v2QS= pin2_pQS.v - pin2_nQS.v
+  Modelica.SIunits.ComplexVoltage  v2QS= plug2.phase[1].v - plug2.neutral.v
     "AC QS voltage";
-  Modelica.SIunits.ComplexCurrent  i2QS= pin2_pQS.i "AC QS current";
+  Modelica.SIunits.ComplexCurrent  i2QS= plug2.phase[1].i "AC QS current";
   output Modelica.SIunits.Voltage v2QSabs='abs'(v2QS) "Abs(AC QS voltage)";
   output Modelica.SIunits.Current i2QSabs='abs'(i2QS) "Abs(AC QS current)";
   Modelica.SIunits.ComplexPower  s2QS= v2QS*conj(i2QS) "AC QS apparent power";
   Modelica.SIunits.ActivePower p2QS = real(s2QS) "AC QS active power";
   Modelica.SIunits.ReactivePower q2QS = imag(s2QS) "AC QS reactive power";
 
+public
+  Interfaces.SinglePhasePlug plug1 "Single phase connector side 1" annotation (
+      Placement(transformation(extent={{-110,-10},{-90,10}}),
+        iconTransformation(extent={{-120,-20},{-80,20}})));
+  Interfaces.SinglePhasePlug plug2 "Single phase connector side 2" annotation (
+      Placement(transformation(extent={{90,-10},{110,10}}), iconTransformation(
+          extent={{80,-20},{120,20}})));
 equation
 //QS balances
-  Connections.branch(pin1_pQS.reference, pin1_nQS.reference);
-  Connections.branch(pin2_pQS.reference, pin2_nQS.reference);
-  pin1_pQS.reference.gamma = pin1_nQS.reference.gamma;
-  pin2_pQS.reference.gamma = pin2_nQS.reference.gamma;
-  pin1_pQS.i + pin1_nQS.i = Complex(0);
-  pin2_pQS.i + pin2_nQS.i = Complex(0);
+  Connections.branch(plug1.phase[1].reference, plug1.neutral.reference);
+  Connections.branch(plug2.phase[1].reference, plug2.neutral.reference);
+  plug1.phase[1].reference.gamma = plug1.neutral.reference.gamma;
+  plug2.phase[1].reference.gamma = plug2.neutral.reference.gamma;
+  plug1.phase[1].i + plug1.neutral.i = Complex(0);
+  plug2.phase[1].i + plug2.neutral.i = Complex(0);
 
 //voltage relation
   'abs'(v2QS) = 'abs'(v1QS)*conversionFactor;
@@ -67,13 +57,17 @@ equation
 //define reactive power
   q1QS = 0;
   q2QS = 0;
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}),
+                                      graphics={
         Line(
           points={{2,100},{2,60},{82,60},{2,60},{82,-60},{2,-60},{2,60},{2,-100}},
           color={0,0,255},
           smooth=Smooth.None),
         Text(
-          extent={{40,40},{100,0}},
+          extent={{36,52},{96,12}},
           lineColor={0,0,255},
           textString="QS"),
         Line(
@@ -82,7 +76,7 @@ equation
           color={85,170,255},
           smooth=Smooth.None),
         Text(
-          extent={{-100,40},{-40,0}},
+          extent={{-100,52},{-40,12}},
           lineColor={85,170,255},
           textString="QS"),
         Text(

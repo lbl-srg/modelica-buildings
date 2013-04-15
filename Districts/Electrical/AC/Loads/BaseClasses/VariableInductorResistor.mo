@@ -1,15 +1,15 @@
 within Districts.Electrical.AC.Loads.BaseClasses;
 model VariableInductorResistor
   "Model of an inductive and resistive load with actual power as an input signal"
-extends Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.OnePort;
+extends Districts.Electrical.AC.Loads.BaseClasses.SinglePhaseComponent;
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Control signal" annotation (Placement(
         transformation(extent={{-20,-20},{20,20}},
         rotation=270,
         origin={0,80}),                                iconTransformation(
           extent={{-20,-20},{20,20}},
-        rotation=270,
-        origin={0,100})));
+        rotation=180,
+        origin={100,0})));
 
   parameter Modelica.SIunits.Power P_nominal(min=0)
     "Nominal power (P_nominal >= 0)"
@@ -43,21 +43,22 @@ equation
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
-                         graphics={Rectangle(extent={{-100,100},{100,-100}},
+                         graphics={
+        Rectangle(
+          extent={{-80,40},{80,-40}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+                                   Rectangle(extent={{-100,100},{100,-100}},
             lineColor={255,255,255}),
         Text(
-          extent={{14,140},{104,98}},
+          extent={{-120,100},{120,60}},
           lineColor={0,0,255},
           textString="%name"),
         Text(
-          extent={{18,110},{44,78}},
+          extent={{80,60},{106,28}},
           lineColor={0,0,127},
           textString="y"),
-        Line(
-          points={{0,82},{0,0}},
-          color={0,0,255},
-          smooth=Smooth.None,
-          pattern=LinePattern.Dash),
         Rectangle(
           extent={{-11.5,29.5},{11.5,-29.5}},
           lineColor={0,0,255},
@@ -65,8 +66,9 @@ equation
           fillPattern=FillPattern.Solid,
           origin={-41.5,0.5},
           rotation=90),
-          Line(points={{-10,0},{10,0}},  color={0,0,0},
-          origin={-80,0},
+          Line(points={{-10,-1.22461e-15},{10,0}},
+                                         color={0,0,0},
+          origin={-82,0},
           rotation=180)}),       Diagram(coordinateSystem(preserveAspectRatio=false,
           extent={{-100,-100},{100,100}}), graphics),
     Documentation(info="<html>

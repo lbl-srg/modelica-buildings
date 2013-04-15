@@ -6,17 +6,7 @@ model Grid "Electrical grid"
   parameter Modelica.SIunits.Voltage V "RMS voltage of the grid";
   parameter Modelica.SIunits.Angle phi(start=0) "Phase shift of the grid";
 
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin pin
-    "Pin for electrical connection"
-    annotation (Placement(transformation(extent={{-10,-110},{10,-90}}),
-        iconTransformation(extent={{-10,-110},{10,-90}})));
-
-  Districts.Electrical.AC.Interfaces.PowerOutput P(
-    real=senPow.y.re,
-    apparent=if senPow.y.re >= 0 then (senPow.y.re^2 + senPow.y.im^2)^0.5 else
-        -(senPow.y.re^2 + senPow.y.im^2)^0.5,
-    phi=Modelica.Math.atan2(senPow.y.im, senPow.y.re),
-    cosPhi=Modelica.Math.cos(Modelica.Math.atan2(senPow.y.im, senPow.y.re)))
+  Districts.Electrical.AC.Interfaces.PowerOutput P
     "Power consumed from grid if negative, or fed to grid if positive"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
     // fixme: apparent is wrong
@@ -24,50 +14,35 @@ model Grid "Electrical grid"
 protected
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground "Ground"
     annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource sou(
+  Districts.Electrical.AC.Sources.VoltageSource                         sou(
     final f=f,
     final V=V,
-    final phi=phi) "Voltage source"
+    final phi=phi,
+    measureP=true) "Voltage source"
      annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
         origin={-60,-10})));
-  Districts.Electrical.AC.Sensors.PowerSensor
-                      senPow "Power sensor"
-                   annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
+public
+  Districts.Electrical.AC.Interfaces.SinglePhasePlug sPhasePlug
+    "Single phase connector" annotation (Placement(transformation(extent={{-10,-108},
+            {10,-88}}), iconTransformation(
+        extent={{-20,-21},{20,21}},
         rotation=90,
-        origin={0,-8})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Sensors.CurrentSensor senCur
-    "Current sensor" annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={0,-60})));
+        origin={-1,-100})));
 equation
-  connect(ground.pin, sou.pin_n) annotation (Line(
-      points={{-60,-60},{-60,-20}},
-      color={85,170,255},
-      smooth=Smooth.None));
 
-  connect(senCur.pin_p, pin) annotation (Line(
-      points={{0,-70},{4.44089e-16,-70},{4.44089e-16,-100}},
+  connect(sou.n, ground.pin) annotation (Line(
+      points={{-60,-20},{-60,-60}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(senCur.pin_n, senPow.currentP) annotation (Line(
-      points={{0,-50},{0,-18}},
-      color={85,170,255},
+  connect(sou.sPhasePlug, sPhasePlug)  annotation (Line(
+      points={{-60,0},{-60,14},{0,14},{0,-98}},
+      color={0,0,0},
       smooth=Smooth.None));
-  connect(senPow.voltageP, ground.pin) annotation (Line(
-      points={{-10,-8},{-30,-8},{-30,-40},{-60,-40},{-60,-60}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(senPow.currentN, sou.pin_p) annotation (Line(
-      points={{1.11022e-15,2},{0,2},{0,20},{-60,20},{-60,0}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(senPow.voltageN, sou.pin_p) annotation (Line(
-      points={{10,-8},{20,-8},{20,20},{-60,20},{-60,0}},
-      color={85,170,255},
+  connect(sou.P, P) annotation (Line(
+      points={{-55,-17},{24.5,-17},{24.5,0},{110,0}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (
   defaultComponentName="gri",

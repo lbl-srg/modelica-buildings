@@ -21,7 +21,7 @@ model VariableCapacitorResistor
                                          color={0,0,0},
           origin={-2,0},
           rotation=180),
-          Line(points={{-42,-5.14335e-15},{6.85214e-44,8.39117e-60}},
+          Line(points={{-22,-2.69413e-15},{6.85214e-44,8.39117e-60}},
                                          color={0,0,0},
           origin={48,0},
           rotation=180)}),       Documentation(info="<html>

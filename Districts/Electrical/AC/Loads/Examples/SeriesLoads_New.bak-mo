@@ -1,83 +1,83 @@
 within Districts.Electrical.AC.Loads.Examples;
-model SeriesLoads
+model SeriesLoads_New
   "Example that illustrates the use of the load models at constant voltage"
   extends Modelica.Icons.Example;
   VariableInductorResistor varIndRes(P_nominal=1e3)
     "Variable inductor and resistor"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={-16,-10})));
+        rotation=270,
+        origin={4,10})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground gro "Ground"
-    annotation (Placement(transformation(extent={{-100,-60},{-80,-40}})));
+    annotation (Placement(transformation(extent={{-78,-54},{-58,-34}})));
   Modelica.Blocks.Sources.Ramp ramp(duration=1)
-    annotation (Placement(transformation(extent={{38,-40},{18,-20}})));
+    annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   InductorResistor indRes(                pf=0.8, P_nominal=1e3)
     "Constant inductor and resistor"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={-10,70})));
+        rotation=270,
+        origin={64,10})));
   VariableCapacitorResistor varConRes(P_nominal=1e3)
     "Variable conductor and resistor"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={-16,-50})));
+        rotation=270,
+        origin={10,-30})));
   CapacitorResistor conRes(                pf=0.9, P_nominal=1e3)
     "Constant conductor and resistor"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
-        rotation=0,
-        origin={-10,30})));
+        rotation=270,
+        origin={76,-30})));
   Sources.VoltageSource                                                 sou(
     f=60,
     V=120,
     phi=0) "Voltage source" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-90,-10})));
+        origin={-68,-2})));
   SeriesConnection seriesConnection1 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-50,-30})));
+        rotation=270,
+        origin={8,42})));
   SeriesConnection seriesConnection2 annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={-40,50})));
+        rotation=270,
+        origin={68,42})));
 equation
   connect(ramp.y, varIndRes.y) annotation (Line(
-      points={{17,-30},{8.5,-30},{8.5,-10},{-6,-10}},
+      points={{-19,10},{-6,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(varConRes.y, ramp.y) annotation (Line(
-      points={{-6,-50},{8,-50},{8,-30},{17,-30}},
+      points={{1.33227e-15,-30},{-12,-30},{-12,10},{-19,10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gro.pin, sou.n) annotation (Line(
-      points={{-90,-40},{-90,-20}},
+      points={{-68,-34},{-68,-12},{-68,-12}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(sou.sPhasePlug, seriesConnection1.sPhasePlug) annotation (Line(
-      points={{-90,4.44089e-16},{-90,50},{-60,50},{-60,-30}},
+      points={{-68,8},{-68,62},{8,62},{8,52}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(sou.sPhasePlug, seriesConnection2.sPhasePlug) annotation (Line(
-      points={{-90,4.44089e-16},{-90,50},{-50,50}},
+      points={{-68,8},{-68,62},{68,62},{68,52}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(seriesConnection1.seriesLoads[1], varIndRes.sPhasePlug) annotation (
+      Line(
+      points={{7,32},{6,32},{6,20},{4,20}},
+      color={0,0,0},
+      smooth=Smooth.None));
+  connect(varConRes.sPhasePlug, seriesConnection1.seriesLoads[2]) annotation (
+      Line(
+      points={{10,-20},{10,32},{9,32}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(indRes.sPhasePlug, seriesConnection2.seriesLoads[1]) annotation (Line(
-      points={{-20,70},{-20,52},{-30,52},{-30,49}},
+      points={{64,20},{64,28},{67,28},{67,32}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(conRes.sPhasePlug, seriesConnection2.seriesLoads[2]) annotation (Line(
-      points={{-20,30},{-20,48},{-30,48},{-30,51}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(seriesConnection1.seriesLoads[1], varConRes.sPhasePlug) annotation (
-      Line(
-      points={{-40,-31},{-34,-31},{-34,-50},{-26,-50}},
-      color={0,0,0},
-      smooth=Smooth.None));
-  connect(seriesConnection1.seriesLoads[2], varIndRes.sPhasePlug) annotation (
-      Line(
-      points={{-40,-29},{-34,-29},{-34,-10},{-26,-10}},
+      points={{76,-20},{76,26},{69,26},{69,32}},
       color={0,0,0},
       smooth=Smooth.None));
   annotation (
@@ -102,4 +102,4 @@ First implementation.
     Commands(file=
           "Resources/Scripts/Dymola/Electrical/AC/Loads/Examples/SeriesLoads.mos"
         "Simulate and plot"));
-end SeriesLoads;
+end SeriesLoads_New;

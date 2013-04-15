@@ -1,78 +1,78 @@
 within Districts.Electrical.AC.Loads.Examples;
-model ParallelLoads
+model ParallelLoads_New
   "Example that illustrates the use of the load models at constant voltage"
   extends Modelica.Icons.Example;
   VariableInductorResistor varIndRes(P_nominal=1e3, measureP=true)
     "Variable inductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={10,50})));
+        rotation=270,
+        origin={-10,-10})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground gro "Ground"
-    annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
+    annotation (Placement(transformation(extent={{-90,-50},{-70,-30}})));
   Sources.VoltageSource                                                 sou(
     f=60,
     V=120,
     phi=0) "Voltage source" annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={-80,-20})));
+        origin={-80,-10})));
   Modelica.Blocks.Sources.Ramp ramp(duration=1, offset=0)
-    annotation (Placement(transformation(extent={{80,40},{60,60}})));
+    annotation (Placement(transformation(extent={{-60,60},{-40,80}})));
   InductorResistor indRes(P_nominal=1e3, measureP=true)
     "Constant inductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={10,30})));
+        rotation=270,
+        origin={50,-10})));
   VariableCapacitorResistor varConRes(P_nominal=1e3, measureP=true)
     "Variable conductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={10,10})));
+        rotation=270,
+        origin={120,-10})));
   CapacitorResistor conRes(P_nominal=1e3, measureP=true)
     "Constant conductor and resistor"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={10,-10})));
+        rotation=270,
+        origin={180,-10})));
   Resistor res(P_nominal=1e3, measureP=true) "Resistive load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
-        rotation=0,
-        origin={10,-30})));
+        rotation=270,
+        origin={250,-10})));
 equation
+  connect(ramp.y, varIndRes.y) annotation (Line(
+      points={{-39,70},{20,70},{20,-10},{8.88178e-16,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
   connect(ramp.y, varConRes.y) annotation (Line(
-      points={{59,50},{38,50},{38,10},{20,10}},
+      points={{-39,70},{146,70},{146,-10},{130,-10}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sou.n, gro.pin) annotation (Line(
-      points={{-80,-30},{-80,-40}},
+      points={{-80,-20},{-80,-30}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(ramp.y, varIndRes.y) annotation (Line(
-      points={{59,50},{20,50}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(sou.sPhasePlug, varIndRes.sPhasePlug) annotation (Line(
-      points={{-80,-10},{-60,-10},{-60,50},{-4.44089e-16,50}},
+      points={{-80,4.44089e-16},{-80,10},{-10,10},{-10,0}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(sou.sPhasePlug, indRes.sPhasePlug) annotation (Line(
-      points={{-80,-10},{-60,-10},{-60,30},{0,30}},
+      points={{-80,0},{-80,10},{50,10},{50,0}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(sou.sPhasePlug, varConRes.sPhasePlug) annotation (Line(
-      points={{-80,-10},{-60,-10},{-60,10},{0,10}},
+      points={{-80,4.44089e-16},{-80,10},{120,10},{120,0}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(sou.sPhasePlug, conRes.sPhasePlug) annotation (Line(
-      points={{-80,-10},{0,-10}},
+      points={{-80,0},{-80,10},{180,10},{180,0}},
       color={0,0,0},
       smooth=Smooth.None));
   connect(sou.sPhasePlug, res.sPhasePlug) annotation (Line(
-      points={{-80,-10},{-60,-10},{-60,-30},{-4.44089e-16,-30}},
+      points={{-80,0},{-80,10},{250,10},{250,0}},
       color={0,0,0},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+            280,100}}),
                     graphics),
     Documentation(info="<html>
 <p>
@@ -95,4 +95,4 @@ First implementation.
     Commands(file=
           "Resources/Scripts/Dymola/Electrical/AC/Loads/Examples/ParallelLoads.mos"
         "Simulate and plot"));
-end ParallelLoads;
+end ParallelLoads_New;

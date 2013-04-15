@@ -2,6 +2,7 @@ within Districts.Utilities.Math;
 package Functions "Package with mathematical functions"
   extends Modelica.Icons.BasesPackage;
 
+
 annotation (preferedView="info", Documentation(info="<html>
 <p>
 This package contains functions for commonly used

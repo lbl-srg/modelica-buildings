@@ -446,9 +446,6 @@ individual libraries.
 end UsersGuide;
 
 
-
-
-
 annotation (
 version="0.1",
 versionBuild=0,

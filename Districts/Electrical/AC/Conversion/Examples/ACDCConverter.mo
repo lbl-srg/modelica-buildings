@@ -13,17 +13,15 @@ model ACDCConverter "Test model AC to DC converter"
   Districts.Electrical.AC.Conversion.ACDCConverter
     conACDC(eta=0.9, conversionFactor=0.5)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground groAC
-    annotation (Placement(transformation(extent={{-20,-60},{0,-40}})));
-protected
-  Modelica.Electrical.QuasiStationary.SinglePhase.Sources.VoltageSource sou(
-    final f=60,
-    final V=120,
-    final phi(displayUnit="rad") = 0) "Voltage source"
-     annotation (Placement(transformation(
+  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground gro
+    annotation (Placement(transformation(extent={{-82,-20},{-62,0}})));
+  Districts.Electrical.AC.Sources.VoltageSource                         sou(
+    f=60,
+    V=120,
+    phi=0)                annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-60,10})));
+        rotation=0,
+        origin={-62,10})));
 equation
   connect(res.p, conACDC.pin_pDC)            annotation (Line(
       points={{60,20},{60,60},{10,60},{10,20}},
@@ -37,17 +35,13 @@ equation
       points={{10,-40},{10,0}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(groAC.pin, conACDC.pin_nQS)        annotation (Line(
-      points={{-10,-40},{-10,0}},
+  connect(gro.pin, sou.n) annotation (Line(
+      points={{-72,0},{-72,10}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(sou.pin_p, conACDC.pin_pQS)       annotation (Line(
-      points={{-60,20},{-60,60},{-10,60},{-10,20}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(sou.pin_n, groAC.pin)  annotation (Line(
-      points={{-60,0},{-60,-40},{-10,-40}},
-      color={85,170,255},
+  connect(sou.sPhasePlug, conACDC.plug1) annotation (Line(
+      points={{-52,10},{-10,10}},
+      color={0,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), experiment(StopTime=3600, Tolerance=1e-05),

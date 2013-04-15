@@ -3,8 +3,6 @@ model GridInductiveLoad
   "Model of an inductive load connected to the electrical grid"
   import Districts;
   extends Modelica.Icons.Example;
-  Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground
-    annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Districts.Electrical.AC.Loads.InductorResistor
                       loa(P_nominal=1e3) "Inductive load"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
@@ -21,83 +19,60 @@ model GridInductiveLoad
     V=380,
     f=60,
     phi=0.5235987755983)
-    annotation (Placement(transformation(extent={{40,40},{60,60}})));
+    annotation (Placement(transformation(extent={{20,40},{40,60}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Inductor inductor(L=
        0.18385) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={50,-20})));
+        origin={50,-24})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Resistor resistor(
       R_ref=92.416) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={50,-50})));
-  Districts.Electrical.AC.Sensors.PowerSensor
-                      powSen1 "Power sensor"            annotation (
-      Placement(transformation(
-        extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={-50,20})));
+        origin={50,-54})));
   Districts.Electrical.AC.Sensors.PowerSensor
                       powSen2 "Power sensor"            annotation (
       Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=90,
-        origin={50,20})));
+        origin={50,6})));
+  Districts.Electrical.AC.Interfaces.SinglePhasePlug sPhasePlug1
+    "Single phase connector"
+    annotation (Placement(transformation(extent={{40,26},{60,46}})));
 equation
-  connect(loa.pin_n, ground.pin) annotation (Line(
-      points={{-50,-40},{-50,-70},{6.66134e-16,-70}},
-      color={85,170,255},
+  connect(grid.sPhasePlug, loa.sPhasePlug) annotation (Line(
+      points={{-50.1,40},{-50,40},{-50,-20}},
+      color={0,0,0},
       smooth=Smooth.None));
-  connect(inductor.pin_n, resistor.pin_p) annotation (Line(
-      points={{50,-30},{50,-40}},
+  connect(inductor.pin_n,resistor. pin_p) annotation (Line(
+      points={{50,-34},{50,-44}},
       color={85,170,255},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(resistor.pin_n, ground.pin) annotation (Line(
-      points={{50,-60},{50,-70},{0,-70}},
+  connect(powSen2.currentN,inductor. pin_p) annotation (Line(
+      points={{50,-4},{50,-14}},
       color={85,170,255},
       pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(grid.pin, powSen1.currentP) annotation (Line(
-      points={{-50,40},{-50,30}},
-      color={85,170,255},
-      pattern=LinePattern.None,
+  connect(grid1.sPhasePlug, sPhasePlug1) annotation (Line(
+      points={{29.9,40},{30,40},{30,36},{50,36}},
+      color={0,0,0},
       smooth=Smooth.None));
-  connect(powSen1.currentN, loa.pin_p) annotation (Line(
-      points={{-50,10},{-50,-20}},
+  connect(sPhasePlug1.phase[1], powSen2.currentP) annotation (Line(
+      points={{50,36},{56,36},{56,20},{50,20},{50,16}},
       color={85,170,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(powSen1.voltageN, ground.pin) annotation (Line(
-      points={{-40,20},{-18,20},{-18,-70},{6.66134e-16,-70}},
+  connect(powSen2.voltageP, powSen2.currentP) annotation (Line(
+      points={{40,6},{40,16},{50,16}},
       color={85,170,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(powSen1.voltageP, grid.pin) annotation (Line(
-      points={{-60,20},{-60,34},{-50,34},{-50,40}},
+  connect(resistor.pin_n, sPhasePlug1.neutral) annotation (Line(
+      points={{50,-64},{50,-72},{88,-72},{88,36},{50,36}},
       color={85,170,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
-  connect(powSen2.currentP, grid1.pin) annotation (Line(
-      points={{50,30},{50,40}},
+  connect(powSen2.voltageN, resistor.pin_n) annotation (Line(
+      points={{60,6},{70,6},{70,-64},{50,-64}},
       color={85,170,255},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(powSen2.voltageP, grid1.pin) annotation (Line(
-      points={{40,20},{40,34},{50,34},{50,40}},
-      color={85,170,255},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(powSen2.voltageN, ground.pin) annotation (Line(
-      points={{60,20},{70,20},{70,-70},{0,-70}},
-      color={85,170,255},
-      pattern=LinePattern.None,
-      smooth=Smooth.None));
-  connect(powSen2.currentN, inductor.pin_p) annotation (Line(
-      points={{50,10},{50,-10}},
-      color={85,170,255},
-      pattern=LinePattern.None,
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

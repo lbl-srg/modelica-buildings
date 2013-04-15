@@ -13,14 +13,6 @@ model ACDCConverter "AC DC converter"
     "Converter efficiency, pLoss = (1-eta) * pDC";
   Modelica.SIunits.Power LossPower "Loss power";
 
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.PositivePin pin_pQS
-    "Positive pin on AC side"
-    annotation (Placement(transformation(extent={{-110,110},{-90,90}}),
-        iconTransformation(extent={{-110,110},{-90,90}})));
-  Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.NegativePin pin_nQS
-    "Negative pin on AC side"
-    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}}),
-        iconTransformation(extent={{-110,-110},{-90,-90}})));
   Modelica.Electrical.Analog.Interfaces.PositivePin pin_pDC
     "Positive pin on DC side"
     annotation (Placement(transformation(extent={{90,110},{110,90}}),
@@ -30,8 +22,9 @@ model ACDCConverter "AC DC converter"
     annotation (Placement(transformation(extent={{90,-110},{110,-90}}),
         iconTransformation(extent={{90,-110},{110,-90}})));
 protected
-  Modelica.SIunits.ComplexVoltage  vQS= pin_pQS.v - pin_nQS.v "AC QS voltage";
-  Modelica.SIunits.ComplexCurrent  iQS= pin_pQS.i "AC QS current";
+  Modelica.SIunits.ComplexVoltage  vQS= plug1.phase[1].v - plug1.neutral.v
+    "AC QS voltage";
+  Modelica.SIunits.ComplexCurrent  iQS= plug1.phase[1].i "AC QS current";
   output Modelica.SIunits.Voltage vQSabs='abs'(vQS) "Abs(AC QS voltage)";
   output Modelica.SIunits.Current iQSabs='abs'(iQS) "Abs(AC QS current)";
   Modelica.SIunits.ComplexPower  sQS= vQS*conj(iQS) "AC QS apparent power";
@@ -40,11 +33,15 @@ protected
   Modelica.SIunits.Voltage vDC = pin_pDC.v - pin_nDC.v "DC voltage";
   Modelica.SIunits.Current iDC = pin_pDC.i "DC current";
   Modelica.SIunits.Power pDC = vDC*iDC "DC power";
+public
+  Interfaces.SinglePhasePlug plug1 "Single phase connector side 1" annotation (
+      Placement(transformation(extent={{-110,-10},{-90,10}}),
+        iconTransformation(extent={{-120,-20},{-80,20}})));
 equation
 //QS balances
-  Connections.branch(pin_pQS.reference, pin_nQS.reference);
-  pin_pQS.reference.gamma = pin_nQS.reference.gamma;
-  pin_pQS.i + pin_nQS.i = Complex(0);
+  Connections.branch(plug1.phase[1].reference, plug1.neutral.reference);
+  plug1.phase[1].reference.gamma = plug1.neutral.reference.gamma;
+  plug1.phase[1].i + plug1.neutral.i = Complex(0);
 //DC current balance
   pin_pDC.i + pin_nDC.i = 0;
 //voltage relation
@@ -54,7 +51,9 @@ equation
   pQS + pDC - LossPower = 0;
 //define reactive power
   qQS = 0;
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics), Icon(graphics={
         Line(
           points={{2,100},{2,60},{82,60},{2,60},{82,-60},{2,-60},{2,60},{2,-100}},
           color={0,0,255},
@@ -69,7 +68,7 @@ equation
           color={85,170,255},
           smooth=Smooth.None),
         Text(
-          extent={{-100,40},{-40,0}},
+          extent={{-100,52},{-40,12}},
           lineColor={85,170,255},
           textString="QS"),
         Text(

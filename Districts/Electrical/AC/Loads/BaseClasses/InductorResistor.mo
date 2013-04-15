@@ -1,6 +1,6 @@
 within Districts.Electrical.AC.Loads.BaseClasses;
 model InductorResistor "Model of an inductive and resistive load"
-extends Modelica.Electrical.QuasiStationary.SinglePhase.Interfaces.OnePort(
+extends Districts.Electrical.AC.Loads.BaseClasses.SinglePhaseComponent(
     v(re(start=1), im(start=1)));
 
   parameter Modelica.SIunits.Power P_nominal(min=0)
@@ -18,14 +18,22 @@ equation
   S = Modelica.ComplexMath.fromPolar(max(100*Modelica.Constants.eps, P_nominal/pf), phi);
   S = v * Modelica.ComplexMath.conj(i);
 
-  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
-            {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                         graphics={
+        Rectangle(
+          extent={{-80,40},{80,-40}},
+          lineColor={0,0,0},
+          fillColor={255,255,255},
+          fillPattern=FillPattern.Solid),
+                                   Rectangle(extent={{-100,100},{100,-100}},
             lineColor={255,255,255}),
-          Line(points={{-10,0},{10,0}},  color={0,0,0},
+          Line(points={{-10,0},{12,1.46953e-15}},
+                                         color={0,0,0},
           origin={-80,0},
           rotation=180),
         Text(
-          extent={{14,140},{104,98}},
+          extent={{-120,100},{120,60}},
           lineColor={0,0,255},
           textString="%name"),
         Rectangle(
