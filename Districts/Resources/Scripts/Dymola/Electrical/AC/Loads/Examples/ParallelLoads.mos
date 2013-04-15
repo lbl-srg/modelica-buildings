@@ -1,0 +1,33 @@
+simulateModel("Districts.Electrical.AC.Loads.Examples.ParallelLoads", method="dassl", resultFile="ParallelLoads");
+removePlots();
+createPlot(id = 1,
+ position = {15, 10, 596, 437},
+ y = {"powSenVarIndRes.P.phi", "powSenIndRes.P.phi", "powSenVarConRes.P.phi", "powSenConRes.P.phi", "powSenRes.P.phi"},
+ range = {0.0, 1.0, -200.0, 200.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "ParallelLoads.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}});
+createPlot(id = 1,
+ position = {15, 10, 596, 215},
+ y = {"powSenVarIndRes.P.apparent", "powSenIndRes.P.apparent", "powSenVarConRes.P.apparent", "powSenConRes.P.apparent", "powSenRes.P.apparent"},
+ range = {0.0, 1.0, -500.0, 1500.0},
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}, {255,0,0}, {0,128,0}, {255,0,255}, {0,0,0}});
+

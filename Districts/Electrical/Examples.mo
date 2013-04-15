@@ -20,10 +20,10 @@ package Examples "Package with example models"
     Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground groAC
       "Ground for AC grid"
       annotation (Placement(transformation(extent={{30,-60},{50,-40}})));
-    Districts.Electrical.QuasiStationary.SinglePhase.Sources.Grid
+    Districts.Electrical.AC.Sources.Grid
       grid(V=380, f=60, phi=0)
       annotation (Placement(transformation(extent={{30,28},{50,48}})));
-    Districts.Electrical.QuasiStationary.SinglePhase.Conversion.ACDCConverter
+    Districts.Electrical.AC.Conversion.ACDCConverter
       conACDC(       conversionFactor=240/380, eta=0.9) "AC/DC converter"
       annotation (Placement(transformation(extent={{24,-12},{4,8}})));
     Districts.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(
@@ -104,13 +104,13 @@ First implementation.
     Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground groAC
       "Ground for AC grid"
       annotation (Placement(transformation(extent={{70,-80},{90,-60}})));
-    Districts.Electrical.QuasiStationary.SinglePhase.Sources.Grid
+    Districts.Electrical.AC.Sources.Grid
                  grid(
       V=380,
       f=60,
       phi=0)
       annotation (Placement(transformation(extent={{70,30},{90,50}})));
-    Districts.Electrical.QuasiStationary.SinglePhase.Conversion.ACDCConverter
+    Districts.Electrical.AC.Conversion.ACDCConverter
       conACDC(conversionFactor=12/380, eta=0.9) "AC/DC converter"
       annotation (Placement(transformation(extent={{64,-12},{44,8}})));
     Districts.BoundaryConditions.SolarIrradiation.DiffusePerez HDifTil(
