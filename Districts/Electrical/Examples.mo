@@ -5,7 +5,7 @@ package Examples "Package with example models"
     "Test model for wind turbine whose power is specified by a table"
     import Districts;
     extends Modelica.Icons.Example;
-    Districts.Electrical.Analog.Sources.WindTurbine       tur(
+    Districts.Electrical.DC.Sources.WindTurbine           tur(
       table=[3.5, 0;
              5.5,   100;
              12, 900;
@@ -92,7 +92,7 @@ First implementation.
     "Example for the simple PV model that is connected to the grid"
     import Districts;
     extends Modelica.Icons.Example;
-    Districts.Electrical.Analog.Sources.PVSimple pv(A=10) "PV module"
+    Districts.Electrical.DC.Sources.PVSimple     pv(A=10) "PV module"
       annotation (Placement(transformation(
           extent={{-10,-10},{10,10}},
           rotation=0,

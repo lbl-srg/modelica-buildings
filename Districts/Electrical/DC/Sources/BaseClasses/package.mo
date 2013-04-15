@@ -1,5 +1,5 @@
-within Districts.Electrical.QuasiStationary.SinglePhase;
-package BaseClasses "Package with base classes for electrical systems"
+within Districts.Electrical.DC.Sources;
+package BaseClasses "Package with base classes for analog sources"
   extends Modelica.Icons.BasesPackage;
 
 

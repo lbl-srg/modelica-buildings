@@ -3,13 +3,6 @@ package Loads "Library with models for electrical loads"
   extends Modelica.Icons.VariantsPackage;
 
 
-
-
-
-
-
-
-
 annotation (Documentation(info="<html>
 <p>
 Package with load models. The loads can be resistive,
