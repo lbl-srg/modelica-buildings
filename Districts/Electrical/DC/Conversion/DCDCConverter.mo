@@ -8,48 +8,41 @@ model DCDCConverter "DC DC converter"
     "Converter efficiency, pLoss = (1-eta) * pDC2";
   Modelica.SIunits.Power LossPower "Loss power";
 
-  Modelica.Electrical.Analog.Interfaces.PositivePin pin1_pDC
-    "Positive pin on side 1"
-    annotation (Placement(transformation(extent={{-110,110},{-90,90}}),
-        iconTransformation(extent={{-110,110},{-90,90}})));
-  Modelica.Electrical.Analog.Interfaces.NegativePin pin1_nDC
-    "Negative pin on side 1"
-    annotation (Placement(transformation(extent={{-110,-110},{-90,-90}}),
-        iconTransformation(extent={{-110,-110},{-90,-90}})));
-  Modelica.Electrical.Analog.Interfaces.PositivePin pin2_pDC
-    "Positive pin on side 2"
-    annotation (Placement(transformation(extent={{90,110},{110,90}}),
-        iconTransformation(extent={{90,110},{110,90}})));
-  Modelica.Electrical.Analog.Interfaces.NegativePin pin2_nDC
-    "Negative pin on side 2"
-    annotation (Placement(transformation(extent={{90,-110},{110,-90}}),
-        iconTransformation(extent={{90,-110},{110,-90}})));
 protected
-  Modelica.SIunits.Voltage vDC1= pin1_pDC.v - pin1_nDC.v "DC voltage";
-  Modelica.SIunits.Current iDC1 = pin1_pDC.i "DC current";
+  Modelica.SIunits.Voltage vDC1= dCplug1.p.v - dCplug1.n.v "DC voltage";
+  Modelica.SIunits.Current iDC1 = dCplug1.p.i "DC current";
   Modelica.SIunits.Power pDC1 = vDC1*iDC1 "DC power";
-  Modelica.SIunits.Voltage vDC2 = pin2_pDC.v - pin2_nDC.v "DC voltage";
-  Modelica.SIunits.Current iDC2 = pin2_pDC.i "DC current";
+  Modelica.SIunits.Voltage vDC2 = dCplug2.p.v - dCplug2.n.v "DC voltage";
+  Modelica.SIunits.Current iDC2 = dCplug2.p.i "DC current";
   Modelica.SIunits.Power pDC2 = vDC2*iDC2 "DC power";
+public
+  Interfaces.DCplug dCplug1 annotation (Placement(transformation(extent={{-120,-20},
+            {-100,0}}), iconTransformation(extent={{-120,-20},{-80,20}})));
+  Interfaces.DCplug dCplug2 annotation (Placement(transformation(extent={{80,-20},
+            {100,0}}), iconTransformation(extent={{80,-20},{120,20}})));
 equation
 
  //DC current balance
-  pin1_pDC.i + pin1_nDC.i = 0;
+  dCplug1.p.i + dCplug1.n.i = 0;
 //DC current balance
-  pin2_pDC.i + pin2_nDC.i = 0;
+  dCplug2.p.i + dCplug2.n.i = 0;
 //voltage relation
   vDC2 = vDC1*conversionFactor;
 //power balance
   LossPower = (1-eta) * abs(pDC2);
   pDC1 + pDC2 - LossPower = 0;
 
-  annotation (Diagram(graphics), Icon(graphics={
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}),
+                                      graphics={
         Line(
           points={{2,100},{2,60},{82,60},{2,60},{82,-60},{2,-60},{2,60},{2,-100}},
           color={0,0,255},
           smooth=Smooth.None),
         Text(
-          extent={{40,40},{100,0}},
+          extent={{36,54},{96,14}},
           lineColor={0,0,255},
           textString="DC"),
         Line(
@@ -58,7 +51,7 @@ equation
           color={85,170,255},
           smooth=Smooth.None),
         Text(
-          extent={{-100,40},{-40,0}},
+          extent={{-88,54},{-28,14}},
           lineColor={85,170,255},
           textString="DC"),
         Text(

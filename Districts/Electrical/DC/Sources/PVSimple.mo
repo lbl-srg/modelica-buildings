@@ -1,6 +1,6 @@
 within Districts.Electrical.DC.Sources;
 model PVSimple "Simple PV model"
-  extends Modelica.Electrical.Analog.Interfaces.OnePort;
+  extends Districts.Electrical.DC.Interfaces.OnePort;
   parameter Modelica.SIunits.Area A "Net surface area";
   parameter Real fAct(min=0, max=1, unit="1") = 0.9
     "Fraction of surface area with active solar cells";
@@ -26,7 +26,6 @@ equation
         extent={{-100,-100},{100,100}},
         grid={1,1}), graphics={
         Line(points={{-90,0},{-59,0}}, color={0,0,0}),
-        Line(points={{51,0},{90,0}}, color={0,0,0}),
         Text(
           extent={{-150,-104},{150,-64}},
           textString="%name",
@@ -109,36 +108,11 @@ equation
         extent={{-100,-100},{100,100}},
         grid={1,1}), graphics={
         Ellipse(
-          extent={{-50,50},{50,-50}},
+          extent={{-30,30},{30,-30}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),
-        Line(points={{-96,0},{-50,0}}, color={0,0,0}),
-        Line(points={{50,0},{96,0}}, color={0,0,0}),
-        Line(points={{-50,0},{50,0}}, color={0,0,0}),
-        Line(points={{-109,20},{-84,20}}, color={160,160,164}),
-        Polygon(
-          points={{-94,23},{-84,20},{-94,17},{-94,23}},
-          lineColor={160,160,164},
-          fillColor={160,160,164},
-          fillPattern=FillPattern.Solid),
-        Line(points={{91,20},{116,20}}, color={160,160,164}),
-        Text(
-          extent={{-109,25},{-89,45}},
-          lineColor={160,160,164},
-          textString="i"),
-        Polygon(
-          points={{106,23},{116,20},{106,17},{106,23}},
-          lineColor={160,160,164},
-          fillColor={160,160,164},
-          fillPattern=FillPattern.Solid),
-        Text(
-          extent={{91,45},{111,25}},
-          lineColor={160,160,164},
-          textString="i"),
-        Line(points={{-119,-5},{-119,5}}, color={160,160,164}),
-        Line(points={{-124,0},{-114,0}}, color={160,160,164}),
-        Line(points={{116,0},{126,0}}, color={160,160,164})}),
+        Line(points={{-50,0},{50,0}}, color={0,0,0})}),
     Documentation(revisions="<html>
 <ul>
 <li>

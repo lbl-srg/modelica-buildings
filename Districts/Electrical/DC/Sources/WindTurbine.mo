@@ -1,7 +1,7 @@
 within Districts.Electrical.DC.Sources;
 model WindTurbine
   "Wind turbine with power output based on table as a function of wind speed"
-  extends Modelica.Electrical.Analog.Interfaces.TwoPin;
+  extends Districts.Electrical.DC.Interfaces.TwoPin;
   final parameter Modelica.SIunits.Velocity vIn = table[1,1]
     "Cut-in steady wind speed";
   final parameter Modelica.SIunits.Velocity vOut = table[size(table,1), 1]
@@ -42,6 +42,7 @@ model WindTurbine
   Modelica.Blocks.Interfaces.RealOutput P(unit="W") "Generated power"
     annotation (Placement(transformation(extent={{100,50},{120,70}})));
 protected
+  Interfaces.DCplug dcPlug1;
   Modelica.Blocks.Tables.CombiTable1Ds per(
     final tableOnFile=tableOnFile,
     final table=cat(1, cat(1, [0, 0], table),
@@ -55,7 +56,7 @@ protected
     annotation (Placement(transformation(extent={{-40,10},{-20,30}})));
   Loads.VariableConductor               con
     "Conductor, used to interface power with electrical circuit"
-    annotation (Placement(transformation(extent={{60,-10},{80,10}})));
+    annotation (Placement(transformation(extent={{60,-12},{80,8}})));
 
   Modelica.Blocks.Math.Gain gain(final k=scale)
     "Gain, used to allow a user to easily scale the power"
@@ -68,6 +69,7 @@ protected
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-60,20})));
+
 initial equation
 assert(abs(table[1,2]) == 0,
   "First data point of performance table must be at cut-in wind speed,
@@ -75,20 +77,12 @@ assert(abs(table[1,2]) == 0,
    Received + " + String(table[1,1]) + " m/s with " + String(table[1,2]) + " Watts");
 
 equation
-  connect(con.p, p) annotation (Line(
-      points={{60,4.44089e-16},{-20,4.44089e-16},{-20,0},{-100,0}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(n, con.n) annotation (Line(
-      points={{100,0},{90,0},{90,4.44089e-16},{80,4.44089e-16}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(per.y[1], gain.u) annotation (Line(
       points={{-19,20},{-10,20}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, con.P) annotation (Line(
-      points={{13,20},{24,20},{24,8},{58,8}},
+      points={{13,20},{24,20},{24,6},{58,6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(gain.y, P)     annotation (Line(
@@ -102,6 +96,18 @@ equation
   connect(cor.vLoc, per.u) annotation (Line(
       points={{-49,20},{-42,20}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(con.dcPlug, dcPlug1) annotation (Line(
+      points={{60,-2},{0,-2}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(dcPlug1.p, dcPlug.p) annotation (Line(
+      points={{0,-2},{-100,-2}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(dcPlug1.n, dcPlug.n) annotation (Line(
+      points={{0,-2},{-100,-2}},
+      color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),

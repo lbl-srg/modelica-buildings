@@ -3,13 +3,13 @@ model ACDCConverter "Test model AC to DC converter"
   import Districts;
   extends Modelica.Icons.Example;
 
-  Modelica.Electrical.Analog.Basic.Resistor res(R=1)      annotation (Placement(
+  Districts.Electrical.DC.Loads.Resistor    res(R=1)      annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
-        rotation=90,
+        rotation=180,
         origin={60,10})));
   Modelica.Electrical.Analog.Basic.Ground groDC
-  annotation (Placement(transformation(extent={{0,-60},{20,-40}},    rotation=0)));
+  annotation (Placement(transformation(extent={{12,-24},{32,-4}},    rotation=0)));
   Districts.Electrical.AC.Conversion.ACDCConverter
     conACDC(eta=0.9, conversionFactor=0.5)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
@@ -22,19 +22,9 @@ model ACDCConverter "Test model AC to DC converter"
         extent={{10,-10},{-10,10}},
         rotation=0,
         origin={-62,10})));
+  Districts.Electrical.DC.Interfaces.DCplug dCplug1
+    annotation (Placement(transformation(extent={{12,0},{32,20}})));
 equation
-  connect(res.p, conACDC.pin_pDC)            annotation (Line(
-      points={{60,20},{60,60},{10,60},{10,20}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(res.n, conACDC.pin_nDC)            annotation (Line(
-      points={{60,0},{60,-40},{10,-40},{10,0}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(groDC.p, conACDC.pin_nDC)         annotation (Line(
-      points={{10,-40},{10,0}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(gro.pin, sou.n) annotation (Line(
       points={{-72,0},{-72,10}},
       color={85,170,255},
@@ -42,6 +32,18 @@ equation
   connect(sou.sPhasePlug, conACDC.plug1) annotation (Line(
       points={{-52,10},{-10,10}},
       color={0,0,0},
+      smooth=Smooth.None));
+  connect(conACDC.dCplug, res.dcPlug) annotation (Line(
+      points={{10,10},{50,10}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(conACDC.dCplug, dCplug1) annotation (Line(
+      points={{10,10},{22,10}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(dCplug1.n, groDC.p) annotation (Line(
+      points={{22,10},{22,-4}},
+      color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), experiment(StopTime=3600, Tolerance=1e-05),

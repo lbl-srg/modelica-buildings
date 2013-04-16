@@ -11,29 +11,31 @@ model GridDCLoad "Model of a DC load connected to the grid"
   Districts.Electrical.AC.Conversion.ACDCConverter idealACDCConverter1(
       conversionFactor=12/380, eta=0.9)
     annotation (Placement(transformation(extent={{-50,-40},{-30,-20}})));
-  Modelica.Electrical.Analog.Basic.Resistor resistor(R=1) annotation (Placement(
+  Districts.Electrical.DC.Loads.Resistor    resistor(R=1) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
+        rotation=0,
         origin={10,-30})));
   Modelica.Electrical.Analog.Basic.Ground Ground1
-  annotation (Placement(transformation(extent={{2,-80},{18,-64}},    rotation=0)));
+  annotation (Placement(transformation(extent={{-24,-58},{-8,-42}},  rotation=0)));
+  Districts.Electrical.DC.Interfaces.DCplug dCplug1
+    annotation (Placement(transformation(extent={{-26,-40},{-6,-20}})));
 equation
-  connect(idealACDCConverter1.pin_pDC, resistor.n) annotation (Line(
-      points={{-30,-20},{10,-20}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(resistor.p, idealACDCConverter1.pin_nDC) annotation (Line(
-      points={{10,-40},{-30,-40}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(resistor.p, Ground1.p) annotation (Line(
-      points={{10,-40},{10,-64}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(grid.sPhasePlug, idealACDCConverter1.plug1) annotation (Line(
       points={{-70.1,-20},{-70,-20},{-70,-30},{-50,-30}},
       color={0,0,0},
+      smooth=Smooth.None));
+  connect(idealACDCConverter1.dCplug, resistor.dcPlug) annotation (Line(
+      points={{-30,-30},{0,-30}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(idealACDCConverter1.dCplug, dCplug1) annotation (Line(
+      points={{-30,-30},{-16,-30}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(dCplug1.n, Ground1.p) annotation (Line(
+      points={{-16,-30},{-16,-42}},
+      color={0,0,255},
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{

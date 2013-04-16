@@ -18,13 +18,11 @@ model WindTurbine "Example for the WindTurbine model"
   Districts.BoundaryConditions.WeatherData.Bus weaBus
     annotation (Placement(transformation(extent={{6,76},{26,96}})));
   Modelica.Electrical.Analog.Basic.Ground ground
-    annotation (Placement(transformation(extent={{32,-88},{52,-68}})));
-  Modelica.Electrical.Analog.Basic.Resistor res(R=0.5)
-    annotation (Placement(transformation(extent={{-14,-18},{6,2}})));
-  Modelica.Electrical.Analog.Sources.ConstantVoltage sou(V=12) "Voltage source"
-    annotation (Placement(transformation(extent={{-38,-70},{-18,-50}})));
-  Modelica.Electrical.Analog.Sensors.PowerSensor powSen "Power sensor"
-    annotation (Placement(transformation(extent={{0,-70},{20,-50}})));
+    annotation (Placement(transformation(extent={{-90,-6},{-70,14}})));
+  Districts.Electrical.DC.Loads.Resistor    res(R=0.5)
+    annotation (Placement(transformation(extent={{-20,0},{0,20}})));
+  Districts.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
+    annotation (Placement(transformation(extent={{-60,20},{-80,40}})));
 equation
   connect(weaDat.weaBus,weaBus)  annotation (Line(
       points={{-42,86},{16,86}},
@@ -36,36 +34,16 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
-  connect(ground.p,res. n) annotation (Line(
-      points={{42,-68},{42,-8},{6,-8}},
+  connect(sou.dcPlug, tur.dcPlug) annotation (Line(
+      points={{-60,30},{-42,30},{-42,36},{-20,36}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(tur.p, res.p) annotation (Line(
-      points={{-20,36},{-56,36},{-56,-8},{-14,-8}},
+  connect(sou.dcPlug, res.dcPlug) annotation (Line(
+      points={{-60,30},{-42,30},{-42,10},{-20,10}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(tur.n, ground.p) annotation (Line(
-      points={{0,36},{42,36},{42,-68}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(sou.p, res.p) annotation (Line(
-      points={{-38,-60},{-56,-60},{-56,-8},{-14,-8}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(sou.n,powSen. pc) annotation (Line(
-      points={{-18,-60},{0,-60}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(powSen.nc, res.n) annotation (Line(
-      points={{20,-60},{42,-60},{42,-8},{6,-8}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(powSen.nv,sou. p) annotation (Line(
-      points={{10,-70},{10,-80},{-38,-80},{-38,-60}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(powSen.pv,powSen. nc) annotation (Line(
-      points={{10,-50},{20,-50},{20,-60}},
+  connect(ground.p, sou.n) annotation (Line(
+      points={{-80,14},{-80,30}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-140,

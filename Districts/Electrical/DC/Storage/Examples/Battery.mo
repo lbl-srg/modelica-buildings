@@ -3,17 +3,17 @@ model Battery "Test model for battery"
   import Districts;
   extends Modelica.Icons.Example;
   Districts.Electrical.DC.Storage.Battery     bat(EMax=40e3*3600) "Battery"
-    annotation (Placement(transformation(extent={{100,50},{120,70}})));
-  Modelica.Electrical.Analog.Sources.ConstantVoltage sou(V=12) "Voltage source"
-    annotation (Placement(transformation(extent={{100,-30},{120,-10}})));
-  Modelica.Electrical.Analog.Sensors.PowerSensor powSen "Power sensor"
-    annotation (Placement(transformation(extent={{130,-30},{150,-10}})));
+    annotation (Placement(transformation(extent={{100,20},{120,40}})));
+  Districts.Electrical.DC.Sources.ConstantVoltage    sou(V=12) "Voltage source"
+    annotation (Placement(transformation(extent={{10,-10},{-10,10}},
+        rotation=0,
+        origin={78,-20})));
   Modelica.Electrical.Analog.Basic.Ground ground
-    annotation (Placement(transformation(extent={{150,-68},{170,-48}})));
+    annotation (Placement(transformation(extent={{58,-60},{78,-40}})));
   Districts.Electrical.DC.Loads.VariableConductor     loa "Electrical load"
-    annotation (Placement(transformation(extent={{120,12},{140,32}})));
+    annotation (Placement(transformation(extent={{124,-30},{144,-10}})));
   Modelica.Blocks.Sources.Constant const1(k=10e3)
-    annotation (Placement(transformation(extent={{80,30},{100,50}})));
+    annotation (Placement(transformation(extent={{144,0},{124,20}})));
   Modelica.Blocks.Sources.SampleTrigger startCharge(period=24*3600,
       startTime=23*3600)
     annotation (Placement(transformation(extent={{-140,40},{-120,60}})));
@@ -75,38 +75,6 @@ model Battery "Test model for battery"
   Modelica.Blocks.Math.Add add
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 equation
-  connect(powSen.nv,sou. p) annotation (Line(
-      points={{140,-30},{140,-40},{100,-40},{100,-20}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(sou.n,powSen. pc) annotation (Line(
-      points={{120,-20},{130,-20}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(powSen.pv, sou.n) annotation (Line(
-      points={{140,-10},{120,-10},{120,-20}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(powSen.nc, ground.p) annotation (Line(
-      points={{150,-20},{160,-20},{160,-48}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(bat.n, ground.p) annotation (Line(
-      points={{120,60},{160,60},{160,-48}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(bat.p, sou.p) annotation (Line(
-      points={{100,60},{70,60},{70,-20},{100,-20}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(loa.p, sou.p) annotation (Line(
-      points={{120,22},{70,22},{70,-20},{100,-20}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(loa.n, ground.p) annotation (Line(
-      points={{140,22},{160,22},{160,-48}},
-      color={0,0,255},
-      smooth=Smooth.None));
   connect(startCharge.y, TOn.conditionPort) annotation (Line(
       points={{-119,50},{-105,50}},
       color={255,0,255},
@@ -173,15 +141,15 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, bat.P) annotation (Line(
-      points={{41,-10},{50,-10},{50,80},{110,80},{110,70}},
+      points={{41,-10},{52,-10},{52,50},{110,50},{110,40}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bat.SOC, greaterEqualThreshold.u) annotation (Line(
-      points={{121,66},{140,66},{140,100},{-160,100},{-160,0},{-142,0}},
+      points={{121,36},{140,36},{140,100},{-160,100},{-160,0},{-142,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(bat.SOC, lessEqualThreshold.u) annotation (Line(
-      points={{121,66},{140,66},{140,100},{-160,100},{-160,-80},{-142,-80}},
+      points={{121,36},{140,36},{140,100},{-160,100},{-160,-80},{-142,-80}},
       color={0,0,127},
       smooth=Smooth.None));
 
@@ -202,8 +170,20 @@ equation
       color={255,0,255},
       smooth=Smooth.None));
   connect(const1.y, loa.P) annotation (Line(
-      points={{101,40},{112,40},{112,30},{118,30}},
+      points={{123,10},{112,10},{112,-12},{122,-12}},
       color={0,0,127},
+      smooth=Smooth.None));
+  connect(ground.p, sou.n) annotation (Line(
+      points={{68,-40},{68,-20}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(sou.dcPlug, bat.dcPlug) annotation (Line(
+      points={{88,-20},{94,-20},{94,10},{94,10},{94,30},{100,30}},
+      color={0,0,255},
+      smooth=Smooth.None));
+  connect(sou.dcPlug, loa.dcPlug) annotation (Line(
+      points={{88,-20},{124,-20}},
+      color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-180,
             -100},{180,120}}),      graphics),

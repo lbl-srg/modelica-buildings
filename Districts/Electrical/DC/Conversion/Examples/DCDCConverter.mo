@@ -5,44 +5,39 @@ model DCDCConverter "Test model DC to DC converter"
 
   Districts.Electrical.DC.Conversion.DCDCConverter     conDCDC(eta=0.9,
       conversionFactor=0.5)
-    annotation (Placement(transformation(extent={{-10,-4},{10,16}})));
-  Modelica.Electrical.Analog.Sources.ConstantVoltage sou(V=120)
+    annotation (Placement(transformation(extent={{-10,0},{10,20}})));
+  Districts.Electrical.DC.Sources.ConstantVoltage    sou(V=120)
     annotation (Placement(transformation(
-        extent={{-10,-10},{10,10}},
-        rotation=-90,
-        origin={-60,10})));
-  Modelica.Electrical.Analog.Basic.Resistor res(R=1)      annotation (Placement(
-        transformation(
         extent={{10,-10},{-10,10}},
-        rotation=90,
-        origin={60,10})));
-  Modelica.Electrical.Analog.Basic.Ground gro1
-  annotation (Placement(transformation(extent={{2,-68},{18,-52}},    rotation=0)));
+        rotation=0,
+        origin={-70,10})));
   Modelica.Electrical.Analog.Basic.Ground gro
-  annotation (Placement(transformation(extent={{-18,-68},{-2,-52}},  rotation=0)));
+  annotation (Placement(transformation(extent={{-88,-34},{-72,-18}}, rotation=0)));
+  Districts.Electrical.DC.Loads.Resistor resistor
+    annotation (Placement(transformation(extent={{56,0},{76,20}})));
+  Districts.Electrical.DC.Interfaces.DCplug dCplug1
+    annotation (Placement(transformation(extent={{10,0},{30,20}})));
+  Modelica.Electrical.Analog.Basic.Ground gro1
+  annotation (Placement(transformation(extent={{12,-24},{28,-8}},    rotation=0)));
 equation
-  connect(sou.p, conDCDC.pin1_pDC)                   annotation (Line(
-      points={{-60,20},{-60,60},{-10,60},{-10,16}},
+  connect(sou.n, gro.p) annotation (Line(
+      points={{-80,10},{-80,-18}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(sou.n, conDCDC.pin1_nDC)                   annotation (Line(
-      points={{-60,0},{-60,-40},{-10,-40},{-10,-4}},
+  connect(sou.dcPlug, conDCDC.dCplug1) annotation (Line(
+      points={{-60,10},{-10,10}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(conDCDC.pin2_pDC, res.p)            annotation (Line(
-      points={{10,16},{10,60},{60,60},{60,20}},
+  connect(conDCDC.dCplug2, dCplug1) annotation (Line(
+      points={{10,10},{20,10}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(conDCDC.pin2_nDC, res.n)            annotation (Line(
-      points={{10,-4},{10,-40},{60,-40},{60,0}},
+  connect(conDCDC.dCplug2, resistor.dcPlug) annotation (Line(
+      points={{10,10},{56,10}},
       color={0,0,255},
       smooth=Smooth.None));
-  connect(gro1.p, conDCDC.pin2_nDC)          annotation (Line(
-      points={{10,-52},{10,-4}},
-      color={0,0,255},
-      smooth=Smooth.None));
-  connect(gro.p, conDCDC.pin1_nDC)          annotation (Line(
-      points={{-10,-52},{-10,-4}},
+  connect(dCplug1.n, gro1.p) annotation (Line(
+      points={{20,10},{20,-8}},
       color={0,0,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

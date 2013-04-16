@@ -13,14 +13,6 @@ model ACDCConverter "AC DC converter"
     "Converter efficiency, pLoss = (1-eta) * pDC";
   Modelica.SIunits.Power LossPower "Loss power";
 
-  Modelica.Electrical.Analog.Interfaces.PositivePin pin_pDC
-    "Positive pin on DC side"
-    annotation (Placement(transformation(extent={{90,110},{110,90}}),
-        iconTransformation(extent={{90,110},{110,90}})));
-  Modelica.Electrical.Analog.Interfaces.NegativePin pin_nDC
-    "Negative pin on DC side"
-    annotation (Placement(transformation(extent={{90,-110},{110,-90}}),
-        iconTransformation(extent={{90,-110},{110,-90}})));
 protected
   Modelica.SIunits.ComplexVoltage  vQS= plug1.p[1].v - plug1.n.v
     "AC QS voltage";
@@ -30,20 +22,22 @@ protected
   Modelica.SIunits.ComplexPower  sQS= vQS*conj(iQS) "AC QS apparent power";
   Modelica.SIunits.ActivePower pQS = real(sQS) "AC QS active power";
   Modelica.SIunits.ReactivePower qQS = imag(sQS) "AC QS reactive power";
-  Modelica.SIunits.Voltage vDC = pin_pDC.v - pin_nDC.v "DC voltage";
-  Modelica.SIunits.Current iDC = pin_pDC.i "DC current";
+  Modelica.SIunits.Voltage vDC = dCplug.p.v - dCplug.n.v "DC voltage";
+  Modelica.SIunits.Current iDC = dCplug.p.i "DC current";
   Modelica.SIunits.Power pDC = vDC*iDC "DC power";
 public
   Interfaces.SinglePhasePlug plug1 "Single phase connector side 1" annotation (
       Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-120,-20},{-80,20}})));
+  DC.Interfaces.DCplug dCplug annotation (Placement(transformation(extent={{90,-10},
+            {110,10}}), iconTransformation(extent={{80,-20},{120,20}})));
 equation
 //QS balances
   Connections.branch(plug1.p[1].reference, plug1.n.reference);
   plug1.p[1].reference.gamma = plug1.n.reference.gamma;
   plug1.p[1].i + plug1.n.i = Complex(0);
 //DC current balance
-  pin_pDC.i + pin_nDC.i = 0;
+  dCplug.p.i + dCplug.n.i = 0;
 //voltage relation
   vDC = 'abs'(vQS)*conversionFactor;
 //power balance
@@ -53,13 +47,15 @@ equation
   qQS = 0;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
-                      graphics), Icon(graphics={
+                      graphics), Icon(coordinateSystem(preserveAspectRatio=false,
+          extent={{-100,-100},{100,100}}),
+                                      graphics={
         Line(
           points={{2,100},{2,60},{82,60},{2,60},{82,-60},{2,-60},{2,60},{2,-100}},
           color={0,0,255},
           smooth=Smooth.None),
         Text(
-          extent={{40,40},{100,0}},
+          extent={{36,54},{96,14}},
           lineColor={0,0,255},
           textString="DC"),
         Line(
