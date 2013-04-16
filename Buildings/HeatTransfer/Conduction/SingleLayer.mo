@@ -49,7 +49,7 @@ protected
     "Support points for derivatives (used for PCM)";
   parameter Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
     "Support points for derivatives (used for PCM)";
-  parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, unit="kg.K2/J")
+  parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, each unit="kg.K2/J")
     "Derivatives dT/du at the support points (used for PCM)";
 
 initial equation
