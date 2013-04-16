@@ -9,10 +9,12 @@ model ParallelLoads
         origin={10,50})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground gro "Ground"
     annotation (Placement(transformation(extent={{-90,-60},{-70,-40}})));
-  Sources.VoltageSource                                                 sou(
+  Districts.Electrical.AC.Sources.ConstantVoltage                                               sou(
     f=60,
     V=120,
-    phi=0) "Voltage source" annotation (Placement(transformation(
+    phi=0,
+    measureP=true) "Voltage source"
+                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-80,-20})));

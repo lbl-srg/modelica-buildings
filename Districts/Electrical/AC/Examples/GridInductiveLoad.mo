@@ -58,20 +58,20 @@ equation
       points={{29.9,40},{30,40},{30,36},{50,36}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(sPhasePlug1.phase[1], powSen2.currentP) annotation (Line(
-      points={{50,36},{56,36},{56,20},{50,20},{50,16}},
-      color={85,170,255},
-      smooth=Smooth.None));
   connect(powSen2.voltageP, powSen2.currentP) annotation (Line(
       points={{40,6},{40,16},{50,16}},
       color={85,170,255},
       smooth=Smooth.None));
-  connect(resistor.pin_n, sPhasePlug1.neutral) annotation (Line(
-      points={{50,-64},{50,-72},{88,-72},{88,36},{50,36}},
-      color={85,170,255},
-      smooth=Smooth.None));
   connect(powSen2.voltageN, resistor.pin_n) annotation (Line(
       points={{60,6},{70,6},{70,-64},{50,-64}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(powSen2.currentP, sPhasePlug1.p[1]) annotation (Line(
+      points={{50,16},{50,24},{70,24},{70,36},{50,36}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(sPhasePlug1.n, resistor.pin_n) annotation (Line(
+      points={{50,36},{86,36},{86,-64},{50,-64},{50,-64}},
       color={85,170,255},
       smooth=Smooth.None));
   annotation (

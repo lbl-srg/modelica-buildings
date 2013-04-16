@@ -26,7 +26,7 @@ model SeriesLoads
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=0,
         origin={-10,30})));
-  Sources.VoltageSource                                                 sou(
+  Sources.ConstantVoltage                                               sou(
     f=60,
     V=120,
     phi=0) "Voltage source" annotation (Placement(transformation(
@@ -37,7 +37,8 @@ model SeriesLoads
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-50,-30})));
-  SeriesConnection seriesConnection2 annotation (Placement(transformation(
+  SeriesConnection seriesConnection2(measureP=true)
+                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,
         origin={-40,50})));

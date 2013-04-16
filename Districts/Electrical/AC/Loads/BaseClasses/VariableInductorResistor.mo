@@ -1,7 +1,7 @@
 within Districts.Electrical.AC.Loads.BaseClasses;
 model VariableInductorResistor
   "Model of an inductive and resistive load with actual power as an input signal"
-extends Districts.Electrical.AC.Loads.BaseClasses.SinglePhaseComponent;
+extends Districts.Electrical.AC.Loads.BaseClasses.SingleOnePhaseModel;
 
   Modelica.Blocks.Interfaces.RealInput y(min=0, max=1) "Control signal" annotation (Placement(
         transformation(extent={{-20,-20},{20,20}},

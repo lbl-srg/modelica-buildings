@@ -22,9 +22,9 @@ model ACDCConverter "AC DC converter"
     annotation (Placement(transformation(extent={{90,-110},{110,-90}}),
         iconTransformation(extent={{90,-110},{110,-90}})));
 protected
-  Modelica.SIunits.ComplexVoltage  vQS= plug1.phase[1].v - plug1.neutral.v
+  Modelica.SIunits.ComplexVoltage  vQS= plug1.p[1].v - plug1.n.v
     "AC QS voltage";
-  Modelica.SIunits.ComplexCurrent  iQS= plug1.phase[1].i "AC QS current";
+  Modelica.SIunits.ComplexCurrent  iQS= plug1.p[1].i "AC QS current";
   output Modelica.SIunits.Voltage vQSabs='abs'(vQS) "Abs(AC QS voltage)";
   output Modelica.SIunits.Current iQSabs='abs'(iQS) "Abs(AC QS current)";
   Modelica.SIunits.ComplexPower  sQS= vQS*conj(iQS) "AC QS apparent power";
@@ -39,9 +39,9 @@ public
         iconTransformation(extent={{-120,-20},{-80,20}})));
 equation
 //QS balances
-  Connections.branch(plug1.phase[1].reference, plug1.neutral.reference);
-  plug1.phase[1].reference.gamma = plug1.neutral.reference.gamma;
-  plug1.phase[1].i + plug1.neutral.i = Complex(0);
+  Connections.branch(plug1.p[1].reference, plug1.n.reference);
+  plug1.p[1].reference.gamma = plug1.n.reference.gamma;
+  plug1.p[1].i + plug1.n.i = Complex(0);
 //DC current balance
   pin_pDC.i + pin_nDC.i = 0;
 //voltage relation

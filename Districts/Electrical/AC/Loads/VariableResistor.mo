@@ -1,6 +1,6 @@
 within Districts.Electrical.AC.Loads;
 model VariableResistor "Model of a variable resistive load"
-extends Districts.Electrical.AC.Loads.BaseClasses.SinglePhaseComponent;
+  extends Districts.Electrical.AC.Loads.BaseClasses.SingleOnePhaseModel;
 
   Modelica.Blocks.Interfaces.RealInput P(unit="W", min=0)
     "Dissipated electrical power"

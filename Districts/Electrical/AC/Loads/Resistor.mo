@@ -1,6 +1,6 @@
 within Districts.Electrical.AC.Loads;
 model Resistor "Model of a resistive load"
-extends Districts.Electrical.AC.Loads.BaseClasses.SinglePhaseComponent;
+  extends Districts.Electrical.AC.Loads.BaseClasses.SingleOnePhaseModel;
 
   parameter Modelica.SIunits.Power P_nominal(min=0)
     "Nominal power (P_nominal >= 0)";

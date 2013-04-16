@@ -14,7 +14,7 @@ model Grid "Electrical grid"
 protected
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground ground "Ground"
     annotation (Placement(transformation(extent={{-70,-80},{-50,-60}})));
-  Districts.Electrical.AC.Sources.VoltageSource                         sou(
+  Districts.Electrical.AC.Sources.ConstantVoltage                       sou(
     final f=f,
     final V=V,
     final phi=phi,

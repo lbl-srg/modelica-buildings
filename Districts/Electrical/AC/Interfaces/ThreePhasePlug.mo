@@ -1,6 +1,6 @@
 within Districts.Electrical.AC.Interfaces;
 connector ThreePhasePlug "AC connector for three phases systems"
-  extends TryElectric.Interfaces.Plug(n=3);
+  extends Districts.Electrical.AC.Interfaces.Plug(final N=3);
   annotation (Icon(graphics={
         Ellipse(
           extent={{-100,100},{100,-100}},

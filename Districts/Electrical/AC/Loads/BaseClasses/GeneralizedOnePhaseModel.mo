@@ -1,13 +1,12 @@
-within Districts.Electrical.AC.Sources.BaseClasses;
-partial model SinglePhaseSource "Interface for a single phase component"
+within Districts.Electrical.AC.Loads.BaseClasses;
+partial model GeneralizedOnePhaseModel
+  "Generalizedc interface for one phase components"
   import Modelica.ComplexMath.conj;
-  parameter Boolean measureP = false "This flag activate the power output" annotation(evaluate=true, Dialog(tab = "Outputs"));
-  Modelica.SIunits.ComplexVoltage  v;
-  Modelica.SIunits.ComplexCurrent  i;
+  parameter Boolean measureP = false
+    "If =True, this flag enables the power output"                                  annotation(evaluate=true, Dialog(tab = "Outputs"));
   Modelica.SIunits.AngularVelocity omega = der(sPhasePlug.p[1].reference.gamma);
   Districts.Electrical.AC.Interfaces.SinglePhasePlug sPhasePlug
-    "Single phase connector"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
+    "Single phase connector" annotation (Placement(transformation(extent={{-110,-10},{-90,10}}),
         iconTransformation(extent={{-120,-20},{-80,20}})));
   Districts.Electrical.AC.Interfaces.PowerOutput P if measureP
     "Power consumed from grid if negative, or fed to grid if positive"                                             annotation (Placement(transformation(extent={{-10,-10},
@@ -25,7 +24,23 @@ partial model SinglePhaseSource "Interface for a single phase component"
         iconTransformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
+        origin={50,-50})));
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput i "Complex current"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-54,-64}),
+        iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
         origin={-70,-50})));
+  Modelica.ComplexBlocks.Interfaces.ComplexOutput v "Complex voltage"
+    annotation (Placement(transformation(extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-34,-64}),
+        iconTransformation(
+        extent={{-10,-10},{10,10}},
+        rotation=270,
+        origin={-50,-50})));
 protected
   Districts.Electrical.AC.Interfaces.PowerOutput P_in;
   Modelica.ComplexBlocks.Interfaces.ComplexOutput A_in;
@@ -50,6 +65,7 @@ equation
 
   Connections.branch(sPhasePlug.p[1].reference, sPhasePlug.n.reference);
   sPhasePlug.p[1].reference.gamma = sPhasePlug.n.reference.gamma;
+
   i = sPhasePlug.p[1].i;
   v = sPhasePlug.p[1].v - sPhasePlug.n.v;
 
@@ -70,4 +86,4 @@ and <a href=\"modelica://Modelica.Electrical.QuasiStationary.SinglePhase.Interfa
             {100,100}}), graphics),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics));
-end SinglePhaseSource;
+end GeneralizedOnePhaseModel;

@@ -1,6 +1,6 @@
 within Districts.Electrical.AC.Loads;
 model InductorResistor "Model of an inductive and resistive load"
-extends Districts.Electrical.AC.Loads.BaseClasses.InductorResistor(lagging=true);
+  extends Districts.Electrical.AC.Loads.BaseClasses.InductorResistor(lagging=true);
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}), graphics={Rectangle(extent={{-100,100},{100,-100}},

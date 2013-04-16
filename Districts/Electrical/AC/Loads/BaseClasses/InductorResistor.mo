@@ -1,6 +1,6 @@
 within Districts.Electrical.AC.Loads.BaseClasses;
 model InductorResistor "Model of an inductive and resistive load"
-extends Districts.Electrical.AC.Loads.BaseClasses.SinglePhaseComponent(
+extends Districts.Electrical.AC.Loads.BaseClasses.SingleOnePhaseModel(
     v(re(start=1), im(start=1)));
 
   parameter Modelica.SIunits.Power P_nominal(min=0)

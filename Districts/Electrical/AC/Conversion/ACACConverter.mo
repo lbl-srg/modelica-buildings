@@ -14,18 +14,18 @@ model ACACConverter "AC AC converter"
     "Converter efficiency, pLoss = (1-eta) * 'abs'(v2QS)";
   Modelica.SIunits.Power LossPower "Loss power";
 protected
-  Modelica.SIunits.ComplexVoltage  v1QS= plug1.phase[1].v - plug1.neutral.v
+  Modelica.SIunits.ComplexVoltage  v1QS= plug1.p[1].v - plug1.n.v
     "AC QS voltage";
-  Modelica.SIunits.ComplexCurrent  i1QS= plug1.phase[1].i "AC QS current";
+  Modelica.SIunits.ComplexCurrent  i1QS= plug1.p[1].i "AC QS current";
   output Modelica.SIunits.Voltage v1QSabs='abs'(v1QS) "Abs(AC QS voltage)";
   output Modelica.SIunits.Current i1QSabs='abs'(i1QS) "Abs(AC QS current)";
   Modelica.SIunits.ComplexPower  s1QS= v1QS*conj(i1QS) "AC QS apparent power";
   Modelica.SIunits.ActivePower p1QS = real(s1QS) "AC QS active power";
   Modelica.SIunits.ReactivePower q1QS = imag(s1QS) "AC QS reactive power";
 
-  Modelica.SIunits.ComplexVoltage  v2QS= plug2.phase[1].v - plug2.neutral.v
+  Modelica.SIunits.ComplexVoltage  v2QS= plug2.p[1].v - plug2.n.v
     "AC QS voltage";
-  Modelica.SIunits.ComplexCurrent  i2QS= plug2.phase[1].i "AC QS current";
+  Modelica.SIunits.ComplexCurrent  i2QS= plug2.p[1].i "AC QS current";
   output Modelica.SIunits.Voltage v2QSabs='abs'(v2QS) "Abs(AC QS voltage)";
   output Modelica.SIunits.Current i2QSabs='abs'(i2QS) "Abs(AC QS current)";
   Modelica.SIunits.ComplexPower  s2QS= v2QS*conj(i2QS) "AC QS apparent power";
@@ -41,12 +41,12 @@ public
           extent={{80,-20},{120,20}})));
 equation
 //QS balances
-  Connections.branch(plug1.phase[1].reference, plug1.neutral.reference);
-  Connections.branch(plug2.phase[1].reference, plug2.neutral.reference);
-  plug1.phase[1].reference.gamma = plug1.neutral.reference.gamma;
-  plug2.phase[1].reference.gamma = plug2.neutral.reference.gamma;
-  plug1.phase[1].i + plug1.neutral.i = Complex(0);
-  plug2.phase[1].i + plug2.neutral.i = Complex(0);
+  Connections.branch(plug1.p[1].reference, plug1.n.reference);
+  Connections.branch(plug2.p[1].reference, plug2.n.reference);
+  plug1.p[1].reference.gamma = plug1.n.reference.gamma;
+  plug2.p[1].reference.gamma = plug2.n.reference.gamma;
+  plug1.p[1].i + plug1.n.i = Complex(0);
+  plug2.p[1].i + plug2.n.i = Complex(0);
 
 //voltage relation
   'abs'(v2QS) = 'abs'(v1QS)*conversionFactor;

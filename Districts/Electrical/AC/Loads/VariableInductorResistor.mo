@@ -1,7 +1,7 @@
 within Districts.Electrical.AC.Loads;
 model VariableInductorResistor
   "Model of an inductive and resistive load with actual power as an input signal"
-extends Districts.Electrical.AC.Loads.BaseClasses.VariableInductorResistor(
+  extends Districts.Electrical.AC.Loads.BaseClasses.VariableInductorResistor(
       lagging=true);
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),

@@ -15,7 +15,7 @@ model ACDCConverter "Test model AC to DC converter"
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground gro
     annotation (Placement(transformation(extent={{-82,-20},{-62,0}})));
-  Districts.Electrical.AC.Sources.VoltageSource                         sou(
+  Districts.Electrical.AC.Sources.ConstantVoltage                       sou(
     f=60,
     V=120,
     phi=0)                annotation (Placement(transformation(

@@ -15,13 +15,13 @@ public
     T_ref=293.15)   annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
-        origin={50,14})));
+        origin={50,10})));
   Modelica.Electrical.QuasiStationary.SinglePhase.Basic.Ground gro1
     annotation (Placement(transformation(extent={{40,-60},{60,-40}})));
   Districts.Electrical.AC.Conversion.ACACConverter
     conACAC(conversionFactor=0.5, eta=0.9)
     annotation (Placement(transformation(extent={{-10,0},{10,20}})));
-  Districts.Electrical.AC.Sources.VoltageSource                         sou(
+  Districts.Electrical.AC.Sources.ConstantVoltage                       sou(
     f=60,
     V=120,
     phi=0)                annotation (Placement(transformation(
@@ -33,20 +33,12 @@ public
     annotation (Placement(transformation(extent={{6,0},{26,20}})));
 equation
   connect(res.pin_n, gro1.pin)         annotation (Line(
-      points={{50,4},{50,-40}},
+      points={{50,1.33227e-15},{50,-40}},
       color={85,170,255},
       smooth=Smooth.None));
   connect(conACAC.plug2, plug1) annotation (Line(
       points={{10,10},{16,10}},
       color={0,0,0},
-      smooth=Smooth.None));
-  connect(gro1.pin, plug1.neutral) annotation (Line(
-      points={{50,-40},{22,-40},{22,10},{16,10}},
-      color={85,170,255},
-      smooth=Smooth.None));
-  connect(plug1.phase[1], res.pin_p) annotation (Line(
-      points={{16,10},{22,10},{22,46},{50,46},{50,24}},
-      color={85,170,255},
       smooth=Smooth.None));
   connect(sou.sPhasePlug, conACAC.plug1) annotation (Line(
       points={{-50,10},{-10,10}},
@@ -54,6 +46,14 @@ equation
       smooth=Smooth.None));
   connect(gro.pin, sou.n) annotation (Line(
       points={{-70,4.44089e-16},{-70,10}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(plug1.p[1], res.pin_p) annotation (Line(
+      points={{16,10},{16,50},{50,50},{50,20}},
+      color={85,170,255},
+      smooth=Smooth.None));
+  connect(plug1.n, gro1.pin) annotation (Line(
+      points={{16,10},{16,-40},{50,-40}},
       color={85,170,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

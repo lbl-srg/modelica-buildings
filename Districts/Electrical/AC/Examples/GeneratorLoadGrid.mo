@@ -11,7 +11,7 @@ model GeneratorLoadGrid "Generator with a load and grid connection"
     annotation (Placement(transformation(extent={{0,40},{20,60}})));
   Modelica.ComplexBlocks.ComplexMath.ComplexToPolar volSenGriCon
     annotation (Placement(transformation(
-        origin={64,-10},
+        origin={50,-10},
         extent={{-10,-10},{10,10}},
         rotation=0)));
   Districts.Electrical.AC.Sources.Generator
@@ -20,8 +20,8 @@ model GeneratorLoadGrid "Generator with a load and grid connection"
         extent={{-10,10},{10,-10}},
         rotation=270,
         origin={-30,-10})));
-  Districts.Electrical.AC.Loads.InductorResistor     res(P_nominal=5e3, measureV
-      =true) "Resistance"
+  Districts.Electrical.AC.Loads.InductorResistor     res(P_nominal=5e3)
+    "Resistance"
     annotation (Placement(transformation(extent={{-10,10},{10,-10}},
         rotation=270,
         origin={10,-10})));
@@ -40,8 +40,8 @@ equation
       points={{9.9,40},{10,40},{10,20},{-30,20},{-30,0}},
       color={0,0,0},
       smooth=Smooth.None));
-  connect(res.volt, volSenGriCon.u) annotation (Line(
-      points={{15,-7},{40.5,-7},{40.5,-10},{52,-10}},
+  connect(res.v, volSenGriCon.u) annotation (Line(
+      points={{15,-5},{25.5,-5},{25.5,-10},{38,-10}},
       color={85,170,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
