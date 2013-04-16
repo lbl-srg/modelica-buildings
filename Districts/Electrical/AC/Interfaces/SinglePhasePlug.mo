@@ -1,9 +1,9 @@
 within Districts.Electrical.AC.Interfaces;
 connector SinglePhasePlug "AC connector for single phase systems"
   extends Districts.Electrical.AC.Interfaces.Plug(final N=1);
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,
             -100},{100,100}}), graphics), Icon(coordinateSystem(
-          preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
+          preserveAspectRatio=true, extent={{-100,-100},{100,100}}),
                                                graphics={
         Ellipse(
           extent={{-40,-20},{40,-100}},
