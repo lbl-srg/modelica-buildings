@@ -3,7 +3,7 @@ partial package PartialSimpleMedium
   "Medium model with linear dependency of u, h from temperature. Most other quantities are constant."
 
   extends Modelica.Media.Interfaces.PartialPureSubstance(
-        ThermoStates=Choices.IndependentVariables.pT,
+        ThermoStates=Buildings.Media.Interfaces.Choices.IndependentVariables.pT,
         final singleState=constantDensity,
         reference_p=p0,
         p_default=p0);
