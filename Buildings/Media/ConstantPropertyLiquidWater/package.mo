@@ -12,8 +12,8 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
     T_max=Cv.from_degC(130),
     T0=273.15,
     MM_const=0.018015268,
-    fluidConstants=Modelica.Media.Water.simpleWaterConstants,
-    ThermoStates=Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables.T);
+    fluidConstants=Modelica.Media.Water.ConstantPropertyLiquidWater.simpleWaterConstants,
+    ThermoStates=Modelica.Media.Interfaces.Choices.IndependentVariables.T);
  //  import SI = Modelica.SIunits;
   import Cv = Modelica.SIunits.Conversions;
 
