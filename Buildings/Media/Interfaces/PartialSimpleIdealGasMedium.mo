@@ -2,7 +2,8 @@ within Buildings.Media.Interfaces;
 partial package PartialSimpleIdealGasMedium
   "Medium model of Ideal gas with constant cp and cv. All other quantities, e.g., transport properties, are constant."
 
-  extends Modelica.Media.Interfaces.PartialPureSubstance(ThermoStates=Choices.IndependentVariables.pT,
+  extends Modelica.Media.Interfaces.PartialPureSubstance(
+      ThermoStates=Buildings.Media.Interfaces.Choices.IndependentVariables.pT,
       singleState=false);
 
   import SI = Modelica.SIunits;
