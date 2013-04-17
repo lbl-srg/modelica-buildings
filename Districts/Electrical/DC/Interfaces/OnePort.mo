@@ -1,13 +1,9 @@
 within Districts.Electrical.DC.Interfaces;
 partial model OnePort
   "Component with a DC plug and current i flowing from p to n"
-
-  Modelica.SIunits.Voltage v "Voltage drop between the two pins (= p.v - n.v)";
+  extends Districts.Electrical.DC.Interfaces.TwoPin;
   Modelica.SIunits.Current i "Current flowing from pin p to pin n";
-  DCplug dcPlug annotation (Placement(transformation(extent={{-110,-12},{-90,8}}),
-        iconTransformation(extent={{-120,-20},{-80,20}})));
 equation
-  v = dcPlug.p.v - dcPlug.n.v;
   0 = dcPlug.p.i + dcPlug.n.i;
   i = dcPlug.p.i;
   annotation (

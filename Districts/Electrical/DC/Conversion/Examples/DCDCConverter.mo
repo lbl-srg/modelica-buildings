@@ -15,8 +15,7 @@ model DCDCConverter "Test model DC to DC converter"
   annotation (Placement(transformation(extent={{-88,-34},{-72,-18}}, rotation=0)));
   Districts.Electrical.DC.Loads.Resistor resistor
     annotation (Placement(transformation(extent={{56,0},{76,20}})));
-  Districts.Electrical.DC.Interfaces.DCplug dCplug1
-    annotation (Placement(transformation(extent={{10,0},{30,20}})));
+  Districts.Electrical.DC.Interfaces.DCplug dCplug1;
   Modelica.Electrical.Analog.Basic.Ground gro1
   annotation (Placement(transformation(extent={{12,-24},{28,-8}},    rotation=0)));
 equation
