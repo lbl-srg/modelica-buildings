@@ -3178,6 +3178,7 @@ versionBuild=0,
 versionDate="2013-04-04",
 dateModified = "2013-04-04",
 uses(Modelica(version="3.2")),
+uses(Modelica_StateGraph2(version="2.0.1")),
 conversion(
  noneFromVersion="1.3",
  noneFromVersion="1.2",

@@ -2,7 +2,7 @@ within Buildings.Media.GasesConstantDensity;
 package SimpleAir
   "Package with dry air model that decouples pressure and temperature"
   extends Buildings.Media.Interfaces.PartialSimpleIdealGasMedium(
-     ThermoStates = Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables.pT,
+     ThermoStates = Buildings.Media.Interfaces.Choices.IndependentVariables.pT,
      final singleState = true,
      mediumName="GasesConstantDensity.SimpleAir",
      cp_const=1005.45,
