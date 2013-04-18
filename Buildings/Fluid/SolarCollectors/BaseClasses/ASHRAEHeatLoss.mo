@@ -73,11 +73,8 @@ equation
     defaultComponentName="heaLos",
     Documentation(info="<html>
 <p>
-<!-- fixme: the next sentence says that the model is used for flat plate solar collectors, but
-the tubular collector also uses this model. This need to be checked if it is indeed correct,
-and the documentation must be updated accordingly.
--->
-This component computes the heat loss from the flat plate solar collector to the environment. 
+
+This component computes the heat loss from the solar thermal collector to the environment. 
 It is designed anticipating ratings data collected in accordance with ASHRAE Standard 93.
 A negative <code>QLos[i]</code> indicates that heat is being lost to the environment.
 </p>
