@@ -30,8 +30,8 @@ equation
           "Resources/Scripts/Dymola/Fluid/SolarCollector/Controls/Examples/SolarPumpController.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
-        <p>fixme: use a hyperlink to the model, and not 'SolarPumpController'
-        This model illustrates the SolarPumpController. 
+        <p>
+        This model illustrates the use of the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\"> Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a> model. 
         Based on weather data and inlet temperature, the controller switches the pump on and off.<br>
         </p>
         </html>",
