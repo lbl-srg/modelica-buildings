@@ -3,6 +3,7 @@ ASHRAESolarGain
 EN12975HeatLoss
 EN12975SolarGain
 GCritCalc
+PartialHeatLoss
 PartialParameters
 PartialSolarCollector
 IAM
