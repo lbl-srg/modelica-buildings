@@ -1,55 +1,17 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 block EN12975HeatLoss
   "Calculate the heat loss of a solar collector per EN12975"
-  extends Modelica.Blocks.Interfaces.BlockIcon;
-  // fixme: ASHRAEHeatLoss and EN12975HeatLoss contain too much copied code.
-  //        Use a common base class, and just implement in these classes
-  //        what is different between the models.
-  extends SolarCollectors.BaseClasses.PartialParameters;
-  Modelica.Blocks.Interfaces.RealInput TEnv(
-    quantity="Temperature",
-    unit="K") "Temperature of environment"
-    annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  parameter Integer nSeg(min=3) = 3 "Number of segments in the collector model";
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss;
 
-  Modelica.Blocks.Interfaces.RealInput TFlu[nSeg](
-    quantity="Temperature",
-    unit = "K") "Temperature of the heat transfer fluid"
-    annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput QLos[nSeg](
-    quantity = "HeatFlowRate",
-    unit = "W")
-    "Rate at which heat is lost to ambient from a given segment at current conditions"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
   parameter Modelica.SIunits.CoefficientOfHeatTransfer C1
     "C1 from ratings data";
   parameter Real C2(
   final unit = "W/(m2.K2)") "C2 from ratings data";
-  parameter Modelica.SIunits.Irradiance I_nominal
-    "Irradiance at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.Temperature TMean_nominal
     "Inlet temperature at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TEnv_nominal
-    "Ambient temperature at nomincal conditions"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
-    "Fluid flow rate at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
-  // This should be cp_nominal
-  parameter Modelica.SIunits.SpecificHeatCapacity Cp
-    "Specific heat capacity of the fluid";
 protected
-  final parameter Modelica.SIunits.HeatFlowRate QUse_nominal(fixed = false)
-    "Useful heat gain at nominal conditions";
-  final parameter Modelica.SIunits.HeatFlowRate QLos_nominal(fixed = false)
-    "Heat loss at nominal conditions";
-  final parameter Modelica.SIunits.HeatFlowRate QLosUA_nominal[nSeg](fixed = false)
-    "Heat loss at current conditions";
-  final parameter Modelica.SIunits.Temperature TFlu_nominal[nSeg](fixed = false)
-    "Temperature of the fluid in each semgent in the collector at nominal conditions";
-  final parameter Modelica.SIunits.ThermalConductance UA_nominal(
+  final parameter Modelica.SIunits.ThermalConductance UA(
      fixed = false,
      start=QLos_nominal/(TMean_nominal - TEnv_nominal))
     "Coefficient describing heat loss to ambient conditions";
@@ -62,20 +24,20 @@ initial equation
    //Identifies QLos at nominal conditions
    QLos_nominal = -C1 * A_c * (TMean_nominal - TEnv_nominal)-C2 * A_c * (TMean_nominal - TEnv_nominal)^2;
    //Governing equation for the first segment (i=1)
-   I_nominal * y_intercept * A_c/nSeg - UA_nominal/nSeg * (TMean_nominal - TEnv_nominal)
+   I_nominal * y_intercept * A_c/nSeg - UA/nSeg * (TMean_nominal - TEnv_nominal)
      = m_flow_nominal * Cp * (TFlu_nominal[1] - TMean_nominal);
    //Loop with the governing equations for segments 2:nSeg-1
    for i in 2:nSeg-1 loop
-     I_nominal * y_intercept * A_c/nSeg - UA_nominal/nSeg * (TFlu_nominal[i-1] - TEnv_nominal)
+     I_nominal * y_intercept * A_c/nSeg - UA/nSeg * (TFlu_nominal[i-1] - TEnv_nominal)
       = m_flow_nominal * Cp * (TFlu_nominal[i] - TFlu_nominal[i-1]);
    end for;
    for i in 1:nSeg loop
-     nSeg * QLosUA_nominal[i] = UA_nominal * (TFlu_nominal[i] - TEnv_nominal);
+     nSeg * QLosUA[i] = UA * (TFlu_nominal[i] - TEnv_nominal);
    end for;
-   sum(QLosUA_nominal) = QLos_nominal;
+   sum(QLosUA) = QLos_nominal;
 equation
    for i in 1:nSeg loop
-     QLos[i] * nSeg = UA_nominal * (TFlu[i] - TEnv);
+     QLos[i] * nSeg = UA * (TFlu[i] - TEnv);
    end for;
   annotation (
     defaultComponentName="heaLos",
