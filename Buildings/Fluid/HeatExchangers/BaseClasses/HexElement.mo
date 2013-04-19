@@ -1,8 +1,7 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HexElement "Element of a heat exchanger"
   extends Buildings.Fluid.Interfaces.FourPortHeatMassExchanger(
-    vol1(
-          V=m1_flow_nominal*tau1/rho1_nominal,
+    vol1( V=m1_flow_nominal*tau1/rho1_nominal,
           nPorts=2,
           final energyDynamics=energyDynamics1,
           final massDynamics=energyDynamics1),
@@ -42,13 +41,8 @@ model HexElement "Element of a heat exchanger"
         extent={{-20,-20},{20,20}},
         rotation=90)));
 
-  parameter Boolean allowCondensation = true
-    "Set to false to compute sensible heat transfer only";
-
-  MassExchange masExc(
-       redeclare package Medium = Medium2) if allowCondensation
-    "Model for mass exchange"        annotation (Placement(transformation(
-          extent={{48,-44},{68,-24}}, rotation=0)));
+  replaceable MassExchangeDummy masExc "Model for mass exchange"
+    annotation (Placement(transformation(extent={{48,-44},{68,-24}}, rotation=0)));
 
   parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
@@ -157,6 +151,12 @@ thermal mass.
 </html>",
 revisions="<html>
 <ul>
+<li>
+April 19, 2013, by Michael Wetter:<br>
+Made instance <code>MassExchange</code> replaceable, rather than
+conditionally removing the model, to avoid a warning
+during translation because of unused connector variables.
+</li>
 <li>
 July 11, 2011, by Michael Wetter:<br>
 Removed assignment of medium in <code>vol1</code> and <code>vol2</code>,
