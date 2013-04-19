@@ -5,6 +5,7 @@ DuctManifoldNoResistance
 HADryCoil
 HexElement
 MassExchange
+MassExchangeDummy
 PartialEffectiveness
 PartialDuctManifold
 PartialDuctPipeManifold
@@ -18,4 +19,4 @@ epsilon_ntuZ
 ntu_epsilonZ
 lmtd
 Internal
-MassExchangeDummy
+
