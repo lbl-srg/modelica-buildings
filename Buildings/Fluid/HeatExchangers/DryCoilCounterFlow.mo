@@ -69,9 +69,6 @@ model DryCoilCounterFlow
     annotation (Placement(transformation(extent={{-60,80},{-40,100}}, rotation=
             0)));
 protected
-  constant Boolean allowCondensation=false
-    "Set to false to compute sensible heat transfer only"
-    annotation (Dialog(tab="Heat transfer"));
   Buildings.Fluid.Sensors.TemperatureTwoPort temSen_1(redeclare package Medium
       = Medium1,
     allowFlowReversal=allowFlowReversal1,
@@ -111,7 +108,6 @@ protected
     each UA_nominal=UA_nominal/nEle,
     each energyDynamics1=energyDynamics1,
     each energyDynamics2=energyDynamics2,
-    each allowCondensation=allowCondensation,
     each deltaM1=deltaM1,
     each deltaM2=deltaM2,
     each from_dp1=from_dp1,
