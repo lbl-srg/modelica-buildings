@@ -13,13 +13,6 @@ protected
     "Block to set heat input into volume"
     annotation (Placement(transformation(extent={{-80,80},{-60,100}})));
 equation
-  // Set connector variables if they are unconnected
-  if cardinality(mWat_flow) == 0 then
-    mWat_flow = 0;
-  end if;
-  if cardinality(TWat) == 0 then
-    TWat = Medium.T_default;
-  end if;
   HWat_flow = 0;
   mXi_flow  = zeros(Medium.nXi);
 // Assign output port
@@ -63,6 +56,12 @@ or subtract moisture using a signal that is connected to the port
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 18, 2013 by Michael Wetter:<br>
+Removed the use of the deprecated
+<code>cardinality</code> function.
+Therefore, all input signals must be connected.
+</li>
 <li>
 February 7, 2012 by Michael Wetter:<br>
 Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.
