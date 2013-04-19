@@ -56,7 +56,6 @@ model DryCoilDiscretized
     each tau_m=tau_m,
     each final energyDynamics1=energyDynamics1,
     each final energyDynamics2=energyDynamics2,
-    each allowCondensation=allowCondensation,
     each from_dp1=from_dp1,
     each linearizeFlowResistance1=linearizeFlowResistance1,
     each deltaM1=deltaM1,

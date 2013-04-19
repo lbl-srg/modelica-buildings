@@ -71,7 +71,6 @@ model HexElement
     UA_nominal=9999,
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
-    allowCondensation=false,
     dp1_nominal=5,
     dp2_nominal=5)  annotation (Placement(transformation(extent={{10,-10},{30,
             10}}, rotation=0)));

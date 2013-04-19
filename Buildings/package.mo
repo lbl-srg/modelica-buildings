@@ -134,9 +134,24 @@ a new model for heat conduction in phase change material. This model can be used
 of the room heat transfer model.
 </p>
 <p>
-Non-backward compatible changes had to be introduced in the valve models
+Non-backward compatible changes had to be introduced
+</p>
+<p>
+<ul>
+<li>
+in the valve models
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves\">
-Buildings.Fluid.Actuators.Valves</a> to fully comply with the Modelica language specification.
+Buildings.Fluid.Actuators.Valves</a> to fully comply with the Modelica language specification,
+</li>
+<li>
+and in the models in the package 
+<a href=\"modelica://Buildings.Utilities.Diagnostics\">
+Buildings.Utilities.Diagnostics</a>
+as they used the <code>cardinality</code> function which is deprecated in the Modelica
+Language Specification.
+</li>
+</p>
+<p>
 See below for details.
 </p>
 <!-- New libraries -->
@@ -179,7 +194,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume
+    </td>
+    <td valign=\"top\">Removed the check of multiple connections to the same element
+                       of a fluid port, as this check required the use of the deprecated
+                       <code>cardinality</code> function.
+    </td>
+</tr><tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.SingleLayer
@@ -187,12 +211,13 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added option to model layers with phase change material.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.InfraredRadiationExchange
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Removed the use of the <code>cardinality</code> function
+                       as this function is deprecated in the Modelica Language Specification.
     </td>
 </tr>
 </table>
@@ -224,6 +249,26 @@ have been <b style=\"color:blue\">improved</b> in a
                        As part of this change, we set <code>dp(nominal=6000)</code> for all valves,
                        because the earlier formulation uses a value that is not known during compilation,
                        and hence leads to an error in Dymola 2014.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.MixingVolumeDryAir<br/>
+                       Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir
+    </td>
+    <td valign=\"top\">Removed the use of the deprecated
+                       <code>cardinality</code> function.
+                       Therefore, now all input signals must be connected..
+    </td>
+</tr>      
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Diagnostics.AssertEquality<br>
+                       Buildings.Utilities.Diagnostics.AssertInequality
+    </td>
+    <td valign=\"top\">Removed the option to not connect input signals, as this
+                       required the use of the <code>cardinality</code> function which
+                       is deprecated in the MSL, and not correctly implemented in OpenModelica.
+                       Therefore, if using these models, both input signals must be connected.
     </td>
 </tr>
 </table>
