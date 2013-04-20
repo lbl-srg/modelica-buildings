@@ -66,7 +66,7 @@ revisions="<html>
 <ul>
 <li>
 August 2, 2011, by Michael Wetter:<br>
-Set <code>substanceDynamics</code> and <code>traceDynamics<code> to final
+Set <code>substanceDynamics</code> and <code>traceDynamics</code> to final
 and equal to <code>energyDynamics</code>, 
 as there is no need to make them different from <code>energyDynamics</code>.
 </li>

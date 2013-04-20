@@ -129,7 +129,7 @@ NIST, NISTIR 6585.
 January, 2001.
 Gaithersburg, MD.
 </li>
-</ol>
+</ul>
 </p>
 </html>",
 revisions="<html>

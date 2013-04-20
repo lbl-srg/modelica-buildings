@@ -75,6 +75,7 @@ equation
    annotation (
 defaultComponentName="mot",
 Documentation(info="<html>
+<p>
 Ideal actuator motor model with hysteresis and finite actuation speed.
 If the current actuator position <code>y</code> is below (or above) the
 input signal <code>u</code> by an amount bigger than the hysteresis

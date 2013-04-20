@@ -118,7 +118,6 @@ It uses the function
 <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift\"> 
 Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.Functions.speedShift</a>
 for intermediate compressor speeds.
-</i>
 </p>
 <h4>Implementation</h4>
 <p>
