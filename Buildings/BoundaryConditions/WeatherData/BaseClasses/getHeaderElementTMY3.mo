@@ -15,7 +15,7 @@ function getHeaderElementTMY3
 protected
  String lin "Line that is used in parser";
  Integer iLin "Line number";
- Integer index "Index of string #LOCATION";
+ Integer index := 0 "Index of string #LOCATION";
  Integer staInd "Start index used when parsing a real number";
  Integer nexInd "Next index used when parsing a real number";
  Boolean found "Flag, true if #LOCATION has been found";
