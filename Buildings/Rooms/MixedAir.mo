@@ -529,6 +529,7 @@ In the here presented example, we assume we made several instances
 of data records for the construction material by dragging them from 
 the package <a href=\"modelica://Buildings.HeatTransfer.Data\">
 Buildings.HeatTransfer.Data</a> to create the following list of declarations:
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Courier New,courier';\">  </span><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">Buildings.HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    matLayExt </span><span style=\" font-family:'Courier New,courier'; color:#006400;\">\"Construction material for exterior walls\"</span></p>
@@ -723,12 +724,14 @@ The following paragraphs explain the different declarations.
 </p>
 <p>
 The statement
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">redeclare package</span><span style=\" font-family:'Courier New,courier';\"> Medium = </span><span style=\" font-family:'Courier New,courier'; color:#ff0000;\">MediumA</span><span style=\" font-family:'Courier New,courier';\">,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    AFlo=20,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    V=20*2.5,</span></p>
 
 </pre>
+<p>
 declares that the medium of the room air is set to <code>MediumA</code>, 
 that the floor area is <i>20 m<sup>2</sup></i> and that 
 the room air volume is <i>20*2.5 m<sup>3</sup></i>. 
@@ -742,14 +745,16 @@ that participate in the heat exchange.
 </p>
 <p>
 The entry
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConExt=2,</span></p>
-
 </pre>
+<p>
 declares that there are two exterior constructions.
 </p>
 <p>
 The lines 
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConExt(layers={matLayRoo, matLayExt},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           A={6*4, 6*3},</span></p>
@@ -757,6 +762,7 @@ The lines
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           azi={Buildings.HeatTransfer.Types.Azimuth.S, Buildings.HeatTransfer.Types.Azimuth.W}),</span></p>
 
 </pre>
+<p>
 declare that the material layers in these constructions are
 set the the records <code>matLayRoo</code> and <code>matLayExt</code>.
 What follows are the declarations for the surface area,
@@ -766,6 +772,7 @@ and it is a west-facing wall.
 </p>
 <p>
 Next, the declaration
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConExtWin=nConExtWin,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConExtWin(layers={matLayExt}, A={4*3},</span></p>
@@ -776,6 +783,7 @@ Next, the declaration
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              til={Buildings.HeatTransfer.Types.Tilt.Wall},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              azi={Buildings.HeatTransfer.Types.Azimuth.S}),</span></p>
 </pre>
+<p>
 declares the construction that contains a window. This construction is built
 using the materials defined in the record <code>matLayExt</code>. Its total area,
 including the window, is <i>4*3 m<sup>2</sup></i>.
@@ -794,9 +802,11 @@ and hence extends each side of the window by <i>0.25 m</i>, and has a depth of
 <i>1 m</i> and a gap between window and overhang of 
 <i>0.1 m</i>, then
 its declaration would be
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(wL={0.25}, wR={0.25}, gap={0.1}, dep={1}),</span></p>
 </pre>
+<p>
 This line can be placed below the declaration of <code>wWin</code>.
 This would instanciate the model
 <a href=\"modelica://Buildings.HeatTransfer.Windows.Overhang\">
@@ -809,57 +819,68 @@ and hence extends <i>0.5 m</i> above the window, are
 <i>1 m</i> depth and are placed 
 <i>0.1 m</i> to the left and right of the window,
 then its declaration would be
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              sidFin(h={0.5}, gap={0.1}, dep={1}),</span></p>
 </pre>
+<p>
 This would instanciate the model
 <a href=\"modelica://Buildings.HeatTransfer.Windows.SideFins\">
 Buildings.HeatTransfer.Windows.SideFins</a> to model the side fins. See this class for a picture of the above dimensions.
 </p>
 <p>
 The lines
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              til={Buildings.HeatTransfer.Types.Tilt.Wall},</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              azi={Buildings.HeatTransfer.Types.Azimuth.S}),</span></p>
 </pre>
+<p>
 declare that the construction is a wall that is south exposed.
 </p>
 <p>
 Note that if the room were to have two windows, and one window has side fins and the other window has an overhang, the 
 following declaration could be used, which sets the value of <code>dep</code> to <code>0</code> for the non-present side fins or overhang, respectively:
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              sidFin(h  = {0.5, 0}, gap = {0.1, 0.0}, dep = {1, 0}),</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">              ove(wL = {0.0, 0.25}, wR = {0.0, 0.25}, gap = {0.0, 0.1}, dep = {0, 1}),</span></p>
 </pre>
 <p>
 What follows is the declaration of the partition constructions, as declared by
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConPar=1,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConPar(layers={matLayPar}, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=10,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Buildings.HeatTransfer.Types.Tilt.Wall),</span></p>
 
 </pre>
-Thus, there is one partition construction. Its area is <i>10 m<sup>2</sup></i> for <emph>each</emph>
+<p>
+Thus, there is one partition construction. Its area is <i>10 m<sup>2</sup></i> for <em>each</em>
 surface, to form a total surface area inside this thermal zone of <i>20 m<sup>2</sup></i>.
 </p>
 <p>
 Next, the declaration
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nConBou=1,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    datConBou(layers={matLayFlo}, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*4,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">           </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Buildings.HeatTransfer.Types.Tilt.Floor),</span></p>
 
 </pre>
+<p>
 declares one construction whose other surface boundary condition is exposed by this
 room model (through the connector <code>surf_conBou</code>).
 </p>
 <p>
 The declaration
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    nSurBou=1,</span></p>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    surBou(</span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">A=6*3, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">absIR=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">absSol=0.9, </span><span style=\" font-family:'Courier New,courier'; color:#0000ff;\">each </span><span style=\" font-family:'Courier New,courier';\">til=Buildings.HeatTransfer.Types.Tilt.Wall),</span></p>
 
 </pre>
+<p>
 is used to instantiate a model for a surface that is in this room. 
 The surface has an area of <i>6*3 m<sup>2</sup></i>, absorptivity in the infrared and the solar
 spectrum of <i>0.9</i> and it is a wall.
@@ -872,27 +893,33 @@ to couple this room model to another room model that may model the construction.
 </p>
 <p>
 The declaration
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    linearizeRadiation = true,</span></p>
 
 </pre>
+<p>
 causes the equations for radiative heat transfer to be linearized. This can
 reduce computing time at the expense of accuracy.
 </p>
 <p>
 The declaration 
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,</span></p>
 
 </pre>
+<p>
 is used to initialize the air volume inside the thermal zone.
 </p>
 <p>
 Finally, the declaration
+</p>
 <pre>
 <p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:8;\"><span style=\" font-family:'Courier New,courier';\">    lat=0.73268921998722) </span><span style=\" font-family:'Courier New,courier'; color:#006400;\">\"Room model\"</span></p>
 
 </pre>
+<p>
 sets the latitude of the building which needs to correspond with the latitude of the weather data file.
 </p>
 <h4>References</h4>
@@ -900,7 +927,7 @@ sets the latitude of the building which needs to correspond with the latitude of
 <A NAME=\"WetterEtAl2011\"></A> 
 Michael Wetter, Wangda Zuo and Thierry Stephane Nouidui.<br>
 <a href=\"modelica://Buildings/Resources/Images/Rooms/2011-ibpsa-BuildingsLib.pdf\">
-Modeling of Heat Transfer in Rooms in the Modelica \"Buildings\" Library.</a><br/>
+Modeling of Heat Transfer in Rooms in the Modelica \"Buildings\" Library.</a><br>
 Proc. of the 12th IBPSA Conference, p. 1096-1103. Sydney, Australia, November 2011. 
 </p>
 </html>", revisions="<html>

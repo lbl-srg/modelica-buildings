@@ -34,8 +34,7 @@ protected
   Modelica.SIunits.Emissivity epsSky "Black-body absorptivity of sky";
   Real nOpa10(min=0, max=10) "Opaque sky cover";
 algorithm
-  if calTSky == Districts.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover
-       then
+  if calTSky == Districts.BoundaryConditions.Types.SkyTemperatureCalculation.TemperaturesAndSkyCover then
     TDewPoiK := Districts.Utilities.Math.Functions.smoothMin(TDryBul, TDewPoi, 0.1);
     nOpa10 := 10*nOpa "Input nOpa is scaled to [0,1] instead of [0,10]";
     epsSky := (0.787 + 0.764*Modelica.Math.log(-TDewPoiK/Modelica.Constants.T_zero))*(1 + 0.0224*nOpa10 -

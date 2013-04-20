@@ -1,5 +1,8 @@
 within ;
 package Districts "Library with models for district energy and control systems"
+  extends Modelica.Icons.Package;
+
+
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   class Conventions "Conventions"
@@ -427,8 +430,8 @@ individual libraries.
    <td valign=\"top\">Library for computing boundary conditions such as weather data.</td>
 </tr>
 <tr>
-   <td valign=\"top\"><a href=\"modelica://Districts.Electrical.QuasiStationary.UsersGuide\">
-   Districts.Electrical.QuasiStationary.UsersGuide</a>
+   <td valign=\"top\"><a href=\"modelica://Districts.Electrical.AC.UsersGuide\">
+   Districts.Electrical.AC.UsersGuide</a>
    </td>
    <td valign=\"top\">Library for alternate current electrical systems that are modeled as quasi stationary.</td>
 </tr>

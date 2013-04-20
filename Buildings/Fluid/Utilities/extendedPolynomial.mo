@@ -30,7 +30,7 @@ if x < xMin then
 For <i>x</i> between the bounds <i>x<sub>min</sub> &lt; x &lt; x<sub>max</sub></i>,
 this function defines a polynomial 
 <p align=\"center\" style=\"font-style:italic;\">
- y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1<sup>
+ y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1</sup>
 </p>
 where <i>n &gt; 1</i> and <i>x<sub>min</sub>, x<sub>max</sub></i> 
 are parameters.
@@ -53,7 +53,8 @@ Changed order of argument list to make <code>x</code> the first argument.
 </li>
 <li>
 September 11, 2007 by Michael Wetter:<br>
-Fixed error in computing the polynomial outside of <code>xMin</code> and <code>xMax</code>.</li>
+Fixed error in computing the polynomial outside of <code>xMin</code> and <code>xMax</code>.
+</li>
 <li>
 July 19, 2007 by Michael Wetter:<br>
 First implementation.

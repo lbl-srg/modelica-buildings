@@ -42,7 +42,7 @@ If <code>kappa_const=0</code>, then the density is constant. Otherwise,
 the density is
 <p align=\"center\" style=\"font-style:italic;\">
   &rho;(p) = &rho;(p0)  ( 1 + &kappa;<sub>const</sub>  (p-p<sub>0</sub>))
-</i>
+</p>
 This equation is implemented in the base class
 <a href=\"modelica://Buildings.Media.Interfaces.PartialSimpleMedium\">
 Buildings.Media.Interfaces.PartialSimpleMedium</a>.
@@ -50,6 +50,7 @@ Buildings.Media.Interfaces.PartialSimpleMedium</a>.
 <li>
 It implements the function that computes the specific internal energy.
 </li>
+</ul>
 </p>
 </html>", revisions="<html>
 <ul>

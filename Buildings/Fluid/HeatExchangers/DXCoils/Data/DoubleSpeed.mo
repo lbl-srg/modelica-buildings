@@ -74,7 +74,7 @@ Coil:Cooling:DX:TwoStageWithHumidityControlMode,
     CoilPerformance:DX:Cooling,    !- Normal Mode Stage 1 Coil Performance Object Type
     Lennox KCA120S4 Stage 1,       !- Normal Mode Stage 1 Coil Performance Name
     CoilPerformance:DX:Cooling,    !- Normal Mode Stage 1+2 Coil Performance Object Type
-    Lennox KCA120S4 Stage 1&2;     !- Normal Mode Stage 1+2 Coil Performance Name
+    Lennox KCA120S4 Stage 1&amp;2;     !- Normal Mode Stage 1+2 Coil Performance Name
 </pre>
 </html>"));
 
@@ -133,7 +133,7 @@ Coil:Cooling:DX:TwoStageWithHumidityControlMode,
     CoilPerformance:DX:Cooling,    !- Normal Mode Stage 1 Coil Performance Object Type
     Lennox KCA240S4 Stage 1,       !- Normal Mode Stage 1 Coil Performance Name
     CoilPerformance:DX:Cooling,    !- Normal Mode Stage 1+2 Coil Performance Object Type
-    Lennox KCA240S4 Stage 1&2;     !- Normal Mode Stage 1+2 Coil Performance Name
+    Lennox KCA240S4 Stage 1&amp;2;     !- Normal Mode Stage 1+2 Coil Performance Name
 </pre>
 </html>"));
 
@@ -192,7 +192,7 @@ Coil:Cooling:DX:TwoStageWithHumidityControlMode,
     CoilPerformance:DX:Cooling,     !- Normal Mode Stage 1 Coil Performance Object Type
     Lennox SCA120H4B Stage 1,       !- Normal Mode Stage 1 Coil Performance Name
     CoilPerformance:DX:Cooling,     !- Normal Mode Stage 1+2 Coil Performance Object Type
-    Lennox SCA120H4B Stage 1&2;     !- Normal Mode Stage 1+2 Coil Performance Name
+    Lennox SCA120H4B Stage 1&amp;2;     !- Normal Mode Stage 1+2 Coil Performance Name
 </pre>
 </html>"));
 
@@ -251,7 +251,7 @@ Coil:Cooling:DX:TwoStageWithHumidityControlMode,
     CoilPerformance:DX:Cooling,     !- Normal Mode Stage 1 Coil Performance Object Type
     Lennox SCA240H4B Stage 1,       !- Normal Mode Stage 1 Coil Performance Name
     CoilPerformance:DX:Cooling,     !- Normal Mode Stage 1+2 Coil Performance Object Type
-    Lennox SCA240H4B Stage 1&2;     !- Normal Mode Stage 1+2 Coil Performance Name
+    Lennox SCA240H4B Stage 1&amp;2;     !- Normal Mode Stage 1+2 Coil Performance Name
 </pre>
 </html>"));
 
@@ -310,7 +310,7 @@ Coil:Cooling:DX:TwoStageWithHumidityControlMode,
     CoilPerformance:DX:Cooling,    !- Normal Mode Stage 1 Coil Performance Object Type
     Lennox TCA120S Stage 1,        !- Normal Mode Stage 1 Coil Performance Name
     CoilPerformance:DX:Cooling,    !- Normal Mode Stage 1+2 Coil Performance Object Type
-    Lennox TCA120S Stage 1&2;      !- Normal Mode Stage 1+2 Coil Performance Name
+    Lennox TCA120S Stage 1&amp;2;      !- Normal Mode Stage 1+2 Coil Performance Name
 </pre>
 </html>"));
 
@@ -369,7 +369,7 @@ Coil:Cooling:DX:TwoStageWithHumidityControlMode,
     CoilPerformance:DX:Cooling,   !- Normal Mode Stage 1 Coil Performance Object Type
     Lennox TCA240S Stage 1,       !- Normal Mode Stage 1 Coil Performance Name
     CoilPerformance:DX:Cooling,   !- Normal Mode Stage 1+2 Coil Performance Object Type
-    Lennox TCA240S Stage 1&2;     !- Normal Mode Stage 1+2 Coil Performance Name
+    Lennox TCA240S Stage 1&amp;2;     !- Normal Mode Stage 1+2 Coil Performance Name
 </pre>
 </html>"));
 

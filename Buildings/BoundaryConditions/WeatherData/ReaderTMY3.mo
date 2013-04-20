@@ -844,14 +844,14 @@ is used as follows:
 </p>
 <p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <th>Parameter <code>*Sou</code>
   </th>
   <th>Data used to compute weather data.
   </th>
 </tr>
-<!-- ------- -->
+<!-- ============================================== -->
 <tr>
   <td>
     File
@@ -860,7 +860,7 @@ is used as follows:
     Use data from file.
   </td>
 </tr>
-<!-- ------- -->
+<!-- ============================================== -->
 <tr>
   <td>
     Parameter
@@ -869,7 +869,7 @@ is used as follows:
     Use value specified by the parameter.
   </td>
 </tr>
-<!-- ------- -->
+<!-- ============================================== -->
 <tr>
   <td>
     Input
@@ -890,14 +890,14 @@ and allows the following configurations:
 </p>
 <p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <th>Parameter <code>HSou</code>
   </th>
   <th>Data used to compute weather data.
   </th>
 </tr>
-<!-- ------- -->
+<!-- ============================================== -->
 <tr>
   <td>
     File
@@ -906,7 +906,7 @@ and allows the following configurations:
     Use data from file.
   </td>
 </tr>
-<!-- ------- -->
+<!-- ============================================== -->
 <tr>
   <td>
     Input_HGloHor_HDifHor
@@ -1004,7 +1004,6 @@ time is shifted by <i>30</i> minutes prior to reading the weather data.
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\">
 </p>
-
 <h4>References</h4>
 <p>
 <ul>
