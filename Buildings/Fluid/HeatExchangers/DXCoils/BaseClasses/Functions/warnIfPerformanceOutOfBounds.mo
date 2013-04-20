@@ -34,7 +34,6 @@ If this is the case, the function writes a warning.
 </html>", revisions="<html>
 <ul>
 <li>
-<li>
 September 12, 2010 by Michael Wetter:<br>
 First implementation.
 </li>

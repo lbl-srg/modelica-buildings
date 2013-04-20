@@ -14,19 +14,16 @@ Enumeration to define the choice of valve flow coefficient
 <table border=\"1\">
 <tr><th>Enumeration</th>
     <th>Description</th></tr>
- 
 <tr><td>fromTop</td>
     <td>
 Use this setting to use the density from the volume that is connected
 to the top port. 
     </td></tr>
- 
 <tr><td>fromBottom</td>
     <td>
 Use this setting to use the density from the volume that is connected
 to the bottom port. 
 </td></tr>
- n
 <tr><td>actual</td>
     <td>Use this setting to use the density based on the actual flow direction. 
 </td></tr>

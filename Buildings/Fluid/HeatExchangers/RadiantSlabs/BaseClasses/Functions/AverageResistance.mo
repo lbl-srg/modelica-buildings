@@ -69,7 +69,6 @@ radiant heating or cooling systems in ceilings and walls (if
 and <code>disPip/dPipOut &ge; 5.8</code>), and 
 </li>
 <li>
-<li>
 capillary tube systems (if 
 <code>sysTyp == Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses.Types.SystemType.Ceiling_Wall_or_Capillary</code>
 and <code>disPip/dPipOut &lt; 5.8</code>).

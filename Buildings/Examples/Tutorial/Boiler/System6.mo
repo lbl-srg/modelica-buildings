@@ -536,7 +536,7 @@ in order to use the dry-bulb temperature as an input signal.
 </p>
 </li>
 </ol>
-<!-- ----------------------- -->
+<!-- ============================================== -->
 <p>
 This completes the closed loop control.
 When simulating the model
@@ -546,7 +546,6 @@ response shown below should be seen.
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Temperatures1.png\" border=\"1\">
 <img src=\"modelica://Buildings/Resources/Images/Examples/Tutorial/Boiler/System6Temperatures2.png\" border=\"1\">
-
 </p>
 <p>
 The figure shows that the boiler temperature is regulated between

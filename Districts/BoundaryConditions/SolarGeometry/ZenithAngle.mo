@@ -9,8 +9,8 @@ public
     displayUnit="deg") "Zenith angle"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
-   Districts.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(final lat
-      =lat)
+   Districts.BoundaryConditions.SolarGeometry.BaseClasses.ZenithAngle zen(final lat=
+       lat)
     annotation (Placement(transformation(extent={{0,-10},{20,10}})));
 public
   WeatherData.Bus weaBus

@@ -53,20 +53,20 @@ equation
         initialScale=0.01,
         grid={2,2})),
     Documentation(info="<HTML>
-The controls for enabling/disabling chiller are as follows:</h4>
+The controls for enabling/disabling chiller are as follows:
 <ul>
 <li>
 The chiller is enabled when 
-<code align=\"left\" style=\"font-style:italic;\">
-  T<sub>Chi_CHWST</sub> &gt; T<sub>ChiSet</sub> + T<sub>DeaBan</sub> </code>
+<p align=\"left\" style=\"font-style:italic;\">
+  T<sub>Chi_CHWST</sub> &gt; T<sub>ChiSet</sub> + T<sub>DeaBan</sub> </p>
   </li>
 <li>
 The chiller is disabled when 
-<code align=\"left\" style=\"font-style:italic;\">
-  T<sub>Chi_CHWST</sub> &le; T<sub>ChiSet</sub></code>
+<p align=\"left\" style=\"font-style:italic;\">
+  T<sub>Chi_CHWST</sub> &le; T<sub>ChiSet</sub></p>
 </li>
 </ul>
-where <code>T<sub>Chi_CHWST</sub></code> is chiller chilled water supply temperature, <code>T<sub>ChiSet</sub></code> is set temperature for chilled water leaving chiller, and <code>T<sub>DeaBan</sub></code> is dead band to prevent short cycling. 
+where <i>T<sub>Chi_CHWST</sub></i> is chiller chilled water supply temperature, <i>T<sub>ChiSet</sub></i> is set temperature for chilled water leaving chiller, and <i>T<sub>DeaBan</sub></i> is dead band to prevent short cycling. 
 </HTML>
 ", revisions="<html>
 <ul>

@@ -502,6 +502,8 @@ If <code>use_powerCharacteristic = true</code>, then the data points for
 normalized volume flow rate versus power consumption
 is used to determine the power consumption, and then the efficiency
 is computed based on the actual power consumption and the flow work. 
+</li>
+</ul>
 </p>
 <h4>Implementation</h4>
 <p>
