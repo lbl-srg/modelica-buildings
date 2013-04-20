@@ -171,7 +171,7 @@ The fan power consumption at the design condition can be specified as follows:
 The parameter <code>fraPFan_nominal</code> can be used to specify at the 
 nominal conditions the fan power divided by the water flow rate. The default value is 
 <i>275</i> Watts for a water flow rate of <i>0.15</i> kg/s. 
-</i>
+</li>
 <li>
 The parameter <code>PFan_nominal</code> can be set to the fan power at nominal conditions.
 If a user does not set this parameter, then the fan power will be
@@ -196,7 +196,7 @@ In between these points, the values are interpolated using cubic splines.
 </p>
 <h4>Comparison the the cooling tower model of EnergyPlus</h4>
 <p> 
-This model is similar to the model <oode>Cooling Tower:Variable Speed</code> that
+This model is similar to the model <code>Cooling Tower:Variable Speed</code> that
 is implemented in the EnergyPlus building energy simulation program version 6.0.
 The main differences are
 <ol>
@@ -208,6 +208,8 @@ the make-up water usage.
 The model has no built-in control to switch individual cells of the tower on or off.
 To switch cells on or off, use multiple instances of this model, and use your own
 control law to compute the input signal <code>y</code>.
+</li>
+</ol>
 </p>
 <h4>References</h4>
 <p>

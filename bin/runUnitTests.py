@@ -24,9 +24,9 @@
 #
 # MWetter@lbl.gov                            2011-02-23
 #######################################################
-import buildingspy.development.unittest as u
 import getopt
 import sys
+import os
 
 def usage():
     ''' Print the usage statement
@@ -39,7 +39,34 @@ def usage():
     print "  -h, --help Print this help"
     print ""
 
+
+def _setEnvironmentVariables(var, value):
+    ''' Add to the environment variable `var` the value `value`
+    '''
+    import os
+    import platform
+    if os.environ.has_key(var):
+        if platform.system() == "Windows":
+            os.environ[var] = value + ";" + os.environ[var]
+        else:
+            os.environ[var] = value + ":" + os.environ[var]
+    else:
+        os.environ[var] = value
+
+def _runUnitTests():
+    import buildingspy.development.unittest as u
+    ut = u.Tester()
+    ut.batchMode(batch)
+#    ut.setNumberOfThreads(1)
+#    ut.deleteTemporaryDirectories(False)
+#    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
+#    #print ut.getDataDictionary()
+    retVal = ut.run()
+    exit(retVal)
+
+
 if __name__ == '__main__':
+    import platform
     batch = False
 
     try:
@@ -59,11 +86,21 @@ if __name__ == '__main__':
         else:
             assert False, "Unhandled option."
 
-    ut = u.Tester()
-    ut.batchMode(batch)
-#    ut.setNumberOfThreads(1)
-#    ut.deleteTemporaryDirectories(False)
-#    ut.useExistingResults(['/tmp/tmp-Buildings-0-fagmeZ'])
-#    #print ut.getDataDictionary()
-    retVal = ut.run()
-    exit(retVal)
+    # Set environment variables
+    if platform.system() == "Windows":
+        _setEnvironmentVariables("PATH", 
+                                 os.path.join(os.path.abspath('.'), "Resources", "Library", "win32"))
+    else:
+        _setEnvironmentVariables("LD_LIBRARY_PATH", 
+                                 os.path.join(os.path.abspath('.'), "Resources", "Library", "linux32"))
+
+    _setEnvironmentVariables("PYTHONPATH", 
+                             os.path.join(os.path.abspath('.'), "Resources", "Python-Sources"))
+
+    # The path to buildingspy must be added to sys.path to work on Linux.
+    # If only added to os.environ, the Python interpreter won't find buildingspy
+    sys.path.append(os.path.join(os.path.abspath('.'), "..", "..", "BuildingsPy"))
+
+
+    _runUnitTests()
+

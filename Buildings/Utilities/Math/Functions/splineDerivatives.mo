@@ -1,7 +1,7 @@
 within Buildings.Utilities.Math.Functions;
 function splineDerivatives
   "Function to compute the derivatives for cubic hermite spline interpolation"
-  input Real x[size(x, 1)] "Support point, strict monotone increasing";
+  input Real x[:] "Support point, strict monotone increasing";
   input Real y[size(x, 1)] "Function values at x";
   input Boolean ensureMonotonicity=isMonotonic(y, strict=false)
     "Set to true to ensure monotonicity of the cubic hermite";

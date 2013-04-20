@@ -29,28 +29,32 @@ To simplify the implementation, we only applied the controls for the differentia
 The WSE is enabled when
 <ol>
 <li>The WSE has been disabled for at least 20 minutes, and</li>
-<li align=\"left\" style=\"font-style:italic;\">
-  T<sub>ws</sub> &gt; 0.9 T<sub>wet</sub> + &Delta;T<sub>t</sub> + &Delta;T<sub>w</sub> </li>
+<li>
+<i>
+  T<sub>ws</sub> &gt; 0.9 T<sub>wet</sub> + &Delta;T<sub>t</sub> + &Delta;T<sub>w</sub>
+</i>
+</li>
 </ol>
 where <i>T<sub>ws</sub></i> is the temperature of chilled water leaving the cooling coil, 
 <i>T<sub>wet</sub></i> is the wet bulb temperature, 
 <i>&Delta;T<sub>t</sub></i> is the temperature difference between the water leaving the cooling tower and the air entering the cooling tower, 
 <i>&Delta;T<sub>w</sub></i> is the temperature difference between the chilled water leaving the WSE and the condenser water entering the WSE.
-<br/>
-<br/>
+</p>
+<p>
 The WSE is disabled when
 <ol>
 <li>The WSE has been enabled for at least 20 minutes, and</li>
-<li align=\"left\" style=\"font-style:italic;\">
-  T<sub>ws</sub> &lt; T<sub>wc</sub> + &Delta;T<sub>wse,off</sub> </li>
+<li><i>
+  T<sub>ws</sub> &lt; T<sub>wc</sub> + &Delta;T<sub>wse,off</sub>
+</i>
 </li>
 </ol>
 where <i>T<sub>wc</sub></i> is the temperature of condenser water leaving the cooling tower,  <i>&Delta;T<sub>wse,off</sub> = 0.6 K</i> is the offset temperature.
 </p> 
-
 <h4>Enabling/Disabling the Chiller</h4>
 <p>
-The control strategy is as follows:<ul>
+The control strategy is as follows:
+<ul>
 <li>The chiller is enabled when 
 <i>
   T<sub>chw,ent</sub> &gt; T<sub>chi,set</sub> + &Delta;T<sub>chi,ban</sub> </i>
@@ -83,7 +87,6 @@ implements a discrete time trim and response logic as follows:
 <li>The request is sampled every 2 minutes. If there is a cooling request, the control signal <i>u</i> is increased by <i>0.03</i>, where <i>0 &le; u &le; 1</i>. 
 If there is no cooling request,  <i>u</i> is decreased by <i>0.03</i>. </li>
 </ul>
-<br/>
 </p>
 <p>
 The model 

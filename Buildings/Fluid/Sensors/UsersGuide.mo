@@ -41,6 +41,8 @@ Modelica.Fluid.Examples.Explanatory.MeasuringTemperature</a>.
     <img src=\"modelica://Buildings/Resources/Images/Fluid/Sensors/onePortHex.png\">
     </td>
 </tr>
+</table>
+</p>
 <p>
 Except for the mass flow rate sensor,
 all sensors with two ports can be 

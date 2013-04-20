@@ -54,19 +54,19 @@ inequality. The table below shows the allowed settings.
 </tr>
 <tr>
 <td>0</td>
-<td><code>u[i] &gt; threShold</td>
+<td><code>u[i] &gt; threShold</code></td>
 </tr>
 <tr>
 <td>1</td>
-<td><code>u[i] &ge; threShold</td>
+<td><code>u[i] &ge; threShold</code></td>
 </tr>
 <tr>
 <td>2</td>
-<td><code>u[i] &le; threShold</td>
+<td><code>u[i] &le; threShold</code></td>
 </tr>
 <tr>
 <td>3</td>
-<td><code>u[i] &lt; threShold</td>
+<td><code>u[i] &lt; threShold</code></td>
 </tr>
 </table>
 </p>

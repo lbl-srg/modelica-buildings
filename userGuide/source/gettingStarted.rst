@@ -21,6 +21,8 @@ Literature for Developers
 It is essential that users who develop new thermo-fluid models to  understand the concept of stream connectors. Stream connectors are explained in the Modelica language definition, available at https://www.modelica.org/documents, and in the paper Franke et al. [Fra2009a]_. 
 The `Buildings` library uses similar modeling principles, and the same base classes, as the `Modelica.Fluid` library. Hence, we also recommend reading the paper about the standardization of thermo-fluid models in Modelica.Fluid [Fra2009b]_.
 
+Xogeny's `Modelica Web Reference <http://modref.xogeny.com/>`_ gives a concise overview, explanation and further links about the Modelica language.
+
 
 Software Requirements
 ---------------------

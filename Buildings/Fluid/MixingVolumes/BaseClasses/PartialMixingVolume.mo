@@ -103,17 +103,6 @@ equation
   ports[1].m_flow = " + String(ports[1].m_flow) + "
 ");
   end if;
-// Only one connection allowed to a port to avoid unwanted ideal mixing
-  if not useSteadyStateTwoPort then
-    for i in 1:nPorts loop
-    assert(cardinality(ports[i]) == 2 or cardinality(ports[i]) == 0,"
-each ports[i] of volume can at most be connected to one component.
-If two or more connections are present, ideal mixing takes
-place with these connections, which is usually not the intention
-of the modeller. Increase nPorts to add an additional port.
-");
-     end for;
-  end if;
   // actual definition of port variables
   // If the model computes the energy and mass balances as steady-state,
   // and if it has only two ports,
@@ -174,6 +163,12 @@ Buildings.Fluid.MixingVolumes</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 18, 2013 by Michael Wetter:<br>
+Removed the check of multiple connections to the same element
+of a fluid port, as this check required the use of the deprecated
+<code>cardinality</code> function.
+</li>
 <li>
 February 7, 2012 by Michael Wetter:<br>
 Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.

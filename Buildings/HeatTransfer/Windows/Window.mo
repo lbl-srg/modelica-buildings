@@ -415,7 +415,7 @@ the 20% of the window that is behind the shade or blind.
 If the parameter <code>glaSys</code> specifies that the window has no exterior
 and no interior shade, then the model <code>glaSha</code> will be removed.
 </li>
-</p>
+</ol>
 <p>
 The models <code>glaUns</code> and <code>glaSha</code> 
 compute the solar radiation that is absorbed by each 

@@ -150,7 +150,7 @@ and the wind-driven forced convection coefficient <i>h<sub>f</sub></i>,
 The free convection coefficient <i>h<sub>n</sub></i> is computed in the same way as in 
 <a href=\"modelica://Buildings.HeatTransfer.Convection.Interior\">
 Buildings.HeatTransfer.Convection.Interior</a>.
-The forced convection coefficient <i>h<sub>f</i> 
+The forced convection coefficient <i>h<sub>f</sub></i>
 is computed based on a correlation by Sparrow, Ramsey, and Mass
 (1979), which is 
 <p align=\"center\" style=\"font-style:italic;\">

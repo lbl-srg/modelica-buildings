@@ -36,7 +36,7 @@ in the interval <i>|x| < &delta;</i> for some positive <i>&delta;</i>
 October 30, 2008, by Michael Wetter:<br>
 First implementation.
 Implemented to reduce chattering in 
-<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.Stratifier\"</a>
+<a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.Stratifier\">
 Buildings.Fluid.Storage.BaseClasses.Stratifier</a>.
 </li>
 </ul>

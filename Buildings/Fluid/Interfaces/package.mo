@@ -35,7 +35,7 @@ see the <i>info</i> section of the class.
 <p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr>
-<!-- -------------------------------- -->
+<!-- ============================================== -->
   <td><a href=\"modelica://Buildings.Fluid.Interfaces.ConservationEquation\">
       Buildings.Fluid.Interfaces.ConservationEquation</a>
   </td>
@@ -65,7 +65,7 @@ see the <i>info</i> section of the class.
   </p>
   </td>
 </tr>
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <td><a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation\">
       Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation</a>
@@ -97,7 +97,7 @@ see the <i>info</i> section of the class.
   </p>
   </td>
 </tr>
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <td>
      <a href=\"modelica://Buildings.Fluid.Interfaces.FourPort\">
@@ -113,7 +113,7 @@ see the <i>info</i> section of the class.
      four ports.
   </td>
 </tr>
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <td>
      <a href=\"modelica://Buildings.Fluid.Interfaces.PartialTwoPortInterface\">
@@ -129,7 +129,7 @@ see the <i>info</i> section of the class.
      thermodynamic state at the ports.
   </td>
 </tr>
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <td>
      <a href=\"modelica://Buildings.Fluid.Interfaces.PartialFourPortInterface\">
@@ -142,7 +142,7 @@ see the <i>info</i> section of the class.
      but it can be used for components with four fluid ports.
   </td>
 </tr>
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <td>
      <a href=\"modelica://Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger\">
@@ -160,7 +160,7 @@ see the <i>info</i> section of the class.
      for <code>Q_flow</code> and <code>mXi_flow</code>.
   </td>
 </tr>
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <td>
      <a href=\"modelica://Buildings.Fluid.Interfaces.StaticFourPortHeatMassExchanger\">
@@ -173,7 +173,7 @@ see the <i>info</i> section of the class.
      except that it has four ports.
   </td>
 </tr>
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <td>
      <a href=\"modelica://Buildings.Fluid.Interfaces.TwoPortHeatMassExchanger\">
@@ -185,7 +185,7 @@ see the <i>info</i> section of the class.
      configured as steady-state or dynamic balances based on a parameter. 
   </td>
 </tr>
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <td>
      <a href=\"modelica://Buildings.Fluid.Interfaces.FourPortHeatMassExchanger\">

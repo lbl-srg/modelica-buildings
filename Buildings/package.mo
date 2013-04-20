@@ -134,9 +134,24 @@ a new model for heat conduction in phase change material. This model can be used
 of the room heat transfer model.
 </p>
 <p>
-Non-backward compatible changes had to be introduced in the valve models
+Non-backward compatible changes had to be introduced
+</p>
+<p>
+<ul>
+<li>
+in the valve models
 <a href=\"modelica://Buildings.Fluid.Actuators.Valves\">
-Buildings.Fluid.Actuators.Valves</a> to fully comply with the Modelica language specification.
+Buildings.Fluid.Actuators.Valves</a> to fully comply with the Modelica language specification,
+</li>
+<li>
+and in the models in the package 
+<a href=\"modelica://Buildings.Utilities.Diagnostics\">
+Buildings.Utilities.Diagnostics</a>
+as they used the <code>cardinality</code> function which is deprecated in the Modelica
+Language Specification.
+</li>
+</p>
+<p>
 See below for details.
 </p>
 <!-- New libraries -->
@@ -179,7 +194,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume
+    </td>
+    <td valign=\"top\">Removed the check of multiple connections to the same element
+                       of a fluid port, as this check required the use of the deprecated
+                       <code>cardinality</code> function.
+    </td>
+</tr><tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.SingleLayer
@@ -187,12 +211,13 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added option to model layers with phase change material.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.InfraredRadiationExchange
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Removed the use of the <code>cardinality</code> function
+                       as this function is deprecated in the Modelica Language Specification.
     </td>
 </tr>
 </table>
@@ -224,6 +249,26 @@ have been <b style=\"color:blue\">improved</b> in a
                        As part of this change, we set <code>dp(nominal=6000)</code> for all valves,
                        because the earlier formulation uses a value that is not known during compilation,
                        and hence leads to an error in Dymola 2014.
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.MixingVolumeDryAir<br/>
+                       Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir
+    </td>
+    <td valign=\"top\">Removed the use of the deprecated
+                       <code>cardinality</code> function.
+                       Therefore, now all input signals must be connected..
+    </td>
+</tr>      
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Diagnostics.AssertEquality<br>
+                       Buildings.Utilities.Diagnostics.AssertInequality
+    </td>
+    <td valign=\"top\">Removed the option to not connect input signals, as this
+                       required the use of the <code>cardinality</code> function which
+                       is deprecated in the MSL, and not correctly implemented in OpenModelica.
+                       Therefore, if using these models, both input signals must be connected.
     </td>
 </tr>
 </table>
@@ -2529,7 +2574,7 @@ to allow specifying the nominal face velocity instead of the area.
 </li>
 <li>
 Set nominal attribute for pressure drop <code>dp</code> in 
-<a href=\"modelica://Buildings.Fluid.BaseClasses.PartialResistance\"</a>
+<a href=\"modelica://Buildings.Fluid.BaseClasses.PartialResistance\">
 Buildings.Fluid.BaseClasses.PartialResistance</a> and in its
 child classes.
 </li>
@@ -2734,70 +2779,72 @@ on the Buildings library.
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_4_build1\">
-Version 1.4 build1</a>(xxx, 2013)</li>
+Version 1.4 build1</a>(xxx, 2013)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_3_build1\">
-Version 1.3 build1</a>(January 8, 2013)</li>
+Version 1.3 build1</a>(January 8, 2013)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_2_build1\">
-Version 1.2 build1</a>(July 26, 2012)</li>
+Version 1.2 build1</a>(July 26, 2012)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_1_build1\">
-Version 1.1 build1</a>(February 29, 2012)</li>
+Version 1.1 build1</a>(February 29, 2012)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">
-Version 1.0 build2</a>(December 8, 2011)</li>
+Version 1.0 build2</a>(December 8, 2011)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build1\">
-Version 1.0 build1</a>(November 4, 2011)</li>
+Version 1.0 build1</a>(November 4, 2011)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">
-Version 0.12.0 </a>(May 6, 2011)</li>
+Version 0.12.0 </a>(May 6, 2011)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">
-Version 0.11.0 </a>(March 17, 2011)</li>
+Version 0.11.0 </a>(March 17, 2011)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">
-Version 0.10.0 </a>(July 30, 2010)</li>
+Version 0.10.0 </a>(July 30, 2010)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">
-Version 0.9.1 </a>(June 24, 2010)</li>
+Version 0.9.1 </a>(June 24, 2010)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
-Version 0.9.0 </a>(June 11, 2010)</li>
+Version 0.9.0 </a>(June 11, 2010)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">
-Version 0.8.0 </a>(February 6, 2010)</li>
+Version 0.8.0 </a>(February 6, 2010)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">
-Version 0.7.0 </a>(September 29, 2009)</li>
+Version 0.7.0 </a>(September 29, 2009)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">
-Version 0.6.0 </a>(May 15, 2009)</li>
+Version 0.6.0 </a>(May 15, 2009)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">
-Version 0.5.0 </a>(February 19, 2009)</li>
+Version 0.5.0 </a>(February 19, 2009)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">
-Version 0.4.0 </a>(October 31, 2008)</li>
+Version 0.4.0 </a>(October 31, 2008)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">
-Version 0.3.0 </a>(September 30, 2008)</li>
+Version 0.3.0 </a>(September 30, 2008)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">
-Version 0.2.0 </a>(June 17, 2008)</li>
+Version 0.2.0 </a>(June 17, 2008)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">
-Version 0.1.0 </a>(May 27, 2008)</li>
+Version 0.1.0 </a>(May 27, 2008)</a>
+</li>
 </ul>
 </p>
-<p></p>
+<p>
+</p>
 </html>
 "));
   end ReleaseNotes;
@@ -3021,11 +3068,10 @@ You are under no obligation whatsoever to provide any bug fixes, patches, or upg
 At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package: 
 <ul><li style=\"list-style-type:none\">
 Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2009-2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory. 
-<p>
+</li>
 <li style=\"list-style-type:none\"><i>
-This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at </em><a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>. 
-</i>
-</li></ul>
+This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>. 
+</i></li></ul>
 <p>
 Include a copy of the Modelica License 2 under <strong>&lt;library&gt;.UsersGuide.ModelicaLicense2</strong> 
 (use <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.mo\">
@@ -3178,6 +3224,7 @@ versionBuild=0,
 versionDate="2013-04-04",
 dateModified = "2013-04-04",
 uses(Modelica(version="3.2")),
+uses(Modelica_StateGraph2(version="2.0.1")),
 conversion(
  noneFromVersion="1.3",
  noneFromVersion="1.2",

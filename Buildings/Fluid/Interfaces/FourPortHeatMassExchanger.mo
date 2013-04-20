@@ -212,7 +212,7 @@ Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 <p>
 The variable names follow the conventions used in 
 <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
-</p>Modelica.Fluid.HeatExchangers.BasicHX</a>.
+Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </html>", revisions="<html>
 <ul>
 <li>

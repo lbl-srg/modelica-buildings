@@ -24,7 +24,6 @@ protected
     annotation (Placement(transformation(extent={{-80,70},{-60,90}})));
 initial algorithm
   i_w:= -1;
-  if cardinality(mWat_flow) > 0 then
   for i in 1:Medium.nXi loop
       if Modelica.Utilities.Strings.isEqual(string1=Medium.substanceNames[i],
                                             string2="Water",
@@ -38,25 +37,14 @@ initial algorithm
     assert(i_w > 0, "Substance 'water' is not present in medium '"
          + Medium.mediumName + "'.\n"
          + "Check medium model.");
-    end if;
 
 equation
-  if cardinality(mWat_flow) == 0 then
-    mWat_flow = 0;
-    HWat_flow = 0;
-    mXi_flow  = zeros(Medium.nXi);
-  else
-    if cardinality(TWat) == 0 then
-       HWat_flow = mWat_flow * Medium.enthalpyOfLiquid(Medium.T_default);
-    else
-       HWat_flow = mWat_flow * Medium.enthalpyOfLiquid(TWat);
-    end if;
+  HWat_flow = mWat_flow * Medium.enthalpyOfLiquid(TWat);
   // We obtain the substance concentration with a vector multiplication
   // because Dymola 7.4 cannot find the derivative in the model
   // Buildings.Fluid.HeatExchangers.Examples.WetCoilDiscretizedPControl
   // if we set mXi_flow[i] = if ( i == i_w) then mWat_flow else 0;
     mXi_flow = mWat_flow * s;
-  end if;
 // Medium species concentration
   X_w = s * Xi;
 
@@ -91,9 +79,7 @@ adding or subtracting water in liquid phase.
 The mass flow rate of the added or subtracted water is
 specified at the port <code>mWat_flow</code>.
 The water flow rate is assumed to be added or subtracted at the
-temperature of the input port <code>TWat</code>, or 
-if this port is not connected, at the medium default temperature as
-defined by <code>Medium.T_default</code>.
+temperature of the input port <code>TWat</code>.
 Adding water causes a change in 
 enthalpy and species concentration in the volume. 
 </p>
@@ -108,6 +94,12 @@ Buildings.Fluid.MixingVolumes.MixingVolumeDryAir</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 18, 2013 by Michael Wetter:<br>
+Removed the use of the deprecated
+<code>cardinality</code> function.
+Therefore, all input signals must be connected.
+</li>
 <li>
 February 7, 2012 by Michael Wetter:<br>
 Revised base classes for conservation equations in <code>Buildings.Fluid.Interfaces</code>.
