@@ -52,7 +52,8 @@ model RelativeHumidity "Test model for relative humidity sensor"
                  annotation (Placement(transformation(extent={{-80,40},{-60,60}},
           rotation=0)));
   Buildings.Fluid.Sensors.RelativeHumidityTwoPort relHum(redeclare package
-      Medium = Medium, m_flow_nominal=1)
+      Medium = Medium, m_flow_nominal=1,
+    initType=Modelica.Blocks.Types.Init.InitialState)
     annotation (Placement(transformation(extent={{40,10},{60,30}})));
 equation
   connect(TDryBul.y, massFlowRate.T_in) annotation (Line(points={{-79,24},{-60,24},
@@ -88,7 +89,8 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}}),
                         graphics),
-      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/RelativeHumidity.mos" "Simulate and plot"),
+      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/RelativeHumidity.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the relative humidity sensor.
 </html>", revisions="<html>

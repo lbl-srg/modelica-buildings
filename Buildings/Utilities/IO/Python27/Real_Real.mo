@@ -53,14 +53,14 @@ algorithm
     yR :=Buildings.Utilities.IO.Python27.Functions.exchange(
       moduleName=moduleName,
       functionName=functionName,
-      dblValWri=uRWri,
-      intValWri={0},
+      dblWri=uRWri,
+      intWri={0},
       nDblWri=nDblWri,
       nDblRea=nDblRea,
       nIntWri=0,
       nIntRea=0,
       nStrWri=0,
-      strValWri={""});
+      strWri={""});
 
     // Store current value of integral
   uRIntPre:=uRInt;

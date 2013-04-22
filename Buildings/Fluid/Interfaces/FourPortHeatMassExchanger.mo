@@ -190,7 +190,7 @@ equation
     Diagram(coordinateSystem(
         preserveAspectRatio=true,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
+        grid={1,1})),
     Documentation(info="<html>
 <p>
 This component transports two fluid streams between four ports. 
@@ -212,7 +212,7 @@ Buildings.Fluid.HeatExchangers.BaseClasses.HexElement</a>.
 <p>
 The variable names follow the conventions used in 
 <a href=\"modelica://Modelica.Fluid.HeatExchangers.BasicHX\">
-</p>Modelica.Fluid.HeatExchangers.BasicHX</a>.
+Modelica.Fluid.HeatExchangers.BasicHX</a>.
 </html>", revisions="<html>
 <ul>
 <li>

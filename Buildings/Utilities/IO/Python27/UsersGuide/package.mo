@@ -3,7 +3,8 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
 
 
-annotation (DocumentationClass=true, Documentation(info="<html>
+annotation (preferredView="info",
+Documentation(info="<html>
 <p>
 This package contains classes that call Python functions.
 The classes can be used to send data to Python functions,
@@ -12,82 +13,101 @@ This allows for example to use Python to communicate
 with web services, with hardware, or to do other computations
 inside a Python module.
 </p>
-<h4>Software requirements and configuration</h4>
 <p>
-To use classes from this package, a Python
-runtime environment must be installed.
 The code has been tested with Python 2.7 on
-Linux 32 bit, Linux 64 bit, Windows 32 bit and Windows 64 bit
-(fixme: to tests on Windows).
-The examples of this package use Python modules
-that are stored in the directory
+Linux 32 bit, Linux 64 bit, and Windows 32 bit.
+Windows 64 bit is currently supported if Dymola is run
+as a 32 bit application.
+</p>
+<h4>Software configuration to use classes from this package</h4>
+<p>
+To use classes from this package, a Python 2.7
+runtime environment must be installed.
+Also, the system environment variable
+<code>PYTHONPATH</code> must be set in order for Python
+to find the modules that contain the functions.
+These modules are stored in the directory
 <code>Buildings/Resources/Python-Sources</code>.
-Therefore, to run the examples, the above directory
-must be on the PYTHONPATH system variables.
-Setting the PYTHONPATH can be done as follows:
-<ul>
-<li>
-On Linux, enter on a console the command
-<pre>
-export PYTHONPATH=$PYTHONPATH:\"Path_To_Buildings_Library\"/Resources/Python-Sources
-</pre>
-Alternatively, this line could be added to the file <code>~/.bashrc</code>.
-</li>
-<li>
-On Windows, fixme: add description.
-</li>
-</ul>
+In addition, an environment variable (<code>LD_LIBRARY_PATH</code> on Linux
+and <code>PATH</code> on Windows) must be set in order for a simulation
+environment to find the dynamically linked libraries.
+The next sections explain how to set these variables for the
+following system configurations:
 </p>
 <p>
-To simulate models that use this interface, 
-a dynamically linked library is needed. 
-The library is in the directory
-<code>Buildings/Resources/Library/\"os\"</code>,
-where <code>\"os\"</code>
-is 
-<code>linux32</code>,
-<code>linux64</code>,
-<code>win32</code>,
-<code>win64</code>.
-Since Dymola 2013 FD01 does not add these directories
-to the search path for dynamically linked libraries,
-a user needs to do the following so that Dymola can find
-the library:
-</p>
-<p>
-<ul>
-<li>
-On Linux 32 bit, run
+  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+  <tr>
+      <th>System</th>
+      <th>Settings</th>
+    </tr>
+  <!-- =================================================================== -->
+    <tr>
+      <td>Linux 32 bit, Dymola 2014</td>
+      <td>
+Enter on a console the command
 <pre>
-  sudo ln -s `pwd`/Resources/Library/linux32/libModelicaBuildingsPython.so /usr/lib/libModelicaBuildingsPython.so
+  export PYTHONPATH=${PYTHONPATH}:\"Path_To_Buildings_Library\"/Resources/Python-Sources
+  export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:\"Path_To_Buildings_Library\"/Resources/Library/linux32
 </pre>
-</li>
-<li>
-On Linux 64 bit, the above should also work if 32 is replaced with 64. 
-However, Dymola 2013 FD01 is an exception because it generates 32 bit code even on a 64 bit computer.
-We could copy the files to <code>/usr/lib</code>, but this may potentially overwrite 64 bit libraries.
-A work-around is to modify <code>/opt/dymola/bin/dymola.sh</code> by replacing the line
+Alternatively, these lines could be added to the file <code>~/.bashrc</code>.
+      </td>
+    </tr>
+    <tr>
+  <!-- =================================================================== -->
+      <td>Linux 64 bit, Dymola 2014</td>
+      <td>
+Use the same commands as for <i>Linux 64 bit, Dymola 2014</i> because Dymola 2014 only generates 32 bit code.
+      </td>
+    </tr>
+  <!-- =================================================================== -->
+    <tr>
+      <td>Linux 32 bit, Dymola 2013 FD01</td>
+      <td>
+<p>
+Enter on a console the command
+<pre>
+  export PYTHONPATH=${PYTHONPATH}:\"Path_To_Buildings_Library\"/Resources/Python-Sources
+</pre>
+Alternatively, these lines could be added to the file <code>~/.bashrc</code>.</p>
+<p>
+Next, modify <code>/opt/dymola/bin/dymola.sh</code> by replacing the line
 <pre>
   export LD_LIBRARY_PATH=$DYMOLA/bin/lib
 </pre>
 with
 <pre>
+  export LD_LIBRARY_PATH=$DYMOLA/bin/lib:\"Path_To_Buildings_Library\"/Resources/Library/linux32
   export LD_LIBRARY_PATH=$DYMOLA/bin/lib:Resources/Library/linux32
 </pre>
-Then, restart Dymola and the examples should compile and simulate successfully.
-If you start Dymola from a different directory than from the <code>Buildings</code> directory,
-then add the full path to <code>Resources/Library/linux32</code>.
-</li>
-<li>
-On Windows, fixme: add description
-</li>
-</ul>
+</p>
+      </td>
+    </tr>
+  <!-- =================================================================== -->
+    <tr>
+      <td>Linux 64 bit, Dymola 2013 FD01</td>
+      <td>
+Use the same commands as for <i>Linux 32 bit, Dymola 2013 FD01</i> because Dymola 2013 FD01 only generates 32 bit code.
+      </td>
+    </tr>
+  <!-- =================================================================== -->
+    <tr>
+      <td>Windows 32 bit, Dymola 2014 
+      <br>Windows 64 bit, Dymola 2014
+      <br>Windows 32 bit, Dymola 2013 FD01 
+      <br>Windows 64 bit, Dymola 2013 FD01 </td>
+      <td>
+        Add to the system environment variable <code>PYTHONPATH</code> the directory 
+        <code>\"Path_To_Buildings_Library\"\\Resources\\Python-Sources</code>.
+      </td>
+    </tr>
+  <!-- =================================================================== -->
+  </table>
 </p>
 <h4>Number of values to read to Python and write from Python</h4>
 <p>
 The parameters <code>nDblWri</code> (or <code>nIntWri</code> or <code>nStrWri</code>)
 and <code>nDblRea</code> (or <code>nIntRea</code>) declare
-how many double (integer or string) values should be written to or read from the Python function.
+how many double (integer or string) values should be written to, or read from, the Python function.
 These values can be zero, in which case the Python function receives no
 arguments for this data type, or it must return a list with zero elements. 
 However, because Modelica does not allow arrays with
@@ -100,16 +120,16 @@ and <code>dblRea</code> contains a number that must not be used in any model.
 <h4>Arguments of the Python function</h4>
 <p>
 The arguments of the python functions are, in this order,
-floats, integers and 
-strings.
+floats, integers and strings.
 If there is only one element of each data type, then a single value is passed.
 If there are multiple elements of each data type, then they are stored in a list.
-If there is no value of a data type, then the argument is not present.
+If there is no value of a data type (such as if <code>nDblWri=0</code>), then the argument is not present.
 Thus, if a data type is not present, then the function will <i>not</i> receive an empty list of this data type.
 If there are no arguments at all, then the function takes no arguments.
 </p>
 <p>
-The table below shows the list of arguments for various combinations where no, one or two double values, integers and strings are passed as an argument to a Python function.
+The table below shows the list of arguments for various combinations where no, 
+one or two double values, integers and strings are passed as an argument to a Python function.
 </p>
 <p>
  <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
@@ -123,7 +143,6 @@ The table below shows the list of arguments for various combinations where no, o
   <tr> <td>2      </td>   <td>2      </td>  <td>2      </td>  <td>[1.0, 2.0], [1, 2], [\"a\", \"b\"]</td></tr>
 </table>
 </p>
-
 <h4>Returns values of the Python function</h4>
 <p>
 The Python function must return their values in the following order:
@@ -160,6 +179,7 @@ and integer values are returned.
   <tr> <td>2      </td>   <td>2      </td>  <td>[1.0, 2.0], [1, 2] </td></tr>
 </table>
 </p>
+<!-- Not yet implemented as pure functions are not supported in Dymola 2013 FD01 
 <h4>Pure Modelica functions (functions without side effects)</h4>
 <p>
 The functions that exchange data with Python are implemented as <i>pure</i>
@@ -172,14 +192,21 @@ they need to be called from a <code>when</code>-equation.
 See the Modelica language specification for an explanation
 of pure and impure functions.
 </p>
+-->
 <h4>Examples</h4>
 <p>
-The package
-<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples\">
-Buildings.Utilities.IO.Python27.Functions.Examples</a>
-contains various examples that call Python functions which are implemented
-in files that are stored in the directory
+The example
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Functions.Examples.Exchange\">
+Buildings.Utilities.IO.Python27.Functions.Examples.Exchange</a>
+contains various calls to different Python functions.
+The Python functions are stored in the directory
 <code>Buildings/Resources/Python-Sources</code>.
+</p>
+<p>
+The example 
+<a href=\"modelica://Buildings.Utilities.IO.Python27.Examples.KalmanFilter\">
+Buildings.Utilities.IO.Python27.Examples.KalmanFilter</a>
+shows how to implement in a Modelica block a call to a Python function.
 </p>
 <h4>Implementation notes</h4>
 <p>

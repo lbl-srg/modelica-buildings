@@ -13,5 +13,6 @@ equation
   XInv = Districts.Utilities.Psychrometrics.Functions.X_pW(p_w);
   dX = X - XInv;
   assert(abs(dX) < 10E-12, "Error in function implementation.");
-  annotation (__Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_X.mos" "Simulate and plot"));
+  annotation (__Dymola_Commands(file="modelica://Districts/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/pW_X.mos"
+        "Simulate and plot"));
 end pW_X;

@@ -625,12 +625,11 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-400,-300},{400,
-            300}}), graphics),
-    Commands(file=
+            300}})),
+    __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Examples/ChillerPlant/DataCenterDiscreteTimeControl.mos"
         "Simulate and plot"),
-    Icon(graphics),
-    Documentation(info="<HTML>
+Documentation(info="<HTML>
 <p>
 This model is the chilled water plant with discrete time control and
 trim and response logic for a data center. The model is described at
@@ -658,10 +657,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_experimentSetupOutput,
     experiment(
       StartTime=1.30464e+07,
       StopTime=1.36512e+07,
-      Tolerance=1e-06,
-      Algorithm="Radau"));
+      Tolerance=1e-06));
 end DataCenterDiscreteTimeControl;

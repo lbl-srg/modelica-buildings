@@ -86,10 +86,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
+            -100},{100,100}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/MixingBox.mos"
         "Simulate and plot"),
-    experiment(StopTime=240),
-    __Dymola_experimentSetupOutput);
+    experiment(StopTime=240));
 end MixingBox;

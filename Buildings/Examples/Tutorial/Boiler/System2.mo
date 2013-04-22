@@ -252,7 +252,7 @@ heat flow rate of <i>20</i> kW.
 <li>
 <p>
 Next, we computed the design mass flow rate for the radiator.
-According to the schematic diagram, the radiator should have at
+According to the schematic drawing, the radiator should have at
 the design conditions a supply water temperature of 
 <i>50</i>&deg;C and a return water temperature of
 <i>40</i>&deg;C.
@@ -390,9 +390,8 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true,
-            extent={{-240,-160},{100,100}}),
-            graphics),
-    Commands(file=
+            extent={{-240,-160},{100,100}})),
+    __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System2.mos"
         "Simulate and plot"),
     experiment(StopTime=172800));

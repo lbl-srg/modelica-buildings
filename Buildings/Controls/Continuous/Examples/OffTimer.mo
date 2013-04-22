@@ -27,7 +27,7 @@ equation
  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Continuous/Examples/OffTimer.mos"
         "Simulate and plot"),
               Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics),
+            -100},{100,100}})),
     Documentation(
 info="<html>
 <p>

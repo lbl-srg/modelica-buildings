@@ -151,7 +151,7 @@ equation
       points={{-31,-40},{-68,-40},{-68,100},{-110,100}},
       color={255,127,0},
       smooth=Smooth.None));
-  annotation (defaultComponentName="wetCoi", Diagram(graphics), Documentation(info="<html>
+  annotation (defaultComponentName="wetCoi", Documentation(info="<html>
 <p>
 This block calculates the rate of cooling and the coil surface condition
 under the assumption that the coil is wet.

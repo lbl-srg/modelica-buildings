@@ -15,12 +15,12 @@ Models that are contributed need to follow the following guidelines, as this is 
 
   - the `Buildings library user guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.Conventions>`_,
   - the `Modelica Standard Library user guide <http://simulationresearch.lbl.gov/modelica/releases/msl/3.2/help/Modelica_UsersGuide_Conventions.html#Modelica.UsersGuide.Conventions>`_, and 
-  - the `Buildings library development checklist <https://corbu.lbl.gov/trac/bie/wiki/DevelopmentCheckList>`_.
+  - the `Buildings library style guide <https://github.com/lbl-srg/modelica-buildings/wiki/Style-Guide>`_.
 
  * They need to be made available under the `Modelica license <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_UsersGuide.html#Buildings.UsersGuide.License>`_.
  * For models of fluid flow components, they need to be based on the base classes in `Buildings.Fluid.Interfaces <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces.html>`_, which are described in the `user guide <http://simulationresearch.lbl.gov/modelica/releases/latest/help/Buildings_Fluid_Interfaces_UsersGuide.html#Buildings.Fluid.Interfaces.UsersGuide>`_ of this package. Otherwise, it becomes difficult to ensure that the implementation is numerically robust.
 
-The website for the development of the library is https://corbu.lbl.gov/trac/bie
+The website for the development of the library is https://github.com/lbl-srg/modelica-buildings
 
 
 Adding a new class

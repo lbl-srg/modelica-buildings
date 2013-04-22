@@ -108,7 +108,7 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
-            160}}), graphics),
+            160}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{160,
             160}})),
     Documentation(info="<html>

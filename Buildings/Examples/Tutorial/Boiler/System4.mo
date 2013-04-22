@@ -495,7 +495,7 @@ Therefore, the boiler control sequence is as shown below.
 </p>
 </li>
 </ol>
-<!-- ----------------------- -->
+<!-- ============================================== -->
 <p>
 This completes the closed loop control of the boiler and the pumps. 
 When simulating the model
@@ -529,9 +529,8 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-360},{200,
-            100}}),
-            graphics),
-    Commands(file=
+            100}})),
+    __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System4.mos"
         "Simulate and plot"),
     experiment(StopTime=172800));

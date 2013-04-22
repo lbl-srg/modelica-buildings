@@ -176,7 +176,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{350,150}}), graphics),
+            -100},{350,150}})),
 Documentation(info="<html>
 <p>
 This examples demonstrates the implementation of CO<sub>2</sub> control
@@ -207,6 +207,5 @@ of the supply fan and pressure raise of the return fan is arbitrary.
         "Plot fan"),
     experiment(
       StopTime=86400,
-      Tolerance=1e-006,
-      Algorithm="Radau"));
+      Tolerance=1e-006));
 end VAVSystemCTControl;

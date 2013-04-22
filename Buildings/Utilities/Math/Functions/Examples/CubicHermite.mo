@@ -3,9 +3,9 @@ model CubicHermite "Test problem for cubic hermite splines"
   extends Modelica.Icons.Example;
   parameter Real[:] xd={-1,1,5,6} "Support points";
   parameter Real[size(xd, 1)] yd={-1,1,2,10} "Support points";
-  parameter Real[size(xd, 1)] d(fixed=false)
+  parameter Real[size(xd, 1)] d(each fixed=false)
     "Derivatives at the support points";
-  parameter Real[size(xd, 1)] dMonotone(fixed=false)
+  parameter Real[size(xd, 1)] dMonotone(each fixed=false)
     "Derivatives at the support points";
   parameter Boolean ensureMonotonicity=true;
   Real x "Independent variable";
@@ -49,10 +49,11 @@ algorithm
     y2d=dMonotone[i + 1]);
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}), graphics),
+            100,100}})),
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermite.mos"
         "Simulate and plot"),
+    experiment(StopTime=1),
     Documentation(info="<html>
 <p>
 This example demonstrates the use of the function for cubic hermite interpolation

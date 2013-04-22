@@ -100,7 +100,7 @@ equation
   end if;
   annotation (
     Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
     Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{
             100,100}}),
             graphics),
@@ -124,7 +124,7 @@ to properly guard against division by zero.
 December 14, 2012 by Michael Wetter:<br>
 Renamed protected parameters for consistency with the naming conventions.
 </li>
-<li>October 11, 2012</i> by Michael Wetter:<br>
+<li><i>October 11, 2012</i> by Michael Wetter:<br>
     Removed <code>WFlo = eta * PEle</code> so that classes that use this partial model
     can properly implement the equation so it guards against division by zero.
 </li>

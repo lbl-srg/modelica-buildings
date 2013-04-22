@@ -43,9 +43,10 @@ protected
 
   Modelica.SIunits.DynamicViscosity dynVis "Dynamic viscosity";
 
-  Modelica.SIunits.Mass mExc(start=0)
+  Modelica.SIunits.Mass mExc
     "Air mass exchanged (for purpose of error control only)";
-
+initial equation
+  mExc=0;
 equation
   if forceErrorControlOnFlow then
     der(mExc) = port_a.m_flow;
@@ -81,8 +82,6 @@ equation
   port_a.C_outflow = inStream(port_b.C_outflow);
   port_b.C_outflow = inStream(port_a.C_outflow);
   annotation (
-    Diagram(graphics),
-    Icon(graphics),
     Documentation(info="<html>
 <p>
 This model describes the mass flow rate and pressure difference relation
@@ -99,6 +98,11 @@ The model is used as a base for the interzonal air flow models.
 </html>",
 revisions="<html>
 <ul>
+<li>
+March 27, 2013 by Michael Wetter:<br>
+Added assignment of initial value for <code>mExc</code> to avoid error when checking model
+in pedantic mode with Dymola 2014.
+</li>
 <li>
 December 14, 2012 by Michael Wetter:<br>
 Renamed protected parameters for consistency with the naming conventions.

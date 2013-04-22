@@ -168,7 +168,7 @@ The model contains these main component models:
 <li>
 the models <code>extSha</code> and <code>intSha</code>
 for the heat balance of the shade, modeled using
-<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Shade\"</a>
+<a href=\"modelica://Buildings.HeatTransfer.Windows.BaseClasses.Shade\">
 Buildings.HeatTransfer.Windows.BaseClasses.Shade</a>.
 </li>
 <li>

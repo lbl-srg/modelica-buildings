@@ -1,7 +1,8 @@
 within Buildings.Fluid.Sensors;
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Info;
-  annotation (DocumentationClass=true, Documentation(info="<html>
+  annotation (preferredView="info",
+  Documentation(info="<html>
 <p>
 This package contains models of sensors.
 There are models with one and with two fluid ports.
@@ -40,6 +41,8 @@ Modelica.Fluid.Examples.Explanatory.MeasuringTemperature</a>.
     <img src=\"modelica://Buildings/Resources/Images/Fluid/Sensors/onePortHex.png\">
     </td>
 </tr>
+</table>
+</p>
 <p>
 Except for the mass flow rate sensor,
 all sensors with two ports can be 

@@ -107,7 +107,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
     annotation (Placement(transformation(extent={{-240,-240},{-200,-200}}),
         iconTransformation(extent={{-240,-220},{-200,-180}})));
 
-  parameter String filNam "Name of weather data file" annotation (Dialog(
+  parameter String filNam="" "Name of weather data file" annotation (Dialog(
         __Dymola_loadSelector(filter="Weather files (*.mos)", caption=
             "Select weather file")));
   final parameter Modelica.SIunits.Angle lon(displayUnit="deg")=
@@ -122,8 +122,7 @@ block ReaderTMY3 "Reader for TMY3 weather data"
   Bus weaBus "Weather Data Bus" annotation (Placement(transformation(extent={{
             294,-10},{314,10}}), iconTransformation(extent={{190,-10},{210,10}})));
   BaseClasses.SolarSubBus solBus "Sub bus with solar position"
-    annotation (Placement(transformation(visible=false,
-                                         extent={{-2,-304},{18,-284}}),
+    annotation (Placement(transformation(extent={{-2,-304},{18,-284}}),
         iconTransformation(extent={{-2,-200},{18,-180}})));
 
   parameter Buildings.BoundaryConditions.Types.SkyTemperatureCalculation
@@ -274,7 +273,7 @@ protected
   // By default, it is enabled. This introduces a nonlinear equation, but
   // we have not observed an increase in computing time because of this equation.
   Buildings.Utilities.Psychrometrics.TWetBul_TDryBulPhi tWetBul_TDryBulXi(
-      redeclare package Medium = Buildings.Media.PerfectGases.MoistAir, 
+      redeclare package Medium = Buildings.Media.PerfectGases.MoistAir,
       TDryBul(displayUnit="degC")) if computeWetBulbTemperature
     annotation (Placement(transformation(extent={{244,-66},{264,-46}})));
 
@@ -845,14 +844,14 @@ is used as follows:
 </p>
 <p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <th>Parameter <code>*Sou</code>
   </th>
   <th>Data used to compute weather data.
   </th>
 </tr>
-<!-- ------- -->
+<!-- ============================================== -->
 <tr>
   <td>
     File
@@ -861,7 +860,7 @@ is used as follows:
     Use data from file.
   </td>
 </tr>
-<!-- ------- -->
+<!-- ============================================== -->
 <tr>
   <td>
     Parameter
@@ -870,7 +869,7 @@ is used as follows:
     Use value specified by the parameter.
   </td>
 </tr>
-<!-- ------- -->
+<!-- ============================================== -->
 <tr>
   <td>
     Input
@@ -891,14 +890,14 @@ and allows the following configurations:
 </p>
 <p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<!-- -------------------------------- -->
+<!-- ============================================== -->
 <tr>
   <th>Parameter <code>HSou</code>
   </th>
   <th>Data used to compute weather data.
   </th>
 </tr>
-<!-- ------- -->
+<!-- ============================================== -->
 <tr>
   <td>
     File
@@ -907,7 +906,7 @@ and allows the following configurations:
     Use data from file.
   </td>
 </tr>
-<!-- ------- -->
+<!-- ============================================== -->
 <tr>
   <td>
     Input_HGloHor_HDifHor
@@ -1005,7 +1004,6 @@ time is shifted by <i>30</i> minutes prior to reading the weather data.
 <p align=\"center\">
 <img src=\"modelica://Buildings/Resources/Images/BoundaryConditions/WeatherData/RadiationTimeShift.png\" border=\"1\">
 </p>
-
 <h4>References</h4>
 <p>
 <ul>
@@ -1089,5 +1087,5 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-200,-300},{300,
-            300}}), graphics));
+            300}})));
 end ReaderTMY3;

@@ -22,8 +22,7 @@ protected
     "Needed to connect to conditional connector";
   parameter Medium.ExtraProperty C_in_internal[Medium.nC](
        fixed=false,
-       quantity=Medium.extraPropertiesNames)=fill(0, Medium.nC)
-    "Boundary trace substances"
+       quantity=Medium.extraPropertiesNames) "Boundary trace substances"
     annotation (Evaluate=true,
                 Dialog(enable = Medium.nC > 0));
 initial algorithm
@@ -45,7 +44,7 @@ equation
     m_flow_in_internal = m_flow;
   end if;
 
-  assert(sum(m_flow_in_internal) >= 0, "Reverse flow for species source is not yet implemented.");
+  assert(m_flow_in_internal >= 0, "Reverse flow for species source is not yet implemented.");
   sum(ports.m_flow) = -m_flow_in_internal;
   medium.T = Medium.T_default;
   medium.Xi = Medium.X_default[1:Medium.nXi];
@@ -65,6 +64,10 @@ made small compared to the room volume if the medium that leaves this
 component has a carbon dioxide concentration of <i>1</i>.
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2013, by Michael Wetter:<br>
+Removed binding for <code>C_in_internal</code> to allow pedantic check in Dymola 2014.
+</li>
 <li>
 February 22, by Michael Wetter:<br>
 Improved code that searches for the index of the trace substance in the medium model.

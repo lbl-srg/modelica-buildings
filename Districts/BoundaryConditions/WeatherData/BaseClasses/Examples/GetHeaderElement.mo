@@ -10,11 +10,11 @@ initial equation
     Districts.BoundaryConditions.WeatherData.BaseClasses.getLongitudeTMY3(
     filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos");
   latitude =
-    Districts.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(filNam
-    ="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos");
+    Districts.BoundaryConditions.WeatherData.BaseClasses.getLatitudeTMY3(filNam=
+     "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos");
   timeZone =
-    Districts.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam
-    ="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos");
+    Districts.BoundaryConditions.WeatherData.BaseClasses.getTimeZoneTMY3(filNam=
+     "Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos");
   assert(abs(longitude*180/Modelica.Constants.pi+87.92) < 1,
       "Error when parsing longitude, longitude = " + String(longitude));
   assert(abs(latitude*180/Modelica.Constants.pi-41.98) < 1,

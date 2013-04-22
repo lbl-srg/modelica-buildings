@@ -4,7 +4,8 @@ package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
   class Conventions "Conventions"
     extends Modelica.Icons.Information;
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <p>
 This library follows the conventions of the 
 <a href=\"modelica://Modelica.UsersGuide.Conventions\">Modelica Standard Library</a>, which are as follows:
@@ -120,11 +121,38 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
-  class Version_X_Y_buildY "Version X.Y build Z"
+  class Version_1_4_build1 "Version 1.4 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info",
+     Documentation(info="<html>
 <p>
-Version X.Y build Z is ... xxx
+Version 1.4 build 1 contains the new package <a href=\"modelica://Buildings.Utilities.IO.Python27\">
+Buildings.Utilities.IO.Python27</a> that allows calling Python functions from Modelica.
+It also contains in the package <a href=\"modelica://Buildings.HeatTransfer.Conduction.SingleLayer\">
+Buildings.HeatTransfer.Conduction.SingleLayer</a>
+a new model for heat conduction in phase change material. This model can be used as a layer
+of the room heat transfer model.
+</p>
+<p>
+Non-backward compatible changes had to be introduced
+</p>
+<p>
+<ul>
+<li>
+in the valve models
+<a href=\"modelica://Buildings.Fluid.Actuators.Valves\">
+Buildings.Fluid.Actuators.Valves</a> to fully comply with the Modelica language specification,
+</li>
+<li>
+and in the models in the package 
+<a href=\"modelica://Buildings.Utilities.Diagnostics\">
+Buildings.Utilities.Diagnostics</a>
+as they used the <code>cardinality</code> function which is deprecated in the Modelica
+Language Specification.
+</li>
+</p>
+<p>
+See below for details.
 </p>
 <!-- New libraries -->
 <p>
@@ -192,7 +220,16 @@ have been <b style=\"color:blue\">improved</b> in a
 <b style=\"color:blue\">backward compatible</b> way:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
-<tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
+<tr><td colspan=\"2\"><b>Buildings.Fluid</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolume
+    </td>
+    <td valign=\"top\">Removed the check of multiple connections to the same element
+                       of a fluid port, as this check required the use of the deprecated
+                       <code>cardinality</code> function.
+    </td>
+</tr><tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b>
     </td>
 </tr>
 <tr><td valign=\"top\">Buildings.HeatTransfer.Conduction.SingleLayer
@@ -200,12 +237,13 @@ have been <b style=\"color:blue\">improved</b> in a
     <td valign=\"top\">Added option to model layers with phase change material.
     </td>
 </tr>
-<tr><td colspan=\"2\"><b>xxx</b>
+<tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
-<tr><td valign=\"top\">xxx
+<tr><td valign=\"top\">Buildings.Rooms.BaseClasses.InfraredRadiationExchange
     </td>
-    <td valign=\"top\">xxx.
+    <td valign=\"top\">Removed the use of the <code>cardinality</code> function
+                       as this function is deprecated in the Modelica Language Specification.
     </td>
 </tr>
 </table>
@@ -239,6 +277,26 @@ have been <b style=\"color:blue\">improved</b> in a
                        and hence leads to an error in Dymola 2014.
     </td>
 </tr>
+<tr><td valign=\"top\">Buildings.Fluid.MixingVolumes.MixingVolumeDryAir<br/>
+                       Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir
+    </td>
+    <td valign=\"top\">Removed the use of the deprecated
+                       <code>cardinality</code> function.
+                       Therefore, now all input signals must be connected..
+    </td>
+</tr>      
+<tr><td colspan=\"2\"><b>Buildings.Utilities</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">Buildings.Utilities.Diagnostics.AssertEquality<br>
+                       Buildings.Utilities.Diagnostics.AssertInequality
+    </td>
+    <td valign=\"top\">Removed the option to not connect input signals, as this
+                       required the use of the <code>cardinality</code> function which
+                       is deprecated in the MSL, and not correctly implemented in OpenModelica.
+                       Therefore, if using these models, both input signals must be connected.
+    </td>
+</tr>
 </table>
 </p>
 <!-- Errors that have been fixed -->
@@ -255,7 +313,7 @@ that can lead to wrong simulation results):
     </td>
     <td valign=\"top\">Corrected error that led to wrong results if the room air temperature is
                      different from its nominal value <code>TRoo_nominal</code>.
-                     This fixes <a href=\"https://corbu.lbl.gov/trac/bie/ticket/74\">ticket 74</a>.
+                     This fixes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">issue 74</a>.
     </td>
 </tr>
 
@@ -268,7 +326,7 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Fixed bug in the assignment of the fictitious thermal resistance by replacing
                      <code>RFic[nSeg](each G=A/Rx)</code> with
                      <code>RFic[nSeg](each G=A/nSeg/Rx)</code>.
-                     This fixes <a href=\"https://corbu.lbl.gov/trac/bie/ticket/79\">ticket 79</a>.
+                     This fixes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/79\">issue 79</a>.
     </td>
 </tr>
 
@@ -281,7 +339,7 @@ that can lead to wrong simulation results):
     <td valign=\"top\">Replaced <code>when</code> test with <code>if</code> test as
                        equations within a <code>when</code> section are only evaluated
                        when the condition becomes true.
-                       This fixes <a href=\"https://corbu.lbl.gov/trac/bie/ticket/72\">ticket 72</a>.
+                       This fixes <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/72\">issue 72</a>.
     </td>
 </tr>
 </table>
@@ -307,19 +365,34 @@ units are wrong or errors in documentation):
                        instances of these models used the correct value.
     </td>
 </tr>
+
+<tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.ValveParameters
+    </td>
+    <td valign=\"top\">Removed stray backslash in write statement.
+    </td>
+</tr>
+
+<tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
+                       Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation<br/>
+                       Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger
+    </td>
+    <td valign=\"top\">Removed wrong unit attribute of <code>COut</code>.
+    </td>
+</tr>
+
 </table>
 </p>
-<!-- Trac tickets -->
+<!-- Github issues -->
 <p>
 The following
-<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Assert statement does not fire.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/72\">#72</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/72\">#72</a>
     </td>
     <td valign=\"top\">
     The blocks <code>Buildings.Utilities.Diagnostics.AssertEquality</code> and
@@ -332,7 +405,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b><code>HotWaterTemperatureReset</code> computes wrong results if room temperature differs from nominal value.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/74\">#74</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/74\">#74</a>
     </td>
     <td valign=\"top\">The equation
 <pre>TSup = TRoo_in_internal
@@ -347,7 +420,7 @@ should be formulated as
 <tr><td colspan=\"2\"><b>Bug in <code>RadiantSlabs.SingleCircuitSlab</code> fictitious resistance RFic.</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/79\">#79</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/79\">#79</a>
     </td>
     <td valign=\"top\">This bug has been fixed in the assignment of the fictitious thermal resistance by replacing
                      <code>RFic[nSeg](each G=A/Rx)</code> with
@@ -361,16 +434,19 @@ Note:
 </p>
 <ul>
 <li> 
-xxx
+This version contains various updates that allow
+the syntax of the example models to be checked in the pedantic mode
+in Dymola 2014.
 </li>
 </ul>
 </p>
 </html>"));
-  end Version_X_Y_buildY;
+  end Version_1_4_build1;
 
   class Version_1_3_build1 "Version 1.3 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 In version 1.3 build 1, models for direct evaporative cooling coils with multiple stages or with
 a variable speed compressor have been added.
@@ -637,14 +713,15 @@ units are wrong or errors in documentation):
 </tr>
 </table>
 </p>
-<!-- Trac tickets -->
+<!-- Github issues -->
 <!-- none -->
 </html>"));
   end Version_1_3_build1;
 
   class Version_1_2_build1 "Version 1.2 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 In version 1.2 build 1, models for radiant slabs and window overhangs and sidefins have been added.
 This version also contains various improvements to existing models.
@@ -899,22 +976,22 @@ units are wrong or errors in documentation):
 </tr>
 </table>
 </p>
-<!-- Trac tickets -->
+<!-- Github issues -->
 <p>
 The following
-<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Heat transfer in glass layer</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/56\">#56</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/56\">#56</a>
     </td>
     <td valign=\"top\">Fixed bug in heat flow through the glass layer if the infrared transmissivity is non-zero.
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/57\">#57</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/57\">#57</a>
     </td>
     <td valign=\"top\">Fixed bug in temperature linearization of window glass.
     </td>
@@ -922,7 +999,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Overshooting in enhanced stratified tank</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/15\">#15</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/15\">#15</a>
     </td>
     <td valign=\"top\">Revised the implementation to reduce the temperature over-shoot.
     </td>
@@ -933,7 +1010,8 @@ have been fixed:
 
   class Version_1_1_build1 "Version 1.1 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 Version 1.1 build 1 contains improvements to models that address numerical problems.
 In particular, flow machines and actuators now have an optional filter
@@ -1212,17 +1290,17 @@ units are wrong or errors in documentation):
 </tr>
 </table>
 </p>
-<!-- Trac tickets -->
+<!-- Github issues -->
 <p>
 The following
-<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Exterior longwave radiation exchange in window model</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/51\">#51</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/51\">#51</a>
     </td>
     <td valign=\"top\">Changed model to use new implementation of
                        Buildings.HeatTransfer.Radiosity.OutdoorRadiosity.
@@ -1231,7 +1309,7 @@ have been fixed:
                        the opaque constructions.
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/53\">#53</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/53\">#53</a>
     </td>
     <td valign=\"top\">Fixed bug in Buildings.Controls.SetPoints.OccupancySchedule that 
                        led to wrong results when the simulation started at a time different from zero.
@@ -1260,7 +1338,8 @@ gains and further details.
 
   class Version_1_0_build2 "Version 1.0 build 2"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 Version 1.0 build 2 has been released to correct model errors that
 were present in version 1.0 build 1. Both versions are compatible.
@@ -1357,17 +1436,17 @@ that can lead to wrong simulation results):
 </table>
 </p>
 <!-- Uncritical errors -->
-<!-- Trac tickets -->
+<!-- Github issues -->
 <p>
 The following
-<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.Fluid.HeatExchangers.Boreholes</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/45\">#45</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/45\">#45</a>
     </td>
     <td valign=\"top\">Dymola 2012 FD01 hangs when simulating a borehole heat exchanger.
     This was caused by a wrong release of memory in <code>freeArray.c</code>.
@@ -1376,7 +1455,7 @@ have been fixed:
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b>
     </td>
 </tr>
-<tr><td valign=\"top\"><a href=\"https://corbu.lbl.gov/trac/bie/ticket/46\">#46</a>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/46\">#46</a>
     </td>
     <td valign=\"top\">The convective internal heat gain has the wrong sign.
     </td>
@@ -1389,7 +1468,8 @@ have been fixed:
 
   class Version_1_0_build1 "Version 1.0 build 1"
     extends Modelica.Icons.ReleaseNotes;
-     annotation (Documentation(info="<html>
+     annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 Version 1.0 is the first official release of the <code>Buildings</code>
 library.
@@ -1755,7 +1835,7 @@ that can lead to wrong simulation results):
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
 <tr><td valign=\"top\">Buildings.Rooms.MixedAir</br>
                      Buildings.Rooms.BaseClasses.ExteriorBoundaryConditions</td>
-    <td valign=\"top\">Fixed bug (<a href=\"https://corbu.lbl.gov/trac/bie/ticket/35\">ticket 35</a>) 
+    <td valign=\"top\">Fixed bug (<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">issue 35</a>) 
                      that leads to the wrong solar heat gain for
                      roofs and for floors. Prior to this bug fix, the outside facing surface
                      of a ceiling received solar irradiation as if it were a floor 
@@ -1763,7 +1843,7 @@ that can lead to wrong simulation results):
 </td></tr>
 <tr><td valign=\"top\">Buildings.Rooms.MixedAir</br>
                      Buildings.Rooms.BaseClasses.ExteriorBoundaryConditionsWithWindow</td>
-    <td valign=\"top\">Fixed bug (<a href=\"https://corbu.lbl.gov/trac/bie/ticket/36\">ticket 36</a>) 
+    <td valign=\"top\">Fixed bug (<a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">issue 36</a>) 
                      that leads to too high a surface temperature of the window frame when
                      it receives solar radiation. The previous version did not compute 
                      the infrared radiation exchange between the
@@ -1785,38 +1865,38 @@ units are wrong or errors in documentation):
 </table>
 <p>
 The following
-<a href=\"https://corbu.lbl.gov/trac/bie\">trac tickets</a>
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
 <tr><td colspan=\"2\"><b>Buildings.BoundaryConditions</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/8\">#8</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/8\">#8</a></td>
     <td valign=\"top\">
          Add switches for new data.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/19\">#19</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/19\">#19</a></td>
     <td valign=\"top\">
          Shift the time for the radiation data 30 min forth and output the local civil time in the data reader. 
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/41\">#41</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/41\">#41</a></td>
     <td valign=\"top\">
        Using when-then sentences to reduce CPU time.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/43\">#43</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/43\">#43</a></td>
     <td valign=\"top\">
          Add a ConvertRadiation to convert the unit of radiation from TMY3.
     </td>
 </tr>
 <tr><td colspan=\"2\"><b>Buildings.Fluid</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/28\">#28</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/28\">#28</a></td>
     <td valign=\"top\">
          Move scripts to Buildings\\Resources\\Scripts\\Dymola.
     </td>
@@ -1824,7 +1904,7 @@ have been fixed:
 
 <tr><td colspan=\"2\"><b>Buildings.HeatTransfer</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/18\">#18</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/18\">#18</a></td>
     <td valign=\"top\">
          Add a smooth interpolation function to avoid the event.
     </td>
@@ -1832,7 +1912,7 @@ have been fixed:
 
 <tr><td colspan=\"2\"><b>Buildings.Media</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/30\">#30</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/30\">#30</a></td>
     <td valign=\"top\">
          Removed non-required structurally incomplete annotation.
     </td>
@@ -1840,13 +1920,13 @@ have been fixed:
 
 <tr><td colspan=\"2\"><b>Buildings.Rooms</b></td></tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/35\">#35</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/35\">#35</a></td>
     <td valign=\"top\">
          Wrong surface tilt for radiation at exterior surfaces of floors and ceilings.
     </td>
 </tr>
 <tr><td valign=\"top\">
-    <a href=\"https://corbu.lbl.gov/trac/bie/ticket/36\">#36</a></td>
+    <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/36\">#36</a></td>
     <td valign=\"top\">
          High window frame temperatures.
     </td>
@@ -1879,7 +1959,8 @@ generates the entry in the <code>Command</code> pull down menu has been changed 
 
   class Version_0_12_0 "Version 0.12.0"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <b>Note:</b> The packages whose name ends with <code>Beta</code>
 are still being validated.
@@ -1946,7 +2027,8 @@ to allow use of the room model with media that do not contain water vapor.
 
   class Version_0_11_0 "Version 0.11.0"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <b>Note:</b> The packages whose name ends with <code>Beta</code>
 are still being validated.
@@ -2051,7 +2133,8 @@ Buildings.Fluid.Movers.BaseClasses.Characteristics</a>.
 
   class Version_0_10_0 "Version 0.10.0"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2117,7 +2200,8 @@ by the parameters. This also required a change in the parameters.
 
   class Version_0_9_1 "Version 0.9.1"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 The following <b style=\"color:red\">critical error</b> has been fixed (i.e. error
 that can lead to wrong simulation results):
@@ -2152,7 +2236,8 @@ that can lead to wrong simulation results):
 
   class Version_0_9_0 "Version 0.9.0"
     extends Modelica.Icons.ReleaseNotes;
-  annotation (Documentation(info="<html>
+  annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2270,7 +2355,8 @@ pressure drop and height.
 
   class Version_0_8_0 "Version 0.8.0"
     extends Modelica.Icons.ReleaseNotes;
-              annotation (Documentation(info="<html>
+              annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2408,7 +2494,8 @@ and hence to the flow splitter and to the three-way valves. This often breaks al
 
   class Version_0_7_0 "Version 0.7.0"
     extends Modelica.Icons.ReleaseNotes;
-              annotation (Documentation(info="<html>
+              annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2433,7 +2520,8 @@ Virtual Test Bed.
 
   class Version_0_6_0 "Version 0.6.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2512,7 +2600,7 @@ to allow specifying the nominal face velocity instead of the area.
 </li>
 <li>
 Set nominal attribute for pressure drop <code>dp</code> in 
-<a href=\"modelica://Buildings.Fluid.BaseClasses.PartialResistance\"</a>
+<a href=\"modelica://Buildings.Fluid.BaseClasses.PartialResistance\">
 Buildings.Fluid.BaseClasses.PartialResistance</a> and in its
 child classes.
 </li>
@@ -2543,7 +2631,8 @@ convention used in Modelica.Fluid 1.0.
 
   class Version_0_5_0 "Version 0.5.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2583,7 +2672,8 @@ be used as the flow coefficient (in [m3/h] or [USG/min]).
 
   class Version_0_4_0 "Version 0.4.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2607,7 +2697,8 @@ The package contains models that facilitate reporting.
 
   class Version_0_3_0 "Version 0.3.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 <ul>
 <li>
@@ -2670,7 +2761,8 @@ inside the volume. The condensate is removed from the volume in its liquid phase
 
   class Version_0_2_0 "Version 0.2.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 New in this version are models for two and three way valves.
 In addition, the <code>Fluids</code> package has been slightly revised.
@@ -2684,7 +2776,8 @@ where part of the <code>Actuator</code> package.
 
   class Version_0_1_0 "Version 0.1.0"
     extends Modelica.Icons.ReleaseNotes;
-      annotation (Documentation(info="<html>
+      annotation (preferredView="info", Documentation(info=
+                   "<html>
 <p>
 First release of the library.
 </p>
@@ -2702,7 +2795,8 @@ to the medium properties.
 "));
   end Version_0_1_0;
 
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <p>
 This section summarizes the changes that have been performed
 on the Buildings library.
@@ -2711,77 +2805,80 @@ on the Buildings library.
 <ul>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_4_build1\">
-Version 1.4 build1</a>(xxx, 2013)</li>
+Version 1.4 build1</a>(xxx, 2013)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_3_build1\">
-Version 1.3 build1</a>(January 8, 2013)</li>
+Version 1.3 build1</a>(January 8, 2013)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_2_build1\">
-Version 1.2 build1</a>(July 26, 2012)</li>
+Version 1.2 build1</a>(July 26, 2012)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_1_build1\">
-Version 1.1 build1</a>(February 29, 2012)</li>
+Version 1.1 build1</a>(February 29, 2012)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build2\">
-Version 1.0 build2</a>(December 8, 2011)</li>
+Version 1.0 build2</a>(December 8, 2011)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_0_build1\">
-Version 1.0 build1</a>(November 4, 2011)</li>
+Version 1.0 build1</a>(November 4, 2011)</a>
 </li>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_12_0\">
-Version 0.12.0 </a>(May 6, 2011)</li>
+Version 0.12.0 </a>(May 6, 2011)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_11_0\">
-Version 0.11.0 </a>(March 17, 2011)</li>
+Version 0.11.0 </a>(March 17, 2011)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_10_0\">
-Version 0.10.0 </a>(July 30, 2010)</li>
+Version 0.10.0 </a>(July 30, 2010)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_1\">
-Version 0.9.1 </a>(June 24, 2010)</li>
+Version 0.9.1 </a>(June 24, 2010)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_9_0\">
-Version 0.9.0 </a>(June 11, 2010)</li>
+Version 0.9.0 </a>(June 11, 2010)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_8_0\">
-Version 0.8.0 </a>(February 6, 2010)</li>
+Version 0.8.0 </a>(February 6, 2010)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_7_0\">
-Version 0.7.0 </a>(September 29, 2009)</li>
+Version 0.7.0 </a>(September 29, 2009)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_6_0\">
-Version 0.6.0 </a>(May 15, 2009)</li>
+Version 0.6.0 </a>(May 15, 2009)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_5_0\">
-Version 0.5.0 </a>(February 19, 2009)</li>
+Version 0.5.0 </a>(February 19, 2009)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_4_0\">
-Version 0.4.0 </a>(October 31, 2008)</li>
+Version 0.4.0 </a>(October 31, 2008)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_3_0\">
-Version 0.3.0 </a>(September 30, 2008)</li>
+Version 0.3.0 </a>(September 30, 2008)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_2_0\">
-Version 0.2.0 </a>(June 17, 2008)</li>
+Version 0.2.0 </a>(June 17, 2008)</a>
 <li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_0_1_0\">
-Version 0.1.0 </a>(May 27, 2008)</li>
+Version 0.1.0 </a>(May 27, 2008)</a>
+</li>
 </ul>
 </p>
-<p></p>
+<p>
+</p>
 </html>
 "));
   end ReleaseNotes;
 
   class Contact "Contact"
     extends Modelica.Icons.Contact;
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Contact</font></h4>
 <p>
 The development of the Buildings library is organized by<br>
@@ -2799,7 +2896,8 @@ The development of the Buildings library is organized by<br>
 
   class Acknowledgements "Acknowledgements"
     extends Modelica.Icons.Information;
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Acknowledgements</font></h4>
 <p>
  The development of this library was supported
@@ -2868,7 +2966,8 @@ The following people have directly contributed to the implementation of the Buil
 
   class License "Modelica License 2"
     extends Modelica.Icons.Information;
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>The Modelica License 2</font></h4>
 <p>
 <strong>Preamble.</strong> The goal of this license is that Modelica related model libraries, software, images, documents, data files etc. can be used freely in the original or a modified form, in open source and in commercial environments (as long as the license conditions below are fulfilled, in particular sections 2c) and 2d). The Original Work is provided free of charge and the use is completely at your own risk. Developers of free Modelica packages are encouraged to utilize this license for their work. 
@@ -2997,11 +3096,10 @@ You are under no obligation whatsoever to provide any bug fixes, patches, or upg
 At the top level of your Modelica package and at every important subpackage, add the following notices in the info layer of the package: 
 <ul><li style=\"list-style-type:none\">
 Licensed by The Regents of the University of California, through Lawrence Berkeley National Laboratory under the Modelica License 2 Copyright (c) 2009-2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory. 
-<p>
+</li>
 <li style=\"list-style-type:none\"><i>
-This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at </em><a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>. 
-</i>
-</li></ul>
+This Modelica package is <u>free</u> software and the use is completely at <u>your own risk</u>; it can be redistributed and/or modified under the terms of the Modelica license 2, see the license conditions (including the disclaimer of warranty) here or at <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html\">http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.html</a>. 
+</i></li></ul>
 <p>
 Include a copy of the Modelica License 2 under <strong>&lt;library&gt;.UsersGuide.ModelicaLicense2</strong> 
 (use <a href=\"http://www.modelica.org/modelica-legal-documents/ModelicaLicense2.mo\">
@@ -3032,7 +3130,8 @@ In these cases, save a copy of the Modelica License 2 in one directory of the di
 
   class Copyright "Copyright"
     extends Modelica.Icons.Information;
-    annotation (Documentation(info="<html>
+    annotation (preferredView="info",
+    Documentation(info="<html>
 <h4><font color=\"#008000\" size=5>Copyright</font></h4>
 <p>
 Copyright (c) 2009-2013, The Regents of the University of California, through Lawrence Berkeley National Laboratory (subject to receipt of any required approvals from the U.S. Dept. of Energy). All rights reserved.
@@ -3045,7 +3144,8 @@ NOTICE. This software was developed under partial funding from the U.S. Departme
 </html>
 "));
   end Copyright;
-  annotation (DocumentationClass=true, Documentation(info="<html>
+  annotation (preferredView="info",
+  Documentation(info="<html>
 <p>
 The <code>Buildings</code> library is a free open-source library for modeling of building energy and control systems. 
 Many models are based on models from the package
@@ -3087,35 +3187,35 @@ individual libraries.
 <table border=1 cellspacing=0 cellpadding=2>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Airflow.Multizone.UsersGuide\">Airflow.Multizone</a>
    </td>
-   <td valign=\"top\">Library for multizone airflow and contaminant transport.</td>
+   <td valign=\"top\">Package for multizone airflow and contaminant transport.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.BoundaryConditions.UsersGuide\">BoundaryConditions</a>
    </td>
-   <td valign=\"top\">Library for computing boundary conditions, such as solar irradiation.</td>
+   <td valign=\"top\">Package for computing boundary conditions, such as solar irradiation.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.BoundaryConditions.WeatherData.UsersGuide\">BoundaryConditions.WeatherData</a>
    </td>
-   <td valign=\"top\">Library for reading weather data.</td>
+   <td valign=\"top\">Package for reading weather data.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.UsersGuide\">Fluid</a>
    </td>
-   <td valign=\"top\">Library for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
+   <td valign=\"top\">Package for one-dimensional fluid in piping networks with heat exchangers, valves, etc.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Actuators.UsersGuide\">Fluid.Actuators</a>
    </td>
-   <td valign=\"top\">Library with valves and air dampers.</td>
+   <td valign=\"top\">Package with valves and air dampers.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.UsersGuide\">Fluid.HeatExchangers.DXCoils</a>
    </td>
-   <td valign=\"top\">Library with direct evaporative cooling coils.</td>
+   <td valign=\"top\">Package with direct evaporative cooling coils.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Movers.UsersGuide\">Fluid.Movers</a>
    </td>
-   <td valign=\"top\">Library with fans and pumps.</td>
+   <td valign=\"top\">Package with fans and pumps.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Sensors.UsersGuide\">Fluid.Sensors</a>
    </td>
-   <td valign=\"top\">Library with sensors.</td>
+   <td valign=\"top\">Package with sensors.</td>
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.Fluid.Interfaces.UsersGuide\">Fluid.Interfaces</a>
    </td>
@@ -3123,9 +3223,12 @@ individual libraries.
 </tr>
 <tr><td valign=\"top\"><a href=\"modelica://Buildings.HeatTransfer.UsersGuide\">HeatTransfer</a>
    </td>
-   <td valign=\"top\">Library heat transfer in building constructions.</td>
+   <td valign=\"top\">Package for heat transfer in building constructions.</td>
 </tr>
-</table>
+<tr><td valign=\"top\"><a href=\"modelica://Buildings.Utilities.IO.Python27.UsersGuide\">Utilities.IO.Python27</a>
+   </td>
+   <td valign=\"top\">Package to call Python functions from Modelica.</td>
+</tr></table>
 </p>
 </li>
 <li>
@@ -3143,11 +3246,13 @@ end UsersGuide;
 
 
 annotation (
+preferredView="info",
 version="1.4",
 versionBuild=0,
-versionDate="2013-01-08",
-dateModified = "$Date$",
+versionDate="2013-04-04",
+dateModified = "2013-04-04",
 uses(Modelica(version="3.2")),
+uses(Modelica_StateGraph2(version="2.0.1")),
 conversion(
  noneFromVersion="1.3",
  noneFromVersion="1.2",

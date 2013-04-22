@@ -51,7 +51,13 @@ initial equation
     Medium.X_default))) > 1E-10,
     "Error: The density of the medium that is used to compute buoyancy force is independent of temperature."
      + "\n       You need to select a different medium model.");
-  assert(densitySelection > 0,
+  // The next assert tests for all allowed values of the enumeration.
+  // Testing against densitySelection > 0 gives an error in OpenModelica as enumerations start with 1.
+  assert(densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromTop
+         or
+         densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.fromBottom
+         or
+         densitySelection == Buildings.Airflow.Multizone.Types.densitySelection.actual,
     "You need to set the parameter \"densitySelection\" for the model MediumColumn.");
 equation
   // Design direction of mass flow rate
@@ -193,6 +199,9 @@ Buildings.Airflow.Multizone.MediumColumnDynamic</a> instead of this model.
 </html>",
 revisions="<html>
 <ul>
+<li><i>April 17, 2013</i> by Michael Wetter:<br>
+       Reformulated the assert statement that checks for the correct value of <code>densitySelection</code>.
+</li>
 <li><i>July 28, 2010</i> by Michael Wetter:<br>
        Changed sign for pressure difference.
 </li>

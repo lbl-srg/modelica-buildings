@@ -54,16 +54,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesSeries.mos" "Simulate and plot"),
-    Diagram(Text(
-        extent=[-20,58; 30,44],
-        style(color=3, rgbcolor={0,0,255}),
-        string="nRes resistances  in series")),
-    experiment(
-      Interval=0.0001,
-      fixedstepsize=0.0001,
-      Algorithm="Euler"),
-    experimentSetupOutput);
+            -100},{100,100}})),
+             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/FixedResistancesSeries.mos"
+        "Simulate and plot"));
 end FixedResistancesSeries;

@@ -2,7 +2,7 @@ within Buildings.Media.GasesConstantDensity;
 package SimpleAir
   "Package with dry air model that decouples pressure and temperature"
   extends Buildings.Media.Interfaces.PartialSimpleIdealGasMedium(
-     ThermoStates = Modelica.Media.Interfaces.PartialMedium.Choices.IndependentVariables.pT,
+     ThermoStates = Buildings.Media.Interfaces.Choices.IndependentVariables.pT,
      final singleState = true,
      mediumName="GasesConstantDensity.SimpleAir",
      cp_const=1005.45,
@@ -57,7 +57,7 @@ package SimpleAir
     parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
       annotation (Evaluate=true, Dialog(tab="Advanced"));
-    parameter Boolean standardOrderComponents = true
+    final parameter Boolean standardOrderComponents = true
       "if true, and reducedX = true, the last element of X will be computed from the other ones";
     SI.Conversions.NonSIunits.Temperature_degC T_degC=
         Modelica.SIunits.Conversions.to_degC(T)
@@ -208,7 +208,7 @@ end saturationPressure;
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium model is similar to 
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
+<a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a>, except that the
 gas density is constant.
 </p>
@@ -221,7 +221,7 @@ networks.
 </p>
 <p>
 As in
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
+<a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a>, the
 specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium
@@ -229,6 +229,11 @@ quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2013, by Michael Wetter:<br>
+Changed declarationo of <code>parameter Boolean standardOrderComponents = true</code>
+to final to avoid an error when checking models in pedantic mode in Dymola 2014.
+</li>
 <li>
 August 3, 2011, by Michael Wetter:<br>
 Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 

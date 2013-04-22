@@ -61,7 +61,6 @@ model DryCoilDiscretizedPControl
   Buildings.Fluid.Actuators.Valves.TwoWayEqualPercentage val(
     redeclare package Medium = Medium1,
     l=0.005,
-    Kv_SI=5/sqrt(4000),
     m_flow_nominal=m1_flow_nominal,
     filteredOpening=false,
     dpFixed_nominal=2000 + 3000,
@@ -148,7 +147,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
-            -100},{200,200}}), graphics),
+            -100},{200,200}})),
                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Examples/DryCoilDiscretizedPControl.mos"
         "Simulate and plot"),
     Documentation(revisions="<html>

@@ -637,7 +637,7 @@ before they can be switched off.
 </p>
 </li>
 </ol>
-<!-- ----------------------- -->
+<!-- ============================================== -->
 <p>
 When simulating the model
 for <i>2</i> days, or <i>172800</i> seconds, the
@@ -665,9 +665,8 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-400,-360},{240,
-            100}}),
-            graphics),
-    Commands(file=
+            100}})),
+    __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/Boiler/System7.mos"
         "Simulate and plot"),
     experiment(StopTime=172800));

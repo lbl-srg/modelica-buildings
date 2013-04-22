@@ -71,7 +71,6 @@ model HexElement
     UA_nominal=9999,
     redeclare package Medium1 = Medium_W,
     redeclare package Medium2 = Medium_A,
-    allowCondensation=false,
     dp1_nominal=5,
     dp2_nominal=5)  annotation (Placement(transformation(extent={{10,-10},{30,
             10}}, rotation=0)));
@@ -149,10 +148,7 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}),
-                     graphics),
+            -100},{100,100}})),
                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HexElement.mos"
-        "Simulate and plot"),
-    experimentSetupOutput,
-              Diagram);
+        "Simulate and plot"));
 end HexElement;

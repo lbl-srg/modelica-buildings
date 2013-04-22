@@ -51,17 +51,19 @@ initial algorithm
     Cv    :=           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
     Av    :=           Kv_SI/sqrt(rhoStd);
   elseif CvData == Buildings.Fluid.Types.CvTypes.Kv then
-    Kv_SI :=           Kv*rhoStd/3600/sqrt(1E5) "Unit conversion m3/(h*sqrt(bar)) to kg/(s*sqrt(Pa))";
+    Kv_SI :=           Kv*rhoStd/3600/sqrt(1E5)
+      "Unit conversion m3/(h*sqrt(bar)) to kg/(s*sqrt(Pa))";
     Cv    :=           Kv_SI/(rhoStd*0.0631/1000/sqrt(6895));
     Av    :=           Kv_SI/sqrt(rhoStd);
     dpValve_nominal := (m_flow_nominal/Kv_SI)^2;
   elseif CvData == Buildings.Fluid.Types.CvTypes.Cv then
-    Kv_SI :=           Cv*rhoStd*0.0631/1000/sqrt(6895) "Unit conversion USG/(min*sqrt(psi)) to kg/(s*sqrt(Pa))";
+    Kv_SI :=           Cv*rhoStd*0.0631/1000/sqrt(6895)
+      "Unit conversion USG/(min*sqrt(psi)) to kg/(s*sqrt(Pa))";
     Kv    :=           Kv_SI/(rhoStd/3600/sqrt(1E5));
     Av    :=           Kv_SI/sqrt(rhoStd);
     dpValve_nominal := (m_flow_nominal/Kv_SI)^2;
   else
-    assert(CvData == Buildings.Fluid.Types.CvTypes.Av, "Invalid value for CvData.\
+    assert(CvData == Buildings.Fluid.Types.CvTypes.Av, "Invalid value for CvData.
 Obtained CvData = " + String(CvData) + ".");
     Kv_SI :=           Av*sqrt(rhoStd);
     Kv    :=           Kv_SI/(rhoStd/3600/sqrt(1E5));
@@ -70,7 +72,7 @@ Obtained CvData = " + String(CvData) + ".");
   end if;
 
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics),
+            -100},{100,100}})),
 Documentation(info="<html>
 <p>
 Model that computes the flow coefficients of valves. This base class allows the following modeling options,
@@ -115,6 +117,10 @@ then specifying a value for <code>dpValve_nominal</code> is a syntax error.
 </html>", revisions="<html>
 <ul>
 <li>
+March 25, 2013, by Michael Wetter:<br>
+Removed stray backslash in write statement.
+</li>
+<li>
 February 28, 2013, by Michael Wetter:<br>
 Reformulated assignment of parameters, and removed <code>Kv_SI</code> as
 a public parameter because it is always computed based on other parameters.
@@ -126,13 +132,5 @@ February 18, 2009 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"),
-revisions="<html>
-<ul>
-<li>
-June 3, 2008 by Michael Wetter:<br>
-First implementation.
-</li>
-</ul>
-</html>");
+</html>"));
 end ValveParameters;

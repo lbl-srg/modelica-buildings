@@ -49,7 +49,7 @@ protected
     "Support points for derivatives (used for PCM)";
   parameter Modelica.SIunits.Temperature Td[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false)
     "Support points for derivatives (used for PCM)";
-  parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, unit="kg.K2/J")
+  parameter Real dT_du[Buildings.HeatTransfer.Conduction.nSupPCM](each fixed=false, each unit="kg.K2/J")
     "Derivatives dT/du at the support points (used for PCM)";
 
 initial equation
@@ -128,7 +128,7 @@ equation
     end if;
 
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics), Icon(coordinateSystem(
+            -100},{100,100}})), Icon(coordinateSystem(
           preserveAspectRatio=false,extent={{-100,-100},{100,100}}), graphics={
         Rectangle(
           extent={{-94,4},{92,-4}},

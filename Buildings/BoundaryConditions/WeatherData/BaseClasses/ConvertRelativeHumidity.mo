@@ -33,7 +33,7 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=true,extent={{-100,-100},{100,
-            100}}), graphics),
+            100}})),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}}), graphics={Bitmap(extent={{-56,52},{62,-42}}, fileName=
               "modelica://Buildings/Resources/Images/Utilities/IO/WeatherData/BaseClasses/RelativeHumidity.png")}));

@@ -230,7 +230,6 @@ equation
           lineThickness=1)}),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ReverseBuoyancy3Zones.mos"
         "Simulate and plot"),
-    Diagram,
     Documentation(revisions="<html>
 <ul>
 <li>

@@ -1,19 +1,8 @@
 within Buildings.Fluid.HeatExchangers.RadiantSlabs.BaseClasses;
 model MassFlowRateMultiplier "Model that multiplies the mass flow rate"
-
-  replaceable package Medium =
-      Modelica.Media.Interfaces.PartialMedium "Medium in the component"
-      annotation (choicesAllMatching = true);
+  extends Modelica.Fluid.Interfaces.PartialTwoPort;
 
   parameter Real k "Gain for mass flow rate";
-  Modelica.Fluid.Interfaces.FluidPort_a port_a(
-                     redeclare package Medium = Medium) "Fluid connector a"
-    annotation (Placement(transformation(extent={{-110,-10},{-90,10}},
-            rotation=0)));
-  Modelica.Fluid.Interfaces.FluidPort_b port_b(
-                     redeclare package Medium = Medium) "Fluid connector b"
-    annotation (Placement(transformation(extent={{110,-10},{90,10}}, rotation=
-             0), iconTransformation(extent={{110,-10},{90,10}})));
 initial equation
   assert( k > Modelica.Constants.small or -k < -Modelica.Constants.small,
     "Gain must not be zero. Received k = " + String(k));
@@ -51,6 +40,10 @@ having the same mass flow rate and temperatures.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 27, 2013, by Michael Wetter:<br>
+Changed implementation to extend from <code>Modelica.Fluid</code>.
+</li>
 <li>
 June 27, 2012, by Michael Wetter:<br>
 First implementation.

@@ -56,7 +56,7 @@ package SimpleAir
     parameter Boolean preferredMediumStates=false
       "= true if StateSelect.prefer shall be used for the independent property variables of the medium"
       annotation (Evaluate=true, Dialog(tab="Advanced"));
-    parameter Boolean standardOrderComponents = true
+    final parameter Boolean standardOrderComponents = true
       "if true, and reducedX = true, the last element of X will be computed from the other ones";
     SI.Conversions.NonSIunits.Temperature_degC T_degC=
         Modelica.SIunits.Conversions.to_degC(T)
@@ -198,7 +198,7 @@ end saturationPressure;
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium model is identical to 
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
+<a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a>, except the 
 equation <code>d = p/(R*T)</code> has been replaced with 
 <code>d/dStp = p/pStp</code> where 
@@ -211,7 +211,7 @@ because pressure and temperature are decoupled, at the expense of accuracy.
 </p>
 <p>
 As in
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
+<a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a>, the
 specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium
@@ -219,6 +219,12 @@ quantities are constant.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+March 29, 2013, by Michael Wetter:<br>
+Added qualifier <code>final</code> to <code>standardOrderComponents=true</code> in the
+<code>BaseProperties</code> declaration. This avoids an error
+when models are checked in Dymola 2014 in the pedenatic mode.
+</li>
 <li>
 August 3, 2011, by Michael Wetter:<br>
 Fixed bug in <code>u=h-R*T</code>, which is only valid for ideal gases. 

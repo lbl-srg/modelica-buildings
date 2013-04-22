@@ -156,7 +156,7 @@ June 10, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>",
+</html>"),
    Icon(graphics={Line(
          points={{0,100},{0,-24}},
          color={0,0,0},
@@ -170,17 +170,5 @@ First implementation.
           extent={{-100,22},{100,-24}},
           lineColor={0,0,0},
           fillPattern=FillPattern.HorizontalCylinder,
-          fillColor={0,127,255})}),
-             Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-           -100},{100,100}}), graphics={Polygon(
-         points={{-20,4},{4,50},{16,50},{-8,4},{-20,4}},
-         lineColor={0,0,255},
-         pattern=LinePattern.None,
-         fillColor={0,0,0},
-         fillPattern=FillPattern.Solid), Polygon(
-         points={{-22,-46},{2,0},{14,0},{-10,-46},{-22,-46}},
-         lineColor={0,0,255},
-         pattern=LinePattern.None,
-         fillColor={0,0,0},
-         fillPattern=FillPattern.Solid)})));
+          fillColor={0,127,255})}));
 end PartialDamperExponential;

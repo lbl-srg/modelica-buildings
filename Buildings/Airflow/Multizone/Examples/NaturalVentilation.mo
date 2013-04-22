@@ -90,10 +90,9 @@ equation
       smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,
-            100}}), graphics),
+            100}})),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/NaturalVentilation.mos"
         "Simulate and plot"),
-    Diagram,
     Documentation(info="<html>
 <p>
 This model illustrates buoyancy-driven natural ventilation between 

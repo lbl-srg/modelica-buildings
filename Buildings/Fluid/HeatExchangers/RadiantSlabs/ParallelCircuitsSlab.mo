@@ -245,7 +245,7 @@ June 27, 2012, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"), Diagram(graphics),
+</html>"),
     Icon(graphics={
         Rectangle(
           extent={{-80,80},{80,-80}},

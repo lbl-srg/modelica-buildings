@@ -96,7 +96,7 @@ the mass flow rate at the fluid port is equal to zero.
 December 6, 2011, by Michael Wetter:<br>
 Fixed sign error in convective heat gain that is assigned to 
 <code>QCon_flow.Q_flow</code>.
-This closes ticket <a href=\"https://corbu.lbl.gov/trac/bie/ticket/46\">ticket 46</a>.
+This closes ticket <a href=\"https://github.com/lbl-srg/modelica-buildings/issues/46\">issue 46</a>.
 </li>
 <li>
 April 27, 2011, by Michael Wetter:<br>

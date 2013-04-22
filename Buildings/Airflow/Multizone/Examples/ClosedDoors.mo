@@ -52,6 +52,8 @@ model ClosedDoors "Model with three closed doors"
     LClo=20*1E-4,
     forceErrorControlOnFlow=true) "Discretized door" annotation (Placement(
         transformation(extent={{10,-90},{30,-70}}, rotation=0)));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{70,68},{90,88}})));
 equation
   connect(Gain1.y, PrescribedHeatFlow1.Q_flow)
     annotation (Line(points={{-7,50},{4,50}}, color={0,0,255}));
@@ -119,10 +121,8 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-    Diagram(graphics),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ClosedDoors.mos"
         "Simulate and plot"),
-    Diagram,
     Documentation(info="<html>
 <p>
 This model consists of three volumes that are connected among

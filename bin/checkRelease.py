@@ -11,9 +11,24 @@ import os, string, fnmatch, os.path, sys
 LIBHOME=os.path.abspath(".")
 
 # List of invalid strings
+# Regarding the strings __Dymola_*, see https://trac.modelica.org/Modelica/ticket/786
+# for possible replacements.
 INVALID_IN_ALL=["fixme", "import \"", "<h1", "<h2", "<h3", "todo", "xxx", "tt>", 
                 "realString", "integerString", "structurallyIncomplete",
-                "preferedView"]
+                "preferedView", "Algorithm=", "Diagram,", "DocumentationClass",
+                "__Dymola_absoluteValue",
+                "__Dymola_checkBox",
+                "__Dymola_choicesAllMatching",
+                "__Dymola_classOrder",
+                "__Dymola_colorSelector",
+                "__Dymola_editButton",
+                "__Dymola_experimentSetupOutput",
+                "__Dymola_InlineAfterIndexReduction",
+                "__Dymola_keepConstant",
+                "__Dymola_normallyConstant",
+                "__Dymola_NumberOfIntervals",
+                "__Dymola_saveSelector",
+                "__Dymola_Text"]
 # List of invalid strings in .mos files
 INVALID_IN_MOS=[]
 # List of strings that are required in .mo files, except in Examples
@@ -49,6 +64,10 @@ def reportErrorIfMissing(fileName, listOfStrings):
 
 #########################################################
 # Main method
+
+# Name of top-level package file
+maiPac=LIBHOME.split(os.path.sep)[-1] + os.path.sep + 'package.mo'
+
 # Walk the directory tree, but skip svn folders
 for (path, dirs, files) in os.walk(LIBHOME):
     pos=path.find('svn')
@@ -71,6 +90,8 @@ for (path, dirs, files) in os.walk(LIBHOME):
             if foundMo:
                 if (filFulNam.find('Examples') == -1):
                     reportErrorIfMissing(filFulNam, REQUIRED_IN_MO)
+                if not filFulNam.endswith(maiPac):
+                    reportErrorIfContains(filFulNam, ["uses("])
         
 
 

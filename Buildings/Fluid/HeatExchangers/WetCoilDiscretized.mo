@@ -3,9 +3,12 @@ model WetCoilDiscretized
   "Coil with discretization along the flow paths and humidity condensation"
   // When replacing the volume, the Medium is constrained so that the enthalpyOfLiquid
   // function is known. Otherwise, checkModel(...) will fail
-  extends DryCoilDiscretized(final allowCondensation=true,
-  each hexReg(ele(redeclare each final
-          Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2)),
+  extends DryCoilDiscretized(
+    each hexReg(each ele(redeclare each final
+          Buildings.Fluid.MixingVolumes.MixingVolumeMoistAir vol2,
+          redeclare each final
+          Buildings.Fluid.HeatExchangers.BaseClasses.MassExchange
+            masExc(redeclare final package Medium = Medium2))),
     temSen_1(m_flow_nominal=m1_flow_nominal),
     temSen_2(m_flow_nominal=m2_flow_nominal));
  annotation (

@@ -132,12 +132,12 @@ initial equation
   (nomVal.TEvaIn_nominal*Medium.specificHeatCapacityCp(
       Medium.setState_pTX(p=nomVal.p_nominal,
                           T=nomVal.TEvaIn_nominal,
-                          X=cat(1, {XEvaIn_nominal, 1-sum(XEvaIn_nominal)})))
+                          X=cat(1, {XEvaIn_nominal, 1-XEvaIn_nominal})))
      + QSen_flow_nominal/nomVal.m_flow_nominal)
      / Medium.specificHeatCapacityCp(
       Medium.setState_pTX(p=nomVal.p_nominal,
                           T=nomVal.TEvaIn_nominal,
-                          X=cat(1, {XEvaOut_nominal, 1-sum(XEvaOut_nominal)})));
+                          X=cat(1, {XEvaOut_nominal, 1-XEvaOut_nominal})));
   // Compute wet bulb temperature.
   // The computation of the wet bulb temperature requires an iterative
   // solution. It therefore cannot be done in a function.

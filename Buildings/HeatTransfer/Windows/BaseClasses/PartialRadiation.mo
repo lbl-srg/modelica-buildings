@@ -96,7 +96,6 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    Diagram(graphics),
     Icon(graphics={
         Text(
           extent={{-92,0},{-62,-20}},

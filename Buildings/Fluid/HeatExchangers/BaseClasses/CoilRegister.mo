@@ -39,7 +39,6 @@ model CoilRegister "Register for a heat exchanger"
     each UA_nominal=UA_nominal/nPipPar/nPipSeg,
     each energyDynamics1=energyDynamics1,
     each energyDynamics2=energyDynamics2,
-    each allowCondensation=allowCondensation,
     each from_dp1=from_dp1,
     each linearizeFlowResistance1=linearizeFlowResistance1,
     each deltaM1=deltaM1,
@@ -104,8 +103,7 @@ model CoilRegister "Register for a heat exchanger"
   parameter Modelica.SIunits.Time tau_m=60
     "Time constant of metal at nominal UA value"
     annotation (Dialog(group="Nominal condition"));
-  parameter Boolean allowCondensation = true
-    "Set to false to compute sensible heat transfer only";
+
   parameter Modelica.Fluid.Types.Dynamics energyDynamics1=
     Modelica.Fluid.Types.Dynamics.DynamicFreeInitial
     "Default formulation of energy balances for volume 1"

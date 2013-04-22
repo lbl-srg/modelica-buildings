@@ -3,7 +3,8 @@ model MoistAirComparison
   extends Modelica.Icons.Example;
 
    package PerfectMedium = Buildings.Media.PerfectGases.MoistAir;
-   package IdealMedium =   Modelica.Media.Air.MoistAir;
+   //package IdealMedium =   Modelica.Media.Air.MoistAir;
+   package IdealMedium =   Buildings.Media.GasesConstantDensity.MoistAir;
 
     Modelica.SIunits.SpecificEnthalpy hLiqPer "Liquid phase enthalpy";
     Modelica.SIunits.SpecificEnthalpy hLiqIde "Liquid phase enthalpy";
@@ -55,9 +56,9 @@ equation
     assert( abs(errT) < 0.01, "Error too large. Check medium model.");
 
    annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}),
-                      graphics),
-                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/PerfectGases/Examples/MoistAirComparison.mos" "Simulate and plot"),
+            -100},{100,100}})),
+                       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/PerfectGases/Examples/MoistAirComparison.mos"
+        "Simulate and plot"),
       Documentation(info="<html>
 <p>
 This example compares the perfect medium model
@@ -67,6 +68,12 @@ from <a href=\"modelica://Modelica.Media.Air.MoistAir\">Modelica.Media.Air.Moist
 </p>
 </html>",   revisions="<html>
 <ul>
+<li>
+April 1, 2013, by Michael Wetter:<br>
+Changed <code>IdealMedium</code> from <code>Modelica.Media.Air.MoistAir</code>
+to <code>Buildings.Media.GasesConstantDensity.MoistAir</code> as the old declaration
+leads to an error if the model is checked in pedantic mode in Dymola 2014.
+</li>
 <li>
 May 12, 2008, by Michael Wetter:<br>
 First implementation.

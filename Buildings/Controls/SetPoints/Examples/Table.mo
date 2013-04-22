@@ -23,7 +23,6 @@ equation
       smooth=Smooth.None));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/SetPoints/Examples/Table.mos"
         "Simulate and plot"),
-              Diagram(graphics),
     Documentation(info="<html>
 <p>
 Example that demonstrates the use of the block

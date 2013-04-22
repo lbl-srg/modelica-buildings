@@ -5,7 +5,8 @@ package Actuators "Package with actuator models such as valves and dampers"
 
 package UsersGuide "User's Guide"
   extends Modelica.Icons.Information;
-  annotation (DocumentationClass=true, Documentation(info="<html>
+  annotation (preferredView="info",
+  Documentation(info="<html>
 <h4>Pressure drop of valves</h4>
 <p>
 All two and three-way valves have a parameter

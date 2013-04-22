@@ -157,7 +157,7 @@ equation
     Diagram(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},
-        grid={1,1}), graphics),
+        grid={1,1})),
     Documentation(info="<html>
 <p>
 Models an ideal flow source, with prescribed values of flow rate, temperature, composition and trace substances:

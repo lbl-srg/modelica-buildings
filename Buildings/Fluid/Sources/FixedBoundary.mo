@@ -49,7 +49,7 @@ equation
   medium.Xi = X[1:Medium.nXi];
 
   ports.C_outflow = fill(C, nPorts);
-  annotation (defaultComponentName="boundary",
+  annotation (defaultComponentName="bou",
     Icon(coordinateSystem(
         preserveAspectRatio=false,
         extent={{-100,-100},{100,100}},

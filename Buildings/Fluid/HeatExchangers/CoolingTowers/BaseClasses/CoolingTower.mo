@@ -13,7 +13,41 @@ partial model CoolingTower "Base class for cooling towers"
 
 protected
   Modelica.SIunits.Temperature TAirHT
-    "Air temperature that is used to compute the heat transfer with the water"
+    "Air temperature that is used to compute the heat transfer with the water";
+
+  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
+    "Prescribed heat flow"
+    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
+  Modelica.Blocks.Sources.RealExpression QWat_flow(y=m_flow*(
+        Medium.specificEnthalpy(Medium.setState_pTX(
+        p=port_b.p,
+        T=TAirHT + TAppAct,
+        X=inStream(port_b.Xi_outflow))) - inStream(port_a.h_outflow)))
+    "Heat input into water"
+    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T_Vol
+    "Water temperature in volume, or leaving water temperature"
+    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
+
+equation
+  connect(preHea.port, vol.heatPort) annotation (Line(
+      points={{-20,-50},{-16,-50},{-16,-10},{-9,-10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(QWat_flow.y, preHea.Q_flow)
+                                   annotation (Line(
+      points={{-59,-50},{-40,-50}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(T_Vol.port, vol.heatPort) annotation (Line(
+      points={{20,-60},{-16,-60},{-16,-10},{-9,-10}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(T_Vol.T, TLvg) annotation (Line(
+      points={{40,-60},{110,-60}},
+      color={0,0,127},
+      smooth=Smooth.None));
+
   annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                    graphics={
@@ -77,73 +111,5 @@ May 14, 2008, by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"));
-  Modelica.Thermal.HeatTransfer.Sources.PrescribedHeatFlow preHea
-    "Prescribed heat flow"
-    annotation (Placement(transformation(extent={{-40,-60},{-20,-40}})));
-  Modelica.Blocks.Sources.RealExpression QWat_flow(y=m_flow*(
-        Medium.specificEnthalpy(Medium.setState_pTX(
-        p=port_b.p,
-        T=TAirHT + TAppAct,
-        X=inStream(port_b.Xi_outflow))) - inStream(port_a.h_outflow)))
-    "Heat input into water"
-    annotation (Placement(transformation(extent={{-80,-60},{-60,-40}})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor T_Vol
-    "Water temperature in volume, or leaving water temperature"
-    annotation (Placement(transformation(extent={{20,-70},{40,-50}})));
-
-equation
-  connect(preHea.port, vol.heatPort) annotation (Line(
-      points={{-20,-50},{-16,-50},{-16,-10},{-9,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(QWat_flow.y, preHea.Q_flow)
-                                   annotation (Line(
-      points={{-59,-50},{-40,-50}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(T_Vol.port, vol.heatPort) annotation (Line(
-      points={{20,-60},{-16,-60},{-16,-10},{-9,-10}},
-      color={191,0,0},
-      smooth=Smooth.None));
-  connect(T_Vol.T, TLvg) annotation (Line(
-      points={{40,-60},{110,-60}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  annotation (Icon(graphics={
-        Rectangle(
-          extent={{-80,80},{80,-80}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={95,95,95},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,41},{-70,38}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-102,7},{100,-6}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,0},
-          fillPattern=FillPattern.Solid),
-        Polygon(
-          points={{20,-70},{60,-85},{20,-100},{20,-70}},
-          lineColor={0,128,255},
-          smooth=Smooth.None,
-          fillColor={0,128,255},
-          fillPattern=FillPattern.Solid,
-          visible=showDesignFlowDirection),
-        Polygon(
-          points={{20,-80},{38,-84},{20,-90},{20,-80}},
-          lineColor={255,255,255},
-          smooth=Smooth.None,
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid,
-          visible=allowFlowReversal)}),     Diagram(graphics),
-    Documentation(info="<html>
-Base class for steady-state and dynamic cooling tower models.
 </html>"));
 end CoolingTower;

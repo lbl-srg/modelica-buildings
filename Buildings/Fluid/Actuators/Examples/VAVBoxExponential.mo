@@ -85,6 +85,5 @@ equation
                      graphics),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/VAVBoxExponential.mos"
         "Simulate and plot"),
-    experiment(StopTime=240),
-    __Dymola_experimentSetupOutput);
+    experiment(StopTime=240));
 end VAVBoxExponential;

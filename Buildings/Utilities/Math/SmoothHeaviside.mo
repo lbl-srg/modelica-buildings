@@ -48,7 +48,6 @@ equation
                                   color={192,192,192}),
     Line(points={{-40,-80},{-40,-68}},
                                   color={192,192,192})}),
-                                                Diagram(graphics),
 Documentation(info="<html>
 <p>
 Once Lipschitz continuously differentiable approximation to the <i>Heaviside(.,.)</i> function.
@@ -56,6 +55,7 @@ Once Lipschitz continuously differentiable approximation to the <i>Heaviside(.,.
 </html>",
 revisions="<html>
 <ul>
+<li>
 July 14, 2010, by Wangda Zuo:<br>
 First implementation.
 </li>

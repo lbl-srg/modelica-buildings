@@ -105,7 +105,6 @@ equation
           lineThickness=1)}),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation1Room.mos"
         "Simulate and plot"),
-    Diagram,
     Documentation(info="<html>
 <p>
 This model has been used to validate buoyancy-driven air flow between two volumes.

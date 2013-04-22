@@ -10,7 +10,8 @@ model ZonalFlow
     X_start={0.015,0.985},
     T_start=303.15,
     nPorts=2,
-    m_flow_nominal=0.001) "Room A"
+    m_flow_nominal=0.001,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room A"
                        annotation (Placement(transformation(extent={{-80,0},{-60,
             20}}, rotation=0)));
   Buildings.Fluid.MixingVolumes.MixingVolume rooB(
@@ -19,7 +20,8 @@ model ZonalFlow
     X_start={0.01,0.99},
     T_start=293.15,
     nPorts=2,
-    m_flow_nominal=0.001) "Room B"
+    m_flow_nominal=0.001,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial) "Room B"
     annotation (Placement(transformation(extent={{40,0},{60,20}}, rotation=0)));
   Modelica.Blocks.Sources.Constant ACS_con(k=5/3600) annotation (Placement(
         transformation(extent={{-98,48},{-78,68}}, rotation=0)));
@@ -49,7 +51,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ZonalFlow.mos"
-        "Simulate and plot"),                                                                                                    Diagram(graphics),
+        "Simulate and plot"),
     Documentation(info="<html>
 <p>
 This example illustrates the use of the model that

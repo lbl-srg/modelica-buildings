@@ -22,7 +22,8 @@ protected
   Real arg "cos(solAzi) after data validity check";
   Real tmp "cos(solAzi) before data validity check";
   constant Modelica.SIunits.Time day=86400 "Number of seconds in a day";
-  constant Modelica.SIunits.Angle polarCircle = 1.1617 "Latitude of polar circle (66 degree 33 min 44 sec)";
+  constant Modelica.SIunits.Angle polarCircle = 1.1617
+    "Latitude of polar circle (66 degree 33 min 44 sec)";
   final parameter Boolean outsidePolarCircle = lat < polarCircle and lat > -polarCircle
     "Flag, true if latitude is outside polar region";
 algorithm
@@ -32,7 +33,6 @@ algorithm
   arg :=min(1.0, max(-1.0, tmp));
 
   solAzi := Modelica.Math.acos(arg); // Solar azimuth (A4.9a and b) as a positive number
-
 
   if outsidePolarCircle then
     // Outside the polar circle, the only non-differentiability is at night when the sun is set.
@@ -91,7 +91,5 @@ First implementation.
           lineColor={0,0,127},
           textString="decAng"),
         Bitmap(extent={{-90,90},{90,-92}}, fileName=
-              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/SolarAzimuth.png")}),
-    Icon(graphics),
-    Diagram(graphics));
+              "modelica://Buildings/Resources/Images/BoundaryConditions/SolarGeometry/BaseClasses/SolarAzimuth.png")}));
 end SolarAzimuth;

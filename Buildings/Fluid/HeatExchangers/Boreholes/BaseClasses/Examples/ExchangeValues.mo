@@ -30,7 +30,7 @@ algorithm
 annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/Boreholes/BaseClasses/Examples/ExchangeValues.mos"
         "Simulate"),
         Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}}), graphics),
+            -100},{100,100}})),
     Documentation(info="<html>
 <p>
 This example tests the function

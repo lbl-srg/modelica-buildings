@@ -161,7 +161,6 @@ equation
       smooth=Smooth.None));
   annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowHumidifier.mos"
         "Simulate and plot"),
-    Diagram(graphics),
     Documentation(info="<html>
 This model tests whether the results for a humidifer are
 identical for forward flow and reverse flow.

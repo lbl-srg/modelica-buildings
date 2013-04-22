@@ -68,8 +68,8 @@ ASHRAE 825-RP lists the following parameter values as typical:
 </p>
 <h4>References</h4>
 P. Haves, L. K. Norford, M. DeSimone and L. Mei,
-<i>A Standard Simulation Testbed for the Evaluation of Control Algorithms & Strategies</i>,
-ASHRAE, Final Report 825-RP, Atlanta, GA.
+<i>A Standard Simulation Testbed for the Evaluation of Control Algorithms &amp; Strategies</i>, 
+ASHRAE Final Report 825-RP, Atlanta, GA.
 </html>", revisions="<html>
 <ul>
 <li>
@@ -116,6 +116,5 @@ First implementation.
           points={{-22,-32},{26,10},{26,-2},{-22,-44},{-22,-32}},
           lineColor={0,0,0},
           smooth=Smooth.None,
-          fillPattern=FillPattern.Solid)}),
-    Diagram(graphics));
+          fillPattern=FillPattern.Solid)}));
 end Exponential;

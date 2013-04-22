@@ -62,7 +62,6 @@ equation
   vTop = v[nCom];
   vBot = v[1];
   annotation (
-    Diagram(graphics),
     Icon(graphics={
         Rectangle(
           extent={{-60,80},{60,-84}},

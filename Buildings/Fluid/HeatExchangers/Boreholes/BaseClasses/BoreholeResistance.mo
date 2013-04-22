@@ -45,7 +45,7 @@ a thermal resistance of the pipe wall, and
 <li>
 the thermal resistance of the filling material.
 </li>
-</ul>
+</ol>
 </p>
 <h4>Implementation</h4>
 <p>
