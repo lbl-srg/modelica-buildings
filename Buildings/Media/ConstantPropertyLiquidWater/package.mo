@@ -18,6 +18,15 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
   import Cv = Modelica.SIunits.Conversions;
 
 
+ redeclare replaceable function extends isobaricExpansionCoefficient
+  "Return specific internal energy"
+ algorithm
+        beta := (-0.0463*state.T^2+37.644*state.T-6867)*10^(-6);
+        //Equation is a second order polynomial fit to data from Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera & David DeWitt, John Wiley & Sons, 1996
+
+ end isobaricExpansionCoefficient;
+
+
  redeclare replaceable function extends specificInternalEnergy
   "Return specific internal energy"
   input ThermodynamicState state;
@@ -54,6 +63,12 @@ It implements the function that computes the specific internal energy.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 22, 2013, by Michael Wetter:<br>
+Added function <code>isobaricExpansionCoefficient</code> which is used by
+<a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.RayleighNumber\">
+Buildings.Fluid.HeatExchangers.BaseClasses.RayleighNumber</a>.
+</li>
 <li>
 April 16, 2013, by Michael Wetter:<br>
 Changed package to extend directly from
