@@ -3,7 +3,8 @@ model SolarPumpController
   "Controller which activates a circulation pump when solar radiation is above a critical level"
   import Buildings;
   extends Modelica.Blocks.Interfaces.BlockIcon;
-  parameter Real delY = 0.01 "Width of the smoothHeaviside function";
+  parameter Real delY(final unit = "W/m2") = 0.01
+    "Width of the smoothHeaviside function";
   parameter Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.Generic per
     "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
