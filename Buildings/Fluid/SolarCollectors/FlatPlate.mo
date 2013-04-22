@@ -1,31 +1,31 @@
 within Buildings.Fluid.SolarCollectors;
 model FlatPlate "Model of a flat plate solar thermal collector"
-  extends SolarCollectors.BaseClasses.PartialSolarCollector(perPar=per);
+  extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
   parameter SolarCollectors.Data.GlazedFlatPlate.Generic per
     annotation(choicesAllMatching=true);
   parameter Modelica.SIunits.Temperature TIn_nominal
     "Inlet temperature at nominal condition"
     annotation(Dialog(group="Nominal condition"));
   SolarCollectors.BaseClasses.ASHRAESolarGain solHeaGai(
-    B0=per.B0,
-    B1=per.B1,
-    shaCoe=shaCoe,
-    til=til,
-    nSeg=nSeg,
-    y_intercept=per.y_intercept,
-    A_c=per.A)
-    "Calculates the heat gained from the sun using the ASHRAE standard calculations"
+    final B0=per.B0,
+    final B1=per.B1,
+    final shaCoe=shaCoe,
+    final til=til,
+    final nSeg=nSeg,
+    final y_intercept=per.y_intercept,
+    final A_c=per.A)
+    "fixme. Maybe the shading coefficient should be an optional input? Calculates the heat gained from the sun using the ASHRAE standard calculations"
              annotation (Placement(transformation(extent={{0,60},{20,80}})));
-public
+
   SolarCollectors.BaseClasses.ASHRAEHeatLoss heaLos(
-    Cp=Cp,
-    nSeg=nSeg,
-    I_nominal=I_nominal,
-    TEnv_nominal=TEnv_nominal,
-    A_c=per.A,
-    TIn_nominal=TIn_nominal,
-    slope=per.slope,
-    y_intercept=per.y_intercept,
+    final Cp=Cp,
+    final nSeg=nSeg,
+    final I_nominal=I_nominal,
+    final TEnv_nominal=TEnv_nominal,
+    final A_c=per.A,
+    final TIn_nominal=TIn_nominal,
+    final slope=per.slope,
+    final y_intercept=per.y_intercept,
     m_flow_nominal=rho*per.VperA_flow_nominal*per.A)
     "Calculates the heat lost to the surroundings using the ASHRAE standard calculations"
         annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -155,23 +155,36 @@ equation
     Documentation(info="<html>
 <h4>Overview</h4>
 <p>
-This component models the flat plate solar thermal collector. By default this model uses ASHRAE 93 ratings data and references the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate\">
-Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a> data library.
+This component models the flat plate solar thermal collector. 
+By default this model uses ASHRAE 93 ratings data.
+Peformance data can be imported from the data library
+<a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate\"> 
+Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a>.
 </p>
-<h4>Notice</h4>
-<p>
-1. As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients are only valid for incident angles of 60 degrees or less. 
-Because these curves can be valid yet behave poorly for angles greater than 60 degrees the model cuts off collectors' gains of both direct and diffuse solar radiation for incident angles greater than 60 degrees. 
-<br>
-2. By default, the estimated heat capacity of the collector without fluid is calculated based on the dry mass and the specific heat capacity of copper.
-</p>
-<h4>References</h4>
-<p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
-<br>
-J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.  
-</p>
-</html>", revisions="<html>
+ <h4>Notice</h4>
+ <p>
+ <ul>
+ <li>
+ As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients 
+ are only valid for incident angles of 60 degrees or less. 
+ Because these curves behave poorly for angles greater than 60 degrees, 
+ the model cuts off collectors' gains of both direct and diffuse solar radiation 
+ for incident angles greater than 60 degrees. 
+ </li>
+ <li>
+ By default, the estimated heat capacity of the collector without fluid is calculated based 
+ on the dry mass and the specific heat capacity of copper.
+ </li>
+ </ul>
+ </p>
+ <h4>References</h4>
+ <p>
+ <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
+ </p>
+ <p>
+ J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.  
+ </p>
+ </html>", revisions="<html>
 <ul>
 <li>
 January 4, 2013, by Peter Grant:<br>

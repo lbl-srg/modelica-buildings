@@ -1,30 +1,30 @@
 within Buildings.Fluid.SolarCollectors;
 model Tubular
-  extends SolarCollectors.BaseClasses.PartialSolarCollector(perPar=per);
+  extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     parameter SolarCollectors.Data.GlazedFlatPlate.Generic per
     "Performance data"  annotation (choicesAllMatching=true);
   parameter Modelica.SIunits.Temperature TIn_nominal
     "Inlet temperature at nominal condition"
     annotation(Dialog(group="Nominal condition"));
   BaseClasses.ASHRAESolarGain solHeaGai(
-    nSeg=nSeg,
-    y_intercept=per.y_intercept,
-    B0=per.B0,
-    B1=per.B1,
-    shaCoe=0.1,
-    A_c=per.A,
-    til=0.69813170079773)
-    "Calculates the heat gained from the sun using the standard ASHRAE calculations"
+    final nSeg=nSeg,
+    final y_intercept=per.y_intercept,
+    final B0=per.B0,
+    final B1=per.B1,
+    final shaCoe=shaCoe,
+    final A_c=per.A,
+    final til=til)
+    "fixme. Maybe the shading coefficient should be an optional input? Calculates the heat gained from the sun using the standard ASHRAE calculations"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   BaseClasses.ASHRAEHeatLoss heaLos(
-    A_c=per.A,
-    nSeg=nSeg,
-    y_intercept=per.y_intercept,
-    slope=per.slope,
-    I_nominal=I_nominal,
-    TIn_nominal=TIn_nominal,
-    TEnv_nominal=TEnv_nominal,
-    Cp=Cp,
+    final A_c=per.A,
+    final nSeg=nSeg,
+    final y_intercept=per.y_intercept,
+    final slope=per.slope,
+    final I_nominal=I_nominal,
+    final TIn_nominal=TIn_nominal,
+    final TEnv_nominal=TEnv_nominal,
+    final Cp=Cp,
     m_flow_nominal=rho*per.VperA_flow_nominal*per.A)
     "Calculates the heat lost to the surroundings using the standard ASHRAE calculations"
     annotation (Placement(transformation(extent={{-12,20},{8,40}})));
@@ -72,20 +72,33 @@ equation
      Documentation(info="<html>
  <h4>Overview</h4>
  <p>
- This component models the tubular solar thermal collector. By default this model uses ASHRAE 93 ratings data and references the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.Tubular\">
-  Buildings.Fluid.SolarCollectors.Data.Tubular</a> data library.
+ This component models the tubular solar thermal collector. 
+ By default this model uses ASHRAE 93 ratings data.
+ Peformance data can be imported from the data library
+ <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.Tubular\"> 
+ Buildings.Fluid.SolarCollectors.Data.Tubular\</a>.
  </p>
  <h4>Notice</h4>
  <p>
- 1. As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients are only valid for incident angles of 60 degrees or less. 
- Because these curves can be valid yet behave poorly for angles greater than 60 degrees, the model cuts off collectors' gains of both direct and diffuse solar radiation for incident angles greater than 60 degrees. 
- <br>
- 2. By default, the estimated heat capacity of the collector without fluid is calculated based on the dry mass and the specific heat capacity of copper.
+ <ul>
+ <li>
+ As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients 
+ are only valid for incident angles of 60 degrees or less. 
+ Because these curves behave poorly for angles greater than 60 degrees, 
+ the model cuts off collectors' gains of both direct and diffuse solar radiation 
+ for incident angles greater than 60 degrees. 
+ </li>
+ <li>
+ By default, the estimated heat capacity of the collector without fluid is calculated based 
+ on the dry mass and the specific heat capacity of copper.
+ </li>
+ </ul>
  </p>
  <h4>References</h4>
  <p>
  <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
- <br>
+ </p>
+ <p>
  J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.  
  </p>
  </html>", revisions="<html>

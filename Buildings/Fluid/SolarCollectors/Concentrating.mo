@@ -1,6 +1,6 @@
 within Buildings.Fluid.SolarCollectors;
 model Concentrating "Model of a concentrating solar collector"
-extends SolarCollectors.BaseClasses.PartialSolarCollector(perPar=per);
+extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     parameter SolarCollectors.Data.Concentrating.Generic per "Performance data"
                         annotation (choicesAllMatching=true);
 
@@ -8,26 +8,26 @@ extends SolarCollectors.BaseClasses.PartialSolarCollector(perPar=per);
     "Inlet temperature at nominal condition"
     annotation(Dialog(group="Nominal condition"));
   BaseClasses.EN12975SolarGain solHeaGaiNom(
-    A_c=per.A,
-    nSeg=nSeg,
-    y_intercept=per.y_intercept,
-    B0=per.B0,
-    B1=per.B1,
-    shaCoe=shaCoe,
-    til=til,
-    iamDiff=per.IAMDiff)
-    "Calculates the heat gained from the sun using the EN12975 standard calculations"
+    final A_c=per.A,
+    final nSeg=nSeg,
+    final y_intercept=per.y_intercept,
+    final B0=per.B0,
+    final B1=per.B1,
+    final shaCoe=shaCoe,
+    final til=til,
+    final iamDiff=per.IAMDiff)
+    "fixme. Maybe the shading coefficient should be an optional input? Calculates the heat gained from the sun using the EN12975 standard calculations"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   BaseClasses.EN12975HeatLoss heaLos(
-    A_c=per.A,
-    nSeg=nSeg,
-    y_intercept=per.y_intercept,
-    C1=per.C1,
-    C2=per.C2,
-    I_nominal=I_nominal,
-    TMean_nominal=TMean_nominal,
-    TEnv_nominal=TEnv_nominal,
-    Cp=Cp,
+    final A_c=per.A,
+    final nSeg=nSeg,
+    final y_intercept=per.y_intercept,
+    final C1=per.C1,
+    final C2=per.C2,
+    final I_nominal=I_nominal,
+    final TMean_nominal=TMean_nominal,
+    final TEnv_nominal=TEnv_nominal,
+    final Cp=Cp,
     m_flow_nominal=rho*per.VperA_flow_nominal*per.A)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
            annotation (Placement(transformation(extent={{0,20},{20,40}})));
@@ -82,20 +82,33 @@ equation
      Documentation(info="<html>
  <h4>Overview</h4>
  <p>
- This component models a concentrating solar thermal collector. The concentrating model uses ratings data based on EN12975 and by default references the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.Concentrating\"> 
- Buildingds.Fluid.SolarCollectors.Data.Concentrating</a> data library.
+ This component models a concentrating solar thermal collector. 
+ The concentrating model uses ratings data based on EN12975.
+ Peformance data can be imported from the data library
+ <a href=\"modelica://Buildings.Fluid.SolarCollectors.Data.Concentrating\"> 
+ Buildings.Fluid.SolarCollectors.Data.Concentrating</a>.
  </p>
  <h4>Notice</h4>
  <p>
- 1. As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients are only valid for incident angles of 60 degrees or less. 
- Because these curves can be valid yet behave poorly for angles greater than 60 degrees, the model cuts off collectors' gains of both direct and diffuse solar radiation for incident angles greater than 60 degrees. 
- <br>
- 2. By default, the estimated heat capacity of the collector without fluid is calculated based on the dry mass and the specific heat capacity of copper.
+ <ul>
+ <li>
+ As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients 
+ are only valid for incident angles of 60 degrees or less. 
+ Because these curves behave poorly for angles greater than 60 degrees, 
+ the model cuts off collectors' gains of both direct and diffuse solar radiation 
+ for incident angles greater than 60 degrees. 
+ </li>
+ <li>
+ By default, the estimated heat capacity of the collector without fluid is calculated based 
+ on the dry mass and the specific heat capacity of copper.
+ </li>
+ </ul>
  </p>
  <h4>References</h4>
  <p>
  <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
- <br>
+ </p>
+ <p>
  J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.  
  </p>
  </html>", revisions="<html>
