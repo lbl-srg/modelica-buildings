@@ -495,7 +495,7 @@ Therefore, the boiler control sequence is as shown below.
 </p>
 </li>
 </ol>
-<!-- ----------------------- -->
+<!-- ============================================== -->
 <p>
 This completes the closed loop control of the boiler and the pumps. 
 When simulating the model

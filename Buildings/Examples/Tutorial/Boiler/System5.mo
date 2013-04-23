@@ -510,6 +510,7 @@ proportional gain, and finally changing it to a PI-controller and tuning the
 integral time constant.
 </p>
 </li>
+<li>
 <p>
 The valve control for the radiator loop is implemented similar to
 the boiler loop, with the exception that the setpoint is computed
@@ -533,7 +534,7 @@ Its configuration is
 </pre>
 </li>
 </ol>
-<!-- ----------------------- -->
+<!-- ============================================== -->
 <p>
 This completes the closed loop control.
 When simulating the model

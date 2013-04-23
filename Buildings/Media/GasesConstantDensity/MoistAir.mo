@@ -364,7 +364,7 @@ networks.
 </p>
 <p>
 As in
-<a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\" a>
+<a href=\"modelica://Buildings.Media.PerfectGases.MoistAir\">
 Buildings.Media.PerfectGases.MoistAir</a>, the
 specific enthalpy h and specific internal energy u are only
 a function of temperature <code>T</code> and 

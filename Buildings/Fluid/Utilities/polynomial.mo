@@ -16,7 +16,7 @@ info="<html>
 <p>
 Function that computes
 <p align=\"center\" style=\"font-style:italic;\">
- y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1<sup>
+ y = &sum;<sub>i=1</sub><sup>n</sup> c<sub>i</sub> x<sup>i-1</sup>
 </p>
 </p>
 </html>",

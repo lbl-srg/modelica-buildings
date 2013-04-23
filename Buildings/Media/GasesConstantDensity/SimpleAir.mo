@@ -208,7 +208,7 @@ end saturationPressure;
   annotation (preferredView="info", Documentation(info="<html>
 <p>
 This medium model is similar to 
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
+<a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a>, except that the
 gas density is constant.
 </p>
@@ -221,7 +221,7 @@ networks.
 </p>
 <p>
 As in
-<a href=\"Modelica:Modelica.Media.Air.SimpleAir\" a>
+<a href=\"Modelica:Modelica.Media.Air.SimpleAir\">
 Modelica.Media.Air.SimpleAir</a>, the
 specific enthalpy h and specific internal energy u are only
 a function of temperature T and all other provided medium

@@ -33,11 +33,9 @@ The possible surface roughness are
 <tr><td>MediumSmooth</td>  <td>Clear pine</td></tr>
 <tr><td>Smooth</td>        <td>Smooth plaster</td></tr>
 <tr><td>VerySmooth</td>    <td>Glass</td></tr>
-</tr>
 </table>
-
 </p>
-</html>"), Evaluate=true);
+</html>"));
 
   type ExteriorConvection = enumeration(
       Fixed "Fixed coefficient (a user-specified parameter is used)",
@@ -48,7 +46,7 @@ The possible surface roughness are
 This enumeration is used to set the function
 that is used to compute the convective
 heat transfer coefficient for exterior (outside-side facing) surfaces.</p>
-</html>"), Evaluate=true);
+</html>"));
 
   type InteriorConvection = enumeration(
       Fixed "Fixed coefficient (a user-specified parameter is used)",
@@ -59,7 +57,7 @@ heat transfer coefficient for exterior (outside-side facing) surfaces.</p>
 This enumeration is used to set the function
 that is used to compute the convective
 heat transfer coefficient for interior (room-side facing) surfaces.</p>
-</html>"), Evaluate=true);
+</html>"));
 
   package Tilt "Enumeration for surface tilt"
     constant Modelica.SIunits.Angle Ceiling=0 "Tilt for ceiling";

@@ -44,7 +44,7 @@ equation
     m_flow_in_internal = m_flow;
   end if;
 
-  assert(sum(m_flow_in_internal) >= 0, "Reverse flow for species source is not yet implemented.");
+  assert(m_flow_in_internal >= 0, "Reverse flow for species source is not yet implemented.");
   sum(ports.m_flow) = -m_flow_in_internal;
   medium.T = Medium.T_default;
   medium.Xi = Medium.X_default[1:Medium.nXi];
