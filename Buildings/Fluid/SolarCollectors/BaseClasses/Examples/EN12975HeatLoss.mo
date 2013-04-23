@@ -61,7 +61,8 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This examples demonstrates the implementation of EN12975HeatLoss. All of the inputs are constants resulting in a very simple model and a constant output.
+This examples demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
+Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>.
 </p>
 </html>", revisions="<html>
 <ul>

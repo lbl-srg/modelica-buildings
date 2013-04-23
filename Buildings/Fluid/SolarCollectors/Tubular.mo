@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors;
-model Tubular
+model Tubular "Model of a tubular solar collector"
   extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     parameter SolarCollectors.Data.GlazedFlatPlate.Generic per
     "Performance data"  annotation (choicesAllMatching=true);
@@ -14,7 +14,6 @@ model Tubular
     final shaCoe=shaCoe,
     final A_c=per.A,
     final til=til)
-    "fixme. Maybe the shading coefficient should be an optional input? Calculates the heat gained from the sun using the standard ASHRAE calculations"
     annotation (Placement(transformation(extent={{-10,60},{10,80}})));
   BaseClasses.ASHRAEHeatLoss heaLos(
     final A_c=per.A,
@@ -62,7 +61,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(solHeaGai.QSol_flow, heaGai.Q_flow) annotation (Line(
-      points={{11,70},{24,70},{24,70},{38,70}},
+      points={{11,70},{38,70}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -84,9 +83,9 @@ equation
  <li>
  As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients 
  are only valid for incident angles of 60 degrees or less. 
- Because these curves behave poorly for angles greater than 60 degrees, 
- the model cuts off collectors' gains of both direct and diffuse solar radiation 
- for incident angles greater than 60 degrees. 
+ Because these curves behave poorly for angles greater than 60 degrees 
+ the model does not calculatue either direct or diffuse solar radiation gains
+ when the incidence angle is greater than 60 degrees.  
  </li>
  <li>
  By default, the estimated heat capacity of the collector without fluid is calculated based 
@@ -96,10 +95,7 @@ equation
  </p>
  <h4>References</h4>
  <p>
- <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
- </p>
- <p>
- J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.  
+ <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br>
  </p>
  </html>", revisions="<html>
  <ul>

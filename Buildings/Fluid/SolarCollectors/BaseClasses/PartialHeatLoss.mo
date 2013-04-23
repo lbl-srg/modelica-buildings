@@ -46,8 +46,10 @@ protected
     defaultComponentName="heaLos",
     Documentation(info="<html>
 <p>
-This component is a partial model used as the base for ASHRAEHeatLoss and EN12975HeatLoss. It contains the input, output and parameter declarations which are common
-to both models. More detailed information is available in the documentation for ASHRAEHeallLoss and EN12975HeatLoss.
+This component is a partial model used as the base for <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss\">
+Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss</a> and <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss\">
+Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss</a>. It contains the input, output and parameter declarations which are common
+to both models. More detailed information is available in the documentation for the extending classes.
 </p>
 </html>", revisions="<html>
 <ul>

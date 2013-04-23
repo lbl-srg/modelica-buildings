@@ -50,18 +50,18 @@ for a given number of segments, yields the same heat loss as the ratings data
 would at nominal conditions. The equations used to identify the UA value are shown below:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>Use,nom</sub> = I<sub>nom</sub>*A<sub>c</sub> * F<sub>R</sub>*(&tau;&alpha;) + F<sub>R</sub>U<sub>L</sub>*A<sub>c</sub>*(T<sub>In,nom</sub> - T<sub>Amb,nom</sub>)<br>
-T<sub>Fluid,nom</sub>[nSeg]=T<sub>In,nom</sub>+Q<sub>Use,nom</sub>/(m<sub>flow,nom</sub>*C<sub>p</sub>)<br>
-Q<sub>Los,nom</sub>=-F<sub>R</sub>U<sub>L</sub>*A<sub>c</sub>*(T<sub>In,nom</sub>-T<sub>Env,nom</sub>)<br>
-T<sub>Fluid,nom</sub>[i] = T<sub>Fluid,nom</sub>[i-1] + (G<sub>nom</sub>*F<sub>R</sub>*(&tau;&alpha;) * A<sub>c</sub>/nSeg - UA<sub>nom</sub>/nSeg*(T<sub>Fluid,nom</sub>[i-1]-T<sub>Env,nom</sub>))/(m<sub>Flow,nom</sub>*c<sub>p</sub>)<br>
-Q<sub>Loss,UA</sub>=UA<sub>nom</sub>/nSeg * (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom</sub>)<br>
+Q<sub>Use,nom</sub> = I<sub>nom</sub> A<sub>c</sub> F<sub>R</sub>(&tau;&alpha;) + F<sub>R</sub>U<sub>L</sub> A<sub>c</sub> (T<sub>In,nom</sub> - T<sub>Amb,nom</sub>)<br>
+T<sub>Fluid,nom</sub>[nSeg]=T<sub>In,nom</sub>+Q<sub>Use,nom</sub>/(m<sub>flow,nom</sub> C<sub>p</sub>)<br>
+Q<sub>Los,nom</sub>=-F<sub>R</sub>U<sub>L</sub> A<sub>c</sub> (T<sub>In,nom</sub>-T<sub>Env,nom</sub>)<br>
+T<sub>Fluid,nom</sub>[i] = T<sub>Fluid,nom</sub>[i-1] + (G<sub>nom</sub> F<sub>R</sub> (&tau;&alpha;) A<sub>c</sub>/nSeg - UA/nSeg (T<sub>Fluid,nom</sub>[i-1]-T<sub>Env,nom</sub>))/(m<sub>Flow,nom</sub> c<sub>p</sub>)<br>
+Q<sub>Loss,UA</sub>=UA/nSeg (T<sub>Fluid,nom</sub>[i]-T<sub>Env,nom</sub>)<br>
 sum(Q<sub>Loss,UA</sub>[1:nSeg])=Q<sub>Loss,nom</sub>
 </p>
-The effective <i>UA<sub>nom</sub></i> value is calculated at the 
+The effective <i>UA</i> value is calculated at the 
 beginning of the simulation and used as a constant through the rest of the simulation.
 The actual heat loss from the collector is calculated using
 <p align=\"center\" style=\"font-style:italic;\">
--Q<sub>Loss</sub>[i] = UA<sub>nom</sub>/nSeg * (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
+-Q<sub>Loss</sub>[i] = UA/nSeg (T<sub>Fluid</sub>[i] - T<sub>Env</sub>)
 </p>
 <h4>References</h4>
 <p>

@@ -16,4 +16,5 @@ record TRNSYSValidation =
     C1=0,
     C2=0) "Default values in the TRNSYS Simulation Studio SDHW example"
     annotation(Documentation(info="<html>
-    Default values in the TRNSYS Simualtion Studio SDHW example.</html>"));
+    Default values in the TRNSYS Simualtion Studio SDHW example.<br>
+    </html>"));

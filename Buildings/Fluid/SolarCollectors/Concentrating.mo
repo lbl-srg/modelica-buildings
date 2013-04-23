@@ -16,7 +16,6 @@ extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     final shaCoe=shaCoe,
     final til=til,
     final iamDiff=per.IAMDiff)
-    "fixme. Maybe the shading coefficient should be an optional input? Calculates the heat gained from the sun using the EN12975 standard calculations"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   BaseClasses.EN12975HeatLoss heaLos(
     final A_c=per.A,
@@ -48,11 +47,11 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(HDirTil.inc, solHeaGaiNom.incAng) annotation (Line(
-      points={{-59,52},{-50,52},{-50,66},{-2,66}},
+      points={{-59,52},{-50,52},{-50,67.4},{-2,67.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HDirTil.H, solHeaGaiNom.HDirTil) annotation (Line(
-      points={{-59,56},{-54,56},{-54,72},{-2,72}},
+      points={{-59,56},{-54,56},{-54,72.6},{-2,72.6}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(add.y, solHeaGaiNom.HSkyDifTil) annotation (Line(
@@ -94,9 +93,9 @@ equation
  <li>
  As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients 
  are only valid for incident angles of 60 degrees or less. 
- Because these curves behave poorly for angles greater than 60 degrees, 
- the model cuts off collectors' gains of both direct and diffuse solar radiation 
- for incident angles greater than 60 degrees. 
+ Because these curves behave poorly for angles greater than 60 degrees 
+ the model does not calculatue either direct or diffuse solar radiation gains
+ when the incidence angle is greater than 60 degrees. 
  </li>
  <li>
  By default, the estimated heat capacity of the collector without fluid is calculated based 
@@ -106,10 +105,7 @@ equation
  </p>
  <h4>References</h4>
  <p>
- <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
- </p>
- <p>
- J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.  
+ <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br>
  </p>
  </html>", revisions="<html>
  <ul>

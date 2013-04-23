@@ -21,8 +21,8 @@ record Generic "Variable types for data records from SRCC data"
   annotation (defaultComponentName="gas", Documentation(info="<html>
 Generic record for solar information from SRCC certified solar collectors. This generic record is intended for flat plate collectors using data collected according to ASHRAE93.
 The implementation is according to 
-<a href=\"http://www.solar-rating.org/ratings/og100.html\">SRCC OG-100 Directory, 
-SRCC Certified Solar Collecotr Ratings</a>.
+<a href=\"http://www.solar-rating.org/ratings/index.html\">SRCC OG-100 Directory, 
+SRCC Certified Solar Collector Ratings</a>.<br>
 </html>", revisions="<html>
 <ul>
 <li>

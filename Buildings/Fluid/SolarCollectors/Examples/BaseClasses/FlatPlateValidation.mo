@@ -167,9 +167,9 @@ Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a> data library.
 <li>
 As mentioned in the reference, the SRCC incident angle modifier equation coefficients 
 are only valid for incident angles of 60 degrees or less. 
-Because these curves can be valid yet behave poorly for angles greater than 
-60 degrees, the model cuts off the collectors' gains of both direct and diffuse solar radiation 
-for incident angles greater than 60 degrees. 
+ Because these curves behave poorly for angles greater than 60 degrees 
+ the model does not calculatue either direct or diffuse solar radiation gains
+ when the incidence angle is greater than 60 degrees.   
 </li>
 <li>
 By default, the estimated heat capacity of the collector without fluid is calculated 
@@ -182,9 +182,6 @@ based on the dry mass and the specific heat capacity of copper.
 <ul>
 <li>
 <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
-</li>
-<li>
-J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.  
 </li>
 </ul>
 </html>", revisions="<html>

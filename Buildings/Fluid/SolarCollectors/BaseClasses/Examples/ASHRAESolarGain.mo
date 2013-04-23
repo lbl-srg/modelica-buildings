@@ -13,18 +13,24 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
     y_intercept=per.y_intercept,
     nSeg=3,
     A_c=per.A,
-    shaCoe=0.25,
+    shaCoe=0,
+    use_shaCoe_in=true,
     til=0.78539816339745)
     annotation (Placement(transformation(extent={{20,-20},{40,0}})));
   Modelica.Blocks.Sources.Constant
-                               incAng(k=0.523)
+                               incAng(k=0.523) "Incidence angle"
     annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
   Modelica.Blocks.Sources.Constant HDirTil(k=800)
+    "Direct beam radiation, tilted surface"
     annotation (Placement(transformation(extent={{-40,0},{-20,20}})));
   Modelica.Blocks.Sources.Constant HGroDifTil(k=200)
+    "Diffuse radiation from the ground, tilted surface"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Constant HSkyDifTil(k=400)
+    "Diffuse radiation from the sky, tilted surface"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
+  Modelica.Blocks.Sources.Constant shaCoe(k=0.25) "Shading coefficient"
+    annotation (Placement(transformation(extent={{-40,-56},{-20,-36}})));
 equation
   connect(incAng.y, solHeaGai.incAng) annotation (Line(
       points={{-59,-30},{-20,-30},{-20,-14},{18,-14}},
@@ -42,12 +48,18 @@ equation
       points={{-19,50},{8,50},{8,-2},{18,-2}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(shaCoe.y, solHeaGai.shaCoe_in) annotation (Line(
+      points={{-19,-46},{2,-46},{2,-18},{18,-18}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
+    Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This examples demonstrates the implementation of ASHRAESolarGain. All of the inputs are constant resulting in a very simple model and constants for the output.
+This examples demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain\">
+Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAESolarGain</a>. All of the inputs are constant resulting in a very simple model and constants for the
+ output.
 </p>
 </html>", revisions="<html>
 <ul>

@@ -15,8 +15,8 @@ algorithm
     Documentation(info="<html>
 <h4>Overview</h4>
 <p>
-This function computes the coefficient for incident angle modifier for the off-normal angle. It applies a quadratic correlation to calculate the coefficient. 
-The parameters B0 and B1 are listed in the Directory of SRCC (Solar Rating and Certification Corporation) Certified Solar Collector Ratings.
+This function computes the coefficient for incident angle modifier for the off-normal angle. It applies a quadratic correlation to calculate the
+ coefficient. The parameters B0 and B1 are listed in the Directory of SRCC (Solar Rating and Certification Corporation) Certified Solar Collector Ratings.
 Note: If the angle is larger than 60 degree, the output is 0. 
 </p>
 <h4>References</h4>

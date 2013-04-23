@@ -6,7 +6,7 @@ model FlatPlate "Model of a flat plate solar thermal collector"
   parameter Modelica.SIunits.Temperature TIn_nominal
     "Inlet temperature at nominal condition"
     annotation(Dialog(group="Nominal condition"));
-  SolarCollectors.BaseClasses.ASHRAESolarGain solHeaGai(
+  BaseClasses.ASHRAESolarGain                 solHeaGai(
     final B0=per.B0,
     final B1=per.B1,
     final shaCoe=shaCoe,
@@ -14,7 +14,6 @@ model FlatPlate "Model of a flat plate solar thermal collector"
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     final A_c=per.A)
-    "fixme. Maybe the shading coefficient should be an optional input? Calculates the heat gained from the sun using the ASHRAE standard calculations"
              annotation (Placement(transformation(extent={{0,60},{20,80}})));
 
   SolarCollectors.BaseClasses.ASHRAEHeatLoss heaLos(
@@ -167,9 +166,9 @@ Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a>.
  <li>
  As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients 
  are only valid for incident angles of 60 degrees or less. 
- Because these curves behave poorly for angles greater than 60 degrees, 
- the model cuts off collectors' gains of both direct and diffuse solar radiation 
- for incident angles greater than 60 degrees. 
+  Because these curves behave poorly for angles greater than 60 degrees 
+ the model does not calculatue either direct or diffuse solar radiation gains
+ when the incidence angle is greater than 60 degrees.  
  </li>
  <li>
  By default, the estimated heat capacity of the collector without fluid is calculated based 
@@ -179,10 +178,7 @@ Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a>.
  </p>
  <h4>References</h4>
  <p>
- <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
- </p>
- <p>
- J.A. Duffie and W.A. Beckman 2006, Solar Engineering of Thermal Processes (3rd Edition), John Wiley & Sons, Inc.  
+ <a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011. <br>
  </p>
  </html>", revisions="<html>
 <ul>

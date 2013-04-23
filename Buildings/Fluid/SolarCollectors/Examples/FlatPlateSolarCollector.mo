@@ -77,8 +77,8 @@ equation
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This examples demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> Buildings.Fluid.SolarCollectors.FlatPlate</a>. In it water is passed through a solar collector while being heated by the sun in the San Francisco, CA,
- USA climate.
+This examples demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> Buildings.Fluid.SolarCollectors.FlatPlate</a>. 
+In it water is passed through a solar collector while being heated by the sun in the San Francisco, CA, USA climate.
 </p>
 </html>",revisions="<html>
 <ul>

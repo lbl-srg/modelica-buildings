@@ -190,14 +190,14 @@ equation
         the heat gain in the water from the sun and the heat loss to the ambient conditions.
         </p>
         <p>
-        The flow rate through the pump is controlled the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\"> SolarPumpController </a> model (pumCon) and a gain model. The SolarPumpController outputs a binary on (1) / off (0) signal. The
+        The flow rate through the pump is controlled by the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\"> SolarPumpController </a> model (pumCon) and a gain model. The SolarPumpController outputs a binary on (1) / off (0) signal. The
         on/off signal is passed through the gain model, multiplying by 0.04, to represent a flow rate of 0.04 kg/s when the pump is active.
         </p>
         <p>
         The heat ports for the tank are connected to an ambient temperature of 20 degrees C representing the temperature of the room the tank is stored in.
         </p>
         <p>
-        bou1 provides a constant mass flow rate for a hot water draw while bou provides an outlet boundary condition for the outlet of the draw.<br>
+        <a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">bou1</a> provides a constant mass flow rate for a hot water draw while <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">bou</a> provides an outlet boundary condition for the outlet of the draw.<br>
         </p>
         </html>",
         revisions="<html>
