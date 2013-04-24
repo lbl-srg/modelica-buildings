@@ -1,0 +1,4 @@
+within Buildings.Rooms.Examples.FLeXLab.Examples;
+package TestPackage "Bullshit"
+  extends Modelica.Icons.Package;
+end TestPackage;
