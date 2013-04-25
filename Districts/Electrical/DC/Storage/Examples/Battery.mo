@@ -10,8 +10,7 @@ model Battery "Test model for battery"
         origin={78,-20})));
   Modelica.Electrical.Analog.Basic.Ground ground
     annotation (Placement(transformation(extent={{58,-60},{78,-40}})));
-  Districts.Electrical.DC.Loads.VariableConductor     loa(measureP=true)
-    "Electrical load"
+  Districts.Electrical.DC.Loads.VariableConductor     loa "Electrical load"
     annotation (Placement(transformation(extent={{124,-30},{144,-10}})));
   Modelica.Blocks.Sources.Constant const1(k=10e3)
     annotation (Placement(transformation(extent={{144,0},{124,20}})));
