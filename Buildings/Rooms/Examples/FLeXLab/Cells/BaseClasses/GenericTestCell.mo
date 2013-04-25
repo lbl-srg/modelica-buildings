@@ -199,7 +199,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(sla.surf_a, roo.surf_surBou[1]) annotation (Line(
-      points={{-2,34},{-2,76},{-1.8,76}},
+      points={{-2,34},{-2,55},{-2,76},{-1.8,76}},
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,

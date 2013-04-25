@@ -1,6 +1,6 @@
 within Buildings.Rooms.Examples.FLeXLab.Data.Constructions;
 record Insul24Ply13Insul83Gyp16 =
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic(material={
+  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic(final material={
     Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.02413),
     Buildings.HeatTransfer.Data.Solids.Plywood(x=0.0127),
     Buildings.HeatTransfer.Data.Solids.InsulationBoard(x=0.08255),
