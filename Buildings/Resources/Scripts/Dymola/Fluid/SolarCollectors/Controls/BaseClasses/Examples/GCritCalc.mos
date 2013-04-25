@@ -1,6 +1,6 @@
 removePlots();
 
-simulateModel("Buildings.Fluid.SolarCollectors.BaseClasses.Examples.GCritCalc", stopTime=100, method="dassl", resultFile="GCritCalc");
+simulateModel("Buildings.Fluid.SolarCollectors.Controls.BaseClasses.Examples.GCritCalc", stopTime=100, method="dassl", resultFile="GCritCalc");
 
 createPlot(id = 17,
  position = {54, 38, 407, 281},
