@@ -102,27 +102,27 @@ model GenericTestCell
     annotation (Placement(transformation(extent={{-10,160},{10,180}})));
   Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,1,0; 86400,0,1,0])
     "Internal gain heat flow (Radiant = 1, Convective = 2, Latent = 3)"
-    annotation (Placement(transformation(extent={{-140,108},{-120,128}})));
+    annotation (Placement(transformation(extent={{-140,112},{-120,132}})));
   Modelica.Blocks.Sources.CombiTimeTable shaPos(table=[0,1; 86400,1])
     "Position of the shade"
-    annotation (Placement(transformation(extent={{-106,138},{-86,158}})));
+    annotation (Placement(transformation(extent={{-106,140},{-86,160}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
-    annotation (Placement(transformation(extent={{-98,108},{-78,128}})));
+    annotation (Placement(transformation(extent={{-98,112},{-78,132}})));
   Fluid.Sources.MassFlowSource_T airIn(
     nPorts=1,
     use_m_flow_in=true,
     use_T_in=true,
     redeclare package Medium = Air) "Inlet air conditions (from AHU)"
-    annotation (Placement(transformation(extent={{-110,80},{-90,100}})));
+    annotation (Placement(transformation(extent={{-110,84},{-90,104}})));
   Fluid.Sources.Boundary_pT airOut(nPorts=1, redeclare package Medium = Air)
     annotation (Placement(transformation(extent={{-112,54},{-92,74}})));
   Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15])
     "Inlet air conditions (y[1] = m_flow, y[2] = T)"
-    annotation (Placement(transformation(extent={{-168,84},{-148,104}})));
+    annotation (Placement(transformation(extent={{-168,88},{-148,108}})));
 
   //Do not currently have details on window construction. For now this is a generic window placeholder
   Modelica.Blocks.Routing.Replicator replicator(nout=max(1, nConExtWin))
-    annotation (Placement(transformation(extent={{-62,138},{-42,158}})));
+    annotation (Placement(transformation(extent={{-62,140},{-42,160}})));
 equation
   connect(TGro.y[1], preT.T)                            annotation (Line(
       points={{-2,-31},{-2,-22}},
@@ -159,23 +159,23 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(intGai.y[1], multiplex3_1.u1[1]) annotation (Line(
-      points={{-119,118},{-112,118},{-112,125},{-100,125}},
+      points={{-119,122},{-112,122},{-112,129},{-100,129}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGai.y[2], multiplex3_1.u2[1]) annotation (Line(
-      points={{-119,118},{-100,118}},
+      points={{-119,122},{-100,122}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(intGai.y[3], multiplex3_1.u3[1]) annotation (Line(
-      points={{-119,118},{-112,118},{-112,111},{-100,111}},
+      points={{-119,122},{-112,122},{-112,115},{-100,115}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(multiplex3_1.y, roo.qGai_flow) annotation (Line(
-      points={{-77,118},{-50,118},{-50,100},{-20,100}},
+      points={{-77,122},{-50,122},{-50,100},{-20,100}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(airIn.ports[1], roo.ports[1]) annotation (Line(
-      points={{-90,90},{-40,90},{-40,80},{-15,80}},
+      points={{-90,94},{-40,94},{-40,80},{-15,80}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(airOut.ports[1], roo.ports[2]) annotation (Line(
@@ -183,19 +183,19 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(airCon.y[1],airIn. m_flow_in) annotation (Line(
-      points={{-147,94},{-128,94},{-128,98},{-110,98}},
+      points={{-147,98},{-128,98},{-128,102},{-110,102}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(airCon.y[2],airIn. T_in) annotation (Line(
-      points={{-147,94},{-112,94}},
+      points={{-147,98},{-112,98}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(shaPos.y[1], replicator.u) annotation (Line(
-      points={{-85,148},{-64,148}},
+      points={{-85,150},{-64,150}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(replicator.y, roo.uSha) annotation (Line(
-      points={{-41,148},{-34,148},{-34,106},{-20,106}},
+      points={{-41,150},{-34,150},{-34,106},{-20,106}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sla.surf_a, roo.surf_surBou[1]) annotation (Line(

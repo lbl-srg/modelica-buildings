@@ -28,8 +28,11 @@ model UF90X3A "Model of user facility test cell 90X3A"
         A={3.6576*1.472},
         til={Buildings.HeatTransfer.Types.Tilt.Wall},
         azi={Buildings.HeatTransfer.Types.Azimuth.S}),
-      nConExt=2,
-      lat=0.66098585832754),                       sla(
+      nConExt=3,
+      lat=0.66098585832754,
+      intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
+      extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind),
+                                                   sla(
       disPip=disPip,
       length=A/disPip,
       A=A,
@@ -39,7 +42,12 @@ model UF90X3A "Model of user facility test cell 90X3A"
       layers=slaCon,
       iLayPip=1),
     watIn(use_m_flow_in=true, use_T_in=true),
-    airIn(use_m_flow_in=true, use_T_in=true));
+    airIn(use_m_flow_in=true, use_T_in=true),
+    replicator(nout=max(1, nConExtWin)),
+    multiplex3_1(
+      n1=1,
+      n2=1,
+      n3=1));
 
     //fixme - glaSys model is probably not correct for FLeXLab test cells. See Cindy Regnier 4/16 e-mail for more information
 
