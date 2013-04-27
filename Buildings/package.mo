@@ -2906,6 +2906,8 @@ The following people have directly contributed to the implementation of the Buil
 </li>
 <li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
 </li>
+<li>Peter Grant, Lawrence Berkeley National Laboratory, USA
+</li>
 <li>Brandon M. Hencey, Cornell University, USA
 </li>
 <li>Roman Ilk, University of Applied Sciences Technikum Wien, Austria
