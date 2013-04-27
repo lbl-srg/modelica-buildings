@@ -82,8 +82,10 @@ equation
         "Simulate and Plot"),
         Documentation(info="<html>
         <p>
-        This model provides an example of how the StratifiedEnhancedInternalHX model can be used. In it a constant water draw is taken from the tank while a constant flow of hot
-        water is passed through the heat exchanger to heat the water in the tank.<br>
+        This model provides an example of how the <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHX\">
+        Buildings.Fluid.Storage.StratifiedEnhancedInternalHX</a> model can be used. In it a constant
+        water draw is taken from the tank while a constant flow of hot water is passed through the heat
+        exchanger to heat the water in the tank.<br>
         </p>
         </html>",
         revisions = "<html>

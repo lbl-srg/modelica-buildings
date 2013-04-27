@@ -1,7 +1,8 @@
 within Buildings.Fluid.Storage.BaseClasses;
-package Examples
+package Examples "Examples for BaseClasses models"
   extends Modelica.Icons.ExamplesPackage;
   model IndirectTankHeatExchanger
+    "Example showing the use of IndirectTankHeatExchanger"
     import Buildings;
     extends Modelica.Icons.Example;
 
@@ -61,7 +62,7 @@ package Examples
           "Simulate and Plot"),
           Documentation(info="<html>
         <p>
-        This model provides an example of how the IndirectTankHeatExchanger model is used. In the model water flows from a flow source through the heat exchanger to a low
+        This model provides an example of how the <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger\"> Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger</a> model is used. In the model water flows from a flow source through the heat exchanger to a low
          pressure environment. The stagnant fluid on the outside of the heat exchanger is modeled as a constant temperature.<br>
          </p>
          </html>
@@ -74,4 +75,10 @@ package Examples
         </li>
         </html>"));
   end IndirectTankHeatExchanger;
+  annotation(Documentation(info="<html>
+  <p>
+  This package contains examples for models found in <a href=\"modelica://Buildings.Fluid.Storage.BaseClasses\">
+  Buildings.Fluid.Storage.BaseClasses</a>.
+  </p>
+  </html>"));
 end Examples;

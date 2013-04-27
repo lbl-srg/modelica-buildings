@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
-model HASingleFlow
+model HASingleFlow "Test model for HASingleFlow"
   extends Modelica.Icons.Example;
 
   Buildings.Fluid.HeatExchangers.BaseClasses.HASingleFlow hASingleFlow(
@@ -37,5 +37,11 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HASingleFlow.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+        Documentation(info="<html>
+        <p>
+        Test model for <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HASingleFlow\">
+        Buildings.Fluid.HeatExchanger.BaseClassess.HASingleFlow</a>.
+        </p>
+        </html>"));
 end HASingleFlow;

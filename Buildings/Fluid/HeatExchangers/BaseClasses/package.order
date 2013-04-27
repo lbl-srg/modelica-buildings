@@ -3,7 +3,9 @@ CoilRegister
 DuctManifoldFixedResistance
 DuctManifoldNoResistance
 HADryCoil
+HASingleFlow
 HexElement
+HNatCyl
 MassExchange
 MassExchangeDummy
 PartialEffectiveness
@@ -12,6 +14,7 @@ PartialDuctPipeManifold
 PartialPipeManifold
 PipeManifoldFixedResistance
 PipeManifoldNoResistance
+RayleighNumber
 Examples
 appartusDewPoint
 epsilon_C
@@ -19,4 +22,3 @@ epsilon_ntuZ
 ntu_epsilonZ
 lmtd
 Internal
-

@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
-model RayleighNumber
+model RayleighNumber "Test model for RayleighNumber"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.BaseClasses.RayleighNumber rayleighNumber(
@@ -21,5 +21,11 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/RayleighNumber.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+        Documentation(info="<html>
+        <p>
+        Test model for <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.RayleighNumber\">
+        Buildings.Fluid.HeatExchangers.BaseClasses.RayleighNumber</a>.
+        </p>
+        </html>"));
 end RayleighNumber;

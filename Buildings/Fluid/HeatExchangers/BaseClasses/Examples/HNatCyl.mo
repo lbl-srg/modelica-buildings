@@ -1,5 +1,5 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
-model HNatCyl
+model HNatCyl "Test model for HNatCyl"
   import Buildings;
   extends Modelica.Icons.Example;
   Buildings.Fluid.HeatExchangers.BaseClasses.HNatCyl hNatCyl(redeclare package
@@ -47,5 +47,11 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HNatCyl.mos"
-        "Simulate and Plot"));
+        "Simulate and Plot"),
+        Documentation(info="<html>
+        <p>
+        Test model for <a href=\"modelica://Buildings.Fluid.HeatExchangers.BaseClasses.HNatCyl\">
+        Buildings.Fluid.HeatExchangers.BaseClasses.HNatCyl</a>.
+        </p>
+        </html>"));
 end HNatCyl;
