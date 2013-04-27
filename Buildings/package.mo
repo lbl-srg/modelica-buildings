@@ -2900,7 +2900,7 @@ helped improve the organization and structure of the library.
 The following people have directly contributed to the implementation of the Buildings library
 (many others have contributed by other means than model implementation):
 <ul>
-<li>Armin Teskeredzic, Mechanical Engineering Faculty Sarajevo and GIZ, Bosnia and Herzegovina
+<li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
@@ -2917,6 +2917,10 @@ The following people have directly contributed to the implementation of the Buil
 <li>Xiufeng Pang, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Martin Sj&ouml;lund, Link&ouml;ping University, Sweden
+</li>
+<li>Armin Teskeredzic, Mechanical Engineering Faculty Sarajevo and GIZ, Bosnia and Herzegovina
 </li>
 <li>Rafael Velazquez, University of Seville, Spain
 </li>
