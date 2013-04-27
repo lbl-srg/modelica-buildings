@@ -5,7 +5,7 @@ model SolarPumpController
   extends Modelica.Blocks.Interfaces.BlockIcon;
   parameter Real delY(final unit = "W/m2") = 0.01
     "Width of the smoothHeaviside function";
-  parameter Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.Generic per
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per
     "Performance data"
     annotation (choicesAllMatching=true, Placement(transformation(extent={{60,60},{80,80}})));
 
@@ -77,7 +77,7 @@ equation
   The critical radiation is defined per Duffie and Beckman. It is calculated using Equation 6.8.2.
   </p>
   <p align=\"center\" style=\"font-style:italic;\">
-  G<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>i</sub>-T<sub>a</sub>))/(F<sub>R</sub>(&tau;&alpha;))
+  I<sub>TC</sub>=(F<sub>R</sub>U<sub>L</sub> (T<sub>i</sub>-T<sub>a</sub>))/(F<sub>R</sub>(&tau;&alpha;))
   </p>
   <h4>References</h4>
   <p>

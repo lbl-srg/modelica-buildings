@@ -1,5 +1,6 @@
 within Buildings.Fluid.SolarCollectors.Examples;
-model FlatPlateWithTank "Example showing use of the flat plate solar collector"
+model FlatPlateWithTank
+  "Example showing use of the flat plate solar collector in a complete solar thermal system"
   import Buildings;
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
@@ -10,9 +11,8 @@ model FlatPlateWithTank "Example showing use of the flat plate solar collector"
 
   Buildings.Fluid.SolarCollectors.FlatPlate solCol(
     nSeg=3,
-    Cp=4189,
     shaCoe=0,
-    I_nominal=800,
+    G_nominal=800,
     redeclare package Medium = Medium_2,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2002001J(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
@@ -174,30 +174,35 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-                      __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollector/Examples/FlatPlateWithTank.mos"
+                      __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateWithTank.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
         <p>
-        This model shows how several different examples can be combined to create an entire solar water heating system. The <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHX\">
-        StratifiedEnhancedInternalHX</a> (tan) model is used to represent the tank filled with hot water. A loop, powered by a <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">pump</a>
-        (pum) passes the water through an <a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\"> expansion tank</a> (exp), a <a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\"> 
-        temperature sensor</a> (TIn), the <a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> solar collector</a> (solCol) and a second <a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\">
-         temperature sensor</a> (TOut) before re-entering the tank.
+        This example shows how several different models can be combined to create an entire solar water heating system. The <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHX\">
+        Buildings.Fluid.Storage.StratifiedEnhancedInternalHX</a> (tan) model is used to represent the tank filled with hot water. A loop, powered by a pump
+        <a href=\"modelica://Buildings.Fluid.Movers.FlowMachine_m_flow\">(Buildings.Fluid.Movers.FlowMachine_m_flow</a>, pum) passes the water through an expansion tank
+        <a href=\"modelica://Buildings.Fluid.Storage.ExpansionVessel\"> (Buildings.Fluid.Storage.ExpansionVessel</a>, exp), a temperature sensor
+        <a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\"> (Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TIn), the solar collector
+        <a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> (Buildings.Fluid.SolarCollectors.FlatPlate,</a> solCol) and a second temperature sensor 
+        <a href=\"modelica://Buildings.Fluid.Sensors.TemperatureTwoPort\"> (Buildings.Fluid.Sensors.TemperatureTwoPort</a>, TOut) before re-entering the tank.
         </p>
         <p>
-        The solar collector is connected to the <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\"> weather model</a> (weaDat) which passes information for the San Francisco, CA, USA climate. This information is used to identify both
-        the heat gain in the water from the sun and the heat loss to the ambient conditions.
+        The solar collector is connected to the weather model <a href=\"modelica://Buildings.BoundaryConditions.WeatherData.ReaderTMY3\"> 
+        (Buildings.BoundaryConditions.WeatherData.ReaderTMY3</a>, weaDat) which passes information for the San Francisco, CA, USA climate. This information is used to identify 
+        both the heat gain in the water from the sun and the heat loss to the ambient conditions.
         </p>
         <p>
-        The flow rate through the pump is controlled by the <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\"> SolarPumpController </a> model (pumCon) and a gain model. The SolarPumpController outputs a binary on (1) / off (0) signal. The
+        The flow rate through the pump is controlled by a solar pump controller model <a href=\"modelica://Buildings.Fluid.SolarCollectors.Controls.SolarPumpController\"> 
+        (Buildings.Fluid.SolarCollectors.Controls.SolarPumpController</a>, pumCon) and a gain model. The controller outputs a binary on (1) / off (0) signal. The
         on/off signal is passed through the gain model, multiplying by 0.04, to represent a flow rate of 0.04 kg/s when the pump is active.
         </p>
         <p>
         The heat ports for the tank are connected to an ambient temperature of 20 degrees C representing the temperature of the room the tank is stored in.
         </p>
         <p>
-        <a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">bou1</a> provides a constant mass flow rate for a hot water draw while <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">bou</a> provides an outlet boundary condition for the outlet of the draw.<br>
+        <a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">Buildings.Fluid.Sources.MassFlowSource_T</a> (bou1) provides a constant mass flow rate for a hot water
+        draw while bou <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">(Buildings.Fluid.Sources.Boundary_pT)</a> provides an outlet boundary condition for the outlet
+        of the draw.<br>
         </p>
         </html>",
         revisions="<html>

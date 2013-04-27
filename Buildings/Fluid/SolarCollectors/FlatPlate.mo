@@ -1,11 +1,18 @@
 within Buildings.Fluid.SolarCollectors;
 model FlatPlate "Model of a flat plate solar thermal collector"
   extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
-  parameter SolarCollectors.Data.GlazedFlatPlate.Generic per
+  parameter SolarCollectors.Data.GenericSolarCollector per
     annotation(choicesAllMatching=true);
   parameter Modelica.SIunits.Temperature TIn_nominal
     "Inlet temperature at nominal condition"
     annotation(Dialog(group="Nominal condition"));
+  parameter Boolean use_shaCoe_in = false
+    "Enables an input connector for shaCoe"
+    annotation(Dialog(group="Shading"));
+  parameter Real shaCoe(
+    min=0.0,
+    max=1.0) = 0 "Shading coefficient. 0.0: no shading, 1.0: full shading"
+    annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
   BaseClasses.ASHRAESolarGain                 solHeaGai(
     final B0=per.B0,
     final B1=per.B1,
@@ -13,22 +20,39 @@ model FlatPlate "Model of a flat plate solar thermal collector"
     final til=til,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
-    final A_c=per.A)
+    final A_c=per.A,
+    use_shaCoe_in=use_shaCoe_in)
              annotation (Placement(transformation(extent={{0,60},{20,80}})));
 
   SolarCollectors.BaseClasses.ASHRAEHeatLoss heaLos(
-    final Cp=Cp,
     final nSeg=nSeg,
-    final I_nominal=I_nominal,
+    final G_nominal=G_nominal,
     final TEnv_nominal=TEnv_nominal,
     final A_c=per.A,
     final TIn_nominal=TIn_nominal,
     final slope=per.slope,
     final y_intercept=per.y_intercept,
-    m_flow_nominal=rho*per.VperA_flow_nominal*per.A)
-    "Calculates the heat lost to the surroundings using the ASHRAE standard calculations"
+    m_flow_nominal=per.mperA_flow_nominal*per.A,
+    redeclare package Medium = Medium)
+    "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
         annotation (Placement(transformation(extent={{0,20},{20,40}})));
+
+  Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
+    "Shading coefficient"
+  annotation(Placement(transformation(extent={{-140,60},{-100,20}},   rotation=0)));
+
+protected
+  Modelica.Blocks.Interfaces.RealInput shaCoe_internal
+    "Internally used shading coefficient";
+
 equation
+  connect(shaCoe_internal,shaCoe_in);
+  connect(shaCoe_internal,solHeaGai.shaCoe_in);
+
+  if not use_shaCoe_in then
+    shaCoe_internal=shaCoe;
+  end if;
+
   connect(temSen.T, heaLos.TFlu) annotation (Line(
       points={{-4,-16},{-16,-16},{-16,24},{-2,24}},
       color={0,0,127},
@@ -66,8 +90,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{
-            100,100}}),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}),
             graphics),
     Icon(graphics={
         Rectangle(
@@ -167,7 +191,7 @@ Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate</a>.
  As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients 
  are only valid for incident angles of 60 degrees or less. 
   Because these curves behave poorly for angles greater than 60 degrees 
- the model does not calculatue either direct or diffuse solar radiation gains
+ the model does not calculate either direct or diffuse solar radiation gains
  when the incidence angle is greater than 60 degrees.  
  </li>
  <li>

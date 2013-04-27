@@ -27,7 +27,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(graphics), Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollector/Controls/Examples/SolarPumpController.mos"
+          "Resources/Scripts/Dymola/Fluid/SolarCollectors/Controls/Examples/SolarPumpController.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
         <p>

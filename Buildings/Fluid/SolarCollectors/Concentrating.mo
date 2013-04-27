@@ -1,13 +1,19 @@
 within Buildings.Fluid.SolarCollectors;
 model Concentrating "Model of a concentrating solar collector"
 extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
-    parameter SolarCollectors.Data.Concentrating.Generic per "Performance data"
+    parameter SolarCollectors.Data.GenericSolarCollector per "Performance data"
                         annotation (choicesAllMatching=true);
-
+  parameter Boolean use_shaCoe_in = false
+    "Enables an input connector for shaCoe"
+    annotation(Dialog(group="Shading"));
+  parameter Real shaCoe(
+    min=0.0,
+    max=1.0) = 0 "Shading coefficient. 0.0: no shading, 1.0: full shading"
+    annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
   parameter Modelica.SIunits.Temperature TMean_nominal
     "Inlet temperature at nominal condition"
     annotation(Dialog(group="Nominal condition"));
-  BaseClasses.EN12975SolarGain solHeaGaiNom(
+  BaseClasses.EN12975SolarGain solHeaGai(
     final A_c=per.A,
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
@@ -15,7 +21,8 @@ extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     final B1=per.B1,
     final shaCoe=shaCoe,
     final til=til,
-    final iamDiff=per.IAMDiff)
+    final iamDiff=per.IAMDiff,
+    final use_shaCoe_in=use_shaCoe_in)
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
   BaseClasses.EN12975HeatLoss heaLos(
     final A_c=per.A,
@@ -23,17 +30,32 @@ extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     final y_intercept=per.y_intercept,
     final C1=per.C1,
     final C2=per.C2,
-    final I_nominal=I_nominal,
+    final G_nominal=G_nominal,
     final TMean_nominal=TMean_nominal,
     final TEnv_nominal=TEnv_nominal,
-    final Cp=Cp,
-    m_flow_nominal=rho*per.VperA_flow_nominal*per.A)
+    redeclare package Medium = Medium,
+    m_flow_nominal=perPar.mperA_flow_nominal*perPar.A)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
            annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Math.Add add
     "Combines HSkyDifTil and HGroDifTil to be a single HDif value"
     annotation (Placement(transformation(extent={{-42,74},{-34,82}})));
+
+  Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
+    "Shading coefficient"
+  annotation(Placement(transformation(extent={{-140,60},{-100,20}},   rotation=0)));
+
+protected
+  Modelica.Blocks.Interfaces.RealInput shaCoe_internal
+    "Internally used shading coefficient";
+
 equation
+  connect(shaCoe_internal,shaCoe_in);
+  connect(shaCoe_internal,solHeaGai.shaCoe_in);
+
+  if not use_shaCoe_in then
+    shaCoe_internal=shaCoe;
+  end if;
   connect(temSen.T, heaLos.TFlu) annotation (Line(
       points={{-4,-16},{-16,-16},{-16,24},{-2,24}},
       color={0,0,127},
@@ -46,15 +68,15 @@ equation
       string="%first",
       index=-1,
       extent={{-6,3},{-6,3}}));
-  connect(HDirTil.inc, solHeaGaiNom.incAng) annotation (Line(
+  connect(HDirTil.inc, solHeaGai.incAng) annotation (Line(
       points={{-59,52},{-50,52},{-50,67.4},{-2,67.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(HDirTil.H, solHeaGaiNom.HDirTil) annotation (Line(
+  connect(HDirTil.H, solHeaGai.HDirTil) annotation (Line(
       points={{-59,56},{-54,56},{-54,72.6},{-2,72.6}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(add.y, solHeaGaiNom.HSkyDifTil) annotation (Line(
+  connect(add.y, solHeaGai.HSkyDifTil) annotation (Line(
       points={{-33.6,78},{-2,78}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -66,7 +88,7 @@ equation
       points={{-59,88},{-54,88},{-54,80.4},{-42.8,80.4}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(solHeaGaiNom.QSol_flow, heaGai.Q_flow) annotation (Line(
+  connect(solHeaGai.QSol_flow, heaGai.Q_flow) annotation (Line(
       points={{21,70},{38,70}},
       color={0,0,127},
       smooth=Smooth.None));
@@ -94,7 +116,7 @@ equation
  As mentioned in EnergyPlus 7.0.0 Engineering Reference, the SRCC incident angle modifier equation coefficients 
  are only valid for incident angles of 60 degrees or less. 
  Because these curves behave poorly for angles greater than 60 degrees 
- the model does not calculatue either direct or diffuse solar radiation gains
+ the model does not calculate either direct or diffuse solar radiation gains
  when the incidence angle is greater than 60 degrees. 
  </li>
  <li>

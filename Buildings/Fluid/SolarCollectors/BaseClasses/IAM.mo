@@ -1,5 +1,6 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 function IAM "Function for incident angle modifer"
+
   input Modelica.SIunits.Angle incAng "Incident angle";
   input Real B0 "1st incident angle modifer coefficient";
   input Real B1 "2nd incident angle modifer coefficient";
@@ -15,9 +16,13 @@ algorithm
     Documentation(info="<html>
 <h4>Overview</h4>
 <p>
-This function computes the coefficient for incident angle modifier for the off-normal angle. It applies a quadratic correlation to calculate the
- coefficient. The parameters B0 and B1 are listed in the Directory of SRCC (Solar Rating and Certification Corporation) Certified Solar Collector Ratings.
-Note: If the angle is larger than 60 degree, the output is 0. 
+This function computes the incidence angle modifier for solar insolation striking the surface of the solar thermal collector.
+It is calculated using Eq 555 in EnergyPlus 7.0.0 Engineering Reference.
+</p>
+<h4>Notice</h4>
+<p>
+As stated in EnergyPlus7.0.0 the incidence angle equation performs poorly at angles greater than 60 degrees. The incidence
+ angle modifier should only be calculated when the incidence angle is 60 degrees or less.
 </p>
 <h4>References</h4>
 <p>

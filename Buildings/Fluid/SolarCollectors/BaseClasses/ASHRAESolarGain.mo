@@ -28,6 +28,7 @@ block ASHRAESolarGain
   parameter Boolean use_shaCoe_in = false
     "Enables an input connector for shaCoe"
     annotation(Dialog(group="Shading"));
+
   parameter Real shaCoe(
     min=0.0,
     max=1.0) = 0 "Shading coefficient 0.0: no shading, 1.0: full shading"
@@ -107,16 +108,15 @@ This component computes the solar heat gain of the solar thermal collector. It o
 to the environment. This model uses ratings data according to ASHRAE93. The solar heat gain is calculated using Equations 555 - 559 in the referenced
 EnergyPlus documentation.
 </p>
-<h4>Equations</h4>
 <p>
 The solar radiation absorbed by the panel is identified using Eq 559 from the EnergyPlus documentation. It is:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;) K<sub>(&tau;&alpha;)<sub>net</sub></sub> (G<sub>Dir</sub> (1-P<sub>sha</sub>)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
+Q<sub>Flow</sub>[i]=A<sub>c</sub>/nSeg (F<sub>R</sub>(&tau;&alpha;) K<sub>(&tau;&alpha;)<sub>net</sub></sub> (G<sub>Dir</sub> (1-shaCoe)+G<sub>Dif,Sky</sub>+G<sub>Dif,Gnd</sub>))
 </p>
 The solar radiation equation indicates that the collector is divided into multiple segments. The number of segments used in the simulation is specified
-by the user (variable: nSeg). The area of an individual segment is identified by dividing the collector area by the total number of segments. The term
-P<sub>sha</sub> is used to define the percentage of the collector which is shaded.
+by the user (parameter: <code>nSeg</code>). The area of an individual segment is identified by dividing the collector area by the total number of segments. The term
+<i>shaCoe</i> is used to define the percentage of the collector that is shaded.
 </p>
 <p>
 The incidence angle modifier used in the solar radiation equation is found using Eq 556 from the EnergyPlus documentation. It is:
@@ -128,23 +128,28 @@ K<sub>(&tau;&alpha;),net</sub>=(G<sub>beam</sub> K<sub>(&tau;&alpha;),beam</sub>
 Each incidence angle modifier is calculated using Eq 555 from the EnergyPlus documentation. It is:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-  K<sub>(&tau;&alpha;),x</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub> (1/cos(&theta;)-1)^2
+  K<sub>(&tau;&alpha;),x</sub>=1+b<sub>0</sub> (1/cos(&theta;)-1)+b<sub>1</sub> (1/cos(&theta;)-1)<sup>2</sup>
 </p>
-Theta is the incidence angle. For beam radiation theta is found via standard geometry. The incidence angle for sky and ground diffuse radiation are found
+<p>
+In the above equation x can refer to beam, sky or ground.
+</p>
+<p>
+<i>&theta;</i> is the incidence angle. For beam radiation <i>&theta;</i> is found via standard geometry. The incidence angle for sky and ground diffuse radiation are found
 using, respectively, Eq 557 and 558 from the EnergyPlus documentation. They are:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Theta<sub>sky</sub>=59.68-0.1388 tilt+0.001497 tilt^2<br>
-Theta<sub>gnd</sub>=90.0-0.5788 tilt+0.002693 tilt^2
+&theta;<sub>sky</sub>=59.68-0.1388 til+0.001497 til<sup>2</sup><br>
+&theta;<sub>gnd</sub>=90.0-0.5788 til+0.002693 til<sup>2</sup>
 </p>
 <p>
-These two equations must be evaluated in degrees. The necessary unit conversions are made internally, and the user does not need to worry about it. Tilt
+These two equations must be evaluated in degrees. The necessary unit conversions are made internally, and the user does not need to worry about it. <i>Til</i>
 is the surface tilt of the collector.
 </p>
 
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
+<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br>
+ASHRAE 93-2010 -- Methods of Testing to Determine the Thermal Performance of Solar Collectors (ANSI approved)
 </p>
 </html>", revisions="<html>
 <ul>

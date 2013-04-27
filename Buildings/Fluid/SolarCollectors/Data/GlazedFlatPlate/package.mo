@@ -3,7 +3,6 @@ package GlazedFlatPlate "Package with SRCC rating information for glazed flat-pl
 extends Modelica.Icons.MaterialPropertiesPackage;
 
 
-
 annotation (Documentation(info="<html>
 Package with records for SRCC rating information for glazed flat-plate solar thermal collector.
 </html>", revisions="<html>

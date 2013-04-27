@@ -64,25 +64,26 @@ equation
     Documentation(info="<html>
 <p>
 This component computes the solar heat gain of the solar thermal collector. It only calculates the solar heat gain without considering the heat loss to 
-the environment. This model performs calculations using ratings data from EN12975. The solar heat gain is calculated using Equations 555 - 559 in the 
+the environment. This model performs calculations using ratings data from EN12975. The solar heat gain is calculated using Equation 559 in the 
 referenced EnergyPlus documentation. The calculation is modified somewhat to use coefficients from EN12975.
-<h4> Equations</h4>
+</p>
 <p>
-The final equation to calculate solar gain is a modified version of Eq 559 from the EnergyPlus documentation. It is:
+The equation used to calculate solar gain is a modified version of Eq 559 from the EnergyPlus documentation. It is:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Q<sub>flow</sub>[i] = A<sub>c</sub>/nSeg F<sub>R</sub>(&tau;&alpha;) (K<sub>(&tau;&alpha;),beam</sub> G<sub>bea</sub> (1-P<sub>sha</sub>)+K<sub>Diff</sub> G<sub>sky</sub>)
+Q<sub>flow</sub>[i] = A<sub>c</sub>/nSeg F<sub>R</sub>(&tau;&alpha;) (K<sub>(&tau;&alpha;),beam</sub> G<sub>bea</sub> (1-shaCoe)+K<sub>Diff</sub> I<sub>sky</sub>)
 </p>
 <p>
 The solar radiation equation indicates that the collector is divided into multiple segments. The number of segments used in the simulation is specified by the user parameter <code>nSeg</code>.
-The area of an individual segment is identified by dividing the collector area by the total number of segments. The term P<sub>sha</sub> is used to define the percentage of the collector which is shaded.
+The area of an individual segment is identified by dividing the collector area by the total number of segments. The term <i>shaCoe</i> is used to define the percentage of the collector which is shaded.
 The main difference between this model and the ASHRAE model is the handling of diffuse radiation. The ASHRAE model contains calculated incidence angle modifiers for both sky and ground diffuse radiation while
 this model uses a coefficient from test data to for diffuse radiation.
 </p>
 
 <h4>References</h4>
 <p>
-<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.
+<a href=\"http://www.energyplus.gov\">EnergyPlus 7.0.0 Engineering Reference</a>, October 13, 2011.<br>
+CEN 2006, European Standard 12975-1:2006, European Committee for Standardization 
 </p>
 </html>", revisions="<html>
 <ul>

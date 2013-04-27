@@ -2,7 +2,7 @@ within Buildings.Fluid.SolarCollectors.BaseClasses.Examples;
 model EN12975SolarGain "Example showing the use of EN12975SolarGain"
   extends Modelica.Icons.Example;
   import Buildings;
-  parameter Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.Generic               per=
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector               per=
       Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B()
     "Performance data" annotation (choicesAllMatching=true);
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
@@ -68,7 +68,7 @@ First implementation.
 </ul>
 </html>"),
     __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollector/BaseClasses/Examples/EN12975SolarGain.mos"
+          "Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975SolarGain.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end EN12975SolarGain;

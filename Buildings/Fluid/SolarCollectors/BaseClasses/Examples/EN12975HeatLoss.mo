@@ -2,7 +2,7 @@ within Buildings.Fluid.SolarCollectors.BaseClasses.Examples;
 model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
   import Buildings;
   extends Modelica.Icons.Example;
-  parameter Buildings.Fluid.SolarCollectors.Data.Concentrating.Generic per=
+  parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per=
     Buildings.Fluid.SolarCollectors.Data.Concentrating.SRCC2011127A()
     "Performance data" annotation (choicesAllMatching=true);
   Modelica.Blocks.Sources.Sine     TEnv(
@@ -28,14 +28,14 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss  heaLos(
     nSeg=3,
     A_c=2.699,
-    Cp=4186,
     y_intercept=0.718,
     C1=0.733,
     C2=0.0204,
     m_flow_nominal=0.04,
-    I_nominal=800,
-    TMean_nominal=298.15,
-    TEnv_nominal=283.15)
+    G_nominal=800,
+    redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
+    TEnv_nominal=283.15,
+    TMean_nominal=298.15)
     annotation (Placement(transformation(extent={{62,20},{82,40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
@@ -72,8 +72,7 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file=
-          "Resources/Scripts/Dymola/Fluid/SolarCollector/BaseClasses/Examples/EN12975HeatLoss.mos"
+    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/BaseClasses/Examples/EN12975HeatLoss.mos"
         "Simulate and Plot"),
     Icon(graphics));
 end EN12975HeatLoss;
