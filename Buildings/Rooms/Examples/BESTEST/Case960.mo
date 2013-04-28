@@ -231,7 +231,6 @@ equation
           extent={{-12,-202},{134,-222}},
           lineColor={0,0,255},
           textString="BackZone")}),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-120,-240},{260,120}})),
             Documentation(revisions="<html>
 <ul>
 <li>

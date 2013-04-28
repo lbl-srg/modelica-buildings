@@ -32,7 +32,6 @@ model Case920 "Case 900, but with windows on East and West side walls"
       Tolerance=1e-006),
 Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
-    experimentSetupOutput,
     Documentation(info="<html>
 <p>
 This model is the case 920 of the BESTEST validation suite.
