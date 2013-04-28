@@ -178,7 +178,7 @@ equation
           thickness=1,
           origin={2,42},
           rotation=90)}),
-    defaultComponentName="solCol",
+    defaultComponentName="solColVal",
     Documentation(info="<html>
 <p>
 This component models the flat plate solar thermal collector. 

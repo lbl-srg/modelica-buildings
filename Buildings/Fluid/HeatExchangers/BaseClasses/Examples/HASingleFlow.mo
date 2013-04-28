@@ -1,11 +1,8 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses.Examples;
 model HASingleFlow "Test model for HASingleFlow"
+  import Buildings;
   extends Modelica.Icons.Example;
 
-  Buildings.Fluid.HeatExchangers.BaseClasses.HASingleFlow hASingleFlow(
-    UA_nominal=13,
-    m_flow_nominal_w=0.063,
-    A_2=1) annotation (Placement(transformation(extent={{-14,-10},{6,10}})));
   Modelica.Blocks.Sources.Sine sine(
     freqHz=0.1,
     amplitude=0.063,
@@ -21,17 +18,21 @@ model HASingleFlow "Test model for HASingleFlow"
     freqHz=0.1,
     offset=3)
     annotation (Placement(transformation(extent={{-80,-44},{-60,-24}})));
+  Buildings.Fluid.HeatExchangers.BaseClasses.HASingleFlow hASin(
+    UA_nominal=13,
+    m_flow_nominal_w=0.063,
+    A_2=1) annotation (Placement(transformation(extent={{-12,-6},{8,14}})));
 equation
-  connect(sine.y, hASingleFlow.m1_flow) annotation (Line(
-      points={{-59,30},{-40,30},{-40,7},{-15,7}},
+  connect(sine.y, hASin.m1_flow) annotation (Line(
+      points={{-59,30},{-28,30},{-28,11},{-13,11}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sine1.y, hASingleFlow.T_1) annotation (Line(
-      points={{-59,-2},{-40,-2},{-40,3},{-15,3}},
+  connect(sine1.y, hASin.T_1) annotation (Line(
+      points={{-59,-2},{-28,-2},{-28,7},{-13,7}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(sine2.y, hASingleFlow.h_2) annotation (Line(
-      points={{-59,-34},{-34,-34},{-34,-4},{-15,-4}},
+  connect(sine2.y, hASin.h_2) annotation (Line(
+      points={{-59,-34},{-22,-34},{-22,0},{-13,0}},
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

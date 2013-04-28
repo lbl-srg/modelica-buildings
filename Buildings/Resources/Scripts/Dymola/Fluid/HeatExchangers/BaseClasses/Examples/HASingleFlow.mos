@@ -2,7 +2,7 @@ simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HASingleFlow"
 
 createPlot(id = 1,
  position = {0, 0, 1609, 781},
- y = {"hASingleFlow.hA_1"},
+ y = {"hASin.hA_1"},
  range = {0.0, 15.5, 100.0, 180.0},
  erase = false,
  autoscale = true,

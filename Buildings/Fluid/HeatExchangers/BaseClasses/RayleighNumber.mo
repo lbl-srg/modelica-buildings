@@ -50,7 +50,7 @@ equation
     Gr = Modelica.Constants.g_n * B * (TSur - TFlu)*ChaLen^3/nu^2;
     Ra = Gr*Pr;
 
-annotation (
+annotation (defaultComponentName="Ra",
 Documentation(info = "<html>
 <p>
 This model calculates the rayleigh number for a given fluid and characteristic length. It is calculated using Eq 9.25 in Incropera and DeWitt (1996). The equation is:

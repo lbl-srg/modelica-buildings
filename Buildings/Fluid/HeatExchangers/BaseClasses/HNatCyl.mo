@@ -39,6 +39,7 @@ equation
   Nusselt = (0.6+Num/Den)^2;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),
+            defaultComponentName="hNat",
             Documentation(info="<html>
             <p>
             This model calculates the convection coefficient (<i>h</i>) for natural convection from a cylinder submerged in fluid. <i>h</i> is calcualted using Eq 9.34 from Incropera and DeWitt (1996).
