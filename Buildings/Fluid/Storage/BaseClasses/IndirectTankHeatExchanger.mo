@@ -241,6 +241,7 @@ equation
           pattern=LinePattern.None,
           fillColor={0,0,0},
           fillPattern=FillPattern.Solid)}),
+          defaultComponentName="indTanHX",
         Documentation(info = "<html>
           <p>
           This model is a heat exchanger with a fluid loop on one side and a heat exchanger on the other. It is intended for use when a heat exchanger is submerged in a stagnant fluid.<br>

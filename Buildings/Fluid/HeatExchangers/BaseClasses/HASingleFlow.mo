@@ -91,6 +91,7 @@ equation
 annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
             {100,100}}),
                     graphics),
+                    defaultComponentName="HASin",
 Documentation(info="<html>
 <p>
 Model for sensible convective heat transfer coefficients for a fluid to fluid coil. This model assumes the heated fluid is in a cylinder submerged in water.
