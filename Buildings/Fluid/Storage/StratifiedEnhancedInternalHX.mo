@@ -125,10 +125,10 @@ equation
             The changes made to the model consist of adding a heat exchanger 
             (<a href=\"Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger\"> Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.
             The modifications allow the ability to run a fluid through the tank causing heat transfer to the stored fluid. An example of when this would be useful is modeling
-            a storage tank which includes a glycol loop connedted to a solar thermal collector.
+            a storage tank in a solar hot water system.
             </p>
             <p>
-            The heat exchanger models assumes flow through the inside of a helical coil heat exchanger, and stagnant fluid on the outside. Inputs are used to describe the 
+            The heat exchanger model assumes flow through the inside of a helical coil heat exchanger, and stagnant fluid on the outside. Inputs are used to describe the 
             heat transfer on the inside of the heat exchanger at nominal conditions, and geometry of the outside of the heat exchanger. This information is used to compute 
             an hA value for each side of the coil. Convection calculations are then performed to identify heat transfer between the heat transfer fluid and the fluid in the tank.
             </p>
