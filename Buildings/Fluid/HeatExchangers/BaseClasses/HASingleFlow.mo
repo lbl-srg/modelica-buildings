@@ -2,11 +2,11 @@ within Buildings.Fluid.HeatExchangers.BaseClasses;
 model HASingleFlow
   "Calculates hA values for a heat exchanger with internal flow"
   extends Buildings.BaseClasses.BaseIcon;
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
+  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0) = 755.56
     "Thermal conductance at nominal flow"
           annotation(Dialog(tab="General", group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_w
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_w = 0.278
     "Water mass flow rate"
           annotation(Dialog(tab="General", group="Nominal condition"));
 
@@ -24,7 +24,7 @@ model HASingleFlow
     "Convective heat transfer medium 2" annotation (Placement(transformation(
           extent={{100,-80},{120,-60}}, rotation=0)));
 
-  parameter Modelica.SIunits.Area A_2
+  parameter Modelica.SIunits.Area A_2 = 1.5
     "External surface area of one segment of the heat exchanger";
 
   parameter Real r_nominal(min=0, max=1)=0.5

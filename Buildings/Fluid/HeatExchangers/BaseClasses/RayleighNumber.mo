@@ -12,15 +12,16 @@ model RayleighNumber
    Modelica.SIunits.Density rho "Density of the medium";
    Real g= Modelica.Constants.g_n "Acceleration due to gravity";
 
-   Modelica.Blocks.Interfaces.RealInput TSur "Surface temperature of the HX"
+   Modelica.Blocks.Interfaces.RealInput TSur(unit = "K")
+    "Surface temperature of the HX"
      annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-   Modelica.Blocks.Interfaces.RealInput TFlu "Fluid temperature"
+   Modelica.Blocks.Interfaces.RealInput TFlu(unit = "K") "Fluid temperature"
      annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
-   Modelica.Blocks.Interfaces.RealOutput Ra
+   Modelica.Blocks.Interfaces.RealOutput Ra "Rayleigh number"
      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
-   Modelica.Blocks.Interfaces.RealOutput Pr
+   Modelica.Blocks.Interfaces.RealOutput Pr "Prandlt number"
      annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
 equation
     mu = Medium.dynamicViscosity(
@@ -52,16 +53,16 @@ equation
 annotation (
 Documentation(info = "<html>
 <p>
-This model calculates the rayleigh number for a given fluid and characteristic length. It is calculated using Eq 9.25 in the referenced material. The equation is
+This model calculates the rayleigh number for a given fluid and characteristic length. It is calculated using Eq 9.25 in Incropera and DeWitt (1996). The equation is:
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-Ra<sub>L</sub> = Gr<sub>L</sub> * Pr * (g * B * (T<sub>S</sub> - T<sub>F</sub>)*L^3) /(&nu;*&alpha;)
+Ra<sub>L</sub> = Gr<sub>L</sub> Pr (g B (T<sub>S</sub> - T<sub>F</sub>) L<sup>3</sup>) /(&nu;*&alpha;)
 </p>
 <p>
 where:<br>
-  Ra<sub>L</sub> is the Rayleigh number, Gr<sub>L</sub> is the Grashof number, Pr is the Prandtl number, g is gravity, B is the isobaric expansion coefficient,
-  T<sub>S</sub> is the temperature of the surface, T<sub>F</sub> is the temperature of the fluid, L is the characteristic length, &nu; is the kinematic viscosity
-  and &alpha; is the thermal diffusivity.
+  <i>Ra<sub>L</sub></i> is the Rayleigh number, <i>Gr<sub>L</sub></i> is the Grashof number, <i>Pr</i> is the Prandtl number, <i>g</i> is gravity, <i>B</i> is the isobaric expansion coefficient,
+  <i>T<sub>S</sub></i> is the temperature of the surface, <i>T<sub>F</sub></i> is the temperature of the fluid, <i>L</i> is the characteristic length, <i>&nu;</i> is the kinematic viscosity
+  and <i>&alpha;</i> is the thermal diffusivity.
 </p>
 <p>
 The thermophysical properties are calculated using the functions of the medium specified by the user.
