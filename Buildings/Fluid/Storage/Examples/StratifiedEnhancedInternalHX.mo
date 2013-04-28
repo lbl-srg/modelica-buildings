@@ -49,7 +49,8 @@ model StratifiedEnhancedInternalHX
     HXBotHeight=0.25,
     C=40,
     m_flow_nominal_tank=0.001,
-    HXSegMult=1)
+    HXSegMult=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
     annotation (Placement(transformation(extent={{-22,-6},{12,26}})));
 equation
   connect(senTem.port_b, boundary.ports[1]) annotation (Line(

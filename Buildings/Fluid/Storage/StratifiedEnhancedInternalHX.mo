@@ -78,7 +78,8 @@ public
     redeclare package Medium = Medium,
     redeclare package Medium_2 = Medium_2,
     dp_nominal=dp_nominal,
-    m_flow_nominal=m_flow_nominal_HX)                 annotation (Placement(
+    m_flow_nominal=m_flow_nominal_HX,
+    energyDynamics=energyDynamics)                    annotation (Placement(
         transformation(
         extent={{-10,-15},{10,15}},
         rotation=90,
