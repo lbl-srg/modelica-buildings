@@ -19,12 +19,32 @@ package ConstantPropertyLiquidWater "Package with model for liquid water with co
 
 
  redeclare replaceable function extends isobaricExpansionCoefficient
-  "Return specific internal energy"
+  "Return isobaric expansion coefficient"
  algorithm
-        beta := (-0.0463*state.T^2+37.644*state.T-6867)*10^(-6);
-        //Equation is a second order polynomial fit to data from Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera & David DeWitt, John Wiley & Sons, 1996
-
+        beta := (-8.53296*10^(-6)*state.T^4+0.011562287*state.T^3-5.88800657*state.T^2+1341.798661*state.T-115406.5225)*10^(-6);
+        //Equation is a fourth order polynomial fit to data from Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera & David DeWitt, John Wiley & Sons, 1996
  end isobaricExpansionCoefficient;
+
+
+ replaceable function dynamicVis "Return dynamic viscosity"
+    input ThermodynamicState state "Thermodynamic state record";
+    output DynamicViscosity mu "Dynamic viscosity";
+ algorithm
+        mu := ((2.86651*10^(-5))*state.T^4-0.039376307*state.T^3+20.32805026*state.T^2-4680.303158*state.T+406389.0375)*10^(-6);
+        //Equation is a fourth order polynomial fit to data from Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera & David DeWitt, John Wiley & Sons, 1996
+        //fixme - dynamicViscosity was hard-coded to a constant (not replaceable). Made new model dynamicVis.
+        //Discuss with Michael - Do we really want to have changing properties in ConstantPropertyLiquidWater? Why not extend it to just make "Water"?
+ end dynamicVis;
+
+
+ replaceable function PrNum "Return prandtl number"
+    input ThermodynamicState state "Thermodynamic state record";
+    output DynamicViscosity Pr "Prandtl number";
+ algorithm
+        Pr := ((2.55713*10^(-7))*state.T^4-0.000350293*state.T^3+0.180259651*state.T^2-41.34104323*state.T+3571.372195);
+        //Equation is a fourth order polynomial fit to data from Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera & David DeWitt, John Wiley & Sons, 1996
+
+ end PrNum;
 
 
  redeclare replaceable function extends specificInternalEnergy

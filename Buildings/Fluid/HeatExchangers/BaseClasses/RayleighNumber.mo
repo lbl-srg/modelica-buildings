@@ -15,35 +15,36 @@ model RayleighNumber
    Modelica.Blocks.Interfaces.RealInput TSur(unit = "K")
     "Surface temperature of the HX"
      annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
-   Modelica.Blocks.Interfaces.RealInput TFlu(unit = "K") "Fluid temperature"
-     annotation (Placement(transformation(extent={{-140,-60},{-100,-20}})));
 
    Modelica.Blocks.Interfaces.RealOutput Ra "Rayleigh number"
      annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 
    Modelica.Blocks.Interfaces.RealOutput Pr "Prandlt number"
      annotation (Placement(transformation(extent={{100,-50},{120,-30}})));
+   Modelica.Blocks.Interfaces.RealInput TFlu(unit="K")
+    "Temperature of the surrounding fluid"
+     annotation (Placement(transformation(extent={{-140,-62},{-100,-22}})));
 equation
-    mu = Medium.dynamicViscosity(
+    mu = Medium.dynamicVis(
         Medium.setState_pTX(
         p=  Medium.p_default,
-        T=  Medium.T_default,
+        T=  0.5 * (TSur+TFlu),
         X=  Medium.X_default));
     rho = Medium.density(
         Medium.setState_pTX(
         p=  Medium.p_default,
-        T=  TFlu,
+        T=  0.5*(TSur+TFlu),
         X=  Medium.X_default));
-    Pr = Medium.prandtlNumber(
+    Pr = Medium.PrNum(
         Medium.setState_pTX(
           p=  Medium.p_default,
-          T=  TFlu,
+          T=  0.5*(TSur+TFlu),
           X=  Medium.X_default));
 
    B = Medium.isobaricExpansionCoefficient(
         Medium.setState_pTX(
           p=  Medium.p_default,
-          T=  TFlu,
+          T=  0.5*(TSur+TFlu),
           X=  Medium.X_default));
     nu = mu/rho;
 
@@ -82,5 +83,7 @@ February 26, 2013 by Peter Grant <br>
 First implementation
 </li>
 </ul>
-</html>"));
+</html>"),
+    Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
+            100}}), graphics));
 end RayleighNumber;

@@ -31,7 +31,7 @@ equation
   kFlu = Medium.thermalConductivity(
     Medium.setState_pTX(
     p=  Medium.p_default,
-    T=  TFlu,
+    T=  0.5*(TFlu+TSur),
     X=  Medium.X_default));
   Num = (0.387*Buildings.Utilities.Math.Functions.smoothMax(Ra,1,0.1)^(1/6));
   Den = ((1+(0.559/Pr)^(9/16))^(8/27));
