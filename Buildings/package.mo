@@ -363,6 +363,19 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Add explanation of nStaRef.</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/70\">#70</a>
+    </td>
+    <td valign=\"top\">
+    Described in
+    <a href=\"modelica://Buildings.HeatTransfer.Data.Solids\">
+    Buildings.HeatTransfer.Data.Solids</a>
+    how the parameter <code>nStaRef</code> is used
+    to compute the spatial grid that is used for simulating transient heat conduction.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Assert statement does not fire.</b>
     </td>
 </tr>
@@ -2900,11 +2913,13 @@ helped improve the organization and structure of the library.
 The following people have directly contributed to the implementation of the Buildings library
 (many others have contributed by other means than model implementation):
 <ul>
-<li>Armin Teskeredzic, Mechanical Engineering Faculty Sarajevo and GIZ, Bosnia and Herzegovina
+<li>Marco Bonvini, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Rainer Czetina, University of Applied Sciences Technikum Wien, Austria
 </li>
 <li>Sebastian Giglmayr, University of Applied Sciences Technikum Wien, Austria
+</li>
+<li>Peter Grant, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Brandon M. Hencey, Cornell University, USA
 </li>
@@ -2917,6 +2932,10 @@ The following people have directly contributed to the implementation of the Buil
 <li>Xiufeng Pang, Lawrence Berkeley National Laboratory, USA
 </li>
 <li>Kaustubh Phalak, Lawrence Berkeley National Laboratory, USA
+</li>
+<li>Martin Sj&ouml;lund, Link&ouml;ping University, Sweden
+</li>
+<li>Armin Teskeredzic, Mechanical Engineering Faculty Sarajevo and GIZ, Bosnia and Herzegovina
 </li>
 <li>Rafael Velazquez, University of Seville, Spain
 </li>

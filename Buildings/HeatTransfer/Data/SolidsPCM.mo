@@ -111,6 +111,12 @@ thermal conductivity, mass density and specific
 heat capacity, as well as the solidus and liquidus temperatures, and 
 the latent heat.
 </p>
+<p>
+For a description of the parameter <code>nStaRef</code>, which is
+used to generate the spatial grid, see the documentation of the package
+<a href=\"modelica://Buildings.HeatTransfer.Data.Solids\">
+Buildings.HeatTransfer.Data.Solids</a>.
+</p>
 </html>",
 revisions="<html>
 <ul>

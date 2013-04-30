@@ -108,8 +108,7 @@ extends Buildings.BaseClasses.BaseIcon;
   Modelica.SIunits.ThermalInsulance RCl "Thermal resistance of clothing (10)";
 
 protected
-  Buildings.Utilities.Psychrometrics.X_pTphi steRat(
-   redeclare package Medium = Buildings.Media.PerfectGases.MoistAir)
+  Buildings.Utilities.Psychrometrics.X_pTphi steRat
     "Model to compute the steam mass fraction";
   Real fCl1 "work variable for fCl";
   Real fCl2 "work variable for fCl";

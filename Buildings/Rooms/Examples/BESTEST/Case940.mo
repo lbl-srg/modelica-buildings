@@ -13,8 +13,8 @@ model Case940 "Case 900, but with heating schedule"
       peakHea(Min=3.980*1000, Max=6.428*1000, Mean=5.494*1000),
       peakCoo(Min=-2.886*1000, Max=-3.871*1000, Mean=-1.340*1000)));
 
-    annotation (Placement(transformation(extent={{-76,82},{-56,102}})),
-              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case940.mos"
+    annotation (
+       __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case940.mos"
         "Simulate and plot"),
         experiment(
       StopTime=3.1536e+007,
@@ -22,7 +22,6 @@ model Case940 "Case 900, but with heating schedule"
       Tolerance=1e-006),
 Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
-    experimentSetupOutput,
     Documentation(revisions="<html>
 <ul>
 <li>
