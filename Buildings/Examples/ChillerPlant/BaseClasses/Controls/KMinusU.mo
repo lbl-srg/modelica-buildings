@@ -38,5 +38,6 @@ First implementation.
           lineColor={0,0,255}), Text(
           extent={{-50,24},{40,-12}},
           lineColor={0,0,255},
-          textString="y=k-u")}));
+          textString="y=k-u")}),
+    experiment(StopTime=3600));
 end KMinusU;

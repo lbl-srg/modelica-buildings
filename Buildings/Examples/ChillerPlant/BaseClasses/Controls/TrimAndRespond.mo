@@ -113,5 +113,6 @@ First implementation.
 </ul>
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}})));
+            100}})),
+    experiment(StopTime=3600));
 end TrimAndRespond;

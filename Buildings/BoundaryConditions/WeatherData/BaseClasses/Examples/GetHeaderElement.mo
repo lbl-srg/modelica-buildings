@@ -19,6 +19,8 @@ initial equation
   assert(abs(timeZone+6*3600) < 1, "Error when parsing time zone, timeZone = "
     + String(timeZone));
 
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos"
+  annotation (
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetHeaderElement.mos"
         "Simulate and plot"));
 end GetHeaderElement;

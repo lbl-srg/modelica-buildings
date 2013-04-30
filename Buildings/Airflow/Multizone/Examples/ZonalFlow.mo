@@ -50,7 +50,9 @@ equation
       points={{-11,-2},{-20,-2},{-20,58},{-77,58}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ZonalFlow.mos"
+  annotation (
+experiment(StopTime=3600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ZonalFlow.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>
