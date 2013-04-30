@@ -121,10 +121,11 @@ for mos_file in mos_files:
 				# if true, reached the end of the annotations
 				# Go back and look for the __DymolaCommand and replace it adding the experiment
 				# stopTime command
-				for k in range(Nlines-1, i, -1):
+				for k in range(Nlines-1, i-1, -1):
 					
 					line = modelContent[k]
 					
+					"""
 					pDymolaComm    = re.compile(r"[\S]*([(]*[\s]*[_][_]Dymola_Commands\()[\S]*[.]*")
 					mDymolaComm    = pDymolaComm.match(line)
 					
@@ -144,16 +145,26 @@ for mos_file in mos_files:
 					except AttributeError:
 						# Do nothing
 						line
+					"""
+					if "__Dymola_Commands(" in line:
+						print "\t"+line
+						newLine = line.replace("__Dymola_Commands(" , "\nexperiment(StopTime="+str(stopTime)+"),\n__Dymola_Commands(")
+						print "\t WITH"
+						print "\t"+newLine
 						
+						# replace
+						modelContent[k] = newLine
+						
+						# replacement done
+						found = True	
 		
 		# rewrite in an other file with the same name
 		fm.close()
 		
 		print "\t================================="
-		rewrite = "y"
 		rewrite = raw_input("\n\tARE YOU SURE TO DO THAT (Y/n)?")
 		
-		if rewrite == 'y':
+		if rewrite != 'n':
 			# Delete the old file
 			print "\tDeleting the old version..."
 			os.system("rm "+modelPath)
