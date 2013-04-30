@@ -30,7 +30,9 @@ equation
       points={{39,34},{16,34},{16,24},{-20,24},{-20,26},{-39,26}},
       color={0,127,0},
       smooth=Smooth.None));
-  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Radiosity/Examples/OpaqueSurface.mos"
+  annotation(
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Radiosity/Examples/OpaqueSurface.mos"
         "Simulate and plot"),
               Diagram(graphics));
 end OpaqueSurface;

@@ -234,6 +234,8 @@ equation
           lineColor={255,0,0},
           textString=
               "fixme: vol and vol1 have different trace substances. If res is removed, then they are equal. Check prior to release, and then change startTime of assEqu ")}),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/PrescribedExtraPropertyFlow.mos"
+             
+experiment(StopTime=600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sources/Examples/PrescribedExtraPropertyFlow.mos"
         "Simulate and plot"));
 end PrescribedExtraPropertyFlow;

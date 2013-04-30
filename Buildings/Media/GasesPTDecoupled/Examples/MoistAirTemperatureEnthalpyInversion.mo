@@ -4,6 +4,8 @@ model MoistAirTemperatureEnthalpyInversion
   extends Modelica.Icons.Example;
   extends Buildings.Media.BaseClasses.TestTemperatureEnthalpyInversion(
     redeclare package Medium = Buildings.Media.GasesPTDecoupled.MoistAir);
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/GasesPTDecoupled/Examples/MoistAirTemperatureEnthalpyInversion.mos"
+  annotation (
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/GasesPTDecoupled/Examples/MoistAirTemperatureEnthalpyInversion.mos"
         "Simulate and plot"));
 end MoistAirTemperatureEnthalpyInversion;

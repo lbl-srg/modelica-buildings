@@ -39,7 +39,9 @@ equation
       points={{1,30},{10,30},{10,16},{18,16}},
       color={0,0,127},
       smooth=Smooth.None));
- annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Overhang.mos"
+ annotation (Diagram(graphics), 
+experiment(StopTime=86400),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Overhang.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>

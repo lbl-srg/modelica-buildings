@@ -125,7 +125,7 @@ for mos_file in mos_files:
 					
 					line = modelContent[k]
 					
-					pDymolaComm    = re.compile(r"[\S]*([\s]*[_][_]Dymola_Commands\()[\S]*[.]*")
+					pDymolaComm    = re.compile(r"[\S]*([(]*[\s]*[_][_]Dymola_Commands\()[\S]*[.]*")
 					mDymolaComm    = pDymolaComm.match(line)
 					
 					try:

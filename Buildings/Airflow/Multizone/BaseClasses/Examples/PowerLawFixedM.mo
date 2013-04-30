@@ -39,6 +39,8 @@ equation
     dp_turbulent=dp_turbulent);
   assert(abs(V_flow-VFixed_flow) < 1E-10, "Error: The two implementations of the power law model need to give identical results");
   annotation (
+
+experiment(StopTime=1.0),
   __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/BaseClasses/Examples/PowerLawFixedM.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>

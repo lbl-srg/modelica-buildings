@@ -98,7 +98,9 @@ equation
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                         graphics),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/TwoWayValvesMotor.mos"
+             
+experiment(StopTime=600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Examples/TwoWayValvesMotor.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 <p>

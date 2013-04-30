@@ -9,7 +9,9 @@ model ControlledFlowMachine
     fan3(addPowerToMedium=false, filteredSpeed=false));
 
   annotation (
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ControlledFlowMachine.mos"
+    
+experiment(StopTime=600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Movers/Examples/ControlledFlowMachine.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This example demonstrates the use of the flow model with four different configurations.

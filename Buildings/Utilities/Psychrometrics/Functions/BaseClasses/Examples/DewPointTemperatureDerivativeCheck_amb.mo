@@ -18,7 +18,7 @@ equation
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/DewPointTemperatureDerivativeCheck_amb.mos" "Simulate and plot"),
     experiment(
       StartTime=273.15,
-      StopTime=473.15),
+      StopTime=323.15),
     Documentation(info="<html>
 <p>
 This example checks whether the function derivative

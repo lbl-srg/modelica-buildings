@@ -85,6 +85,8 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClasses/Examples/BrighteningCoefficient.mos" "run"),
+    
+experiment(StopTime=8640000),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/BaseClasses/Examples/BrighteningCoefficient.mos" "run"),
     Icon(graphics));
 end BrighteningCoeffcient;
