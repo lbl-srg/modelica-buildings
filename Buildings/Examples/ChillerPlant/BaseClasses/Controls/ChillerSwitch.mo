@@ -117,5 +117,6 @@ First implementation.
         Rectangle(extent={{-89,-45},{-6,-88}}, lineColor={192,192,192}),
         Line(points={{-47,-25},{-47,-45}}, color={192,192,192}),
         Rectangle(extent={{4,-45},{93,-88}}, lineColor={192,192,192}),
-        Line(points={{43,-25},{43,-45}}, color={192,192,192})}));
+        Line(points={{43,-25},{43,-45}}, color={192,192,192})}),
+    experiment(StopTime=86400));
 end ChillerSwitch;
