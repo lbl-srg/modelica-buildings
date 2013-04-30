@@ -363,6 +363,19 @@ The following
 have been fixed:
 </p>
 <table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>Add explanation of nStaRef.</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/70\">#70</a>
+    </td>
+    <td valign=\"top\">
+    Described in
+    <a href=\"modelica://Buildings.HeatTransfer.Data.Solids\">
+    Buildings.HeatTransfer.Data.Solids</a>
+    how the parameter <code>nStaRef</code> is used
+    to compute the spatial grid that is used for simulating transient heat conduction.
+    </td>
+</tr>
 <tr><td colspan=\"2\"><b>Assert statement does not fire.</b>
     </td>
 </tr>
