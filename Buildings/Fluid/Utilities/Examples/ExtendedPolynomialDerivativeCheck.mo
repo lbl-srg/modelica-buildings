@@ -18,7 +18,6 @@ equation
   assert(abs(x-y) < 1E-2, "Model has an error");
 
  annotation(Diagram(graphics),
-    
 experiment(StopTime=4),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Utilities/Examples/ExtendedPolynomialDerivativeCheck.mos" "Simulate and plot"),
     Documentation(info="<html>

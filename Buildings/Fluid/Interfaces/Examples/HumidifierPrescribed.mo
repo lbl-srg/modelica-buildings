@@ -631,7 +631,6 @@ equation
           extent={{-198,-4},{-6,-38}},
           lineColor={0,0,255},
           textString="Same models as above, but flow is reversed")}),
-                      
 experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/HumidifierPrescribed.mos"
         "Simulate and plot"),

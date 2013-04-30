@@ -7,7 +7,6 @@ model TestSimpleAir
 
       annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{
             -100,-100},{100,100}})),
-                           
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Media/GasesPTDecoupled/Examples/TestSimpleAir.mos"
         "Simulate and plot"),

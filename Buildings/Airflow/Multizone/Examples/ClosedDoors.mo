@@ -121,7 +121,6 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   annotation (
-
 experiment(StopTime=7200),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/ClosedDoors.mos"
         "Simulate and plot"),

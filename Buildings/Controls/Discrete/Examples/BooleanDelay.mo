@@ -10,7 +10,6 @@ equation
   connect(booleanPulse.y, del.u) annotation (Line(points={{-39,-10},{-2,-10}},
         color={255,0,255}));
  annotation (Diagram(graphics),
-                      
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Controls/Discrete/Examples/BooleanDelay.mos"
         "Simulate and plot"),

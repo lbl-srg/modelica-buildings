@@ -299,7 +299,6 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (
-    
 experiment(StopTime=1209600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Constructions/Examples/ExteriorWallTwoWindows.mos"
         "Simulate and plot"),

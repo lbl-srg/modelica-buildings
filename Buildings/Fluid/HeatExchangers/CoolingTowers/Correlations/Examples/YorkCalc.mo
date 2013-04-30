@@ -26,7 +26,6 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                      graphics),
-                      
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Correlations/Examples/YorkCalc.mos" "Simulate and plot"));
 end YorkCalc;

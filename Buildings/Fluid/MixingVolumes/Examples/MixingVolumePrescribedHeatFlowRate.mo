@@ -85,7 +85,6 @@ but due to numerical solutions, it may have a small error that causes the signal
 non-zero.
 </p>
 </html>"),
- 
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MixingVolumes/Examples/MixingVolumePrescribedHeatFlowRate.mos"
         "Simulate and plot"),

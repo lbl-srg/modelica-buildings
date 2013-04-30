@@ -108,7 +108,6 @@ equation
  annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                     graphics),
-                     
 experiment(StopTime=360),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/MassExchangers/Examples/ConstantEffectiveness.mos"
         "Simulate and plot"),

@@ -247,7 +247,6 @@ equation
           extent={{-160,160},{152,49}},
           lineColor={135,135,135},
           lineThickness=1)}),
-
 experiment(StopTime=3600),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Airflow/Multizone/Examples/Validation3Rooms.mos"
         "Simulate and plot"),

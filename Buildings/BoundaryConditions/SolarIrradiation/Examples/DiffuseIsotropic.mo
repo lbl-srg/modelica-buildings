@@ -60,7 +60,6 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   annotation (
-    
 experiment(StopTime=1.83168e+07),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarIrradiation/Examples/DiffuseIsotropic.mos"
         "Simulate and plot"),

@@ -104,7 +104,6 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{140,
             100}})),
-    
 experiment(StopTime=120),
 __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Fluid/FixedResistances/Examples/Pipe.mos"

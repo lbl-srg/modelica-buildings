@@ -116,7 +116,6 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
     annotation (
-             
 experiment(StopTime=7200),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/ExtraProperty.mos"
         "Simulate and plot"),

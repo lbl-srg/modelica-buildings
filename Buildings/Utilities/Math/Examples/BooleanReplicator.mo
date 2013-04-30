@@ -15,7 +15,6 @@ equation
 annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}}),
                     graphics),
-            
 experiment(StopTime=600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Examples/BooleanReplicator.mos"
         "Simulate and plot"),

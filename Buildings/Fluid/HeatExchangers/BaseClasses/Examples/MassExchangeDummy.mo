@@ -31,7 +31,6 @@ equation
           10}},         color={0,0,127}));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{180,100}})),
-                      
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/MassExchangeDummy.mos"
         "Simulate and plot"));

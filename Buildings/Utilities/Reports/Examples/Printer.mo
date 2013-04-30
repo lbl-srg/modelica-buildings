@@ -34,7 +34,6 @@ equation
           {-22,-29}}, color={0,0,127}));
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
-                      
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Reports/Examples/Printer.mos"
         "Simulate and plot"));
