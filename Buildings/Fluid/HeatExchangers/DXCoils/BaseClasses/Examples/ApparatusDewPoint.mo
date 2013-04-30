@@ -135,7 +135,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/ApparatusDewPoint.mos"
+  
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/ApparatusDewPoint.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>

@@ -53,7 +53,7 @@ algorithm
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermite.mos"
         "Simulate and plot"),
-    experiment(StopTime=1),
+    experiment(StopTime=1.0),
     Documentation(info="<html>
 <p>
 This example demonstrates the use of the function for cubic hermite interpolation

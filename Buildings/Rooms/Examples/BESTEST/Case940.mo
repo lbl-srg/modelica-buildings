@@ -17,7 +17,7 @@ model Case940 "Case 900, but with heating schedule"
        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case940.mos"
         "Simulate and plot"),
         experiment(
-      StopTime=3.1536e+007,
+      StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
 Diagram(coordinateSystem(

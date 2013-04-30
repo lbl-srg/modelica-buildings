@@ -164,5 +164,5 @@ the two tank models is that one uses the third order upwind discretization
 scheme that reduces numerical diffusion that is induced when connecting 
 volumes in series.
 </html>"),
-    experiment(StopTime=36000));
+    experiment(StopTime=14400));
 end StratifiedLoadingUnloading;
