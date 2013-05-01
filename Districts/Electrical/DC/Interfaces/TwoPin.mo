@@ -5,7 +5,7 @@ partial model TwoPin "Component with a DC plug"
     "If =True, this flag enables the power output" annotation(evaluate=true, Dialog(tab = "Outputs"));
   DCplug dcPlug annotation (Placement(transformation(extent={{-110,-12},{-90,8}}),
         iconTransformation(extent={{-120,-20},{-80,20}})));
-  Modelica.Blocks.Interfaces.RealOutput P if measureP "Power" annotation (Placement(
+  Modelica.Blocks.Interfaces.RealOutput Power if measureP "Power" annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -13,9 +13,10 @@ partial model TwoPin "Component with a DC plug"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-60,-40})));
+protected
   Modelica.Blocks.Interfaces.RealOutput p;
 equation
-  connect(P,p);
+  connect(Power,p);
 
   p = v*dcPlug.p.i;
 
@@ -61,7 +62,6 @@ equation
           extent={{-94,-9},{-74,-29}},
           lineColor={160,160,164},
           textString="i")}),
-    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
-            100}}),
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,100}}),
         graphics));
 end TwoPin;
