@@ -3,12 +3,12 @@ model NominalCondition "Test model for NominalCondition"
   extends Modelica.Icons.Example;
   package Medium =
       Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
-  Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition nomCon(
-      redeclare package Medium = Medium, per=nomVal)
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition
+     nomCon(redeclare package Medium = Medium, per=nomVal)
     "Calculates nominal values"
     annotation (Placement(transformation(extent={{-20,0},{0,20}})));
-  Data.Generic.BaseClasses.NominalValues
-                                 nomVal(
+  parameter Data.Generic.BaseClasses.NominalValues
+   nomVal(
     Q_flow_nominal=-21000,
     COP_nominal=3,
     SHR_nominal=0.8,
@@ -20,12 +20,21 @@ __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Heat
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
-This example illustrates calculation of inlet and outlet parameters at nominal condition (working of <a href=\"modelica://Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition\">
-Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.NominalCondition</a>).
+This example illustrates the calculation of inlet and outlet parameters at the nominal condition.
 </p>
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br>
 First implementation. 

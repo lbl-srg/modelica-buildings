@@ -29,7 +29,7 @@ model CoolingCapacity "Test model for CoolingCapacity"
     offset=273.15 + 30)
     "Condenser inlet temperature (Outside drybulb temperature)"
     annotation (Placement(transformation(extent={{-80,10},{-60,30}})));
-  Data.Generic.BaseClasses.Stage
+  parameter Data.Generic.BaseClasses.Stage
     sta(
     nomVal(
       Q_flow_nominal=-21000,
@@ -71,6 +71,11 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.CoolingCapacity</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br>
 First implementation. 
