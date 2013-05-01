@@ -13,15 +13,14 @@ model Case640 "Case 600, but with heating schedule"
     peakHea(Min = 5.232*1000, Max = 6.954*1000, Mean = 6.031 * 1000),
     peakCoo(Min= -5.892*1000, Max = 6.776*1000, Mean= -6.410 * 1000)));
 
-    annotation (Placement(transformation(extent={{-76,82},{-56,102}})),
+    annotation (
               __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case640.mos"
         "Simulate and plot"),
         experiment(
-      StopTime=3.1536e+007,
+      StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),                  Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
-    experimentSetupOutput,
     Documentation(revisions="<html>
 <ul>
 <li>

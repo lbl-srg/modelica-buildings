@@ -369,5 +369,5 @@ First implementation.
     __Dymola_Commands(file=
      "modelica://Buildings/Resources/Scripts/Dymola/Examples/Tutorial/SpaceCooling/System3.mos"
         "Simulate and plot"),
-    experiment(StartTime=1.5552e+07, StopTime=1.56384e+07));
+    experiment(StartTime=1.5552e+07, StopTime=15638400));
 end System3;

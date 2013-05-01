@@ -21,12 +21,11 @@ model Case630 "Case 620, but with added overhang and sidefins"
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case630.mos"
         "Simulate and plot"),
         experiment(
-      StopTime=3.1536e+007,
+      StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
 Diagram(coordinateSystem(
           preserveAspectRatio=true, extent={{-100,-100},{100,100}})),
-    experimentSetupOutput,
     Documentation(info="<html>
 <p>
 This model is case 630 of the BESTEST validation suite.

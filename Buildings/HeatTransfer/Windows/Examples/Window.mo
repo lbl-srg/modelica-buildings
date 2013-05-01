@@ -282,6 +282,7 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},
             {200,200}}),
                       graphics),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Window.mos"
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Window.mos"
         "Simulate and plot"));
 end Window;

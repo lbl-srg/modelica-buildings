@@ -80,7 +80,8 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
  annotation (Diagram(graphics),
-                      __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Comfort/Examples/Fanger.mos"
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Comfort/Examples/Fanger.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This is a test of the Thermal Comfort Model.

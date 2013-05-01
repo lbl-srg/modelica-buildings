@@ -128,7 +128,8 @@ equation
           extent={{-86,-32},{32,-24}},
           lineColor={0,0,0},
           textString="Fixed initial state T(0)")}),
-          __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorInitialization.mos" "Simulate and plot"),
+experiment(StopTime=86400),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorInitialization.mos" "Simulate and plot"),
     Documentation(info="<html>
 This example illustrates how to initialize heat conductors in steady state and with
 predefined temperatures.

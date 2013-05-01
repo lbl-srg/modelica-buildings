@@ -23,10 +23,10 @@ model BoilerPolynomial "Test model"
     redeclare package Medium = Medium,
     p=300000 + dp_nominal,
     T=303.15)
-    annotation (Placement(transformation(extent={{-84,-68},{-64,-48}})));
+    annotation (Placement(transformation(extent={{-80,-68},{-60,-48}})));
   Modelica.Blocks.Sources.TimeTable y(table=[0,0; 1800,1; 1800,0; 2400,0; 2400,
         1; 3600,1])
-    annotation (Placement(transformation(extent={{-100,-30},{-80,-10}})));
+    annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Fluid.Boilers.BoilerPolynomial boi1(
     a={0.9},
     effCur=Buildings.Fluid.Types.EfficiencyCurves.Constant,
@@ -55,8 +55,6 @@ model BoilerPolynomial "Test model"
   Buildings.HeatTransfer.Sources.FixedTemperature TAmb2(      T=288.15)
     "Ambient temperature in boiler room"
     annotation (Placement(transformation(extent={{-32,-40},{-12,-20}})));
-  Modelica.Blocks.Continuous.FirstOrder firstOrder(T=0.1)
-    annotation (Placement(transformation(extent={{-70,-30},{-50,-10}})));
 equation
   connect(TAmb1.port, boi1.heatPort)
                                    annotation (Line(
@@ -69,24 +67,12 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   connect(sou.ports[1], boi1.port_a) annotation (Line(
-      points={{-64,-56},{-36,-56},{-36,8},{-10,8}},
+      points={{-60,-56},{-36,-56},{-36,8},{-10,8}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(sou.ports[2], boi2.port_a) annotation (Line(
-      points={{-64,-60},{-12,-60}},
+      points={{-60,-60},{-12,-60}},
       color={0,127,255},
-      smooth=Smooth.None));
-  connect(y.y, firstOrder.u) annotation (Line(
-      points={{-79,-20},{-75.5,-20},{-75.5,-20},{-72,-20}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firstOrder.y, boi1.y) annotation (Line(
-      points={{-49,-20},{-40,-20},{-40,16},{-12,16}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(firstOrder.y, boi2.y) annotation (Line(
-      points={{-49,-20},{-40,-20},{-40,-52},{-14,-52}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(boi2.port_b, sin.ports[2]) annotation (Line(
       points={{8,-60},{70,-60}},
@@ -96,11 +82,40 @@ equation
       points={{10,8},{40,8},{40,-56},{70,-56}},
       color={0,127,255},
       smooth=Smooth.None));
-  annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})),
+  connect(y.y, boi1.y) annotation (Line(
+      points={{-59,-20},{-50,-20},{-50,16},{-12,16}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(y.y, boi2.y) annotation (Line(
+      points={{-59,-20},{-50,-20},{-50,-52},{-14,-52}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,
+            -100},{100,100}}), graphics),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Boilers/Examples/BoilerPolynomial.mos"
         "Simulate and plot"),
     experiment(StopTime=3600),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
-            100}})));
+            100}})),
+    Documentation(info="<html>
+This example demonstrates the open loop response of the boiler
+model for a control signal that is first a ramp from <i>0</i>
+to <i>1</i>, followed by a step that switches the boilers off and 
+then on again.
+The instances of the boiler models are parameterized
+so that <code>boi1</code> is a dynamic model and
+<code>boi2</code> is a steady-state model.
+</html>", revisions="<html>
+<ul>
+<li>
+April 27, 2013, by Michael Wetter:<br>
+Removed first order filter from the output of the table.
+This is not needed and leads to a dynamic state selection.
+</li>
+<li>
+November 1, 2011 by Michael Wetter:<br>
+First implementation.
+</li>
+</ul>
+</html>"));
 end BoilerPolynomial;

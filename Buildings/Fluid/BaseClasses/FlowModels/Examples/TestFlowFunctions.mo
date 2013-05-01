@@ -24,7 +24,9 @@ equation
   dp2=FlowModels.basicFlowFunction_m_flow(m_flow=m2_flow, k=k, m_flow_turbulent=m_flow_nominal*0.3);
   end if;
   assert(abs(dp1-dp2) < 1E-5, "Error in implementation.");
-annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/TestFlowFunctions.mos"
+annotation (
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/TestFlowFunctions.mos"
         "Simulate and plot"),
               Documentation(info="<html>
 This model test the inverse functions. When translating this model in 

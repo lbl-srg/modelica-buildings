@@ -58,7 +58,9 @@ equation
       points={{-59,-60},{-32,-60},{-32,-4.8},{-21,-4.8}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/CoolingCapacity.mos"
+  annotation (Diagram(graphics),
+experiment(StopTime=3600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/CoolingCapacity.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>

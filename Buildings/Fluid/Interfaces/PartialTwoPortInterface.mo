@@ -30,7 +30,7 @@ partial model PartialTwoPortInterface
 
   Medium.MassFlowRate m_flow(start=0) = port_a.m_flow
     "Mass flow rate from port_a to port_b (m_flow > 0 is design flow direction)";
-  Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa") = port_a.p - port_b.p
+  Modelica.SIunits.Pressure dp(start=0, displayUnit="Pa")
     "Pressure difference between port_a and port_b";
 
   Medium.ThermodynamicState sta_a=if homotopyInitialization then
@@ -56,7 +56,8 @@ partial model PartialTwoPortInterface
                           actualStream(port_b.h_outflow),
                           actualStream(port_b.Xi_outflow)) if
           show_T "Medium properties in port_b";
-
+equation
+  dp = port_a.p - port_b.p;
   annotation (
     preferredView="info",
     Diagram(coordinateSystem(
@@ -83,6 +84,10 @@ Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger</a>.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+April 26, 2013 by Marco Bonvini:<br>
+Moved the definition of <code>dp</code> because it causes some problem with PyFMI.
+</li>
 <li>
 March 27, 2012 by Michael Wetter:<br>
 Changed condition to remove <code>sta_a</code> to also
