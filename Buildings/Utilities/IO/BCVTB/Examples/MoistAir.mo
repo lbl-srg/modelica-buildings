@@ -118,9 +118,8 @@ model MoistAir
   Modelica.Blocks.Math.Gain perToRel1(
                                      k=0.01) "Converts 0...100 to 0...1"
     annotation (Placement(transformation(extent={{0,50},{20,70}})));
-  Buildings.Utilities.Psychrometrics.X_pTphi masFra(
-                                           use_p_in=false, redeclare package
-      Medium = Medium) "Mass fraction"
+  Buildings.Utilities.Psychrometrics.X_pTphi masFra(use_p_in=false)
+    "Mass fraction"
     annotation (Placement(transformation(extent={{50,56},{70,76}})));
   Buildings.Controls.SetPoints.OccupancySchedule occSch "Occupancy schedule"
     annotation (Placement(transformation(extent={{0,156},{20,176}})));
@@ -321,6 +320,12 @@ This model is implemented in <code>bcvtb\\examples\\dymolaEPlusXY-singleZone</co
 where <code>XY</code> denotes the EnergyPlus version number.
 </html>", revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Removed the medium declaration in the instance 
+of the model <code>Buildings.Utilities.Psychrometrics.X_pTphi</code> as
+this model no longer allows to replace the medium.
+</li>
 <li>
 January 13, 2012, by Michael Wetter:<br>
 Updated fan parameters, which were still for version 0.12 of the 

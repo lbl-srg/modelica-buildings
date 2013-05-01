@@ -311,7 +311,9 @@ equation
       points={{-78,-24},{-72,-24},{-72,-36},{-68.8,-36}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case600FF.mos"
+  annotation (
+experiment(StopTime=3.1536e+07),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case600FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the test case 600FF of the BESTEST validation suite.

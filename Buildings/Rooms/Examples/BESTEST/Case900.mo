@@ -17,7 +17,9 @@ model Case900 "Case 600, but with high thermal mass"
     floorCase900 "Floor"
     annotation (Placement(transformation(extent={{60,50},{74,64}})));
 
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case900.mos"
+  annotation (
+experiment(StopTime=3.1536e+07),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case900.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the basic test case 900 of the BESTEST validation suite.

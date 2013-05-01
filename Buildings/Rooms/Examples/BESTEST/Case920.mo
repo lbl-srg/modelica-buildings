@@ -27,7 +27,7 @@ model Case920 "Case 900, but with windows on East and West side walls"
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case920.mos"
         "Simulate and plot"),
         experiment(
-      StopTime=3.1536e+007,
+      StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
 Diagram(coordinateSystem(

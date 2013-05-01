@@ -61,7 +61,8 @@ equation
       smooth=Smooth.None));
     annotation (Diagram(coordinateSystem(preserveAspectRatio=true,  extent={{-100,
             -100},{100,100}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos"
+experiment(StopTime=10),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Sensors/Examples/MassFraction.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This examples is a unit test for the mass fraction sensor.

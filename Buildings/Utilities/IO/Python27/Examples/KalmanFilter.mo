@@ -50,7 +50,8 @@ end when;
       color={0,0,127},
       smooth=Smooth.None));
   annotation (
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Python27/Examples/KalmanFilter.mos"
+experiment(StopTime=1),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/IO/Python27/Examples/KalmanFilter.mos"
         "Simulate and plot"),
         Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}})),
