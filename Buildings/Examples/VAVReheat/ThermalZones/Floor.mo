@@ -7,63 +7,63 @@ model Floor "Model of a floor of the building"
     min=0.01,
     max=0.99) = 0.33 "Window to wall ratio for exterior walls";
   parameter Modelica.SIunits.Length hWin = 1.5 "Height of windows";
-  HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
+  parameter HeatTransfer.Data.Solids.Plywood matFur(x=0.15, nStaRef=5)
     "Material for furniture"
     annotation (Placement(transformation(extent={{140,460},{160,480}})));
-  HeatTransfer.Data.Resistances.Carpet matCar "Carpet"
+  parameter HeatTransfer.Data.Resistances.Carpet matCar "Carpet"
     annotation (Placement(transformation(extent={{180,460},{200,480}})));
-  HeatTransfer.Data.Solids.Concrete matCon(
+  parameter HeatTransfer.Data.Solids.Concrete matCon(
     x=0.1,
     k=1.311,
     c=836,
     nStaRef=5) "Concrete"
     annotation (Placement(transformation(extent={{140,430},{160,450}})));
-  HeatTransfer.Data.Solids.Plywood matWoo(
+  parameter HeatTransfer.Data.Solids.Plywood matWoo(
     x=0.01,
     k=0.11,
     d=544,
     nStaRef=1) "Wood for exterior construction"
     annotation (Placement(transformation(extent={{140,400},{160,420}})));
-  HeatTransfer.Data.Solids.Generic matIns(
+  parameter HeatTransfer.Data.Solids.Generic matIns(
     x=0.087,
     k=0.049,
     c=836.8,
     d=265,
     nStaRef=5) "Steelframe construction with insulation"
     annotation (Placement(transformation(extent={{180,400},{200,420}})));
-  HeatTransfer.Data.Solids.GypsumBoard matGyp(
+  parameter HeatTransfer.Data.Solids.GypsumBoard matGyp(
     x=0.0127,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
     annotation (Placement(transformation(extent={{138,372},{158,392}})));
-  HeatTransfer.Data.Solids.GypsumBoard matGyp2(
+  parameter HeatTransfer.Data.Solids.GypsumBoard matGyp2(
     x=0.025,
     k=0.16,
     c=830,
     d=784,
     nStaRef=2) "Gypsum board"
     annotation (Placement(transformation(extent={{178,372},{198,392}})));
-  HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(final nLay=3,
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conExtWal(final nLay=3,
       material={matWoo,matIns,matGyp}) "Exterior construction"
     annotation (Placement(transformation(extent={{280,460},{300,480}})));
-  HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(final nLay=1,
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conIntWal(final nLay=1,
       material={matGyp2}) "Interior wall construction"
     annotation (Placement(transformation(extent={{320,460},{340,480}})));
-  HeatTransfer.Data.OpaqueConstructions.Generic conFlo(final nLay=1, material={
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conFlo(final nLay=1, material={
         matCon}) "Floor construction (opa_a is carpet)"
     annotation (Placement(transformation(extent={{280,420},{300,440}})));
-  HeatTransfer.Data.OpaqueConstructions.Generic conFur(final nLay=1, material={
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic conFur(final nLay=1, material={
         matFur}) "Construction for internal mass of furniture"
     annotation (Placement(transformation(extent={{320,420},{340,440}})));
-  HeatTransfer.Data.Solids.Plywood matCarTra(
+  parameter HeatTransfer.Data.Solids.Plywood matCarTra(
     k=0.11,
     d=544,
     nStaRef=1,
     x=0.215/0.11) "Wood for floor"
     annotation (Placement(transformation(extent={{102,460},{122,480}})));
-  HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear
+  parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear
                                                 glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
@@ -320,7 +320,7 @@ model Floor "Model of a floor of the building"
     "Convective heat transfer model for room-facing surfaces of opaque constructions";
 equation
   connect(sou.surf_conBou[1], wes.surf_surBou[2]) annotation (Line(
-      points={{170,-40.6667},{170,-54},{62,-54},{62,20},{28,20},{28.2,42.5}},
+      points={{170,-40.6667},{170,-54},{62,-54},{62,20},{28.2,20},{28.2,42.5}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(sou.surf_conBou[2], cor.surf_surBou[1]) annotation (Line(
@@ -775,5 +775,14 @@ equation
         Text(
           extent={{-84,234},{-62,200}},
           lineColor={0,0,255},
-          textString="dP")}));
+          textString="dP")}),
+    Documentation(revisions="<html>
+<ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+</ul>
+</html>"));
 end Floor;

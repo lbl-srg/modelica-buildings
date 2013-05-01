@@ -57,7 +57,7 @@ model Window "Test model for the window"
     annotation (Placement(transformation(extent={{-10,-10},{10,10}},
         rotation=90,
         origin={178,48})));
-  Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveExteriorShade=false,
     haveInteriorShade=true)
@@ -264,7 +264,7 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(weaBus.TBlaSky, extCon.TBlaSky) annotation (Line(
-      points={{20,-10},{20,85.8},{38.8,85.8}},
+      points={{20,-10},{20,86},{39,86}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -272,7 +272,7 @@ equation
       index=-1,
       extent={{-6,3},{-6,3}}));
   connect(weaBus.TDryBul, extCon.TOut) annotation (Line(
-      points={{20,-10},{20,82.1},{38.9,82.1}},
+      points={{20,-10},{20,81.8},{39,81.8}},
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None), Text(
@@ -284,5 +284,14 @@ equation
                       graphics),
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/Window.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(revisions="<html>
+<ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+</ul>
+</html>"));
 end Window;
