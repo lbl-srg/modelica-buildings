@@ -5,7 +5,7 @@ model HexElement "Element of a heat exchanger"
           nPorts=2,
           final energyDynamics=energyDynamics1,
           final massDynamics=energyDynamics1),
-    redeclare
+    redeclare replaceable
       Buildings.Fluid.MixingVolumes.BaseClasses.PartialMixingVolumeWaterPort
         vol2(
           nPorts = 2,
@@ -151,6 +151,11 @@ thermal mass.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Changed the redeclaration of <code>vol2</code> to be replaceable,
+as <code>vol2</code> is replaced in some models.
+</li>
 <li>
 April 19, 2013, by Michael Wetter:<br>
 Made instance <code>MassExchange</code> replaceable, rather than

@@ -339,13 +339,11 @@ units are wrong or errors in documentation):
                        instances of these models used the correct value.
     </td>
 </tr>
-
 <tr><td valign=\"top\">Buildings.Fluid.Actuators.BaseClasses.ValveParameters
     </td>
     <td valign=\"top\">Removed stray backslash in write statement.
     </td>
 </tr>
-
 <tr><td valign=\"top\">Buildings.Fluid.Interfaces.ConservationEquation<br/>
                        Buildings.Fluid.Interfaces.StaticTwoPortConservationEquation<br/>
                        Buildings.Fluid.Interfaces.StaticTwoPortHeatMassExchanger
@@ -353,7 +351,12 @@ units are wrong or errors in documentation):
     <td valign=\"top\">Removed wrong unit attribute of <code>COut</code>.
     </td>
 </tr>
-
+<tr><td valign=\"top\">Buildings.Fluid.HeatExchangers.BaseClasses.HexElement
+    </td>
+    <td valign=\"top\">Changed the redeclaration of <code>vol2</code> to be replaceable,
+                     as <code>vol2</code> is replaced in some models.
+    </td>
+</tr>
 </table>
 </p>
 <!-- Github issues -->
