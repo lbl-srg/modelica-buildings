@@ -55,7 +55,6 @@ for mos_file in mos_files:
 		modelName = mModel.group(1)
 		if "stopTime=stopTime" in line:
 			stopTime = "stopTime"
-		
 		elif "stopTime=" in line:
 			# Old version, does not work with 86400*900
 			# pTime    = re.compile(r"[\d\S\s.,]*(stopTime=)([\d]*[.]*[\d]*[e]*[+|-]*[\d]*)")
@@ -78,6 +77,9 @@ for mos_file in mos_files:
 					pTime    = re.compile(r"[\d\S\s.,]*(stopTime=)([\d]*[.]*[\d]*[e]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[e]*[+|-]*[\d]*)[\S\s.,]*")
 					mTime    = pTime.match(line)
 					stopTime = mTime.group(2)
+				if "stopTime=stopTime" in line:
+					stopTime = "stopTime"
+					
 			
 			if found == False:
 				print "\tStopTime not found, defined the default stopTime=1.0"
