@@ -17,7 +17,7 @@ model Case610 "Case 600 with south shading"
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case610.mos"
         "Simulate and plot"),
         experiment(
-      StopTime=3.1536e+007,
+      StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
 Diagram(coordinateSystem(

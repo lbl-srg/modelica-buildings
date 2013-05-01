@@ -152,7 +152,8 @@ equation
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(extent={{-100,-100},
             {140,180}})),
-             __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Convection/Examples/Exterior.mos"
+experiment(StopTime=3600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Convection/Examples/Exterior.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This example tests the convective heat transfer models for exterior surfaces.

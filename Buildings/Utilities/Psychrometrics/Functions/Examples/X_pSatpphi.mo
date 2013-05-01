@@ -18,7 +18,9 @@ equation
   pSat = Medium.saturationPressure(T);
   X_w = Buildings.Utilities.Psychrometrics.Functions.X_pSatpphi(pSat=pSat, p=p, phi=phi);
 
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/X_pSatpphi.mos"
+  annotation (
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/Examples/X_pSatpphi.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This example computes the water content of air for a relative humidity between

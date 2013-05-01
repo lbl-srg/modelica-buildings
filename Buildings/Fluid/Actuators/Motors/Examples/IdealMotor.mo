@@ -10,6 +10,8 @@ model IdealMotor "Test model for IdealMotor"
 equation
   connect(ySet.y, mot.u)
     annotation (Line(points={{-59,30},{-22,30}}, color={0,0,127}));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Motors/Examples/IdealMotor.mos"
+  annotation (
+experiment(StopTime=600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Actuators/Motors/Examples/IdealMotor.mos"
         "Simulate and plot"));
 end IdealMotor;

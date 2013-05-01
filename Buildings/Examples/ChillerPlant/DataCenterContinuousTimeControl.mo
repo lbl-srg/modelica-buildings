@@ -24,5 +24,6 @@ First implementation.
 </html>"),
     Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-400,-300},{
             400,300}}),
-                    graphics));
+                    graphics),
+    experiment(StartTime=1.30464e+07, StopTime=1.36512e+07));
 end DataCenterContinuousTimeControl;

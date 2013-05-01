@@ -19,35 +19,33 @@ parameter Real scaDpFanSup_nominal = 1
 parameter Real scaDpFanRet_nominal = 1
     "Scaling factor for supply fan pressure lift with NSui number of suites";
   Modelica.Blocks.Sources.Constant PAtm(k=101325)
-      annotation (extent=[-86,-50; -66,-30],
-                                           style(thickness=2),
+      annotation (
     Placement(transformation(extent={{-80,-50},{-60,-30}})));
   Modelica.Blocks.Sources.Constant yDam(k=0.5)
-      annotation (extent=[-40,20; -20,40], style(thickness=2),
-    Placement(transformation(extent={{-40,-20},{-20,0}})));
+      annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 Buildings.Fluid.FixedResistances.FixedResistanceDpM res31(
                                                dp_nominal=0.546,
   m_flow_nominal=scaM_flow*1,
   dh=sqrt(scaM_flow)*1,
   redeclare package Medium = Medium)
-    annotation (extent=[50,-20; 70,0],style(thickness=2),
+    annotation (
     Placement(transformation(extent={{60,-20},{80,0}})));
 Buildings.Fluid.FixedResistances.FixedResistanceDpM res33(
   dp_nominal=0.164,
   dh=sqrt(scaM_flow)*1,
   m_flow_nominal=scaM_flow*1,
   redeclare package Medium = Medium)
-    annotation (extent=[144,-20; 164,0],style(thickness=2),
+    annotation (
     Placement(transformation(extent={{160,-20},{180,0}})));
 Buildings.Fluid.FixedResistances.FixedResistanceDpM res57(
                                                dp_nominal=0.118000,
   m_flow_nominal=scaM_flow*1,
   dh=sqrt(scaM_flow)*1,
   redeclare package Medium = Medium)
-    annotation (extent=[54,-80; 74,-60], style(thickness=2),
+    annotation (
     Placement(transformation(extent={{80,-80},{60,-60}})));
 Buildings.Examples.VAVCO2.BaseClasses.Suite roo(redeclare package Medium = Medium, scaM_flow=scaM_flow)
-    annotation (extent=[198,-92; 302,20], Placement(transformation(extent={{206,-92},
+    annotation (Placement(transformation(extent={{206,-92},
             {310,20}})));
 Fluid.Actuators.Dampers.MixingBox mixBox(
   dpOut_nominal=0.467,
@@ -61,16 +59,13 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
   redeclare package Medium = Medium,
     dpExh_nominal=0.467,
     allowFlowReversal=true) "mixing box"
-                            annotation (extent=[8,-72; 28,-52],  style(
-        thickness=2),
-    Placement(transformation(extent={{6,-76},{30,-52}})));
+    annotation (Placement(transformation(extent={{6,-76},{30,-52}})));
   Buildings.Fluid.Sources.Boundary_pT bouIn(
     redeclare package Medium = Medium,
     use_p_in=true,
     T=293.15,
-    nPorts=2)                                           annotation (extent=[-38,-18;
-        -18,2],  style(thickness=2),
-    Placement(transformation(extent={{-38,-74},{-18,-54}})));
+    nPorts=2)
+    annotation (Placement(transformation(extent={{-38,-74},{-18,-54}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-60,40},{-40,60}})));
    Buildings.Controls.Continuous.LimPID conSupFan(
@@ -85,15 +80,13 @@ Fluid.Actuators.Dampers.MixingBox mixBox(
             annotation (Placement(transformation(extent={{40,80},{60,100}})));
   Fluid.Movers.FlowMachine_y fan32(
     redeclare package Medium = Medium,
-    pressure(V_flow={0,11.08,14.9}, dp={1508,743,100}),
-    homotopyInitialization=true,
+    pressure(final V_flow={0,11.08,14.9}, dp={1508,743,100}),
     dynamicBalance=true,
     r_N(start=0))
     annotation (Placement(transformation(extent={{122,-18},{138,-2}})));
   Fluid.Movers.FlowMachine_y fan56(
     redeclare package Medium = Medium,
-    pressure(V_flow={2.676,11.05}, dp={600,100}),
-    homotopyInitialization=true,
+    pressure(final V_flow={2.676,11.05}, dp={600,100}),
     dynamicBalance=true,
     r_N(start=0))
     annotation (Placement(transformation(extent={{138,-78},{122,-62}})));
@@ -122,7 +115,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(roo.p, PAtm.y) annotation (Line(
-      points={{201.32,12.5333},{72,12},{-50,12},{-50,-40},{-59,-40}},
+      points={{201.32,12.5333},{72,12.5333},{-50,12.5333},{-50,-40},{-59,-40}},
       color={255,0,0},
       smooth=Smooth.None,
       thickness=0.5));
@@ -168,11 +161,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(conSupFan.y, fan32.y) annotation (Line(
-      points={{61,90},{110,90},{110,40},{130,40},{130,-2}},
+      points={{61,90},{110,90},{110,40},{130,40},{130,-0.4}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(conSupFan.y, fan56.y) annotation (Line(
-      points={{61,90},{110,90},{110,-48},{130,-48},{130,-62}},
+      points={{61,90},{110,90},{110,-48},{130,-48},{130,-60.4}},
       color={0,0,127},
       smooth=Smooth.None));
    annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
@@ -206,6 +199,6 @@ of the supply fan and pressure raise of the return fan is arbitrary.
       file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVCO2/plotFan.mos"
         "Plot fan"),
     experiment(
-      StopTime=86400,
+      StopTime=172800,
       Tolerance=1e-006));
 end VAVSystemCTControl;

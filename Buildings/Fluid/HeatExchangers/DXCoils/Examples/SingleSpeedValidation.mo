@@ -320,7 +320,7 @@ equation
             -140},{160,140}})),
              __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/Examples/SingleSpeedValidation.mos"
         "Simulate and plot"),
-    experiment(StopTime=3600),
+    experiment(StopTime=86400),
     Documentation(info="<html>
 <p>
 This model validates the model

@@ -21,7 +21,9 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
 
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case650FF.mos"
+  annotation (
+experiment(StopTime=3.1536e+07),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case650FF.mos"
         "Simulate and plot"), Documentation(info="<html>
 <p>
 This model is used for the test case 650FF of the BESTEST validation suite.

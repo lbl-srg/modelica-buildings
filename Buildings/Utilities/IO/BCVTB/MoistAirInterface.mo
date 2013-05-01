@@ -20,9 +20,8 @@ model MoistAirInterface
   Modelica.Blocks.Interfaces.RealInput phi "Medium relative humidity"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}},
           rotation=0)));
-  Buildings.Utilities.Psychrometrics.X_pTphi masFra(
-                                           use_p_in=false, redeclare package
-      Medium = Medium) "Mass fraction"
+  Buildings.Utilities.Psychrometrics.X_pTphi masFra(use_p_in=false)
+    "Mass fraction"
     annotation (Placement(transformation(extent={{-60,-64},{-40,-44}})));
 equation
   for i in 1:nPorts loop
@@ -114,6 +113,12 @@ needs to be converted. The conversion can be done with the model
 Buildings.Utilities.Psychrometrics.ToTotalAir</a>.
 </html>", revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Removed the medium declaration in the instance 
+of the model <code>Buildings.Utilities.Psychrometrics.X_pTphi</code> as
+this model no longer allows to replace the medium.
+</li>
 <li>
 April 5, 2011, by Michael Wetter:<br>
 Added nominal values that are needed by the sensor.

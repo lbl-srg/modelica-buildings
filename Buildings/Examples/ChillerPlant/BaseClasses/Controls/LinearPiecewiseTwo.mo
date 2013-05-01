@@ -145,5 +145,6 @@ First implementation.
         Text(
           extent={{62,-46},{72,-54}},
           lineColor={0,0,0},
-          textString="x")}));
+          textString="x")}),
+    experiment(StopTime=86400));
 end LinearPiecewiseTwo;
