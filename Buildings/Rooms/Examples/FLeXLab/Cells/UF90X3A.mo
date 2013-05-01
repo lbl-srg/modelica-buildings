@@ -72,4 +72,7 @@ model UF90X3A "Model of user facility test cell 90X3A"
     annotation (Placement(transformation(extent={{120,122},{140,142}})));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
             -200},{200,200}}), graphics));
+
+annotation(defaultComponentName="UF90X3A");
+
 end UF90X3A;

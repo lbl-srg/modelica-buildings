@@ -24,6 +24,88 @@ model GenericTestCell
   parameter Integer nConExtWin = 1
     "Number of walls using the construction conExtWin";
 
+  //Input data file declarations
+  //fixme - For all input data files state what each column is and units in documentation. Example: TGro has 1 column, ground temperature, in K. Example 2: watCon has two columns: flow (kg/s) and T (K)
+  parameter Boolean use_TGro_file = false
+    "True = external data file, false = table typed into parameter window"
+    annotation(Dialog(tab="Input data", group="Ground temperature"));
+
+  parameter Real TGro_table[:,:] = [0,288.15; 86400,288.15]
+    "Default data for TGro"
+    annotation(Dialog(tab="Input data", group="Ground temperature",enable = not use_TGro_file));
+
+  parameter String TGroTableName="NoName" "Name of table in TGro file"
+    annotation(Dialog(tab="Input data", group="Ground temperature",enable = use_TGro_file));
+
+  parameter String TGroFileName = "NoName"
+    "Name and location of TGro text file"
+    annotation(Dialog(tab="Input data", group="Ground temperature",enable = use_TGro_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
+                         caption="Open file in which table is present")));
+
+  parameter Boolean use_watCon_file = false
+    "True = external data file, false = table typed into parameter window"
+    annotation(Dialog(tab="Input data", group="Inlet water conditions"));
+
+  parameter Real watCon_table[:,:] = [0, 0.06, 303.15; 86400, 0.06, 303.15]
+    "Default data for inlet water conditions"
+    annotation(Dialog(tab="Input data", group="Inlet water conditions",enable = not use_watCon_file));
+
+  parameter String watConTableName="NoName" "Name of table in watCon text file"
+    annotation(Dialog(tab="Input data", group="Inlet water conditions",enable = use_watCon_file));
+
+  parameter String watConFileName = "NoName"
+    "Name and location of watCon text file"
+    annotation(Dialog(tab="Input data", group="Inlet water conditions",enable = use_watCon_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
+                         caption="Open file in which table is present")));
+
+  parameter Boolean use_airCon_file = false
+    "True = external data file, false = table typed into parameter window"
+    annotation(Dialog(tab="Input data", group="Inlet air conditions"));
+
+  parameter Real airCon_table[:,:] = [0, 0.1, 293.15; 86400, 0.1, 293.15]
+    "Default data for inlet air conditions"
+    annotation(Dialog(tab="Input data", group="Inlet air conditions",enable = not use_airCon_file));
+
+  parameter String airConTableName="NoName" "Name of table in watCon text file"
+    annotation(Dialog(tab="Input data", group="Inlet air conditions",enable = use_airCon_file));
+
+  parameter String airConFileName = "NoName"
+    "Name and location of airCon text file"
+    annotation(Dialog(tab="Input data", group="Inlet air conditions",enable = use_airCon_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
+                         caption="Open file in which table is present")));
+
+  parameter Boolean use_intGai_file = false
+    "True = external data file, false = table typed into parameter window"
+    annotation(Dialog(tab="Input data", group="Internal gains"));
+
+  parameter Real intGai_table[:,:] = [0, 0, 0, 0; 86400, 0, 0, 0]
+    "Default data for internal gains"
+    annotation(Dialog(tab="Input data", group="Internal gains",enable = not use_intGai_file));
+
+  parameter String intGaiTableName="NoName" "Name of table in intGai text file"
+    annotation(Dialog(tab="Input data", group="Internal gains",enable = use_intGai_file));
+
+  parameter String intGaiFileName = "NoName"
+    "Name and location of intGai text file"
+    annotation(Dialog(tab="Input data", group="Internal gains",enable = use_intGai_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
+                         caption="Open file in which table is present")));
+
+  parameter Boolean use_shaPos_file = false
+    "True = external data file, false = table typed into parameter window"
+    annotation(Dialog(tab="Input data", group="Shade position"));
+
+  parameter Real shaPos_table[:,:] = [0, 1; 86400, 1]
+    "Default data for shade position"
+    annotation(Dialog(tab="Input data", group="Shade position",enable = not use_shaPos_file));
+
+  parameter String shaPosTableName="NoName" "Name of table in shaPos text file"
+    annotation(Dialog(tab="Input data", group="Shade position",enable = use_shaPos_file));
+
+  parameter String shaPosFileName = "NoName"
+    "Name and location of shaPos text file"
+    annotation(Dialog(tab="Input data", group="Shade position",enable = use_shaPos_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
+                         caption="Open file in which table is present")));
+
   Rooms.MixedAir roo(
     intConMod=Buildings.HeatTransfer.Types.InteriorConvection.Temperature,
     extConMod=Buildings.HeatTransfer.Types.ExteriorConvection.TemperatureWind,
@@ -53,7 +135,11 @@ model GenericTestCell
         extent={{-10,-10},{10,10}},
         rotation=90,
         origin={-2,-10})));
-  Modelica.Blocks.Sources.CombiTimeTable TGro(table=[0,288.15; 86400,288.15])
+  Modelica.Blocks.Sources.CombiTimeTable TGro(
+      tableOnFile=use_TGro_file,
+    table=TGro_table,
+    tableName=TGroTableName,
+    fileName=TGroFileName)
     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=90,
@@ -71,8 +157,12 @@ model GenericTestCell
         extent={{-10,-10},{10,10}},
         rotation=180,
         origin={42,24})));
-  Modelica.Blocks.Sources.CombiTimeTable watCon(table=[0,0.06,303.15; 86400,0.06,
-        303.15]) "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
+  Modelica.Blocks.Sources.CombiTimeTable watCon(
+    tableOnFile=use_watCon_file,
+    table=watCon_table,
+    tableName=watConTableName,
+    fileName=watConFileName)
+    "Inlet water conditions (y[1] = m_flow, y[2] =  T)"
     annotation (Placement(transformation(extent={{-126,18},{-106,38}})));
   HeatTransfer.Data.OpaqueConstructions.Generic slaCon(nLay=3, material={
         Buildings.HeatTransfer.Data.Solids.Generic(
@@ -100,11 +190,18 @@ model GenericTestCell
 
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="/home/peter/FLeXLab/FLeXLab/bie/modelica/Buildings/Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")
     annotation (Placement(transformation(extent={{-10,160},{10,180}})));
-  Modelica.Blocks.Sources.CombiTimeTable intGai(table=[0,0,1,0; 86400,0,1,0])
+  Modelica.Blocks.Sources.CombiTimeTable intGai(
+    tableOnFile=use_intGai_file,
+    table=intGai_table,
+    tableName=intGaiTableName,
+    fileName=intGaiFileName)
     "Internal gain heat flow (Radiant = 1, Convective = 2, Latent = 3)"
     annotation (Placement(transformation(extent={{-140,112},{-120,132}})));
-  Modelica.Blocks.Sources.CombiTimeTable shaPos(table=[0,1; 86400,1])
-    "Position of the shade"
+  Modelica.Blocks.Sources.CombiTimeTable shaPos(
+    tableOnFile=use_shaPos_file,
+    table=shaPos_table,
+    tableName=shaPosTableName,
+    fileName=shaPosFileName) "Position of the shade"
     annotation (Placement(transformation(extent={{-106,140},{-86,160}})));
   Modelica.Blocks.Routing.Multiplex3 multiplex3_1
     annotation (Placement(transformation(extent={{-98,112},{-78,132}})));
@@ -116,8 +213,11 @@ model GenericTestCell
     annotation (Placement(transformation(extent={{-110,84},{-90,104}})));
   Fluid.Sources.Boundary_pT airOut(nPorts=1, redeclare package Medium = Air)
     annotation (Placement(transformation(extent={{-112,54},{-92,74}})));
-  Modelica.Blocks.Sources.CombiTimeTable airCon(table=[0,0.1,293.15; 86400,0.1,293.15])
-    "Inlet air conditions (y[1] = m_flow, y[2] = T)"
+  Modelica.Blocks.Sources.CombiTimeTable airCon(
+    tableOnFile=use_airCon_file,
+    table=airCon_table,
+    tableName=airConTableName,
+    fileName=airConFileName) "Inlet air conditions (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-168,88},{-148,108}})));
 
   //Do not currently have details on window construction. For now this is a generic window placeholder
