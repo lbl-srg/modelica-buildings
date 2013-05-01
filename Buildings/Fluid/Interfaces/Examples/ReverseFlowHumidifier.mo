@@ -159,7 +159,9 @@ equation
       points={{41,-50},{60,-50},{60,-56},{78,-56}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation(__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowHumidifier.mos"
+  annotation(
+experiment(StopTime=1),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/Interfaces/Examples/ReverseFlowHumidifier.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This model tests whether the results for a humidifer are

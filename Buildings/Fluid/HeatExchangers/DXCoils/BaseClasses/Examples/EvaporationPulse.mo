@@ -143,7 +143,8 @@ equation
   annotation (Diagram(coordinateSystem(extent={{-120,-160},{120,140}},
           preserveAspectRatio=false),
                       graphics),
-  __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/EvaporationPulse.mos"
+experiment(StopTime=7200),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/EvaporationPulse.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>

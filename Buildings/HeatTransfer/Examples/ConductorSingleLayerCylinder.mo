@@ -39,7 +39,9 @@ equation
       points={{40,30},{20,30}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayerCylinder.mos"
+  annotation (
+experiment(StopTime=36000),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSingleLayerCylinder.mos"
         "Simulate and plot"),
         Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{100,100}})),

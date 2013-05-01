@@ -65,5 +65,7 @@ equation
       points={{-59,50},{-40,50},{-40,35},{-31.6667,35}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/InfraredRadiationGainDistribution.mos" "Simulate and plot"));
+  annotation (Diagram(graphics), 
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/BaseClasses/Examples/InfraredRadiationGainDistribution.mos" "Simulate and plot"));
 end InfraredRadiationGainDistribution;
