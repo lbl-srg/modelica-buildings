@@ -63,7 +63,25 @@ for mos_file in mos_files:
 			mTime    = pTime.match(line)
 			stopTime = mTime.group(2)
 		else:
-			stopTime = "1.0"
+			# Maybe the stopTime command is in the next line...
+			print "\tThe stopTime is not in the simulation command row... go ahead"
+			found = False
+			while found == False and i<len(content):
+				line = content[i]
+				i += 1
+				# Remove white spaces
+				line.replace(" ", "")
+				print line
+				
+				if "stopTime=" in line:
+					found = True
+					pTime    = re.compile(r"[\d\S\s.,]*(stopTime=)([\d]*[.]*[\d]*[e]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[e]*[+|-]*[\d]*)[\S\s.,]*")
+					mTime    = pTime.match(line)
+					stopTime = mTime.group(2)
+			
+			if found == False:
+				print "\tStopTime not found, defined the default stopTime=1.0"
+				stopTime = "1.0"
 		
 		print "\tStopTime: "+str(stopTime)
 		print "\tModelName: "+str(modelName)
@@ -125,27 +143,6 @@ for mos_file in mos_files:
 					
 					line = modelContent[k]
 					
-					"""
-					pDymolaComm    = re.compile(r"[\S]*([(]*[\s]*[_][_]Dymola_Commands\()[\S]*[.]*")
-					mDymolaComm    = pDymolaComm.match(line)
-					
-					try:
-						DymolaCommSTR  = mDymolaComm.group(1)
-						
-						print "\t"+line
-						newLine = line.replace(DymolaCommSTR , "\nexperiment(StopTime="+str(stopTime)+"),\n"+DymolaCommSTR)
-						print "\t WITH"
-						print "\t"+newLine
-						
-						# replace
-						modelContent[k] = newLine
-						
-						# replacement done
-						found = True
-					except AttributeError:
-						# Do nothing
-						line
-					"""
 					if "__Dymola_Commands(" in line:
 						print "\t"+line
 						newLine = line.replace("__Dymola_Commands(" , "\nexperiment(StopTime="+str(stopTime)+"),\n__Dymola_Commands(")
@@ -162,9 +159,9 @@ for mos_file in mos_files:
 		fm.close()
 		
 		print "\t================================="
-		rewrite = raw_input("\n\tARE YOU SURE TO DO THAT (Y/n)?")
+		rewrite = raw_input("\n\tARE YOU SURE TO DO THAT (N/y)?")
 		
-		if rewrite != 'n':
+		if rewrite == 'y':
 			# Delete the old file
 			print "\tDeleting the old version..."
 			os.system("rm "+modelPath)
