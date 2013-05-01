@@ -25,7 +25,7 @@ equation
   end if;
   assert(abs(dp1-dp2) < 1E-5, "Error in implementation.");
 annotation (
-experiment(StopTime=1.0),
+experiment(StartTime=-1, StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/BaseClasses/FlowModels/Examples/TestFlowFunctions.mos"
         "Simulate and plot"),
               Documentation(info="<html>
