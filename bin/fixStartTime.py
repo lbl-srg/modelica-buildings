@@ -53,48 +53,47 @@ for mos_file in mos_files:
 		pModel    = re.compile('simulateModel\("([^\(|^"]+)[\S]*"')
 		mModel    = pModel.match(line)
 		modelName = mModel.group(1)
-		if "stopTime=stopTime" in line:
-			stopTime = "stopTime"
-		elif "stopTime=" in line:
+		if "startTime=startTime" in line:
+			startTime = "startTime"
+		elif "startTime=" in line:
 			# Old version, does not work with 86400*900
 			# pTime    = re.compile(r"[\d\S\s.,]*(stopTime=)([\d]*[.]*[\d]*[e]*[+|-]*[\d]*)")
-			pTime    = re.compile(r"[\d\S\s.,]*(stopTime=)([\d]*[.]*[\d]*[e]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[e]*[+|-]*[\d]*)")
+			pTime    = re.compile(r"[\d\S\s.,]*(startTime=)([\d]*[.]*[\d]*[e]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[e]*[+|-]*[\d]*)")
 			mTime    = pTime.match(line)
-			stopTime = mTime.group(2)
+			startTime = mTime.group(2)
 		else:
 			# Maybe the stopTime command is in the next line...
-			print "\tThe stopTime is not in the simulation command row... go ahead"
+			print "\tThe startTime is not in the simulation command row... go ahead"
 			found = False
 			while found == False and i<len(content):
 				line = content[i]
 				i += 1
 				# Remove white spaces
 				line.replace(" ", "")
-				print line
 				
-				if "stopTime=" in line:
+				if "startTime=" in line:
 					found = True
-					pTime    = re.compile(r"[\d\S\s.,]*(stopTime=)([\d]*[.]*[\d]*[e]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[e]*[+|-]*[\d]*)[\S\s.,]*")
+					pTime    = re.compile(r"[\d\S\s.,]*(startTime=)([\d]*[.]*[\d]*[e]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[e]*[+|-]*[\d]*)[\S\s.,]*")
 					mTime    = pTime.match(line)
-					stopTime = mTime.group(2)
-				if "stopTime=stopTime" in line:
-					stopTime = "stopTime"
+					startTime = mTime.group(2)
+				if "startTime=startTime" in line:
+					startTime = "startTime"
 					
 			
 			if found == False:
-				print "\tStopTime not found, defined the default stopTime=1.0"
-				stopTime = "1.0"
+				print "\tStartTime not found, defined the default stopTime=0.0"
+				startTime = "0.0"
 		
-		print "\tStopTime: "+str(stopTime)
+		print "\tStartTime: "+str(startTime)
 		print "\tModelName: "+str(modelName)
 		
 	except AttributeError:
 		print "\tThe script does not contain the simulation command! Maybe it is a plot script..."
-		stopTime = "NA"
+		startTime = "NA"
 		N_mos_problems += 1
 		
 	
-	if stopTime != "NA" and stopTime != "stopTime":		
+	if startTime != "NA" and startTime != "startTime":		
 		
 		modelPath = ""
 		modelPath = modelName.replace(".", "/")
@@ -114,17 +113,17 @@ for mos_file in mos_files:
 			
 			# if the lines contains experiment stop time, replace it
 			# experiment(StopTime=2)
-			if "StopTime=" in line and not found:
+			if "StartTime=" in line and not found:
 				# found the stopTime assignmant, replace with the value in the mos file
 				print "\t==================="
 				print "\t REPLACE"
 				print "\t"+line
 				
-				pStopTime    = re.compile(r"[\d\S\s.,]*(StopTime=[\d]*[.]*[\d]*[e]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[e]*[+|-]*[\d])")
+				pStopTime    = re.compile(r"[\d\S\s.,]*(StartTime=[\d]*[.]*[\d]*[e]*[+|-]*[\d]*[*]*[\d]*[.]*[\d]*[e]*[+|-]*[\d])")
 				mStopTime    = pStopTime.match(line)
 				stopTimeStr  = mStopTime.group(1)
 				
-				newLine = line.replace(stopTimeStr,"StopTime="+str(stopTime))
+				newLine = line.replace(stopTimeStr,"StartTime="+str(startTime))
 				print "\t WITH"
 				print "\t"+newLine
 				
@@ -145,9 +144,9 @@ for mos_file in mos_files:
 					
 					line = modelContent[k]
 					
-					if "__Dymola_Commands(" in line:
+					if "StopTime=" in line:
 						print "\t"+line
-						newLine = line.replace("__Dymola_Commands(" , "\nexperiment(StopTime="+str(stopTime)+"),\n__Dymola_Commands(")
+						newLine = line.replace("StopTime" , "StartTime="+str(startTime)+", StopTime")
 						print "\t WITH"
 						print "\t"+newLine
 						
@@ -183,7 +182,7 @@ for mos_file in mos_files:
 		else:
 			print "\tThe file is safe..."
 		
-	elif stopTime == "stopTime":
+	elif startTime == "startTime":
 		print "\n\t*******************************"
 		print "\tDO THAT MODIFICATION AT HAND!!!"
 		

@@ -8,6 +8,6 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}),
                      graphics),
-experiment(StopTime=1.0),
+experiment(StartTime=-1,StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/RegNonZeroPower.mos" "Simulate and plot"));
 end RegNonZeroPower;
