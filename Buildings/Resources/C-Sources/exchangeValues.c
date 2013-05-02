@@ -1,34 +1,35 @@
-/////////////////////////////////////////////////////
-// External function that exchanges a value with 
-// an array. The array size is dynamically changed
-// as needed.
-//
-// Arguments
-// ---------
-// object: C structure for storage of the array
-// iX: index where x will be stored (1-based index)
-// x:  value to be stored
-// iY: value to be returned (1-based index)
-//
-// Pierre Vigouroux, LBNL                  7/18/2011 
-// svn-id=$Id$
-/////////////////////////////////////////////////////
+/*
+ * External function that exchanges a value with 
+ * an array. The array size is dynamically changed
+ * as needed.
+ *
+ * Arguments
+ * ---------
+ * object: C structure for storage of the array
+ * iX: index where x will be stored (1-based index)
+ * x:  value to be stored
+ * iY: value to be returned (1-based index)
+ *
+ * Pierre Vigouroux, LBNL                  7/18/2011 
+ */
+
+#include "externalObjectStructure.h"
+#include <string.h>
+#include <stdlib.h>
+
 double exchangeValues(void* object, int iX, double x, int iY){
   ExternalObjectStructure* table = (ExternalObjectStructure*) object;
   const int nInc = 10;
   int nTab=table->n;
   int nNew=iX-1+nInc;
-  //  temporary array used while increasing the size of table
+  /*  temporary array used while increasing the size of table */
   double *tab2=NULL;
 
-  ////////////////////////////////////////////
-  // Check input
+  /* Check input */
   if (iX == 0 || iY == 0)
         ModelicaError("Index is one-based in exchangeValues.c.");
-  ////////////////////////////////////////////
-  // Manage memory.
-  //
-  // At first call, initialize storage
+  /* Manage memory
+   * At first call, initialize storage */
   if ( table->x == NULL ){
     table->x= malloc( nNew * sizeof(double) );
     if ( table->x == NULL ) 
@@ -42,28 +43,27 @@ double exchangeValues(void* object, int iX, double x, int iY){
   }
 
   if (iX > nTab){
-    // Assign more memory before storing the value
+    /* Assign more memory before storing the value */
     tab2 = malloc( nTab * sizeof(double) );
     if ( tab2 == NULL ) 
       ModelicaError("Out of memory in storeValue.c when allocating memory for tab2.");
     
-    // Copy the values of x in tab2
+    /* Copy the values of x in tab2 */
     memcpy(tab2, table->x, nTab * sizeof(double) );
     
-    // Increase the size of x
+    /* Increase the size of x */
     free(table->x);
     table->x = malloc(nNew * sizeof(double) );
     if ( table->x == NULL ) 
       ModelicaError("Out of memory in storeValue.c when allocating memory for table->x.");
     table->n = nNew;
-    // Copy previous values
+    /* Copy previous values */
     memcpy(table->x, tab2, nTab * sizeof(double));
     free(tab2);
   }
 
-  ////////////////////////////////////////////
-  // Store and return the data
+  /* Store and return the data */
   table->x[iX-1] = x;
-  //  printf ("returning: %4.2f", table->x[iY-1]);
+  /* printf ("returning: %4.2f", table->x[iY-1]); */
   return table->x[iY-1];
-};
+}
