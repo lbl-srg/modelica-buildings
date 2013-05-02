@@ -1,4 +1,5 @@
 #include "pythonInterpreter.h"
+#include <Python.h>
 void pythonExchangeValuesNoModelica(const char * moduleName,
                           const char * functionName,
                           double * dblValWri, size_t nDblWri,
