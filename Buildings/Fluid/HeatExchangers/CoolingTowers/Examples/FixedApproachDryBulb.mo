@@ -14,7 +14,7 @@ equation
   annotation(Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-140,-260},
             {140,100}}),
                       graphics),
-experiment(StopTime=1.0),
+experiment(StartTime=15552000, StopTime=15984000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/CoolingTowers/Examples/FixedApproachDryBulb.mos"
         "Simulate and plot"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-180},{100,
