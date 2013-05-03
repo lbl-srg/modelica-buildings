@@ -1,0 +1,37 @@
+simulateModel("Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.Examples.ModeSwitch", 
+stopTime=3, method="dassl", resultFile="Mode");
+removePlots();
+createPlot(id = 1,
+ position = {28, 23, 455, 394},
+ y = {"intTab.y"},
+ range = {0.0, 3.0, 3.0, -1.0},
+ erase = false,
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ filename = "ModeSwitch.mat",
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}});
+createPlot(id = 1,
+ position = {28, 23, 455, 194},
+ y = {"modSwi.y"},
+ range = {0.0, 3.0, 2.0, -2.0},
+ erase = false,
+ autoscale = true,
+ autoerase = true,
+ autoreplot = true,
+ description = false,
+ grid = true,
+ color = true,
+ online = false,
+ subPlot = 2,
+ leftTitleType = 1,
+ bottomTitleType = 1,
+ colors = {{0,0,255}});
+
+
