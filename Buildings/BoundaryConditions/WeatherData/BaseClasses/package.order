@@ -17,4 +17,6 @@ getHeaderElementTMY3
 getLatitudeTMY3
 getLongitudeTMY3
 getTimeZoneTMY3
+getAbsolutePath
 Examples
+
