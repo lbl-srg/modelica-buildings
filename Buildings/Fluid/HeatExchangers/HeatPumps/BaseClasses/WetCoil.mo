@@ -17,8 +17,9 @@ model WetCoil "Calculates wet coil condition "
     conRat(redeclare package Medium = Medium));
 
   replaceable parameter
-    Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.HPData   datHP
-    "Performance data";
+    Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.HPData datHP
+    "Performance data"
+    annotation (Placement(transformation(extent={{-62,-98},{-42,-78}})));
 
   constant Boolean calRecoverableWasteHeat
     "Flag, set to true if recoverable waste heat is calculated";

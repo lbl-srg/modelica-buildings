@@ -5,11 +5,10 @@ model WetCoilAirToAirHP "Test model for WetCoil"
       Buildings.Media.GasesConstantDensity.MoistAirUnsaturated;
   Buildings.Fluid.HeatExchangers.HeatPumps.BaseClasses.WetCoil wetCoi(
     redeclare package Medium = Medium,
-    datHP=datHP,
     redeclare final
       Buildings.Fluid.HeatExchangers.HeatPumps.AirToAir.BaseClasses.CoolingCapacity
-                                                                                    cooCap,
-    nm_flow=1,
+                                                                                                  cooCap,
+    datHP=datHP,
     calRecoverableWasteHeat=false)
     "Performs calculation for wet coil condition"
     annotation (Placement(transformation(extent={{70,0},{90,20}})));
@@ -39,113 +38,28 @@ model WetCoilAirToAirHP "Test model for WetCoil"
     duration=1200,
     height=15,
     offset=273.15 + 5) "Medium1 inlet temperature"
-    annotation (Placement(transformation(extent={{-80,40},{-60,60}})));
+    annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Ramp m1_flow(
     offset=0,
     duration=2400,
     startTime=900,
     height=0.2) "Medium1 mass flow rate"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-20}})));
+    annotation (Placement(transformation(extent={{-80,-20},{-60,0}})));
   Modelica.Blocks.Sources.Ramp T2(
     startTime=600,
     duration=1200,
     offset=273.15 + 20,
     height=15) "Medium2 inlet temperature"
-    annotation (Placement(transformation(extent={{-80,0},{-60,20}})));
-  Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.HPData datHP1(
-    nHeaSta=1,
-    nCooSta=2,
-    heaSta={
-        Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.BaseClasses.HeatingStage(
-        spe=1800,
-        nomVal=
-          Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.BaseClasses.HeatingNominalValues(
-          Q_flow_nominal=1838.7,
-          COP_nominal=5,
-          m1_flow_nominal=0.1661088,
-          m2_flow_nominal=0.000381695,
-          wasHeaRecFra_nominal=0.1),
-        perCur=
-          Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.BaseClasses.PerformanceCurve(
-          capFunT={0.617474,-0.00245669,-1.87E-05,0.0254921,-1.01E-04,-1.09E-04},
-          capFunFF1={1},
-          capFunFF2={1},
-          EIRFunT={0.993257,0.0201512,7.72E-05,-0.0317207,0.000740649,-3.04E-04},
-          EIRFunFF1={1},
-          EIRFunFF2={1},
-          wasHeaFunT={1,0,0,0,0,0},
-          T1InMin=273.15 + 7,
-          T1InMax=273.15 + 27,
-          T2InMin=273.15 + 10,
-          T2InMax=273.15 + 30,
-          ff1Min=0.6,
-          ff1Max=1.2,
-          ff2Min=0.6,
-          ff2Max=1.2))},
-    cooSta={
-        Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.BaseClasses.CoolingStage(
-        spe=1800,
-        nomVal=
-          Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.BaseClasses.CoolingNominalValues(
-          Q_flow_nominal=-1524.1,
-          COP_nominal=4,
-          m1_flow_nominal=0.1359072,
-          m2_flow_nominal=0.000381695,
-          wasHeaRecFra_nominal=0.1,
-          SHR_nominal=0.75),
-        perCur=
-          Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.BaseClasses.PerformanceCurve(
-          capFunT={1.43085,-0.0453653,0.00199378,-0.00805944,3.93E-05,-1.81E-04},
-          capFunFF1={1},
-          capFunFF2={1},
-          EIRFunT={1.43085,-0.0453653,0.00199378,-0.00805944,3.93E-05,-1.81E-04},
-          EIRFunFF1={1},
-          EIRFunFF2={1},
-          wasHeaFunT={1,0,0,0,0,0},
-          T1InMin=283.15,
-          T1InMax=298.75,
-          T2InMin=280.35,
-          T2InMax=322.05,
-          ff1Min=0.6,
-          ff1Max=1.2,
-          ff2Min=0.6,
-          ff2Max=1.2)),
-        Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.BaseClasses.CoolingStage(
-        spe=2200,
-        nomVal=
-          Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.BaseClasses.CoolingNominalValues(
-          Q_flow_nominal=-1877.9,
-          COP_nominal=4,
-          m1_flow_nominal=0.151008,
-          m2_flow_nominal=0.000381695,
-          wasHeaRecFra_nominal=0.1,
-          SHR_nominal=0.75),
-        perCur=
-          Buildings.Fluid.HeatExchangers.HeatPumps.WaterToAir.Data.BaseClasses.PerformanceCurve(
-          capFunT={1.43085,-0.0453653,0.00199378,-0.00805944,3.93E-05,-1.81E-04},
-          capFunFF1={1},
-          capFunFF2={1},
-          EIRFunT={1.43085,-0.0453653,0.00199378,-0.00805944,3.93E-05,-1.81E-04},
-          EIRFunFF1={1},
-          EIRFunFF2={1},
-          wasHeaFunT={1,0,0,0,0,0},
-          T1InMin=283.15,
-          T1InMax=298.75,
-          T2InMin=280.35,
-          T2InMax=322.05,
-          ff1Min=0.6,
-          ff1Max=1.2,
-          ff2Min=0.6,
-          ff2Max=1.2))})
-    annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  AirToAir.Data.HPData                                          datHP(
+    annotation (Placement(transformation(extent={{-80,50},{-60,70}})));
+  parameter AirToAir.Data.HPData datHP(
     nCooSta=1,
     heaSta={AirToAir.Data.BaseClasses.HeatingStage(
         spe=1800,
         nomVal=AirToAir.Data.BaseClasses.HeatingNominalValues(
           Q_flow_nominal=1838.7,
           COP_nominal=5,
-          m1_flow_nominal=0.1661088),
+          m1_flow_nominal=0.1661088,
+          m2_flow_nominal=0.1661088),
         perCur=AirToAir.Data.BaseClasses.PerformanceCurve(
           capFunT={0.617474,-0.00245669,-1.87E-05,0.0254921,-1.01E-04,-1.09E-04},
           capFunFF1={1},
@@ -164,6 +78,7 @@ model WetCoilAirToAirHP "Test model for WetCoil"
           Q_flow_nominal=-1877.9,
           COP_nominal=4,
           m1_flow_nominal=0.151008,
+          m2_flow_nominal=0.151008,
           SHR_nominal=0.75),
         perCur=AirToAir.Data.BaseClasses.PerformanceCurve(
           capFunT={1.43085,-0.0453653,0.00199378,-0.00805944,3.93E-05,-1.81E-04},
@@ -176,7 +91,9 @@ model WetCoilAirToAirHP "Test model for WetCoil"
           T2InMax=322.05,
           ff1Min=0.6,
           ff1Max=1.2))})
-    annotation (Placement(transformation(extent={{70,30},{90,50}})));
+    annotation (Placement(transformation(extent={{60,60},{80,80}})));
+  Modelica.Blocks.Routing.Replicator rep(nout=2) "Signal replicator"
+    annotation (Placement(transformation(extent={{-40,-20},{-20,0}})));
 equation
   connect(p.y, wetCoi.p)  annotation (Line(
       points={{-9,-40},{10,-40},{10,7.6},{69,7.6}},
@@ -195,27 +112,33 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(T1.y, wetCoi.T[1]) annotation (Line(
-      points={{-59,50},{6,50},{6,14.5},{69,14.5}},
+      points={{-59,30},{4,30},{4,14.5},{69,14.5}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(T2.y, wetCoi.T[2]) annotation (Line(
-      points={{-59,10},{6,10},{6,15.5},{69,15.5}},
+      points={{-59,60},{6,60},{6,15.5},{69,15.5}},
       color={0,0,127},
       smooth=Smooth.None));
 //    connect(m1_flow.y, wetCoi.m_flow[1]) annotation (Line(
 //        points={{-59,-30},{-34,-30},{-34,11.9},{69,11.9}},
 //        color={0,0,127},
 //        smooth=Smooth.None));
- connect(m1_flow.y, wetCoi.m_flow) annotation (Line(
-       points={{-59,-30},{-34,-30},{-34,12.4},{69,12.4}},
-       color={0,0,127},
-       smooth=Smooth.None));
 
   connect(onOff.y, wetCoi.mode) annotation (Line(
       points={{53,50},{60,50},{60,20},{69,20}},
       color={255,127,0},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),__Dymola_Commands(
+  connect(m1_flow.y, rep.u)        annotation (Line(
+      points={{-59,-10},{-42,-10}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(rep.y, wetCoi.m_flow) annotation (Line(
+      points={{-19,-10},{8,-10},{8,12.4},{69,12.4}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                      graphics),__Dymola_Commands(
   file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/HeatPumps/BaseClasses/Examples/WetCoil.mos"
         "Simulate and plot"),
           Documentation(info="<html>
