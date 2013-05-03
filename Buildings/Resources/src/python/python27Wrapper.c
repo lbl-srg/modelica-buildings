@@ -15,19 +15,24 @@
 //  nIntRea      - Number of integers to read.
 //  strValWri    - String values to write.
 //  nStrWri      - Number of strings to write.
+#include <ModelicaUtilities.h>
+#include "pythonInterpreter.h"
 void pythonExchangeValues(const char * moduleName,
                           const char * functionName,
-                          double * dblValWri, size_t nDblWri,
-                          double * dblValRea, size_t nDblRea,
-                          int * intValWri, size_t nIntWri,
-                          int * intValRea, size_t nIntRea,
-                          const char ** strValWri, size_t nStrWri){
-	pythonExchangeValuesNoModelica(moduleName,
-                          functionName,
-                          dblValWri, nDblWri,
-                          dblValRea, nDblRea,
-                          intValWri, nIntWri,
-                          intValRea, nIntRea,
-                          strValWri, nStrWri,
-			  ModelicaFormatError);
-				  }
+                          const double * dblValWri, int nDblWri,
+                          double * dblValRea, int nDblRea,
+                          const int * intValWri, int nIntWri,
+                          int * intValRea, int nIntRea,
+                          const char ** strValWri, int nStrWri)
+{
+  pythonExchangeValuesNoModelica(
+   moduleName,
+   functionName,
+   dblValWri, nDblWri,
+   dblValRea, nDblRea,
+   intValWri, nIntWri,
+   intValRea, nIntRea,
+   strValWri, nStrWri,
+   ModelicaFormatError
+  );
+}
