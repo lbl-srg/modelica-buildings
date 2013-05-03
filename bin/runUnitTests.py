@@ -94,8 +94,8 @@ if __name__ == '__main__':
         _setEnvironmentVariables("LD_LIBRARY_PATH", 
                                  os.path.join(os.path.abspath('.'), "Resources", "Library", "linux32"))
 
-    _setEnvironmentVariables("PYTHONPATH", 
-                             os.path.join(os.path.abspath('.'), "Resources", "Python-Sources"))
+#    _setEnvironmentVariables("PYTHONPATH", 
+#                             os.path.join(os.path.abspath('.'), "Resources", "Python-Sources"))
 
     # The path to buildingspy must be added to sys.path to work on Linux.
     # If only added to os.environ, the Python interpreter won't find buildingspy
