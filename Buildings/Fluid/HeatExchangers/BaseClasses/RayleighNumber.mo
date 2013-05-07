@@ -25,27 +25,18 @@ model RayleighNumber
     "Temperature of the surrounding fluid"
      annotation (Placement(transformation(extent={{-140,-62},{-100,-22}})));
 equation
-    mu = Medium.dynamicVis(
-        Medium.setState_pTX(
-        p=  Medium.p_default,
-        T=  0.5 * (TSur+TFlu),
-        X=  Medium.X_default));
+    mu = Buildings.Fluid.HeatExchangers.BaseClasses.DynamicViscosityWater(
+        T=  0.5 * (TSur+TFlu));
     rho = Medium.density(
         Medium.setState_pTX(
         p=  Medium.p_default,
         T=  0.5*(TSur+TFlu),
         X=  Medium.X_default));
-    Pr = Medium.PrNum(
-        Medium.setState_pTX(
-          p=  Medium.p_default,
-          T=  0.5*(TSur+TFlu),
-          X=  Medium.X_default));
+    Pr = Buildings.Fluid.HeatExchangers.BaseClasses.PrandtlNumberWater(
+          T=  0.5*(TSur+TFlu));
 
-   B = Medium.isobaricExpansionCoefficient(
-        Medium.setState_pTX(
-          p=  Medium.p_default,
-          T=  0.5*(TSur+TFlu),
-          X=  Medium.X_default));
+   B = Buildings.Fluid.HeatExchangers.BaseClasses.IsobaricExpansionCoefficientWater(
+          T=  0.5*(TSur+TFlu));
     nu = mu/rho;
 
     Gr = Modelica.Constants.g_n * B * (TSur - TFlu)*ChaLen^3/nu^2;
@@ -66,7 +57,8 @@ where:<br>
   and <i>&alpha;</i> is the thermal diffusivity.
 </p>
 <p>
-The thermophysical properties are calculated using the functions of the medium specified by the user.
+This model is currently only used in natural convection calculations for water. As a result, the calculations reference functions to identify properties
+of water instead of a medium model. 
 </p>
 
 
