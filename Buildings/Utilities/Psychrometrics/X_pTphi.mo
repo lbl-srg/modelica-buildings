@@ -14,7 +14,7 @@ public
   Modelica.Blocks.Interfaces.RealInput phi(min = 0, max=1)
     "Relative humidity (0...1)"
     annotation (Placement(transformation(extent={{-140,-80},{-100,-40}})));
-  Modelica.Blocks.Interfaces.RealOutput X[Medium.nX](min = 0, max=1)
+  Modelica.Blocks.Interfaces.RealOutput X[Medium.nX](each min=0, each max=1)
     "Steam mass fraction"
     annotation (Placement(transformation(extent={{100,-10},{120,10}})));
 protected
