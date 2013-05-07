@@ -6,7 +6,7 @@ model SpeedSelect "Test model for speed select"
     nSta=datCoi.nSta,
     speSet=datCoi.sta.spe) "Normalizes the input speed"
     annotation (Placement(transformation(extent={{20,-10},{40,10}})));
-  Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
+  parameter Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.DXCoil
                 datCoi(nSta=4, sta={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=900/60,
@@ -61,7 +61,7 @@ equation
       color={255,127,0},
       smooth=Smooth.None));
 annotation (Diagram(graphics),
-experiment(StopTime=1.0),
+experiment(StopTime=60),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/SpeedSelect.mos"
         "Simulate and plot"),
           Documentation(info="<html>
@@ -73,6 +73,11 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.SpeedSelect</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
 <li>
 August 29, 2012 by Kaustubh Phalak:<br>
 First implementation. 

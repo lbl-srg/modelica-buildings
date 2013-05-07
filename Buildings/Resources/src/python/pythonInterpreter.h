@@ -28,7 +28,6 @@
 #define MS_NO_COREDLL
 #endif
 #endif
-#include <Python.h>
 #include <stddef.h>  /* stddef defines size_t */
 
 #ifdef __cplusplus
@@ -70,9 +69,9 @@ to not export all symbols but only the needed ones */
 //  inModelicaFormatError - Pointer to ModelicaFormatError
 LBNLPYTHONINTERPRETER_EXPORT void pythonExchangeValuesNoModelica(const char * moduleName,
                           const char * functionName,
-                          double * dblValWri, size_t nDblWri,
+                          const double * dblValWri, size_t nDblWri,
                           double * dblValRea, size_t nDblRea,
-                          int * intValWri, size_t nIntWri,
+                          const int * intValWri, size_t nIntWri,
                           int * intValRea, size_t nIntRea,
                           const char ** strValWri, size_t nStrWri,
 			  void (*inModelicaFormatError)(const char *string,...));

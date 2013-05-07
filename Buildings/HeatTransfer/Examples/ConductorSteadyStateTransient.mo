@@ -3,14 +3,14 @@ model ConductorSteadyStateTransient "Test model for heat conductor"
   import Buildings;
   extends Modelica.Icons.Example;
 
-  Buildings.HeatTransfer.Data.Solids.Brick brick(x=0.12, nStaRef=4)
+  parameter Buildings.HeatTransfer.Data.Solids.Brick brick(x=0.12, nStaRef=4)
     annotation (Placement(transformation(extent={{40,60},{60,80}})));
-  Buildings.HeatTransfer.Data.Solids.InsulationBoard insul(
+  parameter Buildings.HeatTransfer.Data.Solids.InsulationBoard insul(
     x=0.05,
     c=0,
     nStaRef=3) "Insulation"
     annotation (Placement(transformation(extent={{0,60},{20,80}})));
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Generic composite(nLay=2, material=
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Generic composite(nLay=2, material=
        {insul,brick})
     annotation (Placement(transformation(extent={{80,60},{100,80}})));
 
@@ -123,9 +123,10 @@ equation
       color={191,0,0},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
-            -100},{100,100}})), 
+            -100},{100,100}})),
 experiment(StopTime=86400),
-__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSteadyStateTransient.mos" "Simulate and plot"),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Examples/ConductorSteadyStateTransient.mos"
+        "Simulate and plot"),
     Documentation(info="<html>
 This example illustrates modeling of multi-layer materials. It also tests if the 
 multi-layer material computes the same heat transfer with its boundary condition 
@@ -136,6 +137,11 @@ The <code>assert</code> block will stop the simulation if the heat exchange with
 condition differs.
 </html>", revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
 <li>
 March 6 2010, by Michael Wetter:<br>
 First implementation.

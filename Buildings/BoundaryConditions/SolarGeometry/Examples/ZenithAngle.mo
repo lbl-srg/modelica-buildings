@@ -14,6 +14,6 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   annotation (Diagram(graphics), 
-experiment(StopTime=300000),
+experiment(StartTime=100000, StopTime=300000),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/Examples/ZenithAngle.mos" "Simulate and plot"));
 end ZenithAngle;
