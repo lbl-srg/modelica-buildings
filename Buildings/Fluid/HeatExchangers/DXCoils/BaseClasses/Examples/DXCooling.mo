@@ -43,7 +43,7 @@ model DXCooling "Test model for DXCooling"
   Modelica.Blocks.Sources.TimeTable speRat(table=[0.0,0.0; 900,0.25; 1800,0.50;
         2700,0.75]) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,74},{-60,94}})));
-  Data.Generic.DXCoil
+  parameter Data.Generic.DXCoil
                 datCoi(sta={
         Buildings.Fluid.HeatExchangers.DXCoils.Data.Generic.BaseClasses.Stage(
         spe=900/60,
@@ -121,7 +121,7 @@ equation
       color={255,127,0},
       smooth=Smooth.None));
   annotation (Diagram(graphics),
-experiment(StopTime=1.0),
+experiment(StopTime=3600),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/DXCooling.mos"
         "Simulate and plot"),
           Documentation(info="<html>
@@ -133,6 +133,11 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.DXCooling</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br>
 First implementation. 
