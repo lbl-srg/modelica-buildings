@@ -57,22 +57,21 @@ model UF90X3A "Model of user facility test cell 90X3A"
 
   Data.Constructions.Gyp16Gyp16 parCon
     "Partition wall between the test cell and the electrical room"
-    annotation (Placement(transformation(extent={{120,46},{140,66}})));
+    annotation (Placement(transformation(extent={{138,-20},{158,0}})));
   Data.Constructions.Insul24Ply13Insul83Gyp16 R16p8Wal
     "Wall with R16.8 worth of insulation"
-    annotation (Placement(transformation(extent={{120,70},{140,90}})));
+    annotation (Placement(transformation(extent={{138,4},{158,24}})));
   HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear glaSys(
       haveExteriorShade=true)
-    annotation (Placement(transformation(extent={{120,-28},{140,-8}})));
+    annotation (Placement(transformation(extent={{136,-92},{156,-72}})));
   Data.Constructions.Insul127Ply13Insul203Ply13Gyp16 R52Wal
     "Wall construction with R52 insulation"
-    annotation (Placement(transformation(extent={{120,94},{140,114}})));
+    annotation (Placement(transformation(extent={{138,28},{158,48}})));
   Data.Constructions.Gyp16Insul102Ply13 R20Wal
     "Wall construction with R20 insulation. Used in the roof of test cell UF90X3A"
-    annotation (Placement(transformation(extent={{120,122},{140,142}})));
+    annotation (Placement(transformation(extent={{138,56},{158,76}})));
+
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-200,
-            -200},{200,200}}), graphics));
-
-annotation(defaultComponentName="UF90X3A");
-
+            -150},{200,150}}), graphics),
+           defaultComponentName="UF90X3A");
 end UF90X3A;
