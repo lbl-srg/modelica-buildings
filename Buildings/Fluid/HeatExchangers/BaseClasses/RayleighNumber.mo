@@ -25,17 +25,17 @@ model RayleighNumber
     "Temperature of the surrounding fluid"
      annotation (Placement(transformation(extent={{-140,-62},{-100,-22}})));
 equation
-    mu = Buildings.Fluid.HeatExchangers.BaseClasses.DynamicViscosityWater(
+    mu = Buildings.Fluid.HeatExchangers.BaseClasses.dynamicViscosityWater(
         T=  0.5 * (TSur+TFlu));
     rho = Medium.density(
         Medium.setState_pTX(
         p=  Medium.p_default,
         T=  0.5*(TSur+TFlu),
         X=  Medium.X_default));
-    Pr = Buildings.Fluid.HeatExchangers.BaseClasses.PrandtlNumberWater(
+    Pr = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
           T=  0.5*(TSur+TFlu));
 
-   B = Buildings.Fluid.HeatExchangers.BaseClasses.IsobaricExpansionCoefficientWater(
+   B = Buildings.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
           T=  0.5*(TSur+TFlu));
     nu = mu/rho;
 

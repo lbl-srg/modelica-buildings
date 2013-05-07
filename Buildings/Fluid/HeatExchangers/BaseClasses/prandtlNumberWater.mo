@@ -1,10 +1,9 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-function IsobaricExpansionCoefficientWater
-  "Returns the isobaric expansion coefficient for water"
+function prandtlNumberWater "Returns the prandtl number for water"
     input Modelica.SIunits.Temperature T "Thermodynamic state record";
-    output Real beta( unit="1/K") "Dynamic viscosity";
+    output Real Pr "Dynamic viscosity";
 algorithm
-        beta := (-8.53296*10^(-6)*T^4+0.011562287*T^3-5.88800657*T^2+1341.798661*T-115406.5225)*10^(-6);
+        Pr := ((2.55713*10^(-7))*T^4-0.000350293*T^3+0.180259651*T^2-41.34104323*T+3571.372195);
         //Equation is a fourth order polynomial fit to data from Fundamentals of Heat and Mass Transfer (Fourth Edition), Frank Incropera & David DeWitt, John Wiley & Sons, 1996
 
-end IsobaricExpansionCoefficientWater;
+end prandtlNumberWater;

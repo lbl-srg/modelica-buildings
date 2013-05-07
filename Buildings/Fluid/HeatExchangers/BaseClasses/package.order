@@ -17,11 +17,11 @@ PipeManifoldNoResistance
 RayleighNumber
 Examples
 appartusDewPoint
-DynamicViscosityWater
+dynamicViscosityWater
 epsilon_C
 epsilon_ntuZ
-IsobaricExpansionCoefficientWater
+isobaricExpansionCoefficientWater
 ntu_epsilonZ
 lmtd
-PrandtlNumberWater
+prandtlNumberWater
 Internal
