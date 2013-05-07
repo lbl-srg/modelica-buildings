@@ -88,9 +88,9 @@ protected
   // Outputs that are needed to assign the medium properties
   Modelica.Blocks.Interfaces.RealOutput hOut_internal(unit="J/kg")
     "Internal connector for leaving temperature of the component";
-  Modelica.Blocks.Interfaces.RealOutput XiOut_internal[Medium.nXi](unit="1")
+  Modelica.Blocks.Interfaces.RealOutput XiOut_internal[Medium.nXi](each unit="1")
     "Internal connector for leaving species concentration of the component";
-  Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](unit="1")
+  Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
 equation

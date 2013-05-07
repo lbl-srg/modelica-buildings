@@ -3,11 +3,11 @@ model StaticTwoPortConservationEquation
   "Partial model for static energy and mass conservation equations"
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
   showDesignFlowDirection = false);
-//  import Modelica.Constants;
+
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Heat transfered into the medium"
     annotation (Placement(transformation(extent={{-140,60},{-100,100}})));
-  Modelica.Blocks.Interfaces.RealInput mXi_flow[Medium.nXi](unit="kg/s")
+  Modelica.Blocks.Interfaces.RealInput mXi_flow[Medium.nXi](each unit="kg/s")
     "Mass flow rates of independent substances added to the medium"
     annotation (Placement(transformation(extent={{-140,20},{-100,60}})));
   constant Boolean sensibleOnly "Set to true if sensible exchange only";

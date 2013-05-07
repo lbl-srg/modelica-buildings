@@ -24,8 +24,8 @@ model ConservationEquation "Lumped volume with mass and energy balance"
       stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
     Xi(start=X_start[1:Medium.nXi],
-       nominal=Medium.X_default[1:Medium.nXi],
-       stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
+       each nominal=Medium.X_default[1:Medium.nXi],
+       each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
     d(start=rho_nominal)) "Medium properties";
 
@@ -36,7 +36,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.SIunits.Mass[Medium.nC] mC "Masses of trace substances in the fluid";
   // C need to be added here because unlike for Xi, which has medium.Xi,
   // there is no variable medium.C
-  Medium.ExtraProperty C[Medium.nC](nominal=C_nominal)
+  Medium.ExtraProperty C[Medium.nC](each nominal=C_nominal)
     "Trace substance mixture content";
 
   Modelica.SIunits.MassFlowRate mb_flow "Mass flows across boundaries";
@@ -53,7 +53,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
   Modelica.Blocks.Interfaces.RealInput Q_flow(unit="W")
     "Heat transfered into the medium"
     annotation (Placement(transformation(extent={{-140,40},{-100,80}})));
-  Modelica.Blocks.Interfaces.RealInput mXi_flow[Medium.nXi](unit="kg/s")
+  Modelica.Blocks.Interfaces.RealInput mXi_flow[Medium.nXi](each unit="kg/s")
     "Mass flow rates of independent substances added to the medium"
     annotation (Placement(transformation(extent={{-140,0},{-100,40}})));
 
