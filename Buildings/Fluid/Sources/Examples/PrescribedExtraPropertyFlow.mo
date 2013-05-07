@@ -41,7 +41,7 @@ model PrescribedExtraPropertyFlow
     annotation (Placement(transformation(extent={{-46,70},{-26,90}},  rotation=
             0)));
   Buildings.Utilities.Diagnostics.AssertEquality assEqu(threShold=1E-4)
-    "Assert that both volumes have the same concentration. Fixme: change StartTime to zero, see annotation of model"
+    "Assert that both volumes have the same concentration"
     annotation (Placement(transformation(extent={{210,128},{230,148}},
                                                                      rotation=0)));
   MixingVolumes.MixingVolume vol2(
