@@ -9,7 +9,7 @@ partial model PartialMixingVolume
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"

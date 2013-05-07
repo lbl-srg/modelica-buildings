@@ -80,7 +80,7 @@ protected
     "= true to set up initial equations for pressure";
 
   Medium.EnthalpyFlowRate ports_H_flow[nPorts];
-  Medium.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
+  Modelica.SIunits.MassFlowRate ports_mXi_flow[nPorts,Medium.nXi];
   Medium.ExtraPropertyFlowRate ports_mC_flow[nPorts,Medium.nC];
 
   parameter Modelica.SIunits.Density rho_nominal=Medium.density(

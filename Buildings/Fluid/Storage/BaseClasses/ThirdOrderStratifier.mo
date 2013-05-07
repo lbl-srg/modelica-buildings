@@ -5,7 +5,7 @@ model ThirdOrderStratifier
   replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Medium model" annotation (choicesAllMatching=true);
 
-  parameter Medium.MassFlowRate m_flow_small(min=0)
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0)
     "Small mass flow rate for regularization of zero flow";
   parameter Integer nSeg(min=4) "Number of volume segments";
 
