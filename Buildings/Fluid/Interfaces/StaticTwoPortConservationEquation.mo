@@ -92,24 +92,19 @@ equation
       port_b.h_outflow = inStream(port_a.h_outflow) + Q_flow * m_flowInv;
       port_a.h_outflow = inStream(port_b.h_outflow) - Q_flow * m_flowInv;
       // Transport of species
-      for i in 1:Medium.nXi loop
-        port_b.Xi_outflow[i] = inStream(port_a.Xi_outflow[i]) + mXi_flow[i] * m_flowInv;
-        port_a.Xi_outflow[i] = inStream(port_b.Xi_outflow[i]) - mXi_flow[i] * m_flowInv;
-      end for;
+      port_b.Xi_outflow = inStream(port_a.Xi_outflow) + mXi_flow * m_flowInv;
+      port_a.Xi_outflow = inStream(port_b.Xi_outflow) - mXi_flow * m_flowInv;
      else
       port_a.m_flow * (port_b.h_outflow - inStream(port_a.h_outflow)) = Q_flow;
       port_a.m_flow * (port_a.h_outflow - inStream(port_b.h_outflow)) = -Q_flow;
       // Transport of species
-      for i in 1:Medium.nXi loop
-        port_a.m_flow * (port_b.Xi_outflow[i] - inStream(port_a.Xi_outflow[i])) = mXi_flow[i];
-        port_a.m_flow * (port_a.Xi_outflow[i] - inStream(port_b.Xi_outflow[i])) =- mXi_flow[i];
-      end for;
+      port_a.m_flow * (port_b.Xi_outflow - inStream(port_a.Xi_outflow)) = mXi_flow;
+      port_a.m_flow * (port_a.Xi_outflow - inStream(port_b.Xi_outflow)) =- mXi_flow;
      end if;
     // Transport of trace substances
-    for i in 1:Medium.nC loop
-      port_a.m_flow*port_a.C_outflow[i] = -port_b.m_flow*inStream(port_b.C_outflow[i]);
-      port_b.m_flow*port_b.C_outflow[i] = -port_a.m_flow*inStream(port_a.C_outflow[i]);
-    end for;
+   port_a.m_flow*port_a.C_outflow = -port_b.m_flow*inStream(port_b.C_outflow);
+   port_b.m_flow*port_b.C_outflow = -port_a.m_flow*inStream(port_a.C_outflow);
+
   end if; // sensibleOnly
   //////////////////////////////////////////////////////////////////////////////////////////
   // No pressure drop in this model
@@ -151,6 +146,12 @@ or instantiates this model sets <code>mXi_flow = zeros(Medium.nXi)</code>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 7, 2013 by Michael Wetter:<br>
+Removed <code>for</code> loops for species balance and trace substance balance, 
+as they cause the error <code>Error: Operand port_a.Xi_outflow[1] to operator inStream is not a stream variable.</code>
+in OpenModelica.
+</li>
 <li>
 March 27, 2013 by Michael Wetter:<br>
 Removed wrong unit attribute of <code>COut</code>,
