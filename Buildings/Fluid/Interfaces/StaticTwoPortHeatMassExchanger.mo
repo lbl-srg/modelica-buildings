@@ -9,7 +9,7 @@ model StaticTwoPortHeatMassExchanger
 
   // Model inputs
   input Modelica.SIunits.HeatFlowRate Q_flow "Heat transfered into the medium";
-  input Medium.MassFlowRate mXi_flow[Medium.nXi]
+  input Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
 
   // Models for conservation equations and pressure drop
