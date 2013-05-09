@@ -10,7 +10,7 @@ model ControlledFlowMachine
      final rho_default = Medium.density(sta_default));
 
   import cha = Buildings.Fluid.Movers.BaseClasses.Characteristics;
-//  parameter Medium.MassFlowRate m_flow_nominal
+//  parameter Modelica.SIunits.MassFlowRate m_flow_nominal
 //    "Nominal mass flow rate, used as flow rate if control_m_flow";
 //  parameter Modelica.SIunits.MassFlowRate m_flow_max = m_flow_nominal
 //    "Maximum mass flow rate (at zero head)";
