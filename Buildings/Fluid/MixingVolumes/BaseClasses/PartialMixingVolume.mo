@@ -9,7 +9,7 @@ partial model PartialMixingVolume
   // Port definitions
   parameter Integer nPorts=0 "Number of ports"
     annotation(Evaluate=true, Dialog(connectorSizing=true, tab="General",group="Ports"));
-  parameter Medium.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
+  parameter Modelica.SIunits.MassFlowRate m_flow_small(min=0) = 1E-4*abs(m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));
   parameter Boolean homotopyInitialization = true "= true, use homotopy method"
@@ -88,9 +88,9 @@ protected
   // Outputs that are needed to assign the medium properties
   Modelica.Blocks.Interfaces.RealOutput hOut_internal(unit="J/kg")
     "Internal connector for leaving temperature of the component";
-  Modelica.Blocks.Interfaces.RealOutput XiOut_internal[Medium.nXi](unit="1")
+  Modelica.Blocks.Interfaces.RealOutput XiOut_internal[Medium.nXi](each unit="1")
     "Internal connector for leaving species concentration of the component";
-  Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](unit="1")
+  Modelica.Blocks.Interfaces.RealOutput COut_internal[Medium.nC](each unit="1")
     "Internal connector for leaving trace substances of the component";
 
 equation

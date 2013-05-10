@@ -8,7 +8,7 @@ model PrescribedExtraPropertyFlowRate
     "Get the trace substance mass flow rate from the input connector"
     annotation(Evaluate=true, HideResult=true);
 
-  parameter Medium.MassFlowRate m_flow = 0
+  parameter Modelica.SIunits.MassFlowRate m_flow = 0
     "Fixed mass flow rate going out of the fluid port"
     annotation (Evaluate = true,
                 Dialog(enable = not use_m_flow_in));

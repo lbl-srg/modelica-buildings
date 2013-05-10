@@ -17,7 +17,7 @@ partial model PartialMixingVolumeWaterPort
   Modelica.Blocks.Interfaces.RealOutput X_w "Species composition of medium"
     annotation (Placement(transformation(extent={{100,-60},{140,-20}}, rotation=
            0)));
-  Medium.MassFlowRate mXi_flow[Medium.nXi]
+  Modelica.SIunits.MassFlowRate mXi_flow[Medium.nXi]
     "Mass flow rates of independent substances added to the medium";
   Modelica.SIunits.HeatFlowRate HWat_flow
     "Enthalpy flow rate of extracted water";

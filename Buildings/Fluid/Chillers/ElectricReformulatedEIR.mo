@@ -56,22 +56,6 @@ equation
     EIRFunPLR = 0;
   end if;
   annotation (Icon(graphics={
-        Text(extent={{64,4},{114,-10}},   textString="P",
-          lineColor={0,0,127}),
-        Text(extent={{-122,28},{-76,16}},   textString="T_CHWS",
-          lineColor={0,0,127}),
-        Rectangle(
-          extent={{-99,-54},{102,-66}},
-          lineColor={0,0,255},
-          pattern=LinePattern.None,
-          fillColor={0,0,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-100,-66},{0,-54}},
-          lineColor={0,0,127},
-          pattern=LinePattern.None,
-          fillColor={0,0,127},
-          fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{-104,66},{98,54}},
           lineColor={0,0,255},
@@ -113,11 +97,6 @@ equation
           fillPattern=FillPattern.Solid),
         Rectangle(
           extent={{38,52},{42,-50}},
-          lineColor={0,0,0},
-          fillColor={255,255,255},
-          fillPattern=FillPattern.Solid),
-        Rectangle(
-          extent={{-56,-50},{58,-68}},
           lineColor={0,0,0},
           fillColor={255,255,255},
           fillPattern=FillPattern.Solid),

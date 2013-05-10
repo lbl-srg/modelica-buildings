@@ -41,6 +41,7 @@ partial model PartialFlowMachine
 
   // Models
   Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a heatPort
+    "Heat dissipation to environment"
     annotation (Placement(transformation(extent={{-70,-90},{-50,-70}}),
         iconTransformation(extent={{-10,-78},{10,-58}})));
 

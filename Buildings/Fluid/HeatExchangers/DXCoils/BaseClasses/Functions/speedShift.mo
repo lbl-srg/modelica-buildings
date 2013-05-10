@@ -17,9 +17,12 @@ algorithm
     //y1d, y2d in cubic Hermite function
     modSpeSet:= cat(1, {0.00}, speSet);
     modU     := cat(1, {0.00}, u);
+    //Derivatives at standard speeds
     derv     := Buildings.Utilities.Math.Functions.splineDerivatives(
                    x=modSpeSet,
-                   y=modU) "derivatives at standard speeds";
+                   y=modU,
+                   ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=modU,
+                                                                                     strict=false));
     //locate the range between which compressor operates
     for j in 1:size(modSpeSet, 1) - 1 loop
       if spe > modSpeSet[j] then
