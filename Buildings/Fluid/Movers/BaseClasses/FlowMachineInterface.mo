@@ -436,21 +436,21 @@ equation
   end if;
   // Power consumption
   if use_powerCharacteristic then
-    // For the homotopy, we want PEle/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
+    // For the homotopy, we want P/V_flow to be bounded as V_flow -> 0 to avoid a very high medium
     // temperature near zero flow.
     if homotopyInitialization then
-      PEle = homotopy(actual=cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer),
+      P = homotopy(actual=cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer),
                       simplified=VMachine_flow/V_flow_nominal*
                             cha.power(data=power, V_flow=V_flow_nominal, r_N=1, d=powDer));
     else
-      PEle = (rho/rho_default)*cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer);
+      P = (rho/rho_default)*cha.power(data=power, V_flow=VMachine_flow, r_N=r_N, d=powDer);
     end if;
     // To compute the efficiency, we set a lower bound on the electricity consumption.
-    // This is needed because WFlo can be close to zero when PEle is zero, thereby
+    // This is needed because WFlo can be close to zero when P is zero, thereby
     // causing a division by zero.
-    // Earlier versions of the model computed WFlo = eta * PEle, but this caused
+    // Earlier versions of the model computed WFlo = eta * P, but this caused
     // a division by zero.
-    eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=PEle, x2=1E-5, deltaX=1E-6);
+    eta = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=P, x2=1E-5, deltaX=1E-6);
     // In this configuration, we only now the total power consumption.
     // Because nothing is known about etaMot versus etaHyd, we set etaHyd=1. This will
     // cause etaMot=eta, because eta=etaHyd*etaMot.
@@ -469,12 +469,12 @@ equation
     end if;
     // To compute the electrical power, we set a lower bound for eta to avoid
     // a division by zero.
-    PEle = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
+    P = WFlo / Buildings.Utilities.Math.Functions.smoothMax(x1=eta, x2=1E-5, deltaX=1E-6);
 
   end if;
 
   annotation (
-    Icon(coordinateSystem(preserveAspectRatio=true,  extent={{-100,-100},{100,
+    Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},{100,
             100}}), graphics={
         Line(
           points={{0,70},{40,70}},
@@ -539,7 +539,7 @@ these parameters have the attribute <code>fixed=false</code> set.
 </li>
 <li>
 October 11, 2012, by Michael Wetter:<br>
-Added implementation of <code>WFlo = eta * PEle</code> with
+Added implementation of <code>WFlo = eta * P</code> with
 guard against division by zero.
 Changed implementation of <code>etaMot=sqrt(eta)</code> to 
 <code>etaHyd = 1</code> to avoid infinite derivative as <code>eta</code>

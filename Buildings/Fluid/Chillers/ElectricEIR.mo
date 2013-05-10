@@ -55,11 +55,9 @@ equation
     EIRFunPLR = 0;
   end if;
 
-  annotation (Icon(graphics={
-        Text(extent={{64,4},{114,-10}},   textString="P",
-          lineColor={0,0,127}),
-        Text(extent={{-122,28},{-76,16}},   textString="T_CHWS",
-          lineColor={0,0,127}),
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,
+            -100},{100,100}}),
+                   graphics={
         Rectangle(
           extent={{-99,-54},{102,-66}},
           lineColor={0,0,255},
