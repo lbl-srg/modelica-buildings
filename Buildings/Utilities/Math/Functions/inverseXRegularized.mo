@@ -1,7 +1,6 @@
 within Buildings.Utilities.Math.Functions;
 function inverseXRegularized
   "Function that approximates 1/x by a twice continuously differentiable function"
-
  input Real x "Abscissa value";
  input Real delta(min=0) "Abscissa value below which approximation occurs";
  output Real y "Function value";
@@ -9,10 +8,14 @@ protected
  Real delta2 "Delta^2";
  Real x2_d2 "=x^2/delta^2";
 algorithm
-  delta2 :=delta*delta;
-  x2_d2  := x*x/delta2;
-  y :=smooth(2, if (abs(x) > delta) then 1/x else
-    x/delta2 + x*abs(x/delta2/delta*(2 - x2_d2*(3 - x2_d2))));
+  if (abs(x) > delta) then
+    y := 1/x;
+  else
+    delta2 :=delta*delta;
+    x2_d2  := x*x/delta2;
+    y      := x/delta2 + x*abs(x/delta2/delta*(2 - x2_d2*(3 - x2_d2)));
+  end if;
+
   annotation (
     Documentation(info="<html>
 <p>
@@ -25,6 +28,10 @@ See the package <code>Examples</code> for the graph.
 </p>
 </html>", revisions="<html>
 <ul>
+<li>
+May 10, 2013, by Michael Wetter:<br>
+Reformulated implementation to avoid unrequired computations.
+</li>
 <li>
 April 18, 2011, by Michael Wetter:<br>
 First implementation.
