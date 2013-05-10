@@ -545,7 +545,6 @@ Changed implementation of <code>etaMot=sqrt(eta)</code> to
 <code>etaHyd = 1</code> to avoid infinite derivative as <code>eta</code>
 converges to zero.
 </li>
-</li>
 <li>
 February 20, 2012, by Michael Wetter:<br>
 Assigned value to nominal attribute of <code>VMachine_flow</code>.
