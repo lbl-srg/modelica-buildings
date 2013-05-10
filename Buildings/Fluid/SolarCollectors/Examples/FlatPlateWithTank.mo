@@ -200,7 +200,7 @@ equation
         The heat ports for the tank are connected to an ambient temperature of 20 degrees C representing the temperature of the room the tank is stored in.
         </p>
         <p>
-        <a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">Buildings.Fluid.Sources.MassFlowSource_T</a> (bou1) provides a constant mass flow rate for a hot water
+        bou1 <a href=\"modelica://Buildings.Fluid.Sources.MassFlowSource_T\">(Buildings.Fluid.Sources.MassFlowSource_T)</a> provides a constant mass flow rate for a hot water
         draw while bou <a href=\"modelica://Buildings.Fluid.Sources.Boundary_pT\">(Buildings.Fluid.Sources.Boundary_pT)</a> provides an outlet boundary condition for the outlet
         of the draw.<br>
         </p>
