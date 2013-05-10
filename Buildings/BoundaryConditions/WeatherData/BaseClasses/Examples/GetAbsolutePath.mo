@@ -19,5 +19,15 @@ initial algorithm
   annotation (
 experiment(StopTime=1.0),
 __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/WeatherData/BaseClasses/Examples/GetAbsolutePath.mos"
-        "Simulate and plot"));
+        "Simulate and plot"),
+    Documentation(info="<html>
+This model tests the function that gets the absolute path of a URI.
+</html>", revisions="<html>
+<ul>
+<li>
+May 9, 2013, by Michael Wetter:<br/>
+First implementation.
+</li>
+</ul>
+</html>"));
 end GetAbsolutePath;
