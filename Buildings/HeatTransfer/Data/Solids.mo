@@ -122,7 +122,7 @@ Hence,
 <p>Next, we define the number of elements for the material layer as
 </p>
 <p align=\"center\" style=\"font-style:italic;\">
-<i>N<sub>x</sub> = &lceil;  N' &rceil;
+<i>N<sub>x</sub> = &lceil;  N' &rceil;</i>
 </p>
 <p>
 where the notation <i>&lceil; &#8901; &rceil;</i> is defined, for

@@ -554,7 +554,7 @@ outside the allowed range.
 </p>
 </li>
 </ol>
-<!-- ----------------------- -->
+<!-- ============================== -->
 <p>
 This completes the initial version of the model. When simulating the model
 for <i>2</i> days, or <i>172800</i> seconds, the
