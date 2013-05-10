@@ -199,6 +199,6 @@ of the supply fan and pressure raise of the return fan is arbitrary.
       file="modelica://Buildings/Resources/Scripts/Dymola/Examples/VAVCO2/plotFan.mos"
         "Plot fan"),
     experiment(
-      StopTime=86400,
+      StopTime=172800,
       Tolerance=1e-006));
 end VAVSystemCTControl;

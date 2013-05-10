@@ -18,7 +18,8 @@ initial algorithm
     x=xd,
     y=yd,
     ensureMonotonicity=false);
-  dMonotone := Buildings.Utilities.Math.Functions.splineDerivatives(x=xd, y=yd);
+  dMonotone := Buildings.Utilities.Math.Functions.splineDerivatives(x=xd, y=yd,
+      ensureMonotonicity=true);
 algorithm
   x := xd[1] + time*1.2*(xd[size(xd, 1)] - xd[1]) - 0.5;
   // i is a counter that is used to pick the derivative of d or dMonotonic
@@ -53,7 +54,7 @@ algorithm
     __Dymola_Commands(file=
           "modelica://Buildings/Resources/Scripts/Dymola/Utilities/Math/Functions/Examples/CubicHermite.mos"
         "Simulate and plot"),
-    experiment(StopTime=1),
+    experiment(StopTime=1.0),
     Documentation(info="<html>
 <p>
 This example demonstrates the use of the function for cubic hermite interpolation

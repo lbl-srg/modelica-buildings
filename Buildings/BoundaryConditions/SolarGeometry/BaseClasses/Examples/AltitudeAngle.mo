@@ -57,7 +57,9 @@ equation
           1.27676e-15},{61.5,6.66134e-16},{66,6.66134e-16}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics), __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/AltitudeAngle.mos"
+  annotation (Diagram(graphics), 
+experiment(StopTime=86400),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/BoundaryConditions/SolarGeometry/BaseClasses/Examples/AltitudeAngle.mos"
         "Simulate and plot"),
 Documentation(info="<html>
 <p>

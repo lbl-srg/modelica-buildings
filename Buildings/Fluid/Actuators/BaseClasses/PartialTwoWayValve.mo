@@ -13,8 +13,9 @@ partial model PartialTwoWayValve "Partial model for a two way valve"
   parameter Modelica.SIunits.Pressure dpFixed_nominal(displayUnit="Pa", min=0) = 0
     "Pressure drop of pipe and other resistances that are in series"
      annotation(Dialog(group = "Nominal condition"));
-  parameter Real l(min=1e-10, max=1) = 0.0001 "Valve leakage, l=Cv(y=0)/Cvs";
-  Real phi "Ratio actual to nominal mass flow rate of valve, phi=Cv(y)/Cv(y=1)";
+  parameter Real l(min=1e-10, max=1) = 0.0001
+    "Valve leakage, l=Kv(y=0)/Kv(y=1)";
+  Real phi "Ratio actual to nominal mass flow rate of valve, phi=Kv(y)/Kv(y=1)";
 protected
  parameter Real kFixed(unit="") = if dpFixed_nominal > Modelica.Constants.small
     then m_flow_nominal / sqrt(dpFixed_nominal) else 0

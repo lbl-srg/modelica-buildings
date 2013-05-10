@@ -34,5 +34,5 @@ equation
    Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             200,160}})),
     experiment(
-      StopTime=172800));
+      StopTime=86400));
 end OnlyExteriorWallWithWindowExteriorShade;

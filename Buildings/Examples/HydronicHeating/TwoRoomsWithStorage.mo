@@ -56,20 +56,20 @@ model TwoRoomsWithStorage
         rotation=90,
         origin={220,50})));
 
-  HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
+  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
     "Construction material for exterior walls"
     annotation (Placement(transformation(extent={{460,560},{480,580}})));
-  HeatTransfer.Data.OpaqueConstructions.Brick120 matLayPar
+  parameter HeatTransfer.Data.OpaqueConstructions.Brick120 matLayPar
     "Construction material for partition walls"
     annotation (Placement(transformation(extent={{500,560},{520,580}})));
-  HeatTransfer.Data.OpaqueConstructions.Generic matLayFlo(
+  parameter HeatTransfer.Data.OpaqueConstructions.Generic matLayFlo(
         material={
           HeatTransfer.Data.Solids.Concrete(x=0.2),
           HeatTransfer.Data.Solids.InsulationBoard(x=0.15),
           HeatTransfer.Data.Solids.Concrete(x=0.05)},
         final nLay=3) "Construction material for floor"
     annotation (Placement(transformation(extent={{540,560},{560,580}})));
-  HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+  parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveInteriorShade=false,
@@ -1036,7 +1036,5 @@ First implementation.
 </html>"),
     __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Examples/HydronicHeating/TwoRoomsWithStorage.mos"
         "Simulate and plot"),
-    experiment(
-      StopTime=172800,
-      Tolerance=1e-006));
+    experiment(StopTime=604800, Tolerance=1e-06));
 end TwoRoomsWithStorage;

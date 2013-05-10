@@ -30,7 +30,7 @@ model Case960 "Case 600, but with an unconditioned sun-space"
         rotation=0,
         origin={120,-42})));
 
-  Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120
+  parameter Buildings.HeatTransfer.Data.OpaqueConstructions.Brick120
     matLayPar(material={
         Buildings.HeatTransfer.Data.Solids.Generic(
         x=0.2,
@@ -39,11 +39,11 @@ model Case960 "Case 600, but with an unconditioned sun-space"
         d=1400)}) "Construction material for partition walls"
     annotation (Placement(transformation(extent={{-50,-8},{-32,10}})));
 
-  Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900
+  parameter Buildings.Rooms.Examples.BESTEST.Data.ExteriorWallCase900
      extWalCase900 "Exterior wall"
     annotation (Placement(transformation(extent={{160,80},{174,94}})));
 
-  Buildings.Rooms.Examples.BESTEST.Data.FloorCase900
+  parameter Buildings.Rooms.Examples.BESTEST.Data.FloorCase900
     floorCase900 "Floor"
     annotation (Placement(transformation(extent={{180,80},{194,94}})));
 
@@ -220,7 +220,7 @@ equation
   annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Rooms/Examples/BESTEST/Case960.mos"
         "Simulate and plot"),
       experiment(
-      StopTime=3.1536e+007,
+      StopTime=3.1536e+07,
       Interval=3600,
       Tolerance=1e-006),
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-120,-240},{260,
@@ -233,6 +233,11 @@ equation
           textString="BackZone")}),
             Documentation(revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
 <li>
 July 16, 2012, by Michael Wetter:<br>
 First implementation.

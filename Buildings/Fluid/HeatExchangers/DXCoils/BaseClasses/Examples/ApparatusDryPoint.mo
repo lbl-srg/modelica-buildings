@@ -36,7 +36,7 @@ model ApparatusDryPoint "Test model for ApparatusDryPoint"
     offset=0.25,
     startTime=900) "Speed ratio "
     annotation (Placement(transformation(extent={{-80,72},{-60,92}})));
-  Data.Generic.DXCoil
+  parameter Data.Generic.DXCoil
                 datCoi(
     nSta=4,
     sta={
@@ -135,7 +135,9 @@ equation
       points={{-59,-50},{-28,-50},{-28,-5},{59,-5}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/ApparatusDryPoint.mos"
+  annotation (Diagram(graphics),
+experiment(StopTime=3600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/ApparatusDryPoint.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>
@@ -146,6 +148,11 @@ Buildings.Fluid.HeatExchangers.DXCoils.BaseClasses.ApparatusDryPoint</a>.
 </html>",
 revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
 <li>
 April 10, 2012 by Kaustubh Phalak:<br>
 First implementation. 

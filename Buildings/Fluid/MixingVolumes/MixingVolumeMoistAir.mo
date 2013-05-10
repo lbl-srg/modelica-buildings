@@ -11,7 +11,7 @@ model MixingVolumeMoistAir
 
 protected
   parameter Integer i_w(min=1, fixed=false) "Index for water substance";
-  parameter Real s[Medium.nXi](fixed=false)
+  parameter Real s[Medium.nXi](each fixed=false)
     "Vector with zero everywhere except where species is";
 
 protected

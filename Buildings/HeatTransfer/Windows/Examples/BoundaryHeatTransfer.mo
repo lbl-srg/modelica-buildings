@@ -40,18 +40,19 @@ model BoundaryHeatTransfer
     "Room air temperature"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-  Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys2(
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys2(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     UFra=2,
     haveInteriorShade=false,
     haveExteriorShade=false) "Parameters for glazing system"
     annotation (Placement(transformation(extent={{40,-80},{60,-60}})));
-  Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3 glaSys1(UFra=2)
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.SingleClear3 glaSys1(UFra=2)
     annotation (Placement(transformation(extent={{0,-80},{20,-60}})));
-  Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear
+  parameter
+    Buildings.HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear
     glaSys3(UFra=1) "Parameters for glazing system"
     annotation (Placement(transformation(extent={{80,-80},{100,-60}})));
-  Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     UFra=1.5,
     haveExteriorShade=true,
@@ -164,13 +165,24 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOut.y, extCon.TBlaSky) annotation (Line(
-      points={{-79,90},{-70,90},{-70,-28.2},{-57.2,-28.2}},
+      points={{-79,90},{-70,90},{-70,-28},{-57,-28}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(TOut.y, extCon.TOut) annotation (Line(
-      points={{-79,90},{-70,90},{-70,-31.9},{-57.1,-31.9}},
+      points={{-79,90},{-70,90},{-70,-32.2},{-57,-32.2}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/BoundaryHeatTransfer.mos"
-        "Simulate and plot"), Diagram(graphics));
+  annotation (
+experiment(StopTime=1.0),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/Examples/BoundaryHeatTransfer.mos"
+        "Simulate and plot"), Diagram(graphics),
+    Documentation(revisions="<html>
+<ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+</ul>
+</html>"));
 end BoundaryHeatTransfer;

@@ -156,5 +156,6 @@ First implementation.
 </li>
 </ul></HTML>"),
     Diagram(coordinateSystem(extent={{-20,-80},{180,240}},  preserveAspectRatio=false),
-                   graphics));
+                   graphics),
+    experiment(StopTime=3600));
 end WSEControl;

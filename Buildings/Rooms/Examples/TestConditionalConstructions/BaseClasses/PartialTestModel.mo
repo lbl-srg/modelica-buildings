@@ -27,10 +27,10 @@ partial model PartialTestModel
 
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
-  HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
+  parameter HeatTransfer.Data.OpaqueConstructions.Insulation100Concrete200 matLayExt
     "Construction material for exterior walls"
     annotation (Placement(transformation(extent={{-80,100},{-60,120}})));
-  HeatTransfer.Data.OpaqueConstructions.Brick120 matLayPar
+  parameter HeatTransfer.Data.OpaqueConstructions.Brick120 matLayPar
     "Construction material for partition walls"
     annotation (Placement(transformation(extent={{-40,100},{-20,120}})));
   Modelica.Blocks.Sources.Constant qConGai_flow(k=0) "Convective heat gain"
@@ -43,7 +43,7 @@ partial model PartialTestModel
     annotation (Placement(transformation(extent={{-80,-50},{-60,-30}})));
   BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam="Resources/weatherdata/USA_IL_Chicago-OHare.Intl.AP.725300_TMY3.mos")
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
-  HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(UFra=2,
+  parameter HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(UFra=2,
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     haveExteriorShade=false,
     haveInteriorShade=false) "Data record for the glazing system"
@@ -75,5 +75,14 @@ equation
   annotation (Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,
             -100},{200,160}}),
                       graphics),
-    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,160}})));
+    Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{200,160}})),
+    Documentation(revisions="<html>
+<ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
+</ul>
+</html>"));
 end PartialTestModel;

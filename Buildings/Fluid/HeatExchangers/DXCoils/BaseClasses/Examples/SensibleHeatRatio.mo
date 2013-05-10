@@ -53,7 +53,9 @@ equation
       points={{-59,-80},{-34,-80},{-34,-8},{19,-8}},
       color={0,0,127},
       smooth=Smooth.None));
-  annotation (Diagram(graphics),__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/SensibleHeatRatio.mos"
+  annotation (Diagram(graphics),
+experiment(StopTime=3600),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Fluid/HeatExchangers/DXCoils/BaseClasses/Examples/SensibleHeatRatio.mos"
         "Simulate and plot"),
           Documentation(info="<html>
 <p>

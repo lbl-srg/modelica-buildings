@@ -17,8 +17,8 @@ equation
                       graphics),
                        __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/Utilities/Psychrometrics/Functions/BaseClasses/Examples/WaterVaporPressureDerivativeCheck.mos" "Simulate and plot"),
       experiment(
-        StartTime=273.15,
-        StopTime=473.15),
+        StartTime=0,
+        StopTime=1),
       Documentation(info="<html>
 <p>
 This example checks whether the function derivative

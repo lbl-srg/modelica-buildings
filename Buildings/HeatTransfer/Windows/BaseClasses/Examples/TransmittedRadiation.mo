@@ -38,7 +38,7 @@ model TransmittedRadiation
     haveExteriorShade=glaSys.haveExteriorShade,
     haveInteriorShade=glaSys.haveInteriorShade)
     annotation (Placement(transformation(extent={{60,0},{80,20}})));
-  Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
+  parameter Buildings.HeatTransfer.Data.GlazingSystems.DoubleClearAir13Clear glaSys(
     shade=Buildings.HeatTransfer.Data.Shades.Gray(),
     UFra=2,
     haveExteriorShade=false,
@@ -88,12 +88,18 @@ equation
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{100,
             100}})),
-    __Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/TransmittedRadiation.mos"
+experiment(StopTime=864000),
+__Dymola_Commands(file="modelica://Buildings/Resources/Scripts/Dymola/HeatTransfer/Windows/BaseClasses/Examples/TransmittedRadiation.mos"
         "Simulate and plot"),
     Documentation(info="<html>
 This example illustrates modeling of window transmittance.
 </html>", revisions="<html>
 <ul>
+<li>
+May 1, 2013, by Michael Wetter:<br>
+Declared the parameter record to be a parameter, as declaring its elements
+to be parameters does not imply that the whole record has the variability of a parameter.
+</li>
 <li>
 December 12, 2011, by Wangda Zuo:<br>
 Add glass thickness as a parameter for winTra. It is needed by the claculation of property for uncoated glass.
