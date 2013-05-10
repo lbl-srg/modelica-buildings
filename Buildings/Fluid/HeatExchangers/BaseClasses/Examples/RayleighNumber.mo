@@ -6,10 +6,15 @@ model RayleighNumber "Test model for RayleighNumber"
         0.1, redeclare package Medium =
         Buildings.Media.ConstantPropertyLiquidWater)
     annotation (Placement(transformation(extent={{-10,0},{14,24}})));
-  Modelica.Blocks.Sources.Constant TSur(k=350) "Temperature of the hot surface"
+  Modelica.Blocks.Sources.Sine     TSur(
+    amplitude=25,
+    freqHz=1/50,
+    offset=325) "Temperature of the hot surface"
     annotation (Placement(transformation(extent={{-74,10},{-54,30}})));
-  Modelica.Blocks.Sources.Constant TFlu(k=350)
-    "Temperature of the surrounding fluid"
+  Modelica.Blocks.Sources.Sine     TFlu(
+    amplitude=25,
+    freqHz=1/25,
+    offset=325) "Temperature of the surrounding fluid"
     annotation (Placement(transformation(extent={{-74,-28},{-54,-8}})));
 equation
   connect(TSur.y, rayleighNumber.TSur)  annotation (Line(
