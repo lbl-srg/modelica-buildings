@@ -34,7 +34,6 @@ partial model FlowMachine_ZeroFlow
     annotation (Placement(transformation(extent={{58,70},{78,90}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacSta(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.SteadyState,
     dynamicBalance=false)
                       constrainedby
@@ -43,7 +42,6 @@ partial model FlowMachine_ZeroFlow
     annotation (Placement(transformation(extent={{20,70},{40,90}})));
   replaceable Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine floMacDyn(
     redeclare package Medium = Medium,
-    m_flow_nominal=1,
     energyDynamics=Modelica.Fluid.Types.Dynamics.DynamicFreeInitial)
                       constrainedby
     Buildings.Fluid.Movers.BaseClasses.PartialFlowMachine
