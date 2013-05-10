@@ -10,6 +10,8 @@ ConvertRadiation
 ConvertRelativeHumidity
 ConvertTime
 EquationOfTime
+GetAbsolutePath
 GetHeaderElement
 LocalCivilTime
 SolarTime
+
