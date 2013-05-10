@@ -271,7 +271,14 @@ have been <b style=\"color:blue\">improved</b> in a
                        Therefore, if using these models, both input signals must be connected.
     </td>
 </tr>
-</table>
+<tr><td valign=\"top\">Buildings.Utilities.Math.Functions.splineDerivatives
+    </td>
+    <td valign=\"top\">Removed the default value
+                       <code>input Boolean ensureMonotonicity=isMonotonic(y, strict=false)</code>
+                       as the Modelica language specification is not clear whether defaults can be computed
+                       or must be constants.
+    </td>
+</tr></table>
 </p>
 <!-- Errors that have been fixed -->
 <p>

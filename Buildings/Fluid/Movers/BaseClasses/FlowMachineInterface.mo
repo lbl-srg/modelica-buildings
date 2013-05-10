@@ -84,15 +84,18 @@ protected
     "Flag, used to pick the right representatio of the fan or pump pressure curve";
   parameter Integer nOri = size(pressure.V_flow,1)
     "Number of data points for pressure curve";
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur1(
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur1(
     final n = nOri,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur2(
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur2(
    final n = nOri + 1,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
-  parameter Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal pCur3(
+  parameter
+    Buildings.Fluid.Movers.BaseClasses.Characteristics.flowParametersInternal         pCur3(
    final n = nOri + 2,
     V_flow(each fixed=false), dp(each fixed=false))
     "Volume flow rate vs. total pressure rise with correction for pump resistance added";
@@ -106,7 +109,9 @@ protected
    if use_powerCharacteristic then
      Buildings.Utilities.Math.Functions.splineDerivatives(
                    x=power.V_flow,
-                   y=power.P)
+                   y=power.P,
+                   ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=power.P,
+                                                                                     strict=false))
    else
      zeros(size(power.V_flow,1))
     "Coefficients for polynomial of pressure vs. flow rate";

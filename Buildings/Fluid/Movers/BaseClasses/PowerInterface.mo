@@ -69,7 +69,9 @@ initial algorithm
    else
       Buildings.Utilities.Math.Functions.splineDerivatives(
       x=motorEfficiency.r_V,
-      y=motorEfficiency.eta);
+      y=motorEfficiency.eta,
+      ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=motorEfficiency.eta,
+                                                                        strict=false));
   hydDer :=
      if use_powerCharacteristic then
        zeros(size(hydraulicEfficiency.r_V, 1))
