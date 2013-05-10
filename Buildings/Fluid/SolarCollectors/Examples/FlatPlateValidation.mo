@@ -77,7 +77,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(combiTable1Ds.y[1], add.u1) annotation (Line(
-      points={{-67,-10},{-54,-10},{-54,-24},{-52,-24}},
+      points={{-67,-10},{-60,-10},{-60,-24},{-52,-24}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(combiTable1Ds.y[4], bou.m_flow_in)      annotation (Line(

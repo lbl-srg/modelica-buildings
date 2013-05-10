@@ -32,10 +32,19 @@ model IndirectTankHeatExchanger
     "Formulation of mass balance"
     annotation(Evaluate=true, Dialog(tab = "Dynamics", group="Equations"));
 
-  Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium_2)
-    "Mass flow rate of the heat transfer fluid"
-    annotation (Placement(transformation(extent={{-80,-40},{-60,-60}})));
-  MixingVolumes.MixingVolume vol[nSeg](each nPorts=3,
+  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_a port[nSeg]
+    "Heat port connected to water inside the tank"
+    annotation (Placement(transformation(extent={{-10,-160},{10,-140}}),
+        iconTransformation(extent={{-10,-108},{10,-88}})));
+
+  FixedResistances.FixedResistanceDpM res(
+    redeclare package Medium = Medium,
+    dp_nominal=dp_nominal,
+    m_flow_nominal=m_flow_nominal_htf)
+    "Calculates the flow resistance and pressure drop through the heat exchanger"
+    annotation (Placement(transformation(extent={{46,-60},{66,-40}})));
+
+  MixingVolumes.MixingVolume vol[nSeg](each nPorts=2,
     each m_flow_nominal=m_flow_nominal_htf,
     redeclare package Medium = Medium_2,
     each V=htfVol/nSeg)
@@ -44,19 +53,23 @@ model IndirectTankHeatExchanger
        not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Thermal mass of the heat exchanger"
     annotation (Placement(transformation(extent={{-6,6},{14,26}})));
-
+protected
+  Sensors.MassFlowRate senMasFlo(redeclare package Medium = Medium_2)
+    "Mass flow rate of the heat transfer fluid"
+    annotation (Placement(transformation(extent={{-80,-40},{-60,-60}})));
   Modelica.Thermal.HeatTransfer.Components.Convection htfToHX[nSeg]
     "Convection coefficient between the heat transfer fluid and heat exchanger"
     annotation (Placement(transformation(extent={{-10,12},{-30,-8}})));
   Modelica.Thermal.HeatTransfer.Components.Convection HXToWat[nSeg]
     "Convection coefficient between the heat exchanger and the surrounding medium"
     annotation (Placement(transformation(extent={{20,12},{40,-8}})));
-  Modelica.Fluid.Sensors.Temperature temSenHtf[nSeg](redeclare package Medium
-      = Medium_2) "Temperature of the heat transfer fluid"                                    annotation (Placement(
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor
+                                     temSenHtf[nSeg]
+    "Temperature of the heat transfer fluid"                                                  annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={-6,-72})));
+        rotation=0,
+        origin={-20,-70})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenWat[nSeg]
     "Temperature sensor of the fluid surrounding the heat exchanger"
     annotation (Placement(transformation(
@@ -67,20 +80,20 @@ model IndirectTankHeatExchanger
     "Replicates senMasFlo signal from 1 seg to nSeg"
     annotation (Placement(transformation(extent={{-44,-108},{-24,-88}})));
   HeatExchangers.BaseClasses.HASingleFlow hASingleFlow[nSeg](
-    each UA_nominal=UA_nominal,
     each m_flow_nominal_w=m_flow_nominal_htf,
-    each A_2=ASurHX/nSeg)                          annotation (Placement(
+    each UA_nominal=UA_nominal/nSeg) "Computation of convection coefficients"
+                                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={24,-78})));
+        rotation=0,
+        origin={20,-80})));
   HeatExchangers.BaseClasses.HNatCyl hNatCyl[nSeg](each ChaLen=dHXExt,
       redeclare package Medium = Medium)
-    "Calculates an hA value for each side of the heat exchanger"
+    "Calculates an h value for each side of the heat exchanger"
                                     annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={28,124})));
+        rotation=0,
+        origin={-16,120})));
   Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSenSur[nSeg]
     "Temperature at the external surface of the heat exchanger" annotation (
       Placement(transformation(
@@ -93,17 +106,11 @@ model IndirectTankHeatExchanger
                                                   annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
-        rotation=90,
-        origin={64,86})));
-  Modelica.Thermal.HeatTransfer.Interfaces.HeatPort_b port_b1[nSeg]
-    annotation (Placement(transformation(extent={{-10,-160},{10,-140}}),
-        iconTransformation(extent={{-10,-108},{10,-88}})));
-  FixedResistances.FixedResistanceDpM res(
-    redeclare package Medium = Medium,
-    dp_nominal=dp_nominal,
-    m_flow_nominal=m_flow_nominal_htf)
-    "Calculates the flow resistance and pressure drop through the heat exchanger"
-    annotation (Placement(transformation(extent={{46,-60},{66,-40}})));
+        rotation=0,
+        origin={-60,116})));
+   Modelica.Blocks.Math.Gain gain[nSeg](each k=ASurHX/nSeg)
+    "Gain for heat transfer area"
+    annotation (Placement(transformation(extent={{20,110},{40,130}})));
 equation
 
   for i in 1:(nSeg - 1) loop
@@ -114,12 +121,12 @@ equation
       points={{-46,-98},{-70,-98},{-70,-61}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(port_b1,HXToWat. fluid) annotation (Line(
+  connect(port, HXToWat.fluid)    annotation (Line(
       points={{4.44089e-16,-150},{88,-150},{88,2},{40,2}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(vol[1].ports[1],senMasFlo. port_b) annotation (Line(
-      points={{-24.6667,-40},{-24,-40},{-24,-50},{-60,-50}},
+      points={{-24,-40},{-24,-40},{-24,-50},{-60,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(Cap.port,HXToWat. solid) annotation (Line(
@@ -134,73 +141,73 @@ equation
       points={{-10,2},{20,2}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(rep.y,hASingleFlow. m1_flow) annotation (Line(
-      points={{-23,-98},{17,-98},{17,-89}},
-      color={0,0,127},
-      smooth=Smooth.None));
   connect(temSenHtf.T,hASingleFlow. T_1) annotation (Line(
-      points={{-6,-79},{-6,-102},{21,-102},{21,-89}},
+      points={{-10,-70},{0,-70},{0,-76},{9,-76}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hASingleFlow.hA_1,htfToHX. Gc) annotation (Line(
-      points={{17,-67},{17,-14},{-20,-14},{-20,-8}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(hASingleFlow.hA_2,HXToWat. Gc) annotation (Line(
-      points={{31,-67},{31,-38.5},{30,-38.5},{30,-8}},
+      points={{31,-80},{32,-80},{32,-18},{-20,-18},{-20,-8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(HXToWat.solid,temSenSur. port) annotation (Line(
       points={{20,2},{20,32}},
       color={191,0,0},
       smooth=Smooth.None));
-  connect(temSenWat.port,port_b1)  annotation (Line(
+  connect(temSenWat.port, port)    annotation (Line(
       points={{68,30},{68,2},{88,2},{88,-150},{4.44089e-16,-150}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(temSenWat.T,rayleighNumber. TFlu) annotation (Line(
-      points={{68,50},{68,74}},
+      points={{68,50},{68,76},{-76,76},{-76,111.8},{-72,111.8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSenSur.T,rayleighNumber. TSur) annotation (Line(
-      points={{20,52},{20,64},{60,64},{60,74}},
+      points={{20,52},{20,62},{20,62},{20,70},{-80,70},{-80,120},{-72,120}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(temSenSur.T,hNatCyl. TSur) annotation (Line(
-      points={{20,52},{20,112}},
+      points={{20,52},{20,70},{-40,70},{-40,128},{-28,128}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hNatCyl.TFlu,temSenWat. T) annotation (Line(
-      points={{24,112},{24,58},{68,58},{68,50}},
+      points={{-28,124},{-36,124},{-36,76},{68,76},{68,50}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(rayleighNumber.Ra,hNatCyl. Ra) annotation (Line(
-      points={{64,97},{64,102},{32,102},{32,112}},
+      points={{-49,116},{-28,116}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(hNatCyl.Pr,rayleighNumber. Pr) annotation (Line(
-      points={{36,112},{38,112},{38,106},{68,106},{68,97}},
-      color={0,0,127},
-      smooth=Smooth.None));
-  connect(hNatCyl.h,hASingleFlow. h_2) annotation (Line(
-      points={{28,135},{28,138},{80,138},{80,-98},{28,-98},{28,-89}},
+      points={{-28,112},{-49,112}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(port_a, senMasFlo.port_a) annotation (Line(
       points={{-100,0},{-90,0},{-90,-50},{-80,-50}},
       color={0,127,255},
       smooth=Smooth.None));
-  connect(temSenHtf.port, vol.ports[3]) annotation (Line(
-      points={{-16,-72},{-19.3333,-72},{-19.3333,-40}},
-      color={0,127,255},
-      smooth=Smooth.None));
   connect(vol[nSeg].ports[2], res.port_a) annotation (Line(
-      points={{-22,-40},{-22,-50},{46,-50}},
+      points={{-20,-40},{-20,-50},{46,-50}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(res.port_b, port_b) annotation (Line(
       points={{66,-50},{84,-50},{84,4.44089e-16},{100,4.44089e-16}},
       color={0,127,255},
+      smooth=Smooth.None));
+  connect(temSenHtf.port, vol.heatPort) annotation (Line(
+      points={{-30,-70},{-36,-70},{-36,-30},{-32,-30}},
+      color={191,0,0},
+      smooth=Smooth.None));
+  connect(hNatCyl.h, gain.u) annotation (Line(
+      points={{-5,120},{18,120}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(gain.y, HXToWat.Gc) annotation (Line(
+      points={{41,120},{46,120},{46,-16},{30,-16},{30,-8}},
+      color={0,0,127},
+      smooth=Smooth.None));
+  connect(rep.y, hASingleFlow.m1_flow) annotation (Line(
+      points={{-23,-98},{0,-98},{0,-84},{9,-84}},
+      color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -150},{100,150}}), graphics), Icon(coordinateSystem(

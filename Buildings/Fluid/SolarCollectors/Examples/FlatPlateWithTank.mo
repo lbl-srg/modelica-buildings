@@ -46,7 +46,6 @@ model FlatPlateWithTank
     redeclare package Medium_2 = Medium_2,
     C=200,
     m_flow_nominal_HX=0.1,
-    m_flow_nominal_tank=0.1,
     UA_nominal=300,
     ASurHX=0.199,
     dHXExt=0.01905,
@@ -65,9 +64,7 @@ model FlatPlateWithTank
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-88,50})));
-  Modelica.Blocks.Sources.Constant TRoo(k=273.15 + 20) "Room temperature"
-    annotation (Placement(transformation(extent={{-72,-92},{-52,-72}})));
-  Buildings.HeatTransfer.Sources.PrescribedTemperature rooT
+  Buildings.HeatTransfer.Sources.FixedTemperature      rooT(T=293.15)
     "Convert TRoo from Real to K"
     annotation (Placement(transformation(extent={{-40,-92},{-20,-72}})));
   Modelica.Blocks.Math.Gain gain(k=0.04) "Flow rate of the system in kg/s"
@@ -127,10 +124,6 @@ equation
       points={{-10,90},{-6,90},{-6,72},{-82,72},{-82,60.2}},
       color={255,204,51},
       thickness=0.5,
-      smooth=Smooth.None));
-  connect(TRoo.y, rooT.T)                  annotation (Line(
-      points={{-51,-82},{-42,-82}},
-      color={0,0,127},
       smooth=Smooth.None));
   connect(rooT.port, tan.heaPorTop)                  annotation (Line(
       points={{-20,-82},{24,-82},{24,-44.1}},

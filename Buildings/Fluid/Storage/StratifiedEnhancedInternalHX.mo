@@ -22,16 +22,13 @@ model StratifiedEnhancedInternalHX
   parameter Modelica.SIunits.HeatCapacity C = 25.163
     "Capacitance of the heat exchanger";
 
-  parameter Modelica.SIunits.ThermalConductance UA_nominal = 755.56
+  parameter Modelica.SIunits.ThermalConductance UA_nominal
     "Nominal UA value for the heat exchanger"
     annotation(Dialog(group="Heat exchanger"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_HX = 0.278
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_HX
     "Nominal mass flow rate through the heat exchanger"
     annotation(Dialog(group="Heat exchanger"));
-
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_tank = 0.0063
-    "Nominal mass flow rate through the tank";
 
   parameter Modelica.SIunits.Area ASurHX = 1.5
     "External surface area of the heat exchanger"
@@ -67,7 +64,7 @@ protected
     "Number of tank segments the HX resides in";
 
 public
-  BaseClasses.IndirectTankHeatExchanger    indTanHX(
+  BaseClasses.IndirectTankHeatExchanger indTanHX(
     nSeg=nSegHX,
     C=C,
     htfVol=volHX,
@@ -79,7 +76,8 @@ public
     redeclare package Medium_2 = Medium_2,
     dp_nominal=dp_nominal,
     m_flow_nominal=m_flow_nominal_HX,
-    energyDynamics=energyDynamics)                    annotation (Placement(
+    energyDynamics=energyDynamics) "Heat exchanger inside the tank"
+                                     annotation (Placement(
         transformation(
         extent={{-10,-15},{10,15}},
         rotation=90,
@@ -95,7 +93,7 @@ equation
 
    for j in 1:nSegHXTan loop
      for i in 1:HXSegMult loop
-       connect(indTanHX.port_b1[(j-1)*HXSegMult+i], heaPorVol[nSeg-j+1])
+     connect(indTanHX.port[(j-1)*HXSegMult+i], heaPorVol[nSeg-j+1])
       annotation (Line(
        points={{-75.2,68},{-66,68},{-66,0},{0,0}},
        color={191,0,0},
@@ -120,17 +118,22 @@ equation
             -100},{100,100}}), graphics),
             defaultComponentName = "tan",
             Documentation(info = "<html>
-            This model is an extension of <a href=\"Buildings.Fluid.Storage.StratifiedEnhanced\"> Buildings.Fluid.Storage.StratifiedEnhanced</a>.</p>
+            This model is an extension of 
+            <a href=\"Buildings.Fluid.Storage.StratifiedEnhanced\">Buildings.Fluid.Storage.StratifiedEnhanced</a>.</p>
             <p>
-            The changes made to the model consist of adding a heat exchanger 
-            (<a href=\"Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger\"> Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.
-            The modifications allow the ability to run a fluid through the tank causing heat transfer to the stored fluid. An example of when this would be useful is modeling
-            a storage tank in a solar hot water system.
+            The modifications consist of adding a heat exchanger 
+            (<a href=\"Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger\">
+            Buildings.Fluid.HeatExchangers.IndirectTankHeatExchanger</a>) and fluid ports to connect to the heat exchanger.
+            The modifications allow to run a fluid through the tank causing heat transfer to the stored fluid. 
+            A typical example is a storage tank in a solar hot water system.
             </p>
             <p>
-            The heat exchanger model assumes flow through the inside of a helical coil heat exchanger, and stagnant fluid on the outside. Inputs are used to describe the 
-            heat transfer on the inside of the heat exchanger at nominal conditions, and geometry of the outside of the heat exchanger. This information is used to compute 
-            an hA value for each side of the coil. Convection calculations are then performed to identify heat transfer between the heat transfer fluid and the fluid in the tank.
+            The heat exchanger model assumes flow through the inside of a helical coil heat exchanger, 
+            and stagnant fluid on the outside. Parameters are used to describe the 
+            heat transfer on the inside of the heat exchanger at nominal conditions, and 
+            geometry of the outside of the heat exchanger. This information is used to compute 
+            an <i>hA</i>-value for each side of the coil. Convection calculations are then performed to identify heat transfer 
+            between the heat transfer fluid and the fluid in the tank.
             </p>
             <p>
             Default values describing the heat exchanger are taken from the documentation for a Vitocell 100-B, 300 L tank.
@@ -138,6 +141,10 @@ equation
             </html>",
             revisions = "<html>
             <ul>
+            <li>
+            May 10, 2013 by Michael Wetter:<br>
+            Removed <code>m_flow_nominal_tank</code> which was not used.
+            </li>
             <li>
             January 29, 2013 by Peter Grant:<br>
             First implementation.

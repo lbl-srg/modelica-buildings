@@ -24,11 +24,11 @@ model HASingleFlow "Test model for HASingleFlow"
     A_2=1) annotation (Placement(transformation(extent={{-12,-6},{8,14}})));
 equation
   connect(sine.y, hASin.m1_flow) annotation (Line(
-      points={{-59,30},{-28,30},{-28,11},{-13,11}},
+      points={{-59,30},{-28,30},{-28,0},{-13,0}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sine1.y, hASin.T_1) annotation (Line(
-      points={{-59,-2},{-28,-2},{-28,7},{-13,7}},
+      points={{-59,-2},{-28,-2},{-28,8},{-13,8}},
       color={0,0,127},
       smooth=Smooth.None));
   connect(sine2.y, hASin.h_2) annotation (Line(
@@ -36,7 +36,7 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
-            -100},{100,100}}), graphics), Commands(file=
+            -100},{100,100}}), graphics), __Dymola_Commands(file=
           "Resources/Scripts/Dymola/Fluid/HeatExchangers/BaseClasses/Examples/HASingleFlow.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
