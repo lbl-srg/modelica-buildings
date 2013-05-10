@@ -3279,9 +3279,10 @@ The heat distribution is done using a hydronic heating system with a three way v
 </p>
 <p>
 The web page for this library is
-<a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>. 
-Contributions from different users to further advance this library are
-welcomed.
+<a href=\"http://simulationresearch.lbl.gov/modelica\">http://simulationresearch.lbl.gov/modelica</a>,
+and the development page is
+<a href=\"https://github.com/lbl-srg/modelica-buildings\">https://github.com/lbl-srg/modelica-buildings</a>.
+Contributions to further advance the library are welcomed.
 Contributions may not only be in the form of model development, but also
 through model use, model testing,
 requirements definition or providing feedback regarding the model applicability
