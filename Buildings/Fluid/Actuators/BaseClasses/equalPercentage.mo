@@ -4,7 +4,7 @@ function equalPercentage
 
   input Real y "Valve opening signal, y=1 is fully open";
   input Real R "Rangeability, R=50...100 typically";
-  input Real l(min=0, max=1) "Valve leakage, l=Cv(y=0)/Cvs";
+  input Real l(min=0, max=1) "Valve leakage, l=Kv(y=0)/Kv(y=1)";
   input Real delta "Range of significant deviation from equal percentage law";
   output Real phi "Ratio actual to nominal mass flow rate, phi=Cv(y)/Cv(y=1)";
 protected
@@ -59,7 +59,7 @@ June 5, 2008 by Michael Wetter:<br>
 First implementation.
 </li>
 </ul>
-</html>"),   
-smoothOrder=1, 
+</html>"),
+smoothOrder=1,
 derivative(zeroDerivative=R, zeroDerivative=l, zeroDerivative=delta)=der_equalPercentage);
 end equalPercentage;

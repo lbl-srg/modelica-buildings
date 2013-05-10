@@ -11,7 +11,7 @@ model Evaporation
      nomVal "Nominal values"
     annotation (Placement(transformation(extent={{60,60},{80,80}})));
 
-    parameter Medium.MassFlowRate mAir_flow_small(min=0)=
+    parameter Modelica.SIunits.MassFlowRate mAir_flow_small(min=0)=
       0.1*abs(nomVal.m_flow_nominal)
     "Small mass flow rate for regularization of zero flow"
     annotation(Dialog(tab = "Advanced"));

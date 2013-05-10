@@ -30,9 +30,10 @@ partial model PartialElectric
   Real COP(min=0) "Coefficient of performance";
   Modelica.SIunits.HeatFlowRate QCon_flow "Condenser heat input";
   Modelica.SIunits.HeatFlowRate QEva_flow "Evaporator heat input";
-  Modelica.Blocks.Interfaces.RealOutput P(unit="W")
+  Modelica.Blocks.Interfaces.RealOutput P(final quantity="Power", unit="W")
     "Electric power consumed by compressor"
-    annotation (Placement(transformation(extent={{100,-10},{120,10}})));
+    annotation (Placement(transformation(extent={{100,80},{120,100}}),
+        iconTransformation(extent={{100,80},{120,100}})));
 
   Real capFunT(min=0, nominal=1, start=1)
     "Cooling capacity factor function of temperature curve";
@@ -154,8 +155,10 @@ equation
       points={{-19,-40},{12,-40},{12,-60}},
       color={191,0,0},
       smooth=Smooth.None));
-  annotation (Icon(graphics={
-        Text(extent={{64,4},{114,-10}},   textString="P",
+  annotation (Icon(coordinateSystem(preserveAspectRatio=false, extent={{-100,-100},
+            {100,100}}),
+                   graphics={
+        Text(extent={{62,96},{112,82}},   textString="P",
           lineColor={0,0,127}),
         Text(extent={{-94,-24},{-48,-36}},  textString="T_CHWS",
           lineColor={0,0,127}),
@@ -230,7 +233,10 @@ equation
           lineColor={0,0,0},
           smooth=Smooth.None,
           fillColor={255,255,255},
-          fillPattern=FillPattern.Solid)}),
+          fillPattern=FillPattern.Solid),
+        Text(extent={{-108,36},{-62,24}},
+          lineColor={0,0,127},
+          textString="on")}),
 Documentation(info="<html>
 <p>
 Base class for model of an electric chiller, based on the DOE-2.1 chiller model and the
