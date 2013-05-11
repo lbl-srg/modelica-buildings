@@ -1,6 +1,6 @@
 within Buildings.Fluid.Storage.Examples;
-model StratifiedEnhancedInternalHX
-  "Example showing the use of StratifiedEnhancedInternalHX"
+model StratifiedEnhancedInternalHex
+  "Example showing the use of StratifiedEnhancedInternalHex"
   import Buildings;
   extends Modelica.Icons.Example;
 
@@ -25,8 +25,8 @@ model StratifiedEnhancedInternalHX
       Medium = Medium, nPorts=1)                            annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=180,
-        origin={60,42})));
+        rotation=0,
+        origin={-68,-20})));
   Buildings.Fluid.Sensors.TemperatureTwoPort senTem( m_flow_nominal=0.1,
       redeclare package Medium = Medium)
     annotation (Placement(transformation(extent={{30,0},{50,20}})));
@@ -38,20 +38,26 @@ model StratifiedEnhancedInternalHX
     nPorts=1,
     m_flow=0)
     annotation (Placement(transformation(extent={{-58,0},{-38,20}})));
-  Buildings.Fluid.Storage.StratifiedEnhancedInternalHX tan(
+  Buildings.Fluid.Storage.StratifiedEnhancedInternalHex tan(
     redeclare package Medium = Medium,
     m_flow_nominal=0.001,
     VTan=0.151416,
     hTan=1,
     dIns=0.0762,
-    redeclare package Medium_2 = Medium,
-    HXTopHeight=0.75,
-    HXBotHeight=0.25,
-    C=40,
-    m_flow_nominal_tank=0.001,
-    HXSegMult=1,
-    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial)
+    redeclare package MediumHex = Medium,
+    HexTopHeight=0.75,
+    HexBotHeight=0.25,
+    CHex=40,
+    HexSegMult=1,
+    energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    Q_flow_nominal=0.278*4200*20,
+    mHex_flow_nominal=0.278,
+    TTan_nominal=293.15,
+    THex_nominal=323.15,
+    energyDynamicsHex=Modelica.Fluid.Types.Dynamics.SteadyState)
     annotation (Placement(transformation(extent={{-22,-6},{12,26}})));
+  inner Modelica.Fluid.System system
+    annotation (Placement(transformation(extent={{-80,-80},{-60,-60}})));
 equation
   connect(senTem.port_b, boundary.ports[1]) annotation (Line(
       points={{50,10},{70,10}},
@@ -70,21 +76,21 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(boundary2.ports[1], tan.port_a1) annotation (Line(
-      points={{-60,42},{-32,42},{-32,26},{-20.3,26}},
+      points={{-60,42},{-32,42},{-32,3.6},{-22,3.6}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(tan.port_b1, boundary3.ports[1]) annotation (Line(
-      points={{10.3,26},{28,26},{28,42},{50,42}},
+      points={{-22,-2.8},{-22,-20},{-58,-20}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics), __Dymola_Commands(file=
-          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHX.mos"
+          "modelica://Buildings/Resources/Scripts/Dymola/Fluid/Storage/Examples/StratifiedEnhancedInternalHex.mos"
         "Simulate and Plot"),
         Documentation(info="<html>
         <p>
-        This model provides an example of how the <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHX\">
-        Buildings.Fluid.Storage.StratifiedEnhancedInternalHX</a> model can be used. In it a constant
+        This model provides an example of how the <a href=\"modelica://Buildings.Fluid.Storage.StratifiedEnhancedInternalHex\">
+        Buildings.Fluid.Storage.StratifiedEnhancedInternalHex</a> model can be used. In it a constant
         water draw is taken from the tank while a constant flow of hot water is passed through the heat
         exchanger to heat the water in the tank.<br>
         </p>
@@ -97,4 +103,4 @@ equation
         </li>
         </ul>
         </html>"));
-end StratifiedEnhancedInternalHX;
+end StratifiedEnhancedInternalHex;

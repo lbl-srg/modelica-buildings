@@ -35,27 +35,28 @@ model FlatPlateWithTank
   Buildings.Fluid.Sensors.TemperatureTwoPort TIn(m_flow_nominal=solCol.m_flow_nominal,
       redeclare package Medium = Medium_2) "Temperature sensor"
     annotation (Placement(transformation(extent={{-34,46},{-14,66}})));
-  Buildings.Fluid.Storage.StratifiedEnhancedInternalHX
-                             tan(
+  Buildings.Fluid.Storage.StratifiedEnhancedInternalHex
+   tan(
     nSeg=4,
     redeclare package Medium = Medium,
     hTan=1,
     m_flow_nominal=0.1,
     VTan=1.5,
     dIns=0.07,
-    redeclare package Medium_2 = Medium_2,
-    C=200,
-    m_flow_nominal_HX=0.1,
-    UA_nominal=300,
-    ASurHX=0.199,
-    dHXExt=0.01905,
-    HXTopHeight=0.9,
-    HXBotHeight=0.65,
+    redeclare package MediumHex = Medium_2,
+    CHex=200,
+    dExtHex=0.01905,
+    HexTopHeight=0.9,
+    HexBotHeight=0.65,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
-    T_start=293.15) "Storage tank model"
+    T_start=293.15,
+    Q_flow_nominal=3000,
+    TTan_nominal=293.15,
+    THex_nominal=323.15,
+    mHex_flow_nominal=3000/20/4200) "Storage tank model"
                  annotation (Placement(transformation(
         extent={{-15,-15},{15,15}},
-        rotation=180,
+        rotation=0,
         origin={27,-33})));
   Buildings.Fluid.SolarCollectors.Controls.SolarPumpController
                                                      pumCon(
@@ -76,8 +77,8 @@ model FlatPlateWithTank
         Medium) "Outlet for hot water draw"
                                            annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={0,6})));
+        rotation=180,
+        origin={72,-32})));
   Buildings.Fluid.Sources.MassFlowSource_T bou1(
     nPorts=1,
     redeclare package Medium = Medium,
@@ -86,8 +87,8 @@ model FlatPlateWithTank
     T=288.15) "Inlet and flow rate for hot water draw"
                                                       annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
-        rotation=270,
-        origin={44,6})));
+        rotation=0,
+        origin={-14,-32})));
   Buildings.Fluid.Movers.FlowMachine_m_flow pum(redeclare package Medium =
         Medium_2, m_flow_nominal=0.1)
     "Pump forcing circulation through the system"                                  annotation (Placement(transformation(
@@ -126,11 +127,11 @@ equation
       thickness=0.5,
       smooth=Smooth.None));
   connect(rooT.port, tan.heaPorTop)                  annotation (Line(
-      points={{-20,-82},{24,-82},{24,-44.1}},
+      points={{-20,-82},{48,-82},{48,-10},{30,-10},{30,-21.9}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(rooT.port, tan.heaPorSid)                  annotation (Line(
-      points={{-20,-82},{18.6,-82},{18.6,-33}},
+      points={{-20,-82},{35.4,-82},{35.4,-33}},
       color={191,0,0},
       smooth=Smooth.None));
   connect(pumCon.y, gain.u) annotation (Line(
@@ -138,11 +139,11 @@ equation
       color={0,0,127},
       smooth=Smooth.None));
   connect(bou.ports[1], tan.port_b) annotation (Line(
-      points={{-1.33227e-15,-4},{-1.33227e-15,-16},{0,-16},{0,-33},{12,-33}},
+      points={{62,-32},{56,-32},{56,-33},{42,-33}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(bou1.ports[1], tan.port_a) annotation (Line(
-      points={{44,-4},{46,-4},{46,-33},{42,-33}},
+      points={{-4,-32},{2,-32},{2,-33},{12,-33}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(gain.y, pum.m_flow_in) annotation (Line(
@@ -158,11 +159,11 @@ equation
       color={0,127,255},
       smooth=Smooth.None));
   connect(exp.port_a, tan.port_b1) annotation (Line(
-      points={{-50,-48},{13.5,-48}},
+      points={{-50,-48},{-4,-48},{-4,-45},{12,-45}},
       color={0,127,255},
       smooth=Smooth.None));
   connect(TOut.port_b, tan.port_a1) annotation (Line(
-      points={{50,56},{62,56},{62,-48},{40.5,-48}},
+      points={{50,56},{60,56},{60,-16},{8,-16},{8,-39},{12,-39}},
       color={0,127,255},
       smooth=Smooth.None));
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,

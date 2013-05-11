@@ -9,19 +9,19 @@ package Examples "Examples for BaseClasses models"
     package Medium = Buildings.Media.ConstantPropertyLiquidWater
       "Buildings library model for water";
 
-    Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger
-                                                             indTanHX(
+    Buildings.Fluid.Storage.BaseClasses.IndirectTankHeatExchanger indTanHex(
       nSeg=3,
-      C=50,
-      UA_nominal=20,
-      m_flow_nominal_htf=0.1,
-      htfVol=0.0004,
-      ASurHX=0.1999,
-      dHXExt=0.01905,
+      CHex=50,
+      Q_flow_nominal=3000,
+      m_flow_nominal=3000/20/4200,
+      volHexFlu=0.0004,
+      dExtHex=0.01905,
       redeclare package Medium = Medium,
-      redeclare package Medium_2 = Medium,
+      redeclare package MediumHex = Medium,
       dp_nominal=10000,
-      m_flow_nominal=0.063) annotation (Placement(transformation(
+      TTan_nominal=293.15,
+      THex_nominal=323.15) "Heat exchanger"
+                        annotation (Placement(transformation(
           extent={{-12,-17},{12,17}},
           rotation=90,
           origin={-19,8})));
@@ -43,16 +43,19 @@ package Examples "Examples for BaseClasses models"
     inner Modelica.Fluid.System system
       annotation (Placement(transformation(extent={{40,60},{60,80}})));
   equation
-    connect(bou1.ports[1], indTanHX.port_a) annotation (Line(
+    connect(bou1.ports[1], indTanHex.port_a)
+                                            annotation (Line(
         points={{-52,-32},{-19,-32},{-19,-4}},
         color={0,127,255},
         smooth=Smooth.None));
-    connect(bou.ports[1], indTanHX.port_b) annotation (Line(
+    connect(bou.ports[1], indTanHex.port_b)
+                                           annotation (Line(
         points={{-52,44},{-19,44},{-19,20}},
         color={0,127,255},
         smooth=Smooth.None));
 
-    connect(watTem.port, indTanHX.port) annotation (Line(
+    connect(watTem.port, indTanHex.port)
+                                        annotation (Line(
         points={{20,8},{-7.89333,8}},
         color={191,0,0},
         smooth=Smooth.None));

@@ -4,13 +4,14 @@ model RayleighNumber
   extends Modelica.Blocks.Interfaces.BlockIcon;
    replaceable package Medium = Modelica.Media.Interfaces.PartialMedium
     "Fluid medium model";
-  parameter Modelica.SIunits.Diameter ChaLen = 0.01905 "Characteristic length";
+  parameter Modelica.SIunits.Diameter ChaLen "Characteristic length";
   Real Gr "Grashof number";
   Real B(unit="1/K") "isobaricExpansionCoefficient";
-   Real nu(unit = "m2/s") "Kinematic viscosity of the medium";
-   Modelica.SIunits.DynamicViscosity mu "Dynamic viscosity of the medium";
-   Modelica.SIunits.Density rho "Density of the medium";
-   Real g= Modelica.Constants.g_n "Acceleration due to gravity";
+  Real nu(unit = "m2/s") "Kinematic viscosity of the medium";
+  Modelica.SIunits.DynamicViscosity mu "Dynamic viscosity of the medium";
+  Modelica.SIunits.Density rho "Density of the medium";
+  constant Modelica.SIunits.Acceleration g= Modelica.Constants.g_n
+    "Acceleration due to gravity";
 
    Modelica.Blocks.Interfaces.RealInput TSur(unit = "K")
     "Surface temperature of the HX"

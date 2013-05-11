@@ -1,8 +1,7 @@
-simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HASingleFlow", stopTime=15, method="dassl", tolerance=1e-05, resultFile="HASingleFlow");
-
+simulateModel("Buildings.Fluid.HeatExchangers.BaseClasses.Examples.HACoilInside", stopTime=15, method="dassl", tolerance=1e-05, resultFile="HACoilInside");
 createPlot(id = 1,
  position = {0, 0, 1609, 781},
- y = {"hASin.hA_1"},
+ y = {"hASin.hA"},
  range = {0.0, 15.5, 100.0, 180.0},
  erase = false,
  autoscale = true,
@@ -12,7 +11,7 @@ createPlot(id = 1,
  grid = true,
  color = true,
  online = false,
- filename = "HASingleFlow.mat",
+ filename = "HACoilInside.mat",
  leftTitleType = 1,
  bottomTitleType = 1,
  colors = {{0,0,255}});

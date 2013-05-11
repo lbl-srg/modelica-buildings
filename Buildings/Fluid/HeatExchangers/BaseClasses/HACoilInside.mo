@@ -1,68 +1,60 @@
 within Buildings.Fluid.HeatExchangers.BaseClasses;
-model HASingleFlow
-  "Calculates hA values for a heat exchanger with internal flow"
+model HACoilInside "Calculates the hA value for water inside a coil"
   extends Buildings.BaseClasses.BaseIcon;
-  parameter Modelica.SIunits.ThermalConductance UA_nominal(min=0)
-    "Thermal conductance at nominal flow"
-          annotation(Dialog(tab="General", group="Nominal condition"));
 
-  parameter Modelica.SIunits.MassFlowRate m_flow_nominal_w
-    "Water mass flow rate"
-          annotation(Dialog(tab="General", group="Nominal condition"));
+  parameter Modelica.SIunits.MassFlowRate m_flow_nominal "Water mass flow rate"
+    annotation(Dialog(tab="General", group="Nominal condition"));
 
-  Modelica.Blocks.Interfaces.RealInput m1_flow(unit="kg/s")
-    "Mass flow rate medium 1"
+  Modelica.Blocks.Interfaces.RealInput m_flow(unit="kg/s") "Mass flow rate"
     annotation (Placement(transformation(extent={{-120,-50},{-100,-30}},
                                                                        rotation=
            0)));
-  Modelica.Blocks.Interfaces.RealInput T_1(unit="K") "Temperature medium 1"
+  Modelica.Blocks.Interfaces.RealInput T(unit="K") "Temperature"
     annotation (Placement(transformation(extent={{-120,30},{-100,50}}, rotation=
            0)));
 
-  Modelica.Blocks.Interfaces.RealOutput hA_1(unit="W/K")
-    "Convective heat transfer medium 1" annotation (Placement(transformation(
+  Modelica.Blocks.Interfaces.RealOutput hA(unit="W/K")
+    "Inside convective heat transfer" annotation (Placement(transformation(
           extent={{100,-10},{120,10}},rotation=0)));
 
-  parameter Real r_nominal(min=0, max=1)=0.5
-    "Ratio between inside and outside convective heat transfer coefficient"
+  parameter Modelica.SIunits.ThermalConductance hA_nominal(min=0)
+    "Convective heat transfer coefficient"
           annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Modelica.SIunits.ThermalConductance hA_nominal_w(min=0)=UA_nominal * (r_nominal+1)/r_nominal
-    "Water side convective heat transfer coefficient"
+  parameter Real n(min=0, max=1)=0.85
+    "Water-side exponent for convective heat transfer coefficient, h proportional to m_flow^n";
+  parameter Modelica.SIunits.Temperature T_nominal=
+          Modelica.SIunits.Conversions.from_degC(20)
+    "Nominal water temperature"
           annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Real n_w(min=0, max=1)=0.85
-    "Water-side exponent for convective heat transfer coefficient, h~m_flow^n";
-  parameter Modelica.SIunits.Temperature T0_w=
-          Modelica.SIunits.Conversions.from_degC(20) "Water temperature"
-          annotation(Dialog(tab="General", group="Nominal condition"));
-  parameter Boolean waterSideFlowDependent=true
-    "Set to false to make water-side hA independent of mass flow rate"
+  parameter Boolean flowDependent=true
+    "Set to false to make hA independent of mass flow rate"
     annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
-  parameter Boolean waterSideTemperatureDependent = true
-    "Set to false to make water-side hA independent of temperature"
+  parameter Boolean temperatureDependent = true
+    "Set to false to make hA independent of temperature"
     annotation(Dialog(tab="Advanced", group="Modeling detail"), Evaluate=true);
 
 protected
-  Real x_w(min=0)
-    "Factor for water side temperature dependent variation of heat transfer coefficient";
-  parameter Real s_w(min=0, fixed=false)
-    "Coefficient for temperature dependence of water side heat transfer coefficient";
-  Real fm_w "Fraction of actual to nominal mass flow rate";
+  Real x(min=0)
+    "Factor for temperature dependent variation of heat transfer coefficient";
+  parameter Real s(min=0, fixed=false)
+    "Coefficient for temperature dependence of heat transfer coefficient";
+  Real fm "Fraction of actual to nominal mass flow rate";
 
 initial equation
-  s_w =  if waterSideTemperatureDependent then
-            0.014/(1+0.014*Modelica.SIunits.Conversions.to_degC(T0_w)) else
+  s =  if temperatureDependent then
+            0.014/(1+0.014*Modelica.SIunits.Conversions.to_degC(T_nominal)) else
               1;
 equation
-  fm_w = if waterSideFlowDependent then
-              m1_flow / m_flow_nominal_w else 1;
-  x_w = if waterSideTemperatureDependent then
-         1 + s_w * (T_1-T0_w) else
-              1;
-  if waterSideFlowDependent then
-    hA_1 = x_w * hA_nominal_w
-               * Buildings.Utilities.Math.Functions.regNonZeroPower(fm_w, n_w, 0.1);
+  fm = if flowDependent then m_flow / m_flow_nominal else 1;
+  x = if temperatureDependent then 1 + s * (T-T_nominal) else 1;
+  if flowDependent and temperatureDependent then
+    hA = x * hA_nominal * Buildings.Utilities.Math.Functions.regNonZeroPower(fm, n, 0.1);
+  elseif flowDependent then
+    hA = hA_nominal * Buildings.Utilities.Math.Functions.regNonZeroPower(fm, n, 0.1);
+  elseif temperatureDependent then
+    hA = x * hA_nominal;
   else
-    hA_1 = x_w * hA_nominal_w;
+    hA = hA_nominal;
   end if;
 
 annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
@@ -71,18 +63,19 @@ annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
                     defaultComponentName="HASin",
 Documentation(info="<html>
 <p>
-Model for sensible convective heat transfer coefficients for a fluid to fluid coil. This model assumes the heated fluid is in a cylinder submerged in water.
+Model for convective heat transfer coefficients inside a coil.
+Optionally, the convective heat transfer coefficient can
+be computed as a function of temperature and mass flow rate.
 </p>
-<p>
-This model computes the convective heat transfer coefficient between a fluid in a submerged coil and the surrounding fluid. User inputs describe the nominal conditions
-for the fluid inside the heat exchanger and the geometry dictating the behavior outside of the coil.
-</p>
-
 </html>",
 revisions="<html>
 <ul>
 <li>
-February 26, 2013, by Peter Grant<br>
+May 10, 2013, by Michael Wetter:<br>
+Revised and simplified the implementation.
+</li>
+<li>
+February 26, 2013, by Peter Grant:<br>
 First implementation.
 </li>
 </ul>
@@ -125,4 +118,4 @@ First implementation.
       Line(points=[16,62; 16,34],      style(color=69, fillColor=47)),
       Line(points=[16,34; 10,44],       style(color=69, fillColor=47)),
       Line(points=[16,34; 22,44],       style(color=69, fillColor=47))));
-end HASingleFlow;
+end HACoilInside;

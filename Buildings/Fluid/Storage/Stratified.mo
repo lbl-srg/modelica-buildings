@@ -1,6 +1,7 @@
 within Buildings.Fluid.Storage;
 model Stratified "Model of a stratified tank for thermal energy storage"
-  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(show_T=true);
+  extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
+      showDesignFlowDirection=false);
 
   replaceable package Medium =
       Modelica.Media.Interfaces.PartialSimpleMedium;

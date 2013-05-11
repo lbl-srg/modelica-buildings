@@ -2,10 +2,10 @@ CoilHeader
 CoilRegister
 DuctManifoldFixedResistance
 DuctManifoldNoResistance
+HACoilInside
 HADryCoil
-HASingleFlow
+HANaturalCylinder
 HexElement
-HNatCyl
 MassExchange
 MassExchangeDummy
 PartialEffectiveness
@@ -15,7 +15,6 @@ PartialPipeManifold
 PipeManifoldFixedResistance
 PipeManifoldNoResistance
 RayleighNumber
-Examples
 appartusDewPoint
 dynamicViscosityWater
 epsilon_C
@@ -24,4 +23,5 @@ isobaricExpansionCoefficientWater
 ntu_epsilonZ
 lmtd
 prandtlNumberWater
+Examples
 Internal
