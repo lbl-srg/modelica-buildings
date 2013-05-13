@@ -1,5 +1,5 @@
 within Buildings.Fluid.SolarCollectors.Examples;
-model FlatPlate "Test model for FlatPlate"
+model FlatPlateShaCoeTrue "Test model for FlatPlate with use_shaCoe_in = true"
   import Buildings;
   extends Modelica.Icons.Example;
   replaceable package Medium = Buildings.Media.ConstantPropertyLiquidWater
@@ -16,7 +16,8 @@ model FlatPlate "Test model for FlatPlate"
     azi=0.3,
     til=0.5,
     TEnv_nominal=283.15,
-    TIn_nominal=293.15) "Flat plate solar collector model"
+    TIn_nominal=293.15,
+    use_shaCoe_in=true) "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
@@ -49,6 +50,11 @@ model FlatPlate "Test model for FlatPlate"
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={-90,-10})));
+  Modelica.Blocks.Sources.Ramp     shaCoe(
+    startTime=34040,
+    height=1,
+    duration=24193)
+    annotation (Placement(transformation(extent={{-88,6},{-68,26}})));
 equation
   connect(solCol.port_b, TOut.port_a) annotation (Line(
       points={{0,-10},{20,-10}},
@@ -71,13 +77,17 @@ equation
       color={255,204,51},
       thickness=0.5,
       smooth=Smooth.None));
+  connect(shaCoe.y, solCol.shaCoe_in) annotation (Line(
+      points={{-67,16},{-32,16},{-32,-6},{-22,-6}},
+      color={0,0,127},
+      smooth=Smooth.None));
   annotation (
     Diagram(coordinateSystem(preserveAspectRatio=false,extent={{-100,-100},{100,
             100}}), graphics),
     Documentation(info="<html>
 <p>
-This example demonstrates the implementation of <a href=\"modelica://Buildings.Fluid.SolarCollectors.FlatPlate\"> Buildings.Fluid.SolarCollectors.FlatPlate</a>. 
-In it water is passed through a solar collector while being heated by the sun in the San Francisco, CA, USA climate.
+This example demonstrates the use of <code>use_shaCoe_in</code>. Aside from changed use of <code>use_shaCoe_in</code> it is identical to
+ <a href=\"modelica://Buildings.Fluid.SolarCollectors.Examples.FlatPlate\"> Buildings.Fluid.SolarCollectors.Examples.FlatPlate</a>.
 </p>
 </html>",revisions="<html>
 <ul>
@@ -87,7 +97,8 @@ First implementation.
 </li>
 </ul>
 </html>"),
-    __Dymola_Commands(file="Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlate.mos"
+    __Dymola_Commands(file=
+          "Resources/Scripts/Dymola/Fluid/SolarCollectors/Examples/FlatPlateShaCoeTrue.mos"
         "Simulate and Plot"),
     Icon(graphics));
-end FlatPlate;
+end FlatPlateShaCoeTrue;
