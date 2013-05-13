@@ -92,7 +92,7 @@ This example demonstrates the use of <code>use_shaCoe_in</code>. Aside from chan
 </html>",revisions="<html>
 <ul>
 <li>
-Mar 27, 2013, by Peter Grant:<br>
+May 13, 2013, by Peter Grant:<br>
 First implementation.
 </li>
 </ul>
