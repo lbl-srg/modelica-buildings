@@ -24,83 +24,70 @@ model GenericTestCell
   parameter Integer nConExtWin = 1
     "Number of walls using the construction conExtWin";
 
+  //Conditional connectors
+  //User can select to enter data via a text file, or via input connectors (i.e. model AHU and connect to room model via fluid port)
+  parameter Boolean use_AirPor = false
+    "True = Connect airflow via fluid port, false = reference external data file"
+  annotation(Dialog(tab="Conditional connectors"));
+
   //Input data file declarations
   //fixme - For all input data files state what each column is and units in documentation. Example: TGro has 1 column, ground temperature, in K. Example 2: watCon has two columns: flow (kg/s) and T (K)
   parameter Boolean use_TGro_file = false
     "True = external data file, false = table typed into parameter window"
     annotation(Dialog(tab="Input data", group="Ground temperature"));
-
   parameter Real TGro_table[:,:] = [0,288.15; 86400,288.15]
     "Default data for TGro"
     annotation(Dialog(tab="Input data", group="Ground temperature",enable = not use_TGro_file));
-
   parameter String TGroTableName="NoName" "Name of table in TGro file"
     annotation(Dialog(tab="Input data", group="Ground temperature",enable = use_TGro_file));
-
   parameter String TGroFileName = "NoName"
     "Name and location of TGro text file"
     annotation(Dialog(tab="Input data", group="Ground temperature",enable = use_TGro_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
                          caption="Open file in which table is present")));
-
   parameter Boolean use_watCon_file = false
     "True = external data file, false = table typed into parameter window"
     annotation(Dialog(tab="Input data", group="Inlet water conditions"));
-
   parameter Real watCon_table[:,:] = [0, 0.06, 303.15; 86400, 0.06, 303.15]
     "Default data for inlet water conditions"
     annotation(Dialog(tab="Input data", group="Inlet water conditions",enable = not use_watCon_file));
-
   parameter String watConTableName="NoName" "Name of table in watCon text file"
     annotation(Dialog(tab="Input data", group="Inlet water conditions",enable = use_watCon_file));
-
   parameter String watConFileName = "NoName"
     "Name and location of watCon text file"
     annotation(Dialog(tab="Input data", group="Inlet water conditions",enable = use_watCon_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
                          caption="Open file in which table is present")));
-
   parameter Boolean use_airCon_file = false
     "True = external data file, false = table typed into parameter window"
-    annotation(Dialog(tab="Input data", group="Inlet air conditions"));
-
+    annotation(Dialog(tab="Input data", group="Inlet air conditions", enable = not use_AirPor));
   parameter Real airCon_table[:,:] = [0, 0.1, 293.15; 86400, 0.1, 293.15]
     "Default data for inlet air conditions"
     annotation(Dialog(tab="Input data", group="Inlet air conditions",enable = not use_airCon_file));
-
   parameter String airConTableName="NoName" "Name of table in watCon text file"
     annotation(Dialog(tab="Input data", group="Inlet air conditions",enable = use_airCon_file));
-
   parameter String airConFileName = "NoName"
     "Name and location of airCon text file"
     annotation(Dialog(tab="Input data", group="Inlet air conditions",enable = use_airCon_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
                          caption="Open file in which table is present")));
-
   parameter Boolean use_intGai_file = false
     "True = external data file, false = table typed into parameter window"
     annotation(Dialog(tab="Input data", group="Internal gains"));
-
   parameter Real intGai_table[:,:] = [0, 0, 0, 0; 86400, 0, 0, 0]
     "Default data for internal gains"
     annotation(Dialog(tab="Input data", group="Internal gains",enable = not use_intGai_file));
-
   parameter String intGaiTableName="NoName" "Name of table in intGai text file"
     annotation(Dialog(tab="Input data", group="Internal gains",enable = use_intGai_file));
-
   parameter String intGaiFileName = "NoName"
     "Name and location of intGai text file"
     annotation(Dialog(tab="Input data", group="Internal gains",enable = use_intGai_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
                          caption="Open file in which table is present")));
-
   parameter Boolean use_shaPos_file = false
     "True = external data file, false = table typed into parameter window"
     annotation(Dialog(tab="Input data", group="Shade position"));
-
   parameter Real shaPos_table[:,:] = [0, 1; 86400, 1]
     "Default data for shade position"
     annotation(Dialog(tab="Input data", group="Shade position",enable = not use_shaPos_file));
-
   parameter String shaPosTableName="NoName" "Name of table in shaPos text file"
     annotation(Dialog(tab="Input data", group="Shade position",enable = use_shaPos_file));
-
   parameter String shaPosFileName = "NoName"
     "Name and location of shaPos text file"
     annotation(Dialog(tab="Input data", group="Shade position",enable = use_shaPos_file, __Dymola_loadSelector(filter="Text files (*.txt);;Matlab files (*.mat)",
@@ -209,7 +196,8 @@ model GenericTestCell
     nPorts=1,
     use_m_flow_in=true,
     use_T_in=true,
-    redeclare package Medium = Air) "Inlet air conditions (from AHU)"
+    redeclare package Medium = Air) if not use_AirPor
+    "Inlet air conditions (from AHU)"
     annotation (Placement(transformation(extent={{-94,18},{-74,38}})));
   Fluid.Sources.Boundary_pT airOut(nPorts=1, redeclare package Medium = Air)
     annotation (Placement(transformation(extent={{-96,-12},{-76,8}})));
@@ -217,12 +205,16 @@ model GenericTestCell
     tableOnFile=use_airCon_file,
     table=airCon_table,
     tableName=airConTableName,
-    fileName=airConFileName) "Inlet air conditions (y[1] = m_flow, y[2] = T)"
+    fileName=airConFileName) if not use_AirPor
+    "Inlet air conditions (y[1] = m_flow, y[2] = T)"
     annotation (Placement(transformation(extent={{-152,22},{-132,42}})));
 
   //Do not currently have details on window construction. For now this is a generic window placeholder
   Modelica.Blocks.Routing.Replicator replicator(nout=max(1, nConExtWin))
     annotation (Placement(transformation(extent={{-46,74},{-26,94}})));
+  Modelica.Fluid.Interfaces.FluidPort_a airPor_a(redeclare package Medium = Air) if use_AirPor
+    "Inlet port for air entering room"
+    annotation (Placement(transformation(extent={{-210,18},{-190,38}})));
 equation
   connect(TGro.y[1], preT.T)                            annotation (Line(
       points={{14,-97},{14,-88}},
@@ -274,14 +266,12 @@ equation
       points={{-61,56},{-34,56},{-34,34},{-4,34}},
       color={0,0,127},
       smooth=Smooth.None));
-  connect(airIn.ports[1], roo.ports[1]) annotation (Line(
-      points={{-74,28},{-24,28},{-24,14},{1,14}},
-      color={0,127,255},
-      smooth=Smooth.None));
+
   connect(airOut.ports[1], roo.ports[2]) annotation (Line(
       points={{-76,-2},{-24,-2},{-24,14},{5,14}},
       color={0,127,255},
       smooth=Smooth.None));
+  if not use_AirPor then
   connect(airCon.y[1],airIn. m_flow_in) annotation (Line(
       points={{-131,32},{-112,32},{-112,36},{-94,36}},
       color={0,0,127},
@@ -290,6 +280,13 @@ equation
       points={{-131,32},{-96,32}},
       color={0,0,127},
       smooth=Smooth.None));
+  connect(airIn.ports[1], roo.ports[1]) annotation (Line(
+      points={{-74,28},{-24,28},{-24,14},{1,14}},
+      color={0,127,255},
+      smooth=Smooth.None));
+  else
+      connect(airPor_a,roo.ports[1]);
+  end if;
   connect(shaPos.y[1], replicator.u) annotation (Line(
       points={{-69,84},{-48,84}},
       color={0,0,127},
