@@ -6,12 +6,12 @@ model FlatPlate "Test model for FlatPlate"
     "Medium in the system";
   Buildings.Fluid.SolarCollectors.FlatPlate         solCol(
     redeclare package Medium = Medium,
-    nSeg=3,
     shaCoe=0,
     G_nominal=800,
     from_dp=true,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    nSeg=3,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5,

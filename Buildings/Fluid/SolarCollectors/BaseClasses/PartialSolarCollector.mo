@@ -65,10 +65,10 @@ public
     each nPorts=2,
     redeclare package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
-    each V=perPar.V,
     each energyDynamics=energyDynamics,
     each p_start=p_start,
-    each T_start=T_start) annotation (Placement(transformation(
+    each T_start=T_start,
+    each V=perPar.V/nSeg) annotation (Placement(transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={48,-16})));
