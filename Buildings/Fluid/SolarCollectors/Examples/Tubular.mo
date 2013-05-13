@@ -43,8 +43,7 @@ model Tubular "Example showing the use of Tubular"
     T=273.15 + 10,
     use_p_in=false,
     nPorts=1,
-    p(displayUnit="Pa") = 101325 + 2*solCol.dp_nominal) "Outlet for water flow"
-                                                                               annotation (Placement(
+    p(displayUnit="Pa") = 101325 + solCol.dp_nominal) "Outlet for water flow"  annotation (Placement(
         transformation(
         extent={{10,-10},{-10,10}},
         rotation=180,
