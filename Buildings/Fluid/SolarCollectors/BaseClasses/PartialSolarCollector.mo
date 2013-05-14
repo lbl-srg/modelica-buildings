@@ -1,7 +1,7 @@
 within Buildings.Fluid.SolarCollectors.BaseClasses;
 model PartialSolarCollector "Partial model for solar collectors"
  extends Buildings.Fluid.Interfaces.LumpedVolumeDeclarations;
-  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(dp_nominal = perPar.dp_nominal);
+  extends Buildings.Fluid.Interfaces.TwoPortFlowResistanceParameters(dp_nominal = dp_nominal_final);
   extends Buildings.Fluid.Interfaces.PartialTwoPortInterface(
     showDesignFlowDirection=false,
     m_flow_nominal=perPar.mperA_flow_nominal*perPar.A,
@@ -14,8 +14,35 @@ model PartialSolarCollector "Partial model for solar collectors"
   parameter Modelica.SIunits.Angle til "Surface tilt";
   parameter Modelica.SIunits.HeatCapacity C=385*perPar.mDry
     "Heat capacity of solar collector without fluid (cp_copper*mDry)";
-  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSeg](each C=C/
-        nSeg) if
+
+  parameter Boolean use_shaCoe_in = false
+    "Enables an input connector for shaCoe"
+    annotation(Dialog(group="Shading"));
+  parameter Real shaCoe(
+    min=0.0,
+    max=1.0) = 0 "Shading coefficient. 0.0: no shading, 1.0: full shading"
+    annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
+
+  parameter Buildings.Fluid.SolarCollectors.Types.NumberSelection nColType = Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number
+    "Selection of area specification format"
+    annotation(Dialog(group="Area declarations"));
+  parameter Integer nPanels(fixed= if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then true else false)
+    "Number of panels in the system"
+    annotation(Dialog(group="Area declarations", enable= (nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number)));
+  parameter Modelica.SIunits.Area TotalArea(fixed=if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area then true else false)
+    "Total area of panels in the system"
+    annotation(Dialog(group="Area declarations", enable=(nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Area)));
+
+  parameter Buildings.Fluid.SolarCollectors.Types.SystemConfiguration SysConfig = Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series
+    "Selection of system configuration"
+    annotation(Dialog(group="Configuration declarations"));
+
+  Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
+    "Shading coefficient"
+  annotation(Placement(transformation(extent={{-140,60},{-100,20}},   rotation=0)));
+
+  Modelica.Thermal.HeatTransfer.Components.HeatCapacitor heaCap[nSegFinal](
+      each C=C/nSeg) if
      not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState)
     "Heat capacity for one segment of the the solar collector"
     annotation (Placement(transformation(extent={{-40,-44},{-20,-24}})));
@@ -33,18 +60,7 @@ model PartialSolarCollector "Partial model for solar collectors"
     til=til,
     lat=lat,
     azi=azi) annotation (Placement(transformation(extent={{-80,46},{-60,66}})));
-  parameter Modelica.SIunits.Temperature TEnv_nominal "Outside air temperature"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Irradiance G_nominal
-    "Irradiance at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
 
-protected
-  parameter SolarCollectors.Data.GenericSolarCollector perPar
-    "Partial performance data"
-    annotation(choicesAllMatching=true);
-
-public
   Buildings.Fluid.Sensors.MassFlowRate senMasFlo(redeclare package Medium =
         Medium)
     annotation (Placement(transformation(extent={{-80,-11},{-60,11}})));
@@ -61,7 +77,7 @@ public
     use_dh=false) "Flow resistance"
                                  annotation (Placement(transformation(extent={{-50,-10},
             {-30,10}}, rotation=0)));
-  Buildings.Fluid.MixingVolumes.MixingVolume vol[nSeg](
+  Buildings.Fluid.MixingVolumes.MixingVolume vol[nSegFinal](
     each nPorts=2,
     redeclare package Medium = Medium,
     each m_flow_nominal=m_flow_nominal,
@@ -72,17 +88,63 @@ public
         extent={{10,-10},{-10,10}},
         rotation=180,
         origin={48,-16})));
-  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen[nSeg]
+  Modelica.Thermal.HeatTransfer.Sensors.TemperatureSensor temSen[nSegFinal]
     "Temperature sensor"
           annotation (Placement(transformation(
         extent={{-10,10},{10,-10}},
         rotation=180,
         origin={6,-16})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSeg]
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow QLos[nSegFinal]
     annotation (Placement(transformation(extent={{38,20},{58,40}})));
-  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaGai[nSeg]
+  Buildings.HeatTransfer.Sources.PrescribedHeatFlow heaGai[nSegFinal]
     annotation (Placement(transformation(extent={{38,60},{58,80}})));
+
+//protected
+  parameter SolarCollectors.Data.GenericSolarCollector perPar
+    "Partial performance data"
+    annotation(choicesAllMatching=true);
+
+    Modelica.Blocks.Interfaces.RealInput shaCoe_internal
+    "Internally used shading coefficient";
+
+//fixme - Comments apply down to next fixme.
+//This section does not work. NOT SURE HOW TO PROGRAM TO DO WHAT I WANT
+//What I want
+  //Has values for area of system, number of panels in system, number of segments in simulation
+  //Values are calculated based on user input (nColType, nPanels,TotalAtea,SysConfig)
+  //Running into issues: nSegFinal MUST be an integer, but might not be if numPanels is not an integer. Could solve using floor or ceiling function?
+  //                     Seems to assume that nSegFinal is real when it's the product of nSeg and numPanels. Even when nSeg and numPanels are both integers
+  //
+    final parameter Integer nSegFinal(min=3,start = 3, fixed = false)
+    "Number of segments used in the stated system configuration";
+
+    final parameter Modelica.SIunits.Pressure dp_nominal_final(start = perPar.dp_nominal, fixed = false)
+    "Nominal pressure loss across the system of collectors";
+
+initial equation
+  if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
+    TotalArea = perPar.A*nPanels;
+  else
+    nPanels = TotalArea/perPar.A;
+  end if;
+
+  if SysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
+    dp_nominal_final = nPanels*perPar.dp_nominal;
+    nSegFinal = nPanels*nSeg;
+  else
+    dp_nominal_final = perPar.dp_nominal;
+    nSegFinal = nSeg;
+  end if;
+
+//fixme - End fixme section
+
 equation
+  connect(shaCoe_internal,shaCoe_in);
+
+  if not use_shaCoe_in then
+    shaCoe_internal=shaCoe;
+  end if;
+
   connect(weaBus, HDifTilIso.weaBus) annotation (Line(
       points={{-100,78},{-88,78},{-88,82},{-80,82}},
       color={255,204,51},
