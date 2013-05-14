@@ -11,12 +11,9 @@ model FlatPlateValidation "Validation model for FlatPlate"
     azi=0,
     per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.TRNSYSValidation(),
     nSeg=3,
-    G_nominal=800,
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.6457718232379,
-    til=0.78539816339745,
-    TEnv_nominal=283.15,
-    TIn_nominal=293.15)
+    til=0.78539816339745)
     "Flat plate solar collector model, has been modified for validation purposes"
              annotation (Placement(transformation(extent={{20,-20},{40,0}})));
 

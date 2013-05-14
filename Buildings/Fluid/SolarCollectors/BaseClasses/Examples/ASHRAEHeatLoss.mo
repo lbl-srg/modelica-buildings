@@ -3,15 +3,14 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
   import Buildings;
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector               per=
-      Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B()
+      Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.ThermaLiteHS20()
     "Performance data" annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Density rho = 1000 "Density of water";
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
         transformation(extent={{60,60},{80,80}}, rotation=0)));
   Modelica.Blocks.Sources.Sine     TEnv(
-    freqHz=0.01,
     offset=273.15 + 10,
-    amplitude=7.5)
+    amplitude=7.5,
+    freqHz=0.01)
     annotation (Placement(transformation(extent={{-80,60},{-60,80}})));
   Modelica.Blocks.Sources.Sine     T1(
     amplitude=5,
@@ -30,14 +29,13 @@ model ASHRAEHeatLoss "Example showing the use of ASHRAEHeatLoss"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss   heaLos(
     nSeg=3,
-    G_nominal=800,
     A_c=per.A,
     y_intercept=per.y_intercept,
     slope=per.slope,
     m_flow_nominal=per.mperA_flow_nominal*per.A,
     redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
-    TEnv_nominal=283.15,
-    TIn_nominal=293.15)
+    G_nominal=per.G_nominal,
+    dT_nominal=per.dT_nominal)
     annotation (Placement(transformation(extent={{62,20},{82,40}})));
 equation
   connect(TEnv.y, heaLos.TEnv) annotation (Line(

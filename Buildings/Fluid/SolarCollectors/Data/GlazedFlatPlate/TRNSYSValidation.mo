@@ -13,7 +13,10 @@ record TRNSYSValidation =
     slope=-3.6111,
     IAMDiff=0,
     C1=0,
-    C2=0) "Default values in the TRNSYS Simulation Studio SDHW example"
+    C2=0,
+    G_nominal=800,
+    dT_nominal=10)
+  "Default values in the TRNSYS Simulation Studio SDHW example"
     annotation(Documentation(info="<html>
     Default values in the TRNSYS Simualtion Studio SDHW example.<br>
     </html>"));

@@ -7,16 +7,18 @@ model FlatPlate "Test model for FlatPlate"
   Buildings.Fluid.SolarCollectors.FlatPlate         solCol(
     redeclare package Medium = Medium,
     shaCoe=0,
-    G_nominal=800,
     from_dp=true,
-    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     nSeg=3,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5,
-    TEnv_nominal=283.15,
-    TIn_nominal=293.15) "Flat plate solar collector model"
+    nColType=Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number,
+    nPanels=2,
+    SysConfig=Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series,
+
+    per=Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.ThermaLiteHS20())
+    "Flat plate solar collector model"
              annotation (Placement(transformation(extent={{-20,-20},{0,0}})));
 
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=

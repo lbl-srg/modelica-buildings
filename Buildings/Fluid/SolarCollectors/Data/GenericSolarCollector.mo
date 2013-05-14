@@ -16,7 +16,14 @@ record GenericSolarCollector
    parameter Real C1 "Heat loss coefficient from EN12975 ratings data";
    parameter Real C2
     "Temperature dependence of heat loss from EN12975 ratings data";
+   parameter Modelica.SIunits.Irradiance G_nominal
+    "Nominal solar irradiance specified in ratings data";
+   parameter Modelica.SIunits.Temperature dT_nominal
+    "Nominal temperature difference specified in ratings data";
 annotation(Documentation(info="<html>
+<p>
 Partial data file which is used for the <a href=\"modelica://Buildings.Fluid.SolarCollectors.BaseClasses.PartialSolarCollector\">Buildings.Fluid.Solarcollectors.BaseClasses.PartialSolarCollector</a>
-model.</html>"));
+model.
+</p>
+</html>"));
 end GenericSolarCollector;

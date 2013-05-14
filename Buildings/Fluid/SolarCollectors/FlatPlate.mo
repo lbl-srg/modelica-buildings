@@ -3,55 +3,32 @@ model FlatPlate "Model of a flat plate solar thermal collector"
   extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
   parameter SolarCollectors.Data.GenericSolarCollector per
     annotation(choicesAllMatching=true);
-  parameter Modelica.SIunits.Temperature TIn_nominal
-    "Inlet temperature at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Boolean use_shaCoe_in = false
-    "Enables an input connector for shaCoe"
-    annotation(Dialog(group="Shading"));
-  parameter Real shaCoe(
-    min=0.0,
-    max=1.0) = 0 "Shading coefficient. 0.0: no shading, 1.0: full shading"
-    annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
+
   BaseClasses.ASHRAESolarGain                 solHeaGai(
     final B0=per.B0,
     final B1=per.B1,
     final shaCoe=shaCoe,
     final til=til,
-    final nSeg=nSeg,
+    final nSeg=nSegFinal,
     final y_intercept=per.y_intercept,
-    final A_c=per.A,
+    final A_c=TotalArea,
     use_shaCoe_in=use_shaCoe_in)
              annotation (Placement(transformation(extent={{0,60},{20,80}})));
 
   SolarCollectors.BaseClasses.ASHRAEHeatLoss heaLos(
-    final nSeg=nSeg,
-    final G_nominal=G_nominal,
-    final TEnv_nominal=TEnv_nominal,
-    final A_c=per.A,
-    final TIn_nominal=TIn_nominal,
+    final nSeg=nSegFinal,
+    final A_c=TotalArea,
     final slope=per.slope,
     final y_intercept=per.y_intercept,
     m_flow_nominal=per.mperA_flow_nominal*per.A,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    final G_nominal=per.G_nominal,
+    dT_nominal=per.dT_nominal)
     "Calculates the heat lost to the surroundings using the ASHRAE93 standard calculations"
         annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
-  Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
-    "Shading coefficient"
-  annotation(Placement(transformation(extent={{-140,60},{-100,20}},   rotation=0)));
-
-protected
-  Modelica.Blocks.Interfaces.RealInput shaCoe_internal
-    "Internally used shading coefficient";
-
 equation
-  connect(shaCoe_internal,shaCoe_in);
   connect(shaCoe_internal,solHeaGai.shaCoe_in);
-
-  if not use_shaCoe_in then
-    shaCoe_internal=shaCoe;
-  end if;
 
   connect(temSen.T, heaLos.TFlu) annotation (Line(
       points={{-4,-16},{-16,-16},{-16,24},{-2,24}},

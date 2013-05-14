@@ -3,16 +3,7 @@ model Tubular "Model of a tubular solar collector"
   extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     parameter SolarCollectors.Data.GenericSolarCollector per "Performance data"
                         annotation (choicesAllMatching=true);
-  parameter Modelica.SIunits.Temperature TIn_nominal
-    "Inlet temperature at nominal condition"
-    annotation(Dialog(group="Nominal condition"));
-  parameter Boolean use_shaCoe_in = false
-    "Enables an input connector for shaCoe"
-    annotation(Dialog(group="Shading"));
-  parameter Real shaCoe(
-    min=0.0,
-    max=1.0) = 0 "Shading coefficient. 0.0: no shading, 1.0: full shading"
-    annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
+
   BaseClasses.ASHRAESolarGain solHeaGai(
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
@@ -28,27 +19,16 @@ model Tubular "Model of a tubular solar collector"
     final nSeg=nSeg,
     final y_intercept=per.y_intercept,
     final slope=per.slope,
-    final G_nominal=G_nominal,
-    final TIn_nominal=TIn_nominal,
-    final TEnv_nominal=TEnv_nominal,
     m_flow_nominal=per.mperA_flow_nominal*per.A,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    final G_nominal=per.G_nominal,
+    dT_nominal=per.dT_nominal)
     "Calculates the heat lost to the surroundings using the standard ASHRAE calculations"
     annotation (Placement(transformation(extent={{-12,20},{8,40}})));
 
-  Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
-    "Shading coefficient"
-  annotation(Placement(transformation(extent={{-140,60},{-100,20}},   rotation=0)));
-protected
-    Modelica.Blocks.Interfaces.RealInput shaCoe_internal
-    "Internally used shading coefficient";
 equation
-  connect(shaCoe_internal,shaCoe_in);
   connect(shaCoe_internal,solHeaGai.shaCoe_in);
 
-  if not use_shaCoe_in then
-    shaCoe_internal=shaCoe;
-  end if;
   connect(temSen.T, heaLos.TFlu) annotation (Line(
       points={{-4,-16},{-20,-16},{-20,24},{-14,24}},
       color={0,0,127},

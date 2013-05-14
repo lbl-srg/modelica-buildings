@@ -8,15 +8,13 @@ model Tubular "Example showing the use of Tubular"
     redeclare package Medium = Medium,
     nSeg=3,
     shaCoe=0,
-    G_nominal=800,
-    per=Buildings.Fluid.SolarCollectors.Data.Tubular.SRCC2012033A(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
+    use_shaCoe_in=false,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5,
-    TEnv_nominal=283.15,
-    TIn_nominal=293.15,
-    use_shaCoe_in=false) "Tubular solar collector model"
+    per=Buildings.Fluid.SolarCollectors.Data.Tubular.AMKCollectraAGOWR20())
+    "Tubular solar collector model"
              annotation (Placement(transformation(extent={{-12,-20},{8,0}})));
   Buildings.BoundaryConditions.WeatherData.ReaderTMY3 weaDat(filNam=
         "Resources/weatherdata/USA_CA_San.Francisco.Intl.AP.724940_TMY3.mos")

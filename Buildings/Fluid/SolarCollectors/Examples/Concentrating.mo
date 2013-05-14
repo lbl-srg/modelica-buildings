@@ -8,13 +8,11 @@ model Concentrating "Example showing the use of Concentrating"
     redeclare package Medium = Medium,
     nSeg=3,
     shaCoe=0,
-    G_nominal=800,
-    per=Buildings.Fluid.SolarCollectors.Data.Concentrating.SRCC2011127A(),
+    per=Buildings.Fluid.SolarCollectors.Data.Concentrating.CogenraSunDeck(),
     energyDynamics=Modelica.Fluid.Types.Dynamics.FixedInitial,
     lat=0.73097781993588,
     azi=0.3,
     til=0.5,
-    TEnv_nominal=283.15,
     use_shaCoe_in=false,
     TMean_nominal=293.15) "Concentrating solar collector model"
              annotation (Placement(transformation(extent={{-14,-20},{6,0}})));

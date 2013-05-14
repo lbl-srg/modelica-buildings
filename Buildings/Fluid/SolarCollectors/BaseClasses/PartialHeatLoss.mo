@@ -28,9 +28,9 @@ public
   parameter Modelica.SIunits.Irradiance G_nominal
     "Irradiance at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
-  parameter Modelica.SIunits.Temperature TEnv_nominal
+   parameter Modelica.SIunits.Temperature dT_nominal
     "Ambient temperature at nomincal conditions"
-    annotation(Dialog(group="Nominal condition"));
+     annotation(Dialog(group="Nominal condition"));
   parameter Modelica.SIunits.MassFlowRate m_flow_nominal
     "Fluid flow rate at nominal conditions"
     annotation(Dialog(group="Nominal condition"));
@@ -42,16 +42,16 @@ protected
     "Heat loss at nominal conditions";
   final parameter Modelica.SIunits.HeatFlowRate QLosUA[nSeg](fixed = false)
     "Heat loss at current conditions";
-  final parameter Modelica.SIunits.Temperature TFlu_nominal[nSeg](each start = 293.15, fixed = false)
+  final parameter Modelica.SIunits.Temperature dT_nominal_fluid[nSeg](each start = 293.15, fixed = false)
     "Temperature of each semgent in the collector at nominal conditions";
-  parameter Modelica.SIunits.Temperature T_nominal
-    "Nominal temperature used in the heat loss model";
-  parameter Medium.ThermodynamicState sta_nominal=Medium.setState_pTX(
-      T=T_nominal,
+  Medium.ThermodynamicState sta[nSeg]=Medium.setState_pTX(
+      T=TFlu,
       p=Medium.p_default,
       X=Medium.X_default);
-  Modelica.SIunits.SpecificHeatCapacity Cp_nominal = Medium.specificHeatCapacityCp(sta_nominal)
+  Modelica.SIunits.SpecificHeatCapacity Cp[nSeg] = Medium.specificHeatCapacityCp(sta)
     "Specific heat capacity of the fluid";
+ Modelica.SIunits.SpecificHeatCapacity Cp_avg = sum(Cp[1:nSeg])/nSeg
+    "Average specific heat across the solar collector";
 
   annotation (
     defaultComponentName="heaLos",

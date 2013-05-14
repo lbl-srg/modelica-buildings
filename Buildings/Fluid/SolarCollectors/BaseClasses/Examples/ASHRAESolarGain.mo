@@ -3,7 +3,7 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
   import Buildings;
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector               per=
-      Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B()
+      Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.ThermaLiteHS20()
     "Performance data" annotation (choicesAllMatching=true);
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
         transformation(extent={{60,60},{80,80}}, rotation=0)));
@@ -26,7 +26,7 @@ model ASHRAESolarGain "Example showing the use of ASHRAESolarGain"
   Modelica.Blocks.Sources.Constant HGroDifTil(k=200)
     "Diffuse radiation from the ground, tilted surface"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
-  Modelica.Blocks.Sources.Constant HSkyDifTil(k=400)
+  Modelica.Blocks.Sources.Constant HSkyDifTil(k=200)
     "Diffuse radiation from the sky, tilted surface"
     annotation (Placement(transformation(extent={{-40,40},{-20,60}})));
   Modelica.Blocks.Sources.Constant shaCoe(k=0.25) "Shading coefficient"

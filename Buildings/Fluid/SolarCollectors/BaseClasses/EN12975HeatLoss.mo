@@ -2,38 +2,36 @@ within Buildings.Fluid.SolarCollectors.BaseClasses;
 block EN12975HeatLoss
   "Calculate the heat loss of a solar collector per EN12975"
 
-  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss(final T_nominal = TMean_nominal);
+  extends Buildings.Fluid.SolarCollectors.BaseClasses.PartialHeatLoss;
 
   parameter Modelica.SIunits.CoefficientOfHeatTransfer C1
     "C1 from ratings data";
   parameter Real C2(
   final unit = "W/(m2.K2)") "C2 from ratings data";
-  parameter Modelica.SIunits.Temperature TMean_nominal
-    "Inlet temperature at nominal conditions"
-    annotation(Dialog(group="Nominal condition"));
+
 protected
   final parameter Modelica.SIunits.ThermalConductance UA(
      fixed = false,
-     start=QLos_nominal/(TMean_nominal - TEnv_nominal))
+     start=QLos_nominal/(dT_nominal))
     "Coefficient describing heat loss to ambient conditions";
 initial equation
    //Identifies QUse at nominal conditions
    QUse_nominal = G_nominal * A_c * y_intercept -C1 * A_c *
-      (TMean_nominal - TEnv_nominal) - C2 * A_c * (TMean_nominal - TEnv_nominal)^2;
+      (dT_nominal) - C2 * A_c * (dT_nominal)^2;
    //Identifies TFlu[nSeg] at nominal conditions
-   m_flow_nominal * Cp_nominal * (TFlu_nominal[nSeg] - TMean_nominal) = QUse_nominal;
+   m_flow_nominal * Cp_avg * (dT_nominal_fluid[nSeg]) = QUse_nominal;
    //Identifies QLos at nominal conditions
-   QLos_nominal = -C1 * A_c * (TMean_nominal - TEnv_nominal)-C2 * A_c * (TMean_nominal - TEnv_nominal)^2;
+   QLos_nominal = -C1 * A_c * (dT_nominal)-C2 * A_c * (dT_nominal)^2;
    //Governing equation for the first segment (i=1)
-   G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (TMean_nominal - TEnv_nominal)
-     = m_flow_nominal * Cp_nominal * (TFlu_nominal[1] - TMean_nominal);
+   G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal)
+     = m_flow_nominal * Cp[1] * (dT_nominal_fluid[1]);
    //Loop with the governing equations for segments 2:nSeg-1
    for i in 2:nSeg-1 loop
-     G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (TFlu_nominal[i-1] - TEnv_nominal)
-      = m_flow_nominal * Cp_nominal * (TFlu_nominal[i] - TFlu_nominal[i-1]);
+     G_nominal * y_intercept * A_c/nSeg - UA/nSeg * (dT_nominal_fluid[i-1]+dT_nominal)
+      = m_flow_nominal * Cp[i] * (dT_nominal_fluid[i]-dT_nominal_fluid[i-1]);
    end for;
    for i in 1:nSeg loop
-     nSeg * QLosUA[i] = UA * (TFlu_nominal[i] - TEnv_nominal);
+     nSeg * QLosUA[i] = UA * (dT_nominal_fluid[i]+dT_nominal);
    end for;
    sum(QLosUA) = QLos_nominal;
 equation

@@ -3,7 +3,7 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
   import Buildings;
   extends Modelica.Icons.Example;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector per=
-    Buildings.Fluid.SolarCollectors.Data.Concentrating.SRCC2011127A()
+    Buildings.Fluid.SolarCollectors.Data.Concentrating.VerificationModel()
     "Performance data" annotation (choicesAllMatching=true);
   Modelica.Blocks.Sources.Sine     TEnv(
     freqHz=0.01,
@@ -27,15 +27,14 @@ model EN12975HeatLoss "Example showing the use of EN12975HeatLoss"
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss  heaLos(
     nSeg=3,
-    A_c=2.699,
-    y_intercept=0.718,
-    C1=0.733,
-    C2=0.0204,
-    m_flow_nominal=0.04,
-    G_nominal=800,
     redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
-    TEnv_nominal=283.15,
-    TMean_nominal=298.15)
+    y_intercept=per.y_intercept,
+    C1=per.C1,
+    C2=per.C2,
+    G_nominal=1000,
+    m_flow_nominal=per.mperA_flow_nominal*per.A,
+    A_c=per.A,
+    dT_nominal=293.15)
     annotation (Placement(transformation(extent={{62,20},{82,40}})));
   inner Modelica.Fluid.System system
     annotation (Placement(transformation(extent={{60,60},{80,80}})));

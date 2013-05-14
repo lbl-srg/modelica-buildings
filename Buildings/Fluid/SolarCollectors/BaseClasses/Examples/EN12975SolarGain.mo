@@ -3,7 +3,7 @@ model EN12975SolarGain "Example showing the use of EN12975SolarGain"
   extends Modelica.Icons.Example;
   import Buildings;
   parameter Buildings.Fluid.SolarCollectors.Data.GenericSolarCollector               per=
-      Buildings.Fluid.SolarCollectors.Data.GlazedFlatPlate.SRCC2001002B()
+      Buildings.Fluid.SolarCollectors.Data.Concentrating.VerificationModel()
     "Performance data" annotation (choicesAllMatching=true);
   inner Modelica.Fluid.System system(p_ambient=101325) annotation (Placement(
         transformation(extent={{60,60},{80,80}}, rotation=0)));

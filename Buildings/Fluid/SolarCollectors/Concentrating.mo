@@ -3,13 +3,6 @@ model Concentrating "Model of a concentrating solar collector"
 extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     parameter SolarCollectors.Data.GenericSolarCollector per "Performance data"
                         annotation (choicesAllMatching=true);
-  parameter Boolean use_shaCoe_in = false
-    "Enables an input connector for shaCoe"
-    annotation(Dialog(group="Shading"));
-  parameter Real shaCoe(
-    min=0.0,
-    max=1.0) = 0 "Shading coefficient. 0.0: no shading, 1.0: full shading"
-    annotation(Dialog(enable = not use_shaCoe_in, group = "Shading"));
   parameter Modelica.SIunits.Temperature TMean_nominal
     "Inlet temperature at nominal condition"
     annotation(Dialog(group="Nominal condition"));
@@ -30,32 +23,19 @@ extends SolarCollectors.BaseClasses.PartialSolarCollector(final perPar=per);
     final y_intercept=per.y_intercept,
     final C1=per.C1,
     final C2=per.C2,
-    final G_nominal=G_nominal,
-    final TMean_nominal=TMean_nominal,
-    final TEnv_nominal=TEnv_nominal,
     redeclare package Medium = Medium,
-    m_flow_nominal=perPar.mperA_flow_nominal*perPar.A)
+    final G_nominal=per.G_nominal,
+    final dT_nominal=per.dT_nominal,
+    final m_flow_nominal=per.mperA_flow_nominal*per.A)
     "Calculates the heat lost to the surroundings using the EN12975 standard calculations"
            annotation (Placement(transformation(extent={{0,20},{20,40}})));
   Modelica.Blocks.Math.Add add
     "Combines HSkyDifTil and HGroDifTil to be a single HDif value"
     annotation (Placement(transformation(extent={{-42,74},{-34,82}})));
 
-  Modelica.Blocks.Interfaces.RealInput shaCoe_in if use_shaCoe_in
-    "Shading coefficient"
-  annotation(Placement(transformation(extent={{-140,60},{-100,20}},   rotation=0)));
-
-protected
-  Modelica.Blocks.Interfaces.RealInput shaCoe_internal
-    "Internally used shading coefficient";
-
 equation
-  connect(shaCoe_internal,shaCoe_in);
   connect(shaCoe_internal,solHeaGai.shaCoe_in);
 
-  if not use_shaCoe_in then
-    shaCoe_internal=shaCoe;
-  end if;
   connect(temSen.T, heaLos.TFlu) annotation (Line(
       points={{-4,-16},{-16,-16},{-16,24},{-2,24}},
       color={0,0,127},

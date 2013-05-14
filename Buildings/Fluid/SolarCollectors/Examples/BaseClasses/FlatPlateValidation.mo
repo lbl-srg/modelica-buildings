@@ -27,17 +27,15 @@ model FlatPlateValidation "Model of a flat plate solar thermal collector"
     "Solar gain model calculated using standard ASHRAE calculations"
              annotation (Placement(transformation(extent={{12,60},{32,80}})));
 
-  Buildings.Fluid.SolarCollectors.BaseClasses.EN12975HeatLoss heaLos(
+  Buildings.Fluid.SolarCollectors.BaseClasses.ASHRAEHeatLoss  heaLos(
     nSeg=nSeg,
-    G_nominal=G_nominal,
-    TEnv_nominal=TEnv_nominal,
     A_c=per.A,
     y_intercept=per.y_intercept,
     m_flow_nominal=per.mperA_flow_nominal*per.A,
-    C1=3.611111,
-    C2=0.07,
-    TMean_nominal=TIn_nominal,
-    redeclare package Medium = Medium)
+    redeclare package Medium = Medium,
+    dT_nominal=per.dT_nominal,
+    G_nominal=per.G_nominal,
+    slope=per.slope)
     "Heat loss model calculated using standard ASHRAE calculations"
         annotation (Placement(transformation(extent={{0,20},{20,40}})));
 
