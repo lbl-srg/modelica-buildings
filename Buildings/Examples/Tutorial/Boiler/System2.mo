@@ -352,7 +352,7 @@ Finally, we closed the control loop between the room temperature sensor and the
 pump input signal.
 </li>
 </ol>
-<!-- ----------------------- -->
+<!-- ============================== -->
 <p>
 This completes the initial version of the model. When simulating the model
 for <i>2</i> days, or <i>172800</i> seconds, the

@@ -31,7 +31,7 @@ model HADryCoil "Sensible convective heat transfer model for air to water coil"
     "Convective heat transfer medium 2" annotation (Placement(transformation(
           extent={{100,-80},{120,-60}}, rotation=0)));
 
-  parameter Real r_nominal(min=0, max=1)=0.5
+  parameter Real r_nominal(min=0)=0.5
     "Ratio between air-side and water-side convective heat transfer coefficient"
           annotation(Dialog(tab="General", group="Nominal condition"));
   parameter Modelica.SIunits.ThermalConductance hA_nominal_w(min=0)=UA_nominal * (r_nominal+1)/r_nominal

@@ -277,8 +277,8 @@ model DataCenterDiscreteTimeControl
   Modelica.Blocks.Math.BooleanToReal mCWFlo(realTrue=mCW_flow_nominal)
     "Mass flow rate of condensor loop"
     annotation (Placement(transformation(extent={{60,190},{80,210}})));
-  Modelica.Blocks.Sources.RealExpression PHVAC(y=fan.PEle + pumCHW.PEle + pumCW.PEle
-         + cooTow.PFan + chi.P) "Power consumed by HVAC system"
+  Modelica.Blocks.Sources.RealExpression PHVAC(y=fan.P + pumCHW.P + pumCW.P +
+        cooTow.PFan + chi.P) "Power consumed by HVAC system"
                              annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=0,

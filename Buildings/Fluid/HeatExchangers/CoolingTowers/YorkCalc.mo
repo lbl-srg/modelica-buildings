@@ -80,7 +80,9 @@ initial equation
   // Derivatives for spline that interpolates the fan relative power
   fanRelPowDer = Buildings.Utilities.Math.Functions.splineDerivatives(
             x=fanRelPow.r_V,
-            y=fanRelPow.eta);
+            y=fanRelPow.eta,
+            ensureMonotonicity=Buildings.Utilities.Math.Functions.isMonotonic(x=fanRelPow.eta,
+                                                                              strict=false));
   // Check validity of relative fan power consumption at y=yMin and y=1
   assert(cha.efficiency(data=fanRelPow, r_V=yMin, d=fanRelPowDer) > -1E-4,
     "The fan relative power consumption must be non-negative for y=0."

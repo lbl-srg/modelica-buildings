@@ -24,7 +24,7 @@ model ConservationEquation "Lumped volume with mass and energy balance"
       stateSelect=if (not (energyDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
     Xi(start=X_start[1:Medium.nXi],
-       each nominal=Medium.X_default[1:Medium.nXi],
+       nominal=Medium.X_default[1:Medium.nXi],
        each stateSelect=if (not (substanceDynamics == Modelica.Fluid.Types.Dynamics.SteadyState))
                      then StateSelect.prefer else StateSelect.default),
     d(start=rho_nominal)) "Medium properties";
