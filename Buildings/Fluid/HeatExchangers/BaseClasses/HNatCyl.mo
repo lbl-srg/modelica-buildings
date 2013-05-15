@@ -35,7 +35,7 @@ equation
     X=  Medium.X_default));
   Num = (0.387*Buildings.Utilities.Math.Functions.smoothMax(Ra,1,0.1)^(1/6));
   Den = ((1+(0.559/Pr)^(9/16))^(8/27));
-  h = (0.6+Num/Den)^2 * kFlu/ChaLen;
+  h = Nusselt * kFlu/ChaLen;
   Nusselt = (0.6+Num/Den)^2;
   annotation (Diagram(coordinateSystem(preserveAspectRatio=false, extent={{-100,
             -100},{100,100}}), graphics),

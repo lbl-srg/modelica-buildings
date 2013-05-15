@@ -10,7 +10,6 @@ model RayleighNumber
    Real nu(unit = "m2/s") "Kinematic viscosity of the medium";
    Modelica.SIunits.DynamicViscosity mu "Dynamic viscosity of the medium";
    Modelica.SIunits.Density rho "Density of the medium";
-   Real g= Modelica.Constants.g_n "Acceleration due to gravity";
 
    Modelica.Blocks.Interfaces.RealInput TSur(unit = "K")
     "Surface temperature of the HX"
@@ -35,7 +34,7 @@ equation
     Pr = Buildings.Fluid.HeatExchangers.BaseClasses.prandtlNumberWater(
           T=  0.5*(TSur+TFlu));
 
-   B = Buildings.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
+    B = Buildings.Fluid.HeatExchangers.BaseClasses.isobaricExpansionCoefficientWater(
           T=  0.5*(TSur+TFlu));
     nu = mu/rho;
 
