@@ -46,22 +46,27 @@ model UF90X3A
   parameter Modelica.SIunits.Area A = 60.97 "Floor area of the test cell";
   parameter Modelica.SIunits.Length disPip = 0.2 "Distance between the pipes";
 
-  Data.Constructions.Gyp16Gyp16 parCon
+  Data.Constructions.OpaqueConstructions.Gyp16Gyp16
+                                parCon
     "Partition wall between the test cell and the electrical room"
     annotation (Placement(transformation(extent={{-164,-120},{-144,-100}})));
-  Data.Constructions.Insul24Ply13Insul83Gyp16 R16p8Wal
+  Data.Constructions.OpaqueConstructions.Insul24Ply13Insul83Gyp16
+                                              R16p8Wal
     "Wall with R16.8 worth of insulation"
     annotation (Placement(transformation(extent={{-134,-120},{-114,-100}})));
   HeatTransfer.Data.GlazingSystems.TripleClearAir13ClearAir13Clear glaSys(
       haveExteriorShade=true)
     annotation (Placement(transformation(extent={{-164,-98},{-144,-78}})));
 
-    //fixme - Not necessarily the right window model. Get specs from specifications (see Cindy Regnier e-mail)
+    //fixme - Not necessarily the right window model. Get specs from specifications (see Cindy Regnier e-mail, Apr 16)
 
-  Data.Constructions.Gyp16Insul102Ply13 R20Wal
+  Data.Constructions.OpaqueConstructions.Gyp16Insul102Ply13
+                                        R20Wal
     "Wall construction with R20 insulation. Used in the roof of test cell UF90X3A"
     annotation (Placement(transformation(extent={{-164,-144},{-144,-124}})));
-  Data.Constructions.Insul127Ply13Insul203Ply13Gyp16 R52Wal
+
+  Data.Constructions.OpaqueConstructions.Insul127Ply13Insul203Ply13Gyp16
+                                                     R52Wal
     "Wall construction with R52 insulation"
     annotation (Placement(transformation(extent={{-194,-144},{-174,-124}})));
 
