@@ -109,31 +109,29 @@ model PartialSolarCollector "Partial model for solar collectors"
 
 //fixme - Comments apply down to next fixme.
 //This section does not work. NOT SURE HOW TO PROGRAM TO DO WHAT I WANT
-//What I want
-  //Has values for area of system, number of panels in system, number of segments in simulation
-  //Values are calculated based on user input (nColType, nPanels,TotalAtea,SysConfig)
-  //Running into issues: nSegFinal MUST be an integer, but might not be if numPanels is not an integer. Could solve using floor or ceiling function?
-  //                     Seems to assume that nSegFinal is real when it's the product of nSeg and numPanels. Even when nSeg and numPanels are both integers
-  //
+//Generates error about fixed = false. Says that fixed = false implies it must be solved in initial conditions, but is a structural component and must be solved at translation
+//Don't quite understand the bit picture. How does all of this fit together? Initial conditions v translation. What specifically does fixed = false signify?
+
+//Error stating that both parameters have attribute fixed = false continues even after attribute is removed...
     final parameter Integer nSegFinal(min=3,start = 3, fixed = false)
     "Number of segments used in the stated system configuration";
 
     final parameter Modelica.SIunits.Pressure dp_nominal_final(start = perPar.dp_nominal, fixed = false)
     "Nominal pressure loss across the system of collectors";
 
-initial equation
+initial algorithm
   if nColType == Buildings.Fluid.SolarCollectors.Types.NumberSelection.Number then
-    TotalArea = perPar.A*nPanels;
+    TotalArea :=perPar.A*nPanels;
   else
-    nPanels = TotalArea/perPar.A;
+    nPanels :=integer(ceil(TotalArea/perPar.A));
   end if;
 
   if SysConfig == Buildings.Fluid.SolarCollectors.Types.SystemConfiguration.Series then
-    dp_nominal_final = nPanels*perPar.dp_nominal;
-    nSegFinal = nPanels*nSeg;
+    dp_nominal_final :=nPanels*perPar.dp_nominal;
+    nSegFinal :=integer(ceil(nPanels*nSeg));
   else
-    dp_nominal_final = perPar.dp_nominal;
-    nSegFinal = nSeg;
+    dp_nominal_final :=perPar.dp_nominal;
+    nSegFinal :=nSeg;
   end if;
 
 //fixme - End fixme section
