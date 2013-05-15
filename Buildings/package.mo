@@ -121,6 +121,144 @@ its class name ends with the string <code>Beta</code>.
   package ReleaseNotes "Release notes"
     extends Modelica.Icons.ReleaseNotes;
 
+class Version_1_5_build1 "Version 1.5 build 1"
+  extends Modelica.Icons.ReleaseNotes;
+    annotation (Documentation(info="<html>
+<p>
+Version X.Y build Z is ... xxx
+</p>
+<!-- New libraries -->
+<p>
+The following <b style=\"color:blue\">new libraries</b> have been added:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+    </tr>
+</table>
+</p>
+<!-- New components for existing libraries -->
+<p>
+The following <b style=\"color:blue\">new components</b> have been added
+to <b style=\"color:blue\">existing</b> libraries:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td> 
+    </tr>
+</table>
+</p>
+<!-- Backward compatible changes -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">backward compatible</b> way:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Non-backward compatible changes to existing components -->
+<p>
+The following <b style=\"color:blue\">existing components</b>
+have been <b style=\"color:blue\">improved</b> in a
+<b style=\"color:blue\">non-backward compatible</b> way:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Errors that have been fixed -->
+<p>
+The following <b style=\"color:red\">critical errors</b> have been fixed (i.e., errors
+that can lead to wrong simulation results):
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Uncritical errors -->
+<p>
+The following <b style=\"color:red\">uncritical errors</b> have been fixed (i.e., errors
+that do <b style=\"color:red\">not</b> lead to wrong simulation results, e.g.,
+units are wrong or errors in documentation):
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\">xxx
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+</p>
+<!-- Github issues -->
+<p>
+The following
+<a href=\"https://github.com/lbl-srg/modelica-buildings/issues\">issues</a>
+have been fixed:
+</p>
+<table border=\"1\" cellspacing=0 cellpadding=2 style=\"border-collapse:collapse;\">
+<tr><td colspan=\"2\"><b>xxx</b>
+    </td>
+</tr>
+<tr><td valign=\"top\"><a href=\"https://github.com/lbl-srg/modelica-buildings/issues/xxx\">#xxx</a>
+    </td>
+    <td valign=\"top\">xxx.
+    </td>
+</tr>
+</table>
+<p>
+Note:
+</p>
+<ul>
+<li> 
+xxx
+</li>
+</ul>
+</p>
+</html>"));
+end Version_1_5_build1;
+
   class Version_1_4_build1 "Version 1.4 build 1"
     extends Modelica.Icons.ReleaseNotes;
      annotation (preferredView="info",
@@ -2794,6 +2932,10 @@ on the Buildings library.
 <p>
 <ul>
 <li> 
+<a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_5_build1\">
+Version 1.5 build1</a>(xxx, 2013)</a>
+</li>
+<li> 
 <a href=\"modelica://Buildings.UsersGuide.ReleaseNotes.Version_1_4_build1\">
 Version 1.4 build1</a>(May 15, 2013)</a>
 </li>
@@ -3241,13 +3383,14 @@ end UsersGuide;
 
 annotation (
 preferredView="info",
-version="1.4",
-versionBuild=1,
+version="1.5",
+versionBuild=0,
 versionDate="2013-05-15",
 dateModified = "2013-05-15",
 uses(Modelica(version="3.2")),
 uses(Modelica_StateGraph2(version="2.0.1")),
 conversion(
+ noneFromVersion="1.4",
  noneFromVersion="1.3",
  noneFromVersion="1.2",
  from(version="1.1",
