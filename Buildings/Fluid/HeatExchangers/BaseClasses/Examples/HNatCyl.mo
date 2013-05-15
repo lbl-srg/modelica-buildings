@@ -7,14 +7,14 @@ model HNatCyl "Test model for HNatCyl"
     annotation (Placement(transformation(extent={{36,-4},{56,16}})));
   Modelica.Blocks.Sources.Ramp TSur(
     duration=100,
-    height=50,
-    offset=293.15)
+    height=100,
+    offset=273.15)
     annotation (Placement(transformation(extent={{-80,20},{-60,40}})));
   Modelica.Blocks.Sources.Ramp TFlu(
     duration=100,
     startTime=150,
-    height=50,
-    offset=293.15)
+    height=100,
+    offset=273.15)
     annotation (Placement(transformation(extent={{-80,-30},{-60,-10}})));
   Buildings.Fluid.HeatExchangers.BaseClasses.RayleighNumber rayleighNumber(
       redeclare package Medium = Buildings.Media.ConstantPropertyLiquidWater,
